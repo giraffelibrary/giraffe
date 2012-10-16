@@ -1,0 +1,199 @@
+Remove C callback wrappers.. 
+  In <X>Func.C sub-structures, rename type
+    callback
+  to
+    data
+  and add types
+    function
+    notify
+  (which are both just C pointers)
+  and add functions
+    function : function
+    notify : notify
+  which are just pointers to current C dispatch and destroy functions
+  for the <X>Func type.
+  
+  Should be all right for MLton
+  Can Poly/ML refer to a C symbol at compile time?  If not, make sure
+  evaluation of `volOfSym` is not until run-time.
+
+
+Update type names
+  val_ -> v
+  ref_ -> r
+
+
+Need to add manual overrides for GkdAtom constants e.g. GDK_SELECTION_CLIPBOARD.
+
+
+Generate XRecord signatures/structures
+  - with debugging support
+
+
+GIArgInfo.isReturnValue must be used for IN parameters to add a reference (or
+take a copy) prior to a call, and transfer this afterwards.  (For the same reason an
+INOUT parameter needs to do this.)  The SML side is not to know that functions are returning the same object that they are passed.  The issue is that after the C call, the object that was passed to the C function could be garbage collected before the SML code has added a reference to the (same) object from the C function.
+
+
+GtkTextIter.compare, GtkTreePath.compare should return General.order
+e.g. using
+  Vector.sub (Vector.fromList [LESS, EQUAL, GREATER], ret + 1)
+
+
+fix SpecSharing in concrete syntax tree
+
+
+Split/move contents of mgi-polyml.sml into girepository
+
+
+
+Bugzilla IRC queries
+
+<pclayton> the introspection annotations for gtk_tree_drag_source_drag_data_get have parameter selection_data as (out) but, according to the comments, selection_data->target gives the required type of the data
+<pclayton> so should selection_data be (inout) instead?
+
+<pclayton> for property values that are pointers, do we need an annotation to indicate whether they can be null?  I think objects can always be null, but what about boxed or string values?  Almost all are initialized to null but e.g. the string property GtkWidget::focus-line-pattern is not.
+
+
+Support signal parameters that are (out caller-allocates)
+Only know occurrence: GtkOverlay::get-child-position
+but not at the moment due to https://bugzilla.gnome.org/show_bug.cgi?id=680566
+Does this mean that current support for (inout) STRUCT INTERFACE is wrong?
+
+
+GdkRectangle is a boxed type but
+cairo_rectangle_int_t isn't
+Unfortunately, GIR has cairo_rectangle_int_t everywhere.
+
+
+In codegen.sml, retVal function - is it needed?
+
+
+In codegen.sml, PIVOID needed?  codegen says error for parameters.
+
+
+Thoughts on categories of STRUCT, needed for fully automating STRUCT output
+
+  - non-opaque, passing arguments to C functions only, e.g.
+      GtkFileFilterInfo, GtkRecentFilterInfo, GtkRecentData, GtkSettingsValue
+
+  - non-opaque, passed to and returned from C functions, e.g. ???
+
+  - opaque, e.g. ???
+      - new/copy/free
+          - e.g. GtkIconSet, GtkBorder
+      - copy/free
+          - e.g. GtkSelectionData
+              - can't have `new' function: get error message as follows:
+____
+giraffe-gtk-polyml.c: In function giraffe_gtk_selection_data_new:
+giraffe-gtk-polyml.c:814:10: error: invalid application of sizeof to incomplete type GtkSelectionData 
+____
+
+      - ref/unref
+          - e.g. PangoAttrList, GtkRecentInfo
+
+
+GDK_EVENT_TYPE.sml
+  2BUTTONPRESS -> TWOBUTTONPRESS
+  3BUTTONPRESS -> THREEBUTTONPRESS
+
+
+2BIG --> TOOBIG
+  - should be fixed in new typelibs as 2BIG now deprecated
+  - need to check in 3.4
+  - actually has both 2BIG and TOOBIG, so need to filter out invalid names
+
+
+Style Properties
+  - not in first release; no GIR metadata
+  - one example of proposed mechanism inserted manually for GtkScrolledWindow
+
+
+Why does G_TYPE_PLUGIN_CLASS.sml occur twice in MLB file?
+Same reason G_TYPE_PLUGIN_CLASS.sml is empty but GTypePluginClass is not empty.
+GIStructInfo.is_gtype_struct returns false for TypePluginClass.
+Why?  In GObject-2.0.gir, we have
+  <record name="TypePluginClass" c:type="GTypePluginClass">
+which does not include the attibute
+  glib:is-gtype-struct-for="TypePlugin"
+Presumably this is because TypePluginClass is an interface, not an object (class).
+Fundamentally, the issue arises because we are creating a class derived from Object
+for each interface and there would not be an issue if it was possible to use
+type classes.
+For now, all this stuff can probably be excluded.
+
+
+Why aren't functions with gpointer parameter/return type being omitted due to unsupported type?
+E.g. getData, setData in G_OBJECT
+Currently, gpointer appears to be taken as unit
+
+
+Factor out common processing from
+  makeFunctionStrDecLowLevelMLton
+  makeFunctionStrDecLowLevelPolyML
+  makeFunctionStrDecHighLevel
+(this includes factoring out error check, so avoids duplicate errors)
+
+
+CODEGEN doesn't use isCallerAllocates but implementation does for 'New'.
+CODEGEN doesn't appear to need it but should probably mention it.
+CODEGEN doesn't mention it because non-pointer OUT STRUCT INTERFACE must be caller allocates
+  - should check this
+
+
+For error enumerations, don't want quark function.
+As this is the only function for enumerations (it seems),
+perhaps don't output methods for enumerations?
+Or just inhibit quark function?
+Or do nothing?
+
+
+
+
+  ? revMapInfos etc. should take error information and use it to avoid certain paths
+    unpacking initial error information may help merge new error information
+    Possibly needed to e.g. prevent translation of functions in structures when the signature failed.
+    (But if structure is replicating same code anyway for interface types, perhaps not required)
+    Would provide a way to specify hierarchically which areas should not be translated.
+    (Would need translator from text format to infoerrorhier list.)
+
+
+
+Higher-level FFI support:
+  - C_ARRAY modules
+      - unit -> optnull?
+  - C_ARRAY -> C_ARRAY_NULL
+  - introduce C_ARRAY_SIZE, like C_ARRAY_NULL but for arrays with size specified separately and no null terminator
+      - require GdkPointVec : C_ARRAY_SIZE by gtk_icon_info_get_attach_points
+
+
+Think of a good GScanner interface.
+
+
+
+Split off C substructures into separate signatures to allow them to be hidden by namespace signature.
+
+This would work by adding the C substructure locally in toplevel modules, e.g.
+
+structure GtkBlahBlahClass :>
+  sig
+    include GTK_BLAH_BLAH_CLASS
+      where type 'a parentclass_t = 'a GtkParentClass.t
+
+    structure C :
+      GTK_BLAH_BLAH_CLASS_C
+        where type C.ptr = GtkParentClass.C.ptr
+        where type C.optptr = GGtkParentClass.C.optptr
+
+    sharing type class_t = C.class_t
+  end =
+  ...
+
+Then in namespace signature
+
+  BlahBlahClass : GTK_BLAH_BLAH_CLASS
+
+hides the C substructure.  The C substructure would be accessible
+via GtkBlahBlahClass but not Gtk.BlahBlahClass (applications should be
+using the Gtk structure, e.g. via open Gtk, rather that the toplevel modules).

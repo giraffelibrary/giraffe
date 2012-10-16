@@ -1,0 +1,172 @@
+OK:
+
+gtk_theming_engine_get_property
+
+gtk_style_properties_get_property
+
+gtk_style_context_get_property
+
+      <method name="get_property"
+              c:identifier="gtk_style_context_get_property"
+              version="3.0">
+        ...
+        <parameters>
+          ...
+          <parameter name="value"
+                     direction="out"
+                     caller-allocates="1"
+                     transfer-ownership="full">
+            <doc xml:whitespace="preserve">return location for the style property value</doc>
+            <type name="GObject.Value" c:type="GValue*"/>
+          </parameter>
+        </parameters>
+      </method>
+
+
+NO OUT ANNOTATION:
+
+gtk_widget_style_get_property
+
+gtk_container_child_get_property
+
+gtk_cell_area_cell_get_property
+
+      <method name="cell_get_property"
+              c:identifier="gtk_cell_area_cell_get_property"
+              version="3.0">
+        ...
+        <parameters>
+          ...
+          <parameter name="value" transfer-ownership="none">
+            <doc xml:whitespace="preserve">a location to return the value</doc>
+            <type name="GObject.Value" c:type="GValue*"/>
+          </parameter>
+        </parameters>
+      </method>
+
+
+What about gtk_style_provider_get_style_property?
+Any others that have GValue out parameter?
+
+
+________________________________________________________________________________
+gtk_accelerator_parse_with_keycode
+
+gtk-doc annotations should say accelerator_codes is a null-terminated array.
+
+________________________________________________________________________________
+gtk_button_get_alignment
+
+Shouldn't xalign and yalign be marked (caller-allocates) ?
+
+Similarly
+  gtk_calendar_get_date
+
+Ok, there are lots.  It looks like caller-allocates is incorrect for all scalar types?
+Presumably just ignored for scalar types?
+
+________________________________________________________________________________
+
+ * gtk_icon_theme_get_search_path:
+ * @icon_theme: a #GtkIconTheme
+ * @path: (allow-none) (array length=n_elements) (element-type filename) (out):
+ *     location to store a list of icon theme path directories or %NULL.
+ *     The stored value should be freed with g_strfreev().
+ * @n_elements: location to store number of elements in @path, or %NULL
+
+void
+gtk_icon_theme_get_search_path (GtkIconTheme  *icon_theme,
+                                gchar        **path[],
+                                gint          *n_elements)
+
+
+For @path, the annotation
+
+  (array length=n_elements)
+
+should be
+
+  (array zero-terminated=1)
+
+In fact, the length of @path is not @n_elements, but @n_elements + 1.
+
+If there is a desire to relate @n_elements to @path, then perhaps the
+annotation could be
+
+  (array length=n_elements zero-terminated=1)
+
+where the length does not include the zero terminator.  However, such
+an annotation does not exist.
+
+
+Also for gtk_init.
+
+
+Such an annotation is already used for g_shell_parse_argv:
+
+ * @argvp: (out) (array length=argcp zero-terminated=1): return location for array of args
+
+
+________________________________________________________________________________
+
+ * gtk_icon_info_get_attach_points:
+ * @icon_info: a #GtkIconInfo
+ * @points: (allow-none) (array length=n_points) (out): location to store pointer to an array of points, or %NULL
+ *          free the array of points with g_free().
+ * @n_points: (allow-none): location to store the number of points in @points, or %NULL
+
+gtk_icon_info_get_attach_points (GtkIconInfo *icon_info,
+				 GdkPoint   **points,
+				 gint        *n_points)
+
+@points is possibly missing
+
+  (element-type GdkPoint)
+
+
+________________________________________________________________________________
+
+Another case for
+Bug 660879 - Add support for using (allow-none) on return values
+
+ * g_object_info_get_parent:
+ * @info: a #GIObjectInfo
+ *
+ * Obtain the parent of the object type.
+ *
+ * Returns: (transfer full): the #GIObjectInfo. Free the struct by calling
+ * g_base_info_unref() when done.
+
+GIObjectInfo *
+g_object_info_get_parent (GIObjectInfo *info)
+{
+  ...
+
+  if (blob->parent)
+    return (GIObjectInfo *) _g_info_from_entry (rinfo->repository,
+                                                rinfo->typelib, blob->parent);
+  else
+    return NULL;
+}
+
+
+________________________________________________________________________________
+
+tool_shell_get_icon_size has [type int] for return type
+but GIR file has 
+  <type name="IconSize" c:type="GtkIconSize"/>
+
+  <type name="gint" c:type="GtkIconSize"/>
+
+
+int used for extensible enumerated types
+
+
+________________________________________________________________________________
+
+No GIR data for GdkAtom constants e.g. GDK_SELECTION_CLIPBOARD.
+
+See https://bugzilla.gnome.org/show_bug.cgi?id=653382
+
+Currently just use string literal with Gdk.Atom.intern.
+Need to add manual overrides.

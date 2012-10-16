@@ -1,0 +1,118 @@
+structure GioVolume :>
+  GIO_VOLUME
+    where type 'a class_t = 'a GioVolumeClass.t
+    where type 'a fileclass_t = 'a GioFileClass.t
+    where type 'a driveclass_t = 'a GioDriveClass.t
+    where type 'a iconclass_t = 'a GioIconClass.t
+    where type 'a mountclass_t = 'a GioMountClass.t
+    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+  struct
+    val getType_ = _import "g_volume_get_type" : unit -> GObjectType.C.val_;
+    val canEject_ = _import "g_volume_can_eject" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val canMount_ = _import "g_volume_can_mount" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val ejectWithOperationFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_volume_eject_with_operation_finish" :
+              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * (unit, unit) GLibErrorRecord.C.r
+               -> FFI.Bool.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getActivationRoot_ = _import "g_volume_get_activation_root" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDrive_ = _import "g_volume_get_drive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getIcon_ = _import "g_volume_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getIdentifier_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_volume_get_identifier" :
+              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * cstring
+               * unit CPointer.t
+               -> FFI.String.notnull FFI.String.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getMount_ = _import "g_volume_get_mount" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getName_ = _import "g_volume_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getUuid_ = _import "g_volume_get_uuid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val mountFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_volume_mount_finish" :
+              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * (unit, unit) GLibErrorRecord.C.r
+               -> FFI.Bool.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val shouldAutomount_ = _import "g_volume_should_automount" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    type 'a class_t = 'a GioVolumeClass.t
+    type 'a fileclass_t = 'a GioFileClass.t
+    type 'a driveclass_t = 'a GioDriveClass.t
+    type 'a iconclass_t = 'a GioIconClass.t
+    type 'a mountclass_t = 'a GioMountClass.t
+    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canEject_ self
+    fun canMount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canMount_ self
+    fun ejectWithOperationFinish self result =
+      (
+        GObjectObjectClass.C.withPtr
+         &&&> GObjectObjectClass.C.withPtr
+         &&&> GLibErrorRecord.C.handleError
+         ---> FFI.Bool.fromVal
+      )
+        ejectWithOperationFinish_
+        (
+          self
+           & result
+           & []
+        )
+    fun getActivationRoot self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getActivationRoot_ self
+    fun getDrive self = (GObjectObjectClass.C.withPtr ---> GioDriveClass.C.fromPtr true) getDrive_ self
+    fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) getIcon_ self
+    fun getIdentifier self kind = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) getIdentifier_ (self & kind)
+    fun getMount self = (GObjectObjectClass.C.withPtr ---> GioMountClass.C.fromPtr true) getMount_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getName_ self
+    fun getUuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUuid_ self
+    fun mountFinish self result =
+      (
+        GObjectObjectClass.C.withPtr
+         &&&> GObjectObjectClass.C.withPtr
+         &&&> GLibErrorRecord.C.handleError
+         ---> FFI.Bool.fromVal
+      )
+        mountFinish_
+        (
+          self
+           & result
+           & []
+        )
+    fun shouldAutomount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) shouldAutomount_ self
+    local
+      open ClosureMarshal Signal
+    in
+      fun changedSig f = signal "changed" (void ---> ret_void) f
+      fun removedSig f = signal "removed" (void ---> ret_void) f
+    end
+  end

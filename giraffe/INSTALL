@@ -1,0 +1,138 @@
+
+   __ o  o __
+   \_\|__|/_/
+     \(o  o)      Giraffe Library Installation
+      |\ _|
+ \    |\`-' /\
+  \___|/|_ /  \
+   \  |\|  \  /
+    \_______\/
+
+
+ ******************************************************************************
+ *                                                                            *
+ *                 Warning!  This is an unstable pre-release!                 *
+ *                                                                            *
+ * This release has limitations and omissions that may not be documented.     *
+ * Furthermore, subsequent releases may introduce changes to the SML API that *
+ * are incompatible with SML code using this release.                         *
+ *                                                                            *
+ ******************************************************************************
+
+This INSTALL file covers the following topics:
+
+  1. Prerequisites
+       1.1  SML compilers
+       1.2  C Libraries
+  2. Download    
+  3. Installation
+
+
+Full documentation is available in the User Manual at
+
+  http://www.giraffelibrary.org/doc/installation.html  **** not yet available ****
+
+
+         ---------------        1.  Prerequisites       ---------------
+
+1.1  SML Compilers
+
+Giraffe Library supports both MLton and Poly/ML compilers.  It is not necessary
+to install both compilers to use Giraffe Library.
+
+
+If using MLton, SVN revision 7618 or later is required.  At the time of writing,
+this is later than the latest release 20100608, so it is necessary to obtain
+MLton from the SVN repository.  See
+
+  http://mlton.org/Sources
+
+for instructions on obtaining sources via SVN.  See
+
+  http://mlton.org/Installation
+
+for instruction on installing MLton
+
+
+If using Poly/ML, version 5.5.0 or later is required.  See
+
+  http://www.polyml.org/download.html
+
+for instructions on downloading and installing Poly/ML.
+
+
+1.2  C Libraries
+
+In this alpha release, all supported C libraries must be installed.  Therefore
+the following C libraries must be installed:
+
+  GLib
+  Pango
+  GTK+           >= 3.2.0
+  VTE            >= 2.90
+
+The C library header files are also required.  Therefore, when using a
+package management system, the `devel' or `dev' package is required.
+
+On recent releases of Fedora, the above libraries and header source files are
+installed by the following Yum command:
+
+  yum install gtk3-devel vte3-devel
+
+
+         ---------------          2.  Download          ---------------
+
+Giraffe Library can be downloaded from
+
+  http://www.giraffelibrary.org/download.html  **** not yet available ****
+
+
+         ---------------        3.  Installation        ---------------
+
+1.  Unpack the source release tarball for version <ver> with the command
+
+  tar -xzf giraffe-<ver>.tar.gz
+
+
+2.  Change directory to the source directory with the command
+
+  cd giraffe/
+
+
+3.  In `Makefile`, update the line
+
+  INSTALLDIR := <dir>
+
+to make <dir> the target installation directory.  For this alpha release, it
+is recommended that <dir> is not a system location such as /usr or /usr/local
+but a non-system location such as ${HOME}/giraffe .
+
+
+4.  Ensure that versions of MLton and Poly/ML in the path are suitable
+versions to build with.  Check using the commands
+
+  mlton
+  poly -v
+
+If an alternative version is required, add its bin directory to the front
+of the PATH environment variable.  For example,
+
+  PATH=/opt/mlton/mlton-r7618/bin:${PATH}
+
+
+5.  Build using the command
+
+  make mlton polyml
+
+It is not necessary to specify both 'mlton' and 'polyml'.
+
+
+6.  Install using the command
+
+  make install
+
+This command requires permissions to write to the target installation
+directory INSTALLDIR, set in step 3.
+
+**** If any compilers are not built in step 5, `make install' may report errors
+but these can be ignored.  ****

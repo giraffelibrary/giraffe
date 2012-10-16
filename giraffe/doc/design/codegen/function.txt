@@ -1,0 +1,2603 @@
+=Function=
+
+Context
+
+  repo
+    the repository in use
+
+  optContainerInfo
+    typelib info of the container of the function, if any
+    (NONE indicates namespace-level function)
+
+  functionInfo
+    typelib info of the function
+
+
+Placeholders
+
+  optContainerName = Option.map GIBaseInfo.getName optContainerInfo
+
+  FunctionName = GIBaseInfo.getName functionInfo
+
+  FunctionSymbol = GIFunctionInfo.getSymbol functionInfo
+
+  FunctionNamespace = GIBaseInfo.getNamespace functionInfo
+
+  FunctionFlags = GIFunctionInfo.getFlags functionInfo
+
+
+==Specification==
+
+For
+  L non-VOID IN/INOUT parameters,
+  K non-VOID INOUT/OUT parameters,
+FunctionSpec has the form:
+
+
+  val <functionName> : <selfType> -> <inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>
+
+    if K > 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName> : <inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>
+
+    if K > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName> : unit -> <retExpType>
+
+    if K > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName> : <selfType> -> <inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>
+
+    if K = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName> : <inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>
+
+    if K = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName> : unit -> <retValType>
+
+    if K = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+where
+
+
+  retValType
+    is the SML type representing the return type of the function
+    translated as follows:
+
+      mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+        mayReturnNull    | retValType
+      ===================+===================
+        false            | <type>
+      -------------------+-------------------
+        true             | <type> option
+      -------------------+-------------------
+
+
+  retExpType
+    when K > 0, taking the numer of conditional outputs to be KA, where
+    the indices of conditional outputs are ka[1], ..., ka[KA] and the
+    indices of non-conditional outputs are kb[1], ..., kb[K - KA], is
+    defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType functionInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag     0 < KA  KA < K   | retExpType
+        ===========================+===================================================
+          VOID    false   _        | <outParamType[1]> * ... * <outParamType[K]>
+        ---------------------------+---------------------------------------------------
+          _       false   _        | <retValType>
+                                   |   * <outParamType[1]> * ... * <outParamType[K]>
+        ---------------------------+---------------------------------------------------
+          BOOLEAN true    false    | (<outParamType[1]>
+                                   |    * ...
+                                   |    * <outParamType[KA]>) option
+        ---------------------------+---------------------------------------------------
+          BOOLEAN true    true     | (<outParamType[ka[1]]>
+                                   |    * ...
+                                   |    * <outParamType[ka[KA]]>) option
+                                   |   * <outParamType[kb[1]]>
+                                   |   * ...
+                                   |   * <outParamType[kb[K - KA]]>
+        ---------------------------+---------------------------------------------------
+          _       true    _        | <raise Error>                         (see note 1)
+        ---------------------------+---------------------------------------------------
+
+    This logic is applied to prevent unknown/arbitrary/uninitialized out
+    parameter values (especially pointers and caller-allocated structures)
+    being returned to the application by using an option type for
+    conditional out parameters.
+
+      Note 1: there is currently no way to know whether an out parameter
+        is conditional, so all out parameters are marked conditional and
+        taken to be so iff the function has a boolean return type.
+        Therefore this case cannot occur at the moment.
+
+
+  inParamType[l]
+    for l in 1 to L, is the SML type representing the
+    <l>th parameter type in the list of non-VOID IN/INOUT parameter
+    types of the function translated as follows:
+
+      mayBeNull = GIArgInfo.mayBeNull argInfo
+
+        mayBeNull        | inParamType
+      ===================+===================
+        false            | <type>
+      -------------------+-------------------
+        true             | <type> option
+      -------------------+-------------------
+
+
+  outParamType[k]
+    for k in 1 to K, is the SML type representing the
+    <k>th parameter type in the list of non-VOID INOUT/OUT
+    parameter types of the function translated as follows:
+
+      mayBeNull = GIArgInfo.mayBeNull argInfo
+
+        mayBeNull        | outParamType
+      ===================+===================
+        false [#1]       | <type>
+      -------------------+-------------------
+        true [#1]        | <type> option
+      -------------------+-------------------
+
+      #1: currently for out and in-out parameters, mayBeNull indicates
+      whether a null reference argument is allowed, rather than a non-null
+      reference to null.   This allows the parameter to be optional thus
+      provides what one would have expected from isOptional.
+      (isOptional itself appears to always return false.)  Thus there
+      is no mechanism to know whether an out parameter that is a pointer
+      can have a null out value.  Similarly for an in-out parameter, there
+      is no way to know whether the in value or out value can be null.
+      Furthermore, an in-out parameter would require two atttibutes:
+      allow-none-in and allow-none-out.
+
+      For now, for out and in-out parameters, we do not distinguish
+      optionally-null and non-null values.  The conversions OUTPTR and
+      INOUTPTR do not have their phantom type constrained.  (We still
+      need to know this missing information for the high-level interface
+      to determine whether to use an optional type.)
+
+
+  selfType
+    is the SML type representing the object or interface
+    that contains the function and has the form as follows:
+
+      infoType = GIInfoType.getType containerInfo
+      isClass = infoType is OBJECT _ | INTERFACE _
+      isRecord = infoType is STRUCT _
+      isOther = not (isClass or isRecord)
+
+        <var> class_t
+          if isClass
+
+        record_t
+          if isRecord
+
+        t
+          if isOther
+
+
+  type
+    is defined as according to the GIR type tag as follows:
+
+                  .-
+                  | GIArgInfo.getType argInfo
+      typeInfo = <
+                  | GICallableInfo.getReturnType functionInfo
+                  `-
+      tag = GITypeInfo.get_tag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    unit
+        BOOLEAN   --->    bool
+        INT8      --->    LargeInt.int
+        UINT8     --->    LargeInt.int
+        INT16     --->    LargeInt.int
+        UINT16    --->    LargeInt.int
+        INT32     --->    LargeInt.int
+        UINT32    --->    LargeInt.int
+        INT64     --->    LargeInt.int
+        UINT64    --->    LargeInt.int
+        FLOAT     --->    real
+        DOUBLE    --->    real
+        UTF8      --->    string
+        UNICHAR   --->    char
+
+        INTERFACE --->
+
+          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+
+          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isGlobal = InterfaceNamespace <> FunctionNamespace
+          isNamespace = optContainerName = NONE
+          isSelf = SOME InterfaceName = optContainerName
+
+            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+              if isGlobal and isClass
+
+            <InterfaceNamespace>.<InterfaceName>Record.t
+              if isGlobal and isRecord
+
+            <var> <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isUnion
+
+            <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isOther
+
+
+            <var> <InterfaceName>Class.t
+              if not isGlobal and isNamespace and isClass
+
+            <InterfaceName>Record.t
+              if not isGlobal and isNamespace and isRecord
+
+            <var> <InterfaceName>.t
+              if not isGlobal and isNamespace and isUnion
+
+            <InterfaceName>.t
+              if not isGlobal and isNamespace and isOther
+
+
+            <var> <interfacename>class_t
+              if not isGlobal and not isNamespace and not isSelf and isClass
+
+            <interfacename>record_t
+              if not isGlobal and not isNamespace and not isSelf and isRecord
+
+            <var> <interfacename>_t
+              if not isGlobal and not isNamespace and not isSelf and isUnion
+
+            <interfacename>_t
+              if not isGlobal and not isNamespace and not isSelf and isOther
+
+
+            <var> class_t
+              if not isGlobal and not isNamespace and isSelf and isClass
+
+            record_t
+              if not isGlobal and not isNamespace and isSelf and isRecord
+
+            <var> t
+              if not isGlobal and not isNamespace and isSelf and isUnion
+
+            t
+              if not isGlobal and not isNamespace and isSelf and isOther
+
+
+  var is
+
+    a fresh type variable
+      for selfType or an inParamType
+
+    base
+      for an outParamType or retType
+
+
+
+==High-Level Functions==
+
+For
+  J non-VOID parameters,
+  L non-VOID IN/INOUT parameters,
+  K non-VOID INOUT/OUT parameters,
+HighLevelFunction has the form:
+
+
+  fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
+    let
+      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+        (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          <functionName>_
+          (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+    in
+      <retExp>
+    end
+
+    if K > 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> <inParamName[1]> ... <inParamName[L]> =
+    let
+      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+        (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          <functionName>_
+          (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+    in
+      <retExp>
+    end
+
+    if K > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> () =
+    let
+      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+        (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          <functionName>_
+          (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+    in
+      <retExp>
+    end
+
+    if K > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
+    (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
+      <functionName>_
+      (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+
+    if K = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> <inParamName[1]> ... <inParamName[L]> =
+    (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
+      <functionName>_
+      (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+
+    if K = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> () =
+    (<withFunErr> ---> <retFromFun>)
+      <functionName>_
+      <argValErr>
+
+    if K = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+                       and anySet (FunctionFlags, THROWS)
+      (note K = 0 and L = 0 iff J = 0)
+
+
+  fun <functionName> () =
+    (I ---> <retFromFun>)
+      <functionName>_
+      ()
+
+    if K = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+                       and not anySet (FunctionFlags, THROWS)
+      (note K = 0 and L = 0 iff J = 0)
+
+
+where
+
+
+  [<e>]
+    is
+      <e>
+        if anySet (FunctionFlags, THROWS) and
+
+      <empty>
+        otherwise
+
+
+  retVal
+    is defined, when K > 0, as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType functionInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag             | retVal
+        ==================+===================
+          VOID            | ()
+        ------------------+-------------------
+          _               | retVal
+        ------------------+-------------------
+
+
+    In the forms of a high-level function, the return value is not
+    used when it is VOID.  Therefore the pattern `()` must be used instead
+    of `retVal` to avoid warnings about unreferenced identifiers.
+
+
+  retExp
+    when K > 0, taking the numer of conditional outputs to be KA, where
+    the indices of conditional outputs are ka[1], ..., ka[KA] and the
+    indices of non-conditional outputs are kb[1], ..., kb[K - KA], is
+    defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType functionInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag     0 < KA  KA < K   | retExp
+        ===========================+===================================================
+          VOID    false   _        | (<outParamName[1]>, ..., <outParamName[K]>)
+        ---------------------------+---------------------------------------------------
+          _       false   _        | (retVal, <outParamName[1]>, ..., <outParamName[K]>)
+        ---------------------------+---------------------------------------------------
+          BOOLEAN true    false    | if retVal
+                                   | then
+                                   |   SOME (
+                                   |     <outParamName[1]>,
+                                   |     ...,
+                                   |     <outParamName[KA]>
+                                   |   )
+                                   | else
+                                   |   NONE
+        ---------------------------+---------------------------------------------------
+          BOOLEAN true    true     | (
+                                   |   if retVal
+                                   |   then
+                                   |     SOME (
+                                   |       <outParamName[ka[1]]>,
+                                   |       ...,
+                                   |       <outParamName[ka[KA]]>
+                                   |     )
+                                   |   else
+                                   |     NONE,
+                                   |   <outParamName[kb[1]]>,
+                                   |   ...
+                                   |   <outParamName[kb[K - KA]]>
+                                   | )
+        ---------------------------+---------------------------------------------------
+          _       true    _        | <raise Error>                         (see note 1)
+        ---------------------------+---------------------------------------------------
+
+    This logic is applied to prevent unknown/arbitrary/uninitialized out
+    parameter values (especially pointers and caller-allocated structures)
+    being returned to the application by using an option type for
+    conditional out parameters.
+
+      Note 1: there is currently no way to know whether an out parameter
+        is conditional, so all out parameters are marked conditional and
+        taken to be so iff the function has a boolean return type.
+        Therefore this case cannot occur at the moment.
+
+    Generally, retExp is used to encode any additional logic that is applied
+    above the high-level FFI.
+
+
+  inParamName[l]
+    is the <l>th element in the list of names of non-VOID IN/INOUT
+    parameters of the function as given by `GIBaseInfo.getName`.
+
+
+  outParamName[k]
+    is the <k>th element in the list of names of non-VOID INOUT/OUT
+    parameters of the function as given by `GIBaseInfo.getName`.
+
+
+  withFunSelf
+    is <withInterfaceFun> where the interface is the enclosing entity.
+    Note that the GIR type tag of the enclosing entity must be INTERFACE: no
+    other type tag is an entity that has functions.
+
+
+  withFunErr
+    is GError.C.handleError
+
+
+  withFun[j]
+    is defined according to the GIR type tag of the type of the
+    <j>th non-VOID parameter ('argument') of the function as follows:
+
+      argTypeInfo = GIArgInfo.getType argInfo
+      tag = GITypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        INT8      --->    <withValFun(FFI.Int8)>
+        UINT8     --->    <withValFun(FFI.Word8)>
+        INT16     --->    <withValFun(FFI.Int16)>
+        UINT16    --->    <withValFun(FFI.Word16)>
+        INT32     --->    <withValFun(FFI.Int32)>
+        UINT32    --->    <withValFun(FFI.Word32)>
+        INT64     --->    <withValFun(FFI.Int64)>
+        UINT64    --->    <withValFun(FFI.Word64)>
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    <withValFun(FFI.Bool)>
+        FLOAT     --->    <withValFun(FFI.Float)>
+        DOUBLE    --->    <withValFun(FFI.Double)>
+        UTF8      --->    <withUtf8Fun>
+        UNICHAR   --->    <withValFun(FFI.Char)>
+        INTERFACE --->    <withInterfaceFun>
+
+
+  withValFun(A)
+    is defined as follows:
+
+          direction       | withValFun(A)
+        ==================+===========================
+          IN              | <A>.withVal
+        ------------------+---------------------------
+          OUT             | <A>.withRefVal
+        ------------------+---------------------------
+          INOUT           | <A>.withRefVal
+        ------------------+---------------------------
+
+
+  withUtf8Fun
+    is defined as follows:
+
+        direction         = GIArgInfo.getDirection argInfo
+        mayBeNull         = GIArgInfo.mayBeNull argInfo
+        ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+          dire... ownershipTra... | withUtf8Fun
+        ==========================+===============================================
+                  NOTHING         | <A>.withConst<Opt>Ptr
+                ------------------+-----------------------------------------------
+          IN      EVERYTHING      | <raise Error everythingForIn>  (see note 1)
+                ------------------+-----------------------------------------------
+                  CONTAINER       | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.withRefConstOptPtr
+                ------------------+-----------------------------------------------
+          OUT     EVERYTHING      | <A>.withRefConstOptPtr
+                ------------------+-----------------------------------------------
+                  CONTAINER       | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.withRefConst<InOpt>Ptr
+                ------------------+-----------------------------------------------
+          INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
+                ------------------+-----------------------------------------------
+                  CONTAINER       | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+
+          Note 1: surely ownership is never handed over for an IN parameter?
+
+          Note 2: surely EVERYTHING is the same as NOTHING: handing
+            ownership to the function and taking ownership back is
+            the same as not handing over ownership (assuming that
+            ownershipTransfer applies in both directions).
+
+      A is FFI.String
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+      InOpt cannot be determined because GIR does not capture
+      sufficient information.  For now, it is defined as follows:
+
+          | InOpt
+        ==+===================
+          | <empty>
+        --+-------------------
+
+
+  withInterfaceFun
+    is defined according to the interface type as follows:
+
+      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
+      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+
+      <withObjectFun>
+        if argInfoType is OBJECT argObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          withObjectFun is defined as follows:
+
+            direction         = GIArgInfo.getDirection argInfo
+            mayBeNull         = GIArgInfo.mayBeNull argInfo
+            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+              direction   ownershipTra... | withObjectFun
+            ==============================+===================================
+                          NOTHING         | <A>.with<Opt>Ptr
+                        ------------------+-----------------------------------
+              IN          EVERYTHING      | <raise Error everythingForIn>  (see note 1)
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+                          NOTHING         | <A>.withRefOptPtr
+                        ------------------+-----------------------------------
+              OUT         EVERYTHING      | <A>.withRefOptPtr
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+                          NOTHING         | <A>.withRefDup<InOpt>Ptr  (see note 3)
+                        ------------------+-----------------------------------
+              INOUT       EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+
+              Note 1: surely a reference is never handed over for an IN parameter?
+
+              Note 2: surely EVERYTHING is the same as NOTHING: handing a
+                reference to the function and taking a reference back is
+                the same as handing over no reference (assuming that
+                ownershipTransfer applies in both directions).
+
+              Note 3: 'Dup' ensures that a reference is added
+                before the call and this is transferred after the call.
+                See note for corresponding function <fromObjectFun>.
+
+          Opt is defined as follows:
+
+              mayBeNull       | Opt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+          A is <RootObjectNamespace><RootObjectName>Class.C
+
+            rootObjectInfo = getRoot argObjectInfo
+            RootObjectName = GIBaseInfo.getName rootObjectInfo
+            RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+            RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
+          InOpt cannot be determined because GIR does not capture
+          sufficient information.  For now, it is defined as follows:
+
+              | InOpt
+            ==+===================
+              | <empty>
+            --+-------------------
+
+
+      <raise Error>  # for now
+        if argInfoType is INTERFACE _.
+
+
+      <withStructFun>
+        if argInfoType is STRUCT _, where
+
+          withStructFun is defined as follows:
+
+            direction         = GIArgInfo.getDirection argInfo
+            mayBeNull         = GIArgInfo.mayBeNull argInfo
+            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+            isPointer         = GITypeInfo.isPointer argTypeInfo
+
+              direction   isPointer   ownershipTra... | withStructFun
+            ==========================================+===================================
+                                      NOTHING         | <raise Error nonPtrForInStruct>
+                                    ------------------+-----------------------------------
+                          false       EVERYTHING      | <raise Error everythingForNonPtrStruct>
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+              IN        ------------------------------+-----------------------------------
+                                      NOTHING         | <A>.with<Opt>Ptr
+                                    ------------------+-----------------------------------
+                          true        EVERYTHING      | <raise Error everythingForIn>  (see note 1)
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+            ------------------------------------------+-----------------------------------
+                                      NOTHING         | <A>.withNewPtr
+                                    ------------------+-----------------------------------
+                          false       EVERYTHING      | <raise Error everythingForNonPtrStruct>
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+              OUT       ------------------------------+-----------------------------------
+                                      NOTHING         | <A>.withRefOptPtr
+                                    ------------------+-----------------------------------
+                          true        EVERYTHING      | <A>.withRefOptPtr
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+            ------------------------------------------+-----------------------------------
+                                      NOTHING         | <A>.withDupPtr  (see note 3)
+                                    ------------------+-----------------------------------
+                          false       EVERYTHING      | <raise Error everythingForNonPtrStruct>
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+              INOUT     ------------------------------+-----------------------------------
+                                      NOTHING         | <A>.withRefDup<InOpt>Ptr  (see note 3)
+                                    ------------------+-----------------------------------
+                          true        EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+            ------------------------------------------+-----------------------------------
+
+              Note 1: surely a reference is never handed over for an IN parameter?
+
+              Note 2: surely EVERYTHING is the same as NOTHING: handing a
+                reference to the function and taking a reference back is
+                the same as handing over no reference (assuming that
+                ownershipTransfer applies in both directions).
+
+              Note 3: 'Dup' ensures that a reference is added or copy made
+                before the call and this is transferred after the call.
+                See note for corresponding function <fromStructFun>.
+
+          Opt is defined as follows:
+
+              mayBeNull       | Opt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if SOME <InterfaceName> is not equal to <optContainerName>, where
+
+                InterfaceName = GIBaseInfo.getName argTypeInfo
+                InterfaceNamespace = GIBaseInfo.getNamespace argTypeInfo
+                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+            C
+              otherwise
+
+          InOpt cannot be determined because GIR does not capture
+          sufficient information.  For now, it is defined as follows:
+
+              | InOpt
+            ==+===================
+              | <empty>
+            --+-------------------
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <withFlagsEnumFun>
+        if argInfoType is FLAGS _ | ENUM _.
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          withFlagsEnumFun is defined as follows:
+
+              direction   | withFlagsEnumFun
+            ==============+===================================
+              IN          | <A>.withVal
+            --------------+-----------------------------------
+              OUT         | <A>.withRefVal
+            --------------+-----------------------------------
+              INOUT       | <A>.withRefVal
+            --------------+-----------------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if SOME <InterfaceName> is not equal to <ContainerName>, where
+
+                InterfaceName = GIBaseInfo.getName argTypeInfo
+                InterfaceNamespace = GIBaseInfo.getNamespace argTypeInfo
+                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+            C
+              otherwise
+
+
+      <raise Error "not supported">
+        if argInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+  fromFun
+    is defined according to the GIR type tag of the type of the
+    <k>th non-VOID INOUT/OUT parameter ('argument') of the
+    function as follows:
+
+      argTypeInfo = GIArgInfo.getType argInfo
+      tag = GITypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        INT8      --->    I
+        UINT8     --->    I
+        INT16     --->    I
+        UINT16    --->    I
+        INT32     --->    I
+        UINT32    --->    I
+        INT64     --->    I
+        UINT64    --->    I
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    I
+        FLOAT     --->    I
+        DOUBLE    --->    I
+        UTF8      --->    <fromUtf8Fun>
+        UNICHAR   --->    I
+        INTERFACE --->    <fromInterfaceFun>
+
+
+  fromUtf8Fun
+    is as follows:
+
+        direction         = GIArgInfo.getDirection argInfo
+        mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+        ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+          dire... ownershipTra... | fromUtf8Fun
+        ==========================+===============================================
+                  NOTHING         | <A>.from<OutOpt>Ptr false
+                ------------------+-----------------------------------------------
+          OUT     EVERYTHING      | <A>.from<OutOpt>Ptr true
+                ------------------+-----------------------------------------------
+                  CONTAINER       | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.from<OutOpt>Ptr false
+                ------------------+-----------------------------------------------
+          INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
+                ------------------+-----------------------------------------------
+                  CONTAINER       | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+
+          Note 1: surely EVERYTHING is the same as NOTHING: handing
+            ownership to the function and taking ownership back is
+            the same as not handing over ownership (assuming that
+            ownershipTransfer applies in both directions).
+
+      A is FFI.String
+
+      OutOpt cannot be determined because GIR does not capture
+      sufficient information.  For now, it is defined as follows:
+
+          | OutOpt
+        ==+===================
+          | <empty>
+        --+-------------------
+
+
+  fromInterfaceFun
+    is defined according to the interface type as follows:
+
+      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
+      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+
+      <fromObjectFun>
+        if argInfoType is OBJECT argObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          fromObjectFun is defined as follows:
+
+            direction         = GIArgInfo.getDirection argInfo
+            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+              direction   ownershipTra... | fromObjectFun
+            ==============================+===================================
+                          NOTHING         | <A>.from<OutOpt>Ptr false
+                        ------------------+-----------------------------------
+              OUT         EVERYTHING      | <A>.from<OutOpt>Ptr true
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+                          NOTHING         | <A>.from<OutOpt>Ptr true  (see note 2)
+                        ------------------+-----------------------------------
+              INOUT       EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+
+              Note 1: surely EVERYTHING is the same as NOTHING: handing a
+                reference to the function and taking a reference back is
+                the same as handing over no reference (assuming that
+                ownershipTransfer applies in both directions).
+
+              Note 2: in this case, we would expect no transfer, i.e. `false`.
+                However, after the call has returned but before the `from<X>Ptr`
+                function has had a chance to add a reference, garbage collection
+                may have freed the object because it was required only for the
+                function call.  Thus a reference is added before the call
+                and this is transferred after the call, hence argument `true`.
+                This is entirely an academic matter because there is no known
+                occurrence of INOUT STRUCT INTERFACE parameters.
+
+          A is <InterfaceNamespace><InterfaceName>Class.C
+
+          InterfaceName = GIBaseInfo.getName argObjectInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argObjectInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          OutOpt cannot be determined because GIR does not capture
+          sufficient information.  For now, it is defined as follows:
+
+              | OutOpt
+            ==+===================
+              | <empty>
+            --+-------------------
+
+
+      <raise Error>  # for now
+        if argInfoType is INTERFACE _.
+
+
+      <fromStructFun>
+        if argInfoType is STRUCT argStructInfo, where
+
+          fromStructFun is defined as follows:
+
+            direction         = GIArgInfo.getDirection argInfo
+            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+
+            isPointer         = GITypeInfo.isPointer argTypeInfo
+
+              direction   isPointer   ownershipTra... | fromStructFun
+            ==========================================+===================================
+                                      NOTHING         | <A>.fromPtr true
+                                    ------------------+-----------------------------------
+                          false       EVERYTHING      | <raise Error everythingForNonPtrStruct>
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+              OUT       ------------------------------+-----------------------------------
+                                      NOTHING         | <A>.from<OutOpt>Ptr false  (see note 2)
+                                    ------------------+-----------------------------------
+                          true        EVERYTHING      | <A>.from<OutOpt>Ptr true
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+            ------------------------------------------+-----------------------------------
+                                      NOTHING         | <A>.fromPtr true  (see note 3)
+                                    ------------------+-----------------------------------
+                          false       EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+              INOUT     ------------------------------+-----------------------------------
+                                      NOTHING         | <A>.from<OutOpt>Ptr true  (see note 3)
+                                    ------------------+-----------------------------------
+                          true        EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
+                                    ------------------+-----------------------------------
+                                      CONTAINER       | <raise Error containerForInterface>
+            ------------------------------------------+-----------------------------------
+
+              Note 1: surely EVERYTHING is the same as NOTHING: handing a
+                reference to the function and taking a reference back is
+                the same as handing over no reference (assuming that
+                ownershipTransfer applies in both directions).
+
+              Note 2: we cannot hold on to a reference to data that we do
+                not own.  Therefore, for structures that do not support
+                reference counting, a copy must be made when there is no
+                transfer.
+
+              Note 3: in this case, we would expect no transfer, i.e. `false`.
+                (As per note 2, this would be a copy for structures that do
+                not support reference counting.)  However, after the call has
+                returned but before the `from<X>Ptr` function has had a chance
+                to add a reference or take a copy, garbage collection may have
+                freed the structure because it was required only for the function
+                call.  Thus a reference is added or copy made before the call
+                and this is transferred after the call, hence argument `true`.
+                This is entirely an academic matter because there is no known
+                occurrence of INOUT STRUCT INTERFACE parameters.
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if SOME <InterfaceName> is not equal to <ContainerName>, where
+
+                InterfaceName = GIBaseInfo.getName argStructInfo
+                InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+            C
+              otherwise
+
+          OutOpt cannot be determined because GIR does not capture
+          sufficient information.  For now, it is defined as follows:
+
+              | OutOpt
+            ==+===================
+              | <empty>
+            --+-------------------
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <fromFlagsEnumFun>
+        if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          fromFlagsEnumFun is <A>.fromVal
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if SOME <InterfaceName> is not equal to <ContainerName>, where
+
+                InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
+                InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+            C
+              otherwise
+
+
+      <raise Error "not supported">
+        if argInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+  retFromFun
+    is defined according to the GIR type tag of the return type of
+    the function as follows:
+
+      retTypeInfo = GICallableInfo.getReturnType functionInfo
+      tag = GITypeInfo.get_tag retTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        INT8      --->    I
+        UINT8     --->    I
+        INT16     --->    I
+        UINT16    --->    I
+        INT32     --->    I
+        UINT32    --->    I
+        INT64     --->    I
+        UINT64    --->    I
+        VOID      --->    I
+        BOOLEAN   --->    I
+        FLOAT     --->    I
+        DOUBLE    --->    I
+        UTF8      --->    <retFromUtf8Fun>
+        UNICHAR   --->    I
+        INTERFACE --->    <retFromInterfaceFun>
+
+
+  retFromUtf8Fun
+    is as follows:
+
+      FFI.String.<fromFun>
+
+        where
+
+          <fromFun> is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | fromFun
+            ==================+===========================
+              false           | fromPtr <transfer>
+            ------------------+---------------------------
+              true            | fromOptPtr <transfer>
+            ------------------+---------------------------
+
+          <transfer> is defined as follows:
+
+            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+
+              getCallerOwns   | transfer
+            ==================+===================
+              NOTHING         | false
+            ------------------+-------------------
+              EVERYTHING      | true
+            ------------------+-------------------
+              CONTAINER       | <raise Error containerForUtf8>
+            --------------------------------------
+
+
+  retFromInterfaceFun
+    is defined according to the interface type as follows:
+
+      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
+      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+
+      <fromObjectFun>
+        if retInfoType is OBJECT retObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          fromFun is defined as follows:
+
+            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+
+              getCallerOwns   | fromObjectFun
+            ==================+===================================
+              NOTHING         | <A>.from<RetOpt>Ptr false
+            ------------------+-----------------------------------
+              EVERYTHING      | <A>.from<RetOpt>Ptr true
+            ------------------+-----------------------------------
+              CONTAINER       | <raise Error containerForInterface>
+            ------------------+-----------------------------------
+
+          A is defined as follows:
+
+            <ContainerNamespace><ContainerName>Class.C
+              if anySet (FunctionFlags, IS_CONSTRUCTOR), where
+
+                SOME containerInfo = optContainerInfo
+                ContainerName = GIBaseInfo.getName containerInfo
+                ContainerNamespace = GIBaseInfo.getNamespace containerInfo
+                ContainerCPrefix = GIRepository.getCPrefix repo <ContainerNamespace>
+
+            <InterfaceNamespace><InterfaceName>Class.C
+              otherwise, where
+
+                InterfaceName = GIBaseInfo.getName retObjectInfo
+                InterfaceNamespace = GIBaseInfo.getNamespace retObjectInfo
+                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          RetOpt is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | RetOpt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+
+      <fromStructFun>
+        if retInfoType is STRUCT argStructInfo, where
+
+          fromStructFun is the same as fromStructFun in fromInterfaceFun with direction = OUT.
+
+          fromStructFun is defined as follows:
+
+            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+
+            isPointer     = GITypeInfo.isPointer retTypeInfo
+
+              isPointer   getCallerOwns   | fromStructFun
+            ==============================+===================================
+              false       X               | <raise Error nonPtrForRetStruct>
+            ------------------------------+-----------------------------------
+                          NOTHING         | <A>.from<RetOpt>Ptr false  (see note 1)
+                        ------------------+-----------------------------------
+              true        EVERYTHING      | <A>.from<RetOpt>Ptr true
+                        ------------------+-----------------------------------
+                          CONTAINER       | <raise Error containerForInterface>
+            ------------------------------+-----------------------------------
+
+              Note 1: we cannot hold on to a reference to data that we do
+                not own.  Therefore, for structures that do not support
+                reference counting, a copy must be made when there is no
+                transfer.
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if <InterfaceName> is not equal to <ContainerName>
+
+            C
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName argStructInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          RetOpt is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | RetOpt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <raise Error>  # for now
+        if retInfoType is INTERFACE _.
+
+
+      <InterfaceNamespace><InterfaceName>.C.fromVal
+        if retInfoType is FLAGS _ | ENUM _.
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+  argValErr
+    is [<errorDomain[1]>, ..., <errorDomain[E]>]
+
+
+  argVal[j]
+    is defined according to the GIR type tag of the type of the
+    <j>th argument of the function as follows:
+
+      argTypeInfo = GIArgInfo.getType argInfo
+      tag = GITypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+      if direction is IN or INOUT:
+
+        name = GIBaseInfo.getName
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        INT8      --->    <name>
+        UINT8     --->    <name>
+        INT16     --->    <name>
+        UINT16    --->    <name>
+        INT32     --->    <name>
+        UINT32    --->    <name>
+        INT64     --->    <name>
+        UINT64    --->    <name>
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    <name>
+        FLOAT     --->    <name>
+        DOUBLE    --->    <name>
+        UTF8      --->    <name>
+        UNICHAR   --->    <name>
+        INTERFACE --->    <name>
+
+      otherwise (direction is OUT):
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        INT8      --->    0
+        UINT8     --->    0
+        INT16     --->    0
+        UINT16    --->    0
+        INT32     --->    0
+        UINT32    --->    0
+        INT64     --->    0
+        UINT64    --->    0
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    false
+        FLOAT     --->    0.0
+        DOUBLE    --->    0.0
+        UTF8      --->    NONE
+        UNICHAR   --->    #"\000"
+        INTERFACE --->    <argInterfaceVal>
+
+
+  argInterfaceVal
+    is defined according to the interface type as follows:
+
+      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
+      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+
+      NONE
+        if argInfoType is OBJECT _.
+
+
+      <raise Error>  # for now
+        if argInfoType is INTERFACE _.
+
+
+      <argStructVal>
+        if argInfoType is STRUCT _, where
+
+          argStructVal is defined as follows:
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer    | argStructVal
+            ===============+===================================
+              false        | ()
+            ---------------+-----------------------------------
+              true         | NONE
+            ---------------+-----------------------------------
+
+
+      <InterfaceNamespace><InterfaceName>.flags []
+        if argInfoType is FLAGS _.
+
+
+      <InterfaceNamespace><InterfaceName>.null
+        if argInfoType is ENUM _.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+  errorDomain[e] is the <e>th error domain.
+    Currently GIR support for error domain annotations is not yet implemented
+    and the gtk-doc annotations do not provide the annotations.  For now
+    <E>, the number of error domains, is always 0.
+
+
+
+==Low-Level Functions==
+
+===Poly/ML===
+
+For J non-VOID parameters, LowLevelFunction has the form:
+
+
+  val <functionName>_ =
+    call
+      (load_sym lib<functionnamespace> "<function_symbol>")
+      (<selfConv>
+        &&> <paramConv[1]>
+        &&> ...
+        &&> <paramConv[J]>
+       [&&> <paramConvErr>]
+        --> <retConv>);
+
+    if J > 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName>_ =
+    call
+      (load_sym lib<functionnamespace> "<function_symbol>")
+      (<paramConv[1]>
+        &&> ...
+        &&> <paramConv[J]>
+       [&&> <paramConvErr>]
+        --> <retConv>);
+
+    if J > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName>_ =
+    call
+      (load_sym lib<functionnamespace> "<function_symbol>")
+      (<selfConv> [&&> <paramConvErr>] --> <retConv>);
+
+    if J = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName>_ =
+    call
+      (load_sym lib<functionnamespace> "<function_symbol>")
+      (<paramConvErr> --> <retConv>);
+
+    if J = 0 and not anySet (FunctionFlags, IS_METHOD)
+             and anySet (FunctionFlags, THROWS)
+
+
+  val <functionName>_ =
+    call
+      (load_sym lib<functionnamespace> "<function_symbol>")
+      (FFI.PolyML.VOID --> <retConv>);
+
+    if J = 0 and not anySet (FunctionFlags, IS_METHOD)
+             and not anySet (FunctionFlags, THROWS)
+
+
+where
+
+
+  [<e>]
+    is
+      <e>
+        if anySet (FunctionFlags, THROWS) and
+
+      <empty>
+        otherwise
+
+
+  selfConv
+    is <parInterfaceConv> where the interface is the enclosing entity.
+    Note that the GIR type tag of the enclosing entity must be INTERFACE: no
+    other type tag is an entity that has functions.
+
+
+  paramConvErr
+    is GError.PolyML.OUTPTR
+
+
+  paramConv[j]
+    is the Poly/ML C conversion for the <j>th non-VOID parameter of the
+    function, given by argInfo, defined according to the GIR type tag as
+    follows:
+
+      argTypeInfo = GIArgInfo.getType argInfo
+      tag = GITypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        GTYPE     --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    <parScalarConv(FFI.PolyML.Bool)>
+        INT8      --->    <parScalarConv(FFI.PolyML.Int8)>
+        UINT8     --->    <parScalarConv(FFI.PolyML.Word8)>
+        INT16     --->    <parScalarConv(FFI.PolyML.Int16)>
+        UINT16    --->    <parScalarConv(FFI.PolyML.Word16)>
+        INT32     --->    <parScalarConv(FFI.PolyML.Int32)>
+        UINT32    --->    <parScalarConv(FFI.PolyML.Word32)>
+        INT64     --->    <parScalarConv(FFI.PolyML.Int64)>
+        UINT64    --->    <parScalarConv(FFI.PolyML.Word64)>
+        FLOAT     --->    <parScalarConv(FFI.PolyML.Float)>
+        DOUBLE    --->    <parScalarConv(FFI.PolyML.Double)>
+        UTF8      --->    <parUtf8Conv>
+        UNICHAR   --->    <parScalarConv(FFI.PolyML.Char)>
+        INTERFACE --->    <parInterfaceConv>
+
+
+  parScalarConv(A)
+    is defined as follows:
+
+        direction = GIArgInfo.getDirection argInfo
+
+          direction       | parScalarConv(A)
+        ==================+===========================
+          IN              | <A>.VAL
+        ------------------+---------------------------
+          OUT             | <A>.REF
+        ------------------+---------------------------
+          INOUT           | <A>.REF
+        ------------------+---------------------------
+
+
+  parUtf8Conv
+    is defined as follows:
+
+        direction = GIArgInfo.getDirection argInfo
+
+          direction       | parUtf8Conv
+        ==================+===========================
+          IN              | <A>.<OPT>PTR
+        ------------------+---------------------------
+          OUT             | <A>.OUT<OUTOPT>REF
+        ------------------+---------------------------
+          INOUT           | <A>.IN<INOPT>OUT<OUTOPT>REF
+        ------------------+---------------------------
+
+      A is FFI.PolyML.String
+
+      OPT is defined as follows:
+
+        mayBeNull = GIArgInfo.mayBeNull argInfo
+
+          mayBeNull       | OPT
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | OPT
+        ------------------+-------------------
+
+      INOPT and OUTOPT cannot be determined because GIR does not capture
+      sufficient information.  For now, they are defined as follows:
+
+          | INOPT           OUTOPT
+        ==+===================================
+          | <empty>         <empty>
+        --+-----------------------------------
+
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
+
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  The conversions OUTREF and
+            INOUTREF are used.  (We also need to know this missing information
+            for the high-level interface to determine whether to use an optional
+            type.)
+
+
+  parInterfaceConv
+    is defined according to the interface type as follows:
+
+      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
+      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+
+      <parInterfaceObjectConv>
+        if argInfoType is OBJECT argObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          parInterfaceObjectConv is defined as follows:
+
+            direction = GIArgInfo.getDirection argInfo
+
+              direction       | parInterfaceObjectConv
+            ==================+===========================
+              IN              | <A>.<OPT>PTR
+            ------------------+---------------------------
+              OUT             | <A>.OUT<OUTOPT>REF
+            ------------------+---------------------------
+              INOUT           | <A>.IN<INOPT>OUT<OUTOPT>REF
+            ------------------+---------------------------
+
+          A is <RootObjectNamespace><RootObjectName>Class.PolyML
+
+          rootObjectInfo = getRoot argObjectInfo
+          RootObjectName = GIBaseInfo.getName rootObjectInfo
+          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
+          OPT is defined as follows:
+
+            mayBeNull = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | OPT
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | OPT
+            ------------------+-------------------
+
+          INOPT and OUTOPT cannot be determined because GIR does not capture
+          sufficient information.  For now, they are defined as follows:
+
+              | INOPT           OUTOPT
+            ==+===================================
+              | <empty>         <empty>
+            --+-----------------------------------
+
+              Note: currently for OUT and INOUT parameters, mayBeNull indicates
+                whether a null reference argument is allowed, rather than a non-null
+                reference to null.   This allows the parameter to be optional thus
+                provides what one would have expected from isOptional.
+                (isOptional itself appears to always return false.)  Thus there
+                is no mechanism to know whether an out parameter that is a pointer
+                can have a null out value.  Similarly for an in-out parameter, there
+                is no way to know whether the in value or out value can be null.
+                Furthermore, an in-out parameter would require two atttibutes:
+                allow-none-in and allow-none-out.
+
+                For now, for OUT and INOUT parameters, we do not distinguish
+                optionally-null and non-null values.  The conversions OUTREF and
+                INOUTREF are used.  (We also need to know this missing information
+                for the high-level interface to determine whether to use an optional
+                type.)
+
+
+      <raise Error>  # for now
+        if argInfoType is INTERFACE _.
+
+
+      <parInterfaceStructConv>
+        if argInfoType is STRUCT argStructInfo, where
+
+          parInterfaceStructConv is defined as follows:
+
+            direction = GIArgInfo.getDirection argInfo
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              direction       isPointer       parInterfaceStructConv
+            ====================================================
+                              false           <raise Error nonPtrForInStruct>
+              IN            ------------------------------------
+                              true            <A>.<OPT>PTR
+            ----------------------------------------------------
+                              false           <A>.PTR
+              OUT           ------------------------------------
+                              true            <A>.OUT<OUTOPT>REF
+            ----------------------------------------------------
+                              false           <A>.PTR
+              INOUT         ------------------------------------
+                              true            <A>.IN<INOPT>OUT<OUTOPT>REF
+            ----------------------------------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.PolyML
+              if <InterfaceName> is not equal to <ContainerName>
+
+            PolyML
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName argStructInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          OPT is defined as follows:
+
+            mayBeNull = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | OPT
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | OPT
+            ------------------+-------------------
+
+          INOPT and OUTOPT cannot be determined because GIR does not capture
+          sufficient information.  For now, they are defined as follows:
+
+              | INOPT           OUTOPT
+            ==+===================================
+              | <empty>         <empty>
+            --+-----------------------------------
+
+              Note: currently for OUT and INOUT parameters, mayBeNull indicates
+                whether a null reference argument is allowed, rather than a non-null
+                reference to null.   This allows the parameter to be optional thus
+                provides what one would have expected from isOptional.
+                (isOptional itself appears to always return false.)  Thus there
+                is no mechanism to know whether an out parameter that is a pointer
+                can have a null out value.  Similarly for an in-out parameter, there
+                is no way to know whether the in value or out value can be null.
+                Furthermore, an in-out parameter would require two atttibutes:
+                allow-none-in and allow-none-out.
+
+                For now, for OUT and INOUT parameters, we do not distinguish
+                optionally-null and non-null values.  The conversions OUTREF and
+                INOUTREF are used.  (We also need to know this missing information
+                for the high-level interface to determine whether to use an optional
+                type.)
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <parInterfaceFlagsEnumConv>
+        if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          parInterfaceFlagsEnumConv is defined as follows:
+
+            direction = GIArgInfo.getDirection argInfo
+
+              direction       | parInterfaceFlagsEnumConv
+            ==================+===========================
+              IN              | <A>.VAL
+            ------------------+---------------------------
+              OUT             | <A>.REF
+            ------------------+---------------------------
+              INOUT           | <A>.REF
+            ------------------+---------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.PolyML
+              if <InterfaceName> is not equal to <ContainerName>
+
+            PolyML
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+
+      <raise Error "not supported">
+        if argInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+  retConv
+    is the Poly/ML C conversion for the return value of the function, defined
+    according to the GIR type tag as follows:
+
+      retTypeInfo = GICallableInfo.getReturnType functionInfo
+      tag = GITypeInfo.get_tag retTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        GTYPE     --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    FFI.PolyML.VOID
+        BOOLEAN   --->    <retScalarConv(FFI.PolyML.Bool)>
+        INT8      --->    <retScalarConv(FFI.PolyML.Int8)>
+        UINT8     --->    <retScalarConv(FFI.PolyML.Word8)>
+        INT16     --->    <retScalarConv(FFI.PolyML.Int16)>
+        UINT16    --->    <retScalarConv(FFI.PolyML.Word16)>
+        INT32     --->    <retScalarConv(FFI.PolyML.Int32)>
+        UINT32    --->    <retScalarConv(FFI.PolyML.Word32)>
+        INT64     --->    <retScalarConv(FFI.PolyML.Int64)>
+        UINT64    --->    <retScalarConv(FFI.PolyML.Word64)>
+        FLOAT     --->    <retScalarConv(FFI.PolyML.Float)>
+        DOUBLE    --->    <retScalarConv(FFI.PolyML.Double)>
+        UTF8      --->    <retUtf8Conv>
+        UNICHAR   --->    <retScalarConv(FFI.PolyML.Char)>
+        INTERFACE --->    <retInterfaceConv>
+
+
+  retScalarConv(A)
+    is defined as follows:
+
+          | retScalarConv(A)
+        ==+===========================
+          | <A>.VAL
+        --+---------------------------
+
+
+  retUtf8Conv
+    is defined as follows:
+
+      retUtf8Conv is <A>.RET<RETOPT>PTR
+
+      A is FFI.PolyML.String
+
+      RETOPT is defined as follows:
+
+        mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+          mayReturnNull   | RETOPT
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | OPT
+        ------------------+-------------------
+
+
+  retInterfaceConv
+    is defined according to the interface type as follows:
+
+      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
+      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+
+      <retInterfaceObjectConv>
+        if retInfoType is OBJECT retObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          retInterfaceObjectConv is <A>.<RETOPT>PTR
+
+          A is <RootObjectNamespace><RootObjectName>Class.PolyML
+
+          rootObjectInfo = getRoot retObjectInfo
+          RootObjectName = GIBaseInfo.getName rootObjectInfo
+          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
+          RETOPT is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | RETOPT
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | OPT
+            ------------------+-------------------
+
+
+      <raise Error>  # for now
+        if retInfoType is INTERFACE _.
+
+
+      <retInterfaceStructConv>
+        if retInfoType is STRUCT retStructInfo, where
+
+          retInterfaceStructConv is defined as follows:
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | retInterfaceStructConv
+            ==================+===================================
+              false           | <raise Error nonPtrForRetStruct>
+            ------------------+-----------------------------------
+              true            | <A>.<RETOPT>PTR
+            ------------------+-----------------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.PolyML
+              if <InterfaceName> is not equal to <ContainerName>
+
+            PolyML
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName retStructInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          RETOPT is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | RETOPT
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | OPT
+            ------------------+-------------------
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <retInterfaceFlagsEnumConv>
+        if retInfoType is FLAGS retFlagsEnumInfo | ENUM retFlagsEnumInfo.
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          retInterfaceFlagsEnumConv is <A>.VAL
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.PolyML
+              if <InterfaceName> is not equal to <ContainerName>
+
+            PolyML
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName retFlagsEnumInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace retFlagsEnumInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+
+      <raise Error "not supported">
+        if retInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+
+===MLton===
+
+For J non-VOID parameters, LowLevelFunction has the form:
+
+
+  val <functionName>_ =
+    fn <x[1]> & ... & <x[J + 1]> [& <x[J + 2]>] =>
+      (_import "<function_symbol>"
+        : <selfType>
+           * <parType[1]>
+           * ...
+           * <parType[J]>
+          [* <parTypeErr>]
+           -> <retType>;)
+      (<x[1]>, ..., <x[J + 1]>[, <x[J + 2]>])
+
+    if J > 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName>_ =
+    fn <x[1]> & ... & <x[J]> [& <x[J + 1]>] =>
+      (_import "<function_symbol>"
+        : <parType[1]>
+           * ...
+           * <parType[J]>
+          [* <parTypeErr>]
+           -> <retType>;)
+      (<x[1]>, ..., <x[J]>[, <x[J + 1]>])
+
+    if J > 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  val <functionName>_ =
+    fn x1 & x2 =>
+      (_import "<function_symbol>" : <selfType> * <parTypeErr> -> <retType>;)
+      (x1, x2)
+
+    if J = 0 and anySet (FunctionFlags, IS_METHOD)
+             and anySet (FunctionFlags, THROWS)
+
+
+  val <functionName>_ =
+     _import "<function_symbol>" : <selfType> -> <retType>;
+
+    if J = 0 and anySet (FunctionFlags, IS_METHOD)
+             and not anySet (FunctionFlags, THROWS)
+
+
+  val <functionName>_ =
+    _import "<function_symbol>" : <parTypeErr> -> <retType>;
+
+    if J = 0 and not anySet (FunctionFlags, IS_METHOD)
+             and anySet (FunctionFlags, THROWS)
+
+
+  val <functionName>_ =
+    _import "<function_symbol>" : unit -> <retType>;
+
+    if J = 0 and not anySet (FunctionFlags, IS_METHOD)
+             and not anySet (FunctionFlags, THROWS)
+
+
+Note that this does not capture the work-around required to flatten out string
+and string vector SML parameter types which introduce tuples of x<N> function
+parameters that are flattened out e.g.
+
+  fn (x1, x2) & (x3, x4, x5) & ... =>
+    (_import ...)
+    (x1, x2, x3, x4, x5, ...)
+
+
+where
+
+
+  [<e>]
+    is
+      <e>
+        if anySet (FunctionFlags, THROWS) and
+
+      <empty>
+        otherwise
+
+
+  selfType
+    is <parInterfaceType> where the interface is the enclosing entity.
+    Note that the GIR type tag of the enclosing entity must be INTERFACE: no
+    other type tag is an entity that has functions.
+
+
+  x[j] is the identifier x<j>
+
+
+  parTypeErr
+    is GError.C.outptr
+
+
+  parType[j]
+    is the SML type for the <j>th non-VOID parameter of the function,
+    given by argInfo, defined according to the GIR type tag as follows:
+
+      argTypeInfo = GIArgInfo.getType argInfo
+      tag = GITypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        GTYPE     --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    <parScalarType(FFI.Bool)>
+        INT8      --->    <parScalarType(FFI.Int8)>
+        UINT8     --->    <parScalarType(FFI.Word8)>
+        INT16     --->    <parScalarType(FFI.Int16)>
+        UINT16    --->    <parScalarType(FFI.Word16)>
+        INT32     --->    <parScalarType(FFI.Int32)>
+        UINT32    --->    <parScalarType(FFI.Word32)>
+        INT64     --->    <parScalarType(FFI.Int64)>
+        UINT64    --->    <parScalarType(FFI.Word64)>
+        FLOAT     --->    <parScalarType(FFI.Float)>
+        DOUBLE    --->    <parScalarType(FFI.Double)>
+        UTF8      --->    <parUtf8Type>
+        UNICHAR   --->    <parScalarType(FFI.Char)>
+        INTERFACE --->    <parInterfaceType>
+
+
+  parScalarType(A)
+    is defined as follows:
+
+        direction = GIArgInfo.getDirection argInfo
+
+          direction       | parScalarType(A)
+        ==================+===========================
+          IN              | <A>.val_
+        ------------------+---------------------------
+          OUT             | <A>.ref_
+        ------------------+---------------------------
+          INOUT           | <A>.ref_
+        ------------------+---------------------------
+
+
+  parUtf8Type
+    is defined as follows:
+
+        direction = GIArgInfo.getDirection argInfo
+
+          direction       | parUtf8Type
+        ==================+===========================
+          IN              | <opt> <A>.inp
+        ------------------+---------------------------
+          OUT             | (unit, <outopt>) <A>.r
+        ------------------+---------------------------
+          INOUT           | (<inopt>, <outopt>) <A>.r
+        ------------------+---------------------------
+
+      A is FFI.String
+
+      opt is defined as follows:
+
+        mayBeNull = GIArgInfo.mayBeNull argInfo
+
+          mayBeNull       | opt
+        ==================+===================
+          false           | <A>.notnull
+        ------------------+-------------------
+          true            | unit
+        ------------------+-------------------
+
+      inopt and outopt cannot be determined because GIR does not capture
+      sufficient information.  For now, they are defined as follows:
+
+          | inopt           outopt
+        ==+===================================
+          | <A>.notnull     <A>.notnull
+        --+-----------------------------------
+
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
+
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  The types outref and
+            inoutref are used.  (We also need to know this missing information
+            for the high-level interface to determine whether to use an optional
+            type.)
+
+
+  parInterfaceType
+    is defined according to the interface type as follows:
+
+      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
+      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+
+      <parInterfaceObjectType>
+        if argInfoType is OBJECT argObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          parInterfaceObjectType is defined as follows:
+
+            direction   = GIArgInfo.getDirection argInfo
+
+              direction       | parInterfaceObjectType
+            ==================+===========================
+              IN              | <opt> <A>.p
+            ------------------+---------------------------
+              OUT             | (unit, <outopt>) <A>.r
+            ------------------+---------------------------
+              INOUT           | (<inopt>, <outopt>) <A>.r
+            ------------------+---------------------------
+
+          A is <RootObjectNamespace><RootObjectName>Class.C
+
+          rootObjectInfo = getRoot argObjectInfo
+          RootObjectName = GIBaseInfo.getName rootObjectInfo
+          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
+          opt is defined as follows:
+
+            mayBeNull   = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | opt
+            ==================+===================
+              false           | <A>.notnull
+            ------------------+-------------------
+              true            | unit
+            ------------------+-------------------
+
+          inopt and outopt cannot be determined because GIR does not capture
+          sufficient information.  For now, they are defined as follows:
+
+              | inopt           outopt
+            ==+===================================
+              | <A>.notnull     <A>.notnull
+            --+-----------------------------------
+
+              Note: currently for OUT and INOUT parameters, mayBeNull indicates
+                whether a null reference argument is allowed, rather than a non-null
+                reference to null.   This allows the parameter to be optional thus
+                provides what one would have expected from isOptional.
+                (isOptional itself appears to always return false.)  Thus there
+                is no mechanism to know whether an out parameter that is a pointer
+                can have a null out value.  Similarly for an in-out parameter, there
+                is no way to know whether the in value or out value can be null.
+                Furthermore, an in-out parameter would require two atttibutes:
+                allow-none-in and allow-none-out.
+
+                For now, for OUT and INOUT parameters, we do not distinguish
+                optionally-null and non-null values.  The types outref and
+                inoutref are used.  (We also need to know this missing information
+                for the high-level interface to determine whether to use an optional
+                type.)
+
+
+      <raise Error>  # for now
+        if argInfoType is INTERFACE _.
+
+
+      <parInterfaceStructType>
+        if argInfoType is STRUCT argStructInfo, where
+
+          parInterfaceStructType is defined as follows:
+
+            direction = GIArgInfo.getDirection argInfo
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              direction       isPointer       parInterfaceStructType
+            ====================================================
+                              false           <raise Error nonPtrForInStruct>
+              IN            ------------------------------------
+                              true            <opt> <A>.p
+            ----------------------------------------------------
+                              false           <A>.notnull <A>.p
+              OUT           ------------------------------------
+                              true            (unit, <outopt>) <A>.r
+            ----------------------------------------------------
+                              false           <A>.notnull <A>.p
+              INOUT         ------------------------------------
+                              true            (<inopt>, <outopt>) <A>.r
+            ----------------------------------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if <InterfaceName> is not equal to <ContainerName>
+
+            C
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName argStructInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          opt is defined as follows:
+
+            mayBeNull = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | opt
+            ==================+===================
+              false           | <A>.notnull
+            ------------------+-------------------
+              true            | unit
+            ------------------+-------------------
+
+          inopt and outopt cannot be determined because GIR does not capture
+          sufficient information.  For now, they are defined as follows:
+
+              | inopt           outopt
+            ==+===================================
+              | <A>.notnull     <A>.notnull
+            --+-----------------------------------
+
+              Note: currently for OUT and INOUT parameters, mayBeNull indicates
+                whether a null reference argument is allowed, rather than a non-null
+                reference to null.   This allows the parameter to be optional thus
+                provides what one would have expected from isOptional.
+                (isOptional itself appears to always return false.)  Thus there
+                is no mechanism to know whether an out parameter that is a pointer
+                can have a null out value.  Similarly for an in-out parameter, there
+                is no way to know whether the in value or out value can be null.
+                Furthermore, an in-out parameter would require two atttibutes:
+                allow-none-in and allow-none-out.
+
+                For now, for OUT and INOUT parameters, we do not distinguish
+                optionally-null and non-null values.  The types outref and
+                inoutref are used.  (We also need to know this missing information
+                for the high-level interface to determine whether to use an optional
+                type.)
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <parInterfaceFlagsEnumType>
+        if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
+
+            isPointer = GITypeInfo.isPointer argTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          parInterfaceFlagsEnumType is defined as follows:
+
+            direction = GIArgInfo.getDirection argInfo
+
+              direction       | parInterfaceFlagsEnumType
+            ==================+===========================
+              IN              | <A>.val_
+            ------------------+---------------------------
+              OUT             | <A>.ref_
+            ------------------+---------------------------
+              INOUT           | <A>.ref_
+            ------------------+---------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if <InterfaceName> is not equal to <ContainerName>, where
+
+            C
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+
+      <raise Error "not supported">
+        if argInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+
+
+  retType
+    is the SML type for the return value of the function, defined
+    according to the GIR type tag as follows:
+
+      retTypeInfo = GICallableInfo.getReturnType functionInfo
+      tag = GITypeInfo.get_tag retTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <raise Error "not supported">
+        GTYPE     --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    unit
+        BOOLEAN   --->    <retScalarType(FFI.Bool)>
+        INT8      --->    <retScalarType(FFI.Int8)>
+        UINT8     --->    <retScalarType(FFI.Word8)>
+        INT16     --->    <retScalarType(FFI.Int16)>
+        UINT16    --->    <retScalarType(FFI.Word16)>
+        INT32     --->    <retScalarType(FFI.Int32)>
+        UINT32    --->    <retScalarType(FFI.Word32)>
+        INT64     --->    <retScalarType(FFI.Int64)>
+        UINT64    --->    <retScalarType(FFI.Word64)>
+        FLOAT     --->    <retScalarType(FFI.Float)>
+        DOUBLE    --->    <retScalarType(FFI.Double)>
+        UTF8      --->    <retUtf8Type>
+        UNICHAR   --->    <retScalarType(FFI.Char)>
+        INTERFACE --->    <retInterfaceType>
+
+
+  retScalarType(A)
+    is defined as follows:
+
+          | retScalarType(A)
+        ==+===========================
+          | <A>.val_
+        --+---------------------------
+
+
+  retUtf8Type
+    is defined as follows:
+
+      retUtf8Type is <A>.ret<retopt>ptr
+
+      A is FFI.String
+
+      retopt is defined as follows:
+
+        mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+          mayReturnNull   | retopt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | opt
+        ------------------+-------------------
+
+
+  retInterfaceType
+    is defined according to the interface type as follows:
+
+      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
+      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+
+      <retInterfaceObjectType>
+        if retInfoType is OBJECT retObjectInfo, where
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <raise Error nonPtrForObject>
+            ------------------+-----------------------------------
+              true            | <>
+            ------------------+-----------------------------------
+
+          retInterfaceObjectType is <A>.<retopt>ptr
+
+          A is <RootObjectNamespace><RootObjectName>Class.C
+
+          rootObjectInfo = getRoot retObjectInfo
+          RootObjectName = GIBaseInfo.getName rootObjectInfo
+          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
+          retopt is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | retopt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | opt
+            ------------------+-------------------
+
+
+      <raise Error>  # for now
+        if retInfoType is INTERFACE _.
+
+
+      <retInterfaceStructType>
+        if retInfoType is STRUCT retStructInfo, where
+
+          retInterfaceStructType is defined as follows:
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | retInterfaceStructType
+            ==================+===================================
+              false           | <raise Error nonPtrForRetStruct>
+            ------------------+-----------------------------------
+              true            | <A>.<retopt>ptr
+            ------------------+-----------------------------------
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if <InterfaceName> is not equal to <ContainerName>
+
+            C
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName retStructInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          retopt is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+
+              mayReturnNull   | retopt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | opt
+            ------------------+-------------------
+
+        It is necessary to handle the case when `isPointer` is false explicitly.
+        When a STRUCT is not passed as a pointer, but a reference to a value, the
+        'standard' scheme would require a value representation of a STRUCT in
+        SML, like e.g. an INT32.  This is not possible for a STRUCT in general
+        as some are opaque, e.g. GtkTextIter, though it could well be useful for
+        a non-opaque STRUCT, e.g. GtkAccelKey.  Therefore, a reference to a STRUCT
+        value is treated as a pointer.
+
+
+      <retInterfaceFlagsEnumType>
+        if retInfoType is FLAGS retFlagsEnumInfo | ENUM retFlagsEnumInfo.
+
+            isPointer = GITypeInfo.isPointer retTypeInfo
+
+              isPointer       | _
+            ==================+===================================
+              false           | <>
+            ------------------+-----------------------------------
+              true            | <raise Error ptrForFlagsEnum>
+            ------------------+-----------------------------------
+
+          retInterfaceFlagsEnumType is <A>.val_
+
+          A is defined as follows:
+
+            <InterfaceNamespace><InterfaceName>.C
+              if <InterfaceName> is not equal to <ContainerName>
+
+            C
+              otherwise
+
+          InterfaceName = GIBaseInfo.getName retFlagsEnumInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace retFlagsEnumInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+
+      <raise Error "not supported">
+        if retInfoType is CALLBACK _.
+
+        Note that CALLBACK can have
+          mayBeNull = true
+          isPointer = false
+        i.e. isOpt implies isPointer does not necessarily hold.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.

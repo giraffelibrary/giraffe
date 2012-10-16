@@ -1,0 +1,167 @@
+=Struct=
+
+Context
+
+  repo
+    the repository in use
+
+  structInfo
+    the struct typelib info
+
+
+Placeholders
+
+  StructName = GIBaseInfo.getName structInfo
+
+  StructNamespace = GIBaseInfo.getNamespace structInfo
+
+  StructCPrefix = GIRepository.getCPrefix repo <StructNamespace>
+
+  optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit structInfo
+
+
+Conditions
+
+  isGObject = "GObject" = StructNamespace
+
+
+==Record signature==
+
+
+
+==Record structure==
+
+
+
+==Struct signature==
+
+signature <STRUCT_NAMESPACE>_<STRUCT_NAME> =
+  sig
+    (* Types *)
+
+    type 'a record_t
+
+    type <varlist[1]> <typename[1]>_t
+
+    ...
+
+    type <varlist[N]> <typename[N]>_t
+
+
+    (* Functions *)
+                                                              -.
+    val getType : unit -> <type>                               | optGetTypeSymbol is SOME _
+                                                              -'
+    <FunctionSpec[1]>
+
+    ...
+
+    <FunctionSpec[M]>
+  end
+
+
+where
+
+
+  type
+    is defined as follows:
+
+        GObject.Type.t
+          if not isGObject
+
+        type_t
+          if isGObject
+
+
+  typeName[n], varlist[n]
+    For i in 1 .. N
+
+      <varlist[i]> <typename[i]>_t
+
+    is the <n>th element in the list of types referenced later in the
+    signature that, for some InterfaceName whose namespace is
+    <StructNamespace> and some var, have one of the following forms:
+
+      <var> <interfacename>class_t
+      <var> <interfacename>_t
+      <interfacename>record_t
+      <interfacename>_t
+
+
+==Struct structure==
+
+structure <StructNamespace><StructName> :>
+  <STRUCT_NAMESPACE>_<STRUCT_NAME>
+    where type 'a record_t = 'a <StructNamespace><StructName>Record.t
+
+    where type <varlist[1]> <typename[1]>_t = <varlist[1]> <StructNamespace><TypeName[1]>.t
+
+    ...
+
+    where type <varlist[N]> <typename[N]>_t = <varlist[N]> <StructNamespace><TypeName[N]>.t
+=
+  struct
+    (* Low-Level Functions *)
+
+    local                                                                                 -.
+      open PolyMLFFI                                                                       |
+    in                                                                                     |
+                                                              -.                           |
+      val getType_ =                                           |                           |
+        call                                                   | optGetTypeSymbol          |
+          (load_sym lib<structnamespace> "<getTypeSymbol>")    |  is SOME getTypeSymbol    |
+          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);        |                           |
+                                                              -'                           | Poly/ML only
+                                                                                           |
+      <LowLevelFunction[1]>                                                                |
+                                                                                           |
+      ...                                                                                  |
+                                                                                           |
+      <LowLevelFunction[M]>                                                                |
+    end                                                                                   -'
+
+                                                              -.                          -.
+    val getType_ =                                             | optGetTypeSymbol          |
+      _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;  |  is SOME getTypeSymbol    |
+                                                              -'                           |
+                                                                                           | MLton only
+    <LowLevelFunction[1]>                                                                  |
+                                                                                           |
+    ...                                                                                    |
+                                                                                           |
+    <LowLevelFunction[M]>                                                                 -'
+
+
+    (* Types *)
+
+    type 'a record_t = 'a <StructNamespace><StructName>Record.t
+
+    type <varlist[1]> <typename[1]>_t = <varlist[1]> <StructNamespace><TypeName[1]>.t
+
+    ...
+
+    type <varlist[N]> <typename[N]>_t = <varlist[N]> <StructNamespace><TypeName[N]>.t
+
+
+    (* High-Level Functions *)
+                                                              -. 
+    val getType = (I ---> GObjectType.C.fromVal) getType_      | optGetTypeSymbol is SOME _
+                                                              -'
+    <HighLevelFunction[1]>
+
+    ...
+
+    <HighLevelFunction[M]>
+  end
+
+
+where
+
+
+  typeName[n] is the same as for the signature;
+
+
+  varlist[n] is the same as for the signature;
+
+
+  ...

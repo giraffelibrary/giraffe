@@ -1,0 +1,275 @@
+=Namespace=
+
+Context
+
+  repo
+    the repository in use
+
+  namespace
+    the namespace
+
+
+Placeholders
+
+
+Conditions
+
+  isGObject = namespace = "GObject"
+  isGtk     = namespace = "Gtk"
+
+
+
+==Signature==
+
+signature <NAMESPACE> =
+  sig
+    (* Types *)
+                                                            -.
+    type ('object, 'a) property_readonly                     |
+    type ('object, 'a) property_writeonly                    | isGObject
+    type ('object, 'a, 'b) property_readwrite                |
+                                                            -'
+                                                            -.
+    type ('widget, 'a) styleproperty_readonly                | isGtk
+                                                            -'
+
+    (* Modules *)
+
+    <ModuleSpec[1]>
+
+    ...
+
+    <ModuleSpec[N]>
+
+
+    (* Constants *)
+
+    <ConstantSpec[1]>
+    ...
+
+    <ConstantSpec[C]>
+
+
+    (* Functions *)
+
+    <FunctionSpec[1]>
+
+    ...
+
+    <FunctionSpec[M]>
+  end
+
+
+where
+
+
+  ModuleSpec
+    is defined according to the info type as follows:
+
+      name = GIBaseInfo.getName name
+      infoType = GIInfoType.getType info
+
+      isParentObjectNamespace = ParentObjectNamespace = namespace
+
+
+      structure <Name>Class :
+        <NAMESPACE>_<NAME>_CLASS
+                                                                                -.
+          where type 'a <parentobjectname>class_t = 'a <ParentObjectName>Class.t | isParentObjectNamespace
+                                                                                -'
+                                                                                -.
+          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
+                                                                                -'
+      structure <Name> :
+        <NAMESPACE>_<NAME>
+          where type 'a class_t = 'a <Name>Class.t
+          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          ...
+          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+                                                                                                -.
+          where type ('object, 'a) property_readonly = ('object, 'a) property_readonly           |
+          where type ('object, 'a) property_writeonly = ('object, 'a) property_writeonly         | isGObject and P > 0
+          where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) property_readwrite |
+                                                                                                -'
+
+        if infoType is OBJECT _ | INTERFACE _
+          where P is the number of properties
+
+
+      structure <Name>Record :
+        <NAMESPACE>_<NAME>_RECORD
+                                                                                -.
+          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
+                                                                                -'
+      structure <Name> :
+        <NAMESPACE>_<NAME>
+          where type 'a record_t = 'a <Name>Record.t
+          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          ...
+          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+
+        if infoType is STRUCT _
+
+
+      structure <Name> :
+        <NAMESPACE>_<NAME>
+          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          ...
+          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+
+        if infoType is UNION _
+
+
+      structure <Name> :
+        <NAMESPACE>_<NAME>
+                                                                                -.
+          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
+                                                                                -'
+          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          ...
+          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+
+        if infoType is FLAGS _
+
+
+      structure <Name> :
+        <NAMESPACE>_<NAME>
+                                                                                -.
+          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
+                                                                                -'
+          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          ...
+          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+                                                              -.
+          where type errorrecord_handler = ErrorRecord.handler | isGLib andalso optErrorDomain is SOME _
+                                                              -'
+                                                              -.
+      exception <Name> of <Name>.t                             | optErrorDomain is SOME _
+                                                              -'
+
+        if infoType is ENUM _
+
+
+      <empty>
+
+        otherwise
+
+
+
+
+==Structure==
+
+structure <Namespace> :
+  <NAMESPACE>
+                                                                                          -.
+    where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
+    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject
+    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
+                                                                                          -'
+                                                                                          -.
+    where type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly | isGtk
+                                                                                          -'
+=
+  sig
+    (* Low-Level Functions *)
+                                                                            -.
+    local                                                                    |
+      open PolyMLFFI                                                         |
+    in                                                                       |
+      <LowLevelFunction[1]>                                                  |
+                                                                             | Poly/ML only
+      ...                                                                    |
+                                                                             |
+      <LowLevelFunction[M]>                                                  |
+    end                                                                      |
+                                                                            -'
+                                                                            -.
+    <LowLevelFunction[1]>                                                    |
+                                                                             |
+    ...                                                                      | MLton only
+                                                                             |
+    <LowLevelFunction[M]>                                                    |
+                                                                            -'
+
+    (* Types *)
+
+                                                                                          -.
+    type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
+    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject
+    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
+                                                                                          -'
+                                                                                          -.
+    type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly       | isGtk
+                                                                                          -'
+
+    (* Modules *)
+
+    <ModuleDec[1]>
+
+    ...
+
+    <ModuleDec[N]>
+
+
+    (* Constants *)
+
+    <ConstantDec[1]>
+
+    ...
+
+    <ConstantDec[C]>
+
+
+    (* High-Level Functions *)
+
+    <HighLevelFunction[1]>
+
+    ...
+
+    <HighLevelFunction[M]>
+  end
+
+
+  ModuleDec
+    is defined according to the info type as follows:
+
+      name = GIBaseInfo.getName name
+      infoType = GIInfoType.getType info
+
+
+      structure <Name>Class = <Namespace><Name>Class
+      structure <Name> = <Namespace><Name>
+
+        if infoType is OBJECT _ | INTERFACE _
+
+
+      structure <Name>Record = <Namespace><Name>Record
+      structure <Name> = <Namespace><Name>
+
+        if infoType is STRUCT _
+
+
+      structure <Name> = <Namespace><Name>
+
+        if infoType is UNION _
+
+
+      structure <Name> = <Namespace><Name>
+
+        if infoType is FLAGS _
+
+
+      structure <Name> = <Namespace><Name>
+                                                              -.
+      exception <Name> = <Namespace><Name>                     | optErrorDomain is SOME _
+                                                              -'
+
+        if infoType is ENUM _
+
+
+      <empty>
+
+        otherwise
+
+
+

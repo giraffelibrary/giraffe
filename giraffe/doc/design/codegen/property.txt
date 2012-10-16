@@ -1,0 +1,290 @@
+=Property=
+
+Context
+
+  repo
+    the repository in use
+
+  containerInfo
+    typelib info of the (interface or object) container of the property
+
+  propertyInfo
+    the property typelib info
+
+Placeholders
+
+Conditions
+
+  ContainerName = GIBaseInfo.getName ContainerInfo
+
+  isGObject = "GObject" = ObjectNamespace
+
+  belowGObject = List.exists
+                   (String.isPrefix "GObject")
+                   (GIRepository.getDependencies ObjectNamespace)
+
+  isReadable =
+    GParamFlags.anySet
+      (GIPropertyInfo.get_flags propertyInfo, GParamFlags.READABLE);
+
+  isWritable = 
+    GParamFlags.anySet
+      (GIPropertyInfo.get_flags propertyInfo, GParamFlags.WRITABLE);
+
+
+==Specification==
+
+PropertySpec has the form:
+
+
+  val <propertyName>Prop : ('a class_t, <PropertyType(true)>) <Property("readonly")>
+
+    if isReadable and not isWritable
+
+
+  val <propertyName>Prop : ('a class_t, <PropertyType(false)>) <Property("writeonly")>
+
+    if not isReadable and isWritable
+
+
+  val <propertyName>Prop :
+    ('a class_t, <PropertyType(true)>, <PropertyType(false)>) <Property("readwrite")>
+
+    if isReadable and isWritable
+
+
+  <raise Error "property neither readable nor writable">
+
+    if not isReadable and not isWritable
+
+
+where
+
+
+  Property(mode)
+    is defined as follows:
+
+      Property.<mode>
+        if belowGObject
+
+      property_<mode>
+        if isGObject
+
+
+  PropertyType(isReadType)
+    is the SML type representing the type of the property value
+    translated as follows:
+
+      typeInfo = GIPropertyInfo.getType propertyInfo
+      isPointer = GITypeInfo.isPointer typeInfo
+
+        isPointer        | PropertyType(isReadType)
+      ===================+===================
+        false            | <type(isReadType)>
+      -------------------+-------------------
+        true             | <type(isReadType)> option
+      -------------------+-------------------
+
+
+  type(isReadType)
+    is defined as according to the GIR type tag as follows:
+
+      typeInfo = GIPropertyInfo.getType propertyInfo
+      tag = GITypeInfo.get_tag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "not expected: no corresponding GType">
+        UINT8     --->    <raise Error "not expected: no corresponding GType">
+        INT16     --->    <raise Error "not expected: no corresponding GType">
+        UINT16    --->    <raise Error "not expected: no corresponding GType">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    bool
+        INT32     --->    LargeInt.int
+        UINT32    --->    LargeInt.int
+        INT64     --->    LargeInt.int
+        UINT64    --->    LargeInt.int
+        FLOAT     --->    real
+        DOUBLE    --->    real
+        UTF8      --->    string
+        UNICHAR   --->    char
+
+        INTERFACE --->
+
+          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+
+          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+          isGlobal = InterfaceNamespace <> FunctionNamespace
+
+            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+              if isGlobal and isClass
+
+            <InterfaceNamespace>.<InterfaceName>Record.t
+              if isGlobal and isRecord
+
+            <var> <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isUnion
+
+            <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isOther
+
+
+            <var> <interfacename>class_t
+              if not isGlobal and not isSelf and isClass
+
+            <interfacename>record_t
+              if not isGlobal and not isSelf and isRecord
+
+            <var> <interfacename>_t
+              if not isGlobal and not isSelf and isUnion
+
+            <interfacename>_t
+              if not isGlobal and not isSelf and isOther
+
+
+            <var> class_t
+              if not isGlobal and isSelf and isClass
+
+            record_t
+              if not isGlobal and isSelf and isRecord
+
+            <var> t
+              if not isGlobal and isSelf and isUnion
+
+            t
+              if not isGlobal and isSelf and isOther
+
+          where
+
+            var is
+
+              a fresh type variable
+                if not isReadType
+
+              base
+                if isReadType
+
+
+==Declaration==
+
+PropertyDec has the form:
+
+
+  val <propertyName>Prop =
+    {
+      get = fn x => get "<property-name>" <PropertyAccessor> x
+    }
+
+    if isReadable and not isWritable
+
+
+  val <propertyName>Prop =
+    {
+      set = fn x => set "<property-name>" <PropertyAccessor> x
+    }
+
+    if not isReadable and isWritable
+
+
+  val <propertyName>Prop =
+    {
+      get = fn x => get "<property-name>" <PropertyAccessor> x,
+      set = fn x => set "<property-name>" <PropertyAccessor> x
+    }
+
+    if isReadable and isWritable
+
+
+  <raise Error "property neither readable nor writable">
+
+    if not isReadable and not isWritable
+
+
+where
+
+  PropertyAccessor
+    is defined as according to the GIR type tag as follows:
+
+      typeInfo = GIPropertyInfo.getType propertyInfo
+      tag = GITypeInfo.get_tag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "no corresponding GType for INT8">
+        UINT8     --->    <raise Error "no corresponding GType for UINT8">
+        INT16     --->    <raise Error "no corresponding GType for INT16">
+        UINT16    --->    <raise Error "no corresponding GType for UINT16">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    boolean
+        INT32     --->    int32
+        UINT32    --->    uint32
+        INT64     --->    int64
+        UINT64    --->    uint64
+        FLOAT     --->    float
+        DOUBLE    --->    double
+        UTF8      --->    string
+        UNICHAR   --->    char
+
+        INTERFACE --->
+
+          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+
+          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+
+            <InterfaceNamespace><InterfaceName>Class.t<InOpt>
+              if isClass
+
+
+            <InterfaceNamespace><InterfaceName>Record.t<InOpt>
+              if isRecord
+
+
+            <InterfaceNamespace><InterfaceName>.t<InOpt>
+              if not isSelf and isUnion
+
+            t<InOpt>
+              if isSelf and isUnion
+
+
+            <InterfaceNamespace><InterfaceName>.t<InOpt>
+              if not isSelf and isOther
+
+            t<InOpt>
+              if isSelf and isOther
+
+
+Note that the expression on the right hand side of a PropertyDec value binding must be non-expansive.  Therefore it is not possible to introduce functions to simplify the expressions.

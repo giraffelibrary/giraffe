@@ -1,0 +1,66 @@
+=Interface Conversion=
+
+Context
+
+  repo
+    the repository in use
+
+  objectInfo
+    the object typelib info
+
+  interfaceInfo
+    the interface typelib info
+
+
+Placeholders
+
+  ObjectName = GIBaseInfo.getName objectInfo
+
+  ObjectNamespace = GIBaseInfo.getNamespace objectInfo
+
+  ObjectCPrefix = GIRepository.getCPrefix repo <ObjectNamespace>
+
+  InterfaceName = GIBaseInfo.getName interfaceInfo
+
+  InterfaceNamespace = GIBaseInfo.getNamespace interfaceInfo
+
+  InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+  optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit interfaceInfo
+
+
+Conditions
+
+  isGlobal = InterfaceNamespace <> ObjectNamespace
+
+
+==Specification==
+
+InterfaceConvSpec has the form:
+
+
+  val as<InterfaceName> : 'a class_t -> base <InterfaceNamespace>.<InterfaceName>Class.t
+
+    if isGlobal 
+
+
+  val as<InterfaceName> : 'a class_t -> base <interfacename>class_t
+
+    if not isGlobal
+
+
+==Declaration==
+
+InterfaceConvDec has the form:
+
+
+  fun as<InterfaceName> self =
+    (<RootObjectNamespace><RootObjectName>Class.C.withPtr
+      ---> <InterfaceNamespace><InterfaceName>Class.C.fromPtr false)
+    I
+    self
+
+    rootObjectInfo = getRoot objectInfo
+    RootObjectName = GIBaseInfo.getName rootObjectInfo
+    RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+    RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>

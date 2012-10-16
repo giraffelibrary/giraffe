@@ -1,0 +1,98 @@
+=Constant=
+
+Context
+
+  repo
+    the repository in use
+
+  constantInfo
+    the constant typelib info
+
+
+Placeholders
+
+  ConstantName = GIBaseInfo.getName constantInfo
+
+
+Conditions
+
+
+==Specification==
+
+ConstantSpec has the form:
+
+
+  val <constantName> : <ConstantType>
+
+
+where
+
+
+  ConstantType
+    is defined as follows:
+
+      value = ConstantInfo.getValue constantInfo
+
+      Conversion from value is as follows:
+
+        BOOLEAN _   --->    bool
+        INT8 _      --->    LargeInt.int
+        UINT8 _     --->    LargeInt.int
+        INT16 _     --->    LargeInt.int
+        UINT16 _    --->    LargeInt.int
+        INT32 _     --->    LargeInt.int
+        UINT32 _    --->    LargeInt.int
+        INT64 _     --->    LargeInt.int
+        UINT64 _    --->    LargeInt.int
+        FLOAT _     --->    real
+        DOUBLE _    --->    real
+        STRING _    --->    string
+        VOID        --->    <raise Fail "VOID">
+        ARRAY       --->    <raise Error "not supported">
+        INTERFACE   --->    <raise Error "not supported">
+        GLIST       --->    <raise Error "not supported">
+        GSLIST      --->    <raise Error "not supported">
+        GHASH       --->    <raise Error "not supported">
+        ERROR       --->    <raise Error "not supported">
+        UNICHAR     --->    <raise Error "not supported">
+
+
+==Declaration==
+
+ConstantDec has the form:
+
+
+  val <constantName> = <ConstantExp>
+
+
+where
+
+
+  ConstantExp
+    is defined as follows:
+
+      value = ConstantInfo.getValue constantInfo
+
+      Conversion from value is as follows:
+
+        BOOLEAN b   --->    <b>
+        INT8 n      --->    <n>
+        UINT8 n     --->    <n>
+        INT16 n     --->    <n>
+        UINT16 n    --->    <n>
+        INT32 n     --->    <n>
+        UINT32 n    --->    <n>
+        INT64 n     --->    <n>
+        UINT64 n    --->    <n>
+        FLOAT x     --->    <x>
+        DOUBLE x    --->    <x>
+        STRING s    --->    <s>
+        VOID        --->    <raise Fail "VOID">
+        ARRAY       --->    <raise Error "not supported">
+        INTERFACE   --->    <raise Error "not supported">
+        GLIST       --->    <raise Error "not supported">
+        GSLIST      --->    <raise Error "not supported">
+        GHASH       --->    <raise Error "not supported">
+        ERROR       --->    <raise Error "not supported">
+        UNICHAR     --->    <raise Error "not supported">
+

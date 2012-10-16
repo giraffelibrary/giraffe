@@ -1,0 +1,24 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(SML_LIB)/basis/c-types.mlb
+in
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  mlton/CALLBACK_TABLE.sml
+  mlton/CALLBACK.sml
+  mlton/CallbackTable.sml
+  mlton/Callback.sml
+  HighLevelFFI.sml
+  POINTER.sml
+  C_ARRAY.sml
+  PID.sml
+  FILE_DESC.sml
+  mlton/CString.sml
+  mlton/CPointer.sml
+  mlton/Finalizable.sml
+  mlton/GCharVec.sml
+  mlton/GCharVecVec.sml
+  mlton/FFI.sml
+  mlton/Pid.sml
+  mlton/FileDesc.sml
+end

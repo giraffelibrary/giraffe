@@ -1,0 +1,557 @@
+=Signal=
+
+Context
+
+  repo
+    the repository in use
+
+  containerInfo
+    typelib info of the (interface or object) container of the signal
+
+  signalInfo
+    typelib info of the signal
+
+Placeholders
+
+  ContainerName = GIBaseInfo.getName ContainerInfo
+
+  SignalName = GIBaseInfo.getName signalInfo
+
+  SignalNamespace = GIBaseInfo.getNamespace signalInfo
+
+  SignalFlags = GISignalInfo.getFlags signalInfo
+
+
+==Specification==
+
+For
+  L non-VOID IN/INOUT parameters excluding the object instance,
+  K non-VOID INOUT/OUT parameters,
+SignalSpec has the form:
+
+
+  val <signalName>Sig
+    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>) -> <var> class_t Signal.signal
+
+    if K > 0 and L > 0
+
+
+  val <signalName>Sig
+    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>) -> <var> class_t Signal.signal
+
+    if K = 0 and L > 0
+
+
+  val <signalName>Sig : (unit -> <retExpType>) -> <var> class_t Signal.signal
+
+    if K > 0 and L = 0
+
+
+  val <signalName>Sig : (unit -> <retValType>) -> <var> class_t Signal.signal
+
+    if K = 0 and L = 0
+
+
+where
+
+
+  var is a fresh type variable
+
+
+  retValType
+    is the SML type representing the return type of the function
+    translated as follows:
+
+
+        mayReturnNull = GICallableInfo.mayReturnNull signalInfo
+
+          mayReturnNull    | retValType
+        ===================+===================
+          false            | <type>
+        -------------------+-------------------
+          true             | <type> option
+        -------------------+-------------------
+
+
+  retExpType
+    when K > 0, is defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag      | retExpType
+        ===========+===================================================
+          VOID     | <outParamType[1]> * ... * <outParamType[K]>
+        -----------+---------------------------------------------------
+          _        | <retValType>
+                   |   * <outParamType[1]> * ... * <outParamType[K]>
+        -----------+---------------------------------------------------
+
+
+  inParamType[l]
+    for l in 1 to L, is the SML type representing the
+    <l>th parameter type in the list of non-VOID IN/INOUT parameter
+    types of the function translated as follows:
+
+      mayBeNull = GIArgInfo.mayBeNull argInfo
+
+        mayBeNull        | inParamType
+      ===================+===================
+        false            | <type>
+      -------------------+-------------------
+        true             | <type> option
+      -------------------+-------------------
+
+
+  outParamType[k]
+    for k in 1 to K, is the SML type representing the
+    <k>th parameter type in the list of non-VOID INOUT/OUT
+    parameter types of the function translated as follows:
+
+      mayBeNull = GIArgInfo.mayBeNull argInfo
+
+        mayBeNull        | outParamType
+      ===================+===================
+        false [#1]       | <type>
+      -------------------+-------------------
+        true [#1]        | <type> option
+      -------------------+-------------------
+
+      #1: currently for out and in-out parameters, mayBeNull indicates
+      whether a null reference argument is allowed, rather than a non-null
+      reference to null.   This allows the parameter to be optional thus
+      provides what one would have expected from isOptional.
+      (isOptional itself appears to always return false.)  Thus there
+      is no mechanism to know whether an out parameter that is a pointer
+      can have a null out value.  Similarly for an in-out parameter, there
+      is no way to know whether the in value or out value can be null.
+      Furthermore, an in-out parameter would require two atttibutes:
+      allow-none-in and allow-none-out.
+
+      For now, for out and in-out parameters, we do not distinguish
+      optionally-null and non-null values.  The conversions OUTPTR and
+      INOUTPTR do not have their phantom type constrained.  (We still
+      need to know this missing information for the high-level interface
+      to determine whether to use an optional type.)
+
+
+  type
+    is the SML type representation derived from a GITypeInfo provided by
+    GIArgInfo.getType and GICallableInfo.getReturnType for a parameter type
+    and return type respectively.
+
+    type is translated according to the GIR type tag as follows:
+
+      Conversion from GIR type tags to SML types is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "no corresponding GType for INT8">
+        UINT8     --->    <raise Error "no corresponding GType for UINT8">
+        INT16     --->    <raise Error "no corresponding GType for INT16">
+        UINT16    --->    <raise Error "no corresponding GType for UINT16">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    unit
+        BOOLEAN   --->    bool
+        INT32     --->    LargeInt.int
+        UINT32    --->    LargeInt.int
+        INT64     --->    LargeInt.int
+        UINT64    --->    LargeInt.int
+        FLOAT     --->    real
+        DOUBLE    --->    real
+        UTF8      --->    string
+        UNICHAR   --->    char
+
+        INTERFACE --->
+
+          InterfaceName = GIBaseInfo.getName typeInfo
+          InterfaceNamespace = GIBaseInfo.getNamespace typeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          isSelf = InterfaceName = ContainerName
+          isGlobal = InterfaceNamespace <> FunctionNamespace
+
+            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+              if isGlobal and isClass
+
+            <InterfaceNamespace>.<InterfaceName>Record.t
+              if isGlobal and isRecord
+
+            <var> <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isUnion
+
+            <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isOther
+
+
+            <var> <interfacename>class_t
+              if not isGlobal and not isSelf and isClass
+
+            <interfacename>record_t
+              if not isGlobal and not isSelf and isRecord
+
+            <var> <interfacename>_t
+              if not isGlobal and not isSelf and isUnion
+
+            <interfacename>_t
+              if not isGlobal and not isSelf and isOther
+
+
+            <var> class_t
+              if not isGlobal and isSelf and isClass
+
+            record_t
+              if not isGlobal and isSelf and isRecord
+
+            <var> t
+              if not isGlobal and isSelf and isUnion
+
+            t
+              if not isGlobal and isSelf and isOther
+
+          where
+
+            var is
+
+              a fresh type variable
+                for an outParamType or a retType
+
+              base
+                for an inParamType
+
+
+==Declaration==
+
+For
+  L non-VOID IN/INOUT parameters excluding the object instance,
+  K non-VOID INOUT/OUT parameters,
+SignalDec has the form:
+
+
+  fun <signalName>Sig f =
+    signal
+    "<signal-name>"
+    (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
+    (
+      fn inParamName[1] & ... & inParamName[L] =>
+        let
+          val <retPat> = f inParamName[1] ... inParamName[L]
+        in
+          outParamName[1] & ... & outParamName[K] & <retVal>
+        end
+    )
+
+    if K > 0 and L > 0
+
+
+  fun <signalName>Sig f =
+    signal
+    "<signal-name>"
+    (void ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
+    (
+      fn () =>
+        let
+          val <retPat> = f ()
+        in
+          outParamName[1] & ... & outParamName[K] & <retVal>
+        end
+    )
+
+    if K > 0 and L = 0
+
+
+  fun <signalName>Sig f =
+    signal
+    "<signal-name>"
+    (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <retFun>)
+    (
+      fn inParamName[1] & ... & inParamName[L] =>
+        f inParamName[1] ... inParamName[L]
+    )
+
+    if K = 0 and L > 1
+
+
+  fun <signalName>Sig f =
+    signal
+    "<signal-name>"
+    (<getFun[1]> ---> <retFun>)
+    f
+
+    if K = 0 and L = 1
+
+
+  fun <signalName>Sig f =
+    signal
+    "<signal-name>"
+    (void ---> <retFun>)
+    f
+
+    if K = 0 and L = 0
+
+
+where
+
+
+  retPat
+    when K > 0, is defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag      | retPat
+        ===========+===================================================
+          VOID     | (outParamName[1], ..., outParamName[K])
+        -----------+---------------------------------------------------
+          _        | (retVal, outParamName[1], ..., outParamName[K])
+        -----------+---------------------------------------------------
+
+
+  retVal
+    when K > 0, is defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag             | retVal
+        ==================+===================
+          VOID            | ()
+        ------------------+-------------------
+          _               | retVal
+        ------------------+-------------------
+
+
+  retFun
+    is the closure marshaller writer function for the
+    return value of the signal handler function,
+    translated according to the GIR type tag as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "no corresponding GType for INT8">
+        UINT8     --->    <raise Error "no corresponding GType for UINT8">
+        INT16     --->    <raise Error "no corresponding GType for INT16">
+        UINT16    --->    <raise Error "no corresponding GType for UINT16">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    ret_void
+        BOOLEAN   --->    ret boolean
+        INT32     --->    ret int32
+        UINT32    --->    ret uint32
+        INT64     --->    ret int64
+        UINT64    --->    ret uint64
+        FLOAT     --->    ret float
+        DOUBLE    --->    ret double
+        UTF8      --->    ret string
+        UNICHAR   --->    ret char
+
+        INTERFACE --->
+
+          InterfaceName = GIBaseInfo.getName typeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+
+            ret <InterfaceNamespace><InterfaceName>Class.t<RetOpt>
+              if isClass
+
+
+            ret <InterfaceNamespace><InterfaceName>Class.t<RetOpt>
+              if isRecord
+
+
+            ret <InterfaceNamespace><InterfaceName>.t<RetOpt>
+              if not isSelf and isUnion
+
+            ret t<RetOpt>
+              if isSelf and isUnion
+
+
+            ret <InterfaceNamespace><InterfaceName>.t<RetOpt>
+              if not isSelf and isOther
+
+            ret t<RetOpt>
+              if isSelf and isOther
+
+
+          RetOpt is defined as follows:
+
+            mayReturnNull = GICallableInfo.mayReturnNull signalInfo
+
+              mayReturnNull   | RetOpt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+
+  getFun[l]
+    for l in 1 to L, is the closure marshaller reader function for the
+    <l>th parameter in the list of non-VOID IN/INOUT parameters of the
+    signal handler function, translated according to the GIR type tag
+    as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "no corresponding GType for INT8">
+        UINT8     --->    <raise Error "no corresponding GType for UINT8">
+        INT16     --->    <raise Error "no corresponding GType for INT16">
+        UINT16    --->    <raise Error "no corresponding GType for UINT16">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    get <j> boolean
+        INT32     --->    get <j> int32
+        UINT32    --->    get <j> uint32
+        INT64     --->    get <j> int64
+        UINT64    --->    get <j> uint64
+        FLOAT     --->    get <j> float
+        DOUBLE    --->    get <j> double
+        UTF8      --->    get <j> string
+        UNICHAR   --->    get <j> char
+
+        INTERFACE --->
+
+          InterfaceName = GIBaseInfo.getName typeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+
+            get <j> <InterfaceNamespace><InterfaceName>Class.t<InOpt>
+              if isClass
+
+
+            get <j> <InterfaceNamespace><InterfaceName>Record.t<InOpt>
+              if isRecord
+
+
+            get <j> <InterfaceNamespace><InterfaceName>.t<InOpt>
+              if  not isSelf and isUnion
+
+            get <j> t<InOpt>
+              if isSelf and isUnion
+
+
+            get <j> <InterfaceNamespace><InterfaceName>.t<InOpt>
+              if  not isSelf and isOther
+
+            get <j> t<InOpt>
+              if isSelf and isOther
+
+
+          InOpt is defined as follows:
+
+            mayBeNull   = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | InOpt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opy
+            ------------------+-------------------
+
+
+  setFun[k]
+    for k in 1 to K, is the closure marshaller writer function for the
+    <k>th parameter in the list of non-VOID INOUT/OUT parameters of the
+    signal handler function, translated according to the GIR type tag
+    as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        INT8      --->    <raise Error "no corresponding GType for INT8">
+        UINT8     --->    <raise Error "no corresponding GType for UINT8">
+        INT16     --->    <raise Error "no corresponding GType for INT16">
+        UINT16    --->    <raise Error "no corresponding GType for UINT16">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    <raise Error "not supported">
+        ARRAY     --->    <raise Error "not supported">
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Fail "VOID">
+        BOOLEAN   --->    set <j> boolean
+        INT32     --->    set <j> int32
+        UINT32    --->    set <j> uint32
+        INT64     --->    set <j> int64
+        UINT64    --->    set <j> uint64
+        FLOAT     --->    set <j> float
+        DOUBLE    --->    set <j> double
+        UTF8      --->    set <j> string
+        UNICHAR   --->    set <j> char
+
+        INTERFACE --->
+
+          InterfaceName = GIBaseInfo.getName typeInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+          infoType = GIInfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+
+            set <j> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
+              if isClass
+
+
+            set <j> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
+              if isRecord
+
+
+            set <j> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+              if not isSelf and isUnion
+
+            set <j> t<OutOpt>
+              if isSelf and isUnion
+
+
+            set <j> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+              if not isSelf and isOther
+
+            set <j> t<OutOpt>
+              if isSelf and isOther
+
+
+          OutOpt cannot be determined because GIR does not capture
+          sufficient information.  For now, it is defined as follows:
+
+              | OutOpt
+            ==+===================
+              | <empty>
+            --+-------------------
+
+
+  j
+    is a word literal giving the zero-based position of the
+    IN/INOUT/OUT parameter in the list of parameters.
+
+
+

@@ -1,0 +1,42 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+in
+  ../atk-1.0/mlton.mlb
+  ../glib-2.0/mlton.mlb
+  ../gmodule-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../gdk-3.0/mlton.mlb
+  ../gdkpixbuf-2.0/mlton.mlb
+  ../gio-2.0/mlton.mlb
+  ../gtk-3.0/mlton.mlb
+  ../pango-1.0/mlton.mlb
+  ../cairo-1.0/mlton.mlb
+  ../xlib-2.0/mlton.mlb
+  VTE_PTY_CLASS.sml
+  VTE_PTY.sml
+  VTE_PTY_ERROR.sml
+  VTE_PTY_FLAGS.sml
+  VTE_TERMINAL_CLASS.sml
+  VTE_TERMINAL.sml
+  VTE_TERMINAL_ANTI_ALIAS.sml
+  VTE_TERMINAL_CURSOR_BLINK_MODE.sml
+  VTE_TERMINAL_CURSOR_SHAPE.sml
+  VTE_TERMINAL_ERASE_BINDING.sml
+  VTE_TERMINAL_WRITE_FLAGS.sml
+  VTE.sml
+  mlton/VtePtyClass.sml
+  mlton/VtePtyError.sml
+  mlton/VtePtyFlags.sml
+  mlton/VteTerminalClass.sml
+  mlton/VteTerminalAntiAlias.sml
+  mlton/VteTerminalCursorBlinkMode.sml
+  mlton/VteTerminalCursorShape.sml
+  mlton/VteTerminalEraseBinding.sml
+  mlton/VteTerminalWriteFlags.sml
+  mlton/VtePty.sml
+  mlton/VteTerminal.sml
+  mlton/Vte.sml
+end

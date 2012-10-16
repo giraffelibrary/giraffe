@@ -1,0 +1,53 @@
+Issues for writing portable SML
+
+
+<update based on email contents>
+
+
+
+
+Generally, SML programs are very portable.  However, when developing code for use with multiple compilers it is necessary to be aware of portability issues.
+
+...portability considerations relate to the Basis Library due to areas that are
+ 1. optional or
+ 2. underspecified, for example, the size of types `Int.int` or `LargeInt.int`.
+The potential variation is well documented in the Basis Library and not covered here.  The purpose of this document is to note unexpected portability issues, particularly those that arise in practice.
+
+The issues in this document primarily relate to whether a program is valid.  Such issues can be detected simply by type checking a program with all target compilers to see whether it is accepted or rejected.  Unfortunately, neither MLton nor Poly/ML will guarantee that a program will be accepted by the other compiler.  Thus it is good practice to compile with both MLton and Poly/ML during development.
+
+Also, differences between the architectures of compilers can lead to variation, for example, the differences between compilation in an interactive session and stand-alone compilation.
+
+
+
+Resolving flexible records and overloading
+
+The scope of surrounding text for resolving flexible records and overloading differs between MLton and Poly/ML.  Poly/ML uses an entire topdec, which is not compliant with the Definition, whereas MLton chooses to use an innermost strdec, which is compliant with the Definition.  This difference means that some programs type check with Poly/ML but not with MLton.
+
+A classic example is relying on the signature constraint of a structure to resolve flexible records or overloading.
+
+
+Monomorphic arrays and vectors
+
+With MLton, monomorphic array and vector types are interchangable with their polymorphic counterparts.  For example, the monomorphic types have equivalent polymorphic types as follows:
+
+    Monomorphic type    Polymorphic type
+
+    CharArray.array     char Array.array
+    BoolArray.array     bool Array.array
+    ...
+
+    CharVector.vector   char Vector.vector
+    BoolVector.vector   bool Vector.vector
+    ...
+
+With Poly/ML, the above type equivalences do not hold.  Thus, for portability, source code must not assume such type equivalence.
+
+
+Top-level values
+
+With Poly/ML, top-level are evaluated with respect to the environment at compile time.  MLton has no top-level environment and evaluates top-level values with respect to the environment when the application is started.  The environment could be different at these two times, e.g. environment variables, so results could differ.
+
+Top-level values should be avoided with GObject-related code because, whichever compiler is used, they will be evaluated before the GObject type system or GTK+ has been initialized, giving incorrect results (and assertion failures).
+
+
+

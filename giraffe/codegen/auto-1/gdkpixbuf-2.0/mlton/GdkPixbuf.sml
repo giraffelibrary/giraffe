@@ -1,0 +1,32 @@
+structure GdkPixbuf : GDK_PIXBUF =
+  struct
+    structure Colorspace = GdkPixbufColorspace
+    structure InterpType = GdkPixbufInterpType
+    structure PixbufClass = GdkPixbufPixbufClass
+    structure PixbufAlphaMode = GdkPixbufPixbufAlphaMode
+    structure PixbufAnimationClass = GdkPixbufPixbufAnimationClass
+    structure PixbufAnimationIterClass = GdkPixbufPixbufAnimationIterClass
+    structure PixbufError = GdkPixbufPixbufError
+    exception PixbufError = GdkPixbufPixbufError
+    structure PixbufFormatRecord = GdkPixbufPixbufFormatRecord
+    structure PixbufLoaderClass = GdkPixbufPixbufLoaderClass
+    structure PixbufRotation = GdkPixbufPixbufRotation
+    structure PixdataDumpType = GdkPixbufPixdataDumpType
+    structure PixdataType = GdkPixbufPixdataType
+    structure Pixbuf = GdkPixbufPixbuf
+    structure PixbufAnimation = GdkPixbufPixbufAnimation
+    structure PixbufAnimationIter = GdkPixbufPixbufAnimationIter
+    structure PixbufFormat = GdkPixbufPixbufFormat
+    structure PixbufLoader = GdkPixbufPixbufLoader
+    structure PixbufSimpleAnimClass = GdkPixbufPixbufSimpleAnimClass
+    structure PixbufSimpleAnimIterClass = GdkPixbufPixbufSimpleAnimIterClass
+    structure PixbufSimpleAnim = GdkPixbufPixbufSimpleAnim
+    structure PixbufSimpleAnimIter = GdkPixbufPixbufSimpleAnimIter
+    val PIXBUF_FEATURES_H = 1
+    val PIXBUF_MAGIC_NUMBER = 1197763408
+    val PIXBUF_MAJOR = 2
+    val PIXBUF_MICRO = 1
+    val PIXBUF_MINOR = 24
+    val PIXBUF_VERSION = "2.24.1"
+    val PIXDATA_HEADER_LENGTH = 24
+  end

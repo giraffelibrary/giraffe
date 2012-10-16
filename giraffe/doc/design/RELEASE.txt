@@ -1,0 +1,27 @@
+# Take a copy of the source directory, breaking symbolic links
+#
+RELEASEDIR=/tmp/release/
+mkdir -p ${RELEASEDIR}
+cp -dprL ~/SML/Giraffe/devel/giraffe ${RELEASEDIR}
+cd ${RELEASEDIR}/giraffe/
+
+
+# Remove non-release components
+#
+rm -rf codegen graveyard doc/design
+rmdir doc/user_guide  # just for now
+rm auto/polyml/giraffe-gobject-introspection-1.0.c
+
+
+# Edit Makefile to remove the line:
+#
+#         giraffe-gobject-introspection-1.0 \
+
+
+# Make TAR file
+#
+
+cd ${RELEASEDIR}/
+
+VERSION=1.0a1
+tar --owner=root --group=root -czf giraffe-${VERSION}.tar.gz giraffe

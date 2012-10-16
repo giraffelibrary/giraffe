@@ -1,0 +1,326 @@
+=Object=
+
+Context
+
+  repo
+    the repository in use
+
+  objectInfo
+    the object typelib info
+
+
+Placeholders
+
+  ObjectName = GIBaseInfo.getName objectInfo
+
+  ObjectNamespace = GIBaseInfo.getNamespace objectInfo
+
+  ObjectCPrefix = GIRepository.getCPrefix repo <ObjectNamespace>
+
+  getTypeSymbol = GIObjectInfo.getTypeInit objectInfo
+
+
+Conditions
+
+  isGObject = "GObject" = ObjectNamespace
+
+  isParentNamespace = ParentObjectNamespace = ObjectNamespace
+
+
+==Root class signature==
+
+
+
+==Root class structure==
+
+
+
+==Derived class signature==
+
+signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
+  sig
+    type 'a <objectname>
+                                                          -.
+    type 'a <parentobjectname>class_t                      | isParentNamespace
+    type 'a t = 'a <objectname> <parentobjectname>class_t  |
+                                                          -'
+                                                          -.
+    type 'a t =                                            | not isParentNamespace
+      'a <objectname> <ParentObjectNamespace>.<ParentObjectName>Class.t
+                                                          -'
+    val toBase : 'a t -> base t
+                                                                    -.
+    type ('a, 'b) value_accessor                                     |
+    val t : (base t, 'a t) value_accessor                            | isGObject
+    val tOpt : (base t option, 'a t option) value_accessor           |
+                                                                    -'
+                                                                    -.
+    val t : (base t, 'a t) GObject.Value.accessor                    | not isGObject
+    val tOpt : (base t option, 'a t option) GObject.Value.accessor   |
+                                                                    -'
+    structure C :
+      sig
+        type notnull
+        type 'a p
+        val fromPtr : bool -> notnull p -> 'a t
+        val fromOptPtr : bool -> unit p -> 'a t option
+      end
+  end
+
+
+==Derived class structure==
+
+structure <ObjectNamespace><ObjectName>Class :>
+  <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS
+                                                          -.
+    where                                                  |
+      type 'a <parentobjectname>class_t =                  | isParentNamespace
+        'a <ParentObjectNamespace><ParentObjectName>Class.t|
+                                                          -'
+                                                                          -.
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor    | isGObject
+                                                                          -'
+    where type C.notnull = <ParentObjectNamespace><ParentObjectName>Class.C.notnull
+    where type 'a C.p = 'a <ParentObjectNamespace><ParentObjectName>Class.C.p =
+  struct
+    type 'a <objectname> = unit
+                                                          -.
+    type 'a <parentobjectname>class_t =                    |
+      'a <ParentObjectNamespace><ParentObjectName>Class.t  | isParentNamespace
+    type 'a t = 'a <objectname> <parentobjectname>class_t  |
+                                                          -'
+                                                          -.
+    type 'a t =                                            | not isParentNamespace
+      'a <objectname> <ParentObjectNamespace><ParentObjectName>Class.t
+                                                          -'
+    fun toBase obj = obj
+                                                                          -.
+    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor          | isGObject
+                                                                          -'
+    val t = <ParentObjectNamespace><ParentObjectName>Class.t
+    val tOpt = <ParentObjectNamespace><ParentObjectName>Class.tOpt
+    structure C = <ParentObjectNamespace><ParentObjectName>Class.C
+  end
+
+
+==Object signature==
+
+signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
+  sig
+    (* Types *)
+
+    type 'a class_t
+
+    type <varlist[1]> <typename[1]>_t
+
+    ...
+
+    type <varlist[N]> <typename[N]>_t
+                                                            -.
+    type ('object, 'a) property_readonly                     |
+    type ('object, 'a) property_writeonly                    | isGObject and P > 0
+    type ('object, 'a, 'b) property_readwrite                |
+                                                            -'
+
+    (* Interfaces *)
+
+    <InterfaceConvSpec[1]>
+
+    ...
+
+    <InterfaceConvSpec[I]>
+
+
+    (* Constants *)
+
+    <ConstantSpec[1]>
+
+    ...
+
+    <ConstantSpec[C]>
+
+
+    (* Functions *)
+
+    val getType : unit -> <type>
+
+    <FunctionSpec[1]>
+
+    ...
+
+    <FunctionSpec[M]>
+
+
+    (* Signals *)
+
+    <SignalSpec[1]>
+
+    ...
+
+    <SignalSpec[S]>
+
+
+    (* Properties *)
+
+    <PropertySpec[1]>
+
+    ...
+
+    <PropertySpec[P]>
+  end
+
+
+where
+
+
+  type
+    is defined as follows:
+
+        GObject.Type.t
+          if not isGObject
+
+        type_t
+          if isGObject
+
+
+  typeName[n], varlist[n]
+    For i in 1 .. N
+
+      <varlist[i]> <typename[i]>_t
+
+    is the <n>th element in the list of types referenced later in the
+    signature that, for some InterfaceName whose namespace is
+    <ObjectNamespace> and some var, have one of the following forms:
+
+      <var> <interfacename>class_t
+      <var> <interfacename>_t
+      <interfacename>record_t
+      <interfacename>_t
+
+
+==Object structure==
+
+structure <ObjectNamespace><ObjectName> :>
+  <OBJECT_NAMESPACE>_<OBJECT_NAME>
+    where type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
+
+    where type <varlist[1]> <typename[1]>_t = <varlist[1]> <ObjectNamespace><TypeName[1]>.t
+
+    ...
+
+    where type <varlist[N]> <typename[N]>_t = <varlist[N]> <ObjectNamespace><TypeName[N]>.t
+                                                                                          -.
+    where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
+    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject and P > 0
+    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
+                                                                                          -'
+=
+  struct
+    (* Low-Level Functions *)
+                                                                            -.
+    local                                                                    |
+      open PolyMLFFI                                                         |
+    in                                                                       |
+      val getType_ =                                                         |
+        call                                                                 |
+          (load_sym lib<objectnamespace> "<getTypeSymbol>")                  |
+          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);                      |
+                                                                             | Poly/ML only
+      <LowLevelFunction[1]>                                                  |
+                                                                             |
+      ...                                                                    |
+                                                                             |
+      <LowLevelFunction[M]>                                                  |
+    end                                                                      |
+                                                                            -'
+                                                                            -.
+    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;   |
+                                                                             |
+    <LowLevelFunction[1]>                                                    |
+                                                                             | MLton only
+    ...                                                                      |
+                                                                             |
+    <LowLevelFunction[M]>                                                    |
+                                                                            -'
+
+
+    (* Types *)
+
+    type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
+
+    type <varlist[1]> <typename[1]>_t = <varlist[1]> <ObjectNamespace><TypeName[1]>.t
+
+    ...
+
+    type <varlist[N]> <typename[N]>_t = <varlist[N]> <ObjectNamespace><TypeName[N]>.t
+                                                                                          -.
+    type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
+    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
+    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
+                                                                                          -'
+
+    (* Interfaces *)
+
+    <InterfaceConvDec[1]>
+
+    ...
+
+    <InterfaceConvDec[I]>
+
+
+    (* Constants *)
+
+    <ConstantDec[1]>
+
+    ...
+
+    <ConstantDec[C]>
+
+
+    (* High-Level Functions *)
+
+    val getType = (I ---> GObjectType.C.fromVal) getType_
+
+    <HighLevelFunction[1]>
+
+    ...
+
+    <HighLevelFunction[M]>
+
+
+    (* Signals *)
+
+    local
+      open ClosureMarshal Signal
+    in
+      <SignalDec[1]>
+      ...
+      <SignalDec[S]>
+    end
+
+
+    (* Properties *)
+
+    local
+      open Property
+    in
+      <PropertyDec[1]>
+      ...
+      <PropertyDec[P]>
+    end
+  end
+
+
+where
+
+
+  typeName[n] is the same as for the signature;
+
+
+  varlist[n] is the same as for the signature;
+
+
+  ...
+
+
+

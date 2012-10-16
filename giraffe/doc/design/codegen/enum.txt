@@ -1,0 +1,314 @@
+=Enum=
+
+For enumerations, there are two possible forms: a simple enumeration and an error
+enumeration.  An error enumeration has addition components for the domain exception
+and error handler.
+
+Context
+
+  repo
+    the repository in use
+
+  enumInfo
+    the enumeration typelib info
+
+
+Placeholders
+
+  EnumName = GIBaseInfo.getName objectInfo
+
+  EnumNamespace = GIBaseInfo.getNamespace objectInfo
+
+  EnumCPrefix = GIRepository.getCPrefix repo <EnumNamespace>
+
+  optErrorDomain = GIEnumInfo.getErrorDomain enumInfo
+
+  optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit enumInfo
+
+  EnumObjectNamespace =
+
+    GObject
+      if EnumNamespace = "GLib"
+
+    EnumNamespace
+      otherwise
+
+
+Conditions
+
+  isGObject = "GObject" = EnumNamespace
+
+
+==Signature==
+
+signature <ENUM_NAMESPACE>_<ENUM_NAME> =
+  sig
+    (* Types *)
+
+    datatype t =
+      <VALUENAME[1]>
+    | ...
+    | <VALUENAME[V]>
+                                                                     -.
+    val null : t                                                      | optErrorDomain is NONE
+                                                                     -'
+                                                                     -.
+    exception Error of t                                              |
+                                                    -.                |
+    type errorrecord_handler                         | isGLib         |
+    val handler : errorrecord_handler                |                | optErrorDomain is SOME _
+                                                    -'                |
+                                                    -.                |
+    val handler : GLib.ErrorRecord.handler           | not isGLib     |
+                                                    -'               -'
+
+                                                    -.               -.
+    type ('a, 'b) value_accessor                     | isGObject      |
+    val t : (base t, 'a t) value_accessor            |                |
+                                                    -'                | optGetTypeSymbol is SOME _
+                                                    -.                |
+    val t : (base t, 'a t) GObject.Value.accessor    | not isGObject  |
+                                                    -'               -'
+
+    type <varlist[1]> <typename[1]>_t
+    ...
+    type <varlist[N]> <typename[N]>_t
+
+
+    (* Functions *)
+                                                                     -.
+    val getType : unit -> <type>                                      | optGetTypeSymbol is SOME _
+                                                                     -'
+    <FunctionSpec[1]>
+
+    ...
+
+    <FunctionSpec[M]>
+
+
+    structure C :
+      sig
+        type val_
+        type ref_
+        val withVal : (val_ -> 'a) -> t -> 'a
+        val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair
+        val fromVal : val_ -> t
+        exception Value of Int32.int
+      end
+  end
+
+
+where
+
+
+  type
+    is defined as follows:
+
+        GObject.Type.t
+          if not isGObject
+
+        type_t
+          if isGObject
+
+
+  valueName[v] is the name of the <v>th enumeration value;
+
+
+  typeName[n], varlist[n]
+    For i in 1 .. N
+
+      <varlist[i]> <typename[i]>_t
+
+    is the <n>th element in the list of types referenced later in the
+    signature that, for some InterfaceName whose namespace is
+    <EnumNamespace> and some var, have one of the following forms:
+
+      <var> <interfacename>class_t
+      <var> <interfacename>_t
+      <interfacename>record_t
+      <interfacename>_t
+
+
+==Structure==
+
+structure <EnumNamespace><EnumName> :>
+  sig
+    include
+      <ENUM_NAMESPACE>_<ENUM_NAME>
+                                                                                -.
+        where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor      | isGObject andalso optGetTypeSymbol is SOME _
+                                                                                -'
+        where type <varlist[1]> <typename[1]>_t = <varlist[1]> <EnumNamespace><TypeName[1]>.t
+
+        ...
+
+        where type <varlist[N]> <typename[N]>_t = <varlist[N]> <EnumNamespace><TypeName[N]>.t
+                                                                                -.
+        where type errorrecord_handler = GLibErrorRecord.handler                 | isGLib andalso optErrorDomain is SOME _
+                                                                                -'
+
+    structure PolyML :                          -.
+      sig                                        |
+        val VAL : C.val_ CInterface.Conversion   | Poly/ML only
+        val REF : C.ref_ CInterface.Conversion   |
+      end                                       -'
+  end =
+  struct
+    datatype t =
+      <VALUENAME[1]>
+    | ...
+    | <VALUENAME[V]>
+
+    structure C =
+      struct
+        type val_ = Int32.int
+        type ref_ = FFI.Int32.ref_
+        exception Value of Int32.int
+
+        fun withVal f =
+          fn
+            <VALUENAME[1]> => f <valueValue[1]>
+          | ...
+          | <VALUENAME[V]> => f <valueValue[V]>
+
+        fun withRefVal f = withVal (FFI.Int32.withRefVal f)
+
+        val fromVal =
+          fn
+            <valueValue[1]> => <VALUENAME[1]>
+          | ...
+          | <valueValue[V]> => <VALUENAME[V]>
+          | n               => raise Value n
+      end
+
+    structure PolyML =                          -.
+      struct                                     |
+        val VAL = FFI.PolyML.Int32.VAL           | Poly/ML only
+        val REF = FFI.PolyML.Int32.REF           |
+      end                                       -'
+
+
+    (* Accessor *)
+                                                                          -.              -.
+    local                                                                  |               |
+      open PolyMLFFI                                                       |               |
+    in                                                                     |               |
+      val getType_ =                                                       |               |
+        call                                                               |               |
+          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")            | Poly/ML only  |
+          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);                    |               |
+                                                                           |               |
+      val getValue_ =                                                      |               |
+        call                                                               |               |
+          (load_sym libgobject "g_value_get_enum")                         |               |
+          (GObjectValueRecord.PolyML.PTR --> PolyML.VAL);                  |               |
+                                                                           |               |
+      val setValue_ =                                                      |               |
+        call                                                               |               |
+          (load_sym libgobject "g_value_set_enum")                         |               |
+          (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID);              |
+    end                                                                    |               | optGetTypeSymbol
+                                                                          -'               |  is SOME getTypeSymbol
+                                                                          -.               |
+    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.C.val_; |               |
+                                                                           |               |
+    val getValue_ =                                                        |               |
+      _import "g_value_get_enum" : GObjectValueRecord.C.p -> C.val_;       | MLton only    |
+                                                                           |               |
+    val setValue_ =                                                        |               |
+      _import "g_value_set_enum" : GObjectValueRecord.C.p * C.val_ -> unit;|               |
+                                                                          -'               |
+                                                                          -.               |
+    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor         | isGObject     |
+                                                                          -'               |
+    val t =                                                                                |
+      GObjectValue.C.createAccessor {                                                      |
+        getType  = (I ---> GObjectType.C.fromVal) getType_,                                |
+        getValue = (I ---> C.fromPtr false) getValue_,                                     |
+        setValue = (I &&&> C.withPtr ---> I) setValue_                                     |
+      }                                                                                   -'
+
+                                                                     -.
+    val null = <VALUENAME[1]>                                         | optErrorDomain is NONE
+                                                                     -'
+                                                                     -.
+    exception Error of t                                              |
+                                                      -.              | optErrorDomain is
+    type errorrecord_handler = GLibErrorRecord.handler | isGLib       |  SOME errorDomain
+                                                      -'              |
+    val handler = GLibErrorRecord.makeHandler ("<errorDomain>", C.fromVal, Error)
+                                                                     -'
+
+    (* Low-Level Functions *)
+
+    local                                                                                 -.
+      open PolyMLFFI                                                                       |
+    in                                                                                     |
+                                                              -.                           |
+      val getType_ =                                           |                           |
+        call                                                   | optGetTypeSymbol          |
+          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")|  is SOME getTypeSymbol    |
+          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);        |                           |
+                                                              -'                           | Poly/ML only
+                                                                                           |
+      <LowLevelFunction[1]>                                                                |
+                                                                                           |
+      ...                                                                                  |
+                                                                                           |
+      <LowLevelFunction[M]>                                                                |
+    end                                                                                   -'
+
+                                                              -.                          -.
+    val getType_ =                                             | optGetTypeSymbol          |
+      _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;  |  is SOME getTypeSymbol    |
+                                                              -'                           |
+                                                                                           | MLton only
+    <LowLevelFunction[1]>                                                                  |
+                                                                                           |
+    ...                                                                                    |
+                                                                                           |
+    <LowLevelFunction[M]>                                                                 -'
+
+
+    (* Types *)
+
+    type <varlist[1]> <typename[1]>_t = <varlist[1]> <EnumNamespace><TypeName[1]>.t
+
+    ...
+
+    type <varlist[N]> <typename[N]>_t = <varlist[N]> <EnumNamespace><TypeName[N]>.t
+
+
+    (* High-Level Functions *)
+                                                              -. 
+    val getType = (I ---> GObjectType.C.fromVal) getType_      | optGetTypeSymbol is SOME _
+                                                              -'
+    <HighLevelFunction[1]>
+
+    ...
+
+    <HighLevelFunction[M]>
+  end
+                                                -.
+                                                 | optErrorDomain is SOME _
+exception <EnumNamespace><EnumName> = <EnumNamespace><EnumName>.Error
+                                                -'
+
+
+where
+
+
+  typeName[n] is the same as for the signature;
+
+
+  varlist[n] is the same as for the signature;
+
+
+  valueName[v] is the same as for the signature;
+
+
+  valueValue[v] is the value of the <v>th enumeration value
+    formatted as an SML integer literal
+
+
+

@@ -1,0 +1,23 @@
+structure GLibSpawnChildSetupFunc :>
+  sig
+    include G_LIB_SPAWN_CHILD_SETUP_FUNC
+
+    structure PolyML :
+      sig
+        val CALLBACK : C.callback CInterface.Conversion
+      end
+  end =
+  struct
+    type t = unit -> unit
+
+    structure C =
+      struct
+        type callback = t
+        val withCallback = FFI.withVal
+      end
+
+    structure PolyML =
+      struct
+        val CALLBACK = CInterface.FUNCTION1 FFI.PolyML.VOID FFI.PolyML.VOID
+      end
+  end

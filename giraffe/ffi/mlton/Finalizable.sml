@@ -1,0 +1,1 @@
+structure Finalizable = MLton.Finalizable

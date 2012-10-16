@@ -1,0 +1,95 @@
+This file is out of date.  Generally, string should be used everywhere, even
+though this results in additional copying/memory allocation.  The only
+possibly exception to this is potentially very large strings such as the
+contents of a text buffer.
+
+
+--------------------------------------------------------------------------------
+
+
+Currently, functions
+  return a gstring if they return an allocated string that the caller must free;
+  return a string if the return a string that must be copied
+
+
+
+Functions that currently use gstring, rather than string:
+* in comment indicates that the function should probably be changed from gstring to string.
+
+GLog.<all>
+GQuark.quark_to_string
+GError.message
+GShell.parse_argv
+GShell.quote
+GShell.unquote
+GSpawn.async_with_pipes
+
+GType.name
+GType.from_name
+
+Color.parse
+
+GtkBasis.init
+
+Clipboard.wait_for_text (return value)
+
+Widget.get_composite_name (return value*)
+Widget.path (return value*)
+Widget.class_path (return value*)
+
+TextIter.get_slice (return value)
+TextIter.get_text (return value)
+TextIter.get_visible_slice (return value)
+TextIter.get_visible_text (return value)
+
+Editable.get_chars (return value)
+
+FileChooser.get_current_folder (return value*)
+FileChooser.get_uri (return value*)
+FileChooser.get_current_folder_uri (return value*)
+FileChooser.get_preview_filename (return value*)
+FileChooser.get_preview_uri (return value*)
+
+CellRendererText.edited_sig (new_text parameter)
+
+Entry.set_text
+Entry.get_text
+Entry.insert_at_cursor_sig
+
+FontSelection.get_font_name (return value*)
+
+FontSelectionDialog.get_font_name (return value*)
+
+MessageDialog.new
+
+StatusBar.text_pushed_sig
+StatusBar.text_popped_sig
+
+TextBuffer.set_text
+TextBuffer.get_text
+TextBuffer.get_slice
+TextBuffer.insert_text_sig
+
+TextView.insert_at_cursor_sig
+
+UIManager.get_ui
+
+VteTerminal.set_font_from_string
+VteTerminal.fork_command_full
+
+
+Functions that should, perhaps, be changed to use gstring, rather than string:
+
+Editable.insert_text (2nd argument)
+
+
+
+
+Functions already using string, rather than gstring, that need to be updated to use copyFromNewPointer/copyFromNewNonNullPointer (if such function are considered useful for memory efficiency by immediately freeing allocated memory)
+
+FileChooser.get_filename
+
+
+
+
+

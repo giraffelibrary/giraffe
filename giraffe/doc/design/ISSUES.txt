@@ -1,0 +1,155 @@
+
+
+Investigate
+-----------
+
+________________________________________________________________________________
+** ownership transfer EVERYTHING for non-pointer STRUCT INTERFACE parameter not valid **
+
+
+gtk_style_context_get_property ()
+void                gtk_style_context_get_property      (GtkStyleContext *context,
+                                                         const gchar *property,
+                                                         GtkStateFlags state,
+                                                         GValue *value);
+When value is no longer needed, g_value_unset() must be called to free any allocated memory.
+  context: a GtkStyleContext
+  property: style property name
+  state: state to retrieve the property value for
+  value: return location for the style property value. [out][transfer full]
+
+
+gtk_style_properties_get_property ()
+gboolean            gtk_style_properties_get_property   (GtkStyleProperties *props,
+                                                         const gchar *property,
+                                                         GtkStateFlags state,
+                                                         GValue *value);
+Gets a style property from props for the given state. When done with value, g_value_unset() needs to be called to free any allocated memory.
+  props: a GtkStyleProperties
+  property: style property name
+  state: state to retrieve the property value for
+  value: return location for the style property value. [out][transfer full]
+Returns: TRUE if the property exists in props, FALSE otherwise
+
+
+gtk_theming_engine_get_property ()
+void                gtk_theming_engine_get_property     (GtkThemingEngine *engine,
+                                                         const gchar *property,
+                                                         GtkStateFlags state,
+                                                         GValue *value);
+Gets a property value as retrieved from the style settings that apply to the currently rendered element.
+
+  engine: a GtkThemingEngine
+  property: the property name
+  state: state to retrieve the value for
+  value: return location for the property value, you must free this memory using g_value_unset() once you are done with it. [out][transfer full]
+
+
+
+Need to look at support for properties.
+
+
+
+
+
+GdkAtom is a strange case: it is pointer but should be treated as a value, though we still want an option type for a possibly null value.
+
+
+
+
+
+
+
+
+Questions
+---------
+
+See TODO.txt
+
+
+
+
+
+
+
+CODEGEN
+-------
+
+
+=Not yet implemented=
+
+No support for C functions whose parameters or return value are
+  - arrays (except strings and some key functions that use arrays of strings)
+  - lists, i.e. GList, GSList
+  - callbacks, except for GSourceFunc, GChildWatchFunc and GIOFunc
+
+
+
+=GObject Introspection=
+
+
+==Option types for INOUT/OUT parameters and return values==
+
+Need following issues to be resolved to determine whether INOUT/OUT parameters and return types should be option types:
+
+ - out and inout parameter value "(nullable)" annotations
+   https://bugzilla.gnome.org/show_bug.cgi?id=626395
+
+ - return value "(nullable)" annotations
+   https://bugzilla.gnome.org/show_bug.cgi?id=660879
+
+
+==Option types for property values==
+
+Cannot determine whether property values should be option types.
+
+Almost all pointer types are optional.  However, there appear to be some that are not, e.g.
+  GtkWidget::focus-line-pattern
+
+
+==Conditional OUT parameters==
+
+OUT parameters are not always written: sometimes a boolean return value indicates whether an OUT parameter is written.
+See DESIGN.txt, "OUT parameters: hiding uninitialized values".
+
+
+==Error domains==
+
+Need error domain information in GIR to raise correct exception.
+
+
+==Extensible enumeration types==
+
+E.g. GtkIconSize: although an enumeration type, new values can be created for it.
+See https://bugzilla.gnome.org/show_bug.cgi?id=601425
+It is right that GtkIconSize parameters/return values are overridden by [type int]
+
+Extensible enumeration types need to be identied so that a different SML model can be used, e.g.
+
+  type t
+  val A : t
+  val B : t
+  val C : t
+
+  val getName : t -> string
+  val fromName : string -> t
+
+For example see GtkResponseType.
+
+
+==Deferred GType registration for C types outside scope of GObject==
+
+For a C type that has a corresponding GType registered, if the C type is not in a namespace that is, or descends from, GObject, we can't output the accessor: it must be introduced in the GObject namespace as an extension.  (This is exactly what is happening in C.)
+
+One example is GIOCondition.
+
+Another example could be CairoContext.
+
+Probably need support in GIR for this.
+
+
+==Other==
+
+Is there an issue from
+https://bugzilla.gnome.org/show_bug.cgi?id=604658
+?

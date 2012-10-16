@@ -1,0 +1,15 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+in
+  "Pair.sml"
+  "Combinators.sml"
+  "Functions.sml"
+  "Word32BitFlags.sml"
+  "GIRAFFE_LOG.sml"
+  "GIRAFFE_DEBUG.sml"
+  "GiraffeLog.sml"
+  ann "allowConstant true" in "mlton/GiraffeDebug.sml" end
+  "mlton/GC.sml"
+  "base.sml"
+end

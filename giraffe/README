@@ -1,0 +1,104 @@
+
+ __ o  o __
+ \_\|__|/_/
+   \(o  o)      Giraffe Library
+    |\ _|
+    |\`-'       SML bindings for C libraries with GIR support
+    |/|
+    |\|         http://www.giraffelibrary.org/
+    |/|
+    |\|
+
+ ******************************************************************************
+ *                                                                            *
+ *                 Warning!  This is an unstable pre-release!                 *
+ *                                                                            *
+ * This release has limitations and omissions that may not be documented.     *
+ * Furthermore, subsequent releases may introduce changes to the SML API that *
+ * are incompatible with SML code using this release.                         *
+ *                                                                            *
+ ******************************************************************************
+
+This README file covers the following topics:
+
+  1. Overview
+  2. System Requirements
+  3. Installation
+  4. Licence
+  5. Contact and support
+
+
+Full documentation is available in the User Manual at
+
+  http://www.giraffelibrary.org/doc/  **** not yet available ****
+
+
+         ---------------          1.  Overview          ---------------
+
+Giraffe Library is a set of SML libraries that wrap existing C libraries, such
+as GTK+, making the capabilities of the C libraries available to SML programs.
+The SML libraries provide an abstracted view of the C libraries that is guided
+by general conventions and philosophies of SML, including
+
+  - type-safety
+  - automatic memory management
+  - no uninitialized values
+  - portable source code
+  - naming conventions following the SML Basis Library
+
+Most of the SML library source code is generated automatically using the GIR
+data of the C libraries.  Support is available for the following C libraries:
+
+  Pango
+  GTK+
+  VTE (Virtual Terminal Emulator)
+
+and some parts of GLib.  Details on the library coverage and limitations are
+given in the User Manual:
+
+  http://www.giraffelibrary.org/doc/???  **** not yet available ****
+
+Notably, there are no SML bindings for the Cairo library which does not use
+GIR.  Support is expected in future by writing SML bindings manually.
+
+
+         ---------------    2.  System Requirements     ---------------
+
+**** This pre-release requires Linux x86_64. ****
+
+The following versions of SML compilers are supported:
+
+  MLton    >= r7618
+  Poly/ML  >= 5.5.0
+
+The following libraries are required:
+
+  GLib
+  Pango
+  GTK+           >= 3.2.0
+  VTE            >= 2.90
+
+**** In this pre-release, these libraries are not optional. ****
+
+
+         ---------------        3.  Installation        ---------------
+
+See the file 'INSTALL'.
+
+
+
+         ---------------          4.  Licence           ---------------
+
+Giraffe Library is released under the GNU LGPL.  See the file 'LICENCE' for
+details.
+
+A copy of the GNU GPL and the (additional terms of) the GNU LGPL are provided in
+the files 'COPYING' and 'COPYING.LESSER' respectively.
+
+
+
+         ---------------    5.  Contact and support     ---------------
+
+For queries, please email
+
+  Phil Clayton <phil.clayton@lineone.net>

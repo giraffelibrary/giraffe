@@ -1,0 +1,397 @@
+
+
+Adoption of SML conventions/philosophy
+
+  - type-safety:
+      - encoding of class hierarchies ensures a method of a class is applied
+        only to objects of that class or its descendant classes.
+
+      - optional values have an optional type: a null C pointer cannot be
+        dereferenced because a pointer that can be null is represented as
+        an optional non-null pointer.
+
+      - other bespoke abstractions.
+
+  - portability: same SML application code works across all supported compilers
+
+  - automatic memory management: no need to explicitly free memory.
+    What is the restriction in Ocaml's labl2tk?
+
+  - no uninitialized values
+
+  - naming conventions follow those used in the SML Basis Library
+
+
+
+
+
+
+
+
+<section>
+<title>Objects</title>
+
+Mutual dependence between SML modules can occur when modules contain both the class type and its methods: two modules can contain methods that refer to the other module's class type.  This is problematic for SML because the language does not support mutual dependence between modules.  The issue is avoided by using separate modules for the class hierarchy and the methods.  The class modules have names of the form <Name>Class and the methods are provided in the module <Name>.  The order that the class modules are introduced must satisfy the partial order of the hierarchy.  Once all class modules have been declared, there is no constraint on the order in which the method modules are introduced.  Thus a class module must contain all types and functions required to use an object in any interface: function, signal, property and possibly others.  (Note that this requires the class module provides GValue acccessors and can return the object's GType.)
+
+<section>
+<title>Memory management and reference counting</title>
+
+With GObject, reference counting is used to free objects when they are no longer required: an object is no longer required when there are no more references to it, so it is freed when its reference count drops to zero.
+
+Each SML value that represents an object is ultimately a C pointer.  To ensure that the object is not freed while it is still reachable from SML, a reference is added for the reference from SML.  A finalizer is added for the SML value that calls the object's unref function so that the reference for SML is removed when the SML value is no longer reachable.  (An SML runtime should call a finalizer for an SML value when it is no longer reachable, immediately prior to garbage collection of the SML value.)
+
+When an SML value is created that references an object, it is not simply a case of calling the object's ref function.  With GObject, new objects are created with an initially reference count of 1 because an object cannot exist with a reference count of zero.   Consequently, for some functions, e.g. those that return a new object, by convention, the initial reference count is transferred to the caller.  Thus the caller holds a reference without calling the object's ref function.  However, other functions, e.g. those that return an existing object, do not usually transfer a reference to the caller: the caller must explicitly call the object's ref function to hold a reference.  Therefore it is necessary to know whether a function transfers a reference to the caller to determine whether SML should call the object's ref function for its own reference.
+
+The GIR metadata indicates the transfer convention for values returned from C functions.  This is used in constructing C function wrappers to control whether the object's ref function is called.  In the case where an object is returned, the transfer convention is a flag (none/full) indicating whether one of the object's counted references is owned by the caller, i.e. whether the caller must call the object's unref function when they no longer require the object.
+
+Objects that are derived from GInitiallyUnowned may set the floating flag of a GObject to indicate whether one of the references in the reference count is `floating', i.e. unowned.  For such objects, a caller must add a reference by calling the object's ref_sink function.  (This performs a normal ref, then performs a sink - if floating, perform an unref and clear the floating flag, otherwise do nothing.)  Simply calling ref will leaving the floating reference unused, which will prevent the object reference count ever reaching zero, so cause a memory leak.
+
+The gtk-doc annotations allow the transfer convention 'floating' to be specified for objects that are floating.  However, 'floating' is the same as 'none'.  (The C interface to the typelib information does not distinguish.)  Consequently, for objects derived from GInitiallyUnowned, the required behaviour is the same as for objects not derived from GInitiallyUnowned except that when the transfer mode is 'none', we must call the object's ref_sink function, as opposed to the object's ref function.  For objects not derived from GInitiallyUnowned, calling ref_sink is equivalent to calling ref.  Thus, for all objects, ref_sink is called iff the transfer mode is 'none'.
+</section>
+
+</section>
+
+
+
+
+
+
+<section>
+<title>Structures</title>
+
+<section>
+<title>Boxed types</title>
+
+A boxed type is a C structure that has been registered as a boxed type with the GObject type system.  In practical terms, this means that the type system knows how to copy and free such structures.
+
+In Gtk, there are C structures for which <code>copy</code> and <code>free</code> functions are provided but are not listed as boxed types, e.g. <code>GtkTargetEntry</code>, <code>GtkIconInfo</code>, <code>GtkStockItem</code>.
+
+Furthermore, there are C structures that are listed as boxed types for which no explicit <code>copy</code> and <code>free</code> function is documented, e.g. <code>GtkSelectionData</code>, <code>GtkCssSection</code>.
+
+Boxed types are not necessarily opaque structures, e.g. <code>GtkRequisition</code>, <code>GtkSelectionData</code>, though some are, e.g. <code>GtkTextIter</code>, <code>GtkTreeModel</code>, <code>GtkTreePath</code>.
+
+Some boxed types do support reference counting and some do not.  Those that do are <code>GtkCssSection</code>, <code>GtkIconSet</code> and <code>GtkTargetList</code> (and consequently do not have explicit <code>copy</code> or <code>free</code> functions).
+
+For generating SML from introspection metadata, there is nothing special about boxed types.  Instead, the code generation considers structures generally.  A boxed type is simply a particular case of a structure.  
+</section>
+
+
+<section>
+<title>Memory management</title>
+
+The memory management for a structure depends on the particular functions that it provides: some provide <code>ref</code>/<code>unref</code> functions that support reference counting, some provide <code>copy</code>/<code>free</code> functions and some provide no functions.
+
+
+<section>
+<title>Structures that provide <code>new</code>/<code>copy</code>/<code>free</code> functions</title>
+
+Structures that are allocated in SML are automatically freed: when the garbage collector determines that the ML value is unreachable, the allocated memory is freed (using <code>g_boxed_free</code>).  (Contrast with objects, where an unreachable object is unreferened by <code>g_object_unref</code>.)  Therefore ownership of an allocated structure can never be transferred from SML to C.  The library interface must ensure, to make the interface 'safe', that no library function exists that holds on to a reference to a structure for later use.  This is currently the case because function that has an IN or INOUT parameter with ownership transfer that is not NOTHING is excluded.
+
+Many C functions return structures.  Where C functions write to a caller-allocated structure, the structure is allocated from the SML side, so this does not present any issue as described above.  Alternatively, a C function can return a reference to a structure.  Such a structure is allocated on the C side.  When the C function transfers ownership to the caller, the SML side is responsible for freeing the structure so can guarantee its presence for as long as it requires it.  However, when the C function does not transfer ownership, this presents an issue for access from SML: an SML program could hold a reference to a structure after it has been freed.  In this case, it is necessary to copy the structure using the copy operation into a structure allocated on the SML side.  For example, gtk_style_context_lookup_icon_set returns a pointer to a <code>GtkIconSet</code> which is not owned by the caller, so must be copied.
+
+Note that <code>GValue</code> is treated like any other structure.
+
+In the case of extracting a structure from a GValue, g_value_dup_boxed can be used instead of g_value_get_boxed.
+
+<section>
+<title>Structures that provide <code>ref</code>/<code>unref</code> functions</title>
+
+For example <code>GtkTextAttributes</code>
+
+  - ref/unref like a GObject
+  - for sample code, see GIBaseInfoClass
+
+</section>
+
+<section>
+<title>Structures that do not provide memory management functions</title>
+
+For example, <code>GtkRequestedSize</code>.
+
+
+</section>
+
+</section>
+
+</section>
+
+
+
+
+
+
+
+<section>
+<title>Flags</title>
+
+Each flag type has its own module, in the style of the SML Basis Libray.
+Unlike mGTK, which exposed each flag type as int, this prevents mixing of flags of different types.
+
+
+</section>
+
+
+
+
+
+
+
+<section>
+<title>Signals</title>
+
+
+Garbage collection issue
+
+Callbacks can prevent garbage collection
+Garbage collector cannot break cyclic dependencies.
+
+
+SML callback functions connected to signals of objects that do not receive a destroy signal can cause an issue for garbage collection.  For example, the callback function can reference the object that it is a signal handler for.  The reference in the callback function makes the object reachable, so it is never garbage collected, i.e. never unref'd, so consequently the callback function is removed and garbage collected.
+
+To ways to deal with this:
+1. Use weak references in callback functions to ensure that they don't make objects reachable
+2. Ensure callback functions are always removed
+
+Weak references are cumbersome in application code and appear problematic to support portably.
+
+Objects derived from GtkWidget should always receive a destroy signal
+
+ChildSignal.connect[After] widget must be used for connecting signal handlers to objects that do not receive a destroy signal.  The argument widget is used to determine when to remove the signal handler, in particular, the signal handler is removed on widget's destroy signal.
+
+
+Poly/ML issue
+
+Finalizers cannot call back into SML.
+Any attempt to do so results in a segmentation fault.
+This can occur when a
+
+An explicit call to Widget.destroy should do the job rather than letting destruction (and any on-destroy signals) happen when unref is called from a finalizer.  This is only needed for the root widget of a hierarchy that would not otherwise receive an explicit destroy signal.  For example, when a widget is removed, it should then be explicitly destroyed with Widget.destroy, rather than leaving the garbage collector to clean it up.
+
+
+
+</section>
+
+
+
+
+
+
+Unresolved design decisions
+---------------------------
+
+
+
+Should all numeric (signed/unsigned integer) types map to same SML type, e.g. LargeInt.int?
+
+
+
+OUT parameters: hiding uninitialized values
+
+Want to avoid uninitialized values being exposed to applications.
+How do we know when an OUT parameter is written?
+For scalar OUT parameters and ENUM/FLAGS, the value is initialized in SML (to zero).
+For example, see gtk_style_context_has_region - probably shouldn't return flags when function returns false.
+These are less of an issue than caller-allocated STRUCT parameters which could be passed on to other C functions leading to a seg fault.  Definitely don't want to return these.
+What is a good heuristic?
+Using the following logic:
+  - if there is a BOOLEAN return value, this value indicates whether all the OUT parameters are written and
+  - if there is not a BOOLEAN return value then all OUT parameters are written unconditionally
+This seems to work:
+1. I can't find any examples whether this is not 'safe', i.e. where this logic would assume an OUT parameter is written when it isn't.
+2. It is overly strong in some cases.  For example when gtk_text_buffer_get_selection_bounds returns false, both OUT parameters are still written (and contain a useful value) but this logic assumes they aren't written so would result in the values being thrown away.
+
+In an earlier version, only caller-allocated out parameters were considered
+for the hiding logic.  This was changed to be all out parameters by
+changing
+  addOutTy isCallerAlloc
+to
+  addOutTy true
+and
+  makeK isCallerAlloc
+to
+  makeK true
+
+
+from IRC:
+<pclayton> hi, is there a reliable way to detemine whether an out parameter is written?
+<pclayton> I am currently using the following heuristic:
+<pclayton>   - if there is a BOOLEAN return value, this value indicates whether all the OUT parameters are written and
+<pclayton>   - if there is not a BOOLEAN return value then all OUT parameters are written unconditionally
+<pclayton> it seems to work - have I missed something though?
+<pclayton> note that it is overly cautious, e.g. gtk_text_buffer_get_selection_bounds
+<walters> pclayton, unfortunately not
+<pclayton> I more interested in whether it is 'unsafe' anywhere
+<walters> in my code i have a rule - if a function returns an error, none of the out parameters are set
+<walters> and the converse is obviously true too: if a function returns successfully, all out parameters are set 
+<walters> our stack doesn't consistently follow this though
+<pclayton> walters: good point, I am talking about non-error cases only.  I wouldn't expect out parameters to be written when there is an error
+<pclayton> but what you say about the converse is good to know.  Do you have any convention on how a flag is returned to indicate whether an out is written?
+<pclayton> ah.. I've read that again and it sounds like you always write to outs when no error occurs.
+<walters> that's right
+<pclayton> there's a large number of gtk functions where the write is conditional...
+<walters> or a better way to think of it is that the out parameter is well-defined
+<walters> so for a string, it might be NULL if the API docs specify that's possible
+<walters> but a key point here is that *if* we were successful, we *will* set it to NULL
+<walters> so the user doesn't have to initialize it
+<pclayton> I see.  I'm trying to avoid 'unknown' (possibly uninitialized) values leaking out of the gtk api I'm generating
+<pclayton> it's not such an issue for scalar values but I'm certainly trying to avoid null pointers that could be subsequently dereferenced
+<walters> for pointer types, just documenting it can be %NULL is sufficient i think
+<pclayton> well.. my api is for standard ml - a functional programming language - so I'm not too sure the target audience would be happy about that :)
+<pclayton> I'm trying to hide all details relating to pointers
+<walters> doesn't one simulate "nullable types" in ML with Some x | None ?
+* tomeu has quit (tomeu)
+<pclayton> absolutely right!
+<pclayton> I'm trying to do that everywhere
+<walters> my standard ml and ocaml is long swapped out though for C/python/javascript though
+<pclayton> but another characteristic of ML is that there are no uninitialized values, so I am also using SOME x | NONE for out parameters that may/may not be written
+<walters> anyways if you need something from g-i like updated annotations, describing the use case, how you expect it to be used in bindings, and examples of current API in e.g. the GTK+ stack in a bugzilla report would be best
+<pclayton> thanks, I will raise this in bugzilla as you suggest -
+<pclayton> thanks, I will raise this in bugzilla as you suggest -
+<pclayton> - I am thinking along the lines of proposing an extension to the (out) annotation e.g. (out cond-ret) or (out cond=X) where X is a parameter
+<pclayton> (one thing I didn't say explicitly above but should have to be really clear: for ML, one really doesn't want SOME x | NONE for out parameters are written unconditionally or for pointers that are never null: the api would be considerably more usable if it has option types only where required, hence my question about determining the condition)
+
+
+
+
+
+
+Should GIArgInfo.isReturnValue be used to avoid returning values that are the same as parameters?
+
+
+
+Should GClosure have type parameter for callback function type
+  - not needed for type safety with signals but elsewhere, e.g. gtk_accel_group_connect
+
+  - adding a the callback function type would require signal type to mention
+    callback type, as in 0.95
+      - would require new type abbreviation for signals to avoid mentioning
+        callback function type twice
+      - does GIR contain callback types for signals?
+
+  - but adding a type parameter could present a problem for e.g.
+
+      gtk_action_get_accel_closure ()
+      GClosure *          gtk_action_get_accel_closure        (GtkAction *action);
+
+      - do such functions require differing GClosure callback types?
+          - if so, do such functions need to be supported?
+
+      - does introspection data capture callback type?
+
+
+
+
+Areas to conside adding support for
+-----------------------------------
+
+
+Emit signal function
+
+Notify signals for properties, e.g. notify::cursor_position
+
+Conversion support for other parameter return types
+
+  - all numeric types (see above about whether same SML type used for all)
+
+  - ARRAY types should be able to use generalization of existing
+    support for strings.
+    May need parallel signature and structures for non-null
+    terminated arrays.
+
+  - GxLIST
+
+Currently GdkEvent parameters causing code gen to give:
+  type UNION INTERFACE not supported
+For function arguments/return values, should we just treat UNION like STRUCT?
+
+#define values, e.g. GTK_PAPER_NAME_A3
+  - are these constants?
+      - constant support for OBJECT INTERFACE?
+
+ActionEntry and friends need special support, see GtkActionGroup.sml
+
+GtkRequestedSize similar?
+
+
+
+
+Problematic areas for automatic generation of SML bindings
+----------------------------------------------------------
+
+- Downcasting
+
+
+- Hierarchical relationships of non-GObject structures
+  Not captured in introspection data.
+
+  Generally, automatic generation cannot work where bespoke abstractions are required.
+
+
+  UNION structures
+
+  There is a special case where all members of a union are pointers to structs,
+  where the structs are used only in the union.
+  (Typically the structs have some initial members in common.)
+  Typically, it is required that any one of the structs in the union
+  can be cast up to the union type.
+  Furthermore, it may be required to cast the union down to a particular struct.
+
+  This scenario is problematic because the GIR data for the structs treats
+  them like ordinary structs.  It is not easy to determine that the structs
+  are used in the constrained way described above.  It may be necessary to perform
+  an initial pass over the GIR data to identify this particular pattern.
+
+  For example, GdkEvent.
+
+  Even more problematic is struct GIBaseInfo and derived structs, where
+  there is no overall union.
+
+
+- Excluding unwanted STRUCTs
+
+  Don't want any private structs included.
+  Most can be identified by checking for the suffix "Private" in their name.
+  However, this still leaves some, e.g.
+    GtkLabelSelectionInfo
+    GtkTextBTree
+
+  These are labelled as disguised.  Does it make sense to exclude all disguised
+  structs?  Some seem to be needed, e.g. GAsyncQueue.
+  Even if we do want to exclude disguised structs, can GIRepository provide disguised flag?
+
+
+- C functions with varargs are marked introspectable="0"
+
+  Sometimes, this leaves a gap in the capability, e.g. no way to
+  construct a MessageDialog as all constructor functions have varargs!
+
+  Alternatives must be added manually.
+
+
+- Convenience C types and functions
+
+  These are often best reimplemented in SML.
+
+  For example, GtkActionEntry used with GtkActionGroup.addActions:
+  it is far simpler to use an SML record for GtkActionEntry
+  (which is not a registered GType, has no operations etc. - nothing more
+  than a C struct) and reimplement addActions in SML.
+
+
+
+
+
+
+FFI
+---
+
+Two level scheme, see Poly/ML mail list email "Calling C functions".
+
+
+
+User limitations
+----------------
+
+Can't downcast objects.
+  - workaround by using trick by going via C interface
+

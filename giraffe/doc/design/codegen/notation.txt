@@ -1,0 +1,67 @@
+=Notation=
+
+==Placeholders==
+
+===Formatting===
+
+LCC(x) formats x as camel case starting with lower case, e.g. someExampleName
+UCC(x) formats x as camel case starting with upper case, e.g. SomeExampleName
+LC(x) formats x as lower case without underscores, e.g. someexamplename
+UC(x) formats x as upper case without underscores, e.g. SOMEEXAMPLENAME
+LCU(x) formats x as lower case with underscores between words, e.g. some_example_name
+UCU(x) formats x as upper case with underscores between words, e.g. SOME_EXAMPLE_NAME
+
+
+For the functions UCC, LCC, LCU and UCU, the source value of a placeholder must
+follow a convention that enables constituent words to be identified.  Typically,
+this format will, itself, be one of UCC, LCC, LCU or UCU.   When declaring a
+multi-word placeholder, we adopt the convention of formatting it according to
+the  format of its source value.  For example, we would declare a placeholder
+as function_name if the source of values is e.g. get_active_text.
+
+
+===Expansion===
+
+Angle brackets are used to represent the inline explansion of a placeholder,
+for example
+
+  val <LCC(name)> = "<value>"
+
+where
+
+  name = "window_title"
+  value = "Foo Control Panel"
+
+would format as
+
+  val windowTitle = "Foo Control Panel"
+
+
+===Visual formatting===
+
+For readability, we use an illustrative convention for multi-word placeholders
+inside expansion brackets <...> whereby the placeholder is formatted according
+to its format.  Thus, for a multi-word placeholder e.g. someVar, we write
+
+  <SomeVar>  for <UCC(someVar)>
+  <someVar>  for <LCC(someVar)>
+  <somevar>  for <LC(someVar)>
+  <SOMEVAR>  for <UC(someVar)>
+  <some_var> for <LCU(someVar)>
+  <SOME_VAR> for <UCU(someVar)>
+
+
+===SML formatting conventions===
+
+Typically formatting is used for SML name categories as follows:
+
+  UCC    structure, functor
+  LCC    value (incl. function)
+  LC     type
+  UC     constructor
+  LCU    -
+  UCU    signature
+
+
+
+

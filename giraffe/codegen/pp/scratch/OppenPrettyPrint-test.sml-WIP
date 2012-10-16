@@ -1,0 +1,265 @@
+fun test1 n fmt = PolyML.prettyPrint (print, n) o fmt;
+
+
+
+
+
+
+val test_const_real_1_val = ConstReal (0, 0, NONE)
+val test_const_real_2_val = ConstReal (0, 2, NONE)
+val test_const_real_3_val = ConstReal (123456, 0, NONE)
+val test_const_real_4_val = ConstReal (123456, 1, NONE)
+val test_const_real_5_val = ConstReal (123456, 2, NONE)
+val test_const_real_6_val = ConstReal (123456, ~1, NONE)
+val test_const_real_7_val = ConstReal (~123456, 0, NONE)
+val test_const_real_8_val = ConstReal (~123456, 1, NONE)
+val test_const_real_9_val = ConstReal (123456, 9, NONE)
+val test_const_real_10_val = ConstReal (~123456, 9, NONE)
+
+val test_const_real_11_val = ConstReal (0, 0, SOME 234)
+val test_const_real_12_val = ConstReal (0, 2, SOME ~234)
+val test_const_real_13_val = ConstReal (123456, 0, SOME 0)
+val test_const_real_14_val = ConstReal (123456, 1, SOME ~1)
+
+;
+
+test1 80 fmtConst test_const_real_1_val;
+test1 80 fmtConst test_const_real_2_val;
+test1 80 fmtConst test_const_real_3_val;
+test1 80 fmtConst test_const_real_4_val;
+test1 80 fmtConst test_const_real_5_val;
+test1 80 fmtConst test_const_real_6_val;
+test1 80 fmtConst test_const_real_7_val;
+test1 80 fmtConst test_const_real_8_val;
+test1 80 fmtConst test_const_real_9_val;
+test1 80 fmtConst test_const_real_10_val;
+test1 80 fmtConst test_const_real_11_val;
+test1 80 fmtConst test_const_real_12_val;
+test1 80 fmtConst test_const_real_13_val;
+test1 80 fmtConst test_const_real_14_val;
+
+
+
+val test_tyname_1_val = ([], "sometype")
+val test_tyname_2_val = ([(false, "a")], "sometype")
+val test_tyname_3_val = ([(false, "a"),
+                          (true,  "b")], "sometype")
+val test_tyname_4_val = ([(false, "a"),
+                          (true,  "b"),
+                          (false, "c")], "sometype")
+val test_tyname_5_val = ([(false, "aaaaaaaa"),
+                          (true,  "bbbbbbbb"),
+                          (false, "cccccccc")], "sometype")
+;
+
+
+test1 80 fmtTyName test_tyname_1_val;
+test1 80 fmtTyName test_tyname_2_val;
+test1 80 fmtTyName test_tyname_3_val;
+test1 80 fmtTyName test_tyname_4_val;
+
+test1 80 fmtTyName test_tyname_5_val;
+test1 40 fmtTyName test_tyname_5_val;
+test1 20 fmtTyName test_tyname_5_val;
+
+
+
+
+
+val test_ty_tyfun_1_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc"))
+  )
+
+val test_ty_tyfun_2_val = 
+  TyFun (
+    TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc")),
+    TyVar (false, "aaaaaaaaaa")
+  )
+
+val test_ty_tyfun_3_val = 
+  TyFun (
+    TyParen (
+      TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc"))
+    ),
+    TyVar (false, "aaaaaaaaaa")
+  )
+
+val test_ty_tyfun_4_val = 
+  TyFun (
+    TyParen (
+      TyFun (
+        TyVar (false, "bbbbbbbbbb"),
+        TyFun (TyVar (false, "cccccccccc"), TyVar (false, "cccccccccc"))
+      )
+    ),
+    TyVar (false, "aaaaaaaaaa")
+  )
+
+val test_ty_tyfun_5_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (
+      TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc")),
+      TyVar (false, "aaaaaaaaaa")
+    )
+  )
+
+val test_ty_tyfun_6_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (
+      TyParen (
+        TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc"))
+      ),
+      TyVar (false, "aaaaaaaaaa")
+    )
+  )
+
+val test_ty_tyfun_7_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (
+      TyParen (
+        TyFun (
+          TyVar (false, "bbbbbbbbbb"),
+          TyFun (TyVar (false, "cccccccccc"), TyVar (false, "cccccccccc"))
+        )
+      ),
+      TyVar (false, "aaaaaaaaaa")
+    )
+  )
+
+val test_ty_tyfun_8_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (
+      TyRef (
+        [TyVar (false, "aaaaaaaa"),
+         TyVar (true,  "bbbbbbbb"),
+         TyVar (false, "cccccccc")],
+        ("sometype", [])
+      ),
+      TyVar (false, "aaaaaaaaaa")
+    )
+  )
+
+val test_ty_tyfun_9_val = 
+  TyFun (
+    TyVar (false, "aaaaaaaaaa"),
+    TyFun (
+      TyVar (false, "aaaaaaaaaa"),
+      TyRef (
+        [TyVar (false, "aaaaaaaa"),
+         TyVar (true,  "bbbbbbbb"),
+         TyVar (false, "cccccccc")],
+        ("sometype", [])
+      )
+    )
+  )
+;
+
+test1 80 (fmtTy 0) test_ty_tyfun_1_val;
+test1 40 (fmtTy 0) test_ty_tyfun_1_val;
+test1 20 (fmtTy 0) test_ty_tyfun_1_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_2_val;
+test1 40 (fmtTy 0) test_ty_tyfun_2_val;
+test1 20 (fmtTy 0) test_ty_tyfun_2_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_3_val;
+test1 40 (fmtTy 0) test_ty_tyfun_3_val;
+test1 20 (fmtTy 0) test_ty_tyfun_3_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_4_val;
+test1 40 (fmtTy 0) test_ty_tyfun_4_val;
+test1 20 (fmtTy 0) test_ty_tyfun_4_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_5_val;
+test1 40 (fmtTy 0) test_ty_tyfun_5_val;
+test1 20 (fmtTy 0) test_ty_tyfun_5_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_6_val;
+test1 40 (fmtTy 0) test_ty_tyfun_6_val;
+test1 20 (fmtTy 0) test_ty_tyfun_6_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_7_val;
+test1 40 (fmtTy 0) test_ty_tyfun_7_val;
+test1 20 (fmtTy 0) test_ty_tyfun_7_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_8_val;
+test1 40 (fmtTy 0) test_ty_tyfun_8_val;
+test1 20 (fmtTy 0) test_ty_tyfun_8_val;
+
+test1 80 (fmtTy 0) test_ty_tyfun_9_val;
+test1 50 (fmtTy 0) test_ty_tyfun_9_val;
+test1 20 (fmtTy 0) test_ty_tyfun_9_val;
+
+
+
+
+
+
+
+
+
+
+
+val test_ty_typrod_1_val =
+  TyProd (
+    TyVar (false, "aaaaaaaaaaaa"),
+    (
+      TyVar (false, "bbbbbbbbbbbb"),
+      [TyVar (false, "cccccccccccc")]
+    )
+  )
+
+(* not a valid syntax tree *)
+val test_ty_typrod_2_val =
+  TyProd (
+    TyVar (false, "aaaaaaaaaaaa"),
+    (
+      TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc")),
+      [TyVar (false, "cccccccccccc")]
+    )
+  )
+
+val test_ty_typrod_3_val =
+  TyProd (
+    TyVar (false, "aaaaaaaaaaaa"),
+    (
+      TyParen (
+        TyFun (TyVar (false, "bbbbbbbbbb"), TyVar (false, "cccccccccc"))
+      ),
+      [TyVar (false, "cccccccccccc")]
+    )
+  )
+
+val test_ty_typrod_4_val =
+  TyFun (
+    TyProd (TyVar (false, "aaaaaaaaaaaa"), (TyVar (false, "bbbbbbbbbb"), [])),
+    TyProd (TyVar (false, "cccccccccccc"), (TyVar (false, "dddddddddd"), []))
+  )
+;
+
+test1 80 (fmtTy 0) test_ty_typrod_1_val;
+test1 40 (fmtTy 0) test_ty_typrod_1_val;
+test1 20 (fmtTy 0) test_ty_typrod_1_val;
+
+test1 80 (fmtTy 0) test_ty_typrod_2_val;
+test1 40 (fmtTy 0) test_ty_typrod_2_val;
+test1 20 (fmtTy 0) test_ty_typrod_2_val;
+
+test1 80 (fmtTy 0) test_ty_typrod_3_val;
+test1 40 (fmtTy 0) test_ty_typrod_3_val;
+test1 20 (fmtTy 0) test_ty_typrod_3_val;
+
+test1 80 (fmtTy 0) test_ty_typrod_4_val;
+test1 40 (fmtTy 0) test_ty_typrod_4_val;
+test1 20 (fmtTy 0) test_ty_typrod_4_val;
+
+
+
+
+

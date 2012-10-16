@@ -1,0 +1,351 @@
+
+use "load_files.sml";
+use "mgi-polyml.sml";
+use "pp/INT_INF_MATH.sml";
+use "pp/IntInfMath.sml";
+use "pp/ConcreteSyntaxTree.sml";
+
+
+val I = Combinators.I
+fun swap (x, y) = (y, x)
+
+
+(*
+ * Note on formatting right-associative operators
+ *
+ * With a simple approach to using Oppen formatting routines, typically
+ * the amount of indentation of a right spine is proportional to depth
+ * in the spine.  Consequently, for chains of right-associative operators,
+ * the level of indentation can easily exceed the formatting width.
+ * For example, for the right-associative function operator ->, the type
+ *
+ *   t1 -> t2 -> t3 -> ... -> tN
+ *
+ * would typically be formatted as
+ *
+ *   t1
+ *    -> t2
+ *        -> t3
+ *            -> ...
+ *                -> tN
+ *
+ * when the minimum width is required.
+ *
+ * Although putting right-associative operators at the end of the line
+ * avoids unbounded indentation, the result is not as readable, especially
+ * for non-trivial types:
+ *
+ *   t1 ->
+ *    t2 ->
+ *    t3 ->
+ *    ... ->
+ *    tN
+ *
+ * For scalability, we want to format such right spines in the same way
+ * that a left spine would be formatted, that is
+ *
+ *   t1
+ *    -> t2
+ *    -> t3
+ *    -> ...
+ *    -> tN
+ *
+ * The difficulty in achieving this is due to the fact that the Oppen
+ * scheme natually indents relative to the root of the structure.  Thus
+ * it is difficult to achieve the formatting
+ *
+ *       t2
+ *    -> ...
+ *
+ * The following three approaches are considered:
+ *
+ * 1. For a right-associative operator, do not perform a block indent
+ *    but indent all but the first item by parameterizing each formatting
+ *    function by a relative indent.  Any formatted items that can be
+ *    split over multiple lines must be enclosed in a block that is
+ *    indented by the relative indent.
+ *
+ * 2. Concatenate the items from each level of the spine into a single
+ *    list that can be contained in one block.  Note that whether the block
+ *    has inconsistent or consistent breaking, this cannot achieve the
+ *    partial indentation of the form
+ *
+ *      t111111111111
+ *       -> t222222222222
+ *       -> t3 -> ... -> tN
+ *
+ * 3. Use rotations to convert a right spine to a left spine and then
+ *    format conventionally.  The simplicity of this approach would be
+ *    lost if such a conversion changes the meaning of the data, as it
+ *    would for e.g. an abstract syntax tree (where operator precedence
+ *    and associativity is checked to determine whether parentheses are
+ *    inserted).  Even when such rotations are valid, note that the
+ *    partial indentation has the form
+ *
+ *      t1 -> t2 -> t3
+ *       -> ... -> tN
+ *
+ *    which may not be desired for a right-associative operator.
+ *
+ * For now, we use approach 1 where required.
+ *)
+
+
+
+
+
+local
+  open PolyML
+in
+  type pretty = pretty
+
+  fun blk (indent, consistent, items) =
+    PrettyBlock (indent, consistent, [], items)
+
+  fun brk (blanks, breakOffset) = PrettyBreak (blanks, breakOffset)
+
+  fun str s = PrettyString s
+end
+
+
+
+
+fun fmtList sep fmtX ts xs =
+  let
+    val revsep = rev sep
+    val rec fmt =
+      fn
+        ([],  [])       => []
+      | ([],  x :: xs') => fmt ([fmtX x], xs')
+      | (acc, x :: xs') => fmt (fmtX x :: (revsep @ acc), xs')
+      | (acc, [])       => List.revAppend (acc, ts)
+  in
+    fmt ([], xs)
+  end
+
+
+
+val fmtId = str
+val fmtAlnumId = str
+val fmtLabel = str
+fun fmtLid (id, ids) = str (String.concatWith "." (id :: ids))
+
+val fmtTyVar : tyvar -> pretty =
+  fn (isEqType, id) => str ((if isEqType then "''" else "'") ^ id)
+
+
+
+fun fmtConstInt (d, optE) =
+  str (
+    concat (
+      IntInf.fmt StringCvt.DEC d
+       :: (case optE of
+             NONE   => []
+           | SOME e => ["E", IntInf.fmt StringCvt.DEC e])
+    )
+  )
+
+fun fmtConstWord (d, optE) =
+  if d < 0
+  then raise Fail "fmtConstWord: word literal is negative"
+  else
+    str (
+      concat (
+        "0w"
+         :: IntInf.fmt StringCvt.DEC d
+         :: (case optE of
+               NONE   => []
+             | SOME e => ["E", IntInf.fmt StringCvt.DEC e])
+      )
+    )
+
+fun fmtConstReal (d, p, optE) =
+  if p < 0
+  then raise Fail "fmtConstReal: decimal point position is negative"
+  else 
+    let
+      val (sign, absD) = if d < 0 then ("~", ~ d) else ("", d)
+      val numDigits = IntInfMath.log10 absD + 1 handle Domain => 1
+      val numZeros = IntInf.max (p - numDigits, 0)
+      val (uint, frac) = IntInf.divMod (absD, IntInf.pow (10, p))
+    in
+      str (
+        concat (
+          sign
+           :: IntInf.fmt StringCvt.DEC uint
+           :: "."
+           :: CharVector.tabulate (numZeros, fn _ => #"0")
+           :: IntInf.fmt StringCvt.DEC frac
+           :: (case optE of
+                 NONE   => []
+               | SOME e => ["E", IntInf.fmt StringCvt.DEC e])
+        )
+      )
+    end
+
+val fmtConst =
+  fn
+    ConstInt (d, optE)       => fmtConstInt (d, optE)
+  | ConstWord (d, optE)      => fmtConstWord (d, optE)
+  | ConstReal (d, p, optE)   => fmtConstReal (d, p, optE)
+  | ConstChar c              => str (Char.toString c)
+  | ConstString s            => str (concat ["\"", s, "\""])
+  | ConstUnit                => str "()"
+  | ConstLName (LNameId lid) => str (String.concatWith "." (op :: lid))
+  | ConstLName (LNameOp iop) => str (concat ["op ", iop])
+
+
+
+
+fun fmtTyGenRef ri (fmtX, fmtY) (xs, y) =
+  blk (
+    ri + 1,
+    true,
+    case map fmtX xs of
+      []      => [fmtY y]
+    | t :: [] => [t, brk (1, 1), fmtY y]
+    | ts      =>
+        let
+          val sep = [str ",", brk (1, 0)]
+        in
+          str "(" :: fmtList sep I [str ")", brk (1, 1), fmtY y] ts
+        end
+  )
+
+fun fmtTyName ri : tyname -> pretty = fmtTyGenRef ri (fmtTyVar, fmtId)
+fun fmtTyLName ri : tylname -> pretty = fmtTyGenRef ri (fmtTyVar, fmtLid)
+
+
+
+
+
+
+(*
+fun fmtInfixOp s (fmtX, fmtY) (x, y) =
+  blk (
+    0,
+    true,
+    [
+      fmtX x,
+      brk (1, 1),
+      str s,
+      str " ",
+      blk (size s + 2, true, [fmtY y])
+    ]
+  )
+
+val rec rotateTyFun =
+  fn
+    (tyA, TyFun (tyB, tyC)) => rotateTyFun (TyFun (tyA, tyB), tyC)
+  | (tyA, tyB)              => (tyA, tyB)
+
+val rec fmtTy : ty -> pretty =
+  fn
+    TyVar tyvar       => fmtTyVar tyvar
+  | TyRef tyref       => fmtTyGenRef (fmtTy, fmtLid) tyref
+  | TyProd (ty, tys1) =>
+      let
+        val fmtTyProd = fmtInfixOp "*" (I, fmtTy)
+      in
+        foldl (fmtTyProd o swap) (fmtTy ty) (op :: tys1)
+      end
+  | TyFun (tyA, tyB)  =>
+      let
+      in
+        fmtInfixOp "->" (fmtTy, fmtTy) (tyA, tyB)
+      end
+  | TyRec ()          => str "{****not implemented****}"
+  | TyParen ty        => blk (1, true, [str "(", fmtTy ty, str ")"])
+*)
+
+
+fun fmtTy ri : ty -> pretty =
+  fn
+    TyVar tyvar       => fmtTyVar tyvar
+  | TyRef tyref       => fmtTyGenRef ri (fmtTy 0, fmtLid) tyref
+  | TyProd (ty, tys1) =>
+      let
+        val s = "*"
+        val i = size s
+        val sep = [
+          brk (1, 1),  (* 1    *)
+          str s,       (*  + i *)
+          str " "      (*  + 1 *)
+        ]
+        val fmt = fmtTy (1 + i + 1)
+      in
+        blk (
+          ri,
+          true,
+          fmtTy 0 ty :: sep @ fmtList sep fmt [] (op :: tys1)
+        )
+      end
+  | TyFun (tyA, tyB)  =>
+      let
+        val s = "->"
+        val i = size s
+        val p = fmtTy ri tyA
+      in
+        blk (
+          0,
+          true,
+          [
+            p,
+            brk (1, 1),  (* 1    *)
+            str "->",    (*  + i *)
+            str " ",     (*  + 1 *)
+            fmtTy (1 + i + 1) tyB
+          ]
+        )
+      end
+  | TyRec ()          => str "{****not implemented****}"
+  | TyParen ty        => blk (ri + 1, true, [str "(", fmtTy 0 ty, str ")"])
+
+
+
+
+
+
+
+fun fmtQual qual
+
+fun fmtQSig (sig1, optQual) =
+  mkPrettyBlock (
+    2,
+    true,
+    fmtSig1 :: (
+      case optQual of
+        SOME qual => [fmtQual qual]
+      | NONE      => []
+    )
+  )
+
+
+fun fmtIdQSig (id, qsig) =
+  mkPrettyBlock (
+    2,
+    true,
+    [mkPrettyString id, mkPrettyBreak (1, 0), fmtQSig qsig]
+  )
+
+
+fun fmtSigDec1 kw (id, qsig) =
+  mkPrettyBlock (
+    0,
+    true,
+    [
+      mkPrettyString kw,
+      mkPrettyBreak (1, 2),
+      mkPrettyString id,
+
+      mkPrettyBlock (),
+      mkPrettyBlock ()
+    ]
+  )
+
+
+fun fmtSigDec sigDecs1 =
+
+
+
+
