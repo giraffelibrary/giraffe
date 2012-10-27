@@ -1,4 +1,4 @@
-signature GDK_CLASSIFY_EVENT =
+signature CLASSIFY_EVENT =
   sig
     type 'a event_t
 

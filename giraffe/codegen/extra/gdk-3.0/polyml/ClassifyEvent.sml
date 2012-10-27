@@ -1,5 +1,5 @@
-structure GdkClassifyEvent :>
-  GDK_CLASSIFY_EVENT
+structure ClassifyEvent :>
+  CLASSIFY_EVENT
     where type 'a event_t = 'a GdkEvent.t
     where type eventanyrecord_t = GdkEventAnyRecord.t
     where type eventkeyrecord_t = GdkEventKeyRecord.t
