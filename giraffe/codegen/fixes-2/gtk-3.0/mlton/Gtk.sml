@@ -345,7 +345,7 @@ structure Gtk :
     val init_ =
       fn x1 & (x2, x3, x4) =>
         (_import "mlton_gtk_init"
-          : FFI.Int32.ref_
+          : FFI.Int.ref_
              * cstring vector  (* (..., ...) FFI.StringVector.r *)
                 * unit GCharVec.C.out_p array
                 * unit CPointer.t ref
@@ -2923,7 +2923,7 @@ structure Gtk :
     fun init argv =
       let
         val _ & argv & _ =
-          (FFI.Int32.withRefVal
+          (FFI.Int.withRefVal
             &&&> FFI.StringVector.withRefDupPtr
             ---> I && FFI.StringVector.fromPtr true && I)
             init_

@@ -7,9 +7,9 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "glib_check_version" :
-              FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+              FFI.Word.val_
+               * FFI.Word.val_
+               * FFI.Word.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -27,7 +27,7 @@ structure GLib : G_LIB =
               FFI.Int.val_
                * Pid.C.val_
                * GLibChildWatchFunc.C.callback
-               -> FFI.Word32.val_;
+               -> FFI.Word.val_;
           )
             (
               x1,
@@ -77,7 +77,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val idleAdd_ = fn x1 & x2 => (_import "giraffe_g_idle_add" : FFI.Int.val_ * GLibSourceFunc.C.callback -> FFI.Word32.val_;) (x1, x2)
+    val idleAdd_ = fn x1 & x2 => (_import "giraffe_g_idle_add" : FFI.Int.val_ * GLibSourceFunc.C.callback -> FFI.Word.val_;) (x1, x2)
     val ioAddWatch_ =
       fn
         x1
@@ -127,7 +127,7 @@ structure GLib : G_LIB =
             _import "mlton_g_log_remove_handler" :
               cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.Word.val_
                -> unit;
           )
             (
@@ -154,7 +154,7 @@ structure GLib : G_LIB =
     val mainContextDefault_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val mainContextGetThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val mainCurrentSource_ = _import "g_main_current_source" : unit -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val mainDepth_ = _import "g_main_depth" : unit -> FFI.Int32.val_;
+    val mainDepth_ = _import "g_main_depth" : unit -> FFI.Int.val_;
     val regexMatchSimple_ =
       fn
         (x1, x2)
@@ -218,7 +218,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val sourceRemove_ = _import "g_source_remove" : FFI.Word32.val_ -> FFI.Bool.val_;
+    val sourceRemove_ = _import "g_source_remove" : FFI.Word.val_ -> FFI.Bool.val_;
     val spawnAsyncWithPipes_ =
       fn
         (x1, x2)
@@ -285,10 +285,10 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "giraffe_g_timeout_add" :
-              FFI.Int32.val_
-               * FFI.Word32.val_
+              FFI.Int.val_
+               * FFI.Word.val_
                * GLibSourceFunc.C.callback
-               -> FFI.Word32.val_;
+               -> FFI.Word.val_;
           )
             (
               x1,
@@ -302,10 +302,10 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "giraffe_g_timeout_add_seconds" :
-              FFI.Int32.val_
-               * FFI.Word32.val_
+              FFI.Int.val_
+               * FFI.Word.val_
                * GLibSourceFunc.C.callback
-               -> FFI.Word32.val_;
+               -> FFI.Word.val_;
           )
             (
               x1,
@@ -451,9 +451,9 @@ structure GLib : G_LIB =
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;="
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+        FFI.Word.withVal
+         &&&> FFI.Word.withVal
+         &&&> FFI.Word.withVal
          ---> FFI.String.fromPtr false
       )
         checkVersion_
@@ -532,13 +532,13 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.Word32.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.Word.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask logDomain fatalMask = (FFI.String.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
     fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.C.fromPtr false) mainCurrentSource_ ()
-    fun mainDepth () = (I ---> FFI.Int32.fromVal) mainDepth_ ()
+    fun mainDepth () = (I ---> FFI.Int.fromVal) mainDepth_ ()
     fun regexMatchSimple pattern string compileOptions matchOptions =
       (
         FFI.String.withConstPtr
@@ -576,7 +576,7 @@ structure GLib : G_LIB =
       end
     fun shellQuote unquotedString = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) shellQuote_ unquotedString
     fun shellUnquote quotedString = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sourceRemove tag = (FFI.Word32.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
+    fun sourceRemove tag = (FFI.Word.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
       let
         val
@@ -622,8 +622,8 @@ structure GLib : G_LIB =
     fun spawnCommandLineAsync commandLine = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun timeoutAdd priority interval function =
       (
-        FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+        FFI.Int.withVal
+         &&&> FFI.Word.withVal
          &&&> GLibSourceFunc.C.withCallback
          ---> FFI.Word.fromVal
       )
@@ -635,8 +635,8 @@ structure GLib : G_LIB =
         )
     fun timeoutAddSeconds priority interval function =
       (
-        FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+        FFI.Int.withVal
+         &&&> FFI.Word.withVal
          &&&> GLibSourceFunc.C.withCallback
          ---> FFI.Word.fromVal
       )

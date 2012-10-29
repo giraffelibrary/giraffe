@@ -171,7 +171,7 @@ structure Gtk :
       val init_ =
         call
           (load_sym libgtk "gtk_init")
-          (FFI.PolyML.Int32.REF &&> FFI.PolyML.StringVector.INOUTREF --> FFI.PolyML.VOID);
+          (FFI.PolyML.Int.REF &&> FFI.PolyML.StringVector.INOUTREF --> FFI.PolyML.VOID);
       val keySnooperRemove_ = call (load_sym libgtk "gtk_key_snooper_remove") (FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
       val main_ = call (load_sym libgtk "gtk_main") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val mainDoEvent_ = call (load_sym libgtk "gtk_main_do_event") (GdkEvent.PolyML.PTR --> FFI.PolyML.VOID)
@@ -1817,7 +1817,7 @@ structure Gtk :
     fun init argv =
       let
         val _ & argv & _ =
-          (FFI.Int32.withRefVal
+          (FFI.Int.withRefVal
             &&&> FFI.StringVector.withRefDupPtr
             ---> I && FFI.StringVector.fromPtr true && I)
             init_
