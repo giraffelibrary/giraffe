@@ -1,5 +1,5 @@
 val libgirepository = CInterface.load_lib "libgirepository-1.0.so"
-val libgiraffegirepository = CInterface.load_lib "libgiraffe-girepository.so"
+val libgiraffegirepository = CInterface.load_lib "libgiraffe-gobject-introspection-1.0.so"
 ;
 
 app use [
