@@ -16,7 +16,7 @@ app use [
 
 
 
-signature GI_BASE_INFO_CLASS =
+signature G_I_REPOSITORY_BASE_INFO_CLASS =
   sig
     type 'a t
     val toBase : 'a t -> base t
@@ -33,9 +33,9 @@ signature GI_BASE_INFO_CLASS =
       end
   end
 
-structure GIBaseInfoClass :>
+structure GIRepositoryBaseInfoClass :>
   sig
-    include GI_BASE_INFO_CLASS
+    include G_I_REPOSITORY_BASE_INFO_CLASS
 
     structure PolyML :
       sig
@@ -44,28 +44,32 @@ structure GIBaseInfoClass :>
       end
   end =
   struct
-    type cptr = CPointer.notnull CPointer.t
-    type coptptr = unit CPointer.t
-    val CPTR = CPointer.PolyML.POINTER : cptr CInterface.Conversion
-    val COPTPTR = CPointer.PolyML.POINTER : coptptr CInterface.Conversion
+    type notnull = CPointer.notnull
+    type 'a p = 'a CPointer.t
+    val PTR = CPointer.PolyML.POINTER : notnull p CInterface.Conversion
+    val OPTPTR = CPointer.PolyML.POINTER : unit p CInterface.Conversion
 
     local
       open PolyMLFFI
     in
+      val take_ = ignore
+
       val ref_ =
         call
           (load_sym libgirepository "g_base_info_ref")
-          (CPTR --> CPTR);
+          (PTR --> PTR);
 
       val unref_sym = load_sym libgirepository "g_base_info_unref";
     end
 
+    type 'a t = notnull p Finalizable.t
+    fun toBase obj = obj
 
     structure C =
       struct
         structure Pointer = CPointer
-        type notnull = Pointer.notnull
-        type 'a p = 'a Pointer.t
+        type notnull = notnull
+        type 'a p = 'a p
 
         fun withPtr f x = Finalizable.withValue (x, f)
 
@@ -76,35 +80,34 @@ structure GIBaseInfoClass :>
 
         fun fromPtr transfer ptr =
           let
-            val object = Finalizable.new ptr
+            val object =
+              Finalizable.new (
+                if transfer
+                then (take_ ptr; ptr)  (* take the existing reference *)
+                else ref_ ptr
+              )
           in
-            if transfer
-            then ()  (* take the existing reference *)
-            else ignore (ref_ ptr);
             Finalizable.addFinalizer (object, unref_sym);
             object
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (CPointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
       end
 
     structure PolyML =
       struct
-        val PTR = CPTR
-        val OPTPTR = COPTPTR
+        val PTR = PTR
+        val OPTPTR = OPTPTR
       end
-
-    type 'a t = C.notnull C.p Finalizable.t
-    fun toBase info = info
   end
 
 
 
-signature GI_CALLABLE_INFO_CLASS =
+signature G_I_REPOSITORY_CALLABLE_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a callableinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a callableinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -116,29 +119,25 @@ signature GI_CALLABLE_INFO_CLASS =
       end
   end
 
-structure GICallableInfoClass :>
-  sig
-    include GI_CALLABLE_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryCallableInfoClass :>
+  G_I_REPOSITORY_CALLABLE_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a callableinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a callableinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_FUNCTION_INFO_CLASS =
+signature G_I_REPOSITORY_FUNCTION_INFO_CLASS =
   sig
-    type 'a callableinfoclass_t
     type 'a functioninfo
+    type 'a callableinfoclass_t
     type 'a t = 'a functioninfo callableinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -150,63 +149,55 @@ signature GI_FUNCTION_INFO_CLASS =
       end
   end
 
-structure GIFunctionInfoClass :>
-  sig
-    include GI_FUNCTION_INFO_CLASS
-      where type 'a callableinfoclass_t = 'a GICallableInfoClass.t
-      where type C.notnull = GICallableInfoClass.C.notnull
-      where type 'a C.p = 'a GICallableInfoClass.C.p
-  end =
+structure GIRepositoryFunctionInfoClass :>
+  G_I_REPOSITORY_FUNCTION_INFO_CLASS
+    where type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
+    where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
   struct
-    type 'a callableinfoclass_t = 'a GICallableInfoClass.t
     type 'a functioninfo = unit
+    type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
     type 'a t = 'a functioninfo callableinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GICallableInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryCallableInfoClass.C
   end
 
 
 
-signature GI_SIGNAL_INFO_CLASS =
+signature G_I_REPOSITORY_SIGNAL_INFO_CLASS =
   sig
-    type 'a callableinfoclass_t
     type 'a signalinfo
-    type 'a t = 'a signalinfo callableinfoclass_t
-    val toBase : 'a t -> base t
-    structure C :
-      sig
-        type notnull
-        type 'a p
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
-      end
-  end
-
-structure GISignalInfoClass :>
-  sig
-    include GI_SIGNAL_INFO_CLASS
-      where type 'a callableinfoclass_t = 'a GICallableInfoClass.t
-      where type C.notnull = GICallableInfoClass.C.notnull
-      where type 'a C.p = 'a GICallableInfoClass.C.p
-  end =
-  struct
-    type 'a callableinfoclass_t = 'a GICallableInfoClass.t
-    type 'a signalinfo = unit
-    type 'a t = 'a signalinfo callableinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GICallableInfoClass.C
-  end
-
-
-
-signature GI_VFUNC_INFO_CLASS =
-  sig
     type 'a callableinfoclass_t
+    type 'a t = 'a signalinfo callableinfoclass_t
+    val toBase : 'a t -> base t
+    structure C :
+      sig
+        type notnull
+        type 'a p
+        val fromPtr : bool -> notnull p -> 'a t
+        val fromOptPtr : bool -> unit p -> 'a t option
+      end
+  end
+
+structure GIRepositorySignalInfoClass :>
+  G_I_REPOSITORY_SIGNAL_INFO_CLASS
+    where type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
+    where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
+  struct
+    type 'a signalinfo = unit
+    type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
+    type 'a t = 'a signalinfo callableinfoclass_t
+    fun toBase obj = obj
+    structure C = GIRepositoryCallableInfoClass.C
+  end
+
+
+
+signature G_I_REPOSITORY_VFUNC_INFO_CLASS =
+  sig
     type 'a vfuncinfo
+    type 'a callableinfoclass_t
     type 'a t = 'a vfuncinfo callableinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -218,29 +209,25 @@ signature GI_VFUNC_INFO_CLASS =
       end
   end
 
-structure GIVFuncInfoClass :>
-  sig
-    include GI_VFUNC_INFO_CLASS
-      where type 'a callableinfoclass_t = 'a GICallableInfoClass.t
-      where type C.notnull = GICallableInfoClass.C.notnull
-      where type 'a C.p = 'a GICallableInfoClass.C.p
-  end =
+structure GIRepositoryVFuncInfoClass :>
+  G_I_REPOSITORY_VFUNC_INFO_CLASS
+    where type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
+    where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
   struct
-    type 'a callableinfoclass_t = 'a GICallableInfoClass.t
     type 'a vfuncinfo = unit
+    type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
     type 'a t = 'a vfuncinfo callableinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GICallableInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryCallableInfoClass.C
   end
 
 
 
-signature GI_REGISTERED_TYPE_INFO_CLASS =
+signature G_I_REPOSITORY_REGISTERED_TYPE_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a registeredtypeinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a registeredtypeinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -252,29 +239,25 @@ signature GI_REGISTERED_TYPE_INFO_CLASS =
       end
   end
 
-structure GIRegisteredTypeInfoClass :>
-  sig
-    include GI_REGISTERED_TYPE_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryRegisteredTypeInfoClass :>
+  G_I_REPOSITORY_REGISTERED_TYPE_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a registeredtypeinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a registeredtypeinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_ENUM_INFO_CLASS =
+signature G_I_REPOSITORY_ENUM_INFO_CLASS =
   sig
-    type 'a registeredtypeinfoclass_t
     type 'a enuminfo
+    type 'a registeredtypeinfoclass_t
     type 'a t = 'a enuminfo registeredtypeinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -286,29 +269,25 @@ signature GI_ENUM_INFO_CLASS =
       end
   end
 
-structure GIEnumInfoClass :>
-  sig
-    include GI_ENUM_INFO_CLASS
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type C.notnull = GIRegisteredTypeInfoClass.C.notnull
-      where type 'a C.p = 'a GIRegisteredTypeInfoClass.C.p
-  end =
+structure GIRepositoryEnumInfoClass :>
+  G_I_REPOSITORY_ENUM_INFO_CLASS
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
     type 'a enuminfo = unit
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
     type 'a t = 'a enuminfo registeredtypeinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIRegisteredTypeInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryRegisteredTypeInfoClass.C
   end
 
 
 
-signature GI_INTERFACE_INFO_CLASS =
+signature G_I_REPOSITORY_INTERFACE_INFO_CLASS =
   sig
-    type 'a registeredtypeinfoclass_t
     type 'a interfaceinfo
+    type 'a registeredtypeinfoclass_t
     type 'a t = 'a interfaceinfo registeredtypeinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -320,29 +299,25 @@ signature GI_INTERFACE_INFO_CLASS =
       end
   end
 
-structure GIInterfaceInfoClass :>
-  sig
-    include GI_INTERFACE_INFO_CLASS
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type C.notnull = GIRegisteredTypeInfoClass.C.notnull
-      where type 'a C.p = 'a GIRegisteredTypeInfoClass.C.p
-  end =
+structure GIRepositoryInterfaceInfoClass :>
+  G_I_REPOSITORY_INTERFACE_INFO_CLASS
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
     type 'a interfaceinfo = unit
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
     type 'a t = 'a interfaceinfo registeredtypeinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIRegisteredTypeInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryRegisteredTypeInfoClass.C
   end
 
 
 
-signature GI_OBJECT_INFO_CLASS =
+signature G_I_REPOSITORY_OBJECT_INFO_CLASS =
   sig
-    type 'a registeredtypeinfoclass_t
     type 'a objectinfo
+    type 'a registeredtypeinfoclass_t
     type 'a t = 'a objectinfo registeredtypeinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -354,63 +329,55 @@ signature GI_OBJECT_INFO_CLASS =
       end
   end
 
-structure GIObjectInfoClass :>
-  sig
-    include GI_OBJECT_INFO_CLASS
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type C.notnull = GIRegisteredTypeInfoClass.C.notnull
-      where type 'a C.p = 'a GIRegisteredTypeInfoClass.C.p
-  end =
+structure GIRepositoryObjectInfoClass :>
+  G_I_REPOSITORY_OBJECT_INFO_CLASS
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
     type 'a objectinfo = unit
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
     type 'a t = 'a objectinfo registeredtypeinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIRegisteredTypeInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryRegisteredTypeInfoClass.C
   end
 
 
 
-signature GI_STRUCT_INFO_CLASS =
+signature G_I_REPOSITORY_STRUCT_INFO_CLASS =
   sig
-    type 'a registeredtypeinfoclass_t
     type 'a structinfo
-    type 'a t = 'a structinfo registeredtypeinfoclass_t
-    val toBase : 'a t -> base t
-    structure C :
-      sig
-        type notnull
-        type 'a p
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
-      end
-  end
-
-structure GIStructInfoClass :>
-  sig
-    include GI_STRUCT_INFO_CLASS
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type C.notnull = GIRegisteredTypeInfoClass.C.notnull
-      where type 'a C.p = 'a GIRegisteredTypeInfoClass.C.p
-  end =
-  struct
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-    type 'a structinfo = unit
-    type 'a t = 'a structinfo registeredtypeinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIRegisteredTypeInfoClass.C
-  end
-
-
-
-signature GI_UNION_INFO_CLASS =
-  sig
     type 'a registeredtypeinfoclass_t
+    type 'a t = 'a structinfo registeredtypeinfoclass_t
+    val toBase : 'a t -> base t
+    structure C :
+      sig
+        type notnull
+        type 'a p
+        val fromPtr : bool -> notnull p -> 'a t
+        val fromOptPtr : bool -> unit p -> 'a t option
+      end
+  end
+
+structure GIRepositoryStructInfoClass :>
+  G_I_REPOSITORY_STRUCT_INFO_CLASS
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
+  struct
+    type 'a structinfo = unit
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    type 'a t = 'a structinfo registeredtypeinfoclass_t
+    fun toBase obj = obj
+    structure C = GIRepositoryRegisteredTypeInfoClass.C
+  end
+
+
+
+signature G_I_REPOSITORY_UNION_INFO_CLASS =
+  sig
     type 'a unioninfo
+    type 'a registeredtypeinfoclass_t
     type 'a t = 'a unioninfo registeredtypeinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -422,29 +389,25 @@ signature GI_UNION_INFO_CLASS =
       end
   end
 
-structure GIUnionInfoClass :>
-  sig
-    include GI_UNION_INFO_CLASS
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type C.notnull = GIRegisteredTypeInfoClass.C.notnull
-      where type 'a C.p = 'a GIRegisteredTypeInfoClass.C.p
-  end =
+structure GIRepositoryUnionInfoClass :>
+  G_I_REPOSITORY_UNION_INFO_CLASS
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
     type 'a unioninfo = unit
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
     type 'a t = 'a unioninfo registeredtypeinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIRegisteredTypeInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryRegisteredTypeInfoClass.C
   end
 
 
 
-signature GI_ARG_INFO_CLASS =
+signature G_I_REPOSITORY_ARG_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a arginfo
+    type 'a baseinfoclass_t
     type 'a t = 'a arginfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -456,29 +419,25 @@ signature GI_ARG_INFO_CLASS =
       end
   end
 
-structure GIArgInfoClass :>
-  sig
-    include GI_ARG_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryArgInfoClass :>
+  G_I_REPOSITORY_ARG_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a arginfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a arginfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_CONSTANT_INFO_CLASS =
+signature G_I_REPOSITORY_CONSTANT_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a constantinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a constantinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -490,29 +449,25 @@ signature GI_CONSTANT_INFO_CLASS =
       end
   end
 
-structure GIConstantInfoClass :>
-  sig
-    include GI_CONSTANT_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryConstantInfoClass :>
+  G_I_REPOSITORY_CONSTANT_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a constantinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a constantinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_FIELD_INFO_CLASS =
+signature G_I_REPOSITORY_FIELD_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a fieldinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a fieldinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -524,29 +479,25 @@ signature GI_FIELD_INFO_CLASS =
       end
   end
 
-structure GIFieldInfoClass :>
-  sig
-    include GI_FIELD_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryFieldInfoClass :>
+  G_I_REPOSITORY_FIELD_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a fieldinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a fieldinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_PROPERTY_INFO_CLASS =
+signature G_I_REPOSITORY_PROPERTY_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a propertyinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a propertyinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -558,63 +509,55 @@ signature GI_PROPERTY_INFO_CLASS =
       end
   end
 
-structure GIPropertyInfoClass :>
-  sig
-    include GI_PROPERTY_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryPropertyInfoClass :>
+  G_I_REPOSITORY_PROPERTY_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a propertyinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a propertyinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
 
-signature GI_TYPE_INFO_CLASS =
+signature G_I_REPOSITORY_TYPE_INFO_CLASS =
   sig
-    type 'a baseinfoclass_t
     type 'a typeinfo
-    type 'a t = 'a typeinfo baseinfoclass_t
-    val toBase : 'a t -> base t
-    structure C :
-      sig
-        type notnull
-        type 'a p
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
-      end
-  end
-
-structure GITypeInfoClass :>
-  sig
-    include GI_TYPE_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
-  struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-    type 'a typeinfo = unit
-    type 'a t = 'a typeinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
-  end
-
-
-
-signature GI_VALUE_INFO_CLASS =
-  sig
     type 'a baseinfoclass_t
+    type 'a t = 'a typeinfo baseinfoclass_t
+    val toBase : 'a t -> base t
+    structure C :
+      sig
+        type notnull
+        type 'a p
+        val fromPtr : bool -> notnull p -> 'a t
+        val fromOptPtr : bool -> unit p -> 'a t option
+      end
+  end
+
+structure GIRepositoryTypeInfoClass :>
+  G_I_REPOSITORY_TYPE_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
+  struct
+    type 'a typeinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a t = 'a typeinfo baseinfoclass_t
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
+  end
+
+
+
+signature G_I_REPOSITORY_VALUE_INFO_CLASS =
+  sig
     type 'a valueinfo
+    type 'a baseinfoclass_t
     type 'a t = 'a valueinfo baseinfoclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -626,21 +569,17 @@ signature GI_VALUE_INFO_CLASS =
       end
   end
 
-structure GIValueInfoClass :>
-  sig
-    include GI_VALUE_INFO_CLASS
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type C.notnull = GIBaseInfoClass.C.notnull
-      where type 'a C.p = 'a GIBaseInfoClass.C.p
-  end =
+structure GIRepositoryValueInfoClass :>
+  G_I_REPOSITORY_VALUE_INFO_CLASS
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type C.notnull = GIRepositoryBaseInfoClass.C.notnull
+    where type 'a C.p = 'a GIRepositoryBaseInfoClass.C.p =
   struct
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
     type 'a valueinfo = unit
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type 'a t = 'a valueinfo baseinfoclass_t
-
-    fun toBase info = info
-
-    structure C = GIBaseInfoClass.C
+    fun toBase obj = obj
+    structure C = GIRepositoryBaseInfoClass.C
   end
 
 
@@ -649,7 +588,7 @@ structure GIValueInfoClass :>
 
 
 
-signature GI_TYPE_TAG =
+signature G_I_REPOSITORY_TYPE_TAG =
   sig
     datatype t =
       VOID
@@ -674,130 +613,134 @@ signature GI_TYPE_TAG =
     | GHASH
     | ERROR
     | UNICHAR
-    val to_string : t -> string
+    val toString : t -> string
     structure C :
       sig
         type val_
-        val withVal : (val_ -> 'a) -> t -> 'a
+        type ref_
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
+        val withRefVal :
+          (ref_ -> 'a)
+           -> t
+           -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of Int32.int
+        exception Value of FFI.Enum.val_
       end
   end
 
-structure GITypeTag :>
+structure GIRepositoryTypeTag :>
   sig
-    include GI_TYPE_TAG
-
+    include G_I_REPOSITORY_TYPE_TAG
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct
+    datatype t =
+      VOID
+    | BOOLEAN
+    | INT8
+    | UINT8
+    | INT16
+    | UINT16
+    | INT32
+    | UINT32
+    | INT64
+    | UINT64
+    | FLOAT
+    | DOUBLE
+    | GTYPE
+    | UTF8
+    | FILENAME
+    | ARRAY
+    | INTERFACE
+    | GLIST
+    | GSLIST
+    | GHASH
+    | ERROR
+    | UNICHAR
+    structure C =
+      struct
+        type val_ = FFI.Enum.val_
+        type ref_ = FFI.Enum.ref_
+        exception Value of FFI.Enum.val_
+        fun withVal f =
+          fn
+            VOID => f 0
+          | BOOLEAN => f 1
+          | INT8 => f 2
+          | UINT8 => f 3
+          | INT16 => f 4
+          | UINT16 => f 5
+          | INT32 => f 6
+          | UINT32 => f 7
+          | INT64 => f 8
+          | UINT64 => f 9
+          | FLOAT => f 10
+          | DOUBLE => f 11
+          | GTYPE => f 12
+          | UTF8 => f 13
+          | FILENAME => f 14
+          | ARRAY => f 15
+          | INTERFACE => f 16
+          | GLIST => f 17
+          | GSLIST => f 18
+          | GHASH => f 19
+          | ERROR => f 20
+          | UNICHAR => f 21
+        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        val fromVal =
+          fn
+            0 => VOID
+          | 1 => BOOLEAN
+          | 2 => INT8
+          | 3 => UINT8
+          | 4 => INT16
+          | 5 => UINT16
+          | 6 => INT32
+          | 7 => UINT32
+          | 8 => INT64
+          | 9 => UINT64
+          | 10 => FLOAT
+          | 11 => DOUBLE
+          | 12 => GTYPE
+          | 13 => UTF8
+          | 14 => FILENAME
+          | 15 => ARRAY
+          | 16 => INTERFACE
+          | 17 => GLIST
+          | 18 => GSLIST
+          | 19 => GHASH
+          | 20 => ERROR
+          | 21 => UNICHAR
+          | n => raise Value n
+      end
+    structure PolyML =
+      struct
+        val VAL = FFI.PolyML.Enum.VAL
+        val REF = FFI.PolyML.Enum.REF
+      end
     local
       open PolyMLFFI
     in
-      val to_string_ =
+      val toString_ =
         call
           (load_sym libgirepository "g_type_tag_to_string")
           (FFI.PolyML.Enum.VAL --> FFI.PolyML.String.RETPTR);
     end
-
-
-    datatype t =
-      VOID
-    | BOOLEAN
-    | INT8
-    | UINT8
-    | INT16
-    | UINT16
-    | INT32
-    | UINT32
-    | INT64
-    | UINT64
-    | FLOAT
-    | DOUBLE
-    | GTYPE
-    | UTF8
-    | FILENAME
-    | ARRAY
-    | INTERFACE
-    | GLIST
-    | GSLIST
-    | GHASH
-    | ERROR
-    | UNICHAR
-
-    structure C =
-      struct
-        type val_ = FFI.Enum.val_
-        exception Value of FFI.Enum.val_
-        fun withVal f =
-          fn
-            VOID      => f 0
-          | BOOLEAN   => f 1
-          | INT8      => f 2
-          | UINT8     => f 3
-          | INT16     => f 4
-          | UINT16    => f 5
-          | INT32     => f 6
-          | UINT32    => f 7
-          | INT64     => f 8
-          | UINT64    => f 9
-          | FLOAT     => f 10
-          | DOUBLE    => f 11
-          | GTYPE     => f 12
-          | UTF8      => f 13
-          | FILENAME  => f 14
-          | ARRAY     => f 15
-          | INTERFACE => f 16
-          | GLIST     => f 17
-          | GSLIST    => f 18
-          | GHASH     => f 19
-          | ERROR     => f 20
-          | UNICHAR   => f 21
-        val table = Vector.fromList [
-          VOID,
-          BOOLEAN,
-          INT8,
-          UINT8,
-          INT16,
-          UINT16,
-          INT32,
-          UINT32,
-          INT64,
-          UINT64,
-          FLOAT,
-          DOUBLE,
-          GTYPE,
-          UTF8,
-          FILENAME,
-          ARRAY,
-          INTERFACE,
-          GLIST,
-          GSLIST,
-          GHASH,
-          ERROR,
-          UNICHAR
-        ]
-        fun fromVal n =
-          Vector.sub (table, Int32.toInt n) handle Subscript => raise Value n
-      end
-
-    structure PolyML =
-      struct
-        val VAL = FFI.PolyML.Enum.VAL
-      end
-
-
-    val to_string =
+    val toString =
       fn typ =>
-        (C.withVal ---> FFI.String.fromPtr false) to_string_ typ
+        (C.withVal ---> FFI.String.fromPtr false) toString_ typ
   end
 
 
 
-signature GI_ARRAY_TYPE =
+signature G_I_REPOSITORY_ARRAY_TYPE =
   sig
     datatype t =
       C
@@ -807,19 +750,27 @@ signature GI_ARRAY_TYPE =
     structure C :
       sig
         type val_
-        val withVal : (val_ -> 'a) -> t -> 'a
+        type ref_
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
+        val withRefVal :
+          (ref_ -> 'a)
+           -> t
+           -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of Int32.int
+        exception Value of FFI.Enum.val_
       end
   end
 
-structure GIArrayType :>
+structure GIRepositoryArrayType :>
   sig
-    include GI_ARRAY_TYPE
-
+    include G_I_REPOSITORY_ARRAY_TYPE
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct
@@ -828,30 +779,30 @@ structure GIArrayType :>
     | ARRAY
     | PTR_ARRAY
     | BYTE_ARRAY
-
     structure C =
       struct
         type val_ = FFI.Enum.val_
+        type ref_ = FFI.Enum.ref_
         exception Value of FFI.Enum.val_
         fun withVal f =
           fn
-            C          => f 0
-          | ARRAY      => f 1
-          | PTR_ARRAY  => f 2
+            C => f 0
+          | ARRAY => f 1
+          | PTR_ARRAY => f 2
           | BYTE_ARRAY => f 3
-        val table = Vector.fromList [
-          C,
-          ARRAY,
-          PTR_ARRAY,
-          BYTE_ARRAY
-        ]
-        fun fromVal n =
-          Vector.sub (table, Int32.toInt n) handle Subscript => raise Value n
+        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        val fromVal =
+          fn
+            0 => C
+          | 1 => ARRAY
+          | 2 => PTR_ARRAY
+          | 3 => BYTE_ARRAY
+          | n => raise Value n
       end
-
     structure PolyML =
       struct
         val VAL = FFI.PolyML.Enum.VAL
+        val REF = FFI.PolyML.Enum.REF
       end
   end
 
@@ -861,222 +812,219 @@ structure GIArrayType :>
 
 
 
-signature GI_BASE_INFO =
+signature G_I_REPOSITORY_BASE_INFO =
   sig
-    type 'a t
-
-    val get_name : 'a t -> string option
-    val get_namespace : 'a t -> string
-    val is_deprecated : 'a t -> bool
-    val get_attribute : 'a t -> string -> string option
-    val get_container : 'a t -> base t
-    val equal : 'a t -> 'b t -> bool
+    type 'a class_t
+    val getName : 'a class_t -> string option
+    val getNamespace : 'a class_t -> string
+    val isDeprecated : 'a class_t -> bool
+    val getAttribute : 'a class_t -> string -> string option
+    val getContainer : 'a class_t -> base class_t
+    val equal : 'a class_t -> 'b class_t -> bool
   end
 
-structure GIBaseInfo :>
-  GI_BASE_INFO
-    where type 'a t = 'a GIBaseInfoClass.t =
+structure GIRepositoryBaseInfo :>
+  G_I_REPOSITORY_BASE_INFO
+    where type 'a class_t = 'a GIRepositoryBaseInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_name_ =
+      val getName_ =
         call
           (load_sym libgirepository "g_base_info_get_name")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_namespace_ =
+      val getNamespace_ =
         call
           (load_sym libgirepository "g_base_info_get_namespace")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val is_deprecated_ =
+      val isDeprecated_ =
         call
           (load_sym libgirepository "g_base_info_is_deprecated")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_attribute_ =
+      val getAttribute_ =
         call
           (load_sym libgirepository "g_base_info_get_attribute")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             --> FFI.PolyML.String.RETOPTPTR);
 
-      val get_container_ =
+      val getContainer_ =
         call
           (load_sym libgirepository "g_base_info_get_container")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val equal_ =
         call
           (load_sym libgirepository "g_base_info_equal")
-          (GIBaseInfoClass.PolyML.PTR
-            &&> GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
+            &&> GIRepositoryBaseInfoClass.PolyML.PTR
             --> FFI.PolyML.Bool.VAL);
     end
 
 
-    type 'a t = 'a GIBaseInfoClass.t
+    type 'a class_t = 'a GIRepositoryBaseInfoClass.t
 
 
-    val get_name =
+    val getName =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
-          get_name_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+          getName_ info
 
-    val get_namespace =
+    val getNamespace =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-          get_namespace_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+          getNamespace_
           info
 
-    val is_deprecated =
+    val isDeprecated =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> I)
-          is_deprecated_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> I)
+          isDeprecated_
           info
 
-    val get_attribute =
+    val getAttribute =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
           ---> FFI.String.fromOptPtr false)
-          get_attribute_
+          getAttribute_
           (info & name)
 
-    val get_container =
+    val getContainer =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIBaseInfoClass.C.fromPtr false)
-          get_container_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryBaseInfoClass.C.fromPtr false)
+          getContainer_
           info
 
     val equal =
       fn info1 => fn info2 =>
-        (GIBaseInfoClass.C.withPtr &&&> GIBaseInfoClass.C.withPtr ---> I)
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> GIRepositoryBaseInfoClass.C.withPtr ---> I)
         equal_
         (info1 & info2)
   end
 
 
 
-signature GI_TYPE_INFO =
+signature G_I_REPOSITORY_TYPE_INFO =
   sig
-    type 'a t
+    type 'a class_t
     type typetag_t
     type arraytype_t
     type 'a baseinfoclass_t
-    val is_pointer : 'a t -> bool
-    val get_tag : 'a t -> typetag_t
-    val get_param_type : 'a t -> LargeInt.int -> base t option
-    val get_interface : 'a t -> base baseinfoclass_t option
-    val get_array_length : 'a t -> LargeInt.int
-    val get_array_fixed_size : 'a t -> LargeInt.int
-    val is_zero_terminated : 'a t -> bool
-    val get_array_type : 'a t -> arraytype_t
+    val isPointer : 'a class_t -> bool
+    val getTag : 'a class_t -> typetag_t
+    val getParamType : 'a class_t -> LargeInt.int -> base class_t option
+    val getInterface : 'a class_t -> base baseinfoclass_t option
+    val getArrayLength : 'a class_t -> LargeInt.int
+    val getArrayFixedSize : 'a class_t -> LargeInt.int
+    val isZeroTerminated : 'a class_t -> bool
+    val getArrayType : 'a class_t -> arraytype_t
   end
 
-structure GITypeInfo :>
-  sig
-    include GI_TYPE_INFO
-      where type 'a t = 'a GITypeInfoClass.t
-      where type typetag_t = GITypeTag.t
-      where type arraytype_t = GIArrayType.t
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-  end =
+structure GIRepositoryTypeInfo :>
+  G_I_REPOSITORY_TYPE_INFO
+    where type 'a class_t = 'a GIRepositoryTypeInfoClass.t
+    where type typetag_t = GIRepositoryTypeTag.t
+    where type arraytype_t = GIRepositoryArrayType.t
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val is_pointer_ =
+      val isPointer_ =
         call
           (load_sym libgirepository "g_type_info_is_pointer")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_tag_ =
+      val getTag_ =
         call
           (load_sym libgirepository "g_type_info_get_tag")
-          (GIBaseInfoClass.PolyML.PTR --> GITypeTag.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTypeTag.PolyML.VAL);
 
-      val get_param_type_ =
+      val getParamType_ =
         call
           (load_sym libgirepository "g_type_info_get_param_type")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.OPTPTR);
+            --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
-      val get_interface_ =
+      val getInterface_ =
         call
           (load_sym libgirepository "g_type_info_get_interface")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
-      val get_array_length_ =
+      val getArrayLength_ =
         call
           (load_sym libgirepository "g_type_info_get_array_length")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_array_fixed_size_ =
+      val getArrayFixedSize_ =
         call
           (load_sym libgirepository "g_type_info_get_array_fixed_size")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val is_zero_terminated_ =
+      val isZeroTerminated_ =
         call
           (load_sym libgirepository "g_type_info_is_zero_terminated")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_array_type_ =
+      val getArrayType_ =
         call
           (load_sym libgirepository "g_type_info_get_array_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIArrayType.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryArrayType.PolyML.VAL);
     end
 
 
-    type 'a t = 'a GITypeInfoClass.t
-    type typetag_t = GITypeTag.t
-    type arraytype_t = GIArrayType.t
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
+    type 'a class_t = 'a GIRepositoryTypeInfoClass.t
+    type typetag_t = GIRepositoryTypeTag.t
+    type arraytype_t = GIRepositoryArrayType.t
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
 
 
-    val is_pointer =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) is_pointer_ info
+    val isPointer =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isPointer_ info
 
-    val get_tag =
+    val getTag =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeTag.C.fromVal) get_tag_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeTag.C.fromVal) getTag_ info
 
-    val get_param_type =
+    val getParamType =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> I
-          ---> GITypeInfoClass.C.fromOptPtr true)
-          get_param_type_
+          ---> GIRepositoryTypeInfoClass.C.fromOptPtr true)
+          getParamType_
           (info & n)
 
-    val get_interface =
+    val getInterface =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIBaseInfoClass.C.fromOptPtr true)
-          get_interface_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryBaseInfoClass.C.fromOptPtr true)
+          getInterface_
           info
 
-    val get_array_length =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_array_length_ info
+    val getArrayLength =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getArrayLength_ info
 
-    val get_array_fixed_size =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_array_fixed_size_ info
+    val getArrayFixedSize =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getArrayFixedSize_ info
 
-    val is_zero_terminated =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) is_zero_terminated_ info
+    val isZeroTerminated =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isZeroTerminated_ info
 
-    val get_array_type =
+    val getArrayType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIArrayType.C.fromVal)
-          get_array_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryArrayType.C.fromVal)
+          getArrayType_
           info
   end
 
 
 
-signature GI_ARGUMENT =
+signature G_I_REPOSITORY_ARGUMENT =
   sig
     datatype t =
       BOOLEAN  of bool
@@ -1112,10 +1060,10 @@ signature GI_ARGUMENT =
       end
   end
 
-structure GIArgument :>
+structure GIRepositoryArgument :>
   sig
-    include GI_ARGUMENT
-      where type typetag_t = GITypeTag.t
+    include G_I_REPOSITORY_ARGUMENT
+      where type typetag_t = GIRepositoryTypeTag.t
 
     structure PolyML :
       sig
@@ -1203,7 +1151,7 @@ structure GIArgument :>
           (PTR --> FFI.PolyML.String.RETPTR);
     end
 
-    type typetag_t = GITypeTag.t
+    type typetag_t = GIRepositoryTypeTag.t
 
     datatype t =
       BOOLEAN  of bool
@@ -1245,32 +1193,32 @@ structure GIArgument :>
         fun fromPtr tag ptr =
           (
             case tag of
-              GITypeTag.BOOLEAN  => BOOLEAN (from_boolean_ ptr)
-            | GITypeTag.INT8     => INT8    (from_int8_ ptr)
-            | GITypeTag.UINT8    => UINT8   (from_uint8_ ptr)
-            | GITypeTag.INT16    => INT16   (from_int16_ ptr)
-            | GITypeTag.UINT16   => UINT16  (from_uint16_ ptr)
-            | GITypeTag.INT32    => INT32   (from_int32_ ptr)
-            | GITypeTag.UINT32   => UINT32  (from_uint32_ ptr)
-            | GITypeTag.INT64    => INT64   (from_int64_ ptr)
-            | GITypeTag.UINT64   => UINT64  (from_uint64_ ptr)
-            | GITypeTag.FLOAT    => FLOAT   (from_float_ ptr)
-            | GITypeTag.DOUBLE   => DOUBLE  (from_double_ ptr)
-            | GITypeTag.UTF8     => STRING (
+              GIRepositoryTypeTag.BOOLEAN  => BOOLEAN (from_boolean_ ptr)
+            | GIRepositoryTypeTag.INT8     => INT8    (from_int8_ ptr)
+            | GIRepositoryTypeTag.UINT8    => UINT8   (from_uint8_ ptr)
+            | GIRepositoryTypeTag.INT16    => INT16   (from_int16_ ptr)
+            | GIRepositoryTypeTag.UINT16   => UINT16  (from_uint16_ ptr)
+            | GIRepositoryTypeTag.INT32    => INT32   (from_int32_ ptr)
+            | GIRepositoryTypeTag.UINT32   => UINT32  (from_uint32_ ptr)
+            | GIRepositoryTypeTag.INT64    => INT64   (from_int64_ ptr)
+            | GIRepositoryTypeTag.UINT64   => UINT64  (from_uint64_ ptr)
+            | GIRepositoryTypeTag.FLOAT    => FLOAT   (from_float_ ptr)
+            | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (from_double_ ptr)
+            | GIRepositoryTypeTag.UTF8     => STRING (
                 FFI.String.fromPtr true (from_string_ ptr)
               )
-            | GITypeTag.FILENAME => STRING (
+            | GIRepositoryTypeTag.FILENAME => STRING (
                 FFI.String.fromPtr true (from_string_ ptr)
               )
-            | GITypeTag.VOID      => VOID
-            | GITypeTag.GTYPE     => GTYPE
-            | GITypeTag.ARRAY     => ARRAY
-            | GITypeTag.INTERFACE => INTERFACE
-            | GITypeTag.GLIST     => GLIST
-            | GITypeTag.GSLIST    => GSLIST
-            | GITypeTag.GHASH     => GHASH
-            | GITypeTag.ERROR     => ERROR
-            | GITypeTag.UNICHAR   => UNICHAR
+            | GIRepositoryTypeTag.VOID      => VOID
+            | GIRepositoryTypeTag.GTYPE     => GTYPE
+            | GIRepositoryTypeTag.ARRAY     => ARRAY
+            | GIRepositoryTypeTag.INTERFACE => INTERFACE
+            | GIRepositoryTypeTag.GLIST     => GLIST
+            | GIRepositoryTypeTag.GSLIST    => GSLIST
+            | GIRepositoryTypeTag.GHASH     => GHASH
+            | GIRepositoryTypeTag.ERROR     => ERROR
+            | GIRepositoryTypeTag.UNICHAR   => UNICHAR
           ) before free_ ptr
       end
 
@@ -1283,62 +1231,58 @@ structure GIArgument :>
 
 
 
-signature GI_CONSTANT_INFO =
+signature G_I_REPOSITORY_CONSTANT_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a typeinfoclass_t
     type argument_t
-
-    val get_type : 'a t -> base typeinfoclass_t
-    val get_value : 'a t -> argument_t
+    val getType : 'a class_t -> base typeinfoclass_t
+    val getValue : 'a class_t -> argument_t
   end
 
-structure GIConstantInfo :>
-  sig
-    include GI_CONSTANT_INFO
-      where type 'a t = 'a GIConstantInfoClass.t
-      where type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-      where type argument_t = GIArgument.t
-  end =
+structure GIRepositoryConstantInfo :>
+  G_I_REPOSITORY_CONSTANT_INFO
+    where type 'a class_t = 'a GIRepositoryConstantInfoClass.t
+    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type argument_t = GIRepositoryArgument.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_type_ =
+      val getType_ =
         call
           (load_sym libgirepository "g_constant_info_get_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_value_ =
+      val getValue_ =
         call
           (load_sym libgirepository "g_constant_info_get_value")
-          (GIBaseInfoClass.PolyML.PTR
-            &&> GIArgument.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
+            &&> GIRepositoryArgument.PolyML.PTR
             --> FFI.PolyML.Int32.VAL);
     end
 
 
-    type 'a t = 'a GIConstantInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-    type argument_t = GIArgument.t
+    type 'a class_t = 'a GIRepositoryConstantInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type argument_t = GIRepositoryArgument.t
 
 
-    val get_type =
+    val getType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-          get_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+          getType_
           info
 
-    val get_value =
+    val getValue =
       fn info =>
         let
-          val tag = GITypeInfo.get_tag (get_type info)
+          val tag = GIRepositoryTypeInfo.getTag (getType info)
           val value & _ =
-            (GIBaseInfoClass.C.withPtr
-              &&&> GIArgument.C.withNewPtr
-              ---> GIArgument.C.fromPtr tag && I)
-              get_value_
+            (GIRepositoryBaseInfoClass.C.withPtr
+              &&&> GIRepositoryArgument.C.withNewPtr
+              ---> GIRepositoryArgument.C.fromPtr tag && I)
+              getValue_
               (info & ())
         in
           value
@@ -1347,70 +1291,64 @@ structure GIConstantInfo :>
 
 
 
-signature GI_REGISTERED_TYPE_INFO =
+signature G_I_REPOSITORY_REGISTERED_TYPE_INFO =
   sig
-    type 'a t
-    type type_t
-
-    val get_type_name : 'a t -> string option
-    val get_type_init : 'a t -> string option
-    val get_g_type : 'a t -> type_t
+    type 'a class_t
+    val getTypeName : 'a class_t -> string option
+    val getTypeInit : 'a class_t -> string option
+    val getGType : 'a class_t -> GObject.Type.t
   end
 
-structure GIRegisteredTypeInfo :>
-  sig
-    include GI_REGISTERED_TYPE_INFO
-      where type 'a t = 'a GIRegisteredTypeInfoClass.t
-      where type type_t = GObjectType.t
-  end =
+structure GIRepositoryRegisteredTypeInfo :>
+  G_I_REPOSITORY_REGISTERED_TYPE_INFO
+    where type 'a class_t = 'a GIRepositoryRegisteredTypeInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_type_name_ =
+      val getTypeName_ =
         call
           (load_sym libgirepository "g_registered_type_info_get_type_name")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
 
-      val get_type_init_ =
+      val getTypeInit_ =
         call
           (load_sym libgirepository "g_registered_type_info_get_type_init")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
 
-      val get_g_type_ =
+      val getGType_ =
         call
           (load_sym libgirepository "g_registered_type_info_get_g_type")
-          (GIBaseInfoClass.PolyML.PTR --> GObjectType.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GObjectType.PolyML.VAL);
     end
 
 
-    type 'a t = 'a GIRegisteredTypeInfoClass.t
-    type type_t = GObjectType.t
+    type 'a class_t = 'a GIRepositoryRegisteredTypeInfoClass.t
 
 
-    val get_type_name =
+    val getTypeName =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
-          get_type_name_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+          getTypeName_
           info
 
-    val get_type_init =
+    val getTypeInit =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
-          get_type_init_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+          getTypeInit_
           info
 
-    val get_g_type =
+    val getGType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GObjectType.C.fromVal) get_g_type_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GObjectType.C.fromVal) getGType_ info
   end
 
 
 
 
-signature GI_VALUE_INFO =
+signature G_I_REPOSITORY_VALUE_INFO =
   sig
-    type 'a t
+    type 'a class_t
 
     (*
      * The value returned by g_value_info_get_value is representable as
@@ -1426,44 +1364,42 @@ signature GI_VALUE_INFO =
      * To avoid 64 bit issues, two interfaces to g_value_info_get_value are
      * provided returning 32 bit signed and unsigned values.
      *)
-    val get_value_int : 'a t -> LargeInt.int
-    val get_value_word : 'a t -> LargeInt.int
+    val getValueInt : 'a class_t -> LargeInt.int
+    val getValueWord : 'a class_t -> LargeInt.int
   end
 
-structure GIValueInfo :>
-  sig
-    include GI_VALUE_INFO
-      where type 'a t = 'a GIValueInfoClass.t
-  end =
+structure GIRepositoryValueInfo :>
+  G_I_REPOSITORY_VALUE_INFO
+    where type 'a class_t = 'a GIRepositoryValueInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_value_int_ =
+      val getValueInt_ =
         call
           (load_sym libgirepository "g_value_info_get_value")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_value_word_ =
+      val getValueWord_ =
         call
           (load_sym libgirepository "g_value_info_get_value")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Word32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Word32.VAL);
     end
 
 
-    type 'a t = 'a GIValueInfoClass.t
+    type 'a class_t = 'a GIRepositoryValueInfoClass.t
 
 
-    fun get_value_int info =
-      (GIBaseInfoClass.C.withPtr ---> FFI.Int32.fromVal) get_value_int_ info
+    fun getValueInt info =
+      (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.fromVal) getValueInt_ info
 
-    fun get_value_word info =
-      (GIBaseInfoClass.C.withPtr ---> FFI.Word32.fromVal) get_value_word_ info
+    fun getValueWord info =
+      (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Word32.fromVal) getValueWord_ info
   end
 
 
 
-signature GI_DIRECTION =
+signature G_I_REPOSITORY_DIRECTION =
   sig
     datatype t =
       IN
@@ -1472,17 +1408,27 @@ signature GI_DIRECTION =
     structure C :
       sig
         type val_
+        type ref_
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
+        val withRefVal :
+          (ref_ -> 'a)
+           -> t
+           -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of Int32.int
+        exception Value of FFI.Enum.val_
       end
   end
 
-structure GIDirection :>
+structure GIRepositoryDirection :>
   sig
-    include GI_DIRECTION
+    include G_I_REPOSITORY_DIRECTION
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct 
@@ -1490,25 +1436,34 @@ structure GIDirection :>
       IN
     | OUT
     | INOUT
-
     structure C =
       struct
         type val_ = FFI.Enum.val_
+        type ref_ = FFI.Enum.ref_
         exception Value of FFI.Enum.val_
-        val table = Vector.fromList [IN, OUT, INOUT]
-        fun fromVal n =
-          Vector.sub (table, Int32.toInt n) handle Subscript => raise Value n
+        fun withVal f =
+          fn
+            IN => f 0
+          | OUT => f 1
+          | INOUT => f 2
+        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        val fromVal =
+          fn
+            0 => IN
+          | 1 => OUT
+          | 2 => INOUT
+          | n => raise Value n
       end
-
     structure PolyML =
       struct
         val VAL = FFI.PolyML.Enum.VAL
+        val REF = FFI.PolyML.Enum.REF
       end
   end
 
 
 
-signature GI_SCOPE_TYPE =
+signature G_I_REPOSITORY_SCOPE_TYPE =
   sig
     datatype t =
       INVALID
@@ -1518,17 +1473,27 @@ signature GI_SCOPE_TYPE =
     structure C :
       sig
         type val_
+        type ref_
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
+        val withRefVal :
+          (ref_ -> 'a)
+           -> t
+           -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of Int32.int
+        exception Value of FFI.Enum.val_
       end
   end
 
-structure GIScopeType :>
+structure GIRepositoryScopeType :>
   sig
-    include GI_SCOPE_TYPE
+    include G_I_REPOSITORY_SCOPE_TYPE
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct 
@@ -1537,25 +1502,36 @@ structure GIScopeType :>
     | CALL
     | ASYNC
     | NOTIFIED
-
     structure C =
       struct
         type val_ = FFI.Enum.val_
+        type ref_ = FFI.Enum.ref_
         exception Value of FFI.Enum.val_
-        val table = Vector.fromList [INVALID, CALL, ASYNC, NOTIFIED]
-        fun fromVal n =
-          Vector.sub (table, Int32.toInt n) handle Subscript => raise Value n
+        fun withVal f =
+          fn
+            INVALID => f 0
+          | CALL => f 1
+          | ASYNC => f 2
+          | NOTIFIED => f 3
+        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        val fromVal =
+          fn
+            0 => INVALID
+          | 1 => CALL
+          | 2 => ASYNC
+          | 3 => NOTIFIED
+          | n => raise Value n
       end
-
     structure PolyML =
       struct
         val VAL = FFI.PolyML.Enum.VAL
+        val REF = FFI.PolyML.Enum.REF
       end
   end
 
 
 
-signature GI_TRANSFER =
+signature G_I_REPOSITORY_TRANSFER =
   sig
     datatype t =
       NOTHING
@@ -1564,17 +1540,27 @@ signature GI_TRANSFER =
     structure C :
       sig
         type val_
+        type ref_
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
+        val withRefVal :
+          (ref_ -> 'a)
+           -> t
+           -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of Int32.int
+        exception Value of FFI.Enum.val_
       end
   end
 
-structure GITransfer :>
+structure GIRepositoryTransfer :>
   sig
-    include GI_TRANSFER
+    include G_I_REPOSITORY_TRANSFER
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct 
@@ -1582,1023 +1568,985 @@ structure GITransfer :>
       NOTHING
     | CONTAINER
     | EVERYTHING
-
     structure C =
       struct
         type val_ = FFI.Enum.val_
+        type ref_ = FFI.Enum.ref_
         exception Value of FFI.Enum.val_
-        val table = Vector.fromList [NOTHING, CONTAINER, EVERYTHING]
-        fun fromVal n =
-          Vector.sub (table, Int32.toInt n) handle Subscript => raise Value n
+        fun withVal f =
+          fn
+            NOTHING => f 0
+          | CONTAINER => f 1
+          | EVERYTHING => f 2
+        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        val fromVal =
+          fn
+            0 => NOTHING
+          | 1 => CONTAINER
+          | 2 => EVERYTHING
+          | n => raise Value n
       end
-
     structure PolyML =
       struct
         val VAL = FFI.PolyML.Enum.VAL
+        val REF = FFI.PolyML.Enum.REF
       end
   end
 
 
 
-signature GI_ARG_INFO =
+signature G_I_REPOSITORY_ARG_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a typeinfoclass_t
     type direction_t
     type scopetype_t
     type transfer_t
-
-    val get_direction : 'a t -> direction_t
-    val is_caller_allocates : 'a t -> bool
-    val is_return_value : 'a t -> bool
-    val is_optional : 'a t -> bool
-    val may_be_null : 'a t -> bool
-    val get_ownership_transfer : 'a t -> transfer_t
-    val get_scope : 'a t -> scopetype_t
-    val get_closure : 'a t -> LargeInt.int option
-    val get_destroy : 'a t -> LargeInt.int option
-    val get_type : 'a t -> base typeinfoclass_t
+    val getDirection : 'a class_t -> direction_t
+    val isCallerAllocates : 'a class_t -> bool
+    val isReturnValue : 'a class_t -> bool
+    val isOptional : 'a class_t -> bool
+    val mayBeNull : 'a class_t -> bool
+    val getOwnershipTransfer : 'a class_t -> transfer_t
+    val getScope : 'a class_t -> scopetype_t
+    val getClosure : 'a class_t -> LargeInt.int option
+    val getDestroy : 'a class_t -> LargeInt.int option
+    val getType : 'a class_t -> base typeinfoclass_t
   end
 
-structure GIArgInfo :>
-  sig
-    include GI_ARG_INFO
-      where type 'a t = 'a GIArgInfoClass.t
-      where type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-      where type direction_t = GIDirection.t
-      where type scopetype_t = GIScopeType.t
-      where type transfer_t = GITransfer.t
-  end =
+structure GIRepositoryArgInfo :>
+  G_I_REPOSITORY_ARG_INFO
+    where type 'a class_t = 'a GIRepositoryArgInfoClass.t
+    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type direction_t = GIRepositoryDirection.t
+    where type scopetype_t = GIRepositoryScopeType.t
+    where type transfer_t = GIRepositoryTransfer.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_direction_ =
+      val getDirection_ =
         call
           (load_sym libgirepository "g_arg_info_get_direction")
-          (GIBaseInfoClass.PolyML.PTR --> GIDirection.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryDirection.PolyML.VAL);
 
-      val is_caller_allocates_ =
+      val isCallerAllocates_ =
         call
           (load_sym libgirepository "g_arg_info_is_caller_allocates")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val is_return_value_ =
+      val isReturnValue_ =
         call
           (load_sym libgirepository "g_arg_info_is_return_value")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val is_optional_ =
+      val isOptional_ =
         call
           (load_sym libgirepository "g_arg_info_is_optional")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val may_be_null_ =
+      val mayBeNull_ =
         call
           (load_sym libgirepository "g_arg_info_may_be_null")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_ownership_transfer_ =
+      val getOwnershipTransfer_ =
         call
           (load_sym libgirepository "g_arg_info_get_ownership_transfer")
-          (GIBaseInfoClass.PolyML.PTR --> GITransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
 
-      val get_scope_ =
+      val getScope_ =
         call
           (load_sym libgirepository "g_arg_info_get_scope")
-          (GIBaseInfoClass.PolyML.PTR --> GIScopeType.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryScopeType.PolyML.VAL);
 
-      val get_closure_ =
+      val getClosure_ =
         call
           (load_sym libgirepository "g_arg_info_get_closure")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_destroy_ =
+      val getDestroy_ =
         call
           (load_sym libgirepository "g_arg_info_get_destroy")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_type_ =
+      val getType_ =
         call
           (load_sym libgirepository "g_arg_info_get_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GIArgInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-    type direction_t = GIDirection.t
-    type scopetype_t = GIScopeType.t
-    type transfer_t = GITransfer.t
+    type 'a class_t = 'a GIRepositoryArgInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type direction_t = GIRepositoryDirection.t
+    type scopetype_t = GIRepositoryScopeType.t
+    type transfer_t = GIRepositoryTransfer.t
 
 
-    val get_direction =
+    val getDirection =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIDirection.C.fromVal) get_direction_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryDirection.C.fromVal) getDirection_ info
 
-    val is_caller_allocates =
+    val isCallerAllocates =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> I) is_caller_allocates_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isCallerAllocates_ info
 
-    val is_return_value =
+    val isReturnValue =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> I) is_return_value_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isReturnValue_ info
 
-    val is_optional =
+    val isOptional =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> I) is_optional_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isOptional_ info
 
-    val may_be_null =
+    val mayBeNull =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> I) may_be_null_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> I) mayBeNull_ info
 
-    val get_ownership_transfer =
+    val getOwnershipTransfer =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITransfer.C.fromVal)
-          get_ownership_transfer_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTransfer.C.fromVal)
+          getOwnershipTransfer_
           info
 
-    val get_scope =
+    val getScope =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIScopeType.C.fromVal) get_scope_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryScopeType.C.fromVal) getScope_ info
 
-    val get_closure =
+    val getClosure =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
-          get_closure_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
+          getClosure_
           info
 
-    val get_destroy =
+    val getDestroy =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
-          get_destroy_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
+          getDestroy_
           info
 
-    val get_type =
+    val getType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-          get_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+          getType_
           info
   end
 
 
 
-signature GI_CALLABLE_INFO =
+signature G_I_REPOSITORY_CALLABLE_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a arginfoclass_t
     type 'a typeinfoclass_t
     type transfer_t
-
-    val get_return_type : 'a t -> base typeinfoclass_t
-    val get_caller_owns : 'a t -> transfer_t
-    val may_return_null : 'a t -> bool
-    val get_return_attribute : 'a t -> string -> string option
-    val get_n_args : 'a t -> LargeInt.int
-    val get_arg : 'a t -> LargeInt.int -> base arginfoclass_t
+    val getReturnType : 'a class_t -> base typeinfoclass_t
+    val getCallerOwns : 'a class_t -> transfer_t
+    val mayReturnNull : 'a class_t -> bool
+    val getReturnAttribute : 'a class_t -> string -> string option
+    val getNArgs : 'a class_t -> LargeInt.int
+    val getArg : 'a class_t -> LargeInt.int -> base arginfoclass_t
   end
 
-structure GICallableInfo :>
-  sig
-    include GI_CALLABLE_INFO
-      where type 'a t = 'a GICallableInfoClass.t
-      where type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-      where type transfer_t = GITransfer.t
-      where type 'a arginfoclass_t = 'a GIArgInfoClass.t
-  end =
+structure GIRepositoryCallableInfo :>
+  G_I_REPOSITORY_CALLABLE_INFO
+    where type 'a class_t = 'a GIRepositoryCallableInfoClass.t
+    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type transfer_t = GIRepositoryTransfer.t
+    where type 'a arginfoclass_t = 'a GIRepositoryArgInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_return_type_ =
+      val getReturnType_ =
         call
           (load_sym libgirepository "g_callable_info_get_return_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_caller_owns_ =
+      val getCallerOwns_ =
         call
           (load_sym libgirepository "g_callable_info_get_caller_owns")
-          (GIBaseInfoClass.PolyML.PTR --> GITransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
 
-      val may_return_null_ =
+      val mayReturnNull_ =
         call
           (load_sym libgirepository "g_callable_info_may_return_null")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_return_attribute_ =
+      val getReturnAttribute_ =
         call
           (load_sym libgirepository "g_callable_info_get_return_attribute")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             --> FFI.PolyML.String.RETPTR);
 
-      val get_n_args_ =
+      val getNArgs_ =
         call
           (load_sym libgirepository "g_callable_info_get_n_args")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_arg_ =
+      val getArg_ =
         call
           (load_sym libgirepository "g_callable_info_get_arg")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GICallableInfoClass.t
-    type 'a arginfoclass_t = 'a GIArgInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-    type transfer_t = GITransfer.t
+    type 'a class_t = 'a GIRepositoryCallableInfoClass.t
+    type 'a arginfoclass_t = 'a GIRepositoryArgInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type transfer_t = GIRepositoryTransfer.t
 
 
-    val get_return_type =
+    val getReturnType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-          get_return_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+          getReturnType_
           info
 
-    val get_caller_owns =
+    val getCallerOwns =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITransfer.C.fromVal)
-          get_caller_owns_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTransfer.C.fromVal)
+          getCallerOwns_
           info
 
-    val may_return_null =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) may_return_null_ info
+    val mayReturnNull =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) mayReturnNull_ info
 
-    val get_return_attribute =
+    val getReturnAttribute =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
           ---> FFI.String.fromOptPtr false)
-          get_return_attribute_
+          getReturnAttribute_
           (info & name)
 
-    val get_n_args =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_args_ info
+    val getNArgs =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNArgs_ info
 
-    val get_arg =
+    val getArg =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIArgInfoClass.C.fromPtr true)
-          get_arg_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryArgInfoClass.C.fromPtr true)
+          getArg_
           (info & n)
   end
 
 
 
-signature GI_PROPERTY_INFO =
+signature G_I_REPOSITORY_PROPERTY_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a typeinfoclass_t
     type transfer_t
-    type paramflags_t
-
-    val get_flags : 'a t -> paramflags_t
-    val get_type : 'a t -> base typeinfoclass_t
-    val get_ownership_transfer : 'a t -> transfer_t
+    val getFlags : 'a class_t -> GObject.ParamFlags.flags
+    val getType : 'a class_t -> base typeinfoclass_t
+    val getOwnershipTransfer : 'a class_t -> transfer_t
   end
 
-structure GIPropertyInfo :>
-  sig
-    include GI_PROPERTY_INFO
-      where type 'a t = 'a GIPropertyInfoClass.t
-      where type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-      where type transfer_t = GITransfer.t
-      where type paramflags_t = GObjectParamFlags.flags
-  end =
+structure GIRepositoryPropertyInfo :>
+  G_I_REPOSITORY_PROPERTY_INFO
+    where type 'a class_t = 'a GIRepositoryPropertyInfoClass.t
+    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type transfer_t = GIRepositoryTransfer.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_flags_ =
+      val getFlags_ =
         call
           (load_sym libgirepository "g_property_info_get_flags")
-          (GIBaseInfoClass.PolyML.PTR --> GObjectParamFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GObjectParamFlags.PolyML.VAL);
 
-      val get_type_ =
+      val getType_ =
         call
           (load_sym libgirepository "g_property_info_get_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_ownership_transfer_ =
+      val getOwnershipTransfer_ =
         call
           (load_sym
              libgirepository
              "g_property_info_get_ownership_transfer")
-          (GIBaseInfoClass.PolyML.PTR --> GITransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
     end
 
 
-    type 'a t = 'a GIPropertyInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-    type transfer_t = GITransfer.t
-    type paramflags_t = GObjectParamFlags.flags
+    type 'a class_t = 'a GIRepositoryPropertyInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type transfer_t = GIRepositoryTransfer.t
 
 
-    val get_flags =
+    val getFlags =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GObjectParamFlags.C.fromVal)
-          get_flags_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GObjectParamFlags.C.fromVal)
+          getFlags_
           info
 
-    val get_type =
+    val getType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-          get_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+          getType_
           info
 
-    val get_ownership_transfer =
+    val getOwnershipTransfer =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITransfer.C.fromVal)
-        get_ownership_transfer_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTransfer.C.fromVal)
+        getOwnershipTransfer_
         info
   end
 
 
 
-signature GI_FUNCTION_INFO =
+signature G_I_REPOSITORY_FUNCTION_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a propertyinfoclass_t
     type 'a vfuncinfoclass_t
     type functioninfoflags_t
-
-    val get_symbol : 'a t -> string
-    val get_flags : 'a t -> functioninfoflags_t
-    val get_property : 'a t -> base propertyinfoclass_t
-    val get_vfunc : 'a t -> base vfuncinfoclass_t
+    val getSymbol : 'a class_t -> string
+    val getFlags : 'a class_t -> functioninfoflags_t
+    val getProperty : 'a class_t -> base propertyinfoclass_t
+    val getVfunc : 'a class_t -> base vfuncinfoclass_t
   end
 
-structure GIFunctionInfo :>
-  sig
-    include GI_FUNCTION_INFO
-      where type 'a t = 'a GIFunctionInfoClass.t
-      where type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-      where type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-      where type functioninfoflags_t = GIRepositoryFunctionInfoFlags.flags
-  end =
+structure GIRepositoryFunctionInfo :>
+  G_I_REPOSITORY_FUNCTION_INFO
+    where type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    where type functioninfoflags_t = GIRepositoryFunctionInfoFlags.flags =
   struct
     local
       open PolyMLFFI
     in
-      val get_symbol_ =
+      val getSymbol_ =
         call
           (load_sym libgirepository "g_function_info_get_symbol")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_flags_ =
+      val getFlags_ =
         call
           (load_sym libgirepository "g_function_info_get_flags")
-          (GIBaseInfoClass.PolyML.PTR --> GIRepositoryFunctionInfoFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryFunctionInfoFlags.PolyML.VAL);
 
-      val get_property_ =
+      val getProperty_ =
         call
           (load_sym libgirepository "g_function_info_get_property")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_vfunc_ =
+      val getVfunc_ =
         call
           (load_sym libgirepository "g_function_info_get_vfunc")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GIFunctionInfoClass.t
-    type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
+    type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
     type functioninfoflags_t = GIRepositoryFunctionInfoFlags.flags
 
 
-    val get_symbol =
+    val getSymbol =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-          get_symbol_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+          getSymbol_
           info
 
-    val get_flags =
-      fn info => (GIBaseInfoClass.C.withPtr ---> GIRepositoryFunctionInfoFlags.C.fromVal)
-        get_flags_
+    val getFlags =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFunctionInfoFlags.C.fromVal)
+        getFlags_
         info
 
-    val get_property =
+    val getProperty =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIPropertyInfoClass.C.fromPtr true)
-          get_property_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryPropertyInfoClass.C.fromPtr true)
+          getProperty_
           info
 
-    val get_vfunc =
+    val getVfunc =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIVFuncInfoClass.C.fromPtr true)
-          get_vfunc_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+          getVfunc_
           info
   end
 
 
 
-signature GI_SIGNAL_INFO =
+signature G_I_REPOSITORY_SIGNAL_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a vfuncinfoclass_t
-    type signalflags_t
-
-    val get_flags : 'a t -> signalflags_t
-    val get_class_closure : 'a t -> base vfuncinfoclass_t
-    val true_stops_emit : 'a t -> bool
+    val getFlags : 'a class_t -> GObject.SignalFlags.flags
+    val getClassClosure : 'a class_t -> base vfuncinfoclass_t
+    val trueStopsEmit : 'a class_t -> bool
   end
 
-structure GISignalInfo :>
-  sig
-    include GI_SIGNAL_INFO
-      where type 'a t = 'a GISignalInfoClass.t
-      where type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-      where type signalflags_t = GObjectSignalFlags.flags
-  end =
+structure GIRepositorySignalInfo :>
+  G_I_REPOSITORY_SIGNAL_INFO
+    where type 'a class_t = 'a GIRepositorySignalInfoClass.t
+    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_flags_ =
+      val getFlags_ =
         call
           (load_sym libgirepository "g_signal_info_get_flags")
-          (GIBaseInfoClass.PolyML.PTR --> GObjectSignalFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GObjectSignalFlags.PolyML.VAL);
 
-      val get_class_closure_ =
+      val getClassClosure_ =
         call
           (load_sym libgirepository "g_signal_info_get_class_closure")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val true_stops_emit_ =
+      val trueStopsEmit_ =
         call
           (load_sym libgirepository "g_signal_info_true_stops_emit")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
     end
 
 
-    type 'a t = 'a GISignalInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-    type signalflags_t = GObjectSignalFlags.flags
+    type 'a class_t = 'a GIRepositorySignalInfoClass.t
+    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
 
 
-    val get_flags =
+    val getFlags =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GObjectSignalFlags.C.fromVal)
-          get_flags_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GObjectSignalFlags.C.fromVal)
+          getFlags_
           info
 
-    val get_class_closure =
+    val getClassClosure =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIVFuncInfoClass.C.fromPtr true)
-          get_class_closure_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+          getClassClosure_
           info
 
-    val true_stops_emit =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) true_stops_emit_ info
+    val trueStopsEmit =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) trueStopsEmit_ info
   end
 
 
 
-signature GI_VFUNC_INFO =
+signature G_I_REPOSITORY_VFUNC_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a functioninfoclass_t
     type 'a signalinfoclass_t
     type vfuncinfoflags_t
-
-    val get_flags : 'a t -> vfuncinfoflags_t
-    val get_offset : 'a t -> LargeInt.int
-    val get_signal : 'a t -> base signalinfoclass_t
-    val get_invoker : 'a t -> base functioninfoclass_t
+    val getFlags : 'a class_t -> vfuncinfoflags_t
+    val getOffset : 'a class_t -> LargeInt.int
+    val getSignal : 'a class_t -> base signalinfoclass_t
+    val getInvoker : 'a class_t -> base functioninfoclass_t
   end
 
-structure GIVFuncInfo :>
-  sig
-    include GI_VFUNC_INFO
-      where type 'a t = 'a GIVFuncInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-      where type 'a signalinfoclass_t = 'a GISignalInfoClass.t
-      where type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.flags
-  end =
+structure GIRepositoryVFuncInfo :>
+  G_I_REPOSITORY_VFUNC_INFO
+    where type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    where type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.flags =
   struct
     local
       open PolyMLFFI
     in
-      val get_flags_ =
+      val getFlags_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_flags")
-          (GIBaseInfoClass.PolyML.PTR --> GIRepositoryVFuncInfoFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryVFuncInfoFlags.PolyML.VAL);
 
-      val get_offset_ =
+      val getOffset_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_offset")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_signal_ =
+      val getSignal_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_signal")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_invoker_ =
+      val getInvoker_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_invoker")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GIVFuncInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-    type 'a signalinfoclass_t = 'a GISignalInfoClass.t
+    type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
     type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.flags
 
 
-    val get_flags =
-      fn info => (GIBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoFlags.C.fromVal)
-        get_flags_
+    val getFlags =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoFlags.C.fromVal)
+        getFlags_
         info
 
-    val get_offset =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_offset_ info
+    val getOffset =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getOffset_ info
 
-    val get_signal =
+    val getSignal =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GISignalInfoClass.C.fromPtr true)
-          get_signal_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositorySignalInfoClass.C.fromPtr true)
+          getSignal_
           info
 
-    val get_invoker =
+    val getInvoker =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIFunctionInfoClass.C.fromPtr true)
-          get_invoker_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+          getInvoker_
           info
   end
 
 
 
-signature GI_FIELD_INFO =
+signature G_I_REPOSITORY_FIELD_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a typeinfoclass_t
     type fieldinfoflags_t
-
-    val get_flags : 'a t -> fieldinfoflags_t
-    val get_size : 'a t -> LargeInt.int
-    val get_offset : 'a t -> LargeInt.int
-    val get_type : 'a t -> base typeinfoclass_t
+    val getFlags : 'a class_t -> fieldinfoflags_t
+    val getSize : 'a class_t -> LargeInt.int
+    val getOffset : 'a class_t -> LargeInt.int
+    val getType : 'a class_t -> base typeinfoclass_t
   end
 
-structure GIFieldInfo :>
-  sig
-    include GI_FIELD_INFO
-      where type 'a t = 'a GIFieldInfoClass.t
-      where type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-      where type fieldinfoflags_t = GIRepositoryFieldInfoFlags.flags
-  end =
+structure GIRepositoryFieldInfo :>
+  G_I_REPOSITORY_FIELD_INFO
+    where type 'a class_t = 'a GIRepositoryFieldInfoClass.t
+    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type fieldinfoflags_t = GIRepositoryFieldInfoFlags.flags =
   struct
     local
       open PolyMLFFI
     in
-      val get_flags_ =
+      val getFlags_ =
         call
           (load_sym libgirepository "g_field_info_get_flags")
-          (GIBaseInfoClass.PolyML.PTR --> GIRepositoryFieldInfoFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryFieldInfoFlags.PolyML.VAL);
 
-      val get_size_ =
+      val getSize_ =
         call
           (load_sym libgirepository "g_field_info_get_size")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_offset_ =
+      val getOffset_ =
         call
           (load_sym libgirepository "g_field_info_get_offset")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_type_ =
+      val getType_ =
         call
           (load_sym libgirepository "g_field_info_get_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GIFieldInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
+    type 'a class_t = 'a GIRepositoryFieldInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
     type fieldinfoflags_t = GIRepositoryFieldInfoFlags.flags
 
 
-    val get_flags =
+    val getFlags =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIRepositoryFieldInfoFlags.C.fromVal) get_flags_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFieldInfoFlags.C.fromVal) getFlags_ info
 
-    val get_size = fn info => (GIBaseInfoClass.C.withPtr ---> I) get_size_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getSize_ info
 
-    val get_offset = fn info => (GIBaseInfoClass.C.withPtr ---> I) get_offset_ info
+    val getOffset = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getOffset_ info
 
-    val get_type =
+    val getType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-          get_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+          getType_
           info
   end
 
 
 
-signature GI_STRUCT_INFO =
+signature G_I_REPOSITORY_STRUCT_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a fieldinfoclass_t
     type 'a functioninfoclass_t
-
-    val get_n_fields : 'a t -> LargeInt.int
-    val get_field : 'a t -> LargeInt.int -> base fieldinfoclass_t
-    val get_n_methods : 'a t -> LargeInt.int
-    val get_method : 'a t -> LargeInt.int -> base functioninfoclass_t
-    val find_method : 'a t -> string -> base functioninfoclass_t
-    val get_size : 'a t -> LargeInt.int
-    val get_alignment : 'a t -> LargeInt.int
-    val is_gtype_struct : 'a t -> bool
-    val is_foreign : 'a t -> bool
+    val getNFields : 'a class_t -> LargeInt.int
+    val getField : 'a class_t -> LargeInt.int -> base fieldinfoclass_t
+    val getNMethods : 'a class_t -> LargeInt.int
+    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
+    val findMethod : 'a class_t -> string -> base functioninfoclass_t
+    val getSize : 'a class_t -> LargeInt.int
+    val getAlignment : 'a class_t -> LargeInt.int
+    val isGtypeStruct : 'a class_t -> bool
+    val isForeign : 'a class_t -> bool
   end
 
-structure GIStructInfo :>
-  sig
-    include GI_STRUCT_INFO
-      where type 'a t = 'a GIStructInfoClass.t
-      where type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-  end =
+structure GIRepositoryStructInfo :>
+  G_I_REPOSITORY_STRUCT_INFO
+    where type 'a class_t = 'a GIRepositoryStructInfoClass.t
+    where type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_n_fields_ =
+      val getNFields_ =
         call
           (load_sym libgirepository "g_struct_info_get_n_fields")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_field_ =
+      val getField_ =
         call
           (load_sym libgirepository "g_struct_info_get_field")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_methods_ =
+      val getNMethods_ =
         call
           (load_sym libgirepository "g_struct_info_get_n_methods")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_method_ =
+      val getMethod_ =
         call
           (load_sym libgirepository "g_struct_info_get_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_method_ =
+      val findMethod_ =
         call
           (load_sym libgirepository "g_struct_info_find_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_size_ =
+      val getSize_ =
         call
           (load_sym libgirepository "g_struct_info_get_size")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
 
-      val get_alignment_ =
+      val getAlignment_ =
         call
           (load_sym libgirepository "g_struct_info_get_alignment")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
 
-      val is_gtype_struct_ =
+      val isGtypeStruct_ =
         call
           (load_sym libgirepository "g_struct_info_is_gtype_struct")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val is_foreign_ =
+      val isForeign_ =
         call
           (load_sym libgirepository "g_struct_info_is_foreign")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
     end
 
 
-    type 'a t = 'a GIStructInfoClass.t
-    type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
+    type 'a class_t = 'a GIRepositoryStructInfoClass.t
+    type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
 
 
-    val get_n_fields =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_fields_ info
+    val getNFields =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNFields_ info
 
-    val get_field =
+    val getField =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFieldInfoClass.C.fromPtr true)
-        get_field_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFieldInfoClass.C.fromPtr true)
+        getField_
         (info & n)
 
-    val get_n_methods =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_methods_ info
+    val getNMethods =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
 
-    val get_method =
+    val getMethod =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFunctionInfoClass.C.fromPtr true)
-        get_method_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        getMethod_
         (info & n)
 
-    val find_method =
+    val findMethod =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIFunctionInfoClass.C.fromPtr true)
-        find_method_
+          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        findMethod_
         (info & name)
 
-    val get_size = fn info => (GIBaseInfoClass.C.withPtr ---> I) get_size_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getSize_ info
 
-    val get_alignment =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_alignment_ info
+    val getAlignment =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getAlignment_ info
 
-    val is_gtype_struct =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) is_gtype_struct_ info
+    val isGtypeStruct =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isGtypeStruct_ info
 
-    val is_foreign =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) is_foreign_ info
+    val isForeign =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isForeign_ info
   end
 
 
 
-signature GI_UNION_INFO =
+signature G_I_REPOSITORY_UNION_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a fieldinfoclass_t
     type 'a functioninfoclass_t
     type 'a typeinfoclass_t
     type 'a constantinfoclass_t
-
-    val get_n_fields : 'a t -> LargeInt.int
-    val get_field : 'a t -> LargeInt.int -> base fieldinfoclass_t
-    val get_n_methods : 'a t -> LargeInt.int
-    val get_method : 'a t -> LargeInt.int -> base functioninfoclass_t
-    val is_discriminated : 'a t -> bool
-    val get_discriminator_offset : 'a t -> LargeInt.int
-    val get_discriminator_type : 'a t -> base typeinfoclass_t
-    val get_discriminator : 'a t -> LargeInt.int -> base constantinfoclass_t
-    val find_method : 'a t -> string -> base functioninfoclass_t
-    val get_size : 'a t -> LargeInt.int
-    val get_alignment : 'a t -> LargeInt.int
+    val getNFields : 'a class_t -> LargeInt.int
+    val getField : 'a class_t -> LargeInt.int -> base fieldinfoclass_t
+    val getNMethods : 'a class_t -> LargeInt.int
+    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
+    val isDiscriminated : 'a class_t -> bool
+    val getDiscriminatorOffset : 'a class_t -> LargeInt.int
+    val getDiscriminatorType : 'a class_t -> base typeinfoclass_t
+    val getDiscriminator : 'a class_t -> LargeInt.int -> base constantinfoclass_t
+    val findMethod : 'a class_t -> string -> base functioninfoclass_t
+    val getSize : 'a class_t -> LargeInt.int
+    val getAlignment : 'a class_t -> LargeInt.int
   end
 
-structure GIUnionInfo :>
-  sig
-    include GI_UNION_INFO
-      where type 'a t = 'a GIUnionInfoClass.t
-      where type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-  end =
+structure GIRepositoryUnionInfo :>
+  G_I_REPOSITORY_UNION_INFO
+    where type 'a class_t = 'a GIRepositoryUnionInfoClass.t
+    where type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_n_fields_ =
+      val getNFields_ =
         call
           (load_sym libgirepository "g_union_info_get_n_fields")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_field_ =
+      val getField_ =
         call
           (load_sym libgirepository "g_union_info_get_field")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_methods_ =
+      val getNMethods_ =
         call
           (load_sym libgirepository "g_union_info_get_n_methods")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_method_ =
+      val getMethod_ =
         call
           (load_sym libgirepository "g_union_info_get_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val is_discriminated_ =
+      val isDiscriminated_ =
         call
           (load_sym libgirepository "g_union_info_is_discriminated")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_discriminator_offset_ =
+      val getDiscriminatorOffset_ =
         call
           (load_sym libgirepository "g_union_info_get_discriminator_offset")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_discriminator_type_ =
+      val getDiscriminatorType_ =
         call
           (load_sym libgirepository "g_union_info_get_discriminator_type")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_discriminator_ =
+      val getDiscriminator_ =
         call
           (load_sym libgirepository "g_union_info_get_discriminator")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_method_ =
+      val findMethod_ =
         call
           (load_sym libgirepository "g_union_info_find_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_size_ =
+      val getSize_ =
         call
           (load_sym libgirepository "g_union_info_get_size")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
 
-      val get_alignment_ =
+      val getAlignment_ =
         call
           (load_sym libgirepository "g_union_info_get_alignment")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
     end
 
 
-    type 'a t = 'a GIUnionInfoClass.t
-    type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-    type 'a typeinfoclass_t = 'a GITypeInfoClass.t
-    type 'a constantinfoclass_t = 'a GIConstantInfoClass.t
+    type 'a class_t = 'a GIRepositoryUnionInfoClass.t
+    type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
 
 
-    val get_n_fields =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_fields_ info
+    val getNFields =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNFields_ info
 
-    val get_field =
+    val getField =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFieldInfoClass.C.fromPtr true)
-        get_field_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFieldInfoClass.C.fromPtr true)
+        getField_
         (info & n)
 
-    val get_n_methods =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_methods_ info
+    val getNMethods =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
 
-    val get_method =
+    val getMethod =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFunctionInfoClass.C.fromPtr true)
-        get_method_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        getMethod_
         (info & n)
 
-    val is_discriminated =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) is_discriminated_ info
+    val isDiscriminated =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isDiscriminated_ info
 
-    val get_discriminator_offset =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_discriminator_offset_ info
+    val getDiscriminatorOffset =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getDiscriminatorOffset_ info
 
-    val get_discriminator_type =
+    val getDiscriminatorType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeInfoClass.C.fromPtr true)
-        get_discriminator_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+        getDiscriminatorType_
         info
 
-    val get_discriminator =
+    val getDiscriminator =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIConstantInfoClass.C.fromPtr true)
-        get_discriminator_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryConstantInfoClass.C.fromPtr true)
+        getDiscriminator_
         (info & n)
 
-    val find_method =
+    val findMethod =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIFunctionInfoClass.C.fromPtr true)
-        find_method_
+          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        findMethod_
         (info & name)
 
-    val get_size = fn info => (GIBaseInfoClass.C.withPtr ---> I) get_size_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getSize_ info
 
-    val get_alignment =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_alignment_ info
+    val getAlignment =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getAlignment_ info
   end
 
 
 
-signature GI_ENUM_INFO =
+signature G_I_REPOSITORY_ENUM_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a valueinfoclass_t
     type 'a functioninfoclass_t
     type typetag_t
-
-    val get_n_values : 'a t -> LargeInt.int
-    val get_value : 'a t -> LargeInt.int -> base valueinfoclass_t
-    val get_n_methods : 'a t -> LargeInt.int
-    val get_method : 'a t -> LargeInt.int -> base functioninfoclass_t
-    val get_storage_type : 'a t -> typetag_t
-    val get_error_domain : 'a t -> string option
+    val getNValues : 'a class_t -> LargeInt.int
+    val getValue : 'a class_t -> LargeInt.int -> base valueinfoclass_t
+    val getNMethods : 'a class_t -> LargeInt.int
+    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
+    val getStorageType : 'a class_t -> typetag_t
+    val getErrorDomain : 'a class_t -> string option
   end
 
-structure GIEnumInfo :>
-  sig
-    include GI_ENUM_INFO
-      where type 'a t = 'a GIEnumInfoClass.t
-      where type 'a valueinfoclass_t = 'a GIValueInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-      where type typetag_t = GITypeTag.t
-  end =
+structure GIRepositoryEnumInfo :>
+  G_I_REPOSITORY_ENUM_INFO
+    where type 'a class_t = 'a GIRepositoryEnumInfoClass.t
+    where type 'a valueinfoclass_t = 'a GIRepositoryValueInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    where type typetag_t = GIRepositoryTypeTag.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_n_values_ =
+      val getNValues_ =
         call
           (load_sym libgirepository "g_enum_info_get_n_values")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_value_ =
+      val getValue_ =
         call
           (load_sym libgirepository "g_enum_info_get_value")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_methods_ =
+      val getNMethods_ =
         call
           (load_sym libgirepository "g_enum_info_get_n_methods")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_method_ =
+      val getMethod_ =
         call
           (load_sym libgirepository "g_enum_info_get_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_storage_type_ =
+      val getStorageType_ =
         call
           (load_sym libgirepository "g_enum_info_get_storage_type")
-          (GIBaseInfoClass.PolyML.PTR --> GITypeTag.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTypeTag.PolyML.VAL);
 
-      val get_error_domain_ =
+      val getErrorDomain_ =
         call
           (load_sym libgirepository "g_enum_info_get_error_domain")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
     end
 
 
-    type 'a t = 'a GIEnumInfoClass.t
-    type 'a valueinfoclass_t = 'a GIValueInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-    type typetag_t = GITypeTag.t
+    type 'a class_t = 'a GIRepositoryEnumInfoClass.t
+    type 'a valueinfoclass_t = 'a GIRepositoryValueInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type typetag_t = GIRepositoryTypeTag.t
 
 
-    val get_n_values =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_values_ info
+    val getNValues =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNValues_ info
 
-    val get_value =
+    val getValue =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIValueInfoClass.C.fromPtr true)
-        get_value_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryValueInfoClass.C.fromPtr true)
+        getValue_
         (info & n)
 
-    val get_n_methods =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_methods_ info
+    val getNMethods =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
 
-    val get_method =
+    val getMethod =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFunctionInfoClass.C.fromPtr true)
-        get_method_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        getMethod_
         (info & n)
 
-    val get_storage_type =
+    val getStorageType =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GITypeTag.C.fromVal)
-        get_storage_type_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeTag.C.fromVal)
+        getStorageType_
         info
 
-    val get_error_domain =
+    val getErrorDomain =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
-        get_error_domain_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+        getErrorDomain_
         info
   end
 
 
 
-signature GI_INTERFACE_INFO =
+signature G_I_REPOSITORY_INTERFACE_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a baseinfoclass_t
     type 'a propertyinfoclass_t
     type 'a functioninfoclass_t
@@ -2606,227 +2554,223 @@ signature GI_INTERFACE_INFO =
     type 'a vfuncinfoclass_t
     type 'a constantinfoclass_t
     type 'a structinfoclass_t
-
-    val get_n_prerequisites : 'a t -> LargeInt.int
-    val get_prerequisite : 'a t -> LargeInt.int -> base baseinfoclass_t
-    val get_n_properties : 'a t -> LargeInt.int
-    val get_property : 'a t -> LargeInt.int -> base propertyinfoclass_t
-    val get_n_methods : 'a t -> LargeInt.int
-    val get_method : 'a t -> LargeInt.int -> base functioninfoclass_t
-    val find_method : 'a t -> string -> base functioninfoclass_t
-    val get_n_signals : 'a t -> LargeInt.int
-    val get_signal : 'a t -> LargeInt.int -> base signalinfoclass_t
-    val get_n_vfuncs : 'a t -> LargeInt.int
-    val get_vfunc : 'a t -> LargeInt.int -> base vfuncinfoclass_t
-    val get_n_constants : 'a t -> LargeInt.int
-    val get_constant : 'a t -> LargeInt.int -> base constantinfoclass_t
-    val get_iface_struct: 'a t -> base structinfoclass_t
-    val find_vfunc : 'a t -> string -> base vfuncinfoclass_t
+    val getNPrerequisites : 'a class_t -> LargeInt.int
+    val getPrerequisite : 'a class_t -> LargeInt.int -> base baseinfoclass_t
+    val getNProperties : 'a class_t -> LargeInt.int
+    val getProperty : 'a class_t -> LargeInt.int -> base propertyinfoclass_t
+    val getNMethods : 'a class_t -> LargeInt.int
+    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
+    val findMethod : 'a class_t -> string -> base functioninfoclass_t
+    val getNSignals : 'a class_t -> LargeInt.int
+    val getSignal : 'a class_t -> LargeInt.int -> base signalinfoclass_t
+    val getNVfuncs : 'a class_t -> LargeInt.int
+    val getVfunc : 'a class_t -> LargeInt.int -> base vfuncinfoclass_t
+    val getNConstants : 'a class_t -> LargeInt.int
+    val getConstant : 'a class_t -> LargeInt.int -> base constantinfoclass_t
+    val getIfaceStruct : 'a class_t -> base structinfoclass_t
+    val findVfunc : 'a class_t -> string -> base vfuncinfoclass_t
   end
 
-structure GIInterfaceInfo :>
-  sig
-    include GI_INTERFACE_INFO
-      where type 'a t = 'a GIInterfaceInfoClass.t
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-      where type 'a signalinfoclass_t = 'a GISignalInfoClass.t
-      where type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-      where type 'a constantinfoclass_t = 'a GIConstantInfoClass.t
-      where type 'a structinfoclass_t = 'a GIStructInfoClass.t
-  end =
+structure GIRepositoryInterfaceInfo :>
+  G_I_REPOSITORY_INTERFACE_INFO
+    where type 'a class_t = 'a GIRepositoryInterfaceInfoClass.t
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    where type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
+    where type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_n_prerequisites_ =
+      val getNPrerequisites_ =
         call
           (load_sym libgirepository
              "g_interface_info_get_n_prerequisites")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_prerequisite_ =
+      val getPrerequisite_ =
         call
           (load_sym libgirepository "g_interface_info_get_prerequisite")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_properties_ =
+      val getNProperties_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_properties")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_property_ =
+      val getProperty_ =
         call
           (load_sym libgirepository "g_interface_info_get_property")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_methods_ =
+      val getNMethods_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_methods")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_method_ =
+      val getMethod_ =
         call
           (load_sym libgirepository "g_interface_info_get_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_method_ =
+      val findMethod_ =
         call
           (load_sym libgirepository "g_interface_info_find_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_signals_ =
+      val getNSignals_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_signals")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_signal_ =
+      val getSignal_ =
         call
           (load_sym libgirepository "g_interface_info_get_signal")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_vfuncs_ =
+      val getNVfuncs_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_vfuncs")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_vfunc_ =
+      val getVfunc_ =
         call
           (load_sym libgirepository "g_interface_info_get_vfunc")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_constants_ =
+      val getNConstants_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_constants")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_constant_ =
+      val getConstant_ =
         call
           (load_sym libgirepository "g_interface_info_get_constant")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_iface_struct_ =
+      val getIfaceStruct_ =
         call
           (load_sym libgirepository "g_interface_info_get_iface_struct")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_vfunc_ =
+      val findVfunc_ =
         call
           (load_sym libgirepository "g_interface_info_find_vfunc")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
 
-    type 'a t = 'a GIInterfaceInfoClass.t
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-    type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-    type 'a signalinfoclass_t = 'a GISignalInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-    type 'a constantinfoclass_t = 'a GIConstantInfoClass.t
-    type 'a structinfoclass_t = 'a GIStructInfoClass.t
+    type 'a class_t = 'a GIRepositoryInterfaceInfoClass.t
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
+    type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t
 
 
-    val get_n_prerequisites =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_prerequisites_ info
+    val getNPrerequisites =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNPrerequisites_ info
 
-    val get_prerequisite =
+    val getPrerequisite =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIBaseInfoClass.C.fromPtr true)
-        get_prerequisite_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryBaseInfoClass.C.fromPtr true)
+        getPrerequisite_
         (info & n)
 
-    val get_n_properties =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_properties_ info
+    val getNProperties =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNProperties_ info
 
-    val get_property =
+    val getProperty =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIPropertyInfoClass.C.fromPtr true)
-        get_property_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryPropertyInfoClass.C.fromPtr true)
+        getProperty_
         (info & n)
 
-    val get_n_methods =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_methods_ info
+    val getNMethods =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
 
-    val get_method =
+    val getMethod =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFunctionInfoClass.C.fromPtr true)
-        get_method_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        getMethod_
         (info & n)
 
-    val find_method =
+    val findMethod =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIFunctionInfoClass.C.fromPtr true)
-        find_method_
+          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        findMethod_
         (info & name)
 
-    val get_n_signals =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_signals_ info
+    val getNSignals =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNSignals_ info
 
-    val get_signal =
+    val getSignal =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GISignalInfoClass.C.fromPtr true)
-        get_signal_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositorySignalInfoClass.C.fromPtr true)
+        getSignal_
         (info & n)
 
-    val get_n_vfuncs =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_vfuncs_ info
+    val getNVfuncs =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNVfuncs_ info
 
-    val get_vfunc =
+    val getVfunc =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIVFuncInfoClass.C.fromPtr true)
-        get_vfunc_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        getVfunc_
         (info & n)
 
-    val get_n_constants =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_constants_ info
+    val getNConstants =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNConstants_ info
 
-    val get_constant =
+    val getConstant =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIConstantInfoClass.C.fromPtr true)
-        get_constant_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryConstantInfoClass.C.fromPtr true)
+        getConstant_
         (info & n)
 
-    val get_iface_struct =
+    val getIfaceStruct =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIStructInfoClass.C.fromPtr true)
-        get_iface_struct_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromPtr true)
+        getIfaceStruct_
         info
 
-    val find_vfunc =
+    val findVfunc =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIVFuncInfoClass.C.fromPtr true)
-        find_vfunc_
+          ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        findVfunc_
         (info & name)
   end
 
 
 
-signature GI_OBJECT_INFO =
+signature G_I_REPOSITORY_OBJECT_INFO =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a baseinfoclass_t
     type 'a interfaceinfoclass_t
     type 'a fieldinfoclass_t
@@ -2836,354 +2780,350 @@ signature GI_OBJECT_INFO =
     type 'a vfuncinfoclass_t
     type 'a constantinfoclass_t
     type 'a structinfoclass_t
-
-    val get_type_name : 'a t -> string
-    val get_type_init : 'a t -> string
-    val get_abstract : 'a t -> bool
-    val get_fundamental : 'a t -> bool
-    val get_parent : 'a t -> base t option
-    val get_n_interfaces : 'a t -> LargeInt.int
-    val get_interface : 'a t -> LargeInt.int -> base interfaceinfoclass_t
-    val get_n_fields : 'a t -> LargeInt.int
-    val get_field : 'a t -> LargeInt.int -> base fieldinfoclass_t
-    val get_n_properties : 'a t -> LargeInt.int
-    val get_property : 'a t -> LargeInt.int -> base propertyinfoclass_t
-    val get_n_methods : 'a t -> LargeInt.int
-    val get_method : 'a t -> LargeInt.int -> base functioninfoclass_t
-    val find_method : 'a t -> string -> base functioninfoclass_t
-    val get_n_signals : 'a t -> LargeInt.int
-    val get_signal : 'a t -> LargeInt.int -> base signalinfoclass_t
-    val get_n_vfuncs : 'a t -> LargeInt.int
-    val get_vfunc : 'a t -> LargeInt.int -> base vfuncinfoclass_t
-    val get_n_constants : 'a t -> LargeInt.int
-    val get_constant : 'a t -> LargeInt.int -> base constantinfoclass_t
-    val get_class_struct : 'a t -> base structinfoclass_t
-    val find_vfunc : 'a t -> string -> base vfuncinfoclass_t
-    val get_unref_function : 'a t -> string
-    val get_ref_function : 'a t -> string
-    val get_set_value_function : 'a t -> string
-    val get_get_value_function : 'a t -> string
+    val getTypeName : 'a class_t -> string
+    val getTypeInit : 'a class_t -> string
+    val getAbstract : 'a class_t -> bool
+    val getFundamental : 'a class_t -> bool
+    val getParent : 'a class_t -> base class_t option
+    val getNInterfaces : 'a class_t -> LargeInt.int
+    val getInterface : 'a class_t -> LargeInt.int -> base interfaceinfoclass_t
+    val getNFields : 'a class_t -> LargeInt.int
+    val getField : 'a class_t -> LargeInt.int -> base fieldinfoclass_t
+    val getNProperties : 'a class_t -> LargeInt.int
+    val getProperty : 'a class_t -> LargeInt.int -> base propertyinfoclass_t
+    val getNMethods : 'a class_t -> LargeInt.int
+    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
+    val findMethod : 'a class_t -> string -> base functioninfoclass_t
+    val getNSignals : 'a class_t -> LargeInt.int
+    val getSignal : 'a class_t -> LargeInt.int -> base signalinfoclass_t
+    val getNVfuncs : 'a class_t -> LargeInt.int
+    val getVfunc : 'a class_t -> LargeInt.int -> base vfuncinfoclass_t
+    val getNConstants : 'a class_t -> LargeInt.int
+    val getConstant : 'a class_t -> LargeInt.int -> base constantinfoclass_t
+    val getClassStruct : 'a class_t -> base structinfoclass_t
+    val findVfunc : 'a class_t -> string -> base vfuncinfoclass_t
+    val getUnrefFunction : 'a class_t -> string
+    val getRefFunction : 'a class_t -> string
+    val getSetValueFunction : 'a class_t -> string
+    val getGetValueFunction : 'a class_t -> string
   end
 
-structure GIObjectInfo :>
-  sig
-    include GI_OBJECT_INFO
-      where type 'a t = 'a GIObjectInfoClass.t
-      where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-      where type 'a interfaceinfoclass_t = 'a GIInterfaceInfoClass.t
-      where type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-      where type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-      where type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-      where type 'a signalinfoclass_t = 'a GISignalInfoClass.t
-      where type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-      where type 'a constantinfoclass_t = 'a GIConstantInfoClass.t
-      where type 'a structinfoclass_t = 'a GIStructInfoClass.t
-  end =
+structure GIRepositoryObjectInfo :>
+  G_I_REPOSITORY_OBJECT_INFO
+    where type 'a class_t = 'a GIRepositoryObjectInfoClass.t
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a interfaceinfoclass_t = 'a GIRepositoryInterfaceInfoClass.t
+    where type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    where type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
+    where type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_type_name_ =
+      val getTypeName_ =
         call
           (load_sym libgirepository "g_object_info_get_type_name")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_type_init_ =
+      val getTypeInit_ =
         call
           (load_sym libgirepository "g_object_info_get_type_init")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_abstract_ =
+      val getAbstract_ =
         call
           (load_sym libgirepository "g_object_info_get_abstract")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_fundamental_ =
+      val getFundamental_ =
         call
           (load_sym libgirepository "g_object_info_get_fundamental")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
 
-      val get_parent_ =
+      val getParent_ =
         call
           (load_sym libgirepository "g_object_info_get_parent")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
-      val get_n_interfaces_ =
+      val getNInterfaces_ =
         call
           (load_sym libgirepository "g_object_info_get_n_interfaces")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_interface_ =
+      val getInterface_ =
         call
           (load_sym libgirepository "g_object_info_get_interface")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_fields_ =
+      val getNFields_ =
         call
           (load_sym libgirepository "g_object_info_get_n_fields")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_field_ =
+      val getField_ =
         call
           (load_sym libgirepository "g_object_info_get_field")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_properties_ =
+      val getNProperties_ =
         call
           (load_sym libgirepository "g_object_info_get_n_properties")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_property_ =
+      val getProperty_ =
         call
           (load_sym libgirepository "g_object_info_get_property")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_methods_ =
+      val getNMethods_ =
         call
           (load_sym libgirepository "g_object_info_get_n_methods")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_method_ =
+      val getMethod_ =
         call
           (load_sym libgirepository "g_object_info_get_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_method_ =
+      val findMethod_ =
         call
           (load_sym libgirepository "g_object_info_find_method")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_signals_ =
+      val getNSignals_ =
         call
           (load_sym libgirepository "g_object_info_get_n_signals")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_signal_ =
+      val getSignal_ =
         call
           (load_sym libgirepository "g_object_info_get_signal")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_vfuncs_ =
+      val getNVfuncs_ =
         call
           (load_sym libgirepository "g_object_info_get_n_vfuncs")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_vfunc_ =
+      val getVfunc_ =
         call
           (load_sym libgirepository "g_object_info_get_vfunc")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_n_constants_ =
+      val getNConstants_ =
         call
           (load_sym libgirepository "g_object_info_get_n_constants")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
 
-      val get_constant_ =
+      val getConstant_ =
         call
           (load_sym libgirepository "g_object_info_get_constant")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_class_struct_ =
+      val getClassStruct_ =
         call
           (load_sym libgirepository "g_object_info_get_class_struct")
-          (GIBaseInfoClass.PolyML.PTR --> GIBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val find_vfunc_ =
+      val findVfunc_ =
         call
           (load_sym libgirepository "g_object_info_find_vfunc")
-          (GIBaseInfoClass.PolyML.PTR
+          (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
-            --> GIBaseInfoClass.PolyML.PTR);
+            --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
-      val get_unref_function_ =
+      val getUnrefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_unref_function")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_ref_function_ =
+      val getRefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_ref_function")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_set_value_function_ =
+      val getSetValueFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_set_value_function")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
 
-      val get_get_value_function_ =
+      val getGetValueFunction_ =
         call
-          (load_sym libgirepository
-             "g_object_info_get_get_value_function")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
+          (load_sym libgirepository "g_object_info_get_get_value_function")
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETPTR);
     end
 
 
-    type 'a t = 'a GIObjectInfoClass.t
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
-    type 'a interfaceinfoclass_t = 'a GIInterfaceInfoClass.t
-    type 'a fieldinfoclass_t = 'a GIFieldInfoClass.t
-    type 'a propertyinfoclass_t = 'a GIPropertyInfoClass.t
-    type 'a functioninfoclass_t = 'a GIFunctionInfoClass.t
-    type 'a signalinfoclass_t = 'a GISignalInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIVFuncInfoClass.t
-    type 'a constantinfoclass_t = 'a GIConstantInfoClass.t
-    type 'a structinfoclass_t = 'a GIStructInfoClass.t
+    type 'a class_t = 'a GIRepositoryObjectInfoClass.t
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a interfaceinfoclass_t = 'a GIRepositoryInterfaceInfoClass.t
+    type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
+    type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
+    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
+    type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t
 
 
-    val get_type_name =
+    val getTypeName =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-          get_type_name_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+          getTypeName_
           info
 
-    val get_type_init =
+    val getTypeInit =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-          get_type_init_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+          getTypeInit_
           info
 
-    val get_abstract =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_abstract_ info
+    val getAbstract =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getAbstract_ info
 
-    val get_fundamental =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_fundamental_ info
+    val getFundamental =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getFundamental_ info
 
-    val get_parent =
+    val getParent =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIObjectInfoClass.C.fromOptPtr true)
-          get_parent_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryObjectInfoClass.C.fromOptPtr true)
+          getParent_
           info
 
-    val get_n_interfaces =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_interfaces_ info
+    val getNInterfaces =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNInterfaces_ info
 
-    val get_interface =
+    val getInterface =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIInterfaceInfoClass.C.fromPtr true)
-        get_interface_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryInterfaceInfoClass.C.fromPtr true)
+        getInterface_
         (info & n)
 
-    val get_n_fields =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_fields_ info
+    val getNFields =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNFields_ info
 
-    val get_field =
+    val getField =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFieldInfoClass.C.fromPtr true)
-        get_field_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFieldInfoClass.C.fromPtr true)
+        getField_
         (info & n)
 
-    val get_n_properties =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_properties_ info
+    val getNProperties =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNProperties_ info
 
-    val get_property =
+    val getProperty =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIPropertyInfoClass.C.fromPtr true)
-        get_property_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryPropertyInfoClass.C.fromPtr true)
+        getProperty_
         (info & n)
 
-    val get_n_methods =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_methods_ info
+    val getNMethods =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
 
-    val get_method =
+    val getMethod =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIFunctionInfoClass.C.fromPtr true)
-        get_method_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        getMethod_
         (info & n)
 
-    val find_method =
+    val findMethod =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIFunctionInfoClass.C.fromPtr true)
-        find_method_
+          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        findMethod_
         (info & name)
 
-    val get_n_signals =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_signals_ info
+    val getNSignals =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNSignals_ info
 
-    val get_signal =
+    val getSignal =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GISignalInfoClass.C.fromPtr true)
-        get_signal_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositorySignalInfoClass.C.fromPtr true)
+        getSignal_
         (info & n)
 
-    val get_n_vfuncs =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_vfuncs_ info
+    val getNVfuncs =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNVfuncs_ info
 
-    val get_vfunc =
+    val getVfunc =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIVFuncInfoClass.C.fromPtr true)
-        get_vfunc_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        getVfunc_
         (info & n)
 
-    val get_n_constants =
-      fn info => (GIBaseInfoClass.C.withPtr ---> I) get_n_constants_ info
+    val getNConstants =
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNConstants_ info
 
-    val get_constant =
+    val getConstant =
       fn info => fn n =>
-        (GIBaseInfoClass.C.withPtr &&&> I ---> GIConstantInfoClass.C.fromPtr true)
-        get_constant_
+        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryConstantInfoClass.C.fromPtr true)
+        getConstant_
         (info & n)
 
-    val get_class_struct =
+    val getClassStruct =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> GIStructInfoClass.C.fromPtr true)
-        get_class_struct_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromPtr true)
+        getClassStruct_
         info
 
-    val find_vfunc =
+    val findVfunc =
       fn info => fn name =>
-        (GIBaseInfoClass.C.withPtr
+        (GIRepositoryBaseInfoClass.C.withPtr
           &&&> FFI.String.withConstPtr
-          ---> GIVFuncInfoClass.C.fromPtr true)
-        find_vfunc_
+          ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        findVfunc_
         (info & name)
 
-    val get_unref_function =
+    val getUnrefFunction =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-        get_unref_function_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+        getUnrefFunction_
         info
 
-    val get_ref_function =
+    val getRefFunction =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-        get_ref_function_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+        getRefFunction_
         info
 
-    val get_set_value_function =
+    val getSetValueFunction =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-        get_set_value_function_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+        getSetValueFunction_
         info
 
-    val get_get_value_function =
+    val getGetValueFunction =
       fn info =>
-        (GIBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
-        get_get_value_function_
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromPtr false)
+        getGetValueFunction_
         info
   end
 
 
 
 
-signature GI_INFO_TYPE =
+signature G_I_REPOSITORY_INFO_TYPE =
   sig
     type 'a baseinfoclass_t
     type 'a registeredtypeinfoclass_t
@@ -3224,56 +3164,54 @@ signature GI_INFO_TYPE =
     | TYPE      of base typeinfoclass_t
     | UNRESOLVED
 
-    val get_type : 'a baseinfoclass_t -> t
+    val getType : 'a baseinfoclass_t -> t
   end
 
-structure GIInfoType :>
-  sig
-    include GI_INFO_TYPE
-      where type 'a baseinfoclass_t           = 'a GIBaseInfoClass.t
-      where type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-      where type 'a functioninfoclass_t       = 'a GIFunctionInfoClass.t
-      where type 'a structinfoclass_t         = 'a GIStructInfoClass.t
-      where type 'a enuminfoclass_t           = 'a GIEnumInfoClass.t
-      where type 'a objectinfoclass_t         = 'a GIObjectInfoClass.t
-      where type 'a interfaceinfoclass_t      = 'a GIInterfaceInfoClass.t
-      where type 'a constantinfoclass_t       = 'a GIConstantInfoClass.t
-      where type 'a unioninfoclass_t          = 'a GIUnionInfoClass.t
-      where type 'a valueinfoclass_t          = 'a GIValueInfoClass.t
-      where type 'a signalinfoclass_t         = 'a GISignalInfoClass.t
-      where type 'a vfuncinfoclass_t          = 'a GIVFuncInfoClass.t
-      where type 'a propertyinfoclass_t       = 'a GIPropertyInfoClass.t
-      where type 'a fieldinfoclass_t          = 'a GIFieldInfoClass.t
-      where type 'a arginfoclass_t            = 'a GIArgInfoClass.t
-      where type 'a typeinfoclass_t           = 'a GITypeInfoClass.t
-  end =
+structure GIRepositoryInfoType :>
+  G_I_REPOSITORY_INFO_TYPE
+    where type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
+    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
+    where type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
+    where type 'a objectinfoclass_t         = 'a GIRepositoryObjectInfoClass.t
+    where type 'a interfaceinfoclass_t      = 'a GIRepositoryInterfaceInfoClass.t
+    where type 'a constantinfoclass_t       = 'a GIRepositoryConstantInfoClass.t
+    where type 'a unioninfoclass_t          = 'a GIRepositoryUnionInfoClass.t
+    where type 'a valueinfoclass_t          = 'a GIRepositoryValueInfoClass.t
+    where type 'a signalinfoclass_t         = 'a GIRepositorySignalInfoClass.t
+    where type 'a vfuncinfoclass_t          = 'a GIRepositoryVFuncInfoClass.t
+    where type 'a propertyinfoclass_t       = 'a GIRepositoryPropertyInfoClass.t
+    where type 'a fieldinfoclass_t          = 'a GIRepositoryFieldInfoClass.t
+    where type 'a arginfoclass_t            = 'a GIRepositoryArgInfoClass.t
+    where type 'a typeinfoclass_t           = 'a GIRepositoryTypeInfoClass.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_type_ =
+      val getType_ =
         call
           (load_sym libgirepository "g_base_info_get_type")
-          (GIBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
     end
 
 
-    type 'a baseinfoclass_t           = 'a GIBaseInfoClass.t
-    type 'a registeredtypeinfoclass_t = 'a GIRegisteredTypeInfoClass.t
-    type 'a functioninfoclass_t       = 'a GIFunctionInfoClass.t
-    type 'a structinfoclass_t         = 'a GIStructInfoClass.t
-    type 'a enuminfoclass_t           = 'a GIEnumInfoClass.t
-    type 'a objectinfoclass_t         = 'a GIObjectInfoClass.t
-    type 'a interfaceinfoclass_t      = 'a GIInterfaceInfoClass.t
-    type 'a constantinfoclass_t       = 'a GIConstantInfoClass.t
-    type 'a unioninfoclass_t          = 'a GIUnionInfoClass.t
-    type 'a valueinfoclass_t          = 'a GIValueInfoClass.t
-    type 'a signalinfoclass_t         = 'a GISignalInfoClass.t
-    type 'a vfuncinfoclass_t          = 'a GIVFuncInfoClass.t
-    type 'a propertyinfoclass_t       = 'a GIPropertyInfoClass.t
-    type 'a fieldinfoclass_t          = 'a GIFieldInfoClass.t
-    type 'a arginfoclass_t            = 'a GIArgInfoClass.t
-    type 'a typeinfoclass_t           = 'a GITypeInfoClass.t
+    type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
+    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
+    type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
+    type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
+    type 'a objectinfoclass_t         = 'a GIRepositoryObjectInfoClass.t
+    type 'a interfaceinfoclass_t      = 'a GIRepositoryInterfaceInfoClass.t
+    type 'a constantinfoclass_t       = 'a GIRepositoryConstantInfoClass.t
+    type 'a unioninfoclass_t          = 'a GIRepositoryUnionInfoClass.t
+    type 'a valueinfoclass_t          = 'a GIRepositoryValueInfoClass.t
+    type 'a signalinfoclass_t         = 'a GIRepositorySignalInfoClass.t
+    type 'a vfuncinfoclass_t          = 'a GIRepositoryVFuncInfoClass.t
+    type 'a propertyinfoclass_t       = 'a GIRepositoryPropertyInfoClass.t
+    type 'a fieldinfoclass_t          = 'a GIRepositoryFieldInfoClass.t
+    type 'a arginfoclass_t            = 'a GIRepositoryArgInfoClass.t
+    type 'a typeinfoclass_t           = 'a GIRepositoryTypeInfoClass.t
 
     datatype t =
       INVALID 
@@ -3298,34 +3236,34 @@ structure GIInfoType :>
     | UNRESOLVED
 
     local
-      val table : (GIBaseInfoClass.C.notnull GIBaseInfoClass.C.p -> t) vector =
+      val table : (GIRepositoryBaseInfoClass.C.notnull GIRepositoryBaseInfoClass.C.p -> t) vector =
         Vector.fromList [
           K INVALID,
-          FUNCTION    o GIFunctionInfoClass.C.fromPtr false,
-          CALLBACK    o GIFunctionInfoClass.C.fromPtr false,
-          STRUCT      o GIStructInfoClass.C.fromPtr false,
-          BOXED       o GIRegisteredTypeInfoClass.C.fromPtr false,
-          ENUM        o GIEnumInfoClass.C.fromPtr false,
-          FLAGS       o GIEnumInfoClass.C.fromPtr false,
-          OBJECT      o GIObjectInfoClass.C.fromPtr false,
-          INTERFACE   o GIInterfaceInfoClass.C.fromPtr false,
-          CONSTANT    o GIConstantInfoClass.C.fromPtr false,
+          FUNCTION    o GIRepositoryFunctionInfoClass.C.fromPtr false,
+          CALLBACK    o GIRepositoryFunctionInfoClass.C.fromPtr false,
+          STRUCT      o GIRepositoryStructInfoClass.C.fromPtr false,
+          BOXED       o GIRepositoryRegisteredTypeInfoClass.C.fromPtr false,
+          ENUM        o GIRepositoryEnumInfoClass.C.fromPtr false,
+          FLAGS       o GIRepositoryEnumInfoClass.C.fromPtr false,
+          OBJECT      o GIRepositoryObjectInfoClass.C.fromPtr false,
+          INTERFACE   o GIRepositoryInterfaceInfoClass.C.fromPtr false,
+          CONSTANT    o GIRepositoryConstantInfoClass.C.fromPtr false,
           K INVALID_0,
-          UNION       o GIUnionInfoClass.C.fromPtr false,
-          VALUE       o GIValueInfoClass.C.fromPtr false,
-          SIGNAL      o GISignalInfoClass.C.fromPtr false,
-          VFUNC       o GIVFuncInfoClass.C.fromPtr false,
-          PROPERTY    o GIPropertyInfoClass.C.fromPtr false,
-          FIELD       o GIFieldInfoClass.C.fromPtr false,
-          ARG         o GIArgInfoClass.C.fromPtr false,
-          TYPE        o GITypeInfoClass.C.fromPtr false,
+          UNION       o GIRepositoryUnionInfoClass.C.fromPtr false,
+          VALUE       o GIRepositoryValueInfoClass.C.fromPtr false,
+          SIGNAL      o GIRepositorySignalInfoClass.C.fromPtr false,
+          VFUNC       o GIRepositoryVFuncInfoClass.C.fromPtr false,
+          PROPERTY    o GIRepositoryPropertyInfoClass.C.fromPtr false,
+          FIELD       o GIRepositoryFieldInfoClass.C.fromPtr false,
+          ARG         o GIRepositoryArgInfoClass.C.fromPtr false,
+          TYPE        o GIRepositoryTypeInfoClass.C.fromPtr false,
           K UNRESOLVED
         ]
     in
-      val get_type : 'a baseinfoclass_t -> t =
+      val getType : 'a baseinfoclass_t -> t =
         fn info =>
-          GIBaseInfoClass.C.withPtr
-            (fn ptr => Vector.sub (table, get_type_ ptr) ptr)
+          GIRepositoryBaseInfoClass.C.withPtr
+            (fn ptr => Vector.sub (table, getType_ ptr) ptr)
             info
             handle
               Subscript => INVALID
@@ -3338,10 +3276,10 @@ structure GIInfoType :>
 
 
 
-signature GI_REPOSITORY_CLASS =
+signature G_I_REPOSITORY_REPOSITORY_CLASS =
   sig
-    type 'a objectclass_t
     type 'a repository
+    type 'a objectclass_t
     type 'a t = 'a repository objectclass_t
     val toBase : 'a t -> base t
     structure C :
@@ -3353,16 +3291,14 @@ signature GI_REPOSITORY_CLASS =
       end
   end
 
-structure GIRepositoryClass :>
-  sig
-    include GI_REPOSITORY_CLASS
-      where type 'a objectclass_t = 'a GObjectObjectClass.t
-      where type C.notnull = GObjectObjectClass.C.notnull
-      where type 'a C.p = 'a GObjectObjectClass.C.p
-  end =
+structure GIRepositoryRepositoryClass :>
+  G_I_REPOSITORY_REPOSITORY_CLASS
+    where type 'a objectclass_t = 'a GObjectObjectClass.t
+    where type C.notnull = GObjectObjectClass.C.notnull
+    where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a objectclass_t = 'a GObjectObjectClass.t
     type 'a repository = unit
+    type 'a objectclass_t = 'a GObjectObjectClass.t
     type 'a t = 'a repository objectclass_t
     fun toBase obj = obj
     structure C = GObjectObjectClass.C
@@ -3370,108 +3306,122 @@ structure GIRepositoryClass :>
 
 
 
-signature GI_TYPELIB_TYPE =
+signature G_I_REPOSITORY_TYPELIB_TYPE =
   sig
     type t
     structure C :
       sig
-        type ptr
-        val withPtr : (ptr -> 'a) -> t -> 'a
-        val fromPtr : ptr -> t
+        type notnull
+        type 'a p
+        val withPtr : (notnull p -> 'a) -> t -> 'a
+        val withOptPtr : (unit p -> 'a) -> t option -> 'a
+        val fromPtr : notnull p -> t
+        val fromOptPtr : unit p -> t option
       end
   end
 
-structure GITypelibType :>
+structure GIRepositoryTypelibType :>
   sig
-    include GI_TYPELIB_TYPE
-
+    include G_I_REPOSITORY_TYPELIB_TYPE
     structure PolyML :
       sig
-        val PTR : C.ptr CInterface.Conversion
+        val PTR : C.notnull C.p CInterface.Conversion
+        val OPTPTR : unit C.p CInterface.Conversion
       end
   end =
   struct
-    type t = CPointer.notnull CPointer.t
+    type notnull = CPointer.notnull
+    type 'a p = 'a CPointer.t
+    val PTR = CPointer.PolyML.POINTER : notnull p CInterface.Conversion
+    val OPTPTR = CPointer.PolyML.POINTER : unit p CInterface.Conversion
+
+    type t = notnull p
+
     structure C =
       struct
-        type ptr = CPointer.notnull CPointer.t
+        type notnull = notnull
+        type 'a p = 'a p
         val withPtr = I
+        fun withOptPtr f = f o CPointer.fromOpt
         val fromPtr = I
+        val fromOptPtr = CPointer.toOpt
       end
+
     structure PolyML =
       struct
-        val PTR = CPointer.PolyML.POINTER
+        val PTR = PTR
+        val OPTPTR = OPTPTR
       end
   end
 
 
 
-signature GI_TYPELIB =
+signature G_I_REPOSITORY_TYPELIB =
   sig
-    type t
-    val get_namespace : t -> string
+    type typelibtype_t
+    val getNamespace : typelibtype_t -> string
   end
 
-structure GITypelib :> GI_TYPELIB where type t = GITypelibType.t =
+structure GIRepositoryTypelib :>
+  G_I_REPOSITORY_TYPELIB
+    where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
-    type t = GITypelibType.t
-
     local
       open PolyMLFFI
     in
-      val get_namespace_ =
+      val getNamespace_ =
         call
           (load_sym libgirepository "g_typelib_get_namespace")
-          (GITypelibType.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+          (GIRepositoryTypelibType.PolyML.PTR --> FFI.PolyML.String.RETPTR)
     end
 
-    val get_namespace =
+    type typelibtype_t = GIRepositoryTypelibType.t
+
+    val getNamespace =
       fn typelib =>
-        (GITypelibType.C.withPtr ---> FFI.String.fromPtr false)
-          get_namespace_
+        (GIRepositoryTypelibType.C.withPtr ---> FFI.String.fromPtr false)
+          getNamespace_
           typelib
   end
 
 
 
-signature GI_REPOSITORY =
+signature G_I_REPOSITORY_REPOSITORY =
   sig
-    type 'a t
-
+    type 'a class_t
     type 'a baseinfoclass_t
     type loadflags_t
     type typelibtype_t
-
-    val get_default : unit -> base t
-    val load_typelib : 'a t -> typelibtype_t -> loadflags_t -> string
-    val require : 'a t -> string -> string -> loadflags_t -> typelibtype_t
-    val get_dependencies : 'a t -> string -> string list option
-    val get_n_infos : 'a t -> string -> LargeInt.int
-    val get_info : 'a t -> string -> LargeInt.int -> base baseinfoclass_t
-    val get_shared_library : 'a t -> string -> string option
-    val get_c_prefix : 'a t -> string -> string option
+    val getDefault : unit -> base class_t
+    val loadTypelib : 'a class_t -> typelibtype_t -> loadflags_t -> string
+    val require : 'a class_t -> string -> string -> loadflags_t -> typelibtype_t
+    val getDependencies : 'a class_t -> string -> string list option
+    val getNInfos : 'a class_t -> string -> LargeInt.int
+    val getInfo : 'a class_t -> string -> LargeInt.int -> base baseinfoclass_t
+    val getSharedLibrary : 'a class_t -> string -> string option
+    val getCPrefix : 'a class_t -> string -> string option
   end
 
-structure GIRepository :>
-  GI_REPOSITORY
-    where type 'a t = 'a GIRepositoryClass.t
-    where type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
+structure GIRepositoryRepository :>
+  G_I_REPOSITORY_REPOSITORY
+    where type 'a class_t = 'a GIRepositoryRepositoryClass.t
+    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     where type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
-    where type typelibtype_t = GITypelibType.t =
+    where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
     local
       open PolyMLFFI
     in
-      val get_default_ =
+      val getDefault_ =
         call
           (load_sym libgirepository "g_irepository_get_default")
           (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
 
-      val load_typelib_ =
+      val loadTypelib_ =
         call
           (load_sym libgirepository "g_irepository_load_typelib")
           (GObjectObjectClass.PolyML.PTR
-            &&> GITypelibType.PolyML.PTR
+            &&> GIRepositoryTypelibType.PolyML.PTR
             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
             &&> GLibErrorRecord.PolyML.OUTOPTREF
             --> FFI.PolyML.String.RETPTR)
@@ -3484,38 +3434,38 @@ structure GIRepository :>
             &&> FFI.PolyML.String.INPTR
             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
             &&> GLibErrorRecord.PolyML.OUTOPTREF
-            --> GITypelibType.PolyML.PTR)
+            --> GIRepositoryTypelibType.PolyML.PTR)
 
-      val get_dependencies_ =
+      val getDependencies_ =
         call
           (load_sym libgirepository "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             --> FFI.PolyML.StringVector.RETOPTPTR)
 
-      val get_n_infos_ =
+      val getNInfos_ =
         call
           (load_sym libgirepository "g_irepository_get_n_infos")
           (GObjectObjectClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             --> FFI.PolyML.Int32.VAL)
 
-      val get_info_ =
+      val getInfo_ =
         call
           (load_sym libgirepository "g_irepository_get_info")
           (GObjectObjectClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             &&> FFI.PolyML.Int32.VAL
-            --> GIBaseInfoClass.PolyML.PTR)
+            --> GIRepositoryBaseInfoClass.PolyML.PTR)
 
-      val get_shared_library_ =
+      val getSharedLibrary_ =
         call
           (load_sym libgirepository "g_irepository_get_shared_library")
           (GObjectObjectClass.PolyML.PTR
             &&> FFI.PolyML.String.INPTR
             --> FFI.PolyML.String.RETOPTPTR)
 
-      val get_c_prefix_ =
+      val getCPrefix_ =
         call
           (load_sym libgirepository "g_irepository_get_c_prefix")
           (GObjectObjectClass.PolyML.PTR
@@ -3524,23 +3474,23 @@ structure GIRepository :>
     end
 
 
-    type 'a t = 'a GIRepositoryClass.t
-    type 'a baseinfoclass_t = 'a GIBaseInfoClass.t
+    type 'a class_t = 'a GIRepositoryRepositoryClass.t
+    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
-    type typelibtype_t = GITypelibType.t
+    type typelibtype_t = GIRepositoryTypelibType.t
 
 
-    val get_default =
-      fn () => (I ---> GIRepositoryClass.C.fromPtr false) get_default_ ()
+    val getDefault =
+      fn () => (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
 
-    val load_typelib =
+    val loadTypelib =
       fn repository => fn typelib => fn flags =>
         (GObjectObjectClass.C.withPtr
-          &&&> GITypelibType.C.withPtr
+          &&&> GIRepositoryTypelibType.C.withPtr
           &&&> GIRepositoryRepositoryLoadFlags.C.withVal
           &&&> GLibErrorRecord.C.handleError
           ---> FFI.String.fromPtr false)
-        load_typelib_
+        loadTypelib_
         (repository & typelib & flags & [])
 
     val require =
@@ -3550,51 +3500,265 @@ structure GIRepository :>
           &&&> FFI.String.withConstPtr
           &&&> GIRepositoryRepositoryLoadFlags.C.withVal
           &&&> GLibErrorRecord.C.handleError
-          ---> GITypelibType.C.fromPtr)
+          ---> GIRepositoryTypelibType.C.fromPtr)
         require_
         (repository & namespace_ & version & flags & [])
 
-    val get_dependencies =
+    val getDependencies =
       fn repository => fn namespace_ =>
         (GObjectObjectClass.C.withPtr
           &&&> FFI.String.withConstPtr
           ---> FFI.StringVector.fromOptPtr true)
-        get_dependencies_
+        getDependencies_
         (repository & namespace_)
 
-    val get_n_infos =
+    val getNInfos =
       fn repository => fn namespace_ =>
         (GObjectObjectClass.C.withPtr
           &&&> FFI.String.withConstPtr
           ---> I)
-        get_n_infos_
+        getNInfos_
         (repository & namespace_)
 
-    val get_info =
+    val getInfo =
       fn repository => fn namespace_ => fn index =>
         (GObjectObjectClass.C.withPtr
           &&&> FFI.String.withConstPtr
           &&&> I
-          ---> GIBaseInfoClass.C.fromPtr true)
-        get_info_
+          ---> GIRepositoryBaseInfoClass.C.fromPtr true)
+        getInfo_
         (repository & namespace_ & index)
 
-    fun get_shared_library self namespace =
+    fun getSharedLibrary self namespace =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
          ---> FFI.String.fromOptPtr false
       )
-        get_shared_library_
+        getSharedLibrary_
         (self & namespace)
 
-    val get_c_prefix =
+    val getCPrefix =
       fn repository => fn namespace_ =>
         (GObjectObjectClass.C.withPtr
           &&&> FFI.String.withConstPtr
           ---> FFI.String.fromOptPtr false)
-        get_c_prefix_
+        getCPrefix_
         (repository & namespace_)
+  end
+
+
+
+signature G_I_REPOSITORY =
+  sig
+    structure FieldInfoFlags : G_I_REPOSITORY_FIELD_INFO_FLAGS
+    structure FunctionInfoFlags : G_I_REPOSITORY_FUNCTION_INFO_FLAGS
+    structure VFuncInfoFlags : G_I_REPOSITORY_V_FUNC_INFO_FLAGS
+    structure BaseInfoClass : G_I_REPOSITORY_BASE_INFO_CLASS
+    structure CallableInfoClass : G_I_REPOSITORY_CALLABLE_INFO_CLASS
+    structure FunctionInfoClass : G_I_REPOSITORY_FUNCTION_INFO_CLASS
+    structure SignalInfoClass : G_I_REPOSITORY_SIGNAL_INFO_CLASS
+    structure VFuncInfoClass : G_I_REPOSITORY_VFUNC_INFO_CLASS
+    structure RegisteredTypeInfoClass : G_I_REPOSITORY_REGISTERED_TYPE_INFO_CLASS
+    structure EnumInfoClass : G_I_REPOSITORY_ENUM_INFO_CLASS
+    structure InterfaceInfoClass : G_I_REPOSITORY_INTERFACE_INFO_CLASS
+    structure ObjectInfoClass : G_I_REPOSITORY_OBJECT_INFO_CLASS
+    structure StructInfoClass : G_I_REPOSITORY_STRUCT_INFO_CLASS
+    structure UnionInfoClass : G_I_REPOSITORY_UNION_INFO_CLASS
+    structure ArgInfoClass : G_I_REPOSITORY_ARG_INFO_CLASS
+    structure ConstantInfoClass : G_I_REPOSITORY_CONSTANT_INFO_CLASS
+    structure FieldInfoClass : G_I_REPOSITORY_FIELD_INFO_CLASS
+    structure PropertyInfoClass : G_I_REPOSITORY_PROPERTY_INFO_CLASS
+    structure TypeInfoClass : G_I_REPOSITORY_TYPE_INFO_CLASS
+    structure ValueInfoClass : G_I_REPOSITORY_VALUE_INFO_CLASS
+    structure TypeTag : G_I_REPOSITORY_TYPE_TAG
+    structure ArrayType : G_I_REPOSITORY_ARRAY_TYPE
+    structure BaseInfo :
+      G_I_REPOSITORY_BASE_INFO
+        where type 'a class_t = 'a BaseInfoClass.t
+    structure TypeInfo :
+      G_I_REPOSITORY_TYPE_INFO
+        where type 'a class_t = 'a TypeInfoClass.t
+        where type typetag_t = TypeTag.t
+        where type arraytype_t = ArrayType.t
+        where type 'a baseinfoclass_t = 'a BaseInfoClass.t
+    structure Argument :
+      G_I_REPOSITORY_ARGUMENT
+        where type typetag_t = TypeTag.t
+    structure ConstantInfo :
+      G_I_REPOSITORY_CONSTANT_INFO
+        where type 'a class_t = 'a ConstantInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+        where type argument_t = Argument.t
+    structure RegisteredTypeInfo :
+      G_I_REPOSITORY_REGISTERED_TYPE_INFO
+        where type 'a class_t = 'a RegisteredTypeInfoClass.t
+    structure ValueInfo :
+      G_I_REPOSITORY_VALUE_INFO
+        where type 'a class_t = 'a ValueInfoClass.t
+    structure Direction : G_I_REPOSITORY_DIRECTION
+    structure ScopeType : G_I_REPOSITORY_SCOPE_TYPE
+    structure Transfer : G_I_REPOSITORY_TRANSFER
+    structure ArgInfo :
+      G_I_REPOSITORY_ARG_INFO
+        where type 'a class_t = 'a ArgInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+        where type direction_t = Direction.t
+        where type scopetype_t = ScopeType.t
+        where type transfer_t = Transfer.t
+    structure CallableInfo :
+      G_I_REPOSITORY_CALLABLE_INFO
+        where type 'a class_t = 'a CallableInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+        where type transfer_t = Transfer.t
+        where type 'a arginfoclass_t = 'a ArgInfoClass.t
+    structure PropertyInfo :
+      G_I_REPOSITORY_PROPERTY_INFO
+        where type 'a class_t = 'a PropertyInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+        where type transfer_t = Transfer.t
+    structure FunctionInfo :
+      G_I_REPOSITORY_FUNCTION_INFO
+        where type 'a class_t = 'a FunctionInfoClass.t
+        where type 'a propertyinfoclass_t = 'a PropertyInfoClass.t
+        where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
+        where type functioninfoflags_t = FunctionInfoFlags.flags
+    structure SignalInfo :
+      G_I_REPOSITORY_SIGNAL_INFO
+        where type 'a class_t = 'a SignalInfoClass.t
+        where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
+    structure VFuncInfo :
+      G_I_REPOSITORY_VFUNC_INFO
+        where type 'a class_t = 'a VFuncInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+        where type 'a signalinfoclass_t = 'a SignalInfoClass.t
+        where type vfuncinfoflags_t = VFuncInfoFlags.flags
+    structure FieldInfo :
+      G_I_REPOSITORY_FIELD_INFO
+        where type 'a class_t = 'a FieldInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+        where type fieldinfoflags_t = FieldInfoFlags.flags
+    structure StructInfo :
+      G_I_REPOSITORY_STRUCT_INFO
+        where type 'a class_t = 'a StructInfoClass.t
+        where type 'a fieldinfoclass_t = 'a FieldInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+    structure UnionInfo :
+      G_I_REPOSITORY_UNION_INFO
+        where type 'a class_t = 'a UnionInfoClass.t
+        where type 'a fieldinfoclass_t = 'a FieldInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+    structure EnumInfo :
+      G_I_REPOSITORY_ENUM_INFO
+        where type 'a class_t = 'a EnumInfoClass.t
+        where type 'a valueinfoclass_t = 'a ValueInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+        where type typetag_t = TypeTag.t
+    structure InterfaceInfo :
+      G_I_REPOSITORY_INTERFACE_INFO
+        where type 'a class_t = 'a InterfaceInfoClass.t
+        where type 'a baseinfoclass_t = 'a BaseInfoClass.t
+        where type 'a propertyinfoclass_t = 'a PropertyInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+        where type 'a signalinfoclass_t = 'a SignalInfoClass.t
+        where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
+        where type 'a constantinfoclass_t = 'a ConstantInfoClass.t
+        where type 'a structinfoclass_t = 'a StructInfoClass.t
+    structure ObjectInfo :
+      G_I_REPOSITORY_OBJECT_INFO
+        where type 'a class_t = 'a ObjectInfoClass.t
+        where type 'a baseinfoclass_t = 'a BaseInfoClass.t
+        where type 'a interfaceinfoclass_t = 'a InterfaceInfoClass.t
+        where type 'a fieldinfoclass_t = 'a FieldInfoClass.t
+        where type 'a propertyinfoclass_t = 'a PropertyInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+        where type 'a signalinfoclass_t = 'a SignalInfoClass.t
+        where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
+        where type 'a constantinfoclass_t = 'a ConstantInfoClass.t
+        where type 'a structinfoclass_t = 'a StructInfoClass.t
+    structure InfoType :
+      G_I_REPOSITORY_INFO_TYPE
+        where type 'a baseinfoclass_t = 'a BaseInfoClass.t
+        where type 'a registeredtypeinfoclass_t = 'a RegisteredTypeInfoClass.t
+        where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
+        where type 'a structinfoclass_t = 'a StructInfoClass.t
+        where type 'a enuminfoclass_t = 'a EnumInfoClass.t
+        where type 'a objectinfoclass_t = 'a ObjectInfoClass.t
+        where type 'a interfaceinfoclass_t = 'a InterfaceInfoClass.t
+        where type 'a constantinfoclass_t = 'a ConstantInfoClass.t
+        where type 'a unioninfoclass_t = 'a UnionInfoClass.t
+        where type 'a valueinfoclass_t = 'a ValueInfoClass.t
+        where type 'a signalinfoclass_t = 'a SignalInfoClass.t
+        where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
+        where type 'a propertyinfoclass_t = 'a PropertyInfoClass.t
+        where type 'a fieldinfoclass_t = 'a FieldInfoClass.t
+        where type 'a arginfoclass_t = 'a ArgInfoClass.t
+        where type 'a typeinfoclass_t = 'a TypeInfoClass.t
+    structure RepositoryLoadFlags : G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS
+    structure RepositoryClass : G_I_REPOSITORY_REPOSITORY_CLASS
+    structure TypelibType : G_I_REPOSITORY_TYPELIB_TYPE
+    structure Typelib :
+      G_I_REPOSITORY_TYPELIB
+        where type typelibtype_t = TypelibType.t
+    structure Repository :
+      G_I_REPOSITORY_REPOSITORY
+        where type 'a class_t = 'a RepositoryClass.t
+        where type 'a baseinfoclass_t = 'a BaseInfoClass.t
+        where type loadflags_t = RepositoryLoadFlags.flags
+        where type typelibtype_t = TypelibType.t
+  end
+
+structure GIRepository : G_I_REPOSITORY =
+  struct
+    structure FieldInfoFlags = GIRepositoryFieldInfoFlags
+    structure FunctionInfoFlags = GIRepositoryFunctionInfoFlags
+    structure VFuncInfoFlags = GIRepositoryVFuncInfoFlags
+    structure BaseInfoClass = GIRepositoryBaseInfoClass
+    structure CallableInfoClass = GIRepositoryCallableInfoClass
+    structure FunctionInfoClass = GIRepositoryFunctionInfoClass
+    structure SignalInfoClass = GIRepositorySignalInfoClass
+    structure VFuncInfoClass = GIRepositoryVFuncInfoClass
+    structure RegisteredTypeInfoClass = GIRepositoryRegisteredTypeInfoClass
+    structure EnumInfoClass = GIRepositoryEnumInfoClass
+    structure InterfaceInfoClass = GIRepositoryInterfaceInfoClass
+    structure ObjectInfoClass = GIRepositoryObjectInfoClass
+    structure StructInfoClass = GIRepositoryStructInfoClass
+    structure UnionInfoClass = GIRepositoryUnionInfoClass
+    structure ArgInfoClass = GIRepositoryArgInfoClass
+    structure ConstantInfoClass = GIRepositoryConstantInfoClass
+    structure FieldInfoClass = GIRepositoryFieldInfoClass
+    structure PropertyInfoClass = GIRepositoryPropertyInfoClass
+    structure TypeInfoClass = GIRepositoryTypeInfoClass
+    structure ValueInfoClass = GIRepositoryValueInfoClass
+    structure TypeTag = GIRepositoryTypeTag
+    structure ArrayType = GIRepositoryArrayType
+    structure BaseInfo = GIRepositoryBaseInfo
+    structure TypeInfo = GIRepositoryTypeInfo
+    structure Argument = GIRepositoryArgument
+    structure ConstantInfo = GIRepositoryConstantInfo
+    structure RegisteredTypeInfo = GIRepositoryRegisteredTypeInfo
+    structure ValueInfo = GIRepositoryValueInfo
+    structure Direction = GIRepositoryDirection
+    structure ScopeType = GIRepositoryScopeType
+    structure Transfer = GIRepositoryTransfer
+    structure ArgInfo = GIRepositoryArgInfo
+    structure CallableInfo = GIRepositoryCallableInfo
+    structure PropertyInfo = GIRepositoryPropertyInfo
+    structure FunctionInfo = GIRepositoryFunctionInfo
+    structure SignalInfo = GIRepositorySignalInfo
+    structure VFuncInfo = GIRepositoryVFuncInfo
+    structure FieldInfo = GIRepositoryFieldInfo
+    structure StructInfo = GIRepositoryStructInfo
+    structure UnionInfo = GIRepositoryUnionInfo
+    structure EnumInfo = GIRepositoryEnumInfo
+    structure InterfaceInfo = GIRepositoryInterfaceInfo
+    structure ObjectInfo = GIRepositoryObjectInfo
+    structure InfoType = GIRepositoryInfoType
+    structure RepositoryLoadFlags = GIRepositoryRepositoryLoadFlags
+    structure RepositoryClass = GIRepositoryRepositoryClass
+    structure TypelibType = GIRepositoryTypelibType
+    structure Typelib = GIRepositoryTypelib
+    structure Repository = GIRepositoryRepository
   end
 
 ;
@@ -3604,6 +3768,8 @@ structure GIRepository :>
 (* test *)
 (*
 
+
+open GIRepository;
 
 infix 6 --
 fun n -- m =
@@ -3616,7 +3782,7 @@ fun (f &&& g) x = (f x, g x);
 
 
 Gtk.init (CommandLine.name () :: CommandLine.arguments ());
-val repo = GIRepository.get_default ();
+val repo = Repository.getDefault ();
 
 
 
@@ -3624,89 +3790,89 @@ val repo = GIRepository.get_default ();
 
 
 val tylib_gir =
-  GIRepository.require repo "GIRepository" "2.0" (GIRepositoryRepositoryLoadFlags.flags []);
-GITypelib.get_namespace tylib_gir;
-val SOME cprefix_gir = GIRepository.get_c_prefix repo "GIRepository";
+  Repository.require repo "GIRepository" "2.0" (RepositoryLoadFlags.flags []);
+Typelib.getNamespace tylib_gir;
+val SOME cprefix_gir = Repository.getCPrefix repo "GIRepository";
 
-val s = GIRepository.load_typelib repo tylib_gir (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+val s = Repository.loadTypelib repo tylib_gir (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
-val info_0 = GIRepository.get_info repo s 0;
-val info_1 = GIRepository.get_info repo s 1;
-val info_28 = GIRepository.get_info repo s 28;
+val info_0 = Repository.getInfo repo s 0;
+val info_1 = Repository.getInfo repo s 1;
+val info_28 = Repository.getInfo repo s 28;
 
-GIBaseInfo.get_name info_0;
-GIBaseInfo.get_namespace info_0;
-GIInfoType.get_type info_0;
-val GIInfoType.ENUM enumInfo = GIInfoType.get_type info_0;
-val valueInfo = GIEnumInfo.get_value enumInfo 0;
-GIValueInfo.get_value valueInfo;
-GIEnumInfo.get_storage_type enumInfo;
+BaseInfo.getName info_0;
+BaseInfo.getNamespace info_0;
+InfoType.getType info_0;
+val InfoType.ENUM enumInfo = InfoType.getType info_0;
+val valueInfo = EnumInfo.getValue enumInfo 0;
+ValueInfo.getValueInt valueInfo;
+EnumInfo.getStorageType enumInfo;
 
-GIBaseInfo.get_name info_1;
-GIBaseInfo.get_namespace info_1;
-GIInfoType.get_type info_1;
+BaseInfo.getName info_1;
+BaseInfo.getNamespace info_1;
+InfoType.getType info_1;
 
-GIBaseInfo.get_name info_28;
-GIBaseInfo.get_namespace info_28;
-GIInfoType.get_type info_28;
+BaseInfo.getName info_28;
+BaseInfo.getNamespace info_28;
+InfoType.getType info_28;
 
 
 (*
 PolyML.print_depth 200;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 146);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 146);
 
 
-val info_4 = GIRepository.get_info repo s 4;
-val info_10 = GIRepository.get_info repo s 10;
-val info_17 = GIRepository.get_info repo s 17;
+val info_4 = Repository.getInfo repo s 4;
+val info_10 = Repository.getInfo repo s 10;
+val info_17 = Repository.getInfo repo s 17;
 
-GIBaseInfo.get_name info_4;
-GIInfoType.get_type info_4;
+BaseInfo.getName info_4;
+InfoType.getType info_4;
 
-GIBaseInfo.get_name info_10;
-GIInfoType.get_type info_10;
+BaseInfo.getName info_10;
+InfoType.getType info_10;
 
-GIBaseInfo.get_name info_17;
-GIInfoType.get_type info_17;
+BaseInfo.getName info_17;
+InfoType.getType info_17;
 *)
 
 
-val info_10 = GIRepository.get_info repo s 10;
-val GIInfoType.FLAGS info = GIInfoType.get_type info_10;
+val info_10 = Repository.getInfo repo s 10;
+val InfoType.FLAGS info = InfoType.getType info_10;
 
-GIBaseInfo.get_name info_10;
-GIBaseInfo.get_name info;
+BaseInfo.getName info_10;
+BaseInfo.getName info;
 
-GIInfoType.get_type info;
+InfoType.getType info;
 
-GIRegisteredTypeInfo.get_type_name info;
-GIRegisteredTypeInfo.get_type_init info;
-GObjectType.name (GIRegisteredTypeInfo.get_g_type info);
+RegisteredTypeInfo.getTypeName info;
+RegisteredTypeInfo.getTypeInit info;
+GObject.Type.name (RegisteredTypeInfo.getGType info);
 
-GIEnumInfo.get_storage_type info;
-GIEnumInfo.get_n_methods info;
-GIEnumInfo.get_n_values info;
-val value = GIEnumInfo.get_value info 0;
-GIValueInfo.get_value value;
-GIBaseInfo.get_name value;
-GIBaseInfo.get_namespace value;
-
-
+EnumInfo.getStorageType info;
+EnumInfo.getNMethods info;
+EnumInfo.getNValues info;
+val value = EnumInfo.getValue info 0;
+ValueInfo.getValue value;
+BaseInfo.getName value;
+BaseInfo.getNamespace value;
 
 
 
-val info_2 = GIRepository.get_info repo s 2;
-val GIInfoType.STRUCT structInfo = GIInfoType.get_type info_2;
 
-GIBaseInfo.get_name info_2;
-GIBaseInfo.get_name structInfo;
-GIBaseInfo.get_namespace structInfo;
 
-GIRegisteredTypeInfo.get_type_name structInfo;
-GIRegisteredTypeInfo.get_type_init structInfo;
-GObjectType.name (GIRegisteredTypeInfo.get_g_type structInfo);
+val info_2 = Repository.getInfo repo s 2;
+val InfoType.STRUCT structInfo = InfoType.getType info_2;
+
+BaseInfo.getName info_2;
+BaseInfo.getName structInfo;
+BaseInfo.getNamespace structInfo;
+
+RegisteredTypeInfo.getTypeName structInfo;
+RegisteredTypeInfo.getTypeInit structInfo;
+GObject.Type.name (RegisteredTypeInfo.getGType structInfo);
 
 
 
@@ -3721,52 +3887,52 @@ GObjectType.name (GIRegisteredTypeInfo.get_g_type structInfo);
 
 
 val tylib_gtk =
-  GIRepository.require repo "Gtk" "3.0" (GIRepositoryRepositoryLoadFlags.flags []);
-GITypelib.get_namespace tylib_gtk;
-val SOME cprefix_gtk = GIRepository.get_c_prefix repo "Gtk";
-val s = GIRepository.load_typelib repo tylib_gtk (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "Gtk" "3.0" (RepositoryLoadFlags.flags []);
+Typelib.getNamespace tylib_gtk;
+val SOME cprefix_gtk = Repository.getCPrefix repo "Gtk";
+val s = Repository.loadTypelib repo tylib_gtk (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 
 PolyML.print_depth 2000;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 1107);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 1107);
 
 
 (* filter out UNIONs *)
-List.mapPartial ((fn (i, SOME x) => SOME (i, GIBaseInfo.get_name x) | (_, NONE) => NONE) o (I &&& (fn info => case GIInfoType.get_type info of GIInfoType.UNION _ => SOME info | _ => NONE) o GIRepository.get_info repo s)) (0 -- 1107)
+List.mapPartial ((fn (i, SOME x) => SOME (i, BaseInfo.getName x) | (_, NONE) => NONE) o (I &&& (fn info => case InfoType.getType info of InfoType.UNION _ => SOME info | _ => NONE) o Repository.getInfo repo s)) (0 -- 1107)
 
 
 
 (* ** CONSTANT ** *)
-val info = GIRepository.get_info repo s 63;
-val info = GIRepository.get_info repo s 345;
-val info = GIRepository.get_info repo s 348;
-val info = GIRepository.get_info repo s 347;
-val info = GIRepository.get_info repo s 412;
-val info = GIRepository.get_info repo s 434;
-val info = GIRepository.get_info repo s 553;
-val info = GIRepository.get_info repo s 620;
+val info = Repository.getInfo repo s 63;
+val info = Repository.getInfo repo s 345;
+val info = Repository.getInfo repo s 348;
+val info = Repository.getInfo repo s 347;
+val info = Repository.getInfo repo s 412;
+val info = Repository.getInfo repo s 434;
+val info = Repository.getInfo repo s 553;
+val info = Repository.getInfo repo s 620;
 
-val GIInfoType.CONSTANT constantInfo = GIInfoType.get_type info;
-GITypeInfo.get_tag (GIConstantInfo.get_type constantInfo);
-GIConstantInfo.get_value constantInfo;
+val InfoType.CONSTANT constantInfo = InfoType.getType info;
+TypeInfo.getTag (ConstantInfo.getType constantInfo);
+ConstantInfo.getValue constantInfo;
 
 
 (* ** STRUCT ** *)
 
 
-val info = GIRepository.get_info repo s 782; (* TextAppearance (no methods) *)
-val info = GIRepository.get_info repo s 783; (* TextAttributes (5 methods) *)
-val info = GIRepository.get_info repo s 330; (* LabelPrivate *)
-val info = GIRepository.get_info repo s 331; (* LabelSelectionInfo *)
-val GIInfoType.STRUCT structInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name structInfo;
-GIStructInfo.get_n_methods structInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIStructInfo.get_method structInfo) (0 -- 4);
+val info = Repository.getInfo repo s 782; (* TextAppearance (no methods) *)
+val info = Repository.getInfo repo s 783; (* TextAttributes (5 methods) *)
+val info = Repository.getInfo repo s 330; (* LabelPrivate *)
+val info = Repository.getInfo repo s 331; (* LabelSelectionInfo *)
+val InfoType.STRUCT structInfo = InfoType.getType info;
+BaseInfo.getName structInfo;
+StructInfo.getNMethods structInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o StructInfo.getMethod structInfo) (0 -- 4);
 
 
-GIBaseInfo.get_attribute structInfo "disguised";
+BaseInfo.getAttribute structInfo "disguised";
 
 
 
@@ -3774,186 +3940,184 @@ GIBaseInfo.get_attribute structInfo "disguised";
 
 (* ** OBJECT ** *)
 
-val info = GIRepository.get_info repo s 23;
-val info = GIRepository.get_info repo s 73;  (* Box *)
-val info = GIRepository.get_info repo s 78;  (* Builder *)
-val info = GIRepository.get_info repo s 921; (* Window *)
-val info = GIRepository.get_info repo s 171;
-val info = GIRepository.get_info repo s 177; (* Container *)
-val info = GIRepository.get_info repo s 307; (* IconView *)
-val info = GIRepository.get_info repo s 393; (* Overlay *)
-val info = GIRepository.get_info repo s 151; (* Clipboard *)
-val info = GIRepository.get_info repo s 181; (* CssProvider *)
-val info = GIRepository.get_info repo s 698; (* Scale *)
-val info = GIRepository.get_info repo s 739; (* SpinButton *)
-val info = GIRepository.get_info repo s 749; (* StatusIcon *)
-val info = GIRepository.get_info repo s 758; (* StyleContext *)
-val info = GIRepository.get_info repo s 761; (* StyleProperties *)
-val info = GIRepository.get_info repo s 811; (* ThemingEngine *)
-val info = GIRepository.get_info repo s 875; (* TreeStore *)
-val info = GIRepository.get_info repo s 892; (* UIManager *)
-val info = GIRepository.get_info repo s 914; (* Widget *)
-val info = GIRepository.get_info repo s 921; (* Window *)
-val info = GIRepository.get_info repo s 878;
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
-GIObjectInfo.get_ref_function objectInfo;
+val info = Repository.getInfo repo s 23;
+val info = Repository.getInfo repo s 73;  (* Box *)
+val info = Repository.getInfo repo s 78;  (* Builder *)
+val info = Repository.getInfo repo s 921; (* Window *)
+val info = Repository.getInfo repo s 171;
+val info = Repository.getInfo repo s 177; (* Container *)
+val info = Repository.getInfo repo s 307; (* IconView *)
+val info = Repository.getInfo repo s 393; (* Overlay *)
+val info = Repository.getInfo repo s 151; (* Clipboard *)
+val info = Repository.getInfo repo s 181; (* CssProvider *)
+val info = Repository.getInfo repo s 698; (* Scale *)
+val info = Repository.getInfo repo s 739; (* SpinButton *)
+val info = Repository.getInfo repo s 749; (* StatusIcon *)
+val info = Repository.getInfo repo s 758; (* StyleContext *)
+val info = Repository.getInfo repo s 761; (* StyleProperties *)
+val info = Repository.getInfo repo s 811; (* ThemingEngine *)
+val info = Repository.getInfo repo s 875; (* TreeStore *)
+val info = Repository.getInfo repo s 892; (* UIManager *)
+val info = Repository.getInfo repo s 914; (* Widget *)
+val info = Repository.getInfo repo s 921; (* Window *)
+val info = Repository.getInfo repo s 878;
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
+ObjectInfo.getRefFunction objectInfo;
 
 (* ** methods ** *)
-GIObjectInfo.get_n_methods objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_method objectInfo) (0 -- 18);
+ObjectInfo.getNMethods objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getMethod objectInfo) (0 -- 18);
 
-val info = GIObjectInfo.get_method objectInfo 155; (* GtkWidget.path *)
-val info = GIObjectInfo.get_method objectInfo 12; (* GtkIconView.get_item_at_pos *)
-val info = GIObjectInfo.get_method objectInfo 38;
-val info = GIObjectInfo.get_method objectInfo 0;  (* GtkWindow.new *)
-val info = GIObjectInfo.get_method objectInfo 17;
-val info = GIObjectInfo.get_method objectInfo 19;
-val info = GIObjectInfo.get_method objectInfo 6;
-val info = GIObjectInfo.get_method objectInfo 2;
-val info = GIObjectInfo.get_method objectInfo 65;
-val info = GIObjectInfo.get_method objectInfo 18;
-val GIInfoType.FUNCTION functionInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name functionInfo;
-GIFunctionInfo.get_symbol functionInfo;
-GICallableInfo.get_caller_owns functionInfo;
-GICallableInfo.may_return_null functionInfo;
-val retTypeInfo = GICallableInfo.get_return_type functionInfo;
-GITypeInfo.get_tag retTypeInfo;
-GITypeInfo.is_pointer retTypeInfo;
-GIBaseInfo.get_namespace retTypeInfo;
+val info = ObjectInfo.getMethod objectInfo 155; (* GtkWidget.path *)
+val info = ObjectInfo.getMethod objectInfo 12; (* GtkIconView.get_item_at_pos *)
+val info = ObjectInfo.getMethod objectInfo 38;
+val info = ObjectInfo.getMethod objectInfo 0;  (* GtkWindow.new *)
+val info = ObjectInfo.getMethod objectInfo 17;
+val info = ObjectInfo.getMethod objectInfo 19;
+val info = ObjectInfo.getMethod objectInfo 6;
+val info = ObjectInfo.getMethod objectInfo 2;
+val info = ObjectInfo.getMethod objectInfo 65;
+val info = ObjectInfo.getMethod objectInfo 18;
+val InfoType.FUNCTION functionInfo = InfoType.getType info;
+BaseInfo.getName functionInfo;
+FunctionInfo.getSymbol functionInfo;
+CallableInfo.getCallerOwns functionInfo;
+CallableInfo.mayReturnNull functionInfo;
+val retTypeInfo = CallableInfo.getReturnType functionInfo;
+TypeInfo.getTag retTypeInfo;
+TypeInfo.isPointer retTypeInfo;
+BaseInfo.getNamespace retTypeInfo;
 
-val SOME interfaceInfo = GITypeInfo.get_interface retTypeInfo;
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type interfaceInfo;
-GIBaseInfo.get_namespace objectInfo;
+val SOME interfaceInfo = TypeInfo.getInterface retTypeInfo;
+val InfoType.OBJECT objectInfo = InfoType.getType interfaceInfo;
+BaseInfo.getNamespace objectInfo;
 
-GICallableInfo.get_n_args functionInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg functionInfo) (0 -- 2);
-
-
-val info = GICallableInfo.get_arg functionInfo 0;
-val info = GICallableInfo.get_arg functionInfo 2;
-val info = GICallableInfo.get_arg functionInfo 4;
-val GIInfoType.ARG argInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name argInfo;
-GIArgInfo.get_direction argInfo;
-GIArgInfo.may_be_null argInfo;
-GIArgInfo.is_return_value argInfo;
-GIArgInfo.is_optional argInfo;
-GIArgInfo.get_ownership_transfer argInfo;
-GIArgInfo.is_caller_allocates argInfo;
-GIArgInfo.get_scope argInfo;
-
-val typeInfo = GIArgInfo.get_type argInfo;
-GITypeInfo.get_tag typeInfo;
-GITypeInfo.is_pointer typeInfo;
-
-val SOME interfaceBaseInfo = GITypeInfo.get_interface typeInfo;
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type interfaceBaseInfo;
-GIBaseInfo.get_name objectInfo;
+CallableInfo.getNArgs functionInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg functionInfo) (0 -- 2);
 
 
-val GIInfoType.ENUM enumInfo = GIInfoType.get_type interfaceBaseInfo;
-GIBaseInfo.get_name enumInfo;
-GIEnumInfo.get_n_methods enumInfo;
-GIEnumInfo.get_n_values enumInfo;
-val valueInfo0 = GIEnumInfo.get_value enumInfo 0;
-val valueInfo1 = GIEnumInfo.get_value enumInfo 1;
+val info = CallableInfo.getArg functionInfo 0;
+val info = CallableInfo.getArg functionInfo 2;
+val info = CallableInfo.getArg functionInfo 4;
+val InfoType.ARG argInfo = InfoType.getType info;
+BaseInfo.getName argInfo;
+ArgInfo.getDirection argInfo;
+ArgInfo.mayBeNull argInfo;
+ArgInfo.isReturnValue argInfo;
+ArgInfo.isOptional argInfo;
+ArgInfo.getOwnershipTransfer argInfo;
+ArgInfo.isCallerAllocates argInfo;
+ArgInfo.getScope argInfo;
 
-GIBaseInfo.get_name valueInfo0;
-GIBaseInfo.get_namespace valueInfo0;
-GIValueInfo.get_value valueInfo0;
-GIBaseInfo.get_name valueInfo1;
-GIBaseInfo.get_namespace valueInfo1;
-GIValueInfo.get_value valueInfo1;
+val typeInfo = ArgInfo.getType argInfo;
+TypeInfo.getTag typeInfo;
+TypeInfo.isPointer typeInfo;
+
+val SOME interfaceBaseInfo = TypeInfo.getInterface typeInfo;
+val InfoType.OBJECT objectInfo = InfoType.getType interfaceBaseInfo;
+BaseInfo.getName objectInfo;
 
 
+val InfoType.ENUM enumInfo = InfoType.getType interfaceBaseInfo;
+BaseInfo.getName enumInfo;
+EnumInfo.getNMethods enumInfo;
+EnumInfo.getNValues enumInfo;
+val valueInfo0 = EnumInfo.getValue enumInfo 0;
+val valueInfo1 = EnumInfo.getValue enumInfo 1;
 
-
-val info = GIRepository.get_info repo s 914;
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
-GIObjectInfo.get_n_methods objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_method objectInfo) (0 -- 231);
+BaseInfo.getName valueInfo0;
+BaseInfo.getNamespace valueInfo0;
+ValueInfo.getValue valueInfo0;
+BaseInfo.getName valueInfo1;
+BaseInfo.getNamespace valueInfo1;
+ValueInfo.getValue valueInfo1;
 
 
 
-val info = GIObjectInfo.get_method objectInfo 155;
-val info = GIRepository.get_info repo s 989;  (* init *)
-val GIInfoType.FUNCTION functionInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name functionInfo;
-GIFunctionInfo.get_symbol functionInfo;
 
-GICallableInfo.get_n_args functionInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg functionInfo) (0 -- 1);
+val info = Repository.getInfo repo s 914;
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
+ObjectInfo.getNMethods objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getMethod objectInfo) (0 -- 231);
 
-val info = GICallableInfo.get_arg functionInfo 0;
-val info = GICallableInfo.get_arg functionInfo 1;
-val GIInfoType.ARG argInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name argInfo;
-GIArgInfo.get_direction argInfo;
-GIArgInfo.may_be_null argInfo;
-GIArgInfo.is_return_value argInfo;
-GIArgInfo.is_optional argInfo;
-GIArgInfo.get_ownership_transfer argInfo;
-GIArgInfo.is_caller_allocates argInfo;
-GIArgInfo.get_scope argInfo;
-val typeInfo = GIArgInfo.get_type argInfo;
 
-GITypeInfo.get_tag typeInfo;
-GITypeInfo.is_pointer typeInfo;
-GITypeInfo.get_array_length typeInfo;
-GITypeInfo.get_array_fixed_size typeInfo;
-GITypeInfo.is_zero_terminated typeInfo;
-GITypeInfo.get_array_type typeInfo;
-val SOME paramTypeInfo = GITypeInfo.get_param_type typeInfo 0;
 
-GITypeInfo.get_tag paramTypeInfo;
+val info = ObjectInfo.getMethod objectInfo 155;
+val info = Repository.getInfo repo s 989;  (* init *)
+val InfoType.FUNCTION functionInfo = InfoType.getType info;
+BaseInfo.getName functionInfo;
+FunctionInfo.getSymbol functionInfo;
+
+CallableInfo.getNArgs functionInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg functionInfo) (0 -- 1);
+
+val info = CallableInfo.getArg functionInfo 0;
+val info = CallableInfo.getArg functionInfo 1;
+val InfoType.ARG argInfo = InfoType.getType info;
+BaseInfo.getName argInfo;
+ArgInfo.getDirection argInfo;
+ArgInfo.mayBeNull argInfo;
+ArgInfo.isReturnValue argInfo;
+ArgInfo.isOptional argInfo;
+ArgInfo.getOwnershipTransfer argInfo;
+ArgInfo.isCallerAllocates argInfo;
+ArgInfo.getScope argInfo;
+val typeInfo = ArgInfo.getType argInfo;
+
+TypeInfo.getTag typeInfo;
+TypeInfo.isPointer typeInfo;
+TypeInfo.getArrayLength typeInfo;
+TypeInfo.getArrayFixedSize typeInfo;
+TypeInfo.isZeroTerminated typeInfo;
+TypeInfo.getArrayType typeInfo;
+val SOME paramTypeInfo = TypeInfo.getParamType typeInfo 0;
+
+TypeInfo.getTag paramTypeInfo;
 
 
 (* ** signals ** *)
-GIObjectInfo.get_n_signals objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_signal objectInfo) (0 -- 3);
+ObjectInfo.getNSignals objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getSignal objectInfo) (0 -- 3);
 
-val signalInfo = GIObjectInfo.get_signal objectInfo 3;
+val signalInfo = ObjectInfo.getSignal objectInfo 3;
 
-GIBaseInfo.get_name signalInfo;
-GICallableInfo.get_n_args signalInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg signalInfo) (0 -- 0);
+BaseInfo.getName signalInfo;
+CallableInfo.getNArgs signalInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg signalInfo) (0 -- 0);
 
 
 (* ** properties ** *)
-GIObjectInfo.get_n_properties objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_property objectInfo) (0 -- 30);
+ObjectInfo.getNProperties objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getProperty objectInfo) (0 -- 30);
 
-val propertyInfo = GIObjectInfo.get_property objectInfo 18;
-val propertyInfo = GIObjectInfo.get_property objectInfo 33;
-GIBaseInfo.get_name propertyInfo;
-GIPropertyInfo.get_ownership_transfer propertyInfo;
-val typeInfo = GIPropertyInfo.get_type propertyInfo;
+val propertyInfo = ObjectInfo.getProperty objectInfo 18;
+val propertyInfo = ObjectInfo.getProperty objectInfo 33;
+BaseInfo.getName propertyInfo;
+PropertyInfo.getOwnershipTransfer propertyInfo;
+val typeInfo = PropertyInfo.getType propertyInfo;
 
-GITypeInfo.get_tag typeInfo;
+TypeInfo.getTag typeInfo;
 
 
-val flags = GIPropertyInfo.get_flags propertyInfo;
+val flags = PropertyInfo.getFlags propertyInfo;
 
-GObjectParamFlags.anySet (flags, GObjectParamFlags.READABLE);
-GObjectParamFlags.anySet (flags, GObjectParamFlags.WRITABLE);
-
-val  = GIPropertyInfo.get_ propertyInfo;
+GObject.ParamFlags.anySet (flags, GObject.ParamFlags.READABLE);
+GObject.ParamFlags.anySet (flags, GObject.ParamFlags.WRITABLE);
 
 
 
 
 (* FLAGS and ENUM *)
 
-val info = GIRepository.get_info repo s 192; (* FLAGS: DialogFlags *)
-val GIInfoType.FLAGS flagsInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name flagsInfo;
+val info = Repository.getInfo repo s 192; (* FLAGS: DialogFlags *)
+val InfoType.FLAGS flagsInfo = InfoType.getType info;
+BaseInfo.getName flagsInfo;
 
-val info = GIRepository.get_info repo s 194; (* ENUM: DirectionType *)
-val GIInfoType.ENUM enumInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name enumInfo;
+val info = Repository.getInfo repo s 194; (* ENUM: DirectionType *)
+val InfoType.ENUM enumInfo = InfoType.getType info;
+BaseInfo.getName enumInfo;
 
 
 
@@ -3961,144 +4125,144 @@ GIBaseInfo.get_name enumInfo;
 
 
 val tylib_gdk =
-  GIRepository.require repo "Gdk" "3.0" (GIRepositoryRepositoryLoadFlags.flags []);
-GITypelib.get_namespace tylib_gdk;
-val SOME cprefix_gdk = GIRepository.get_c_prefix repo "Gdk";
-val s = GIRepository.load_typelib repo tylib_gdk (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "Gdk" "3.0" (RepositoryLoadFlags.flags []);
+Typelib.getNamespace tylib_gdk;
+val SOME cprefix_gdk = Repository.getCPrefix repo "Gdk";
+val s = Repository.loadTypelib repo tylib_gdk (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 2500;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 2436);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 2436);
 
-val info = GIRepository.get_info repo s 1;  (* Atom *)
-val info = GIRepository.get_info repo s 27;  (* EventKey *)
-val info = GIRepository.get_info repo s 2306;  (* KeymapKey *)
-val info = GIRepository.get_info repo s 2331;  (* WindowClass *)
-val GIInfoType.STRUCT structInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name structInfo;
-GIBaseInfo.get_namespace structInfo;
-GIStructInfo.get_n_methods structInfo;
-GIStructInfo.get_n_fields structInfo;
+val info = Repository.getInfo repo s 1;  (* Atom *)
+val info = Repository.getInfo repo s 27;  (* EventKey *)
+val info = Repository.getInfo repo s 2306;  (* KeymapKey *)
+val info = Repository.getInfo repo s 2331;  (* WindowClass *)
+val InfoType.STRUCT structInfo = InfoType.getType info;
+BaseInfo.getName structInfo;
+BaseInfo.getNamespace structInfo;
+StructInfo.getNMethods structInfo;
+StructInfo.getNFields structInfo;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIStructInfo.get_field structInfo) (0 -- 10);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o StructInfo.getField structInfo) (0 -- 10);
 
-GIStructInfo.is_foreign structInfo;
-GIStructInfo.get_size structInfo;
-GIStructInfo.is_gtype_struct structInfo;
+StructInfo.isForeign structInfo;
+StructInfo.getSize structInfo;
+StructInfo.isGtypeStruct structInfo;
 
-GIBaseInfo.get_container structInfo;
-
-
-
-
-val info = GIRepository.get_info repo s 17;  (* Event *)
-val GIInfoType.UNION unionInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name unionInfo;
-GIBaseInfo.get_namespace unionInfo;
-GIUnionInfo.is_discriminated unionInfo;
-GIUnionInfo.get_n_methods unionInfo;
-GIUnionInfo.get_n_fields unionInfo;
-
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIUnionInfo.get_field unionInfo) (0 -- 18);
-
-val info = GIUnionInfo.get_field unionInfo 7;  (* key *)
-val GIInfoType.FIELD fieldInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name fieldInfo;
-
-GIFieldInfo.get_offset fieldInfo;
-
-val typeInfo = GIFieldInfo.get_type fieldInfo;
-GITypeInfo.get_tag typeInfo;
-
-val SOME info = GITypeInfo.get_interface typeInfo;
-val GIInfoType.STRUCT structInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name structInfo;
-GIBaseInfo.get_namespace structInfo;
+BaseInfo.getContainer structInfo;
 
 
 
-val info = GIRepository.get_info repo s 13;  (* DisplayManager *)
-val info = GIRepository.get_info repo s 2327;  (* Window *)
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
+
+val info = Repository.getInfo repo s 17;  (* Event *)
+val InfoType.UNION unionInfo = InfoType.getType info;
+BaseInfo.getName unionInfo;
+BaseInfo.getNamespace unionInfo;
+UnionInfo.isDiscriminated unionInfo;
+UnionInfo.getNMethods unionInfo;
+UnionInfo.getNFields unionInfo;
+
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o UnionInfo.getField unionInfo) (0 -- 18);
+
+val info = UnionInfo.getField unionInfo 7;  (* key *)
+val InfoType.FIELD fieldInfo = InfoType.getType info;
+BaseInfo.getName fieldInfo;
+
+FieldInfo.getOffset fieldInfo;
+
+val typeInfo = FieldInfo.getType fieldInfo;
+TypeInfo.getTag typeInfo;
+
+val SOME info = TypeInfo.getInterface typeInfo;
+val InfoType.STRUCT structInfo = InfoType.getType info;
+BaseInfo.getName structInfo;
+BaseInfo.getNamespace structInfo;
+
+
+
+val info = Repository.getInfo repo s 13;  (* DisplayManager *)
+val info = Repository.getInfo repo s 2327;  (* Window *)
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
 
 (* ** methods ** *)
-GIObjectInfo.get_n_methods objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_method objectInfo) (0 -- 136);
+ObjectInfo.getNMethods objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getMethod objectInfo) (0 -- 136);
 
-val info = GIObjectInfo.get_method objectInfo 4;
-val info = GIObjectInfo.get_method objectInfo 126;
-val GIInfoType.FUNCTION functionInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name functionInfo;
-GIFunctionInfo.get_symbol functionInfo;
+val info = ObjectInfo.getMethod objectInfo 4;
+val info = ObjectInfo.getMethod objectInfo 126;
+val InfoType.FUNCTION functionInfo = InfoType.getType info;
+BaseInfo.getName functionInfo;
+FunctionInfo.getSymbol functionInfo;
 
 (* *** parameter values *** *)
-GICallableInfo.get_n_args functionInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg functionInfo) (0 -- 0);
+CallableInfo.getNArgs functionInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg functionInfo) (0 -- 0);
 
-val info = GICallableInfo.get_arg functionInfo 0;
-val info = GICallableInfo.get_arg functionInfo 1;
-val GIInfoType.ARG argInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name argInfo;
-GIArgInfo.get_direction argInfo;
-GIArgInfo.may_be_null argInfo;
-GIArgInfo.is_return_value argInfo;
-GIArgInfo.is_optional argInfo;
-GIArgInfo.get_ownership_transfer argInfo;
-GIArgInfo.is_caller_allocates argInfo;
-GIArgInfo.get_scope argInfo;
-val typeInfo = GIArgInfo.get_type argInfo;
+val info = CallableInfo.getArg functionInfo 0;
+val info = CallableInfo.getArg functionInfo 1;
+val InfoType.ARG argInfo = InfoType.getType info;
+BaseInfo.getName argInfo;
+ArgInfo.getDirection argInfo;
+ArgInfo.mayBeNull argInfo;
+ArgInfo.isReturnValue argInfo;
+ArgInfo.isOptional argInfo;
+ArgInfo.getOwnershipTransfer argInfo;
+ArgInfo.isCallerAllocates argInfo;
+ArgInfo.getScope argInfo;
+val typeInfo = ArgInfo.getType argInfo;
 
-GITypeInfo.is_pointer typeInfo;
-val SOME interfaceInfo = GITypeInfo.get_interface typeInfo;
-GIBaseInfo.get_name interfaceInfo;
-GIBaseInfo.get_namespace interfaceInfo;
-GITypeInfo.get_tag typeInfo;
-GIInfoType.get_type interfaceInfo;
+TypeInfo.isPointer typeInfo;
+val SOME interfaceInfo = TypeInfo.getInterface typeInfo;
+BaseInfo.getName interfaceInfo;
+BaseInfo.getNamespace interfaceInfo;
+TypeInfo.getTag typeInfo;
+InfoType.getType interfaceInfo;
 
 (* ** signals ** *)
-GIObjectInfo.get_n_signals objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_signal objectInfo) (0 -- 0);
+ObjectInfo.getNSignals objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getSignal objectInfo) (0 -- 0);
 
-val signalInfo = GIObjectInfo.get_signal objectInfo 0;
-val signalInfo = GIObjectInfo.get_signal objectInfo 2;
+val signalInfo = ObjectInfo.getSignal objectInfo 0;
+val signalInfo = ObjectInfo.getSignal objectInfo 2;
 
 (* *** parameter values *** *)
-GICallableInfo.get_n_args signalInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg signalInfo) (0 -- 0);
-val argInfo = GICallableInfo.get_arg signalInfo 0;
-val typeInfo = GIArgInfo.get_type argInfo;
+CallableInfo.getNArgs signalInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg signalInfo) (0 -- 0);
+val argInfo = CallableInfo.getArg signalInfo 0;
+val typeInfo = ArgInfo.getType argInfo;
 
-GITypeInfo.is_pointer typeInfo;
-val SOME interfaceInfo = GITypeInfo.get_interface typeInfo;
-GIBaseInfo.get_name interfaceInfo;
-GIBaseInfo.get_namespace interfaceInfo;
-GITypeInfo.get_tag typeInfo;
-GIInfoType.get_type interfaceInfo;
+TypeInfo.isPointer typeInfo;
+val SOME interfaceInfo = TypeInfo.getInterface typeInfo;
+BaseInfo.getName interfaceInfo;
+BaseInfo.getNamespace interfaceInfo;
+TypeInfo.getTag typeInfo;
+InfoType.getType interfaceInfo;
 
 (* *** return value *** *)
-val typeInfo = GICallableInfo.get_return_type signalInfo;
+val typeInfo = CallableInfo.getReturnType signalInfo;
 
-GITypeInfo.is_pointer typeInfo;
-val SOME interfaceInfo = GITypeInfo.get_interface typeInfo;
-GIBaseInfo.get_name interfaceInfo;
-GIBaseInfo.get_namespace interfaceInfo;
-GITypeInfo.get_tag typeInfo;
-GIInfoType.get_type interfaceInfo;
+TypeInfo.isPointer typeInfo;
+val SOME interfaceInfo = TypeInfo.getInterface typeInfo;
+BaseInfo.getName interfaceInfo;
+BaseInfo.getNamespace interfaceInfo;
+TypeInfo.getTag typeInfo;
+InfoType.getType interfaceInfo;
 
 (* ** properties ** *)
-GIObjectInfo.get_n_properties objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_property objectInfo) (0 -- 0);
+ObjectInfo.getNProperties objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getProperty objectInfo) (0 -- 0);
 
-val propertyInfo = GIObjectInfo.get_property objectInfo 0;
-val typeInfo = GIPropertyInfo.get_type propertyInfo;
+val propertyInfo = ObjectInfo.getProperty objectInfo 0;
+val typeInfo = PropertyInfo.getType propertyInfo;
 
-GITypeInfo.is_pointer typeInfo;
-val SOME interfaceInfo = GITypeInfo.get_interface typeInfo;
-GIBaseInfo.get_name interfaceInfo;
-GIBaseInfo.get_namespace interfaceInfo;
-GITypeInfo.get_tag typeInfo;
-GIInfoType.get_type interfaceInfo;
+TypeInfo.isPointer typeInfo;
+val SOME interfaceInfo = TypeInfo.getInterface typeInfo;
+BaseInfo.getName interfaceInfo;
+BaseInfo.getNamespace interfaceInfo;
+TypeInfo.getTag typeInfo;
+InfoType.getType interfaceInfo;
 
 
 
@@ -4110,31 +4274,31 @@ GIInfoType.get_type interfaceInfo;
 
 
 val tylib_gdk_pixbuf =
-  GIRepository.require repo "GdkPixbuf" "2.0" (GIRepositoryRepositoryLoadFlags.flags []);
-GITypelib.get_namespace tylib_gdk_pixbuf;
-val SOME cprefix_gdk_pixbuf = GIRepository.get_c_prefix repo "GdkPixbuf";
-val s = GIRepository.load_typelib repo tylib_gdk_pixbuf (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "GdkPixbuf" "2.0" (RepositoryLoadFlags.flags []);
+Typelib.getNamespace tylib_gdk_pixbuf;
+val SOME cprefix_gdk_pixbuf = Repository.getCPrefix repo "GdkPixbuf";
+val s = Repository.loadTypelib repo tylib_gdk_pixbuf (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 30;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 26);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 26);
 
-val info = GIRepository.get_info repo s 16;  (* PixbufLoader *)
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
-GIBaseInfo.get_namespace objectInfo;
-GIObjectInfo.get_n_methods objectInfo;
+val info = Repository.getInfo repo s 16;  (* PixbufLoader *)
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
+BaseInfo.getNamespace objectInfo;
+ObjectInfo.getNMethods objectInfo;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_method objectInfo) (0 -- 8);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getMethod objectInfo) (0 -- 8);
 
-val info = GIObjectInfo.get_method objectInfo 5; (* get_format *)
-val GIInfoType.FUNCTION functionInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name functionInfo;
-GIFunctionInfo.get_symbol functionInfo;
+val info = ObjectInfo.getMethod objectInfo 5; (* get_format *)
+val InfoType.FUNCTION functionInfo = InfoType.getType info;
+BaseInfo.getName functionInfo;
+FunctionInfo.getSymbol functionInfo;
 
-GICallableInfo.get_n_args functionInfo;
-GICallableInfo.get_caller_owns functionInfo; (* EVERYTHING! eh? *)
-GICallableInfo.may_return_null functionInfo;
+CallableInfo.getNArgs functionInfo;
+CallableInfo.getCallerOwns functionInfo; (* EVERYTHING! eh? *)
+CallableInfo.mayReturnNull functionInfo;
 
 
 
@@ -4143,102 +4307,102 @@ GICallableInfo.may_return_null functionInfo;
 
 
 val tylib_glib =
-  GIRepository.require repo "GLib" "2.0" (GIRepositoryRepositoryLoadFlags.flags []);
-GITypelib.get_namespace tylib_glib;
-val SOME cprefix_glib = GIRepository.get_c_prefix repo "GLib";
-val s = GIRepository.load_typelib repo tylib_glib (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "GLib" "2.0" (RepositoryLoadFlags.flags []);
+Typelib.getNamespace tylib_glib;
+val SOME cprefix_glib = Repository.getCPrefix repo "GLib";
+val s = Repository.loadTypelib repo tylib_glib (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 750;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 726);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 726);
 
 (* filter out UNIONs *)
-List.mapPartial ((fn (i, SOME x) => SOME (i, GIBaseInfo.get_name x) | (_, NONE) => NONE) o (I &&& (fn info => case GIInfoType.get_type info of GIInfoType.UNION _ => SOME info | _ => NONE) o GIRepository.get_info repo s)) (0 -- 726)
+List.mapPartial ((fn (i, SOME x) => SOME (i, BaseInfo.getName x) | (_, NONE) => NONE) o (I &&& (fn info => case InfoType.getType info of InfoType.UNION _ => SOME info | _ => NONE) o Repository.getInfo repo s)) (0 -- 726)
 
 
-val info = GIRepository.get_info repo s 134;  (* KeyFile *)
-val info = GIRepository.get_info repo s 151;  (* MainContext *)
-val GIInfoType.STRUCT structInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name structInfo;
-GIStructInfo.get_n_methods structInfo;
+val info = Repository.getInfo repo s 134;  (* KeyFile *)
+val info = Repository.getInfo repo s 151;  (* MainContext *)
+val InfoType.STRUCT structInfo = InfoType.getType info;
+BaseInfo.getName structInfo;
+StructInfo.getNMethods structInfo;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIStructInfo.get_method structInfo) (0 -- 23);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o StructInfo.getMethod structInfo) (0 -- 23);
 
 
-val info = GIRepository.get_info repo s 224;  (* ShellError *)
-val GIInfoType.ENUM enumInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name enumInfo;
-GIBaseInfo.get_namespace enumInfo;
+val info = Repository.getInfo repo s 224;  (* ShellError *)
+val InfoType.ENUM enumInfo = InfoType.getType info;
+BaseInfo.getName enumInfo;
+BaseInfo.getNamespace enumInfo;
 
-GIEnumInfo.get_error_domain enumInfo;
+EnumInfo.getErrorDomain enumInfo;
 
 
 
 val tylib_gobject =
-  GIRepository.require repo "GObject" "2.0" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_gobject = GIRepository.get_c_prefix repo "GObject";
-val s = GIRepository.load_typelib repo tylib_gobject (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "GObject" "2.0" (RepositoryLoadFlags.flags []);
+val SOME cprefix_gobject = Repository.getCPrefix repo "GObject";
+val s = Repository.loadTypelib repo tylib_gobject (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 
 PolyML.print_depth 250;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 222);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 222);
 
-val info = GIRepository.get_info repo s 19;
-val info = GIRepository.get_info repo s 25;  (* Object *)
-val info = GIRepository.get_info repo s 37;
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
-GIObjectInfo.get_ref_function objectInfo;
+val info = Repository.getInfo repo s 19;
+val info = Repository.getInfo repo s 25;  (* Object *)
+val info = Repository.getInfo repo s 37;
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
+ObjectInfo.getRefFunction objectInfo;
 
-val SOME objectInfo = GIObjectInfo.get_parent objectInfo;
-GIBaseInfo.get_name objectInfo;
+val SOME objectInfo = ObjectInfo.getParent objectInfo;
+BaseInfo.getName objectInfo;
 
-val NONE = GIObjectInfo.get_parent objectInfo;
+val NONE = ObjectInfo.getParent objectInfo;
 
 (* ** properties ** *)
-GIObjectInfo.get_n_properties objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_property objectInfo) (0 -- 33);
+ObjectInfo.getNProperties objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getProperty objectInfo) (0 -- 33);
 
 
 
 
 val tylib_gio =
-  GIRepository.require repo "Gio" "2.0" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_gobject = GIRepository.get_c_prefix repo "Gio";
-val s = GIRepository.load_typelib repo tylib_gio (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "Gio" "2.0" (RepositoryLoadFlags.flags []);
+val SOME cprefix_gobject = Repository.getCPrefix repo "Gio";
+val s = Repository.loadTypelib repo tylib_gio (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 600;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 579);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 579);
 
-val info = GIRepository.get_info repo s 62;  (* DBusConnection *)
-val info = GIRepository.get_info repo s 89;  (* DBusObjectManagerClient *)
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
+val info = Repository.getInfo repo s 62;  (* DBusConnection *)
+val info = Repository.getInfo repo s 89;  (* DBusObjectManagerClient *)
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
 
 
 (* ** properties ** *)
-GIObjectInfo.get_n_properties objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_property objectInfo) (0 -- 8);
+ObjectInfo.getNProperties objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getProperty objectInfo) (0 -- 8);
 
 
 (* ** signals ** *)
-GIObjectInfo.get_n_signals objectInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_signal objectInfo) (0 -- 0);
+ObjectInfo.getNSignals objectInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getSignal objectInfo) (0 -- 0);
 
-val signalInfo = GIObjectInfo.get_signal objectInfo 0;
+val signalInfo = ObjectInfo.getSignal objectInfo 0;
 
 (* *** parameter values *** *)
-GICallableInfo.get_n_args signalInfo;
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GICallableInfo.get_arg signalInfo) (0 -- 1);
-val argInfo = GICallableInfo.get_arg signalInfo 1;
-GIArgInfo.may_be_null argInfo;
+CallableInfo.getNArgs signalInfo;
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o CallableInfo.getArg signalInfo) (0 -- 1);
+val argInfo = CallableInfo.getArg signalInfo 1;
+ArgInfo.mayBeNull argInfo;
 
-val typeInfo = GIArgInfo.get_type argInfo;
-GITypeInfo.is_pointer typeInfo;
-GITypeInfo.get_tag typeInfo;
+val typeInfo = ArgInfo.getType argInfo;
+TypeInfo.isPointer typeInfo;
+TypeInfo.getTag typeInfo;
 
 
 
@@ -4246,14 +4410,14 @@ GITypeInfo.get_tag typeInfo;
 
 
 val tylib_atk =
-  GIRepository.require repo "Atk" "1.0" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_atk = GIRepository.get_c_prefix repo "Atk";
-val s = GIRepository.load_typelib repo tylib_atk (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "Atk" "1.0" (RepositoryLoadFlags.flags []);
+val SOME cprefix_atk = Repository.getCPrefix repo "Atk";
+val s = Repository.loadTypelib repo tylib_atk (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 250;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 103);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 103);
 
 
 
@@ -4262,53 +4426,53 @@ map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info
 
 
 val tylib_cairo =
-  GIRepository.require repo "cairo" "1.0" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_cairo = GIRepository.get_c_prefix repo "cairo";
-val SOME shared_library_cairo = GIRepository.get_shared_library repo "cairo";
-val s = GIRepository.load_typelib repo tylib_cairo (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "cairo" "1.0" (RepositoryLoadFlags.flags []);
+val SOME cprefix_cairo = Repository.getCPrefix repo "cairo";
+val SOME shared_library_cairo = Repository.getSharedLibrary repo "cairo";
+val s = Repository.loadTypelib repo tylib_cairo (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 250;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 12);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 12);
 
 
-GIRepository.get_dependencies repo "cairo";
+Repository.getDependencies repo "cairo";
 
 
 
 
 
 val tylib_gtksource =
-  GIRepository.require repo "GtkSource" "3.0" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_gtksource = GIRepository.get_c_prefix repo "GtkSource";
-val s = GIRepository.load_typelib repo tylib_gtksource (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "GtkSource" "3.0" (RepositoryLoadFlags.flags []);
+val SOME cprefix_gtksource = Repository.getCPrefix repo "GtkSource";
+val s = Repository.loadTypelib repo tylib_gtksource (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 250;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 71);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 71);
 
 
 
 
 
 val tylib_vte =
-  GIRepository.require repo "Vte" "2.90" (GIRepositoryRepositoryLoadFlags.flags []);
-val SOME cprefix_vte = GIRepository.get_c_prefix repo "Vte";
-val s = GIRepository.load_typelib repo tylib_vte (GIRepositoryRepositoryLoadFlags.flags []);
-val n = GIRepository.get_n_infos repo s;
+  Repository.require repo "Vte" "2.90" (RepositoryLoadFlags.flags []);
+val SOME cprefix_vte = Repository.getCPrefix repo "Vte";
+val s = Repository.loadTypelib repo tylib_vte (RepositoryLoadFlags.flags []);
+val n = Repository.getNInfos repo s;
 
 PolyML.print_depth 250;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIRepository.get_info repo s) (0 -- 16);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o Repository.getInfo repo s) (0 -- 16);
 
-val info = GIRepository.get_info repo s 5;  (* Terminal *)
-val GIInfoType.OBJECT objectInfo = GIInfoType.get_type info;
-GIBaseInfo.get_name objectInfo;
-GIObjectInfo.get_n_methods objectInfo;
+val info = Repository.getInfo repo s 5;  (* Terminal *)
+val InfoType.OBJECT objectInfo = InfoType.getType info;
+BaseInfo.getName objectInfo;
+ObjectInfo.getNMethods objectInfo;
 
-map (I &&& (GIInfoType.get_type &&& GIBaseInfo.get_name) o GIObjectInfo.get_method objectInfo) (0 -- 90);
+map (I &&& (InfoType.getType &&& BaseInfo.getName) o ObjectInfo.getMethod objectInfo) (0 -- 90);
 
 
 

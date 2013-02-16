@@ -1,3 +1,9 @@
+(*
+ * Open file using the following command:
+ *
+ * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen.sml -c poly
+ *)
+
 PolyML.Compiler.reportUnreferencedIds := true;
 OS.FileSys.chDir "../"; use "polyml.sml"; OS.FileSys.chDir "codegen/";
 use "polyml.sml";
@@ -371,14 +377,25 @@ fun mkIdValDec (id, exp) : dec =
 
 
 
+
+
+
+
+
+open GIRepository
+
+
+
+
+
 datatype infoerror =
   IEMsg of string
 | IEGrp of infoerrorhier list
 
-withtype infoerrorhier = (LargeInt.int * GIInfoType.t) * infoerror
+withtype infoerrorhier = (LargeInt.int * InfoType.t) * infoerror
 
 fun mkInfoError (n, info) ie : infoerrorhier =
-  ((n, GIInfoType.get_type info), ie)
+  ((n, InfoType.getType info), ie)
 
 
 exception InfoError of infoerror
@@ -573,17 +590,17 @@ fun revFoldMapInfosWithErrs getN getNth f (info, (xs, acc, errs)) =
 
 
 fun checkDeprecated info =
-  if GIBaseInfo.is_deprecated info
+  if BaseInfo.isDeprecated info
   then infoError "deprecated"
   else ()
 
 fun getCPrefix repo namespace =
-  case GIRepository.get_c_prefix repo namespace of
+  case Repository.getCPrefix repo namespace of
     SOME cPrefix => cPrefix
   | NONE         => infoError "no C prefix"
 
 fun getSharedLibraryFile repo namespace =
-  case GIRepository.get_shared_library repo namespace of
+  case Repository.getSharedLibrary repo namespace of
     SOME sharedLibrary => sharedLibrary
   | NONE               => infoError "no shared library"
 
@@ -611,17 +628,17 @@ in
 end
 
 fun getName info =
-  case GIBaseInfo.get_name info of
+  case BaseInfo.getName info of
     SOME name => name
   | NONE      => infoError "no name"
 
 fun getParent objectInfo =
-  case GIObjectInfo.get_parent objectInfo of
+  case ObjectInfo.getParent objectInfo of
     SOME parentObjectInfo => parentObjectInfo
   | NONE                  => infoError "no parent info"
 
 fun getInterface typeInfo =
-  case GITypeInfo.get_interface typeInfo of
+  case TypeInfo.getInterface typeInfo of
     SOME interfaceInfo => interfaceInfo
   | NONE               => infoError "no interface info"
 
@@ -1293,7 +1310,7 @@ fun getRootObjectIRef
   namespace
   optName
   (objectInfo, objectIRef : interfaceref) =
-  case GIObjectInfo.get_parent objectInfo of
+  case ObjectInfo.getParent objectInfo of
     NONE      => objectIRef
   | SOME info =>
       let
@@ -1301,9 +1318,9 @@ fun getRootObjectIRef
          * so not the same interface module.  Consequently, `scope` is never
          * `LOCALINTERFACESELF`.
          *)
-        val rootInfo = iterate GIObjectInfo.get_parent info
+        val rootInfo = iterate ObjectInfo.getParent info
         val rootObjectName = getName rootInfo
-        val rootObjectNamespace = GIBaseInfo.get_namespace rootInfo
+        val rootObjectNamespace = BaseInfo.getNamespace rootInfo
         val rootObjectCPrefix = getCPrefix repo rootObjectNamespace
         val rootObjectScope =
           if rootObjectNamespace <> namespace
@@ -1325,12 +1342,12 @@ fun getRootObjectIRef
 
 
 fun getIRefTy info =
-  case GIInfoType.get_type info of
-    GIInfoType.OBJECT _    => CLASS
-  | GIInfoType.INTERFACE _ => CLASS  (* ??? *)
-  | GIInfoType.STRUCT _    => RECORD
-  | GIInfoType.UNION _     => UNION
-  | _                      => SIMPLE
+  case InfoType.getType info of
+    InfoType.OBJECT _    => CLASS
+  | InfoType.INTERFACE _ => CLASS  (* ??? *)
+  | InfoType.STRUCT _    => RECORD
+  | InfoType.UNION _     => UNION
+  | _                    => SIMPLE
 
 
 
@@ -1505,7 +1522,7 @@ val excludedFunctionSymbolSuffixes = [
 
 fun checkFunctionSymbol functionInfo =
   let
-    val symbol = GIFunctionInfo.get_symbol functionInfo
+    val symbol = FunctionInfo.getSymbol functionInfo
   in
     if
       List.exists (fn x => x = symbol) excludedFunctionSymbols
@@ -1616,7 +1633,7 @@ val ptrForEnum =
   "pointer for ENUM INTERFACE not supported"
 
 local
-  open GIInfoType
+  open InfoType
 
   val toString =
     fn
@@ -1767,7 +1784,7 @@ type interfaceinfo =
     name       : id,
     rootIRef   : interfaceref,
     iRef       : interfaceref,
-    infoType   : GIInfoType.t,
+    infoType   : InfoType.t,
     isOpt      : bool,
     ptrOwnXfer : bool option  (* NONE when non-pointer *)
   }
@@ -1810,24 +1827,24 @@ datatype retinfo =
 
 fun getParInfo repo functionNamespace optContainerName functionName argInfo =
   let
-    val direction = GIArgInfo.get_direction argInfo
-    val mayBeNull = GIArgInfo.may_be_null argInfo
+    val direction = ArgInfo.getDirection argInfo
+    val mayBeNull = ArgInfo.mayBeNull argInfo
 
-    val ownershipTransfer = GIArgInfo.get_ownership_transfer argInfo
-    val isCallerAllocates = GIArgInfo.is_caller_allocates argInfo
+    val ownershipTransfer = ArgInfo.getOwnershipTransfer argInfo
+    val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
 
-    val typeInfo = GIArgInfo.get_type argInfo
-    val tag = GITypeInfo.get_tag typeInfo
-    val isPointer = GITypeInfo.is_pointer typeInfo
+    val typeInfo = ArgInfo.getType argInfo
+    val tag = TypeInfo.getTag typeInfo
+    val isPointer = TypeInfo.isPointer typeInfo
 
     val argName = getName argInfo
     val argId = mkId (toLCC argName)
 
     val dir =
       case direction of
-        GIDirection.IN    => IN
-      | GIDirection.OUT   => OUT isCallerAllocates
-      | GIDirection.INOUT => INOUT
+        Direction.IN    => IN
+      | Direction.OUT   => OUT isCallerAllocates
+      | Direction.INOUT => INOUT
 
     (* Currently, `mayBeNull` is valid only for IN parameters.  For OUT/INOUT
      * parameters, it indicates whether the C parameter is optional, not
@@ -1856,7 +1873,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
           ty    = ty
         }
 
-    open GITypeTag
+    open TypeTag
   in
     case tag of
       ERROR     => infoError "parameter type ERROR not expected"
@@ -1884,9 +1901,9 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             isOpt   = isOpt,
             ownXfer =
               case ownershipTransfer of
-                GITransfer.NOTHING    => false
-              | GITransfer.EVERYTHING => true
-              | GITransfer.CONTAINER  => infoError containerForFilename
+                Transfer.NOTHING    => false
+              | Transfer.EVERYTHING => true
+              | Transfer.CONTAINER  => infoError containerForFilename
           }
         in
           PIUTF8 (dir, utf8Info)
@@ -1898,9 +1915,9 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             isOpt   = isOpt,
             ownXfer =
               case ownershipTransfer of
-                GITransfer.NOTHING    => false
-              | GITransfer.EVERYTHING => true
-              | GITransfer.CONTAINER  => infoError containerForUtf8
+                Transfer.NOTHING    => false
+              | Transfer.EVERYTHING => true
+              | Transfer.CONTAINER  => infoError containerForUtf8
           }
         in
           PIUTF8 (dir, utf8Info)
@@ -1910,7 +1927,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
-          val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
           val interfaceCPrefix = getCPrefix repo interfaceNamespace
           val interfaceScope =
             if interfaceNamespace <> functionNamespace
@@ -1932,10 +1949,10 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             ty        = interfaceTy
           }
 
-          val infoType = GIInfoType.get_type interfaceInfo
+          val infoType = InfoType.getType interfaceInfo
 
           local
-            open GITransfer
+            open Transfer
 
             fun ptrOwnXferObjectInterface nonPtrForX =
               if isPointer
@@ -1971,7 +1988,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
-            open GIInfoType
+            open InfoType
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
@@ -2009,22 +2026,22 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
 
 fun getRetInfo repo functionNamespace optContainerName functionName callableInfo =
   let
-    (* At present, GICallableInfo.may_return_null does not indicate
+    (* At present, CallableInfo.mayReturnNull does not indicate
      * whether the return value is optional.  Therefore we use the list
      * of function names `optRetFunNames` to determine whether a
      * return value is optional. *)
     val mayReturnNull =
-      (* GICallableInfo.may_return_null callableInfo *)
+      (* CallableInfo.mayReturnNull callableInfo *)
       let
         fun isFun x = x = (functionNamespace, optContainerName, functionName)
       in
         List.exists isFun optRetFunNames
       end
 
-    val ownershipTransfer = GICallableInfo.get_caller_owns callableInfo
+    val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 
-    val typeInfo = GICallableInfo.get_return_type callableInfo
-    val isPointer = GITypeInfo.is_pointer typeInfo
+    val typeInfo = CallableInfo.getReturnType callableInfo
+    val isPointer = TypeInfo.isPointer typeInfo
 
     val argId = ""
 
@@ -2039,9 +2056,9 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
           ty    = ty
         }
 
-    open GITypeTag
+    open TypeTag
   in
-    case GITypeInfo.get_tag typeInfo of
+    case TypeInfo.getTag typeInfo of
       ERROR     => infoError "return type ERROR not expected"
     | GTYPE     => infoError "return type GTYPE not supported"
     | ARRAY     => infoError "return type ARRAY not supported"
@@ -2062,7 +2079,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
     | DOUBLE    => RISCALAR (toScalarInfo STDOUBLE)
     | FILENAME  =>
         let
-          open GITransfer
+          open Transfer
 
           val utf8Info = {
             name    = argId,
@@ -2078,7 +2095,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
         end
     | UTF8      =>
         let
-          open GITransfer
+          open Transfer
 
           val utf8Info = {
             name    = argId,
@@ -2097,7 +2114,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
-          val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
           val interfaceCPrefix = getCPrefix repo interfaceNamespace
           val interfaceScope =
             if interfaceNamespace <> functionNamespace
@@ -2119,10 +2136,10 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
             ty        = interfaceTy
           }
 
-          val infoType = GIInfoType.get_type interfaceInfo
+          val infoType = InfoType.getType interfaceInfo
 
           local
-            open GITransfer
+            open Transfer
 
             fun ptrOwnXferObjectInterface nonPtrForX =
               if isPointer
@@ -2152,7 +2169,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
-            open GIInfoType
+            open InfoType
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
@@ -2282,9 +2299,9 @@ fun addSpecRetInfo
             name       = name,
             iRef       =
               case (optConstructorIRef, infoType) of
-                (SOME constructorIRef, GIInfoType.OBJECT _)    => constructorIRef
-              | (SOME constructorIRef, GIInfoType.INTERFACE _) => constructorIRef
-              | _                                              => iRef,
+                (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
+              | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
+              | _                                            => iRef,
             infoType   = infoType,
             isOpt      = isOpt,
             ptrOwnXfer = ptrOwnXfer
@@ -2321,16 +2338,16 @@ fun makeFunctionSpec
     val () = checkFunctionName functionName
 
     val functionNameId = mkId (toLCC functionName)
-    val functionNamespace = GIBaseInfo.get_namespace functionInfo
-    val functionFlags = GIFunctionInfo.get_flags functionInfo
+    val functionNamespace = BaseInfo.getNamespace functionInfo
+    val functionFlags = FunctionInfo.getFlags functionInfo
 
     val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfo repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
@@ -2342,8 +2359,8 @@ fun makeFunctionSpec
      * that contains this function. *)
     val tyVarIdx'0 = 0
     val (revInTys'1, tyVarIdx'1) =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISMETHOD)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optContainerIRef of
           SOME containerIRef =>
@@ -2371,8 +2388,8 @@ fun makeFunctionSpec
         parInfos
 
     val optConstructorIRef =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISCONSTRUCTOR)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISCONSTRUCTOR)
       then
         case optContainerIRef of
           SOME _ => optContainerIRef
@@ -2545,7 +2562,7 @@ local
 (*
       val {isSelf, ...} = rootIRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId rootIRef ["C"]
@@ -2562,7 +2579,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId rootIRef ["C"]
 
-      open GIInfoType
+      open InfoType
     in
       withFunExp prefixIds {
         isRef =
@@ -2611,7 +2628,7 @@ local
 (*
       val {isSelf, ...} = iRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId iRef ["C"]
@@ -2628,7 +2645,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId iRef ["C"]
 
-      open GIInfoType
+      open InfoType
     in
       fromFunExp prefixIds {
         isOpt      = isOpt,
@@ -2657,7 +2674,7 @@ local
     case dir of
       OUT _ =>
         let
-          open GIInfoType
+          open InfoType
         in
           case infoType of
             OBJECT _    => noneExp
@@ -2773,9 +2790,9 @@ in
             rootIRef   = rootIRef,
             iRef       =
               case (optConstructorIRef, infoType) of
-                (SOME constructorIRef, GIInfoType.OBJECT _)    => constructorIRef
-              | (SOME constructorIRef, GIInfoType.INTERFACE _) => constructorIRef
-              | _                                              => iRef,
+                (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
+              | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
+              | _                                            => iRef,
             infoType   = infoType,
             isOpt      = isOpt,
             ptrOwnXfer = ptrOwnXfer
@@ -2848,8 +2865,8 @@ fun makeFunctionStrDecHighLevel
     val functionNameLCC = toLCC functionName
     val functionNameUId = functionNameLCC ^ "_"
     val functionNameId = mkId functionNameLCC
-    val functionNamespace = GIBaseInfo.get_namespace functionInfo
-    val functionFlags = GIFunctionInfo.get_flags functionInfo
+    val functionNamespace = BaseInfo.getNamespace functionInfo
+    val functionFlags = FunctionInfo.getFlags functionInfo
 
     val (optRootIRef, optContainerIRef) =
       case optRootContainerIRef of
@@ -2860,8 +2877,8 @@ fun makeFunctionStrDecHighLevel
     (* Construct parameter infos and return value info *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfo repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
@@ -2872,8 +2889,8 @@ fun makeFunctionStrDecHighLevel
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
     val (revJs'1, revLs'1) =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISMETHOD)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optRootIRef of
           SOME rootIRef =>
@@ -2904,8 +2921,8 @@ fun makeFunctionStrDecHighLevel
     (* For a function that may raise an exception, add a final argument for
      * the GError out parameter. *)
     val revJs'3 =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.THROWS)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.THROWS)
       then
         (
           withFunErr functionNamespace optContainerName,
@@ -2915,8 +2932,8 @@ fun makeFunctionStrDecHighLevel
         revJs'2
 
     val optConstructorIRef =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISCONSTRUCTOR)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISCONSTRUCTOR)
       then
         case optContainerIRef of
           SOME _ => optContainerIRef
@@ -3209,7 +3226,7 @@ local
 (*
       val {isSelf, ...} = rootIRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId rootIRef [PolyMLId]
@@ -3225,7 +3242,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId rootIRef [PolyMLId]
 
-      open GIInfoType
+      open InfoType
     in
       convExp prefixIds (
         if dir <> IN andalso isSome ptrOwnXfer
@@ -3259,7 +3276,7 @@ local
 (*
       val {isSelf, ...} = rootIRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId rootIRef [PolyMLId]
@@ -3276,7 +3293,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId rootIRef [PolyMLId]
 
-      open GIInfoType
+      open InfoType
     in
       convExp prefixIds (
         if
@@ -3350,8 +3367,8 @@ fun makeFunctionStrDecLowLevelPolyML
     val () = checkFunctionName functionName
 
     val functionNameId = toLCC functionName ^ "_"
-    val functionNamespace = GIBaseInfo.get_namespace functionInfo
-    val functionFlags = GIFunctionInfo.get_flags functionInfo
+    val functionNamespace = BaseInfo.getNamespace functionInfo
+    val functionFlags = FunctionInfo.getFlags functionInfo
 
     val (optRootIRef, optContainerName) =
       case optRootContainerIRef of
@@ -3361,8 +3378,8 @@ fun makeFunctionStrDecLowLevelPolyML
     (* Construct parameter infos and return value info *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfo repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
@@ -3370,13 +3387,13 @@ fun makeFunctionStrDecLowLevelPolyML
       getRetInfo repo functionNamespace optContainerName functionName
         functionInfo
 
-    val functionSymbolStr = GIFunctionInfo.get_symbol functionInfo
+    val functionSymbolStr = FunctionInfo.getSymbol functionInfo
 
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
     val revParConvs'1 =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISMETHOD)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optRootIRef of
           SOME rootIRef =>
@@ -3393,8 +3410,8 @@ fun makeFunctionStrDecLowLevelPolyML
     (* For a function that may raise an exception, add a final argument for
      * the GError out parameter. *)
     val revParConvs'3 =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.THROWS)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.THROWS)
       then
         parErrConv functionNamespace optContainerName :: revParConvs'2
       else
@@ -3746,7 +3763,7 @@ local
 (*
       val {isSelf, ...} = rootIRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId rootIRef [CId]
@@ -3762,7 +3779,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId rootIRef [CId]
 
-      open GIInfoType
+      open InfoType
     in
       typeTy false prefixIds (
         if dir <> IN andalso isSome ptrOwnXfer
@@ -3798,7 +3815,7 @@ local
 (*
       val {isSelf, ...} = rootIRef
 
-      open GIInfoType
+      open InfoType
       val prefixIds =
         case infoType of
           OBJECT _    => prefixInterfaceStrId rootIRef [CId]
@@ -3814,7 +3831,7 @@ local
  *)
       val prefixIds = prefixInterfaceStrId rootIRef [CId]
 
-      open GIInfoType
+      open InfoType
     in
       typeTy false prefixIds (
         if
@@ -3890,8 +3907,8 @@ fun makeFunctionStrDecLowLevelMLton
     val () = checkFunctionName functionName
 
     val functionNameId = toLCC functionName ^ "_"
-    val functionNamespace = GIBaseInfo.get_namespace functionInfo
-    val functionFlags = GIFunctionInfo.get_flags functionInfo
+    val functionNamespace = BaseInfo.getNamespace functionInfo
+    val functionFlags = FunctionInfo.getFlags functionInfo
 
     val (optRootIRef, optContainerName) =
       case optRootContainerIRef of
@@ -3901,8 +3918,8 @@ fun makeFunctionStrDecLowLevelMLton
     (* Construct parameter infos and return value info *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfo repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
@@ -3910,13 +3927,13 @@ fun makeFunctionStrDecLowLevelMLton
       getRetInfo repo functionNamespace optContainerName functionName
         functionInfo
 
-    val functionSymbolStr = GIFunctionInfo.get_symbol functionInfo
+    val functionSymbolStr = FunctionInfo.getSymbol functionInfo
 
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
     val revParTypes'1 =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.ISMETHOD)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optRootIRef of
           SOME rootIRef =>
@@ -3933,8 +3950,8 @@ fun makeFunctionStrDecLowLevelMLton
     (* For a function that may raise an exception, add a final argument for
      * the GError out parameter. *)
     val revParTypes'3 =
-      if GIRepositoryFunctionInfoFlags.anySet
-           (functionFlags, GIRepositoryFunctionInfoFlags.THROWS)
+      if FunctionInfoFlags.anySet
+           (functionFlags, FunctionInfoFlags.THROWS)
       then
         parErrType functionNamespace optContainerName :: revParTypes'2
       else
@@ -4040,30 +4057,30 @@ fun addFunctionStrDecsLowLevel
 (* For signals, variants of `getParInfo` and `getRetInfo` must be used due
  * to <https://bugzilla.gnome.org/show_bug.cgi?id=646080>.  These variants,
  * `getParInfoX` and `getRetInfoX` respectively, ignore the value from
- * `GITypeInfo.isPointer`, and assume `true`, for OBJECT, INTERFACE and STUCT
- * interface types.
+ * `TypeInfo.isPointer`, and assume `true`, for OBJECT, INTERFACE
+ * and STUCT interface types.
  *)
 
 fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
   let
-    val direction = GIArgInfo.get_direction argInfo
-    val mayBeNull = GIArgInfo.may_be_null argInfo
+    val direction = ArgInfo.getDirection argInfo
+    val mayBeNull = ArgInfo.mayBeNull argInfo
 
-    val ownershipTransfer = GIArgInfo.get_ownership_transfer argInfo
-    val isCallerAllocates = GIArgInfo.is_caller_allocates argInfo
+    val ownershipTransfer = ArgInfo.getOwnershipTransfer argInfo
+    val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
 
-    val typeInfo = GIArgInfo.get_type argInfo
-    val tag = GITypeInfo.get_tag typeInfo
-    val isPointer = GITypeInfo.is_pointer typeInfo
+    val typeInfo = ArgInfo.getType argInfo
+    val tag = TypeInfo.getTag typeInfo
+    val isPointer = TypeInfo.isPointer typeInfo
 
     val argName = getName argInfo
     val argId = mkId (toLCC argName)
 
     val dir =
       case direction of
-        GIDirection.IN    => IN
-      | GIDirection.OUT   => OUT isCallerAllocates
-      | GIDirection.INOUT => INOUT
+        Direction.IN    => IN
+      | Direction.OUT   => OUT isCallerAllocates
+      | Direction.INOUT => INOUT
 
     (* Currently, `mayBeNull` is valid only for IN parameters.  For OUT/INOUT
      * parameters, it indicates whether the C parameter is optional, not
@@ -4092,7 +4109,7 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
           ty    = ty
         }
 
-    open GITypeTag
+    open TypeTag
   in
     case tag of
       ERROR     => infoError "parameter type ERROR not expected"
@@ -4120,9 +4137,9 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
             isOpt   = isOpt,
             ownXfer =
               case ownershipTransfer of
-                GITransfer.NOTHING    => false
-              | GITransfer.EVERYTHING => true
-              | GITransfer.CONTAINER  => infoError containerForFilename
+                Transfer.NOTHING    => false
+              | Transfer.EVERYTHING => true
+              | Transfer.CONTAINER  => infoError containerForFilename
           }
         in
           PIUTF8 (dir, utf8Info)
@@ -4134,9 +4151,9 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
             isOpt   = isOpt,
             ownXfer =
               case ownershipTransfer of
-                GITransfer.NOTHING    => false
-              | GITransfer.EVERYTHING => true
-              | GITransfer.CONTAINER  => infoError containerForUtf8
+                Transfer.NOTHING    => false
+              | Transfer.EVERYTHING => true
+              | Transfer.CONTAINER  => infoError containerForUtf8
           }
         in
           PIUTF8 (dir, utf8Info)
@@ -4146,7 +4163,7 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
-          val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
           val interfaceCPrefix = getCPrefix repo interfaceNamespace
           val interfaceScope =
             if interfaceNamespace <> functionNamespace
@@ -4168,10 +4185,10 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
             ty        = interfaceTy
           }
 
-          val infoType = GIInfoType.get_type interfaceInfo
+          val infoType = InfoType.getType interfaceInfo
 
           local
-            open GITransfer
+            open Transfer
 
             fun ptrOwnXferObjectInterface nonPtrForX =
               if true (* isPointer *)
@@ -4207,7 +4224,7 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
-            open GIInfoType
+            open InfoType
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
@@ -4245,22 +4262,22 @@ fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
 
 fun getRetInfoX repo functionNamespace optContainerName functionName callableInfo =
   let
-    (* At present, GICallableInfo.may_return_null does not indicate
+    (* At present, CallableInfo.mayReturnNull does not indicate
      * whether the return value is optional.  Therefore we use the list
      * of function names `optRetFunNames` to determine whether a
      * return value is optional. *)
     val mayReturnNull =
-      (* GICallableInfo.may_return_null callableInfo *)
+      (* CallableInfo.mayReturnNull callableInfo *)
       let
         fun isFun x = x = (functionNamespace, optContainerName, functionName)
       in
         List.exists isFun optRetFunNames
       end
 
-    val ownershipTransfer = GICallableInfo.get_caller_owns callableInfo
+    val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 
-    val typeInfo = GICallableInfo.get_return_type callableInfo
-    val isPointer = GITypeInfo.is_pointer typeInfo
+    val typeInfo = CallableInfo.getReturnType callableInfo
+    val isPointer = TypeInfo.isPointer typeInfo
 
     val argId = ""
 
@@ -4275,9 +4292,9 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
           ty    = ty
         }
 
-    open GITypeTag
+    open TypeTag
   in
-    case GITypeInfo.get_tag typeInfo of
+    case TypeInfo.getTag typeInfo of
       ERROR     => infoError "return type ERROR not expected"
     | GTYPE     => infoError "return type GTYPE not supported"
     | ARRAY     => infoError "return type ARRAY not supported"
@@ -4298,7 +4315,7 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
     | DOUBLE    => RISCALAR (toScalarInfo STDOUBLE)
     | FILENAME  =>
         let
-          open GITransfer
+          open Transfer
 
           val utf8Info = {
             name    = argId,
@@ -4314,7 +4331,7 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
         end
     | UTF8      =>
         let
-          open GITransfer
+          open Transfer
 
           val utf8Info = {
             name    = argId,
@@ -4333,7 +4350,7 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
-          val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
           val interfaceCPrefix = getCPrefix repo interfaceNamespace
           val interfaceScope =
             if interfaceNamespace <> functionNamespace
@@ -4355,10 +4372,10 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
             ty        = interfaceTy
           }
 
-          val infoType = GIInfoType.get_type interfaceInfo
+          val infoType = InfoType.getType interfaceInfo
 
           local
-            open GITransfer
+            open Transfer
 
             fun ptrOwnXferObjectInterface nonPtrForX =
               if true (* isPointer *)
@@ -4388,7 +4405,7 @@ fun getRetInfoX repo functionNamespace optContainerName functionName callableInf
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
-            open GIInfoType
+            open InfoType
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
@@ -4440,8 +4457,8 @@ fun makeSignalSpec
 
     val signalName = getName signalInfo
     val signalNameId = mkSignalNameId signalName
-    val signalNamespace = GIBaseInfo.get_namespace signalInfo
-    val signalFlags = GISignalInfo.get_flags signalInfo
+    val signalNamespace = BaseInfo.getNamespace signalInfo
+    val signalFlags = SignalInfo.getFlags signalInfo
 
     (* Ignore deprecated signals - is this needed?  Does above check suffice? *)
     (* requires glib >= 2.32
@@ -4456,8 +4473,8 @@ fun makeSignalSpec
     (* Construct parameter infos and return value info *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfoX repo signalNamespace (SOME containerName) signalName)
         (signalInfo, [])
 
@@ -4688,8 +4705,8 @@ fun makeSignalStrDec
 
     val signalName = getName signalInfo
     val signalNameId = mkSignalNameId signalName
-    val signalNamespace = GIBaseInfo.get_namespace signalInfo
-    val signalFlags = GISignalInfo.get_flags signalInfo
+    val signalNamespace = BaseInfo.getNamespace signalInfo
+    val signalFlags = SignalInfo.getFlags signalInfo
 
     (* Ignore deprecated signals - is this needed?  Does above check suffice? *)
     (* requires glib >= 2.32
@@ -4706,8 +4723,8 @@ fun makeSignalStrDec
      *)
     val parInfos =
       revMapInfos
-        GICallableInfo.get_n_args
-        GICallableInfo.get_arg
+        CallableInfo.getNArgs
+        CallableInfo.getArg
         (getParInfoX repo signalNamespace (SOME containerName) signalName)
         (signalInfo, [])
 
@@ -4897,7 +4914,7 @@ type utf8info =
 type interfaceinfo =
   {
     iRef     : interfaceref,
-    infoType : GIInfoType.t,
+    infoType : InfoType.t,
     isOpt    : bool
   }
 
@@ -4914,13 +4931,13 @@ datatype paraminfo =
 
 fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
   let
-    val ownershipTransfer = GIPropertyInfo.get_ownership_transfer propertyInfo
+    val ownershipTransfer = PropertyInfo.getOwnershipTransfer propertyInfo
 
-    val typeInfo = GIPropertyInfo.get_type propertyInfo
-    val tag = GITypeInfo.get_tag typeInfo
-    val isPointer = GITypeInfo.is_pointer typeInfo
+    val typeInfo = PropertyInfo.getType propertyInfo
+    val tag = TypeInfo.getTag typeInfo
+    val isPointer = TypeInfo.isPointer typeInfo
 
-    val paramFlags = GIPropertyInfo.get_flags propertyInfo
+    val paramFlags = PropertyInfo.getFlags propertyInfo
     val isReadable =
       GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.READABLE);
     val isWritable =
@@ -4941,7 +4958,7 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
           ty = ty
         }
 
-    open GITypeTag
+    open TypeTag
   in
     case tag of
       ERROR     => infoError "type ERROR not expected"
@@ -4964,14 +4981,14 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
     | DOUBLE    => PISCALAR (mode, toScalarInfo STDOUBLE)
     | FILENAME  =>
         let
-          open GITransfer
+          open Transfer
 
           val isOpt = true
 
           val () =
             case ownershipTransfer of
-              GITransfer.NOTHING => ()
-            | _                  => infoError containerOrEverythingForProp
+              Transfer.NOTHING => ()
+            | _                => infoError containerOrEverythingForProp
 
           val utf8Info = {
             isOpt = isOpt
@@ -4981,14 +4998,14 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
         end
     | UTF8      =>
         let
-          open GITransfer
+          open Transfer
 
           val isOpt = true
 
           val () =
             case ownershipTransfer of
-              GITransfer.NOTHING => ()
-            | _                  => infoError containerOrEverythingForProp
+              Transfer.NOTHING => ()
+            | _                => infoError containerOrEverythingForProp
 
           val utf8Info = {
             isOpt = isOpt
@@ -5007,7 +5024,7 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
 
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
-          val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
           val interfaceCPrefix = getCPrefix repo interfaceNamespace
           val interfaceScope =
             if interfaceNamespace <> containerNamespace
@@ -5026,7 +5043,7 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
             ty        = interfaceTy
           }
 
-          val infoType = GIInfoType.get_type interfaceInfo
+          val infoType = InfoType.getType interfaceInfo
 
           (* There are no introspection annotation to determine whether a
            * property is an optional value, though almost all (pointer)
@@ -5034,16 +5051,16 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
            *)
           val isOpt =
             case infoType of
-              GIInfoType.OBJECT _    => true
-            | GIInfoType.INTERFACE _ => true
-            | GIInfoType.STRUCT _    => true
-            | GIInfoType.UNION _     => true
-            | _                      => false
+              InfoType.OBJECT _    => true
+            | InfoType.INTERFACE _ => true
+            | InfoType.STRUCT _    => true
+            | InfoType.UNION _     => true
+            | _                    => false
 
           val () =
             case ownershipTransfer of
-              GITransfer.NOTHING => ()
-            | _                  => infoError containerOrEverythingForProp
+              Transfer.NOTHING => ()
+            | _                => infoError containerOrEverythingForProp
 
           val interfaceInfo = {
             iRef     = iRef,
@@ -5240,8 +5257,8 @@ fun makeConstantSpec
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
 
-    val value = GIConstantInfo.get_value constantInfo
-    open GIArgument
+    val value = ConstantInfo.getValue constantInfo
+    open Argument
     val constantTy = TyRef (
       case value of
         BOOLEAN _   => ([], toList1 ["bool"])
@@ -5308,8 +5325,8 @@ fun makeConstantStrDec
         ConstReal (if sign then ~ m else m, p, optE)
       end
 
-    val value = GIConstantInfo.get_value constantInfo
-    open GIArgument
+    val value = ConstantInfo.getValue constantInfo
+    open Argument
     val constantExp =
       case value of
         BOOLEAN b   => mkIdLNameExp (Bool.toString b)
@@ -5361,7 +5378,7 @@ fun makeInterfaceConvSpec
   let
     val () = checkDeprecated interfaceInfo
 
-    val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+    val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
     val interfaceCPrefix = getCPrefix repo interfaceNamespace
     val interfaceName = getName interfaceInfo
     val interfaceScope =
@@ -5417,7 +5434,7 @@ fun makeInterfaceConvStrDec
   let
     val () = checkDeprecated interfaceInfo
 
-    val interfaceNamespace = GIBaseInfo.get_namespace interfaceInfo
+    val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
     val interfaceCPrefix = getCPrefix repo interfaceNamespace
     val interfaceName = getName interfaceInfo
     val interfaceScope =
@@ -5720,7 +5737,7 @@ in
    * to `specs`.
    *)
   fun addAccessorSpecs namespace info (readTy, writeTy) isPtr specs =
-    case GIRegisteredTypeInfo.get_type_init info of
+    case RegisteredTypeInfo.getTypeInit info of
       SOME _ =>
         let
           val isGObject = namespace = "GObject"
@@ -5774,7 +5791,7 @@ end
  * prepends the following to `strDecs` when `info` is a registered GType,
  * i.e.
  *
- *   GIRegisteredTypeInfo.getTypeInit info
+ *   RegisteredTypeInfo.getTypeInit info
  *
  * returns is `SOME _`.
  *
@@ -6173,7 +6190,7 @@ in
     libId
     namespace
     info =
-    case GIRegisteredTypeInfo.get_type_init info of
+    case RegisteredTypeInfo.getTypeInit info of
       SOME getTypeSymbol =>
         let
           val isGObject = namespace = "GObject"
@@ -6253,11 +6270,11 @@ local
   val specs'1 = [structCSpec]
 in
   fun makeObjectDerivedClassSig
-    (repo             : 'a GIRepository.t)
+    (repo             : 'a RepositoryClass.t)
     (objectCPrefix    : string)
     (objectNamespace  : string)
-    (parentObjectInfo : 'b GIObjectInfoClass.t)
-    (objectInfo       : 'c GIObjectInfoClass.t)
+    (parentObjectInfo : 'b ObjectInfoClass.t)
+    (objectInfo       : 'c ObjectInfoClass.t)
     : id * program =
     let
       val () = checkDeprecated objectInfo
@@ -6265,7 +6282,7 @@ in
       val objectName = getName objectInfo
       val objectNameTypeId = toLC objectName
 
-      val parentObjectNamespace = GIBaseInfo.get_namespace parentObjectInfo
+      val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
       val parentObjectCPrefix = getCPrefix repo parentObjectNamespace
       val parentObjectName = getName parentObjectInfo
       val parentObjectScope =
@@ -6337,7 +6354,7 @@ in
   fun makeObjectRootClassSig
     (objectCPrefix   : string)
     (objectNamespace : string)
-    (objectInfo      : 'a GIObjectInfoClass.t)
+    (objectInfo      : 'a ObjectInfoClass.t)
     : id * program =
     let
       val () = checkDeprecated objectInfo
@@ -6353,12 +6370,12 @@ in
     end
 
   fun makeObjectClassSig
-    (repo            : 'a GIRepository.t)
+    (repo            : 'a RepositoryClass.t)
     (objectCPrefix   : string)
     (objectNamespace : string)
-    (objectInfo      : 'b GIObjectInfoClass.t)
+    (objectInfo      : 'b ObjectInfoClass.t)
     : id * program =
-    case GIObjectInfo.get_parent objectInfo of
+    case ObjectInfo.getParent objectInfo of
       SOME parentObjectInfo =>
         makeObjectDerivedClassSig
           repo
@@ -6392,11 +6409,11 @@ local
     )
 in
   fun makeObjectDerivedClassStr
-    (repo             : 'a GIRepository.t)
+    (repo             : 'a RepositoryClass.t)
     (objectCPrefix    : string)
     (objectNamespace  : string)
-    (parentObjectInfo : 'b GIObjectInfoClass.t)
-    (objectInfo       : 'c GIObjectInfoClass.t)
+    (parentObjectInfo : 'b ObjectInfoClass.t)
+    (objectInfo       : 'c ObjectInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated objectInfo
@@ -6404,7 +6421,7 @@ in
       val objectName = getName objectInfo
       val objectNameTypeId = toLC objectName
 
-      val parentObjectNamespace = GIBaseInfo.get_namespace parentObjectInfo
+      val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
       val parentObjectCPrefix = getCPrefix repo parentObjectNamespace
       val parentObjectName = getName parentObjectInfo
       val parentObjectScope =
@@ -6600,10 +6617,10 @@ in
     end
 
   fun makeObjectRootClassStr
-    (_               : 'a GIRepository.t)
+    (_               : 'a RepositoryClass.t)
     (objectCPrefix   : string)
     (objectNamespace : string)
-    (objectInfo      : 'b GIObjectInfoClass.t)
+    (objectInfo      : 'b ObjectInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated objectInfo
@@ -6653,12 +6670,12 @@ in
     end
 
   fun makeObjectClassStr
-    (repo            : 'a GIRepository.t)
+    (repo            : 'a RepositoryClass.t)
     (objectCPrefix   : string)
     (objectNamespace : string)
-    (objectInfo      : 'b GIObjectInfoClass.t)
+    (objectInfo      : 'b ObjectInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
-    case GIObjectInfo.get_parent objectInfo of
+    case ObjectInfo.getParent objectInfo of
       SOME parentObjectInfo =>
         makeObjectDerivedClassStr
           repo
@@ -6679,40 +6696,40 @@ end
 
 fun addObjectInterfaceConvSpecs repo objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_interfaces
-    GIObjectInfo.get_interface
+    ObjectInfo.getNInterfaces
+    ObjectInfo.getInterface
     (makeInterfaceConvSpec repo objectIRef)
 
 fun addObjectConstantSpecs x =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_constants
-    GIObjectInfo.get_constant
+    ObjectInfo.getNConstants
+    ObjectInfo.getConstant
     makeConstantSpec
     x
 
 fun addObjectMethodSpecs repo objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_methods
-    GIObjectInfo.get_method
+    ObjectInfo.getNMethods
+    ObjectInfo.getMethod
     (makeFunctionSpec repo (SOME objectIRef))
 
 fun addObjectSignalSpecs repo objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_signals
-    GIObjectInfo.get_signal
+    ObjectInfo.getNSignals
+    ObjectInfo.getSignal
     (makeSignalSpec repo objectIRef)
 
 fun addObjectPropertySpecs repo objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_properties
-    GIObjectInfo.get_property
+    ObjectInfo.getNProperties
+    ObjectInfo.getProperty
     (makePropertySpec repo objectIRef)
 
 fun makeObjectSig
-  (repo            : 'a GIRepository.t)
+  (repo            : 'a RepositoryClass.t)
   (objectCPrefix   : string)
   (objectNamespace : string)
-  (objectInfo      : 'a GIObjectInfoClass.t)
+  (objectInfo      : 'a ObjectInfoClass.t)
   (errs'0          : infoerrorhier list)
   : id * program * infoerrorhier list =
   let
@@ -6745,7 +6762,7 @@ fun makeObjectSig
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
     val (specs'6, iRefs'6, errs'6) = acc'6
 
-    val numProps = GIObjectInfo.get_n_properties objectInfo
+    val numProps = ObjectInfo.getNProperties objectInfo
     val specs'7 = addPropertySpecs objectNamespace numProps specs'6
 
     (*
@@ -6775,14 +6792,14 @@ fun makeObjectSig
 
 fun addObjectInterfaceConvStrDecs repo rootObjectIRef objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_interfaces
-    GIObjectInfo.get_interface
+    ObjectInfo.getNInterfaces
+    ObjectInfo.getInterface
     (makeInterfaceConvStrDec repo rootObjectIRef objectIRef)
 
 fun addObjectConstantStrDecs x =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_constants
-    GIObjectInfo.get_constant
+    ObjectInfo.getNConstants
+    ObjectInfo.getConstant
     makeConstantStrDec
     x
 
@@ -6794,7 +6811,7 @@ fun addObjectMethodStrDecsLowLevel
   rootObjectIRef
   objectIRef =
   addFunctionStrDecsLowLevel
-    (GIObjectInfo.get_n_methods, GIObjectInfo.get_method)
+    (ObjectInfo.getNMethods, ObjectInfo.getMethod)
     isPolyML
     repo
     libId
@@ -6803,8 +6820,8 @@ fun addObjectMethodStrDecsLowLevel
 
 fun addObjectMethodStrDecsHighLevel repo rootObjectIRef objectIRef =
   revFoldMapInfosWithErrs
-    GIObjectInfo.get_n_methods
-    GIObjectInfo.get_method
+    ObjectInfo.getNMethods
+    ObjectInfo.getMethod
     (makeFunctionStrDecHighLevel repo (SOME (rootObjectIRef, objectIRef)))
 
 fun addObjectSignalStrDecs repo objectIRef =
@@ -6812,8 +6829,8 @@ fun addObjectSignalStrDecs repo objectIRef =
     let
       val (localStrDecs, iRefs', errs') =
         revFoldMapInfosWithErrs
-          GIObjectInfo.get_n_signals
-          GIObjectInfo.get_signal
+          ObjectInfo.getNSignals
+          ObjectInfo.getSignal
           (makeSignalStrDec repo objectIRef)
           (objectInfo, ([], iRefs, errs))
     in
@@ -6845,8 +6862,8 @@ fun addObjectPropertyStrDecs repo objectIRef =
     let
       val (localStrDecs, iRefs', errs') =
         revFoldMapInfosWithErrs
-          GIObjectInfo.get_n_properties
-          GIObjectInfo.get_property
+          ObjectInfo.getNProperties
+          ObjectInfo.getProperty
           (makePropertyStrDec repo objectIRef)
           (objectInfo, ([], iRefs, errs))
     in
@@ -6873,17 +6890,17 @@ fun addObjectPropertyStrDecs repo objectIRef =
     end
 
 fun makeObjectStr
-  (repo            : 'a GIRepository.t)
+  (repo            : 'a RepositoryClass.t)
   (libId           : id)
   (objectCPrefix   : string)
   (objectNamespace : string)
-  (objectInfo      : 'a GIObjectInfoClass.t)
+  (objectInfo      : 'a ObjectInfoClass.t)
   (errs'0          : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
     val () = checkDeprecated objectInfo
 
-    val getTypeSymbol = GIObjectInfo.get_type_init objectInfo
+    val getTypeSymbol = ObjectInfo.getTypeInit objectInfo
 
     val objectName = getName objectInfo
     val objectIRef = {
@@ -6930,7 +6947,7 @@ fun makeObjectStr
         (objectInfo, acc'5)
     val (strDecs'6, iRefs'6, errs'6) = acc'6
 
-    val numProps = GIObjectInfo.get_n_properties objectInfo
+    val numProps = ObjectInfo.getNProperties objectInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
     val strDecs'7 =
       revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
@@ -7049,10 +7066,10 @@ local
   val specs'1 = [structCSpec]
 in
   fun makeInterfaceClassSig
-    (_                  : 'a GIRepository.t)
+    (_                  : 'a RepositoryClass.t)
     (interfaceCPrefix   : string)
     (interfaceNamespace : string)
-    (interfaceInfo      : 'b GIInterfaceInfoClass.t)
+    (interfaceInfo      : 'b InterfaceInfoClass.t)
     : id * program =
     let
       val () = checkDeprecated interfaceInfo
@@ -7137,10 +7154,10 @@ local
     )
 in
   fun makeInterfaceClassStr
-    (_                  : 'a GIRepository.t)
+    (_                  : 'a RepositoryClass.t)
     (interfaceCPrefix   : string)
     (interfaceNamespace : string)
-    (interfaceInfo      : 'c GIInterfaceInfoClass.t)
+    (interfaceInfo      : 'c InterfaceInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated interfaceInfo
@@ -7343,34 +7360,34 @@ end
 
 fun addInterfaceConstantSpecs x =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_constants
-    GIInterfaceInfo.get_constant
+    InterfaceInfo.getNConstants
+    InterfaceInfo.getConstant
     makeConstantSpec
     x
 
 fun addInterfaceMethodSpecs repo interfaceIRef =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_methods
-    GIInterfaceInfo.get_method
+    InterfaceInfo.getNMethods
+    InterfaceInfo.getMethod
     (makeFunctionSpec repo (SOME interfaceIRef))
 
 fun addInterfaceSignalSpecs repo interfaceIRef =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_signals
-    GIInterfaceInfo.get_signal
+    InterfaceInfo.getNSignals
+    InterfaceInfo.getSignal
     (makeSignalSpec repo interfaceIRef)
 
 fun addInterfacePropertySpecs repo interfaceIRef =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_properties
-    GIInterfaceInfo.get_property
+    InterfaceInfo.getNProperties
+    InterfaceInfo.getProperty
     (makePropertySpec repo interfaceIRef)
 
 fun makeInterfaceSig
-  (repo               : 'a GIRepository.t)
+  (repo               : 'a RepositoryClass.t)
   (interfaceCPrefix   : string)
   (interfaceNamespace : string)
-  (interfaceInfo      : 'a GIInterfaceInfoClass.t)
+  (interfaceInfo      : 'a InterfaceInfoClass.t)
   (errs'0             : infoerrorhier list)
   : id * program * infoerrorhier list =
   let
@@ -7406,7 +7423,7 @@ fun makeInterfaceSig
     val acc'6 = acc'5
     val (specs'6, iRefs'6, errs'6) = acc'6
 
-    val numProps = GIInterfaceInfo.get_n_properties interfaceInfo
+    val numProps = InterfaceInfo.getNProperties interfaceInfo
     val specs'7 = addPropertySpecs interfaceNamespace numProps specs'6
 
     (*
@@ -7436,8 +7453,8 @@ fun makeInterfaceSig
 
 fun addInterfaceConstantStrDecs x =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_constants
-    GIInterfaceInfo.get_constant
+    InterfaceInfo.getNConstants
+    InterfaceInfo.getConstant
     makeConstantStrDec
     x
 
@@ -7449,7 +7466,7 @@ fun addInterfaceMethodStrDecsLowLevel
   interfaceRootIRef
   interfaceIRef =
   addFunctionStrDecsLowLevel
-    (GIInterfaceInfo.get_n_methods, GIInterfaceInfo.get_method)
+    (InterfaceInfo.getNMethods, InterfaceInfo.getMethod)
     isPolyML
     repo
     libId
@@ -7458,8 +7475,8 @@ fun addInterfaceMethodStrDecsLowLevel
 
 fun addInterfaceMethodStrDecsHighLevel repo interfaceRootIRef interfaceIRef =
   revFoldMapInfosWithErrs
-    GIInterfaceInfo.get_n_methods
-    GIInterfaceInfo.get_method
+    InterfaceInfo.getNMethods
+    InterfaceInfo.getMethod
     (makeFunctionStrDecHighLevel repo (SOME (interfaceRootIRef, interfaceIRef)))
 
 fun addInterfaceSignalStrDecs repo interfaceIRef =
@@ -7467,8 +7484,8 @@ fun addInterfaceSignalStrDecs repo interfaceIRef =
     let
       val (localStrDecs, iRefs', errs') =
         revFoldMapInfosWithErrs
-          GIInterfaceInfo.get_n_signals
-          GIInterfaceInfo.get_signal
+          InterfaceInfo.getNSignals
+          InterfaceInfo.getSignal
           (makeSignalStrDec repo interfaceIRef)
           (interfaceInfo, ([], iRefs, errs))
     in
@@ -7500,8 +7517,8 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
     let
       val (localStrDecs, iRefs', errs') =
         revFoldMapInfosWithErrs
-          GIInterfaceInfo.get_n_properties
-          GIInterfaceInfo.get_property
+          InterfaceInfo.getNProperties
+          InterfaceInfo.getProperty
           (makePropertyStrDec repo interfaceIRef)
           (interfaceInfo, ([], iRefs, errs))
     in
@@ -7528,18 +7545,18 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
     end
 
 fun makeInterfaceStr
-  (repo               : 'a GIRepository.t)
+  (repo               : 'a RepositoryClass.t)
   (libId              : id)
   (interfaceCPrefix   : string)
   (interfaceNamespace : string)
-  (interfaceInfo      : 'a GIInterfaceInfoClass.t)
+  (interfaceInfo      : 'a InterfaceInfoClass.t)
   (errs'0             : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
     val () = checkDeprecated interfaceInfo
 
     val getTypeSymbol =
-      case GIRegisteredTypeInfo.get_type_init interfaceInfo of
+      case RegisteredTypeInfo.getTypeInit interfaceInfo of
         SOME getTypeSymbol => getTypeSymbol
       | NONE               => raise Fail "no GType for interface"
 
@@ -7584,7 +7601,7 @@ fun makeInterfaceStr
     val acc'6 = acc'5
     val (strDecs'6, iRefs'6, errs'6) = acc'6
 
-    val numProps = GIInterfaceInfo.get_n_properties interfaceInfo
+    val numProps = InterfaceInfo.getNProperties interfaceInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
     val strDecs'7 =
       revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
@@ -7675,10 +7692,10 @@ fun makeInterfaceStr
 local
 in
   fun makeStructRecordSig
-    (_               : 'a GIRepository.t)
+    (_               : 'a RepositoryClass.t)
     (structCPrefix   : string)
     (structNamespace : string)
-    (structInfo      : 'b GIStructInfoClass.t)
+    (structInfo      : 'b StructInfoClass.t)
     : id * program =
     let
       val () = checkDeprecated structInfo
@@ -7700,10 +7717,10 @@ end
 local
 in
   fun makeStructRecordStr
-    (_               : 'a GIRepository.t)
+    (_               : 'a RepositoryClass.t)
     (structCPrefix   : string)
     (structNamespace : string)
-    (structInfo      : 'b GIStructInfoClass.t)
+    (structInfo      : 'b StructInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated structInfo
@@ -7762,21 +7779,21 @@ end
 
 fun addStructMethodSpecs repo structIRef =
   revFoldMapInfosWithErrs
-    GIStructInfo.get_n_methods
-    GIStructInfo.get_method
+    StructInfo.getNMethods
+    StructInfo.getMethod
     (makeFunctionSpec repo (SOME structIRef))
 
 fun makeStructSig
-  (repo            : 'a GIRepository.t)
+  (repo            : 'a RepositoryClass.t)
   (structCPrefix   : string)
   (structNamespace : string)
-  (structInfo      : 'a GIStructInfoClass.t)
+  (structInfo      : 'a StructInfoClass.t)
   (errs'0          : infoerrorhier list)
   : id * program * infoerrorhier list =
   let
     val () = checkDeprecated structInfo
 
-    val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init structInfo
+    val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit structInfo
 
     val structName = getName structInfo
     val structIRef = {
@@ -7825,7 +7842,7 @@ fun addStructMethodStrDecsLowLevel
   addInitStrDecs
   structIRef =
   addFunctionStrDecsLowLevel
-    (GIStructInfo.get_n_methods, GIStructInfo.get_method)
+    (StructInfo.getNMethods, StructInfo.getMethod)
     isPolyML
     repo
     libId
@@ -7834,22 +7851,22 @@ fun addStructMethodStrDecsLowLevel
 
 fun addStructMethodStrDecsHighLevel repo structIRef =
   revFoldMapInfosWithErrs
-    GIStructInfo.get_n_methods
-    GIStructInfo.get_method
+    StructInfo.getNMethods
+    StructInfo.getMethod
     (makeFunctionStrDecHighLevel repo (SOME (structIRef, structIRef)))
 
 fun makeStructStr
-  (repo            : 'a GIRepository.t)
+  (repo            : 'a RepositoryClass.t)
   (libId           : id)
   (structCPrefix   : string)
   (structNamespace : string)
-  (structInfo      : 'a GIStructInfoClass.t)
+  (structInfo      : 'a StructInfoClass.t)
   (errs'0          : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
     val () = checkDeprecated structInfo
 
-    val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init structInfo
+    val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit structInfo
 
     val structName = getName structInfo
     val structIRef = {
@@ -7963,10 +7980,10 @@ fun makeStructStr
 (* Union signature *)
 
 fun makeUnionSig
-  (_              : 'a GIRepository.t)
+  (_              : 'a RepositoryClass.t)
   (unionCPrefix   : string)
   (unionNamespace : string)
-  (unionInfo      : 'a GIUnionInfoClass.t)
+  (unionInfo      : 'a UnionInfoClass.t)
   (errs'0         : infoerrorhier list)
   : id * program * infoerrorhier list =
   let
@@ -7996,10 +8013,10 @@ fun makeUnionSig
 (* Union structure *)
 
 fun makeUnionStr
-  (_              : 'a GIRepository.t)
+  (_              : 'a RepositoryClass.t)
   (unionCPrefix   : string)
   (unionNamespace : string)
-  (unionInfo      : 'a GIUnionInfoClass.t)
+  (unionInfo      : 'a UnionInfoClass.t)
   (errs'0         : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
@@ -8066,14 +8083,14 @@ val tTyName : tyname = ([], tId)
 
 fun getValueWordConst valueInfo =
   let
-    val w = GIValueInfo.get_value_word valueInfo
+    val w = ValueInfo.getValueWord valueInfo
   in
     ConstWord (IntInf.fromLarge w, NONE)
   end
 
 fun getValueIntConst valueInfo =
   let
-    val n = GIValueInfo.get_value_int valueInfo
+    val n = ValueInfo.getValueInt valueInfo
   in
     ConstInt (IntInf.fromLarge n, NONE)
   end
@@ -8093,8 +8110,8 @@ fun makeFlagsEnumValueNameListExp enumInfo =
   in
     ExpList (
       revMapInfos
-        GIEnumInfo.get_n_values
-        GIEnumInfo.get_value
+        EnumInfo.getNValues
+        EnumInfo.getValue
         makeExp
         (enumInfo, [])
     )
@@ -8102,8 +8119,8 @@ fun makeFlagsEnumValueNameListExp enumInfo =
 
 fun addFlagsEnumMethodSpecs repo enumIRef =
   revFoldMapInfosWithErrs
-    GIEnumInfo.get_n_methods
-    GIEnumInfo.get_method
+    EnumInfo.getNMethods
+    EnumInfo.getMethod
     (makeFunctionSpec repo (SOME enumIRef))
 
 fun addFlagsEnumMethodStrDecsLowLevel
@@ -8113,7 +8130,7 @@ fun addFlagsEnumMethodStrDecsLowLevel
   addInitStrDecs
   enumIRef =
   addFunctionStrDecsLowLevel
-    (GIEnumInfo.get_n_methods, GIEnumInfo.get_method)
+    (EnumInfo.getNMethods, EnumInfo.getMethod)
     isPolyML
     repo
     libId
@@ -8122,8 +8139,8 @@ fun addFlagsEnumMethodStrDecsLowLevel
 
 fun addFlagsEnumMethodStrDecsHighLevel repo enumIRef =
   revFoldMapInfosWithErrs
-    GIEnumInfo.get_n_methods
-    GIEnumInfo.get_method
+    EnumInfo.getNMethods
+    EnumInfo.getMethod
     (makeFunctionStrDecHighLevel repo (SOME (enumIRef, enumIRef)))
 
 (*
@@ -8152,13 +8169,13 @@ val allFlagsExp = mkIdLNameExp allFlagsId
 (*
  *     val <VALUENAME[i]> : t
  *)
-fun makeFlagsValueNameSpec (valueInfo : 'a GIValueInfo.t) : spec =
+fun makeFlagsValueNameSpec (valueInfo : 'a ValueInfoClass.t) : spec =
   mkValSpec (getValueNameId valueInfo, tTy)
 
 (*
  *     val <VALUENAME[i]> = <valueValue[i]>
  *)
-fun makeFlagsValueNameDec (valueInfo : 'a GIValueInfo.t) : dec =
+fun makeFlagsValueNameDec (valueInfo : 'a ValueInfoClass.t) : dec =
   mkIdValDec (
     getValueNameId valueInfo,
     ExpConst (getValueWordConst valueInfo)
@@ -8172,8 +8189,8 @@ fun makeFlagsValueNameDec (valueInfo : 'a GIValueInfo.t) : dec =
  *)
 fun addFlagsValueSpecs (enumInfo, specs) : spec list =
   revMapInfos
-    GIEnumInfo.get_n_values
-    GIEnumInfo.get_value
+    EnumInfo.getNValues
+    EnumInfo.getValue
     makeFlagsValueNameSpec
     (enumInfo, specs)
 
@@ -8196,8 +8213,8 @@ fun addFlagsValueStrDecs (enumInfo, strDecs) : strdec list =
       )
   in
     revMapInfos
-      GIEnumInfo.get_n_values
-      GIEnumInfo.get_value
+      EnumInfo.getNValues
+      EnumInfo.getValue
       (StrDecDec o makeFlagsValueNameDec)
       (enumInfo, allFlagsStrDec :: strDecs)
   end
@@ -8253,10 +8270,10 @@ local
   val specs'0 = [structCSpec]
 in
   fun makeFlagsSig
-    (repo        : 'a GIRepository.t)
+    (repo        : 'a RepositoryClass.t)
     (enumCPrefix : string)
     (enumNamespace : string)
-    (enumInfo    : 'a GIEnumInfoClass.t)
+    (enumInfo    : 'a EnumInfoClass.t)
     (errs'0      : infoerrorhier list)
     : id * program * infoerrorhier list =
     let
@@ -8275,7 +8292,7 @@ in
       val enumSigId = toUCU enumStrId
 
       val typeIRef = makeTypeIRef enumNamespace (SOME enumName)
-      val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init enumInfo
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val acc'0 = (specs'0, [], errs'0)
       val acc'1 = addFlagsEnumMethodSpecs repo enumIRef (enumInfo, acc'0)
@@ -8427,17 +8444,17 @@ local
     ]
 in
   fun makeFlagsStr
-    (repo          : 'a GIRepository.t)
+    (repo          : 'a RepositoryClass.t)
     (libId         : id)
     (enumCPrefix   : string)
     (enumNamespace : string)
-    (enumInfo      : 'a GIEnumInfoClass.t)
+    (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
     : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
     let
       val () = checkDeprecated enumInfo
 
-      val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init enumInfo
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val enumName = getName enumInfo
       val enumIRef = {
@@ -8578,7 +8595,7 @@ val valueId : id = "Value"
  *     | ...
  *     | <VALUENAME[V]>
  *)
-fun mkEnumDatatypeDec (enumInfo : 'a GIEnumInfo.t) : datatypedec =
+fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.t) : datatypedec =
   let
     fun mkDatatypeClause valueInfo = (getValueNameId valueInfo, NONE)
   in
@@ -8588,8 +8605,8 @@ fun mkEnumDatatypeDec (enumInfo : 'a GIEnumInfo.t) : datatypedec =
           ([], tId),
           toList1 (
             revMapInfos
-              GIEnumInfo.get_n_values
-              GIEnumInfo.get_value
+              EnumInfo.getNValues
+              EnumInfo.getValue
               mkDatatypeClause
               (enumInfo, [])
           ) handle
@@ -8600,7 +8617,7 @@ fun mkEnumDatatypeDec (enumInfo : 'a GIEnumInfo.t) : datatypedec =
     )
   end
 
-val mkEnumDatatypeSpec : 'a GIEnumInfo.t -> datatypespec = mkEnumDatatypeDec
+val mkEnumDatatypeSpec : 'a EnumInfoClass.t -> datatypespec = mkEnumDatatypeDec
 
 
 local
@@ -8746,17 +8763,17 @@ local
   val specs'0 = [structCSpec]
 in
   fun makeEnumSig
-    (repo          : 'a GIRepository.t)
+    (repo          : 'a RepositoryClass.t)
     (enumCPrefix   : string)
     (enumNamespace : string)
-    (enumInfo      : 'a GIEnumInfoClass.t)
+    (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
     : id * program * infoerrorhier list =
     let
       val () = checkDeprecated enumInfo
 
-      val optErrorDomain = GIEnumInfo.get_error_domain enumInfo
-      val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init enumInfo
+      val optErrorDomain = EnumInfo.getErrorDomain enumInfo
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val enumName = getName enumInfo
       val enumIRef = {
@@ -8807,7 +8824,7 @@ local
   (*
    *           | <VALUENAME[i]> => f <valueValue[i]>
    *)
-  fun withValMatchClause (valueInfo : 'a GIValueInfo.t) : pat * exp =
+  fun withValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
     (
       PatA (APatConst (mkIdLNameConst (getValueNameId valueInfo))),
       ExpApp (mkIdLNameExp fId, ExpConst (getValueIntConst valueInfo))
@@ -8816,7 +8833,7 @@ local
   (*
    *           | <valueValue[i]> => <VALUENAME[i]>
    *)
-  fun fromValMatchClause (valueInfo : 'a GIValueInfo.t) : pat * exp =
+  fun fromValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
     (
       PatA (APatConst (getValueIntConst valueInfo)),
       mkIdLNameExp (getValueNameId valueInfo)
@@ -8831,8 +8848,8 @@ local
   fun withValMatchExp enumInfo =
     toList1 (
       revMapInfos
-        GIEnumInfo.get_n_values
-        GIEnumInfo.get_value
+        EnumInfo.getNValues
+        EnumInfo.getValue
         withValMatchClause
         (enumInfo, [])
     ) handle
@@ -8850,8 +8867,8 @@ local
   fun fromValMatchExp enumInfo =
     toList1 (
       revMapInfos
-        GIEnumInfo.get_n_values
-        GIEnumInfo.get_value
+        EnumInfo.getNValues
+        EnumInfo.getValue
         fromValMatchClause
         (enumInfo, [(PatA (APatId nId), raiseValueNExp)])
     ) handle
@@ -8962,12 +8979,12 @@ local
    * 'optErrorDomain is NONE'.
    *)
   fun nullStrDec enumInfo =
-    if GIEnumInfo.get_n_values enumInfo > 0
+    if EnumInfo.getNValues enumInfo > 0
     then
       StrDecDec (
         mkIdValDec (
           nullId,
-          mkIdLNameExp (getValueNameId (GIEnumInfo.get_value enumInfo 0))
+          mkIdLNameExp (getValueNameId (EnumInfo.getValue enumInfo 0))
         )
       )
     else infoError "no values"
@@ -8986,18 +9003,18 @@ local
     end
 in
   fun makeEnumStr
-    (repo          : 'a GIRepository.t)
+    (repo          : 'a RepositoryClass.t)
     (libId         : id)
     (enumCPrefix   : string)
     (enumNamespace : string)
-    (enumInfo      : 'a GIEnumInfoClass.t)
+    (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
     : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
     let
       val () = checkDeprecated enumInfo
 
-      val optErrorDomain = GIEnumInfo.get_error_domain enumInfo
-      val optGetTypeSymbol = GIRegisteredTypeInfo.get_type_init enumInfo
+      val optErrorDomain = EnumInfo.getErrorDomain enumInfo
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val enumName = getName enumInfo
       val enumIRef = {
@@ -9279,8 +9296,8 @@ fun translateInfo
       errs'0
     )
   ) =
-  case GIInfoType.get_type baseInfo of
-    GIInfoType.OBJECT objectInfo       =>
+  case InfoType.getType baseInfo of
+    InfoType.OBJECT objectInfo       =>
       let
         val (classSigId, classSigProgram) =
           makeObjectClassSig repo cPrefix namespace objectInfo
@@ -9335,7 +9352,7 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
-  | GIInfoType.INTERFACE interfaceInfo =>
+  | InfoType.INTERFACE interfaceInfo =>
       let
         (* just class for now *)
         val (classSigId, classSigProgram) =
@@ -9391,7 +9408,7 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
-  | GIInfoType.STRUCT structInfo       =>
+  | InfoType.STRUCT structInfo       =>
       if
         let
           val structName = getName structInfo
@@ -9457,7 +9474,7 @@ fun translateInfo
         end
       else
         acc
-  | GIInfoType.UNION unionInfo         =>
+  | InfoType.UNION unionInfo         =>
       if
         let
           val unionName = getName unionInfo
@@ -9500,7 +9517,7 @@ fun translateInfo
         end
       else
         acc
-  | GIInfoType.FLAGS enumInfo          =>
+  | InfoType.FLAGS enumInfo          =>
       let
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeFlagsStr repo libId cPrefix namespace enumInfo errs'0
@@ -9531,7 +9548,7 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
-  | GIInfoType.ENUM enumInfo           =>
+  | InfoType.ENUM enumInfo           =>
       let
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeEnumStr repo libId cPrefix namespace enumInfo errs'0
@@ -9562,7 +9579,7 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
-  | GIInfoType.CONSTANT constantInfo   =>
+  | InfoType.CONSTANT constantInfo   =>
       let
         val (spec, (_, errs'1)) =
           makeConstantSpec (constantInfo, ([], errs'0))
@@ -9575,7 +9592,7 @@ fun translateInfo
       in
         ((modules'0, constants'1, functions'0), errs'2)
       end
-  | GIInfoType.FUNCTION functionInfo   =>
+  | InfoType.FUNCTION functionInfo   =>
       let
         val (spec, (_, errs'1)) =
           makeFunctionSpec repo NONE (functionInfo, ([], errs'0))
@@ -9607,7 +9624,7 @@ fun translateInfo
       in
         ((modules'0, constants'0, functions'1), errs'4)
       end
-  | _                                  => acc
+  | _                                => acc
 
 
 fun translateLoadedNamespace repo namespace =
@@ -9621,8 +9638,8 @@ fun translateLoadedNamespace repo namespace =
     val errs'0 = []
   in
     revFoldInfosWithErrs
-      (GIRepository.get_n_infos repo)
-      (GIRepository.get_info repo)
+      (Repository.getNInfos repo)
+      (Repository.getInfo repo)
       (translateInfo repo libId cPrefix namespace)
       (namespace, ((modules'0, constants'0, functions'0), errs'0))
   end
@@ -9633,17 +9650,17 @@ fun translateLoadedNamespace repo namespace =
 fun loadNamespace repo (namespace, version) =
   let
     val tylib =
-      GIRepository.require
+      Repository.require
         repo
         namespace
         version
-        (GIRepositoryRepositoryLoadFlags.flags [])
+        (RepositoryLoadFlags.flags [])
 
     val namespace_ =
-      GIRepository.load_typelib
+      Repository.loadTypelib
         repo
         tylib
-        (GIRepositoryRepositoryLoadFlags.flags [])
+        (RepositoryLoadFlags.flags [])
 
     (* a sanity check... *)
     val () =
@@ -9994,7 +10011,7 @@ fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
       val namespaceDir = createNamespaceDir (namespace, version)
 
       val namespaceDeps =
-        getOpt (GIRepository.get_dependencies repo namespace, [])
+        getOpt (Repository.getDependencies repo namespace, [])
 
       (* generate code for the entire namespace *)
       val ((modules, constants, functions), errs) =
@@ -10091,7 +10108,7 @@ PolyML.print_depth 1000;
 
 Gtk.init (CommandLine.name () :: CommandLine.arguments ());
 
-val repo = GIRepository.get_default ();
+val repo = Repository.getDefault ();
 
 constructorNames :=
   [
