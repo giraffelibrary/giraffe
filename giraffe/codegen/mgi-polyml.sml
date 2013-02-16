@@ -3,14 +3,14 @@ val libgiraffegirepository = CInterface.load_lib "libgiraffe-gobject-introspecti
 ;
 
 app use [
-  "girepository/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml",
-  "girepository/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml",
-  "girepository/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml",
-  "girepository/G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS.sml",
-  "girepository/polyml/GIRepositoryFieldInfoFlags.sml",
-  "girepository/polyml/GIRepositoryFunctionInfoFlags.sml",
-  "girepository/polyml/GIRepositoryVFuncInfoFlags.sml",
-  "girepository/polyml/GIRepositoryRepositoryLoadFlags.sml"
+  "girepository/common/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml",
+  "girepository/common/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml",
+  "girepository/common/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml",
+  "girepository/common/G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS.sml",
+  "girepository/common/polyml/GIRepositoryFieldInfoFlags.sml",
+  "girepository/common/polyml/GIRepositoryFunctionInfoFlags.sml",
+  "girepository/common/polyml/GIRepositoryVFuncInfoFlags.sml",
+  "girepository/common/polyml/GIRepositoryRepositoryLoadFlags.sml"
 ]
 ;
 
