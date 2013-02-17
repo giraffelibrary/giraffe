@@ -1,4 +1,4 @@
-use "mgi-polyml.sml";
+use "girepository/polyml-typelib.sml";
 use "../general/INT_INF_MATH.sml";
 use "../general/IntInfMath.sml";
 use "pp/H_TEXT_TREE.sml";

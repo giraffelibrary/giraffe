@@ -6,7 +6,7 @@
 
 PolyML.Compiler.reportUnreferencedIds := true;
 OS.FileSys.chDir "../"; use "polyml.sml"; OS.FileSys.chDir "codegen/";
-use "polyml.sml";
+use "polyml-typelib.sml";
 
 
 
