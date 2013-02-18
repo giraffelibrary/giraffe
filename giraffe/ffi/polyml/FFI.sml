@@ -140,17 +140,21 @@ structure FFI =
           | _        => raise Fail "unknown architecture"
 
 
+        fun fail msg _ = raise Fail msg
+        fun FAIL msg =
+          CInterface.mkConversion (fail msg) (fail msg) CInterface.voidStar
+
         val INT64 =
           case PolyML.architecture () of
             "X86_64" => CInterface.LONG
-          | "I386"   => raise Fail "unsupported architecture: I386"
+          | "I386"   => FAIL "unsupported architecture: I386"
           | _        => raise Fail "unknown architecture"
 
 
         val UINT64 =
           case PolyML.architecture () of
             "X86_64" => ULONG
-          | "I386"   => raise Fail "unsupported architecture: I386"
+          | "I386"   => FAIL "unsupported architecture: I386"
           | _        => raise Fail "unknown architecture"
 
 
