@@ -2,9 +2,9 @@ val libgirepository = CInterface.load_lib "libgirepository-1.0.so"
 val libgiraffegirepository = CInterface.load_lib "libgiraffe-gobject-introspection-1.0.so"
 ;
 
-use "common/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";
-use "common/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml";
-use "common/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml";
+use "typelib/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";
+use "typelib/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml";
+use "typelib/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml";
 use "typelib/G_I_REPOSITORY_BASE_INFO_CLASS.sml";
 use "typelib/G_I_REPOSITORY_CALLABLE_INFO_CLASS.sml";
 use "typelib/G_I_REPOSITORY_FUNCTION_INFO_CLASS.sml";
@@ -46,17 +46,16 @@ use "typelib/G_I_REPOSITORY_ENUM_INFO.sml";
 use "typelib/G_I_REPOSITORY_INTERFACE_INFO.sml";
 use "typelib/G_I_REPOSITORY_OBJECT_INFO.sml";
 use "typelib/G_I_REPOSITORY_INFO_TYPE.sml";
-use "common/G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS.sml";
+use "typelib/G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS.sml";
 use "typelib/G_I_REPOSITORY_REPOSITORY_CLASS.sml";
 use "typelib/G_I_REPOSITORY_TYPELIB_TYPE.sml";
 use "typelib/G_I_REPOSITORY_TYPELIB.sml";
 use "typelib/G_I_REPOSITORY_REPOSITORY.sml";
-use "typelib/G_I_REPOSITORY_REPOSITORY.sml";
 use "common/G_I_REPOSITORY.sml";
 
-use "common/polyml/GIRepositoryFieldInfoFlags.sml";
-use "common/polyml/GIRepositoryFunctionInfoFlags.sml";
-use "common/polyml/GIRepositoryVFuncInfoFlags.sml";
+use "typelib/polyml/GIRepositoryFieldInfoFlags.sml";
+use "typelib/polyml/GIRepositoryFunctionInfoFlags.sml";
+use "typelib/polyml/GIRepositoryVFuncInfoFlags.sml";
 use "typelib/polyml/GIRepositoryBaseInfoClass.sml";
 use "typelib/polyml/GIRepositoryCallableInfoClass.sml";
 use "typelib/polyml/GIRepositoryFunctionInfoClass.sml";
@@ -98,7 +97,7 @@ use "typelib/polyml/GIRepositoryEnumInfo.sml";
 use "typelib/polyml/GIRepositoryInterfaceInfo.sml";
 use "typelib/polyml/GIRepositoryObjectInfo.sml";
 use "typelib/polyml/GIRepositoryInfoType.sml";
-use "common/polyml/GIRepositoryRepositoryLoadFlags.sml";
+use "typelib/polyml/GIRepositoryRepositoryLoadFlags.sml";
 use "typelib/polyml/GIRepositoryRepositoryClass.sml";
 use "typelib/polyml/GIRepositoryTypelibType.sml";
 use "typelib/polyml/GIRepositoryTypelib.sml";
