@@ -1,4 +1,4 @@
-signature G_I_REPOSITORY_VFUNC_INFO_CLASS =
+signature G_I_REPOSITORY_V_FUNC_INFO_CLASS =
   sig
     type 'a vfuncinfo
     type 'a callableinfoclass_t

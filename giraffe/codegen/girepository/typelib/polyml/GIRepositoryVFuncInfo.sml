@@ -1,9 +1,9 @@
 structure GIRepositoryVFuncInfo :>
-  G_I_REPOSITORY_VFUNC_INFO
+  G_I_REPOSITORY_V_FUNC_INFO
     where type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
     where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
     where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
-    where type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.flags =
+    where type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.t =
   struct
     local
       open PolyMLFFI
@@ -33,7 +33,7 @@ structure GIRepositoryVFuncInfo :>
     type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
     type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
     type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
-    type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.flags
+    type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.t
 
 
     val getFlags =

@@ -7,7 +7,7 @@ signature G_I_REPOSITORY =
     structure CallableInfoClass : G_I_REPOSITORY_CALLABLE_INFO_CLASS
     structure FunctionInfoClass : G_I_REPOSITORY_FUNCTION_INFO_CLASS
     structure SignalInfoClass : G_I_REPOSITORY_SIGNAL_INFO_CLASS
-    structure VFuncInfoClass : G_I_REPOSITORY_VFUNC_INFO_CLASS
+    structure VFuncInfoClass : G_I_REPOSITORY_V_FUNC_INFO_CLASS
     structure RegisteredTypeInfoClass : G_I_REPOSITORY_REGISTERED_TYPE_INFO_CLASS
     structure EnumInfoClass : G_I_REPOSITORY_ENUM_INFO_CLASS
     structure InterfaceInfoClass : G_I_REPOSITORY_INTERFACE_INFO_CLASS
@@ -77,7 +77,7 @@ signature G_I_REPOSITORY =
         where type 'a class_t = 'a SignalInfoClass.t
         where type 'a vfuncinfoclass_t = 'a VFuncInfoClass.t
     structure VFuncInfo :
-      G_I_REPOSITORY_VFUNC_INFO
+      G_I_REPOSITORY_V_FUNC_INFO
         where type 'a class_t = 'a VFuncInfoClass.t
         where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
         where type 'a signalinfoclass_t = 'a SignalInfoClass.t

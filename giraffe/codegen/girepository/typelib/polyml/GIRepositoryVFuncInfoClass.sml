@@ -1,5 +1,5 @@
 structure GIRepositoryVFuncInfoClass :>
-  G_I_REPOSITORY_VFUNC_INFO_CLASS
+  G_I_REPOSITORY_V_FUNC_INFO_CLASS
     where type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
     where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
     where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
