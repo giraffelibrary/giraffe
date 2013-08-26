@@ -19,13 +19,15 @@ signature MAP =
     (**
      * Function: insert
      * Arguments:
-     *   (f : 'a * 'a -> 'a)
+     *   (g : 'a -> 'b)
+     *   (f : 'a * 'b -> 'b)
      *   (
      *     (k, d) : 'a maplet,
-     *     m      : 'a t
+     *     m      : 'b t
      *   )
      * Returns:
-     *   (m' : 'a t)
+     *   (d' : 'b)
+     *   (m' : 'b t)
      *
      * Description:
      *   ...
@@ -34,10 +36,11 @@ signature MAP =
      *
      *
      * Usage notes:
-     *   insert f : ('a t, 'a maplet) fold
+     *   insert g f      : ('a t, 'b, 'b maplet) foldmap
+     *   #2 o insert g f : ('a t, 'b maplet) fold
      *
      **)
-    val insert : ('a * 'a -> 'a) -> 'a maplet * 'a t -> 'a t
+    val insert : ('a -> 'b) -> ('a * 'b -> 'b) -> 'a maplet * 'b t -> 'b * 'b t
 
     (**
      * Function: delete
