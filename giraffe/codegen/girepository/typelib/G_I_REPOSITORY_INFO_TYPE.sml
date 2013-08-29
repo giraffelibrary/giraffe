@@ -2,6 +2,7 @@ signature G_I_REPOSITORY_INFO_TYPE =
   sig
     type 'a baseinfoclass_t
     type 'a registeredtypeinfoclass_t
+    type 'a callableinfoclass_t
     type 'a functioninfoclass_t
     type 'a structinfoclass_t
     type 'a enuminfoclass_t
@@ -20,7 +21,7 @@ signature G_I_REPOSITORY_INFO_TYPE =
     datatype t =
       INVALID 
     | FUNCTION  of base functioninfoclass_t
-    | CALLBACK  of base functioninfoclass_t
+    | CALLBACK  of base callableinfoclass_t
     | STRUCT    of base structinfoclass_t
     | BOXED     of base registeredtypeinfoclass_t
     | ENUM      of base enuminfoclass_t

@@ -129,6 +129,7 @@ signature G_I_REPOSITORY =
       G_I_REPOSITORY_INFO_TYPE
         where type 'a baseinfoclass_t = 'a BaseInfoClass.t
         where type 'a registeredtypeinfoclass_t = 'a RegisteredTypeInfoClass.t
+        where type 'a callableinfoclass_t = 'a CallableInfoClass.t
         where type 'a functioninfoclass_t = 'a FunctionInfoClass.t
         where type 'a structinfoclass_t = 'a StructInfoClass.t
         where type 'a enuminfoclass_t = 'a EnumInfoClass.t

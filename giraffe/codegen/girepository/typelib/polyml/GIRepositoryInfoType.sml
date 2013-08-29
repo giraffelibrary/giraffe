@@ -2,6 +2,7 @@ structure GIRepositoryInfoType :>
   G_I_REPOSITORY_INFO_TYPE
     where type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
     where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type 'a callableinfoclass_t       = 'a GIRepositoryCallableInfoClass.t
     where type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
     where type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
     where type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
@@ -29,6 +30,7 @@ structure GIRepositoryInfoType :>
 
     type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
     type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    type 'a callableinfoclass_t       = 'a GIRepositoryCallableInfoClass.t
     type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
     type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
     type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
@@ -47,7 +49,7 @@ structure GIRepositoryInfoType :>
     datatype t =
       INVALID 
     | FUNCTION  of base functioninfoclass_t
-    | CALLBACK  of base functioninfoclass_t
+    | CALLBACK  of base callableinfoclass_t
     | STRUCT    of base structinfoclass_t
     | BOXED     of base registeredtypeinfoclass_t
     | ENUM      of base enuminfoclass_t
@@ -71,7 +73,7 @@ structure GIRepositoryInfoType :>
         Vector.fromList [
           K INVALID,
           FUNCTION    o GIRepositoryFunctionInfoClass.C.fromPtr false,
-          CALLBACK    o GIRepositoryFunctionInfoClass.C.fromPtr false,
+          CALLBACK    o GIRepositoryCallableInfoClass.C.fromPtr false,
           STRUCT      o GIRepositoryStructInfoClass.C.fromPtr false,
           BOXED       o GIRepositoryRegisteredTypeInfoClass.C.fromPtr false,
           ENUM        o GIRepositoryEnumInfoClass.C.fromPtr false,
