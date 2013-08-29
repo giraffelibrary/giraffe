@@ -1,6 +1,7 @@
 structure GIRepositoryBaseInfo :>
   G_I_REPOSITORY_BASE_INFO
-    where type 'a class_t = 'a GIRepositoryBaseInfoClass.t =
+    where type 'a class_t = 'a GIRepositoryBaseInfoClass.t
+    where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
     local
       open PolyMLFFI
@@ -32,6 +33,11 @@ structure GIRepositoryBaseInfo :>
           (load_sym libgirepository "g_base_info_get_container")
           (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
+      val getTypelib_ =
+        call
+          (load_sym libgirepository "g_base_info_get_typelib")
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTypelibType.PolyML.PTR);
+
       val equal_ =
         call
           (load_sym libgirepository "g_base_info_equal")
@@ -42,6 +48,7 @@ structure GIRepositoryBaseInfo :>
 
 
     type 'a class_t = 'a GIRepositoryBaseInfoClass.t
+    type typelibtype_t = GIRepositoryTypelibType.t
 
 
     val getName =
@@ -73,6 +80,12 @@ structure GIRepositoryBaseInfo :>
       fn info =>
         (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryBaseInfoClass.C.fromPtr false)
           getContainer_
+          info
+
+    val getTypelib =
+      fn info =>
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypelibType.C.fromPtr false)
+          getTypelib_
           info
 
     val equal =

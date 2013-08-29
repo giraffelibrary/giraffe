@@ -17,12 +17,28 @@ structure GIRepositoryTypelibType :>
 
     structure C =
       struct
+        structure Pointer = CPointer
         type notnull = notnull
         type 'a p = 'a p
-        val withPtr = I
-        fun withOptPtr f = f o CPointer.fromOpt
-        val fromPtr = I
-        val fromOptPtr = CPointer.toOpt
+
+        fun withPtr f x = f x
+
+        fun withOptPtr f =
+          fn
+            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
+          | NONE     => f Pointer.null
+
+        fun fromPtr transfer =
+          if transfer
+          then raise Fail "cannot transfer GITypelib ownership"
+          else I
+
+        fun fromOptPtr transfer =
+          let
+            val from = fromPtr transfer
+          in
+            fn optptr => Option.map from (Pointer.toOpt optptr)
+          end
       end
 
     structure PolyML =

@@ -96,7 +96,7 @@ structure GIRepositoryRepository :>
           &&&> FFI.String.withConstPtr
           &&&> GIRepositoryRepositoryLoadFlags.C.withVal
           &&&> GLibErrorRecord.C.handleError
-          ---> GIRepositoryTypelibType.C.fromPtr)
+          ---> GIRepositoryTypelibType.C.fromPtr false)
         require_
         (repository & namespace_ & version & flags & [])
 
