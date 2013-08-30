@@ -3,7 +3,7 @@ structure GIRepositoryFunctionInfo :>
     where type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
     where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
     where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
-    where type functioninfoflags_t = GIRepositoryFunctionInfoFlags.flags =
+    where type functioninfoflags_t = GIRepositoryFunctionInfoFlags.t =
   struct
     local
       open PolyMLFFI
@@ -33,7 +33,7 @@ structure GIRepositoryFunctionInfo :>
     type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
     type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
     type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
-    type functioninfoflags_t = GIRepositoryFunctionInfoFlags.flags
+    type functioninfoflags_t = GIRepositoryFunctionInfoFlags.t
 
 
     val getSymbol =

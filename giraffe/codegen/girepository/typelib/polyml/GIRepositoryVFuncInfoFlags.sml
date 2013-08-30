@@ -8,14 +8,16 @@ structure GIRepositoryVFuncInfoFlags :>
       end
   end =
   struct
-    val CHAINUP = 0w1
-    val OVERRIDE = 0w2
-    val NOTOVERRIDE = 0w4
+    val MUSTCHAINUP = 0w1
+    val MUSTOVERRIDE = 0w2
+    val MUSTNOTOVERRIDE = 0w4
+    val THROWS = 0w8
     val allFlags =
       [
-        CHAINUP,
-        OVERRIDE,
-        NOTOVERRIDE
+        MUSTCHAINUP,
+        MUSTOVERRIDE,
+        MUSTNOTOVERRIDE,
+        THROWS
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -2,7 +2,7 @@ structure GIRepositoryFieldInfo :>
   G_I_REPOSITORY_FIELD_INFO
     where type 'a class_t = 'a GIRepositoryFieldInfoClass.t
     where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
-    where type fieldinfoflags_t = GIRepositoryFieldInfoFlags.flags =
+    where type fieldinfoflags_t = GIRepositoryFieldInfoFlags.t =
   struct
     local
       open PolyMLFFI
@@ -31,7 +31,7 @@ structure GIRepositoryFieldInfo :>
 
     type 'a class_t = 'a GIRepositoryFieldInfoClass.t
     type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
-    type fieldinfoflags_t = GIRepositoryFieldInfoFlags.flags
+    type fieldinfoflags_t = GIRepositoryFieldInfoFlags.t
 
 
     val getFlags =
