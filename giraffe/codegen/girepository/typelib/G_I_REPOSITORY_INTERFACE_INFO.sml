@@ -21,6 +21,6 @@ signature G_I_REPOSITORY_INTERFACE_INFO =
     val getVfunc : 'a class_t -> LargeInt.int -> base vfuncinfoclass_t
     val getNConstants : 'a class_t -> LargeInt.int
     val getConstant : 'a class_t -> LargeInt.int -> base constantinfoclass_t
-    val getIfaceStruct : 'a class_t -> base structinfoclass_t
+    val getIfaceStruct : 'a class_t -> base structinfoclass_t option
     val findVfunc : 'a class_t -> string -> base vfuncinfoclass_t
   end

@@ -21,12 +21,12 @@ structure GIRepositoryFunctionInfo :>
       val getProperty_ =
         call
           (load_sym libgirepository "g_function_info_get_property")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
       val getVfunc_ =
         call
           (load_sym libgirepository "g_function_info_get_vfunc")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
     end
 
 
@@ -49,13 +49,13 @@ structure GIRepositoryFunctionInfo :>
 
     val getProperty =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryPropertyInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryPropertyInfoClass.C.fromOptPtr true)
           getProperty_
           info
 
     val getVfunc =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromOptPtr true)
           getVfunc_
           info
   end

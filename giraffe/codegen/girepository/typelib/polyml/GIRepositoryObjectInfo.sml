@@ -133,7 +133,7 @@ structure GIRepositoryObjectInfo :>
       val getClassStruct_ =
         call
           (load_sym libgirepository "g_object_info_get_class_struct")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
       val findVfunc_ =
         call
@@ -273,7 +273,7 @@ structure GIRepositoryObjectInfo :>
 
     val getClassStruct =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromOptPtr true)
         getClassStruct_
         info
 

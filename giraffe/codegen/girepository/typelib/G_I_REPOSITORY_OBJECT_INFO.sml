@@ -30,7 +30,7 @@ signature G_I_REPOSITORY_OBJECT_INFO =
     val getVfunc : 'a class_t -> LargeInt.int -> base vfuncinfoclass_t
     val getNConstants : 'a class_t -> LargeInt.int
     val getConstant : 'a class_t -> LargeInt.int -> base constantinfoclass_t
-    val getClassStruct : 'a class_t -> base structinfoclass_t
+    val getClassStruct : 'a class_t -> base structinfoclass_t option
     val findVfunc : 'a class_t -> string -> base vfuncinfoclass_t
     val getUnrefFunction : 'a class_t -> string
     val getRefFunction : 'a class_t -> string

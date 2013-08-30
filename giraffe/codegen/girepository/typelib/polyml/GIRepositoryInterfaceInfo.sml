@@ -95,7 +95,7 @@ structure GIRepositoryInterfaceInfo :>
       val getIfaceStruct_ =
         call
           (load_sym libgirepository "g_interface_info_get_iface_struct")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
       val findVfunc_ =
         call
@@ -180,7 +180,7 @@ structure GIRepositoryInterfaceInfo :>
 
     val getIfaceStruct =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromOptPtr true)
         getIfaceStruct_
         info
 

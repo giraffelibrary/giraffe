@@ -21,12 +21,12 @@ structure GIRepositoryVFuncInfo :>
       val getSignal_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_signal")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
       val getInvoker_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_invoker")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
     end
 
 
@@ -46,13 +46,13 @@ structure GIRepositoryVFuncInfo :>
 
     val getSignal =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositorySignalInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositorySignalInfoClass.C.fromOptPtr true)
           getSignal_
           info
 
     val getInvoker =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFunctionInfoClass.C.fromOptPtr true)
           getInvoker_
           info
   end

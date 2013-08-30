@@ -14,7 +14,7 @@ structure GIRepositorySignalInfo :>
       val getClassClosure_ =
         call
           (load_sym libgirepository "g_signal_info_get_class_closure")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
 
       val trueStopsEmit_ =
         call
@@ -35,7 +35,7 @@ structure GIRepositorySignalInfo :>
 
     val getClassClosure =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryVFuncInfoClass.C.fromOptPtr true)
           getClassClosure_
           info
 
