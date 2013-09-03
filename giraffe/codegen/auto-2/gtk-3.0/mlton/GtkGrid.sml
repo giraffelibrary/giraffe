@@ -61,9 +61,9 @@ structure GtkGrid :>
               x6
             )
     val getColumnHomogeneous_ = _import "gtk_grid_get_column_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val getRowHomogeneous_ = _import "gtk_grid_get_row_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val insertColumn_ = fn x1 & x2 => (_import "gtk_grid_insert_column" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
     val insertNextTo_ =
       fn
@@ -84,9 +84,9 @@ structure GtkGrid :>
             )
     val insertRow_ = fn x1 & x2 => (_import "gtk_grid_insert_row" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
     val setColumnHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_column_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val setRowHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_row_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkGridClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
@@ -136,9 +136,9 @@ structure GtkGrid :>
            & height
         )
     fun getColumnHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getColumnHomogeneous_ self
-    fun getColumnSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getColumnSpacing_ self
+    fun getColumnSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getColumnSpacing_ self
     fun getRowHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getRowHomogeneous_ self
-    fun getRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getRowSpacing_ self
+    fun getRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getRowSpacing_ self
     fun insertColumn self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) insertColumn_ (self & position)
     fun insertNextTo self sibling side =
       (
@@ -155,9 +155,9 @@ structure GtkGrid :>
         )
     fun insertRow self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) insertRow_ (self & position)
     fun setColumnHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
-    fun setColumnSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun setColumnSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setColumnSpacing_ (self & spacing)
     fun setRowHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
-    fun setRowSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setRowSpacing_ (self & spacing)
+    fun setRowSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setRowSpacing_ (self & spacing)
     local
       open Property
     in

@@ -38,7 +38,7 @@ structure GdkWindow :>
         call (load_sym libgdk "gdk_window_constrain_size")
           (
             GdkGeometryRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.REF
@@ -55,7 +55,7 @@ structure GdkWindow :>
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val beginPaintRect_ = call (load_sym libgdk "gdk_window_begin_paint_rect") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
@@ -68,7 +68,7 @@ structure GdkWindow :>
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val configureFinished_ = call (load_sym libgdk "gdk_window_configure_finished") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -108,7 +108,7 @@ structure GdkWindow :>
       val endPaint_ = call (load_sym libgdk "gdk_window_end_paint") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val ensureNative_ = call (load_sym libgdk "gdk_window_ensure_native") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val flush_ = call (load_sym libgdk "gdk_window_flush") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val focus_ = call (load_sym libgdk "gdk_window_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val focus_ = call (load_sym libgdk "gdk_window_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val freezeToplevelUpdatesLibgtkOnly_ = call (load_sym libgdk "gdk_window_freeze_toplevel_updates_libgtk_only") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val freezeUpdates_ = call (load_sym libgdk "gdk_window_freeze_updates") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val fullscreen_ = call (load_sym libgdk "gdk_window_fullscreen") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -421,7 +421,7 @@ structure GdkWindow :>
          & () =
           (
             GdkGeometryRecord.C.withPtr
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> FFI.Int32.withVal
              &&&> FFI.Int32.withVal
              &&&> FFI.Int32.withRefVal
@@ -451,7 +451,7 @@ structure GdkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginMoveDrag_
@@ -471,7 +471,7 @@ structure GdkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginResizeDrag_
@@ -558,7 +558,7 @@ structure GdkWindow :>
     fun endPaint self = (GObjectObjectClass.C.withPtr ---> I) endPaint_ self
     fun ensureNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) ensureNative_ self
     fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
-    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) focus_ (self & timestamp)
+    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) focus_ (self & timestamp)
     fun freezeToplevelUpdatesLibgtkOnly self = (GObjectObjectClass.C.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
     fun freezeUpdates self = (GObjectObjectClass.C.withPtr ---> I) freezeUpdates_ self
     fun fullscreen self = (GObjectObjectClass.C.withPtr ---> I) fullscreen_ self

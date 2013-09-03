@@ -51,7 +51,7 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val setExtents_ =
       fn
         x1
@@ -155,7 +155,7 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents self x y width height coordType =
       (
         GObjectObjectClass.C.withPtr

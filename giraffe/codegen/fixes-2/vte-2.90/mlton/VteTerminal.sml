@@ -361,7 +361,7 @@ structure VteTerminal :>
               x3
             )
     val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setOpacity_ = fn x1 & x2 => (_import "vte_terminal_set_opacity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word16.val_ -> unit;) (x1, x2)
+    val setOpacity_ = fn x1 & x2 => (_import "vte_terminal_set_opacity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt16.val_ -> unit;) (x1, x2)
     val setPtyObject_ = fn x1 & x2 => (_import "vte_terminal_set_pty_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setScrollBackground_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
@@ -680,7 +680,7 @@ structure VteTerminal :>
     fun setFont self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
     fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setMouseAutohide_ (self & setting)
-    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.Word16.withVal ---> I) setOpacity_ (self & opacity)
+    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
     fun setScrollBackground self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setScrollBackground_ (self & scroll)
     fun setScrollOnKeystroke self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setScrollOnKeystroke_ (self & scroll)

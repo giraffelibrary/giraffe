@@ -34,7 +34,7 @@ structure GLibIOChannel :>
     val close_ = _import "g_io_channel_close" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> unit;
     val flush_ = fn x1 & x2 => (_import "g_io_channel_flush" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> GLibIOStatus.C.val_;) (x1, x2)
     val getBufferCondition_ = _import "g_io_channel_get_buffer_condition" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> GLibIOCondition.C.val_;
-    val getBufferSize_ = _import "g_io_channel_get_buffer_size" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Word64.val_;
+    val getBufferSize_ = _import "g_io_channel_get_buffer_size" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.UInt64.val_;
     val getBuffered_ = _import "g_io_channel_get_buffered" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Bool.val_;
     val getCloseOnUnref_ = _import "g_io_channel_get_close_on_unref" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Bool.val_;
     val getEncoding_ = _import "g_io_channel_get_encoding" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.String.notnull FFI.String.out_p;
@@ -77,7 +77,7 @@ structure GLibIOChannel :>
               x3,
               x4
             )
-    val setBufferSize_ = fn x1 & x2 => (_import "g_io_channel_set_buffer_size" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * FFI.Word64.val_ -> unit;) (x1, x2)
+    val setBufferSize_ = fn x1 & x2 => (_import "g_io_channel_set_buffer_size" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * FFI.UInt64.val_ -> unit;) (x1, x2)
     val setBuffered_ = fn x1 & x2 => (_import "g_io_channel_set_buffered" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setCloseOnUnref_ = fn x1 & x2 => (_import "g_io_channel_set_close_on_unref" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setEncoding_ =
@@ -196,7 +196,7 @@ structure GLibIOChannel :>
     fun close self = (GLibIOChannelRecord.C.withPtr ---> I) close_ self
     fun flush self = (GLibIOChannelRecord.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GLibIOStatus.C.fromVal) flush_ (self & [])
     fun getBufferCondition self = (GLibIOChannelRecord.C.withPtr ---> GLibIOCondition.C.fromVal) getBufferCondition_ self
-    fun getBufferSize self = (GLibIOChannelRecord.C.withPtr ---> FFI.Word64.fromVal) getBufferSize_ self
+    fun getBufferSize self = (GLibIOChannelRecord.C.withPtr ---> FFI.UInt64.fromVal) getBufferSize_ self
     fun getBuffered self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.fromVal) getBuffered_ self
     fun getCloseOnUnref self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.fromVal) getCloseOnUnref_ self
     fun getEncoding self = (GLibIOChannelRecord.C.withPtr ---> FFI.String.fromPtr false) getEncoding_ self
@@ -230,7 +230,7 @@ structure GLibIOChannel :>
            & type'
            & []
         )
-    fun setBufferSize self size = (GLibIOChannelRecord.C.withPtr &&&> FFI.Word64.withVal ---> I) setBufferSize_ (self & size)
+    fun setBufferSize self size = (GLibIOChannelRecord.C.withPtr &&&> FFI.UInt64.withVal ---> I) setBufferSize_ (self & size)
     fun setBuffered self buffered = (GLibIOChannelRecord.C.withPtr &&&> FFI.Bool.withVal ---> I) setBuffered_ (self & buffered)
     fun setCloseOnUnref self doClose = (GLibIOChannelRecord.C.withPtr &&&> FFI.Bool.withVal ---> I) setCloseOnUnref_ (self & doClose)
     fun setEncoding self encoding =

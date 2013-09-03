@@ -6,7 +6,7 @@ structure GioCancellable :>
     val new_ = _import "g_cancellable_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCurrent_ = _import "g_cancellable_get_current" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val cancel_ = _import "g_cancellable_cancel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val disconnect_ = fn x1 & x2 => (_import "g_cancellable_disconnect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word64.val_ -> unit;) (x1, x2)
+    val disconnect_ = fn x1 & x2 => (_import "g_cancellable_disconnect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.val_ -> unit;) (x1, x2)
     val getFd_ = _import "g_cancellable_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
     val isCancelled_ = _import "g_cancellable_is_cancelled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val makePollfd_ = fn x1 & x2 => (_import "g_cancellable_make_pollfd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibPollFDRecord.C.notnull GLibPollFDRecord.C.p -> FFI.Bool.val_;) (x1, x2)
@@ -20,7 +20,7 @@ structure GioCancellable :>
     fun new () = (I ---> GioCancellableClass.C.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.C.fromPtr false) getCurrent_ ()
     fun cancel self = (GObjectObjectClass.C.withPtr ---> I) cancel_ self
-    fun disconnect self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.Word64.withVal ---> I) disconnect_ (self & handlerId)
+    fun disconnect self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.withVal ---> I) disconnect_ (self & handlerId)
     fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getFd_ self
     fun isCancelled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isCancelled_ self
     fun makePollfd self pollfd = (GObjectObjectClass.C.withPtr &&&> GLibPollFDRecord.C.withPtr ---> FFI.Bool.fromVal) makePollfd_ (self & pollfd)

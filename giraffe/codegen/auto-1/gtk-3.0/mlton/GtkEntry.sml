@@ -96,7 +96,7 @@ structure GtkEntry :>
     val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.val_;
     val getText_ = _import "gtk_entry_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getTextArea_ = fn x1 & x2 => (_import "gtk_entry_get_text_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
-    val getTextLength_ = _import "gtk_entry_get_text_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word16.val_;
+    val getTextLength_ = _import "gtk_entry_get_text_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.val_;
     val getVisibility_ = _import "gtk_entry_get_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val getWidthChars_ = _import "gtk_entry_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
     val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_entry_im_context_filter_keypress" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.val_;) (x1, x2)
@@ -419,7 +419,7 @@ structure GtkEntry :>
       in
         textArea
       end
-    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getTextLength_ self
+    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getTextLength_ self
     fun getVisibility self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisibility_ self
     fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getWidthChars_ self
     fun imContextFilterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.fromVal) imContextFilterKeypress_ (self & event)

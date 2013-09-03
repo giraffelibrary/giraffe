@@ -39,7 +39,7 @@ structure AtkObject :>
           (
             _import "atk_object_notify_state_change" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * FFI.Bool.val_
                -> unit;
           )
@@ -51,7 +51,7 @@ structure AtkObject :>
     val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val refRelationSet_ = _import "atk_object_ref_relation_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val refStateSet_ = _import "atk_object_ref_state_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val removeRelationship_ =
       fn
         x1
@@ -130,7 +130,7 @@ structure AtkObject :>
     fun notifyStateChange self state value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> FFI.Bool.withVal
          ---> I
       )
@@ -143,7 +143,7 @@ structure AtkObject :>
     fun refAccessibleChild self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> AtkObjectClass.C.fromPtr true) refAccessibleChild_ (self & i)
     fun refRelationSet self = (GObjectObjectClass.C.withPtr ---> AtkRelationSetClass.C.fromPtr true) refRelationSet_ self
     fun refStateSet self = (GObjectObjectClass.C.withPtr ---> AtkStateSetClass.C.fromPtr true) refStateSet_ self
-    fun removePropertyChangeHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
+    fun removePropertyChangeHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
     fun removeRelationship self relationship target =
       (
         GObjectObjectClass.C.withPtr

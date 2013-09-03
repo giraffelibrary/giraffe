@@ -10,8 +10,8 @@ structure GtkTargetEntry :>
         call (load_sym libgtk "gtk_target_entry_new")
           (
             FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> GtkTargetEntryRecord.PolyML.PTR
           )
       val copy_ = call (load_sym libgtk "gtk_target_entry_copy") (GtkTargetEntryRecord.PolyML.PTR --> GtkTargetEntryRecord.PolyML.PTR)
@@ -21,8 +21,8 @@ structure GtkTargetEntry :>
     fun new target flags info =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> GtkTargetEntryRecord.C.fromPtr true
       )
         new_

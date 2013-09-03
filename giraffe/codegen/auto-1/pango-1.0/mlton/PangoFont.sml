@@ -20,7 +20,7 @@ structure PangoFont :>
           (
             _import "pango_font_get_glyph_extents" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                -> unit;
@@ -49,7 +49,7 @@ structure PangoFont :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true

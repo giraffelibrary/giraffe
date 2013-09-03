@@ -26,8 +26,8 @@ structure GtkToolItemGroup :>
       val getItemPosition_ = call (load_sym libgtk "gtk_tool_item_group_get_item_position") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
       val getLabel_ = call (load_sym libgtk "gtk_tool_item_group_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
-      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
+      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> GObjectObjectClass.PolyML.PTR)
       val insert_ =
         call (load_sym libgtk "gtk_tool_item_group_insert")
           (
@@ -80,8 +80,8 @@ structure GtkToolItemGroup :>
     fun getItemPosition self item = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getItemPosition_ (self & item)
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getLabel_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getNItems_ self
-    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
+    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getNItems_ self
+    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
     fun insert self item position =
       (
         GObjectObjectClass.C.withPtr

@@ -33,7 +33,7 @@ structure PangoFontDescription :>
       val getStyle_ = call (load_sym libpango "pango_font_description_get_style") (PangoFontDescriptionRecord.PolyML.PTR --> PangoStyle.PolyML.VAL)
       val getVariant_ = call (load_sym libpango "pango_font_description_get_variant") (PangoFontDescriptionRecord.PolyML.PTR --> PangoVariant.PolyML.VAL)
       val getWeight_ = call (load_sym libpango "pango_font_description_get_weight") (PangoFontDescriptionRecord.PolyML.PTR --> PangoWeight.PolyML.VAL)
-      val hash_ = call (load_sym libpango "pango_font_description_hash") (PangoFontDescriptionRecord.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val hash_ = call (load_sym libpango "pango_font_description_hash") (PangoFontDescriptionRecord.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val merge_ =
         call (load_sym libpango "pango_font_description_merge")
           (
@@ -98,7 +98,7 @@ structure PangoFontDescription :>
     fun getStyle self = (PangoFontDescriptionRecord.C.withPtr ---> PangoStyle.C.fromVal) getStyle_ self
     fun getVariant self = (PangoFontDescriptionRecord.C.withPtr ---> PangoVariant.C.fromVal) getVariant_ self
     fun getWeight self = (PangoFontDescriptionRecord.C.withPtr ---> PangoWeight.C.fromVal) getWeight_ self
-    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.Word32.fromVal) hash_ self
+    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.UInt32.fromVal) hash_ self
     fun merge self descToMerge replaceExisting =
       (
         PangoFontDescriptionRecord.C.withPtr

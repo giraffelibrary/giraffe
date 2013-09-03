@@ -68,7 +68,7 @@ structure GtkStatusIcon :>
     val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getVisible_ = _import "gtk_status_icon_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val setFromFile_ =
       fn
@@ -270,7 +270,7 @@ structure GtkStatusIcon :>
     fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ self
     fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
-    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getX11WindowId_ self
+    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getX11WindowId_ self
     fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isEmbedded_ self
     fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromGicon_ (self & icon)

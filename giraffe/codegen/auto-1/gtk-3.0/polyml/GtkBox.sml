@@ -21,7 +21,7 @@ structure GtkBox :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val packStart_ =
@@ -31,7 +31,7 @@ structure GtkBox :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val queryChildPacking_ =
@@ -41,7 +41,7 @@ structure GtkBox :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.REF
              &&> FFI.PolyML.Bool.REF
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
              &&> GtkPackType.PolyML.REF
              --> FFI.PolyML.VOID
           )
@@ -60,7 +60,7 @@ structure GtkBox :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GtkPackType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -86,7 +86,7 @@ structure GtkBox :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         packEnd_
@@ -103,7 +103,7 @@ structure GtkBox :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         packStart_
@@ -126,11 +126,11 @@ structure GtkBox :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.Bool.withRefVal
              &&&> FFI.Bool.withRefVal
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> GtkPackType.C.withRefVal
              ---> FFI.Bool.fromVal
                    && FFI.Bool.fromVal
-                   && FFI.Word32.fromVal
+                   && FFI.UInt32.fromVal
                    && GtkPackType.C.fromVal
                    && I
           )
@@ -170,7 +170,7 @@ structure GtkBox :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GtkPackType.C.withVal
          ---> I
       )

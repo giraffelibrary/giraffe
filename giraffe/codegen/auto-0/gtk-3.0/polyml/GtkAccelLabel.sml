@@ -10,7 +10,7 @@ structure GtkAccelLabel :>
       val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_accel_label_new") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getAccelWidget_ = call (load_sym libgtk "gtk_accel_label_get_accel_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val refetch_ = call (load_sym libgtk "gtk_accel_label_refetch") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val setAccelClosure_ = call (load_sym libgtk "gtk_accel_label_set_accel_closure") (GObjectObjectClass.PolyML.PTR &&> GObjectClosureRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setAccelWidget_ = call (load_sym libgtk "gtk_accel_label_set_accel_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -23,7 +23,7 @@ structure GtkAccelLabel :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new string = (FFI.String.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
     fun getAccelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAccelWidget_ self
-    fun getAccelWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getAccelWidth_ self
+    fun getAccelWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getAccelWidth_ self
     fun refetch self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) refetch_ self
     fun setAccelClosure self accelClosure = (GObjectObjectClass.C.withPtr &&&> GObjectClosureRecord.C.withPtr ---> I) setAccelClosure_ (self & accelClosure)
     fun setAccelWidget self accelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setAccelWidget_ (self & accelWidget)

@@ -47,7 +47,7 @@ structure GtkWidget :>
                * cstring
                * unit CPointer.t
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                * GtkAccelFlags.C.val_
                -> unit;
@@ -80,7 +80,7 @@ structure GtkWidget :>
             )
     val addEvents_ = fn x1 & x2 => (_import "gtk_widget_add_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventMask.C.val_ -> unit;) (x1, x2)
     val addMnemonicLabel_ = fn x1 & x2 => (_import "gtk_widget_add_mnemonic_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val canActivateAccel_ = fn x1 & x2 => (_import "gtk_widget_can_activate_accel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> FFI.Bool.val_;) (x1, x2)
+    val canActivateAccel_ = fn x1 & x2 => (_import "gtk_widget_can_activate_accel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> FFI.Bool.val_;) (x1, x2)
     val childFocus_ = fn x1 & x2 => (_import "gtk_widget_child_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.val_;) (x1, x2)
     val childNotify_ =
       fn
@@ -106,7 +106,7 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_class_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * cstring
                * unit CPointer.t ref
                * cstring
@@ -245,7 +245,7 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -668,7 +668,7 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * cstring
                * unit CPointer.t ref
                * cstring
@@ -723,7 +723,7 @@ structure GtkWidget :>
             _import "gtk_widget_remove_accelerator" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.val_;
           )
@@ -1033,7 +1033,7 @@ structure GtkWidget :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          ---> I
@@ -1062,7 +1062,7 @@ structure GtkWidget :>
         )
     fun addEvents self events = (GObjectObjectClass.C.withPtr &&&> GdkEventMask.C.withVal ---> I) addEvents_ (self & events)
     fun addMnemonicLabel self label = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addMnemonicLabel_ (self & label)
-    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> FFI.Bool.fromVal) canActivateAccel_ (self & signalId)
+    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> FFI.Bool.fromVal) canActivateAccel_ (self & signalId)
     fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.fromVal) childFocus_ (self & direction)
     fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) childNotify_ (self & childProperty)
     fun classPath self =
@@ -1073,10 +1073,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.String.withRefConstOptPtr
              &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.String.fromPtr true
                    && FFI.String.fromPtr true
                    && I
@@ -1183,7 +1183,7 @@ structure GtkWidget :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         dragGetData_
@@ -1578,10 +1578,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.String.withRefConstOptPtr
              &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.String.fromPtr true
                    && FFI.String.fromPtr true
                    && I
@@ -1628,7 +1628,7 @@ structure GtkWidget :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.fromVal
       )

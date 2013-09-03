@@ -31,7 +31,7 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Double.VAL
              &&> FFI.PolyML.Double.VAL
              --> FFI.PolyML.VOID
@@ -146,7 +146,7 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Double.withVal
          &&&> FFI.Double.withVal
          ---> I

@@ -17,8 +17,8 @@ structure GtkLayout :>
           (
             _import "gtk_layout_get_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
+               * FFI.UInt32.ref_
                -> unit;
           )
             (
@@ -74,8 +74,8 @@ structure GtkLayout :>
           (
             _import "gtk_layout_set_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -101,10 +101,10 @@ structure GtkLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             getSize_
@@ -149,8 +149,8 @@ structure GtkLayout :>
     fun setSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setSize_

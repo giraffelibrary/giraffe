@@ -15,7 +15,7 @@ structure GioPollableInputStream :>
           (
             _import "g_pollable_input_stream_read_nonblocking" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.val_;
@@ -34,7 +34,7 @@ structure GioPollableInputStream :>
     fun readNonblocking self size cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal

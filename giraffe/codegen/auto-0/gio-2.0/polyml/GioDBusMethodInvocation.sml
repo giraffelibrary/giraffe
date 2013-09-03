@@ -30,7 +30,7 @@ structure GioDBusMethodInvocation :>
         call (load_sym libgio "g_dbus_method_invocation_return_error_literal")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.String.INPTR
              --> FFI.PolyML.VOID
@@ -75,7 +75,7 @@ structure GioDBusMethodInvocation :>
     fun returnErrorLiteral self domain code message =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.String.withConstPtr
          ---> I

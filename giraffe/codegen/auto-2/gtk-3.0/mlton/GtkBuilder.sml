@@ -15,7 +15,7 @@ structure GtkBuilder :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Word32.val_;
+               -> FFI.UInt32.val_;
           )
             (
               x1,
@@ -34,9 +34,9 @@ structure GtkBuilder :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Word32.val_;
+               -> FFI.UInt32.val_;
           )
             (
               x1,
@@ -110,7 +110,7 @@ structure GtkBuilder :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         addFromFile_
         (
@@ -122,9 +122,9 @@ structure GtkBuilder :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         addFromString_
         (

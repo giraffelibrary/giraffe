@@ -14,7 +14,7 @@ structure ClosureMarshal :>
     type state =
       GObjectValueRecord.C.notnull GObjectValueRecord.C.p
        * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p
-       * FFI.Word32.val_
+       * FFI.UInt32.val_
     type callback = state -> unit
 
     type 'a get = state -> 'a
@@ -54,7 +54,7 @@ structure ClosureMarshal :>
       struct
         val CALLBACK : callback CInterface.Conversion =
           CInterface.FUNCTION3
-            (GObjectValueRecord.PolyML.PTR, GObjectValueRecord.PolyML.Array.PTR, FFI.PolyML.Word32.VAL)
+            (GObjectValueRecord.PolyML.PTR, GObjectValueRecord.PolyML.Array.PTR, FFI.PolyML.UInt32.VAL)
             FFI.PolyML.VOID
       end
   end

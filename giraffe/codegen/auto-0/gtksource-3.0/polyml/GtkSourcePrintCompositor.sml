@@ -30,9 +30,9 @@ structure GtkSourcePrintCompositor :>
       val getPaginationProgress_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_pagination_progress") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
       val getPrintFooter_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_footer") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getPrintHeader_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_header") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_line_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_line_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getRightMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_right_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.PolyML.Double.VAL)
-      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_tab_width") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_tab_width") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getTopMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_top_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.PolyML.Double.VAL)
       val getWrapMode_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_wrap_mode") (GObjectObjectClass.PolyML.PTR --> GtkWrapMode.PolyML.VAL)
       val paginate_ = call (load_sym libgtksourceview "gtk_source_print_compositor_paginate") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
@@ -79,7 +79,7 @@ structure GtkSourcePrintCompositor :>
       val setLineNumbersFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_line_numbers_font_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
       val setPrintFooter_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_footer") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
       val setPrintHeader_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_header") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_line_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_line_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setRightMargin_ =
         call (load_sym libgtksourceview "gtk_source_print_compositor_set_right_margin")
           (
@@ -88,7 +88,7 @@ structure GtkSourcePrintCompositor :>
              &&> GtkUnit.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_tab_width") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_tab_width") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setTopMargin_ =
         call (load_sym libgtksourceview "gtk_source_print_compositor_set_top_margin")
           (
@@ -130,9 +130,9 @@ structure GtkSourcePrintCompositor :>
     fun getPaginationProgress self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getPaginationProgress_ self
     fun getPrintFooter self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getPrintFooter_ self
     fun getPrintHeader self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getPrintHeader_ self
-    fun getPrintLineNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getPrintLineNumbers_ self
+    fun getPrintLineNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getPrintLineNumbers_ self
     fun getRightMargin self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.fromVal) getRightMargin_ (self & unit)
-    fun getTabWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getTabWidth_ self
+    fun getTabWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getTabWidth_ self
     fun getTopMargin self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.fromVal) getTopMargin_ (self & unit)
     fun getWrapMode self = (GObjectObjectClass.C.withPtr ---> GtkWrapMode.C.fromVal) getWrapMode_ self
     fun paginate self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) paginate_ (self & context)
@@ -203,7 +203,7 @@ structure GtkSourcePrintCompositor :>
     fun setLineNumbersFontName self fontName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setLineNumbersFontName_ (self & fontName)
     fun setPrintFooter self print = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setPrintFooter_ (self & print)
     fun setPrintHeader self print = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setPrintHeader_ (self & print)
-    fun setPrintLineNumbers self interval = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setPrintLineNumbers_ (self & interval)
+    fun setPrintLineNumbers self interval = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setPrintLineNumbers_ (self & interval)
     fun setRightMargin self margin unit =
       (
         GObjectObjectClass.C.withPtr
@@ -217,7 +217,7 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setTabWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setTabWidth_ (self & width)
+    fun setTabWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setTabWidth_ (self & width)
     fun setTopMargin self margin unit =
       (
         GObjectObjectClass.C.withPtr

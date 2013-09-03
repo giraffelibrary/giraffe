@@ -11,7 +11,7 @@ structure GtkAccelMap :>
         call (load_sym libgtk "gtk_accel_map_add_entry")
           (
             FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -20,7 +20,7 @@ structure GtkAccelMap :>
         call (load_sym libgtk "gtk_accel_map_change_entry")
           (
             FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              &&> FFI.PolyML.Bool.VAL
              --> FFI.PolyML.Bool.VAL
@@ -40,7 +40,7 @@ structure GtkAccelMap :>
     fun addEntry accelPath accelKey accelMods =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
       )
@@ -54,7 +54,7 @@ structure GtkAccelMap :>
     fun changeEntry accelPath accelKey accelMods replace =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> FFI.Bool.withVal
          ---> FFI.Bool.fromVal

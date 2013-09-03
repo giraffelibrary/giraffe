@@ -11,39 +11,39 @@ structure GtkEntryBuffer :>
         call (load_sym libgtk "gtk_entry_buffer_delete_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Int32.VAL
-             --> FFI.PolyML.Word32.VAL
+             --> FFI.PolyML.UInt32.VAL
           )
       val emitDeletedText_ =
         call (load_sym libgtk "gtk_entry_buffer_emit_deleted_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val emitInsertedText_ =
         call (load_sym libgtk "gtk_entry_buffer_emit_inserted_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
-      val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word64.VAL)
-      val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt64.VAL)
+      val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_get_max_length") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
       val getText_ = call (load_sym libgtk "gtk_entry_buffer_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val insertText_ =
         call (load_sym libgtk "gtk_entry_buffer_insert_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.String.INPTR
              &&> FFI.PolyML.Int32.VAL
-             --> FFI.PolyML.Word32.VAL
+             --> FFI.PolyML.UInt32.VAL
           )
       val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
       val setText_ =
@@ -61,9 +61,9 @@ structure GtkEntryBuffer :>
     fun deleteText self position nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Int32.withVal
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         deleteText_
         (
@@ -74,8 +74,8 @@ structure GtkEntryBuffer :>
     fun emitDeletedText self position nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         emitDeletedText_
@@ -87,9 +87,9 @@ structure GtkEntryBuffer :>
     fun emitInsertedText self position chars nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         emitInsertedText_
@@ -99,17 +99,17 @@ structure GtkEntryBuffer :>
            & chars
            & nChars
         )
-    fun getBytes self = (GObjectObjectClass.C.withPtr ---> FFI.Word64.fromVal) getBytes_ self
-    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getLength_ self
+    fun getBytes self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.fromVal) getBytes_ self
+    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getLength_ self
     fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMaxLength_ self
     fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getText_ self
     fun insertText self position chars nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.String.withConstPtr
          &&&> FFI.Int32.withVal
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         insertText_
         (

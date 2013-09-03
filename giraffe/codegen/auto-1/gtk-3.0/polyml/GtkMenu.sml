@@ -16,10 +16,10 @@ structure GtkMenu :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val detach_ = call (load_sym libgtk "gtk_menu_detach") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -43,7 +43,7 @@ structure GtkMenu :>
       val reposition_ = call (load_sym libgtk "gtk_menu_reposition") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setAccelGroup_ = call (load_sym libgtk "gtk_menu_set_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setAccelPath_ = call (load_sym libgtk "gtk_menu_set_accel_path") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
-      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setMonitor_ = call (load_sym libgtk "gtk_menu_set_monitor") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
       val setReserveToggleSize_ = call (load_sym libgtk "gtk_menu_set_reserve_toggle_size") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
       val setScreen_ = call (load_sym libgtk "gtk_menu_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
@@ -63,10 +63,10 @@ structure GtkMenu :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         attach_
@@ -104,7 +104,7 @@ structure GtkMenu :>
     fun reposition self = (GObjectObjectClass.C.withPtr ---> I) reposition_ self
     fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
     fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setActive_ (self & index)
+    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setActive_ (self & index)
     fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMonitor_ (self & monitorNum)
     fun setReserveToggleSize self reserveToggleSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setScreen_ (self & screen)

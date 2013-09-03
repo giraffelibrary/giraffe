@@ -18,7 +18,7 @@ structure PangoFont :>
         call (load_sym libpango "pango_font_get_glyph_extents")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> PangoRectangleRecord.PolyML.PTR
              &&> PangoRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
@@ -42,7 +42,7 @@ structure PangoFont :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true

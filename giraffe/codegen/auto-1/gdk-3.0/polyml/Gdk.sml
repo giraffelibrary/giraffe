@@ -33,8 +33,8 @@ structure Gdk : GDK =
           )
       val colorParse_ = call (load_sym libgdk "gdk_color_parse") (FFI.PolyML.String.INPTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val disableMultidevice_ = call (load_sym libgdk "gdk_disable_multidevice") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val dragAbort_ = call (load_sym libgdk "gdk_drag_abort") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
-      val dragDrop_ = call (load_sym libgdk "gdk_drag_drop") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val dragAbort_ = call (load_sym libgdk "gdk_drag_abort") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
+      val dragDrop_ = call (load_sym libgdk "gdk_drag_drop") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val dragDropSucceeded_ = call (load_sym libgdk "gdk_drag_drop_succeeded") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val dragFindWindowForScreen_ =
         call (load_sym libgdk "gdk_drag_find_window_for_screen")
@@ -59,7 +59,7 @@ structure Gdk : GDK =
              &&> FFI.PolyML.Int32.VAL
              &&> GdkDragAction.PolyML.VAL
              &&> GdkDragAction.PolyML.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.Bool.VAL
           )
       val dragStatus_ =
@@ -67,7 +67,7 @@ structure Gdk : GDK =
           (
             GObjectObjectClass.PolyML.PTR
              &&> GdkDragAction.PolyML.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val dropFinish_ =
@@ -75,7 +75,7 @@ structure Gdk : GDK =
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val dropReply_ =
@@ -83,7 +83,7 @@ structure Gdk : GDK =
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val errorTrapPop_ = call (load_sym libgdk "gdk_error_trap_pop") (FFI.PolyML.VOID --> FFI.PolyML.Int32.VAL)
@@ -102,18 +102,18 @@ structure Gdk : GDK =
       val keyvalConvertCase_ =
         call (load_sym libgdk "gdk_keyval_convert_case")
           (
-            FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
+            FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
              --> FFI.PolyML.VOID
           )
-      val keyvalFromName_ = call (load_sym libgdk "gdk_keyval_from_name") (FFI.PolyML.String.INPTR --> FFI.PolyML.Word32.VAL)
-      val keyvalIsLower_ = call (load_sym libgdk "gdk_keyval_is_lower") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Bool.VAL)
-      val keyvalIsUpper_ = call (load_sym libgdk "gdk_keyval_is_upper") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Bool.VAL)
-      val keyvalName_ = call (load_sym libgdk "gdk_keyval_name") (FFI.PolyML.Word32.VAL --> FFI.PolyML.String.RETPTR)
-      val keyvalToLower_ = call (load_sym libgdk "gdk_keyval_to_lower") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Word32.VAL)
-      val keyvalToUnicode_ = call (load_sym libgdk "gdk_keyval_to_unicode") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Word32.VAL)
-      val keyvalToUpper_ = call (load_sym libgdk "gdk_keyval_to_upper") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Word32.VAL)
+      val keyvalFromName_ = call (load_sym libgdk "gdk_keyval_from_name") (FFI.PolyML.String.INPTR --> FFI.PolyML.UInt32.VAL)
+      val keyvalIsLower_ = call (load_sym libgdk "gdk_keyval_is_lower") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.Bool.VAL)
+      val keyvalIsUpper_ = call (load_sym libgdk "gdk_keyval_is_upper") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.Bool.VAL)
+      val keyvalName_ = call (load_sym libgdk "gdk_keyval_name") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.String.RETPTR)
+      val keyvalToLower_ = call (load_sym libgdk "gdk_keyval_to_lower") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.UInt32.VAL)
+      val keyvalToUnicode_ = call (load_sym libgdk "gdk_keyval_to_unicode") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.UInt32.VAL)
+      val keyvalToUpper_ = call (load_sym libgdk "gdk_keyval_to_upper") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.UInt32.VAL)
       val notifyStartupComplete_ = call (load_sym libgdk "gdk_notify_startup_complete") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val notifyStartupCompleteWithId_ = call (load_sym libgdk "gdk_notify_startup_complete_with_id") (FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
       val offscreenWindowGetEmbedder_ = call (load_sym libgdk "gdk_offscreen_window_get_embedder") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -165,7 +165,7 @@ structure Gdk : GDK =
             GObjectObjectClass.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val selectionOwnerGet_ = call (load_sym libgdk "gdk_selection_owner_get") (GdkAtomRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -175,7 +175,7 @@ structure Gdk : GDK =
           (
             GObjectObjectClass.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Bool.VAL
              --> FFI.PolyML.Bool.VAL
           )
@@ -185,7 +185,7 @@ structure Gdk : GDK =
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Bool.VAL
              --> FFI.PolyML.Bool.VAL
           )
@@ -196,7 +196,7 @@ structure Gdk : GDK =
              &&> GdkAtomRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val selectionSendNotifyForDisplay_ =
@@ -207,10 +207,10 @@ structure Gdk : GDK =
              &&> GdkAtomRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
-      val setDoubleClickTime_ = call (load_sym libgdk "gdk_set_double_click_time") (FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setDoubleClickTime_ = call (load_sym libgdk "gdk_set_double_click_time") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setProgramClass_ = call (load_sym libgdk "gdk_set_program_class") (FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
       val setShowEvents_ = call (load_sym libgdk "gdk_set_show_events") (FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
       val settingGet_ = call (load_sym libgdk "gdk_setting_get") (FFI.PolyML.String.INPTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
@@ -229,7 +229,7 @@ structure Gdk : GDK =
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              &&> GdkEventType.PolyML.VAL
              --> FFI.PolyML.Bool.VAL
@@ -240,7 +240,7 @@ structure Gdk : GDK =
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              &&> GdkEventType.PolyML.VAL
              --> FFI.PolyML.Bool.VAL
@@ -248,7 +248,7 @@ structure Gdk : GDK =
       val threadsEnter_ = call (load_sym libgdk "gdk_threads_enter") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val threadsInit_ = call (load_sym libgdk "gdk_threads_init") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val threadsLeave_ = call (load_sym libgdk "gdk_threads_leave") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val unicodeToKeyval_ = call (load_sym libgdk "gdk_unicode_to_keyval") (FFI.PolyML.Word32.VAL --> FFI.PolyML.Word32.VAL)
+      val unicodeToKeyval_ = call (load_sym libgdk "gdk_unicode_to_keyval") (FFI.PolyML.UInt32.VAL --> FFI.PolyML.UInt32.VAL)
       val utf8ToStringTarget_ = call (load_sym libgdk "gdk_utf8_to_string_target") (FFI.PolyML.String.INPTR --> FFI.PolyML.String.RETPTR)
     end
     structure AppLaunchContextClass = GdkAppLaunchContextClass
@@ -2652,8 +2652,8 @@ structure Gdk : GDK =
         if retVal then SOME color else NONE
       end
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
-    fun dragAbort context time = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) dragAbort_ (context & time)
-    fun dragDrop context time = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) dragDrop_ (context & time)
+    fun dragAbort context time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) dragAbort_ (context & time)
+    fun dragDrop context time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) dragDrop_ (context & time)
     fun dragDropSucceeded context = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) dragDropSucceeded_ context
     fun dragFindWindowForScreen context dragWindow screen xRoot yRoot =
       let
@@ -2695,7 +2695,7 @@ structure Gdk : GDK =
          &&&> FFI.Int32.withVal
          &&&> GdkDragAction.C.withVal
          &&&> GdkDragAction.C.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         dragMotion_
@@ -2713,7 +2713,7 @@ structure Gdk : GDK =
       (
         GObjectObjectClass.C.withPtr
          &&&> GdkDragAction.C.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         dragStatus_
@@ -2726,7 +2726,7 @@ structure Gdk : GDK =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         dropFinish_
@@ -2739,7 +2739,7 @@ structure Gdk : GDK =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         dropReply_
@@ -2767,11 +2767,11 @@ structure Gdk : GDK =
          & upper
          & () =
           (
-            FFI.Word32.withVal
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+            FFI.UInt32.withVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             keyvalConvertCase_
@@ -2783,13 +2783,13 @@ structure Gdk : GDK =
       in
         (lower, upper)
       end
-    fun keyvalFromName keyvalName = (FFI.String.withConstPtr ---> FFI.Word32.fromVal) keyvalFromName_ keyvalName
-    fun keyvalIsLower keyval = (FFI.Word32.withVal ---> FFI.Bool.fromVal) keyvalIsLower_ keyval
-    fun keyvalIsUpper keyval = (FFI.Word32.withVal ---> FFI.Bool.fromVal) keyvalIsUpper_ keyval
-    fun keyvalName keyval = (FFI.Word32.withVal ---> FFI.String.fromPtr false) keyvalName_ keyval
-    fun keyvalToLower keyval = (FFI.Word32.withVal ---> FFI.Word32.fromVal) keyvalToLower_ keyval
-    fun keyvalToUnicode keyval = (FFI.Word32.withVal ---> FFI.Word32.fromVal) keyvalToUnicode_ keyval
-    fun keyvalToUpper keyval = (FFI.Word32.withVal ---> FFI.Word32.fromVal) keyvalToUpper_ keyval
+    fun keyvalFromName keyvalName = (FFI.String.withConstPtr ---> FFI.UInt32.fromVal) keyvalFromName_ keyvalName
+    fun keyvalIsLower keyval = (FFI.UInt32.withVal ---> FFI.Bool.fromVal) keyvalIsLower_ keyval
+    fun keyvalIsUpper keyval = (FFI.UInt32.withVal ---> FFI.Bool.fromVal) keyvalIsUpper_ keyval
+    fun keyvalName keyval = (FFI.UInt32.withVal ---> FFI.String.fromPtr false) keyvalName_ keyval
+    fun keyvalToLower keyval = (FFI.UInt32.withVal ---> FFI.UInt32.fromVal) keyvalToLower_ keyval
+    fun keyvalToUnicode keyval = (FFI.UInt32.withVal ---> FFI.UInt32.fromVal) keyvalToUnicode_ keyval
+    fun keyvalToUpper keyval = (FFI.UInt32.withVal ---> FFI.UInt32.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
     fun notifyStartupCompleteWithId startupId = (FFI.String.withConstPtr ---> I) notifyStartupCompleteWithId_ startupId
     fun offscreenWindowGetEmbedder window = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) offscreenWindowGetEmbedder_ window
@@ -2874,7 +2874,7 @@ structure Gdk : GDK =
         GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         selectionConvert_
@@ -2890,7 +2890,7 @@ structure Gdk : GDK =
       (
         GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Bool.withVal
          ---> FFI.Bool.fromVal
       )
@@ -2906,7 +2906,7 @@ structure Gdk : GDK =
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Bool.withVal
          ---> FFI.Bool.fromVal
       )
@@ -2924,7 +2924,7 @@ structure Gdk : GDK =
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         selectionSendNotify_
@@ -2942,7 +2942,7 @@ structure Gdk : GDK =
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         selectionSendNotifyForDisplay_
@@ -2954,7 +2954,7 @@ structure Gdk : GDK =
            & property
            & time
         )
-    fun setDoubleClickTime msec = (FFI.Word32.withVal ---> I) setDoubleClickTime_ msec
+    fun setDoubleClickTime msec = (FFI.UInt32.withVal ---> I) setDoubleClickTime_ msec
     fun setProgramClass programClass = (FFI.String.withConstPtr ---> I) setProgramClass_ programClass
     fun setShowEvents showEvents = (FFI.Bool.withVal ---> I) setShowEvents_ showEvents
     fun settingGet name value = (FFI.String.withConstPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.fromVal) settingGet_ (name & value)
@@ -2977,7 +2977,7 @@ structure Gdk : GDK =
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GdkEventType.C.withVal
          ---> FFI.Bool.fromVal
@@ -2996,7 +2996,7 @@ structure Gdk : GDK =
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GdkEventType.C.withVal
          ---> FFI.Bool.fromVal
@@ -3013,6 +3013,6 @@ structure Gdk : GDK =
     fun threadsEnter () = (I ---> I) threadsEnter_ ()
     fun threadsInit () = (I ---> I) threadsInit_ ()
     fun threadsLeave () = (I ---> I) threadsLeave_ ()
-    fun unicodeToKeyval wc = (FFI.Word32.withVal ---> FFI.Word32.fromVal) unicodeToKeyval_ wc
+    fun unicodeToKeyval wc = (FFI.UInt32.withVal ---> FFI.UInt32.fromVal) unicodeToKeyval_ wc
     fun utf8ToStringTarget str = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) utf8ToStringTarget_ str
   end

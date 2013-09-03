@@ -26,7 +26,7 @@ structure GioApplication :>
     val activate_ = _import "g_application_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getApplicationId_ = _import "g_application_get_application_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getFlags_ = _import "g_application_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioApplicationFlags.C.val_;
-    val getInactivityTimeout_ = _import "g_application_get_inactivity_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getInactivityTimeout_ = _import "g_application_get_inactivity_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val getIsRegistered_ = _import "g_application_get_is_registered" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val getIsRemote_ = _import "g_application_get_is_remote" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val hold_ = _import "g_application_hold" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -65,7 +65,7 @@ structure GioApplication :>
               x3
             )
     val setFlags_ = fn x1 & x2 => (_import "g_application_set_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioApplicationFlags.C.val_ -> unit;) (x1, x2)
-    val setInactivityTimeout_ = fn x1 & x2 => (_import "g_application_set_inactivity_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setInactivityTimeout_ = fn x1 & x2 => (_import "g_application_set_inactivity_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioApplicationClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a applicationcommandlineclass_t = 'a GioApplicationCommandLineClass.t
@@ -78,7 +78,7 @@ structure GioApplication :>
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun getApplicationId self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getApplicationId_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioApplicationFlags.C.fromVal) getFlags_ self
-    fun getInactivityTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getInactivityTimeout_ self
+    fun getInactivityTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getInactivityTimeout_ self
     fun getIsRegistered self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsRemote_ self
     fun hold self = (GObjectObjectClass.C.withPtr ---> I) hold_ self
@@ -99,7 +99,7 @@ structure GioApplication :>
     fun setActionGroup self actionGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setActionGroup_ (self & actionGroup)
     fun setApplicationId self applicationId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setApplicationId_ (self & applicationId)
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioApplicationFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun setInactivityTimeout self inactivityTimeout = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
+    fun setInactivityTimeout self inactivityTimeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
     local
       open ClosureMarshal Signal
     in

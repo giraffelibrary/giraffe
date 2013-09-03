@@ -177,7 +177,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Word32.val_;
+               -> FFI.UInt32.val_;
           )
             (
               x1,
@@ -192,7 +192,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Word64.val_;
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -446,7 +446,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -465,7 +465,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -601,8 +601,8 @@ structure GioFileInfo :>
     fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
     fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) getAttributeString_ (self & attribute)
     fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
-    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getAttributeUint32_ (self & attribute)
-    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word64.fromVal) getAttributeUint64_ (self & attribute)
+    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getAttributeUint32_ (self & attribute)
+    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt64.fromVal) getAttributeUint64_ (self & attribute)
     fun getContentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getContentType_ self
     fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDisplayName_ self
     fun getEditName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getEditName_ self
@@ -742,7 +742,7 @@ structure GioFileInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setAttributeUint32_
@@ -755,7 +755,7 @@ structure GioFileInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setAttributeUint64_

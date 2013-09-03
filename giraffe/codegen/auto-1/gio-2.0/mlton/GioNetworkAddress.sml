@@ -11,7 +11,7 @@ structure GioNetworkAddress :>
             _import "mlton_g_network_address_new" :
               cstring
                * unit CPointer.t
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,7 +28,7 @@ structure GioNetworkAddress :>
             _import "mlton_g_network_address_parse" :
               cstring
                * unit CPointer.t
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -47,7 +47,7 @@ structure GioNetworkAddress :>
             _import "mlton_g_network_address_parse_uri" :
               cstring
                * unit CPointer.t
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -58,17 +58,17 @@ structure GioNetworkAddress :>
               x4
             )
     val getHostname_ = _import "g_network_address_get_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getPort_ = _import "g_network_address_get_port" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word16.val_;
+    val getPort_ = _import "g_network_address_get_port" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.val_;
     val getScheme_ = _import "g_network_address_get_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     type 'a class_t = 'a GioNetworkAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hostname port = (FFI.String.withConstPtr &&&> FFI.Word16.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
+    fun new hostname port = (FFI.String.withConstPtr &&&> FFI.UInt16.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
     fun parse hostAndPort defaultPort =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
       )
@@ -81,7 +81,7 @@ structure GioNetworkAddress :>
     fun parseUri uri defaultPort =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
       )
@@ -92,7 +92,7 @@ structure GioNetworkAddress :>
            & []
         )
     fun getHostname self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getHostname_ self
-    fun getPort self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getPort_ self
+    fun getPort self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getPort_ self
     fun getScheme self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getScheme_ self
     local
       open Property

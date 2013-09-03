@@ -16,9 +16,9 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_activate" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.val_;
           )
@@ -39,7 +39,7 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_connect" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                * GtkAccelFlags.C.val_
                * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
@@ -80,7 +80,7 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_disconnect_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.val_;
           )
@@ -101,9 +101,9 @@ structure GtkAccelGroup :>
     fun activate self accelQuark acceleratable accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.fromVal
       )
@@ -118,7 +118,7 @@ structure GtkAccelGroup :>
     fun connect self accelKey accelMods accelFlags closure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          &&&> GObjectClosureRecord.C.withPtr
@@ -149,7 +149,7 @@ structure GtkAccelGroup :>
     fun disconnectKey self accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.fromVal
       )

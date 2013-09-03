@@ -31,7 +31,7 @@ structure GioInputStream :>
         call (load_sym libgio "g_input_stream_read")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.Int64.VAL
@@ -40,8 +40,8 @@ structure GioInputStream :>
         call (load_sym libgio "g_input_stream_read_all")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word64.VAL
-             &&> FFI.PolyML.Word64.REF
+             &&> FFI.PolyML.UInt64.VAL
+             &&> FFI.PolyML.UInt64.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.Bool.VAL
@@ -59,7 +59,7 @@ structure GioInputStream :>
         call (load_sym libgio "g_input_stream_skip")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.Int64.VAL
@@ -109,7 +109,7 @@ structure GioInputStream :>
     fun read self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal
@@ -126,11 +126,11 @@ structure GioInputStream :>
         val bytesRead & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word64.withVal
-             &&&> FFI.Word64.withRefVal
+             &&&> FFI.UInt64.withVal
+             &&&> FFI.UInt64.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.Word64.fromVal && FFI.Bool.fromVal
+             ---> FFI.UInt64.fromVal && FFI.Bool.fromVal
           )
             readAll_
             (
@@ -160,7 +160,7 @@ structure GioInputStream :>
     fun skip self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal

@@ -47,12 +47,12 @@ structure GioSettings :>
       val getChild_ = call (load_sym libgio "g_settings_get_child") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getDouble_ = call (load_sym libgio "g_settings_get_double") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Double.VAL)
       val getEnum_ = call (load_sym libgio "g_settings_get_enum") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Int32.VAL)
-      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Word32.VAL)
+      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.UInt32.VAL)
       val getHasUnapplied_ = call (load_sym libgio "g_settings_get_has_unapplied") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getInt_ = call (load_sym libgio "g_settings_get_int") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Int32.VAL)
       val getRange_ = call (load_sym libgio "g_settings_get_range") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GLibVariantRecord.PolyML.PTR)
       val getString_ = call (load_sym libgio "g_settings_get_string") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.String.RETPTR)
-      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Word32.VAL)
+      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.UInt32.VAL)
       val getValue_ = call (load_sym libgio "g_settings_get_value") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GLibVariantRecord.PolyML.PTR)
       val isWritable_ = call (load_sym libgio "g_settings_is_writable") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Bool.VAL)
       val rangeCheck_ =
@@ -94,7 +94,7 @@ structure GioSettings :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.Bool.VAL
           )
       val setInt_ =
@@ -118,7 +118,7 @@ structure GioSettings :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.Bool.VAL
           )
       val setValue_ =
@@ -192,12 +192,12 @@ structure GioSettings :>
     fun getChild self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioSettingsClass.C.fromPtr true) getChild_ (self & name)
     fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Double.fromVal) getDouble_ (self & key)
     fun getEnum self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) getEnum_ (self & key)
-    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getFlags_ (self & key)
+    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getFlags_ (self & key)
     fun getHasUnapplied self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasUnapplied_ self
     fun getInt self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) getInt_ (self & key)
     fun getRange self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getRange_ (self & key)
     fun getString self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) getString_ (self & key)
-    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getUint_ (self & key)
+    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getUint_ (self & key)
     fun getValue self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getValue_ (self & key)
     fun isWritable self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) isWritable_ (self & name)
     fun rangeCheck self key value =
@@ -258,7 +258,7 @@ structure GioSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         setFlags_
@@ -297,7 +297,7 @@ structure GioSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         setUint_

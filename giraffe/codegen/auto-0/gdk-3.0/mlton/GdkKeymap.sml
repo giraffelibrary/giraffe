@@ -13,7 +13,7 @@ structure GdkKeymap :>
     val getDirection_ = _import "gdk_keymap_get_direction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoDirection.C.val_;
     val getNumLockState_ = _import "gdk_keymap_get_num_lock_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val haveBidiLayouts_ = _import "gdk_keymap_have_bidi_layouts" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val lookupKey_ = fn x1 & x2 => (_import "gdk_keymap_lookup_key" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkKeymapKeyRecord.C.notnull GdkKeymapKeyRecord.C.p -> FFI.Word32.val_;) (x1, x2)
+    val lookupKey_ = fn x1 & x2 => (_import "gdk_keymap_lookup_key" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkKeymapKeyRecord.C.notnull GdkKeymapKeyRecord.C.p -> FFI.UInt32.val_;) (x1, x2)
     val mapVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_map_virtual_modifiers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkModifierType.C.ref_ -> FFI.Bool.val_;) (x1, x2)
     val translateKeyboardState_ =
       fn
@@ -28,10 +28,10 @@ structure GdkKeymap :>
           (
             _import "gdk_keymap_translate_keyboard_state" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                * FFI.Int32.val_
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * FFI.Int32.ref_
                * FFI.Int32.ref_
                * GdkModifierType.C.ref_
@@ -64,7 +64,7 @@ structure GdkKeymap :>
     fun getDirection self = (GObjectObjectClass.C.withPtr ---> PangoDirection.C.fromVal) getDirection_ self
     fun getNumLockState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getNumLockState_ self
     fun haveBidiLayouts self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) haveBidiLayouts_ self
-    fun lookupKey self key = (GObjectObjectClass.C.withPtr &&&> GdkKeymapKeyRecord.C.withPtr ---> FFI.Word32.fromVal) lookupKey_ (self & key)
+    fun lookupKey self key = (GObjectObjectClass.C.withPtr &&&> GdkKeymapKeyRecord.C.withPtr ---> FFI.UInt32.fromVal) lookupKey_ (self & key)
     fun mapVirtualModifiers self =
       let
         val state & retVal = (GObjectObjectClass.C.withPtr &&&> GdkModifierType.C.withRefVal ---> GdkModifierType.C.fromVal && FFI.Bool.fromVal) mapVirtualModifiers_ (self & GdkModifierType.flags [])
@@ -80,14 +80,14 @@ structure GdkKeymap :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> GdkModifierType.C.withVal
              &&&> FFI.Int32.withVal
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int32.withRefVal
              &&&> FFI.Int32.withRefVal
              &&&> GdkModifierType.C.withRefVal
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.Int32.fromVal
                    && FFI.Int32.fromVal
                    && GdkModifierType.C.fromVal

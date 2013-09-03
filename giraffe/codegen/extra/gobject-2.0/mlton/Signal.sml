@@ -14,7 +14,7 @@ structure Signal :>
              * cstring * unit CPointer.t  (* FFI.String.notnull FFI.String.inp *)
              * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
              * FFI.Bool.val_
-             -> FFI.LongWord.val_;
+             -> FFI.ULong.val_;
         )
           (x1, x2, x3, x4, x5)
 
@@ -23,7 +23,7 @@ structure Signal :>
         (
           _import "g_signal_handler_disconnect" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.LongWord.val_
+             * FFI.ULong.val_
              -> unit;
         )
           (x1, x2)
@@ -33,7 +33,7 @@ structure Signal :>
         (
           _import "g_signal_handler_is_connected" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.LongWord.val_
+             * FFI.ULong.val_
              -> FFI.Bool.val_;
         )
           (x1, x2)
@@ -43,7 +43,7 @@ structure Signal :>
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = FFI.LongWord.val_
+    type signal_id = FFI.ULong.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (

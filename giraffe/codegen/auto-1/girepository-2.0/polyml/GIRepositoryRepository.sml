@@ -12,7 +12,7 @@ structure GIRepositoryRepository :>
       val dump_ = call (load_sym libgirepository "g_irepository_dump") (FFI.PolyML.String.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.Bool.VAL)
       val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val findByName_ =
         call (load_sym libgirepository "g_irepository_find_by_name")
           (
@@ -81,7 +81,7 @@ structure GIRepositoryRepository :>
     fun dump arg = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (FFI.String.withConstPtr ---> I) prependSearchPath_ directory
-    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self namespace name =
       (
         GObjectObjectClass.C.withPtr

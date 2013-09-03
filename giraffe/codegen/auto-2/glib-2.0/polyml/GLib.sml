@@ -6,9 +6,9 @@ structure GLib : G_LIB =
       val checkVersion_ =
         call (load_sym libglib "glib_check_version")
           (
-            FFI.PolyML.Word.VAL
-             &&> FFI.PolyML.Word.VAL
-             &&> FFI.PolyML.Word.VAL
+            FFI.PolyML.UInt.VAL
+             &&> FFI.PolyML.UInt.VAL
+             &&> FFI.PolyML.UInt.VAL
              --> FFI.PolyML.String.RETPTR
           )
       val childWatchAdd_ =
@@ -17,7 +17,7 @@ structure GLib : G_LIB =
             FFI.PolyML.Int.VAL
              &&> Pid.PolyML.VAL
              &&> GLibChildWatchFunc.PolyML.CALLBACK
-             --> FFI.PolyML.Word.VAL
+             --> FFI.PolyML.UInt.VAL
           )
       val childWatchSourceNew_ = call (load_sym libgiraffeglib "giraffe_g_child_watch_source_new") (Pid.PolyML.VAL &&> GLibChildWatchFunc.PolyML.CALLBACK --> GLibSourceRecord.PolyML.PTR)
       val filenameFromUri_ =
@@ -36,7 +36,7 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.String.RETPTR
           )
-      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (FFI.PolyML.Int.VAL &&> GLibSourceFunc.PolyML.CALLBACK --> FFI.PolyML.Word.VAL)
+      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (FFI.PolyML.Int.VAL &&> GLibSourceFunc.PolyML.CALLBACK --> FFI.PolyML.UInt.VAL)
       val ioAddWatch_ =
         call
           (load_sym libgiraffeglib "giraffe_g_io_add_watch")
@@ -45,7 +45,7 @@ structure GLib : G_LIB =
              &&> FFI.PolyML.Int.VAL
              &&> GLibIOCondition.PolyML.VAL
              &&> GLibIOFunc.PolyML.CALLBACK
-             --> FFI.PolyML.Word.VAL
+             --> FFI.PolyML.UInt.VAL
           )
       val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.PTR &&> GLibIOCondition.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
       val logDefaultHandler_ =
@@ -56,7 +56,7 @@ structure GLib : G_LIB =
              &&> FFI.PolyML.String.INPTR
              --> FFI.PolyML.VOID
           )
-      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (FFI.PolyML.String.INPTR &&> FFI.PolyML.Word.VAL --> FFI.PolyML.VOID)
+      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (FFI.PolyML.String.INPTR &&> FFI.PolyML.UInt.VAL --> FFI.PolyML.VOID)
       val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
       val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (FFI.PolyML.String.INPTR &&> GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
       val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (FFI.PolyML.VOID --> GLibMainContextRecord.PolyML.PTR)
@@ -84,7 +84,7 @@ structure GLib : G_LIB =
           )
       val shellQuote_ = call (load_sym libglib "g_shell_quote") (FFI.PolyML.String.INPTR --> FFI.PolyML.String.RETPTR)
       val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (FFI.PolyML.String.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.String.RETPTR)
-      val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.PolyML.Word.VAL --> FFI.PolyML.Bool.VAL)
+      val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.PolyML.UInt.VAL --> FFI.PolyML.Bool.VAL)
       val spawnAsyncWithPipes_ =
         call
           (load_sym libgiraffeglib "giraffe_g_spawn_async_with_pipes")
@@ -108,18 +108,18 @@ structure GLib : G_LIB =
           (load_sym libgiraffeglib "giraffe_g_timeout_add")
           (
             FFI.PolyML.Int.VAL
-             &&> FFI.PolyML.Word.VAL
+             &&> FFI.PolyML.UInt.VAL
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.PolyML.Word.VAL
+             --> FFI.PolyML.UInt.VAL
           )
       val timeoutAddSeconds_ =
         call
           (load_sym libgiraffeglib "giraffe_g_timeout_add_seconds")
           (
             FFI.PolyML.Int.VAL
-             &&> FFI.PolyML.Word.VAL
+             &&> FFI.PolyML.UInt.VAL
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.PolyML.Word.VAL
+             --> FFI.PolyML.UInt.VAL
           )
       val uriEscapeString_ =
         call (load_sym libglib "g_uri_escape_string")
@@ -217,9 +217,9 @@ structure GLib : G_LIB =
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;="
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Word.withVal
-         &&&> FFI.Word.withVal
-         &&&> FFI.Word.withVal
+        FFI.UInt.withVal
+         &&&> FFI.UInt.withVal
+         &&&> FFI.UInt.withVal
          ---> FFI.String.fromPtr false
       )
         checkVersion_
@@ -233,7 +233,7 @@ structure GLib : G_LIB =
         FFI.Int.withVal
          &&&> Pid.C.withVal
          &&&> GLibChildWatchFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         childWatchAdd_
         (
@@ -268,14 +268,14 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun idleAdd priority function = (FFI.Int.withVal &&&> GLibSourceFunc.C.withCallback ---> FFI.Word.fromVal) idleAdd_ (priority & function)
+    fun idleAdd priority function = (FFI.Int.withVal &&&> GLibSourceFunc.C.withCallback ---> FFI.UInt.fromVal) idleAdd_ (priority & function)
     fun ioAddWatch channel priority condition func =
       (
         GLibIOChannelRecord.C.withPtr
          &&&> FFI.Int.withVal
          &&&> GLibIOCondition.C.withVal
          &&&> GLibIOFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         ioAddWatch_
         (
@@ -298,7 +298,7 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.Word.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.UInt.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask logDomain fatalMask = (FFI.String.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
@@ -342,7 +342,7 @@ structure GLib : G_LIB =
       end
     fun shellQuote unquotedString = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) shellQuote_ unquotedString
     fun shellUnquote quotedString = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sourceRemove tag = (FFI.Word.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
+    fun sourceRemove tag = (FFI.UInt.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
       let
         val
@@ -389,9 +389,9 @@ structure GLib : G_LIB =
     fun timeoutAdd priority interval function =
       (
         FFI.Int.withVal
-         &&&> FFI.Word.withVal
+         &&&> FFI.UInt.withVal
          &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         timeoutAdd_
         (
@@ -402,9 +402,9 @@ structure GLib : G_LIB =
     fun timeoutAddSeconds priority interval function =
       (
         FFI.Int.withVal
-         &&&> FFI.Word.withVal
+         &&&> FFI.UInt.withVal
          &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         timeoutAddSeconds_
         (

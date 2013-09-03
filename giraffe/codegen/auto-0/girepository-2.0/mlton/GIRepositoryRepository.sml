@@ -23,7 +23,7 @@ structure GIRepositoryRepository :>
             )
     val getDefault_ = _import "g_irepository_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : cstring * unit CPointer.t -> unit;
-    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
+    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val findByName_ =
       fn
         x1
@@ -247,7 +247,7 @@ structure GIRepositoryRepository :>
     fun dump arg = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (FFI.String.withConstPtr ---> I) prependSearchPath_ directory
-    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self namespace name =
       (
         GObjectObjectClass.C.withPtr

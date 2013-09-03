@@ -72,7 +72,7 @@ structure GtkEntry :>
       val getProgressPulseStep_ = call (load_sym libgtk "gtk_entry_get_progress_pulse_step") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
       val getText_ = call (load_sym libgtk "gtk_entry_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getTextArea_ = call (load_sym libgtk "gtk_entry_get_text_area") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getTextLength_ = call (load_sym libgtk "gtk_entry_get_text_length") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getTextLength_ = call (load_sym libgtk "gtk_entry_get_text_length") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getVisibility_ = call (load_sym libgtk "gtk_entry_get_visibility") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getWidthChars_ = call (load_sym libgtk "gtk_entry_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
       val imContextFilterKeypress_ = call (load_sym libgtk "gtk_entry_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
@@ -277,7 +277,7 @@ structure GtkEntry :>
       in
         textArea
       end
-    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getTextLength_ self
+    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getTextLength_ self
     fun getVisibility self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisibility_ self
     fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getWidthChars_ self
     fun imContextFilterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.fromVal) imContextFilterKeypress_ (self & event)

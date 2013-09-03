@@ -41,12 +41,12 @@ structure GtkNotebook :>
       val getShowBorder_ = call (load_sym libgtk "gtk_notebook_get_show_border") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getShowTabs_ = call (load_sym libgtk "gtk_notebook_get_show_tabs") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getTabDetachable_ = call (load_sym libgtk "gtk_notebook_get_tab_detachable") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getTabHborder_ = call (load_sym libgtk "gtk_notebook_get_tab_hborder") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getTabHborder_ = call (load_sym libgtk "gtk_notebook_get_tab_hborder") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getTabLabel_ = call (load_sym libgtk "gtk_notebook_get_tab_label") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getTabLabelText_ = call (load_sym libgtk "gtk_notebook_get_tab_label_text") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getTabPos_ = call (load_sym libgtk "gtk_notebook_get_tab_pos") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
       val getTabReorderable_ = call (load_sym libgtk "gtk_notebook_get_tab_reorderable") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getTabVborder_ = call (load_sym libgtk "gtk_notebook_get_tab_vborder") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getTabVborder_ = call (load_sym libgtk "gtk_notebook_get_tab_vborder") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val insertPage_ =
         call (load_sym libgtk "gtk_notebook_insert_page")
           (
@@ -210,12 +210,12 @@ structure GtkNotebook :>
     fun getShowBorder self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowBorder_ self
     fun getShowTabs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowTabs_ self
     fun getTabDetachable self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTabDetachable_ (self & child)
-    fun getTabHborder self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getTabHborder_ self
+    fun getTabHborder self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getTabHborder_ self
     fun getTabLabel self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getTabLabel_ (self & child)
     fun getTabLabelText self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTabLabelText_ (self & child)
     fun getTabPos self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getTabPos_ self
     fun getTabReorderable self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTabReorderable_ (self & child)
-    fun getTabVborder self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getTabVborder_ self
+    fun getTabVborder self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getTabVborder_ self
     fun insertPage self child tabLabel position =
       (
         GObjectObjectClass.C.withPtr

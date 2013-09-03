@@ -21,7 +21,7 @@ structure GdkDisplay :>
       val deviceIsGrabbed_ = call (load_sym libgdk "gdk_display_device_is_grabbed") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val flush_ = call (load_sym libgdk "gdk_display_flush") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getAppLaunchContext_ = call (load_sym libgdk "gdk_display_get_app_launch_context") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultCursorSize_ = call (load_sym libgdk "gdk_display_get_default_cursor_size") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getDefaultCursorSize_ = call (load_sym libgdk "gdk_display_get_default_cursor_size") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getDefaultGroup_ = call (load_sym libgdk "gdk_display_get_default_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getDefaultScreen_ = call (load_sym libgdk "gdk_display_get_default_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getDeviceManager_ = call (load_sym libgdk "gdk_display_get_device_manager") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -30,8 +30,8 @@ structure GdkDisplay :>
         call (load_sym libgdk "gdk_display_get_maximal_cursor_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
              --> FFI.PolyML.VOID
           )
       val getNScreens_ = call (load_sym libgdk "gdk_display_get_n_screens") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
@@ -43,8 +43,8 @@ structure GdkDisplay :>
       val peekEvent_ = call (load_sym libgdk "gdk_display_peek_event") (GObjectObjectClass.PolyML.PTR --> GdkEvent.PolyML.PTR)
       val putEvent_ = call (load_sym libgdk "gdk_display_put_event") (GObjectObjectClass.PolyML.PTR &&> GdkEvent.PolyML.PTR --> FFI.PolyML.VOID)
       val requestSelectionNotification_ = call (load_sym libgdk "gdk_display_request_selection_notification") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setDoubleClickDistance_ = call (load_sym libgdk "gdk_display_set_double_click_distance") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
-      val setDoubleClickTime_ = call (load_sym libgdk "gdk_display_set_double_click_time") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setDoubleClickDistance_ = call (load_sym libgdk "gdk_display_set_double_click_distance") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
+      val setDoubleClickTime_ = call (load_sym libgdk "gdk_display_set_double_click_time") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val supportsClipboardPersistence_ = call (load_sym libgdk "gdk_display_supports_clipboard_persistence") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val supportsComposite_ = call (load_sym libgdk "gdk_display_supports_composite") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val supportsCursorAlpha_ = call (load_sym libgdk "gdk_display_supports_cursor_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
@@ -71,7 +71,7 @@ structure GdkDisplay :>
     fun deviceIsGrabbed self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) deviceIsGrabbed_ (self & device)
     fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
     fun getAppLaunchContext self = (GObjectObjectClass.C.withPtr ---> GdkAppLaunchContextClass.C.fromPtr true) getAppLaunchContext_ self
-    fun getDefaultCursorSize self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getDefaultCursorSize_ self
+    fun getDefaultCursorSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getDefaultCursorSize_ self
     fun getDefaultGroup self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getDefaultGroup_ self
     fun getDefaultScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getDefaultScreen_ self
     fun getDeviceManager self = (GObjectObjectClass.C.withPtr ---> GdkDeviceManagerClass.C.fromPtr false) getDeviceManager_ self
@@ -83,10 +83,10 @@ structure GdkDisplay :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             getMaximalCursorSize_
@@ -107,8 +107,8 @@ structure GdkDisplay :>
     fun peekEvent self = (GObjectObjectClass.C.withPtr ---> GdkEvent.C.fromPtr true) peekEvent_ self
     fun putEvent self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) putEvent_ (self & event)
     fun requestSelectionNotification self selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.fromVal) requestSelectionNotification_ (self & selection)
-    fun setDoubleClickDistance self distance = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setDoubleClickDistance_ (self & distance)
-    fun setDoubleClickTime self msec = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setDoubleClickTime_ (self & msec)
+    fun setDoubleClickDistance self distance = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setDoubleClickDistance_ (self & distance)
+    fun setDoubleClickTime self msec = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setDoubleClickTime_ (self & msec)
     fun supportsClipboardPersistence self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) supportsClipboardPersistence_ self
     fun supportsComposite self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) supportsComposite_ self
     fun supportsCursorAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) supportsCursorAlpha_ self

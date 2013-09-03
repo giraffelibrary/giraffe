@@ -21,7 +21,7 @@ structure GioFile :>
     where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_file_get_type" : unit -> GObjectType.C.val_;
-    val hash_ = _import "g_file_hash" : unit -> FFI.Word32.val_;
+    val hash_ = _import "g_file_hash" : unit -> FFI.UInt32.val_;
     val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newForPath_ = _import "mlton_g_file_new_for_path" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newForUri_ = _import "mlton_g_file_new_for_uri" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -1018,7 +1018,7 @@ structure GioFile :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -1046,7 +1046,7 @@ structure GioFile :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -1232,7 +1232,7 @@ structure GioFile :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun hash () = (I ---> FFI.Word32.fromVal) hash_ ()
+    fun hash () = (I ---> FFI.UInt32.fromVal) hash_ ()
     fun newForCommandlineArg arg = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
     fun newForPath path = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
     fun newForUri uri = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
@@ -1933,7 +1933,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1952,7 +1952,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError

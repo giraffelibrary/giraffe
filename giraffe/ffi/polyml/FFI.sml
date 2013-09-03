@@ -11,7 +11,7 @@ structure FFI =
           fun fromChar c = Char.ord c
           fun toChar x = Char.chr x handle Chr => raise Size
         in
-          val WORD8 =
+          val UINT8 =
             CInterface.mapConversion (fromChar, toChar) CInterface.CHAR
         end
 
@@ -206,9 +206,9 @@ structure FFI =
 
 
         (**
-         * ShortInt
+         * Short
          *)
-        structure ShortInt =
+        structure Short =
           struct
             val VAL = CInterface.SHORT : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -216,9 +216,9 @@ structure FFI =
 
 
         (**
-         * ShortWord
+         * UShort
          *)
-        structure ShortWord =
+        structure UShort =
           struct
             val VAL = USHORT : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -236,9 +236,9 @@ structure FFI =
 
 
         (**
-         * Word
+         * UInt
          *)
-        structure Word =
+        structure UInt =
           struct
             val VAL = CInterface.UINT : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -246,9 +246,9 @@ structure FFI =
 
 
         (**
-         * LongInt
+         * Long
          *)
-        structure LongInt =
+        structure Long =
           struct
             val VAL = CInterface.LONG : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -256,9 +256,9 @@ structure FFI =
 
 
         (**
-         * LongWord
+         * ULong
          *)
-        structure LongWord =
+        structure ULong =
           struct
             val VAL = ULONG : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -306,11 +306,11 @@ structure FFI =
 
 
         (**
-         * Word8
+         * UInt8
          *)
-        structure Word8 =
+        structure UInt8 =
           struct
-            val VAL = WORD8
+            val VAL = UINT8
             val REF = REF
           end
 
@@ -326,9 +326,9 @@ structure FFI =
 
 
         (**
-         * Word16
+         * UInt16
          *)
-        structure Word16 =
+        structure UInt16 =
           struct
             val VAL = UINT16 : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -346,9 +346,9 @@ structure FFI =
 
 
         (**
-         * Word32
+         * UInt32
          *)
-        structure Word32 =
+        structure UInt32 =
           struct
             val VAL = UINT32 : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -366,9 +366,9 @@ structure FFI =
 
 
         (**
-         * Word64
+         * UInt64
          *)
-        structure Word64 =
+        structure UInt64 =
           struct
             val VAL = UINT64 : LargeInt.int CInterface.Conversion
             val REF = REF
@@ -504,27 +504,27 @@ structure FFI =
 
 
     (**
-     * ShortInt
+     * Short
      *)
-    structure ShortInt =
+    structure Short =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.ShortInt.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.Short.VAL f)
         val fromVal = I
       end
 
 
     (**
-     * ShortWord
+     * UShort
      *)
-    structure ShortWord =
+    structure UShort =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.ShortWord.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UShort.VAL f)
         val fromVal = I
       end
 
@@ -543,40 +543,40 @@ structure FFI =
 
 
     (**
-     * Word
+     * UInt
      *)
-    structure Word =
+    structure UInt =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Word.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UInt.VAL f)
         val fromVal = I
       end
 
 
     (**
-     * LongInt
+     * Long
      *)
-    structure LongInt =
+    structure Long =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.LongInt.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.Long.VAL f)
         val fromVal = I
       end
 
 
     (**
-     * LongWord
+     * ULong
      *)
-    structure LongWord =
+    structure ULong =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.LongWord.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.ULong.VAL f)
         val fromVal = I
       end
 
@@ -630,14 +630,14 @@ structure FFI =
 
 
     (**
-     * Word8
+     * UInt8
      *)
-    structure Word8 =
+    structure UInt8 =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Word8.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UInt8.VAL f)
         val fromVal = I
       end
 
@@ -656,14 +656,14 @@ structure FFI =
 
 
     (**
-     * Word16
+     * UInt16
      *)
-    structure Word16 =
+    structure UInt16 =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Word16.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UInt16.VAL f)
         val fromVal = I
       end
 
@@ -682,14 +682,14 @@ structure FFI =
 
 
     (**
-     * Word32
+     * UInt32
      *)
-    structure Word32 =
+    structure UInt32 =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Word32.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UInt32.VAL f)
         val fromVal = I
       end
 
@@ -708,14 +708,14 @@ structure FFI =
 
 
     (**
-     * Word64
+     * UInt64
      *)
-    structure Word64 =
+    structure UInt64 =
       struct
         type val_ = LargeInt.int
         type ref_ = ref_
         val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Word64.VAL f)
+        fun withRefVal f = withVal (withRef PolyML.UInt64.VAL f)
         val fromVal = I
       end
 

@@ -27,7 +27,7 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_add_mnemonic")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -38,7 +38,7 @@ structure GtkWindow :>
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val beginResizeDrag_ =
@@ -49,7 +49,7 @@ structure GtkWindow :>
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val deiconify_ = call (load_sym libgtk "gtk_window_deiconify") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -116,7 +116,7 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_mnemonic_activate")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.PolyML.Bool.VAL
           )
@@ -130,14 +130,14 @@ structure GtkWindow :>
           )
       val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Bool.VAL)
       val present_ = call (load_sym libgtk "gtk_window_present") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val propagateKeyEvent_ = call (load_sym libgtk "gtk_window_propagate_key_event") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val removeAccelGroup_ = call (load_sym libgtk "gtk_window_remove_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val removeMnemonic_ =
         call (load_sym libgtk "gtk_window_remove_mnemonic")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -260,7 +260,7 @@ structure GtkWindow :>
     fun addMnemonic self keyval target =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -276,7 +276,7 @@ structure GtkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginMoveDrag_
@@ -294,7 +294,7 @@ structure GtkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginResizeDrag_
@@ -416,7 +416,7 @@ structure GtkWindow :>
     fun mnemonicActivate self keyval modifier =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.fromVal
       )
@@ -441,13 +441,13 @@ structure GtkWindow :>
         )
     fun parseGeometry self geometry = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) parseGeometry_ (self & geometry)
     fun present self = (GObjectObjectClass.C.withPtr ---> I) present_ self
-    fun presentWithTime self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) presentWithTime_ (self & timestamp)
+    fun presentWithTime self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) presentWithTime_ (self & timestamp)
     fun propagateKeyEvent self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.fromVal) propagateKeyEvent_ (self & event)
     fun removeAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeAccelGroup_ (self & accelGroup)
     fun removeMnemonic self keyval target =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )

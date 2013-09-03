@@ -123,7 +123,7 @@ structure GioSocket :>
     val getProtocol_ = _import "g_socket_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketProtocol.C.val_;
     val getRemoteAddress_ = fn x1 & x2 => (_import "g_socket_get_remote_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getSocketType_ = _import "g_socket_get_socket_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketType.C.val_;
-    val getTimeout_ = _import "g_socket_get_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getTimeout_ = _import "g_socket_get_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val isClosed_ = _import "g_socket_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val isConnected_ = _import "g_socket_is_connected" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val listen_ = fn x1 & x2 => (_import "g_socket_listen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.val_;) (x1, x2)
@@ -139,7 +139,7 @@ structure GioSocket :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.val_;
@@ -166,7 +166,7 @@ structure GioSocket :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.val_;
@@ -193,7 +193,7 @@ structure GioSocket :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * FFI.Bool.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -211,7 +211,7 @@ structure GioSocket :>
     val setBlocking_ = fn x1 & x2 => (_import "g_socket_set_blocking" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setKeepalive_ = fn x1 & x2 => (_import "g_socket_set_keepalive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setListenBacklog_ = fn x1 & x2 => (_import "g_socket_set_listen_backlog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setTimeout_ = fn x1 & x2 => (_import "g_socket_set_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setTimeout_ = fn x1 & x2 => (_import "g_socket_set_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val shutdown_ =
       fn
         x1
@@ -332,7 +332,7 @@ structure GioSocket :>
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
     fun getRemoteAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getRemoteAddress_ (self & [])
     fun getSocketType self = (GObjectObjectClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
-    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getTimeout_ self
+    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getTimeout_ self
     fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
     fun isConnected self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isConnected_ self
     fun listen self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) listen_ (self & [])
@@ -340,7 +340,7 @@ structure GioSocket :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal
@@ -358,7 +358,7 @@ structure GioSocket :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal
@@ -376,7 +376,7 @@ structure GioSocket :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> FFI.Bool.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -394,7 +394,7 @@ structure GioSocket :>
     fun setBlocking self blocking = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setBlocking_ (self & blocking)
     fun setKeepalive self keepalive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setKeepalive_ (self & keepalive)
     fun setListenBacklog self backlog = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setListenBacklog_ (self & backlog)
-    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setTimeout_ (self & timeout)
     fun shutdown self shutdownRead shutdownWrite =
       (
         GObjectObjectClass.C.withPtr

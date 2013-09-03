@@ -20,10 +20,10 @@ structure GtkMenu :>
             _import "gtk_menu_attach" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -78,7 +78,7 @@ structure GtkMenu :>
               x2,
               x3
             )
-    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val setMonitor_ = fn x1 & x2 => (_import "gtk_menu_set_monitor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
     val setReserveToggleSize_ = fn x1 & x2 => (_import "gtk_menu_set_reserve_toggle_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setScreen_ = fn x1 & x2 => (_import "gtk_menu_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
@@ -111,10 +111,10 @@ structure GtkMenu :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         attach_
@@ -152,7 +152,7 @@ structure GtkMenu :>
     fun reposition self = (GObjectObjectClass.C.withPtr ---> I) reposition_ self
     fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
     fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setActive_ (self & index)
+    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setActive_ (self & index)
     fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMonitor_ (self & monitorNum)
     fun setReserveToggleSize self reserveToggleSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setScreen_ (self & screen)

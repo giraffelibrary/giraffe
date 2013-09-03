@@ -32,7 +32,7 @@ structure AtkComponent :>
              &&> AtkCoordType.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
-      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setExtents_ =
         call (load_sym libatk "atk_component_set_extents")
           (
@@ -102,7 +102,7 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents self x y width height coordType =
       (
         GObjectObjectClass.C.withPtr

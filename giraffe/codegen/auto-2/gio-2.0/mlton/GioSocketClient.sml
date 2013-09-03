@@ -77,7 +77,7 @@ structure GioSocketClient :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -163,7 +163,7 @@ structure GioSocketClient :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -198,7 +198,7 @@ structure GioSocketClient :>
     val getLocalAddress_ = _import "g_socket_client_get_local_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getProtocol_ = _import "g_socket_client_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketProtocol.C.val_;
     val getSocketType_ = _import "g_socket_client_get_socket_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketType.C.val_;
-    val getTimeout_ = _import "g_socket_client_get_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
+    val getTimeout_ = _import "g_socket_client_get_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
     val getTls_ = _import "g_socket_client_get_tls" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val getTlsValidationFlags_ = _import "g_socket_client_get_tls_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioTlsCertificateFlags.C.val_;
     val setEnableProxy_ = fn x1 & x2 => (_import "g_socket_client_set_enable_proxy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
@@ -206,7 +206,7 @@ structure GioSocketClient :>
     val setLocalAddress_ = fn x1 & x2 => (_import "g_socket_client_set_local_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setProtocol_ = fn x1 & x2 => (_import "g_socket_client_set_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioSocketProtocol.C.val_ -> unit;) (x1, x2)
     val setSocketType_ = fn x1 & x2 => (_import "g_socket_client_set_socket_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioSocketType.C.val_ -> unit;) (x1, x2)
-    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
     val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsCertificateFlags.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioSocketClientClass.t
@@ -254,7 +254,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -314,7 +314,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -345,7 +345,7 @@ structure GioSocketClient :>
     fun getLocalAddress self = (GObjectObjectClass.C.withPtr ---> GioSocketAddressClass.C.fromPtr false) getLocalAddress_ self
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
     fun getSocketType self = (GObjectObjectClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
-    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getTimeout_ self
+    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getTimeout_ self
     fun getTls self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTls_ self
     fun getTlsValidationFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getTlsValidationFlags_ self
     fun setEnableProxy self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setEnableProxy_ (self & enable)
@@ -353,7 +353,7 @@ structure GioSocketClient :>
     fun setLocalAddress self address = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLocalAddress_ (self & address)
     fun setProtocol self protocol = (GObjectObjectClass.C.withPtr &&&> GioSocketProtocol.C.withVal ---> I) setProtocol_ (self & protocol)
     fun setSocketType self type' = (GObjectObjectClass.C.withPtr &&&> GioSocketType.C.withVal ---> I) setSocketType_ (self & type')
-    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setTimeout_ (self & timeout)
     fun setTls self tls = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setTls_ (self & tls)
     fun setTlsValidationFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsCertificateFlags.C.withVal ---> I) setTlsValidationFlags_ (self & flags)
     local

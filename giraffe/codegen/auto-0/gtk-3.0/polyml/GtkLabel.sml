@@ -31,7 +31,7 @@ structure GtkLabel :>
       val getLineWrap_ = call (load_sym libgtk "gtk_label_get_line_wrap") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getLineWrapMode_ = call (load_sym libgtk "gtk_label_get_line_wrap_mode") (GObjectObjectClass.PolyML.PTR --> PangoWrapMode.PolyML.VAL)
       val getMaxWidthChars_ = call (load_sym libgtk "gtk_label_get_max_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getMnemonicWidget_ = call (load_sym libgtk "gtk_label_get_mnemonic_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSelectable_ = call (load_sym libgtk "gtk_label_get_selectable") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getSelectionBounds_ =
@@ -120,7 +120,7 @@ structure GtkLabel :>
     fun getLineWrap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getLineWrap_ self
     fun getLineWrapMode self = (GObjectObjectClass.C.withPtr ---> PangoWrapMode.C.fromVal) getLineWrapMode_ self
     fun getMaxWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMaxWidthChars_ self
-    fun getMnemonicKeyval self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getMnemonicKeyval_ self
+    fun getMnemonicKeyval self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getMnemonicKeyval_ self
     fun getMnemonicWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMnemonicWidget_ self
     fun getSelectable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSelectable_ self
     fun getSelectionBounds self =

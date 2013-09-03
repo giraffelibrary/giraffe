@@ -42,7 +42,7 @@ structure GtkWidget :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              &&> GtkAccelFlags.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -57,14 +57,14 @@ structure GtkWidget :>
           )
       val addEvents_ = call (load_sym libgtk "gtk_widget_add_events") (GObjectObjectClass.PolyML.PTR &&> GdkEventMask.PolyML.VAL --> FFI.PolyML.VOID)
       val addMnemonicLabel_ = call (load_sym libgtk "gtk_widget_add_mnemonic_label") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val canActivateAccel_ = call (load_sym libgtk "gtk_widget_can_activate_accel") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.Bool.VAL)
+      val canActivateAccel_ = call (load_sym libgtk "gtk_widget_can_activate_accel") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.Bool.VAL)
       val childFocus_ = call (load_sym libgtk "gtk_widget_child_focus") (GObjectObjectClass.PolyML.PTR &&> GtkDirectionType.PolyML.VAL --> FFI.PolyML.Bool.VAL)
       val childNotify_ = call (load_sym libgtk "gtk_widget_child_notify") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
       val classPath_ =
         call (load_sym libgtk "gtk_widget_class_path")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
              &&> FFI.PolyML.String.OUTREF
              &&> FFI.PolyML.String.OUTREF
              --> FFI.PolyML.VOID
@@ -128,7 +128,7 @@ structure GtkWidget :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val dragHighlight_ = call (load_sym libgtk "gtk_drag_highlight") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -362,7 +362,7 @@ structure GtkWidget :>
         call (load_sym libgtk "gtk_widget_path")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
              &&> FFI.PolyML.String.OUTREF
              &&> FFI.PolyML.String.OUTREF
              --> FFI.PolyML.VOID
@@ -389,7 +389,7 @@ structure GtkWidget :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.PolyML.Bool.VAL
           )
@@ -554,7 +554,7 @@ structure GtkWidget :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          ---> I
@@ -583,7 +583,7 @@ structure GtkWidget :>
         )
     fun addEvents self events = (GObjectObjectClass.C.withPtr &&&> GdkEventMask.C.withVal ---> I) addEvents_ (self & events)
     fun addMnemonicLabel self label = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addMnemonicLabel_ (self & label)
-    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> FFI.Bool.fromVal) canActivateAccel_ (self & signalId)
+    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> FFI.Bool.fromVal) canActivateAccel_ (self & signalId)
     fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.fromVal) childFocus_ (self & direction)
     fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) childNotify_ (self & childProperty)
     fun classPath self =
@@ -594,10 +594,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.String.withRefConstOptPtr
              &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.String.fromPtr true
                    && FFI.String.fromPtr true
                    && I
@@ -704,7 +704,7 @@ structure GtkWidget :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         dragGetData_
@@ -1099,10 +1099,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.String.withRefConstOptPtr
              &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.String.fromPtr true
                    && FFI.String.fromPtr true
                    && I
@@ -1149,7 +1149,7 @@ structure GtkWidget :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.fromVal
       )

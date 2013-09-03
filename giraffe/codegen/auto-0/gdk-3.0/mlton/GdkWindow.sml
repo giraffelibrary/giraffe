@@ -51,7 +51,7 @@ structure GdkWindow :>
           (
             _import "gdk_window_constrain_size" :
               GdkGeometryRecord.C.notnull GdkGeometryRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Int32.val_
                * FFI.Int32.val_
                * FFI.Int32.ref_
@@ -82,7 +82,7 @@ structure GdkWindow :>
                * FFI.Int32.val_
                * FFI.Int32.val_
                * FFI.Int32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -109,7 +109,7 @@ structure GdkWindow :>
                * FFI.Int32.val_
                * FFI.Int32.val_
                * FFI.Int32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -194,7 +194,7 @@ structure GdkWindow :>
     val endPaint_ = _import "gdk_window_end_paint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val ensureNative_ = _import "gdk_window_ensure_native" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val flush_ = _import "gdk_window_flush" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val freezeToplevelUpdatesLibgtkOnly_ = _import "gdk_window_freeze_toplevel_updates_libgtk_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val freezeUpdates_ = _import "gdk_window_freeze_updates" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val fullscreen_ = _import "gdk_window_fullscreen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -775,7 +775,7 @@ structure GdkWindow :>
          & () =
           (
             GdkGeometryRecord.C.withPtr
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> FFI.Int32.withVal
              &&&> FFI.Int32.withVal
              &&&> FFI.Int32.withRefVal
@@ -805,7 +805,7 @@ structure GdkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginMoveDrag_
@@ -825,7 +825,7 @@ structure GdkWindow :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         beginResizeDrag_
@@ -912,7 +912,7 @@ structure GdkWindow :>
     fun endPaint self = (GObjectObjectClass.C.withPtr ---> I) endPaint_ self
     fun ensureNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) ensureNative_ self
     fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
-    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) focus_ (self & timestamp)
+    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) focus_ (self & timestamp)
     fun freezeToplevelUpdatesLibgtkOnly self = (GObjectObjectClass.C.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
     fun freezeUpdates self = (GObjectObjectClass.C.withPtr ---> I) freezeUpdates_ self
     fun fullscreen self = (GObjectObjectClass.C.withPtr ---> I) fullscreen_ self

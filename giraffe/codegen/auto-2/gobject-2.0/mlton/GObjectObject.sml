@@ -58,7 +58,7 @@ structure GObjectObject :>
               x6,
               x7
             )
-    val compatControl_ = _import "g_object_compat_control" : FFI.Word64.val_ -> FFI.Word64.val_;
+    val compatControl_ = _import "g_object_compat_control" : FFI.UInt64.val_ -> FFI.UInt64.val_;
     val interfaceFindProperty_ = _import "mlton_g_object_interface_find_property" : cstring * unit CPointer.t -> GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p;
     val interfaceInstallProperty_ = _import "g_object_interface_install_property" : GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p -> unit;
     val forceFloating_ = _import "g_object_force_floating" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -99,7 +99,7 @@ structure GObjectObject :>
               x4
             )
 (*
-    val getQdata_ = fn x1 & x2 => (_import "g_object_get_qdata" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val getQdata_ = fn x1 & x2 => (_import "g_object_get_qdata" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val isFloating_ = _import "g_object_is_floating" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
     val notify_ =
       fn
@@ -169,7 +169,7 @@ structure GObjectObject :>
               x2,
               x3
             )
-    val stealQdata_ = fn x1 & x2 => (_import "g_object_steal_qdata" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val stealQdata_ = fn x1 & x2 => (_import "g_object_steal_qdata" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val thawNotify_ = _import "g_object_thaw_notify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p -> unit;) (x1, x2)
 *)
@@ -212,7 +212,7 @@ structure GObjectObject :>
            & transformTo
            & transformFrom
         )
-    fun compatControl what = (FFI.Word64.withVal ---> FFI.Word64.fromVal) compatControl_ what
+    fun compatControl what = (FFI.UInt64.withVal ---> FFI.UInt64.fromVal) compatControl_ what
     fun interfaceFindProperty propertyName = (FFI.String.withConstPtr ---> GObjectParamSpecClass.C.fromPtr false) interfaceFindProperty_ propertyName
     fun interfaceInstallProperty pspec = (GObjectParamSpecClass.C.withPtr ---> I) interfaceInstallProperty_ pspec
     fun forceFloating self = (GObjectObjectClass.C.withPtr ---> I) forceFloating_ self
@@ -233,7 +233,7 @@ structure GObjectObject :>
            & value
         )
 (*
-    fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) getQdata_ (self & quark)
+    fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) getQdata_ (self & quark)
     fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFloating_ self
     fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
@@ -255,7 +255,7 @@ structure GObjectObject :>
         )
 (*
     fun stealData self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) stealData_ (self & key)
-    fun stealQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) stealQdata_ (self & quark)
+    fun stealQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) stealQdata_ (self & quark)
     fun thawNotify self = (GObjectObjectClass.C.withPtr ---> I) thawNotify_ self
     fun watchClosure self closure = (GObjectObjectClass.C.withPtr &&&> GObjectClosureRecord.C.withPtr ---> I) watchClosure_ (self & closure)
     local

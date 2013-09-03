@@ -191,7 +191,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Word64.val_;
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -252,7 +252,7 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.val_;
@@ -452,7 +452,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * FFI.Bool.val_
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -532,7 +532,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * FFI.Double.val_
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -607,7 +607,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * FFI.Int32.val_
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -619,7 +619,7 @@ structure GLibKeyFile :>
               x6,
               x7
             )
-    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p * FFI.Word8.val_ -> unit;) (x1, x2)
+    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p * FFI.UInt8.val_ -> unit;) (x1, x2)
     val setLocaleString_ =
       fn
         x1
@@ -670,7 +670,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -724,7 +724,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> unit;
           )
             (
@@ -877,7 +877,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word64.fromVal
+         ---> FFI.UInt64.fromVal
       )
         getUint64_
         (
@@ -906,7 +906,7 @@ structure GLibKeyFile :>
       (
         GLibKeyFileRecord.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.fromVal
@@ -1034,7 +1034,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setBooleanList_
@@ -1083,7 +1083,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.Double.withVal
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setDoubleList_
@@ -1130,7 +1130,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setIntegerList_
@@ -1141,7 +1141,7 @@ structure GLibKeyFile :>
            & list
            & length
         )
-    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.Word8.withVal ---> I) setListSeparator_ (self & separator)
+    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.UInt8.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString self groupName key locale string =
       (
         GLibKeyFileRecord.C.withPtr
@@ -1166,7 +1166,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setLocaleStringList_
@@ -1198,7 +1198,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setUint64_

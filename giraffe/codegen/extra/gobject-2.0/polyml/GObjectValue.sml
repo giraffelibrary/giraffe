@@ -146,17 +146,17 @@ local
     val get_uint_ =
       call
         (load_sym libgobject "g_value_get_uint")
-        (GET FFI.PolyML.Word32.VAL);
+        (GET FFI.PolyML.UInt32.VAL);
 
     val get_long_ =
       call
         (load_sym libgobject "g_value_get_long")
-        (GET FFI.PolyML.LongInt.VAL);
+        (GET FFI.PolyML.Long.VAL);
 
     val get_ulong_ =
       call
         (load_sym libgobject "g_value_get_ulong")
-        (GET FFI.PolyML.LongWord.VAL);
+        (GET FFI.PolyML.ULong.VAL);
 
     val get_int64_ =
       call
@@ -166,7 +166,7 @@ local
     val get_uint64_ =
       call
         (load_sym libgobject "g_value_get_uint64")
-        (GET FFI.PolyML.Word64.VAL);
+        (GET FFI.PolyML.UInt64.VAL);
 
     val get_float_ =
       call
@@ -209,17 +209,17 @@ local
     val set_uint_ =
       call
         (load_sym libgobject "g_value_set_uint")
-        (SET FFI.PolyML.Word32.VAL);
+        (SET FFI.PolyML.UInt32.VAL);
 
     val set_long_ =
       call
         (load_sym libgobject "g_value_set_long")
-        (SET FFI.PolyML.LongInt.VAL);
+        (SET FFI.PolyML.Long.VAL);
 
     val set_ulong_ =
       call
         (load_sym libgobject "g_value_set_ulong")
-        (SET FFI.PolyML.LongWord.VAL);
+        (SET FFI.PolyML.ULong.VAL);
 
     val set_int64_ =
       call
@@ -229,7 +229,7 @@ local
     val set_uint64_ =
       call
         (load_sym libgobject "g_value_set_uint64")
-        (SET FFI.PolyML.Word64.VAL);
+        (SET FFI.PolyML.UInt64.VAL);
 
     val set_float_ =
       call
@@ -274,8 +274,8 @@ in
   val uint : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.uint,
-      getValue = (I ---> FFI.Word.fromVal) get_uint_,
-      setValue = (I &&&> FFI.Word.withVal ---> I) set_uint_
+      getValue = (I ---> FFI.UInt.fromVal) get_uint_,
+      setValue = (I &&&> FFI.UInt.withVal ---> I) set_uint_
     }
 
   (* temporary *)
@@ -285,15 +285,15 @@ in
   val long : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.long,
-      getValue = (I ---> FFI.LongInt.fromVal) get_long_,
-      setValue = (I &&&> FFI.LongInt.withVal ---> I) set_long_
+      getValue = (I ---> FFI.Long.fromVal) get_long_,
+      setValue = (I &&&> FFI.Long.withVal ---> I) set_long_
     }
 
   val ulong : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.ulong,
-      getValue = (I ---> FFI.LongWord.fromVal) get_ulong_,
-      setValue = (I &&&> FFI.LongWord.withVal ---> I) set_ulong_
+      getValue = (I ---> FFI.ULong.fromVal) get_ulong_,
+      setValue = (I &&&> FFI.ULong.withVal ---> I) set_ulong_
     }
 
   val int64 : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
@@ -306,8 +306,8 @@ in
   val uint64 : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.uint64,
-      getValue = (I ---> FFI.Word64.fromVal) get_uint64_,
-      setValue = (I &&&> FFI.Word64.withVal ---> I) set_uint64_
+      getValue = (I ---> FFI.UInt64.fromVal) get_uint64_,
+      setValue = (I &&&> FFI.UInt64.withVal ---> I) set_uint64_
     }
 
   val float : (real, real) GObjectValue.accessor =

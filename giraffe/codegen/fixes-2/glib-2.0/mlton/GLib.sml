@@ -7,9 +7,9 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "glib_check_version" :
-              FFI.Word.val_
-               * FFI.Word.val_
-               * FFI.Word.val_
+              FFI.UInt.val_
+               * FFI.UInt.val_
+               * FFI.UInt.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -27,7 +27,7 @@ structure GLib : G_LIB =
               FFI.Int.val_
                * Pid.C.val_
                * GLibChildWatchFunc.C.callback
-               -> FFI.Word.val_;
+               -> FFI.UInt.val_;
           )
             (
               x1,
@@ -77,7 +77,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val idleAdd_ = fn x1 & x2 => (_import "giraffe_g_idle_add" : FFI.Int.val_ * GLibSourceFunc.C.callback -> FFI.Word.val_;) (x1, x2)
+    val idleAdd_ = fn x1 & x2 => (_import "giraffe_g_idle_add" : FFI.Int.val_ * GLibSourceFunc.C.callback -> FFI.UInt.val_;) (x1, x2)
     val ioAddWatch_ =
       fn
         x1
@@ -90,7 +90,7 @@ structure GLib : G_LIB =
                * FFI.Int.val_
                * GLibIOCondition.C.val_
                * GLibIOFunc.C.callback
-               -> FFI.Word.val_;
+               -> FFI.UInt.val_;
           )
             (
               x1,
@@ -127,7 +127,7 @@ structure GLib : G_LIB =
             _import "mlton_g_log_remove_handler" :
               cstring
                * unit CPointer.t
-               * FFI.Word.val_
+               * FFI.UInt.val_
                -> unit;
           )
             (
@@ -218,7 +218,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val sourceRemove_ = _import "g_source_remove" : FFI.Word.val_ -> FFI.Bool.val_;
+    val sourceRemove_ = _import "g_source_remove" : FFI.UInt.val_ -> FFI.Bool.val_;
     val spawnAsyncWithPipes_ =
       fn
         (x1, x2)
@@ -286,9 +286,9 @@ structure GLib : G_LIB =
           (
             _import "giraffe_g_timeout_add" :
               FFI.Int.val_
-               * FFI.Word.val_
+               * FFI.UInt.val_
                * GLibSourceFunc.C.callback
-               -> FFI.Word.val_;
+               -> FFI.UInt.val_;
           )
             (
               x1,
@@ -303,9 +303,9 @@ structure GLib : G_LIB =
           (
             _import "giraffe_g_timeout_add_seconds" :
               FFI.Int.val_
-               * FFI.Word.val_
+               * FFI.UInt.val_
                * GLibSourceFunc.C.callback
-               -> FFI.Word.val_;
+               -> FFI.UInt.val_;
           )
             (
               x1,
@@ -451,9 +451,9 @@ structure GLib : G_LIB =
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;="
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Word.withVal
-         &&&> FFI.Word.withVal
-         &&&> FFI.Word.withVal
+        FFI.UInt.withVal
+         &&&> FFI.UInt.withVal
+         &&&> FFI.UInt.withVal
          ---> FFI.String.fromPtr false
       )
         checkVersion_
@@ -467,7 +467,7 @@ structure GLib : G_LIB =
         FFI.Int.withVal
          &&&> Pid.C.withVal
          &&&> GLibChildWatchFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         childWatchAdd_
         (
@@ -502,14 +502,14 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun idleAdd priority function = (FFI.Int.withVal &&&> GLibSourceFunc.C.withCallback ---> FFI.Word.fromVal) idleAdd_ (priority & function)
+    fun idleAdd priority function = (FFI.Int.withVal &&&> GLibSourceFunc.C.withCallback ---> FFI.UInt.fromVal) idleAdd_ (priority & function)
     fun ioAddWatch channel priority condition func =
       (
         GLibIOChannelRecord.C.withPtr
          &&&> FFI.Int.withVal
          &&&> GLibIOCondition.C.withVal
          &&&> GLibIOFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         ioAddWatch_
         (
@@ -532,7 +532,7 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.Word.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.UInt.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask logDomain fatalMask = (FFI.String.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
@@ -576,7 +576,7 @@ structure GLib : G_LIB =
       end
     fun shellQuote unquotedString = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) shellQuote_ unquotedString
     fun shellUnquote quotedString = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sourceRemove tag = (FFI.Word.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
+    fun sourceRemove tag = (FFI.UInt.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
       let
         val
@@ -623,9 +623,9 @@ structure GLib : G_LIB =
     fun timeoutAdd priority interval function =
       (
         FFI.Int.withVal
-         &&&> FFI.Word.withVal
+         &&&> FFI.UInt.withVal
          &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         timeoutAdd_
         (
@@ -636,9 +636,9 @@ structure GLib : G_LIB =
     fun timeoutAddSeconds priority interval function =
       (
         FFI.Int.withVal
-         &&&> FFI.Word.withVal
+         &&&> FFI.UInt.withVal
          &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.Word.fromVal
+         ---> FFI.UInt.fromVal
       )
         timeoutAddSeconds_
         (

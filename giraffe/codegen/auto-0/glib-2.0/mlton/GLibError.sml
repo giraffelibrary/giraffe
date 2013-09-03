@@ -11,7 +11,7 @@ structure GLibError :>
           (
             _import "g_error_matches" :
               GLibErrorRecord.C.notnull GLibErrorRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Int32.val_
                -> FFI.Bool.val_;
           )
@@ -25,7 +25,7 @@ structure GLibError :>
     fun matches self domain code =
       (
         GLibErrorRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Int32.withVal
          ---> FFI.Bool.fromVal
       )

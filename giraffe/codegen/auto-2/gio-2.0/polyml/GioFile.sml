@@ -24,7 +24,7 @@ structure GioFile :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val hash_ = call (load_sym libgio "g_file_hash") (FFI.PolyML.VOID --> FFI.PolyML.Word32.VAL)
+      val hash_ = call (load_sym libgio "g_file_hash") (FFI.PolyML.VOID --> FFI.PolyML.UInt32.VAL)
       val newForCommandlineArg_ = call (load_sym libgio "g_file_new_for_commandline_arg") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newForPath_ = call (load_sym libgio "g_file_new_for_path") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newForUri_ = call (load_sym libgio "g_file_new_for_uri") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
@@ -455,7 +455,7 @@ structure GioFile :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -466,7 +466,7 @@ structure GioFile :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -562,7 +562,7 @@ structure GioFile :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun hash () = (I ---> FFI.Word32.fromVal) hash_ ()
+    fun hash () = (I ---> FFI.UInt32.fromVal) hash_ ()
     fun newForCommandlineArg arg = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
     fun newForPath path = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
     fun newForUri uri = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
@@ -1263,7 +1263,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1282,7 +1282,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError

@@ -23,7 +23,7 @@ structure GLibMainContext :>
           )
       val dispatch_ = call (load_sym libglib "g_main_context_dispatch") (GLibMainContextRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val findSourceByFuncsUserData_ = call (load_sym libglib "g_main_context_find_source_by_funcs_user_data") (GLibMainContextRecord.PolyML.PTR &&> GLibSourceFuncsRecord.PolyML.PTR --> GLibSourceRecord.PolyML.PTR)
-      val findSourceById_ = call (load_sym libglib "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> GLibSourceRecord.PolyML.PTR)
+      val findSourceById_ = call (load_sym libglib "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> GLibSourceRecord.PolyML.PTR)
       val findSourceByUserData_ = call (load_sym libglib "g_main_context_find_source_by_user_data") (GLibMainContextRecord.PolyML.PTR --> GLibSourceRecord.PolyML.PTR)
       val isOwner_ = call (load_sym libglib "g_main_context_is_owner") (GLibMainContextRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val iteration_ = call (load_sym libglib "g_main_context_iteration") (GLibMainContextRecord.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.Bool.VAL)
@@ -68,7 +68,7 @@ structure GLibMainContext :>
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
     fun findSourceByFuncsUserData self funcs = (GLibMainContextRecord.C.withPtr &&&> GLibSourceFuncsRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByFuncsUserData_ (self & funcs)
-    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.Word32.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
     fun findSourceByUserData self = (GLibMainContextRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByUserData_ self
     fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.withVal ---> FFI.Bool.fromVal) iteration_ (self & mayBlock)

@@ -39,7 +39,7 @@ structure PangoFontDescription :>
     val getStyle_ = _import "pango_font_description_get_style" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoStyle.C.val_;
     val getVariant_ = _import "pango_font_description_get_variant" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoVariant.C.val_;
     val getWeight_ = _import "pango_font_description_get_weight" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoWeight.C.val_;
-    val hash_ = _import "pango_font_description_hash" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.Word32.val_;
+    val hash_ = _import "pango_font_description_hash" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.UInt32.val_;
     val merge_ =
       fn
         x1
@@ -149,7 +149,7 @@ structure PangoFontDescription :>
     fun getStyle self = (PangoFontDescriptionRecord.C.withPtr ---> PangoStyle.C.fromVal) getStyle_ self
     fun getVariant self = (PangoFontDescriptionRecord.C.withPtr ---> PangoVariant.C.fromVal) getVariant_ self
     fun getWeight self = (PangoFontDescriptionRecord.C.withPtr ---> PangoWeight.C.fromVal) getWeight_ self
-    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.Word32.fromVal) hash_ self
+    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.UInt32.fromVal) hash_ self
     fun merge self descToMerge replaceExisting =
       (
         PangoFontDescriptionRecord.C.withPtr

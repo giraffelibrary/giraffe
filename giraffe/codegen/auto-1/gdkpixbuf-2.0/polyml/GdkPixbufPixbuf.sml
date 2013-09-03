@@ -67,9 +67,9 @@ structure GdkPixbufPixbuf :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Word8.VAL
-             &&> FFI.PolyML.Word8.VAL
-             &&> FFI.PolyML.Word8.VAL
+             &&> FFI.PolyML.UInt8.VAL
+             &&> FFI.PolyML.UInt8.VAL
+             &&> FFI.PolyML.UInt8.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val applyEmbeddedOrientation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_apply_embedded_orientation") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -108,8 +108,8 @@ structure GdkPixbufPixbuf :>
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val compositeColorSimple_ =
@@ -121,8 +121,8 @@ structure GdkPixbufPixbuf :>
              &&> GdkPixbufInterpType.PolyML.VAL
              &&> FFI.PolyML.Int32.VAL
              &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -139,7 +139,7 @@ structure GdkPixbufPixbuf :>
              &&> FFI.PolyML.Int32.VAL
              --> FFI.PolyML.VOID
           )
-      val fill_ = call (load_sym libgdkpixbuf "gdk_pixbuf_fill") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val fill_ = call (load_sym libgdkpixbuf "gdk_pixbuf_fill") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val flip_ = call (load_sym libgdkpixbuf "gdk_pixbuf_flip") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> GObjectObjectClass.PolyML.PTR)
       val getBitsPerSample_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_bits_per_sample") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
       val getColorspace_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_colorspace") (GObjectObjectClass.PolyML.PTR --> GdkPixbufColorspace.PolyML.VAL)
@@ -291,9 +291,9 @@ structure GdkPixbufPixbuf :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.withVal
-         &&&> FFI.Word8.withVal
-         &&&> FFI.Word8.withVal
-         &&&> FFI.Word8.withVal
+         &&&> FFI.UInt8.withVal
+         &&&> FFI.UInt8.withVal
+         &&&> FFI.UInt8.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         addAlpha_
@@ -353,8 +353,8 @@ structure GdkPixbufPixbuf :>
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         compositeColor_
@@ -385,8 +385,8 @@ structure GdkPixbufPixbuf :>
          &&&> GdkPixbufInterpType.C.withVal
          &&&> FFI.Int32.withVal
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         compositeColorSimple_
@@ -424,7 +424,7 @@ structure GdkPixbufPixbuf :>
            & destX
            & destY
         )
-    fun fill self pixel = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) fill_ (self & pixel)
+    fun fill self pixel = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) fill_ (self & pixel)
     fun flip self horizontal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> GdkPixbufPixbufClass.C.fromPtr true) flip_ (self & horizontal)
     fun getBitsPerSample self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getBitsPerSample_ self
     fun getColorspace self = (GObjectObjectClass.C.withPtr ---> GdkPixbufColorspace.C.fromVal) getColorspace_ self

@@ -8,12 +8,12 @@ structure GtkColorButton :>
     val new_ = _import "gtk_color_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithColor_ = _import "gtk_color_button_new_with_color" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithRgba_ = _import "gtk_color_button_new_with_rgba" : GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAlpha_ = _import "gtk_color_button_get_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word16.val_;
+    val getAlpha_ = _import "gtk_color_button_get_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.val_;
     val getColor_ = fn x1 & x2 => (_import "gtk_color_button_get_color" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
     val getRgba_ = fn x1 & x2 => (_import "gtk_color_button_get_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
     val getTitle_ = _import "gtk_color_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getUseAlpha_ = _import "gtk_color_button_get_use_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val setAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word16.val_ -> unit;) (x1, x2)
+    val setAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt16.val_ -> unit;) (x1, x2)
     val setColor_ = fn x1 & x2 => (_import "gtk_color_button_set_color" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
     val setRgba_ = fn x1 & x2 => (_import "gtk_color_button_set_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
     val setTitle_ =
@@ -42,7 +42,7 @@ structure GtkColorButton :>
     fun new () = (I ---> GtkColorButtonClass.C.fromPtr false) new_ ()
     fun newWithColor color = (GdkColorRecord.C.withPtr ---> GtkColorButtonClass.C.fromPtr false) newWithColor_ color
     fun newWithRgba rgba = (GdkRgbaRecord.C.withPtr ---> GtkColorButtonClass.C.fromPtr false) newWithRgba_ rgba
-    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getAlpha_ self
+    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getAlpha_ self
     fun getColor self =
       let
         val color & () = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && I) getColor_ (self & ())
@@ -57,7 +57,7 @@ structure GtkColorButton :>
       end
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTitle_ self
     fun getUseAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUseAlpha_ self
-    fun setAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.Word16.withVal ---> I) setAlpha_ (self & alpha)
+    fun setAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.withVal ---> I) setAlpha_ (self & alpha)
     fun setColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColor_ (self & color)
     fun setRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setRgba_ (self & rgba)
     fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)

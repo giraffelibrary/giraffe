@@ -16,7 +16,7 @@ structure GtkWidgetPath :>
             _import "gtk_widget_path_append_with_siblings" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Int32.val_;
           )
             (
@@ -69,7 +69,7 @@ structure GtkWidgetPath :>
     val iterClearClasses_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_classes" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
     val iterClearRegions_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_regions" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
     val iterGetName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_name" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
-    val iterGetSiblingIndex_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_sibling_index" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> FFI.Word32.val_;) (x1, x2)
+    val iterGetSiblingIndex_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_sibling_index" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> FFI.UInt32.val_;) (x1, x2)
     val iterGetSiblings_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_siblings" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p * FFI.Int32.val_ -> GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p;) (x1, x2)
     val iterHasClass_ =
       fn
@@ -118,7 +118,7 @@ structure GtkWidgetPath :>
             _import "gtk_widget_path_iter_has_qclass" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Bool.val_;
           )
             (
@@ -135,7 +135,7 @@ structure GtkWidgetPath :>
             _import "gtk_widget_path_iter_has_qname" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Bool.val_;
           )
             (
@@ -153,7 +153,7 @@ structure GtkWidgetPath :>
             _import "gtk_widget_path_iter_has_qregion" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.val_;
           )
@@ -254,7 +254,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> GtkWidgetPathRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Int32.fromVal
       )
         appendWithSiblings_
@@ -295,7 +295,7 @@ structure GtkWidgetPath :>
     fun iterClearClasses self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> I) iterClearClasses_ (self & pos)
     fun iterClearRegions self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> I) iterClearRegions_ (self & pos)
     fun iterGetName self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> FFI.String.fromPtr false) iterGetName_ (self & pos)
-    fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Word32.fromVal) iterGetSiblingIndex_ (self & pos)
+    fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> FFI.UInt32.fromVal) iterGetSiblingIndex_ (self & pos)
     fun iterGetSiblings self pos = (GtkWidgetPathRecord.C.withPtr &&&> FFI.Int32.withVal ---> GtkWidgetPathRecord.C.fromPtr false) iterGetSiblings_ (self & pos)
     fun iterHasClass self pos name =
       (
@@ -327,7 +327,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         iterHasQclass_
@@ -340,7 +340,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         iterHasQname_
@@ -355,7 +355,7 @@ structure GtkWidgetPath :>
           (
             GtkWidgetPathRecord.C.withPtr
              &&&> FFI.Int32.withVal
-             &&&> FFI.Word32.withVal
+             &&&> FFI.UInt32.withVal
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.fromVal
           )

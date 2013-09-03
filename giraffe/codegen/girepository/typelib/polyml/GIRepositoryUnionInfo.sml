@@ -63,12 +63,12 @@ structure GIRepositoryUnionInfo :>
       val getSize_ =
         call
           (load_sym libgirepository "g_union_info_get_size")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.ULong.VAL);
 
       val getAlignment_ =
         call
           (load_sym libgirepository "g_union_info_get_alignment")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.LongWord.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.ULong.VAL);
     end
 
 

@@ -39,7 +39,7 @@ structure GtkRecentInfo :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t ref
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * FFI.Int64.ref_
                -> FFI.Bool.val_;
           )
@@ -124,10 +124,10 @@ structure GtkRecentInfo :>
             GtkRecentInfoRecord.C.withPtr
              &&&> FFI.String.withConstPtr
              &&&> FFI.String.withRefConstOptPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int64.withRefVal
              ---> FFI.String.fromPtr false
-                   && FFI.Word32.fromVal
+                   && FFI.UInt32.fromVal
                    && FFI.Int64.fromVal
                    && FFI.Bool.fromVal
           )

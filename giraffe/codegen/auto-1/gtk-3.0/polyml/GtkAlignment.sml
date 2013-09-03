@@ -20,10 +20,10 @@ structure GtkAlignment :>
         call (load_sym libgtk "gtk_alignment_get_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
              --> FFI.PolyML.VOID
           )
       val set_ =
@@ -40,10 +40,10 @@ structure GtkAlignment :>
         call (load_sym libgtk "gtk_alignment_set_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -76,14 +76,14 @@ structure GtkAlignment :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             getPadding_
@@ -122,10 +122,10 @@ structure GtkAlignment :>
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setPadding_

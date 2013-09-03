@@ -13,7 +13,7 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_add_entry" :
               cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                -> unit;
           )
@@ -34,7 +34,7 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_change_entry" :
               cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * GdkModifierType.C.val_
                * FFI.Bool.val_
                -> FFI.Bool.val_;
@@ -74,7 +74,7 @@ structure GtkAccelMap :>
     fun addEntry accelPath accelKey accelMods =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
       )
@@ -88,7 +88,7 @@ structure GtkAccelMap :>
     fun changeEntry accelPath accelKey accelMods replace =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GdkModifierType.C.withVal
          &&&> FFI.Bool.withVal
          ---> FFI.Bool.fromVal

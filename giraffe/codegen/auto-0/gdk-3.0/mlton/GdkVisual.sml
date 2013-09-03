@@ -23,7 +23,7 @@ structure GdkVisual :>
           (
             _import "gdk_visual_get_blue_pixel_details" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * FFI.Int32.ref_
                * FFI.Int32.ref_
                -> unit;
@@ -46,7 +46,7 @@ structure GdkVisual :>
           (
             _import "gdk_visual_get_green_pixel_details" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * FFI.Int32.ref_
                * FFI.Int32.ref_
                -> unit;
@@ -66,7 +66,7 @@ structure GdkVisual :>
           (
             _import "gdk_visual_get_red_pixel_details" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
                * FFI.Int32.ref_
                * FFI.Int32.ref_
                -> unit;
@@ -100,10 +100,10 @@ structure GdkVisual :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int32.withRefVal
              &&&> FFI.Int32.withRefVal
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.Int32.fromVal
                    && FFI.Int32.fromVal
                    && I
@@ -133,10 +133,10 @@ structure GdkVisual :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int32.withRefVal
              &&&> FFI.Int32.withRefVal
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.Int32.fromVal
                    && FFI.Int32.fromVal
                    && I
@@ -163,10 +163,10 @@ structure GdkVisual :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int32.withRefVal
              &&&> FFI.Int32.withRefVal
-             ---> FFI.Word32.fromVal
+             ---> FFI.UInt32.fromVal
                    && FFI.Int32.fromVal
                    && FFI.Int32.fromVal
                    && I

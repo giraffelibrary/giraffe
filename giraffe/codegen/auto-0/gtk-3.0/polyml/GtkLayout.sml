@@ -16,8 +16,8 @@ structure GtkLayout :>
         call (load_sym libgtk "gtk_layout_get_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.REF
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.PolyML.UInt32.REF
              --> FFI.PolyML.VOID
           )
       val move_ =
@@ -42,8 +42,8 @@ structure GtkLayout :>
         call (load_sym libgtk "gtk_layout_set_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -65,10 +65,10 @@ structure GtkLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             getSize_
@@ -113,8 +113,8 @@ structure GtkLayout :>
     fun setSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setSize_

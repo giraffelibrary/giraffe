@@ -130,7 +130,7 @@ structure GioSocketListener :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Word16.val_;
+               -> FFI.UInt16.val_;
           )
             (
               x1,
@@ -146,7 +146,7 @@ structure GioSocketListener :>
           (
             _import "g_socket_listener_add_inet_port" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.val_;
@@ -300,7 +300,7 @@ structure GioSocketListener :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word16.fromVal
+         ---> FFI.UInt16.fromVal
       )
         addAnyInetPort_
         (
@@ -311,7 +311,7 @@ structure GioSocketListener :>
     fun addInetPort self port sourceObject =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.fromVal

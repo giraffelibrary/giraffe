@@ -23,7 +23,7 @@ structure GtkRecentInfo :>
             GtkRecentInfoRecord.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
              &&> FFI.PolyML.String.OUTREF
-             &&> FFI.PolyML.Word32.REF
+             &&> FFI.PolyML.UInt32.REF
              &&> FFI.PolyML.Int64.REF
              --> FFI.PolyML.Bool.VAL
           )
@@ -72,10 +72,10 @@ structure GtkRecentInfo :>
             GtkRecentInfoRecord.C.withPtr
              &&&> FFI.String.withConstPtr
              &&&> FFI.String.withRefConstOptPtr
-             &&&> FFI.Word32.withRefVal
+             &&&> FFI.UInt32.withRefVal
              &&&> FFI.Int64.withRefVal
              ---> FFI.String.fromPtr false
-                   && FFI.Word32.fromVal
+                   && FFI.UInt32.fromVal
                    && FFI.Int64.fromVal
                    && FFI.Bool.fromVal
           )

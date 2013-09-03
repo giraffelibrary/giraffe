@@ -34,10 +34,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.ref_
-               * FFI.Word32.ref_
-               * FFI.Word32.ref_
-               * FFI.Word32.ref_
+               * FFI.UInt32.ref_
+               * FFI.UInt32.ref_
+               * FFI.UInt32.ref_
+               * FFI.UInt32.ref_
                -> unit;
           )
             (
@@ -80,10 +80,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -122,14 +122,14 @@ structure GtkAlignment :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             &&&> FFI.Word32.withRefVal
-             ---> FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
-                   && FFI.Word32.fromVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.withRefVal
+             ---> FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
+                   && FFI.UInt32.fromVal
                    && I
           )
             getPadding_
@@ -168,10 +168,10 @@ structure GtkAlignment :>
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setPadding_

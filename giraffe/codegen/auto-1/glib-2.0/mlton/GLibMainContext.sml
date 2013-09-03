@@ -29,7 +29,7 @@ structure GLibMainContext :>
             )
     val dispatch_ = _import "g_main_context_dispatch" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
     val findSourceByFuncsUserData_ = fn x1 & x2 => (_import "g_main_context_find_source_by_funcs_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * GLibSourceFuncsRecord.C.notnull GLibSourceFuncsRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
-    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Word32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
+    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
     val findSourceByUserData_ = _import "g_main_context_find_source_by_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
     val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.val_;
     val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Bool.val_ -> FFI.Bool.val_;) (x1, x2)
@@ -82,7 +82,7 @@ structure GLibMainContext :>
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
     fun findSourceByFuncsUserData self funcs = (GLibMainContextRecord.C.withPtr &&&> GLibSourceFuncsRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByFuncsUserData_ (self & funcs)
-    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.Word32.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
     fun findSourceByUserData self = (GLibMainContextRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByUserData_ self
     fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.withVal ---> FFI.Bool.fromVal) iteration_ (self & mayBlock)

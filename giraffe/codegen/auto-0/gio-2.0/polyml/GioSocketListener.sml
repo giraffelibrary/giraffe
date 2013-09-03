@@ -68,13 +68,13 @@ structure GioSocketListener :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Word16.VAL
+             --> FFI.PolyML.UInt16.VAL
           )
       val addInetPort_ =
         call (load_sym libgio "g_socket_listener_add_inet_port")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word16.VAL
+             &&> FFI.PolyML.UInt16.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.Bool.VAL
@@ -212,7 +212,7 @@ structure GioSocketListener :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word16.fromVal
+         ---> FFI.UInt16.fromVal
       )
         addAnyInetPort_
         (
@@ -223,7 +223,7 @@ structure GioSocketListener :>
     fun addInetPort self port sourceObject =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.fromVal

@@ -15,7 +15,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val asciiDigitValue_ = _import "g_ascii_digit_value" : FFI.Word8.val_ -> FFI.Int32.val_;
+    val asciiDigitValue_ = _import "g_ascii_digit_value" : FFI.UInt8.val_ -> FFI.Int32.val_;
     val asciiDtostr_ =
       fn
         (x1, x2)
@@ -102,7 +102,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> FFI.Int32.val_;
           )
             (
@@ -140,7 +140,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Int64.val_;
           )
             (
@@ -161,8 +161,8 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
-               -> FFI.Word64.val_;
+               * FFI.UInt32.val_
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -186,9 +186,9 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val asciiTolower_ = _import "g_ascii_tolower" : FFI.Word8.val_ -> FFI.Word8.val_;
-    val asciiToupper_ = _import "g_ascii_toupper" : FFI.Word8.val_ -> FFI.Word8.val_;
-    val asciiXdigitValue_ = _import "g_ascii_xdigit_value" : FFI.Word8.val_ -> FFI.Int32.val_;
+    val asciiTolower_ = _import "g_ascii_tolower" : FFI.UInt8.val_ -> FFI.UInt8.val_;
+    val asciiToupper_ = _import "g_ascii_toupper" : FFI.UInt8.val_ -> FFI.UInt8.val_;
+    val asciiXdigitValue_ = _import "g_ascii_xdigit_value" : FFI.UInt8.val_ -> FFI.Int32.val_;
     val assertWarning_ =
       fn
         (x1, x2)
@@ -329,17 +329,17 @@ structure GLib : G_LIB =
               x9
             )
     val atomicPointerAdd_ = _import "g_atomic_pointer_add" : FFI.Int64.val_ -> FFI.Int64.val_;
-    val atomicPointerAnd_ = _import "g_atomic_pointer_and" : FFI.Word64.val_ -> FFI.Word64.val_;
+    val atomicPointerAnd_ = _import "g_atomic_pointer_and" : FFI.UInt64.val_ -> FFI.UInt64.val_;
     val atomicPointerCompareAndExchange_ = _import "g_atomic_pointer_compare_and_exchange" : unit -> FFI.Bool.val_;
-    val atomicPointerOr_ = _import "g_atomic_pointer_or" : FFI.Word64.val_ -> FFI.Word64.val_;
+    val atomicPointerOr_ = _import "g_atomic_pointer_or" : FFI.UInt64.val_ -> FFI.UInt64.val_;
     val atomicPointerSet_ = _import "g_atomic_pointer_set" : unit -> unit;
-    val atomicPointerXor_ = _import "g_atomic_pointer_xor" : FFI.Word64.val_ -> FFI.Word64.val_;
+    val atomicPointerXor_ = _import "g_atomic_pointer_xor" : FFI.UInt64.val_ -> FFI.UInt64.val_;
     val basename_ = _import "mlton_g_basename" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
-    val bitNthLsf_ = fn x1 & x2 => (_import "g_bit_nth_lsf" : FFI.Word64.val_ * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
-    val bitNthMsf_ = fn x1 & x2 => (_import "g_bit_nth_msf" : FFI.Word64.val_ * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
-    val bitStorage_ = _import "g_bit_storage" : FFI.Word64.val_ -> FFI.Word32.val_;
+    val bitNthLsf_ = fn x1 & x2 => (_import "g_bit_nth_lsf" : FFI.UInt64.val_ * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
+    val bitNthMsf_ = fn x1 & x2 => (_import "g_bit_nth_msf" : FFI.UInt64.val_ * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
+    val bitStorage_ = _import "g_bit_storage" : FFI.UInt64.val_ -> FFI.UInt32.val_;
     val blowChunks_ = _import "g_blow_chunks" : unit -> unit;
-    val bookmarkFileErrorQuark_ = _import "g_bookmark_file_error_quark" : unit -> FFI.Word32.val_;
+    val bookmarkFileErrorQuark_ = _import "g_bookmark_file_error_quark" : unit -> FFI.UInt32.val_;
     val chdir_ = _import "mlton_g_chdir" : cstring * unit CPointer.t -> FFI.Int32.val_;
     val checkVersion_ =
       fn
@@ -348,9 +348,9 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "glib_check_version" :
-              FFI.Word32.val_
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+              FFI.UInt32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -398,8 +398,8 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.ref_
-               * FFI.Word64.ref_
+               * FFI.UInt64.ref_
+               * FFI.UInt64.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.notnull FFI.String.out_p;
           )
@@ -415,17 +415,17 @@ structure GLib : G_LIB =
               x9,
               x10
             )
-    val convertErrorQuark_ = _import "g_convert_error_quark" : unit -> FFI.Word32.val_;
+    val convertErrorQuark_ = _import "g_convert_error_quark" : unit -> FFI.UInt32.val_;
     val datalistClear_ = _import "g_datalist_clear" : GLibDataRecord.C.notnull GLibDataRecord.C.p -> unit;
-    val datalistGetFlags_ = _import "g_datalist_get_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p -> FFI.Word32.val_;
+    val datalistGetFlags_ = _import "g_datalist_get_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p -> FFI.UInt32.val_;
     val datalistInit_ = _import "g_datalist_init" : GLibDataRecord.C.notnull GLibDataRecord.C.p -> unit;
-    val datalistSetFlags_ = fn x1 & x2 => (_import "g_datalist_set_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
-    val datalistUnsetFlags_ = fn x1 & x2 => (_import "g_datalist_unset_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val datalistSetFlags_ = fn x1 & x2 => (_import "g_datalist_set_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val datalistUnsetFlags_ = fn x1 & x2 => (_import "g_datalist_unset_flags" : GLibDataRecord.C.notnull GLibDataRecord.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val datasetDestroy_ = _import "g_dataset_destroy" : unit -> unit;
-    val dateGetDaysInMonth_ = fn x1 & x2 => (_import "g_date_get_days_in_month" : GLibDateMonth.C.val_ * FFI.Word16.val_ -> FFI.Word8.val_;) (x1, x2)
-    val dateGetMondayWeeksInYear_ = _import "g_date_get_monday_weeks_in_year" : FFI.Word16.val_ -> FFI.Word8.val_;
-    val dateGetSundayWeeksInYear_ = _import "g_date_get_sunday_weeks_in_year" : FFI.Word16.val_ -> FFI.Word8.val_;
-    val dateIsLeapYear_ = _import "g_date_is_leap_year" : FFI.Word16.val_ -> FFI.Bool.val_;
+    val dateGetDaysInMonth_ = fn x1 & x2 => (_import "g_date_get_days_in_month" : GLibDateMonth.C.val_ * FFI.UInt16.val_ -> FFI.UInt8.val_;) (x1, x2)
+    val dateGetMondayWeeksInYear_ = _import "g_date_get_monday_weeks_in_year" : FFI.UInt16.val_ -> FFI.UInt8.val_;
+    val dateGetSundayWeeksInYear_ = _import "g_date_get_sunday_weeks_in_year" : FFI.UInt16.val_ -> FFI.UInt8.val_;
+    val dateIsLeapYear_ = _import "g_date_is_leap_year" : FFI.UInt16.val_ -> FFI.Bool.val_;
     val dateStrftime_ =
       fn
         (x1, x2)
@@ -436,11 +436,11 @@ structure GLib : G_LIB =
             _import "mlton_g_date_strftime" :
               cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * cstring
                * unit CPointer.t
                * GLibDateRecord.C.notnull GLibDateRecord.C.p
-               -> FFI.Word64.val_;
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -452,8 +452,8 @@ structure GLib : G_LIB =
             )
     val dateTimeCompare_ = _import "g_date_time_compare" : unit -> FFI.Int32.val_;
     val dateTimeEqual_ = _import "g_date_time_equal" : unit -> FFI.Bool.val_;
-    val dateTimeHash_ = _import "g_date_time_hash" : unit -> FFI.Word32.val_;
-    val dateValidDay_ = _import "g_date_valid_day" : FFI.Word8.val_ -> FFI.Bool.val_;
+    val dateTimeHash_ = _import "g_date_time_hash" : unit -> FFI.UInt32.val_;
+    val dateValidDay_ = _import "g_date_valid_day" : FFI.UInt8.val_ -> FFI.Bool.val_;
     val dateValidDmy_ =
       fn
         x1
@@ -461,9 +461,9 @@ structure GLib : G_LIB =
          & x3 =>
           (
             _import "g_date_valid_dmy" :
-              FFI.Word8.val_
+              FFI.UInt8.val_
                * GLibDateMonth.C.val_
-               * FFI.Word16.val_
+               * FFI.UInt16.val_
                -> FFI.Bool.val_;
           )
             (
@@ -471,10 +471,10 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val dateValidJulian_ = _import "g_date_valid_julian" : FFI.Word32.val_ -> FFI.Bool.val_;
+    val dateValidJulian_ = _import "g_date_valid_julian" : FFI.UInt32.val_ -> FFI.Bool.val_;
     val dateValidMonth_ = _import "g_date_valid_month" : GLibDateMonth.C.val_ -> FFI.Bool.val_;
     val dateValidWeekday_ = _import "g_date_valid_weekday" : GLibDateWeekday.C.val_ -> FFI.Bool.val_;
-    val dateValidYear_ = _import "g_date_valid_year" : FFI.Word16.val_ -> FFI.Bool.val_;
+    val dateValidYear_ = _import "g_date_valid_year" : FFI.UInt16.val_ -> FFI.Bool.val_;
     val dcgettext_ =
       fn
         (x1, x2)
@@ -529,7 +529,7 @@ structure GLib : G_LIB =
               x3
             )
     val directEqual_ = _import "g_direct_equal" : unit -> FFI.Bool.val_;
-    val directHash_ = _import "g_direct_hash" : unit -> FFI.Word32.val_;
+    val directHash_ = _import "g_direct_hash" : unit -> FFI.UInt32.val_;
     val dngettext_ =
       fn
         (x1, x2)
@@ -544,7 +544,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -557,7 +557,7 @@ structure GLib : G_LIB =
               x7
             )
     val doubleEqual_ = _import "g_double_equal" : unit -> FFI.Bool.val_;
-    val doubleHash_ = _import "g_double_hash" : unit -> FFI.Word32.val_;
+    val doubleHash_ = _import "g_double_hash" : unit -> FFI.UInt32.val_;
     val dpgettext_ =
       fn
         (x1, x2)
@@ -569,7 +569,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -604,7 +604,7 @@ structure GLib : G_LIB =
             )
     val dummyDecl_ = _import "glib_dummy_decl" : unit -> unit;
     val fileErrorFromErrno_ = _import "g_file_error_from_errno" : FFI.Int32.val_ -> GLibFileError.C.val_;
-    val fileErrorQuark_ = _import "g_file_error_quark" : unit -> FFI.Word32.val_;
+    val fileErrorQuark_ = _import "g_file_error_quark" : unit -> FFI.UInt32.val_;
     val fileOpenTmp_ =
       fn
         (x1, x2)
@@ -701,9 +701,9 @@ structure GLib : G_LIB =
               x5
             )
     val findProgramInPath_ = _import "mlton_g_find_program_in_path" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
-    val formatSize_ = _import "g_format_size" : FFI.Word64.val_ -> FFI.String.notnull FFI.String.out_p;
+    val formatSize_ = _import "g_format_size" : FFI.UInt64.val_ -> FFI.String.notnull FFI.String.out_p;
     val formatSizeForDisplay_ = _import "g_format_size_for_display" : FFI.Int64.val_ -> FFI.String.notnull FFI.String.out_p;
-    val formatSizeFull_ = fn x1 & x2 => (_import "g_format_size_full" : FFI.Word64.val_ * GLibFormatSizeFlags.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val formatSizeFull_ = fn x1 & x2 => (_import "g_format_size_full" : FFI.UInt64.val_ * GLibFormatSizeFlags.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
     val getApplicationName_ = _import "g_get_application_name" : unit -> FFI.String.notnull FFI.String.out_p;
     val getCharset_ = _import "mlton_g_get_charset" : cstring * unit CPointer.t -> FFI.Bool.val_;
     val getCurrentDir_ = _import "g_get_current_dir" : unit -> FFI.String.notnull FFI.String.out_p;
@@ -723,7 +723,7 @@ structure GLib : G_LIB =
     val getUserRuntimeDir_ = _import "g_get_user_runtime_dir" : unit -> FFI.String.notnull FFI.String.out_p;
     val getUserSpecialDir_ = _import "g_get_user_special_dir" : GLibUserDirectory.C.val_ -> FFI.String.notnull FFI.String.out_p;
     val getenv_ = _import "mlton_g_getenv" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
-    val hookDestroy_ = fn x1 & x2 => (_import "g_hook_destroy" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * FFI.Word64.val_ -> FFI.Bool.val_;) (x1, x2)
+    val hookDestroy_ = fn x1 & x2 => (_import "g_hook_destroy" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * FFI.UInt64.val_ -> FFI.Bool.val_;) (x1, x2)
     val hookDestroyLink_ = fn x1 & x2 => (_import "g_hook_destroy_link" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
     val hookFree_ = fn x1 & x2 => (_import "g_hook_free" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
     val hookInsertBefore_ =
@@ -753,15 +753,15 @@ structure GLib : G_LIB =
     val idleRemoveByData_ = _import "g_idle_remove_by_data" : unit -> FFI.Bool.val_;
     val idleSourceNew_ = _import "g_idle_source_new" : unit -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
     val int64Equal_ = _import "g_int64_equal" : unit -> FFI.Bool.val_;
-    val int64Hash_ = _import "g_int64_hash" : unit -> FFI.Word32.val_;
+    val int64Hash_ = _import "g_int64_hash" : unit -> FFI.UInt32.val_;
     val intEqual_ = _import "g_int_equal" : unit -> FFI.Bool.val_;
-    val intHash_ = _import "g_int_hash" : unit -> FFI.Word32.val_;
+    val intHash_ = _import "g_int_hash" : unit -> FFI.UInt32.val_;
     val internStaticString_ = _import "mlton_g_intern_static_string" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val internString_ = _import "mlton_g_intern_string" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val ioChannelErrorFromErrno_ = _import "g_io_channel_error_from_errno" : FFI.Int32.val_ -> GLibIOChannelError.C.val_;
-    val ioChannelErrorQuark_ = _import "g_io_channel_error_quark" : unit -> FFI.Word32.val_;
+    val ioChannelErrorQuark_ = _import "g_io_channel_error_quark" : unit -> FFI.UInt32.val_;
     val ioCreateWatch_ = fn x1 & x2 => (_import "g_io_create_watch" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * GLibIOCondition.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
-    val keyFileErrorQuark_ = _import "g_key_file_error_quark" : unit -> FFI.Word32.val_;
+    val keyFileErrorQuark_ = _import "g_key_file_error_quark" : unit -> FFI.UInt32.val_;
     val listPopAllocator_ = _import "g_list_pop_allocator" : unit -> unit;
     val listPushAllocator_ = _import "g_list_push_allocator" : unit -> unit;
     val logDefaultHandler_ =
@@ -792,7 +792,7 @@ structure GLib : G_LIB =
             _import "mlton_g_log_remove_handler" :
               cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -820,7 +820,7 @@ structure GLib : G_LIB =
     val mainContextGetThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val mainCurrentSource_ = _import "g_main_current_source" : unit -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
     val mainDepth_ = _import "g_main_depth" : unit -> FFI.Int32.val_;
-    val markupErrorQuark_ = _import "g_markup_error_quark" : unit -> FFI.Word32.val_;
+    val markupErrorQuark_ = _import "g_markup_error_quark" : unit -> FFI.UInt32.val_;
     val markupEscapeText_ =
       fn
         (x1, x2) & x3 =>
@@ -896,7 +896,7 @@ structure GLib : G_LIB =
     val nullifyPointer_ = _import "g_nullify_pointer" : unit -> unit;
     val onErrorQuery_ = _import "mlton_g_on_error_query" : cstring * unit CPointer.t -> unit;
     val onErrorStackTrace_ = _import "mlton_g_on_error_stack_trace" : cstring * unit CPointer.t -> unit;
-    val optionErrorQuark_ = _import "g_option_error_quark" : unit -> FFI.Word32.val_;
+    val optionErrorQuark_ = _import "g_option_error_quark" : unit -> FFI.UInt32.val_;
     val pathGetBasename_ = _import "mlton_g_path_get_basename" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val pathGetDirname_ = _import "mlton_g_path_get_dirname" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val pathIsAbsolute_ = _import "mlton_g_path_is_absolute" : cstring * unit CPointer.t -> FFI.Bool.val_;
@@ -910,7 +910,7 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_pattern_match" :
               GLibPatternSpecRecord.C.notnull GLibPatternSpecRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * cstring
                * unit CPointer.t
                * cstring
@@ -968,7 +968,7 @@ structure GLib : G_LIB =
           (
             _import "g_poll" :
               GLibPollFDRecord.C.notnull GLibPollFDRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Int32.val_
                -> FFI.Int32.val_;
           )
@@ -977,15 +977,15 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val quarkFromStaticString_ = _import "mlton_g_quark_from_static_string" : cstring * unit CPointer.t -> FFI.Word32.val_;
-    val quarkFromString_ = _import "mlton_g_quark_from_string" : cstring * unit CPointer.t -> FFI.Word32.val_;
-    val quarkToString_ = _import "g_quark_to_string" : FFI.Word32.val_ -> FFI.String.notnull FFI.String.out_p;
-    val quarkTryString_ = _import "mlton_g_quark_try_string" : cstring * unit CPointer.t -> FFI.Word32.val_;
+    val quarkFromStaticString_ = _import "mlton_g_quark_from_static_string" : cstring * unit CPointer.t -> FFI.UInt32.val_;
+    val quarkFromString_ = _import "mlton_g_quark_from_string" : cstring * unit CPointer.t -> FFI.UInt32.val_;
+    val quarkToString_ = _import "g_quark_to_string" : FFI.UInt32.val_ -> FFI.String.notnull FFI.String.out_p;
+    val quarkTryString_ = _import "mlton_g_quark_try_string" : cstring * unit CPointer.t -> FFI.UInt32.val_;
     val randomDouble_ = _import "g_random_double" : unit -> FFI.Double.val_;
     val randomDoubleRange_ = fn x1 & x2 => (_import "g_random_double_range" : FFI.Double.val_ * FFI.Double.val_ -> FFI.Double.val_;) (x1, x2)
-    val randomInt_ = _import "g_random_int" : unit -> FFI.Word32.val_;
+    val randomInt_ = _import "g_random_int" : unit -> FFI.UInt32.val_;
     val randomIntRange_ = fn x1 & x2 => (_import "g_random_int_range" : FFI.Int32.val_ * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
-    val randomSetSeed_ = _import "g_random_set_seed" : FFI.Word32.val_ -> unit;
+    val randomSetSeed_ = _import "g_random_set_seed" : FFI.UInt32.val_ -> unit;
     val regexCheckReplacement_ =
       fn
         (x1, x2)
@@ -1005,7 +1005,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val regexErrorQuark_ = _import "g_regex_error_quark" : unit -> FFI.Word32.val_;
+    val regexErrorQuark_ = _import "g_regex_error_quark" : unit -> FFI.UInt32.val_;
     val regexEscapeNul_ =
       fn
         (x1, x2) & x3 =>
@@ -1115,7 +1115,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val shellErrorQuark_ = _import "g_shell_error_quark" : unit -> FFI.Word32.val_;
+    val shellErrorQuark_ = _import "g_shell_error_quark" : unit -> FFI.UInt32.val_;
     val shellQuote_ = _import "mlton_g_shell_quote" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val shellUnquote_ =
       fn
@@ -1132,17 +1132,17 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val sliceFree1_ = _import "g_slice_free1" : FFI.Word64.val_ -> unit;
-    val sliceFreeChainWithOffset_ = fn x1 & x2 => (_import "g_slice_free_chain_with_offset" : FFI.Word64.val_ * FFI.Word64.val_ -> unit;) (x1, x2)
+    val sliceFree1_ = _import "g_slice_free1" : FFI.UInt64.val_ -> unit;
+    val sliceFreeChainWithOffset_ = fn x1 & x2 => (_import "g_slice_free_chain_with_offset" : FFI.UInt64.val_ * FFI.UInt64.val_ -> unit;) (x1, x2)
     val sliceGetConfig_ = _import "g_slice_get_config" : GLibSliceConfig.C.val_ -> FFI.Int64.val_;
     val sliceSetConfig_ = fn x1 & x2 => (_import "g_slice_set_config" : GLibSliceConfig.C.val_ * FFI.Int64.val_ -> unit;) (x1, x2)
-    val sourceRemove_ = _import "g_source_remove" : FFI.Word32.val_ -> FFI.Bool.val_;
+    val sourceRemove_ = _import "g_source_remove" : FFI.UInt32.val_ -> FFI.Bool.val_;
     val sourceSetNameById_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_source_set_name_by_id" :
-              FFI.Word32.val_
+              FFI.UInt32.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -1152,7 +1152,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val spacedPrimesClosest_ = _import "g_spaced_primes_closest" : FFI.Word32.val_ -> FFI.Word32.val_;
+    val spacedPrimesClosest_ = _import "g_spaced_primes_closest" : FFI.UInt32.val_ -> FFI.UInt32.val_;
     val spawnClosePid_ = _import "g_spawn_close_pid" : FFI.Int32.val_ -> unit;
     val spawnCommandLineAsync_ =
       fn
@@ -1169,7 +1169,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val spawnErrorQuark_ = _import "g_spawn_error_quark" : unit -> FFI.Word32.val_;
+    val spawnErrorQuark_ = _import "g_spawn_error_quark" : unit -> FFI.UInt32.val_;
     val stpcpy_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -1222,7 +1222,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strHash_ = _import "g_str_hash" : unit -> FFI.Word32.val_;
+    val strHash_ = _import "g_str_hash" : unit -> FFI.UInt32.val_;
     val strcanon_ =
       fn
         (x1, x2)
@@ -1234,7 +1234,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word8.val_
+               * FFI.UInt8.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -1292,7 +1292,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word8.val_
+               * FFI.UInt8.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -1339,7 +1339,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val stringSizedNew_ = _import "g_string_sized_new" : FFI.Word64.val_ -> GLibStringRecord.C.notnull GLibStringRecord.C.p;
+    val stringSizedNew_ = _import "g_string_sized_new" : FFI.UInt64.val_ -> GLibStringRecord.C.notnull GLibStringRecord.C.p;
     val stripContext_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -1385,8 +1385,8 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
-               -> FFI.Word64.val_;
+               * FFI.UInt64.val_
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -1406,8 +1406,8 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
-               -> FFI.Word64.val_;
+               * FFI.UInt64.val_
+               -> FFI.UInt64.val_;
           )
             (
               x1,
@@ -1427,7 +1427,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Int32.val_;
           )
             (
@@ -1444,7 +1444,7 @@ structure GLib : G_LIB =
             _import "mlton_g_strndup" :
               cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -1452,7 +1452,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val strnfill_ = fn x1 & x2 => (_import "g_strnfill" : FFI.Word64.val_ * FFI.Word8.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val strnfill_ = fn x1 & x2 => (_import "g_strnfill" : FFI.UInt64.val_ * FFI.UInt8.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
     val strreverse_ = _import "mlton_g_strreverse" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
     val strrstr_ =
       fn
@@ -1532,7 +1532,7 @@ structure GLib : G_LIB =
               x4
             )
     val strup_ = _import "mlton_g_strup" : cstring * unit CPointer.t -> FFI.String.notnull FFI.String.out_p;
-    val strvLength_ = _import "mlton_g_strv_length" : cstring * unit CPointer.t -> FFI.Word32.val_;
+    val strvLength_ = _import "mlton_g_strv_length" : cstring * unit CPointer.t -> FFI.UInt32.val_;
     val testBug_ = _import "mlton_g_test_bug" : cstring * unit CPointer.t -> unit;
     val testBugBase_ = _import "mlton_g_test_bug_base" : cstring * unit CPointer.t -> unit;
     val testFail_ = _import "g_test_fail" : unit -> unit;
@@ -1564,7 +1564,7 @@ structure GLib : G_LIB =
                * FFI.Int32.val_
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -1581,18 +1581,18 @@ structure GLib : G_LIB =
               x9,
               x10
             )
-    val testTrapFork_ = fn x1 & x2 => (_import "g_test_trap_fork" : FFI.Word64.val_ * GLibTestTrapFlags.C.val_ -> FFI.Bool.val_;) (x1, x2)
+    val testTrapFork_ = fn x1 & x2 => (_import "g_test_trap_fork" : FFI.UInt64.val_ * GLibTestTrapFlags.C.val_ -> FFI.Bool.val_;) (x1, x2)
     val testTrapHasPassed_ = _import "g_test_trap_has_passed" : unit -> FFI.Bool.val_;
     val testTrapReachedTimeout_ = _import "g_test_trap_reached_timeout" : unit -> FFI.Bool.val_;
-    val threadErrorQuark_ = _import "g_thread_error_quark" : unit -> FFI.Word32.val_;
+    val threadErrorQuark_ = _import "g_thread_error_quark" : unit -> FFI.UInt32.val_;
     val threadExit_ = _import "g_thread_exit" : unit -> unit;
     val threadGetInitialized_ = _import "g_thread_get_initialized" : unit -> FFI.Bool.val_;
     val threadInit_ = _import "g_thread_init" : GLibThreadFunctionsRecord.C.notnull GLibThreadFunctionsRecord.C.p -> unit;
     val threadInitWithErrorcheckMutexes_ = _import "g_thread_init_with_errorcheck_mutexes" : GLibThreadFunctionsRecord.C.notnull GLibThreadFunctionsRecord.C.p -> unit;
-    val threadPoolGetMaxIdleTime_ = _import "g_thread_pool_get_max_idle_time" : unit -> FFI.Word32.val_;
+    val threadPoolGetMaxIdleTime_ = _import "g_thread_pool_get_max_idle_time" : unit -> FFI.UInt32.val_;
     val threadPoolGetMaxUnusedThreads_ = _import "g_thread_pool_get_max_unused_threads" : unit -> FFI.Int32.val_;
-    val threadPoolGetNumUnusedThreads_ = _import "g_thread_pool_get_num_unused_threads" : unit -> FFI.Word32.val_;
-    val threadPoolSetMaxIdleTime_ = _import "g_thread_pool_set_max_idle_time" : FFI.Word32.val_ -> unit;
+    val threadPoolGetNumUnusedThreads_ = _import "g_thread_pool_get_num_unused_threads" : unit -> FFI.UInt32.val_;
+    val threadPoolSetMaxIdleTime_ = _import "g_thread_pool_set_max_idle_time" : FFI.UInt32.val_ -> unit;
     val threadPoolSetMaxUnusedThreads_ = _import "g_thread_pool_set_max_unused_threads" : FFI.Int32.val_ -> unit;
     val threadPoolStopUnusedThreads_ = _import "g_thread_pool_stop_unused_threads" : unit -> unit;
     val timeValFromIso8601_ =
@@ -1610,9 +1610,9 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val timeoutSourceNew_ = _import "g_timeout_source_new" : FFI.Word32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val timeoutSourceNewSeconds_ = _import "g_timeout_source_new_seconds" : FFI.Word32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val trashStackHeight_ = _import "g_trash_stack_height" : GLibTrashStackRecord.C.notnull GLibTrashStackRecord.C.p -> FFI.Word32.val_;
+    val timeoutSourceNew_ = _import "g_timeout_source_new" : FFI.UInt32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
+    val timeoutSourceNewSeconds_ = _import "g_timeout_source_new_seconds" : FFI.UInt32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
+    val trashStackHeight_ = _import "g_trash_stack_height" : GLibTrashStackRecord.C.notnull GLibTrashStackRecord.C.p -> FFI.UInt32.val_;
     val trashStackPush_ = _import "g_trash_stack_push" : GLibTrashStackRecord.C.notnull GLibTrashStackRecord.C.p -> unit;
     val unicharBreakType_ = _import "g_unichar_break_type" : FFI.Char.val_ -> GLibUnicodeBreakType.C.val_;
     val unicharCombiningClass_ = _import "g_unichar_combining_class" : FFI.Char.val_ -> FFI.Int32.val_;
@@ -1656,8 +1656,8 @@ structure GLib : G_LIB =
     val unicharType_ = _import "g_unichar_type" : FFI.Char.val_ -> GLibUnicodeType.C.val_;
     val unicharValidate_ = _import "g_unichar_validate" : FFI.Char.val_ -> FFI.Bool.val_;
     val unicharXdigitValue_ = _import "g_unichar_xdigit_value" : FFI.Char.val_ -> FFI.Int32.val_;
-    val unicodeScriptFromIso15924_ = _import "g_unicode_script_from_iso15924" : FFI.Word32.val_ -> GLibUnicodeScript.C.val_;
-    val unicodeScriptToIso15924_ = _import "g_unicode_script_to_iso15924" : GLibUnicodeScript.C.val_ -> FFI.Word32.val_;
+    val unicodeScriptFromIso15924_ = _import "g_unicode_script_from_iso15924" : FFI.UInt32.val_ -> GLibUnicodeScript.C.val_;
+    val unicodeScriptToIso15924_ = _import "g_unicode_script_to_iso15924" : GLibUnicodeScript.C.val_ -> FFI.UInt32.val_;
     val unlink_ = _import "mlton_g_unlink" : cstring * unit CPointer.t -> FFI.Int32.val_;
     val unsetenv_ = _import "mlton_g_unsetenv" : cstring * unit CPointer.t -> unit;
     val uriEscapeString_ =
@@ -1722,7 +1722,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val usleep_ = _import "g_usleep" : FFI.Word64.val_ -> unit;
+    val usleep_ = _import "g_usleep" : FFI.UInt64.val_ -> unit;
     val utf8Casefold_ =
       fn
         (x1, x2) & x3 =>
@@ -1947,7 +1947,7 @@ structure GLib : G_LIB =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Word64.val_
+               * FFI.UInt64.val_
                -> FFI.String.notnull FFI.String.out_p;
           )
             (
@@ -2078,7 +2078,7 @@ structure GLib : G_LIB =
               x7,
               x8
             )
-    val variantParserGetErrorQuark_ = _import "g_variant_parser_get_error_quark" : unit -> FFI.Word32.val_;
+    val variantParserGetErrorQuark_ = _import "g_variant_parser_get_error_quark" : unit -> FFI.UInt32.val_;
     val variantTypeChecked_ = _import "mlton_g_variant_type_checked_" : cstring * unit CPointer.t -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
     val variantTypeStringIsValid_ = _import "mlton_g_variant_type_string_is_valid" : cstring * unit CPointer.t -> FFI.Bool.val_;
     val variantTypeStringScan_ =
@@ -2327,7 +2327,7 @@ structure GLib : G_LIB =
     val VA_COPY_AS_ARRAY = 1
     val WIN32_MSG_HANDLE = 19981206
     fun access filename mode = (FFI.String.withConstPtr &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) access_ (filename & mode)
-    fun asciiDigitValue c = (FFI.Word8.withVal ---> FFI.Int32.fromVal) asciiDigitValue_ c
+    fun asciiDigitValue c = (FFI.UInt8.withVal ---> FFI.Int32.fromVal) asciiDigitValue_ c
     fun asciiDtostr buffer bufLen d =
       (
         FFI.String.withConstPtr
@@ -2362,7 +2362,7 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> FFI.Int32.fromVal
       )
         asciiStrncasecmp_
@@ -2376,7 +2376,7 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Int64.fromVal
       )
         asciiStrtoll_
@@ -2389,8 +2389,8 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
-         ---> FFI.Word64.fromVal
+         &&&> FFI.UInt32.withVal
+         ---> FFI.UInt64.fromVal
       )
         asciiStrtoull_
         (
@@ -2399,9 +2399,9 @@ structure GLib : G_LIB =
            & base
         )
     fun asciiStrup str len = (FFI.String.withConstPtr &&&> FFI.Int64.withVal ---> FFI.String.fromPtr true) asciiStrup_ (str & len)
-    fun asciiTolower c = (FFI.Word8.withVal ---> FFI.Word8.fromVal) asciiTolower_ c
-    fun asciiToupper c = (FFI.Word8.withVal ---> FFI.Word8.fromVal) asciiToupper_ c
-    fun asciiXdigitValue c = (FFI.Word8.withVal ---> FFI.Int32.fromVal) asciiXdigitValue_ c
+    fun asciiTolower c = (FFI.UInt8.withVal ---> FFI.UInt8.fromVal) asciiTolower_ c
+    fun asciiToupper c = (FFI.UInt8.withVal ---> FFI.UInt8.fromVal) asciiToupper_ c
+    fun asciiXdigitValue c = (FFI.UInt8.withVal ---> FFI.Int32.fromVal) asciiXdigitValue_ c
     fun assertWarning logDomain file line prettyFunction expression =
       (
         FFI.String.withConstPtr
@@ -2477,23 +2477,23 @@ structure GLib : G_LIB =
            & expr
         )
     fun atomicPointerAdd val' = (FFI.Int64.withVal ---> FFI.Int64.fromVal) atomicPointerAdd_ val'
-    fun atomicPointerAnd val' = (FFI.Word64.withVal ---> FFI.Word64.fromVal) atomicPointerAnd_ val'
+    fun atomicPointerAnd val' = (FFI.UInt64.withVal ---> FFI.UInt64.fromVal) atomicPointerAnd_ val'
     fun atomicPointerCompareAndExchange () = (I ---> FFI.Bool.fromVal) atomicPointerCompareAndExchange_ ()
-    fun atomicPointerOr val' = (FFI.Word64.withVal ---> FFI.Word64.fromVal) atomicPointerOr_ val'
+    fun atomicPointerOr val' = (FFI.UInt64.withVal ---> FFI.UInt64.fromVal) atomicPointerOr_ val'
     fun atomicPointerSet () = (I ---> I) atomicPointerSet_ ()
-    fun atomicPointerXor val' = (FFI.Word64.withVal ---> FFI.Word64.fromVal) atomicPointerXor_ val'
+    fun atomicPointerXor val' = (FFI.UInt64.withVal ---> FFI.UInt64.fromVal) atomicPointerXor_ val'
     fun basename fileName = (FFI.String.withConstPtr ---> FFI.String.fromPtr false) basename_ fileName
-    fun bitNthLsf mask nthBit = (FFI.Word64.withVal &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) bitNthLsf_ (mask & nthBit)
-    fun bitNthMsf mask nthBit = (FFI.Word64.withVal &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) bitNthMsf_ (mask & nthBit)
-    fun bitStorage number = (FFI.Word64.withVal ---> FFI.Word32.fromVal) bitStorage_ number
+    fun bitNthLsf mask nthBit = (FFI.UInt64.withVal &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) bitNthLsf_ (mask & nthBit)
+    fun bitNthMsf mask nthBit = (FFI.UInt64.withVal &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) bitNthMsf_ (mask & nthBit)
+    fun bitStorage number = (FFI.UInt64.withVal ---> FFI.UInt32.fromVal) bitStorage_ number
     fun blowChunks () = (I ---> I) blowChunks_ ()
-    fun bookmarkFileErrorQuark () = (I ---> FFI.Word32.fromVal) bookmarkFileErrorQuark_ ()
+    fun bookmarkFileErrorQuark () = (I ---> FFI.UInt32.fromVal) bookmarkFileErrorQuark_ ()
     fun chdir path = (FFI.String.withConstPtr ---> FFI.Int32.fromVal) chdir_ path
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+        FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.String.fromPtr false
       )
         checkVersion_
@@ -2528,11 +2528,11 @@ structure GLib : G_LIB =
              &&&> FFI.Int64.withVal
              &&&> FFI.String.withConstPtr
              &&&> FFI.String.withConstPtr
-             &&&> FFI.Word64.withRefVal
-             &&&> FFI.Word64.withRefVal
+             &&&> FFI.UInt64.withRefVal
+             &&&> FFI.UInt64.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.Word64.fromVal
-                   && FFI.Word64.fromVal
+             ---> FFI.UInt64.fromVal
+                   && FFI.UInt64.fromVal
                    && FFI.String.fromPtr true
           )
             convert_
@@ -2552,24 +2552,24 @@ structure GLib : G_LIB =
           bytesWritten
         )
       end
-    fun convertErrorQuark () = (I ---> FFI.Word32.fromVal) convertErrorQuark_ ()
+    fun convertErrorQuark () = (I ---> FFI.UInt32.fromVal) convertErrorQuark_ ()
     fun datalistClear datalist = (GLibDataRecord.C.withPtr ---> I) datalistClear_ datalist
-    fun datalistGetFlags datalist = (GLibDataRecord.C.withPtr ---> FFI.Word32.fromVal) datalistGetFlags_ datalist
+    fun datalistGetFlags datalist = (GLibDataRecord.C.withPtr ---> FFI.UInt32.fromVal) datalistGetFlags_ datalist
     fun datalistInit datalist = (GLibDataRecord.C.withPtr ---> I) datalistInit_ datalist
-    fun datalistSetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.Word32.withVal ---> I) datalistSetFlags_ (datalist & flags)
-    fun datalistUnsetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.Word32.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
+    fun datalistSetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.UInt32.withVal ---> I) datalistSetFlags_ (datalist & flags)
+    fun datalistUnsetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.UInt32.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
     fun datasetDestroy () = (I ---> I) datasetDestroy_ ()
-    fun dateGetDaysInMonth month year = (GLibDateMonth.C.withVal &&&> FFI.Word16.withVal ---> FFI.Word8.fromVal) dateGetDaysInMonth_ (month & year)
-    fun dateGetMondayWeeksInYear year = (FFI.Word16.withVal ---> FFI.Word8.fromVal) dateGetMondayWeeksInYear_ year
-    fun dateGetSundayWeeksInYear year = (FFI.Word16.withVal ---> FFI.Word8.fromVal) dateGetSundayWeeksInYear_ year
-    fun dateIsLeapYear year = (FFI.Word16.withVal ---> FFI.Bool.fromVal) dateIsLeapYear_ year
+    fun dateGetDaysInMonth month year = (GLibDateMonth.C.withVal &&&> FFI.UInt16.withVal ---> FFI.UInt8.fromVal) dateGetDaysInMonth_ (month & year)
+    fun dateGetMondayWeeksInYear year = (FFI.UInt16.withVal ---> FFI.UInt8.fromVal) dateGetMondayWeeksInYear_ year
+    fun dateGetSundayWeeksInYear year = (FFI.UInt16.withVal ---> FFI.UInt8.fromVal) dateGetSundayWeeksInYear_ year
+    fun dateIsLeapYear year = (FFI.UInt16.withVal ---> FFI.Bool.fromVal) dateIsLeapYear_ year
     fun dateStrftime s slen format date =
       (
         FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> FFI.String.withConstPtr
          &&&> GLibDateRecord.C.withPtr
-         ---> FFI.Word64.fromVal
+         ---> FFI.UInt64.fromVal
       )
         dateStrftime_
         (
@@ -2580,13 +2580,13 @@ structure GLib : G_LIB =
         )
     fun dateTimeCompare () = (I ---> FFI.Int32.fromVal) dateTimeCompare_ ()
     fun dateTimeEqual () = (I ---> FFI.Bool.fromVal) dateTimeEqual_ ()
-    fun dateTimeHash () = (I ---> FFI.Word32.fromVal) dateTimeHash_ ()
-    fun dateValidDay day = (FFI.Word8.withVal ---> FFI.Bool.fromVal) dateValidDay_ day
+    fun dateTimeHash () = (I ---> FFI.UInt32.fromVal) dateTimeHash_ ()
+    fun dateValidDay day = (FFI.UInt8.withVal ---> FFI.Bool.fromVal) dateValidDay_ day
     fun dateValidDmy day month year =
       (
-        FFI.Word8.withVal
+        FFI.UInt8.withVal
          &&&> GLibDateMonth.C.withVal
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          ---> FFI.Bool.fromVal
       )
         dateValidDmy_
@@ -2595,10 +2595,10 @@ structure GLib : G_LIB =
            & month
            & year
         )
-    fun dateValidJulian julianDate = (FFI.Word32.withVal ---> FFI.Bool.fromVal) dateValidJulian_ julianDate
+    fun dateValidJulian julianDate = (FFI.UInt32.withVal ---> FFI.Bool.fromVal) dateValidJulian_ julianDate
     fun dateValidMonth month = (GLibDateMonth.C.withVal ---> FFI.Bool.fromVal) dateValidMonth_ month
     fun dateValidWeekday weekday = (GLibDateWeekday.C.withVal ---> FFI.Bool.fromVal) dateValidWeekday_ weekday
-    fun dateValidYear year = (FFI.Word16.withVal ---> FFI.Bool.fromVal) dateValidYear_ year
+    fun dateValidYear year = (FFI.UInt16.withVal ---> FFI.Bool.fromVal) dateValidYear_ year
     fun dcgettext domain msgid category =
       (
         FFI.String.withConstOptPtr
@@ -2615,13 +2615,13 @@ structure GLib : G_LIB =
     fun dgettext domain msgid = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) dgettext_ (domain & msgid)
     fun dirMakeTmp tmpl = (FFI.String.withConstOptPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.fromPtr true) dirMakeTmp_ (tmpl & [])
     fun directEqual () = (I ---> FFI.Bool.fromVal) directEqual_ ()
-    fun directHash () = (I ---> FFI.Word32.fromVal) directHash_ ()
+    fun directHash () = (I ---> FFI.UInt32.fromVal) directHash_ ()
     fun dngettext domain msgid msgidPlural n =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> FFI.String.fromPtr false
       )
         dngettext_
@@ -2632,12 +2632,12 @@ structure GLib : G_LIB =
            & n
         )
     fun doubleEqual () = (I ---> FFI.Bool.fromVal) doubleEqual_ ()
-    fun doubleHash () = (I ---> FFI.Word32.fromVal) doubleHash_ ()
+    fun doubleHash () = (I ---> FFI.UInt32.fromVal) doubleHash_ ()
     fun dpgettext domain msgctxtid msgidoffset =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> FFI.String.fromPtr false
       )
         dpgettext_
@@ -2661,7 +2661,7 @@ structure GLib : G_LIB =
         )
     fun dummyDecl () = (I ---> I) dummyDecl_ ()
     fun fileErrorFromErrno errNo = (FFI.Int32.withVal ---> GLibFileError.C.fromVal) fileErrorFromErrno_ errNo
-    fun fileErrorQuark () = (I ---> FFI.Word32.fromVal) fileErrorQuark_ ()
+    fun fileErrorQuark () = (I ---> FFI.UInt32.fromVal) fileErrorQuark_ ()
     fun fileOpenTmp tmpl =
       let
         val nameUsed & retVal =
@@ -2711,9 +2711,9 @@ structure GLib : G_LIB =
            & []
         )
     fun findProgramInPath program = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) findProgramInPath_ program
-    fun formatSize size = (FFI.Word64.withVal ---> FFI.String.fromPtr true) formatSize_ size
+    fun formatSize size = (FFI.UInt64.withVal ---> FFI.String.fromPtr true) formatSize_ size
     fun formatSizeForDisplay size = (FFI.Int64.withVal ---> FFI.String.fromPtr true) formatSizeForDisplay_ size
-    fun formatSizeFull size flags = (FFI.Word64.withVal &&&> GLibFormatSizeFlags.C.withVal ---> FFI.String.fromPtr true) formatSizeFull_ (size & flags)
+    fun formatSizeFull size flags = (FFI.UInt64.withVal &&&> GLibFormatSizeFlags.C.withVal ---> FFI.String.fromPtr true) formatSizeFull_ (size & flags)
     fun getApplicationName () = (I ---> FFI.String.fromPtr false) getApplicationName_ ()
     fun getCharset charset = (FFI.String.withConstPtr ---> FFI.Bool.fromVal) getCharset_ charset
     fun getCurrentDir () = (I ---> FFI.String.fromPtr true) getCurrentDir_ ()
@@ -2733,7 +2733,7 @@ structure GLib : G_LIB =
     fun getUserRuntimeDir () = (I ---> FFI.String.fromPtr false) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.C.withVal ---> FFI.String.fromPtr false) getUserSpecialDir_ directory
     fun getenv variable = (FFI.String.withConstPtr ---> FFI.String.fromPtr false) getenv_ variable
-    fun hookDestroy hookList hookId = (GLibHookListRecord.C.withPtr &&&> FFI.Word64.withVal ---> FFI.Bool.fromVal) hookDestroy_ (hookList & hookId)
+    fun hookDestroy hookList hookId = (GLibHookListRecord.C.withPtr &&&> FFI.UInt64.withVal ---> FFI.Bool.fromVal) hookDestroy_ (hookList & hookId)
     fun hookDestroyLink hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookDestroyLink_ (hookList & hook)
     fun hookFree hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookFree_ (hookList & hook)
     fun hookInsertBefore hookList sibling hook =
@@ -2759,15 +2759,15 @@ structure GLib : G_LIB =
     fun idleRemoveByData () = (I ---> FFI.Bool.fromVal) idleRemoveByData_ ()
     fun idleSourceNew () = (I ---> GLibSourceRecord.C.fromPtr true) idleSourceNew_ ()
     fun int64Equal () = (I ---> FFI.Bool.fromVal) int64Equal_ ()
-    fun int64Hash () = (I ---> FFI.Word32.fromVal) int64Hash_ ()
+    fun int64Hash () = (I ---> FFI.UInt32.fromVal) int64Hash_ ()
     fun intEqual () = (I ---> FFI.Bool.fromVal) intEqual_ ()
-    fun intHash () = (I ---> FFI.Word32.fromVal) intHash_ ()
+    fun intHash () = (I ---> FFI.UInt32.fromVal) intHash_ ()
     fun internStaticString string = (FFI.String.withConstOptPtr ---> FFI.String.fromPtr false) internStaticString_ string
     fun internString string = (FFI.String.withConstOptPtr ---> FFI.String.fromPtr false) internString_ string
     fun ioChannelErrorFromErrno en = (FFI.Int32.withVal ---> GLibIOChannelError.C.fromVal) ioChannelErrorFromErrno_ en
-    fun ioChannelErrorQuark () = (I ---> FFI.Word32.fromVal) ioChannelErrorQuark_ ()
+    fun ioChannelErrorQuark () = (I ---> FFI.UInt32.fromVal) ioChannelErrorQuark_ ()
     fun ioCreateWatch channel condition = (GLibIOChannelRecord.C.withPtr &&&> GLibIOCondition.C.withVal ---> GLibSourceRecord.C.fromPtr true) ioCreateWatch_ (channel & condition)
-    fun keyFileErrorQuark () = (I ---> FFI.Word32.fromVal) keyFileErrorQuark_ ()
+    fun keyFileErrorQuark () = (I ---> FFI.UInt32.fromVal) keyFileErrorQuark_ ()
     fun listPopAllocator () = (I ---> I) listPopAllocator_ ()
     fun listPushAllocator () = (I ---> I) listPushAllocator_ ()
     fun logDefaultHandler logDomain logLevel message =
@@ -2783,14 +2783,14 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.Word32.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler logDomain handlerId = (FFI.String.withConstPtr &&&> FFI.UInt32.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask logDomain fatalMask = (FFI.String.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
     fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.C.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> FFI.Int32.fromVal) mainDepth_ ()
-    fun markupErrorQuark () = (I ---> FFI.Word32.fromVal) markupErrorQuark_ ()
+    fun markupErrorQuark () = (I ---> FFI.UInt32.fromVal) markupErrorQuark_ ()
     fun markupEscapeText text length = (FFI.String.withConstPtr &&&> FFI.Int64.withVal ---> FFI.String.fromPtr true) markupEscapeText_ (text & length)
     fun memChunkInfo () = (I ---> I) memChunkInfo_ ()
     fun memIsSystemMalloc () = (I ---> FFI.Bool.fromVal) memIsSystemMalloc_ ()
@@ -2818,7 +2818,7 @@ structure GLib : G_LIB =
     fun nullifyPointer () = (I ---> I) nullifyPointer_ ()
     fun onErrorQuery prgName = (FFI.String.withConstPtr ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (FFI.String.withConstPtr ---> I) onErrorStackTrace_ prgName
-    fun optionErrorQuark () = (I ---> FFI.Word32.fromVal) optionErrorQuark_ ()
+    fun optionErrorQuark () = (I ---> FFI.UInt32.fromVal) optionErrorQuark_ ()
     fun pathGetBasename fileName = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) pathGetBasename_ fileName
     fun pathGetDirname fileName = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (FFI.String.withConstPtr ---> FFI.Bool.fromVal) pathIsAbsolute_ fileName
@@ -2826,7 +2826,7 @@ structure GLib : G_LIB =
     fun patternMatch pspec stringLength string stringReversed =
       (
         GLibPatternSpecRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
          ---> FFI.Bool.fromVal
@@ -2846,7 +2846,7 @@ structure GLib : G_LIB =
     fun poll fds nfds timeout =
       (
         GLibPollFDRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Int32.withVal
          ---> FFI.Int32.fromVal
       )
@@ -2856,15 +2856,15 @@ structure GLib : G_LIB =
            & nfds
            & timeout
         )
-    fun quarkFromStaticString string = (FFI.String.withConstOptPtr ---> FFI.Word32.fromVal) quarkFromStaticString_ string
-    fun quarkFromString string = (FFI.String.withConstOptPtr ---> FFI.Word32.fromVal) quarkFromString_ string
-    fun quarkToString quark = (FFI.Word32.withVal ---> FFI.String.fromPtr false) quarkToString_ quark
-    fun quarkTryString string = (FFI.String.withConstOptPtr ---> FFI.Word32.fromVal) quarkTryString_ string
+    fun quarkFromStaticString string = (FFI.String.withConstOptPtr ---> FFI.UInt32.fromVal) quarkFromStaticString_ string
+    fun quarkFromString string = (FFI.String.withConstOptPtr ---> FFI.UInt32.fromVal) quarkFromString_ string
+    fun quarkToString quark = (FFI.UInt32.withVal ---> FFI.String.fromPtr false) quarkToString_ quark
+    fun quarkTryString string = (FFI.String.withConstOptPtr ---> FFI.UInt32.fromVal) quarkTryString_ string
     fun randomDouble () = (I ---> FFI.Double.fromVal) randomDouble_ ()
     fun randomDoubleRange begin end' = (FFI.Double.withVal &&&> FFI.Double.withVal ---> FFI.Double.fromVal) randomDoubleRange_ (begin & end')
-    fun randomInt () = (I ---> FFI.Word32.fromVal) randomInt_ ()
+    fun randomInt () = (I ---> FFI.UInt32.fromVal) randomInt_ ()
     fun randomIntRange begin end' = (FFI.Int32.withVal &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) randomIntRange_ (begin & end')
-    fun randomSetSeed seed = (FFI.Word32.withVal ---> I) randomSetSeed_ seed
+    fun randomSetSeed seed = (FFI.UInt32.withVal ---> I) randomSetSeed_ seed
     fun regexCheckReplacement replacement =
       let
         val hasReferences & retVal =
@@ -2883,7 +2883,7 @@ structure GLib : G_LIB =
       in
         if retVal then SOME hasReferences else NONE
       end
-    fun regexErrorQuark () = (I ---> FFI.Word32.fromVal) regexErrorQuark_ ()
+    fun regexErrorQuark () = (I ---> FFI.UInt32.fromVal) regexErrorQuark_ ()
     fun regexEscapeNul string length = (FFI.String.withConstPtr &&&> FFI.Int32.withVal ---> FFI.String.fromPtr true) regexEscapeNul_ (string & length)
     fun regexMatchSimple pattern string compileOptions matchOptions =
       (
@@ -2948,29 +2948,29 @@ structure GLib : G_LIB =
            & value
            & overwrite
         )
-    fun shellErrorQuark () = (I ---> FFI.Word32.fromVal) shellErrorQuark_ ()
+    fun shellErrorQuark () = (I ---> FFI.UInt32.fromVal) shellErrorQuark_ ()
     fun shellQuote unquotedString = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) shellQuote_ unquotedString
     fun shellUnquote quotedString = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sliceFree1 blockSize = (FFI.Word64.withVal ---> I) sliceFree1_ blockSize
-    fun sliceFreeChainWithOffset blockSize nextOffset = (FFI.Word64.withVal &&&> FFI.Word64.withVal ---> I) sliceFreeChainWithOffset_ (blockSize & nextOffset)
+    fun sliceFree1 blockSize = (FFI.UInt64.withVal ---> I) sliceFree1_ blockSize
+    fun sliceFreeChainWithOffset blockSize nextOffset = (FFI.UInt64.withVal &&&> FFI.UInt64.withVal ---> I) sliceFreeChainWithOffset_ (blockSize & nextOffset)
     fun sliceGetConfig ckey = (GLibSliceConfig.C.withVal ---> FFI.Int64.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig ckey value = (GLibSliceConfig.C.withVal &&&> FFI.Int64.withVal ---> I) sliceSetConfig_ (ckey & value)
-    fun sourceRemove tag = (FFI.Word32.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
-    fun sourceSetNameById tag name = (FFI.Word32.withVal &&&> FFI.String.withConstPtr ---> I) sourceSetNameById_ (tag & name)
-    fun spacedPrimesClosest num = (FFI.Word32.withVal ---> FFI.Word32.fromVal) spacedPrimesClosest_ num
+    fun sourceRemove tag = (FFI.UInt32.withVal ---> FFI.Bool.fromVal) sourceRemove_ tag
+    fun sourceSetNameById tag name = (FFI.UInt32.withVal &&&> FFI.String.withConstPtr ---> I) sourceSetNameById_ (tag & name)
+    fun spacedPrimesClosest num = (FFI.UInt32.withVal ---> FFI.UInt32.fromVal) spacedPrimesClosest_ num
     fun spawnClosePid pid = (FFI.Int32.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) spawnCommandLineAsync_ (commandLine & [])
-    fun spawnErrorQuark () = (I ---> FFI.Word32.fromVal) spawnErrorQuark_ ()
+    fun spawnErrorQuark () = (I ---> FFI.UInt32.fromVal) spawnErrorQuark_ ()
     fun stpcpy dest src = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) stpcpy_ (dest & src)
     fun strEqual () = (I ---> FFI.Bool.fromVal) strEqual_ ()
     fun strHasPrefix str prefix = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) strHasPrefix_ (str & prefix)
     fun strHasSuffix str suffix = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) strHasSuffix_ (str & suffix)
-    fun strHash () = (I ---> FFI.Word32.fromVal) strHash_ ()
+    fun strHash () = (I ---> FFI.UInt32.fromVal) strHash_ ()
     fun strcanon string validChars substitutor =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word8.withVal
+         &&&> FFI.UInt8.withVal
          ---> FFI.String.fromPtr true
       )
         strcanon_
@@ -2988,7 +2988,7 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word8.withVal
+         &&&> FFI.UInt8.withVal
          ---> FFI.String.fromPtr true
       )
         strdelimit_
@@ -3004,15 +3004,15 @@ structure GLib : G_LIB =
     fun strfreev strArray = (FFI.String.withConstPtr ---> I) strfreev_ strArray
     fun stringNew init = (FFI.String.withConstPtr ---> GLibStringRecord.C.fromPtr true) stringNew_ init
     fun stringNewLen init len = (FFI.String.withConstPtr &&&> FFI.Int64.withVal ---> GLibStringRecord.C.fromPtr true) stringNewLen_ (init & len)
-    fun stringSizedNew dflSize = (FFI.Word64.withVal ---> GLibStringRecord.C.fromPtr true) stringSizedNew_ dflSize
+    fun stringSizedNew dflSize = (FFI.UInt64.withVal ---> GLibStringRecord.C.fromPtr true) stringSizedNew_ dflSize
     fun stripContext msgid msgval = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) stripContext_ (msgid & msgval)
     fun strjoinv separator strArray = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) strjoinv_ (separator & strArray)
     fun strlcat dest src destSize =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
-         ---> FFI.Word64.fromVal
+         &&&> FFI.UInt64.withVal
+         ---> FFI.UInt64.fromVal
       )
         strlcat_
         (
@@ -3024,8 +3024,8 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
-         ---> FFI.Word64.fromVal
+         &&&> FFI.UInt64.withVal
+         ---> FFI.UInt64.fromVal
       )
         strlcpy_
         (
@@ -3037,7 +3037,7 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Int32.fromVal
       )
         strncasecmp_
@@ -3046,8 +3046,8 @@ structure GLib : G_LIB =
            & s2
            & n
         )
-    fun strndup str n = (FFI.String.withConstPtr &&&> FFI.Word64.withVal ---> FFI.String.fromPtr true) strndup_ (str & n)
-    fun strnfill length fillChar = (FFI.Word64.withVal &&&> FFI.Word8.withVal ---> FFI.String.fromPtr true) strnfill_ (length & fillChar)
+    fun strndup str n = (FFI.String.withConstPtr &&&> FFI.UInt64.withVal ---> FFI.String.fromPtr true) strndup_ (str & n)
+    fun strnfill length fillChar = (FFI.UInt64.withVal &&&> FFI.UInt8.withVal ---> FFI.String.fromPtr true) strnfill_ (length & fillChar)
     fun strreverse string = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) strreverse_ string
     fun strrstr haystack needle = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) strrstr_ (haystack & needle)
     fun strrstrLen haystack haystackLen needle =
@@ -3079,7 +3079,7 @@ structure GLib : G_LIB =
         )
     fun strtod nptr endptr = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.Double.fromVal) strtod_ (nptr & endptr)
     fun strup string = (FFI.String.withConstPtr ---> FFI.String.fromPtr true) strup_ string
-    fun strvLength strArray = (FFI.String.withConstPtr ---> FFI.Word32.fromVal) strvLength_ strArray
+    fun strvLength strArray = (FFI.String.withConstPtr ---> FFI.UInt32.fromVal) strvLength_ strArray
     fun testBug bugUriSnippet = (FFI.String.withConstPtr ---> I) testBug_ bugUriSnippet
     fun testBugBase uriPattern = (FFI.String.withConstPtr ---> I) testBugBase_ uriPattern
     fun testFail () = (I ---> I) testFail_ ()
@@ -3100,7 +3100,7 @@ structure GLib : G_LIB =
          &&&> FFI.String.withConstPtr
          &&&> FFI.Int32.withVal
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> FFI.String.withConstPtr
          ---> I
       )
@@ -3113,24 +3113,24 @@ structure GLib : G_LIB =
            & assertionFlags
            & pattern
         )
-    fun testTrapFork usecTimeout testTrapFlags = (FFI.Word64.withVal &&&> GLibTestTrapFlags.C.withVal ---> FFI.Bool.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
+    fun testTrapFork usecTimeout testTrapFlags = (FFI.UInt64.withVal &&&> GLibTestTrapFlags.C.withVal ---> FFI.Bool.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
     fun testTrapHasPassed () = (I ---> FFI.Bool.fromVal) testTrapHasPassed_ ()
     fun testTrapReachedTimeout () = (I ---> FFI.Bool.fromVal) testTrapReachedTimeout_ ()
-    fun threadErrorQuark () = (I ---> FFI.Word32.fromVal) threadErrorQuark_ ()
+    fun threadErrorQuark () = (I ---> FFI.UInt32.fromVal) threadErrorQuark_ ()
     fun threadExit () = (I ---> I) threadExit_ ()
     fun threadGetInitialized () = (I ---> FFI.Bool.fromVal) threadGetInitialized_ ()
     fun threadInit vtable = (GLibThreadFunctionsRecord.C.withPtr ---> I) threadInit_ vtable
     fun threadInitWithErrorcheckMutexes vtable = (GLibThreadFunctionsRecord.C.withPtr ---> I) threadInitWithErrorcheckMutexes_ vtable
-    fun threadPoolGetMaxIdleTime () = (I ---> FFI.Word32.fromVal) threadPoolGetMaxIdleTime_ ()
+    fun threadPoolGetMaxIdleTime () = (I ---> FFI.UInt32.fromVal) threadPoolGetMaxIdleTime_ ()
     fun threadPoolGetMaxUnusedThreads () = (I ---> FFI.Int32.fromVal) threadPoolGetMaxUnusedThreads_ ()
-    fun threadPoolGetNumUnusedThreads () = (I ---> FFI.Word32.fromVal) threadPoolGetNumUnusedThreads_ ()
-    fun threadPoolSetMaxIdleTime interval = (FFI.Word32.withVal ---> I) threadPoolSetMaxIdleTime_ interval
+    fun threadPoolGetNumUnusedThreads () = (I ---> FFI.UInt32.fromVal) threadPoolGetNumUnusedThreads_ ()
+    fun threadPoolSetMaxIdleTime interval = (FFI.UInt32.withVal ---> I) threadPoolSetMaxIdleTime_ interval
     fun threadPoolSetMaxUnusedThreads maxThreads = (FFI.Int32.withVal ---> I) threadPoolSetMaxUnusedThreads_ maxThreads
     fun threadPoolStopUnusedThreads () = (I ---> I) threadPoolStopUnusedThreads_ ()
     fun timeValFromIso8601 isoDate time = (FFI.String.withConstPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.fromVal) timeValFromIso8601_ (isoDate & time)
-    fun timeoutSourceNew interval = (FFI.Word32.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNew_ interval
-    fun timeoutSourceNewSeconds interval = (FFI.Word32.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNewSeconds_ interval
-    fun trashStackHeight stackP = (GLibTrashStackRecord.C.withPtr ---> FFI.Word32.fromVal) trashStackHeight_ stackP
+    fun timeoutSourceNew interval = (FFI.UInt32.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNew_ interval
+    fun timeoutSourceNewSeconds interval = (FFI.UInt32.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNewSeconds_ interval
+    fun trashStackHeight stackP = (GLibTrashStackRecord.C.withPtr ---> FFI.UInt32.fromVal) trashStackHeight_ stackP
     fun trashStackPush stackP = (GLibTrashStackRecord.C.withPtr ---> I) trashStackPush_ stackP
     fun unicharBreakType c = (FFI.Char.withVal ---> GLibUnicodeBreakType.C.fromVal) unicharBreakType_ c
     fun unicharCombiningClass uc = (FFI.Char.withVal ---> FFI.Int32.fromVal) unicharCombiningClass_ uc
@@ -3160,8 +3160,8 @@ structure GLib : G_LIB =
     fun unicharType c = (FFI.Char.withVal ---> GLibUnicodeType.C.fromVal) unicharType_ c
     fun unicharValidate ch = (FFI.Char.withVal ---> FFI.Bool.fromVal) unicharValidate_ ch
     fun unicharXdigitValue c = (FFI.Char.withVal ---> FFI.Int32.fromVal) unicharXdigitValue_ c
-    fun unicodeScriptFromIso15924 iso15924 = (FFI.Word32.withVal ---> GLibUnicodeScript.C.fromVal) unicodeScriptFromIso15924_ iso15924
-    fun unicodeScriptToIso15924 script = (GLibUnicodeScript.C.withVal ---> FFI.Word32.fromVal) unicodeScriptToIso15924_ script
+    fun unicodeScriptFromIso15924 iso15924 = (FFI.UInt32.withVal ---> GLibUnicodeScript.C.fromVal) unicodeScriptFromIso15924_ iso15924
+    fun unicodeScriptToIso15924 script = (GLibUnicodeScript.C.withVal ---> FFI.UInt32.fromVal) unicodeScriptToIso15924_ script
     fun unlink filename = (FFI.String.withConstPtr ---> FFI.Int32.fromVal) unlink_ filename
     fun unsetenv variable = (FFI.String.withConstPtr ---> I) unsetenv_ variable
     fun uriEscapeString unescaped reservedCharsAllowed allowUtf8 =
@@ -3192,7 +3192,7 @@ structure GLib : G_LIB =
            & illegalCharacters
         )
     fun uriUnescapeString escapedString illegalCharacters = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) uriUnescapeString_ (escapedString & illegalCharacters)
-    fun usleep microseconds = (FFI.Word64.withVal ---> I) usleep_ microseconds
+    fun usleep microseconds = (FFI.UInt64.withVal ---> I) usleep_ microseconds
     fun utf8Casefold str len = (FFI.String.withConstPtr &&&> FFI.Int64.withVal ---> FFI.String.fromPtr true) utf8Casefold_ (str & len)
     fun utf8Collate str1 str2 = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) utf8Collate_ (str1 & str2)
     fun utf8CollateKey str len = (FFI.String.withConstPtr &&&> FFI.Int64.withVal ---> FFI.String.fromPtr true) utf8CollateKey_ (str & len)
@@ -3236,7 +3236,7 @@ structure GLib : G_LIB =
       (
         FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> FFI.String.fromPtr true
       )
         utf8Strncpy_
@@ -3311,7 +3311,7 @@ structure GLib : G_LIB =
            & endptr
            & []
         )
-    fun variantParserGetErrorQuark () = (I ---> FFI.Word32.fromVal) variantParserGetErrorQuark_ ()
+    fun variantParserGetErrorQuark () = (I ---> FFI.UInt32.fromVal) variantParserGetErrorQuark_ ()
     fun variantTypeChecked unknown = (FFI.String.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr false) variantTypeChecked_ unknown
     fun variantTypeStringIsValid typeString = (FFI.String.withConstPtr ---> FFI.Bool.fromVal) variantTypeStringIsValid_ typeString
     fun variantTypeStringScan string limit =

@@ -13,16 +13,16 @@ structure GtkBuilder :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Word32.VAL
+             --> FFI.PolyML.UInt32.VAL
           )
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Word32.VAL
+             --> FFI.PolyML.UInt32.VAL
           )
       val connectSignals_ = call (load_sym libgtk "gtk_builder_connect_signals") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
@@ -47,7 +47,7 @@ structure GtkBuilder :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         addFromFile_
         (
@@ -59,9 +59,9 @@ structure GtkBuilder :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Word32.fromVal
+         ---> FFI.UInt32.fromVal
       )
         addFromString_
         (

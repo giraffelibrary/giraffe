@@ -13,7 +13,7 @@ structure GtkSourceCompletionProposal :>
       val getLabel_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getMarkup_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_markup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getText_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val hash_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_hash") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val hash_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_hash") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
     end
     type 'a class_t = 'a GtkSourceCompletionProposalClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -24,7 +24,7 @@ structure GtkSourceCompletionProposal :>
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getLabel_ self
     fun getMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getMarkup_ self
     fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getText_ self
-    fun hash self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) hash_ self
+    fun hash self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) hash_ self
     local
       open ClosureMarshal Signal
     in

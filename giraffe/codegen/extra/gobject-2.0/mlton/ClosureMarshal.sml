@@ -9,7 +9,7 @@ structure ClosureMarshal :>
     type state =
       GObjectValueRecord.C.notnull GObjectValueRecord.C.p
        * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p
-       * FFI.Word32.val_
+       * FFI.UInt32.val_
     type callback = state -> unit
 
     structure ClosureCallback = Callback (struct type callback = callback end)
@@ -19,7 +19,7 @@ structure ClosureMarshal :>
         ClosureCallback.id
          * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
          * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p
-         * FFI.Word32.val_
+         * FFI.UInt32.val_
          -> unit =
         fn (id, v, vs, size) =>
           case ClosureCallback.lookup id of
@@ -41,7 +41,7 @@ structure ClosureMarshal :>
           (ClosureCallback.id
             * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
             * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p
-            * FFI.Word32.val_
+            * FFI.UInt32.val_
             -> unit)
            -> unit;
       dispatch

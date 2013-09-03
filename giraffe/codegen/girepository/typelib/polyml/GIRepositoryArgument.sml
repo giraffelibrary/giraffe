@@ -41,7 +41,7 @@ structure GIRepositoryArgument :>
       val from_uint8_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint8")
-          (PTR --> FFI.PolyML.Word8.VAL);
+          (PTR --> FFI.PolyML.UInt8.VAL);
 
       val from_int16_ =
         call
@@ -51,7 +51,7 @@ structure GIRepositoryArgument :>
       val from_uint16_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint16")
-          (PTR --> FFI.PolyML.Word16.VAL);
+          (PTR --> FFI.PolyML.UInt16.VAL);
 
       val from_int32_ =
         call
@@ -61,7 +61,7 @@ structure GIRepositoryArgument :>
       val from_uint32_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint32")
-          (PTR --> FFI.PolyML.Word32.VAL);
+          (PTR --> FFI.PolyML.UInt32.VAL);
 
       val from_int64_ =
         call
@@ -71,7 +71,7 @@ structure GIRepositoryArgument :>
       val from_uint64_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint64")
-          (PTR --> FFI.PolyML.Word64.VAL);
+          (PTR --> FFI.PolyML.UInt64.VAL);
 
       val from_float_ =
         call

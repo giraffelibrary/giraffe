@@ -12,7 +12,7 @@ structure GioUnixSocketAddress :>
       val abstractNamesSupported_ = call (load_sym libgio "g_unix_socket_address_abstract_names_supported") (FFI.PolyML.VOID --> FFI.PolyML.Bool.VAL)
       val getAddressType_ = call (load_sym libgio "g_unix_socket_address_get_address_type") (GObjectObjectClass.PolyML.PTR --> GioUnixSocketAddressType.PolyML.VAL)
       val getPath_ = call (load_sym libgio "g_unix_socket_address_get_path") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word64.VAL)
+      val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt64.VAL)
     end
     type 'a class_t = 'a GioUnixSocketAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
@@ -23,7 +23,7 @@ structure GioUnixSocketAddress :>
     fun abstractNamesSupported () = (I ---> FFI.Bool.fromVal) abstractNamesSupported_ ()
     fun getAddressType self = (GObjectObjectClass.C.withPtr ---> GioUnixSocketAddressType.C.fromVal) getAddressType_ self
     fun getPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getPath_ self
-    fun getPathLen self = (GObjectObjectClass.C.withPtr ---> FFI.Word64.fromVal) getPathLen_ self
+    fun getPathLen self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.fromVal) getPathLen_ self
     local
       open Property
     in

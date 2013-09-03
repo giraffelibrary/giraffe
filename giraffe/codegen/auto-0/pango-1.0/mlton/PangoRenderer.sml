@@ -47,7 +47,7 @@ structure PangoRenderer :>
             _import "pango_renderer_draw_glyph" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Double.val_
                * FFI.Double.val_
                -> unit;
@@ -261,7 +261,7 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Double.withVal
          &&&> FFI.Double.withVal
          ---> I

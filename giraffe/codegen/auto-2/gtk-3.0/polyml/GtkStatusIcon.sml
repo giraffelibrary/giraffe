@@ -47,7 +47,7 @@ structure GtkStatusIcon :>
       val getTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_markup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getTooltipText_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getVisible_ = call (load_sym libgtk "gtk_status_icon_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getX11WindowId_ = call (load_sym libgtk "gtk_status_icon_get_x11_window_id") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getX11WindowId_ = call (load_sym libgtk "gtk_status_icon_get_x11_window_id") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val isEmbedded_ = call (load_sym libgtk "gtk_status_icon_is_embedded") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val setFromFile_ = call (load_sym libgtk "gtk_status_icon_set_from_file") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
       val setFromGicon_ = call (load_sym libgtk "gtk_status_icon_set_from_gicon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -152,7 +152,7 @@ structure GtkStatusIcon :>
     fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ self
     fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
-    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getX11WindowId_ self
+    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getX11WindowId_ self
     fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isEmbedded_ self
     fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromGicon_ (self & icon)

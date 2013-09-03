@@ -14,8 +14,8 @@ structure GtkTargetList :>
             _import "gtk_target_list_add" :
               GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
-               * FFI.Word32.val_
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
+               * FFI.UInt32.val_
                -> unit;
           )
             (
@@ -32,7 +32,7 @@ structure GtkTargetList :>
           (
             _import "gtk_target_list_add_image_targets" :
               GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Bool.val_
                -> unit;
           )
@@ -50,7 +50,7 @@ structure GtkTargetList :>
           (
             _import "gtk_target_list_add_rich_text_targets" :
               GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * FFI.Bool.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
@@ -61,8 +61,8 @@ structure GtkTargetList :>
               x3,
               x4
             )
-    val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
-    val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.Word32.val_ -> unit;) (x1, x2)
+    val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
     val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
     type record_t = GtkTargetListRecord.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
@@ -71,8 +71,8 @@ structure GtkTargetList :>
       (
         GtkTargetListRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Word32.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         add_
@@ -85,7 +85,7 @@ structure GtkTargetList :>
     fun addImageTargets self info writable =
       (
         GtkTargetListRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Bool.withVal
          ---> I
       )
@@ -98,7 +98,7 @@ structure GtkTargetList :>
     fun addRichTextTargets self info deserializable buffer =
       (
         GtkTargetListRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Bool.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
@@ -110,7 +110,7 @@ structure GtkTargetList :>
            & deserializable
            & buffer
         )
-    fun addTextTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.Word32.withVal ---> I) addTextTargets_ (self & info)
-    fun addUriTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.Word32.withVal ---> I) addUriTargets_ (self & info)
+    fun addTextTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt32.withVal ---> I) addTextTargets_ (self & info)
+    fun addUriTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt32.withVal ---> I) addUriTargets_ (self & info)
     fun remove self target = (GtkTargetListRecord.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) remove_ (self & target)
   end

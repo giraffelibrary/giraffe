@@ -33,8 +33,8 @@ structure GioFileInfo :>
       val getAttributeStatus_ = call (load_sym libgio "g_file_info_get_attribute_status") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GioFileAttributeStatus.PolyML.VAL)
       val getAttributeString_ = call (load_sym libgio "g_file_info_get_attribute_string") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.String.RETPTR)
       val getAttributeType_ = call (load_sym libgio "g_file_info_get_attribute_type") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GioFileAttributeType.PolyML.VAL)
-      val getAttributeUint32_ = call (load_sym libgio "g_file_info_get_attribute_uint32") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Word32.VAL)
-      val getAttributeUint64_ = call (load_sym libgio "g_file_info_get_attribute_uint64") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Word64.VAL)
+      val getAttributeUint32_ = call (load_sym libgio "g_file_info_get_attribute_uint32") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.UInt32.VAL)
+      val getAttributeUint64_ = call (load_sym libgio "g_file_info_get_attribute_uint64") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.UInt64.VAL)
       val getContentType_ = call (load_sym libgio "g_file_info_get_content_type") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getDisplayName_ = call (load_sym libgio "g_file_info_get_display_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getEditName_ = call (load_sym libgio "g_file_info_get_edit_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
@@ -130,7 +130,7 @@ structure GioFileInfo :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val setAttributeUint64_ =
@@ -138,7 +138,7 @@ structure GioFileInfo :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              --> FFI.PolyML.VOID
           )
       val setContentType_ = call (load_sym libgio "g_file_info_set_content_type") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
@@ -199,8 +199,8 @@ structure GioFileInfo :>
     fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
     fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) getAttributeString_ (self & attribute)
     fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
-    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getAttributeUint32_ (self & attribute)
-    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word64.fromVal) getAttributeUint64_ (self & attribute)
+    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getAttributeUint32_ (self & attribute)
+    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt64.fromVal) getAttributeUint64_ (self & attribute)
     fun getContentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getContentType_ self
     fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDisplayName_ self
     fun getEditName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getEditName_ self
@@ -340,7 +340,7 @@ structure GioFileInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         setAttributeUint32_
@@ -353,7 +353,7 @@ structure GioFileInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          ---> I
       )
         setAttributeUint64_

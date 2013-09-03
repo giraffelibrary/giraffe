@@ -13,7 +13,7 @@ structure GioPollableInputStream :>
         call (load_sym libgio "g_pollable_input_stream_read_nonblocking")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word64.VAL
+             &&> FFI.PolyML.UInt64.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.PolyML.Int64.VAL
@@ -27,7 +27,7 @@ structure GioPollableInputStream :>
     fun readNonblocking self size cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word64.withVal
+         &&&> FFI.UInt64.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.fromVal

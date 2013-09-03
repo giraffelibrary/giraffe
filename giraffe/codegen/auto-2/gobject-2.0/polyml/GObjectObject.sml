@@ -31,7 +31,7 @@ structure GObjectObject :>
              &&> GObjectClosureRecord.PolyML.PTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val compatControl_ = call (load_sym libgobject "g_object_compat_control") (FFI.PolyML.Word64.VAL --> FFI.PolyML.Word64.VAL)
+      val compatControl_ = call (load_sym libgobject "g_object_compat_control") (FFI.PolyML.UInt64.VAL --> FFI.PolyML.UInt64.VAL)
       val interfaceFindProperty_ = call (load_sym libgobject "g_object_interface_find_property") (FFI.PolyML.String.INPTR --> GObjectParamSpecClass.PolyML.PTR)
       val interfaceInstallProperty_ = call (load_sym libgobject "g_object_interface_install_property") (GObjectParamSpecClass.PolyML.PTR --> FFI.PolyML.VOID)
       val forceFloating_ = call (load_sym libgobject "g_object_force_floating") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -47,7 +47,7 @@ structure GObjectObject :>
              --> FFI.PolyML.VOID
           )
 (*
-      val getQdata_ = call (load_sym libgobject "g_object_get_qdata") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val getQdata_ = call (load_sym libgobject "g_object_get_qdata") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val notify_ = call (load_sym libgobject "g_object_notify") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
       val notifyByPspec_ = call (load_sym libgobject "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.PTR &&> GObjectParamSpecClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -64,7 +64,7 @@ structure GObjectObject :>
           )
 (*
       val stealData_ = call (load_sym libgobject "g_object_steal_data") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val stealQdata_ = call (load_sym libgobject "g_object_steal_qdata") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val stealQdata_ = call (load_sym libgobject "g_object_steal_qdata") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val thawNotify_ = call (load_sym libgobject "g_object_thaw_notify") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val watchClosure_ = call (load_sym libgobject "g_object_watch_closure") (GObjectObjectClass.PolyML.PTR &&> GObjectClosureRecord.PolyML.PTR --> FFI.PolyML.VOID)
 *)
@@ -108,7 +108,7 @@ structure GObjectObject :>
            & transformTo
            & transformFrom
         )
-    fun compatControl what = (FFI.Word64.withVal ---> FFI.Word64.fromVal) compatControl_ what
+    fun compatControl what = (FFI.UInt64.withVal ---> FFI.UInt64.fromVal) compatControl_ what
     fun interfaceFindProperty propertyName = (FFI.String.withConstPtr ---> GObjectParamSpecClass.C.fromPtr false) interfaceFindProperty_ propertyName
     fun interfaceInstallProperty pspec = (GObjectParamSpecClass.C.withPtr ---> I) interfaceInstallProperty_ pspec
     fun forceFloating self = (GObjectObjectClass.C.withPtr ---> I) forceFloating_ self
@@ -129,7 +129,7 @@ structure GObjectObject :>
            & value
         )
 (*
-    fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) getQdata_ (self & quark)
+    fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) getQdata_ (self & quark)
     fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFloating_ self
     fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
@@ -151,7 +151,7 @@ structure GObjectObject :>
         )
 (*
     fun stealData self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) stealData_ (self & key)
-    fun stealQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) stealQdata_ (self & quark)
+    fun stealQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) stealQdata_ (self & quark)
     fun thawNotify self = (GObjectObjectClass.C.withPtr ---> I) thawNotify_ self
     fun watchClosure self closure = (GObjectObjectClass.C.withPtr &&&> GObjectClosureRecord.C.withPtr ---> I) watchClosure_ (self & closure)
     local

@@ -32,8 +32,8 @@ structure GtkToolItemGroup :>
     val getItemPosition_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_item_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;) (x1, x2)
     val getLabel_ = _import "gtk_tool_item_group_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
     val getLabelWidget_ = _import "gtk_tool_item_group_get_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getNItems_ = _import "gtk_tool_item_group_get_n_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Word32.val_;
-    val getNthItem_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_nth_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Word32.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val getNItems_ = _import "gtk_tool_item_group_get_n_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
+    val getNthItem_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_nth_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val insert_ =
       fn
         x1
@@ -117,8 +117,8 @@ structure GtkToolItemGroup :>
     fun getItemPosition self item = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getItemPosition_ (self & item)
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getLabel_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getNItems_ self
-    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
+    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getNItems_ self
+    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
     fun insert self item position =
       (
         GObjectObjectClass.C.withPtr

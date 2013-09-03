@@ -11,12 +11,12 @@ structure GtkColorButton :>
       val new_ = call (load_sym libgtk "gtk_color_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val newWithColor_ = call (load_sym libgtk "gtk_color_button_new_with_color") (GdkColorRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val newWithRgba_ = call (load_sym libgtk "gtk_color_button_new_with_rgba") (GdkRgbaRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAlpha_ = call (load_sym libgtk "gtk_color_button_get_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getAlpha_ = call (load_sym libgtk "gtk_color_button_get_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getColor_ = call (load_sym libgtk "gtk_color_button_get_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getRgba_ = call (load_sym libgtk "gtk_color_button_get_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getTitle_ = call (load_sym libgtk "gtk_color_button_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getUseAlpha_ = call (load_sym libgtk "gtk_color_button_get_use_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setAlpha_ = call (load_sym libgtk "gtk_color_button_set_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word16.VAL --> FFI.PolyML.VOID)
+      val setAlpha_ = call (load_sym libgtk "gtk_color_button_set_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt16.VAL --> FFI.PolyML.VOID)
       val setColor_ = call (load_sym libgtk "gtk_color_button_set_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setRgba_ = call (load_sym libgtk "gtk_color_button_set_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setTitle_ = call (load_sym libgtk "gtk_color_button_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
@@ -32,7 +32,7 @@ structure GtkColorButton :>
     fun new () = (I ---> GtkColorButtonClass.C.fromPtr false) new_ ()
     fun newWithColor color = (GdkColorRecord.C.withPtr ---> GtkColorButtonClass.C.fromPtr false) newWithColor_ color
     fun newWithRgba rgba = (GdkRgbaRecord.C.withPtr ---> GtkColorButtonClass.C.fromPtr false) newWithRgba_ rgba
-    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getAlpha_ self
+    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getAlpha_ self
     fun getColor self =
       let
         val color & () = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && I) getColor_ (self & ())
@@ -47,7 +47,7 @@ structure GtkColorButton :>
       end
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTitle_ self
     fun getUseAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUseAlpha_ self
-    fun setAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.Word16.withVal ---> I) setAlpha_ (self & alpha)
+    fun setAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.withVal ---> I) setAlpha_ (self & alpha)
     fun setColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColor_ (self & color)
     fun setRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setRgba_ (self & rgba)
     fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)

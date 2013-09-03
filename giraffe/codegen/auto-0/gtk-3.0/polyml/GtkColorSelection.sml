@@ -9,21 +9,21 @@ structure GtkColorSelection :>
     in
       val getType_ = call (load_sym libgtk "gtk_color_selection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_color_selection_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getCurrentAlpha_ = call (load_sym libgtk "gtk_color_selection_get_current_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getCurrentAlpha_ = call (load_sym libgtk "gtk_color_selection_get_current_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getCurrentColor_ = call (load_sym libgtk "gtk_color_selection_get_current_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getCurrentRgba_ = call (load_sym libgtk "gtk_color_selection_get_current_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getHasOpacityControl_ = call (load_sym libgtk "gtk_color_selection_get_has_opacity_control") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val getHasPalette_ = call (load_sym libgtk "gtk_color_selection_get_has_palette") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getPreviousAlpha_ = call (load_sym libgtk "gtk_color_selection_get_previous_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getPreviousAlpha_ = call (load_sym libgtk "gtk_color_selection_get_previous_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getPreviousColor_ = call (load_sym libgtk "gtk_color_selection_get_previous_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getPreviousRgba_ = call (load_sym libgtk "gtk_color_selection_get_previous_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val isAdjusting_ = call (load_sym libgtk "gtk_color_selection_is_adjusting") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setCurrentAlpha_ = call (load_sym libgtk "gtk_color_selection_set_current_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word16.VAL --> FFI.PolyML.VOID)
+      val setCurrentAlpha_ = call (load_sym libgtk "gtk_color_selection_set_current_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt16.VAL --> FFI.PolyML.VOID)
       val setCurrentColor_ = call (load_sym libgtk "gtk_color_selection_set_current_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setCurrentRgba_ = call (load_sym libgtk "gtk_color_selection_set_current_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setHasOpacityControl_ = call (load_sym libgtk "gtk_color_selection_set_has_opacity_control") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
       val setHasPalette_ = call (load_sym libgtk "gtk_color_selection_set_has_palette") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setPreviousAlpha_ = call (load_sym libgtk "gtk_color_selection_set_previous_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word16.VAL --> FFI.PolyML.VOID)
+      val setPreviousAlpha_ = call (load_sym libgtk "gtk_color_selection_set_previous_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt16.VAL --> FFI.PolyML.VOID)
       val setPreviousColor_ = call (load_sym libgtk "gtk_color_selection_set_previous_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setPreviousRgba_ = call (load_sym libgtk "gtk_color_selection_set_previous_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -35,7 +35,7 @@ structure GtkColorSelection :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkColorSelectionClass.C.fromPtr false) new_ ()
-    fun getCurrentAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getCurrentAlpha_ self
+    fun getCurrentAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getCurrentAlpha_ self
     fun getCurrentColor self =
       let
         val color & () = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && I) getCurrentColor_ (self & ())
@@ -50,7 +50,7 @@ structure GtkColorSelection :>
       end
     fun getHasOpacityControl self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasOpacityControl_ self
     fun getHasPalette self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasPalette_ self
-    fun getPreviousAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getPreviousAlpha_ self
+    fun getPreviousAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getPreviousAlpha_ self
     fun getPreviousColor self =
       let
         val color & () = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && I) getPreviousColor_ (self & ())
@@ -64,12 +64,12 @@ structure GtkColorSelection :>
         rgba
       end
     fun isAdjusting self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isAdjusting_ self
-    fun setCurrentAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.Word16.withVal ---> I) setCurrentAlpha_ (self & alpha)
+    fun setCurrentAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.withVal ---> I) setCurrentAlpha_ (self & alpha)
     fun setCurrentColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setCurrentColor_ (self & color)
     fun setCurrentRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setCurrentRgba_ (self & rgba)
     fun setHasOpacityControl self hasOpacity = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasOpacityControl_ (self & hasOpacity)
     fun setHasPalette self hasPalette = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasPalette_ (self & hasPalette)
-    fun setPreviousAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.Word16.withVal ---> I) setPreviousAlpha_ (self & alpha)
+    fun setPreviousAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.withVal ---> I) setPreviousAlpha_ (self & alpha)
     fun setPreviousColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setPreviousColor_ (self & color)
     fun setPreviousRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setPreviousRgba_ (self & rgba)
     local

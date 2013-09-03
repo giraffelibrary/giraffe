@@ -10,7 +10,7 @@ structure GLibError :>
         call (load_sym libglib "g_error_matches")
           (
             GLibErrorRecord.PolyML.PTR
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              &&> FFI.PolyML.Int32.VAL
              --> FFI.PolyML.Bool.VAL
           )
@@ -20,7 +20,7 @@ structure GLibError :>
     fun matches self domain code =
       (
         GLibErrorRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> FFI.Int32.withVal
          ---> FFI.Bool.fromVal
       )

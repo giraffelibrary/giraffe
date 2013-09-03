@@ -102,7 +102,7 @@ structure GIRepository : G_I_REPOSITORY =
               GIRepositoryInfoType.C.val_
                * GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
                * GIRepositoryTypelibRecord.C.notnull GIRepositoryTypelibRecord.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -155,7 +155,7 @@ structure GIRepository : G_I_REPOSITORY =
     val interfaceInfoGetProperty_ = fn x1 & x2 => (_import "g_interface_info_get_property" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val interfaceInfoGetSignal_ = fn x1 & x2 => (_import "g_interface_info_get_signal" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val interfaceInfoGetVfunc_ = fn x1 & x2 => (_import "g_interface_info_get_vfunc" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
-    val invokeErrorQuark_ = _import "g_invoke_error_quark" : unit -> FFI.Word32.val_;
+    val invokeErrorQuark_ = _import "g_invoke_error_quark" : unit -> FFI.UInt32.val_;
     val objectInfoFindMethod_ =
       fn
         x1 & (x2, x3) =>
@@ -252,12 +252,12 @@ structure GIRepository : G_I_REPOSITORY =
               x2,
               x3
             )
-    val structInfoGetAlignment_ = _import "g_struct_info_get_alignment" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Word64.val_;
+    val structInfoGetAlignment_ = _import "g_struct_info_get_alignment" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.UInt64.val_;
     val structInfoGetField_ = fn x1 & x2 => (_import "g_struct_info_get_field" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val structInfoGetMethod_ = fn x1 & x2 => (_import "g_struct_info_get_method" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val structInfoGetNFields_ = _import "g_struct_info_get_n_fields" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
     val structInfoGetNMethods_ = _import "g_struct_info_get_n_methods" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
-    val structInfoGetSize_ = _import "g_struct_info_get_size" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Word64.val_;
+    val structInfoGetSize_ = _import "g_struct_info_get_size" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.UInt64.val_;
     val structInfoIsForeign_ = _import "g_struct_info_is_foreign" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Bool.val_;
     val structInfoIsGtypeStruct_ = _import "g_struct_info_is_gtype_struct" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Bool.val_;
     val typeInfoGetArrayFixedSize_ = _import "g_type_info_get_array_fixed_size" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
@@ -284,7 +284,7 @@ structure GIRepository : G_I_REPOSITORY =
               x2,
               x3
             )
-    val unionInfoGetAlignment_ = _import "g_union_info_get_alignment" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Word64.val_;
+    val unionInfoGetAlignment_ = _import "g_union_info_get_alignment" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.UInt64.val_;
     val unionInfoGetDiscriminator_ = fn x1 & x2 => (_import "g_union_info_get_discriminator" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val unionInfoGetDiscriminatorOffset_ = _import "g_union_info_get_discriminator_offset" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
     val unionInfoGetDiscriminatorType_ = _import "g_union_info_get_discriminator_type" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
@@ -292,7 +292,7 @@ structure GIRepository : G_I_REPOSITORY =
     val unionInfoGetMethod_ = fn x1 & x2 => (_import "g_union_info_get_method" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p * FFI.Int32.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val unionInfoGetNFields_ = _import "g_union_info_get_n_fields" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
     val unionInfoGetNMethods_ = _import "g_union_info_get_n_methods" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int32.val_;
-    val unionInfoGetSize_ = _import "g_union_info_get_size" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Word64.val_;
+    val unionInfoGetSize_ = _import "g_union_info_get_size" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.UInt64.val_;
     val unionInfoIsDiscriminated_ = _import "g_union_info_is_discriminated" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Bool.val_;
     val valueInfoGetValue_ = _import "g_value_info_get_value" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> FFI.Int64.val_;
     val vfuncInfoGetFlags_ = _import "g_vfunc_info_get_flags" : GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p -> GIRepositoryVFuncInfoFlags.C.val_;
@@ -406,7 +406,7 @@ structure GIRepository : G_I_REPOSITORY =
         GIRepositoryInfoType.C.withVal
          &&&> GIRepositoryBaseInfoRecord.C.withPtr
          &&&> GIRepositoryTypelibRecord.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
       )
         infoNew_
@@ -432,7 +432,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun interfaceInfoGetProperty info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetProperty_ (info & n)
     fun interfaceInfoGetSignal info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetSignal_ (info & n)
     fun interfaceInfoGetVfunc info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetVfunc_ (info & n)
-    fun invokeErrorQuark () = (I ---> FFI.Word32.fromVal) invokeErrorQuark_ ()
+    fun invokeErrorQuark () = (I ---> FFI.UInt32.fromVal) invokeErrorQuark_ ()
     fun objectInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
     fun objectInfoFindMethodUsingInterfaces info name =
       let
@@ -486,12 +486,12 @@ structure GIRepository : G_I_REPOSITORY =
     fun signalInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GObjectSignalFlags.C.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.fromVal) signalInfoTrueStopsEmit_ info
     fun structInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
-    fun structInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Word64.fromVal) structInfoGetAlignment_ info
+    fun structInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.fromVal) structInfoGetAlignment_ info
     fun structInfoGetField info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetField_ (info & n)
     fun structInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetMethod_ (info & n)
     fun structInfoGetNFields info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) structInfoGetNFields_ info
     fun structInfoGetNMethods info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) structInfoGetNMethods_ info
-    fun structInfoGetSize info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Word64.fromVal) structInfoGetSize_ info
+    fun structInfoGetSize info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.fromVal) structInfoGetSize_ info
     fun structInfoIsForeign info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.fromVal) structInfoIsForeign_ info
     fun structInfoIsGtypeStruct info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.fromVal) structInfoIsGtypeStruct_ info
     fun typeInfoGetArrayFixedSize info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) typeInfoGetArrayFixedSize_ info
@@ -504,7 +504,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun typeInfoIsZeroTerminated info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.fromVal) typeInfoIsZeroTerminated_ info
     fun typeTagToString type' = (GIRepositoryTypeTag.C.withVal ---> FFI.String.fromPtr false) typeTagToString_ type'
     fun unionInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
-    fun unionInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Word64.fromVal) unionInfoGetAlignment_ info
+    fun unionInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.fromVal) unionInfoGetAlignment_ info
     fun unionInfoGetDiscriminator info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoGetDiscriminator_ (info & n)
     fun unionInfoGetDiscriminatorOffset info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) unionInfoGetDiscriminatorOffset_ info
     fun unionInfoGetDiscriminatorType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoGetDiscriminatorType_ info
@@ -512,7 +512,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun unionInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoGetMethod_ (info & n)
     fun unionInfoGetNFields info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) unionInfoGetNFields_ info
     fun unionInfoGetNMethods info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.fromVal) unionInfoGetNMethods_ info
-    fun unionInfoGetSize info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Word64.fromVal) unionInfoGetSize_ info
+    fun unionInfoGetSize info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.fromVal) unionInfoGetSize_ info
     fun unionInfoIsDiscriminated info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.fromVal) unionInfoIsDiscriminated_ info
     fun valueInfoGetValue info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int64.fromVal) valueInfoGetValue_ info
     fun vfuncInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryVFuncInfoFlags.C.fromVal) vfuncInfoGetFlags_ info

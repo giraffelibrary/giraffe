@@ -5,7 +5,7 @@ structure GioCredentials :>
   struct
     val getType_ = _import "g_credentials_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_credentials_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getUnixUser_ = fn x1 & x2 => (_import "g_credentials_get_unix_user" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Word32.val_;) (x1, x2)
+    val getUnixUser_ = fn x1 & x2 => (_import "g_credentials_get_unix_user" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.UInt32.val_;) (x1, x2)
     val isSameUser_ =
       fn
         x1
@@ -32,7 +32,7 @@ structure GioCredentials :>
           (
             _import "g_credentials_set_unix_user" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.val_;
           )
@@ -46,7 +46,7 @@ structure GioCredentials :>
     type credentialstype_t = GioCredentialsType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
-    fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Word32.fromVal) getUnixUser_ (self & [])
+    fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.UInt32.fromVal) getUnixUser_ (self & [])
     fun isSameUser self otherCredentials =
       (
         GObjectObjectClass.C.withPtr
@@ -64,7 +64,7 @@ structure GioCredentials :>
     fun setUnixUser self uid =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.fromVal
       )

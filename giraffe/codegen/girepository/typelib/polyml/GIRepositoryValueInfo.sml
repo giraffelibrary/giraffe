@@ -13,7 +13,7 @@ structure GIRepositoryValueInfo :>
       val getValueWord_ =
         call
           (load_sym libgirepository "g_value_info_get_value")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Word32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL);
     end
 
 
@@ -24,5 +24,5 @@ structure GIRepositoryValueInfo :>
       (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.fromVal) getValueInt_ info
 
     fun getValueWord info =
-      (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Word32.fromVal) getValueWord_ info
+      (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.UInt32.fromVal) getValueWord_ info
   end

@@ -18,7 +18,7 @@ structure GtkSpinButton :>
           (
             GObjectObjectClass.PolyML.OPTPTR
              &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val newWithRange_ =
@@ -35,11 +35,11 @@ structure GtkSpinButton :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Word32.VAL
+             &&> FFI.PolyML.UInt32.VAL
              --> FFI.PolyML.VOID
           )
       val getAdjustment_ = call (load_sym libgtk "gtk_spin_button_get_adjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word32.VAL)
+      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
       val getIncrements_ =
         call (load_sym libgtk "gtk_spin_button_get_increments")
           (
@@ -63,7 +63,7 @@ structure GtkSpinButton :>
       val getValueAsInt_ = call (load_sym libgtk "gtk_spin_button_get_value_as_int") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
       val getWrap_ = call (load_sym libgtk "gtk_spin_button_get_wrap") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
       val setAdjustment_ = call (load_sym libgtk "gtk_spin_button_set_adjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Word32.VAL --> FFI.PolyML.VOID)
+      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
       val setIncrements_ =
         call (load_sym libgtk "gtk_spin_button_set_increments")
           (
@@ -112,7 +112,7 @@ structure GtkSpinButton :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> FFI.Double.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> GtkSpinButtonClass.C.fromPtr false
       )
         new_
@@ -139,7 +139,7 @@ structure GtkSpinButton :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.Double.withVal
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> I
       )
         configure_
@@ -150,7 +150,7 @@ structure GtkSpinButton :>
            & digits
         )
     fun getAdjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getAdjustment_ self
-    fun getDigits self = (GObjectObjectClass.C.withPtr ---> FFI.Word32.fromVal) getDigits_ self
+    fun getDigits self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getDigits_ self
     fun getIncrements self =
       let
         val step
@@ -202,7 +202,7 @@ structure GtkSpinButton :>
     fun getValueAsInt self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getValueAsInt_ self
     fun getWrap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getWrap_ self
     fun setAdjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setDigits self digits = (GObjectObjectClass.C.withPtr &&&> FFI.Word32.withVal ---> I) setDigits_ (self & digits)
+    fun setDigits self digits = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setDigits_ (self & digits)
     fun setIncrements self step page =
       (
         GObjectObjectClass.C.withPtr

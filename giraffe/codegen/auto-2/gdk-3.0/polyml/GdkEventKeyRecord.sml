@@ -44,7 +44,7 @@ structure GdkEventKeyRecord :>
       val getTime_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_time")
-          (PolyML.PTR --> FFI.PolyML.Word32.VAL);
+          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
 
       val getState_ =
         call
@@ -54,17 +54,17 @@ structure GdkEventKeyRecord :>
       val getKeyval_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_keyval")
-          (PolyML.PTR --> FFI.PolyML.Word32.VAL);
+          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
 
       val getHardwareKeycode_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_hardware_keycode")
-          (PolyML.PTR --> FFI.PolyML.Word32.VAL);
+          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
 
       val getGroup_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_group")
-          (PolyML.PTR --> FFI.PolyML.Word8.VAL);
+          (PolyML.PTR --> FFI.PolyML.UInt8.VAL);
 
       val getIsModifier_ =
         call
@@ -81,15 +81,15 @@ structure GdkEventKeyRecord :>
 
     fun getSendEvent e = (C.withPtr ---> FFI.Bool.fromVal) getSendEvent_ e
 
-    fun getTime e = (C.withPtr ---> FFI.Word32.fromVal) getTime_ e
+    fun getTime e = (C.withPtr ---> FFI.UInt32.fromVal) getTime_ e
 
     fun getState e = (C.withPtr ---> GdkModifierType.C.fromVal) getState_ e
 
-    fun getKeyval e = (C.withPtr ---> FFI.Word32.fromVal) getKeyval_ e
+    fun getKeyval e = (C.withPtr ---> FFI.UInt32.fromVal) getKeyval_ e
 
-    fun getHardwareKeycode e = (C.withPtr ---> FFI.Word32.fromVal) getHardwareKeycode_ e
+    fun getHardwareKeycode e = (C.withPtr ---> FFI.UInt32.fromVal) getHardwareKeycode_ e
 
-    fun getGroup e = (C.withPtr ---> FFI.Word8.fromVal) getGroup_ e
+    fun getGroup e = (C.withPtr ---> FFI.UInt8.fromVal) getGroup_ e
 
     fun getIsModifier e = (C.withPtr ---> FFI.Bool.fromVal) getIsModifier_ e
 

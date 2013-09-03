@@ -185,7 +185,7 @@ structure GioSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Word32.val_;
+               -> FFI.UInt32.val_;
           )
             (
               x1,
@@ -246,7 +246,7 @@ structure GioSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Word32.val_;
+               -> FFI.UInt32.val_;
           )
             (
               x1,
@@ -385,7 +385,7 @@ structure GioSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Bool.val_;
           )
             (
@@ -444,7 +444,7 @@ structure GioSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Word32.val_
+               * FFI.UInt32.val_
                -> FFI.Bool.val_;
           )
             (
@@ -534,12 +534,12 @@ structure GioSettings :>
     fun getChild self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioSettingsClass.C.fromPtr true) getChild_ (self & name)
     fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Double.fromVal) getDouble_ (self & key)
     fun getEnum self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) getEnum_ (self & key)
-    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getFlags_ (self & key)
+    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getFlags_ (self & key)
     fun getHasUnapplied self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasUnapplied_ self
     fun getInt self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) getInt_ (self & key)
     fun getRange self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getRange_ (self & key)
     fun getString self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) getString_ (self & key)
-    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Word32.fromVal) getUint_ (self & key)
+    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getUint_ (self & key)
     fun getValue self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getValue_ (self & key)
     fun isWritable self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) isWritable_ (self & name)
     fun rangeCheck self key value =
@@ -600,7 +600,7 @@ structure GioSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         setFlags_
@@ -639,7 +639,7 @@ structure GioSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word32.withVal
+         &&&> FFI.UInt32.withVal
          ---> FFI.Bool.fromVal
       )
         setUint_

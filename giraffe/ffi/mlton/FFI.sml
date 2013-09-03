@@ -75,9 +75,9 @@ structure FFI =
 
 
     (**
-     * ShortWord
+     * UShort
      *)
-    structure ShortWord =
+    structure UShort =
       struct
         type val_ = C_UShort.t
         type ref_ = val_ ref
@@ -101,9 +101,9 @@ structure FFI =
 
 
     (**
-     * Word
+     * UInt
      *)
-    structure Word =
+    structure UInt =
       struct
         type val_ = C_UInt.t
         type ref_ = val_ ref
@@ -114,9 +114,9 @@ structure FFI =
 
 
     (**
-     * LongInt
+     * Long
      *)
-    structure LongInt =
+    structure Long =
       struct
         type val_ = C_Long.t
         type ref_ = val_ ref
@@ -127,9 +127,9 @@ structure FFI =
 
 
     (**
-     * LongWord
+     * ULong
      *)
-    structure LongWord =
+    structure ULong =
       struct
         type val_ = C_ULong.t
         type ref_ = val_ ref
@@ -188,9 +188,9 @@ structure FFI =
 
 
     (**
-     * Word8
+     * UInt8
      *)
-    structure Word8 =
+    structure UInt8 =
       struct
         type val_ = Word8.word
         type ref_ = val_ ref
@@ -214,9 +214,9 @@ structure FFI =
 
 
     (**
-     * Word16
+     * UInt16
      *)
-    structure Word16 =
+    structure UInt16 =
       struct
         type val_ = Word16.word
         type ref_ = val_ ref
@@ -240,9 +240,9 @@ structure FFI =
 
 
     (**
-     * Word32
+     * UInt32
      *)
-    structure Word32 =
+    structure UInt32 =
       struct
         type val_ = Word32.word
         type ref_ = val_ ref
@@ -266,9 +266,9 @@ structure FFI =
 
 
     (**
-     * Word64
+     * UInt64
      *)
-    structure Word64 =
+    structure UInt64 =
       struct
         type val_ = Word64.word
         type ref_ = val_ ref

@@ -12,16 +12,16 @@ structure GioProxyAddress :>
         call (load_sym libgio "g_proxy_address_new")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Word16.VAL
+             &&> FFI.PolyML.UInt16.VAL
              &&> FFI.PolyML.String.INPTR
              &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Word16.VAL
+             &&> FFI.PolyML.UInt16.VAL
              &&> FFI.PolyML.String.INOPTPTR
              &&> FFI.PolyML.String.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val getDestinationHostname_ = call (load_sym libgio "g_proxy_address_get_destination_hostname") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getDestinationPort_ = call (load_sym libgio "g_proxy_address_get_destination_port") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Word16.VAL)
+      val getDestinationPort_ = call (load_sym libgio "g_proxy_address_get_destination_port") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt16.VAL)
       val getPassword_ = call (load_sym libgio "g_proxy_address_get_password") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getProtocol_ = call (load_sym libgio "g_proxy_address_get_protocol") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
       val getUsername_ = call (load_sym libgio "g_proxy_address_get_username") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
@@ -34,10 +34,10 @@ structure GioProxyAddress :>
     fun new inetaddr port protocol destHostname destPort username password =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> FFI.String.withConstPtr
          &&&> FFI.String.withConstPtr
-         &&&> FFI.Word16.withVal
+         &&&> FFI.UInt16.withVal
          &&&> FFI.String.withConstOptPtr
          &&&> FFI.String.withConstOptPtr
          ---> GioProxyAddressClass.C.fromPtr true
@@ -53,7 +53,7 @@ structure GioProxyAddress :>
            & password
         )
     fun getDestinationHostname self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDestinationHostname_ self
-    fun getDestinationPort self = (GObjectObjectClass.C.withPtr ---> FFI.Word16.fromVal) getDestinationPort_ self
+    fun getDestinationPort self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getDestinationPort_ self
     fun getPassword self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getPassword_ self
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getProtocol_ self
     fun getUsername self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getUsername_ self
