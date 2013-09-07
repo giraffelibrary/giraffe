@@ -2,6 +2,10 @@
  * Open file using the following command:
  *
  * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen.sml -c poly
+ *
+ * Set typelib path first, if reqired, e.g.
+ *
+ *  export GI_TYPELIB_PATH=/tmp/gtk+-test/lib/girepository-1.0:/tmp/atk-test/lib/girepository-1.0:/tmp/at-spi2-core-test/lib/girepository-1.0:/tmp/gdk-pixbuf-test/lib/girepository-1.0:/tmp/pango-test/lib/girepository-1.0:/tmp/gobject-introspection-test/lib/girepository-1.0:${GI_TYPELIB_PATH}
  *)
 
 PolyML.Compiler.reportUnreferencedIds := true;
@@ -1682,63 +1686,74 @@ datatype scalartype =
 
 val scalarToString =
   fn
-    STBOOLEAN => "BOOLEAN"
-  | STINT8    => "INT8"
-  | STUINT8   => "UINT8"
-  | STINT16   => "INT16"
-  | STUINT16  => "UINT16"
-  | STINT32   => "INT32"
-  | STUINT32  => "UINT32"
-  | STINT64   => "INT64"
-  | STUINT64  => "UINT64"
-  | STFLOAT   => "FLOAT"
-  | STDOUBLE  => "DOUBLE"
-  | STUNICHAR => "CHAR"
+    STBOOLEAN      => "BOOLEAN"
+  | STINT8         => "INT8"
+  | STUINT8        => "UINT8"
+  | STINT16        => "INT16"
+  | STUINT16       => "UINT16"
+  | STINT32        => "INT32"
+  | STUINT32       => "UINT32"
+  | STINT64        => "INT64"
+  | STUINT64       => "UINT64"
+  | STFLOAT        => "FLOAT"
+  | STDOUBLE       => "DOUBLE"
+  | STUNICHAR      => "UNICHAR"
 
 val scalarStrId =
   fn
-    STBOOLEAN => "Bool"
-  | STINT8    => "Int8"
-  | STUINT8   => "UInt8"
-  | STINT16   => "Int16"
-  | STUINT16  => "UInt16"
-  | STINT32   => "Int32"
-  | STUINT32  => "UInt32"
-  | STINT64   => "Int64"
-  | STUINT64  => "UInt64"
-  | STFLOAT   => "Float"
-  | STDOUBLE  => "Double"
-  | STUNICHAR => "Char"
+    STBOOLEAN      => "Bool"
+  | STINT8         => "Int8"
+  | STUINT8        => "UInt8"
+  | STINT16        => "Int16"
+  | STUINT16       => "UInt16"
+  | STINT32        => "Int32"
+  | STUINT32       => "UInt32"
+  | STINT64        => "Int64"
+  | STUINT64       => "UInt64"
+  | STFLOAT        => "Float"
+  | STDOUBLE       => "Double"
+  | STUNICHAR      => "Char"
 
-val scalarAccessorId =
-  fn
-    STBOOLEAN => "boolean"
-  | STINT8    => "char"
-  | STUINT8   => "uchar"
-  | STINT16   => infoError "no corresponding GType for INT16"
-  | STUINT16  => infoError "no corresponding GType for UINT16"
-  | STINT32   => "int"
-  | STUINT32  => "uint"
-  | STINT64   => "long"
-  | STUINT64  => "ulong"
-  | STFLOAT   => "float"
-  | STDOUBLE  => "double"
-  | STUNICHAR => "char"
+local
+  fun noGType s = infoError ("no corresponding GType for " ^ s)
+in
+  val scalarAccessorId =
+    fn
+      STBOOLEAN      => "boolean"
+    | STINT8         => noGType "INT8"
+    | STUINT8        => noGType "UINT8"
+    | STINT16        => noGType "INT16"
+    | STUINT16       => noGType "UINT16"
+    | STINT32        => "int"
+    | STUINT32       => "uint"
+    | STINT64        => "long"
+    | STUINT64       => "ulong"
+    | STFLOAT        => "float"
+    | STDOUBLE       => "double"
+    | STUNICHAR      => "char"
+end
 
-val scalarTyRef =
-  fn
-    STBOOLEAN => (0, toList1 ["bool"])
-  | STINT8    => (0, toList1 ["LargeInt", "int"])
-  | STUINT8   => (0, toList1 ["LargeInt", "int"])
-  | STINT16   => (0, toList1 ["LargeInt", "int"])
-  | STUINT16  => (0, toList1 ["LargeInt", "int"])
-  | STINT32   => (0, toList1 ["LargeInt", "int"])
-  | STUINT32  => (0, toList1 ["LargeInt", "int"])
-  | STINT64   => (0, toList1 ["LargeInt", "int"])
-  | STUINT64  => (0, toList1 ["LargeInt", "int"])
-  | STFLOAT   => (0, toList1 ["real"])
-  | STDOUBLE  => (0, toList1 ["real"])
-  | STUNICHAR => (0, toList1 ["char"])
+local
+  val boolTyRef = (0, toList1 ["bool"])
+  val charTyRef = (0, toList1 ["char"])
+  val largeIntTyRef = (0, toList1 ["LargeInt", "int"])
+  val realTyRef = (0, toList1 ["real"])
+in
+  val scalarTyRef =
+    fn
+      STBOOLEAN      => boolTyRef
+    | STINT8         => largeIntTyRef
+    | STUINT8        => largeIntTyRef
+    | STINT16        => largeIntTyRef
+    | STUINT16       => largeIntTyRef
+    | STINT32        => largeIntTyRef
+    | STUINT32       => largeIntTyRef
+    | STINT64        => largeIntTyRef
+    | STUINT64       => largeIntTyRef
+    | STFLOAT        => realTyRef
+    | STDOUBLE       => realTyRef
+    | STUNICHAR      => charTyRef
+end
 
 local
   (* Initial argument values for OUT parameters *)
@@ -1748,18 +1763,18 @@ local
 in
   val initValExp =
     fn
-      STBOOLEAN => falseExp
-    | STINT8    => int0Exp
-    | STUINT8   => int0Exp
-    | STINT16   => int0Exp
-    | STUINT16  => int0Exp
-    | STINT32   => int0Exp
-    | STUINT32  => int0Exp
-    | STINT64   => int0Exp
-    | STUINT64  => int0Exp
-    | STFLOAT   => real0Exp
-    | STDOUBLE  => real0Exp
-    | STUNICHAR => char0Exp
+      STBOOLEAN      => falseExp
+    | STINT8         => int0Exp
+    | STUINT8        => int0Exp
+    | STINT16        => int0Exp
+    | STUINT16       => int0Exp
+    | STINT32        => int0Exp
+    | STUINT32       => int0Exp
+    | STINT64        => int0Exp
+    | STUINT64       => int0Exp
+    | STFLOAT        => real0Exp
+    | STDOUBLE       => real0Exp
+    | STUNICHAR      => char0Exp
 end
 
 
@@ -1873,28 +1888,31 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
           ty    = ty
         }
 
+    fun notExpected s = infoError ("parameter type " ^ s ^ " not expected")
+    fun notSupported s = infoError ("parameter type " ^ s ^ " not supported")
+
     open TypeTag
   in
     case tag of
-      ERROR     => infoError "parameter type ERROR not expected"
-    | GTYPE     => infoError "parameter type GTYPE not supported"
-    | ARRAY     => infoError "parameter type ARRAY not supported"
-    | GLIST     => infoError "parameter type GLIST not supported"
-    | GSLIST    => infoError "parameter type GSLIST not supported"
-    | GHASH     => infoError "parameter type GHASH not supported"
-    | VOID      => PIVOID
-    | BOOLEAN   => PISCALAR (dir, toScalarInfo STBOOLEAN)
-    | INT8      => PISCALAR (dir, toScalarInfo STINT8)
-    | UINT8     => PISCALAR (dir, toScalarInfo STUINT8)
-    | INT16     => PISCALAR (dir, toScalarInfo STINT16)
-    | UINT16    => PISCALAR (dir, toScalarInfo STUINT16)
-    | INT32     => PISCALAR (dir, toScalarInfo STINT32)
-    | UINT32    => PISCALAR (dir, toScalarInfo STUINT32)
-    | INT64     => PISCALAR (dir, toScalarInfo STINT64)
-    | UINT64    => PISCALAR (dir, toScalarInfo STUINT64)
-    | FLOAT     => PISCALAR (dir, toScalarInfo STFLOAT)
-    | DOUBLE    => PISCALAR (dir, toScalarInfo STDOUBLE)
-    | FILENAME  =>
+      ERROR        => notExpected "ERROR"
+    | GTYPE        => notSupported "GTYPE"
+    | ARRAY        => notSupported "ARRAY"
+    | GLIST        => notSupported "GLIST"
+    | GSLIST       => notSupported "GSLIST"
+    | GHASH        => notSupported "GHASH"
+    | VOID         => PIVOID
+    | BOOLEAN      => PISCALAR (dir, toScalarInfo STBOOLEAN)
+    | INT8         => PISCALAR (dir, toScalarInfo STINT8)
+    | UINT8        => PISCALAR (dir, toScalarInfo STUINT8)
+    | INT16        => PISCALAR (dir, toScalarInfo STINT16)
+    | UINT16       => PISCALAR (dir, toScalarInfo STUINT16)
+    | INT32        => PISCALAR (dir, toScalarInfo STINT32)
+    | UINT32       => PISCALAR (dir, toScalarInfo STUINT32)
+    | INT64        => PISCALAR (dir, toScalarInfo STINT64)
+    | UINT64       => PISCALAR (dir, toScalarInfo STUINT64)
+    | FLOAT        => PISCALAR (dir, toScalarInfo STFLOAT)
+    | DOUBLE       => PISCALAR (dir, toScalarInfo STDOUBLE)
+    | FILENAME     =>
         let
           val utf8Info = {
             name    = argId,
@@ -1908,7 +1926,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
         in
           PIUTF8 (dir, utf8Info)
         end
-    | UTF8      =>
+    | UTF8         =>
         let
           val utf8Info = {
             name    = argId,
@@ -1922,8 +1940,8 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
         in
           PIUTF8 (dir, utf8Info)
         end
-    | UNICHAR   => PISCALAR (dir, toScalarInfo STUNICHAR)
-    | INTERFACE =>
+    | UNICHAR      => PISCALAR (dir, toScalarInfo STUNICHAR)
+    | INTERFACE    =>
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
@@ -2056,28 +2074,31 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
           ty    = ty
         }
 
+    fun notExpected s = infoError ("return type " ^ s ^ " not expected")
+    fun notSupported s = infoError ("return type " ^ s ^ " not supported")
+
     open TypeTag
   in
     case TypeInfo.getTag typeInfo of
-      ERROR     => infoError "return type ERROR not expected"
-    | GTYPE     => infoError "return type GTYPE not supported"
-    | ARRAY     => infoError "return type ARRAY not supported"
-    | GLIST     => infoError "return type GLIST not supported"
-    | GSLIST    => infoError "return type GSLIST not supported"
-    | GHASH     => infoError "return type GHASH not supported"
-    | VOID      => RIVOID
-    | BOOLEAN   => RISCALAR (toScalarInfo STBOOLEAN)
-    | INT8      => RISCALAR (toScalarInfo STINT8)
-    | UINT8     => RISCALAR (toScalarInfo STUINT8)
-    | INT16     => RISCALAR (toScalarInfo STINT16)
-    | UINT16    => RISCALAR (toScalarInfo STUINT16)
-    | INT32     => RISCALAR (toScalarInfo STINT32)
-    | UINT32    => RISCALAR (toScalarInfo STUINT32)
-    | INT64     => RISCALAR (toScalarInfo STINT64)
-    | UINT64    => RISCALAR (toScalarInfo STUINT64)
-    | FLOAT     => RISCALAR (toScalarInfo STFLOAT)
-    | DOUBLE    => RISCALAR (toScalarInfo STDOUBLE)
-    | FILENAME  =>
+      ERROR        => notExpected "ERROR"
+    | GTYPE        => notSupported "GTYPE"
+    | ARRAY        => notSupported "ARRAY"
+    | GLIST        => notSupported "GLIST"
+    | GSLIST       => notSupported "GSLIST"
+    | GHASH        => notSupported "GHASH"
+    | VOID         => RIVOID
+    | BOOLEAN      => RISCALAR (toScalarInfo STBOOLEAN)
+    | INT8         => RISCALAR (toScalarInfo STINT8)
+    | UINT8        => RISCALAR (toScalarInfo STUINT8)
+    | INT16        => RISCALAR (toScalarInfo STINT16)
+    | UINT16       => RISCALAR (toScalarInfo STUINT16)
+    | INT32        => RISCALAR (toScalarInfo STINT32)
+    | UINT32       => RISCALAR (toScalarInfo STUINT32)
+    | INT64        => RISCALAR (toScalarInfo STINT64)
+    | UINT64       => RISCALAR (toScalarInfo STUINT64)
+    | FLOAT        => RISCALAR (toScalarInfo STFLOAT)
+    | DOUBLE       => RISCALAR (toScalarInfo STDOUBLE)
+    | FILENAME     =>
         let
           open Transfer
 
@@ -2093,7 +2114,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
         in
           RIUTF8 utf8Info
         end
-    | UTF8      =>
+    | UTF8         =>
         let
           open Transfer
 
@@ -2109,8 +2130,8 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
         in
           RIUTF8 utf8Info
         end
-    | UNICHAR   => RISCALAR (toScalarInfo STUNICHAR)
-    | INTERFACE =>
+    | UNICHAR      => RISCALAR (toScalarInfo STUNICHAR)
+    | INTERFACE    =>
         let
           val interfaceInfo = getInterface typeInfo
           val interfaceName = getName interfaceInfo
@@ -4054,7 +4075,9 @@ fun addFunctionStrDecsLowLevel
  * Signal
  * -------------------------------------------------------------------------- *)
 
-(* For signals, variants of `getParInfo` and `getRetInfo` must be used due
+(* TYPELIB-specific:
+ *
+ * For signals, variants of `getParInfo` and `getRetInfo` must be used due
  * to <https://bugzilla.gnome.org/show_bug.cgi?id=646080>.  These variants,
  * `getParInfoX` and `getRetInfoX` respectively, ignore the value from
  * `TypeInfo.isPointer`, and assume `true`, for OBJECT, INTERFACE
@@ -4958,28 +4981,33 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
           ty = ty
         }
 
+    fun notExpected s = infoError ("type " ^ s ^ " not expected")
+    fun notSupported s = infoError ("type " ^ s ^ " not supported")
+    fun noGType s =
+      infoError ("type " ^ s ^ " not expected: no corresponding GType")
+
     open TypeTag
   in
     case tag of
-      ERROR     => infoError "type ERROR not expected"
-    | INT8      => infoError "type INT8 not expected: no corresponding GType"
-    | UINT8     => infoError "type UINT8 not expected: no corresponding GType"
-    | INT16     => infoError "type INT16 not expected: no corresponding GType"
-    | UINT16    => infoError "type UINT16 not expected: no corresponding GType"
-    | GTYPE     => infoError "type GTYPE not supported"
-    | ARRAY     => infoError "type ARRAY not supported"
-    | GLIST     => infoError "type GLIST not supported"
-    | GSLIST    => infoError "type GSLIST not supported"
-    | GHASH     => infoError "type GHASH not supported"
-    | VOID      => infoError "type VOID not expected"
-    | BOOLEAN   => PISCALAR (mode, toScalarInfo STBOOLEAN)
-    | INT32     => PISCALAR (mode, toScalarInfo STINT32)
-    | UINT32    => PISCALAR (mode, toScalarInfo STUINT32)
-    | INT64     => PISCALAR (mode, toScalarInfo STINT64)
-    | UINT64    => PISCALAR (mode, toScalarInfo STUINT64)
-    | FLOAT     => PISCALAR (mode, toScalarInfo STFLOAT)
-    | DOUBLE    => PISCALAR (mode, toScalarInfo STDOUBLE)
-    | FILENAME  =>
+      ERROR        => notExpected "ERROR"
+    | GTYPE        => notSupported "GTYPE"
+    | ARRAY        => notSupported "ARRAY"
+    | GLIST        => notSupported "GLIST"
+    | GSLIST       => notSupported "GSLIST"
+    | GHASH        => notSupported "GHASH"
+    | VOID         => notExpected "VOID"
+    | BOOLEAN      => PISCALAR (mode, toScalarInfo STBOOLEAN)
+    | INT8         => noGType "INT8"
+    | UINT8        => noGType "UINT8"
+    | INT16        => noGType "INT16"
+    | UINT16       => noGType "UINT16"
+    | INT32        => PISCALAR (mode, toScalarInfo STINT32)
+    | UINT32       => PISCALAR (mode, toScalarInfo STUINT32)
+    | INT64        => PISCALAR (mode, toScalarInfo STINT64)
+    | UINT64       => PISCALAR (mode, toScalarInfo STUINT64)
+    | FLOAT        => PISCALAR (mode, toScalarInfo STFLOAT)
+    | DOUBLE       => PISCALAR (mode, toScalarInfo STDOUBLE)
+    | FILENAME     =>
         let
           open Transfer
 
@@ -4996,7 +5024,7 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
         in
           PIUTF8 (mode, utf8Info)
         end
-    | UTF8      =>
+    | UTF8         =>
         let
           open Transfer
 
@@ -5013,8 +5041,8 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
         in
           PIUTF8 (mode, utf8Info)
         end
-    | UNICHAR   => PISCALAR (mode, toScalarInfo STUNICHAR)
-    | INTERFACE =>
+    | UNICHAR      => PISCALAR (mode, toScalarInfo STUNICHAR)
+    | INTERFACE    =>
         let
           val {
             name      = containerName,
@@ -5257,31 +5285,41 @@ fun makeConstantSpec
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
 
+    fun notExpected s = infoError ("constant type " ^ s ^ " not expected")
+    fun notSupported s = infoError ("constant type " ^ s ^ " not supported")
+
+    val boolRefTy = ([], toList1 ["bool"])
+    val charRefTy = ([], toList1 ["char"])
+    val largeIntRefTy = ([], toList1 ["LargeInt", "int"])
+    val realRefTy = ([], toList1 ["real"])
+    val stringRefTy = ([], toList1 ["string"])
+
     val value = ConstantInfo.getValue constantInfo
     open Argument
     val constantTy = TyRef (
       case value of
-        BOOLEAN _   => ([], toList1 ["bool"])
-      | INT8 _      => ([], toList1 ["LargeInt", "int"])
-      | UINT8 _     => ([], toList1 ["LargeInt", "int"])
-      | INT16 _     => ([], toList1 ["LargeInt", "int"])
-      | UINT16 _    => ([], toList1 ["LargeInt", "int"])
-      | INT32 _     => ([], toList1 ["LargeInt", "int"])
-      | UINT32 _    => ([], toList1 ["LargeInt", "int"])
-      | INT64 _     => ([], toList1 ["LargeInt", "int"])
-      | UINT64 _    => ([], toList1 ["LargeInt", "int"])
-      | FLOAT _     => ([], toList1 ["real"])
-      | DOUBLE _    => ([], toList1 ["real"])
-      | STRING _    => ([], toList1 ["string"])
-      | VOID        => infoError "constant type VOID not supported"
-      | GTYPE       => infoError "constant type GTYPE not supported"
-      | ARRAY       => infoError "constant type ARRAY not supported"
-      | INTERFACE   => infoError "constant type INTERFACE not supported"
-      | GLIST       => infoError "constant type GLIST not supported"
-      | GSLIST      => infoError "constant type GSLIST not supported"
-      | GHASH       => infoError "constant type GHASH not supported"
-      | ERROR       => infoError "constant type ERROR not supported"
-      | UNICHAR     => infoError "constant type UNICHAR not supported"
+        BOOLEAN _    => boolRefTy
+      | INT8 _       => largeIntRefTy
+      | UINT8 _      => largeIntRefTy
+      | INT16 _      => largeIntRefTy
+      | UINT16 _     => largeIntRefTy
+      | INT32 _      => largeIntRefTy
+      | UINT32 _     => largeIntRefTy
+      | INT64 _      => largeIntRefTy
+      | UINT64 _     => largeIntRefTy
+      | FLOAT _      => realRefTy
+      | DOUBLE _     => realRefTy
+      | UTF8 _       => stringRefTy
+      | FILENAME _   => stringRefTy
+      | VOID         => notExpected "VOID"
+      | GTYPE        => notExpected "GTYPE"
+      | ARRAY        => notSupported "ARRAY"
+      | INTERFACE    => notExpected "INTERFACE"
+      | GLIST        => notSupported "GLIST"
+      | GSLIST       => notSupported "GSLIST"
+      | GHASH        => notExpected "GHASH"
+      | ERROR        => notExpected "ERROR"
+      | UNICHAR      => notSupported "UNICHAR"
     )
 
     val iRefs'1 = iRefs
@@ -5301,55 +5339,35 @@ fun makeConstantStrDec
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
 
-    fun makeRealConst x =
-      let
-        val {sign, digits, exp, ...} = Real.toDecimal x
-        val numDigits = length digits
-
-        (* `m` is integer with digits `digits` *)
-        fun addDigit (d, a) = a * 10 + d
-        val m =
-          case digits of
-            []            => 0
-          | op :: digits1 => foldl1 addDigit digits1
-
-        (* Use e-notation when `exp` is greater than `numDigits`, i.e. if
-         * there would be a zero digit to the left of the decimal point
-         * without e-notation.  With e-notation, always have one non-zero
-         * digit before the decimal point. *)
-        val (p, optE) =
-          if exp <= numDigits
-          then (numDigits - exp, NONE)
-          else (numDigits - 1,   SOME (exp - 1))
-      in
-        ConstReal (if sign then ~ m else m, p, optE)
-      end
+    fun notExpected s = infoError ("constant type " ^ s ^ " not expected")
+    fun notSupported s = infoError ("constant type " ^ s ^ " not supported")
 
     val value = ConstantInfo.getValue constantInfo
     open Argument
     val constantExp =
       case value of
-        BOOLEAN b   => mkIdLNameExp (Bool.toString b)
-      | INT8 n      => ExpConst (ConstInt (n, NONE))
-      | UINT8 n     => ExpConst (ConstInt (n, NONE))
-      | INT16 n     => ExpConst (ConstInt (n, NONE))
-      | UINT16 n    => ExpConst (ConstInt (n, NONE))
-      | INT32 n     => ExpConst (ConstInt (n, NONE))
-      | UINT32 n    => ExpConst (ConstInt (n, NONE))
-      | INT64 n     => ExpConst (ConstInt (n, NONE))
-      | UINT64 n    => ExpConst (ConstInt (n, NONE))
-      | FLOAT x     => ExpConst (makeRealConst x)
-      | DOUBLE x    => ExpConst (makeRealConst x)
-      | STRING s    => ExpConst (ConstString s)
-      | VOID        => infoError "constant type VOID not supported"
-      | GTYPE       => infoError "constant type GTYPE not supported"
-      | ARRAY       => infoError "constant type ARRAY not supported"
-      | INTERFACE   => infoError "constant type INTERFACE not supported"
-      | GLIST       => infoError "constant type GLIST not supported"
-      | GSLIST      => infoError "constant type GSLIST not supported"
-      | GHASH       => infoError "constant type GHASH not supported"
-      | ERROR       => infoError "constant type ERROR not supported"
-      | UNICHAR     => infoError "constant type UNICHAR not supported"
+        BOOLEAN b    => mkIdLNameExp (Bool.toString b)
+      | INT8 n       => ExpConst (ConstInt (n, NONE))
+      | UINT8 n      => ExpConst (ConstInt (n, NONE))
+      | INT16 n      => ExpConst (ConstInt (n, NONE))
+      | UINT16 n     => ExpConst (ConstInt (n, NONE))
+      | INT32 n      => ExpConst (ConstInt (n, NONE))
+      | UINT32 n     => ExpConst (ConstInt (n, NONE))
+      | INT64 n      => ExpConst (ConstInt (n, NONE))
+      | UINT64 n     => ExpConst (ConstInt (n, NONE))
+      | FLOAT x      => ExpConst (ConstReal x)
+      | DOUBLE x     => ExpConst (ConstReal x)
+      | UTF8 s       => ExpConst (ConstString s)
+      | FILENAME s   => ExpConst (ConstString s)
+      | VOID         => notExpected "VOID"
+      | GTYPE        => notExpected "GTYPE"
+      | ARRAY        => notSupported "ARRAY"
+      | INTERFACE    => notExpected "INTERFACE"
+      | GLIST        => notSupported "GLIST"
+      | GSLIST       => notSupported "GSLIST"
+      | GHASH        => notExpected "GHASH"
+      | ERROR        => notExpected "ERROR"
+      | UNICHAR      => notSupported "UNICHAR"
 
     val iRefs'1 = iRefs
   in
@@ -8081,14 +8099,20 @@ fun makeUnionStr
 val tTy : ty = mkIdTy tId
 val tTyName : tyname = ([], tId)
 
-fun getValueWordConst valueInfo =
+fun getFlagsWordConst valueInfo =
   let
-    val w = ValueInfo.getValueWord valueInfo
+    val w = LargeInt.mod (ValueInfo.getValueWord valueInfo, IntInf.pow (2, 32))
+    (*
+     * Would have used the following but Word32.fromLargeInt does not produce
+     * the correct result for negative arguments.
+    val w =
+      Word32.toLargeInt (Word32.fromLargeInt (ValueInfo.getValueWord valueInfo))
+     *)
   in
     ConstWord (IntInf.fromLarge w, NONE)
   end
 
-fun getValueIntConst valueInfo =
+fun getEnumIntConst valueInfo =
   let
     val n = ValueInfo.getValueInt valueInfo
   in
@@ -8178,7 +8202,7 @@ fun makeFlagsValueNameSpec (valueInfo : 'a ValueInfoClass.t) : spec =
 fun makeFlagsValueNameDec (valueInfo : 'a ValueInfoClass.t) : dec =
   mkIdValDec (
     getValueNameId valueInfo,
-    ExpConst (getValueWordConst valueInfo)
+    ExpConst (getFlagsWordConst valueInfo)
   )
 
 (*
@@ -8827,7 +8851,7 @@ local
   fun withValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
     (
       PatA (APatConst (mkIdLNameConst (getValueNameId valueInfo))),
-      ExpApp (mkIdLNameExp fId, ExpConst (getValueIntConst valueInfo))
+      ExpApp (mkIdLNameExp fId, ExpConst (getEnumIntConst valueInfo))
     )
 
   (*
@@ -8835,7 +8859,7 @@ local
    *)
   fun fromValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
     (
-      PatA (APatConst (getValueIntConst valueInfo)),
+      PatA (APatConst (getEnumIntConst valueInfo)),
       mkIdLNameExp (getValueNameId valueInfo)
     )
 
@@ -10120,7 +10144,8 @@ constructorNames :=
   ];
 
 
-val outDir = "/tmp/test1";
+val outDir = "/tmp/test-typelib"
+;
 
 
 

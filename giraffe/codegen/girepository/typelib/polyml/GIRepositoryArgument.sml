@@ -89,21 +89,46 @@ structure GIRepositoryArgument :>
           (PTR --> FFI.PolyML.String.RETPTR);
     end
 
+    fun fromReal x =
+      let
+        val {sign, digits, exp, ...} = Real.toDecimal x
+        val numDigits = length digits
+
+        (* `m` is integer with digits `digits` *)
+        fun addDigit (d, a) = a * 10 + d
+        val m =
+          case digits of
+            []      => 0
+          | c :: cs => List.foldl addDigit c cs
+
+        (* Use e-notation when `exp` is greater than `numDigits`, i.e. if
+         * there would be a zero digit to the left of the decimal point
+         * without e-notation.  With e-notation, always have one non-zero
+         * digit before the decimal point. *)
+        val (p, optE) =
+          if exp <= numDigits
+          then (numDigits - exp, NONE)
+          else (numDigits - 1,   SOME (exp - 1))
+      in
+        (if sign then ~ m else m, p, optE)
+      end
+
     type typetag_t = GIRepositoryTypeTag.t
 
     datatype t =
-      BOOLEAN  of bool
-    | INT8     of LargeInt.int
-    | UINT8    of LargeInt.int
-    | INT16    of LargeInt.int
-    | UINT16   of LargeInt.int
-    | INT32    of LargeInt.int
-    | UINT32   of LargeInt.int
-    | INT64    of LargeInt.int
-    | UINT64   of LargeInt.int
-    | FLOAT    of real
-    | DOUBLE   of real
-    | STRING   of string
+      BOOLEAN      of bool
+    | INT8         of LargeInt.int
+    | UINT8        of LargeInt.int
+    | INT16        of LargeInt.int
+    | UINT16       of LargeInt.int
+    | INT32        of LargeInt.int
+    | UINT32       of LargeInt.int
+    | INT64        of LargeInt.int
+    | UINT64       of LargeInt.int
+    | FLOAT        of LargeInt.int * LargeInt.int * LargeInt.int option
+    | DOUBLE       of LargeInt.int * LargeInt.int * LargeInt.int option
+    | UTF8         of string
+    | FILENAME     of string
     | VOID
     | GTYPE
     | ARRAY
@@ -140,12 +165,12 @@ structure GIRepositoryArgument :>
             | GIRepositoryTypeTag.UINT32   => UINT32  (from_uint32_ ptr)
             | GIRepositoryTypeTag.INT64    => INT64   (from_int64_ ptr)
             | GIRepositoryTypeTag.UINT64   => UINT64  (from_uint64_ ptr)
-            | GIRepositoryTypeTag.FLOAT    => FLOAT   (from_float_ ptr)
-            | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (from_double_ ptr)
-            | GIRepositoryTypeTag.UTF8     => STRING (
+            | GIRepositoryTypeTag.FLOAT    => FLOAT   (fromReal (from_float_ ptr))
+            | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (fromReal (from_double_ ptr))
+            | GIRepositoryTypeTag.UTF8     => UTF8 (
                 FFI.String.fromPtr true (from_string_ ptr)
               )
-            | GIRepositoryTypeTag.FILENAME => STRING (
+            | GIRepositoryTypeTag.FILENAME => FILENAME (
                 FFI.String.fromPtr true (from_string_ ptr)
               )
             | GIRepositoryTypeTag.VOID      => VOID
