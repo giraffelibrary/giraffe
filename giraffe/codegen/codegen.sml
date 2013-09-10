@@ -627,7 +627,7 @@ local
       mkId (String.implode cs)
     end
 in
-  fun getSharedLibraryId repo = 
+  fun getSharedLibraryId repo =
     getLibId o OS.Path.file o getSharedLibraryFile repo
 end
 
@@ -3574,7 +3574,7 @@ fun getTypeStrDecLowLevelPolyML libId getTypeSymbol =
  *       x<m + 1>
  *
  *       (x<m + 1>, ...)
- *   
+ *
  *         where m is such that xProd[n] has one of the forms
  *
  *           x<m>
@@ -3617,10 +3617,10 @@ local
           TyProd _ => true
         | _        => existsProdTy
     in
-      (acc', tuplePat :: revTuplePats, existsProdTy') 
+      (acc', tuplePat :: revTuplePats, existsProdTy')
     end
 in
-  fun callMLtonFFIExp functionSymbol (parProdTys, retTy) = 
+  fun callMLtonFFIExp functionSymbol (parProdTys, retTy) =
     let
       val ((revExps, revTys, _), revTuplePats, existsProdTy) =
         foldl addProdTy (([], [], 1), [], false) parProdTys;
@@ -5246,7 +5246,7 @@ fun makePropertyStrDec
       in
         (id : label, ExpFn (toList1 [(pat, exp)]))
       end
- 
+
     val propertyExp =
       ExpRec (
         case mode of
@@ -7909,7 +7909,7 @@ fun makeStructStr
             repo
             libId
             structNamespace
-            getTypeSymbol 
+            getTypeSymbol
       | NONE               => K I
 
     (* module *)
@@ -8729,7 +8729,7 @@ in
                 ]
               )
             )
-          )    
+          )
         )
 
       fun addStrDecs strDecs =
@@ -9199,7 +9199,7 @@ in
       val strIRefs =
         if isGLib
         then
-          case optErrorDomain of  
+          case optErrorDomain of
             SOME _ => errorIRef :: iRefs'2
           | NONE   => iRefs'2
         else
@@ -9302,7 +9302,7 @@ fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
 fun translateInfo
   repo
-  libId 
+  libId
   cPrefix
   namespace
   (
@@ -9977,7 +9977,7 @@ fun makeNamespaceSigStr
     (* strdec *)
     val strDecs'1 = mkStrDecs functionStrDecsHighLevel
     val strDecs'2 = mkStrDecs constantStrDecs @ strDecs'1
-    val strDecs'3 = foldl addModuleStrDecs strDecs'2 revStrs 
+    val strDecs'3 = foldl addModuleStrDecs strDecs'2 revStrs
     val strDecs'4 =
       revMapAppend (noSemi o makeLocalTypeStrDec) (revPropLocalTypes, strDecs'3)
     fun mkModule functionStrDecsLowLevel =
@@ -10079,7 +10079,7 @@ fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
 
       local
         fun f ((x, (y, z)), (xys, zs)) = ((x, y) :: xys, z :: zs)
-      in  
+      in
         val (revStrFiles'2, revStrSpecsDecs'2) = foldr f ([], []) revStrs'2
       end
 
