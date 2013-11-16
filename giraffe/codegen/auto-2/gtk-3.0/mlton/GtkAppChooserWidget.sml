@@ -8,12 +8,12 @@ structure GtkAppChooserWidget :>
   struct
     val getType_ = _import "gtk_app_chooser_widget_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_app_chooser_widget_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowFallback_ = _import "gtk_app_chooser_widget_get_show_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowOther_ = _import "gtk_app_chooser_widget_get_show_other" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowRecommended_ = _import "gtk_app_chooser_widget_get_show_recommended" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowFallback_ = _import "gtk_app_chooser_widget_get_show_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowOther_ = _import "gtk_app_chooser_widget_get_show_other" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowRecommended_ = _import "gtk_app_chooser_widget_get_show_recommended" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setDefaultText_ =
       fn
         x1 & (x2, x3) =>
@@ -29,11 +29,11 @@ structure GtkAppChooserWidget :>
               x2,
               x3
             )
-    val setShowAll_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowDefault_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowFallback_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowOther_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_other" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowRecommended_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_recommended" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setShowAll_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowDefault_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowFallback_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowOther_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_other" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowRecommended_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_recommended" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkAppChooserWidgetClass.t
     type 'a appchooserclass_t = 'a GtkAppChooserClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -44,19 +44,19 @@ structure GtkAppChooserWidget :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (FFI.String.withConstPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
-    fun getDefaultText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDefaultText_ self
-    fun getShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowAll_ self
-    fun getShowDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowDefault_ self
-    fun getShowFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowFallback_ self
-    fun getShowOther self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowOther_ self
-    fun getShowRecommended self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowRecommended_ self
-    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setDefaultText_ (self & text)
-    fun setShowAll self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowAll_ (self & setting)
-    fun setShowDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowDefault_ (self & setting)
-    fun setShowFallback self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowFallback_ (self & setting)
-    fun setShowOther self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowOther_ (self & setting)
-    fun setShowRecommended self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowRecommended_ (self & setting)
+    fun new contentType = (FFI.String.C.withConstPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
+    fun getDefaultText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDefaultText_ self
+    fun getShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowAll_ self
+    fun getShowDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefault_ self
+    fun getShowFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowFallback_ self
+    fun getShowOther self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowOther_ self
+    fun getShowRecommended self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowRecommended_ self
+    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDefaultText_ (self & text)
+    fun setShowAll self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowAll_ (self & setting)
+    fun setShowDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefault_ (self & setting)
+    fun setShowFallback self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowFallback_ (self & setting)
+    fun setShowOther self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowOther_ (self & setting)
+    fun setShowRecommended self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowRecommended_ (self & setting)
     local
       open ClosureMarshal Signal
     in

@@ -33,9 +33,9 @@ structure GIRepositoryTypeTag :>
     | UNICHAR
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             VOID => f 0
@@ -60,7 +60,7 @@ structure GIRepositoryTypeTag :>
           | GHASH => f 19
           | ERROR => f 20
           | UNICHAR => f 21
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => VOID
@@ -89,8 +89,8 @@ structure GIRepositoryTypeTag :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI
@@ -98,9 +98,9 @@ structure GIRepositoryTypeTag :>
       val toString_ =
         call
           (load_sym libgirepository "g_type_tag_to_string")
-          (FFI.PolyML.Enum.VAL --> FFI.PolyML.String.RETPTR);
+          (FFI.Enum.PolyML.VAL --> FFI.String.PolyML.RETPTR);
     end
     val toString =
       fn typ =>
-        (C.withVal ---> FFI.String.fromPtr false) toString_ typ
+        (C.withVal ---> FFI.String.C.fromPtr false) toString_ typ
   end

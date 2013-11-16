@@ -19,9 +19,9 @@ structure AtkRelationSet :>
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val contains_ = call (load_sym libatk "atk_relation_set_contains") (GObjectObjectClass.PolyML.PTR &&> AtkRelationType.PolyML.VAL --> FFI.PolyML.Bool.VAL)
-      val getNRelations_ = call (load_sym libatk "atk_relation_set_get_n_relations") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getRelation_ = call (load_sym libatk "atk_relation_set_get_relation") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> GObjectObjectClass.PolyML.PTR)
+      val contains_ = call (load_sym libatk "atk_relation_set_contains") (GObjectObjectClass.PolyML.PTR &&> AtkRelationType.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val getNRelations_ = call (load_sym libatk "atk_relation_set_get_n_relations") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getRelation_ = call (load_sym libatk "atk_relation_set_get_relation") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val getRelationByType_ = call (load_sym libatk "atk_relation_set_get_relation_by_type") (GObjectObjectClass.PolyML.PTR &&> AtkRelationType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val remove_ = call (load_sym libatk "atk_relation_set_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -45,9 +45,9 @@ structure AtkRelationSet :>
            & relationship
            & target
         )
-    fun contains self relationship = (GObjectObjectClass.C.withPtr &&&> AtkRelationType.C.withVal ---> FFI.Bool.fromVal) contains_ (self & relationship)
-    fun getNRelations self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNRelations_ self
-    fun getRelation self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> AtkRelationClass.C.fromPtr false) getRelation_ (self & i)
+    fun contains self relationship = (GObjectObjectClass.C.withPtr &&&> AtkRelationType.C.withVal ---> FFI.Bool.C.fromVal) contains_ (self & relationship)
+    fun getNRelations self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNRelations_ self
+    fun getRelation self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkRelationClass.C.fromPtr false) getRelation_ (self & i)
     fun getRelationByType self relationship = (GObjectObjectClass.C.withPtr &&&> AtkRelationType.C.withVal ---> AtkRelationClass.C.fromPtr false) getRelationByType_ (self & relationship)
     fun remove self relation = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & relation)
   end

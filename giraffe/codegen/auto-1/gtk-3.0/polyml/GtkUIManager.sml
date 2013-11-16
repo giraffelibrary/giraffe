@@ -17,49 +17,49 @@ structure GtkUIManager :>
         call (load_sym libgtk "gtk_ui_manager_add_ui")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt32.VAL
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INOPTPTR
+             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INOPTPTR
              &&> GtkUIManagerItemType.PolyML.VAL
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val addUiFromFile_ =
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_file")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.UInt32.VAL
+             --> FFI.UInt32.PolyML.VAL
           )
       val addUiFromString_ =
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int64.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int64.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.UInt32.VAL
+             --> FFI.UInt32.PolyML.VAL
           )
       val ensureUpdate_ = call (load_sym libgtk "gtk_ui_manager_ensure_update") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getAccelGroup_ = call (load_sym libgtk "gtk_ui_manager_get_accel_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_get_add_tearoffs") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_get_add_tearoffs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val insertActionGroup_ =
         call (load_sym libgtk "gtk_ui_manager_insert_action_group")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val newMergeId_ = call (load_sym libgtk "gtk_ui_manager_new_merge_id") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
+      val newMergeId_ = call (load_sym libgtk "gtk_ui_manager_new_merge_id") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
       val removeActionGroup_ = call (load_sym libgtk "gtk_ui_manager_remove_action_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeUi_ = call (load_sym libgtk "gtk_ui_manager_remove_ui") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
-      val setAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_set_add_tearoffs") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val removeUi_ = call (load_sym libgtk "gtk_ui_manager_remove_ui") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_set_add_tearoffs") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkUIManagerClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -74,12 +74,12 @@ structure GtkUIManager :>
     fun addUi self mergeId path name action type' top =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> GtkUIManagerItemType.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         addUi_
@@ -95,9 +95,9 @@ structure GtkUIManager :>
     fun addUiFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addUiFromFile_
         (
@@ -108,10 +108,10 @@ structure GtkUIManager :>
     fun addUiFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addUiFromString_
         (
@@ -122,15 +122,15 @@ structure GtkUIManager :>
         )
     fun ensureUpdate self = (GObjectObjectClass.C.withPtr ---> I) ensureUpdate_ self
     fun getAccelGroup self = (GObjectObjectClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
-    fun getAddTearoffs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAddTearoffs_ self
-    fun getUi self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUi_ self
-    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
+    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
+    fun getAddTearoffs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAddTearoffs_ self
+    fun getUi self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUi_ self
+    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
     fun insertActionGroup self actionGroup pos =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         insertActionGroup_
@@ -139,10 +139,10 @@ structure GtkUIManager :>
            & actionGroup
            & pos
         )
-    fun newMergeId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) newMergeId_ self
+    fun newMergeId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) newMergeId_ self
     fun removeActionGroup self actionGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeActionGroup_ (self & actionGroup)
-    fun removeUi self mergeId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removeUi_ (self & mergeId)
-    fun setAddTearoffs self addTearoffs = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
+    fun removeUi self mergeId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeUi_ (self & mergeId)
+    fun setAddTearoffs self addTearoffs = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
     local
       open ClosureMarshal Signal
     in

@@ -17,7 +17,7 @@ structure GtkSourceCompletionProvider :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -27,9 +27,9 @@ structure GtkSourceCompletionProvider :>
     val getActivation_ = _import "gtk_source_completion_provider_get_activation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSourceCompletionActivation.C.val_;
     val getIcon_ = _import "gtk_source_completion_provider_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getInfoWidget_ = fn x1 & x2 => (_import "gtk_source_completion_provider_get_info_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getInteractiveDelay_ = _import "gtk_source_completion_provider_get_interactive_delay" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getName_ = _import "gtk_source_completion_provider_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getPriority_ = _import "gtk_source_completion_provider_get_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getInteractiveDelay_ = _import "gtk_source_completion_provider_get_interactive_delay" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getName_ = _import "gtk_source_completion_provider_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPriority_ = _import "gtk_source_completion_provider_get_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getStartIter_ =
       fn
         x1
@@ -42,7 +42,7 @@ structure GtkSourceCompletionProvider :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -50,7 +50,7 @@ structure GtkSourceCompletionProvider :>
               x3,
               x4
             )
-    val match_ = fn x1 & x2 => (_import "gtk_source_completion_provider_match" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
+    val match_ = fn x1 & x2 => (_import "gtk_source_completion_provider_match" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val populate_ = fn x1 & x2 => (_import "gtk_source_completion_provider_populate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val updateInfo_ =
       fn
@@ -80,7 +80,7 @@ structure GtkSourceCompletionProvider :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         activateProposal_
         (
@@ -91,16 +91,16 @@ structure GtkSourceCompletionProvider :>
     fun getActivation self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getIcon_ self
     fun getInfoWidget self proposal = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getInfoWidget_ (self & proposal)
-    fun getInteractiveDelay self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getInteractiveDelay_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getName_ self
-    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getPriority_ self
+    fun getInteractiveDelay self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getInteractiveDelay_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getName_ self
+    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPriority_ self
     fun getStartIter self context proposal iter =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         getStartIter_
         (
@@ -109,7 +109,7 @@ structure GtkSourceCompletionProvider :>
            & proposal
            & iter
         )
-    fun match self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) match_ (self & context)
+    fun match self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) match_ (self & context)
     fun populate self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) populate_ (self & context)
     fun updateInfo self proposal info =
       (

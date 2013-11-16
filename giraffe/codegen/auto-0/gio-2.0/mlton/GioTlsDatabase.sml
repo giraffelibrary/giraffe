@@ -11,7 +11,7 @@ structure GioTlsDatabase :>
     where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_tls_database_get_type" : unit -> GObjectType.C.val_;
-    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val lookupCertificateForHandle_ =
       fn
         x1
@@ -161,11 +161,11 @@ structure GioTlsDatabase :>
     type tlscertificateflags_t = GioTlsCertificateFlags.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) createCertificateHandle_ (self & certificate)
+    fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -230,7 +230,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal

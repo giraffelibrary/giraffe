@@ -92,9 +92,9 @@ structure PangoScript :>
     | LYDIAN
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALIDCODE => f ~1
@@ -176,7 +176,7 @@ structure PangoScript :>
           | CARIAN => f 75
           | LYCIAN => f 76
           | LYDIAN => f 77
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             ~1 => INVALIDCODE
@@ -262,8 +262,8 @@ structure PangoScript :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI
@@ -283,11 +283,11 @@ structure PangoScript :>
     local
       open PolyMLFFI
     in
-      val forUnichar_ = call (load_sym libpango "pango_script_for_unichar") (FFI.PolyML.Char.VAL --> PolyML.VAL)
+      val forUnichar_ = call (load_sym libpango "pango_script_for_unichar") (FFI.Char.PolyML.VAL --> PolyML.VAL)
       val getSampleLanguage_ = call (load_sym libpango "pango_script_get_sample_language") (PolyML.VAL --> PangoLanguageRecord.PolyML.PTR)
     end
     type languagerecord_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forUnichar ch = (FFI.Char.withVal ---> C.fromVal) forUnichar_ ch
+    fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
     fun getSampleLanguage script = (C.withVal ---> PangoLanguageRecord.C.fromPtr true) getSampleLanguage_ script
   end

@@ -25,10 +25,10 @@ structure GtkStyle :>
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateType.C.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -43,7 +43,7 @@ structure GtkStyle :>
             )
     val copy_ = _import "gtk_style_copy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val detach_ = _import "gtk_style_detach" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val hasContext_ = _import "gtk_style_has_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hasContext_ = _import "gtk_style_has_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val lookupColor_ =
       fn
         x1
@@ -55,7 +55,7 @@ structure GtkStyle :>
                * cstring
                * unit CPointer.t
                * GdkColorRecord.C.notnull GdkColorRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -93,7 +93,7 @@ structure GtkStyle :>
                * GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
                * GtkTextDirection.C.val_
                * GtkStateType.C.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
@@ -140,10 +140,10 @@ structure GtkStyle :>
          &&&> CairoContextRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         applyDefaultBackground_
@@ -159,15 +159,15 @@ structure GtkStyle :>
         )
     fun copy self = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr true) copy_ self
     fun detach self = (GObjectObjectClass.C.withPtr ---> I) detach_ self
-    fun hasContext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasContext_ self
+    fun hasContext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GdkColorRecord.C.withNewPtr
-             ---> GdkColorRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             lookupColor_
             (
@@ -178,16 +178,16 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkIconSourceRecord.C.withPtr
          &&&> GtkTextDirection.C.withVal
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIcon_

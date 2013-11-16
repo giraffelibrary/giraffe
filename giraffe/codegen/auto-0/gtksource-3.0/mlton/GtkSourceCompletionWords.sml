@@ -25,7 +25,7 @@ structure GtkSourceCompletionWords :>
     type 'a completionproviderclass_t = 'a GtkSourceCompletionProviderClass.t
     fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name icon = (FFI.String.withConstOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)
+    fun new name icon = (FFI.String.C.withConstOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)
     fun register self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) register_ (self & buffer)
     fun unregister self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) unregister_ (self & buffer)
     local

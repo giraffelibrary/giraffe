@@ -2555,7 +2555,7 @@ local
     end
 
   fun withFunScalar (dir, {ty, ...} : scalarinfo) =
-    withFunExp ["FFI", scalarStrId ty] {
+    withFunExp [FFIId, scalarStrId ty, CId] {
       isRef = dir <> IN,
       isDup = false,
       isNew =
@@ -2568,7 +2568,7 @@ local
     }
 
   fun withFunUtf8 (dir, {isOpt, ...} : utf8info) =
-    withFunExp ["FFI", "String"] {
+    withFunExp [FFIId, "String", CId] {
       isRef = dir <> IN,
       isDup = false,
       isNew = false,
@@ -2632,13 +2632,13 @@ local
     end
 
   fun fromFunScalar ({ty, ...} : scalarinfo) =
-    fromFunExp ["FFI", scalarStrId ty] {
+    fromFunExp [FFIId, scalarStrId ty, CId] {
       isOpt      = false,
       ptrOwnXfer = NONE
     }
 
   fun fromFunUtf8 (_, {ownXfer, isOpt, ...} : utf8info) =
-    fromFunExp ["FFI", "String"] {
+    fromFunExp [FFIId, "String", CId] {
       isOpt      = isOpt,
       ptrOwnXfer = SOME ownXfer
     }
@@ -3201,8 +3201,10 @@ local
       mkLIdLNameExp (prefixIds @ [convId])
     end
 
+  val retVoidConv = VOIDConvExp
+
   fun parScalarConv (dir, {ty, ...} : scalarinfo) =
-    convExp ["FFI", PolyMLId, scalarStrId ty] (
+    convExp [FFIId, scalarStrId ty, PolyMLId] (
       if dir <> IN
       then
         REF {
@@ -3213,13 +3215,11 @@ local
         VAL
     )
 
-  val retVoidConv = VOIDConvExp
-
   fun retScalarConv ({ty, ...} : scalarinfo) =
-    convExp ["FFI", PolyMLId, scalarStrId ty] VAL
+    convExp [FFIId, scalarStrId ty, PolyMLId] VAL
 
   fun parUtf8Conv (dir, {isOpt, ...} : utf8info) =
-    convExp ["FFI", PolyMLId, "String"] (
+    convExp [FFIId, "String", PolyMLId] (
       if dir <> IN
       then
         REF {
@@ -3234,7 +3234,7 @@ local
     )
 
   fun retUtf8Conv ({isOpt, ...} : utf8info) =
-    convExp ["FFI", PolyMLId, "String"] (
+    convExp [FFIId, "String", PolyMLId] (
       PTR {
           optIsRet = SOME true,
           isOpt    = isOpt
@@ -3742,7 +3742,7 @@ local
   val retVoidType = unitTy
 
   fun parScalarType (dir, {ty, ...} : scalarinfo) =
-    typeTy false ["FFI", scalarStrId ty] (
+    typeTy false [FFIId, scalarStrId ty, CId] (
       if dir <> IN
       then
         REF NONE
@@ -3751,10 +3751,10 @@ local
     )
 
   fun retScalarType ({ty, ...} : scalarinfo) =
-    typeTy false ["FFI", scalarStrId ty] VAL
+    typeTy false [FFIId, scalarStrId ty, CId] VAL
 
   fun parUtf8Type (dir, {isOpt, ...} : utf8info) =
-    typeTy true ["FFI", "String"] (
+    typeTy true [FFIId, "String", CId] (
       if dir <> IN
       then
         REF (
@@ -3771,7 +3771,7 @@ local
     )
 
   fun retUtf8Type ({isOpt, ...} : utf8info) =
-    typeTy false ["FFI", "String"] (
+    typeTy false [FFIId, "String", CId] (
       PTR {
           optIsRet = SOME true,
           isOpt    = isOpt
@@ -5009,8 +5009,6 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
     | DOUBLE       => PISCALAR (mode, toScalarInfo STDOUBLE)
     | FILENAME     =>
         let
-          open Transfer
-
           val isOpt = true
 
           val () =
@@ -5026,8 +5024,6 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
         end
     | UTF8         =>
         let
-          open Transfer
-
           val isOpt = true
 
           val () =
@@ -8381,8 +8377,8 @@ local
   (*
    *     structure PolyML =                          -.
    *       struct                                     |
-   *         val VAL = FFI.PolyML.Flags.VAL           | Poly/ML only
-   *         val REF = FFI.PolyML.Flags.REF           |
+   *         val VAL = FFI.Flags.PolyML.VAL           | Poly/ML only
+   *         val REF = FFI.Flags.PolyML.REF           |
    *       end                                       -'
    *)
   val structPolyMLStrDec =
@@ -8390,13 +8386,13 @@ local
       StrDecDec (
         mkIdValDec (
           VALId,
-          mkLIdLNameExp [FFIId, PolyMLId, FlagsId, VALId]
+          mkLIdLNameExp [FFIId, FlagsId, PolyMLId, VALId]
         )
       ),
       StrDecDec (
         mkIdValDec (
           REFId,
-          mkLIdLNameExp [FFIId, PolyMLId, FlagsId, REFId]
+          mkLIdLNameExp [FFIId, FlagsId, PolyMLId, REFId]
         )
       )
     ]
@@ -8404,17 +8400,17 @@ local
   (*
    *     structure C =
    *       struct
-   *         type val_ = FFI.Flags.val_
-   *         type ref_ = FFI.Flags.ref_
+   *         type val_ = FFI.Flags.C.val_
+   *         type ref_ = FFI.Flags.C.ref_
    *         fun withVal f = f
-   *         fun withRefVal f = withVal (FFI.Flags.withRef f)
+   *         fun withRefVal f = withVal (FFI.Flags.C.withRef f)
    *         fun fromVal w = w
    *       end
    *)
   val structCStrDec =
     mkCStructStrDec [
-      StrDecDec (mkTypeDec (valTyName, mkLIdTy [FFIId, FlagsId, valId])),
-      StrDecDec (mkTypeDec (refTyName, mkLIdTy [FFIId, FlagsId, refId])),
+      StrDecDec (mkTypeDec (valTyName, mkLIdTy [FFIId, FlagsId, CId, valId])),
+      StrDecDec (mkTypeDec (refTyName, mkLIdTy [FFIId, FlagsId, CId, refId])),
       StrDecDec (
         DecFun (
           [],
@@ -8441,7 +8437,7 @@ local
                   mkIdLNameExp withValId,
                   mkParenExp (
                     ExpApp (
-                      mkLIdLNameExp [FFIId, FlagsId, "withRef"],
+                      mkLIdLNameExp [FFIId, FlagsId, CId, "withRef"],
                       mkIdLNameExp fId
                     )
                   )
@@ -8608,8 +8604,8 @@ end
  * -------------------------------------------------------------------------- *)
 
 val EnumId : id = "Enum"
-val enumValTy : ty = mkLIdTy [FFIId, EnumId, valId]
-val enumRefTy : ty = mkLIdTy [FFIId, EnumId, refId]
+val enumValTy : ty = mkLIdTy [FFIId, EnumId, CId, valId]
+val enumRefTy : ty = mkLIdTy [FFIId, EnumId, CId, refId]
 val nullId : id = "null"
 val valueId : id = "Value"
 
@@ -8762,7 +8758,7 @@ local
    *         val withVal : (val_ -> 'a) -> t -> 'a
    *         val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair
    *         val fromVal : val_ -> t
-   *         exception Value of FFI.Enum.val_
+   *         exception Value of FFI.Enum.C.val_
    *       end
    *)
   val structCSpecs = [
@@ -8901,9 +8897,9 @@ local
   (*
    *     structure C =
    *       struct
-   *         type val_ = FFI.Enum.val_
-   *         type ref_ = FFI.Enum.ref_
-   *         exception Value of FFI.Enum.val_
+   *         type val_ = FFI.Enum.C.val_
+   *         type ref_ = FFI.Enum.C.ref_
+   *         exception Value of FFI.Enum.C.val_
    *
    *         fun withVal f =
    *           fn
@@ -8911,7 +8907,7 @@ local
    *           | ...
    *           | <VALUENAME[V]> => f <valueValue[V]>
    *
-   *         fun withRefVal f = withVal (FFI.Enum.withRef f)
+   *         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
    *
    *         val fromVal =
    *           fn
@@ -8953,7 +8949,7 @@ local
                   mkIdLNameExp withValId,
                   mkParenExp (
                     ExpApp (
-                      mkLIdLNameExp [FFIId, EnumId, "withRef"],
+                      mkLIdLNameExp [FFIId, EnumId, CId, "withRef"],
                       mkIdLNameExp fId
                     )
                   )
@@ -8974,8 +8970,8 @@ local
   (*
    *     structure PolyML =                          -.
    *       struct                                     |
-   *         val VAL = FFI.PolyML.Enum.VAL            | Poly/ML only
-   *         val REF = FFI.PolyML.Enum.REF            |
+   *         val VAL = FFI.Enum.PolyML.VAL            | Poly/ML only
+   *         val REF = FFI.Enum.PolyML.REF            |
    *       end                                       -'
    *)
   val structPolyMLStrDec =
@@ -8983,13 +8979,13 @@ local
       StrDecDec (
         mkIdValDec (
           VALId,
-          mkLIdLNameExp [FFIId, PolyMLId, EnumId, VALId]
+          mkLIdLNameExp [FFIId, EnumId, PolyMLId, VALId]
         )
       ),
       StrDecDec (
         mkIdValDec (
           REFId,
-          mkLIdLNameExp [FFIId, PolyMLId, EnumId, REFId]
+          mkLIdLNameExp [FFIId, EnumId, PolyMLId, REFId]
         )
       )
     ]

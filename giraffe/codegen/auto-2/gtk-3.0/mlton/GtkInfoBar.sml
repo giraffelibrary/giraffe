@@ -17,7 +17,7 @@ structure GtkInfoBar :>
             _import "gtk_info_bar_add_action_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -35,7 +35,7 @@ structure GtkInfoBar :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -47,8 +47,8 @@ structure GtkInfoBar :>
     val getActionArea_ = _import "gtk_info_bar_get_action_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getContentArea_ = _import "gtk_info_bar_get_content_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getMessageType_ = _import "gtk_info_bar_get_message_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkMessageType.C.val_;
-    val response_ = fn x1 & x2 => (_import "gtk_info_bar_response" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setDefaultResponse_ = fn x1 & x2 => (_import "gtk_info_bar_set_default_response" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val response_ = fn x1 & x2 => (_import "gtk_info_bar_response" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setDefaultResponse_ = fn x1 & x2 => (_import "gtk_info_bar_set_default_response" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setMessageType_ = fn x1 & x2 => (_import "gtk_info_bar_set_message_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkMessageType.C.val_ -> unit;) (x1, x2)
     val setResponseSensitive_ =
       fn
@@ -58,8 +58,8 @@ structure GtkInfoBar :>
           (
             _import "gtk_info_bar_set_response_sensitive" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Bool.val_
+               * FFI.Int32.C.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -81,7 +81,7 @@ structure GtkInfoBar :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addActionWidget_
@@ -93,8 +93,8 @@ structure GtkInfoBar :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )
         addButton_
@@ -106,14 +106,14 @@ structure GtkInfoBar :>
     fun getActionArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActionArea_ self
     fun getContentArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getContentArea_ self
     fun getMessageType self = (GObjectObjectClass.C.withPtr ---> GtkMessageType.C.fromVal) getMessageType_ self
-    fun response self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) response_ (self & responseId)
-    fun setDefaultResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun response self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) response_ (self & responseId)
+    fun setDefaultResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setMessageType self messageType = (GObjectObjectClass.C.withPtr &&&> GtkMessageType.C.withVal ---> I) setMessageType_ (self & messageType)
     fun setResponseSensitive self responseId setting =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setResponseSensitive_

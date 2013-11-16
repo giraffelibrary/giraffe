@@ -11,18 +11,18 @@ structure GtkStatusIcon :>
     in
       val getType_ = call (load_sym libgtk "gtk_status_icon_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_status_icon_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromFile_ = call (load_sym libgtk "gtk_status_icon_new_from_file") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromFile_ = call (load_sym libgtk "gtk_status_icon_new_from_file") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newFromGicon_ = call (load_sym libgtk "gtk_status_icon_new_from_gicon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromIconName_ = call (load_sym libgtk "gtk_status_icon_new_from_icon_name") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromIconName_ = call (load_sym libgtk "gtk_status_icon_new_from_icon_name") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newFromPixbuf_ = call (load_sym libgtk "gtk_status_icon_new_from_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_status_icon_new_from_stock") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromStock_ = call (load_sym libgtk "gtk_status_icon_new_from_stock") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val positionMenu_ =
         call (load_sym libgtk "gtk_status_icon_position_menu")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.REF
-             &&> FFI.PolyML.Int32.REF
-             &&> FFI.PolyML.Bool.REF
+             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Bool.PolyML.REF
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -33,34 +33,34 @@ structure GtkStatusIcon :>
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> CairoRectangleIntRecord.PolyML.PTR
              &&> GtkOrientation.PolyML.REF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val getGicon_ = call (load_sym libgtk "gtk_status_icon_get_gicon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getHasTooltip_ = call (load_sym libgtk "gtk_status_icon_get_has_tooltip") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getIconName_ = call (load_sym libgtk "gtk_status_icon_get_icon_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getHasTooltip_ = call (load_sym libgtk "gtk_status_icon_get_has_tooltip") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getIconName_ = call (load_sym libgtk "gtk_status_icon_get_icon_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getPixbuf_ = call (load_sym libgtk "gtk_status_icon_get_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getScreen_ = call (load_sym libgtk "gtk_status_icon_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSize_ = call (load_sym libgtk "gtk_status_icon_get_size") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getStock_ = call (load_sym libgtk "gtk_status_icon_get_stock") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getSize_ = call (load_sym libgtk "gtk_status_icon_get_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getStock_ = call (load_sym libgtk "gtk_status_icon_get_stock") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getStorageType_ = call (load_sym libgtk "gtk_status_icon_get_storage_type") (GObjectObjectClass.PolyML.PTR --> GtkImageType.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_status_icon_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_markup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getTooltipText_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getVisible_ = call (load_sym libgtk "gtk_status_icon_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getX11WindowId_ = call (load_sym libgtk "gtk_status_icon_get_x11_window_id") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val isEmbedded_ = call (load_sym libgtk "gtk_status_icon_is_embedded") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setFromFile_ = call (load_sym libgtk "gtk_status_icon_set_from_file") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val getTitle_ = call (load_sym libgtk "gtk_status_icon_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_markup") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTooltipText_ = call (load_sym libgtk "gtk_status_icon_get_tooltip_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getVisible_ = call (load_sym libgtk "gtk_status_icon_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getX11WindowId_ = call (load_sym libgtk "gtk_status_icon_get_x11_window_id") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val isEmbedded_ = call (load_sym libgtk "gtk_status_icon_is_embedded") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setFromFile_ = call (load_sym libgtk "gtk_status_icon_set_from_file") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setFromGicon_ = call (load_sym libgtk "gtk_status_icon_set_from_gicon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setFromIconName_ = call (load_sym libgtk "gtk_status_icon_set_from_icon_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val setFromIconName_ = call (load_sym libgtk "gtk_status_icon_set_from_icon_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setFromPixbuf_ = call (load_sym libgtk "gtk_status_icon_set_from_pixbuf") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setFromStock_ = call (load_sym libgtk "gtk_status_icon_set_from_stock") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setHasTooltip_ = call (load_sym libgtk "gtk_status_icon_set_has_tooltip") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setName_ = call (load_sym libgtk "gtk_status_icon_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val setFromStock_ = call (load_sym libgtk "gtk_status_icon_set_from_stock") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setHasTooltip_ = call (load_sym libgtk "gtk_status_icon_set_has_tooltip") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setName_ = call (load_sym libgtk "gtk_status_icon_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setScreen_ = call (load_sym libgtk "gtk_status_icon_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_status_icon_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
-      val setTooltipText_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_text") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setVisible_ = call (load_sym libgtk "gtk_status_icon_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setTitle_ = call (load_sym libgtk "gtk_status_icon_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setTooltipText_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setVisible_ = call (load_sym libgtk "gtk_status_icon_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkStatusIconClass.t
     type 'a menuclass_t = 'a GtkMenuClass.t
@@ -69,11 +69,11 @@ structure GtkStatusIcon :>
     type imagetype_t = GtkImageType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()
-    fun newFromFile filename = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
+    fun newFromFile filename = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
     fun newFromGicon icon = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromGicon_ icon
-    fun newFromIconName iconName = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
+    fun newFromIconName iconName = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromPixbuf_ pixbuf
-    fun newFromStock stockId = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
+    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
     fun positionMenu menu userData =
       let
         val x
@@ -82,13 +82,13 @@ structure GtkStatusIcon :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Bool.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Bool.C.withRefVal
              &&&> GObjectObjectClass.C.withPtr
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
                    && I
           )
             positionMenu_
@@ -120,7 +120,7 @@ structure GtkStatusIcon :>
              ---> GdkScreenClass.C.fromPtr false
                    && CairoRectangleIntRecord.C.fromPtr true
                    && GtkOrientation.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getGeometry_
             (
@@ -141,31 +141,31 @@ structure GtkStatusIcon :>
         else NONE
       end
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
-    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasTooltip_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getIconName_ self
+    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasTooltip_ self
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getSize_ self
-    fun getStock self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getStock_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getStock self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStock_ self
     fun getStorageType self = (GObjectObjectClass.C.withPtr ---> GtkImageType.C.fromVal) getStorageType_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTitle_ self
-    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ self
-    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
-    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getX11WindowId_ self
-    fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isEmbedded_ self
-    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromFile_ (self & filename)
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipMarkup_ self
+    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipText_ self
+    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getX11WindowId_ self
+    fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isEmbedded_ self
+    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromGicon_ (self & icon)
-    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromIconName_ (self & iconName)
+    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromIconName_ (self & iconName)
     fun setFromPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
-    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromStock_ (self & stockId)
-    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
+    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromStock_ (self & stockId)
+    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasTooltip_ (self & hasTooltip)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTooltipText_ (self & text)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisible_ (self & visible)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal
     in

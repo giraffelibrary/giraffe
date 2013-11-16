@@ -19,7 +19,7 @@ structure GIRepositorySignalInfo :>
       val trueStopsEmit_ =
         call
           (load_sym libgirepository "g_signal_info_true_stops_emit")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
     end
 
 
@@ -40,5 +40,5 @@ structure GIRepositorySignalInfo :>
           info
 
     val trueStopsEmit =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) trueStopsEmit_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) trueStopsEmit_ info
   end

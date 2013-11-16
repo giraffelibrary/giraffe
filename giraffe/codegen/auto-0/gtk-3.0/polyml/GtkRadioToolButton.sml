@@ -9,7 +9,7 @@ structure GtkRadioToolButton :>
     in
       val getType_ = call (load_sym libgtk "gtk_radio_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val newFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_from_widget") (GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithStockFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_with_stock_from_widget") (GObjectObjectClass.PolyML.OPTPTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithStockFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_with_stock_from_widget") (GObjectObjectClass.PolyML.OPTPTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkRadioToolButtonClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
@@ -19,7 +19,7 @@ structure GtkRadioToolButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromWidget group = (GObjectObjectClass.C.withOptPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newFromWidget_ group
-    fun newWithStockFromWidget group stockId = (GObjectObjectClass.C.withOptPtr &&&> FFI.String.withConstPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newWithStockFromWidget_ (group & stockId)
+    fun newWithStockFromWidget group stockId = (GObjectObjectClass.C.withOptPtr &&&> FFI.String.C.withConstPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newWithStockFromWidget_ (group & stockId)
     local
       open Property
     in

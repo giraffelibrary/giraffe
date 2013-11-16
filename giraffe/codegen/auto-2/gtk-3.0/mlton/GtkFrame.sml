@@ -7,7 +7,7 @@ structure GtkFrame :>
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_frame_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getLabel_ = _import "gtk_frame_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getLabel_ = _import "gtk_frame_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getLabelAlign_ =
       fn
         x1
@@ -16,8 +16,8 @@ structure GtkFrame :>
           (
             _import "gtk_frame_get_label_align" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.ref_
-               * FFI.Float.ref_
+               * FFI.Float.C.ref_
+               * FFI.Float.C.ref_
                -> unit;
           )
             (
@@ -50,8 +50,8 @@ structure GtkFrame :>
           (
             _import "gtk_frame_set_label_align" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.val_
-               * FFI.Float.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
                -> unit;
           )
             (
@@ -68,8 +68,8 @@ structure GtkFrame :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (FFI.String.withConstPtr ---> GtkFrameClass.C.fromPtr false) new_ label
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getLabel_ self
+    fun new label = (FFI.String.C.withConstPtr ---> GtkFrameClass.C.fromPtr false) new_ label
+    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
     fun getLabelAlign self =
       let
         val xalign
@@ -77,10 +77,10 @@ structure GtkFrame :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Float.withRefVal
-             &&&> FFI.Float.withRefVal
-             ---> FFI.Float.fromVal
-                   && FFI.Float.fromVal
+             &&&> FFI.Float.C.withRefVal
+             &&&> FFI.Float.C.withRefVal
+             ---> FFI.Float.C.fromVal
+                   && FFI.Float.C.fromVal
                    && I
           )
             getLabelAlign_
@@ -94,12 +94,12 @@ structure GtkFrame :>
       end
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
     fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setLabel_ (self & label)
     fun setLabelAlign self xalign yalign =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
          ---> I
       )
         setLabelAlign_

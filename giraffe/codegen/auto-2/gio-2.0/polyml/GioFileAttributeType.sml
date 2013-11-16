@@ -21,9 +21,9 @@ structure GioFileAttributeType :>
     | STRINGV
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -36,7 +36,7 @@ structure GioFileAttributeType :>
           | INT64 => f 7
           | OBJECT => f 8
           | STRINGV => f 9
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -53,8 +53,8 @@ structure GioFileAttributeType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI

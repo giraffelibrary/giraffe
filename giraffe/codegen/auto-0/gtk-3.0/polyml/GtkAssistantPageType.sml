@@ -17,9 +17,9 @@ structure GtkAssistantPageType :>
     | CUSTOM
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             CONTENT => f 0
@@ -28,7 +28,7 @@ structure GtkAssistantPageType :>
           | SUMMARY => f 3
           | PROGRESS => f 4
           | CUSTOM => f 5
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CONTENT
@@ -41,8 +41,8 @@ structure GtkAssistantPageType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI

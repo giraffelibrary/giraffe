@@ -20,9 +20,9 @@ structure PangoGravity :>
     | AUTO
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             SOUTH => f 0
@@ -30,7 +30,7 @@ structure PangoGravity :>
           | NORTH => f 2
           | WEST => f 3
           | AUTO => f 4
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => SOUTH
@@ -42,8 +42,8 @@ structure PangoGravity :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI
@@ -76,12 +76,12 @@ structure PangoGravity :>
         call (load_sym libpango "pango_gravity_get_for_script_and_width")
           (
             PangoScript.PolyML.VAL
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              &&> PolyML.VAL
              &&> PangoGravityHint.PolyML.VAL
              --> PolyML.VAL
           )
-      val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.VAL --> FFI.PolyML.Double.VAL)
+      val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.VAL --> FFI.Double.PolyML.VAL)
     end
     type matrixrecord_t = PangoMatrixRecord.t
     type gravityhint_t = PangoGravityHint.t
@@ -104,7 +104,7 @@ structure PangoGravity :>
     fun getForScriptAndWidth script wide baseGravity hint =
       (
         PangoScript.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          &&&> C.withVal
          &&&> PangoGravityHint.C.withVal
          ---> C.fromVal
@@ -116,5 +116,5 @@ structure PangoGravity :>
            & baseGravity
            & hint
         )
-    fun toRotation gravity = (C.withVal ---> FFI.Double.fromVal) toRotation_ gravity
+    fun toRotation gravity = (C.withVal ---> FFI.Double.C.fromVal) toRotation_ gravity
   end

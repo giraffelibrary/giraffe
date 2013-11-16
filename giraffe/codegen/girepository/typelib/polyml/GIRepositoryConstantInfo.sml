@@ -17,7 +17,7 @@ structure GIRepositoryConstantInfo :>
           (load_sym libgirepository "g_constant_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.PTR
             &&> GIRepositoryArgument.PolyML.PTR
-            --> FFI.PolyML.Int32.VAL);
+            --> FFI.Int32.PolyML.VAL);
     end
 
 

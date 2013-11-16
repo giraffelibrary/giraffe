@@ -11,14 +11,14 @@ structure GioCharsetConverter :>
       val new_ =
         call (load_sym libgio "g_charset_converter_new")
           (
-            FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INPTR
+            FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioCharsetConverterClass.t
     type 'a converterclass_t = 'a GioConverterClass.t
@@ -28,8 +28,8 @@ structure GioCharsetConverter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new toCharset fromCharset =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioCharsetConverterClass.C.fromPtr true
       )
@@ -39,9 +39,9 @@ structure GioCharsetConverter :>
            & fromCharset
            & []
         )
-    fun getNumFallbacks self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getNumFallbacks_ self
-    fun getUseFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUseFallback_ self
-    fun setUseFallback self useFallback = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUseFallback_ (self & useFallback)
+    fun getNumFallbacks self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumFallbacks_ self
+    fun getUseFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFallback_ self
+    fun setUseFallback self useFallback = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFallback_ (self & useFallback)
     local
       open Property
     in

@@ -15,9 +15,9 @@ structure GtkIconSize :>
     | DIALOG
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -27,7 +27,7 @@ structure GtkIconSize :>
           | BUTTON => f 4
           | DND => f 5
           | DIALOG => f 6
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -50,8 +50,8 @@ structure GtkIconSize :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALID
-    val fromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int32.val_;
-    val getName_ = _import "gtk_icon_size_get_name" : FFI.Int32.val_ -> FFI.String.notnull FFI.String.out_p;
+    val fromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
+    val getName_ = _import "gtk_icon_size_get_name" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val lookup_ =
       fn
         x1
@@ -59,10 +59,10 @@ structure GtkIconSize :>
          & x3 =>
           (
             _import "gtk_icon_size_lookup" :
-              FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               -> FFI.Bool.val_;
+              FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -78,10 +78,10 @@ structure GtkIconSize :>
           (
             _import "gtk_icon_size_lookup_for_settings" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -98,9 +98,9 @@ structure GtkIconSize :>
             _import "mlton_gtk_icon_size_register" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Int32.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -115,7 +115,7 @@ structure GtkIconSize :>
             _import "mlton_gtk_icon_size_register_alias" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -125,20 +125,20 @@ structure GtkIconSize :>
             )
     type 'a settingsclass_t = 'a GtkSettingsClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun fromName name = (FFI.String.withConstPtr ---> FFI.Int32.fromVal) fromName_ name
-    fun getName size = (FFI.Int32.withVal ---> FFI.String.fromPtr false) getName_ size
+    fun fromName name = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) fromName_ name
+    fun getName size = (FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getName_ size
     fun lookup size =
       let
         val width
          & height
          & retVal =
           (
-            FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+            FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             lookup_
             (
@@ -156,12 +156,12 @@ structure GtkIconSize :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             lookupForSettings_
             (
@@ -175,10 +175,10 @@ structure GtkIconSize :>
       end
     fun register name width height =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Int32.fromVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Int32.C.fromVal
       )
         register_
         (
@@ -186,5 +186,5 @@ structure GtkIconSize :>
            & width
            & height
         )
-    fun registerAlias alias target = (FFI.String.withConstPtr &&&> FFI.Int32.withVal ---> I) registerAlias_ (alias & target)
+    fun registerAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> I) registerAlias_ (alias & target)
   end

@@ -10,7 +10,7 @@ structure GioIOStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_io_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val spliceFinish_ = call (load_sym libgio "g_io_stream_splice_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.Bool.VAL)
+      val spliceFinish_ = call (load_sym libgio "g_io_stream_splice_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val clearPending_ = call (load_sym libgio "g_io_stream_clear_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val close_ =
         call (load_sym libgio "g_io_stream_close")
@@ -18,7 +18,7 @@ structure GioIOStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val closeFinish_ =
         call (load_sym libgio "g_io_stream_close_finish")
@@ -26,13 +26,13 @@ structure GioIOStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val getInputStream_ = call (load_sym libgio "g_io_stream_get_input_stream") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getOutputStream_ = call (load_sym libgio "g_io_stream_get_output_stream") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val hasPending_ = call (load_sym libgio "g_io_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isClosed_ = call (load_sym libgio "g_io_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setPending_ = call (load_sym libgio "g_io_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.Bool.VAL)
+      val hasPending_ = call (load_sym libgio "g_io_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isClosed_ = call (load_sym libgio "g_io_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setPending_ = call (load_sym libgio "g_io_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioIOStreamClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
@@ -40,14 +40,14 @@ structure GioIOStream :>
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun spliceFinish result = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) spliceFinish_ (result & [])
+    fun spliceFinish result = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spliceFinish_ (result & [])
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -60,7 +60,7 @@ structure GioIOStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -70,9 +70,9 @@ structure GioIOStream :>
         )
     fun getInputStream self = (GObjectObjectClass.C.withPtr ---> GioInputStreamClass.C.fromPtr false) getInputStream_ self
     fun getOutputStream self = (GObjectObjectClass.C.withPtr ---> GioOutputStreamClass.C.fromPtr false) getOutputStream_ self
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) setPending_ (self & [])
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     local
       open Property
     in

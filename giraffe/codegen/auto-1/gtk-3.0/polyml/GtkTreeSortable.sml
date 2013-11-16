@@ -11,16 +11,16 @@ structure GtkTreeSortable :>
         call (load_sym libgtk "gtk_tree_sortable_get_sort_column_id")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.REF
+             &&> FFI.Int32.PolyML.REF
              &&> GtkSortType.PolyML.REF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setSortColumnId_ =
         call (load_sym libgtk "gtk_tree_sortable_set_sort_column_id")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              &&> GtkSortType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -36,11 +36,11 @@ structure GtkTreeSortable :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              &&&> GtkSortType.C.withRefVal
-             ---> FFI.Int32.fromVal
+             ---> FFI.Int32.C.fromVal
                    && GtkSortType.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getSortColumnId_
             (
@@ -51,11 +51,11 @@ structure GtkTreeSortable :>
       in
         if retVal then SOME (sortColumnId, order) else NONE
       end
-    fun hasDefaultSortFunc self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasDefaultSortFunc_ self
+    fun hasDefaultSortFunc self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasDefaultSortFunc_ self
     fun setSortColumnId self sortColumnId order =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GtkSortType.C.withVal
          ---> I
       )

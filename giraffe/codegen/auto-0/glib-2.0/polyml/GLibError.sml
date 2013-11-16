@@ -10,9 +10,9 @@ structure GLibError :>
         call (load_sym libglib "g_error_matches")
           (
             GLibErrorRecord.PolyML.PTR
-             &&> FFI.PolyML.UInt32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             --> FFI.PolyML.Bool.VAL
+             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type record_t = GLibErrorRecord.t
@@ -20,9 +20,9 @@ structure GLibError :>
     fun matches self domain code =
       (
         GLibErrorRecord.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         matches_
         (

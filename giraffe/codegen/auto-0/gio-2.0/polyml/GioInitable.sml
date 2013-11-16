@@ -13,7 +13,7 @@ structure GioInitable :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioInitableClass.t
@@ -24,7 +24,7 @@ structure GioInitable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         init_
         (

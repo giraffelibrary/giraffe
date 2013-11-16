@@ -15,7 +15,7 @@ structure GtkMenuShell :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val append_ = call (load_sym libgtk "gtk_menu_shell_append") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -24,19 +24,19 @@ structure GtkMenuShell :>
       val deselect_ = call (load_sym libgtk "gtk_menu_shell_deselect") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getParentShell_ = call (load_sym libgtk "gtk_menu_shell_get_parent_shell") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSelectedItem_ = call (load_sym libgtk "gtk_menu_shell_get_selected_item") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_get_take_focus") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_get_take_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val insert_ =
         call (load_sym libgtk "gtk_menu_shell_insert")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val prepend_ = call (load_sym libgtk "gtk_menu_shell_prepend") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectFirst_ = call (load_sym libgtk "gtk_menu_shell_select_first") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val selectFirst_ = call (load_sym libgtk "gtk_menu_shell_select_first") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val selectItem_ = call (load_sym libgtk "gtk_menu_shell_select_item") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMenuShellClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -50,7 +50,7 @@ structure GtkMenuShell :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         activateItem_
@@ -65,12 +65,12 @@ structure GtkMenuShell :>
     fun deselect self = (GObjectObjectClass.C.withPtr ---> I) deselect_ self
     fun getParentShell self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getParentShell_ self
     fun getSelectedItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getSelectedItem_ self
-    fun getTakeFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTakeFocus_ self
+    fun getTakeFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTakeFocus_ self
     fun insert self child position =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         insert_
@@ -80,9 +80,9 @@ structure GtkMenuShell :>
            & position
         )
     fun prepend self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) prepend_ (self & child)
-    fun selectFirst self searchSensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) selectFirst_ (self & searchSensitive)
+    fun selectFirst self searchSensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) selectFirst_ (self & searchSensitive)
     fun selectItem self menuItem = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) selectItem_ (self & menuItem)
-    fun setTakeFocus self takeFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setTakeFocus_ (self & takeFocus)
+    fun setTakeFocus self takeFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTakeFocus_ (self & takeFocus)
     local
       open ClosureMarshal Signal
     in

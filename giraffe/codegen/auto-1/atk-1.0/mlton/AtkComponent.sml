@@ -16,10 +16,10 @@ structure AtkComponent :>
           (
             _import "atk_component_contains" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -27,10 +27,10 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val getAlpha_ = _import "atk_component_get_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.val_;
+    val getAlpha_ = _import "atk_component_get_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getLayer_ = _import "atk_component_get_layer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkLayer.C.val_;
-    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val grabFocus_ = _import "atk_component_grab_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val grabFocus_ = _import "atk_component_grab_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val refAccessibleAtPoint_ =
       fn
         x1
@@ -40,8 +40,8 @@ structure AtkComponent :>
           (
             _import "atk_component_ref_accessible_at_point" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -51,7 +51,7 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val setExtents_ =
       fn
         x1
@@ -63,12 +63,12 @@ structure AtkComponent :>
           (
             _import "atk_component_set_extents" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -87,10 +87,10 @@ structure AtkComponent :>
           (
             _import "atk_component_set_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -106,9 +106,9 @@ structure AtkComponent :>
           (
             _import "atk_component_set_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -124,10 +124,10 @@ structure AtkComponent :>
     fun contains self x y coordType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         contains_
         (
@@ -136,15 +136,15 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getAlpha_ self
+    fun getAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getAlpha_ self
     fun getLayer self = (GObjectObjectClass.C.withPtr ---> AtkLayer.C.fromVal) getLayer_ self
-    fun getMdiZorder self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMdiZorder_ self
-    fun grabFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) grabFocus_ self
+    fun getMdiZorder self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMdiZorder_ self
+    fun grabFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) grabFocus_ self
     fun refAccessibleAtPoint self x y coordType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
          ---> AtkObjectClass.C.fromPtr true
       )
@@ -155,16 +155,16 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents self x y width height coordType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setExtents_
         (
@@ -178,10 +178,10 @@ structure AtkComponent :>
     fun setPosition self x y coordType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setPosition_
         (
@@ -193,9 +193,9 @@ structure AtkComponent :>
     fun setSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         setSize_
         (

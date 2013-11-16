@@ -11,8 +11,8 @@ structure PangoGlyphItem :>
         call (load_sym libpango "pango_glyph_item_split")
           (
             PangoGlyphItemRecord.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int32.PolyML.VAL
              --> PangoGlyphItemRecord.PolyML.PTR
           )
     end
@@ -22,8 +22,8 @@ structure PangoGlyphItem :>
     fun split self text splitIndex =
       (
         PangoGlyphItemRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> PangoGlyphItemRecord.C.fromPtr true
       )
         split_

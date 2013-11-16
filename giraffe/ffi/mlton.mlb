@@ -18,6 +18,10 @@ in
   mlton/Finalizable.sml
   mlton/GCharVec.sml
   mlton/GCharVecVec.sml
+  mlton/F_F_I_SCALAR.sml
+  mlton/F_F_I_ARRAY.sml
+  mlton/F_F_I_FLAGS_ENUM.sml
+  mlton/F_F_I.sml
   mlton/FFI.sml
   mlton/Pid.sml
   mlton/FileDesc.sml

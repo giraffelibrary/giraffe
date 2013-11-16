@@ -11,25 +11,25 @@ structure GIRepositoryEnumInfo :>
       val getNValues_ =
         call
           (load_sym libgirepository "g_enum_info_get_n_values")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getValue_ =
         call
           (load_sym libgirepository "g_enum_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getNMethods_ =
         call
           (load_sym libgirepository "g_enum_info_get_n_methods")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getMethod_ =
         call
           (load_sym libgirepository "g_enum_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getStorageType_ =
@@ -40,7 +40,7 @@ structure GIRepositoryEnumInfo :>
       val getErrorDomain_ =
         call
           (load_sym libgirepository "g_enum_info_get_error_domain")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETOPTPTR);
     end
 
 
@@ -51,32 +51,40 @@ structure GIRepositoryEnumInfo :>
 
 
     val getNValues =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNValues_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNValues_ info
 
     val getValue =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryValueInfoClass.C.fromPtr true)
-        getValue_
-        (info & n)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryValueInfoClass.C.fromPtr true
+        )
+          getValue_
+          (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
-        getMethod_
-        (info & n)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryFunctionInfoClass.C.fromPtr true
+        )
+          getMethod_
+          (info & n)
 
     val getStorageType =
       fn info =>
         (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeTag.C.fromVal)
-        getStorageType_
-        info
+          getStorageType_
+          info
 
     val getErrorDomain =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
-        getErrorDomain_
-        info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromOptPtr false)
+          getErrorDomain_
+          info
   end

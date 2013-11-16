@@ -14,7 +14,7 @@ structure GioInitable :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -29,7 +29,7 @@ structure GioInitable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         init_
         (

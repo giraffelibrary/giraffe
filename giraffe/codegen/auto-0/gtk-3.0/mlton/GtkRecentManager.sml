@@ -18,7 +18,7 @@ structure GtkRecentManager :>
                * cstring
                * unit CPointer.t
                * GtkRecentDataRecord.C.notnull GtkRecentDataRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -34,7 +34,7 @@ structure GtkRecentManager :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -49,7 +49,7 @@ structure GtkRecentManager :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -89,7 +89,7 @@ structure GtkRecentManager :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -99,7 +99,7 @@ structure GtkRecentManager :>
               x5,
               x6
             )
-    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int32.val_;) (x1, x2)
+    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int32.C.val_;) (x1, x2)
     val removeItem_ =
       fn
         x1
@@ -111,7 +111,7 @@ structure GtkRecentManager :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -128,9 +128,9 @@ structure GtkRecentManager :>
     fun addFull self uri recentData =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkRecentDataRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         addFull_
         (
@@ -138,12 +138,12 @@ structure GtkRecentManager :>
            & uri
            & recentData
         )
-    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) addItem_ (self & uri)
-    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasItem_ (self & uri)
+    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
+    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GtkRecentInfoRecord.C.fromPtr true
       )
@@ -156,10 +156,10 @@ structure GtkRecentManager :>
     fun moveItem self uri newUri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         moveItem_
         (
@@ -168,13 +168,13 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int32.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeItem_
         (

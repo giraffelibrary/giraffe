@@ -18,7 +18,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -35,7 +35,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -52,7 +52,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -69,17 +69,17 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val hasPending_ = _import "g_output_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isClosed_ = _import "g_output_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isClosing_ = _import "g_output_stream_is_closing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val setPending_ = fn x1 & x2 => (_import "g_output_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.val_;) (x1, x2)
+    val hasPending_ = _import "g_output_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isClosed_ = _import "g_output_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isClosing_ = _import "g_output_stream_is_closing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val setPending_ = fn x1 & x2 => (_import "g_output_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val splice_ =
       fn
         x1
@@ -94,7 +94,7 @@ structure GioOutputStream :>
                * GioOutputStreamSpliceFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -113,7 +113,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -130,7 +130,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -149,7 +149,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -162,7 +162,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -175,7 +175,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         flush_
         (
@@ -188,7 +188,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         flushFinish_
         (
@@ -196,10 +196,10 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
-    fun isClosing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosing_ self
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) setPending_ (self & [])
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun isClosing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosing_ self
+    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun splice self source flags cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -207,7 +207,7 @@ structure GioOutputStream :>
          &&&> GioOutputStreamSpliceFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         splice_
         (
@@ -222,7 +222,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         spliceFinish_
         (
@@ -235,7 +235,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         writeFinish_
         (

@@ -17,7 +17,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -41,7 +41,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -65,7 +65,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Double.val_;
+               -> FFI.Double.C.val_;
           )
             (
               x1,
@@ -89,7 +89,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -113,7 +113,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int32.val_;
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -140,7 +140,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -152,7 +152,7 @@ structure GLibKeyFile :>
               x7,
               x8
             )
-    val getStartGroup_ = _import "g_key_file_get_start_group" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getStartGroup_ = _import "g_key_file_get_start_group" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getString_ =
       fn
         x1
@@ -167,7 +167,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -191,7 +191,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.UInt64.val_;
+               -> FFI.UInt64.C.val_;
           )
             (
               x1,
@@ -215,7 +215,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -233,7 +233,7 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -252,10 +252,10 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -281,7 +281,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -311,7 +311,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -337,7 +337,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -360,7 +360,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -381,7 +381,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -403,7 +403,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -426,7 +426,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -451,8 +451,8 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Bool.val_
-               * FFI.UInt64.val_
+               * FFI.Bool.C.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -481,7 +481,7 @@ structure GLibKeyFile :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -506,7 +506,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Double.val_
+               * FFI.Double.C.val_
                -> unit;
           )
             (
@@ -531,8 +531,8 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Double.val_
-               * FFI.UInt64.val_
+               * FFI.Double.C.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -557,7 +557,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Int64.val_
+               * FFI.Int64.C.val_
                -> unit;
           )
             (
@@ -581,7 +581,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -606,8 +606,8 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
-               * FFI.UInt64.val_
+               * FFI.Int32.C.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -619,7 +619,7 @@ structure GLibKeyFile :>
               x6,
               x7
             )
-    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p * FFI.UInt8.val_ -> unit;) (x1, x2)
+    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p * FFI.UInt8.C.val_ -> unit;) (x1, x2)
     val setLocaleString_ =
       fn
         x1
@@ -670,7 +670,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -724,7 +724,7 @@ structure GLibKeyFile :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -766,10 +766,10 @@ structure GLibKeyFile :>
     fun getBoolean self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         getBoolean_
         (
@@ -781,10 +781,10 @@ structure GLibKeyFile :>
     fun getComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.fromPtr true
+         ---> FFI.String.C.fromPtr true
       )
         getComment_
         (
@@ -796,10 +796,10 @@ structure GLibKeyFile :>
     fun getDouble self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Double.fromVal
+         ---> FFI.Double.C.fromVal
       )
         getDouble_
         (
@@ -811,10 +811,10 @@ structure GLibKeyFile :>
     fun getInt64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         getInt64_
         (
@@ -826,10 +826,10 @@ structure GLibKeyFile :>
     fun getInteger self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.fromVal
+         ---> FFI.Int32.C.fromVal
       )
         getInteger_
         (
@@ -841,11 +841,11 @@ structure GLibKeyFile :>
     fun getLocaleString self groupName key locale =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.fromPtr true
+         ---> FFI.String.C.fromPtr true
       )
         getLocaleString_
         (
@@ -855,14 +855,14 @@ structure GLibKeyFile :>
            & locale
            & []
         )
-    fun getStartGroup self = (GLibKeyFileRecord.C.withPtr ---> FFI.String.fromPtr true) getStartGroup_ self
+    fun getStartGroup self = (GLibKeyFileRecord.C.withPtr ---> FFI.String.C.fromPtr true) getStartGroup_ self
     fun getString self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.fromPtr true
+         ---> FFI.String.C.fromPtr true
       )
         getString_
         (
@@ -874,10 +874,10 @@ structure GLibKeyFile :>
     fun getUint64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt64.fromVal
+         ---> FFI.UInt64.C.fromVal
       )
         getUint64_
         (
@@ -889,10 +889,10 @@ structure GLibKeyFile :>
     fun getValue self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.fromPtr true
+         ---> FFI.String.C.fromPtr true
       )
         getValue_
         (
@@ -901,15 +901,15 @@ structure GLibKeyFile :>
            & key
            & []
         )
-    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasGroup_ (self & groupName)
+    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
     fun loadFromData self data length flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         loadFromData_
         (
@@ -922,11 +922,11 @@ structure GLibKeyFile :>
     fun loadFromDataDirs self file fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         loadFromDataDirs_
         (
@@ -939,12 +939,12 @@ structure GLibKeyFile :>
     fun loadFromDirs self file searchDirs fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         loadFromDirs_
         (
@@ -958,10 +958,10 @@ structure GLibKeyFile :>
     fun loadFromFile self file flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         loadFromFile_
         (
@@ -973,10 +973,10 @@ structure GLibKeyFile :>
     fun removeComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeComment_
         (
@@ -988,9 +988,9 @@ structure GLibKeyFile :>
     fun removeGroup self groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeGroup_
         (
@@ -1001,10 +1001,10 @@ structure GLibKeyFile :>
     fun removeKey self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeKey_
         (
@@ -1016,9 +1016,9 @@ structure GLibKeyFile :>
     fun setBoolean self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setBoolean_
@@ -1031,10 +1031,10 @@ structure GLibKeyFile :>
     fun setBooleanList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Bool.withVal
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setBooleanList_
@@ -1048,11 +1048,11 @@ structure GLibKeyFile :>
     fun setComment self groupName key comment =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setComment_
         (
@@ -1065,9 +1065,9 @@ structure GLibKeyFile :>
     fun setDouble self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Double.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         setDouble_
@@ -1080,10 +1080,10 @@ structure GLibKeyFile :>
     fun setDoubleList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Double.withVal
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setDoubleList_
@@ -1097,9 +1097,9 @@ structure GLibKeyFile :>
     fun setInt64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
          ---> I
       )
         setInt64_
@@ -1112,9 +1112,9 @@ structure GLibKeyFile :>
     fun setInteger self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setInteger_
@@ -1127,10 +1127,10 @@ structure GLibKeyFile :>
     fun setIntegerList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setIntegerList_
@@ -1141,14 +1141,14 @@ structure GLibKeyFile :>
            & list
            & length
         )
-    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.UInt8.withVal ---> I) setListSeparator_ (self & separator)
+    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.UInt8.C.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString self groupName key locale string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setLocaleString_
@@ -1162,11 +1162,11 @@ structure GLibKeyFile :>
     fun setLocaleStringList self groupName key locale list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setLocaleStringList_
@@ -1181,9 +1181,9 @@ structure GLibKeyFile :>
     fun setString self groupName key string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setString_
@@ -1196,9 +1196,9 @@ structure GLibKeyFile :>
     fun setUint64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setUint64_
@@ -1211,9 +1211,9 @@ structure GLibKeyFile :>
     fun setValue self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setValue_

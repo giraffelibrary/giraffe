@@ -13,7 +13,7 @@ structure GtkFileChooserDialog :>
       val new_ =
         call (load_sym libgiraffegtk "giraffe_gtk_file_chooser_dialog_new")
           (
-            FFI.PolyML.String.INOPTPTR
+            FFI.String.PolyML.INOPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GtkFileChooserAction.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
@@ -30,7 +30,7 @@ structure GtkFileChooserDialog :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new title parent action =
       (
-        FFI.String.withConstOptPtr
+        FFI.String.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GtkFileChooserAction.C.withVal
          ---> GtkFileChooserDialogClass.C.fromPtr false

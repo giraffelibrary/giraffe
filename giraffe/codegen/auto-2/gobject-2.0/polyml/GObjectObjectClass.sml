@@ -25,8 +25,8 @@ structure GObjectObjectClass :>
           val debugClosureSym = load_sym libgiraffegobject "giraffe_debug_closure"
           val debugRefCountSym = load_sym libgiraffegobject "giraffe_debug_ref_count"
         in
-          setGlobal debugClosureSym FFI.PolyML.Bool.VAL (GiraffeDebug.getClosure ());
-          setGlobal debugRefCountSym FFI.PolyML.Bool.VAL (GiraffeDebug.getRefCount ())
+          setGlobal debugClosureSym CInterface.BOOL (GiraffeDebug.getClosure ());
+          setGlobal debugRefCountSym CInterface.BOOL (GiraffeDebug.getRefCount ())
         end
       else ()
     val () = PolyML.onEntry initDebugFlags

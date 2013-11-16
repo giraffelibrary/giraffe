@@ -13,8 +13,8 @@ structure GtkSourceGutter :>
           (
             _import "gtk_source_gutter_get_renderer_at_pos" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -32,8 +32,8 @@ structure GtkSourceGutter :>
             _import "gtk_source_gutter_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -51,7 +51,7 @@ structure GtkSourceGutter :>
             _import "gtk_source_gutter_reorder" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -67,8 +67,8 @@ structure GtkSourceGutter :>
           (
             _import "gtk_source_gutter_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -83,8 +83,8 @@ structure GtkSourceGutter :>
     fun getRendererAtPos self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> GtkSourceGutterRendererClass.C.fromPtr false
       )
         getRendererAtPos_
@@ -98,8 +98,8 @@ structure GtkSourceGutter :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         insert_
         (
@@ -113,7 +113,7 @@ structure GtkSourceGutter :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reorder_
@@ -125,8 +125,8 @@ structure GtkSourceGutter :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setPadding_

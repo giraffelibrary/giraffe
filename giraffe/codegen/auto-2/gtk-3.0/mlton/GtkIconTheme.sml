@@ -15,7 +15,7 @@ structure GtkIconTheme :>
             _import "mlton_gtk_icon_theme_add_builtin_icon" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -42,7 +42,7 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val hasIcon_ =
       fn
         x1 & (x2, x3) =>
@@ -51,7 +51,7 @@ structure GtkIconTheme :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -70,7 +70,7 @@ structure GtkIconTheme :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -93,7 +93,7 @@ structure GtkIconTheme :>
             _import "gtk_icon_theme_lookup_by_gicon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
           )
@@ -114,7 +114,7 @@ structure GtkIconTheme :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
           )
@@ -140,7 +140,7 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setCustomTheme_ =
       fn
         x1 & (x2, x3) =>
@@ -164,8 +164,8 @@ structure GtkIconTheme :>
     fun new () = (I ---> GtkIconThemeClass.C.fromPtr true) new_ ()
     fun addBuiltinIcon iconName size pixbuf =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -177,14 +177,14 @@ structure GtkIconTheme :>
         )
     fun getDefault () = (I ---> GtkIconThemeClass.C.fromPtr false) getDefault_ ()
     fun getForScreen screen = (GObjectObjectClass.C.withPtr ---> GtkIconThemeClass.C.fromPtr false) getForScreen_ screen
-    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) appendSearchPath_ (self & path)
-    fun getExampleIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getExampleIconName_ self
-    fun hasIcon self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasIcon_ (self & iconName)
+    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) appendSearchPath_ (self & path)
+    fun getExampleIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getExampleIconName_ self
+    fun hasIcon self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasIcon_ (self & iconName)
     fun loadIcon self iconName size flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
@@ -201,7 +201,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )
@@ -215,8 +215,8 @@ structure GtkIconTheme :>
     fun lookupIcon self iconName size flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )
@@ -227,9 +227,9 @@ structure GtkIconTheme :>
            & size
            & flags
         )
-    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) prependSearchPath_ (self & path)
-    fun rescanIfNeeded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) rescanIfNeeded_ self
-    fun setCustomTheme self themeName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setCustomTheme_ (self & themeName)
+    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependSearchPath_ (self & path)
+    fun rescanIfNeeded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) rescanIfNeeded_ self
+    fun setCustomTheme self themeName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setCustomTheme_ (self & themeName)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
     local
       open ClosureMarshal Signal

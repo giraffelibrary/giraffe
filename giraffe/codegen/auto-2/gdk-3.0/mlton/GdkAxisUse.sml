@@ -14,9 +14,9 @@ structure GdkAxisUse :>
     | LAST
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             IGNORE => f 0
@@ -27,7 +27,7 @@ structure GdkAxisUse :>
           | YTILT => f 5
           | WHEEL => f 6
           | LAST => f 7
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => IGNORE

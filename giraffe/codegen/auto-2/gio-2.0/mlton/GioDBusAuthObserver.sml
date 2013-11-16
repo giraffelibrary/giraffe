@@ -16,7 +16,7 @@ structure GioDBusAuthObserver :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -33,7 +33,7 @@ structure GioDBusAuthObserver :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         authorizeAuthenticatedPeer_
         (

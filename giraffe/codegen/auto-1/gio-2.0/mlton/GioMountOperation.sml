@@ -7,15 +7,15 @@ structure GioMountOperation :>
   struct
     val getType_ = _import "g_mount_operation_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_mount_operation_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAnonymous_ = _import "g_mount_operation_get_anonymous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getChoice_ = _import "g_mount_operation_get_choice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getDomain_ = _import "g_mount_operation_get_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getPassword_ = _import "g_mount_operation_get_password" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getAnonymous_ = _import "g_mount_operation_get_anonymous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getChoice_ = _import "g_mount_operation_get_choice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getDomain_ = _import "g_mount_operation_get_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPassword_ = _import "g_mount_operation_get_password" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPasswordSave_ = _import "g_mount_operation_get_password_save" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioPasswordSave.C.val_;
-    val getUsername_ = _import "g_mount_operation_get_username" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getUsername_ = _import "g_mount_operation_get_username" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val reply_ = fn x1 & x2 => (_import "g_mount_operation_reply" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioMountOperationResult.C.val_ -> unit;) (x1, x2)
-    val setAnonymous_ = fn x1 & x2 => (_import "g_mount_operation_set_anonymous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setChoice_ = fn x1 & x2 => (_import "g_mount_operation_set_choice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setAnonymous_ = fn x1 & x2 => (_import "g_mount_operation_set_anonymous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setChoice_ = fn x1 & x2 => (_import "g_mount_operation_set_choice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setDomain_ =
       fn
         x1 & (x2, x3) =>
@@ -68,19 +68,19 @@ structure GioMountOperation :>
     type passwordsave_t = GioPasswordSave.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioMountOperationClass.C.fromPtr true) new_ ()
-    fun getAnonymous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAnonymous_ self
-    fun getChoice self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getChoice_ self
-    fun getDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDomain_ self
-    fun getPassword self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getPassword_ self
+    fun getAnonymous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAnonymous_ self
+    fun getChoice self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getChoice_ self
+    fun getDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDomain_ self
+    fun getPassword self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPassword_ self
     fun getPasswordSave self = (GObjectObjectClass.C.withPtr ---> GioPasswordSave.C.fromVal) getPasswordSave_ self
-    fun getUsername self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getUsername_ self
+    fun getUsername self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getUsername_ self
     fun reply self result = (GObjectObjectClass.C.withPtr &&&> GioMountOperationResult.C.withVal ---> I) reply_ (self & result)
-    fun setAnonymous self anonymous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAnonymous_ (self & anonymous)
-    fun setChoice self choice = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setChoice_ (self & choice)
-    fun setDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setDomain_ (self & domain)
-    fun setPassword self password = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setPassword_ (self & password)
+    fun setAnonymous self anonymous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAnonymous_ (self & anonymous)
+    fun setChoice self choice = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setChoice_ (self & choice)
+    fun setDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDomain_ (self & domain)
+    fun setPassword self password = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPassword_ (self & password)
     fun setPasswordSave self save = (GObjectObjectClass.C.withPtr &&&> GioPasswordSave.C.withVal ---> I) setPasswordSave_ (self & save)
-    fun setUsername self username = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setUsername_ (self & username)
+    fun setUsername self username = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setUsername_ (self & username)
     local
       open ClosureMarshal Signal
     in

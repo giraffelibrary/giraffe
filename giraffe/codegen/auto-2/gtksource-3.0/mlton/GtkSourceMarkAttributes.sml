@@ -5,13 +5,13 @@ structure GtkSourceMarkAttributes :>
   struct
     val getType_ = _import "gtk_source_mark_attributes_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_mark_attributes_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> FFI.Bool.val_;) (x1, x2)
+    val getBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getGicon_ = _import "gtk_source_mark_attributes_get_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIconName_ = _import "gtk_source_mark_attributes_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getIconName_ = _import "gtk_source_mark_attributes_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPixbuf_ = _import "gtk_source_mark_attributes_get_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getStockId_ = _import "gtk_source_mark_attributes_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getTooltipMarkup_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
-    val getTooltipText_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getStockId_ = _import "gtk_source_mark_attributes_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTooltipMarkup_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getTooltipText_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val renderIcon_ =
       fn
         x1
@@ -21,7 +21,7 @@ structure GtkSourceMarkAttributes :>
             _import "gtk_source_mark_attributes_render_icon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -68,21 +68,21 @@ structure GtkSourceMarkAttributes :>
     fun new () = (I ---> GtkSourceMarkAttributesClass.C.fromPtr true) new_ ()
     fun getBackground self =
       let
-        val background & retVal = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withNewPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.fromVal) getBackground_ (self & ())
+        val background & retVal = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withNewPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) getBackground_ (self & ())
       in
         if retVal then SOME background else NONE
       end
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getIconName_ self
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getStockId self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getStockId_ self
-    fun getTooltipMarkup self mark = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ (self & mark)
-    fun getTooltipText self mark = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ (self & mark)
+    fun getStockId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStockId_ self
+    fun getTooltipMarkup self mark = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipMarkup_ (self & mark)
+    fun getTooltipText self mark = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipText_ (self & mark)
     fun renderIcon self widget size =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr false
       )
         renderIcon_
@@ -93,9 +93,9 @@ structure GtkSourceMarkAttributes :>
         )
     fun setBackground self background = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackground_ (self & background)
     fun setGicon self gicon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & gicon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setStockId_ (self & stockId)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setStockId_ (self & stockId)
     local
       open ClosureMarshal Signal
     in

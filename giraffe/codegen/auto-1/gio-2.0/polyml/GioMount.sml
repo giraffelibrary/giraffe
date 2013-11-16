@@ -11,31 +11,31 @@ structure GioMount :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_mount_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val canEject_ = call (load_sym libgio "g_mount_can_eject") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val canUnmount_ = call (load_sym libgio "g_mount_can_unmount") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val canEject_ = call (load_sym libgio "g_mount_can_eject") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val canUnmount_ = call (load_sym libgio "g_mount_can_unmount") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val ejectWithOperationFinish_ =
         call (load_sym libgio "g_mount_eject_with_operation_finish")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val getDefaultLocation_ = call (load_sym libgio "g_mount_get_default_location") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getDrive_ = call (load_sym libgio "g_mount_get_drive") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getIcon_ = call (load_sym libgio "g_mount_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getName_ = call (load_sym libgio "g_mount_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getName_ = call (load_sym libgio "g_mount_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getRoot_ = call (load_sym libgio "g_mount_get_root") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getUuid_ = call (load_sym libgio "g_mount_get_uuid") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getUuid_ = call (load_sym libgio "g_mount_get_uuid") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getVolume_ = call (load_sym libgio "g_mount_get_volume") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isShadowed_ = call (load_sym libgio "g_mount_is_shadowed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val isShadowed_ = call (load_sym libgio "g_mount_is_shadowed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val remountFinish_ =
         call (load_sym libgio "g_mount_remount_finish")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val shadow_ = call (load_sym libgio "g_mount_shadow") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val unmountWithOperationFinish_ =
@@ -44,7 +44,7 @@ structure GioMount :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val unshadow_ = call (load_sym libgio "g_mount_unshadow") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -55,14 +55,14 @@ structure GioMount :>
     type 'a volumeclass_t = 'a GioVolumeClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canEject_ self
-    fun canUnmount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canUnmount_ self
+    fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self
+    fun canUnmount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canUnmount_ self
     fun ejectWithOperationFinish self result =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         ejectWithOperationFinish_
         (
@@ -73,17 +73,17 @@ structure GioMount :>
     fun getDefaultLocation self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getDefaultLocation_ self
     fun getDrive self = (GObjectObjectClass.C.withPtr ---> GioDriveClass.C.fromPtr true) getDrive_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) getIcon_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getName_ self
     fun getRoot self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getRoot_ self
-    fun getUuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUuid_ self
+    fun getUuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUuid_ self
     fun getVolume self = (GObjectObjectClass.C.withPtr ---> GioVolumeClass.C.fromPtr true) getVolume_ self
-    fun isShadowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isShadowed_ self
+    fun isShadowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isShadowed_ self
     fun remountFinish self result =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         remountFinish_
         (
@@ -97,7 +97,7 @@ structure GioMount :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         unmountWithOperationFinish_
         (

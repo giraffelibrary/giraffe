@@ -23,9 +23,9 @@ structure GtkStatusIcon :>
           (
             _import "gtk_status_icon_position_menu" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               * FFI.Bool.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Bool.C.ref_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -48,7 +48,7 @@ structure GtkStatusIcon :>
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * GtkOrientation.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -57,19 +57,19 @@ structure GtkStatusIcon :>
               x4
             )
     val getGicon_ = _import "gtk_status_icon_get_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getHasTooltip_ = _import "gtk_status_icon_get_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getHasTooltip_ = _import "gtk_status_icon_get_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getScreen_ = _import "gtk_status_icon_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSize_ = _import "gtk_status_icon_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getStock_ = _import "gtk_status_icon_get_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getSize_ = _import "gtk_status_icon_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getStock_ = _import "gtk_status_icon_get_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getStorageType_ = _import "gtk_status_icon_get_storage_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkImageType.C.val_;
-    val getTitle_ = _import "gtk_status_icon_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getVisible_ = _import "gtk_status_icon_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
-    val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getTitle_ = _import "gtk_status_icon_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getVisible_ = _import "gtk_status_icon_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
+    val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setFromFile_ =
       fn
         x1 & (x2, x3) =>
@@ -117,7 +117,7 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_status_icon_set_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_status_icon_set_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setName_ =
       fn
         x1 & (x2, x3) =>
@@ -179,7 +179,7 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_status_icon_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_status_icon_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkStatusIconClass.t
     type 'a menuclass_t = 'a GtkMenuClass.t
     type 'a tooltipclass_t = 'a GtkTooltipClass.t
@@ -187,11 +187,11 @@ structure GtkStatusIcon :>
     type imagetype_t = GtkImageType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()
-    fun newFromFile filename = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
+    fun newFromFile filename = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
     fun newFromGicon icon = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromGicon_ icon
-    fun newFromIconName iconName = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
+    fun newFromIconName iconName = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromPixbuf_ pixbuf
-    fun newFromStock stockId = (FFI.String.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
+    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
     fun positionMenu menu userData =
       let
         val x
@@ -200,13 +200,13 @@ structure GtkStatusIcon :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Bool.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Bool.C.withRefVal
              &&&> GObjectObjectClass.C.withPtr
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
                    && I
           )
             positionMenu_
@@ -238,7 +238,7 @@ structure GtkStatusIcon :>
              ---> GdkScreenClass.C.fromPtr false
                    && CairoRectangleIntRecord.C.fromPtr true
                    && GtkOrientation.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getGeometry_
             (
@@ -259,31 +259,31 @@ structure GtkStatusIcon :>
         else NONE
       end
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
-    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasTooltip_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getIconName_ self
+    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasTooltip_ self
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getSize_ self
-    fun getStock self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getStock_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getStock self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStock_ self
     fun getStorageType self = (GObjectObjectClass.C.withPtr ---> GtkImageType.C.fromVal) getStorageType_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTitle_ self
-    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ self
-    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
-    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getX11WindowId_ self
-    fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isEmbedded_ self
-    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromFile_ (self & filename)
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipMarkup_ self
+    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipText_ self
+    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getX11WindowId_ self
+    fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isEmbedded_ self
+    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromGicon_ (self & icon)
-    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromIconName_ (self & iconName)
+    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromIconName_ (self & iconName)
     fun setFromPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
-    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setFromStock_ (self & stockId)
-    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
+    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFromStock_ (self & stockId)
+    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasTooltip_ (self & hasTooltip)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTooltipText_ (self & text)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisible_ (self & visible)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal
     in

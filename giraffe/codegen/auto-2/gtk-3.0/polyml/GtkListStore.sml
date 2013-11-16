@@ -19,7 +19,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val insertAfter_ =
@@ -38,7 +38,7 @@ structure GtkListStore :>
              &&> GtkTreeIterRecord.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
-      val iterIsValid_ = call (load_sym libgtk "gtk_list_store_iter_is_valid") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val iterIsValid_ = call (load_sym libgtk "gtk_list_store_iter_is_valid") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val moveAfter_ =
         call (load_sym libgtk "gtk_list_store_move_after")
           (
@@ -56,13 +56,13 @@ structure GtkListStore :>
              --> FFI.PolyML.VOID
           )
       val prepend_ = call (load_sym libgtk "gtk_list_store_prepend") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val remove_ = call (load_sym libgtk "gtk_list_store_remove") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val remove_ = call (load_sym libgtk "gtk_list_store_remove") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setValue_ =
         call (load_sym libgtk "gtk_list_store_set_value")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -101,7 +101,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.Int32.withVal
+             &&&> FFI.Int32.C.withVal
              ---> GtkTreeIterRecord.C.fromPtr true && I
           )
             insert_
@@ -149,7 +149,7 @@ structure GtkListStore :>
       in
         iter
       end
-    fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterIsValid_ (self & iter)
+    fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
     fun moveAfter self iter position =
       (
         GObjectObjectClass.C.withPtr
@@ -182,12 +182,12 @@ structure GtkListStore :>
       in
         iter
       end
-    fun remove self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) remove_ (self & iter)
+    fun remove self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) remove_ (self & iter)
     fun setValue self iter column value =
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

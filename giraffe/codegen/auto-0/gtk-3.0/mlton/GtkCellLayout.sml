@@ -17,7 +17,7 @@ structure GtkCellLayout :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -39,7 +39,7 @@ structure GtkCellLayout :>
             _import "gtk_cell_layout_pack_end" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -56,7 +56,7 @@ structure GtkCellLayout :>
             _import "gtk_cell_layout_pack_start" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -73,7 +73,7 @@ structure GtkCellLayout :>
             _import "gtk_cell_layout_reorder" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -89,8 +89,8 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addAttribute_
@@ -107,7 +107,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         packEnd_
@@ -120,7 +120,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         packStart_
@@ -133,7 +133,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reorder_

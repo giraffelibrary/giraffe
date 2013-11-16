@@ -20,15 +20,15 @@ structure GtkPrintOperation :>
       val cancel_ = call (load_sym libgtk "gtk_print_operation_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val drawPageFinish_ = call (load_sym libgtk "gtk_print_operation_draw_page_finish") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getDefaultPageSetup_ = call (load_sym libgtk "gtk_print_operation_get_default_page_setup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getEmbedPageSetup_ = call (load_sym libgtk "gtk_print_operation_get_embed_page_setup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getEmbedPageSetup_ = call (load_sym libgtk "gtk_print_operation_get_embed_page_setup") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getError_ = call (load_sym libgtk "gtk_print_operation_get_error") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.VOID)
-      val getHasSelection_ = call (load_sym libgtk "gtk_print_operation_get_has_selection") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getNPagesToPrint_ = call (load_sym libgtk "gtk_print_operation_get_n_pages_to_print") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
+      val getHasSelection_ = call (load_sym libgtk "gtk_print_operation_get_has_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getNPagesToPrint_ = call (load_sym libgtk "gtk_print_operation_get_n_pages_to_print") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getPrintSettings_ = call (load_sym libgtk "gtk_print_operation_get_print_settings") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getStatus_ = call (load_sym libgtk "gtk_print_operation_get_status") (GObjectObjectClass.PolyML.PTR --> GtkPrintStatus.PolyML.VAL)
-      val getStatusString_ = call (load_sym libgtk "gtk_print_operation_get_status_string") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getSupportSelection_ = call (load_sym libgtk "gtk_print_operation_get_support_selection") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isFinished_ = call (load_sym libgtk "gtk_print_operation_is_finished") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getStatusString_ = call (load_sym libgtk "gtk_print_operation_get_status_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getSupportSelection_ = call (load_sym libgtk "gtk_print_operation_get_support_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isFinished_ = call (load_sym libgtk "gtk_print_operation_is_finished") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val run_ =
         call (load_sym libgtk "gtk_print_operation_run")
           (
@@ -38,22 +38,22 @@ structure GtkPrintOperation :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GtkPrintOperationResult.PolyML.VAL
           )
-      val setAllowAsync_ = call (load_sym libgtk "gtk_print_operation_set_allow_async") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setCurrentPage_ = call (load_sym libgtk "gtk_print_operation_set_current_page") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
-      val setCustomTabLabel_ = call (load_sym libgtk "gtk_print_operation_set_custom_tab_label") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
+      val setAllowAsync_ = call (load_sym libgtk "gtk_print_operation_set_allow_async") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCurrentPage_ = call (load_sym libgtk "gtk_print_operation_set_current_page") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCustomTabLabel_ = call (load_sym libgtk "gtk_print_operation_set_custom_tab_label") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setDefaultPageSetup_ = call (load_sym libgtk "gtk_print_operation_set_default_page_setup") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setDeferDrawing_ = call (load_sym libgtk "gtk_print_operation_set_defer_drawing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setEmbedPageSetup_ = call (load_sym libgtk "gtk_print_operation_set_embed_page_setup") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setExportFilename_ = call (load_sym libgtk "gtk_print_operation_set_export_filename") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setHasSelection_ = call (load_sym libgtk "gtk_print_operation_set_has_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setJobName_ = call (load_sym libgtk "gtk_print_operation_set_job_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setNPages_ = call (load_sym libgtk "gtk_print_operation_set_n_pages") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
+      val setEmbedPageSetup_ = call (load_sym libgtk "gtk_print_operation_set_embed_page_setup") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setExportFilename_ = call (load_sym libgtk "gtk_print_operation_set_export_filename") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setHasSelection_ = call (load_sym libgtk "gtk_print_operation_set_has_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setJobName_ = call (load_sym libgtk "gtk_print_operation_set_job_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setNPages_ = call (load_sym libgtk "gtk_print_operation_set_n_pages") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
       val setPrintSettings_ = call (load_sym libgtk "gtk_print_operation_set_print_settings") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setShowProgress_ = call (load_sym libgtk "gtk_print_operation_set_show_progress") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setSupportSelection_ = call (load_sym libgtk "gtk_print_operation_set_support_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setTrackPrintStatus_ = call (load_sym libgtk "gtk_print_operation_set_track_print_status") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setShowProgress_ = call (load_sym libgtk "gtk_print_operation_set_show_progress") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSupportSelection_ = call (load_sym libgtk "gtk_print_operation_set_support_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTrackPrintStatus_ = call (load_sym libgtk "gtk_print_operation_set_track_print_status") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setUnit_ = call (load_sym libgtk "gtk_print_operation_set_unit") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseFullPage_ = call (load_sym libgtk "gtk_print_operation_set_use_full_page") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setUseFullPage_ = call (load_sym libgtk "gtk_print_operation_set_use_full_page") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkPrintOperationClass.t
     type printoperationaction_t = GtkPrintOperationAction.t
@@ -72,15 +72,15 @@ structure GtkPrintOperation :>
     fun cancel self = (GObjectObjectClass.C.withPtr ---> I) cancel_ self
     fun drawPageFinish self = (GObjectObjectClass.C.withPtr ---> I) drawPageFinish_ self
     fun getDefaultPageSetup self = (GObjectObjectClass.C.withPtr ---> GtkPageSetupClass.C.fromPtr false) getDefaultPageSetup_ self
-    fun getEmbedPageSetup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getEmbedPageSetup_ self
+    fun getEmbedPageSetup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedPageSetup_ self
     fun getError self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> I) getError_ (self & [])
-    fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasSelection_ self
-    fun getNPagesToPrint self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNPagesToPrint_ self
+    fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
+    fun getNPagesToPrint self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPagesToPrint_ self
     fun getPrintSettings self = (GObjectObjectClass.C.withPtr ---> GtkPrintSettingsClass.C.fromPtr false) getPrintSettings_ self
     fun getStatus self = (GObjectObjectClass.C.withPtr ---> GtkPrintStatus.C.fromVal) getStatus_ self
-    fun getStatusString self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getStatusString_ self
-    fun getSupportSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSupportSelection_ self
-    fun isFinished self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFinished_ self
+    fun getStatusString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStatusString_ self
+    fun getSupportSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportSelection_ self
+    fun isFinished self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFinished_ self
     fun run self action parent =
       (
         GObjectObjectClass.C.withPtr
@@ -96,22 +96,22 @@ structure GtkPrintOperation :>
            & parent
            & []
         )
-    fun setAllowAsync self allowAsync = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAllowAsync_ (self & allowAsync)
-    fun setCurrentPage self currentPage = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setCurrentPage_ (self & currentPage)
-    fun setCustomTabLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setCustomTabLabel_ (self & label)
+    fun setAllowAsync self allowAsync = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowAsync_ (self & allowAsync)
+    fun setCurrentPage self currentPage = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentPage_ (self & currentPage)
+    fun setCustomTabLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setCustomTabLabel_ (self & label)
     fun setDefaultPageSetup self defaultPageSetup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
     fun setDeferDrawing self = (GObjectObjectClass.C.withPtr ---> I) setDeferDrawing_ self
-    fun setEmbedPageSetup self embed = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setEmbedPageSetup_ (self & embed)
-    fun setExportFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setExportFilename_ (self & filename)
-    fun setHasSelection self hasSelection = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasSelection_ (self & hasSelection)
-    fun setJobName self jobName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setJobName_ (self & jobName)
-    fun setNPages self nPages = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setNPages_ (self & nPages)
+    fun setEmbedPageSetup self embed = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEmbedPageSetup_ (self & embed)
+    fun setExportFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setExportFilename_ (self & filename)
+    fun setHasSelection self hasSelection = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasSelection_ (self & hasSelection)
+    fun setJobName self jobName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setJobName_ (self & jobName)
+    fun setNPages self nPages = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setNPages_ (self & nPages)
     fun setPrintSettings self printSettings = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPrintSettings_ (self & printSettings)
-    fun setShowProgress self showProgress = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowProgress_ (self & showProgress)
-    fun setSupportSelection self supportSelection = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSupportSelection_ (self & supportSelection)
-    fun setTrackPrintStatus self trackStatus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
+    fun setShowProgress self showProgress = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowProgress_ (self & showProgress)
+    fun setSupportSelection self supportSelection = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportSelection_ (self & supportSelection)
+    fun setTrackPrintStatus self trackStatus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
     fun setUnit self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> I) setUnit_ (self & unit)
-    fun setUseFullPage self fullPage = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUseFullPage_ (self & fullPage)
+    fun setUseFullPage self fullPage = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFullPage_ (self & fullPage)
     local
       open ClosureMarshal Signal
     in

@@ -15,19 +15,19 @@ structure AtkText :>
           (
             _import "atk_text_add_selection" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getCaretOffset_ = _import "atk_text_get_caret_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getCharacterAtOffset_ = fn x1 & x2 => (_import "atk_text_get_character_at_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> FFI.Char.val_;) (x1, x2)
-    val getCharacterCount_ = _import "atk_text_get_character_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getNSelections_ = _import "atk_text_get_n_selections" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getCaretOffset_ = _import "atk_text_get_caret_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getCharacterAtOffset_ = fn x1 & x2 => (_import "atk_text_get_character_at_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Char.C.val_;) (x1, x2)
+    val getCharacterCount_ = _import "atk_text_get_character_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getNSelections_ = _import "atk_text_get_n_selections" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getOffsetAtPoint_ =
       fn
         x1
@@ -37,10 +37,10 @@ structure AtkText :>
           (
             _import "atk_text_get_offset_at_point" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
-               -> FFI.Int32.val_;
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -58,8 +58,8 @@ structure AtkText :>
           (
             _import "atk_text_get_range_extents" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                * AtkCoordType.C.val_
                * AtkTextRectangleRecord.C.notnull AtkTextRectangleRecord.C.p
                -> unit;
@@ -79,17 +79,17 @@ structure AtkText :>
           (
             _import "atk_text_get_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.String.notnull FFI.String.out_p;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val removeSelection_ = fn x1 & x2 => (_import "atk_text_remove_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> FFI.Bool.val_;) (x1, x2)
-    val setCaretOffset_ = fn x1 & x2 => (_import "atk_text_set_caret_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> FFI.Bool.val_;) (x1, x2)
+    val removeSelection_ = fn x1 & x2 => (_import "atk_text_remove_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val setCaretOffset_ = fn x1 & x2 => (_import "atk_text_set_caret_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val setSelection_ =
       fn
         x1
@@ -99,10 +99,10 @@ structure AtkText :>
           (
             _import "atk_text_set_selection" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -119,9 +119,9 @@ structure AtkText :>
     fun addSelection self startOffset endOffset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         addSelection_
         (
@@ -129,17 +129,17 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
-    fun getCaretOffset self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getCaretOffset_ self
-    fun getCharacterAtOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Char.fromVal) getCharacterAtOffset_ (self & offset)
-    fun getCharacterCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getCharacterCount_ self
-    fun getNSelections self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNSelections_ self
+    fun getCaretOffset self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCaretOffset_ self
+    fun getCharacterAtOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Char.C.fromVal) getCharacterAtOffset_ (self & offset)
+    fun getCharacterCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCharacterCount_ self
+    fun getNSelections self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNSelections_ self
     fun getOffsetAtPoint self x y coords =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
-         ---> FFI.Int32.fromVal
+         ---> FFI.Int32.C.fromVal
       )
         getOffsetAtPoint_
         (
@@ -151,8 +151,8 @@ structure AtkText :>
     fun getRangeExtents self startOffset endOffset coordType rect =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
          &&&> AtkTextRectangleRecord.C.withPtr
          ---> I
@@ -168,9 +168,9 @@ structure AtkText :>
     fun getText self startOffset endOffset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.String.fromPtr true
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.String.C.fromPtr true
       )
         getText_
         (
@@ -178,15 +178,15 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
-    fun removeSelection self selectionNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Bool.fromVal) removeSelection_ (self & selectionNum)
-    fun setCaretOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Bool.fromVal) setCaretOffset_ (self & offset)
+    fun removeSelection self selectionNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) removeSelection_ (self & selectionNum)
+    fun setCaretOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) setCaretOffset_ (self & offset)
     fun setSelection self selectionNum startOffset endOffset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         setSelection_
         (

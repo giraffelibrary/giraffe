@@ -19,24 +19,24 @@ structure GtkStyle :>
              &&> CairoContextRecord.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GtkStateType.PolyML.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val copy_ = call (load_sym libgtk "gtk_style_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val detach_ = call (load_sym libgtk "gtk_style_detach") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val lookupColor_ =
         call (load_sym libgtk "gtk_style_lookup_color")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GdkColorRecord.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GtkIconSetRecord.PolyML.PTR)
+      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
       val renderIcon_ =
         call (load_sym libgtk "gtk_style_render_icon")
           (
@@ -44,9 +44,9 @@ structure GtkStyle :>
              &&> GtkIconSourceRecord.PolyML.PTR
              &&> GtkTextDirection.PolyML.VAL
              &&> GtkStateType.PolyML.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.PolyML.String.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val setBackground_ =
@@ -72,10 +72,10 @@ structure GtkStyle :>
          &&&> CairoContextRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         applyDefaultBackground_
@@ -91,15 +91,15 @@ structure GtkStyle :>
         )
     fun copy self = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr true) copy_ self
     fun detach self = (GObjectObjectClass.C.withPtr ---> I) detach_ self
-    fun hasContext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasContext_ self
+    fun hasContext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GdkColorRecord.C.withNewPtr
-             ---> GdkColorRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             lookupColor_
             (
@@ -110,16 +110,16 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkIconSourceRecord.C.withPtr
          &&&> GtkTextDirection.C.withVal
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIcon_

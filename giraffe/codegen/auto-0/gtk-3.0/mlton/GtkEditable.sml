@@ -14,8 +14,8 @@ structure GtkEditable :>
           (
             _import "gtk_editable_delete_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -31,17 +31,17 @@ structure GtkEditable :>
           (
             _import "gtk_editable_get_chars" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.String.notnull FFI.String.out_p;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getEditable_ = _import "gtk_editable_get_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getPosition_ = _import "gtk_editable_get_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getEditable_ = _import "gtk_editable_get_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getPosition_ = _import "gtk_editable_get_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getSelectionBounds_ =
       fn
         x1
@@ -50,9 +50,9 @@ structure GtkEditable :>
           (
             _import "gtk_editable_get_selection_bounds" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -70,8 +70,8 @@ structure GtkEditable :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -90,8 +90,8 @@ structure GtkEditable :>
           (
             _import "gtk_editable_select_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -99,8 +99,8 @@ structure GtkEditable :>
               x2,
               x3
             )
-    val setEditable_ = fn x1 & x2 => (_import "gtk_editable_set_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setPosition_ = fn x1 & x2 => (_import "gtk_editable_set_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setEditable_ = fn x1 & x2 => (_import "gtk_editable_set_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setPosition_ = fn x1 & x2 => (_import "gtk_editable_set_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkEditableClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyClipboard self = (GObjectObjectClass.C.withPtr ---> I) copyClipboard_ self
@@ -109,8 +109,8 @@ structure GtkEditable :>
     fun deleteText self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         deleteText_
@@ -122,9 +122,9 @@ structure GtkEditable :>
     fun getChars self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.String.fromPtr true
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.String.C.fromPtr true
       )
         getChars_
         (
@@ -132,8 +132,8 @@ structure GtkEditable :>
            & startPos
            & endPos
         )
-    fun getEditable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getEditable_ self
-    fun getPosition self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getPosition_ self
+    fun getEditable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEditable_ self
+    fun getPosition self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPosition_ self
     fun getSelectionBounds self =
       let
         val startPos
@@ -141,11 +141,11 @@ structure GtkEditable :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getSelectionBounds_
             (
@@ -161,10 +161,10 @@ structure GtkEditable :>
         val position & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal && I
+             &&&> FFI.String.C.withConstPtr
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal && I
           )
             insertText_
             (
@@ -180,8 +180,8 @@ structure GtkEditable :>
     fun selectRegion self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         selectRegion_
@@ -190,8 +190,8 @@ structure GtkEditable :>
            & startPos
            & endPos
         )
-    fun setEditable self isEditable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setEditable_ (self & isEditable)
-    fun setPosition self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setPosition_ (self & position)
+    fun setEditable self isEditable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEditable_ (self & isEditable)
+    fun setPosition self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPosition_ (self & position)
     local
       open ClosureMarshal Signal
     in

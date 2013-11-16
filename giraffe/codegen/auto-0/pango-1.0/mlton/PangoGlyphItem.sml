@@ -14,7 +14,7 @@ structure PangoGlyphItem :>
               PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p;
           )
             (
@@ -29,8 +29,8 @@ structure PangoGlyphItem :>
     fun split self text splitIndex =
       (
         PangoGlyphItemRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> PangoGlyphItemRecord.C.fromPtr true
       )
         split_

@@ -13,9 +13,9 @@ structure GtkScaleButton :>
     val getMinusButton_ = _import "gtk_scale_button_get_minus_button" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getPlusButton_ = _import "gtk_scale_button_get_plus_button" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getPopup_ = _import "gtk_scale_button_get_popup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getValue_ = _import "gtk_scale_button_get_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.val_;
+    val getValue_ = _import "gtk_scale_button_get_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val setAdjustment_ = fn x1 & x2 => (_import "gtk_scale_button_set_adjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_scale_button_set_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_scale_button_set_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkScaleButtonClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -32,9 +32,9 @@ structure GtkScaleButton :>
     fun getMinusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMinusButton_ self
     fun getPlusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPlusButton_ self
     fun getPopup self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPopup_ self
-    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getValue_ self
+    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
     fun setAdjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setValue_ (self & value)
+    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

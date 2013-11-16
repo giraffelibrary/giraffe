@@ -87,9 +87,9 @@ structure PangoScript :>
     | LYDIAN
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALIDCODE => f ~1
@@ -171,7 +171,7 @@ structure PangoScript :>
           | CARIAN => f 75
           | LYCIAN => f 76
           | LYDIAN => f 77
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             ~1 => INVALIDCODE
@@ -266,10 +266,10 @@ structure PangoScript :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALIDCODE
-    val forUnichar_ = _import "pango_script_for_unichar" : FFI.Char.val_ -> C.val_;
+    val forUnichar_ = _import "pango_script_for_unichar" : FFI.Char.C.val_ -> C.val_;
     val getSampleLanguage_ = _import "pango_script_get_sample_language" : C.val_ -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     type languagerecord_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forUnichar ch = (FFI.Char.withVal ---> C.fromVal) forUnichar_ ch
+    fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
     fun getSampleLanguage script = (C.withVal ---> PangoLanguageRecord.C.fromPtr true) getSampleLanguage_ script
   end

@@ -21,25 +21,25 @@ structure GIRepositoryCallableInfo :>
       val mayReturnNull_ =
         call
           (load_sym libgirepository "g_callable_info_may_return_null")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val getReturnAttribute_ =
         call
           (load_sym libgirepository "g_callable_info_get_return_attribute")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.String.INPTR
-            --> FFI.PolyML.String.RETPTR);
+            &&> FFI.String.PolyML.INPTR
+            --> FFI.String.PolyML.RETPTR);
 
       val getNArgs_ =
         call
           (load_sym libgirepository "g_callable_info_get_n_args")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getArg_ =
         call
           (load_sym libgirepository "g_callable_info_get_arg")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
@@ -63,22 +63,28 @@ structure GIRepositoryCallableInfo :>
           info
 
     val mayReturnNull =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) mayReturnNull_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) mayReturnNull_ info
 
     val getReturnAttribute =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> FFI.String.withConstPtr
-          ---> FFI.String.fromOptPtr false)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.String.C.withConstPtr
+           ---> FFI.String.C.fromOptPtr false
+        )
           getReturnAttribute_
           (info & name)
 
     val getNArgs =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNArgs_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNArgs_ info
 
     val getArg =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryArgInfoClass.C.fromPtr true)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryArgInfoClass.C.fromPtr true
+        )
           getArg_
           (info & n)
   end

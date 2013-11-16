@@ -8,12 +8,12 @@ structure GIRepositoryRegisteredTypeInfo :>
       val getTypeName_ =
         call
           (load_sym libgirepository "g_registered_type_info_get_type_name")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETOPTPTR);
 
       val getTypeInit_ =
         call
           (load_sym libgirepository "g_registered_type_info_get_type_init")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.String.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETOPTPTR);
 
       val getGType_ =
         call
@@ -27,13 +27,13 @@ structure GIRepositoryRegisteredTypeInfo :>
 
     val getTypeName =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromOptPtr false)
           getTypeName_
           info
 
     val getTypeInit =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromOptPtr false)
           getTypeInit_
           info
 

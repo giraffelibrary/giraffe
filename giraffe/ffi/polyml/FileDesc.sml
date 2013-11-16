@@ -13,21 +13,21 @@ structure FileDesc :>
 
     val null = Posix.FileSys.wordToFD 0w0
 
-    val intToFD = Posix.FileSys.wordToFD o SysWord.fromInt o LargeInt.toInt
-    val fdToInt = LargeInt.fromInt o SysWord.toInt o Posix.FileSys.fdToWord
+    val intToFD = Posix.FileSys.wordToFD o SysWord.fromLargeInt
+    val fdToInt = SysWord.toLargeInt o Posix.FileSys.fdToWord
 
     structure C =
       struct
-        type val_ = FFI.Int32.val_
-        type ref_ = FFI.Int32.ref_
-        fun withVal f fd = f (fdToInt fd)
-        fun withRefVal f = withVal (FFI.withRef FFI.PolyML.Int32.VAL f)
-        val fromVal = intToFD
+        type val_ = FFI.Int.C.val_
+        type ref_ = FFI.Int.C.ref_
+        fun withVal f = FFI.Int.C.withVal f o fdToInt
+        fun withRefVal f = FFI.Int.C.withRefVal f o fdToInt
+        val fromVal = intToFD o FFI.Int.C.fromVal
       end
 
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Int32.VAL
-        val REF = FFI.PolyML.Int32.REF
+        val VAL = FFI.Int.PolyML.VAL
+        val REF = FFI.Int.PolyML.REF
       end
   end

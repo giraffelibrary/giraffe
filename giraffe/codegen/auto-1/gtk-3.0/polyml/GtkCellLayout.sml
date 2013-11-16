@@ -13,8 +13,8 @@ structure GtkCellLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -25,7 +25,7 @@ structure GtkCellLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val packStart_ =
@@ -33,7 +33,7 @@ structure GtkCellLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val reorder_ =
@@ -41,7 +41,7 @@ structure GtkCellLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -53,8 +53,8 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addAttribute_
@@ -71,7 +71,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         packEnd_
@@ -84,7 +84,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         packStart_
@@ -97,7 +97,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reorder_

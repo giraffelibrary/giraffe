@@ -27,7 +27,7 @@ structure StyleProperty :>
     fun getProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

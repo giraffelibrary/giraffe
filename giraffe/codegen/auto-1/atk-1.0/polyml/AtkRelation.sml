@@ -12,13 +12,13 @@ structure AtkRelation :>
         call (load_sym libatk "atk_relation_new")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              &&> AtkRelationType.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val addTarget_ = call (load_sym libatk "atk_relation_add_target") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (GObjectObjectClass.PolyML.PTR --> AtkRelationType.PolyML.VAL)
-      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkRelationClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
@@ -27,7 +27,7 @@ structure AtkRelation :>
     fun new targets nTargets relationship =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> AtkRelationType.C.withVal
          ---> AtkRelationClass.C.fromPtr true
       )
@@ -39,7 +39,7 @@ structure AtkRelation :>
         )
     fun addTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addTarget_ (self & target)
     fun getRelationType self = (GObjectObjectClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
-    fun removeTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) removeTarget_ (self & target)
+    fun removeTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
     local
       open Property
     in

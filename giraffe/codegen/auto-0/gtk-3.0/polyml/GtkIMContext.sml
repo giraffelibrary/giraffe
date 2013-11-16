@@ -10,20 +10,20 @@ structure GtkIMContext :>
         call (load_sym libgtk "gtk_im_context_delete_surrounding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             --> FFI.PolyML.Bool.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val focusIn_ = call (load_sym libgtk "gtk_im_context_focus_in") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val focusOut_ = call (load_sym libgtk "gtk_im_context_focus_out") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getPreeditString_ =
         call (load_sym libgtk "gtk_im_context_get_preedit_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.OUTREF
+             &&> FFI.String.PolyML.OUTREF
              &&> PangoAttrListRecord.PolyML.OUTREF
-             &&> FFI.PolyML.Int32.REF
+             &&> FFI.Int32.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val reset_ = call (load_sym libgtk "gtk_im_context_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -33,21 +33,21 @@ structure GtkIMContext :>
         call (load_sym libgtk "gtk_im_context_set_surrounding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkIMContextClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun deleteSurrounding self offset nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         deleteSurrounding_
         (
@@ -55,7 +55,7 @@ structure GtkIMContext :>
            & offset
            & nChars
         )
-    fun filterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.fromVal) filterKeypress_ (self & event)
+    fun filterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) filterKeypress_ (self & event)
     fun focusIn self = (GObjectObjectClass.C.withPtr ---> I) focusIn_ self
     fun focusOut self = (GObjectObjectClass.C.withPtr ---> I) focusOut_ self
     fun getPreeditString self =
@@ -66,12 +66,12 @@ structure GtkIMContext :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withRefConstOptPtr
+             &&&> FFI.String.C.withRefConstOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.String.fromPtr true
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.String.C.fromPtr true
                    && PangoAttrListRecord.C.fromPtr true
-                   && FFI.Int32.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreeditString_
@@ -94,9 +94,9 @@ structure GtkIMContext :>
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setSurrounding_
@@ -106,7 +106,7 @@ structure GtkIMContext :>
            & len
            & cursorIndex
         )
-    fun setUsePreedit self usePreedit = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUsePreedit_ (self & usePreedit)
+    fun setUsePreedit self usePreedit = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUsePreedit_ (self & usePreedit)
     local
       open ClosureMarshal Signal
     in

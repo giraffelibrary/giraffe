@@ -15,7 +15,7 @@ structure GioPermission :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -32,16 +32,16 @@ structure GioPermission :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getAllowed_ = _import "g_permission_get_allowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getCanAcquire_ = _import "g_permission_get_can_acquire" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getCanRelease_ = _import "g_permission_get_can_release" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getAllowed_ = _import "g_permission_get_allowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getCanAcquire_ = _import "g_permission_get_can_acquire" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getCanRelease_ = _import "g_permission_get_can_release" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val implUpdate_ =
       fn
         x1
@@ -51,9 +51,9 @@ structure GioPermission :>
           (
             _import "g_permission_impl_update" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
-               * FFI.Bool.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
+               * FFI.Bool.C.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -72,7 +72,7 @@ structure GioPermission :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -89,7 +89,7 @@ structure GioPermission :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -105,7 +105,7 @@ structure GioPermission :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         acquire_
         (
@@ -118,7 +118,7 @@ structure GioPermission :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         acquireFinish_
         (
@@ -126,15 +126,15 @@ structure GioPermission :>
            & result
            & []
         )
-    fun getAllowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAllowed_ self
-    fun getCanAcquire self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCanAcquire_ self
-    fun getCanRelease self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCanRelease_ self
+    fun getAllowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowed_ self
+    fun getCanAcquire self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanAcquire_ self
+    fun getCanRelease self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanRelease_ self
     fun implUpdate self allowed canAcquire canRelease =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
-         &&&> FFI.Bool.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         implUpdate_
@@ -149,7 +149,7 @@ structure GioPermission :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         release_
         (
@@ -162,7 +162,7 @@ structure GioPermission :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         releaseFinish_
         (

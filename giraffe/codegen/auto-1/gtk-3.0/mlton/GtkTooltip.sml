@@ -16,7 +16,7 @@ structure GtkTooltip :>
             _import "gtk_tooltip_set_icon_from_gicon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -34,7 +34,7 @@ structure GtkTooltip :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -53,7 +53,7 @@ structure GtkTooltip :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -103,7 +103,7 @@ structure GtkTooltip :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromGicon_
@@ -115,8 +115,8 @@ structure GtkTooltip :>
     fun setIconFromIconName self iconName size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromIconName_
@@ -128,8 +128,8 @@ structure GtkTooltip :>
     fun setIconFromStock self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromStock_
@@ -138,7 +138,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setText_ (self & text)
+    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
     fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

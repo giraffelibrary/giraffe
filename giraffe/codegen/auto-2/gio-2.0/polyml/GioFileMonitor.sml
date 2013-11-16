@@ -8,7 +8,7 @@ structure GioFileMonitor :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_monitor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val cancel_ = call (load_sym libgio "g_file_monitor_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val cancel_ = call (load_sym libgio "g_file_monitor_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val emitEvent_ =
         call (load_sym libgio "g_file_monitor_emit_event")
           (
@@ -18,14 +18,14 @@ structure GioFileMonitor :>
              &&> GioFileMonitorEvent.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val isCancelled_ = call (load_sym libgio "g_file_monitor_is_cancelled") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setRateLimit_ = call (load_sym libgio "g_file_monitor_set_rate_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
+      val isCancelled_ = call (load_sym libgio "g_file_monitor_is_cancelled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setRateLimit_ = call (load_sym libgio "g_file_monitor_set_rate_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioFileMonitorClass.t
     type filemonitorevent_t = GioFileMonitorEvent.t
     type 'a fileclass_t = 'a GioFileClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun cancel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) cancel_ self
+    fun cancel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) cancel_ self
     fun emitEvent self child otherFile eventType =
       (
         GObjectObjectClass.C.withPtr
@@ -41,8 +41,8 @@ structure GioFileMonitor :>
            & otherFile
            & eventType
         )
-    fun isCancelled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isCancelled_ self
-    fun setRateLimit self limitMsecs = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setRateLimit_ (self & limitMsecs)
+    fun isCancelled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isCancelled_ self
+    fun setRateLimit self limitMsecs = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setRateLimit_ (self & limitMsecs)
     local
       open ClosureMarshal Signal
     in

@@ -11,10 +11,10 @@ structure Signal :>
         (
           _import "mlton_g_signal_connect_closure" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * cstring * unit CPointer.t  (* FFI.String.notnull FFI.String.inp *)
+             * cstring * unit CPointer.t  (* FFI.String.C.notnull FFI.String.inp *)
              * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
-             * FFI.Bool.val_
-             -> FFI.ULong.val_;
+             * FFI.Bool.C.val_
+             -> FFI.ULong.C.val_;
         )
           (x1, x2, x3, x4, x5)
 
@@ -23,7 +23,7 @@ structure Signal :>
         (
           _import "g_signal_handler_disconnect" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.ULong.val_
+             * FFI.ULong.C.val_
              -> unit;
         )
           (x1, x2)
@@ -33,8 +33,8 @@ structure Signal :>
         (
           _import "g_signal_handler_is_connected" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.ULong.val_
-             -> FFI.Bool.val_;
+             * FFI.ULong.C.val_
+             -> FFI.Bool.C.val_;
         )
           (x1, x2)
 
@@ -43,14 +43,14 @@ structure Signal :>
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = FFI.ULong.val_
+    type signal_id = FFI.ULong.C.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectClosureRecord.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         signalConnectClosure_
@@ -74,7 +74,7 @@ structure Signal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> I
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         signalHandlerIsConnected_
         (instance & handlerId)

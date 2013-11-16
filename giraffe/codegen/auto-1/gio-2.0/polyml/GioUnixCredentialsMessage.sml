@@ -9,7 +9,7 @@ structure GioUnixCredentialsMessage :>
       val getType_ = call (load_sym libgio "g_unix_credentials_message_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgio "g_unix_credentials_message_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val newWithCredentials_ = call (load_sym libgio "g_unix_credentials_message_new_with_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isSupported_ = call (load_sym libgio "g_unix_credentials_message_is_supported") (FFI.PolyML.VOID --> FFI.PolyML.Bool.VAL)
+      val isSupported_ = call (load_sym libgio "g_unix_credentials_message_is_supported") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioUnixCredentialsMessageClass.t
@@ -17,7 +17,7 @@ structure GioUnixCredentialsMessage :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.C.fromPtr true) new_ ()
     fun newWithCredentials credentials = (GObjectObjectClass.C.withPtr ---> GioUnixCredentialsMessageClass.C.fromPtr true) newWithCredentials_ credentials
-    fun isSupported () = (I ---> FFI.Bool.fromVal) isSupported_ ()
+    fun isSupported () = (I ---> FFI.Bool.C.fromVal) isSupported_ ()
     fun getCredentials self = (GObjectObjectClass.C.withPtr ---> GioCredentialsClass.C.fromPtr false) getCredentials_ self
     local
       open Property

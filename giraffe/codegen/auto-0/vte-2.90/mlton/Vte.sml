@@ -1,6 +1,6 @@
 structure Vte : VTE =
   struct
-    val getUserShell_ = _import "vte_get_user_shell" : unit -> FFI.String.notnull FFI.String.out_p;
+    val getUserShell_ = _import "vte_get_user_shell" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError
     exception PtyError = VtePtyError
@@ -13,5 +13,5 @@ structure Vte : VTE =
     structure TerminalWriteFlags = VteTerminalWriteFlags
     structure Pty = VtePty
     structure Terminal = VteTerminal
-    fun getUserShell () = (I ---> FFI.String.fromPtr true) getUserShell_ ()
+    fun getUserShell () = (I ---> FFI.String.C.fromPtr true) getUserShell_ ()
   end

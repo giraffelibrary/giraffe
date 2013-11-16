@@ -8,7 +8,7 @@ structure GioDBusObjectProxy :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_object_proxy_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_dbus_object_proxy_new") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgio "g_dbus_object_proxy_new") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getConnection_ = call (load_sym libgio "g_dbus_object_proxy_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioDBusObjectProxyClass.t
@@ -16,7 +16,7 @@ structure GioDBusObjectProxy :>
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new connection objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioDBusObjectProxyClass.C.fromPtr true) new_ (connection & objectPath)
+    fun new connection objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioDBusObjectProxyClass.C.fromPtr true) new_ (connection & objectPath)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     local
       open Property

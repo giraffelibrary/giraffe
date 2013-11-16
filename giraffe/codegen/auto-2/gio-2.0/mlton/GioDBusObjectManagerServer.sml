@@ -19,7 +19,7 @@ structure GioDBusObjectManagerServer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -32,12 +32,12 @@ structure GioDBusObjectManagerServer :>
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new objectPath = (FFI.String.withConstPtr ---> GioDBusObjectManagerServerClass.C.fromPtr true) new_ objectPath
+    fun new objectPath = (FFI.String.C.withConstPtr ---> GioDBusObjectManagerServerClass.C.fromPtr true) new_ objectPath
     fun export self object = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) export_ (self & object)
     fun exportUniquely self object = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) exportUniquely_ (self & object)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr true) getConnection_ self
     fun setConnection self connection = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setConnection_ (self & connection)
-    fun unexport self objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) unexport_ (self & objectPath)
+    fun unexport self objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) unexport_ (self & objectPath)
     local
       open Property
     in

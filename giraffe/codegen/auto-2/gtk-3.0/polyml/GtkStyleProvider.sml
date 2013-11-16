@@ -20,7 +20,7 @@ structure GtkStyleProvider :>
              &&> GtkStateFlags.PolyML.VAL
              &&> GObjectParamSpecClass.PolyML.PTR
              &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GtkStyleProviderClass.t
@@ -40,7 +40,7 @@ structure GtkStyleProvider :>
              &&&> GtkStateFlags.C.withVal
              &&&> GObjectParamSpecClass.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getStyleProperty_
             (

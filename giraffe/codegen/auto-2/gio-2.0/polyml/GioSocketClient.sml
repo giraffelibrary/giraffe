@@ -16,7 +16,7 @@ structure GioSocketClient :>
     in
       val getType_ = call (load_sym libgio "g_socket_client_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgio "g_socket_client_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val addApplicationProxy_ = call (load_sym libgio "g_socket_client_add_application_proxy") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val addApplicationProxy_ = call (load_sym libgio "g_socket_client_add_application_proxy") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val connect_ =
         call (load_sym libgio "g_socket_client_connect")
           (
@@ -38,8 +38,8 @@ structure GioSocketClient :>
         call (load_sym libgio "g_socket_client_connect_to_host")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.UInt16.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.UInt16.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -56,8 +56,8 @@ structure GioSocketClient :>
         call (load_sym libgio "g_socket_client_connect_to_service")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -74,8 +74,8 @@ structure GioSocketClient :>
         call (load_sym libgio "g_socket_client_connect_to_uri")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.UInt16.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.UInt16.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -88,21 +88,21 @@ structure GioSocketClient :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getEnableProxy_ = call (load_sym libgio "g_socket_client_get_enable_proxy") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getEnableProxy_ = call (load_sym libgio "g_socket_client_get_enable_proxy") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getFamily_ = call (load_sym libgio "g_socket_client_get_family") (GObjectObjectClass.PolyML.PTR --> GioSocketFamily.PolyML.VAL)
       val getLocalAddress_ = call (load_sym libgio "g_socket_client_get_local_address") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getProtocol_ = call (load_sym libgio "g_socket_client_get_protocol") (GObjectObjectClass.PolyML.PTR --> GioSocketProtocol.PolyML.VAL)
       val getSocketType_ = call (load_sym libgio "g_socket_client_get_socket_type") (GObjectObjectClass.PolyML.PTR --> GioSocketType.PolyML.VAL)
-      val getTimeout_ = call (load_sym libgio "g_socket_client_get_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val getTls_ = call (load_sym libgio "g_socket_client_get_tls") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getTimeout_ = call (load_sym libgio "g_socket_client_get_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getTls_ = call (load_sym libgio "g_socket_client_get_tls") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getTlsValidationFlags_ = call (load_sym libgio "g_socket_client_get_tls_validation_flags") (GObjectObjectClass.PolyML.PTR --> GioTlsCertificateFlags.PolyML.VAL)
-      val setEnableProxy_ = call (load_sym libgio "g_socket_client_set_enable_proxy") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setEnableProxy_ = call (load_sym libgio "g_socket_client_set_enable_proxy") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setFamily_ = call (load_sym libgio "g_socket_client_set_family") (GObjectObjectClass.PolyML.PTR &&> GioSocketFamily.PolyML.VAL --> FFI.PolyML.VOID)
       val setLocalAddress_ = call (load_sym libgio "g_socket_client_set_local_address") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setProtocol_ = call (load_sym libgio "g_socket_client_set_protocol") (GObjectObjectClass.PolyML.PTR &&> GioSocketProtocol.PolyML.VAL --> FFI.PolyML.VOID)
       val setSocketType_ = call (load_sym libgio "g_socket_client_set_socket_type") (GObjectObjectClass.PolyML.PTR &&> GioSocketType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTimeout_ = call (load_sym libgio "g_socket_client_set_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
-      val setTls_ = call (load_sym libgio "g_socket_client_set_tls") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setTimeout_ = call (load_sym libgio "g_socket_client_set_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTls_ = call (load_sym libgio "g_socket_client_set_tls") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setTlsValidationFlags_ = call (load_sym libgio "g_socket_client_set_tls_validation_flags") (GObjectObjectClass.PolyML.PTR &&> GioTlsCertificateFlags.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSocketClientClass.t
@@ -117,7 +117,7 @@ structure GioSocketClient :>
     type sockettype_t = GioSocketType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()
-    fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) addApplicationProxy_ (self & protocol)
+    fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addApplicationProxy_ (self & protocol)
     fun connect self connectable cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -149,8 +149,8 @@ structure GioSocketClient :>
     fun connectToHost self hostAndPort defaultPort cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt16.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -179,8 +179,8 @@ structure GioSocketClient :>
     fun connectToService self domain service cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -209,8 +209,8 @@ structure GioSocketClient :>
     fun connectToUri self uri defaultPort cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt16.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -236,21 +236,21 @@ structure GioSocketClient :>
            & result
            & []
         )
-    fun getEnableProxy self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getEnableProxy_ self
+    fun getEnableProxy self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEnableProxy_ self
     fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
     fun getLocalAddress self = (GObjectObjectClass.C.withPtr ---> GioSocketAddressClass.C.fromPtr false) getLocalAddress_ self
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
     fun getSocketType self = (GObjectObjectClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
-    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getTimeout_ self
-    fun getTls self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTls_ self
+    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getTimeout_ self
+    fun getTls self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTls_ self
     fun getTlsValidationFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getTlsValidationFlags_ self
-    fun setEnableProxy self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setEnableProxy_ (self & enable)
+    fun setEnableProxy self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnableProxy_ (self & enable)
     fun setFamily self family = (GObjectObjectClass.C.withPtr &&&> GioSocketFamily.C.withVal ---> I) setFamily_ (self & family)
     fun setLocalAddress self address = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLocalAddress_ (self & address)
     fun setProtocol self protocol = (GObjectObjectClass.C.withPtr &&&> GioSocketProtocol.C.withVal ---> I) setProtocol_ (self & protocol)
     fun setSocketType self type' = (GObjectObjectClass.C.withPtr &&&> GioSocketType.C.withVal ---> I) setSocketType_ (self & type')
-    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setTimeout_ (self & timeout)
-    fun setTls self tls = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setTls_ (self & tls)
+    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTls self tls = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTls_ (self & tls)
     fun setTlsValidationFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsCertificateFlags.C.withVal ---> I) setTlsValidationFlags_ (self & flags)
     local
       open Property

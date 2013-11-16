@@ -14,9 +14,9 @@ structure GObjectBinding :>
       val getType_ = call (load_sym libgobject "g_binding_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val getFlags_ = call (load_sym libgobject "g_binding_get_flags") (GObjectObjectClass.PolyML.PTR --> GObjectBindingFlags.PolyML.VAL)
       val getSource_ = call (load_sym libgobject "g_binding_get_source") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSourceProperty_ = call (load_sym libgobject "g_binding_get_source_property") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getSourceProperty_ = call (load_sym libgobject "g_binding_get_source_property") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getTarget_ = call (load_sym libgobject "g_binding_get_target") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getTargetProperty_ = call (load_sym libgobject "g_binding_get_target_property") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getTargetProperty_ = call (load_sym libgobject "g_binding_get_target_property") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GObjectBindingClass.t
     type type_t = GObjectType.t
@@ -28,9 +28,9 @@ structure GObjectBinding :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GObjectBindingFlags.C.fromVal) getFlags_ self
     fun getSource self = (GObjectObjectClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getSource_ self
-    fun getSourceProperty self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getSourceProperty_ self
+    fun getSourceProperty self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getSourceProperty_ self
     fun getTarget self = (GObjectObjectClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getTarget_ self
-    fun getTargetProperty self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTargetProperty_ self
+    fun getTargetProperty self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTargetProperty_ self
     local
       open Property
     in

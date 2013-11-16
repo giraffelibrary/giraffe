@@ -20,7 +20,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -35,7 +35,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -50,7 +50,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -70,7 +70,7 @@ structure GioFileInfo :>
                * unit CPointer.t
                * GioFileAttributeType.C.ref_
                * GioFileAttributeStatus.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -87,7 +87,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Int32.val_;
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -102,7 +102,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -147,7 +147,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -177,7 +177,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.UInt32.val_;
+               -> FFI.UInt32.C.val_;
           )
             (
               x1,
@@ -192,27 +192,27 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.UInt64.val_;
+               -> FFI.UInt64.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getContentType_ = _import "g_file_info_get_content_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getDisplayName_ = _import "g_file_info_get_display_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getEditName_ = _import "g_file_info_get_edit_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getEtag_ = _import "g_file_info_get_etag" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getContentType_ = _import "g_file_info_get_content_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDisplayName_ = _import "g_file_info_get_display_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getEditName_ = _import "g_file_info_get_edit_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getEtag_ = _import "g_file_info_get_etag" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getFileType_ = _import "g_file_info_get_file_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioFileType.C.val_;
     val getIcon_ = _import "g_file_info_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIsBackup_ = _import "g_file_info_get_is_backup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsHidden_ = _import "g_file_info_get_is_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsSymlink_ = _import "g_file_info_get_is_symlink" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getIsBackup_ = _import "g_file_info_get_is_backup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsHidden_ = _import "g_file_info_get_is_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsSymlink_ = _import "g_file_info_get_is_symlink" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getModificationTime_ = fn x1 & x2 => (_import "g_file_info_get_modification_time" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p -> unit;) (x1, x2)
-    val getName_ = _import "g_file_info_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getSize_ = _import "g_file_info_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int64.val_;
-    val getSortOrder_ = _import "g_file_info_get_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getSymlinkTarget_ = _import "g_file_info_get_symlink_target" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getName_ = _import "g_file_info_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getSize_ = _import "g_file_info_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int64.C.val_;
+    val getSortOrder_ = _import "g_file_info_get_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSymlinkTarget_ = _import "g_file_info_get_symlink_target" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val hasAttribute_ =
       fn
         x1 & (x2, x3) =>
@@ -221,7 +221,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -236,7 +236,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -287,7 +287,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -327,7 +327,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -346,7 +346,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int64.val_
+               * FFI.Int64.C.val_
                -> unit;
           )
             (
@@ -386,7 +386,7 @@ structure GioFileInfo :>
                * cstring
                * unit CPointer.t
                * GioFileAttributeStatus.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -446,7 +446,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -465,7 +465,7 @@ structure GioFileInfo :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                -> unit;
           )
             (
@@ -521,8 +521,8 @@ structure GioFileInfo :>
             )
     val setFileType_ = fn x1 & x2 => (_import "g_file_info_set_file_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioFileType.C.val_ -> unit;) (x1, x2)
     val setIcon_ = fn x1 & x2 => (_import "g_file_info_set_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setIsHidden_ = fn x1 & x2 => (_import "g_file_info_set_is_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setIsSymlink_ = fn x1 & x2 => (_import "g_file_info_set_is_symlink" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setIsHidden_ = fn x1 & x2 => (_import "g_file_info_set_is_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setIsSymlink_ = fn x1 & x2 => (_import "g_file_info_set_is_symlink" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setModificationTime_ = fn x1 & x2 => (_import "g_file_info_set_modification_time" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p -> unit;) (x1, x2)
     val setName_ =
       fn
@@ -539,8 +539,8 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val setSize_ = fn x1 & x2 => (_import "g_file_info_set_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int64.val_ -> unit;) (x1, x2)
-    val setSortOrder_ = fn x1 & x2 => (_import "g_file_info_set_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "g_file_info_set_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int64.C.val_ -> unit;) (x1, x2)
+    val setSortOrder_ = fn x1 & x2 => (_import "g_file_info_set_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setSymlinkTarget_ =
       fn
         x1 & (x2, x3) =>
@@ -568,9 +568,9 @@ structure GioFileInfo :>
     fun clearStatus self = (GObjectObjectClass.C.withPtr ---> I) clearStatus_ self
     fun copyInto self destInfo = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) copyInto_ (self & destInfo)
     fun dup self = (GObjectObjectClass.C.withPtr ---> GioFileInfoClass.C.fromPtr true) dup_ self
-    fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) getAttributeAsString_ (self & attribute)
-    fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) getAttributeBoolean_ (self & attribute)
-    fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) getAttributeByteString_ (self & attribute)
+    fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) getAttributeAsString_ (self & attribute)
+    fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getAttributeBoolean_ (self & attribute)
+    fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getAttributeByteString_ (self & attribute)
     fun getAttributeData self attribute =
       let
         val type'
@@ -578,12 +578,12 @@ structure GioFileInfo :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GioFileAttributeType.C.withRefVal
              &&&> GioFileAttributeStatus.C.withRefVal
              ---> GioFileAttributeType.C.fromVal
                    && GioFileAttributeStatus.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getAttributeData_
             (
@@ -595,35 +595,35 @@ structure GioFileInfo :>
       in
         if retVal then SOME (type', status) else NONE
       end
-    fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int32.fromVal) getAttributeInt32_ (self & attribute)
-    fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Int64.fromVal) getAttributeInt64_ (self & attribute)
-    fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
-    fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
-    fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) getAttributeString_ (self & attribute)
-    fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
-    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getAttributeUint32_ (self & attribute)
-    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt64.fromVal) getAttributeUint64_ (self & attribute)
-    fun getContentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getContentType_ self
-    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDisplayName_ self
-    fun getEditName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getEditName_ self
-    fun getEtag self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getEtag_ self
+    fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getAttributeInt32_ (self & attribute)
+    fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int64.C.fromVal) getAttributeInt64_ (self & attribute)
+    fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
+    fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
+    fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getAttributeString_ (self & attribute)
+    fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
+    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt32.C.fromVal) getAttributeUint32_ (self & attribute)
+    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt64.C.fromVal) getAttributeUint64_ (self & attribute)
+    fun getContentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getContentType_ self
+    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDisplayName_ self
+    fun getEditName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEditName_ self
+    fun getEtag self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEtag_ self
     fun getFileType self = (GObjectObjectClass.C.withPtr ---> GioFileType.C.fromVal) getFileType_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
-    fun getIsBackup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsBackup_ self
-    fun getIsHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsHidden_ self
-    fun getIsSymlink self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsSymlink_ self
+    fun getIsBackup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsBackup_ self
+    fun getIsHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsHidden_ self
+    fun getIsSymlink self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsSymlink_ self
     fun getModificationTime self result = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> I) getModificationTime_ (self & result)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.fromVal) getSize_ self
-    fun getSortOrder self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getSortOrder_ self
-    fun getSymlinkTarget self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getSymlinkTarget_ self
-    fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasAttribute_ (self & attribute)
-    fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasNamespace_ (self & nameSpace)
-    fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) removeAttribute_ (self & attribute)
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getSize_ self
+    fun getSortOrder self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSortOrder_ self
+    fun getSymlinkTarget self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getSymlinkTarget_ self
+    fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasAttribute_ (self & attribute)
+    fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasNamespace_ (self & nameSpace)
+    fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeAttribute_ (self & attribute)
     fun setAttribute self attribute type' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileAttributeType.C.withVal
          ---> I
       )
@@ -636,8 +636,8 @@ structure GioFileInfo :>
     fun setAttributeBoolean self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setAttributeBoolean_
@@ -649,8 +649,8 @@ structure GioFileInfo :>
     fun setAttributeByteString self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setAttributeByteString_
@@ -662,8 +662,8 @@ structure GioFileInfo :>
     fun setAttributeInt32 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setAttributeInt32_
@@ -675,8 +675,8 @@ structure GioFileInfo :>
     fun setAttributeInt64 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
          ---> I
       )
         setAttributeInt64_
@@ -689,7 +689,7 @@ structure GioFileInfo :>
     fun setAttributeObject self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -702,9 +702,9 @@ structure GioFileInfo :>
     fun setAttributeStatus self attribute status =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileAttributeStatus.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeStatus_
         (
@@ -715,8 +715,8 @@ structure GioFileInfo :>
     fun setAttributeString self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setAttributeString_
@@ -728,8 +728,8 @@ structure GioFileInfo :>
     fun setAttributeStringv self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setAttributeStringv_
@@ -741,8 +741,8 @@ structure GioFileInfo :>
     fun setAttributeUint32 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         setAttributeUint32_
@@ -754,8 +754,8 @@ structure GioFileInfo :>
     fun setAttributeUint64 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          ---> I
       )
         setAttributeUint64_
@@ -764,17 +764,17 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setContentType self contentType = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setContentType_ (self & contentType)
-    fun setDisplayName self displayName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setDisplayName_ (self & displayName)
-    fun setEditName self editName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setEditName_ (self & editName)
+    fun setContentType self contentType = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setContentType_ (self & contentType)
+    fun setDisplayName self displayName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDisplayName_ (self & displayName)
+    fun setEditName self editName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setEditName_ (self & editName)
     fun setFileType self type' = (GObjectObjectClass.C.withPtr &&&> GioFileType.C.withVal ---> I) setFileType_ (self & type')
     fun setIcon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setIcon_ (self & icon)
-    fun setIsHidden self isHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setIsHidden_ (self & isHidden)
-    fun setIsSymlink self isSymlink = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setIsSymlink_ (self & isSymlink)
+    fun setIsHidden self isHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsHidden_ (self & isHidden)
+    fun setIsSymlink self isSymlink = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsSymlink_ (self & isSymlink)
     fun setModificationTime self mtime = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> I) setModificationTime_ (self & mtime)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
-    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int64.withVal ---> I) setSize_ (self & size)
-    fun setSortOrder self sortOrder = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setSortOrder_ (self & sortOrder)
-    fun setSymlinkTarget self symlinkTarget = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int64.C.withVal ---> I) setSize_ (self & size)
+    fun setSortOrder self sortOrder = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSortOrder_ (self & sortOrder)
+    fun setSymlinkTarget self symlinkTarget = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
     fun unsetAttributeMask self = (GObjectObjectClass.C.withPtr ---> I) unsetAttributeMask_ self
   end

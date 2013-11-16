@@ -17,7 +17,7 @@ structure GtkIconSet :>
           (
             GtkIconSetRecord.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
     end
@@ -33,7 +33,7 @@ structure GtkIconSet :>
       (
         GtkIconSetRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIconPixbuf_

@@ -15,12 +15,12 @@ structure GioSimpleActionGroup :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GioActionEntryRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val insert_ = call (load_sym libgio "g_simple_action_group_insert") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val lookup_ = call (load_sym libgio "g_simple_action_group_lookup") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val remove_ = call (load_sym libgio "g_simple_action_group_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val lookup_ = call (load_sym libgio "g_simple_action_group_lookup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val remove_ = call (load_sym libgio "g_simple_action_group_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSimpleActionGroupClass.t
     type 'a actiongroupclass_t = 'a GioActionGroupClass.t
@@ -33,7 +33,7 @@ structure GioSimpleActionGroup :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GioActionEntryRecord.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addEntries_
@@ -43,6 +43,6 @@ structure GioSimpleActionGroup :>
            & nEntries
         )
     fun insert self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) insert_ (self & action)
-    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
-    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) remove_ (self & actionName)
+    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
+    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) remove_ (self & actionName)
   end

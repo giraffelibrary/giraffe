@@ -57,8 +57,8 @@ structure GtkSourceStyleSchemeManager :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr false) getDefault_ ()
-    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) appendSearchPath_ (self & path)
+    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) appendSearchPath_ (self & path)
     fun forceRescan self = (GObjectObjectClass.C.withPtr ---> I) forceRescan_ self
-    fun getScheme self schemeId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getScheme_ (self & schemeId)
-    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) prependSearchPath_ (self & path)
+    fun getScheme self schemeId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getScheme_ (self & schemeId)
+    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependSearchPath_ (self & path)
   end

@@ -17,8 +17,8 @@ structure PangoAttrList :>
           (
             PangoAttrListRecord.PolyML.PTR
              &&> PangoAttrListRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -34,8 +34,8 @@ structure PangoAttrList :>
       (
         PangoAttrListRecord.C.withPtr
          &&&> PangoAttrListRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         splice_

@@ -13,7 +13,7 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_add_entry" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
                -> unit;
           )
@@ -34,10 +34,10 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_change_entry" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
-               * FFI.Bool.val_
-               -> FFI.Bool.val_;
+               * FFI.Bool.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -48,7 +48,7 @@ structure GtkAccelMap :>
             )
     val get_ = _import "gtk_accel_map_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val load_ = _import "mlton_gtk_accel_map_load" : cstring * unit CPointer.t -> unit;
-    val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int32.val_ -> unit;
+    val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int32.C.val_ -> unit;
     val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : cstring * unit CPointer.t -> unit;
     val lookupEntry_ =
       fn
@@ -58,7 +58,7 @@ structure GtkAccelMap :>
               cstring
                * unit CPointer.t
                * GtkAccelKeyRecord.C.notnull GtkAccelKeyRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -66,15 +66,15 @@ structure GtkAccelMap :>
               x3
             )
     val save_ = _import "mlton_gtk_accel_map_save" : cstring * unit CPointer.t -> unit;
-    val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int32.val_ -> unit;
+    val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int32.C.val_ -> unit;
     val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : cstring * unit CPointer.t -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
     type accelkeyrecord_t = GtkAccelKeyRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.UInt32.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
       )
@@ -84,14 +84,14 @@ structure GtkAccelMap :>
            & accelKey
            & accelMods
         )
-    fun addFilter filterPattern = (FFI.String.withConstPtr ---> I) addFilter_ filterPattern
+    fun addFilter filterPattern = (FFI.String.C.withConstPtr ---> I) addFilter_ filterPattern
     fun changeEntry accelPath accelKey accelMods replace =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.UInt32.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
-         &&&> FFI.Bool.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Bool.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         changeEntry_
         (
@@ -101,18 +101,18 @@ structure GtkAccelMap :>
            & replace
         )
     fun get () = (I ---> GtkAccelMapClass.C.fromPtr false) get_ ()
-    fun load fileName = (FFI.String.withConstPtr ---> I) load_ fileName
-    fun loadFd fd = (FFI.Int32.withVal ---> I) loadFd_ fd
-    fun lockPath accelPath = (FFI.String.withConstPtr ---> I) lockPath_ accelPath
+    fun load fileName = (FFI.String.C.withConstPtr ---> I) load_ fileName
+    fun loadFd fd = (FFI.Int32.C.withVal ---> I) loadFd_ fd
+    fun lockPath accelPath = (FFI.String.C.withConstPtr ---> I) lockPath_ accelPath
     fun lookupEntry accelPath =
       let
-        val key & retVal = (FFI.String.withConstPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.fromVal) lookupEntry_ (accelPath & ())
+        val key & retVal = (FFI.String.C.withConstPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.C.fromVal) lookupEntry_ (accelPath & ())
       in
         if retVal then SOME key else NONE
       end
-    fun save fileName = (FFI.String.withConstPtr ---> I) save_ fileName
-    fun saveFd fd = (FFI.Int32.withVal ---> I) saveFd_ fd
-    fun unlockPath accelPath = (FFI.String.withConstPtr ---> I) unlockPath_ accelPath
+    fun save fileName = (FFI.String.C.withConstPtr ---> I) save_ fileName
+    fun saveFd fd = (FFI.Int32.C.withVal ---> I) saveFd_ fd
+    fun unlockPath accelPath = (FFI.String.C.withConstPtr ---> I) unlockPath_ accelPath
     local
       open ClosureMarshal Signal
     in

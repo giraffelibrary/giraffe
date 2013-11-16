@@ -16,12 +16,12 @@ structure AtkObject :>
             GObjectObjectClass.PolyML.PTR
              &&> AtkRelationType.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val getDescription_ = call (load_sym libatk "atk_object_get_description") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getIndexInParent_ = call (load_sym libatk "atk_object_get_index_in_parent") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getNAccessibleChildren_ = call (load_sym libatk "atk_object_get_n_accessible_children") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getName_ = call (load_sym libatk "atk_object_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getDescription_ = call (load_sym libatk "atk_object_get_description") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getIndexInParent_ = call (load_sym libatk "atk_object_get_index_in_parent") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getNAccessibleChildren_ = call (load_sym libatk "atk_object_get_n_accessible_children") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getName_ = call (load_sym libatk "atk_object_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getParent_ = call (load_sym libatk "atk_object_get_parent") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getRole_ = call (load_sym libatk "atk_object_get_role") (GObjectObjectClass.PolyML.PTR --> AtkRole.PolyML.VAL)
       val initialize_ = call (load_sym libatk "atk_object_initialize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -29,24 +29,24 @@ structure AtkObject :>
         call (load_sym libatk "atk_object_notify_state_change")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt64.VAL
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val refAccessibleChild_ = call (load_sym libatk "atk_object_ref_accessible_child") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> GObjectObjectClass.PolyML.PTR)
+      val refAccessibleChild_ = call (load_sym libatk "atk_object_ref_accessible_child") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val refRelationSet_ = call (load_sym libatk "atk_object_ref_relation_set") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val refStateSet_ = call (load_sym libatk "atk_object_ref_state_set") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val removePropertyChangeHandler_ = call (load_sym libatk "atk_object_remove_property_change_handler") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
+      val removePropertyChangeHandler_ = call (load_sym libatk "atk_object_remove_property_change_handler") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
       val removeRelationship_ =
         call (load_sym libatk "atk_object_remove_relationship")
           (
             GObjectObjectClass.PolyML.PTR
              &&> AtkRelationType.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val setDescription_ = call (load_sym libatk "atk_object_set_description") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
-      val setName_ = call (load_sym libatk "atk_object_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val setDescription_ = call (load_sym libatk "atk_object_set_description") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setName_ = call (load_sym libatk "atk_object_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setParent_ = call (load_sym libatk "atk_object_set_parent") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setRole_ = call (load_sym libatk "atk_object_set_role") (GObjectObjectClass.PolyML.PTR &&> AtkRole.PolyML.VAL --> FFI.PolyML.VOID)
     end
@@ -61,7 +61,7 @@ structure AtkObject :>
         GObjectObjectClass.C.withPtr
          &&&> AtkRelationType.C.withVal
          &&&> GObjectObjectClass.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         addRelationship_
         (
@@ -69,18 +69,18 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getDescription_ self
-    fun getIndexInParent self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getIndexInParent_ self
-    fun getNAccessibleChildren self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNAccessibleChildren_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
+    fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self
+    fun getIndexInParent self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIndexInParent_ self
+    fun getNAccessibleChildren self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAccessibleChildren_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
     fun getParent self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getParent_ self
     fun getRole self = (GObjectObjectClass.C.withPtr ---> AtkRole.C.fromVal) getRole_ self
     fun initialize self = (GObjectObjectClass.C.withPtr ---> I) initialize_ self
     fun notifyStateChange self state value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         notifyStateChange_
@@ -89,16 +89,16 @@ structure AtkObject :>
            & state
            & value
         )
-    fun refAccessibleChild self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> AtkObjectClass.C.fromPtr true) refAccessibleChild_ (self & i)
+    fun refAccessibleChild self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkObjectClass.C.fromPtr true) refAccessibleChild_ (self & i)
     fun refRelationSet self = (GObjectObjectClass.C.withPtr ---> AtkRelationSetClass.C.fromPtr true) refRelationSet_ self
     fun refStateSet self = (GObjectObjectClass.C.withPtr ---> AtkStateSetClass.C.fromPtr true) refStateSet_ self
-    fun removePropertyChangeHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
+    fun removePropertyChangeHandler self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
     fun removeRelationship self relationship target =
       (
         GObjectObjectClass.C.withPtr
          &&&> AtkRelationType.C.withVal
          &&&> GObjectObjectClass.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeRelationship_
         (
@@ -106,8 +106,8 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setDescription_ (self & description)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
+    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDescription_ (self & description)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setRole self role = (GObjectObjectClass.C.withPtr &&&> AtkRole.C.withVal ---> I) setRole_ (self & role)
     local

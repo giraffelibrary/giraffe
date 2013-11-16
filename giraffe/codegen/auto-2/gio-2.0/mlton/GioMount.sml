@@ -8,8 +8,8 @@ structure GioMount :>
     where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_mount_get_type" : unit -> GObjectType.C.val_;
-    val canEject_ = _import "g_mount_can_eject" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val canUnmount_ = _import "g_mount_can_unmount" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val canEject_ = _import "g_mount_can_eject" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val canUnmount_ = _import "g_mount_can_unmount" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val ejectWithOperationFinish_ =
       fn
         x1
@@ -20,7 +20,7 @@ structure GioMount :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -30,11 +30,11 @@ structure GioMount :>
     val getDefaultLocation_ = _import "g_mount_get_default_location" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDrive_ = _import "g_mount_get_drive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getIcon_ = _import "g_mount_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getName_ = _import "g_mount_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getName_ = _import "g_mount_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getRoot_ = _import "g_mount_get_root" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getUuid_ = _import "g_mount_get_uuid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getUuid_ = _import "g_mount_get_uuid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getVolume_ = _import "g_mount_get_volume" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val isShadowed_ = _import "g_mount_is_shadowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val isShadowed_ = _import "g_mount_is_shadowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val remountFinish_ =
       fn
         x1
@@ -45,7 +45,7 @@ structure GioMount :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -63,7 +63,7 @@ structure GioMount :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -78,14 +78,14 @@ structure GioMount :>
     type 'a volumeclass_t = 'a GioVolumeClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canEject_ self
-    fun canUnmount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canUnmount_ self
+    fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self
+    fun canUnmount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canUnmount_ self
     fun ejectWithOperationFinish self result =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         ejectWithOperationFinish_
         (
@@ -96,17 +96,17 @@ structure GioMount :>
     fun getDefaultLocation self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getDefaultLocation_ self
     fun getDrive self = (GObjectObjectClass.C.withPtr ---> GioDriveClass.C.fromPtr true) getDrive_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) getIcon_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getName_ self
     fun getRoot self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getRoot_ self
-    fun getUuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUuid_ self
+    fun getUuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUuid_ self
     fun getVolume self = (GObjectObjectClass.C.withPtr ---> GioVolumeClass.C.fromPtr true) getVolume_ self
-    fun isShadowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isShadowed_ self
+    fun isShadowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isShadowed_ self
     fun remountFinish self result =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         remountFinish_
         (
@@ -120,7 +120,7 @@ structure GioMount :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         unmountWithOperationFinish_
         (

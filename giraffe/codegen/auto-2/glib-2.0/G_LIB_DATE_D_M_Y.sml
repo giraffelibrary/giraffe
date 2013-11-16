@@ -18,6 +18,6 @@ signature G_LIB_DATE_D_M_Y =
            -> t
            -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of FFI.Enum.val_
+        exception Value of FFI.Enum.C.val_
       end
   end

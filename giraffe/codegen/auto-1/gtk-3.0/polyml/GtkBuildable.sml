@@ -13,7 +13,7 @@ structure GtkBuildable :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              --> FFI.PolyML.VOID
           )
       val constructChild_ =
@@ -21,7 +21,7 @@ structure GtkBuildable :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val customFinished_ =
@@ -30,7 +30,7 @@ structure GtkBuildable :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val customTagEnd_ =
@@ -39,7 +39,7 @@ structure GtkBuildable :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val getInternalChild_ =
@@ -47,21 +47,21 @@ structure GtkBuildable :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getName_ = call (load_sym libgtk "gtk_buildable_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getName_ = call (load_sym libgtk "gtk_buildable_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val parserFinished_ = call (load_sym libgtk "gtk_buildable_parser_finished") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setBuildableProperty_ =
         call (load_sym libgtk "gtk_buildable_set_buildable_property")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val setName_ = call (load_sym libgtk "gtk_buildable_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val setName_ = call (load_sym libgtk "gtk_buildable_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkBuildableClass.t
     type 'a builderclass_t = 'a GtkBuilderClass.t
@@ -71,7 +71,7 @@ structure GtkBuildable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         addChild_
@@ -85,7 +85,7 @@ structure GtkBuildable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> GObjectObjectClass.C.fromPtr true
       )
         constructChild_
@@ -99,7 +99,7 @@ structure GtkBuildable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         customFinished_
@@ -114,7 +114,7 @@ structure GtkBuildable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         customTagEnd_
@@ -128,7 +128,7 @@ structure GtkBuildable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> GObjectObjectClass.C.fromPtr false
       )
         getInternalChild_
@@ -137,13 +137,13 @@ structure GtkBuildable :>
            & builder
            & childname
         )
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
     fun parserFinished self builder = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) parserFinished_ (self & builder)
     fun setBuildableProperty self builder name value =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -154,5 +154,5 @@ structure GtkBuildable :>
            & name
            & value
         )
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
   end

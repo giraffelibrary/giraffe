@@ -31,16 +31,16 @@ structure GioIOStreamSpliceFlags :>
     type t = flags
     structure C =
       struct
-        type val_ = FFI.Flags.val_
-        type ref_ = FFI.Flags.ref_
+        type val_ = FFI.Flags.C.val_
+        type ref_ = FFI.Flags.C.ref_
         fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.withRef f)
+        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
         fun fromVal w = w
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Flags.VAL
-        val REF = FFI.PolyML.Flags.REF
+        val VAL = FFI.Flags.PolyML.VAL
+        val REF = FFI.Flags.PolyML.REF
       end
     local
       open PolyMLFFI

@@ -12,11 +12,11 @@ structure GtkMenuItem :>
     val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val activate_ = _import "gtk_menu_item_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val deselect_ = _import "gtk_menu_item_deselect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getLabel_ = _import "gtk_menu_item_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getLabel_ = _import "gtk_menu_item_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val select_ = _import "gtk_menu_item_select" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setAccelPath_ =
       fn
@@ -48,10 +48,10 @@ structure GtkMenuItem :>
               x2,
               x3
             )
-    val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkMenuItemClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -62,22 +62,22 @@ structure GtkMenuItem :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkMenuItemClass.C.fromPtr false) new_ ()
-    fun newWithLabel label = (FFI.String.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (FFI.String.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (FFI.String.C.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (FFI.String.C.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithMnemonic_ label
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun deselect self = (GObjectObjectClass.C.withPtr ---> I) deselect_ self
-    fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getAccelPath_ self
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getLabel_ self
-    fun getReserveIndicator self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getReserveIndicator_ self
+    fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getAccelPath_ self
+    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
+    fun getReserveIndicator self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReserveIndicator_ self
     fun getSubmenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getSubmenu_ self
-    fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUseUnderline_ self
+    fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
     fun select self = (GObjectObjectClass.C.withPtr ---> I) select_ self
-    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setLabel_ (self & label)
-    fun setReserveIndicator self reserve = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setReserveIndicator_ (self & reserve)
+    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setReserveIndicator self reserve = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReserveIndicator_ (self & reserve)
     fun setSubmenu self submenu = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setSubmenu_ (self & submenu)
-    fun setUseUnderline self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUseUnderline_ (self & setting)
-    fun toggleSizeAllocate self allocation = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) toggleSizeAllocate_ (self & allocation)
+    fun setUseUnderline self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & setting)
+    fun toggleSizeAllocate self allocation = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) toggleSizeAllocate_ (self & allocation)
     local
       open ClosureMarshal Signal
     in

@@ -20,9 +20,9 @@ structure GLibMarkupError :>
     | MISSINGATTRIBUTE
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             BADUTF8 => f 0
@@ -32,7 +32,7 @@ structure GLibMarkupError :>
           | UNKNOWNATTRIBUTE => f 4
           | INVALIDCONTENT => f 5
           | MISSINGATTRIBUTE => f 6
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => BADUTF8
@@ -46,8 +46,8 @@ structure GLibMarkupError :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
     type errorrecord_handler = GLibErrorRecord.handler

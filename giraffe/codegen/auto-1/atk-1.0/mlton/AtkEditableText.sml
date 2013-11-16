@@ -11,8 +11,8 @@ structure AtkEditableText :>
           (
             _import "atk_editable_text_copy_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -28,8 +28,8 @@ structure AtkEditableText :>
           (
             _import "atk_editable_text_cut_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -45,8 +45,8 @@ structure AtkEditableText :>
           (
             _import "atk_editable_text_delete_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -54,7 +54,7 @@ structure AtkEditableText :>
               x2,
               x3
             )
-    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setTextContents_ =
       fn
         x1 & (x2, x3) =>
@@ -75,8 +75,8 @@ structure AtkEditableText :>
     fun copyText self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         copyText_
@@ -88,8 +88,8 @@ structure AtkEditableText :>
     fun cutText self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         cutText_
@@ -101,8 +101,8 @@ structure AtkEditableText :>
     fun deleteText self startPos endPos =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         deleteText_
@@ -111,6 +111,6 @@ structure AtkEditableText :>
            & startPos
            & endPos
         )
-    fun pasteText self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) pasteText_ (self & position)
-    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTextContents_ (self & string)
+    fun pasteText self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) pasteText_ (self & position)
+    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTextContents_ (self & string)
   end

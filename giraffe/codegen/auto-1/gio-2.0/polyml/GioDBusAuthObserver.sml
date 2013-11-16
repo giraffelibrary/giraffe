@@ -15,7 +15,7 @@ structure GioDBusAuthObserver :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioDBusAuthObserverClass.t
@@ -28,7 +28,7 @@ structure GioDBusAuthObserver :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         authorizeAuthenticatedPeer_
         (

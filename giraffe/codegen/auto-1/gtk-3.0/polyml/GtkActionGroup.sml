@@ -9,25 +9,25 @@ structure GtkActionGroup :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_action_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_action_group_new") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgtk "gtk_action_group_new") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val addAction_ = call (load_sym libgtk "gtk_action_group_add_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val addActionWithAccel_ =
         call (load_sym libgtk "gtk_action_group_add_action_with_accel")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              --> FFI.PolyML.VOID
           )
-      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val removeAction_ = call (load_sym libgtk "gtk_action_group_remove_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
-      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.String.RETPTR)
+      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GtkActionGroupClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -35,13 +35,13 @@ structure GtkActionGroup :>
     type 'a actionclass_t = 'a GtkActionClass.t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (FFI.String.withConstPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name
+    fun new name = (FFI.String.C.withConstPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name
     fun addAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addAction_ (self & action)
     fun addActionWithAccel self action accelerator =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         addActionWithAccel_
@@ -50,15 +50,15 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
-    fun getAction self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSensitive_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
+    fun getAction self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
+    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun removeAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeAction_ (self & action)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr false) translateString_ (self & string)
+    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun translateString self string = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) translateString_ (self & string)
     local
       open ClosureMarshal Signal
     in

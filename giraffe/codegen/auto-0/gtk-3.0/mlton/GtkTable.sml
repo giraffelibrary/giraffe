@@ -13,9 +13,9 @@ structure GtkTable :>
          & x3 =>
           (
             _import "gtk_table_new" :
-              FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.Bool.val_
+              FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -39,14 +39,14 @@ structure GtkTable :>
             _import "gtk_table_attach" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                * GtkAttachOptions.C.val_
                * GtkAttachOptions.C.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -73,10 +73,10 @@ structure GtkTable :>
             _import "gtk_table_attach_defaults" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -87,11 +87,11 @@ structure GtkTable :>
               x5,
               x6
             )
-    val getColSpacing_ = fn x1 & x2 => (_import "gtk_table_get_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> FFI.UInt32.val_;) (x1, x2)
-    val getDefaultColSpacing_ = _import "gtk_table_get_default_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
-    val getDefaultRowSpacing_ = _import "gtk_table_get_default_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.val_;
-    val getHomogeneous_ = _import "gtk_table_get_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getRowSpacing_ = fn x1 & x2 => (_import "gtk_table_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> FFI.UInt32.val_;) (x1, x2)
+    val getColSpacing_ = fn x1 & x2 => (_import "gtk_table_get_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;) (x1, x2)
+    val getDefaultColSpacing_ = _import "gtk_table_get_default_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
+    val getDefaultRowSpacing_ = _import "gtk_table_get_default_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
+    val getHomogeneous_ = _import "gtk_table_get_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getRowSpacing_ = fn x1 & x2 => (_import "gtk_table_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;) (x1, x2)
     val getSize_ =
       fn
         x1
@@ -100,8 +100,8 @@ structure GtkTable :>
           (
             _import "gtk_table_get_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.ref_
-               * FFI.UInt32.ref_
+               * FFI.UInt32.C.ref_
+               * FFI.UInt32.C.ref_
                -> unit;
           )
             (
@@ -117,8 +117,8 @@ structure GtkTable :>
           (
             _import "gtk_table_resize" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -134,8 +134,8 @@ structure GtkTable :>
           (
             _import "gtk_table_set_col_spacing" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -143,8 +143,8 @@ structure GtkTable :>
               x2,
               x3
             )
-    val setColSpacings_ = fn x1 & x2 => (_import "gtk_table_set_col_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_table_set_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setColSpacings_ = fn x1 & x2 => (_import "gtk_table_set_col_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_table_set_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setRowSpacing_ =
       fn
         x1
@@ -153,8 +153,8 @@ structure GtkTable :>
           (
             _import "gtk_table_set_row_spacing" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -162,7 +162,7 @@ structure GtkTable :>
               x2,
               x3
             )
-    val setRowSpacings_ = fn x1 & x2 => (_import "gtk_table_set_row_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val setRowSpacings_ = fn x1 & x2 => (_import "gtk_table_set_row_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTableClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type attachoptions_t = GtkAttachOptions.t
@@ -172,9 +172,9 @@ structure GtkTable :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new rows columns homogeneous =
       (
-        FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.Bool.withVal
+        FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> GtkTableClass.C.fromPtr false
       )
         new_
@@ -187,14 +187,14 @@ structure GtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GtkAttachOptions.C.withVal
          &&&> GtkAttachOptions.C.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         attach_
@@ -214,10 +214,10 @@ structure GtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         attachDefaults_
@@ -229,11 +229,11 @@ structure GtkTable :>
            & topAttach
            & bottomAttach
         )
-    fun getColSpacing self column = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> FFI.UInt32.fromVal) getColSpacing_ (self & column)
-    fun getDefaultColSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getDefaultColSpacing_ self
-    fun getDefaultRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getDefaultRowSpacing_ self
-    fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHomogeneous_ self
-    fun getRowSpacing self row = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> FFI.UInt32.fromVal) getRowSpacing_ (self & row)
+    fun getColSpacing self column = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) getColSpacing_ (self & column)
+    fun getDefaultColSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getDefaultColSpacing_ self
+    fun getDefaultRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getDefaultRowSpacing_ self
+    fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
+    fun getRowSpacing self row = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) getRowSpacing_ (self & row)
     fun getSize self =
       let
         val rows
@@ -241,10 +241,10 @@ structure GtkTable :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.UInt32.withRefVal
-             ---> FFI.UInt32.fromVal
-                   && FFI.UInt32.fromVal
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.UInt32.C.withRefVal
+             ---> FFI.UInt32.C.fromVal
+                   && FFI.UInt32.C.fromVal
                    && I
           )
             getSize_
@@ -259,8 +259,8 @@ structure GtkTable :>
     fun resize self rows columns =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         resize_
@@ -272,8 +272,8 @@ structure GtkTable :>
     fun setColSpacing self column spacing =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         setColSpacing_
@@ -282,13 +282,13 @@ structure GtkTable :>
            & column
            & spacing
         )
-    fun setColSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setColSpacings_ (self & spacing)
-    fun setHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setColSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setColSpacings_ (self & spacing)
+    fun setHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setRowSpacing self row spacing =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         setRowSpacing_
@@ -297,7 +297,7 @@ structure GtkTable :>
            & row
            & spacing
         )
-    fun setRowSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setRowSpacings_ (self & spacing)
+    fun setRowSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setRowSpacings_ (self & spacing)
     local
       open Property
     in

@@ -9,7 +9,7 @@ structure GLibMainContext :>
   struct
     val getType_ = _import "g_main_context_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_main_context_new" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
-    val acquire_ = _import "g_main_context_acquire" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.val_;
+    val acquire_ = _import "g_main_context_acquire" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
     val addPoll_ =
       fn
         x1
@@ -19,7 +19,7 @@ structure GLibMainContext :>
             _import "g_main_context_add_poll" :
               GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p
                * GLibPollFDRecord.C.notnull GLibPollFDRecord.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -29,11 +29,11 @@ structure GLibMainContext :>
             )
     val dispatch_ = _import "g_main_context_dispatch" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
     val findSourceByFuncsUserData_ = fn x1 & x2 => (_import "g_main_context_find_source_by_funcs_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * GLibSourceFuncsRecord.C.notnull GLibSourceFuncsRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
-    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt32.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
+    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt32.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
     val findSourceByUserData_ = _import "g_main_context_find_source_by_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.val_;
-    val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Bool.val_ -> FFI.Bool.val_;) (x1, x2)
-    val pending_ = _import "g_main_context_pending" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.val_;
+    val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
+    val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val pending_ = _import "g_main_context_pending" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
     val popThreadDefault_ = _import "g_main_context_pop_thread_default" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
     val pushThreadDefault_ = _import "g_main_context_push_thread_default" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
     val release_ = _import "g_main_context_release" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
@@ -48,7 +48,7 @@ structure GLibMainContext :>
               GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p
                * GLibCondRecord.C.notnull GLibCondRecord.C.p
                * GLibMutexRecord.C.notnull GLibMutexRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -66,12 +66,12 @@ structure GLibMainContext :>
     type condrecord_t = GLibCondRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GLibMainContextRecord.C.fromPtr true) new_ ()
-    fun acquire self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.fromVal) acquire_ self
+    fun acquire self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) acquire_ self
     fun addPoll self fd priority =
       (
         GLibMainContextRecord.C.withPtr
          &&&> GLibPollFDRecord.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addPoll_
@@ -82,11 +82,11 @@ structure GLibMainContext :>
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
     fun findSourceByFuncsUserData self funcs = (GLibMainContextRecord.C.withPtr &&&> GLibSourceFuncsRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByFuncsUserData_ (self & funcs)
-    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
     fun findSourceByUserData self = (GLibMainContextRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByUserData_ self
-    fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.fromVal) isOwner_ self
-    fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.withVal ---> FFI.Bool.fromVal) iteration_ (self & mayBlock)
-    fun pending self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.fromVal) pending_ self
+    fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) isOwner_ self
+    fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) iteration_ (self & mayBlock)
+    fun pending self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) pending_ self
     fun popThreadDefault self = (GLibMainContextRecord.C.withPtr ---> I) popThreadDefault_ self
     fun pushThreadDefault self = (GLibMainContextRecord.C.withPtr ---> I) pushThreadDefault_ self
     fun release self = (GLibMainContextRecord.C.withPtr ---> I) release_ self
@@ -96,7 +96,7 @@ structure GLibMainContext :>
         GLibMainContextRecord.C.withPtr
          &&&> GLibCondRecord.C.withPtr
          &&&> GLibMutexRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         wait_
         (

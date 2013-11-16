@@ -100,7 +100,7 @@ structure GObjectObject :>
             )
 (*
     val getQdata_ = fn x1 & x2 => (_import "g_object_get_qdata" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
-    val isFloating_ = _import "g_object_is_floating" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val isFloating_ = _import "g_object_is_floating" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val notify_ =
       fn
         x1 & (x2, x3) =>
@@ -222,7 +222,7 @@ structure GObjectObject :>
     fun getProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -234,8 +234,8 @@ structure GObjectObject :>
         )
 (*
     fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) getQdata_ (self & quark)
-    fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFloating_ self
-    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) notify_ (self & propertyName)
+    fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFloating_ self
+    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.C.withPtr ---> I) runDispose_ self
     fun setData self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setData_ (self & key)
@@ -243,7 +243,7 @@ structure GObjectObject :>
     fun setProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

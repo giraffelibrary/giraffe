@@ -19,14 +19,14 @@ structure GtkEntry :>
     val getType_ = _import "gtk_entry_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_entry_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithBuffer_ = _import "gtk_entry_new_with_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getActivatesDefault_ = _import "gtk_entry_get_activates_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getAlignment_ = _import "gtk_entry_get_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Float.val_;
+    val getActivatesDefault_ = _import "gtk_entry_get_activates_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getAlignment_ = _import "gtk_entry_get_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Float.C.val_;
     val getBuffer_ = _import "gtk_entry_get_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCompletion_ = _import "gtk_entry_get_completion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getCurrentIconDragSource_ = _import "gtk_entry_get_current_icon_drag_source" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getCurrentIconDragSource_ = _import "gtk_entry_get_current_icon_drag_source" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getCursorHadjustment_ = _import "gtk_entry_get_cursor_hadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getHasFrame_ = _import "gtk_entry_get_has_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIconActivatable_ = fn x1 & x2 => (_import "gtk_entry_get_icon_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.Bool.val_;) (x1, x2)
+    val getHasFrame_ = _import "gtk_entry_get_has_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIconActivatable_ = fn x1 & x2 => (_import "gtk_entry_get_icon_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val getIconArea_ =
       fn
         x1
@@ -52,9 +52,9 @@ structure GtkEntry :>
           (
             _import "gtk_entry_get_icon_at_pos" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Int32.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -62,15 +62,15 @@ structure GtkEntry :>
               x3
             )
     val getIconGicon_ = fn x1 & x2 => (_import "gtk_entry_get_icon_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val getIconPixbuf_ = fn x1 & x2 => (_import "gtk_entry_get_icon_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getIconSensitive_ = fn x1 & x2 => (_import "gtk_entry_get_icon_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.Bool.val_;) (x1, x2)
-    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getIconSensitive_ = fn x1 & x2 => (_import "gtk_entry_get_icon_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val getIconStorageType_ = fn x1 & x2 => (_import "gtk_entry_get_icon_storage_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GtkImageType.C.val_;) (x1, x2)
-    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
-    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val getInnerBorder_ = _import "gtk_entry_get_inner_border" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkBorderRecord.C.notnull GtkBorderRecord.C.p;
-    val getInvisibleChar_ = _import "gtk_entry_get_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Char.val_;
+    val getInvisibleChar_ = _import "gtk_entry_get_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Char.C.val_;
     val getLayout_ = _import "gtk_entry_get_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getLayoutOffsets_ =
       fn
@@ -80,8 +80,8 @@ structure GtkEntry :>
           (
             _import "gtk_entry_get_layout_offsets" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -89,26 +89,26 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val getMaxLength_ = _import "gtk_entry_get_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getOverwriteMode_ = _import "gtk_entry_get_overwrite_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getProgressFraction_ = _import "gtk_entry_get_progress_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.val_;
-    val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.val_;
-    val getText_ = _import "gtk_entry_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getMaxLength_ = _import "gtk_entry_get_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getOverwriteMode_ = _import "gtk_entry_get_overwrite_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getProgressFraction_ = _import "gtk_entry_get_progress_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
+    val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
+    val getText_ = _import "gtk_entry_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getTextArea_ = fn x1 & x2 => (_import "gtk_entry_get_text_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
-    val getTextLength_ = _import "gtk_entry_get_text_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.val_;
-    val getVisibility_ = _import "gtk_entry_get_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getWidthChars_ = _import "gtk_entry_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_entry_im_context_filter_keypress" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.val_;) (x1, x2)
-    val layoutIndexToTextIndex_ = fn x1 & x2 => (_import "gtk_entry_layout_index_to_text_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
+    val getTextLength_ = _import "gtk_entry_get_text_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.C.val_;
+    val getVisibility_ = _import "gtk_entry_get_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getWidthChars_ = _import "gtk_entry_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_entry_im_context_filter_keypress" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val layoutIndexToTextIndex_ = fn x1 & x2 => (_import "gtk_entry_layout_index_to_text_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val progressPulse_ = _import "gtk_entry_progress_pulse" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val resetImContext_ = _import "gtk_entry_reset_im_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setActivatesDefault_ = fn x1 & x2 => (_import "gtk_entry_set_activates_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setAlignment_ = fn x1 & x2 => (_import "gtk_entry_set_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Float.val_ -> unit;) (x1, x2)
+    val setActivatesDefault_ = fn x1 & x2 => (_import "gtk_entry_set_activates_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setAlignment_ = fn x1 & x2 => (_import "gtk_entry_set_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Float.C.val_ -> unit;) (x1, x2)
     val setBuffer_ = fn x1 & x2 => (_import "gtk_entry_set_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setCompletion_ = fn x1 & x2 => (_import "gtk_entry_set_completion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setCursorHadjustment_ = fn x1 & x2 => (_import "gtk_entry_set_cursor_hadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setHasFrame_ = fn x1 & x2 => (_import "gtk_entry_set_has_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setHasFrame_ = fn x1 & x2 => (_import "gtk_entry_set_has_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setIconActivatable_ =
       fn
         x1
@@ -118,7 +118,7 @@ structure GtkEntry :>
             _import "gtk_entry_set_icon_activatable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -227,7 +227,7 @@ structure GtkEntry :>
             _import "gtk_entry_set_icon_sensitive" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -274,9 +274,9 @@ structure GtkEntry :>
               x4
             )
     val setInnerBorder_ = fn x1 & x2 => (_import "gtk_entry_set_inner_border" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkBorderRecord.C.p -> unit;) (x1, x2)
-    val setInvisibleChar_ = fn x1 & x2 => (_import "gtk_entry_set_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Char.val_ -> unit;) (x1, x2)
-    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_set_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setOverwriteMode_ = fn x1 & x2 => (_import "gtk_entry_set_overwrite_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setInvisibleChar_ = fn x1 & x2 => (_import "gtk_entry_set_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Char.C.val_ -> unit;) (x1, x2)
+    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_set_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setOverwriteMode_ = fn x1 & x2 => (_import "gtk_entry_set_overwrite_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setPlaceholderText_ =
       fn
         x1 & (x2, x3) =>
@@ -292,8 +292,8 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val setProgressFraction_ = fn x1 & x2 => (_import "gtk_entry_set_progress_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.val_ -> unit;) (x1, x2)
-    val setProgressPulseStep_ = fn x1 & x2 => (_import "gtk_entry_set_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.val_ -> unit;) (x1, x2)
+    val setProgressFraction_ = fn x1 & x2 => (_import "gtk_entry_set_progress_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setProgressPulseStep_ = fn x1 & x2 => (_import "gtk_entry_set_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     val setText_ =
       fn
         x1 & (x2, x3) =>
@@ -309,9 +309,9 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val setVisibility_ = fn x1 & x2 => (_import "gtk_entry_set_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val textIndexToLayoutIndex_ = fn x1 & x2 => (_import "gtk_entry_text_index_to_layout_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> FFI.Int32.val_;) (x1, x2)
+    val setVisibility_ = fn x1 & x2 => (_import "gtk_entry_set_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val textIndexToLayoutIndex_ = fn x1 & x2 => (_import "gtk_entry_text_index_to_layout_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val unsetInvisibleChar_ = _import "gtk_entry_unset_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkEntryClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -335,14 +335,14 @@ structure GtkEntry :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkEntryClass.C.fromPtr false) new_ ()
     fun newWithBuffer buffer = (GObjectObjectClass.C.withPtr ---> GtkEntryClass.C.fromPtr false) newWithBuffer_ buffer
-    fun getActivatesDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getActivatesDefault_ self
-    fun getAlignment self = (GObjectObjectClass.C.withPtr ---> FFI.Float.fromVal) getAlignment_ self
+    fun getActivatesDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActivatesDefault_ self
+    fun getAlignment self = (GObjectObjectClass.C.withPtr ---> FFI.Float.C.fromVal) getAlignment_ self
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkEntryBufferClass.C.fromPtr false) getBuffer_ self
     fun getCompletion self = (GObjectObjectClass.C.withPtr ---> GtkEntryCompletionClass.C.fromPtr false) getCompletion_ self
-    fun getCurrentIconDragSource self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getCurrentIconDragSource_ self
+    fun getCurrentIconDragSource self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentIconDragSource_ self
     fun getCursorHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getCursorHadjustment_ self
-    fun getHasFrame self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasFrame_ self
-    fun getIconActivatable self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.fromVal) getIconActivatable_ (self & iconPos)
+    fun getHasFrame self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasFrame_ self
+    fun getIconActivatable self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.C.fromVal) getIconActivatable_ (self & iconPos)
     fun getIconArea self iconPos =
       let
         val iconArea & () =
@@ -364,9 +364,9 @@ structure GtkEntry :>
     fun getIconAtPos self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Int32.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Int32.C.fromVal
       )
         getIconAtPos_
         (
@@ -375,15 +375,15 @@ structure GtkEntry :>
            & y
         )
     fun getIconGicon self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GioIconClass.C.fromPtr false) getIconGicon_ (self & iconPos)
-    fun getIconName self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.fromPtr false) getIconName_ (self & iconPos)
+    fun getIconName self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr false) getIconName_ (self & iconPos)
     fun getIconPixbuf self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GdkPixbufPixbufClass.C.fromPtr false) getIconPixbuf_ (self & iconPos)
-    fun getIconSensitive self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.fromVal) getIconSensitive_ (self & iconPos)
-    fun getIconStock self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.fromPtr false) getIconStock_ (self & iconPos)
+    fun getIconSensitive self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.C.fromVal) getIconSensitive_ (self & iconPos)
+    fun getIconStock self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr false) getIconStock_ (self & iconPos)
     fun getIconStorageType self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GtkImageType.C.fromVal) getIconStorageType_ (self & iconPos)
-    fun getIconTooltipMarkup self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.fromPtr true) getIconTooltipMarkup_ (self & iconPos)
-    fun getIconTooltipText self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.fromPtr true) getIconTooltipText_ (self & iconPos)
+    fun getIconTooltipMarkup self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr true) getIconTooltipMarkup_ (self & iconPos)
+    fun getIconTooltipText self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr true) getIconTooltipText_ (self & iconPos)
     fun getInnerBorder self = (GObjectObjectClass.C.withPtr ---> GtkBorderRecord.C.fromPtr false) getInnerBorder_ self
-    fun getInvisibleChar self = (GObjectObjectClass.C.withPtr ---> FFI.Char.fromVal) getInvisibleChar_ self
+    fun getInvisibleChar self = (GObjectObjectClass.C.withPtr ---> FFI.Char.C.fromVal) getInvisibleChar_ self
     fun getLayout self = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
@@ -392,10 +392,10 @@ structure GtkEntry :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getLayoutOffsets_
@@ -407,36 +407,36 @@ structure GtkEntry :>
       in
         (x, y)
       end
-    fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMaxLength_ self
-    fun getOverwriteMode self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getOverwriteMode_ self
-    fun getPlaceholderText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getPlaceholderText_ self
-    fun getProgressFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getProgressFraction_ self
-    fun getProgressPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getProgressPulseStep_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getText_ self
+    fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxLength_ self
+    fun getOverwriteMode self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOverwriteMode_ self
+    fun getPlaceholderText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPlaceholderText_ self
+    fun getProgressFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getProgressFraction_ self
+    fun getProgressPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getProgressPulseStep_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
     fun getTextArea self =
       let
         val textArea & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getTextArea_ (self & ())
       in
         textArea
       end
-    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.fromVal) getTextLength_ self
-    fun getVisibility self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisibility_ self
-    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getWidthChars_ self
-    fun imContextFilterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.fromVal) imContextFilterKeypress_ (self & event)
-    fun layoutIndexToTextIndex self layoutIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) layoutIndexToTextIndex_ (self & layoutIndex)
+    fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.C.fromVal) getTextLength_ self
+    fun getVisibility self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibility_ self
+    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidthChars_ self
+    fun imContextFilterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) imContextFilterKeypress_ (self & event)
+    fun layoutIndexToTextIndex self layoutIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) layoutIndexToTextIndex_ (self & layoutIndex)
     fun progressPulse self = (GObjectObjectClass.C.withPtr ---> I) progressPulse_ self
     fun resetImContext self = (GObjectObjectClass.C.withPtr ---> I) resetImContext_ self
-    fun setActivatesDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setActivatesDefault_ (self & setting)
-    fun setAlignment self xalign = (GObjectObjectClass.C.withPtr &&&> FFI.Float.withVal ---> I) setAlignment_ (self & xalign)
+    fun setActivatesDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActivatesDefault_ (self & setting)
+    fun setAlignment self xalign = (GObjectObjectClass.C.withPtr &&&> FFI.Float.C.withVal ---> I) setAlignment_ (self & xalign)
     fun setBuffer self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setBuffer_ (self & buffer)
     fun setCompletion self completion = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setCompletion_ (self & completion)
     fun setCursorHadjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setCursorHadjustment_ (self & adjustment)
-    fun setHasFrame self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasFrame_ (self & setting)
+    fun setHasFrame self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasFrame_ (self & setting)
     fun setIconActivatable self iconPos activatable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setIconActivatable_
@@ -477,7 +477,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         setIconFromIconName_
@@ -503,7 +503,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         setIconFromStock_
@@ -516,7 +516,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setIconSensitive_
@@ -529,7 +529,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         setIconTooltipMarkup_
@@ -542,7 +542,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> I
       )
         setIconTooltipText_
@@ -552,16 +552,16 @@ structure GtkEntry :>
            & tooltip
         )
     fun setInnerBorder self border = (GObjectObjectClass.C.withPtr &&&> GtkBorderRecord.C.withOptPtr ---> I) setInnerBorder_ (self & border)
-    fun setInvisibleChar self ch = (GObjectObjectClass.C.withPtr &&&> FFI.Char.withVal ---> I) setInvisibleChar_ (self & ch)
-    fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMaxLength_ (self & max)
-    fun setOverwriteMode self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setOverwriteMode_ (self & overwrite)
-    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setPlaceholderText_ (self & text)
-    fun setProgressFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setProgressFraction_ (self & fraction)
-    fun setProgressPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setProgressPulseStep_ (self & fraction)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setText_ (self & text)
-    fun setVisibility self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisibility_ (self & visible)
-    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setWidthChars_ (self & nChars)
-    fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.Int32.fromVal) textIndexToLayoutIndex_ (self & textIndex)
+    fun setInvisibleChar self ch = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> I) setInvisibleChar_ (self & ch)
+    fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxLength_ (self & max)
+    fun setOverwriteMode self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverwriteMode_ (self & overwrite)
+    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPlaceholderText_ (self & text)
+    fun setProgressFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressFraction_ (self & fraction)
+    fun setProgressPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressPulseStep_ (self & fraction)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setText_ (self & text)
+    fun setVisibility self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibility_ (self & visible)
+    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidthChars_ (self & nChars)
+    fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) textIndexToLayoutIndex_ (self & textIndex)
     fun unsetInvisibleChar self = (GObjectObjectClass.C.withPtr ---> I) unsetInvisibleChar_ self
     local
       open ClosureMarshal Signal

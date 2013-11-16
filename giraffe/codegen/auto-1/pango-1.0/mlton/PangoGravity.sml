@@ -15,9 +15,9 @@ structure PangoGravity :>
     | AUTO
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             SOUTH => f 0
@@ -25,7 +25,7 @@ structure PangoGravity :>
           | NORTH => f 2
           | WEST => f 3
           | AUTO => f 4
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => SOUTH
@@ -73,7 +73,7 @@ structure PangoGravity :>
           (
             _import "pango_gravity_get_for_script_and_width" :
               PangoScript.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                * C.val_
                * PangoGravityHint.C.val_
                -> C.val_;
@@ -84,7 +84,7 @@ structure PangoGravity :>
               x3,
               x4
             )
-    val toRotation_ = _import "pango_gravity_to_rotation" : C.val_ -> FFI.Double.val_;
+    val toRotation_ = _import "pango_gravity_to_rotation" : C.val_ -> FFI.Double.C.val_;
     type matrixrecord_t = PangoMatrixRecord.t
     type gravityhint_t = PangoGravityHint.t
     type script_t = PangoScript.t
@@ -106,7 +106,7 @@ structure PangoGravity :>
     fun getForScriptAndWidth script wide baseGravity hint =
       (
         PangoScript.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          &&&> C.withVal
          &&&> PangoGravityHint.C.withVal
          ---> C.fromVal
@@ -118,5 +118,5 @@ structure PangoGravity :>
            & baseGravity
            & hint
         )
-    fun toRotation gravity = (C.withVal ---> FFI.Double.fromVal) toRotation_ gravity
+    fun toRotation gravity = (C.withVal ---> FFI.Double.C.fromVal) toRotation_ gravity
   end

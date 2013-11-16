@@ -33,9 +33,9 @@ structure GLibFileError :>
     | FAILED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             EXIST => f 0
@@ -63,7 +63,7 @@ structure GLibFileError :>
           | PERM => f 22
           | NOSYS => f 23
           | FAILED => f 24
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => EXIST

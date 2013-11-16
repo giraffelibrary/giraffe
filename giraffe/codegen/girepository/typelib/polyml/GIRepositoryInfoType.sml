@@ -24,7 +24,7 @@ structure GIRepositoryInfoType :>
       val getType_ =
         call
           (load_sym libgirepository "g_base_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
     end
 
 
@@ -96,7 +96,7 @@ structure GIRepositoryInfoType :>
       val getType : 'a baseinfoclass_t -> t =
         fn info =>
           GIRepositoryBaseInfoClass.C.withPtr
-            (fn ptr => Vector.sub (table, getType_ ptr) ptr)
+            (fn ptr => Vector.sub (table, FFI.Int32.C.fromVal (getType_ ptr)) ptr)
             info
             handle
               Subscript => INVALID

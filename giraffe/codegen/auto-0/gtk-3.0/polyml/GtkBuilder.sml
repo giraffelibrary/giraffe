@@ -11,32 +11,32 @@ structure GtkBuilder :>
         call (load_sym libgtk "gtk_builder_add_from_file")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.UInt32.VAL
+             --> FFI.UInt32.PolyML.VAL
           )
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.UInt64.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.UInt64.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.UInt32.VAL
+             --> FFI.UInt32.PolyML.VAL
           )
       val connectSignals_ = call (load_sym libgtk "gtk_builder_connect_signals") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
+      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val valueFromString_ =
         call (load_sym libgtk "gtk_builder_value_from_string")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectParamSpecClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GtkBuilderClass.t
@@ -45,9 +45,9 @@ structure GtkBuilder :>
     fun addFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addFromFile_
         (
@@ -58,10 +58,10 @@ structure GtkBuilder :>
     fun addFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addFromString_
         (
@@ -71,19 +71,19 @@ structure GtkBuilder :>
            & []
         )
     fun connectSignals self = (GObjectObjectClass.C.withPtr ---> I) connectSignals_ self
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GObjectValueRecord.C.withNewPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             valueFromString_
             (

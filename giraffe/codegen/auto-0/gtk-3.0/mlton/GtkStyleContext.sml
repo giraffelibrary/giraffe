@@ -22,7 +22,7 @@ structure GtkStyleContext :>
             _import "gtk_style_context_add_provider_for_screen" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -56,7 +56,7 @@ structure GtkStyleContext :>
             _import "gtk_style_context_add_provider" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -219,7 +219,7 @@ structure GtkStyleContext :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -237,7 +237,7 @@ structure GtkStyleContext :>
                * cstring
                * unit CPointer.t
                * GtkRegionFlags.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -257,7 +257,7 @@ structure GtkStyleContext :>
                * cstring
                * unit CPointer.t
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -291,7 +291,7 @@ structure GtkStyleContext :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateType.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -345,8 +345,8 @@ structure GtkStyleContext :>
             _import "gtk_style_context_scroll_animations" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -370,8 +370,8 @@ structure GtkStyleContext :>
             _import "gtk_style_context_state_is_running" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateType.C.val_
-               * FFI.Double.ref_
-               -> FFI.Bool.val_;
+               * FFI.Double.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -394,7 +394,7 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         addProviderForScreen_
@@ -405,12 +405,12 @@ structure GtkStyleContext :>
         )
     fun removeProviderForScreen screen provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProviderForScreen_ (screen & provider)
     fun resetWidgets screen = (GObjectObjectClass.C.withPtr ---> I) resetWidgets_ screen
-    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) addClass_ (self & className)
+    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addClass_ (self & className)
     fun addProvider self provider priority =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         addProvider_
@@ -422,7 +422,7 @@ structure GtkStyleContext :>
     fun addRegion self regionName flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -550,7 +550,7 @@ structure GtkStyleContext :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -560,15 +560,15 @@ structure GtkStyleContext :>
            & propertyName
            & value
         )
-    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasClass_ (self & className)
+    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
     fun hasRegion self regionName =
       let
         val flagsReturn & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GtkRegionFlags.C.withRefVal
-             ---> GtkRegionFlags.C.fromVal && FFI.Bool.fromVal
+             ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
             hasRegion_
             (
@@ -585,9 +585,9 @@ structure GtkStyleContext :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             lookupColor_
             (
@@ -598,13 +598,13 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun notifyStateChange self window state stateValue =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         notifyStateChange_
@@ -616,17 +616,17 @@ structure GtkStyleContext :>
         )
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
     fun pushAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) pushAnimatableRegion_ self
-    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) removeClass_ (self & className)
+    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
-    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) removeRegion_ (self & regionName)
+    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeRegion_ (self & regionName)
     fun restore self = (GObjectObjectClass.C.withPtr ---> I) restore_ self
     fun save self = (GObjectObjectClass.C.withPtr ---> I) save_ self
     fun scrollAnimations self window dx dy =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         scrollAnimations_
@@ -648,8 +648,8 @@ structure GtkStyleContext :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkStateType.C.withVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal && FFI.Bool.fromVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal && FFI.Bool.C.fromVal
           )
             stateIsRunning_
             (

@@ -12,15 +12,15 @@ structure GtkButtonBox :>
     in
       val getType_ = call (load_sym libgtk "gtk_button_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_button_box_new") (GtkOrientation.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getChildNonHomogeneous_ = call (load_sym libgtk "gtk_button_box_get_child_non_homogeneous") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getChildSecondary_ = call (load_sym libgtk "gtk_button_box_get_child_secondary") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getChildNonHomogeneous_ = call (load_sym libgtk "gtk_button_box_get_child_non_homogeneous") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getChildSecondary_ = call (load_sym libgtk "gtk_button_box_get_child_secondary") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getLayout_ = call (load_sym libgtk "gtk_button_box_get_layout") (GObjectObjectClass.PolyML.PTR --> GtkButtonBoxStyle.PolyML.VAL)
       val setChildNonHomogeneous_ =
         call (load_sym libgtk "gtk_button_box_set_child_non_homogeneous")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setChildSecondary_ =
@@ -28,7 +28,7 @@ structure GtkButtonBox :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setLayout_ = call (load_sym libgtk "gtk_button_box_set_layout") (GObjectObjectClass.PolyML.PTR &&> GtkButtonBoxStyle.PolyML.VAL --> FFI.PolyML.VOID)
@@ -44,14 +44,14 @@ structure GtkButtonBox :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new orientation = (GtkOrientation.C.withVal ---> GtkButtonBoxClass.C.fromPtr false) new_ orientation
-    fun getChildNonHomogeneous self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildNonHomogeneous_ (self & child)
-    fun getChildSecondary self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildSecondary_ (self & child)
+    fun getChildNonHomogeneous self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildNonHomogeneous_ (self & child)
+    fun getChildSecondary self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildSecondary_ (self & child)
     fun getLayout self = (GObjectObjectClass.C.withPtr ---> GtkButtonBoxStyle.C.fromVal) getLayout_ self
     fun setChildNonHomogeneous self child nonHomogeneous =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setChildNonHomogeneous_
@@ -64,7 +64,7 @@ structure GtkButtonBox :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setChildSecondary_

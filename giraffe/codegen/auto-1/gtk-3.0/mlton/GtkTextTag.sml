@@ -20,7 +20,7 @@ structure GtkTextTag :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -28,22 +28,22 @@ structure GtkTextTag :>
               x3,
               x4
             )
-    val getPriority_ = _import "gtk_text_tag_get_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val getPriority_ = _import "gtk_text_tag_get_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTextTagClass.t
     type textiterrecord_t = GtkTextIterRecord.t
     type textdirection_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
     type wrapmode_t = GtkWrapMode.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (FFI.String.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         event_
         (
@@ -52,8 +52,8 @@ structure GtkTextTag :>
            & event
            & iter
         )
-    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getPriority_ self
-    fun setPriority self priority = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setPriority_ (self & priority)
+    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPriority_ self
+    fun setPriority self priority = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPriority_ (self & priority)
     local
       open ClosureMarshal Signal
     in

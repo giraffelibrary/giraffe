@@ -14,9 +14,9 @@ structure GtkDeleteType :>
     | WHITESPACE
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             CHARS => f 0
@@ -27,7 +27,7 @@ structure GtkDeleteType :>
           | PARAGRAPHENDS => f 5
           | PARAGRAPHS => f 6
           | WHITESPACE => f 7
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CHARS

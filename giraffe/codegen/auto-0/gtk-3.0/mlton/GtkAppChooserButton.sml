@@ -33,9 +33,9 @@ structure GtkAppChooserButton :>
               x6
             )
     val appendSeparator_ = _import "gtk_app_chooser_button_append_separator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getHeading_ = _import "gtk_app_chooser_button_get_heading" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getShowDefaultItem_ = _import "gtk_app_chooser_button_get_show_default_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowDialogItem_ = _import "gtk_app_chooser_button_get_show_dialog_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getHeading_ = _import "gtk_app_chooser_button_get_heading" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getShowDefaultItem_ = _import "gtk_app_chooser_button_get_show_default_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowDialogItem_ = _import "gtk_app_chooser_button_get_show_dialog_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setActiveCustomItem_ =
       fn
         x1 & (x2, x3) =>
@@ -66,8 +66,8 @@ structure GtkAppChooserButton :>
               x2,
               x3
             )
-    val setShowDefaultItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_default_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowDialogItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_dialog_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setShowDefaultItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_default_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowDialogItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_dialog_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkAppChooserButtonClass.t
     type 'a appchooserclass_t = 'a GtkAppChooserClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -79,12 +79,12 @@ structure GtkAppChooserButton :>
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (FFI.String.withConstPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
+    fun new contentType = (FFI.String.C.withConstPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
     fun appendCustomItem self name label icon =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -96,13 +96,13 @@ structure GtkAppChooserButton :>
            & icon
         )
     fun appendSeparator self = (GObjectObjectClass.C.withPtr ---> I) appendSeparator_ self
-    fun getHeading self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getHeading_ self
-    fun getShowDefaultItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowDefaultItem_ self
-    fun getShowDialogItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowDialogItem_ self
-    fun setActiveCustomItem self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setActiveCustomItem_ (self & name)
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setHeading_ (self & heading)
-    fun setShowDefaultItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowDefaultItem_ (self & setting)
-    fun setShowDialogItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowDialogItem_ (self & setting)
+    fun getHeading self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getHeading_ self
+    fun getShowDefaultItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefaultItem_ self
+    fun getShowDialogItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDialogItem_ self
+    fun setActiveCustomItem self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setActiveCustomItem_ (self & name)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setShowDefaultItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefaultItem_ (self & setting)
+    fun setShowDialogItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDialogItem_ (self & setting)
     local
       open ClosureMarshal Signal
     in

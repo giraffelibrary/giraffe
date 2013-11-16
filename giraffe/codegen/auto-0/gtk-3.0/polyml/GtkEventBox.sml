@@ -8,10 +8,10 @@ structure GtkEventBox :>
     in
       val getType_ = call (load_sym libgtk "gtk_event_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_event_box_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getAboveChild_ = call (load_sym libgtk "gtk_event_box_get_above_child") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getVisibleWindow_ = call (load_sym libgtk "gtk_event_box_get_visible_window") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setAboveChild_ = call (load_sym libgtk "gtk_event_box_set_above_child") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setVisibleWindow_ = call (load_sym libgtk "gtk_event_box_set_visible_window") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val getAboveChild_ = call (load_sym libgtk "gtk_event_box_get_above_child") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getVisibleWindow_ = call (load_sym libgtk "gtk_event_box_get_visible_window") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setAboveChild_ = call (load_sym libgtk "gtk_event_box_set_above_child") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setVisibleWindow_ = call (load_sym libgtk "gtk_event_box_set_visible_window") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkEventBoxClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -19,10 +19,10 @@ structure GtkEventBox :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkEventBoxClass.C.fromPtr false) new_ ()
-    fun getAboveChild self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAboveChild_ self
-    fun getVisibleWindow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisibleWindow_ self
-    fun setAboveChild self aboveChild = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAboveChild_ (self & aboveChild)
-    fun setVisibleWindow self visibleWindow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisibleWindow_ (self & visibleWindow)
+    fun getAboveChild self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAboveChild_ self
+    fun getVisibleWindow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleWindow_ self
+    fun setAboveChild self aboveChild = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAboveChild_ (self & aboveChild)
+    fun setVisibleWindow self visibleWindow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleWindow_ (self & visibleWindow)
     local
       open Property
     in

@@ -8,26 +8,26 @@ structure AtkHyperlink :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libatk "atk_hyperlink_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getEndIndex_ = call (load_sym libatk "atk_hyperlink_get_end_index") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getNAnchors_ = call (load_sym libatk "atk_hyperlink_get_n_anchors") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getObject_ = call (load_sym libatk "atk_hyperlink_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getStartIndex_ = call (load_sym libatk "atk_hyperlink_get_start_index") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val getUri_ = call (load_sym libatk "atk_hyperlink_get_uri") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.String.RETPTR)
-      val isInline_ = call (load_sym libatk "atk_hyperlink_is_inline") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getEndIndex_ = call (load_sym libatk "atk_hyperlink_get_end_index") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getNAnchors_ = call (load_sym libatk "atk_hyperlink_get_n_anchors") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getObject_ = call (load_sym libatk "atk_hyperlink_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getStartIndex_ = call (load_sym libatk "atk_hyperlink_get_start_index") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getUri_ = call (load_sym libatk "atk_hyperlink_get_uri") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val isInline_ = call (load_sym libatk "atk_hyperlink_is_inline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkHyperlinkClass.t
     type 'a actionclass_t = 'a AtkActionClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getEndIndex self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getEndIndex_ self
-    fun getNAnchors self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNAnchors_ self
-    fun getObject self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> AtkObjectClass.C.fromPtr false) getObject_ (self & i)
-    fun getStartIndex self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getStartIndex_ self
-    fun getUri self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> FFI.String.fromPtr true) getUri_ (self & i)
-    fun isInline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isInline_ self
-    fun isValid self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isValid_ self
+    fun getEndIndex self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getEndIndex_ self
+    fun getNAnchors self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAnchors_ self
+    fun getObject self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkObjectClass.C.fromPtr false) getObject_ (self & i)
+    fun getStartIndex self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getStartIndex_ self
+    fun getUri self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr true) getUri_ (self & i)
+    fun isInline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isInline_ self
+    fun isValid self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isValid_ self
     local
       open ClosureMarshal Signal
     in

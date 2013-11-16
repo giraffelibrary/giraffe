@@ -48,14 +48,14 @@ structure GioProxy :>
               x2,
               x3
             )
-    val supportsHostname_ = _import "g_proxy_supports_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val supportsHostname_ = _import "g_proxy_supports_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a GioProxyClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a proxyaddressclass_t = 'a GioProxyAddressClass.t
     type 'a iostreamclass_t = 'a GioIOStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDefaultForProtocol protocol = (FFI.String.withConstPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol
+    fun getDefaultForProtocol protocol = (FFI.String.C.withConstPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol
     fun connect self connection proxyAddress cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -86,5 +86,5 @@ structure GioProxy :>
            & result
            & []
         )
-    fun supportsHostname self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) supportsHostname_ self
+    fun supportsHostname self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsHostname_ self
   end

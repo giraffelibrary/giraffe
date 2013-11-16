@@ -39,12 +39,12 @@ structure GdkEventKeyRecord :>
       val getSendEvent_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_send_event")
-          (PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val getTime_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_time")
-          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
+          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
 
       val getState_ =
         call
@@ -54,22 +54,22 @@ structure GdkEventKeyRecord :>
       val getKeyval_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_keyval")
-          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
+          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
 
       val getHardwareKeycode_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_hardware_keycode")
-          (PolyML.PTR --> FFI.PolyML.UInt32.VAL);
+          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
 
       val getGroup_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_group")
-          (PolyML.PTR --> FFI.PolyML.UInt8.VAL);
+          (PolyML.PTR --> FFI.UInt8.PolyML.VAL);
 
       val getIsModifier_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_is_modifier")
-          (PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (PolyML.PTR --> FFI.Bool.PolyML.VAL);
     end
 
 
@@ -79,19 +79,19 @@ structure GdkEventKeyRecord :>
 
     fun getWindow e = (C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ e
 
-    fun getSendEvent e = (C.withPtr ---> FFI.Bool.fromVal) getSendEvent_ e
+    fun getSendEvent e = (C.withPtr ---> FFI.Bool.C.fromVal) getSendEvent_ e
 
-    fun getTime e = (C.withPtr ---> FFI.UInt32.fromVal) getTime_ e
+    fun getTime e = (C.withPtr ---> FFI.UInt32.C.fromVal) getTime_ e
 
     fun getState e = (C.withPtr ---> GdkModifierType.C.fromVal) getState_ e
 
-    fun getKeyval e = (C.withPtr ---> FFI.UInt32.fromVal) getKeyval_ e
+    fun getKeyval e = (C.withPtr ---> FFI.UInt32.C.fromVal) getKeyval_ e
 
-    fun getHardwareKeycode e = (C.withPtr ---> FFI.UInt32.fromVal) getHardwareKeycode_ e
+    fun getHardwareKeycode e = (C.withPtr ---> FFI.UInt32.C.fromVal) getHardwareKeycode_ e
 
-    fun getGroup e = (C.withPtr ---> FFI.UInt8.fromVal) getGroup_ e
+    fun getGroup e = (C.withPtr ---> FFI.UInt8.C.fromVal) getGroup_ e
 
-    fun getIsModifier e = (C.withPtr ---> FFI.Bool.fromVal) getIsModifier_ e
+    fun getIsModifier e = (C.withPtr ---> FFI.Bool.C.fromVal) getIsModifier_ e
 
 
     val t = GdkEvent.t

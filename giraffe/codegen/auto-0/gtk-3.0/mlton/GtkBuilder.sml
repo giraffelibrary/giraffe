@@ -15,7 +15,7 @@ structure GtkBuilder :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.UInt32.val_;
+               -> FFI.UInt32.C.val_;
           )
             (
               x1,
@@ -34,9 +34,9 @@ structure GtkBuilder :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.UInt32.val_;
+               -> FFI.UInt32.C.val_;
           )
             (
               x1,
@@ -61,7 +61,7 @@ structure GtkBuilder :>
               x2,
               x3
             )
-    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val setTranslationDomain_ =
       fn
         x1 & (x2, x3) =>
@@ -92,7 +92,7 @@ structure GtkBuilder :>
                * unit CPointer.t
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -108,9 +108,9 @@ structure GtkBuilder :>
     fun addFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addFromFile_
         (
@@ -121,10 +121,10 @@ structure GtkBuilder :>
     fun addFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.fromVal
+         ---> FFI.UInt32.C.fromVal
       )
         addFromString_
         (
@@ -134,19 +134,19 @@ structure GtkBuilder :>
            & []
         )
     fun connectSignals self = (GObjectObjectClass.C.withPtr ---> I) connectSignals_ self
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GObjectValueRecord.C.withNewPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             valueFromString_
             (

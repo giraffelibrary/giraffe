@@ -16,7 +16,7 @@ structure GioFileEnumerator :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val closeFinish_ =
         call (load_sym libgio "g_file_enumerator_close_finish")
@@ -24,11 +24,11 @@ structure GioFileEnumerator :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val getContainer_ = call (load_sym libgio "g_file_enumerator_get_container") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val hasPending_ = call (load_sym libgio "g_file_enumerator_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isClosed_ = call (load_sym libgio "g_file_enumerator_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val hasPending_ = call (load_sym libgio "g_file_enumerator_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isClosed_ = call (load_sym libgio "g_file_enumerator_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val nextFile_ =
         call (load_sym libgio "g_file_enumerator_next_file")
           (
@@ -37,7 +37,7 @@ structure GioFileEnumerator :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioFileEnumeratorClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
@@ -50,7 +50,7 @@ structure GioFileEnumerator :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -63,7 +63,7 @@ structure GioFileEnumerator :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -72,8 +72,8 @@ structure GioFileEnumerator :>
            & []
         )
     fun getContainer self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr false) getContainer_ self
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun nextFile self cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -87,7 +87,7 @@ structure GioFileEnumerator :>
            & cancellable
            & []
         )
-    fun setPending self pending = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setPending_ (self & pending)
+    fun setPending self pending = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPending_ (self & pending)
     local
       open Property
     in

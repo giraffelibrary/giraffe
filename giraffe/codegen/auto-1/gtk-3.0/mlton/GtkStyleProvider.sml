@@ -23,7 +23,7 @@ structure GtkStyleProvider :>
                * GtkStateFlags.C.val_
                * GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -49,7 +49,7 @@ structure GtkStyleProvider :>
              &&&> GtkStateFlags.C.withVal
              &&&> GObjectParamSpecClass.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getStyleProperty_
             (

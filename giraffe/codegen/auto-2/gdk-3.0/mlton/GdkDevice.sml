@@ -27,8 +27,8 @@ structure GdkDevice :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
-               * FFI.Bool.ref_
-               -> FFI.Bool.val_;
+               * FFI.Bool.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -37,10 +37,10 @@ structure GdkDevice :>
               x4
             )
     val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> GdkAxisUse.C.val_;) (x1, x2)
+    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> GdkAxisUse.C.val_;) (x1, x2)
     val getDeviceType_ = _import "gdk_device_get_device_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDeviceType.C.val_;
     val getDisplay_ = _import "gdk_device_get_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getKey_ =
       fn
         x1
@@ -50,10 +50,10 @@ structure GdkDevice :>
           (
             _import "gdk_device_get_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.ref_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.ref_
                * GdkModifierType.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -62,9 +62,9 @@ structure GdkDevice :>
               x4
             )
     val getMode_ = _import "gdk_device_get_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkInputMode.C.val_;
-    val getNAxes_ = _import "gdk_device_get_n_axes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getNKeys_ = _import "gdk_device_get_n_keys" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getName_ = _import "gdk_device_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getNAxes_ = _import "gdk_device_get_n_axes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getNKeys_ = _import "gdk_device_get_n_keys" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getName_ = _import "gdk_device_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPosition_ =
       fn
         x1
@@ -75,8 +75,8 @@ structure GdkDevice :>
             _import "gdk_device_get_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -94,8 +94,8 @@ structure GdkDevice :>
           (
             _import "gdk_device_get_window_at_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -117,10 +117,10 @@ structure GdkDevice :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkGrabOwnership.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                * GdkEventMask.C.val_
                * unit GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                -> GdkGrabStatus.C.val_;
           )
             (
@@ -140,7 +140,7 @@ structure GdkDevice :>
           (
             _import "gdk_device_set_axis_use" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * GdkAxisUse.C.val_
                -> unit;
           )
@@ -158,8 +158,8 @@ structure GdkDevice :>
           (
             _import "gdk_device_set_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
                -> unit;
           )
@@ -169,8 +169,8 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkInputMode.C.val_ -> FFI.Bool.val_;) (x1, x2)
-    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkInputMode.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val warp_ =
       fn
         x1
@@ -181,8 +181,8 @@ structure GdkDevice :>
             _import "gdk_device_warp" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -215,10 +215,10 @@ structure GdkDevice :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> FFI.Bool.withRefVal
+             &&&> FFI.Bool.C.withRefVal
              ---> GdkWindowClass.C.fromPtr false
-                   && FFI.Bool.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             grabInfoLibgtkOnly_
             (
@@ -231,10 +231,10 @@ structure GdkDevice :>
         if retVal then SOME (grabWindow, ownerEvents) else NONE
       end
     fun getAssociatedDevice self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getAssociatedDevice_ self
-    fun getAxisUse self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> GdkAxisUse.C.fromVal) getAxisUse_ (self & index)
+    fun getAxisUse self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> GdkAxisUse.C.fromVal) getAxisUse_ (self & index)
     fun getDeviceType self = (GObjectObjectClass.C.withPtr ---> GdkDeviceType.C.fromVal) getDeviceType_ self
     fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getHasCursor self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasCursor_ self
+    fun getHasCursor self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasCursor_ self
     fun getKey self index =
       let
         val keyval
@@ -242,12 +242,12 @@ structure GdkDevice :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withVal
-             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.UInt32.C.withVal
+             &&&> FFI.UInt32.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
-             ---> FFI.UInt32.fromVal
+             ---> FFI.UInt32.C.fromVal
                    && GdkModifierType.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getKey_
             (
@@ -260,9 +260,9 @@ structure GdkDevice :>
         if retVal then SOME (keyval, modifiers) else NONE
       end
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GdkInputMode.C.fromVal) getMode_ self
-    fun getNAxes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNAxes_ self
-    fun getNKeys self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNKeys_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
+    fun getNAxes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAxes_ self
+    fun getNKeys self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNKeys_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
     fun getPosition self =
       let
         val screen
@@ -272,11 +272,11 @@ structure GdkDevice :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              ---> GdkScreenClass.C.fromPtr false
-                   && FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPosition_
@@ -301,10 +301,10 @@ structure GdkDevice :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && GdkWindowClass.C.fromPtr false
           )
             getWindowAtPosition_
@@ -325,10 +325,10 @@ structure GdkDevice :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkGrabOwnership.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          &&&> GdkEventMask.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> GdkGrabStatus.C.fromVal
       )
         grab_
@@ -344,7 +344,7 @@ structure GdkDevice :>
     fun setAxisUse self index use =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkAxisUse.C.withVal
          ---> I
       )
@@ -357,8 +357,8 @@ structure GdkDevice :>
     fun setKey self index keyval modifiers =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
       )
@@ -369,14 +369,14 @@ structure GdkDevice :>
            & keyval
            & modifiers
         )
-    fun setMode self mode = (GObjectObjectClass.C.withPtr &&&> GdkInputMode.C.withVal ---> FFI.Bool.fromVal) setMode_ (self & mode)
-    fun ungrab self time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) ungrab_ (self & time)
+    fun setMode self mode = (GObjectObjectClass.C.withPtr &&&> GdkInputMode.C.withVal ---> FFI.Bool.C.fromVal) setMode_ (self & mode)
+    fun ungrab self time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) ungrab_ (self & time)
     fun warp self screen x y =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         warp_

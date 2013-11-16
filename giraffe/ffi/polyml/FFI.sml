@@ -1,4 +1,4 @@
-structure FFI =
+structure FFI :> F_F_I =
   struct
 
     structure PolyML =
@@ -156,6 +156,12 @@ structure FFI =
             "X86_64" => ULONG
           | "I386"   => FAIL "unsupported architecture: I386"
           | _        => raise Fail "unknown architecture"
+
+
+        val SIZE = ULONG
+
+
+        val SSIZE = CInterface.LONG
 
 
         val ENUM =
@@ -376,6 +382,18 @@ structure FFI =
 
 
         (**
+         * SSize
+         *)
+        structure SSize = Long
+
+
+        (**
+         * Size
+         *)
+        structure Size = ULong
+
+
+        (**
          * Float
          *)
         structure Float =
@@ -435,7 +453,7 @@ structure FFI =
               val INPTR = GCharVecVec.PolyML.INPTR : notnull in_p
               val INOPTPTR = GCharVecVec.PolyML.INPTR : unit in_p
               val OUTREF = GCharVecVec.PolyML.INOUTREF : (unit, notnull) r
-              val OUTOPTREF = GCharVecVec.PolyML.INOUTREF : (unit, notnull) r
+              val OUTOPTREF = GCharVecVec.PolyML.INOUTREF : (unit, unit) r
               val INOUTREF = GCharVecVec.PolyML.INOUTREF : (notnull, notnull) r
               val RETPTR = GCharVecVec.PolyML.OUTPTR : notnull out_p
               val RETOPTPTR = GCharVecVec.PolyML.OUTPTR : unit out_p
@@ -444,140 +462,435 @@ structure FFI =
       end
 
 
-    val withVal = I
-
-    fun withRef conv f x =
-      let
-        val (fromC, toC, _) = CInterface.breakConversion conv
-        open CPointer
-        open PolyML
-
-        val v = toC x
-        val a = toOptNull (addressFromVol v)
-        val r = f a
-      in
-        fromC v & r
-      end
-
-    type ref_ = unit CPointer.t
-
-    fun withNullRef f () = f CPointer.null
-
-
-    (**
-     * Pointer
-     *)
-    structure Pointer =
+    structure C =
       struct
-        type val_ = CPointer.notnull CPointer.t
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Pointer.VAL f)
-        val fromVal = I
-      end
+
+     (* val withVal = I *)
+
+        fun withRef conv f x =
+          let
+            val (fromC, toC, _) = CInterface.breakConversion conv
+            open CPointer
+            open PolyML
+
+            val v = toC x
+            val a = toOptNull (addressFromVol v)
+            val r = f a
+          in
+            fromC v & r
+          end
+
+        type ref_ = unit CPointer.t
+
+        fun withNullRef f () = f CPointer.null
 
 
-    (**
-     * OptPointer
-     *)
-    structure OptPointer =
-      struct
-        type val_ = unit CPointer.t
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.OptPointer.VAL f)
-        val fromVal = I
-      end
+        (**
+         * Flags
+         *)
+        structure Flags =
+          struct
+            type val_ = Word32.word
+            type ref_ = ref_
+            val withRef = fn f => withRef PolyML.Flags.VAL f
+          end
 
 
-    (**
-     * Char
-     *)
-    structure Char =
-      struct
-        type val_ = Char.char
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Char.VAL f)
-        val fromVal = I
-      end
+        (**
+         * Enum
+         *)
+        structure Enum =
+          struct
+            type val_ = Int32.int
+            type ref_ = ref_
+            val withRef = fn f => withRef PolyML.Enum.VAL f
+          end
 
 
-    (**
-     * Short
-     *)
-    structure Short =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Short.VAL f)
-        val fromVal = I
-      end
+        (**
+         * Pointer
+         *)
+        structure Pointer =
+          struct
+            type val_ = CPointer.notnull CPointer.t
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Pointer.VAL f)
+            val fromVal = I
+          end
 
 
-    (**
-     * UShort
-     *)
-    structure UShort =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UShort.VAL f)
-        val fromVal = I
-      end
+        (**
+         * OptPointer
+         *)
+        structure OptPointer =
+          struct
+            type val_ = unit CPointer.t
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.OptPointer.VAL f)
+            val fromVal = I
+          end
 
 
-    (**
-     * Int
-     *)
-    structure Int =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Int.VAL f)
-        val fromVal = I
-      end
+        (**
+         * Char
+         *)
+        structure Char =
+          struct
+            type val_ = Char.char
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Char.VAL f)
+            val fromVal = I
+          end
 
 
-    (**
-     * UInt
-     *)
-    structure UInt =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UInt.VAL f)
-        val fromVal = I
-      end
+        (**
+         * Short
+         *)
+        structure Short =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Short.VAL f)
+            val fromVal = I
+          end
 
 
-    (**
-     * Long
-     *)
-    structure Long =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Long.VAL f)
-        val fromVal = I
-      end
+        (**
+         * UShort
+         *)
+        structure UShort =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UShort.VAL f)
+            val fromVal = I
+          end
 
 
-    (**
-     * ULong
-     *)
-    structure ULong =
-      struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.ULong.VAL f)
-        val fromVal = I
+        (**
+         * Int
+         *)
+        structure Int =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Int.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * UInt
+         *)
+        structure UInt =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UInt.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Long
+         *)
+        structure Long =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Long.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * ULong
+         *)
+        structure ULong =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.ULong.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Bool
+         *)
+        structure Bool =
+          struct
+            type val_ = Bool.bool
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Bool.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Int8
+         *)
+        structure Int8 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Int8.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * UInt8
+         *)
+        structure UInt8 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UInt8.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Int16
+         *)
+        structure Int16 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Int16.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * UInt16
+         *)
+        structure UInt16 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UInt16.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Int32
+         *)
+        structure Int32 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Int32.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * UInt32
+         *)
+        structure UInt32 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UInt32.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Int64
+         *)
+        structure Int64 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Int64.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * UInt64
+         *)
+        structure UInt64 =
+          struct
+            type val_ = LargeInt.int
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.UInt64.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Size
+         *)
+        structure Size = ULong
+
+
+        (**
+         * SSize
+         *)
+        structure SSize = Long
+
+
+        (**
+         * Float
+         *)
+        structure Float =
+          struct
+            type val_ = real
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Float.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * Double
+         *)
+        structure Double =
+          struct
+            type val_ = real
+            type ref_ = ref_
+            val withVal = I
+            fun withRefVal f = withVal (withRef PolyML.Double.VAL f)
+            val fromVal = I
+          end
+
+
+        (**
+         * String
+         *)
+        structure String =
+          struct
+            local
+              open GCharVec.C
+            in
+              type notnull = notnull
+              type 'a in_p = 'a in_p
+              type 'a out_p = 'a out_p
+              type ('a, 'b) r = ('a, 'b) r
+            end
+
+
+            val withNullRef = GCharVec.C.withNullRef
+
+
+            val withConstPtr =
+              fn f => GCharVec.C.withConstPtr f o GCharVec.fromVector
+
+            val withConstOptPtr =
+              fn f => GCharVec.C.withConstOptPtr f o Option.map GCharVec.fromVector
+
+
+            val withRefConstPtr =
+              fn f => GCharVec.C.withRefConstPtr f o GCharVec.fromVector
+
+            val withRefConstOptPtr =
+              fn f => GCharVec.C.withRefConstOptPtr f o Option.map GCharVec.fromVector
+
+
+            val withRefDupPtr =
+              fn f => GCharVec.C.withRefDupPtr f o GCharVec.fromVector
+
+            val withRefDupOptPtr =
+              fn f => GCharVec.C.withRefDupOptPtr f o Option.map GCharVec.fromVector
+
+
+            fun fromPtr transfer =
+              if transfer
+              then GCharVec.C.copyNewPtrToVector o GCharVec.C.OutPointer.toNotNull
+              else GCharVec.C.copyPtrToVector o GCharVec.C.OutPointer.toNotNull
+
+            fun fromOptPtr transfer =
+              if transfer
+              then GCharVec.C.copyNewOptPtrToVector
+              else GCharVec.C.copyOptPtrToVector
+          end
+
+
+        (**
+         * String vector (to/from SML list)
+         *)
+        structure StringVector =
+          struct
+            local
+              open GCharVecVec.C
+            in
+              type notnull = notnull
+              type 'a in_p = 'a in_p
+              type 'a out_p = 'a out_p
+              type ('a, 'b) r = ('a, 'b) r
+            end
+
+            val fromList = GCharVecVec.fromVector o Vector.fromList
+
+
+            val withNullRef = GCharVecVec.C.withNullRef
+
+
+            val withConstPtr = fn f => GCharVecVec.C.withConstPtr f o fromList
+
+            val withConstOptPtr =
+              fn f => GCharVecVec.C.withConstOptPtr f o Option.map fromList
+
+
+            val withRefConstPtr =
+              fn f => GCharVecVec.C.withRefConstPtr f o fromList
+
+            val withRefConstOptPtr =
+              fn f => GCharVecVec.C.withRefConstOptPtr f o Option.map fromList
+
+
+            val withRefDupPtr =
+              fn f => GCharVecVec.C.withRefDupPtr f o fromList
+
+            val withRefDupOptPtr =
+              fn f => GCharVecVec.C.withRefDupOptPtr f o Option.map fromList
+
+
+            fun fromPtr transfer =
+              let
+                val from =
+                  if transfer
+                  then GCharVecVec.C.copyNewPtrToTabulated
+                  else GCharVecVec.C.copyPtrToTabulated
+              in
+                from List.tabulate o GCharVecVec.C.OutPointer.toNotNull
+              end
+
+
+            fun fromOptPtr transfer =
+              let
+                val from =
+                  if transfer
+                  then GCharVecVec.C.copyNewOptPtrToTabulated
+                  else GCharVecVec.C.copyOptPtrToTabulated
+              in
+                from List.tabulate
+              end
+          end
       end
 
 
@@ -586,9 +899,9 @@ structure FFI =
      *)
     structure Flags =
       struct
-        type val_ = Word32.word
-        type ref_ = ref_
-        val withRef = fn f => withRef PolyML.Flags.VAL f
+        type t = Word32.word
+        structure C = C.Flags
+        structure PolyML = PolyML.Flags
       end
 
 
@@ -597,9 +910,108 @@ structure FFI =
      *)
     structure Enum =
       struct
-        type val_ = Int32.int
-        type ref_ = ref_
-        val withRef = fn f => withRef PolyML.Enum.VAL f
+        type t = Int32.int
+        structure C = C.Enum
+        structure PolyML = PolyML.Enum
+      end
+
+
+    (**
+     * Pointer
+     *)
+    structure Pointer =
+      struct
+        type t = CPointer.notnull CPointer.t
+        structure C = C.Pointer
+        structure PolyML = PolyML.Pointer
+      end
+
+
+    (**
+     * OptPointer
+     *)
+    structure OptPointer =
+      struct
+        type t = unit CPointer.t
+        structure C = C.OptPointer
+        structure PolyML = PolyML.OptPointer
+      end
+
+
+    (**
+     * Char
+     *)
+    structure Char =
+      struct
+        type t = char
+        structure C = C.Char
+        structure PolyML = PolyML.Char
+      end
+
+
+    (**
+     * Short
+     *)
+    structure Short =
+      struct
+        type t = LargeInt.int
+        structure C = C.Short
+        structure PolyML = PolyML.Short
+      end
+
+
+    (**
+     * UShort
+     *)
+    structure UShort =
+      struct
+        type t = LargeInt.int
+        structure C = C.UShort
+        structure PolyML = PolyML.UShort
+      end
+
+
+    (**
+     * Int
+     *)
+    structure Int =
+      struct
+        type t = LargeInt.int
+        structure C = C.Int
+        structure PolyML = PolyML.Int
+      end
+
+
+    (**
+     * UInt
+     *)
+    structure UInt =
+      struct
+        type t = LargeInt.int
+        structure C = C.UInt
+        structure PolyML = PolyML.UInt
+      end
+
+
+    (**
+     * Long
+     *)
+    structure Long =
+      struct
+        type t = LargeInt.int
+        structure C = C.Long
+        structure PolyML = PolyML.Long
+      end
+
+
+    (**
+     * ULong
+     *)
+    structure ULong =
+      struct
+        type t = LargeInt.int
+        structure C = C.ULong
+        structure PolyML = PolyML.ULong
       end
 
 
@@ -608,11 +1020,9 @@ structure FFI =
      *)
     structure Bool =
       struct
-        type val_ = Bool.bool
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Bool.VAL f)
-        val fromVal = I
+        type t = bool
+        structure C = C.Bool
+        structure PolyML = PolyML.Bool
       end
 
 
@@ -621,11 +1031,9 @@ structure FFI =
      *)
     structure Int8 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Int8.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.Int8
+        structure PolyML = PolyML.Int8
       end
 
 
@@ -634,11 +1042,9 @@ structure FFI =
      *)
     structure UInt8 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UInt8.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.UInt8
+        structure PolyML = PolyML.UInt8
       end
 
 
@@ -647,11 +1053,9 @@ structure FFI =
      *)
     structure Int16 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Int16.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.Int16
+        structure PolyML = PolyML.Int16
       end
 
 
@@ -660,11 +1064,9 @@ structure FFI =
      *)
     structure UInt16 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UInt16.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.UInt16
+        structure PolyML = PolyML.UInt16
       end
 
 
@@ -673,11 +1075,9 @@ structure FFI =
      *)
     structure Int32 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Int32.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.Int32
+        structure PolyML = PolyML.Int32
       end
 
 
@@ -686,11 +1086,9 @@ structure FFI =
      *)
     structure UInt32 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UInt32.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.UInt32
+        structure PolyML = PolyML.UInt32
       end
 
 
@@ -699,11 +1097,9 @@ structure FFI =
      *)
     structure Int64 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Int64.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.Int64
+        structure PolyML = PolyML.Int64
       end
 
 
@@ -712,11 +1108,31 @@ structure FFI =
      *)
     structure UInt64 =
       struct
-        type val_ = LargeInt.int
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.UInt64.VAL f)
-        val fromVal = I
+        type t = LargeInt.int
+        structure C = C.UInt64
+        structure PolyML = PolyML.UInt64
+      end
+
+
+    (**
+     * SSize
+     *)
+    structure SSize =
+      struct
+        type t = LargeInt.int
+        structure C = C.SSize
+        structure PolyML = PolyML.SSize
+      end
+
+
+    (**
+     * Size
+     *)
+    structure Size =
+      struct
+        type t = LargeInt.int
+        structure C = C.Size
+        structure PolyML = PolyML.Size
       end
 
 
@@ -725,11 +1141,9 @@ structure FFI =
      *)
     structure Float =
       struct
-        type val_ = real
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Float.VAL f)
-        val fromVal = I
+        type t = real
+        structure C = C.Float
+        structure PolyML = PolyML.Float
       end
 
 
@@ -738,11 +1152,9 @@ structure FFI =
      *)
     structure Double =
       struct
-        type val_ = real
-        type ref_ = ref_
-        val withVal = I
-        fun withRefVal f = withVal (withRef PolyML.Double.VAL f)
-        val fromVal = I
+        type t = real
+        structure C = C.Double
+        structure PolyML = PolyML.Double
       end
 
 
@@ -751,49 +1163,9 @@ structure FFI =
      *)
     structure String =
       struct
-        local
-          open GCharVec.C
-        in
-          type notnull = notnull
-          type 'a in_p = 'a in_p
-          type 'a out_p = 'a out_p
-          type ('a, 'b) r = ('a, 'b) r
-        end
-
-
-        val withNullRef = GCharVec.C.withNullRef
-
-
-        val withConstPtr =
-          fn f => GCharVec.C.withConstPtr f o GCharVec.fromVector
-
-        val withConstOptPtr =
-          fn f => GCharVec.C.withConstOptPtr f o Option.map GCharVec.fromVector
-
-
-        val withRefConstPtr =
-          fn f => GCharVec.C.withRefConstPtr f o GCharVec.fromVector
-
-        val withRefConstOptPtr =
-          fn f => GCharVec.C.withRefConstOptPtr f o Option.map GCharVec.fromVector
-
-
-        val withRefDupPtr =
-          fn f => GCharVec.C.withRefDupPtr f o GCharVec.fromVector
-
-        val withRefDupOptPtr =
-          fn f => GCharVec.C.withRefDupOptPtr f o Option.map GCharVec.fromVector
-
-
-        fun fromPtr transfer =
-          if transfer
-          then GCharVec.C.copyNewPtrToVector o GCharVec.C.OutPointer.toNotNull
-          else GCharVec.C.copyPtrToVector o GCharVec.C.OutPointer.toNotNull
-
-        fun fromOptPtr transfer =
-          if transfer
-          then GCharVec.C.copyNewOptPtrToVector
-          else GCharVec.C.copyOptPtrToVector
+        type t = string
+        structure C = C.String
+        structure PolyML = PolyML.String
       end
 
 
@@ -802,60 +1174,9 @@ structure FFI =
      *)
     structure StringVector =
       struct
-        local
-          open GCharVecVec.C
-        in
-          type notnull = notnull
-          type 'a in_p = 'a in_p
-          type 'a out_p = 'a out_p
-          type ('a, 'b) r = ('a, 'b) r
-        end
-
-        val fromList = GCharVecVec.fromVector o Vector.fromList
-
-
-        val withNullRef = GCharVecVec.C.withNullRef
-
-
-        val withConstPtr = fn f => GCharVecVec.C.withConstPtr f o fromList
-
-        val withConstOptPtr =
-          fn f => GCharVecVec.C.withConstOptPtr f o Option.map fromList
-
-
-        val withRefConstPtr =
-          fn f => GCharVecVec.C.withRefConstPtr f o fromList
-
-        val withRefConstOptPtr =
-          fn f => GCharVecVec.C.withRefConstOptPtr f o Option.map fromList
-
-
-        val withRefDupPtr =
-          fn f => GCharVecVec.C.withRefDupPtr f o fromList
-
-        val withRefDupOptPtr =
-          fn f => GCharVecVec.C.withRefDupOptPtr f o Option.map fromList
-
-
-        fun fromPtr transfer =
-          let
-            val from =
-              if transfer
-              then GCharVecVec.C.copyNewPtrToTabulated
-              else GCharVecVec.C.copyPtrToTabulated
-          in
-            from List.tabulate o GCharVecVec.C.OutPointer.toNotNull
-          end
-
-
-        fun fromOptPtr transfer =
-          let
-            val from =
-              if transfer
-              then GCharVecVec.C.copyNewOptPtrToTabulated
-              else GCharVecVec.C.copyOptPtrToTabulated
-          in
-            from List.tabulate
-          end
+        type t = string list
+        structure C = C.StringVector
+        structure PolyML = PolyML.StringVector
       end
+
   end

@@ -25,7 +25,7 @@ structure GtkApplication :>
     type 'a windowclass_t = 'a GtkWindowClass.t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new applicationId flags = (FFI.String.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)
+    fun new applicationId flags = (FFI.String.C.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)
     fun addWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addWindow_ (self & window)
     fun removeWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeWindow_ (self & window)
     local

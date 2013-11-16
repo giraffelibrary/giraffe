@@ -16,7 +16,7 @@ structure GtkSourceCompletion :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val blockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_block_interactive") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val createContext_ = call (load_sym libgtksourceview "gtk_source_completion_create_context") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
@@ -30,7 +30,7 @@ structure GtkSourceCompletion :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val unblockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_unblock_interactive") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -45,7 +45,7 @@ structure GtkSourceCompletion :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         addProvider_
         (
@@ -64,7 +64,7 @@ structure GtkSourceCompletion :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeProvider_
         (

@@ -10,36 +10,36 @@ structure GIRepositoryUnionInfo :>
       val getNFields_ =
         call
           (load_sym libgirepository "g_union_info_get_n_fields")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getField_ =
         call
           (load_sym libgirepository "g_union_info_get_field")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getNMethods_ =
         call
           (load_sym libgirepository "g_union_info_get_n_methods")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getMethod_ =
         call
           (load_sym libgirepository "g_union_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val isDiscriminated_ =
         call
           (load_sym libgirepository "g_union_info_is_discriminated")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val getDiscriminatorOffset_ =
         call
           (load_sym libgirepository "g_union_info_get_discriminator_offset")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getDiscriminatorType_ =
         call
@@ -50,25 +50,25 @@ structure GIRepositoryUnionInfo :>
         call
           (load_sym libgirepository "g_union_info_get_discriminator")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.Int32.VAL
+            &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val findMethod_ =
         call
           (load_sym libgirepository "g_union_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.PolyML.String.INPTR
+            &&> FFI.String.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getSize_ =
         call
           (load_sym libgirepository "g_union_info_get_size")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.ULong.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.ULong.PolyML.VAL);
 
       val getAlignment_ =
         call
           (load_sym libgirepository "g_union_info_get_alignment")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.ULong.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.ULong.PolyML.VAL);
     end
 
 
@@ -80,28 +80,36 @@ structure GIRepositoryUnionInfo :>
 
 
     val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNFields_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNFields_ info
 
     val getField =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFieldInfoClass.C.fromPtr true)
-        getField_
-        (info & n)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryFieldInfoClass.C.fromPtr true
+        )
+          getField_
+          (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
-        getMethod_
-        (info & n)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryFunctionInfoClass.C.fromPtr true
+        )
+          getMethod_
+          (info & n)
 
     val isDiscriminated =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) isDiscriminated_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isDiscriminated_ info
 
     val getDiscriminatorOffset =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getDiscriminatorOffset_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getDiscriminatorOffset_ info
 
     val getDiscriminatorType =
       fn info =>
@@ -111,20 +119,26 @@ structure GIRepositoryUnionInfo :>
 
     val getDiscriminator =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> I ---> GIRepositoryConstantInfoClass.C.fromPtr true)
-        getDiscriminator_
-        (info & n)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.Int32.C.withVal
+           ---> GIRepositoryConstantInfoClass.C.fromPtr true
+        )
+          getDiscriminator_
+          (info & n)
 
     val findMethod =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> FFI.String.withConstPtr
-          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
-        findMethod_
-        (info & name)
+        (
+          GIRepositoryBaseInfoClass.C.withPtr
+           &&&> FFI.String.C.withConstPtr
+           ---> GIRepositoryFunctionInfoClass.C.fromPtr true
+        )
+          findMethod_
+          (info & name)
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.ULong.C.fromVal) getSize_ info
 
     val getAlignment =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getAlignment_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.ULong.C.fromVal) getAlignment_ info
   end

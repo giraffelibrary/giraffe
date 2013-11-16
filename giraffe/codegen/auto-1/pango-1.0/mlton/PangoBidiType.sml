@@ -25,9 +25,9 @@ structure PangoBidiType :>
     | ON
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             L => f 0
@@ -49,7 +49,7 @@ structure PangoBidiType :>
           | S => f 16
           | WS => f 17
           | ON => f 18
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => L
@@ -84,7 +84,7 @@ structure PangoBidiType :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = L
-    val forUnichar_ = _import "pango_bidi_type_for_unichar" : FFI.Char.val_ -> C.val_;
+    val forUnichar_ = _import "pango_bidi_type_for_unichar" : FFI.Char.C.val_ -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forUnichar ch = (FFI.Char.withVal ---> C.fromVal) forUnichar_ ch
+    fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
   end

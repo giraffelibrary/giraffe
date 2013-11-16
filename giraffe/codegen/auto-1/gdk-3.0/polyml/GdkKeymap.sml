@@ -12,24 +12,24 @@ structure GdkKeymap :>
       val getDefault_ = call (load_sym libgdk "gdk_keymap_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val getForDisplay_ = call (load_sym libgdk "gdk_keymap_get_for_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val addVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_add_virtual_modifiers") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.REF --> FFI.PolyML.VOID)
-      val getCapsLockState_ = call (load_sym libgdk "gdk_keymap_get_caps_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getCapsLockState_ = call (load_sym libgdk "gdk_keymap_get_caps_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getDirection_ = call (load_sym libgdk "gdk_keymap_get_direction") (GObjectObjectClass.PolyML.PTR --> PangoDirection.PolyML.VAL)
-      val getNumLockState_ = call (load_sym libgdk "gdk_keymap_get_num_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val haveBidiLayouts_ = call (load_sym libgdk "gdk_keymap_have_bidi_layouts") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val lookupKey_ = call (load_sym libgdk "gdk_keymap_lookup_key") (GObjectObjectClass.PolyML.PTR &&> GdkKeymapKeyRecord.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val mapVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_map_virtual_modifiers") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.REF --> FFI.PolyML.Bool.VAL)
+      val getNumLockState_ = call (load_sym libgdk "gdk_keymap_get_num_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val haveBidiLayouts_ = call (load_sym libgdk "gdk_keymap_have_bidi_layouts") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val lookupKey_ = call (load_sym libgdk "gdk_keymap_lookup_key") (GObjectObjectClass.PolyML.PTR &&> GdkKeymapKeyRecord.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val mapVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_map_virtual_modifiers") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.REF --> FFI.Bool.PolyML.VAL)
       val translateKeyboardState_ =
         call (load_sym libgdk "gdk_keymap_translate_keyboard_state")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.UInt32.PolyML.VAL
              &&> GdkModifierType.PolyML.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.UInt32.REF
-             &&> FFI.PolyML.Int32.REF
-             &&> FFI.PolyML.Int32.REF
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.UInt32.PolyML.REF
+             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int32.PolyML.REF
              &&> GdkModifierType.PolyML.REF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GdkKeymapClass.t
@@ -45,14 +45,14 @@ structure GdkKeymap :>
       in
         state
       end
-    fun getCapsLockState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCapsLockState_ self
+    fun getCapsLockState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCapsLockState_ self
     fun getDirection self = (GObjectObjectClass.C.withPtr ---> PangoDirection.C.fromVal) getDirection_ self
-    fun getNumLockState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getNumLockState_ self
-    fun haveBidiLayouts self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) haveBidiLayouts_ self
-    fun lookupKey self key = (GObjectObjectClass.C.withPtr &&&> GdkKeymapKeyRecord.C.withPtr ---> FFI.UInt32.fromVal) lookupKey_ (self & key)
+    fun getNumLockState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getNumLockState_ self
+    fun haveBidiLayouts self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) haveBidiLayouts_ self
+    fun lookupKey self key = (GObjectObjectClass.C.withPtr &&&> GdkKeymapKeyRecord.C.withPtr ---> FFI.UInt32.C.fromVal) lookupKey_ (self & key)
     fun mapVirtualModifiers self =
       let
-        val state & retVal = (GObjectObjectClass.C.withPtr &&&> GdkModifierType.C.withRefVal ---> GdkModifierType.C.fromVal && FFI.Bool.fromVal) mapVirtualModifiers_ (self & GdkModifierType.flags [])
+        val state & retVal = (GObjectObjectClass.C.withPtr &&&> GdkModifierType.C.withRefVal ---> GdkModifierType.C.fromVal && FFI.Bool.C.fromVal) mapVirtualModifiers_ (self & GdkModifierType.flags [])
       in
         if retVal then SOME state else NONE
       end
@@ -65,18 +65,18 @@ structure GdkKeymap :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withVal
+             &&&> FFI.UInt32.C.withVal
              &&&> GdkModifierType.C.withVal
-             &&&> FFI.Int32.withVal
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
-             ---> FFI.UInt32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             ---> FFI.UInt32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && GdkModifierType.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             translateKeyboardState_
             (

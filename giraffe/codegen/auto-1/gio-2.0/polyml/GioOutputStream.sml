@@ -17,7 +17,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val closeFinish_ =
         call (load_sym libgio "g_output_stream_close_finish")
@@ -25,7 +25,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val flush_ =
         call (load_sym libgio "g_output_stream_flush")
@@ -33,7 +33,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val flushFinish_ =
         call (load_sym libgio "g_output_stream_flush_finish")
@@ -41,12 +41,12 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.Bool.VAL)
+      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val splice_ =
         call (load_sym libgio "g_output_stream_splice")
           (
@@ -55,7 +55,7 @@ structure GioOutputStream :>
              &&> GioOutputStreamSpliceFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
       val spliceFinish_ =
         call (load_sym libgio "g_output_stream_splice_finish")
@@ -63,7 +63,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
       val writeFinish_ =
         call (load_sym libgio "g_output_stream_write_finish")
@@ -71,7 +71,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioOutputStreamClass.t
@@ -86,7 +86,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -99,7 +99,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -112,7 +112,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         flush_
         (
@@ -125,7 +125,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         flushFinish_
         (
@@ -133,10 +133,10 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
-    fun isClosing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosing_ self
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) setPending_ (self & [])
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun isClosing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosing_ self
+    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun splice self source flags cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -144,7 +144,7 @@ structure GioOutputStream :>
          &&&> GioOutputStreamSpliceFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         splice_
         (
@@ -159,7 +159,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         spliceFinish_
         (
@@ -172,7 +172,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         writeFinish_
         (

@@ -24,11 +24,11 @@ structure GioFile :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val hash_ = call (load_sym libgio "g_file_hash") (FFI.PolyML.VOID --> FFI.PolyML.UInt32.VAL)
-      val newForCommandlineArg_ = call (load_sym libgio "g_file_new_for_commandline_arg") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newForPath_ = call (load_sym libgio "g_file_new_for_path") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newForUri_ = call (load_sym libgio "g_file_new_for_uri") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val parseName_ = call (load_sym libgio "g_file_parse_name") (FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val hash_ = call (load_sym libgio "g_file_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
+      val newForCommandlineArg_ = call (load_sym libgio "g_file_new_for_commandline_arg") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newForPath_ = call (load_sym libgio "g_file_new_for_path") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newForUri_ = call (load_sym libgio "g_file_new_for_uri") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val parseName_ = call (load_sym libgio "g_file_parse_name") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val appendTo_ =
         call (load_sym libgio "g_file_append_to")
           (
@@ -54,7 +54,7 @@ structure GioFile :>
              &&> GioFileCopyFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val copyFinish_ =
         call (load_sym libgio "g_file_copy_finish")
@@ -62,7 +62,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val create_ =
         call (load_sym libgio "g_file_create")
@@ -104,7 +104,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val dup_ = call (load_sym libgio "g_file_dup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val ejectMountableWithOperationFinish_ =
@@ -113,13 +113,13 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val enumerateChildren_ =
         call (load_sym libgio "g_file_enumerate_children")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -133,7 +133,7 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val equal_ = call (load_sym libgio "g_file_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val equal_ = call (load_sym libgio "g_file_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val findEnclosingMount_ =
         call (load_sym libgio "g_file_find_enclosing_mount")
           (
@@ -150,34 +150,34 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getBasename_ = call (load_sym libgio "g_file_get_basename") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getChild_ = call (load_sym libgio "g_file_get_child") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getBasename_ = call (load_sym libgio "g_file_get_basename") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getChild_ = call (load_sym libgio "g_file_get_child") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getChildForDisplayName_ =
         call (load_sym libgio "g_file_get_child_for_display_name")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
       val getParent_ = call (load_sym libgio "g_file_get_parent") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getParseName_ = call (load_sym libgio "g_file_get_parse_name") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getPath_ = call (load_sym libgio "g_file_get_path") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getRelativePath_ = call (load_sym libgio "g_file_get_relative_path") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getUri_ = call (load_sym libgio "g_file_get_uri") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val getUriScheme_ = call (load_sym libgio "g_file_get_uri_scheme") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val hasParent_ = call (load_sym libgio "g_file_has_parent") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val hasPrefix_ = call (load_sym libgio "g_file_has_prefix") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val hasUriScheme_ = call (load_sym libgio "g_file_has_uri_scheme") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.Bool.VAL)
+      val getParseName_ = call (load_sym libgio "g_file_get_parse_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getPath_ = call (load_sym libgio "g_file_get_path") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getRelativePath_ = call (load_sym libgio "g_file_get_relative_path") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getUri_ = call (load_sym libgio "g_file_get_uri") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getUriScheme_ = call (load_sym libgio "g_file_get_uri_scheme") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val hasParent_ = call (load_sym libgio "g_file_has_parent") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val hasPrefix_ = call (load_sym libgio "g_file_has_prefix") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val hasUriScheme_ = call (load_sym libgio "g_file_has_uri_scheme") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val iconNew_ = call (load_sym libgio "g_file_icon_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isNative_ = call (load_sym libgio "g_file_is_native") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val isNative_ = call (load_sym libgio "g_file_is_native") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val makeDirectory_ =
         call (load_sym libgio "g_file_make_directory")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val makeDirectoryWithParents_ =
         call (load_sym libgio "g_file_make_directory_with_parents")
@@ -185,16 +185,16 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val makeSymbolicLink_ =
         call (load_sym libgio "g_file_make_symbolic_link")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val monitor_ =
         call (load_sym libgio "g_file_monitor")
@@ -229,7 +229,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val mountMountableFinish_ =
         call (load_sym libgio "g_file_mount_mountable_finish")
@@ -261,7 +261,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val queryDefaultHandler_ =
         call (load_sym libgio "g_file_query_default_handler")
@@ -271,7 +271,7 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val queryExists_ = call (load_sym libgio "g_file_query_exists") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.Bool.VAL)
+      val queryExists_ = call (load_sym libgio "g_file_query_exists") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.Bool.PolyML.VAL)
       val queryFileType_ =
         call (load_sym libgio "g_file_query_file_type")
           (
@@ -284,7 +284,7 @@ structure GioFile :>
         call (load_sym libgio "g_file_query_filesystem_info")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -301,7 +301,7 @@ structure GioFile :>
         call (load_sym libgio "g_file_query_info")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -351,8 +351,8 @@ structure GioFile :>
         call (load_sym libgio "g_file_replace")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.Bool.PolyML.VAL
              &&> GioFileCreateFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -363,9 +363,9 @@ structure GioFile :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.OUTREF
+             &&> FFI.String.PolyML.OUTREF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val replaceFinish_ =
         call (load_sym libgio "g_file_replace_finish")
@@ -379,8 +379,8 @@ structure GioFile :>
         call (load_sym libgio "g_file_replace_readwrite")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.Bool.PolyML.VAL
              &&> GioFileCreateFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -394,83 +394,83 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val resolveRelativePath_ = call (load_sym libgio "g_file_resolve_relative_path") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val resolveRelativePath_ = call (load_sym libgio "g_file_resolve_relative_path") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val setAttribute_ =
         call (load_sym libgio "g_file_set_attribute")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GioFileAttributeType.PolyML.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeByteString_ =
         call (load_sym libgio "g_file_set_attribute_byte_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeInt32_ =
         call (load_sym libgio "g_file_set_attribute_int32")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int32.PolyML.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeInt64_ =
         call (load_sym libgio "g_file_set_attribute_int64")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int64.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int64.PolyML.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeString_ =
         call (load_sym libgio "g_file_set_attribute_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeUint32_ =
         call (load_sym libgio "g_file_set_attribute_uint32")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.UInt32.PolyML.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributeUint64_ =
         call (load_sym libgio "g_file_set_attribute_uint64")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.UInt64.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.UInt64.PolyML.VAL
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributesFinish_ =
         call (load_sym libgio "g_file_set_attributes_finish")
@@ -479,7 +479,7 @@ structure GioFile :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setAttributesFromInfo_ =
         call (load_sym libgio "g_file_set_attributes_from_info")
@@ -489,13 +489,13 @@ structure GioFile :>
              &&> GioFileQueryInfoFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val setDisplayName_ =
         call (load_sym libgio "g_file_set_display_name")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -514,7 +514,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val stopMountableFinish_ =
         call (load_sym libgio "g_file_stop_mountable_finish")
@@ -522,16 +522,16 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val supportsThreadContexts_ = call (load_sym libgio "g_file_supports_thread_contexts") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val supportsThreadContexts_ = call (load_sym libgio "g_file_supports_thread_contexts") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val trash_ =
         call (load_sym libgio "g_file_trash")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val unmountMountableWithOperationFinish_ =
         call (load_sym libgio "g_file_unmount_mountable_with_operation_finish")
@@ -539,7 +539,7 @@ structure GioFile :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioFileClass.t
@@ -562,11 +562,11 @@ structure GioFile :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun hash () = (I ---> FFI.UInt32.fromVal) hash_ ()
-    fun newForCommandlineArg arg = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
-    fun newForPath path = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
-    fun newForUri uri = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
-    fun parseName parseName = (FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) parseName_ parseName
+    fun hash () = (I ---> FFI.UInt32.C.fromVal) hash_ ()
+    fun newForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
+    fun newForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
+    fun newForUri uri = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
+    fun parseName parseName = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) parseName_ parseName
     fun appendTo self flags cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -602,7 +602,7 @@ structure GioFile :>
          &&&> GioFileCopyFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         copyAttributes_
         (
@@ -617,7 +617,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         copyFinish_
         (
@@ -686,7 +686,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         delete_
         (
@@ -700,7 +700,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         ejectMountableWithOperationFinish_
         (
@@ -711,7 +711,7 @@ structure GioFile :>
     fun enumerateChildren self attributes flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -738,7 +738,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun equal self file2 = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) equal_ (self & file2)
+    fun equal self file2 = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & file2)
     fun findEnclosingMount self cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -765,12 +765,12 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getBasename_ self
-    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) getChild_ (self & name)
+    fun getBasename self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getBasename_ self
+    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileClass.C.fromPtr true
       )
@@ -781,22 +781,22 @@ structure GioFile :>
            & []
         )
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getParent_ self
-    fun getParseName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getParseName_ self
-    fun getPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getPath_ self
-    fun getRelativePath self descendant = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getRelativePath_ (self & descendant)
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUri_ self
-    fun getUriScheme self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getUriScheme_ self
-    fun hasParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasParent_ (self & parent)
-    fun hasPrefix self prefix = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPrefix_ (self & prefix)
-    fun hasUriScheme self uriScheme = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasUriScheme_ (self & uriScheme)
+    fun getParseName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getParseName_ self
+    fun getPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getPath_ self
+    fun getRelativePath self descendant = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getRelativePath_ (self & descendant)
+    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUri_ self
+    fun getUriScheme self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUriScheme_ self
+    fun hasParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasParent_ (self & parent)
+    fun hasPrefix self prefix = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPrefix_ (self & prefix)
+    fun hasUriScheme self uriScheme = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasUriScheme_ (self & uriScheme)
     fun iconNew self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) iconNew_ self
-    fun isNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isNative_ self
+    fun isNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isNative_ self
     fun makeDirectory self cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         makeDirectory_
         (
@@ -809,7 +809,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         makeDirectoryWithParents_
         (
@@ -820,10 +820,10 @@ structure GioFile :>
     fun makeSymbolicLink self symlinkValue cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         makeSymbolicLink_
         (
@@ -882,7 +882,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         mountEnclosingVolumeFinish_
         (
@@ -934,7 +934,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         pollMountableFinish_
         (
@@ -955,7 +955,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun queryExists self cancellable = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.fromVal) queryExists_ (self & cancellable)
+    fun queryExists self cancellable = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) queryExists_ (self & cancellable)
     fun queryFileType self flags cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -972,7 +972,7 @@ structure GioFile :>
     fun queryFilesystemInfo self attributes cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileInfoClass.C.fromPtr true
@@ -1000,7 +1000,7 @@ structure GioFile :>
     fun queryInfo self attributes flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1082,8 +1082,8 @@ structure GioFile :>
     fun replace self etag makeBackup flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1104,9 +1104,9 @@ structure GioFile :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withRefConstOptPtr
+             &&&> FFI.String.C.withRefConstOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.String.fromPtr true && FFI.Bool.fromVal
+             ---> FFI.String.C.fromPtr true && FFI.Bool.C.fromVal
           )
             replaceContentsFinish_
             (
@@ -1134,8 +1134,8 @@ structure GioFile :>
     fun replaceReadwrite self etag makeBackup flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1163,16 +1163,16 @@ structure GioFile :>
            & res
            & []
         )
-    fun resolveRelativePath self relativePath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
+    fun resolveRelativePath self relativePath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
     fun setAttribute self attribute type' flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileAttributeType.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttribute_
         (
@@ -1186,12 +1186,12 @@ structure GioFile :>
     fun setAttributeByteString self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeByteString_
         (
@@ -1205,12 +1205,12 @@ structure GioFile :>
     fun setAttributeInt32 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeInt32_
         (
@@ -1224,12 +1224,12 @@ structure GioFile :>
     fun setAttributeInt64 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeInt64_
         (
@@ -1243,12 +1243,12 @@ structure GioFile :>
     fun setAttributeString self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeString_
         (
@@ -1262,12 +1262,12 @@ structure GioFile :>
     fun setAttributeUint32 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeUint32_
         (
@@ -1281,12 +1281,12 @@ structure GioFile :>
     fun setAttributeUint64 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.UInt64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributeUint64_
         (
@@ -1305,7 +1305,7 @@ structure GioFile :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> GioFileInfoClass.C.fromPtr true && FFI.Bool.fromVal
+             ---> GioFileInfoClass.C.fromPtr true && FFI.Bool.C.fromVal
           )
             setAttributesFinish_
             (
@@ -1324,7 +1324,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setAttributesFromInfo_
         (
@@ -1337,7 +1337,7 @@ structure GioFile :>
     fun setDisplayName self displayName cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileClass.C.fromPtr true
@@ -1367,7 +1367,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         startMountableFinish_
         (
@@ -1380,7 +1380,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         stopMountableFinish_
         (
@@ -1388,13 +1388,13 @@ structure GioFile :>
            & result
            & []
         )
-    fun supportsThreadContexts self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) supportsThreadContexts_ self
+    fun supportsThreadContexts self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsThreadContexts_ self
     fun trash self cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         trash_
         (
@@ -1407,7 +1407,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         unmountMountableWithOperationFinish_
         (

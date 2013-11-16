@@ -18,7 +18,7 @@ structure GtkTreeModelSort :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val convertChildPathToPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_child_path_to_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
       val convertIterToChildIter_ =
@@ -31,7 +31,7 @@ structure GtkTreeModelSort :>
           )
       val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_path_to_child_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
       val getModel_ = call (load_sym libgtk "gtk_tree_model_sort_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val iterIsValid_ = call (load_sym libgtk "gtk_tree_model_sort_iter_is_valid") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val iterIsValid_ = call (load_sym libgtk "gtk_tree_model_sort_iter_is_valid") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val resetDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_model_sort_reset_default_sort_func") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTreeModelSortClass.t
@@ -52,7 +52,7 @@ structure GtkTreeModelSort :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             convertChildIterToIter_
             (
@@ -84,7 +84,7 @@ structure GtkTreeModelSort :>
       end
     fun convertPathToChildPath self sortedPath = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) convertPathToChildPath_ (self & sortedPath)
     fun getModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
-    fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterIsValid_ (self & iter)
+    fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
     fun resetDefaultSortFunc self = (GObjectObjectClass.C.withPtr ---> I) resetDefaultSortFunc_ self
     local
       open Property

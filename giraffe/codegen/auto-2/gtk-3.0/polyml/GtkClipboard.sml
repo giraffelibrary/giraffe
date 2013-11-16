@@ -18,19 +18,19 @@ structure GtkClipboard :>
         call (load_sym libgtk "gtk_clipboard_set_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INPTR
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val store_ = call (load_sym libgtk "gtk_clipboard_store") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val waitForContents_ = call (load_sym libgtk "gtk_clipboard_wait_for_contents") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> GtkSelectionDataRecord.PolyML.PTR)
       val waitForImage_ = call (load_sym libgtk "gtk_clipboard_wait_for_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val waitForText_ = call (load_sym libgtk "gtk_clipboard_wait_for_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
-      val waitIsImageAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_image_available") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val waitIsRichTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_rich_text_available") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val waitIsTargetAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_target_available") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val waitIsTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_text_available") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val waitIsUrisAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_uris_available") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val waitForText_ = call (load_sym libgtk "gtk_clipboard_wait_for_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val waitIsImageAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_image_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val waitIsRichTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_rich_text_available") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val waitIsTargetAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_target_available") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val waitIsTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_text_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val waitIsUrisAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_uris_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GtkClipboardClass.t
     type selectiondatarecord_t = GtkSelectionDataRecord.t
@@ -45,8 +45,8 @@ structure GtkClipboard :>
     fun setText self text len =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setText_
@@ -58,12 +58,12 @@ structure GtkClipboard :>
     fun store self = (GObjectObjectClass.C.withPtr ---> I) store_ self
     fun waitForContents self target = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) waitForContents_ (self & target)
     fun waitForImage self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) waitForImage_ self
-    fun waitForText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) waitForText_ self
-    fun waitIsImageAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) waitIsImageAvailable_ self
-    fun waitIsRichTextAvailable self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) waitIsRichTextAvailable_ (self & buffer)
-    fun waitIsTargetAvailable self target = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.fromVal) waitIsTargetAvailable_ (self & target)
-    fun waitIsTextAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) waitIsTextAvailable_ self
-    fun waitIsUrisAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) waitIsUrisAvailable_ self
+    fun waitForText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) waitForText_ self
+    fun waitIsImageAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsImageAvailable_ self
+    fun waitIsRichTextAvailable self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsRichTextAvailable_ (self & buffer)
+    fun waitIsTargetAvailable self target = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.C.fromVal) waitIsTargetAvailable_ (self & target)
+    fun waitIsTextAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsTextAvailable_ self
+    fun waitIsUrisAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsUrisAvailable_ self
     local
       open ClosureMarshal Signal
     in

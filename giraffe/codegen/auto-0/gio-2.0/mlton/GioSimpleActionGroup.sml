@@ -16,7 +16,7 @@ structure GioSimpleActionGroup :>
             _import "g_simple_action_group_add_entries" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GioActionEntryRecord.C.notnull GioActionEntryRecord.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -66,7 +66,7 @@ structure GioSimpleActionGroup :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GioActionEntryRecord.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         addEntries_
@@ -76,6 +76,6 @@ structure GioSimpleActionGroup :>
            & nEntries
         )
     fun insert self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) insert_ (self & action)
-    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
-    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) remove_ (self & actionName)
+    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
+    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) remove_ (self & actionName)
   end

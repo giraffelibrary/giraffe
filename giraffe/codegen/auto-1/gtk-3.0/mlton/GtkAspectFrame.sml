@@ -15,10 +15,10 @@ structure GtkAspectFrame :>
             _import "mlton_gtk_aspect_frame_new" :
               cstring
                * unit CPointer.t
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Bool.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -39,10 +39,10 @@ structure GtkAspectFrame :>
           (
             _import "gtk_aspect_frame_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Bool.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -59,11 +59,11 @@ structure GtkAspectFrame :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Bool.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> GtkAspectFrameClass.C.fromPtr false
       )
         new_
@@ -77,10 +77,10 @@ structure GtkAspectFrame :>
     fun set self xalign yalign ratio obeyChild =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         set_

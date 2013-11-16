@@ -43,9 +43,9 @@ structure GLibUnicodeBreakType :>
     | CLOSEPARANTHESIS
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             MANDATORY => f 0
@@ -85,7 +85,7 @@ structure GLibUnicodeBreakType :>
           | HANGULLVSYLLABLE => f 34
           | HANGULLVTSYLLABLE => f 35
           | CLOSEPARANTHESIS => f 36
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => MANDATORY

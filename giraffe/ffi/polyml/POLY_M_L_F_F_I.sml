@@ -1,4 +1,4 @@
-signature POLYML_FFI =
+signature POLY_M_L_F_F_I =
   sig
     type 'a conv = 'a CInterface.Conversion
 

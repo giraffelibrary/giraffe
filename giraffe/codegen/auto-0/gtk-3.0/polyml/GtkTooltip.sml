@@ -15,27 +15,27 @@ structure GtkTooltip :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setIconFromIconName_ =
         call (load_sym libgtk "gtk_tooltip_set_icon_from_icon_name")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setIconFromStock_ =
         call (load_sym libgtk "gtk_tooltip_set_icon_from_stock")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setMarkup_ = call (load_sym libgtk "gtk_tooltip_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
-      val setText_ = call (load_sym libgtk "gtk_tooltip_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
+      val setMarkup_ = call (load_sym libgtk "gtk_tooltip_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setText_ = call (load_sym libgtk "gtk_tooltip_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setTipArea_ = call (load_sym libgtk "gtk_tooltip_set_tip_area") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTooltipClass.t
@@ -48,7 +48,7 @@ structure GtkTooltip :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromGicon_
@@ -60,8 +60,8 @@ structure GtkTooltip :>
     fun setIconFromIconName self iconName size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromIconName_
@@ -73,8 +73,8 @@ structure GtkTooltip :>
     fun setIconFromStock self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setIconFromStock_
@@ -83,7 +83,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setText_ (self & text)
+    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
     fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

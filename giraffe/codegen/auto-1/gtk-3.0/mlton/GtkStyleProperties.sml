@@ -51,7 +51,7 @@ structure GtkStyleProperties :>
             _import "gtk_style_properties_merge" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -108,11 +108,11 @@ structure GtkStyleProperties :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
     fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkSymbolicColorRecord.C.withPtr
          ---> I
       )
@@ -126,7 +126,7 @@ structure GtkStyleProperties :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         merge_
@@ -138,7 +138,7 @@ structure GtkStyleProperties :>
     fun setProperty self property state value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkStateFlags.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
@@ -153,7 +153,7 @@ structure GtkStyleProperties :>
     fun unsetProperty self property state =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkStateFlags.C.withVal
          ---> I
       )

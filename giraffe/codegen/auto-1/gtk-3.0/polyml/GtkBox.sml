@@ -11,17 +11,17 @@ structure GtkBox :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_box_new") (GtkOrientation.PolyML.VAL &&> FFI.PolyML.Int32.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getHomogeneous_ = call (load_sym libgtk "gtk_box_get_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getSpacing_ = call (load_sym libgtk "gtk_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
+      val new_ = call (load_sym libgtk "gtk_box_new") (GtkOrientation.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getHomogeneous_ = call (load_sym libgtk "gtk_box_get_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getSpacing_ = call (load_sym libgtk "gtk_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val packEnd_ =
         call (load_sym libgtk "gtk_box_pack_end")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.UInt32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val packStart_ =
@@ -29,9 +29,9 @@ structure GtkBox :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.UInt32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val queryChildPacking_ =
@@ -39,9 +39,9 @@ structure GtkBox :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.REF
-             &&> FFI.PolyML.Bool.REF
-             &&> FFI.PolyML.UInt32.REF
+             &&> FFI.Bool.PolyML.REF
+             &&> FFI.Bool.PolyML.REF
+             &&> FFI.UInt32.PolyML.REF
              &&> GtkPackType.PolyML.REF
              --> FFI.PolyML.VOID
           )
@@ -50,7 +50,7 @@ structure GtkBox :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setChildPacking_ =
@@ -58,14 +58,14 @@ structure GtkBox :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.UInt32.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.UInt32.PolyML.VAL
              &&> GtkPackType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setHomogeneous_ = call (load_sym libgtk "gtk_box_set_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
+      val setHomogeneous_ = call (load_sym libgtk "gtk_box_set_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkBoxClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -77,16 +77,16 @@ structure GtkBox :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new orientation spacing = (GtkOrientation.C.withVal &&&> FFI.Int32.withVal ---> GtkBoxClass.C.fromPtr false) new_ (orientation & spacing)
-    fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHomogeneous_ self
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getSpacing_ self
+    fun new orientation spacing = (GtkOrientation.C.withVal &&&> FFI.Int32.C.withVal ---> GtkBoxClass.C.fromPtr false) new_ (orientation & spacing)
+    fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
     fun packEnd self child expand fill padding =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
-         &&&> FFI.Bool.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         packEnd_
@@ -101,9 +101,9 @@ structure GtkBox :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
-         &&&> FFI.Bool.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         packStart_
@@ -124,13 +124,13 @@ structure GtkBox :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Bool.withRefVal
-             &&&> FFI.Bool.withRefVal
-             &&&> FFI.UInt32.withRefVal
+             &&&> FFI.Bool.C.withRefVal
+             &&&> FFI.Bool.C.withRefVal
+             &&&> FFI.UInt32.C.withRefVal
              &&&> GtkPackType.C.withRefVal
-             ---> FFI.Bool.fromVal
-                   && FFI.Bool.fromVal
-                   && FFI.UInt32.fromVal
+             ---> FFI.Bool.C.fromVal
+                   && FFI.Bool.C.fromVal
+                   && FFI.UInt32.C.fromVal
                    && GtkPackType.C.fromVal
                    && I
           )
@@ -155,7 +155,7 @@ structure GtkBox :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reorderChild_
@@ -168,9 +168,9 @@ structure GtkBox :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
-         &&&> FFI.Bool.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.Bool.C.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GtkPackType.C.withVal
          ---> I
       )
@@ -183,8 +183,8 @@ structure GtkBox :>
            & padding
            & packType
         )
-    fun setHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHomogeneous_ (self & homogeneous)
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setSpacing_ (self & spacing)
+    fun setHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

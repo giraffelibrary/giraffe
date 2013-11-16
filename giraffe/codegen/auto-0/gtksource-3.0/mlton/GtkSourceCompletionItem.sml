@@ -90,10 +90,10 @@ structure GtkSourceCompletionItem :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label text icon info =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         new_
@@ -105,10 +105,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newFromStock label text stock info =
       (
-        FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
+        FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newFromStock_
@@ -120,10 +120,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newWithMarkup markup text icon info =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newWithMarkup_

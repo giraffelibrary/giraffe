@@ -9,7 +9,7 @@ structure GModule : G_MODULE =
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               -> FFI.String.notnull FFI.String.out_p;
+               -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
               x1,
@@ -17,10 +17,10 @@ structure GModule : G_MODULE =
               x3,
               x4
             )
-    val moduleError_ = _import "g_module_error" : unit -> FFI.String.notnull FFI.String.out_p;
-    val moduleSupported_ = _import "g_module_supported" : unit -> FFI.Bool.val_;
+    val moduleError_ = _import "g_module_error" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val moduleSupported_ = _import "g_module_supported" : unit -> FFI.Bool.C.val_;
     structure ModuleFlags = GModuleModuleFlags
-    fun moduleBuildPath directory moduleName = (FFI.String.withConstPtr &&&> FFI.String.withConstPtr ---> FFI.String.fromPtr true) moduleBuildPath_ (directory & moduleName)
-    fun moduleError () = (I ---> FFI.String.fromPtr false) moduleError_ ()
-    fun moduleSupported () = (I ---> FFI.Bool.fromVal) moduleSupported_ ()
+    fun moduleBuildPath directory moduleName = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) moduleBuildPath_ (directory & moduleName)
+    fun moduleError () = (I ---> FFI.String.C.fromPtr false) moduleError_ ()
+    fun moduleSupported () = (I ---> FFI.Bool.C.fromVal) moduleSupported_ ()
   end

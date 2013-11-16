@@ -40,10 +40,10 @@ structure GioThemedIcon :>
     type 'a iconclass_t = 'a GioIconClass.t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new iconname = (FFI.String.withConstPtr ---> GioIconClass.C.fromPtr true) new_ iconname
-    fun newWithDefaultFallbacks iconname = (FFI.String.withConstPtr ---> GioIconClass.C.fromPtr true) newWithDefaultFallbacks_ iconname
-    fun appendName self iconname = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) appendName_ (self & iconname)
-    fun prependName self iconname = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) prependName_ (self & iconname)
+    fun new iconname = (FFI.String.C.withConstPtr ---> GioIconClass.C.fromPtr true) new_ iconname
+    fun newWithDefaultFallbacks iconname = (FFI.String.C.withConstPtr ---> GioIconClass.C.fromPtr true) newWithDefaultFallbacks_ iconname
+    fun appendName self iconname = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) appendName_ (self & iconname)
+    fun prependName self iconname = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependName_ (self & iconname)
     local
       open Property
     in

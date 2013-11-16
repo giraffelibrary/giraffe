@@ -64,11 +64,11 @@ structure GtkMenuToolButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> FFI.String.withConstOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
-    fun newFromStock stockId = (FFI.String.withConstPtr ---> GtkMenuToolButtonClass.C.fromPtr false) newFromStock_ stockId
+    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> FFI.String.C.withConstOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
+    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkMenuToolButtonClass.C.fromPtr false) newFromStock_ stockId
     fun getMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenu_ self
-    fun setArrowTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setArrowTooltipMarkup_ (self & markup)
-    fun setArrowTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setArrowTooltipText_ (self & text)
+    fun setArrowTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setArrowTooltipMarkup_ (self & markup)
+    fun setArrowTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setArrowTooltipText_ (self & text)
     fun setMenu self menu = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setMenu_ (self & menu)
     local
       open ClosureMarshal Signal

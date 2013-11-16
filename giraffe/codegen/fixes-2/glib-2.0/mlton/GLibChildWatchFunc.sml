@@ -8,10 +8,10 @@ structure GLibChildWatchFunc :>
     structure ChildWatchCallback = Callback (type callback = t)
 
     local
-      fun dispatch (pid : Pid.C.val_, status : FFI.Int32.val_, id : ChildWatchCallback.id) : unit =
+      fun dispatch (pid : Pid.C.val_, status : FFI.Int32.C.val_, id : ChildWatchCallback.id) : unit =
         case ChildWatchCallback.lookup id of
           SOME f => (
-            f (Pid.C.fromVal pid, FFI.Int32.fromVal status)
+            f (Pid.C.fromVal pid, FFI.Int32.C.fromVal status)
               handle
                 e => GiraffeLog.critical (exnMessage e)
           )
@@ -26,7 +26,7 @@ structure GLibChildWatchFunc :>
     in
       val _ =
         _export "giraffe_child_watch_dispatch_smlside"
-          : (Pid.C.val_ * FFI.Int32.val_ * ChildWatchCallback.id -> unit) -> unit;
+          : (Pid.C.val_ * FFI.Int32.C.val_ * ChildWatchCallback.id -> unit) -> unit;
       dispatch
     end
 

@@ -16,7 +16,7 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -33,15 +33,15 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val hasPending_ = _import "g_input_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isClosed_ = _import "g_input_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hasPending_ = _import "g_input_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isClosed_ = _import "g_input_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val read_ =
       fn
         x1
@@ -51,10 +51,10 @@ structure GioInputStream :>
           (
             _import "g_input_stream_read" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -72,11 +72,11 @@ structure GioInputStream :>
           (
             _import "g_input_stream_read_all" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.val_
-               * FFI.UInt64.ref_
+               * FFI.UInt64.C.val_
+               * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -95,14 +95,14 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.val_;) (x1, x2)
+    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val skip_ =
       fn
         x1
@@ -112,10 +112,10 @@ structure GioInputStream :>
           (
             _import "g_input_stream_skip" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -133,7 +133,7 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -150,7 +150,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -163,7 +163,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -171,15 +171,15 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun read self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         read_
         (
@@ -193,11 +193,11 @@ structure GioInputStream :>
         val bytesRead & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.withVal
-             &&&> FFI.UInt64.withRefVal
+             &&&> FFI.UInt64.C.withVal
+             &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.fromVal && FFI.Bool.fromVal
+             ---> FFI.UInt64.C.fromVal && FFI.Bool.C.fromVal
           )
             readAll_
             (
@@ -215,7 +215,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         readFinish_
         (
@@ -223,14 +223,14 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) setPending_ (self & [])
+    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun skip self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         skip_
         (
@@ -244,7 +244,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         skipFinish_
         (

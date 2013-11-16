@@ -17,9 +17,9 @@ structure PangoWeight :>
     | ULTRAHEAVY
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             THIN => f 100
@@ -33,7 +33,7 @@ structure PangoWeight :>
           | ULTRABOLD => f 800
           | HEAVY => f 900
           | ULTRAHEAVY => f 1000
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             100 => THIN

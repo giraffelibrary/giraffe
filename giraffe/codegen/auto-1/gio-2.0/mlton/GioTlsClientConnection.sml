@@ -24,10 +24,10 @@ structure GioTlsClientConnection :>
               x3
             )
     val getServerIdentity_ = _import "g_tls_client_connection_get_server_identity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getUseSsl3_ = _import "g_tls_client_connection_get_use_ssl3" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getUseSsl3_ = _import "g_tls_client_connection_get_use_ssl3" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getValidationFlags_ = _import "g_tls_client_connection_get_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioTlsCertificateFlags.C.val_;
     val setServerIdentity_ = fn x1 & x2 => (_import "g_tls_client_connection_set_server_identity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setUseSsl3_ = fn x1 & x2 => (_import "g_tls_client_connection_set_use_ssl3" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setUseSsl3_ = fn x1 & x2 => (_import "g_tls_client_connection_set_use_ssl3" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setValidationFlags_ = fn x1 & x2 => (_import "g_tls_client_connection_set_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsCertificateFlags.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioTlsClientConnectionClass.t
     type 'a iostreamclass_t = 'a GioIOStreamClass.t
@@ -48,10 +48,10 @@ structure GioTlsClientConnection :>
            & []
         )
     fun getServerIdentity self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) getServerIdentity_ self
-    fun getUseSsl3 self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUseSsl3_ self
+    fun getUseSsl3 self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseSsl3_ self
     fun getValidationFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getValidationFlags_ self
     fun setServerIdentity self identity = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setServerIdentity_ (self & identity)
-    fun setUseSsl3 self useSsl3 = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUseSsl3_ (self & useSsl3)
+    fun setUseSsl3 self useSsl3 = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseSsl3_ (self & useSsl3)
     fun setValidationFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsCertificateFlags.C.withVal ---> I) setValidationFlags_ (self & flags)
     local
       open Property

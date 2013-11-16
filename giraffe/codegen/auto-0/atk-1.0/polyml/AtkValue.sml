@@ -10,7 +10,7 @@ structure AtkValue :>
       val getMaximumValue_ = call (load_sym libatk "atk_value_get_maximum_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getMinimumIncrement_ = call (load_sym libatk "atk_value_get_minimum_increment") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getMinimumValue_ = call (load_sym libatk "atk_value_get_minimum_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkValueClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -18,5 +18,5 @@ structure AtkValue :>
     fun getMaximumValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMaximumValue_ (self & value)
     fun getMinimumIncrement self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMinimumIncrement_ (self & value)
     fun getMinimumValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMinimumValue_ (self & value)
-    fun setCurrentValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.fromVal) setCurrentValue_ (self & value)
+    fun setCurrentValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) setCurrentValue_ (self & value)
   end

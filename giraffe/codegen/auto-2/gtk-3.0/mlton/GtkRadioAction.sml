@@ -21,7 +21,7 @@ structure GtkRadioAction :>
                * unit CPointer.t
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -35,20 +35,20 @@ structure GtkRadioAction :>
               x8,
               x9
             )
-    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_action_join_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkRadioActionClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.Int32.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.Int32.C.withVal
          ---> GtkRadioActionClass.C.fromPtr true
       )
         new_
@@ -59,9 +59,9 @@ structure GtkRadioAction :>
            & stockId
            & value
         )
-    fun getCurrentValue self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getCurrentValue_ self
+    fun getCurrentValue self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentValue_ self
     fun joinGroup self groupSource = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
-    fun setCurrentValue self currentValue = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setCurrentValue_ (self & currentValue)
+    fun setCurrentValue self currentValue = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentValue_ (self & currentValue)
     local
       open ClosureMarshal Signal
     in

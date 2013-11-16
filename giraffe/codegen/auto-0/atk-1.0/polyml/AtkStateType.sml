@@ -51,9 +51,9 @@ structure AtkStateType :>
     | LASTDEFINED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -96,7 +96,7 @@ structure AtkStateType :>
           | ANIMATED => f 37
           | VISITED => f 38
           | LASTDEFINED => f 39
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -143,8 +143,8 @@ structure AtkStateType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI
@@ -164,12 +164,12 @@ structure AtkStateType :>
     local
       open PolyMLFFI
     in
-      val forName_ = call (load_sym libatk "atk_state_type_for_name") (FFI.PolyML.String.INPTR --> PolyML.VAL)
-      val getName_ = call (load_sym libatk "atk_state_type_get_name") (PolyML.VAL --> FFI.PolyML.String.RETPTR)
-      val register_ = call (load_sym libatk "atk_state_type_register") (FFI.PolyML.String.INPTR --> PolyML.VAL)
+      val forName_ = call (load_sym libatk "atk_state_type_for_name") (FFI.String.PolyML.INPTR --> PolyML.VAL)
+      val getName_ = call (load_sym libatk "atk_state_type_get_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val register_ = call (load_sym libatk "atk_state_type_register") (FFI.String.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.withConstPtr ---> C.fromVal) forName_ name
-    fun getName type' = (C.withVal ---> FFI.String.fromPtr false) getName_ type'
-    fun register name = (FFI.String.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getName type' = (C.withVal ---> FFI.String.C.fromPtr false) getName_ type'
+    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
   end

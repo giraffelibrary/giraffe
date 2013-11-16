@@ -43,8 +43,8 @@ structure GioVolumeMonitor :>
     type 'a volumeclass_t = 'a GioVolumeClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
-    fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
-    fun getVolumeForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
+    fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
+    fun getVolumeForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
     local
       open ClosureMarshal Signal
     in

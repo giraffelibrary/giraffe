@@ -13,8 +13,8 @@ structure GLibQuark :>
     type t = Word32.word
 
     val fromString_ = _import "mlton_g_quark_from_string" : cstring * unit CPointer.t -> C.val_;
-    val toString_ = _import "g_quark_to_string" : C.val_ -> FFI.String.notnull FFI.String.out_p;
+    val toString_ = _import "g_quark_to_string" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
 
-    fun fromString string = (FFI.String.withConstPtr ---> C.fromVal) fromString_ string
-    fun toString quark = (C.withVal ---> FFI.String.fromPtr false) toString_ quark
+    fun fromString string = (FFI.String.C.withConstPtr ---> C.fromVal) fromString_ string
+    fun toString quark = (C.withVal ---> FFI.String.C.fromPtr false) toString_ quark
   end

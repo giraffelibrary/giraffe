@@ -16,10 +16,10 @@ structure GtkGrid :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val attachNextTo_ =
@@ -29,15 +29,15 @@ structure GtkGrid :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GtkPositionType.PolyML.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val getColumnHomogeneous_ = call (load_sym libgtk "gtk_grid_get_column_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getColumnSpacing_ = call (load_sym libgtk "gtk_grid_get_column_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val getRowHomogeneous_ = call (load_sym libgtk "gtk_grid_get_row_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getRowSpacing_ = call (load_sym libgtk "gtk_grid_get_row_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.UInt32.VAL)
-      val insertColumn_ = call (load_sym libgtk "gtk_grid_insert_column") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
+      val getColumnHomogeneous_ = call (load_sym libgtk "gtk_grid_get_column_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getColumnSpacing_ = call (load_sym libgtk "gtk_grid_get_column_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getRowHomogeneous_ = call (load_sym libgtk "gtk_grid_get_row_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getRowSpacing_ = call (load_sym libgtk "gtk_grid_get_row_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val insertColumn_ = call (load_sym libgtk "gtk_grid_insert_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
       val insertNextTo_ =
         call (load_sym libgtk "gtk_grid_insert_next_to")
           (
@@ -46,11 +46,11 @@ structure GtkGrid :>
              &&> GtkPositionType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val insertRow_ = call (load_sym libgtk "gtk_grid_insert_row") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
-      val setColumnHomogeneous_ = call (load_sym libgtk "gtk_grid_set_column_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setColumnSpacing_ = call (load_sym libgtk "gtk_grid_set_column_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
-      val setRowHomogeneous_ = call (load_sym libgtk "gtk_grid_set_row_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setRowSpacing_ = call (load_sym libgtk "gtk_grid_set_row_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
+      val insertRow_ = call (load_sym libgtk "gtk_grid_insert_row") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setColumnHomogeneous_ = call (load_sym libgtk "gtk_grid_set_column_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setColumnSpacing_ = call (load_sym libgtk "gtk_grid_set_column_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRowHomogeneous_ = call (load_sym libgtk "gtk_grid_set_row_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRowSpacing_ = call (load_sym libgtk "gtk_grid_set_row_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkGridClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -66,10 +66,10 @@ structure GtkGrid :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         attach_
@@ -87,8 +87,8 @@ structure GtkGrid :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkPositionType.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         attachNextTo_
@@ -100,11 +100,11 @@ structure GtkGrid :>
            & width
            & height
         )
-    fun getColumnHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getColumnHomogeneous_ self
-    fun getColumnSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getColumnSpacing_ self
-    fun getRowHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getRowHomogeneous_ self
-    fun getRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.fromVal) getRowSpacing_ self
-    fun insertColumn self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) insertColumn_ (self & position)
+    fun getColumnHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getColumnHomogeneous_ self
+    fun getColumnSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getColumnSpacing_ self
+    fun getRowHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRowHomogeneous_ self
+    fun getRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getRowSpacing_ self
+    fun insertColumn self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertColumn_ (self & position)
     fun insertNextTo self sibling side =
       (
         GObjectObjectClass.C.withPtr
@@ -118,11 +118,11 @@ structure GtkGrid :>
            & sibling
            & side
         )
-    fun insertRow self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) insertRow_ (self & position)
-    fun setColumnHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
-    fun setColumnSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setColumnSpacing_ (self & spacing)
-    fun setRowHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
-    fun setRowSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setRowSpacing_ (self & spacing)
+    fun insertRow self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertRow_ (self & position)
+    fun setColumnHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
+    fun setColumnSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun setRowHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
+    fun setRowSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setRowSpacing_ (self & spacing)
     local
       open Property
     in

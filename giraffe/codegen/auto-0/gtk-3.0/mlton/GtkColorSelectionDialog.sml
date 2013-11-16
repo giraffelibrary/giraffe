@@ -13,7 +13,7 @@ structure GtkColorSelectionDialog :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new title = (FFI.String.withConstPtr ---> GtkColorSelectionDialogClass.C.fromPtr false) new_ title
+    fun new title = (FFI.String.C.withConstPtr ---> GtkColorSelectionDialogClass.C.fromPtr false) new_ title
     fun getColorSelection self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getColorSelection_ self
     local
       open Property

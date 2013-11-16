@@ -12,16 +12,16 @@ structure GtkTreeSortable :>
           (
             _import "gtk_tree_sortable_get_sort_column_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
                * GtkSortType.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val hasDefaultSortFunc_ = _import "gtk_tree_sortable_has_default_sort_func" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hasDefaultSortFunc_ = _import "gtk_tree_sortable_has_default_sort_func" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setSortColumnId_ =
       fn
         x1
@@ -30,7 +30,7 @@ structure GtkTreeSortable :>
           (
             _import "gtk_tree_sortable_set_sort_column_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GtkSortType.C.val_
                -> unit;
           )
@@ -50,11 +50,11 @@ structure GtkTreeSortable :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              &&&> GtkSortType.C.withRefVal
-             ---> FFI.Int32.fromVal
+             ---> FFI.Int32.C.fromVal
                    && GtkSortType.C.fromVal
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getSortColumnId_
             (
@@ -65,11 +65,11 @@ structure GtkTreeSortable :>
       in
         if retVal then SOME (sortColumnId, order) else NONE
       end
-    fun hasDefaultSortFunc self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasDefaultSortFunc_ self
+    fun hasDefaultSortFunc self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasDefaultSortFunc_ self
     fun setSortColumnId self sortColumnId order =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GtkSortType.C.withVal
          ---> I
       )

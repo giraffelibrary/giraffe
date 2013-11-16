@@ -19,7 +19,7 @@ structure GtkFileChooser :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -38,7 +38,7 @@ structure GtkFileChooser :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -47,25 +47,25 @@ structure GtkFileChooser :>
               x4
             )
     val getAction_ = _import "gtk_file_chooser_get_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkFileChooserAction.C.val_;
-    val getCreateFolders_ = _import "gtk_file_chooser_get_create_folders" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getCurrentFolder_ = _import "gtk_file_chooser_get_current_folder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
+    val getCreateFolders_ = _import "gtk_file_chooser_get_create_folders" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getCurrentFolder_ = _import "gtk_file_chooser_get_current_folder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
     val getCurrentFolderFile_ = _import "gtk_file_chooser_get_current_folder_file" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getCurrentFolderUri_ = _import "gtk_file_chooser_get_current_folder_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
-    val getDoOverwriteConfirmation_ = _import "gtk_file_chooser_get_do_overwrite_confirmation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getCurrentFolderUri_ = _import "gtk_file_chooser_get_current_folder_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
+    val getDoOverwriteConfirmation_ = _import "gtk_file_chooser_get_do_overwrite_confirmation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getExtraWidget_ = _import "gtk_file_chooser_get_extra_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
     val getFile_ = _import "gtk_file_chooser_get_file" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFilename_ = _import "gtk_file_chooser_get_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
+    val getFilename_ = _import "gtk_file_chooser_get_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
     val getFilter_ = _import "gtk_file_chooser_get_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
-    val getLocalOnly_ = _import "gtk_file_chooser_get_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getLocalOnly_ = _import "gtk_file_chooser_get_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPreviewFile_ = _import "gtk_file_chooser_get_preview_file" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
-    val getPreviewFilename_ = _import "gtk_file_chooser_get_preview_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
-    val getPreviewUri_ = _import "gtk_file_chooser_get_preview_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
+    val getPreviewFilename_ = _import "gtk_file_chooser_get_preview_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
+    val getPreviewUri_ = _import "gtk_file_chooser_get_preview_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
     val getPreviewWidget_ = _import "gtk_file_chooser_get_preview_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
-    val getPreviewWidgetActive_ = _import "gtk_file_chooser_get_preview_widget_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getSelectMultiple_ = _import "gtk_file_chooser_get_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getShowHidden_ = _import "gtk_file_chooser_get_show_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getUri_ = _import "gtk_file_chooser_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.out_p;
-    val getUsePreviewLabel_ = _import "gtk_file_chooser_get_use_preview_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getPreviewWidgetActive_ = _import "gtk_file_chooser_get_preview_widget_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getSelectMultiple_ = _import "gtk_file_chooser_get_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getShowHidden_ = _import "gtk_file_chooser_get_show_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getUri_ = _import "gtk_file_chooser_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit FFI.String.C.out_p;
+    val getUsePreviewLabel_ = _import "gtk_file_chooser_get_use_preview_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val removeFilter_ = fn x1 & x2 => (_import "gtk_file_chooser_remove_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val removeShortcutFolder_ =
       fn
@@ -78,7 +78,7 @@ structure GtkFileChooser :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -97,7 +97,7 @@ structure GtkFileChooser :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -116,7 +116,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -131,7 +131,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -146,7 +146,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -154,7 +154,7 @@ structure GtkFileChooser :>
               x3
             )
     val setAction_ = fn x1 & x2 => (_import "gtk_file_chooser_set_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkFileChooserAction.C.val_ -> unit;) (x1, x2)
-    val setCreateFolders_ = fn x1 & x2 => (_import "gtk_file_chooser_set_create_folders" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setCreateFolders_ = fn x1 & x2 => (_import "gtk_file_chooser_set_create_folders" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setCurrentFolder_ =
       fn
         x1 & (x2, x3) =>
@@ -163,7 +163,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -180,7 +180,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -195,7 +195,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -217,7 +217,7 @@ structure GtkFileChooser :>
               x2,
               x3
             )
-    val setDoOverwriteConfirmation_ = fn x1 & x2 => (_import "gtk_file_chooser_set_do_overwrite_confirmation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setDoOverwriteConfirmation_ = fn x1 & x2 => (_import "gtk_file_chooser_set_do_overwrite_confirmation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setExtraWidget_ = fn x1 & x2 => (_import "gtk_file_chooser_set_extra_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setFile_ =
       fn
@@ -229,7 +229,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -244,7 +244,7 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -252,11 +252,11 @@ structure GtkFileChooser :>
               x3
             )
     val setFilter_ = fn x1 & x2 => (_import "gtk_file_chooser_set_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_file_chooser_set_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_file_chooser_set_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setPreviewWidget_ = fn x1 & x2 => (_import "gtk_file_chooser_set_preview_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setPreviewWidgetActive_ = fn x1 & x2 => (_import "gtk_file_chooser_set_preview_widget_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_file_chooser_set_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setShowHidden_ = fn x1 & x2 => (_import "gtk_file_chooser_set_show_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setPreviewWidgetActive_ = fn x1 & x2 => (_import "gtk_file_chooser_set_preview_widget_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_file_chooser_set_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowHidden_ = fn x1 & x2 => (_import "gtk_file_chooser_set_show_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setUri_ =
       fn
         x1 & (x2, x3) =>
@@ -265,14 +265,14 @@ structure GtkFileChooser :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val setUsePreviewLabel_ = fn x1 & x2 => (_import "gtk_file_chooser_set_use_preview_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setUsePreviewLabel_ = fn x1 & x2 => (_import "gtk_file_chooser_set_use_preview_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val unselectAll_ = _import "gtk_file_chooser_unselect_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unselectFile_ = fn x1 & x2 => (_import "gtk_file_chooser_unselect_file" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val unselectFilename_ =
@@ -315,9 +315,9 @@ structure GtkFileChooser :>
     fun addShortcutFolder self folder =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         addShortcutFolder_
         (
@@ -328,9 +328,9 @@ structure GtkFileChooser :>
     fun addShortcutFolderUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         addShortcutFolderUri_
         (
@@ -339,32 +339,32 @@ structure GtkFileChooser :>
            & []
         )
     fun getAction self = (GObjectObjectClass.C.withPtr ---> GtkFileChooserAction.C.fromVal) getAction_ self
-    fun getCreateFolders self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCreateFolders_ self
-    fun getCurrentFolder self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getCurrentFolder_ self
+    fun getCreateFolders self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCreateFolders_ self
+    fun getCurrentFolder self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getCurrentFolder_ self
     fun getCurrentFolderFile self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getCurrentFolderFile_ self
-    fun getCurrentFolderUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getCurrentFolderUri_ self
-    fun getDoOverwriteConfirmation self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getDoOverwriteConfirmation_ self
+    fun getCurrentFolderUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getCurrentFolderUri_ self
+    fun getDoOverwriteConfirmation self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDoOverwriteConfirmation_ self
     fun getExtraWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getExtraWidget_ self
     fun getFile self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getFile_ self
-    fun getFilename self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getFilename_ self
+    fun getFilename self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getFilename_ self
     fun getFilter self = (GObjectObjectClass.C.withPtr ---> GtkFileFilterClass.C.fromOptPtr false) getFilter_ self
-    fun getLocalOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getLocalOnly_ self
+    fun getLocalOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocalOnly_ self
     fun getPreviewFile self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromOptPtr true) getPreviewFile_ self
-    fun getPreviewFilename self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getPreviewFilename_ self
-    fun getPreviewUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getPreviewUri_ self
+    fun getPreviewFilename self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getPreviewFilename_ self
+    fun getPreviewUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getPreviewUri_ self
     fun getPreviewWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getPreviewWidget_ self
-    fun getPreviewWidgetActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getPreviewWidgetActive_ self
-    fun getSelectMultiple self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSelectMultiple_ self
-    fun getShowHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowHidden_ self
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromOptPtr true) getUri_ self
-    fun getUsePreviewLabel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getUsePreviewLabel_ self
+    fun getPreviewWidgetActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getPreviewWidgetActive_ self
+    fun getSelectMultiple self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSelectMultiple_ self
+    fun getShowHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowHidden_ self
+    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromOptPtr true) getUri_ self
+    fun getUsePreviewLabel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUsePreviewLabel_ self
     fun removeFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeFilter_ (self & filter)
     fun removeShortcutFolder self folder =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeShortcutFolder_
         (
@@ -375,9 +375,9 @@ structure GtkFileChooser :>
     fun removeShortcutFolderUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeShortcutFolderUri_
         (
@@ -391,7 +391,7 @@ structure GtkFileChooser :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         selectFile_
         (
@@ -399,17 +399,17 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun selectFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) selectFilename_ (self & filename)
-    fun selectUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) selectUri_ (self & uri)
+    fun selectFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) selectFilename_ (self & filename)
+    fun selectUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) selectUri_ (self & uri)
     fun setAction self action = (GObjectObjectClass.C.withPtr &&&> GtkFileChooserAction.C.withVal ---> I) setAction_ (self & action)
-    fun setCreateFolders self createFolders = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setCreateFolders_ (self & createFolders)
-    fun setCurrentFolder self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) setCurrentFolder_ (self & filename)
+    fun setCreateFolders self createFolders = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCreateFolders_ (self & createFolders)
+    fun setCurrentFolder self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) setCurrentFolder_ (self & filename)
     fun setCurrentFolderFile self file =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setCurrentFolderFile_
         (
@@ -417,16 +417,16 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setCurrentFolderUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) setCurrentFolderUri_ (self & uri)
-    fun setCurrentName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setCurrentName_ (self & name)
-    fun setDoOverwriteConfirmation self doOverwriteConfirmation = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setDoOverwriteConfirmation_ (self & doOverwriteConfirmation)
+    fun setCurrentFolderUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) setCurrentFolderUri_ (self & uri)
+    fun setCurrentName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setCurrentName_ (self & name)
+    fun setDoOverwriteConfirmation self doOverwriteConfirmation = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDoOverwriteConfirmation_ (self & doOverwriteConfirmation)
     fun setExtraWidget self extraWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setExtraWidget_ (self & extraWidget)
     fun setFile self file =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         setFile_
         (
@@ -434,19 +434,19 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) setFilename_ (self & filename)
+    fun setFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) setFilename_ (self & filename)
     fun setFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFilter_ (self & filter)
-    fun setLocalOnly self localOnly = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setLocalOnly_ (self & localOnly)
+    fun setLocalOnly self localOnly = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setPreviewWidget self previewWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPreviewWidget_ (self & previewWidget)
-    fun setPreviewWidgetActive self active = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setPreviewWidgetActive_ (self & active)
-    fun setSelectMultiple self selectMultiple = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
-    fun setShowHidden self showHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowHidden_ (self & showHidden)
-    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) setUri_ (self & uri)
-    fun setUsePreviewLabel self useLabel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUsePreviewLabel_ (self & useLabel)
+    fun setPreviewWidgetActive self active = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPreviewWidgetActive_ (self & active)
+    fun setSelectMultiple self selectMultiple = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
+    fun setShowHidden self showHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowHidden_ (self & showHidden)
+    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) setUri_ (self & uri)
+    fun setUsePreviewLabel self useLabel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUsePreviewLabel_ (self & useLabel)
     fun unselectAll self = (GObjectObjectClass.C.withPtr ---> I) unselectAll_ self
     fun unselectFile self file = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) unselectFile_ (self & file)
-    fun unselectFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) unselectFilename_ (self & filename)
-    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) unselectUri_ (self & uri)
+    fun unselectFilename self filename = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) unselectFilename_ (self & filename)
+    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

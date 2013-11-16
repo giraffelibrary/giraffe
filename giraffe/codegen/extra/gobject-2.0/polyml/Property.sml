@@ -10,7 +10,7 @@ structure Property :>
         call (load_sym libgobject "g_object_get_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -19,7 +19,7 @@ structure Property :>
         call (load_sym libgobject "g_object_set_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -31,7 +31,7 @@ structure Property :>
     fun getProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -45,7 +45,7 @@ structure Property :>
     fun setProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

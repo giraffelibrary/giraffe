@@ -7,40 +7,40 @@ structure GioInetAddress :>
     val newAny_ = _import "g_inet_address_new_any" : GioSocketFamily.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromString_ = _import "mlton_g_inet_address_new_from_string" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newLoopback_ = _import "g_inet_address_new_loopback" : GioSocketFamily.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val equal_ = fn x1 & x2 => (_import "g_inet_address_equal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
+    val equal_ = fn x1 & x2 => (_import "g_inet_address_equal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getFamily_ = _import "g_inet_address_get_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketFamily.C.val_;
-    val getIsAny_ = _import "g_inet_address_get_is_any" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsLinkLocal_ = _import "g_inet_address_get_is_link_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsLoopback_ = _import "g_inet_address_get_is_loopback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMcGlobal_ = _import "g_inet_address_get_is_mc_global" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMcLinkLocal_ = _import "g_inet_address_get_is_mc_link_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMcNodeLocal_ = _import "g_inet_address_get_is_mc_node_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMcOrgLocal_ = _import "g_inet_address_get_is_mc_org_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMcSiteLocal_ = _import "g_inet_address_get_is_mc_site_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsMulticast_ = _import "g_inet_address_get_is_multicast" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getIsSiteLocal_ = _import "g_inet_address_get_is_site_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getNativeSize_ = _import "g_inet_address_get_native_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.val_;
-    val toString_ = _import "g_inet_address_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getIsAny_ = _import "g_inet_address_get_is_any" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsLinkLocal_ = _import "g_inet_address_get_is_link_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsLoopback_ = _import "g_inet_address_get_is_loopback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMcGlobal_ = _import "g_inet_address_get_is_mc_global" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMcLinkLocal_ = _import "g_inet_address_get_is_mc_link_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMcNodeLocal_ = _import "g_inet_address_get_is_mc_node_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMcOrgLocal_ = _import "g_inet_address_get_is_mc_org_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMcSiteLocal_ = _import "g_inet_address_get_is_mc_site_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsMulticast_ = _import "g_inet_address_get_is_multicast" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getIsSiteLocal_ = _import "g_inet_address_get_is_site_local" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getNativeSize_ = _import "g_inet_address_get_native_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
+    val toString_ = _import "g_inet_address_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GioInetAddressClass.t
     type socketfamily_t = GioSocketFamily.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
-    fun newFromString string = (FFI.String.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
+    fun newFromString string = (FFI.String.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
     fun newLoopback family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newLoopback_ family
-    fun equal self otherAddress = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) equal_ (self & otherAddress)
+    fun equal self otherAddress = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & otherAddress)
     fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
-    fun getIsAny self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsAny_ self
-    fun getIsLinkLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsLinkLocal_ self
-    fun getIsLoopback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsLoopback_ self
-    fun getIsMcGlobal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMcGlobal_ self
-    fun getIsMcLinkLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMcLinkLocal_ self
-    fun getIsMcNodeLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMcNodeLocal_ self
-    fun getIsMcOrgLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMcOrgLocal_ self
-    fun getIsMcSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMcSiteLocal_ self
-    fun getIsMulticast self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsMulticast_ self
-    fun getIsSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getIsSiteLocal_ self
-    fun getNativeSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.fromVal) getNativeSize_ self
-    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) toString_ self
+    fun getIsAny self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsAny_ self
+    fun getIsLinkLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsLinkLocal_ self
+    fun getIsLoopback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsLoopback_ self
+    fun getIsMcGlobal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcGlobal_ self
+    fun getIsMcLinkLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcLinkLocal_ self
+    fun getIsMcNodeLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcNodeLocal_ self
+    fun getIsMcOrgLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcOrgLocal_ self
+    fun getIsMcSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcSiteLocal_ self
+    fun getIsMulticast self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMulticast_ self
+    fun getIsSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsSiteLocal_ self
+    fun getNativeSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getNativeSize_ self
+    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
     local
       open Property
     in

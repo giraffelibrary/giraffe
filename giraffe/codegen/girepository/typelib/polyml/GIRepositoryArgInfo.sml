@@ -17,22 +17,22 @@ structure GIRepositoryArgInfo :>
       val isCallerAllocates_ =
         call
           (load_sym libgirepository "g_arg_info_is_caller_allocates")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val isReturnValue_ =
         call
           (load_sym libgirepository "g_arg_info_is_return_value")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val isOptional_ =
         call
           (load_sym libgirepository "g_arg_info_is_optional")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val mayBeNull_ =
         call
           (load_sym libgirepository "g_arg_info_may_be_null")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Bool.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
 
       val getOwnershipTransfer_ =
         call
@@ -47,12 +47,12 @@ structure GIRepositoryArgInfo :>
       val getClosure_ =
         call
           (load_sym libgirepository "g_arg_info_get_closure")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getDestroy_ =
         call
           (load_sym libgirepository "g_arg_info_get_destroy")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getType_ =
         call
@@ -74,19 +74,19 @@ structure GIRepositoryArgInfo :>
 
     val isCallerAllocates =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isCallerAllocates_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isCallerAllocates_ info
 
     val isReturnValue =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isReturnValue_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isReturnValue_ info
 
     val isOptional =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> I) isOptional_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isOptional_ info
 
     val mayBeNull =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> I) mayBeNull_ info
+        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) mayBeNull_ info
 
     val getOwnershipTransfer =
       fn info =>
@@ -100,13 +100,13 @@ structure GIRepositoryArgInfo :>
 
     val getClosure =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
+        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n) o FFI.Int32.C.fromVal)
           getClosure_
           info
 
     val getDestroy =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n))
+        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n) o FFI.Int32.C.fromVal)
           getDestroy_
           info
 

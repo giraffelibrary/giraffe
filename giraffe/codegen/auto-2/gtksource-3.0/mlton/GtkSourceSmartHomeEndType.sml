@@ -10,16 +10,16 @@ structure GtkSourceSmartHomeEndType :>
     | ALWAYS
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             DISABLED => f 0
           | BEFORE => f 1
           | AFTER => f 2
           | ALWAYS => f 3
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => DISABLED

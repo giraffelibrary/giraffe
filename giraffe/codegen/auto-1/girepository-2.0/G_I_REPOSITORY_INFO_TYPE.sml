@@ -35,6 +35,6 @@ signature G_I_REPOSITORY_INFO_TYPE =
            -> t
            -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of FFI.Enum.val_
+        exception Value of FFI.Enum.C.val_
       end
   end

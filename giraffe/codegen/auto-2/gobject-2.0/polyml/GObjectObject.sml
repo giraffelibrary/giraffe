@@ -42,14 +42,14 @@ structure GObjectObject :>
         call (load_sym libgobject "g_object_get_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
 (*
       val getQdata_ = call (load_sym libgobject "g_object_get_qdata") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.UInt32.VAL --> FFI.PolyML.VOID)
-      val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val notify_ = call (load_sym libgobject "g_object_notify") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val notify_ = call (load_sym libgobject "g_object_notify") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val notifyByPspec_ = call (load_sym libgobject "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.PTR &&> GObjectParamSpecClass.PolyML.PTR --> FFI.PolyML.VOID)
       val runDispose_ = call (load_sym libgobject "g_object_run_dispose") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setData_ = call (load_sym libgobject "g_object_set_data") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
@@ -58,7 +58,7 @@ structure GObjectObject :>
         call (load_sym libgobject "g_object_set_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -118,7 +118,7 @@ structure GObjectObject :>
     fun getProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -130,8 +130,8 @@ structure GObjectObject :>
         )
 (*
     fun getQdata self quark = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) getQdata_ (self & quark)
-    fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFloating_ self
-    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) notify_ (self & propertyName)
+    fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFloating_ self
+    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.C.withPtr ---> I) runDispose_ self
     fun setData self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setData_ (self & key)
@@ -139,7 +139,7 @@ structure GObjectObject :>
     fun setProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

@@ -18,6 +18,6 @@ signature GIO_TLS_DATABASE_VERIFY_FLAGS =
            -> t
            -> (val_, 'a) pair
         val fromVal : val_ -> t
-        exception Value of FFI.Enum.val_
+        exception Value of FFI.Enum.C.val_
       end
   end

@@ -24,12 +24,12 @@ structure GtkAppChooserDialog :>
           (
             GObjectObjectClass.PolyML.OPTPTR
              &&> GtkDialogFlags.PolyML.VAL
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_heading") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_heading") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getWidget_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_set_heading") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> FFI.PolyML.VOID)
+      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_set_heading") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAppChooserDialogClass.t
     type 'a appchooserclass_t = 'a GtkAppChooserClass.t
@@ -58,7 +58,7 @@ structure GtkAppChooserDialog :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> GtkDialogFlags.C.withVal
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> GtkAppChooserDialogClass.C.fromPtr false
       )
         newForContentType_
@@ -67,9 +67,9 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getHeading_ self
+    fun getHeading self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getHeading_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setHeading_ (self & heading)
     local
       open Property
     in

@@ -12,8 +12,8 @@ structure GLibSpawnChildSetupFunc :>
 
     structure C =
       struct
-        type callback = t
-        val withCallback = FFI.withVal
+        type callback = unit -> unit
+        val withCallback = I
       end
 
     structure PolyML =

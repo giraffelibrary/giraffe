@@ -35,9 +35,9 @@ structure AtkTextAttribute :>
     | LASTDEFINED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -69,7 +69,7 @@ structure AtkTextAttribute :>
           | VARIANT => f 26
           | STYLE => f 27
           | LASTDEFINED => f 28
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -115,12 +115,12 @@ structure AtkTextAttribute :>
         }
     val null = INVALID
     val forName_ = _import "mlton_atk_text_attribute_for_name" : cstring * unit CPointer.t -> C.val_;
-    val getName_ = _import "atk_text_attribute_get_name" : C.val_ -> FFI.String.notnull FFI.String.out_p;
-    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : C.val_ * FFI.Int32.val_ -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getName_ = _import "atk_text_attribute_get_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : C.val_ * FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val register_ = _import "mlton_atk_text_attribute_register" : cstring * unit CPointer.t -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.withConstPtr ---> C.fromVal) forName_ name
-    fun getName attr = (C.withVal ---> FFI.String.fromPtr false) getName_ attr
-    fun getValue attr index = (C.withVal &&&> FFI.Int32.withVal ---> FFI.String.fromPtr false) getValue_ (attr & index)
-    fun register name = (FFI.String.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getName attr = (C.withVal ---> FFI.String.C.fromPtr false) getName_ attr
+    fun getValue attr index = (C.withVal &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getValue_ (attr & index)
+    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
   end

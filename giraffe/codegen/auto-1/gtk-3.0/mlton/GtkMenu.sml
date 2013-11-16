@@ -20,10 +20,10 @@ structure GtkMenu :>
             _import "gtk_menu_attach" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -36,13 +36,13 @@ structure GtkMenu :>
             )
     val detach_ = _import "gtk_menu_detach" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getAccelGroup_ = _import "gtk_menu_get_accel_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAccelPath_ = _import "gtk_menu_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getAccelPath_ = _import "gtk_menu_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getActive_ = _import "gtk_menu_get_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAttachWidget_ = _import "gtk_menu_get_attach_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getMonitor_ = _import "gtk_menu_get_monitor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getReserveToggleSize_ = _import "gtk_menu_get_reserve_toggle_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getTearoffState_ = _import "gtk_menu_get_tearoff_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getTitle_ = _import "gtk_menu_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getMonitor_ = _import "gtk_menu_get_monitor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getReserveToggleSize_ = _import "gtk_menu_get_reserve_toggle_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getTearoffState_ = _import "gtk_menu_get_tearoff_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getTitle_ = _import "gtk_menu_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val popdown_ = _import "gtk_menu_popdown" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val reorderChild_ =
       fn
@@ -53,7 +53,7 @@ structure GtkMenu :>
             _import "gtk_menu_reorder_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -78,11 +78,11 @@ structure GtkMenu :>
               x2,
               x3
             )
-    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
-    val setMonitor_ = fn x1 & x2 => (_import "gtk_menu_set_monitor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setReserveToggleSize_ = fn x1 & x2 => (_import "gtk_menu_set_reserve_toggle_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setMonitor_ = fn x1 & x2 => (_import "gtk_menu_set_monitor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setReserveToggleSize_ = fn x1 & x2 => (_import "gtk_menu_set_reserve_toggle_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setScreen_ = fn x1 & x2 => (_import "gtk_menu_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setTearoffState_ = fn x1 & x2 => (_import "gtk_menu_set_tearoff_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setTearoffState_ = fn x1 & x2 => (_import "gtk_menu_set_tearoff_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
@@ -111,10 +111,10 @@ structure GtkMenu :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         attach_
@@ -128,19 +128,19 @@ structure GtkMenu :>
         )
     fun detach self = (GObjectObjectClass.C.withPtr ---> I) detach_ self
     fun getAccelGroup self = (GObjectObjectClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getAccelPath_ self
+    fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getAccelPath_ self
     fun getActive self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActive_ self
     fun getAttachWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAttachWidget_ self
-    fun getMonitor self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMonitor_ self
-    fun getReserveToggleSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getReserveToggleSize_ self
-    fun getTearoffState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getTearoffState_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getTitle_ self
+    fun getMonitor self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMonitor_ self
+    fun getReserveToggleSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReserveToggleSize_ self
+    fun getTearoffState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTearoffState_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
     fun popdown self = (GObjectObjectClass.C.withPtr ---> I) popdown_ self
     fun reorderChild self child position =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reorderChild_
@@ -151,13 +151,13 @@ structure GtkMenu :>
         )
     fun reposition self = (GObjectObjectClass.C.withPtr ---> I) reposition_ self
     fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) setActive_ (self & index)
-    fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMonitor_ (self & monitorNum)
-    fun setReserveToggleSize self reserveToggleSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
+    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setActive_ (self & index)
+    fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMonitor_ (self & monitorNum)
+    fun setReserveToggleSize self reserveToggleSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setScreen_ (self & screen)
-    fun setTearoffState self tornOff = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setTearoffState_ (self & tornOff)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTearoffState self tornOff = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTearoffState_ (self & tornOff)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
     local
       open ClosureMarshal Signal
     in

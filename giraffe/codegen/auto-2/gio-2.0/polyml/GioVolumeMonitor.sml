@@ -10,8 +10,8 @@ structure GioVolumeMonitor :>
     in
       val getType_ = call (load_sym libgio "g_volume_monitor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val get_ = call (load_sym libgio "g_volume_monitor_get") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioVolumeMonitorClass.t
     type 'a driveclass_t = 'a GioDriveClass.t
@@ -19,8 +19,8 @@ structure GioVolumeMonitor :>
     type 'a volumeclass_t = 'a GioVolumeClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
-    fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
-    fun getVolumeForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
+    fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
+    fun getVolumeForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
     local
       open ClosureMarshal Signal
     in

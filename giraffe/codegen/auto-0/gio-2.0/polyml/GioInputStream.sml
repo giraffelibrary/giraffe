@@ -15,7 +15,7 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val closeFinish_ =
         call (load_sym libgio "g_input_stream_close_finish")
@@ -23,28 +23,28 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val read_ =
         call (load_sym libgio "g_input_stream_read")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt64.VAL
+             &&> FFI.UInt64.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
       val readAll_ =
         call (load_sym libgio "g_input_stream_read_all")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt64.VAL
-             &&> FFI.PolyML.UInt64.REF
+             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.UInt64.PolyML.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val readFinish_ =
         call (load_sym libgio "g_input_stream_read_finish")
@@ -52,17 +52,17 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
-      val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.PolyML.Bool.VAL)
+      val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val skip_ =
         call (load_sym libgio "g_input_stream_skip")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt64.VAL
+             &&> FFI.UInt64.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
       val skipFinish_ =
         call (load_sym libgio "g_input_stream_skip_finish")
@@ -70,7 +70,7 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.PolyML.Int64.VAL
+             --> FFI.Int64.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioInputStreamClass.t
@@ -83,7 +83,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         close_
         (
@@ -96,7 +96,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         closeFinish_
         (
@@ -104,15 +104,15 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isClosed_ self
+    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun read self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         read_
         (
@@ -126,11 +126,11 @@ structure GioInputStream :>
         val bytesRead & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.withVal
-             &&&> FFI.UInt64.withRefVal
+             &&&> FFI.UInt64.C.withVal
+             &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.fromVal && FFI.Bool.fromVal
+             ---> FFI.UInt64.C.fromVal && FFI.Bool.C.fromVal
           )
             readAll_
             (
@@ -148,7 +148,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         readFinish_
         (
@@ -156,14 +156,14 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.fromVal) setPending_ (self & [])
+    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun skip self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         skip_
         (
@@ -177,7 +177,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         skipFinish_
         (

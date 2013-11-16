@@ -17,10 +17,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_byte" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt8.val_
+               * FFI.UInt8.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -37,10 +37,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_int16" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int16.val_
+               * FFI.Int16.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -57,10 +57,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_int32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -77,10 +77,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_int64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int64.val_
+               * FFI.Int64.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -101,7 +101,7 @@ structure GioDataOutputStream :>
                * unit CPointer.t
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -119,10 +119,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_uint16" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt16.val_
+               * FFI.UInt16.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -139,10 +139,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_uint32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -159,10 +159,10 @@ structure GioDataOutputStream :>
           (
             _import "g_data_output_stream_put_uint64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -181,10 +181,10 @@ structure GioDataOutputStream :>
     fun putByte self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt8.withVal
+         &&&> FFI.UInt8.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putByte_
         (
@@ -196,10 +196,10 @@ structure GioDataOutputStream :>
     fun putInt16 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int16.withVal
+         &&&> FFI.Int16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putInt16_
         (
@@ -211,10 +211,10 @@ structure GioDataOutputStream :>
     fun putInt32 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putInt32_
         (
@@ -226,10 +226,10 @@ structure GioDataOutputStream :>
     fun putInt64 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int64.withVal
+         &&&> FFI.Int64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putInt64_
         (
@@ -241,10 +241,10 @@ structure GioDataOutputStream :>
     fun putString self str cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putString_
         (
@@ -256,10 +256,10 @@ structure GioDataOutputStream :>
     fun putUint16 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt16.withVal
+         &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putUint16_
         (
@@ -271,10 +271,10 @@ structure GioDataOutputStream :>
     fun putUint32 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putUint32_
         (
@@ -286,10 +286,10 @@ structure GioDataOutputStream :>
     fun putUint64 self data cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         putUint64_
         (

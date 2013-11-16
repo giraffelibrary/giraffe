@@ -18,14 +18,14 @@ structure GtkTreeModel :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getIterFirst_ = fn x1 & x2 => (_import "gtk_tree_model_get_iter_first" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.val_;) (x1, x2)
+    val getIterFirst_ = fn x1 & x2 => (_import "gtk_tree_model_get_iter_first" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getIterFromString_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure GtkTreeModel :>
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -45,9 +45,9 @@ structure GtkTreeModel :>
               x3,
               x4
             )
-    val getNColumns_ = _import "gtk_tree_model_get_n_columns" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getNColumns_ = _import "gtk_tree_model_get_n_columns" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getPath_ = fn x1 & x2 => (_import "gtk_tree_model_get_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;) (x1, x2)
-    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.String.notnull FFI.String.out_p;) (x1, x2)
+    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val getValue_ =
       fn
         x1
@@ -58,7 +58,7 @@ structure GtkTreeModel :>
             _import "gtk_tree_model_get_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -78,16 +78,16 @@ structure GtkTreeModel :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val iterHasChild_ = fn x1 & x2 => (_import "gtk_tree_model_iter_has_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.val_;) (x1, x2)
-    val iterNChildren_ = fn x1 & x2 => (_import "gtk_tree_model_iter_n_children" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkTreeIterRecord.C.p -> FFI.Int32.val_;) (x1, x2)
-    val iterNext_ = fn x1 & x2 => (_import "gtk_tree_model_iter_next" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.val_;) (x1, x2)
+    val iterHasChild_ = fn x1 & x2 => (_import "gtk_tree_model_iter_has_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val iterNChildren_ = fn x1 & x2 => (_import "gtk_tree_model_iter_n_children" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkTreeIterRecord.C.p -> FFI.Int32.C.val_;) (x1, x2)
+    val iterNext_ = fn x1 & x2 => (_import "gtk_tree_model_iter_next" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val iterNthChild_ =
       fn
         x1
@@ -99,8 +99,8 @@ structure GtkTreeModel :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -118,14 +118,14 @@ structure GtkTreeModel :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val iterPrevious_ = fn x1 & x2 => (_import "gtk_tree_model_iter_previous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.val_;) (x1, x2)
+    val iterPrevious_ = fn x1 & x2 => (_import "gtk_tree_model_iter_previous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val refNode_ = fn x1 & x2 => (_import "gtk_tree_model_ref_node" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> unit;) (x1, x2)
     val rowChanged_ =
       fn
@@ -195,7 +195,7 @@ structure GtkTreeModel :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreePathRecord.C.withPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIter_
             (
@@ -208,7 +208,7 @@ structure GtkTreeModel :>
       end
     fun getIterFirst self =
       let
-        val iter & retVal = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withNewPtr ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal) getIterFirst_ (self & ())
+        val iter & retVal = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withNewPtr ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal) getIterFirst_ (self & ())
       in
         if retVal then SOME iter else NONE
       end
@@ -218,8 +218,8 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.String.withConstPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             &&&> FFI.String.C.withConstPtr
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIterFromString_
             (
@@ -230,16 +230,16 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getNColumns_ self
+    fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNColumns_ self
     fun getPath self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getPath_ (self & iter)
-    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.String.fromPtr true) getStringFromIter_ (self & iter)
+    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getStringFromIter_ (self & iter)
     fun getValue self iter column =
       let
         val value & () =
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withPtr
-             &&&> FFI.Int32.withVal
+             &&&> FFI.Int32.C.withVal
              &&&> GObjectValueRecord.C.withNewPtr
              ---> GObjectValueRecord.C.fromPtr true && I
           )
@@ -260,7 +260,7 @@ structure GtkTreeModel :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             iterChildren_
             (
@@ -271,9 +271,9 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun iterHasChild self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterHasChild_ (self & iter)
-    fun iterNChildren self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withOptPtr ---> FFI.Int32.fromVal) iterNChildren_ (self & iter)
-    fun iterNext self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterNext_ (self & iter)
+    fun iterHasChild self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterHasChild_ (self & iter)
+    fun iterNChildren self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withOptPtr ---> FFI.Int32.C.fromVal) iterNChildren_ (self & iter)
+    fun iterNext self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterNext_ (self & iter)
     fun iterNthChild self parent n =
       let
         val iter & retVal =
@@ -281,8 +281,8 @@ structure GtkTreeModel :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
-             &&&> FFI.Int32.withVal
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             &&&> FFI.Int32.C.withVal
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             iterNthChild_
             (
@@ -301,7 +301,7 @@ structure GtkTreeModel :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             iterParent_
             (
@@ -312,7 +312,7 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun iterPrevious self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterPrevious_ (self & iter)
+    fun iterPrevious self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterPrevious_ (self & iter)
     fun refNode self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> I) refNode_ (self & iter)
     fun rowChanged self path iter =
       (

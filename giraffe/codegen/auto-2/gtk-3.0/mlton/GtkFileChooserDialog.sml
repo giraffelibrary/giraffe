@@ -34,7 +34,7 @@ structure GtkFileChooserDialog :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new title parent action =
       (
-        FFI.String.withConstOptPtr
+        FFI.String.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GtkFileChooserAction.C.withVal
          ---> GtkFileChooserDialogClass.C.fromPtr false

@@ -28,7 +28,7 @@ structure GioActionGroup :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -117,7 +117,7 @@ structure GioActionGroup :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -192,7 +192,7 @@ structure GioActionGroup :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -201,12 +201,12 @@ structure GioActionGroup :>
             )
     type 'a class_t = 'a GioActionGroupClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) actionAdded_ (self & actionName)
+    fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         actionEnabledChanged_
@@ -215,11 +215,11 @@ structure GioActionGroup :>
            & actionName
            & enabled
         )
-    fun actionRemoved self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) actionRemoved_ (self & actionName)
+    fun actionRemoved self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) actionRemoved_ (self & actionName)
     fun actionStateChanged self actionName state =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
       )
@@ -232,7 +232,7 @@ structure GioActionGroup :>
     fun activateAction self actionName parameter =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
       )
@@ -245,7 +245,7 @@ structure GioActionGroup :>
     fun changeActionState self actionName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
       )
@@ -255,12 +255,12 @@ structure GioActionGroup :>
            & actionName
            & value
         )
-    fun getActionEnabled self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
-    fun hasAction self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasAction_ (self & actionName)
+    fun getActionEnabled self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getActionEnabled_ (self & actionName)
+    fun getActionParameterType self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
+    fun hasAction self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasAction_ (self & actionName)
     local
       open ClosureMarshal Signal
     in

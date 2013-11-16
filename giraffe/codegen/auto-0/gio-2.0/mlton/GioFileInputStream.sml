@@ -56,7 +56,7 @@ structure GioFileInputStream :>
     fun queryInfo self attributes cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileInfoClass.C.fromPtr true

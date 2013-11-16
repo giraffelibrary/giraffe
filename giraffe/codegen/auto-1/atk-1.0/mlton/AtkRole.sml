@@ -108,9 +108,9 @@ structure AtkRole :>
     | LASTDEFINED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -215,7 +215,7 @@ structure AtkRole :>
           | NOTIFICATION => f 99
           | INFOBAR => f 100
           | LASTDEFINED => f 101
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -334,12 +334,12 @@ structure AtkRole :>
         }
     val null = INVALID
     val forName_ = _import "mlton_atk_role_for_name" : cstring * unit CPointer.t -> C.val_;
-    val getLocalizedName_ = _import "atk_role_get_localized_name" : C.val_ -> FFI.String.notnull FFI.String.out_p;
-    val getName_ = _import "atk_role_get_name" : C.val_ -> FFI.String.notnull FFI.String.out_p;
+    val getLocalizedName_ = _import "atk_role_get_localized_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "atk_role_get_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val register_ = _import "mlton_atk_role_register" : cstring * unit CPointer.t -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.withConstPtr ---> C.fromVal) forName_ name
-    fun getLocalizedName role = (C.withVal ---> FFI.String.fromPtr false) getLocalizedName_ role
-    fun getName role = (C.withVal ---> FFI.String.fromPtr false) getName_ role
-    fun register name = (FFI.String.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getLocalizedName role = (C.withVal ---> FFI.String.C.fromPtr false) getLocalizedName_ role
+    fun getName role = (C.withVal ---> FFI.String.C.fromPtr false) getName_ role
+    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
   end

@@ -7,26 +7,26 @@ structure GioSimpleAction :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_simple_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_simple_action_new") (FFI.PolyML.String.INPTR &&> GLibVariantTypeRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgio "g_simple_action_new") (FFI.String.PolyML.INPTR &&> GLibVariantTypeRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
       val newStateful_ =
         call (load_sym libgio "g_simple_action_new_stateful")
           (
-            FFI.PolyML.String.INPTR
+            FFI.String.PolyML.INPTR
              &&> GLibVariantTypeRecord.PolyML.OPTPTR
              &&> GLibVariantRecord.PolyML.PTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val setEnabled_ = call (load_sym libgio "g_simple_action_set_enabled") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val setEnabled_ = call (load_sym libgio "g_simple_action_set_enabled") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setState_ = call (load_sym libgio "g_simple_action_set_state") (GObjectObjectClass.PolyML.PTR &&> GLibVariantRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSimpleActionClass.t
     type 'a actionclass_t = 'a GioActionClass.t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name parameterType = (FFI.String.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
+    fun new name parameterType = (FFI.String.C.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
     fun newStateful name parameterType state =
       (
-        FFI.String.withConstPtr
+        FFI.String.C.withConstPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> GioSimpleActionClass.C.fromPtr true
@@ -37,7 +37,7 @@ structure GioSimpleAction :>
            & parameterType
            & state
         )
-    fun setEnabled self enabled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setEnabled_ (self & enabled)
+    fun setEnabled self enabled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnabled_ (self & enabled)
     fun setState self value = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setState_ (self & value)
     local
       open ClosureMarshal Signal

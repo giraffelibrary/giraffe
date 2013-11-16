@@ -27,19 +27,19 @@ structure PangoLayoutLine :>
         call (load_sym libpango "pango_layout_line_index_to_x")
           (
             PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Bool.VAL
-             &&> FFI.PolyML.Int32.REF
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
+             &&> FFI.Int32.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val xToIndex_ =
         call (load_sym libpango "pango_layout_line_x_to_index")
           (
             PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.REF
-             &&> FFI.PolyML.Int32.REF
-             --> FFI.PolyML.Bool.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int32.PolyML.REF
+             --> FFI.Bool.PolyML.VAL
           )
     end
     type record_t = PangoLayoutLineRecord.t
@@ -94,10 +94,10 @@ structure PangoLayoutLine :>
         val xPos & () =
           (
             PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Bool.withVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal && I
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Bool.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal && I
           )
             indexToX_
             (
@@ -116,12 +116,12 @@ structure PangoLayoutLine :>
          & retVal =
           (
             PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             xToIndex_
             (

@@ -11,7 +11,7 @@ structure GtkTreeSelection :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_tree_selection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
+      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getMode_ = call (load_sym libgtk "gtk_tree_selection_get_mode") (GObjectObjectClass.PolyML.PTR --> GtkSelectionMode.PolyML.VAL)
       val getSelected_ =
         call (load_sym libgtk "gtk_tree_selection_get_selected")
@@ -19,11 +19,11 @@ structure GtkTreeSelection :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
       val getTreeView_ = call (load_sym libgtk "gtk_tree_selection_get_tree_view") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val iterIsSelected_ = call (load_sym libgtk "gtk_tree_selection_iter_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val pathIsSelected_ = call (load_sym libgtk "gtk_tree_selection_path_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val iterIsSelected_ = call (load_sym libgtk "gtk_tree_selection_iter_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val pathIsSelected_ = call (load_sym libgtk "gtk_tree_selection_path_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val selectAll_ = call (load_sym libgtk "gtk_tree_selection_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val selectIter_ = call (load_sym libgtk "gtk_tree_selection_select_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val selectPath_ = call (load_sym libgtk "gtk_tree_selection_select_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
@@ -55,7 +55,7 @@ structure GtkTreeSelection :>
     type treepathrecord_t = GtkTreePathRecord.t
     type selectionmode_t = GtkSelectionMode.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) countSelectedRows_ self
+    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) countSelectedRows_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self
     fun getSelected self =
       let
@@ -68,7 +68,7 @@ structure GtkTreeSelection :>
              &&&> GtkTreeIterRecord.C.withNewPtr
              ---> GtkTreeModelClass.C.fromPtr false
                    && GtkTreeIterRecord.C.fromPtr true
-                   && FFI.Bool.fromVal
+                   && FFI.Bool.C.fromVal
           )
             getSelected_
             (
@@ -80,8 +80,8 @@ structure GtkTreeSelection :>
         if retVal then SOME (model, iter) else NONE
       end
     fun getTreeView self = (GObjectObjectClass.C.withPtr ---> GtkTreeViewClass.C.fromPtr false) getTreeView_ self
-    fun iterIsSelected self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.fromVal) iterIsSelected_ (self & iter)
-    fun pathIsSelected self path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Bool.fromVal) pathIsSelected_ (self & path)
+    fun iterIsSelected self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsSelected_ (self & iter)
+    fun pathIsSelected self path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) pathIsSelected_ (self & path)
     fun selectAll self = (GObjectObjectClass.C.withPtr ---> I) selectAll_ self
     fun selectIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> I) selectIter_ (self & iter)
     fun selectPath self path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) selectPath_ (self & path)

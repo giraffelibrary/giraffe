@@ -12,8 +12,8 @@ structure GtkMisc :>
           (
             _import "gtk_misc_get_alignment" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.ref_
-               * FFI.Float.ref_
+               * FFI.Float.C.ref_
+               * FFI.Float.C.ref_
                -> unit;
           )
             (
@@ -29,8 +29,8 @@ structure GtkMisc :>
           (
             _import "gtk_misc_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -46,8 +46,8 @@ structure GtkMisc :>
           (
             _import "gtk_misc_set_alignment" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.val_
-               * FFI.Float.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
                -> unit;
           )
             (
@@ -63,8 +63,8 @@ structure GtkMisc :>
           (
             _import "gtk_misc_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -84,10 +84,10 @@ structure GtkMisc :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Float.withRefVal
-             &&&> FFI.Float.withRefVal
-             ---> FFI.Float.fromVal
-                   && FFI.Float.fromVal
+             &&&> FFI.Float.C.withRefVal
+             &&&> FFI.Float.C.withRefVal
+             ---> FFI.Float.C.fromVal
+                   && FFI.Float.C.fromVal
                    && I
           )
             getAlignment_
@@ -106,10 +106,10 @@ structure GtkMisc :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPadding_
@@ -124,8 +124,8 @@ structure GtkMisc :>
     fun setAlignment self xalign yalign =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
          ---> I
       )
         setAlignment_
@@ -137,8 +137,8 @@ structure GtkMisc :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setPadding_

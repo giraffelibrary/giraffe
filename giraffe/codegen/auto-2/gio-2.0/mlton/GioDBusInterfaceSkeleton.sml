@@ -21,7 +21,7 @@ structure GioDBusInterfaceSkeleton :>
                * cstring
                * unit CPointer.t
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -34,7 +34,7 @@ structure GioDBusInterfaceSkeleton :>
     val getConnection_ = _import "g_dbus_interface_skeleton_get_connection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFlags_ = _import "g_dbus_interface_skeleton_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusInterfaceSkeletonFlags.C.val_;
     val getInfo_ = _import "g_dbus_interface_skeleton_get_info" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusInterfaceInfoRecord.C.notnull GioDBusInterfaceInfoRecord.C.p;
-    val getObjectPath_ = _import "g_dbus_interface_skeleton_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getObjectPath_ = _import "g_dbus_interface_skeleton_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getProperties_ = _import "g_dbus_interface_skeleton_get_properties" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
     val setFlags_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_set_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDBusInterfaceSkeletonFlags.C.val_ -> unit;) (x1, x2)
     val unexport_ = _import "g_dbus_interface_skeleton_unexport" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -50,9 +50,9 @@ structure GioDBusInterfaceSkeleton :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         export_
         (
@@ -65,7 +65,7 @@ structure GioDBusInterfaceSkeleton :>
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceSkeletonFlags.C.fromVal) getFlags_ self
     fun getInfo self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr false) getInfo_ self
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getObjectPath_ self
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
     fun getProperties self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getProperties_ self
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioDBusInterfaceSkeletonFlags.C.withVal ---> I) setFlags_ (self & flags)
     fun unexport self = (GObjectObjectClass.C.withPtr ---> I) unexport_ self

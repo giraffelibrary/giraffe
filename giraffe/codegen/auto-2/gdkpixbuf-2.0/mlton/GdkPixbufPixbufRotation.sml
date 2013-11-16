@@ -10,16 +10,16 @@ structure GdkPixbufPixbufRotation :>
     | CLOCKWISE
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             NONE => f 0
           | COUNTERCLOCKWISE => f 90
           | UPSIDEDOWN => f 180
           | CLOCKWISE => f 270
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE

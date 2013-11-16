@@ -3,7 +3,7 @@ structure Vte : VTE =
     local
       open PolyMLFFI
     in
-      val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (FFI.PolyML.VOID --> FFI.PolyML.String.RETPTR)
+      val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (FFI.PolyML.VOID --> FFI.String.PolyML.RETPTR)
     end
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError
@@ -17,5 +17,5 @@ structure Vte : VTE =
     structure TerminalWriteFlags = VteTerminalWriteFlags
     structure Pty = VtePty
     structure Terminal = VteTerminal
-    fun getUserShell () = (I ---> FFI.String.fromPtr true) getUserShell_ ()
+    fun getUserShell () = (I ---> FFI.String.C.fromPtr true) getUserShell_ ()
   end

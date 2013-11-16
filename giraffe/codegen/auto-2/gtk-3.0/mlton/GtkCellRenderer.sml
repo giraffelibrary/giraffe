@@ -29,7 +29,7 @@ structure GtkCellRenderer :>
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * GtkCellRendererState.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -72,8 +72,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_get_alignment" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.ref_
-               * FFI.Float.ref_
+               * FFI.Float.C.ref_
+               * FFI.Float.C.ref_
                -> unit;
           )
             (
@@ -89,8 +89,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_get_fixed_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -106,8 +106,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -125,8 +125,8 @@ structure GtkCellRenderer :>
             _import "gtk_cell_renderer_get_preferred_height" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -146,9 +146,9 @@ structure GtkCellRenderer :>
             _import "gtk_cell_renderer_get_preferred_height_for_width" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -188,8 +188,8 @@ structure GtkCellRenderer :>
             _import "gtk_cell_renderer_get_preferred_width" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -209,9 +209,9 @@ structure GtkCellRenderer :>
             _import "gtk_cell_renderer_get_preferred_width_for_height" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -222,7 +222,7 @@ structure GtkCellRenderer :>
               x5
             )
     val getRequestMode_ = _import "gtk_cell_renderer_get_request_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSizeRequestMode.C.val_;
-    val getSensitive_ = _import "gtk_cell_renderer_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getSensitive_ = _import "gtk_cell_renderer_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getState_ =
       fn
         x1
@@ -240,8 +240,8 @@ structure GtkCellRenderer :>
               x2,
               x3
             )
-    val getVisible_ = _import "gtk_cell_renderer_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isActivatable_ = _import "gtk_cell_renderer_is_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getVisible_ = _import "gtk_cell_renderer_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isActivatable_ = _import "gtk_cell_renderer_is_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val render_ =
       fn
         x1
@@ -276,8 +276,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_set_alignment" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.val_
-               * FFI.Float.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
                -> unit;
           )
             (
@@ -293,8 +293,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_set_fixed_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -310,8 +310,8 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -319,8 +319,8 @@ structure GtkCellRenderer :>
               x2,
               x3
             )
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_cell_renderer_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setVisible_ = fn x1 & x2 => (_import "gtk_cell_renderer_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_cell_renderer_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_cell_renderer_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val startEditing_ =
       fn
         x1
@@ -352,7 +352,7 @@ structure GtkCellRenderer :>
               x7,
               x8
             )
-    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_renderer_stop_editing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_renderer_stop_editing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkCellRendererClass.t
     type requisitionrecord_t = GtkRequisitionRecord.t
     type sizerequestmode_t = GtkSizeRequestMode.t
@@ -367,11 +367,11 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         activate_
         (
@@ -412,10 +412,10 @@ structure GtkCellRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Float.withRefVal
-             &&&> FFI.Float.withRefVal
-             ---> FFI.Float.fromVal
-                   && FFI.Float.fromVal
+             &&&> FFI.Float.C.withRefVal
+             &&&> FFI.Float.C.withRefVal
+             ---> FFI.Float.C.fromVal
+                   && FFI.Float.C.fromVal
                    && I
           )
             getAlignment_
@@ -434,10 +434,10 @@ structure GtkCellRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getFixedSize_
@@ -456,10 +456,10 @@ structure GtkCellRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPadding_
@@ -479,10 +479,10 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredHeight_
@@ -503,11 +503,11 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredHeightForWidth_
@@ -553,10 +553,10 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredWidth_
@@ -577,11 +577,11 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredWidthForHeight_
@@ -596,7 +596,7 @@ structure GtkCellRenderer :>
         (minimumWidth, naturalWidth)
       end
     fun getRequestMode self = (GObjectObjectClass.C.withPtr ---> GtkSizeRequestMode.C.fromVal) getRequestMode_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSensitive_ self
+    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
     fun getState self widget cellState =
       (
         GObjectObjectClass.C.withPtr
@@ -610,8 +610,8 @@ structure GtkCellRenderer :>
            & widget
            & cellState
         )
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
-    fun isActivatable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isActivatable_ self
+    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun isActivatable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActivatable_ self
     fun render self cr widget backgroundArea cellArea flags =
       (
         GObjectObjectClass.C.withPtr
@@ -634,8 +634,8 @@ structure GtkCellRenderer :>
     fun setAlignment self xalign yalign =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
          ---> I
       )
         setAlignment_
@@ -647,8 +647,8 @@ structure GtkCellRenderer :>
     fun setFixedSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setFixedSize_
@@ -660,8 +660,8 @@ structure GtkCellRenderer :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setPadding_
@@ -670,14 +670,14 @@ structure GtkCellRenderer :>
            & xpad
            & ypad
         )
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisible_ (self & visible)
+    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     fun startEditing self event widget path backgroundArea cellArea flags =
       (
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
@@ -693,7 +693,7 @@ structure GtkCellRenderer :>
            & cellArea
            & flags
         )
-    fun stopEditing self canceled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) stopEditing_ (self & canceled)
+    fun stopEditing self canceled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) stopEditing_ (self & canceled)
     local
       open ClosureMarshal Signal
     in

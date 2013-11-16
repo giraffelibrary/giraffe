@@ -10,21 +10,21 @@ structure GtkAspectFrame :>
       val new_ =
         call (load_sym libgtk "gtk_aspect_frame_new")
           (
-            FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Bool.VAL
+            FFI.String.PolyML.INPTR
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val set_ =
         call (load_sym libgtk "gtk_aspect_frame_set")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Float.VAL
-             &&> FFI.PolyML.Bool.VAL
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Float.PolyML.VAL
+             &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -35,11 +35,11 @@ structure GtkAspectFrame :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Bool.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> GtkAspectFrameClass.C.fromPtr false
       )
         new_
@@ -53,10 +53,10 @@ structure GtkAspectFrame :>
     fun set self xalign yalign ratio obeyChild =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         set_

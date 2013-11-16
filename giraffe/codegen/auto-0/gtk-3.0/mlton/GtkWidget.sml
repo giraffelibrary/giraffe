@@ -32,7 +32,7 @@ structure GtkWidget :>
     val popCompositeChild_ = _import "gtk_widget_pop_composite_child" : unit -> unit;
     val pushCompositeChild_ = _import "gtk_widget_push_composite_child" : unit -> unit;
     val setDefaultDirection_ = _import "gtk_widget_set_default_direction" : GtkTextDirection.C.val_ -> unit;
-    val activate_ = _import "gtk_widget_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val activate_ = _import "gtk_widget_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val addAccelerator_ =
       fn
         x1
@@ -47,7 +47,7 @@ structure GtkWidget :>
                * cstring
                * unit CPointer.t
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
                * GtkAccelFlags.C.val_
                -> unit;
@@ -78,10 +78,10 @@ structure GtkWidget :>
               x2,
               x3
             )
-    val addEvents_ = fn x1 & x2 => (_import "gtk_widget_add_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val addEvents_ = fn x1 & x2 => (_import "gtk_widget_add_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val addMnemonicLabel_ = fn x1 & x2 => (_import "gtk_widget_add_mnemonic_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val canActivateAccel_ = fn x1 & x2 => (_import "gtk_widget_can_activate_accel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> FFI.Bool.val_;) (x1, x2)
-    val childFocus_ = fn x1 & x2 => (_import "gtk_widget_child_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.val_;) (x1, x2)
+    val canActivateAccel_ = fn x1 & x2 => (_import "gtk_widget_can_activate_accel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val childFocus_ = fn x1 & x2 => (_import "gtk_widget_child_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val childNotify_ =
       fn
         x1 & (x2, x3) =>
@@ -106,7 +106,7 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_class_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.ref_
+               * FFI.UInt32.C.ref_
                * cstring
                * unit CPointer.t ref
                * cstring
@@ -121,7 +121,7 @@ structure GtkWidget :>
               x5,
               x6
             )
-    val computeExpand_ = fn x1 & x2 => (_import "gtk_widget_compute_expand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkOrientation.C.val_ -> FFI.Bool.val_;) (x1, x2)
+    val computeExpand_ = fn x1 & x2 => (_import "gtk_widget_compute_expand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkOrientation.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val createPangoContext_ = _import "gtk_widget_create_pango_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val createPangoLayout_ =
       fn
@@ -140,7 +140,7 @@ structure GtkWidget :>
             )
     val destroy_ = _import "gtk_widget_destroy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val destroyed_ = fn x1 & x2 => (_import "gtk_widget_destroyed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (GObjectObjectClass.C.notnull, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r -> unit;) (x1, x2)
-    val deviceIsShadowed_ = fn x1 & x2 => (_import "gtk_widget_device_is_shadowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
+    val deviceIsShadowed_ = fn x1 & x2 => (_import "gtk_widget_device_is_shadowed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val dragBegin_ =
       fn
         x1
@@ -153,7 +153,7 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p
                * GdkDragAction.C.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * GdkEvent.C.notnull GdkEvent.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -174,11 +174,11 @@ structure GtkWidget :>
           (
             _import "gtk_drag_check_threshold" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -208,7 +208,7 @@ structure GtkWidget :>
               x3
             )
     val dragDestGetTargetList_ = _import "gtk_drag_dest_get_target_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p;
-    val dragDestGetTrackMotion_ = _import "gtk_drag_dest_get_track_motion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val dragDestGetTrackMotion_ = _import "gtk_drag_dest_get_track_motion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val dragDestSetProxy_ =
       fn
         x1
@@ -220,7 +220,7 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkDragProtocol.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -230,7 +230,7 @@ structure GtkWidget :>
               x4
             )
     val dragDestSetTargetList_ = fn x1 & x2 => (_import "gtk_drag_dest_set_target_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkTargetListRecord.C.p -> unit;) (x1, x2)
-    val dragDestSetTrackMotion_ = fn x1 & x2 => (_import "gtk_drag_dest_set_track_motion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val dragDestSetTrackMotion_ = fn x1 & x2 => (_import "gtk_drag_dest_set_track_motion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val dragDestUnset_ = _import "gtk_drag_dest_unset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val dragGetData_ =
       fn
@@ -243,7 +243,7 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -295,37 +295,37 @@ structure GtkWidget :>
     val draw_ = fn x1 & x2 => (_import "gtk_widget_draw" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoContextRecord.C.notnull CairoContextRecord.C.p -> unit;) (x1, x2)
     val ensureStyle_ = _import "gtk_widget_ensure_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val errorBell_ = _import "gtk_widget_error_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val event_ = fn x1 & x2 => (_import "gtk_widget_event" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Bool.val_;) (x1, x2)
+    val event_ = fn x1 & x2 => (_import "gtk_widget_event" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val freezeChildNotify_ = _import "gtk_widget_freeze_child_notify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getAccessible_ = _import "gtk_widget_get_accessible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAllocatedHeight_ = _import "gtk_widget_get_allocated_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getAllocatedWidth_ = _import "gtk_widget_get_allocated_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getAllocatedHeight_ = _import "gtk_widget_get_allocated_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getAllocatedWidth_ = _import "gtk_widget_get_allocated_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getAllocation_ = fn x1 & x2 => (_import "gtk_widget_get_allocation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
-    val getAppPaintable_ = _import "gtk_widget_get_app_paintable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getCanDefault_ = _import "gtk_widget_get_can_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getCanFocus_ = _import "gtk_widget_get_can_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getChildVisible_ = _import "gtk_widget_get_child_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getAppPaintable_ = _import "gtk_widget_get_app_paintable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getCanDefault_ = _import "gtk_widget_get_can_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getCanFocus_ = _import "gtk_widget_get_can_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getChildVisible_ = _import "gtk_widget_get_child_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getClipboard_ = fn x1 & x2 => (_import "gtk_widget_get_clipboard" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getCompositeName_ = _import "gtk_widget_get_composite_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getDeviceEnabled_ = fn x1 & x2 => (_import "gtk_widget_get_device_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
+    val getCompositeName_ = _import "gtk_widget_get_composite_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDeviceEnabled_ = fn x1 & x2 => (_import "gtk_widget_get_device_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getDeviceEvents_ = fn x1 & x2 => (_import "gtk_widget_get_device_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkEventMask.C.val_;) (x1, x2)
     val getDirection_ = _import "gtk_widget_get_direction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTextDirection.C.val_;
     val getDisplay_ = _import "gtk_widget_get_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDoubleBuffered_ = _import "gtk_widget_get_double_buffered" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getEvents_ = _import "gtk_widget_get_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getDoubleBuffered_ = _import "gtk_widget_get_double_buffered" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getEvents_ = _import "gtk_widget_get_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getHalign_ = _import "gtk_widget_get_halign" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkAlign.C.val_;
-    val getHasTooltip_ = _import "gtk_widget_get_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getHasWindow_ = _import "gtk_widget_get_has_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getHexpand_ = _import "gtk_widget_get_hexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getHexpandSet_ = _import "gtk_widget_get_hexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getMapped_ = _import "gtk_widget_get_mapped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getMarginBottom_ = _import "gtk_widget_get_margin_bottom" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getMarginLeft_ = _import "gtk_widget_get_margin_left" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getMarginRight_ = _import "gtk_widget_get_margin_right" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getMarginTop_ = _import "gtk_widget_get_margin_top" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getHasTooltip_ = _import "gtk_widget_get_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getHasWindow_ = _import "gtk_widget_get_has_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getHexpand_ = _import "gtk_widget_get_hexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getHexpandSet_ = _import "gtk_widget_get_hexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getMapped_ = _import "gtk_widget_get_mapped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getMarginBottom_ = _import "gtk_widget_get_margin_bottom" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getMarginLeft_ = _import "gtk_widget_get_margin_left" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getMarginRight_ = _import "gtk_widget_get_margin_right" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getMarginTop_ = _import "gtk_widget_get_margin_top" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getModifierStyle_ = _import "gtk_widget_get_modifier_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getName_ = _import "gtk_widget_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getNoShowAll_ = _import "gtk_widget_get_no_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getName_ = _import "gtk_widget_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getNoShowAll_ = _import "gtk_widget_get_no_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPangoContext_ = _import "gtk_widget_get_pango_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getParent_ = _import "gtk_widget_get_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getParentWindow_ = _import "gtk_widget_get_parent_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -338,8 +338,8 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_pointer" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -355,8 +355,8 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_preferred_height" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -373,9 +373,9 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_preferred_height_for_width" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -409,8 +409,8 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_preferred_width" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -427,9 +427,9 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_preferred_width_for_height" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -438,12 +438,12 @@ structure GtkWidget :>
               x3,
               x4
             )
-    val getRealized_ = _import "gtk_widget_get_realized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getReceivesDefault_ = _import "gtk_widget_get_receives_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getRealized_ = _import "gtk_widget_get_realized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getReceivesDefault_ = _import "gtk_widget_get_receives_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getRequestMode_ = _import "gtk_widget_get_request_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSizeRequestMode.C.val_;
     val getRootWindow_ = _import "gtk_widget_get_root_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getScreen_ = _import "gtk_widget_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSensitive_ = _import "gtk_widget_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getSensitive_ = _import "gtk_widget_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getSettings_ = _import "gtk_widget_get_settings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSizeRequest_ =
       fn
@@ -453,8 +453,8 @@ structure GtkWidget :>
           (
             _import "gtk_widget_get_size_request" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -465,30 +465,30 @@ structure GtkWidget :>
     val getStateFlags_ = _import "gtk_widget_get_state_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkStateFlags.C.val_;
     val getStyle_ = _import "gtk_widget_get_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getStyleContext_ = _import "gtk_widget_get_style_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSupportMultidevice_ = _import "gtk_widget_get_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getSupportMultidevice_ = _import "gtk_widget_get_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getTooltipWindow_ = _import "gtk_widget_get_tooltip_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getToplevel_ = _import "gtk_widget_get_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getValign_ = _import "gtk_widget_get_valign" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkAlign.C.val_;
-    val getVexpand_ = _import "gtk_widget_get_vexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getVexpandSet_ = _import "gtk_widget_get_vexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getVisible_ = _import "gtk_widget_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getVexpand_ = _import "gtk_widget_get_vexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getVexpandSet_ = _import "gtk_widget_get_vexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getVisible_ = _import "gtk_widget_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getVisual_ = _import "gtk_widget_get_visual" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getWindow_ = _import "gtk_widget_get_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val grabAdd_ = _import "gtk_grab_add" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val grabDefault_ = _import "gtk_widget_grab_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val grabFocus_ = _import "gtk_widget_grab_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val grabRemove_ = _import "gtk_grab_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val hasDefault_ = _import "gtk_widget_has_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val hasFocus_ = _import "gtk_widget_has_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val hasGrab_ = _import "gtk_widget_has_grab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val hasRcStyle_ = _import "gtk_widget_has_rc_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val hasScreen_ = _import "gtk_widget_has_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val hasVisibleFocus_ = _import "gtk_widget_has_visible_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hasDefault_ = _import "gtk_widget_has_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasFocus_ = _import "gtk_widget_has_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasGrab_ = _import "gtk_widget_has_grab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasRcStyle_ = _import "gtk_widget_has_rc_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasScreen_ = _import "gtk_widget_has_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasVisibleFocus_ = _import "gtk_widget_has_visible_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val hide_ = _import "gtk_widget_hide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val hideOnDelete_ = _import "gtk_widget_hide_on_delete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val inDestruction_ = _import "gtk_widget_in_destruction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hideOnDelete_ = _import "gtk_widget_hide_on_delete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val inDestruction_ = _import "gtk_widget_in_destruction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val inputShapeCombineRegion_ = fn x1 & x2 => (_import "gtk_widget_input_shape_combine_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit CairoRegionRecord.C.p -> unit;) (x1, x2)
     val intersect_ =
       fn
@@ -500,22 +500,22 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val isAncestor_ = fn x1 & x2 => (_import "gtk_widget_is_ancestor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
-    val isComposited_ = _import "gtk_widget_is_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isDrawable_ = _import "gtk_widget_is_drawable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isFocus_ = _import "gtk_widget_is_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isSensitive_ = _import "gtk_widget_is_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isToplevel_ = _import "gtk_widget_is_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val keynavFailed_ = fn x1 & x2 => (_import "gtk_widget_keynav_failed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.val_;) (x1, x2)
+    val isAncestor_ = fn x1 & x2 => (_import "gtk_widget_is_ancestor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val isComposited_ = _import "gtk_widget_is_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isDrawable_ = _import "gtk_widget_is_drawable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isFocus_ = _import "gtk_widget_is_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isSensitive_ = _import "gtk_widget_is_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isToplevel_ = _import "gtk_widget_is_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val keynavFailed_ = fn x1 & x2 => (_import "gtk_widget_keynav_failed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val map_ = _import "gtk_widget_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val mnemonicActivate_ = fn x1 & x2 => (_import "gtk_widget_mnemonic_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> FFI.Bool.val_;) (x1, x2)
+    val mnemonicActivate_ = fn x1 & x2 => (_import "gtk_widget_mnemonic_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val modifyBase_ =
       fn
         x1
@@ -666,7 +666,7 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.ref_
+               * FFI.UInt32.C.ref_
                * cstring
                * unit CPointer.t ref
                * cstring
@@ -693,10 +693,10 @@ structure GtkWidget :>
           (
             _import "gtk_widget_queue_draw_area" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -721,9 +721,9 @@ structure GtkWidget :>
             _import "gtk_widget_remove_accelerator" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -742,7 +742,7 @@ structure GtkWidget :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -754,8 +754,8 @@ structure GtkWidget :>
     val reparent_ = fn x1 & x2 => (_import "gtk_widget_reparent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val resetRcStyles_ = _import "gtk_widget_reset_rc_styles" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val resetStyle_ = _import "gtk_widget_reset_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val sendExpose_ = fn x1 & x2 => (_import "gtk_widget_send_expose" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Int32.val_;) (x1, x2)
-    val sendFocusChange_ = fn x1 & x2 => (_import "gtk_widget_send_focus_change" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Bool.val_;) (x1, x2)
+    val sendExpose_ = fn x1 & x2 => (_import "gtk_widget_send_expose" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Int32.C.val_;) (x1, x2)
+    val sendFocusChange_ = fn x1 & x2 => (_import "gtk_widget_send_focus_change" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val setAccelPath_ =
       fn
         x1
@@ -776,10 +776,10 @@ structure GtkWidget :>
               x4
             )
     val setAllocation_ = fn x1 & x2 => (_import "gtk_widget_set_allocation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
-    val setAppPaintable_ = fn x1 & x2 => (_import "gtk_widget_set_app_paintable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setCanDefault_ = fn x1 & x2 => (_import "gtk_widget_set_can_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setCanFocus_ = fn x1 & x2 => (_import "gtk_widget_set_can_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setChildVisible_ = fn x1 & x2 => (_import "gtk_widget_set_child_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setAppPaintable_ = fn x1 & x2 => (_import "gtk_widget_set_app_paintable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setCanDefault_ = fn x1 & x2 => (_import "gtk_widget_set_can_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setCanFocus_ = fn x1 & x2 => (_import "gtk_widget_set_can_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setChildVisible_ = fn x1 & x2 => (_import "gtk_widget_set_child_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setCompositeName_ =
       fn
         x1 & (x2, x3) =>
@@ -804,7 +804,7 @@ structure GtkWidget :>
             _import "gtk_widget_set_device_enabled" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -830,18 +830,18 @@ structure GtkWidget :>
               x3
             )
     val setDirection_ = fn x1 & x2 => (_import "gtk_widget_set_direction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextDirection.C.val_ -> unit;) (x1, x2)
-    val setDoubleBuffered_ = fn x1 & x2 => (_import "gtk_widget_set_double_buffered" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setEvents_ = fn x1 & x2 => (_import "gtk_widget_set_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setDoubleBuffered_ = fn x1 & x2 => (_import "gtk_widget_set_double_buffered" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setEvents_ = fn x1 & x2 => (_import "gtk_widget_set_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setHalign_ = fn x1 & x2 => (_import "gtk_widget_set_halign" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkAlign.C.val_ -> unit;) (x1, x2)
-    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_widget_set_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setHasWindow_ = fn x1 & x2 => (_import "gtk_widget_set_has_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setHexpand_ = fn x1 & x2 => (_import "gtk_widget_set_hexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setHexpandSet_ = fn x1 & x2 => (_import "gtk_widget_set_hexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setMapped_ = fn x1 & x2 => (_import "gtk_widget_set_mapped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setMarginBottom_ = fn x1 & x2 => (_import "gtk_widget_set_margin_bottom" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setMarginLeft_ = fn x1 & x2 => (_import "gtk_widget_set_margin_left" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setMarginRight_ = fn x1 & x2 => (_import "gtk_widget_set_margin_right" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
-    val setMarginTop_ = fn x1 & x2 => (_import "gtk_widget_set_margin_top" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_widget_set_has_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setHasWindow_ = fn x1 & x2 => (_import "gtk_widget_set_has_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setHexpand_ = fn x1 & x2 => (_import "gtk_widget_set_hexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setHexpandSet_ = fn x1 & x2 => (_import "gtk_widget_set_hexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setMapped_ = fn x1 & x2 => (_import "gtk_widget_set_mapped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setMarginBottom_ = fn x1 & x2 => (_import "gtk_widget_set_margin_bottom" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setMarginLeft_ = fn x1 & x2 => (_import "gtk_widget_set_margin_left" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setMarginRight_ = fn x1 & x2 => (_import "gtk_widget_set_margin_right" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setMarginTop_ = fn x1 & x2 => (_import "gtk_widget_set_margin_top" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setName_ =
       fn
         x1 & (x2, x3) =>
@@ -857,13 +857,13 @@ structure GtkWidget :>
               x2,
               x3
             )
-    val setNoShowAll_ = fn x1 & x2 => (_import "gtk_widget_set_no_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setNoShowAll_ = fn x1 & x2 => (_import "gtk_widget_set_no_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setParent_ = fn x1 & x2 => (_import "gtk_widget_set_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setParentWindow_ = fn x1 & x2 => (_import "gtk_widget_set_parent_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setRealized_ = fn x1 & x2 => (_import "gtk_widget_set_realized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setReceivesDefault_ = fn x1 & x2 => (_import "gtk_widget_set_receives_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setRedrawOnAllocate_ = fn x1 & x2 => (_import "gtk_widget_set_redraw_on_allocate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_widget_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setRealized_ = fn x1 & x2 => (_import "gtk_widget_set_realized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setReceivesDefault_ = fn x1 & x2 => (_import "gtk_widget_set_receives_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setRedrawOnAllocate_ = fn x1 & x2 => (_import "gtk_widget_set_redraw_on_allocate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_widget_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSizeRequest_ =
       fn
         x1
@@ -872,8 +872,8 @@ structure GtkWidget :>
           (
             _import "gtk_widget_set_size_request" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -890,7 +890,7 @@ structure GtkWidget :>
             _import "gtk_widget_set_state_flags" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateFlags.C.val_
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -899,7 +899,7 @@ structure GtkWidget :>
               x3
             )
     val setStyle_ = fn x1 & x2 => (_import "gtk_widget_set_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setSupportMultidevice_ = fn x1 & x2 => (_import "gtk_widget_set_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setSupportMultidevice_ = fn x1 & x2 => (_import "gtk_widget_set_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTooltipMarkup_ =
       fn
         x1 & (x2, x3) =>
@@ -932,9 +932,9 @@ structure GtkWidget :>
             )
     val setTooltipWindow_ = fn x1 & x2 => (_import "gtk_widget_set_tooltip_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setValign_ = fn x1 & x2 => (_import "gtk_widget_set_valign" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkAlign.C.val_ -> unit;) (x1, x2)
-    val setVexpand_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setVexpandSet_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setVisible_ = fn x1 & x2 => (_import "gtk_widget_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setVexpand_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVexpandSet_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand_set" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_widget_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setVisual_ = fn x1 & x2 => (_import "gtk_widget_set_visual" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val shapeCombineRegion_ = fn x1 & x2 => (_import "gtk_widget_shape_combine_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit CairoRegionRecord.C.p -> unit;) (x1, x2)
     val show_ = _import "gtk_widget_show" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -973,11 +973,11 @@ structure GtkWidget :>
             _import "gtk_widget_translate_coordinates" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               -> FFI.Bool.val_;
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -1025,13 +1025,13 @@ structure GtkWidget :>
     fun popCompositeChild () = (I ---> I) popCompositeChild_ ()
     fun pushCompositeChild () = (I ---> I) pushCompositeChild_ ()
     fun setDefaultDirection dir = (GtkTextDirection.C.withVal ---> I) setDefaultDirection_ dir
-    fun activate self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) activate_ self
+    fun activate self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) activate_ self
     fun addAccelerator self accelSignal accelGroup accelKey accelMods accelFlags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          ---> I
@@ -1058,11 +1058,11 @@ structure GtkWidget :>
            & device
            & events
         )
-    fun addEvents self events = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) addEvents_ (self & events)
+    fun addEvents self events = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) addEvents_ (self & events)
     fun addMnemonicLabel self label = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addMnemonicLabel_ (self & label)
-    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> FFI.Bool.fromVal) canActivateAccel_ (self & signalId)
-    fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.fromVal) childFocus_ (self & direction)
-    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) childNotify_ (self & childProperty)
+    fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) canActivateAccel_ (self & signalId)
+    fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) childFocus_ (self & direction)
+    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) childNotify_ (self & childProperty)
     fun classPath self =
       let
         val pathLength
@@ -1071,12 +1071,12 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.String.withRefConstOptPtr
-             &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.UInt32.fromVal
-                   && FFI.String.fromPtr true
-                   && FFI.String.fromPtr true
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> FFI.String.C.withRefConstOptPtr
+             ---> FFI.UInt32.C.fromVal
+                   && FFI.String.C.fromPtr true
+                   && FFI.String.C.fromPtr true
                    && I
           )
             classPath_
@@ -1093,9 +1093,9 @@ structure GtkWidget :>
           pathReversed
         )
       end
-    fun computeExpand self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> FFI.Bool.fromVal) computeExpand_ (self & orientation)
+    fun computeExpand self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> FFI.Bool.C.fromVal) computeExpand_ (self & orientation)
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
+    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
     fun destroy self = (GObjectObjectClass.C.withPtr ---> I) destroy_ self
     fun destroyed self widgetPointer =
       let
@@ -1103,13 +1103,13 @@ structure GtkWidget :>
       in
         widgetPointer
       end
-    fun deviceIsShadowed self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) deviceIsShadowed_ (self & device)
+    fun deviceIsShadowed self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) deviceIsShadowed_ (self & device)
     fun dragBegin self targets actions button event =
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTargetListRecord.C.withPtr
          &&&> GdkDragAction.C.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GdkEvent.C.withPtr
          ---> GdkDragContextClass.C.fromPtr false
       )
@@ -1124,11 +1124,11 @@ structure GtkWidget :>
     fun dragCheckThreshold self startX startY currentX currentY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         ---> FFI.Bool.fromVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         ---> FFI.Bool.C.fromVal
       )
         dragCheckThreshold_
         (
@@ -1155,13 +1155,13 @@ structure GtkWidget :>
            & targetList
         )
     fun dragDestGetTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) dragDestGetTargetList_ self
-    fun dragDestGetTrackMotion self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) dragDestGetTrackMotion_ self
+    fun dragDestGetTrackMotion self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) dragDestGetTrackMotion_ self
     fun dragDestSetProxy self proxyWindow protocol useCoordinates =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkDragProtocol.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         dragDestSetProxy_
@@ -1172,14 +1172,14 @@ structure GtkWidget :>
            & useCoordinates
         )
     fun dragDestSetTargetList self targetList = (GObjectObjectClass.C.withPtr &&&> GtkTargetListRecord.C.withOptPtr ---> I) dragDestSetTargetList_ (self & targetList)
-    fun dragDestSetTrackMotion self trackMotion = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) dragDestSetTrackMotion_ (self & trackMotion)
+    fun dragDestSetTrackMotion self trackMotion = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) dragDestSetTrackMotion_ (self & trackMotion)
     fun dragDestUnset self = (GObjectObjectClass.C.withPtr ---> I) dragDestUnset_ self
     fun dragGetData self context target time =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         dragGetData_
@@ -1195,51 +1195,51 @@ structure GtkWidget :>
     fun dragSourceAddUriTargets self = (GObjectObjectClass.C.withPtr ---> I) dragSourceAddUriTargets_ self
     fun dragSourceGetTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) dragSourceGetTargetList_ self
     fun dragSourceSetIconGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconGicon_ (self & icon)
-    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) dragSourceSetIconName_ (self & iconName)
+    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) dragSourceSetIconName_ (self & iconName)
     fun dragSourceSetIconPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
-    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) dragSourceSetIconStock_ (self & stockId)
+    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) dragSourceSetIconStock_ (self & stockId)
     fun dragSourceSetTargetList self targetList = (GObjectObjectClass.C.withPtr &&&> GtkTargetListRecord.C.withOptPtr ---> I) dragSourceSetTargetList_ (self & targetList)
     fun dragSourceUnset self = (GObjectObjectClass.C.withPtr ---> I) dragSourceUnset_ self
     fun dragUnhighlight self = (GObjectObjectClass.C.withPtr ---> I) dragUnhighlight_ self
     fun draw self cr = (GObjectObjectClass.C.withPtr &&&> CairoContextRecord.C.withPtr ---> I) draw_ (self & cr)
     fun ensureStyle self = (GObjectObjectClass.C.withPtr ---> I) ensureStyle_ self
     fun errorBell self = (GObjectObjectClass.C.withPtr ---> I) errorBell_ self
-    fun event self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Bool.fromVal) event_ (self & event)
+    fun event self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Bool.C.fromVal) event_ (self & event)
     fun freezeChildNotify self = (GObjectObjectClass.C.withPtr ---> I) freezeChildNotify_ self
     fun getAccessible self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getAccessible_ self
-    fun getAllocatedHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getAllocatedHeight_ self
-    fun getAllocatedWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getAllocatedWidth_ self
+    fun getAllocatedHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getAllocatedHeight_ self
+    fun getAllocatedWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getAllocatedWidth_ self
     fun getAllocation self =
       let
         val allocation & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getAllocation_ (self & ())
       in
         allocation
       end
-    fun getAppPaintable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAppPaintable_ self
-    fun getCanDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCanDefault_ self
-    fun getCanFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCanFocus_ self
-    fun getChildVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildVisible_ self
+    fun getAppPaintable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAppPaintable_ self
+    fun getCanDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanDefault_ self
+    fun getCanFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanFocus_ self
+    fun getChildVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildVisible_ self
     fun getClipboard self selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) getClipboard_ (self & selection)
-    fun getCompositeName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getCompositeName_ self
-    fun getDeviceEnabled self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getDeviceEnabled_ (self & device)
+    fun getCompositeName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getCompositeName_ self
+    fun getDeviceEnabled self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDeviceEnabled_ (self & device)
     fun getDeviceEvents self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GdkEventMask.C.fromVal) getDeviceEvents_ (self & device)
     fun getDirection self = (GObjectObjectClass.C.withPtr ---> GtkTextDirection.C.fromVal) getDirection_ self
     fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getDoubleBuffered self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getDoubleBuffered_ self
-    fun getEvents self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getEvents_ self
+    fun getDoubleBuffered self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDoubleBuffered_ self
+    fun getEvents self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getEvents_ self
     fun getHalign self = (GObjectObjectClass.C.withPtr ---> GtkAlign.C.fromVal) getHalign_ self
-    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasTooltip_ self
-    fun getHasWindow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHasWindow_ self
-    fun getHexpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHexpand_ self
-    fun getHexpandSet self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getHexpandSet_ self
-    fun getMapped self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getMapped_ self
-    fun getMarginBottom self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMarginBottom_ self
-    fun getMarginLeft self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMarginLeft_ self
-    fun getMarginRight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMarginRight_ self
-    fun getMarginTop self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getMarginTop_ self
+    fun getHasTooltip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasTooltip_ self
+    fun getHasWindow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasWindow_ self
+    fun getHexpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHexpand_ self
+    fun getHexpandSet self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHexpandSet_ self
+    fun getMapped self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMapped_ self
+    fun getMarginBottom self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMarginBottom_ self
+    fun getMarginLeft self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMarginLeft_ self
+    fun getMarginRight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMarginRight_ self
+    fun getMarginTop self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMarginTop_ self
     fun getModifierStyle self = (GObjectObjectClass.C.withPtr ---> GtkRcStyleClass.C.fromPtr false) getModifierStyle_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
-    fun getNoShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getNoShowAll_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getNoShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getNoShowAll_ self
     fun getPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr false) getPangoContext_ self
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getParent_ self
     fun getParentWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getParentWindow_ self
@@ -1251,10 +1251,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPointer_
@@ -1273,10 +1273,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredHeight_
@@ -1295,11 +1295,11 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredHeightForWidth_
@@ -1341,10 +1341,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredWidth_
@@ -1363,11 +1363,11 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPreferredWidthForHeight_
@@ -1380,12 +1380,12 @@ structure GtkWidget :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun getRealized self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getRealized_ self
-    fun getReceivesDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getReceivesDefault_ self
+    fun getRealized self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRealized_ self
+    fun getReceivesDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReceivesDefault_ self
     fun getRequestMode self = (GObjectObjectClass.C.withPtr ---> GtkSizeRequestMode.C.fromVal) getRequestMode_ self
     fun getRootWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getRootWindow_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSensitive_ self
+    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
     fun getSettings self = (GObjectObjectClass.C.withPtr ---> GtkSettingsClass.C.fromPtr false) getSettings_ self
     fun getSizeRequest self =
       let
@@ -1394,10 +1394,10 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getSizeRequest_
@@ -1412,37 +1412,37 @@ structure GtkWidget :>
     fun getStateFlags self = (GObjectObjectClass.C.withPtr ---> GtkStateFlags.C.fromVal) getStateFlags_ self
     fun getStyle self = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) getStyle_ self
     fun getStyleContext self = (GObjectObjectClass.C.withPtr ---> GtkStyleContextClass.C.fromPtr false) getStyleContext_ self
-    fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSupportMultidevice_ self
-    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipMarkup_ self
-    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getTooltipText_ self
+    fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportMultidevice_ self
+    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipMarkup_ self
+    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipText_ self
     fun getTooltipWindow self = (GObjectObjectClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getTooltipWindow_ self
     fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getToplevel_ self
     fun getValign self = (GObjectObjectClass.C.withPtr ---> GtkAlign.C.fromVal) getValign_ self
-    fun getVexpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVexpand_ self
-    fun getVexpandSet self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVexpandSet_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisible_ self
+    fun getVexpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVexpand_ self
+    fun getVexpandSet self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVexpandSet_ self
+    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getVisual self = (GObjectObjectClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
     fun getWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ self
     fun grabAdd self = (GObjectObjectClass.C.withPtr ---> I) grabAdd_ self
     fun grabDefault self = (GObjectObjectClass.C.withPtr ---> I) grabDefault_ self
     fun grabFocus self = (GObjectObjectClass.C.withPtr ---> I) grabFocus_ self
     fun grabRemove self = (GObjectObjectClass.C.withPtr ---> I) grabRemove_ self
-    fun hasDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasDefault_ self
-    fun hasFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasFocus_ self
-    fun hasGrab self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasGrab_ self
-    fun hasRcStyle self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasRcStyle_ self
-    fun hasScreen self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasScreen_ self
-    fun hasVisibleFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasVisibleFocus_ self
+    fun hasDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasDefault_ self
+    fun hasFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasFocus_ self
+    fun hasGrab self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasGrab_ self
+    fun hasRcStyle self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasRcStyle_ self
+    fun hasScreen self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasScreen_ self
+    fun hasVisibleFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasVisibleFocus_ self
     fun hide self = (GObjectObjectClass.C.withPtr ---> I) hide_ self
-    fun hideOnDelete self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hideOnDelete_ self
-    fun inDestruction self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) inDestruction_ self
+    fun hideOnDelete self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hideOnDelete_ self
+    fun inDestruction self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) inDestruction_ self
     fun inputShapeCombineRegion self region = (GObjectObjectClass.C.withPtr &&&> CairoRegionRecord.C.withOptPtr ---> I) inputShapeCombineRegion_ (self & region)
     fun intersect self area intersection =
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         intersect_
         (
@@ -1450,15 +1450,15 @@ structure GtkWidget :>
            & area
            & intersection
         )
-    fun isAncestor self ancestor = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isAncestor_ (self & ancestor)
-    fun isComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isComposited_ self
-    fun isDrawable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isDrawable_ self
-    fun isFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isFocus_ self
-    fun isSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isSensitive_ self
-    fun isToplevel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isToplevel_ self
-    fun keynavFailed self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.fromVal) keynavFailed_ (self & direction)
+    fun isAncestor self ancestor = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isAncestor_ (self & ancestor)
+    fun isComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isComposited_ self
+    fun isDrawable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isDrawable_ self
+    fun isFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFocus_ self
+    fun isSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isSensitive_ self
+    fun isToplevel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isToplevel_ self
+    fun keynavFailed self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) keynavFailed_ (self & direction)
     fun map self = (GObjectObjectClass.C.withPtr ---> I) map_ self
-    fun mnemonicActivate self groupCycling = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> FFI.Bool.fromVal) mnemonicActivate_ (self & groupCycling)
+    fun mnemonicActivate self groupCycling = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self state color =
       (
         GObjectObjectClass.C.withPtr
@@ -1556,7 +1556,7 @@ structure GtkWidget :>
     fun overrideSymbolicColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GdkRgbaRecord.C.withOptPtr
          ---> I
       )
@@ -1574,12 +1574,12 @@ structure GtkWidget :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.String.withRefConstOptPtr
-             &&&> FFI.String.withRefConstOptPtr
-             ---> FFI.UInt32.fromVal
-                   && FFI.String.fromPtr true
-                   && FFI.String.fromPtr true
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> FFI.String.C.withRefConstOptPtr
+             ---> FFI.UInt32.C.fromVal
+                   && FFI.String.C.fromPtr true
+                   && FFI.String.C.fromPtr true
                    && I
           )
             path_
@@ -1601,10 +1601,10 @@ structure GtkWidget :>
     fun queueDrawArea self x y width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         queueDrawArea_
@@ -1624,9 +1624,9 @@ structure GtkWidget :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         removeAccelerator_
         (
@@ -1639,8 +1639,8 @@ structure GtkWidget :>
     fun renderIconPixbuf self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int32.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIconPixbuf_
@@ -1652,12 +1652,12 @@ structure GtkWidget :>
     fun reparent self newParent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) reparent_ (self & newParent)
     fun resetRcStyles self = (GObjectObjectClass.C.withPtr ---> I) resetRcStyles_ self
     fun resetStyle self = (GObjectObjectClass.C.withPtr ---> I) resetStyle_ self
-    fun sendExpose self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Int32.fromVal) sendExpose_ (self & event)
-    fun sendFocusChange self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Bool.fromVal) sendFocusChange_ (self & event)
+    fun sendExpose self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Int32.C.fromVal) sendExpose_ (self & event)
+    fun sendFocusChange self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> FFI.Bool.C.fromVal) sendFocusChange_ (self & event)
     fun setAccelPath self accelPath accelGroup =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          ---> I
       )
@@ -1668,16 +1668,16 @@ structure GtkWidget :>
            & accelGroup
         )
     fun setAllocation self allocation = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setAllocation_ (self & allocation)
-    fun setAppPaintable self appPaintable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAppPaintable_ (self & appPaintable)
-    fun setCanDefault self canDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setCanDefault_ (self & canDefault)
-    fun setCanFocus self canFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setCanFocus_ (self & canFocus)
-    fun setChildVisible self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setChildVisible_ (self & isVisible)
-    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setCompositeName_ (self & name)
+    fun setAppPaintable self appPaintable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAppPaintable_ (self & appPaintable)
+    fun setCanDefault self canDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanDefault_ (self & canDefault)
+    fun setCanFocus self canFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanFocus_ (self & canFocus)
+    fun setChildVisible self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setChildVisible_ (self & isVisible)
+    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setCompositeName_ (self & name)
     fun setDeviceEnabled self device enabled =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setDeviceEnabled_
@@ -1700,31 +1700,31 @@ structure GtkWidget :>
            & events
         )
     fun setDirection self dir = (GObjectObjectClass.C.withPtr &&&> GtkTextDirection.C.withVal ---> I) setDirection_ (self & dir)
-    fun setDoubleBuffered self doubleBuffered = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
-    fun setEvents self events = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setEvents_ (self & events)
+    fun setDoubleBuffered self doubleBuffered = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
+    fun setEvents self events = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setEvents_ (self & events)
     fun setHalign self align = (GObjectObjectClass.C.withPtr &&&> GtkAlign.C.withVal ---> I) setHalign_ (self & align)
-    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setHasWindow self hasWindow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHasWindow_ (self & hasWindow)
-    fun setHexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHexpand_ (self & expand)
-    fun setHexpandSet self set = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setHexpandSet_ (self & set)
-    fun setMapped self mapped = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setMapped_ (self & mapped)
-    fun setMarginBottom self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMarginBottom_ (self & margin)
-    fun setMarginLeft self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMarginLeft_ (self & margin)
-    fun setMarginRight self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMarginRight_ (self & margin)
-    fun setMarginTop self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setMarginTop_ (self & margin)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setName_ (self & name)
-    fun setNoShowAll self noShowAll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setNoShowAll_ (self & noShowAll)
+    fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasTooltip_ (self & hasTooltip)
+    fun setHasWindow self hasWindow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasWindow_ (self & hasWindow)
+    fun setHexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHexpand_ (self & expand)
+    fun setHexpandSet self set = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHexpandSet_ (self & set)
+    fun setMapped self mapped = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMapped_ (self & mapped)
+    fun setMarginBottom self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMarginBottom_ (self & margin)
+    fun setMarginLeft self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMarginLeft_ (self & margin)
+    fun setMarginRight self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMarginRight_ (self & margin)
+    fun setMarginTop self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMarginTop_ (self & margin)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setNoShowAll self noShowAll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setNoShowAll_ (self & noShowAll)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setParentWindow self parentWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParentWindow_ (self & parentWindow)
-    fun setRealized self realized = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setRealized_ (self & realized)
-    fun setReceivesDefault self receivesDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setReceivesDefault_ (self & receivesDefault)
-    fun setRedrawOnAllocate self redrawOnAllocate = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setRedrawOnAllocate_ (self & redrawOnAllocate)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setRealized self realized = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRealized_ (self & realized)
+    fun setReceivesDefault self receivesDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReceivesDefault_ (self & receivesDefault)
+    fun setRedrawOnAllocate self redrawOnAllocate = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRedrawOnAllocate_ (self & redrawOnAllocate)
+    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
     fun setSizeRequest self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setSizeRequest_
@@ -1737,7 +1737,7 @@ structure GtkWidget :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkStateFlags.C.withVal
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setStateFlags_
@@ -1747,14 +1747,14 @@ structure GtkWidget :>
            & clear
         )
     fun setStyle self style = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setStyle_ (self & style)
-    fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipText_ (self & text)
     fun setTooltipWindow self customWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setTooltipWindow_ (self & customWindow)
     fun setValign self align = (GObjectObjectClass.C.withPtr &&&> GtkAlign.C.withVal ---> I) setValign_ (self & align)
-    fun setVexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVexpand_ (self & expand)
-    fun setVexpandSet self set = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVexpandSet_ (self & set)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisible_ (self & visible)
+    fun setVexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVexpand_ (self & expand)
+    fun setVexpandSet self set = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVexpandSet_ (self & set)
+    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     fun setVisual self visual = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setVisual_ (self & visual)
     fun shapeCombineRegion self region = (GObjectObjectClass.C.withPtr &&&> CairoRegionRecord.C.withOptPtr ---> I) shapeCombineRegion_ (self & region)
     fun show self = (GObjectObjectClass.C.withPtr ---> I) show_ self
@@ -1764,7 +1764,7 @@ structure GtkWidget :>
     fun styleGetProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -1783,13 +1783,13 @@ structure GtkWidget :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Bool.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Bool.C.fromVal
           )
             translateCoordinates_
             (

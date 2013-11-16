@@ -16,7 +16,7 @@ structure GioLoadableIcon :>
           (
             _import "mlton_g_loadable_icon_load" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * cstring
                * unit CPointer.t ref
                * unit GObjectObjectClass.C.p
@@ -63,11 +63,11 @@ structure GioLoadableIcon :>
         val type' & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.String.withRefConstOptPtr
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.String.C.withRefConstOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.String.fromPtr true && GioInputStreamClass.C.fromPtr true
+             ---> FFI.String.C.fromPtr true && GioInputStreamClass.C.fromPtr true
           )
             load_
             (
@@ -84,7 +84,7 @@ structure GioLoadableIcon :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioInputStreamClass.C.fromPtr true
       )

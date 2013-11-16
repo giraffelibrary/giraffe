@@ -12,8 +12,8 @@ structure GtkTargetEntry :>
             _import "mlton_gtk_target_entry_new" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p;
           )
             (
@@ -27,9 +27,9 @@ structure GtkTargetEntry :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> GtkTargetEntryRecord.C.fromPtr true
       )
         new_

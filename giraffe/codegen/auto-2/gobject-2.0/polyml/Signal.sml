@@ -22,10 +22,10 @@ structure Signal :>
           )
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> GObjectClosureRecord.PolyML.PTR
-             &&> FFI.PolyML.Bool.VAL
-             --> FFI.PolyML.ULong.VAL
+             &&> FFI.Bool.PolyML.VAL
+             --> FFI.ULong.PolyML.VAL
           );
 
       val signalHandlerDisconnect_ =
@@ -33,7 +33,7 @@ structure Signal :>
           (PolyMLFFI.load_sym libgobject "g_signal_handler_disconnect")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.ULong.VAL
+             &&> FFI.ULong.PolyML.VAL
              --> FFI.PolyML.VOID
           );
 
@@ -42,8 +42,8 @@ structure Signal :>
           (PolyMLFFI.load_sym libgobject "g_signal_handler_is_connected")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.ULong.VAL
-             --> FFI.PolyML.Bool.VAL
+             &&> FFI.ULong.PolyML.VAL
+             --> FFI.Bool.PolyML.VAL
           );
     end
 
@@ -52,14 +52,14 @@ structure Signal :>
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = FFI.ULong.val_
+    type signal_id = FFI.ULong.C.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectClosureRecord.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         signalConnectClosure_
@@ -83,7 +83,7 @@ structure Signal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> I
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         signalHandlerIsConnected_
         (instance & handlerId)

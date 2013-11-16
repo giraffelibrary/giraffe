@@ -25,7 +25,7 @@ structure GtkSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Double.val_
+               * FFI.Double.C.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -49,7 +49,7 @@ structure GtkSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int64.val_
+               * FFI.Int64.C.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -124,9 +124,9 @@ structure GtkSettings :>
     fun setDoubleProperty self name vDouble origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Double.withVal
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setDoubleProperty_
@@ -139,9 +139,9 @@ structure GtkSettings :>
     fun setLongProperty self name vLong origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setLongProperty_
@@ -154,7 +154,7 @@ structure GtkSettings :>
     fun setPropertyValue self name svalue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GtkSettingsValueRecord.C.withPtr
          ---> I
       )
@@ -167,9 +167,9 @@ structure GtkSettings :>
     fun setStringProperty self name vString origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          ---> I
       )
         setStringProperty_

@@ -32,7 +32,7 @@ structure GdkWindow :>
             _import "gdk_window_new" :
               unit GObjectObjectClass.C.p
                * GdkWindowAttrRecord.C.notnull GdkWindowAttrRecord.C.p
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -51,11 +51,11 @@ structure GdkWindow :>
           (
             _import "gdk_window_constrain_size" :
               GdkGeometryRecord.C.notnull GdkGeometryRecord.C.p
-               * FFI.UInt32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.UInt32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -67,7 +67,7 @@ structure GdkWindow :>
               x6
             )
     val processAllUpdates_ = _import "gdk_window_process_all_updates" : unit -> unit;
-    val setDebugUpdates_ = _import "gdk_window_set_debug_updates" : FFI.Bool.val_ -> unit;
+    val setDebugUpdates_ = _import "gdk_window_set_debug_updates" : FFI.Bool.C.val_ -> unit;
     val beep_ = _import "gdk_window_beep" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val beginMoveDrag_ =
       fn
@@ -79,10 +79,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_begin_move_drag" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.UInt32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -106,10 +106,10 @@ structure GdkWindow :>
             _import "gdk_window_begin_resize_drag" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkWindowEdge.C.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.UInt32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -131,10 +131,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_coords_from_parent" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Double.val_
-               * FFI.Double.val_
-               * FFI.Double.ref_
-               * FFI.Double.ref_
+               * FFI.Double.C.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
                -> unit;
           )
             (
@@ -154,10 +154,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_coords_to_parent" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Double.val_
-               * FFI.Double.val_
-               * FFI.Double.ref_
-               * FFI.Double.ref_
+               * FFI.Double.C.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
                -> unit;
           )
             (
@@ -177,8 +177,8 @@ structure GdkWindow :>
             _import "gdk_window_create_similar_surface" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoContent.C.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p;
           )
             (
@@ -192,19 +192,19 @@ structure GdkWindow :>
     val destroyNotify_ = _import "gdk_window_destroy_notify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val enableSynchronizedConfigure_ = _import "gdk_window_enable_synchronized_configure" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val endPaint_ = _import "gdk_window_end_paint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val ensureNative_ = _import "gdk_window_ensure_native" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val ensureNative_ = _import "gdk_window_ensure_native" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val flush_ = _import "gdk_window_flush" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val freezeToplevelUpdatesLibgtkOnly_ = _import "gdk_window_freeze_toplevel_updates_libgtk_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val freezeUpdates_ = _import "gdk_window_freeze_updates" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val fullscreen_ = _import "gdk_window_fullscreen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val geometryChanged_ = _import "gdk_window_geometry_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getAcceptFocus_ = _import "gdk_window_get_accept_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getAcceptFocus_ = _import "gdk_window_get_accept_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getBackgroundPattern_ = _import "gdk_window_get_background_pattern" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoPatternRecord.C.notnull CairoPatternRecord.C.p;
     val getClipRegion_ = _import "gdk_window_get_clip_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
-    val getComposited_ = _import "gdk_window_get_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getComposited_ = _import "gdk_window_get_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getCursor_ = _import "gdk_window_get_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDecorations_ = fn x1 & x2 => (_import "gdk_window_get_decorations" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkWMDecoration.C.ref_ -> FFI.Bool.val_;) (x1, x2)
+    val getDecorations_ = fn x1 & x2 => (_import "gdk_window_get_decorations" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkWMDecoration.C.ref_ -> FFI.Bool.C.val_;) (x1, x2)
     val getDeviceCursor_ = fn x1 & x2 => (_import "gdk_window_get_device_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getDeviceEvents_ = fn x1 & x2 => (_import "gdk_window_get_device_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkEventMask.C.val_;) (x1, x2)
     val getDevicePosition_ =
@@ -218,8 +218,8 @@ structure GdkWindow :>
             _import "gdk_window_get_device_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                * GdkModifierType.C.ref_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -235,7 +235,7 @@ structure GdkWindow :>
     val getEffectiveParent_ = _import "gdk_window_get_effective_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getEffectiveToplevel_ = _import "gdk_window_get_effective_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getEvents_ = _import "gdk_window_get_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkEventMask.C.val_;
-    val getFocusOnMap_ = _import "gdk_window_get_focus_on_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getFocusOnMap_ = _import "gdk_window_get_focus_on_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getFrameExtents_ = fn x1 & x2 => (_import "gdk_window_get_frame_extents" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
     val getGeometry_ =
       fn
@@ -247,10 +247,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_get_geometry" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -261,8 +261,8 @@ structure GdkWindow :>
               x5
             )
     val getGroup_ = _import "gdk_window_get_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getHeight_ = _import "gdk_window_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val getModalHint_ = _import "gdk_window_get_modal_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getHeight_ = _import "gdk_window_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getModalHint_ = _import "gdk_window_get_modal_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getOrigin_ =
       fn
         x1
@@ -271,9 +271,9 @@ structure GdkWindow :>
           (
             _import "gdk_window_get_origin" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
-               -> FFI.Int32.val_;
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
+               -> FFI.Int32.C.val_;
           )
             (
               x1,
@@ -289,8 +289,8 @@ structure GdkWindow :>
           (
             _import "gdk_window_get_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -308,10 +308,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_get_root_coords" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -329,8 +329,8 @@ structure GdkWindow :>
           (
             _import "gdk_window_get_root_origin" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -341,16 +341,16 @@ structure GdkWindow :>
     val getScreen_ = _import "gdk_window_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSourceEvents_ = fn x1 & x2 => (_import "gdk_window_get_source_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkInputSource.C.val_ -> GdkEventMask.C.val_;) (x1, x2)
     val getState_ = _import "gdk_window_get_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkWindowState.C.val_;
-    val getSupportMultidevice_ = _import "gdk_window_get_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getSupportMultidevice_ = _import "gdk_window_get_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getToplevel_ = _import "gdk_window_get_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getTypeHint_ = _import "gdk_window_get_type_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkWindowTypeHint.C.val_;
     val getUpdateArea_ = _import "gdk_window_get_update_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
     val getUserData_ = _import "gdk_window_get_user_data" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getVisibleRegion_ = _import "gdk_window_get_visible_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
     val getVisual_ = _import "gdk_window_get_visual" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getWidth_ = _import "gdk_window_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getWidth_ = _import "gdk_window_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getWindowType_ = _import "gdk_window_get_window_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkWindowType.C.val_;
-    val hasNative_ = _import "gdk_window_has_native" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val hasNative_ = _import "gdk_window_has_native" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val hide_ = _import "gdk_window_hide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val iconify_ = _import "gdk_window_iconify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val inputShapeCombineRegion_ =
@@ -363,8 +363,8 @@ structure GdkWindow :>
             _import "gdk_window_input_shape_combine_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoRegionRecord.C.notnull CairoRegionRecord.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -382,7 +382,7 @@ structure GdkWindow :>
             _import "gdk_window_invalidate_rect" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit CairoRectangleIntRecord.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -399,7 +399,7 @@ structure GdkWindow :>
             _import "gdk_window_invalidate_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoRegionRecord.C.notnull CairoRegionRecord.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -407,11 +407,11 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val isDestroyed_ = _import "gdk_window_is_destroyed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isInputOnly_ = _import "gdk_window_is_input_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isShaped_ = _import "gdk_window_is_shaped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isViewable_ = _import "gdk_window_is_viewable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isVisible_ = _import "gdk_window_is_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val isDestroyed_ = _import "gdk_window_is_destroyed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isInputOnly_ = _import "gdk_window_is_input_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isShaped_ = _import "gdk_window_is_shaped" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isViewable_ = _import "gdk_window_is_viewable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isVisible_ = _import "gdk_window_is_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val lower_ = _import "gdk_window_lower" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val maximize_ = _import "gdk_window_maximize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val mergeChildInputShapes_ = _import "gdk_window_merge_child_input_shapes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -424,8 +424,8 @@ structure GdkWindow :>
           (
             _import "gdk_window_move" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -443,8 +443,8 @@ structure GdkWindow :>
             _import "gdk_window_move_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoRegionRecord.C.notnull CairoRegionRecord.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -463,10 +463,10 @@ structure GdkWindow :>
           (
             _import "gdk_window_move_resize" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -476,7 +476,7 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val processUpdates_ = fn x1 & x2 => (_import "gdk_window_process_updates" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val processUpdates_ = fn x1 & x2 => (_import "gdk_window_process_updates" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val raise_ = _import "gdk_window_raise" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val registerDnd_ = _import "gdk_window_register_dnd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val reparent_ =
@@ -489,8 +489,8 @@ structure GdkWindow :>
             _import "gdk_window_reparent" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -507,8 +507,8 @@ structure GdkWindow :>
           (
             _import "gdk_window_resize" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -525,7 +525,7 @@ structure GdkWindow :>
             _import "gdk_window_restack" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -541,8 +541,8 @@ structure GdkWindow :>
           (
             _import "gdk_window_scroll" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -550,13 +550,13 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setAcceptFocus_ = fn x1 & x2 => (_import "gdk_window_set_accept_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setAcceptFocus_ = fn x1 & x2 => (_import "gdk_window_set_accept_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setBackground_ = fn x1 & x2 => (_import "gdk_window_set_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
     val setBackgroundPattern_ = fn x1 & x2 => (_import "gdk_window_set_background_pattern" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit CairoPatternRecord.C.p -> unit;) (x1, x2)
     val setBackgroundRgba_ = fn x1 & x2 => (_import "gdk_window_set_background_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
     val setChildInputShapes_ = _import "gdk_window_set_child_input_shapes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setChildShapes_ = _import "gdk_window_set_child_shapes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setComposited_ = fn x1 & x2 => (_import "gdk_window_set_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setComposited_ = fn x1 & x2 => (_import "gdk_window_set_composited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setCursor_ = fn x1 & x2 => (_import "gdk_window_set_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setDecorations_ = fn x1 & x2 => (_import "gdk_window_set_decorations" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkWMDecoration.C.val_ -> unit;) (x1, x2)
     val setDeviceCursor_ =
@@ -594,7 +594,7 @@ structure GdkWindow :>
               x3
             )
     val setEvents_ = fn x1 & x2 => (_import "gdk_window_set_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventMask.C.val_ -> unit;) (x1, x2)
-    val setFocusOnMap_ = fn x1 & x2 => (_import "gdk_window_set_focus_on_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setFocusOnMap_ = fn x1 & x2 => (_import "gdk_window_set_focus_on_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setFunctions_ = fn x1 & x2 => (_import "gdk_window_set_functions" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkWMFunction.C.val_ -> unit;) (x1, x2)
     val setGeometryHints_ =
       fn
@@ -629,11 +629,11 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setKeepAbove_ = fn x1 & x2 => (_import "gdk_window_set_keep_above" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setKeepBelow_ = fn x1 & x2 => (_import "gdk_window_set_keep_below" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setModalHint_ = fn x1 & x2 => (_import "gdk_window_set_modal_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setOpacity_ = fn x1 & x2 => (_import "gdk_window_set_opacity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.val_ -> unit;) (x1, x2)
-    val setOverrideRedirect_ = fn x1 & x2 => (_import "gdk_window_set_override_redirect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setKeepAbove_ = fn x1 & x2 => (_import "gdk_window_set_keep_above" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setKeepBelow_ = fn x1 & x2 => (_import "gdk_window_set_keep_below" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setModalHint_ = fn x1 & x2 => (_import "gdk_window_set_modal_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setOpacity_ = fn x1 & x2 => (_import "gdk_window_set_opacity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setOverrideRedirect_ = fn x1 & x2 => (_import "gdk_window_set_override_redirect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setRole_ =
       fn
         x1 & (x2, x3) =>
@@ -649,8 +649,8 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setSkipPagerHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_pager_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
-    val setSkipTaskbarHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_taskbar_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setSkipPagerHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_pager_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setSkipTaskbarHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_taskbar_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSourceEvents_ =
       fn
         x1
@@ -683,8 +683,8 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setStaticGravities_ = fn x1 & x2 => (_import "gdk_window_set_static_gravities" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> FFI.Bool.val_;) (x1, x2)
-    val setSupportMultidevice_ = fn x1 & x2 => (_import "gdk_window_set_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setStaticGravities_ = fn x1 & x2 => (_import "gdk_window_set_static_gravities" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val setSupportMultidevice_ = fn x1 & x2 => (_import "gdk_window_set_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
@@ -702,7 +702,7 @@ structure GdkWindow :>
             )
     val setTransientFor_ = fn x1 & x2 => (_import "gdk_window_set_transient_for" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setTypeHint_ = fn x1 & x2 => (_import "gdk_window_set_type_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkWindowTypeHint.C.val_ -> unit;) (x1, x2)
-    val setUrgencyHint_ = fn x1 & x2 => (_import "gdk_window_set_urgency_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setUrgencyHint_ = fn x1 & x2 => (_import "gdk_window_set_urgency_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setUserData_ = fn x1 & x2 => (_import "gdk_window_set_user_data" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val shapeCombineRegion_ =
       fn
@@ -714,8 +714,8 @@ structure GdkWindow :>
             _import "gdk_window_shape_combine_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit CairoRegionRecord.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -759,7 +759,7 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> GdkWindowAttrRecord.C.withPtr
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          ---> GdkWindowClass.C.fromPtr true
       )
         new_
@@ -775,13 +775,13 @@ structure GdkWindow :>
          & () =
           (
             GdkGeometryRecord.C.withPtr
-             &&&> FFI.UInt32.withVal
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.UInt32.C.withVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             constrainSize_
@@ -797,15 +797,15 @@ structure GdkWindow :>
         (newWidth, newHeight)
       end
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
-    fun setDebugUpdates setting = (FFI.Bool.withVal ---> I) setDebugUpdates_ setting
+    fun setDebugUpdates setting = (FFI.Bool.C.withVal ---> I) setDebugUpdates_ setting
     fun beep self = (GObjectObjectClass.C.withPtr ---> I) beep_ self
     fun beginMoveDrag self button rootX rootY timestamp =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         beginMoveDrag_
@@ -822,10 +822,10 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GdkWindowEdge.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         beginResizeDrag_
@@ -845,12 +845,12 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal
-                   && FFI.Double.fromVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
                    && I
           )
             coordsFromParent_
@@ -871,12 +871,12 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal
-                   && FFI.Double.fromVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
                    && I
           )
             coordsToParent_
@@ -894,8 +894,8 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContent.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> CairoSurfaceRecord.C.fromPtr true
       )
         createSimilarSurface_
@@ -910,21 +910,21 @@ structure GdkWindow :>
     fun destroyNotify self = (GObjectObjectClass.C.withPtr ---> I) destroyNotify_ self
     fun enableSynchronizedConfigure self = (GObjectObjectClass.C.withPtr ---> I) enableSynchronizedConfigure_ self
     fun endPaint self = (GObjectObjectClass.C.withPtr ---> I) endPaint_ self
-    fun ensureNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) ensureNative_ self
+    fun ensureNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) ensureNative_ self
     fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
-    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) focus_ (self & timestamp)
+    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) focus_ (self & timestamp)
     fun freezeToplevelUpdatesLibgtkOnly self = (GObjectObjectClass.C.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
     fun freezeUpdates self = (GObjectObjectClass.C.withPtr ---> I) freezeUpdates_ self
     fun fullscreen self = (GObjectObjectClass.C.withPtr ---> I) fullscreen_ self
     fun geometryChanged self = (GObjectObjectClass.C.withPtr ---> I) geometryChanged_ self
-    fun getAcceptFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getAcceptFocus_ self
+    fun getAcceptFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAcceptFocus_ self
     fun getBackgroundPattern self = (GObjectObjectClass.C.withPtr ---> CairoPatternRecord.C.fromPtr false) getBackgroundPattern_ self
     fun getClipRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getClipRegion_ self
-    fun getComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getComposited_ self
+    fun getComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getComposited_ self
     fun getCursor self = (GObjectObjectClass.C.withPtr ---> GdkCursorClass.C.fromPtr false) getCursor_ self
     fun getDecorations self =
       let
-        val decorations & retVal = (GObjectObjectClass.C.withPtr &&&> GdkWMDecoration.C.withRefVal ---> GdkWMDecoration.C.fromVal && FFI.Bool.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
+        val decorations & retVal = (GObjectObjectClass.C.withPtr &&&> GdkWMDecoration.C.withRefVal ---> GdkWMDecoration.C.fromVal && FFI.Bool.C.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
       in
         if retVal then SOME decorations else NONE
       end
@@ -939,11 +939,11 @@ structure GdkWindow :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && GdkModifierType.C.fromVal
                    && GdkWindowClass.C.fromPtr false
           )
@@ -973,7 +973,7 @@ structure GdkWindow :>
     fun getEffectiveParent self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveParent_ self
     fun getEffectiveToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveToplevel_ self
     fun getEvents self = (GObjectObjectClass.C.withPtr ---> GdkEventMask.C.fromVal) getEvents_ self
-    fun getFocusOnMap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getFocusOnMap_ self
+    fun getFocusOnMap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnMap_ self
     fun getFrameExtents self rect = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) getFrameExtents_ (self & rect)
     fun getGeometry self =
       let
@@ -984,14 +984,14 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getGeometry_
@@ -1011,8 +1011,8 @@ structure GdkWindow :>
         )
       end
     fun getGroup self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getGroup_ self
-    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getHeight_ self
-    fun getModalHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getModalHint_ self
+    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getHeight_ self
+    fun getModalHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getModalHint_ self
     fun getOrigin self =
       let
         val x
@@ -1020,11 +1020,11 @@ structure GdkWindow :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
           )
             getOrigin_
             (
@@ -1047,10 +1047,10 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getPosition_
@@ -1069,12 +1069,12 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withVal
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getRootCoords_
@@ -1095,10 +1095,10 @@ structure GdkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getRootOrigin_
@@ -1113,24 +1113,24 @@ structure GdkWindow :>
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
     fun getSourceEvents self source = (GObjectObjectClass.C.withPtr &&&> GdkInputSource.C.withVal ---> GdkEventMask.C.fromVal) getSourceEvents_ (self & source)
     fun getState self = (GObjectObjectClass.C.withPtr ---> GdkWindowState.C.fromVal) getState_ self
-    fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getSupportMultidevice_ self
+    fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportMultidevice_ self
     fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getToplevel_ self
     fun getTypeHint self = (GObjectObjectClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
     fun getUpdateArea self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getUpdateArea_ self
     fun getUserData self = (GObjectObjectClass.C.withPtr ---> I) getUserData_ self
     fun getVisibleRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getVisibleRegion_ self
     fun getVisual self = (GObjectObjectClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
-    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getWidth_ self
+    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self
     fun getWindowType self = (GObjectObjectClass.C.withPtr ---> GdkWindowType.C.fromVal) getWindowType_ self
-    fun hasNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) hasNative_ self
+    fun hasNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasNative_ self
     fun hide self = (GObjectObjectClass.C.withPtr ---> I) hide_ self
     fun iconify self = (GObjectObjectClass.C.withPtr ---> I) iconify_ self
     fun inputShapeCombineRegion self shapeRegion offsetX offsetY =
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         inputShapeCombineRegion_
@@ -1144,7 +1144,7 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRectangleIntRecord.C.withOptPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         invalidateRect_
@@ -1157,7 +1157,7 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         invalidateRegion_
@@ -1166,11 +1166,11 @@ structure GdkWindow :>
            & region
            & invalidateChildren
         )
-    fun isDestroyed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isDestroyed_ self
-    fun isInputOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isInputOnly_ self
-    fun isShaped self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isShaped_ self
-    fun isViewable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isViewable_ self
-    fun isVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isVisible_ self
+    fun isDestroyed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isDestroyed_ self
+    fun isInputOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isInputOnly_ self
+    fun isShaped self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isShaped_ self
+    fun isViewable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isViewable_ self
+    fun isVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
     fun lower self = (GObjectObjectClass.C.withPtr ---> I) lower_ self
     fun maximize self = (GObjectObjectClass.C.withPtr ---> I) maximize_ self
     fun mergeChildInputShapes self = (GObjectObjectClass.C.withPtr ---> I) mergeChildInputShapes_ self
@@ -1178,8 +1178,8 @@ structure GdkWindow :>
     fun move self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         move_
@@ -1192,8 +1192,8 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         moveRegion_
@@ -1206,10 +1206,10 @@ structure GdkWindow :>
     fun moveResize self x y width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         moveResize_
@@ -1220,15 +1220,15 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun processUpdates self updateChildren = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) processUpdates_ (self & updateChildren)
+    fun processUpdates self updateChildren = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) processUpdates_ (self & updateChildren)
     fun raise' self = (GObjectObjectClass.C.withPtr ---> I) raise_ self
     fun registerDnd self = (GObjectObjectClass.C.withPtr ---> I) registerDnd_ self
     fun reparent self newParent x y =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         reparent_
@@ -1241,8 +1241,8 @@ structure GdkWindow :>
     fun resize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         resize_
@@ -1255,7 +1255,7 @@ structure GdkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         restack_
@@ -1267,8 +1267,8 @@ structure GdkWindow :>
     fun scroll self dx dy =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         scroll_
@@ -1277,13 +1277,13 @@ structure GdkWindow :>
            & dx
            & dy
         )
-    fun setAcceptFocus self acceptFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
+    fun setAcceptFocus self acceptFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
     fun setBackground self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackground_ (self & color)
     fun setBackgroundPattern self pattern = (GObjectObjectClass.C.withPtr &&&> CairoPatternRecord.C.withOptPtr ---> I) setBackgroundPattern_ (self & pattern)
     fun setBackgroundRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackgroundRgba_ (self & rgba)
     fun setChildInputShapes self = (GObjectObjectClass.C.withPtr ---> I) setChildInputShapes_ self
     fun setChildShapes self = (GObjectObjectClass.C.withPtr ---> I) setChildShapes_ self
-    fun setComposited self composited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setComposited_ (self & composited)
+    fun setComposited self composited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setComposited_ (self & composited)
     fun setCursor self cursor = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setCursor_ (self & cursor)
     fun setDecorations self decorations = (GObjectObjectClass.C.withPtr &&&> GdkWMDecoration.C.withVal ---> I) setDecorations_ (self & decorations)
     fun setDeviceCursor self device cursor =
@@ -1313,7 +1313,7 @@ structure GdkWindow :>
            & eventMask
         )
     fun setEvents self eventMask = (GObjectObjectClass.C.withPtr &&&> GdkEventMask.C.withVal ---> I) setEvents_ (self & eventMask)
-    fun setFocusOnMap self focusOnMap = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
+    fun setFocusOnMap self focusOnMap = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
     fun setFunctions self functions = (GObjectObjectClass.C.withPtr &&&> GdkWMFunction.C.withVal ---> I) setFunctions_ (self & functions)
     fun setGeometryHints self geometry geomMask =
       (
@@ -1329,15 +1329,15 @@ structure GdkWindow :>
            & geomMask
         )
     fun setGroup self leader = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setGroup_ (self & leader)
-    fun setIconName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setIconName_ (self & name)
-    fun setKeepAbove self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setKeepAbove_ (self & setting)
-    fun setKeepBelow self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setKeepBelow_ (self & setting)
-    fun setModalHint self modal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setModalHint_ (self & modal)
-    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setOpacity_ (self & opacity)
-    fun setOverrideRedirect self overrideRedirect = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
-    fun setRole self role = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setRole_ (self & role)
-    fun setSkipPagerHint self skipsPager = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
-    fun setSkipTaskbarHint self skipsTaskbar = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
+    fun setIconName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & name)
+    fun setKeepAbove self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepAbove_ (self & setting)
+    fun setKeepBelow self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepBelow_ (self & setting)
+    fun setModalHint self modal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setModalHint_ (self & modal)
+    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setOpacity_ (self & opacity)
+    fun setOverrideRedirect self overrideRedirect = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
+    fun setRole self role = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setRole_ (self & role)
+    fun setSkipPagerHint self skipsPager = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
+    fun setSkipTaskbarHint self skipsTaskbar = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
     fun setSourceEvents self source eventMask =
       (
         GObjectObjectClass.C.withPtr
@@ -1351,20 +1351,20 @@ structure GdkWindow :>
            & source
            & eventMask
         )
-    fun setStartupId self startupId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setStartupId_ (self & startupId)
-    fun setStaticGravities self useStatic = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> FFI.Bool.fromVal) setStaticGravities_ (self & useStatic)
-    fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setTitle_ (self & title)
+    fun setStartupId self startupId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setStartupId_ (self & startupId)
+    fun setStaticGravities self useStatic = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) setStaticGravities_ (self & useStatic)
+    fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setTransientFor self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setTransientFor_ (self & parent)
     fun setTypeHint self hint = (GObjectObjectClass.C.withPtr &&&> GdkWindowTypeHint.C.withVal ---> I) setTypeHint_ (self & hint)
-    fun setUrgencyHint self urgent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setUrgencyHint_ (self & urgent)
+    fun setUrgencyHint self urgent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUrgencyHint_ (self & urgent)
     fun setUserData self userData = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUserData_ (self & userData)
     fun shapeCombineRegion self shapeRegion offsetX offsetY =
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoRegionRecord.C.withOptPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         shapeCombineRegion_

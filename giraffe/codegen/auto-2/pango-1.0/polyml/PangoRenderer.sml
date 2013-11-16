@@ -20,10 +20,10 @@ structure PangoRenderer :>
         call (load_sym libpango "pango_renderer_draw_error_underline")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawGlyph_ =
@@ -31,19 +31,19 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.UInt32.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
+             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawGlyphItem_ =
         call (load_sym libpango "pango_renderer_draw_glyph_item")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.String.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              &&> PangoGlyphItemRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawGlyphs_ =
@@ -52,8 +52,8 @@ structure PangoRenderer :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> PangoGlyphStringRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawLayout_ =
@@ -61,8 +61,8 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawLayoutLine_ =
@@ -70,8 +70,8 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawRectangle_ =
@@ -79,10 +79,10 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> PangoRenderPart.PolyML.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val drawTrapezoid_ =
@@ -90,12 +90,12 @@ structure PangoRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> PangoRenderPart.PolyML.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val getColor_ = call (load_sym libpango "pango_renderer_get_color") (GObjectObjectClass.PolyML.PTR &&> PangoRenderPart.PolyML.VAL --> PangoColorRecord.PolyML.PTR)
@@ -128,10 +128,10 @@ structure PangoRenderer :>
     fun drawErrorUnderline self x y width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawErrorUnderline_
@@ -146,9 +146,9 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         drawGlyph_
@@ -162,10 +162,10 @@ structure PangoRenderer :>
     fun drawGlyphItem self text glyphItem x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawGlyphItem_
@@ -181,8 +181,8 @@ structure PangoRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> PangoGlyphStringRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawGlyphs_
@@ -197,8 +197,8 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawLayout_
@@ -212,8 +212,8 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> PangoLayoutLineRecord.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawLayoutLine_
@@ -227,10 +227,10 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         drawRectangle_
@@ -246,12 +246,12 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         drawTrapezoid_

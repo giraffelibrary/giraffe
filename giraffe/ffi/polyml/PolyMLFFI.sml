@@ -1,6 +1,6 @@
 infixr 0 &&> -->
 
-structure PolyMLFFI :> POLYML_FFI =
+structure PolyMLFFI :> POLY_M_L_F_F_I =
   struct
     open CInterface
 

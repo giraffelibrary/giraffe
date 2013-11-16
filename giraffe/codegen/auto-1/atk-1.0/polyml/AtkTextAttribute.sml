@@ -40,9 +40,9 @@ structure AtkTextAttribute :>
     | LASTDEFINED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             INVALID => f 0
@@ -74,7 +74,7 @@ structure AtkTextAttribute :>
           | VARIANT => f 26
           | STYLE => f 27
           | LASTDEFINED => f 28
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
@@ -110,8 +110,8 @@ structure AtkTextAttribute :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     local
       open PolyMLFFI
@@ -131,14 +131,14 @@ structure AtkTextAttribute :>
     local
       open PolyMLFFI
     in
-      val forName_ = call (load_sym libatk "atk_text_attribute_for_name") (FFI.PolyML.String.INPTR --> PolyML.VAL)
-      val getName_ = call (load_sym libatk "atk_text_attribute_get_name") (PolyML.VAL --> FFI.PolyML.String.RETPTR)
-      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.VAL &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.String.RETPTR)
-      val register_ = call (load_sym libatk "atk_text_attribute_register") (FFI.PolyML.String.INPTR --> PolyML.VAL)
+      val forName_ = call (load_sym libatk "atk_text_attribute_for_name") (FFI.String.PolyML.INPTR --> PolyML.VAL)
+      val getName_ = call (load_sym libatk "atk_text_attribute_get_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val register_ = call (load_sym libatk "atk_text_attribute_register") (FFI.String.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.withConstPtr ---> C.fromVal) forName_ name
-    fun getName attr = (C.withVal ---> FFI.String.fromPtr false) getName_ attr
-    fun getValue attr index = (C.withVal &&&> FFI.Int32.withVal ---> FFI.String.fromPtr false) getValue_ (attr & index)
-    fun register name = (FFI.String.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getName attr = (C.withVal ---> FFI.String.C.fromPtr false) getName_ attr
+    fun getValue attr index = (C.withVal &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getValue_ (attr & index)
+    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
   end

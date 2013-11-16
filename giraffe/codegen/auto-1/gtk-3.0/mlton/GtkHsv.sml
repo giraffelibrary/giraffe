@@ -16,12 +16,12 @@ structure GtkHsv :>
          & x6 =>
           (
             _import "gtk_hsv_to_rgb" :
-              FFI.Double.val_
-               * FFI.Double.val_
-               * FFI.Double.val_
-               * FFI.Double.ref_
-               * FFI.Double.ref_
-               * FFI.Double.ref_
+              FFI.Double.C.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
                -> unit;
           )
             (
@@ -41,9 +41,9 @@ structure GtkHsv :>
           (
             _import "gtk_hsv_get_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Double.ref_
-               * FFI.Double.ref_
-               * FFI.Double.ref_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
+               * FFI.Double.C.ref_
                -> unit;
           )
             (
@@ -60,8 +60,8 @@ structure GtkHsv :>
           (
             _import "gtk_hsv_get_metrics" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.ref_
-               * FFI.Int32.ref_
+               * FFI.Int32.C.ref_
+               * FFI.Int32.C.ref_
                -> unit;
           )
             (
@@ -69,7 +69,7 @@ structure GtkHsv :>
               x2,
               x3
             )
-    val isAdjusting_ = _import "gtk_hsv_is_adjusting" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val isAdjusting_ = _import "gtk_hsv_is_adjusting" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setColor_ =
       fn
         x1
@@ -79,9 +79,9 @@ structure GtkHsv :>
           (
             _import "gtk_hsv_set_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Double.val_
-               * FFI.Double.val_
-               * FFI.Double.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.val_
+               * FFI.Double.C.val_
                -> unit;
           )
             (
@@ -98,8 +98,8 @@ structure GtkHsv :>
           (
             _import "gtk_hsv_set_metrics" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
+               * FFI.Int32.C.val_
                -> unit;
           )
             (
@@ -121,15 +121,15 @@ structure GtkHsv :>
          & b
          & () =
           (
-            FFI.Double.withVal
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withVal
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal
-                   && FFI.Double.fromVal
-                   && FFI.Double.fromVal
+            FFI.Double.C.withVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
                    && I
           )
             toRgb_
@@ -156,12 +156,12 @@ structure GtkHsv :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal
-                   && FFI.Double.fromVal
-                   && FFI.Double.fromVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
+                   && FFI.Double.C.fromVal
                    && I
           )
             getColor_
@@ -185,10 +185,10 @@ structure GtkHsv :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.withRefVal
-             &&&> FFI.Int32.withRefVal
-             ---> FFI.Int32.fromVal
-                   && FFI.Int32.fromVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
+             ---> FFI.Int32.C.fromVal
+                   && FFI.Int32.C.fromVal
                    && I
           )
             getMetrics_
@@ -200,13 +200,13 @@ structure GtkHsv :>
       in
         (size, ringWidth)
       end
-    fun isAdjusting self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isAdjusting_ self
+    fun isAdjusting self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isAdjusting_ self
     fun setColor self h s v =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         setColor_
@@ -219,8 +219,8 @@ structure GtkHsv :>
     fun setMetrics self size ringWidth =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> I
       )
         setMetrics_

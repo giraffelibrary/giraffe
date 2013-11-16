@@ -16,9 +16,9 @@ structure GtkScaleButton :>
       val getMinusButton_ = call (load_sym libgtk "gtk_scale_button_get_minus_button") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getPlusButton_ = call (load_sym libgtk "gtk_scale_button_get_plus_button") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getPopup_ = call (load_sym libgtk "gtk_scale_button_get_popup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
+      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
       val setAdjustment_ = call (load_sym libgtk "gtk_scale_button_set_adjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Double.VAL --> FFI.PolyML.VOID)
+      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkScaleButtonClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
@@ -36,9 +36,9 @@ structure GtkScaleButton :>
     fun getMinusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMinusButton_ self
     fun getPlusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPlusButton_ self
     fun getPopup self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPopup_ self
-    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getValue_ self
+    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
     fun setAdjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setValue_ (self & value)
+    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

@@ -20,7 +20,10 @@ signature G_LIB_QUARK =
     structure C :
       sig
         type val_
-        val withVal : (val_ -> 'a) -> t -> 'a
+        val withVal :
+          (val_ -> 'a)
+           -> t
+           -> 'a
         val fromVal : val_ -> t
       end
   end

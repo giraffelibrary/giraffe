@@ -8,7 +8,7 @@ structure GtkHandleBox :>
   struct
     val getType_ = _import "gtk_handle_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_handle_box_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getChildDetached_ = _import "gtk_handle_box_get_child_detached" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getChildDetached_ = _import "gtk_handle_box_get_child_detached" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getHandlePosition_ = _import "gtk_handle_box_get_handle_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkPositionType.C.val_;
     val getShadowType_ = _import "gtk_handle_box_get_shadow_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkShadowType.C.val_;
     val getSnapEdge_ = _import "gtk_handle_box_get_snap_edge" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkPositionType.C.val_;
@@ -24,7 +24,7 @@ structure GtkHandleBox :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkHandleBoxClass.C.fromPtr false) new_ ()
-    fun getChildDetached self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildDetached_ self
+    fun getChildDetached self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildDetached_ self
     fun getHandlePosition self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getHandlePosition_ self
     fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
     fun getSnapEdge self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getSnapEdge_ self

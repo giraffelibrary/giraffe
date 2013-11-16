@@ -7,15 +7,15 @@ structure Pid :>
 
     val null = Posix.Process.wordToPid 0w0
 
-    val intToPid = Posix.Process.wordToPid o SysWord.fromInt o Int32.toInt
-    val pidToInt = Int32.fromInt o SysWord.toInt o Posix.Process.pidToWord
+    val intToPid = Posix.Process.wordToPid o SysWord.fromLargeInt
+    val pidToInt = SysWord.toLargeInt o Posix.Process.pidToWord
 
     structure C =
       struct
-        type val_ = FFI.Int32.val_
-        type ref_ = FFI.Int32.ref_
-        fun withVal f pid = f (pidToInt pid)
-        fun withRefVal f pid = withVal (FFI.withRef f) pid
-        val fromVal = intToPid
+        type val_ = FFI.Int32.C.val_
+        type ref_ = FFI.Int32.C.ref_
+        fun withVal f = FFI.Int32.C.withVal f o pidToInt
+        fun withRefVal f = FFI.Int32.C.withRefVal f o pidToInt
+        val fromVal = intToPid o FFI.Int32.C.fromVal
       end
   end

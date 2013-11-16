@@ -4,8 +4,8 @@ structure GioPollableInputStream :>
     where type 'a cancellableclass_t = 'a GioCancellableClass.t =
   struct
     val getType_ = _import "g_pollable_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val canPoll_ = _import "g_pollable_input_stream_can_poll" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val isReadable_ = _import "g_pollable_input_stream_is_readable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val canPoll_ = _import "g_pollable_input_stream_can_poll" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isReadable_ = _import "g_pollable_input_stream_is_readable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val readNonblocking_ =
       fn
         x1
@@ -15,10 +15,10 @@ structure GioPollableInputStream :>
           (
             _import "g_pollable_input_stream_read_nonblocking" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.val_
+               * FFI.UInt64.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.val_;
+               -> FFI.Int64.C.val_;
           )
             (
               x1,
@@ -29,15 +29,15 @@ structure GioPollableInputStream :>
     type 'a class_t = 'a GioPollableInputStreamClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun canPoll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canPoll_ self
-    fun isReadable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isReadable_ self
+    fun canPoll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canPoll_ self
+    fun isReadable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isReadable_ self
     fun readNonblocking self size cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.withVal
+         &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.fromVal
+         ---> FFI.Int64.C.fromVal
       )
         readNonblocking_
         (

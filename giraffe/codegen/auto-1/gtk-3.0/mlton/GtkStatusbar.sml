@@ -15,7 +15,7 @@ structure GtkStatusbar :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.UInt32.val_;
+               -> FFI.UInt32.C.val_;
           )
             (
               x1,
@@ -23,7 +23,7 @@ structure GtkStatusbar :>
               x3
             )
     val getMessageArea_ = _import "gtk_statusbar_get_message_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val push_ =
       fn
         x1
@@ -32,10 +32,10 @@ structure GtkStatusbar :>
           (
             _import "mlton_gtk_statusbar_push" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
                * cstring
                * unit CPointer.t
-               -> FFI.UInt32.val_;
+               -> FFI.UInt32.C.val_;
           )
             (
               x1,
@@ -51,8 +51,8 @@ structure GtkStatusbar :>
           (
             _import "gtk_statusbar_remove" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -60,7 +60,7 @@ structure GtkStatusbar :>
               x2,
               x3
             )
-    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.val_ -> unit;) (x1, x2)
+    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkStatusbarClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
@@ -70,15 +70,15 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.UInt32.fromVal) getContextId_ (self & contextDescription)
+    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt32.C.fromVal) getContextId_ (self & contextDescription)
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) pop_ (self & contextId)
+    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.String.withConstPtr
-         ---> FFI.UInt32.fromVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.String.C.withConstPtr
+         ---> FFI.UInt32.C.fromVal
       )
         push_
         (
@@ -89,8 +89,8 @@ structure GtkStatusbar :>
     fun remove self contextId messageId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         remove_
@@ -99,7 +99,7 @@ structure GtkStatusbar :>
            & contextId
            & messageId
         )
-    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.withVal ---> I) removeAll_ (self & contextId)
+    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeAll_ (self & contextId)
     local
       open ClosureMarshal Signal
     in

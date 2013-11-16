@@ -10,14 +10,14 @@ structure GdkCursor :>
       val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GObjectObjectClass.PolyML.PTR &&> GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newFromPixbuf_ =
         call (load_sym libgdk "gdk_cursor_new_from_pixbuf")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.PolyML.Int32.VAL
-             &&> FFI.PolyML.Int32.VAL
+             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int32.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GObjectObjectClass.PolyML.PTR --> GdkCursorType.PolyML.VAL)
@@ -30,13 +30,13 @@ structure GdkCursor :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
     fun newForDisplay display cursorType = (GObjectObjectClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
+    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
     fun newFromPixbuf display pixbuf x y =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int32.C.withVal
          ---> GdkCursorClass.C.fromPtr true
       )
         newFromPixbuf_

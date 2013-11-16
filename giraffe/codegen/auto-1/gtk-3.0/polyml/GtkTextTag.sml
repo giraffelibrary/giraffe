@@ -10,7 +10,7 @@ structure GtkTextTag :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_text_tag_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_text_tag_new") (FFI.PolyML.String.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgtk "gtk_text_tag_new") (FFI.String.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
       val event_ =
         call (load_sym libgtk "gtk_text_tag_event")
           (
@@ -18,10 +18,10 @@ structure GtkTextTag :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             --> FFI.PolyML.Bool.VAL
+             --> FFI.Bool.PolyML.VAL
           )
-      val getPriority_ = call (load_sym libgtk "gtk_text_tag_get_priority") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Int32.VAL)
-      val setPriority_ = call (load_sym libgtk "gtk_text_tag_set_priority") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Int32.VAL --> FFI.PolyML.VOID)
+      val getPriority_ = call (load_sym libgtk "gtk_text_tag_get_priority") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val setPriority_ = call (load_sym libgtk "gtk_text_tag_set_priority") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTextTagClass.t
     type textiterrecord_t = GtkTextIterRecord.t
@@ -29,14 +29,14 @@ structure GtkTextTag :>
     type justification_t = GtkJustification.t
     type wrapmode_t = GtkWrapMode.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (FFI.String.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         event_
         (
@@ -45,8 +45,8 @@ structure GtkTextTag :>
            & event
            & iter
         )
-    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getPriority_ self
-    fun setPriority self priority = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setPriority_ (self & priority)
+    fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPriority_ self
+    fun setPriority self priority = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPriority_ (self & priority)
     local
       open ClosureMarshal Signal
     in

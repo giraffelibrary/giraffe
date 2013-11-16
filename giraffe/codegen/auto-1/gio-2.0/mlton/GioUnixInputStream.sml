@@ -4,18 +4,18 @@ structure GioUnixInputStream :>
     where type 'a pollableinputstreamclass_t = 'a GioPollableInputStreamClass.t =
   struct
     val getType_ = _import "g_unix_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "g_unix_input_stream_new" : FFI.Int32.val_ * FFI.Bool.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getCloseFd_ = _import "g_unix_input_stream_get_close_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
-    val getFd_ = _import "g_unix_input_stream_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
-    val setCloseFd_ = fn x1 & x2 => (_import "g_unix_input_stream_set_close_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "g_unix_input_stream_new" : FFI.Int32.C.val_ * FFI.Bool.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val getCloseFd_ = _import "g_unix_input_stream_get_close_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getFd_ = _import "g_unix_input_stream_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val setCloseFd_ = fn x1 & x2 => (_import "g_unix_input_stream_set_close_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioUnixInputStreamClass.t
     type 'a pollableinputstreamclass_t = 'a GioPollableInputStreamClass.t
     fun asPollableInputStream self = (GObjectObjectClass.C.withPtr ---> GioPollableInputStreamClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new fd closeFd = (FFI.Int32.withVal &&&> FFI.Bool.withVal ---> GioUnixInputStreamClass.C.fromPtr true) new_ (fd & closeFd)
-    fun getCloseFd self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getCloseFd_ self
-    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getFd_ self
-    fun setCloseFd self closeFd = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setCloseFd_ (self & closeFd)
+    fun new fd closeFd = (FFI.Int32.C.withVal &&&> FFI.Bool.C.withVal ---> GioUnixInputStreamClass.C.fromPtr true) new_ (fd & closeFd)
+    fun getCloseFd self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCloseFd_ self
+    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun setCloseFd self closeFd = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCloseFd_ (self & closeFd)
     local
       open Property
     in

@@ -12,10 +12,10 @@ structure GtkAlignment :>
          & x4 =>
           (
             _import "gtk_alignment_new" :
-              FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
+              FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -34,10 +34,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.ref_
-               * FFI.UInt32.ref_
-               * FFI.UInt32.ref_
-               * FFI.UInt32.ref_
+               * FFI.UInt32.C.ref_
+               * FFI.UInt32.C.ref_
+               * FFI.UInt32.C.ref_
+               * FFI.UInt32.C.ref_
                -> unit;
           )
             (
@@ -57,10 +57,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
-               * FFI.Float.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
+               * FFI.Float.C.val_
                -> unit;
           )
             (
@@ -80,10 +80,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
-               * FFI.UInt32.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
+               * FFI.UInt32.C.val_
                -> unit;
           )
             (
@@ -100,10 +100,10 @@ structure GtkAlignment :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new xalign yalign xscale yscale =
       (
-        FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
+        FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
          ---> GtkAlignmentClass.C.fromPtr false
       )
         new_
@@ -122,14 +122,14 @@ structure GtkAlignment :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.UInt32.withRefVal
-             &&&> FFI.UInt32.withRefVal
-             ---> FFI.UInt32.fromVal
-                   && FFI.UInt32.fromVal
-                   && FFI.UInt32.fromVal
-                   && FFI.UInt32.fromVal
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.UInt32.C.withRefVal
+             ---> FFI.UInt32.C.fromVal
+                   && FFI.UInt32.C.fromVal
+                   && FFI.UInt32.C.fromVal
+                   && FFI.UInt32.C.fromVal
                    && I
           )
             getPadding_
@@ -151,10 +151,10 @@ structure GtkAlignment :>
     fun set self xalign yalign xscale yscale =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
-         &&&> FFI.Float.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
+         &&&> FFI.Float.C.withVal
          ---> I
       )
         set_
@@ -168,10 +168,10 @@ structure GtkAlignment :>
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
-         &&&> FFI.UInt32.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt32.C.withVal
          ---> I
       )
         setPadding_

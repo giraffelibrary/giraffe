@@ -4,19 +4,19 @@ structure PangoCairo : PANGO_CAIRO =
       open PolyMLFFI
     in
       val contextGetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_get_font_options") (GObjectObjectClass.PolyML.PTR --> CairoFontOptionsRecord.PolyML.PTR)
-      val contextGetResolution_ = call (load_sym libpangocairo "pango_cairo_context_get_resolution") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
+      val contextGetResolution_ = call (load_sym libpangocairo "pango_cairo_context_get_resolution") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
       val contextSetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_set_font_options") (GObjectObjectClass.PolyML.PTR &&> CairoFontOptionsRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val contextSetResolution_ = call (load_sym libpangocairo "pango_cairo_context_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Double.VAL --> FFI.PolyML.VOID)
+      val contextSetResolution_ = call (load_sym libpangocairo "pango_cairo_context_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
       val createContext_ = call (load_sym libpangocairo "pango_cairo_create_context") (CairoContextRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val createLayout_ = call (load_sym libpangocairo "pango_cairo_create_layout") (CairoContextRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val errorUnderlinePath_ =
         call (load_sym libpangocairo "pango_cairo_error_underline_path")
           (
             CairoContextRecord.PolyML.PTR
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val fontMapGetDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
@@ -35,17 +35,17 @@ structure PangoCairo : PANGO_CAIRO =
         call (load_sym libpangocairo "pango_cairo_show_error_underline")
           (
             CairoContextRecord.PolyML.PTR
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
-             &&> FFI.PolyML.Double.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
+             &&> FFI.Double.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val showGlyphItem_ =
         call (load_sym libpangocairo "pango_cairo_show_glyph_item")
           (
             CairoContextRecord.PolyML.PTR
-             &&> FFI.PolyML.String.INPTR
+             &&> FFI.String.PolyML.INPTR
              &&> PangoGlyphItemRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -69,18 +69,18 @@ structure PangoCairo : PANGO_CAIRO =
     structure Font = PangoCairoFont
     structure FontMap = PangoCairoFontMap
     fun contextGetFontOptions context = (GObjectObjectClass.C.withPtr ---> CairoFontOptionsRecord.C.fromPtr false) contextGetFontOptions_ context
-    fun contextGetResolution context = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) contextGetResolution_ context
+    fun contextGetResolution context = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) contextGetResolution_ context
     fun contextSetFontOptions context options = (GObjectObjectClass.C.withPtr &&&> CairoFontOptionsRecord.C.withPtr ---> I) contextSetFontOptions_ (context & options)
-    fun contextSetResolution context dpi = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) contextSetResolution_ (context & dpi)
+    fun contextSetResolution context dpi = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) contextSetResolution_ (context & dpi)
     fun createContext cr = (CairoContextRecord.C.withPtr ---> PangoContextClass.C.fromPtr true) createContext_ cr
     fun createLayout cr = (CairoContextRecord.C.withPtr ---> PangoLayoutClass.C.fromPtr true) createLayout_ cr
     fun errorUnderlinePath cr x y width height =
       (
         CairoContextRecord.C.withPtr
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         errorUnderlinePath_
@@ -111,10 +111,10 @@ structure PangoCairo : PANGO_CAIRO =
     fun showErrorUnderline cr x y width height =
       (
         CairoContextRecord.C.withPtr
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
-         &&&> FFI.Double.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
+         &&&> FFI.Double.C.withVal
          ---> I
       )
         showErrorUnderline_
@@ -128,7 +128,7 @@ structure PangoCairo : PANGO_CAIRO =
     fun showGlyphItem cr text glyphItem =
       (
         CairoContextRecord.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          ---> I
       )

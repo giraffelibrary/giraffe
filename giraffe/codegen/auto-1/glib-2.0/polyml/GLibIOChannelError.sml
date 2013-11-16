@@ -22,9 +22,9 @@ structure GLibIOChannelError :>
     | FAILED
     structure C =
       struct
-        type val_ = FFI.Enum.val_
-        type ref_ = FFI.Enum.ref_
-        exception Value of FFI.Enum.val_
+        type val_ = FFI.Enum.C.val_
+        type ref_ = FFI.Enum.C.ref_
+        exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
             FBIG => f 0
@@ -36,7 +36,7 @@ structure GLibIOChannelError :>
           | OVERFLOW => f 6
           | PIPE => f 7
           | FAILED => f 8
-        fun withRefVal f = withVal (FFI.Enum.withRef f)
+        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => FBIG
@@ -52,8 +52,8 @@ structure GLibIOChannelError :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.PolyML.Enum.VAL
-        val REF = FFI.PolyML.Enum.REF
+        val VAL = FFI.Enum.PolyML.VAL
+        val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
     type errorrecord_handler = GLibErrorRecord.handler

@@ -116,12 +116,12 @@ structure GLibErrorRecord :>
       val getCode_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_code")
-          (PolyML.PTR --> FFI.PolyML.Enum.VAL)
+          (PolyML.PTR --> FFI.Enum.PolyML.VAL)
 
       val getMessage_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_message")
-          (PolyML.PTR --> FFI.PolyML.String.RETPTR)
+          (PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
 
     type quark_t = GLibQuark.t
@@ -138,7 +138,7 @@ structure GLibErrorRecord :>
 
     val message =
       {
-        get = fn self => (C.withPtr ---> FFI.String.fromPtr false) getMessage_ self
+        get = fn self => (C.withPtr ---> FFI.String.C.fromPtr false) getMessage_ self
       }
 
     fun makeHandler (domainName, fromVal, domainExn) =

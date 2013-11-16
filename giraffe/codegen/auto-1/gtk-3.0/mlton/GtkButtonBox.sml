@@ -9,8 +9,8 @@ structure GtkButtonBox :>
   struct
     val getType_ = _import "gtk_button_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_button_box_new" : GtkOrientation.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getChildNonHomogeneous_ = fn x1 & x2 => (_import "gtk_button_box_get_child_non_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
-    val getChildSecondary_ = fn x1 & x2 => (_import "gtk_button_box_get_child_secondary" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;) (x1, x2)
+    val getChildNonHomogeneous_ = fn x1 & x2 => (_import "gtk_button_box_get_child_non_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val getChildSecondary_ = fn x1 & x2 => (_import "gtk_button_box_get_child_secondary" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getLayout_ = _import "gtk_button_box_get_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkButtonBoxStyle.C.val_;
     val setChildNonHomogeneous_ =
       fn
@@ -21,7 +21,7 @@ structure GtkButtonBox :>
             _import "gtk_button_box_set_child_non_homogeneous" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -38,7 +38,7 @@ structure GtkButtonBox :>
             _import "gtk_button_box_set_child_secondary" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Bool.val_
+               * FFI.Bool.C.val_
                -> unit;
           )
             (
@@ -58,14 +58,14 @@ structure GtkButtonBox :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new orientation = (GtkOrientation.C.withVal ---> GtkButtonBoxClass.C.fromPtr false) new_ orientation
-    fun getChildNonHomogeneous self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildNonHomogeneous_ (self & child)
-    fun getChildSecondary self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildSecondary_ (self & child)
+    fun getChildNonHomogeneous self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildNonHomogeneous_ (self & child)
+    fun getChildSecondary self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildSecondary_ (self & child)
     fun getLayout self = (GObjectObjectClass.C.withPtr ---> GtkButtonBoxStyle.C.fromVal) getLayout_ self
     fun setChildNonHomogeneous self child nonHomogeneous =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setChildNonHomogeneous_
@@ -78,7 +78,7 @@ structure GtkButtonBox :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Bool.withVal
+         &&&> FFI.Bool.C.withVal
          ---> I
       )
         setChildSecondary_

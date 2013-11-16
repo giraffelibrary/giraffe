@@ -146,7 +146,7 @@ structure GtkThemingEngine :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -164,7 +164,7 @@ structure GtkThemingEngine :>
                * cstring
                * unit CPointer.t
                * GtkRegionFlags.C.ref_
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -183,7 +183,7 @@ structure GtkThemingEngine :>
                * cstring
                * unit CPointer.t
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -200,8 +200,8 @@ structure GtkThemingEngine :>
             _import "gtk_theming_engine_state_is_running" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateType.C.val_
-               * FFI.Double.ref_
-               -> FFI.Bool.val_;
+               * FFI.Double.C.ref_
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -217,7 +217,7 @@ structure GtkThemingEngine :>
     type regionflags_t = GtkRegionFlags.t
     type statetype_t = GtkStateType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun load name = (FFI.String.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
+    fun load name = (FFI.String.C.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -335,7 +335,7 @@ structure GtkThemingEngine :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -345,15 +345,15 @@ structure GtkThemingEngine :>
            & propertyName
            & value
         )
-    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> FFI.Bool.fromVal) hasClass_ (self & styleClass)
+    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let
         val flags & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GtkRegionFlags.C.withRefVal
-             ---> GtkRegionFlags.C.fromVal && FFI.Bool.fromVal
+             ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
             hasRegion_
             (
@@ -369,9 +369,9 @@ structure GtkThemingEngine :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.fromVal
+             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             lookupColor_
             (
@@ -388,8 +388,8 @@ structure GtkThemingEngine :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkStateType.C.withVal
-             &&&> FFI.Double.withRefVal
-             ---> FFI.Double.fromVal && FFI.Bool.fromVal
+             &&&> FFI.Double.C.withRefVal
+             ---> FFI.Double.C.fromVal && FFI.Bool.C.fromVal
           )
             stateIsRunning_
             (

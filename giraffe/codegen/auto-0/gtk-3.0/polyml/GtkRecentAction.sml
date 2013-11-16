@@ -12,24 +12,24 @@ structure GtkRecentAction :>
       val new_ =
         call (load_sym libgtk "gtk_recent_action_new")
           (
-            FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.String.INOPTPTR
+            FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val newForManager_ =
         call (load_sym libgtk "gtk_recent_action_new_for_manager")
           (
-            FFI.PolyML.String.INPTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.String.INOPTPTR
-             &&> FFI.PolyML.String.INOPTPTR
+            FFI.String.PolyML.INPTR
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
+             &&> FFI.String.PolyML.INOPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
+      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRecentActionClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -40,10 +40,10 @@ structure GtkRecentAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )
         new_
@@ -55,10 +55,10 @@ structure GtkRecentAction :>
         )
     fun newForManager name label tooltip stockId manager =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstOptPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )
@@ -70,8 +70,8 @@ structure GtkRecentAction :>
            & stockId
            & manager
         )
-    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

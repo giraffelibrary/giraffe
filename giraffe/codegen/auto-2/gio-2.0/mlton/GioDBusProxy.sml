@@ -125,7 +125,7 @@ structure GioDBusProxy :>
                * unit CPointer.t
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
@@ -178,7 +178,7 @@ structure GioDBusProxy :>
                * unit CPointer.t
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
-               * FFI.Int32.val_
+               * FFI.Int32.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
                * unit GObjectObjectClass.C.p
@@ -213,13 +213,13 @@ structure GioDBusProxy :>
               x3
             )
     val getConnection_ = _import "g_dbus_proxy_get_connection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDefaultTimeout_ = _import "g_dbus_proxy_get_default_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.val_;
+    val getDefaultTimeout_ = _import "g_dbus_proxy_get_default_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getFlags_ = _import "g_dbus_proxy_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusProxyFlags.C.val_;
     val getInterfaceInfo_ = _import "g_dbus_proxy_get_interface_info" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusInterfaceInfoRecord.C.notnull GioDBusInterfaceInfoRecord.C.p;
-    val getInterfaceName_ = _import "g_dbus_proxy_get_interface_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getName_ = _import "g_dbus_proxy_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getNameOwner_ = _import "g_dbus_proxy_get_name_owner" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getObjectPath_ = _import "g_dbus_proxy_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getInterfaceName_ = _import "g_dbus_proxy_get_interface_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "g_dbus_proxy_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getNameOwner_ = _import "g_dbus_proxy_get_name_owner" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getObjectPath_ = _import "g_dbus_proxy_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val setCachedProperty_ =
       fn
         x1
@@ -239,7 +239,7 @@ structure GioDBusProxy :>
               x3,
               x4
             )
-    val setDefaultTimeout_ = fn x1 & x2 => (_import "g_dbus_proxy_set_default_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.val_ -> unit;) (x1, x2)
+    val setDefaultTimeout_ = fn x1 & x2 => (_import "g_dbus_proxy_set_default_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val setInterfaceInfo_ = fn x1 & x2 => (_import "g_dbus_proxy_set_interface_info" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GioDBusInterfaceInfoRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GioDBusProxyClass.t
     type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
@@ -264,9 +264,9 @@ structure GioDBusProxy :>
         GioBusType.C.withVal
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -287,9 +287,9 @@ structure GioDBusProxy :>
         GObjectObjectClass.C.withPtr
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> FFI.String.withConstOptPtr
-         &&&> FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstOptPtr
+         &&&> FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -321,10 +321,10 @@ structure GioDBusProxy :>
     fun callSync self methodName parameters flags timeoutMsec cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
-         &&&> FFI.Int32.withVal
+         &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibVariantRecord.C.fromPtr true
@@ -364,10 +364,10 @@ structure GioDBusProxy :>
         val outFdList & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.withConstPtr
+             &&&> FFI.String.C.withConstPtr
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
-             &&&> FFI.Int32.withVal
+             &&&> FFI.Int32.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
@@ -389,19 +389,19 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
+    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.fromVal) getDefaultTimeout_ self
+    fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusProxyFlags.C.fromVal) getFlags_ self
     fun getInterfaceInfo self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr true) getInterfaceInfo_ self
-    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getInterfaceName_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getName_ self
-    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr true) getNameOwner_ self
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getObjectPath_ self
+    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getInterfaceName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getNameOwner_ self
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
     fun setCachedProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
       )
@@ -411,7 +411,7 @@ structure GioDBusProxy :>
            & propertyName
            & value
         )
-    fun setDefaultTimeout self timeoutMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
+    fun setDefaultTimeout self timeoutMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
     fun setInterfaceInfo self info = (GObjectObjectClass.C.withPtr &&&> GioDBusInterfaceInfoRecord.C.withOptPtr ---> I) setInterfaceInfo_ (self & info)
     local
       open ClosureMarshal Signal

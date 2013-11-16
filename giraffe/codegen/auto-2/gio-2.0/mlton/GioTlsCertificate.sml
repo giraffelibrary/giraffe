@@ -50,7 +50,7 @@ structure GioTlsCertificate :>
             _import "mlton_g_tls_certificate_new_from_pem" :
               cstring
                * unit CPointer.t
-               * FFI.Int64.val_
+               * FFI.Int64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -82,11 +82,11 @@ structure GioTlsCertificate :>
     type tlscertificateflags_t = GioTlsCertificateFlags.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (FFI.String.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    fun newFromFile file = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.String.withConstPtr
+        FFI.String.C.withConstPtr
+         &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -98,8 +98,8 @@ structure GioTlsCertificate :>
         )
     fun newFromPem data length =
       (
-        FFI.String.withConstPtr
-         &&&> FFI.Int64.withVal
+        FFI.String.C.withConstPtr
+         &&&> FFI.Int64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )

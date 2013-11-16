@@ -7,9 +7,9 @@ structure GtkSourceUndoManager :>
     in
       val getType_ = call (load_sym libgtksourceview "gtk_source_undo_manager_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_begin_not_undoable_action") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val canRedo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val canRedo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val canRedoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val canUndo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val canUndo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val canUndoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val endNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_end_not_undoable_action") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val redo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_redo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -18,9 +18,9 @@ structure GtkSourceUndoManager :>
     type 'a class_t = 'a GtkSourceUndoManagerClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun beginNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) beginNotUndoableAction_ self
-    fun canRedo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canRedo_ self
+    fun canRedo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canRedo_ self
     fun canRedoChanged self = (GObjectObjectClass.C.withPtr ---> I) canRedoChanged_ self
-    fun canUndo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) canUndo_ self
+    fun canUndo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canUndo_ self
     fun canUndoChanged self = (GObjectObjectClass.C.withPtr ---> I) canUndoChanged_ self
     fun endNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) endNotUndoableAction_ self
     fun redo self = (GObjectObjectClass.C.withPtr ---> I) redo_ self

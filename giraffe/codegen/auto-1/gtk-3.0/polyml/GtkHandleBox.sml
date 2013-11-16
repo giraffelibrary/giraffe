@@ -11,7 +11,7 @@ structure GtkHandleBox :>
     in
       val getType_ = call (load_sym libgtk "gtk_handle_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_handle_box_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getChildDetached_ = call (load_sym libgtk "gtk_handle_box_get_child_detached") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val getChildDetached_ = call (load_sym libgtk "gtk_handle_box_get_child_detached") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHandlePosition_ = call (load_sym libgtk "gtk_handle_box_get_handle_position") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
       val getShadowType_ = call (load_sym libgtk "gtk_handle_box_get_shadow_type") (GObjectObjectClass.PolyML.PTR --> GtkShadowType.PolyML.VAL)
       val getSnapEdge_ = call (load_sym libgtk "gtk_handle_box_get_snap_edge") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
@@ -28,7 +28,7 @@ structure GtkHandleBox :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkHandleBoxClass.C.fromPtr false) new_ ()
-    fun getChildDetached self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getChildDetached_ self
+    fun getChildDetached self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildDetached_ self
     fun getHandlePosition self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getHandlePosition_ self
     fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
     fun getSnapEdge self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getSnapEdge_ self

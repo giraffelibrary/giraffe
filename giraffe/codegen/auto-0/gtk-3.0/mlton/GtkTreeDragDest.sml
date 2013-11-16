@@ -15,7 +15,7 @@ structure GtkTreeDragDest :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
                * GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -32,7 +32,7 @@ structure GtkTreeDragDest :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
                * GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
-               -> FFI.Bool.val_;
+               -> FFI.Bool.C.val_;
           )
             (
               x1,
@@ -48,7 +48,7 @@ structure GtkTreeDragDest :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         dragDataReceived_
         (
@@ -61,7 +61,7 @@ structure GtkTreeDragDest :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
-         ---> FFI.Bool.fromVal
+         ---> FFI.Bool.C.fromVal
       )
         rowDropPossible_
         (

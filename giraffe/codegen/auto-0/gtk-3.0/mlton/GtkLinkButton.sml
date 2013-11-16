@@ -23,8 +23,8 @@ structure GtkLinkButton :>
               x3,
               x4
             )
-    val getUri_ = _import "gtk_link_button_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
-    val getVisited_ = _import "gtk_link_button_get_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.val_;
+    val getUri_ = _import "gtk_link_button_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getVisited_ = _import "gtk_link_button_get_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setUri_ =
       fn
         x1 & (x2, x3) =>
@@ -40,7 +40,7 @@ structure GtkLinkButton :>
               x2,
               x3
             )
-    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.val_ -> unit;) (x1, x2)
+    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkLinkButtonClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -48,12 +48,12 @@ structure GtkLinkButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new uri = (FFI.String.withConstPtr ---> GtkLinkButtonClass.C.fromPtr false) new_ uri
-    fun newWithLabel uri label = (FFI.String.withConstPtr &&&> FFI.String.withConstOptPtr ---> GtkLinkButtonClass.C.fromPtr false) newWithLabel_ (uri & label)
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getUri_ self
-    fun getVisited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getVisited_ self
-    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setUri_ (self & uri)
-    fun setVisited self visited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setVisited_ (self & visited)
+    fun new uri = (FFI.String.C.withConstPtr ---> GtkLinkButtonClass.C.fromPtr false) new_ uri
+    fun newWithLabel uri label = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstOptPtr ---> GtkLinkButtonClass.C.fromPtr false) newWithLabel_ (uri & label)
+    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getUri_ self
+    fun getVisited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisited_ self
+    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setUri_ (self & uri)
+    fun setVisited self visited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisited_ (self & visited)
     local
       open ClosureMarshal Signal
     in

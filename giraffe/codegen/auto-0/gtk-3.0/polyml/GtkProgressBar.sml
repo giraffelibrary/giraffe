@@ -10,18 +10,18 @@ structure GtkProgressBar :>
       val getType_ = call (load_sym libgtk "gtk_progress_bar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_progress_bar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val getEllipsize_ = call (load_sym libgtk "gtk_progress_bar_get_ellipsize") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
-      val getFraction_ = call (load_sym libgtk "gtk_progress_bar_get_fraction") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
-      val getInverted_ = call (load_sym libgtk "gtk_progress_bar_get_inverted") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getPulseStep_ = call (load_sym libgtk "gtk_progress_bar_get_pulse_step") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Double.VAL)
-      val getShowText_ = call (load_sym libgtk "gtk_progress_bar_get_show_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
-      val getText_ = call (load_sym libgtk "gtk_progress_bar_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.String.RETPTR)
+      val getFraction_ = call (load_sym libgtk "gtk_progress_bar_get_fraction") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getInverted_ = call (load_sym libgtk "gtk_progress_bar_get_inverted") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getPulseStep_ = call (load_sym libgtk "gtk_progress_bar_get_pulse_step") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getShowText_ = call (load_sym libgtk "gtk_progress_bar_get_show_text") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getText_ = call (load_sym libgtk "gtk_progress_bar_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val pulse_ = call (load_sym libgtk "gtk_progress_bar_pulse") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setEllipsize_ = call (load_sym libgtk "gtk_progress_bar_set_ellipsize") (GObjectObjectClass.PolyML.PTR &&> PangoEllipsizeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFraction_ = call (load_sym libgtk "gtk_progress_bar_set_fraction") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Double.VAL --> FFI.PolyML.VOID)
-      val setInverted_ = call (load_sym libgtk "gtk_progress_bar_set_inverted") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setPulseStep_ = call (load_sym libgtk "gtk_progress_bar_set_pulse_step") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Double.VAL --> FFI.PolyML.VOID)
-      val setShowText_ = call (load_sym libgtk "gtk_progress_bar_set_show_text") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.Bool.VAL --> FFI.PolyML.VOID)
-      val setText_ = call (load_sym libgtk "gtk_progress_bar_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.PolyML.String.INOPTPTR --> FFI.PolyML.VOID)
+      val setFraction_ = call (load_sym libgtk "gtk_progress_bar_set_fraction") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
+      val setInverted_ = call (load_sym libgtk "gtk_progress_bar_set_inverted") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setPulseStep_ = call (load_sym libgtk "gtk_progress_bar_set_pulse_step") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
+      val setShowText_ = call (load_sym libgtk "gtk_progress_bar_set_show_text") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setText_ = call (load_sym libgtk "gtk_progress_bar_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkProgressBarClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -32,18 +32,18 @@ structure GtkProgressBar :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkProgressBarClass.C.fromPtr false) new_ ()
     fun getEllipsize self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsize_ self
-    fun getFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getFraction_ self
-    fun getInverted self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getInverted_ self
-    fun getPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.fromVal) getPulseStep_ self
-    fun getShowText self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) getShowText_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getText_ self
+    fun getFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getFraction_ self
+    fun getInverted self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInverted_ self
+    fun getPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPulseStep_ self
+    fun getShowText self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowText_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
     fun pulse self = (GObjectObjectClass.C.withPtr ---> I) pulse_ self
     fun setEllipsize self mode = (GObjectObjectClass.C.withPtr &&&> PangoEllipsizeMode.C.withVal ---> I) setEllipsize_ (self & mode)
-    fun setFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setFraction_ (self & fraction)
-    fun setInverted self inverted = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setInverted_ (self & inverted)
-    fun setPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.withVal ---> I) setPulseStep_ (self & fraction)
-    fun setShowText self showText = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.withVal ---> I) setShowText_ (self & showText)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstOptPtr ---> I) setText_ (self & text)
+    fun setFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setFraction_ (self & fraction)
+    fun setInverted self inverted = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInverted_ (self & inverted)
+    fun setPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPulseStep_ (self & fraction)
+    fun setShowText self showText = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowText_ (self & showText)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
     local
       open Property
     in

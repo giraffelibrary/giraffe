@@ -16,7 +16,7 @@ structure GIRepositoryVFuncInfo :>
       val getOffset_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_offset")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.PolyML.Int32.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
 
       val getSignal_ =
         call
@@ -42,7 +42,7 @@ structure GIRepositoryVFuncInfo :>
         info
 
     val getOffset =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> I) getOffset_ info
+      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getOffset_ info
 
     val getSignal =
       fn info =>

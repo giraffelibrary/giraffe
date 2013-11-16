@@ -5,9 +5,9 @@ structure GtkSourceGutterRendererPixbuf :>
     val getType_ = _import "gtk_source_gutter_renderer_pixbuf_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_gutter_renderer_pixbuf_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getGicon_ = _import "gtk_source_gutter_renderer_pixbuf_get_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIconName_ = _import "gtk_source_gutter_renderer_pixbuf_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getIconName_ = _import "gtk_source_gutter_renderer_pixbuf_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPixbuf_ = _import "gtk_source_gutter_renderer_pixbuf_get_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getStockId_ = _import "gtk_source_gutter_renderer_pixbuf_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.notnull FFI.String.out_p;
+    val getStockId_ = _import "gtk_source_gutter_renderer_pixbuf_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val setGicon_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_pixbuf_set_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
@@ -44,13 +44,13 @@ structure GtkSourceGutterRendererPixbuf :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererPixbufClass.C.fromPtr true) new_ ()
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getIconName_ self
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getStockId self = (GObjectObjectClass.C.withPtr ---> FFI.String.fromPtr false) getStockId_ self
+    fun getStockId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStockId_ self
     fun setGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.withConstPtr ---> I) setStockId_ (self & stockId)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setStockId_ (self & stockId)
     local
       open Property
     in

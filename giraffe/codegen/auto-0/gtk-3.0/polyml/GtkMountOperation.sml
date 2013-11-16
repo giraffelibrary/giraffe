@@ -10,7 +10,7 @@ structure GtkMountOperation :>
       val new_ = call (load_sym libgtk "gtk_mount_operation_new") (GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
       val getParent_ = call (load_sym libgtk "gtk_mount_operation_get_parent") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getScreen_ = call (load_sym libgtk "gtk_mount_operation_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isShowing_ = call (load_sym libgtk "gtk_mount_operation_is_showing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.Bool.VAL)
+      val isShowing_ = call (load_sym libgtk "gtk_mount_operation_is_showing") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setParent_ = call (load_sym libgtk "gtk_mount_operation_set_parent") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setScreen_ = call (load_sym libgtk "gtk_mount_operation_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -20,7 +20,7 @@ structure GtkMountOperation :>
     fun new parent = (GObjectObjectClass.C.withOptPtr ---> GtkMountOperationClass.C.fromPtr true) new_ parent
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getParent_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun isShowing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.fromVal) isShowing_ self
+    fun isShowing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isShowing_ self
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setParent_ (self & parent)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
     local
