@@ -1,7 +1,7 @@
 (*
  * Open file using the following command:
  *
- * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen.sml -c poly
+ * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen-typelib.sml -c poly
  *
  * Set typelib path first, if reqired, e.g.
  *
