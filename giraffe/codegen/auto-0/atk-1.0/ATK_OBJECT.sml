@@ -17,7 +17,6 @@ signature ATK_OBJECT =
     val getName : 'a class_t -> string
     val getParent : 'a class_t -> base class_t
     val getRole : 'a class_t -> role_t
-    val initialize : 'a class_t -> unit
     val notifyStateChange :
       'a class_t
        -> LargeInt.int
@@ -54,10 +53,7 @@ signature ATK_OBJECT =
       'a class_t
        -> role_t
        -> unit
-    val activeDescendantChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val childrenChangedSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
     val focusEventSig : (bool -> unit) -> 'a class_t Signal.signal
-    val propertyChangeSig : (unit -> unit) -> 'a class_t Signal.signal
     val stateChangeSig :
       (string
         -> bool

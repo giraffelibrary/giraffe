@@ -1,7 +1,6 @@
 structure GLibMainContext :>
   G_LIB_MAIN_CONTEXT
     where type record_t = GLibMainContextRecord.t
-    where type sourcefuncsrecord_t = GLibSourceFuncsRecord.t
     where type sourcerecord_t = GLibSourceRecord.t
     where type pollfdrecord_t = GLibPollFDRecord.t
     where type mutexrecord_t = GLibMutexRecord.t
@@ -28,9 +27,7 @@ structure GLibMainContext :>
               x3
             )
     val dispatch_ = _import "g_main_context_dispatch" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
-    val findSourceByFuncsUserData_ = fn x1 & x2 => (_import "g_main_context_find_source_by_funcs_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * GLibSourceFuncsRecord.C.notnull GLibSourceFuncsRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
     val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt32.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
-    val findSourceByUserData_ = _import "g_main_context_find_source_by_user_data" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
     val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
     val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val pending_ = _import "g_main_context_pending" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
@@ -59,7 +56,6 @@ structure GLibMainContext :>
     val default_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val getThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     type record_t = GLibMainContextRecord.t
-    type sourcefuncsrecord_t = GLibSourceFuncsRecord.t
     type sourcerecord_t = GLibSourceRecord.t
     type pollfdrecord_t = GLibPollFDRecord.t
     type mutexrecord_t = GLibMutexRecord.t
@@ -81,9 +77,7 @@ structure GLibMainContext :>
            & priority
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
-    fun findSourceByFuncsUserData self funcs = (GLibMainContextRecord.C.withPtr &&&> GLibSourceFuncsRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByFuncsUserData_ (self & funcs)
     fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
-    fun findSourceByUserData self = (GLibMainContextRecord.C.withPtr ---> GLibSourceRecord.C.fromPtr false) findSourceByUserData_ self
     fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) iteration_ (self & mayBlock)
     fun pending self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) pending_ self

@@ -43,7 +43,6 @@ structure GtkStyleContext :>
              &&> GtkRegionFlags.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val cancelAnimations_ = call (load_sym libgtk "gtk_style_context_cancel_animations") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getBackgroundColor_ =
         call (load_sym libgtk "gtk_style_context_get_background_color")
           (
@@ -125,17 +124,7 @@ structure GtkStyleContext :>
              --> FFI.Bool.PolyML.VAL
           )
       val lookupIconSet_ = call (load_sym libgtk "gtk_style_context_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
-      val notifyStateChange_ =
-        call (load_sym libgtk "gtk_style_context_notify_state_change")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
-          )
       val popAnimatableRegion_ = call (load_sym libgtk "gtk_style_context_pop_animatable_region") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val pushAnimatableRegion_ = call (load_sym libgtk "gtk_style_context_push_animatable_region") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val removeClass_ = call (load_sym libgtk "gtk_style_context_remove_class") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val removeProvider_ = call (load_sym libgtk "gtk_style_context_remove_provider") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val removeRegion_ = call (load_sym libgtk "gtk_style_context_remove_region") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
@@ -219,7 +208,6 @@ structure GtkStyleContext :>
            & regionName
            & flags
         )
-    fun cancelAnimations self = (GObjectObjectClass.C.withPtr ---> I) cancelAnimations_ self
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -386,23 +374,7 @@ structure GtkStyleContext :>
         if retVal then SOME color else NONE
       end
     fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
-    fun notifyStateChange self window state stateValue =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> I
-      )
-        notifyStateChange_
-        (
-          self
-           & window
-           & state
-           & stateValue
-        )
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
-    fun pushAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) pushAnimatableRegion_ self
     fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
     fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeRegion_ (self & regionName)

@@ -5,7 +5,6 @@ signature GIO_FILE =
     type 'a cancellableclass_t
     type 'a fileinfoclass_t
     type filequeryinfoflags_t
-    type fileattributetype_t
     type 'a fileiostreamclass_t
     type filecreateflags_t
     type 'a fileoutputstreamclass_t
@@ -20,7 +19,6 @@ signature GIO_FILE =
     type 'a fileenumeratorclass_t
     type filecopyflags_t
     val getType : unit -> GObject.Type.t
-    val hash : unit -> LargeInt.int
     val newForCommandlineArg : string -> base class_t
     val newForPath : string -> base class_t
     val newForUri : string -> base class_t
@@ -251,13 +249,6 @@ signature GIO_FILE =
       'a class_t
        -> string
        -> base class_t
-    val setAttribute :
-      'a class_t
-       -> string
-       -> fileattributetype_t
-       -> filequeryinfoflags_t
-       -> 'b cancellableclass_t option
-       -> bool
     val setAttributeByteString :
       'a class_t
        -> string

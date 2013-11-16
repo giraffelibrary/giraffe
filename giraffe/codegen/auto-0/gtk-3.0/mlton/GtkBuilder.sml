@@ -45,7 +45,6 @@ structure GtkBuilder :>
               x4,
               x5
             )
-    val connectSignals_ = _import "gtk_builder_connect_signals" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getObject_ =
       fn
         x1 & (x2, x3) =>
@@ -133,7 +132,6 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun connectSignals self = (GObjectObjectClass.C.withPtr ---> I) connectSignals_ self
     fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTranslationDomain_ self
     fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)

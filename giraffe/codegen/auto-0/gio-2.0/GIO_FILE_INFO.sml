@@ -26,10 +26,6 @@ signature GIO_FILE_INFO =
       'a class_t
        -> string
        -> string
-    val getAttributeData :
-      'a class_t
-       -> string
-       -> (fileattributetype_t * fileattributestatus_t) option
     val getAttributeInt32 :
       'a class_t
        -> string
@@ -90,11 +86,6 @@ signature GIO_FILE_INFO =
     val removeAttribute :
       'a class_t
        -> string
-       -> unit
-    val setAttribute :
-      'a class_t
-       -> string
-       -> fileattributetype_t
        -> unit
     val setAttributeBoolean :
       'a class_t

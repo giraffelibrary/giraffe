@@ -14,7 +14,6 @@ structure GioFile :>
     where type 'a fileoutputstreamclass_t = 'a GioFileOutputStreamClass.t
     where type filecreateflags_t = GioFileCreateFlags.t
     where type 'a fileiostreamclass_t = 'a GioFileIOStreamClass.t
-    where type fileattributetype_t = GioFileAttributeType.t
     where type filequeryinfoflags_t = GioFileQueryInfoFlags.t
     where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     where type 'a cancellableclass_t = 'a GioCancellableClass.t
@@ -24,7 +23,6 @@ structure GioFile :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val hash_ = call (load_sym libgio "g_file_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val newForCommandlineArg_ = call (load_sym libgio "g_file_new_for_commandline_arg") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newForPath_ = call (load_sym libgio "g_file_new_for_path") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newForUri_ = call (load_sym libgio "g_file_new_for_uri") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
@@ -395,17 +393,6 @@ structure GioFile :>
              --> GObjectObjectClass.PolyML.PTR
           )
       val resolveRelativePath_ = call (load_sym libgio "g_file_resolve_relative_path") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val setAttribute_ =
-        call (load_sym libgio "g_file_set_attribute")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> GioFileAttributeType.PolyML.VAL
-             &&> GioFileQueryInfoFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
-          )
       val setAttributeByteString_ =
         call (load_sym libgio "g_file_set_attribute_byte_string")
           (
@@ -556,13 +543,11 @@ structure GioFile :>
     type 'a fileoutputstreamclass_t = 'a GioFileOutputStreamClass.t
     type filecreateflags_t = GioFileCreateFlags.t
     type 'a fileiostreamclass_t = 'a GioFileIOStreamClass.t
-    type fileattributetype_t = GioFileAttributeType.t
     type filequeryinfoflags_t = GioFileQueryInfoFlags.t
     type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun hash () = (I ---> FFI.UInt32.C.fromVal) hash_ ()
     fun newForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
     fun newForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
     fun newForUri uri = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
@@ -1164,25 +1149,6 @@ structure GioFile :>
            & []
         )
     fun resolveRelativePath self relativePath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
-    fun setAttribute self attribute type' flags cancellable =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> GioFileAttributeType.C.withVal
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Bool.C.fromVal
-      )
-        setAttribute_
-        (
-          self
-           & attribute
-           & type'
-           & flags
-           & cancellable
-           & []
-        )
     fun setAttributeByteString self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr

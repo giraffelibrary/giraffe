@@ -14,18 +14,6 @@ signature GTK_BUILDABLE =
        -> 'b builderclass_t
        -> string
        -> base GObject.ObjectClass.t
-    val customFinished :
-      'a class_t
-       -> 'b builderclass_t
-       -> 'c GObject.ObjectClass.t option
-       -> string
-       -> unit
-    val customTagEnd :
-      'a class_t
-       -> 'b builderclass_t
-       -> 'c GObject.ObjectClass.t option
-       -> string
-       -> unit
     val getInternalChild :
       'a class_t
        -> 'b builderclass_t

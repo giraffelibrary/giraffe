@@ -30,7 +30,6 @@ structure AtkObject :>
     val getName_ = _import "atk_object_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getParent_ = _import "atk_object_get_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getRole_ = _import "atk_object_get_role" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkRole.C.val_;
-    val initialize_ = _import "atk_object_initialize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val notifyStateChange_ =
       fn
         x1
@@ -126,7 +125,6 @@ structure AtkObject :>
     fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
     fun getParent self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getParent_ self
     fun getRole self = (GObjectObjectClass.C.withPtr ---> AtkRole.C.fromVal) getRole_ self
-    fun initialize self = (GObjectObjectClass.C.withPtr ---> I) initialize_ self
     fun notifyStateChange self state value =
       (
         GObjectObjectClass.C.withPtr
@@ -164,10 +162,7 @@ structure AtkObject :>
     local
       open ClosureMarshal Signal
     in
-      fun activeDescendantChangedSig f = signal "active-descendant-changed" (void ---> ret_void) f
-      fun childrenChangedSig f = signal "children-changed" (get 0w1 uint ---> ret_void) f
       fun focusEventSig f = signal "focus-event" (get 0w1 boolean ---> ret_void) f
-      fun propertyChangeSig f = signal "property-change" (void ---> ret_void) f
       fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn object & p0 => f object p0)
       fun visibleDataChangedSig f = signal "visible-data-changed" (void ---> ret_void) f
     end

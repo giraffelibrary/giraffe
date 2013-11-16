@@ -47,23 +47,6 @@ structure GioBufferedInputStream :>
             )
     val getAvailable_ = _import "g_buffered_input_stream_get_available" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
     val getBufferSize_ = _import "g_buffered_input_stream_get_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
-    val peek_ =
-      fn
-        x1
-         & x2
-         & x3 =>
-          (
-            _import "g_buffered_input_stream_peek" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.val_
-               * FFI.UInt64.C.val_
-               -> FFI.UInt64.C.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
     val readByte_ =
       fn
         x1
@@ -119,19 +102,6 @@ structure GioBufferedInputStream :>
         )
     fun getAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getAvailable_ self
     fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
-    fun peek self offset count =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
-         &&&> FFI.UInt64.C.withVal
-         ---> FFI.UInt64.C.fromVal
-      )
-        peek_
-        (
-          self
-           & offset
-           & count
-        )
     fun readByte self cancellable =
       (
         GObjectObjectClass.C.withPtr

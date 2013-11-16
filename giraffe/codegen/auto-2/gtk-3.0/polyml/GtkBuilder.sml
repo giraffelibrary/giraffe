@@ -24,7 +24,6 @@ structure GtkBuilder :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt32.PolyML.VAL
           )
-      val connectSignals_ = call (load_sym libgtk "gtk_builder_connect_signals") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
@@ -70,7 +69,6 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun connectSignals self = (GObjectObjectClass.C.withPtr ---> I) connectSignals_ self
     fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTranslationDomain_ self
     fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)

@@ -24,24 +24,6 @@ structure GtkBuildable :>
              &&> FFI.String.PolyML.INPTR
              --> GObjectObjectClass.PolyML.PTR
           )
-      val customFinished_ =
-        call (load_sym libgtk "gtk_buildable_custom_finished")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INPTR
-             --> FFI.PolyML.VOID
-          )
-      val customTagEnd_ =
-        call (load_sym libgtk "gtk_buildable_custom_tag_end")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INPTR
-             --> FFI.PolyML.VOID
-          )
       val getInternalChild_ =
         call (load_sym libgtk "gtk_buildable_get_internal_child")
           (
@@ -93,36 +75,6 @@ structure GtkBuildable :>
           self
            & builder
            & name
-        )
-    fun customFinished self builder child tagname =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> I
-      )
-        customFinished_
-        (
-          self
-           & builder
-           & child
-           & tagname
-        )
-    fun customTagEnd self builder child tagname =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> I
-      )
-        customTagEnd_
-        (
-          self
-           & builder
-           & child
-           & tagname
         )
     fun getInternalChild self builder childname =
       (

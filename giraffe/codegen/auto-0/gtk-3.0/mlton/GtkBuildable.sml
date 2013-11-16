@@ -45,50 +45,6 @@ structure GtkBuildable :>
               x3,
               x4
             )
-    val customFinished_ =
-      fn
-        x1
-         & x2
-         & x3
-         & (x4, x5) =>
-          (
-            _import "mlton_gtk_buildable_custom_finished" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5
-            )
-    val customTagEnd_ =
-      fn
-        x1
-         & x2
-         & x3
-         & (x4, x5) =>
-          (
-            _import "mlton_gtk_buildable_custom_tag_end" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5
-            )
     val getInternalChild_ =
       fn
         x1
@@ -177,36 +133,6 @@ structure GtkBuildable :>
           self
            & builder
            & name
-        )
-    fun customFinished self builder child tagname =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> I
-      )
-        customFinished_
-        (
-          self
-           & builder
-           & child
-           & tagname
-        )
-    fun customTagEnd self builder child tagname =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> I
-      )
-        customTagEnd_
-        (
-          self
-           & builder
-           & child
-           & tagname
         )
     fun getInternalChild self builder childname =
       (

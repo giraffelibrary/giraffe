@@ -15,6 +15,31 @@ use "polyml-typelib.sml";
 
 
 
+(* Support for lazy evalation *)
+
+fun lazy (f : unit -> 'a) : unit -> 'a =
+  let
+    datatype 'a result =
+      UNKNOWN of (unit -> 'a)
+    | SUCCESS of 'a
+    | FAILURE of exn
+
+    val r = ref (UNKNOWN f)
+  in
+    fn () =>
+      case ! r of
+        UNKNOWN f =>
+          let
+            val a = f () handle e => (r := FAILURE e; raise e)
+          in
+            r := SUCCESS a;
+            a
+          end
+      | SUCCESS a => a
+      | FAILURE e => raise e
+  end
+
+
 (* List utilities *)
 
 fun genfoldmapl
@@ -904,6 +929,21 @@ datatype interfacetype =
 | UNION
 
 
+fun makeNamespaceStrId (ty : interfacetype) : string -> string =
+  case ty of
+    SIMPLE => mkStrNameId
+  | CLASS  => mkClassStrNameId
+  | RECORD => mkRecordStrNameId
+  | UNION  => mkStrNameId
+
+fun makeInterfaceOtherStrId (ty : interfacetype) : string -> string -> string  =
+  case ty of
+    SIMPLE => mkStrId
+  | CLASS  => mkClassStrId
+  | RECORD => mkRecordStrId
+  | UNION  => mkStrId
+
+
 (* `interfacescope` describes the position of an interface reference
  * relative to where the interface type is declared.  The possible values are
  * as follows:
@@ -1108,20 +1148,12 @@ test ("XNamespace", "XName", LOCALINTERFACESELF,  UNION);
 
 
 
-fun makeNamespaceStrId ({name, ty, ...} : interfaceref) =
-  case ty of
-    SIMPLE => mkStrNameId name
-  | CLASS  => mkClassStrNameId name
-  | RECORD => mkRecordStrNameId name
-  | UNION  => mkStrNameId name
+fun makeIRefNamespaceStrId ({name, ty, ...} : interfaceref) =
+  makeNamespaceStrId ty name
 
 
-fun makeInterfaceOtherStrId ({namespace, name, ty, ...} : interfaceref) =
-  case ty of
-    SIMPLE => mkStrId namespace name
-  | CLASS  => mkClassStrId namespace name
-  | RECORD => mkRecordStrId namespace name
-  | UNION  => mkStrId namespace name
+fun makeIRefInterfaceOtherStrId ({namespace, name, ty, ...} : interfaceref) =
+  makeInterfaceOtherStrId ty namespace name
 
 
 (* For `iRef as {namespace, name, scope, ty, ...} : interfaceref`,
@@ -1159,9 +1191,9 @@ fun prefixInterfaceStrId
   (ids : id list)
     : id list =
   case scope of
-    GLOBAL              => makeInterfaceOtherStrId iRef :: ids
-  | LOCALNAMESPACE      => makeInterfaceOtherStrId iRef :: ids
-  | LOCALINTERFACEOTHER => makeInterfaceOtherStrId iRef :: ids
+    GLOBAL              => makeIRefInterfaceOtherStrId iRef :: ids
+  | LOCALNAMESPACE      => makeIRefInterfaceOtherStrId iRef :: ids
+  | LOCALINTERFACEOTHER => makeIRefInterfaceOtherStrId iRef :: ids
   | LOCALINTERFACESELF  =>
       case ty of
         SIMPLE => ids
@@ -1666,8 +1698,11 @@ in
     concat ["type ", toString infoType, " INTERFACE not supported"]
 end
 
-fun isPointerForScalar fmt ty =
+fun ptrForScalar fmt ty =
   concat ["pointer for scalar (", fmt ty, ") not supported"]
+
+val ptrForVoid =
+  "pointer for VOID not supported"
 
 
 datatype scalartype =
@@ -1828,19 +1863,26 @@ datatype dir =
 
 datatype parinfo =
   PIVOID
-| PISCALAR of dir * scalarinfo
-| PIUTF8 of dir * utf8info
+| PISCALAR    of dir * scalarinfo
+| PIUTF8      of dir * utf8info
 | PIINTERFACE of dir * interfaceinfo
 
 
 datatype retinfo =
   RIVOID
-| RISCALAR of scalarinfo
-| RIUTF8 of utf8info
+| RISCALAR    of scalarinfo
+| RIUTF8      of utf8info
 | RIINTERFACE of interfaceinfo
 
 
-fun getParInfo repo functionNamespace optContainerName functionName argInfo =
+(* 
+ * For signals, `getParInfo` and `getRetInfo` must not use TypeInfo.isPointer
+ * due to <https://bugzilla.gnome.org/show_bug.cgi?id=646080>.  The parameter
+ * `usePtrDefault` indicates whether default pointer use should be assumed
+ * rather than using the c:type attribute, which is not present for signals.
+ *)
+
+fun getParInfo usePtrDefault repo functionNamespace optContainerName functionName argInfo =
   let
     val direction = ArgInfo.getDirection argInfo
     val mayBeNull = ArgInfo.mayBeNull argInfo
@@ -1850,7 +1892,6 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
 
     val typeInfo = ArgInfo.getType argInfo
     val tag = TypeInfo.getTag typeInfo
-    val isPointer = TypeInfo.isPointer typeInfo
 
     val argName = getName argInfo
     val argId = mkId (toLCC argName)
@@ -1874,14 +1915,30 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
       in
         List.exists isArg optArgNames
       end
+
     val isOpt =
       case dir of
         IN => mayBeNull orelse forceOpt
       | _  => forceOpt
 
+    fun checkVoid () =
+      if
+        if usePtrDefault
+        then
+          true
+        else
+          TypeInfo.isPointer typeInfo
+      then infoError ptrForVoid
+      else ()
+
     fun toScalarInfo ty =
-      if isPointer
-      then infoError (isPointerForScalar scalarToString ty)
+      if
+        if usePtrDefault
+        then
+          false
+        else
+          TypeInfo.isPointer typeInfo
+      then infoError (ptrForScalar scalarToString ty)
       else
         {
           name  = argId,
@@ -1900,7 +1957,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
     | GLIST        => notSupported "GLIST"
     | GSLIST       => notSupported "GSLIST"
     | GHASH        => notSupported "GHASH"
-    | VOID         => PIVOID
+    | VOID         => (checkVoid (); PIVOID)
     | BOOLEAN      => PISCALAR (dir, toScalarInfo STBOOLEAN)
     | INT8         => PISCALAR (dir, toScalarInfo STINT8)
     | UINT8        => PISCALAR (dir, toScalarInfo STUINT8)
@@ -1972,8 +2029,8 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
           local
             open Transfer
 
-            fun ptrOwnXferObjectInterface nonPtrForX =
-              if isPointer
+            fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+              if isPtr
               then
                 case (dir, ownershipTransfer) of
                   (_,     NOTHING)    => SOME false
@@ -1986,8 +2043,8 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             val objectMsg = nonPtrForObject
             val interfaceMsg = nonPtrForInterface
 
-            fun ptrOwnXferStructUnion (nonPtrForInX, everythingForNonPtrX) =
-              case (dir, isPointer, ownershipTransfer) of
+            fun ptrOwnXferStructUnion isPtr (nonPtrForInX, everythingForNonPtrX) =
+              case (dir, isPtr, ownershipTransfer) of
                 (IN,    false, NOTHING)    => infoError nonPtrForInX
               | (_,     false, NOTHING)    => NONE
               | (_,     true,  NOTHING)    => SOME false
@@ -1999,32 +2056,46 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
             val structMsg = (nonPtrForInStruct, everythingForNonPtrStruct)
             val unionMsg = (nonPtrForInUnion, everythingForNonPtrUnion)
 
-            fun ptrOwnXferFlagsEnum ptrForX =
-              if isPointer
+            fun ptrOwnXferFlagsEnum isPtr ptrForX =
+              if isPtr
               then infoError ptrForX
               else NONE
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
             open InfoType
+
+            val isPtr =
+              if usePtrDefault
+              then
+                case infoType of
+                  OBJECT _    => true
+                | INTERFACE _ => true
+                | STRUCT _    => true
+                | UNION _     => true
+                | FLAGS _     => false
+                | ENUM _      => false
+                | _           => infoError (unsupportedInterface infoType)
+              else
+                TypeInfo.isPointer typeInfo
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
                 OBJECT objectInfo =>
                   (
-                    ptrOwnXferObjectInterface objectMsg,
+                    ptrOwnXferObjectInterface isPtr objectMsg,
                     getRootObjectIRef repo functionNamespace optContainerName
                       (objectInfo, iRef)
                   )
               | INTERFACE _       =>
                   (
-                    ptrOwnXferObjectInterface interfaceMsg,
+                    ptrOwnXferObjectInterface isPtr interfaceMsg,
                     makeInterfaceRootIRef functionNamespace optContainerName
                   )
-              | STRUCT _          => (ptrOwnXferStructUnion structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum enumMsg, iRef)
+              | STRUCT _          => (ptrOwnXferStructUnion isPtr structMsg, iRef)
+              | UNION _           => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+              | FLAGS _           => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
+              | ENUM _            => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
               | _                 => infoError (unsupportedInterface infoType)
           end
 
@@ -2042,7 +2113,7 @@ fun getParInfo repo functionNamespace optContainerName functionName argInfo =
   end
 
 
-fun getRetInfo repo functionNamespace optContainerName functionName callableInfo =
+fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionName callableInfo =
   let
     (* At present, CallableInfo.mayReturnNull does not indicate
      * whether the return value is optional.  Therefore we use the list
@@ -2059,15 +2130,27 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
     val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 
     val typeInfo = CallableInfo.getReturnType callableInfo
-    val isPointer = TypeInfo.isPointer typeInfo
 
     val argId = ""
 
     val isOpt = mayReturnNull
 
+    fun checkVoid () =
+      if
+        (* Don't need a c:type attribute to determine pointer depth for
+         * VOID tag, so no need to use default when `usePtrDefault`. *)
+        TypeInfo.isPointer typeInfo
+      then infoError ptrForVoid
+      else ()
+
     fun toScalarInfo ty =
-      if isPointer
-      then infoError (isPointerForScalar scalarToString ty)
+      if
+        if usePtrDefault
+        then
+          false
+        else
+          TypeInfo.isPointer typeInfo
+      then infoError (ptrForScalar scalarToString ty)
       else
         {
           name  = argId,
@@ -2086,7 +2169,7 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
     | GLIST        => notSupported "GLIST"
     | GSLIST       => notSupported "GSLIST"
     | GHASH        => notSupported "GHASH"
-    | VOID         => RIVOID
+    | VOID         => (checkVoid (); RIVOID)
     | BOOLEAN      => RISCALAR (toScalarInfo STBOOLEAN)
     | INT8         => RISCALAR (toScalarInfo STINT8)
     | UINT8        => RISCALAR (toScalarInfo STUINT8)
@@ -2162,8 +2245,8 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
           local
             open Transfer
 
-            fun ptrOwnXferObjectInterface nonPtrForX =
-              if isPointer
+            fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+              if isPtr
               then
                 case ownershipTransfer of
                   NOTHING    => SOME false
@@ -2174,8 +2257,8 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
             val objectMsg = nonPtrForObject
             val interfaceMsg = nonPtrForInterface
 
-            fun ptrOwnXferStructUnion nonPtrForRetX =
-              case (isPointer, ownershipTransfer) of
+            fun ptrOwnXferStructUnion isPtr nonPtrForRetX =
+              case (isPtr, ownershipTransfer) of
                 (false, _)          => infoError nonPtrForRetX
               | (_,     NOTHING)    => SOME false
               | (_,     EVERYTHING) => SOME true
@@ -2183,32 +2266,46 @@ fun getRetInfo repo functionNamespace optContainerName functionName callableInfo
             val structMsg = nonPtrForRetStruct
             val unionMsg = nonPtrForRetUnion
 
-            fun ptrOwnXferFlagsEnum ptrForX =
-              if isPointer
+            fun ptrOwnXferFlagsEnum isPtr ptrForX =
+              if isPtr
               then infoError ptrForX
               else NONE
             val flagsMsg = ptrForFlags
             val enumMsg = ptrForEnum
 
             open InfoType
+
+            val isPtr =
+              if usePtrDefault
+              then
+                case infoType of
+                  OBJECT _    => true
+                | INTERFACE _ => true
+                | STRUCT _    => true
+                | UNION _     => true
+                | FLAGS _     => false
+                | ENUM _      => false
+                | _           => infoError (unsupportedInterface infoType)
+              else
+                TypeInfo.isPointer typeInfo
           in
             val (ptrOwnXfer, rootIRef) =
               case infoType of
                 OBJECT objectInfo =>
                   (
-                    ptrOwnXferObjectInterface objectMsg,
+                    ptrOwnXferObjectInterface isPtr objectMsg,
                     getRootObjectIRef repo functionNamespace optContainerName
                       (objectInfo, iRef)
                   )
               | INTERFACE _       =>
                   (
-                    ptrOwnXferObjectInterface interfaceMsg,
+                    ptrOwnXferObjectInterface isPtr interfaceMsg,
                     makeInterfaceRootIRef functionNamespace optContainerName
                   )
-              | STRUCT _          => (ptrOwnXferStructUnion structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum enumMsg, iRef)
+              | STRUCT _          => (ptrOwnXferStructUnion isPtr structMsg, iRef)
+              | UNION _           => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+              | FLAGS _           => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
+              | ENUM _            => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
               | _                 => infoError (unsupportedInterface infoType)
           end
 
@@ -2263,30 +2360,30 @@ fun addSpecParInfo
         IN    => addInTy isOpt ifTyRef
       | INOUT => addInOutTy isOpt ifTyRef
       | OUT _ => addOutTy isOpt ifTyRef
+
+    fun addIRefTy dir isOpt iRef iRefs =
+      let
+        val {scope, ...} = iRef
+        val iRefs' =
+          case scope of
+            GLOBAL             => iRefs
+          | LOCALINTERFACESELF => iRefs
+          | _                  => insert (iRef, iRefs)
+
+        val ifTyRef = (
+          numInterfaceRefTyVars iRef,
+          makeInterfaceRefTyLongId iRef
+        )
+      in
+        (addTy dir isOpt ifTyRef, iRefs')
+      end
   in
     case parInfo of
-      PIVOID                                      => acc
-    | PISCALAR (dir, {ty, ...})                   =>
-        (addTy dir false (scalarTyRef ty), iRefs)
-    | PIUTF8 (dir, {isOpt, ...})                  =>
-        (addTy dir isOpt stringTyRef, iRefs)
-    | PIINTERFACE (dir, {iRef, isOpt, ...})       =>
-        let
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
-
-          val ifTyRef = (
-            numInterfaceRefTyVars iRef,
-            makeInterfaceRefTyLongId iRef
-          )
-        in
-          (addTy dir isOpt ifTyRef, iRefs')
-        end
-end
+      PIVOID                                => acc
+    | PISCALAR (dir, {ty, ...})             => (addTy dir false (scalarTyRef ty), iRefs)
+    | PIUTF8 (dir, {isOpt, ...})            => (addTy dir isOpt stringTyRef, iRefs)
+    | PIINTERFACE (dir, {iRef, isOpt, ...}) => addIRefTy dir isOpt iRef iRefs
+  end
 
 
 fun addSpecRetInfo
@@ -2302,11 +2399,28 @@ fun addSpecRetInfo
       in
         (mkOpt isOpt ty, tyVarIdx')
       end
+
+    fun mkIRefTy isOpt iRef iRefs =
+      let
+        val {scope, ...} = iRef
+        val iRefs' =
+          case scope of
+            GLOBAL             => iRefs
+          | LOCALINTERFACESELF => iRefs
+          | _                  => insert (iRef, iRefs)
+
+        val ifTyRef = (
+          numInterfaceRefTyVars iRef,
+          makeInterfaceRefTyLongId iRef
+        )
+      in
+        (mkTy isOpt ifTyRef, iRefs')
+      end
   in
     case retInfo of
-      RIVOID              => ((unitTy, tyVarIdx), iRefs)
-    | RISCALAR {ty, ...}  => (mkTy false (scalarTyRef ty), iRefs)
-    | RIUTF8 {isOpt, ...} => (mkTy isOpt stringTyRef, iRefs)
+      RIVOID                       => ((unitTy, tyVarIdx), iRefs)
+    | RISCALAR {ty, ...}           => (mkTy false (scalarTyRef ty), iRefs)
+    | RIUTF8 {isOpt, ...}          => (mkTy isOpt stringTyRef, iRefs)
     | RIINTERFACE {
         name,
         iRef,
@@ -2314,7 +2428,7 @@ fun addSpecRetInfo
         isOpt,
         ptrOwnXfer,
         ...
-      }                   =>
+      }                            =>
         let
           val interfaceRetInfo = {
             name       = name,
@@ -2328,19 +2442,8 @@ fun addSpecRetInfo
             ptrOwnXfer = ptrOwnXfer
           }
           val {iRef, isOpt, ...} = interfaceRetInfo
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
-
-          val ifTyRef = (
-            numInterfaceRefTyVars iRef,
-            makeInterfaceRefTyLongId iRef
-          )
         in
-          (mkTy isOpt ifTyRef, iRefs')
+          mkIRefTy isOpt iRef iRefs
         end
   end
 
@@ -2369,11 +2472,11 @@ fun makeFunctionSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName functionName
         functionInfo
 
     (* For a method function, add an initial argument type for the interface
@@ -2555,27 +2658,35 @@ local
     end
 
   fun withFunScalar (dir, {ty, ...} : scalarinfo) =
-    withFunExp [FFIId, scalarStrId ty, CId] {
-      isRef = dir <> IN,
-      isDup = false,
-      isNew =
-        case dir of
-          OUT isCallerAllocates => isCallerAllocates
-        | _                     => false,
-      isCon = false,
-      isOpt = false,
-      isPtr = false
-    }
+    let
+      val prefixIds = [FFIId, scalarStrId ty, CId]
+    in
+      withFunExp prefixIds {
+        isRef = dir <> IN,
+        isDup = false,
+        isNew =
+          case dir of
+            OUT isCallerAllocates => isCallerAllocates
+          | _                     => false,
+        isCon = false,
+        isOpt = false,
+        isPtr = false
+      }
+    end
 
   fun withFunUtf8 (dir, {isOpt, ...} : utf8info) =
-    withFunExp [FFIId, "String", CId] {
-      isRef = dir <> IN,
-      isDup = false,
-      isNew = false,
-      isCon = true,
-      isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
-      isPtr = true
-    }
+    let
+      val prefixIds = [FFIId, "String", CId]
+    in
+      withFunExp prefixIds {
+        isRef = dir <> IN,
+        isDup = false,
+        isNew = false,
+        isCon = true,
+        isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
+        isPtr = true
+      }
+    end
 
   fun withFunInterface
     (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
@@ -2632,16 +2743,24 @@ local
     end
 
   fun fromFunScalar ({ty, ...} : scalarinfo) =
-    fromFunExp [FFIId, scalarStrId ty, CId] {
-      isOpt      = false,
-      ptrOwnXfer = NONE
-    }
+    let
+      val prefixIds = [FFIId, scalarStrId ty, CId]
+    in
+      fromFunExp prefixIds {
+        isOpt      = false,
+        ptrOwnXfer = NONE
+      }
+    end
 
   fun fromFunUtf8 (_, {ownXfer, isOpt, ...} : utf8info) =
-    fromFunExp [FFIId, "String", CId] {
-      isOpt      = isOpt,
-      ptrOwnXfer = SOME ownXfer
-    }
+    let
+      val prefixIds = [FFIId, "String", CId]
+    in
+      fromFunExp prefixIds {
+        isOpt      = isOpt,
+        ptrOwnXfer = SOME ownXfer
+      }
+    end
 
   fun fromFunInterface
     (isInOut, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
@@ -2723,8 +2842,8 @@ local
 in
   fun addParInfo (parInfo, acc as (js, ks, ls, iRefs)) =
     case parInfo of
-      PIVOID => acc
-    | PISCALAR (dir, scalarParInfo) =>
+      PIVOID                                             => acc
+    | PISCALAR (dir, scalarParInfo)                      =>
         let
           val withFunExp = withFunScalar (dir, scalarParInfo)
           val argValExp = argValScalar (dir, scalarParInfo)
@@ -2741,10 +2860,12 @@ in
               OUT _ => (makeK true :: ks,  ls)
             | INOUT => (makeK false :: ks, l :: ls)
             | IN    => (ks,                l :: ls)
+
+          val iRefs' = iRefs
         in
-          (js', ks', ls', iRefs)
+          (js', ks', ls', iRefs')
         end
-    | PIUTF8 (dir, utf8ParInfo) =>
+    | PIUTF8 (dir, utf8ParInfo)                          =>
         let
           val withFunExp = withFunUtf8 (dir, utf8ParInfo)
           val argValExp = argValUtf8 (dir, utf8ParInfo)
@@ -2761,8 +2882,10 @@ in
               OUT _ => (makeK true :: ks,  ls)
             | INOUT => (makeK false :: ks, l :: ls)
             | IN    => (ks,                l :: ls)
+
+          val iRefs' = iRefs
         in
-          (js', ks', ls', iRefs)
+          (js', ks', ls', iRefs')
         end
     | PIINTERFACE (dir, interfaceParInfo as {iRef, ...}) =>
         let
@@ -2795,8 +2918,18 @@ in
   fun addRetInfo optConstructorIRef (retInfo, iRefs) =
     case retInfo of
       RIVOID                 => (mkIdLNameExp "I", iRefs)
-    | RISCALAR scalarRetInfo => (fromFunScalar scalarRetInfo, iRefs)
-    | RIUTF8 utf8RetInfo     => (fromFunUtf8 (false, utf8RetInfo), iRefs)
+    | RISCALAR scalarRetInfo =>
+        let
+          val iRefs' = iRefs
+        in
+          (fromFunScalar scalarRetInfo, iRefs')
+        end
+    | RIUTF8 utf8RetInfo     =>
+        let
+          val iRefs' = iRefs
+        in
+          (fromFunUtf8 (false, utf8RetInfo), iRefs')
+        end
     | RIINTERFACE {
         name,
         rootIRef,
@@ -2900,11 +3033,11 @@ fun makeFunctionStrDecHighLevel
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName functionName
         functionInfo
 
     (* For a method function, add an initial argument for the interface
@@ -3204,42 +3337,58 @@ local
   val retVoidConv = VOIDConvExp
 
   fun parScalarConv (dir, {ty, ...} : scalarinfo) =
-    convExp [FFIId, scalarStrId ty, PolyMLId] (
-      if dir <> IN
-      then
-        REF {
-          optInIsOpt  = NONE,
-          optOutIsOpt = NONE
-        }
-      else
-        VAL
-    )
+    let
+      val prefixIds = [FFIId, scalarStrId ty, PolyMLId]
+    in
+      convExp prefixIds (
+        if dir <> IN
+        then
+          REF {
+            optInIsOpt  = NONE,
+            optOutIsOpt = NONE
+          }
+        else
+          VAL
+      )
+    end
 
   fun retScalarConv ({ty, ...} : scalarinfo) =
-    convExp [FFIId, scalarStrId ty, PolyMLId] VAL
+    let
+      val prefixIds = [FFIId, scalarStrId ty, PolyMLId]
+    in
+      convExp prefixIds VAL
+    end
 
   fun parUtf8Conv (dir, {isOpt, ...} : utf8info) =
-    convExp [FFIId, "String", PolyMLId] (
-      if dir <> IN
-      then
-        REF {
-          optInIsOpt  = if dir = INOUT then SOME false else NONE,
-          optOutIsOpt = SOME false
-        }
-      else
-        PTR {
-          optIsRet = SOME false,
-          isOpt    = isOpt
-        }
-    )
+    let
+      val prefixIds = [FFIId, "String", PolyMLId]
+    in
+      convExp prefixIds (
+        if dir <> IN
+        then
+          REF {
+            optInIsOpt  = if dir = INOUT then SOME false else NONE,
+            optOutIsOpt = SOME false
+          }
+        else
+          PTR {
+            optIsRet = SOME false,
+            isOpt    = isOpt
+          }
+      )
+    end
 
   fun retUtf8Conv ({isOpt, ...} : utf8info) =
-    convExp [FFIId, "String", PolyMLId] (
-      PTR {
+    let
+      val prefixIds = [FFIId, "String", PolyMLId]
+    in
+      convExp prefixIds (
+        PTR {
           optIsRet = SOME true,
           isOpt    = isOpt
-      }
-    )
+        }
+      )
+    end
 
   fun parInterfaceConv
     (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
@@ -3401,11 +3550,11 @@ fun makeFunctionStrDecLowLevelPolyML
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName functionName
         functionInfo
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
@@ -3742,41 +3891,57 @@ local
   val retVoidType = unitTy
 
   fun parScalarType (dir, {ty, ...} : scalarinfo) =
-    typeTy false [FFIId, scalarStrId ty, CId] (
-      if dir <> IN
-      then
-        REF NONE
-      else
-        VAL
-    )
+    let
+      val prefixIds = [FFIId, scalarStrId ty, CId]
+    in
+      typeTy false prefixIds (
+        if dir <> IN
+        then
+          REF NONE
+        else
+          VAL
+      )
+    end
 
   fun retScalarType ({ty, ...} : scalarinfo) =
-    typeTy false [FFIId, scalarStrId ty, CId] VAL
+    let
+      val prefixIds = [FFIId, scalarStrId ty, CId]
+    in
+      typeTy false prefixIds VAL
+    end
 
   fun parUtf8Type (dir, {isOpt, ...} : utf8info) =
-    typeTy true [FFIId, "String", CId] (
-      if dir <> IN
-      then
-        REF (
-          SOME {
-            isInOpt  = dir <> INOUT,
-            isOutOpt = false
+    let
+      val prefixIds = [FFIId, "String", CId]
+    in
+      typeTy true prefixIds (
+        if dir <> IN
+        then
+          REF (
+            SOME {
+              isInOpt  = dir <> INOUT,
+              isOutOpt = false
+            }
+          )
+        else
+          PTR {
+            optIsRet = SOME false,
+            isOpt    = isOpt
           }
-        )
-      else
-        PTR {
-          optIsRet = SOME false,
-          isOpt    = isOpt
-        }
-    )
+      )
+    end
 
   fun retUtf8Type ({isOpt, ...} : utf8info) =
-    typeTy false [FFIId, "String", CId] (
-      PTR {
+    let
+      val prefixIds = [FFIId, "String", CId]
+    in
+      typeTy false prefixIds (
+        PTR {
           optIsRet = SOME true,
           isOpt    = isOpt
-      }
-    )
+        }
+      )
+    end
 
   fun parInterfaceType
     (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
@@ -3941,11 +4106,11 @@ fun makeFunctionStrDecLowLevelMLton
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName functionName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName functionName
         functionInfo
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
@@ -4075,395 +4240,6 @@ fun addFunctionStrDecsLowLevel
  * Signal
  * -------------------------------------------------------------------------- *)
 
-(* TYPELIB-specific:
- *
- * For signals, variants of `getParInfo` and `getRetInfo` must be used due
- * to <https://bugzilla.gnome.org/show_bug.cgi?id=646080>.  These variants,
- * `getParInfoX` and `getRetInfoX` respectively, ignore the value from
- * `TypeInfo.isPointer`, and assume `true`, for OBJECT, INTERFACE
- * and STUCT interface types.
- *)
-
-fun getParInfoX repo functionNamespace optContainerName functionName argInfo =
-  let
-    val direction = ArgInfo.getDirection argInfo
-    val mayBeNull = ArgInfo.mayBeNull argInfo
-
-    val ownershipTransfer = ArgInfo.getOwnershipTransfer argInfo
-    val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
-
-    val typeInfo = ArgInfo.getType argInfo
-    val tag = TypeInfo.getTag typeInfo
-    val isPointer = TypeInfo.isPointer typeInfo
-
-    val argName = getName argInfo
-    val argId = mkId (toLCC argName)
-
-    val dir =
-      case direction of
-        Direction.IN    => IN
-      | Direction.OUT   => OUT isCallerAllocates
-      | Direction.INOUT => INOUT
-
-    (* Currently, `mayBeNull` is valid only for IN parameters.  For OUT/INOUT
-     * parameters, it indicates whether the C parameter is optional, not
-     * whether the imported/exported value is optionally null, i.e. what
-     * we would expect from `isOptional`.  Therefore we use the list of
-     * function name-argument name pairs `optArgNames` to force parameters
-     * to be optional. *)
-    val forceOpt =
-      let
-        fun isArg x =
-          x = (functionNamespace, optContainerName, functionName, argName)
-      in
-        List.exists isArg optArgNames
-      end
-    val isOpt =
-      case dir of
-        IN => mayBeNull orelse forceOpt
-      | _  => forceOpt
-
-    fun toScalarInfo ty =
-      if isPointer
-      then infoError (isPointerForScalar scalarToString ty)
-      else
-        {
-          name  = argId,
-          ty    = ty
-        }
-
-    open TypeTag
-  in
-    case tag of
-      ERROR     => infoError "parameter type ERROR not expected"
-    | GTYPE     => infoError "parameter type GTYPE not supported"
-    | ARRAY     => infoError "parameter type ARRAY not supported"
-    | GLIST     => infoError "parameter type GLIST not supported"
-    | GSLIST    => infoError "parameter type GSLIST not supported"
-    | GHASH     => infoError "parameter type GHASH not supported"
-    | VOID      => PIVOID
-    | BOOLEAN   => PISCALAR (dir, toScalarInfo STBOOLEAN)
-    | INT8      => PISCALAR (dir, toScalarInfo STINT8)
-    | UINT8     => PISCALAR (dir, toScalarInfo STUINT8)
-    | INT16     => PISCALAR (dir, toScalarInfo STINT16)
-    | UINT16    => PISCALAR (dir, toScalarInfo STUINT16)
-    | INT32     => PISCALAR (dir, toScalarInfo STINT32)
-    | UINT32    => PISCALAR (dir, toScalarInfo STUINT32)
-    | INT64     => PISCALAR (dir, toScalarInfo STINT64)
-    | UINT64    => PISCALAR (dir, toScalarInfo STUINT64)
-    | FLOAT     => PISCALAR (dir, toScalarInfo STFLOAT)
-    | DOUBLE    => PISCALAR (dir, toScalarInfo STDOUBLE)
-    | FILENAME  =>
-        let
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                Transfer.NOTHING    => false
-              | Transfer.EVERYTHING => true
-              | Transfer.CONTAINER  => infoError containerForFilename
-          }
-        in
-          PIUTF8 (dir, utf8Info)
-        end
-    | UTF8      =>
-        let
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                Transfer.NOTHING    => false
-              | Transfer.EVERYTHING => true
-              | Transfer.CONTAINER  => infoError containerForUtf8
-          }
-        in
-          PIUTF8 (dir, utf8Info)
-        end
-    | UNICHAR   => PISCALAR (dir, toScalarInfo STUNICHAR)
-    | INTERFACE =>
-        let
-          val interfaceInfo = getInterface typeInfo
-          val interfaceName = getName interfaceInfo
-          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-          val interfaceCPrefix = getCPrefix repo interfaceNamespace
-          val interfaceScope =
-            if interfaceNamespace <> functionNamespace
-            then GLOBAL
-            else
-              case optContainerName of
-                NONE               => LOCALNAMESPACE
-              | SOME containerName =>
-                  if interfaceName = containerName
-                  then LOCALINTERFACESELF
-                  else LOCALINTERFACEOTHER
-          val interfaceTy = getIRefTy interfaceInfo
-
-          val iRef = {
-            namespace = interfaceNamespace,
-            cPrefix   = interfaceCPrefix,
-            name      = interfaceName,
-            scope     = interfaceScope,
-            ty        = interfaceTy
-          }
-
-          val infoType = InfoType.getType interfaceInfo
-
-          local
-            open Transfer
-
-            fun ptrOwnXferObjectInterface nonPtrForX =
-              if true (* isPointer *)
-              then
-                case (dir, ownershipTransfer) of
-                  (_,     NOTHING)    => SOME false
-                | (OUT _, EVERYTHING) => SOME true
-                | (IN,    EVERYTHING) => infoError everythingForIn
-                | (INOUT, EVERYTHING) => infoError everythingForInOut
-                | (_,     CONTAINER)  => infoError containerForInterface
-              else
-                infoError nonPtrForX
-            val objectMsg = nonPtrForObject
-            val interfaceMsg = nonPtrForInterface
-
-            fun ptrOwnXferStructUnion (nonPtrForInX, everythingForNonPtrX) =
-              case (dir, true (* isPointer *), ownershipTransfer) of
-                (IN,    false, NOTHING)    => infoError nonPtrForInX
-              | (_,     false, NOTHING)    => NONE
-              | (_,     true,  NOTHING)    => SOME false
-              | (OUT _, true,  EVERYTHING) => SOME true
-              | (_,     false, EVERYTHING) => infoError everythingForNonPtrX
-              | (IN,    true,  EVERYTHING) => infoError everythingForIn
-              | (INOUT, true,  EVERYTHING) => infoError everythingForInOut
-              | (_,     _,     CONTAINER)  => infoError containerForInterface
-            val structMsg = (nonPtrForInStruct, everythingForNonPtrStruct)
-            val unionMsg = (nonPtrForInUnion, everythingForNonPtrUnion)
-
-            fun ptrOwnXferFlagsEnum ptrForX =
-              if isPointer
-              then infoError ptrForX
-              else NONE
-            val flagsMsg = ptrForFlags
-            val enumMsg = ptrForEnum
-
-            open InfoType
-          in
-            val (ptrOwnXfer, rootIRef) =
-              case infoType of
-                OBJECT objectInfo =>
-                  (
-                    ptrOwnXferObjectInterface objectMsg,
-                    getRootObjectIRef repo functionNamespace optContainerName
-                      (objectInfo, iRef)
-                  )
-              | INTERFACE _       =>
-                  (
-                    ptrOwnXferObjectInterface interfaceMsg,
-                    makeInterfaceRootIRef functionNamespace optContainerName
-                  )
-              | STRUCT _          => (ptrOwnXferStructUnion structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum enumMsg, iRef)
-              | _                 => infoError (unsupportedInterface infoType)
-          end
-
-          val interfaceInfo = {
-            name       = argId,
-            rootIRef   = rootIRef,
-            iRef       = iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-        in
-          PIINTERFACE (dir, interfaceInfo)
-        end
-  end
-
-
-fun getRetInfoX repo functionNamespace optContainerName functionName callableInfo =
-  let
-    (* At present, CallableInfo.mayReturnNull does not indicate
-     * whether the return value is optional.  Therefore we use the list
-     * of function names `optRetFunNames` to determine whether a
-     * return value is optional. *)
-    val mayReturnNull =
-      (* CallableInfo.mayReturnNull callableInfo *)
-      let
-        fun isFun x = x = (functionNamespace, optContainerName, functionName)
-      in
-        List.exists isFun optRetFunNames
-      end
-
-    val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
-
-    val typeInfo = CallableInfo.getReturnType callableInfo
-    val isPointer = TypeInfo.isPointer typeInfo
-
-    val argId = ""
-
-    val isOpt = mayReturnNull
-
-    fun toScalarInfo ty =
-      if isPointer
-      then infoError (isPointerForScalar scalarToString ty)
-      else
-        {
-          name  = argId,
-          ty    = ty
-        }
-
-    open TypeTag
-  in
-    case TypeInfo.getTag typeInfo of
-      ERROR     => infoError "return type ERROR not expected"
-    | GTYPE     => infoError "return type GTYPE not supported"
-    | ARRAY     => infoError "return type ARRAY not supported"
-    | GLIST     => infoError "return type GLIST not supported"
-    | GSLIST    => infoError "return type GSLIST not supported"
-    | GHASH     => infoError "return type GHASH not supported"
-    | VOID      => RIVOID
-    | BOOLEAN   => RISCALAR (toScalarInfo STBOOLEAN)
-    | INT8      => RISCALAR (toScalarInfo STINT8)
-    | UINT8     => RISCALAR (toScalarInfo STUINT8)
-    | INT16     => RISCALAR (toScalarInfo STINT16)
-    | UINT16    => RISCALAR (toScalarInfo STUINT16)
-    | INT32     => RISCALAR (toScalarInfo STINT32)
-    | UINT32    => RISCALAR (toScalarInfo STUINT32)
-    | INT64     => RISCALAR (toScalarInfo STINT64)
-    | UINT64    => RISCALAR (toScalarInfo STUINT64)
-    | FLOAT     => RISCALAR (toScalarInfo STFLOAT)
-    | DOUBLE    => RISCALAR (toScalarInfo STDOUBLE)
-    | FILENAME  =>
-        let
-          open Transfer
-
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                NOTHING    => false
-              | EVERYTHING => true
-              | CONTAINER  => infoError containerForFilename
-          }
-        in
-          RIUTF8 utf8Info
-        end
-    | UTF8      =>
-        let
-          open Transfer
-
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                NOTHING    => false
-              | EVERYTHING => true
-              | CONTAINER  => infoError containerForUtf8
-          }
-        in
-          RIUTF8 utf8Info
-        end
-    | UNICHAR   => RISCALAR (toScalarInfo STUNICHAR)
-    | INTERFACE =>
-        let
-          val interfaceInfo = getInterface typeInfo
-          val interfaceName = getName interfaceInfo
-          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-          val interfaceCPrefix = getCPrefix repo interfaceNamespace
-          val interfaceScope =
-            if interfaceNamespace <> functionNamespace
-            then GLOBAL
-            else
-              case optContainerName of
-                NONE               => LOCALNAMESPACE
-              | SOME containerName =>
-                  if interfaceName = containerName
-                  then LOCALINTERFACESELF
-                  else LOCALINTERFACEOTHER
-          val interfaceTy = getIRefTy interfaceInfo
-
-          val iRef = {
-            namespace = interfaceNamespace,
-            cPrefix   = interfaceCPrefix,
-            name      = interfaceName,
-            scope     = interfaceScope,
-            ty        = interfaceTy
-          }
-
-          val infoType = InfoType.getType interfaceInfo
-
-          local
-            open Transfer
-
-            fun ptrOwnXferObjectInterface nonPtrForX =
-              if true (* isPointer *)
-              then
-                case ownershipTransfer of
-                  NOTHING    => SOME false
-                | EVERYTHING => SOME true
-                | CONTAINER  => infoError containerForInterface
-              else
-                infoError nonPtrForX
-            val objectMsg = nonPtrForObject
-            val interfaceMsg = nonPtrForInterface
-
-            fun ptrOwnXferStructUnion nonPtrForRetX =
-              case (true (* isPointer *), ownershipTransfer) of
-                (false, _)          => infoError nonPtrForRetX
-              | (_,     NOTHING)    => SOME false
-              | (_,     EVERYTHING) => SOME true
-              | (_,     CONTAINER)  => infoError containerForInterface
-            val structMsg = nonPtrForRetStruct
-            val unionMsg = nonPtrForRetUnion
-
-            fun ptrOwnXferFlagsEnum ptrForX =
-              if isPointer
-              then infoError ptrForX
-              else NONE
-            val flagsMsg = ptrForFlags
-            val enumMsg = ptrForEnum
-
-            open InfoType
-          in
-            val (ptrOwnXfer, rootIRef) =
-              case infoType of
-                OBJECT objectInfo =>
-                  (
-                    ptrOwnXferObjectInterface objectMsg,
-                    getRootObjectIRef repo functionNamespace optContainerName
-                      (objectInfo, iRef)
-                  )
-              | INTERFACE _       =>
-                  (
-                    ptrOwnXferObjectInterface interfaceMsg,
-                    makeInterfaceRootIRef functionNamespace optContainerName
-                  )
-              | STRUCT _          => (ptrOwnXferStructUnion structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum enumMsg, iRef)
-              | _                 => infoError (unsupportedInterface infoType)
-          end
-
-          val interfaceInfo = {
-            name       = argId,
-            rootIRef   = rootIRef,
-            iRef       = iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-        in
-          RIINTERFACE interfaceInfo
-        end
-  end
-
-
 fun mkSignalNameId signalName =
   mkId (toLCC (String.map (fn #"-" => #"_" | c => c) signalName) ^ "Sig")
 
@@ -4498,11 +4274,11 @@ fun makeSignalSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfoX repo signalNamespace (SOME containerName) signalName)
+        (getParInfo true repo signalNamespace (SOME containerName) signalName)
         (signalInfo, [])
 
     val retInfo =
-      getRetInfoX repo signalNamespace (SOME containerName) signalName
+      getRetInfo true repo signalNamespace (SOME containerName) signalName
         signalInfo
 
     val tyVarIdx'0 = 0
@@ -4731,8 +4507,10 @@ fun makeSignalStrDec
     val signalNamespace = BaseInfo.getNamespace signalInfo
     val signalFlags = SignalInfo.getFlags signalInfo
 
-    (* Ignore deprecated signals - is this needed?  Does above check suffice? *)
-    (* requires glib >= 2.32
+    (* Ignore deprecated signals.  The above check does not appear to
+     * suffice, for example, GtkButton::pressed.
+     *)
+    (* Requires glib >= 2.32, exclude for now.
     val () =
       if GSignalFlags.anySet (signalFlags, GSignalFlags.DEPRECATED)
       then
@@ -4748,11 +4526,11 @@ fun makeSignalStrDec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfoX repo signalNamespace (SOME containerName) signalName)
+        (getParInfo true repo signalNamespace (SOME containerName) signalName)
         (signalInfo, [])
 
     val retInfo =
-      getRetInfoX repo signalNamespace (SOME containerName) signalName
+      getRetInfo true repo signalNamespace (SOME containerName) signalName
         signalInfo
 
     val revLs'1 = []
@@ -4975,7 +4753,7 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
 
     fun toScalarInfo ty =
       if isPointer
-      then infoError (isPointerForScalar scalarToString ty)
+      then infoError (ptrForScalar scalarToString ty)
       else
         {
           ty = ty
@@ -5608,8 +5386,8 @@ fun makeIRefLocalType iRef : localtype =
       tyVars    = tyVars,
       tyId      = makeLocalInterfaceId iRef,
       varTys    = map TyVar tyVars,
-      tyStrLId  = toList1 [makeInterfaceOtherStrId iRef, tId],
-      tyNameLId = toList1 [makeNamespaceStrId iRef, tId]
+      tyStrLId  = toList1 [makeIRefInterfaceOtherStrId iRef, tId],
+      tyNameLId = toList1 [makeIRefNamespaceStrId iRef, tId]
     }
   end
 
@@ -6289,7 +6067,7 @@ in
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.t)
     (objectInfo       : 'c ObjectInfoClass.t)
-    : id * program =
+    : id * program * id list =
     let
       val () = checkDeprecated objectInfo
 
@@ -6361,15 +6139,16 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(objectClassSigId, qSig)]
       val program = [ModuleDecSig sigDec]
+      val sigDeps = []
     in
-      (objectClassSigId, Portable program)
+      (objectClassSigId, Portable program, sigDeps)
     end
 
   fun makeObjectRootClassSig
     (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'a ObjectInfoClass.t)
-    : id * program =
+    : id * program * id list =
     let
       val () = checkDeprecated objectInfo
 
@@ -6379,8 +6158,9 @@ in
       val objectClassSigId = toUCU objectClassStrId
 
       val program = []
+      val sigDeps = []
     in
-      (objectClassSigId, Portable program)
+      (objectClassSigId, Portable program, sigDeps)
     end
 
   fun makeObjectClassSig
@@ -6388,7 +6168,7 @@ in
     (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'b ObjectInfoClass.t)
-    : id * program =
+    : id * program * id list =
     case ObjectInfo.getParent objectInfo of
       SOME parentObjectInfo =>
         makeObjectDerivedClassSig
@@ -6453,7 +6233,7 @@ in
       }
 
       (* <ParentObjectNamespace><ParentObjectName>Class *)
-      val parentClassStrId = makeInterfaceOtherStrId parentObjectIRef
+      val parentClassStrId = makeIRefInterfaceOtherStrId parentObjectIRef
 
       val objectClassStrId = mkClassStrId objectNamespace objectName
       val objectClassSigId = toUCU objectClassStrId
@@ -6745,7 +6525,7 @@ fun makeObjectSig
   (objectNamespace : string)
   (objectInfo      : 'a ObjectInfoClass.t)
   (errs'0          : infoerrorhier list)
-  : id * program * infoerrorhier list =
+  : id * program * id list * infoerrorhier list =
   let
     val () = checkDeprecated objectInfo
 
@@ -6797,8 +6577,9 @@ fun makeObjectSig
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(objectSigId, qSig)]
     val program = [ModuleDecSig sigDec]
+    val sigDeps = []
   in
-    (objectSigId, Portable program, errs'6)
+    (objectSigId, Portable program, sigDeps, errs'6)
   end
 
 
@@ -7084,7 +6865,7 @@ in
     (interfaceCPrefix   : string)
     (interfaceNamespace : string)
     (interfaceInfo      : 'b InterfaceInfoClass.t)
-    : id * program =
+    : id * program * id list =
     let
       val () = checkDeprecated interfaceInfo
 
@@ -7141,8 +6922,9 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(interfaceClassSigId, qSig)]
       val program = [ModuleDecSig sigDec]
+      val sigDeps = []
     in
-      (interfaceClassSigId, Portable program)
+      (interfaceClassSigId, Portable program, sigDeps)
     end
 end
 
@@ -7183,7 +6965,7 @@ in
         makeInterfaceRootIRef interfaceNamespace (SOME interfaceName)
 
       (* <ParentObjectNamespace><ParentObjectName>Class *)
-      val parentClassStrId = makeInterfaceOtherStrId parentObjectIRef
+      val parentClassStrId = makeIRefInterfaceOtherStrId parentObjectIRef
 
       val interfaceClassStrId = mkClassStrId interfaceNamespace interfaceName
       val interfaceClassSigId = toUCU interfaceClassStrId
@@ -7403,7 +7185,7 @@ fun makeInterfaceSig
   (interfaceNamespace : string)
   (interfaceInfo      : 'a InterfaceInfoClass.t)
   (errs'0             : infoerrorhier list)
-  : id * program * infoerrorhier list =
+  : id * program * id list * infoerrorhier list =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -7458,8 +7240,9 @@ fun makeInterfaceSig
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(interfaceSigId, qSig)]
     val program = [ModuleDecSig sigDec]
+    val sigDeps = []
   in
-    (interfaceSigId, Portable program, errs'6)
+    (interfaceSigId, Portable program, sigDeps, errs'6)
   end
 
 
@@ -7710,7 +7493,7 @@ in
     (structCPrefix   : string)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.t)
-    : id * program =
+    : id * program * id list =
     let
       val () = checkDeprecated structInfo
 
@@ -7720,8 +7503,9 @@ in
       val structRecordSigId = toUCU structRecordStrId
 
       val program = []
+      val sigDeps = []
     in
-      (structRecordSigId, Portable program)
+      (structRecordSigId, Portable program, sigDeps)
     end
 end
 
@@ -7803,7 +7587,7 @@ fun makeStructSig
   (structNamespace : string)
   (structInfo      : 'a StructInfoClass.t)
   (errs'0          : infoerrorhier list)
-  : id * program * infoerrorhier list =
+  : id * program * id list * infoerrorhier list =
   let
     val () = checkDeprecated structInfo
 
@@ -7842,8 +7626,9 @@ fun makeStructSig
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(structSigId, qSig)]
     val program = [ModuleDecSig sigDec]
+    val sigDeps = []
   in
-    (structSigId, Portable program, errs'2)
+    (structSigId, Portable program, sigDeps, errs'2)
   end
 
 
@@ -7999,7 +7784,7 @@ fun makeUnionSig
   (unionNamespace : string)
   (unionInfo      : 'a UnionInfoClass.t)
   (errs'0         : infoerrorhier list)
-  : id * program * infoerrorhier list =
+  : id * program * id list * infoerrorhier list =
   let
     val () = checkDeprecated unionInfo
 
@@ -8019,8 +7804,9 @@ fun makeUnionSig
 
     (* module *)
     val program = []
+    val sigDeps = []
   in
-    (unionSigId, Portable program, errs'0)
+    (unionSigId, Portable program, sigDeps, errs'0)
   end
 
 
@@ -8295,7 +8081,7 @@ in
     (enumNamespace : string)
     (enumInfo    : 'a EnumInfoClass.t)
     (errs'0      : infoerrorhier list)
-    : id * program * infoerrorhier list =
+    : id * program * id list * infoerrorhier list =
     let
       val () = checkDeprecated enumInfo
 
@@ -8332,8 +8118,9 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(enumSigId, qSig)]
       val program = [ModuleDecSig sigDec]
+      val sigDeps = []
     in
-      (enumSigId, Portable program, errs'2)
+      (enumSigId, Portable program, sigDeps, errs'2)
     end
 end
 
@@ -8788,7 +8575,7 @@ in
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
-    : id * program * infoerrorhier list =
+    : id * program * id list * infoerrorhier list =
     let
       val () = checkDeprecated enumInfo
 
@@ -8830,8 +8617,9 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(enumSigId, qSig)]
       val program = [ModuleDecSig sigDec]
+      val sigDeps = []
     in
-      (enumSigId, Portable program, errs'2)
+      (enumSigId, Portable program, sigDeps, errs'2)
     end
 end
 
@@ -9290,15 +9078,15 @@ val unionNames = [
 
 
 
-fun dupSig _ = raise Fail "duplicate signature"
-fun dupStr _ = raise Fail "duplicate structure"
-fun dupFile _ = raise Fail "duplicate file"
-fun insertNew f x = #2 (ListDict.insert I f x)
+fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
+fun dupStr id _ = raise Fail (String.concat ["duplicate structure ", id])
+fun dupFile id _ = raise Fail (String.concat ["duplicate file for module ", id])
+fun insertNew f (x as ((id, _), _)) = #2 (ListDict.insert I (f id) x)
 fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
 fun translateInfo
   repo
-  libId
+  getLibId
   cPrefix
   namespace
   (
@@ -9307,7 +9095,7 @@ fun translateInfo
       (
         modules'0 as (
           files'0 : program ListDict.t,
-          sigs'0 : bool ListDict.t,
+          sigs'0 : (bool * id list) ListDict.t,
           strs'0 : ((bool * (spec list * strdec list)) * id list) ListDict.t
         ),
         constants'0,
@@ -9319,7 +9107,9 @@ fun translateInfo
   case InfoType.getType baseInfo of
     InfoType.OBJECT objectInfo       =>
       let
-        val (classSigId, classSigProgram) =
+        val libId = getLibId ()
+
+        val (classSigId, classSigProgram, classSigDeps) =
           makeObjectClassSig repo cPrefix namespace objectInfo
 
         val (
@@ -9333,11 +9123,11 @@ fun translateInfo
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeObjectStr repo libId cPrefix namespace objectInfo errs'0
 
-        val (sigId, sigProgram, errs'2) =
-          makeObjectSig repo cPrefix namespace objectInfo errs'1
+        val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val classStrDeps = map makeInterfaceOtherStrId classStrIRefs
-        val strDeps = map makeInterfaceOtherStrId strIRefs
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeObjectSig repo cPrefix namespace objectInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -9347,8 +9137,8 @@ fun translateInfo
         val sigs'1 =
           insertNewList dupSig (
             [
-              (classSigId, isClassSigPortable),
-              (sigId, isSigPortable)
+              (classSigId, (isClassSigPortable, classSigDeps)),
+              (sigId,      (isSigPortable,      sigDeps))
            ],
            sigs'0
         )
@@ -9356,7 +9146,7 @@ fun translateInfo
           insertNewList dupStr (
             [
               (classStrId, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
-              (strId, ((isStrPortable, strSpecDec), strDeps))
+              (strId,      ((isStrPortable,      strSpecDec),      strDeps))
             ],
             strs'0
           )
@@ -9374,8 +9164,9 @@ fun translateInfo
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
-        (* just class for now *)
-        val (classSigId, classSigProgram) =
+        val libId = getLibId ()
+
+        val (classSigId, classSigProgram, classSigDeps) =
           makeInterfaceClassSig repo cPrefix namespace interfaceInfo
 
         val (
@@ -9389,11 +9180,11 @@ fun translateInfo
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeInterfaceStr repo libId cPrefix namespace interfaceInfo errs'0
 
-        val (sigId, sigProgram, errs'2) =
-          makeInterfaceSig repo cPrefix namespace interfaceInfo errs'1
+        val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val classStrDeps = map makeInterfaceOtherStrId classStrIRefs
-        val strDeps = map makeInterfaceOtherStrId strIRefs
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeInterfaceSig repo cPrefix namespace interfaceInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -9403,8 +9194,8 @@ fun translateInfo
         val sigs'1 =
           insertNewList dupSig (
             [
-              (classSigId, isClassSigPortable),
-              (sigId, isSigPortable)
+              (classSigId, (isClassSigPortable, classSigDeps)),
+              (sigId,      (isSigPortable,      sigDeps))
             ],
             sigs'0
           )
@@ -9412,7 +9203,7 @@ fun translateInfo
           insertNewList dupStr (
             [
               (classStrId, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
-              (strId, ((isStrPortable, strSpecDec), strDeps))
+              (strId,      ((isStrPortable,      strSpecDec),      strDeps))
             ],
             strs'0
           )
@@ -9439,7 +9230,9 @@ fun translateInfo
         end
       then
         let
-          val (recordSigId, recordSigProgram) =
+          val libId = getLibId ()
+
+          val (recordSigId, recordSigProgram, recordSigDeps) =
             makeStructRecordSig repo cPrefix namespace structInfo
 
           val (
@@ -9453,11 +9246,11 @@ fun translateInfo
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
             makeStructStr repo libId cPrefix namespace structInfo errs'0
 
-          val (sigId, sigProgram, errs'2) =
-            makeStructSig repo cPrefix namespace structInfo errs'1
+          val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
+          val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-          val recordStrDeps = map makeInterfaceOtherStrId recordStrIRefs
-          val strDeps = map makeInterfaceOtherStrId strIRefs
+          val (sigId, sigProgram, sigDeps, errs'2) =
+            makeStructSig repo cPrefix namespace structInfo errs'1
 
           val isRecordSigPortable = isPortable recordSigProgram
           val isRecordStrPortable = isPortable recordStrProgram
@@ -9467,8 +9260,8 @@ fun translateInfo
           val sigs'1 =
             insertNewList dupSig (
               [
-                (recordSigId, isRecordSigPortable),
-                (sigId, isSigPortable)
+                (recordSigId, (isRecordSigPortable, recordSigDeps)),
+                (sigId,       (isSigPortable,       sigDeps))
               ],
               sigs'0
             )
@@ -9476,7 +9269,7 @@ fun translateInfo
             insertNewList dupStr (
               [
                 (recordStrId, ((isRecordStrPortable, recordStrSpecDec), recordStrDeps)),
-                (strId, ((isStrPortable, strSpecDec), strDeps))
+                (strId,       ((isStrPortable,       strSpecDec),       strDeps))
               ],
               strs'0
             )
@@ -9508,16 +9301,16 @@ fun translateInfo
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
             makeUnionStr repo cPrefix namespace unionInfo errs'0
 
-          val (sigId, sigProgram, errs'2) =
-            makeUnionSig repo cPrefix namespace unionInfo errs'1
+          val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-          val strDeps = map makeInterfaceOtherStrId strIRefs
+          val (sigId, sigProgram, sigDeps, errs'2) =
+            makeUnionSig repo cPrefix namespace unionInfo errs'1
 
           val isSigPortable = isPortable sigProgram
           val isStrPortable = isPortable strProgram
 
           val sigs'1 =
-            insertNewList dupSig ([(sigId, isSigPortable)], sigs'0)
+            insertNewList dupSig ([(sigId, (isSigPortable, sigDeps))], sigs'0)
           val strs'1 =
             insertNewList dupStr (
               [(strId, ((isStrPortable, strSpecDec), strDeps))],
@@ -9539,18 +9332,21 @@ fun translateInfo
         acc
   | InfoType.FLAGS enumInfo          =>
       let
+        val libId = getLibId ()
+
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeFlagsStr repo libId cPrefix namespace enumInfo errs'0
 
-        val (sigId, sigProgram, errs'2) =
-          makeFlagsSig repo cPrefix namespace enumInfo errs'1
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val strDeps = map makeInterfaceOtherStrId strIRefs
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeFlagsSig repo cPrefix namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
 
-        val sigs'1 = insertNew dupSig ((sigId, isSigPortable), sigs'0)
+        val sigs'1 =
+          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
         val strs'1 =
           insertNewList dupStr (
             [(strId, ((isStrPortable, strSpecDec), strDeps))],
@@ -9570,18 +9366,21 @@ fun translateInfo
       end
   | InfoType.ENUM enumInfo           =>
       let
+        val libId = getLibId ()
+
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeEnumStr repo libId cPrefix namespace enumInfo errs'0
 
-        val (sigId, sigProgram, errs'2) =
-          makeEnumSig repo cPrefix namespace enumInfo errs'1
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val strDeps = map makeInterfaceOtherStrId strIRefs
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeEnumSig repo cPrefix namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
 
-        val sigs'1 = insertNew dupSig ((sigId, isSigPortable), sigs'0)
+        val sigs'1 =
+          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
         val strs'1 =
           insertNewList dupStr (
             [(strId, ((isStrPortable, strSpecDec), strDeps))],
@@ -9599,6 +9398,40 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
+(* -------- GIR only --------
+  | InfoType.ALIAS aliasInfo         =>
+      let
+        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
+          makeAliasStr repo cPrefix namespace aliasInfo errs'0
+
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeAliasSig repo cPrefix namespace aliasInfo errs'1
+
+        val isSigPortable = isPortable sigProgram
+        val isStrPortable = isPortable strProgram
+
+        val sigs'1 =
+          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
+        val strs'1 =
+          insertNewList dupStr (
+            [(strId, ((isStrPortable, strSpecDec), strDeps))],
+            strs'0
+          )
+        val files'1 =
+          insertNewList dupFile (
+            [
+              (sigId, sigProgram),
+              (strId, strProgram)
+            ],
+            files'0
+          )
+        val modules'1 = (files'1, sigs'1, strs'1)
+      in
+        ((modules'1, constants'0, functions'0), errs'2)
+      end
+ * -------------------------- *)
   | InfoType.CONSTANT constantInfo   =>
       let
         val (spec, (_, errs'1)) =
@@ -9614,6 +9447,8 @@ fun translateInfo
       end
   | InfoType.FUNCTION functionInfo   =>
       let
+        val libId = getLibId ()
+
         val (spec, (_, errs'1)) =
           makeFunctionSpec repo NONE (functionInfo, ([], errs'0))
 
@@ -9649,7 +9484,7 @@ fun translateInfo
 
 fun translateLoadedNamespace repo namespace =
   let
-    val libId = getSharedLibraryId repo namespace
+    val getLibId = lazy (fn () => getSharedLibraryId repo namespace)
     val cPrefix = getCPrefix repo namespace
 
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
@@ -9660,7 +9495,7 @@ fun translateLoadedNamespace repo namespace =
     revFoldInfosWithErrs
       (Repository.getNInfos repo)
       (Repository.getInfo repo)
-      (translateInfo repo libId cPrefix namespace)
+      (translateInfo repo getLibId cPrefix namespace)
       (namespace, ((modules'0, constants'0, functions'0), errs'0))
   end
 
@@ -9732,6 +9567,13 @@ fun mkBaseVersion base ver = String.concat [base, "-", ver]
 
 
 
+(* `sort m` reorders `m` such that each element occurs after
+ * its dependencies.  In other words, to satisfy the partial order in `m`.
+ *
+ *
+ * The result is in reverse order.
+ *)
+
 fun listRemoveFirst ys xs = foldl removeFirst xs ys
 
 infix **
@@ -9766,8 +9608,7 @@ fun getNext (m : (id * ('a * id list)) list) =
     (next, m'2)
   end
 
-
-fun sort m =  (* result is reverse order *)
+fun sort (m : (id * ('a * id list)) list) : (id * 'a) list =
   let
     fun aux acc l =
       case l of
@@ -9781,7 +9622,7 @@ fun sort m =  (* result is reverse order *)
           end
       | []     => acc
   in
-    aux [] (ListDict.toList m)
+    aux [] m
   end
 
 
@@ -10013,14 +9854,15 @@ fun makeNamespaceSigStr
   end
 
 
-fun insertSig x = #2 (ListDict.insert I dupSig x)
+fun addDeps ((_, extraDeps), (x, deps)) = (x, List.foldl insert deps extraDeps)
+
+fun insertSig x = #2 (ListDict.insert I addDeps x)
 fun insertSigs (xs, m) = List.foldr insertSig m xs
 
-fun addDeps ((_, extraDeps), (x, deps)) = (x, List.foldl insert deps extraDeps)
 fun insertStr x = #2 (ListDict.insert I addDeps x)
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
-fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
+fun generate dir repo (namespace, version) (extraSigs, extraStrs) =
   let
     val () = loadNamespace repo (namespace, version)
     val curDir = OS.FileSys.getDir ()
@@ -10037,7 +9879,7 @@ fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
       val ((modules, constants, functions), errs) =
         translateLoadedNamespace repo namespace
 
-      val (files'1, sigFiles'1, strs'1) = modules
+      val (files'1, sigs'1, strs'1) = modules
 
       (* Perform the following steps:
        *
@@ -10049,29 +9891,30 @@ fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
        *          signature and structure.
        *
        *   2. Generate the signature and structure for the namespace module,
-       *      giving `namespaceSig` and `namespaceStr` respectively, using
+       *      as `namespaceSig` and `namespaceStr` respectively, using
        *      `strSpecsDecs'2` from step 1, `constants` and `functions`.
        *
-       *   3. Extend `sigFiles'1` with `extraSigFiles` and `namespaceSigId`
-       *      from step 2 to give `sigFiles'2`.  `namespaceSigId` must occur
-       *      last.
+       *   3. Extend `sigs'1` with `extraSigs` and sort the result to
+       *      satisfy dependencies, giving `sigFiles'2`.
        *
-       *   4. Extend `strFiles'2` with `namespaceStrId` to give `strFiles'3`.
-       *      `namespaceStrId` must occur last.
+       *   4. Extend `strFiles'2` with `namespaceStrId` from step 2 to give
+       *      `strFiles'3`.  `namespaceStrId` must occur last.
        *
-       *   5. Write basis/load files using extended sorted `strFiles'3` from
+       *   5. Extend `sigFiles'2` with `namespaceSigId` from step 2 to give
+       *      `sigFiles'2`.  `namespaceSigId` must occur last.
+       *
+       *   6. Write basis/load files using extended sorted `strFiles'3` from
        *      step 4 and extended `sigFiles'2` from step 3.
        *
-       *   6. Extend `files'1` with namespace signature and structure
+       *   7. Extend `files'1` with namespace signature and structure
        *      modules from step 2, giving `files'2`.
        *
-       *   7. Write module files `files'2` from step 6.
+       *   8. Write module files `files'2` from step 6.
        *)
 
       (* Step 1 *)
-      val strDeps'2 = insertStrs (extraStrs, strs'1)
       val revStrs'2 : (id * (bool * (spec list * strdec list))) list =
-        sort strDeps'2
+        sort (ListDict.toList (insertStrs (extraStrs, strs'1)))
 
       local
         fun f ((x, (y, z)), (xys, zs)) = ((x, y) :: xys, z :: zs)
@@ -10089,26 +9932,25 @@ fun generate dir repo (namespace, version) (extraSigFiles, extraStrs) =
 
       (* Step 3 *)
       val revSigFiles'2 =
-        let
-          val sigFiles = insertSigs (extraSigFiles, sigFiles'1)
-          val revSigFiles = rev (ListDict.toList sigFiles)
-        in
-          (namespaceSigId, isPortable namespaceSigProgram) :: revSigFiles
-        end
+        sort (ListDict.toList (insertSigs (extraSigs, sigs'1)))
 
       (* Step 4 *)
+      val revSigFiles'3 =
+        (namespaceSigId, isPortable namespaceSigProgram) :: revSigFiles'2
+
+      (* Step 5 *)
       val revStrFiles'3 =
         (namespaceStrId, isPortable namespaceStrProgram) :: revStrFiles'2
 
-      (* Step 5 *)
-      val () =
-        writeBasisFile namespaceDir namespaceDeps (revSigFiles'2, revStrFiles'3)
-
       (* Step 6 *)
+      val () =
+        writeBasisFile namespaceDir namespaceDeps (revSigFiles'3, revStrFiles'3)
+
+      (* Step 7 *)
       val files'2 =
         insertNewList dupFile ([namespaceSig, namespaceStr], files'1)
     in
-      (* Step 7 *)
+      (* Step 8 *)
       ListDict.appi (writeProgramFile namespaceDir) files'2;
 
       OS.FileSys.chDir curDir;
@@ -10149,7 +9991,7 @@ fun mkStructSpec (strId, qSig) = SpecStruct (toList1 [(strId, qSig)])
 fun mkStructStrDec (strId, sigId) =
   StrDecStruct (toList1 [(strId, NONE, StructName (toList1 [sigId]))]);
 
-fun makeSig nameId = (nameId, true)
+fun makeSig nameId sigDeps = (nameId, (true, sigDeps))
 
 fun makeStr (namespaceId, nameId, sigId) localTypes =
   let
@@ -10232,14 +10074,14 @@ generate outDir repo ("Atk", "1.0") ([], []);
 generate outDir repo ("GLib", "2.0")
   (
     [
-      makeSig "G_LIB_QUARK",
-      makeSig "G_LIB_SOURCE_FUNC",
-      makeSig "G_LIB_CHILD_WATCH_FUNC",
-      makeSig "G_LIB_SPAWN_CHILD_SETUP_FUNC",
-      makeSig "G_LIB_I_O_FUNC"
+      makeSig "G_LIB_QUARK" [],                     (* TYPELIB only *)
+      makeSig "G_LIB_SOURCE_FUNC" [],
+      makeSig "G_LIB_CHILD_WATCH_FUNC" [],
+      makeSig "G_LIB_SPAWN_CHILD_SETUP_FUNC" [],
+      makeSig "G_LIB_I_O_FUNC" []
     ],
     [
-      makeStr ("GLib", "Quark", "G_LIB_QUARK") [],
+      makeStr ("GLib", "Quark", "G_LIB_QUARK") [],  (* TYPELIB only *)
       makeStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
       makeStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC") [],
       makeStr ("GLib", "SpawnChildSetupFunc", "G_LIB_SPAWN_CHILD_SETUP_FUNC") [],
@@ -10251,12 +10093,12 @@ generate outDir repo ("GLib", "2.0")
 generate outDir repo ("GObject", "2.0")
   (
     [
-      makeSig "CLOSURE_MARSHAL",
-      makeSig "SIGNAL",
-      makeSig "PROPERTY",
-      makeSig "G_OBJECT_TYPE",
-      makeSig "G_OBJECT_VALUE_RECORD",
-      makeSig "G_OBJECT_VALUE"
+      makeSig "CLOSURE_MARSHAL" [],
+      makeSig "SIGNAL" [],
+      makeSig "PROPERTY" [],
+      makeSig "G_OBJECT_TYPE" [],                   (* TYPELIB only *)
+      makeSig "G_OBJECT_VALUE_RECORD" [],
+      makeSig "G_OBJECT_VALUE" []
     ],
     [
       (* ClosureMarshal, Signal and Property are special supporting
@@ -10288,7 +10130,7 @@ generate outDir repo ("GObject", "2.0")
       (* GObjectType, GObjectValueRecord and GObjectValue are manually
        * generated modules so we must provide spec and strdec values
        * to be inserted into the namespace module. *)
-      (
+      (                                             (* TYPELIB only *)
         "GObjectType",
         (
           (
@@ -10388,25 +10230,25 @@ generate outDir repo ("cairo", "1.0") ([], []);
 generate outDir repo ("Gdk", "3.0")
   (
     [
-      makeSig "GDK_EVENT_ANY_RECORD",
-      makeSig "GDK_EVENT_BUTTON_RECORD",
-      makeSig "GDK_EVENT_CONFIGURE_RECORD",
-      makeSig "GDK_EVENT_CROSSING_RECORD",
-      makeSig "GDK_EVENT_D_N_D_RECORD",
-      makeSig "GDK_EVENT_EXPOSE_RECORD",
-      makeSig "GDK_EVENT_FOCUS_RECORD",
-      makeSig "GDK_EVENT_GRAB_BROKEN_RECORD",
-      makeSig "GDK_EVENT_KEY_RECORD",
-      makeSig "GDK_EVENT_MOTION_RECORD",
-      makeSig "GDK_EVENT_OWNER_CHANGE_RECORD",
-      makeSig "GDK_EVENT_PROPERTY_RECORD",
-      makeSig "GDK_EVENT_PROXIMITY_RECORD",
-      makeSig "GDK_EVENT_SCROLL_RECORD",
-      makeSig "GDK_EVENT_SELECTION_RECORD",
-      makeSig "GDK_EVENT_SETTING_RECORD",
-      makeSig "GDK_EVENT_VISIBILITY_RECORD",
-      makeSig "GDK_EVENT_WINDOW_STATE_RECORD",
-      makeSig "CLASSIFY_EVENT"
+      makeSig "GDK_EVENT_ANY_RECORD" [],
+      makeSig "GDK_EVENT_BUTTON_RECORD" [],
+      makeSig "GDK_EVENT_CONFIGURE_RECORD" [],
+      makeSig "GDK_EVENT_CROSSING_RECORD" [],
+      makeSig "GDK_EVENT_D_N_D_RECORD" [],
+      makeSig "GDK_EVENT_EXPOSE_RECORD" [],
+      makeSig "GDK_EVENT_FOCUS_RECORD" [],
+      makeSig "GDK_EVENT_GRAB_BROKEN_RECORD" [],
+      makeSig "GDK_EVENT_KEY_RECORD" [],
+      makeSig "GDK_EVENT_MOTION_RECORD" [],
+      makeSig "GDK_EVENT_OWNER_CHANGE_RECORD" [],
+      makeSig "GDK_EVENT_PROPERTY_RECORD" [],
+      makeSig "GDK_EVENT_PROXIMITY_RECORD" [],
+      makeSig "GDK_EVENT_SCROLL_RECORD" [],
+      makeSig "GDK_EVENT_SELECTION_RECORD" [],
+      makeSig "GDK_EVENT_SETTING_RECORD" [],
+      makeSig "GDK_EVENT_VISIBILITY_RECORD" [],
+      makeSig "GDK_EVENT_WINDOW_STATE_RECORD" [],
+      makeSig "CLASSIFY_EVENT" []
     ],
     let
     in
@@ -10517,9 +10359,9 @@ generate outDir repo ("Gdk", "3.0")
 generate outDir repo ("Gtk", "3.0")
   (
     [
-      makeSig "CHILD_SIGNAL",
-      makeSig "STYLE_PROPERTY",
-      makeSig "GTK_ACTION_ENTRY"
+      makeSig "CHILD_SIGNAL" [],
+      makeSig "STYLE_PROPERTY" [],
+      makeSig "GTK_ACTION_ENTRY" []
     ],
     [
       ("ChildSignal", ((false, ([], [])), ["GtkWidgetClass", "GtkWidget"])),
@@ -10530,10 +10372,16 @@ generate outDir repo ("Gtk", "3.0")
     ]
   );
 generate outDir repo ("Vte", "2.90") ([], []);
-
-
 generate outDir repo ("GModule", "2.0") ([], []);
+
+(* xlib fails because g_irepository_get_c_prefix returns NULL even though
+ * this namespace has, according to the GIR file, the prefix "X".  This is
+ * academic because this library is used only for aliases which is not
+ * required by the TYPELIB version.
+ *
 generate outDir repo ("xlib", "2.0") ([], []);
+ *)
+
 generate outDir repo ("PangoCairo", "1.0") ([], []);
 generate outDir repo ("GIRepository", "2.0") ([], []);
 generate outDir repo ("GtkSource", "3.0") ([], []);

@@ -4,10 +4,6 @@ signature GIO_SIMPLE_ASYNC_RESULT =
     type 'a asyncresultclass_t
     val asAsyncResult : 'a class_t -> base asyncresultclass_t
     val getType : unit -> GObject.Type.t
-    val isValid :
-      'a asyncresultclass_t
-       -> 'b GObject.ObjectClass.t
-       -> bool
     val complete : 'a class_t -> unit
     val completeInIdle : 'a class_t -> unit
     val getOpResGboolean : 'a class_t -> bool

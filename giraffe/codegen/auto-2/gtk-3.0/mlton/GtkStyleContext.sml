@@ -83,7 +83,6 @@ structure GtkStyleContext :>
               x3,
               x4
             )
-    val cancelAnimations_ = _import "gtk_style_context_cancel_animations" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getBackgroundColor_ =
       fn
         x1
@@ -280,28 +279,7 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val notifyStateChange_ =
-      fn
-        x1
-         & x2
-         & x3
-         & x4 =>
-          (
-            _import "gtk_style_context_notify_state_change" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GtkStateType.C.val_
-               * FFI.Bool.C.val_
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
     val popAnimatableRegion_ = _import "gtk_style_context_pop_animatable_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val pushAnimatableRegion_ = _import "gtk_style_context_push_animatable_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val removeClass_ =
       fn
         x1 & (x2, x3) =>
@@ -432,7 +410,6 @@ structure GtkStyleContext :>
            & regionName
            & flags
         )
-    fun cancelAnimations self = (GObjectObjectClass.C.withPtr ---> I) cancelAnimations_ self
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -599,23 +576,7 @@ structure GtkStyleContext :>
         if retVal then SOME color else NONE
       end
     fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
-    fun notifyStateChange self window state stateValue =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> I
-      )
-        notifyStateChange_
-        (
-          self
-           & window
-           & state
-           & stateValue
-        )
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
-    fun pushAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) pushAnimatableRegion_ self
     fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
     fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeRegion_ (self & regionName)

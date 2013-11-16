@@ -19,7 +19,6 @@ signature GIO_SETTINGS =
        -> string
        -> base class_t
     val sync : unit -> unit
-    val unbind : string -> unit
     val apply : 'a class_t -> unit
     val bind :
       'a class_t

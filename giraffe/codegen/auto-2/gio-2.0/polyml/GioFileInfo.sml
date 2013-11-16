@@ -18,15 +18,6 @@ structure GioFileInfo :>
       val getAttributeAsString_ = call (load_sym libgio "g_file_info_get_attribute_as_string") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val getAttributeBoolean_ = call (load_sym libgio "g_file_info_get_attribute_boolean") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val getAttributeByteString_ = call (load_sym libgio "g_file_info_get_attribute_byte_string") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
-      val getAttributeData_ =
-        call (load_sym libgio "g_file_info_get_attribute_data")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> GioFileAttributeType.PolyML.REF
-             &&> GioFileAttributeStatus.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
-          )
       val getAttributeInt32_ = call (load_sym libgio "g_file_info_get_attribute_int32") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
       val getAttributeInt64_ = call (load_sym libgio "g_file_info_get_attribute_int64") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Int64.PolyML.VAL)
       val getAttributeObject_ = call (load_sym libgio "g_file_info_get_attribute_object") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
@@ -52,14 +43,6 @@ structure GioFileInfo :>
       val hasAttribute_ = call (load_sym libgio "g_file_info_has_attribute") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val hasNamespace_ = call (load_sym libgio "g_file_info_has_namespace") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val removeAttribute_ = call (load_sym libgio "g_file_info_remove_attribute") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setAttribute_ =
-        call (load_sym libgio "g_file_info_set_attribute")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> GioFileAttributeType.PolyML.VAL
-             --> FFI.PolyML.VOID
-          )
       val setAttributeBoolean_ =
         call (load_sym libgio "g_file_info_set_attribute_boolean")
           (
@@ -169,30 +152,6 @@ structure GioFileInfo :>
     fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) getAttributeAsString_ (self & attribute)
     fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getAttributeBoolean_ (self & attribute)
     fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getAttributeByteString_ (self & attribute)
-    fun getAttributeData self attribute =
-      let
-        val type'
-         & status
-         & retVal =
-          (
-            GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
-             &&&> GioFileAttributeType.C.withRefVal
-             &&&> GioFileAttributeStatus.C.withRefVal
-             ---> GioFileAttributeType.C.fromVal
-                   && GioFileAttributeStatus.C.fromVal
-                   && FFI.Bool.C.fromVal
-          )
-            getAttributeData_
-            (
-              self
-               & attribute
-               & GioFileAttributeType.null
-               & GioFileAttributeStatus.null
-            )
-      in
-        if retVal then SOME (type', status) else NONE
-      end
     fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getAttributeInt32_ (self & attribute)
     fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int64.C.fromVal) getAttributeInt64_ (self & attribute)
     fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
@@ -218,19 +177,6 @@ structure GioFileInfo :>
     fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasNamespace_ (self & nameSpace)
     fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeAttribute_ (self & attribute)
-    fun setAttribute self attribute type' =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> GioFileAttributeType.C.withVal
-         ---> I
-      )
-        setAttribute_
-        (
-          self
-           & attribute
-           & type'
-        )
     fun setAttributeBoolean self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr

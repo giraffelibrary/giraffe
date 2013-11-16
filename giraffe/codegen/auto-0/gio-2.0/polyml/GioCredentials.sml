@@ -1,7 +1,6 @@
 structure GioCredentials :>
   GIO_CREDENTIALS
-    where type 'a class_t = 'a GioCredentialsClass.t
-    where type credentialstype_t = GioCredentialsType.t =
+    where type 'a class_t = 'a GioCredentialsClass.t =
   struct
     local
       open PolyMLFFI
@@ -17,7 +16,6 @@ structure GioCredentials :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val setNative_ = call (load_sym libgio "g_credentials_set_native") (GObjectObjectClass.PolyML.PTR &&> GioCredentialsType.PolyML.VAL --> FFI.PolyML.VOID)
       val setUnixUser_ =
         call (load_sym libgio "g_credentials_set_unix_user")
           (
@@ -29,7 +27,6 @@ structure GioCredentials :>
       val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioCredentialsClass.t
-    type credentialstype_t = GioCredentialsType.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
     fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.UInt32.C.fromVal) getUnixUser_ (self & [])
@@ -46,7 +43,6 @@ structure GioCredentials :>
            & otherCredentials
            & []
         )
-    fun setNative self nativeType = (GObjectObjectClass.C.withPtr &&&> GioCredentialsType.C.withVal ---> I) setNative_ (self & nativeType)
     fun setUnixUser self uid =
       (
         GObjectObjectClass.C.withPtr

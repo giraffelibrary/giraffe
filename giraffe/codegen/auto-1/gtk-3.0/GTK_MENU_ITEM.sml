@@ -49,7 +49,6 @@ signature GTK_MENU_ITEM =
     val deselectSig : (unit -> unit) -> 'a class_t Signal.signal
     val selectSig : (unit -> unit) -> 'a class_t Signal.signal
     val toggleSizeAllocateSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
-    val toggleSizeRequestSig : (unit -> unit) -> 'a class_t Signal.signal
     val accelPathProp : ('a class_t, string option, string option) Property.readwrite
     val labelProp : ('a class_t, string option, string option) Property.readwrite
     val rightJustifiedProp : ('a class_t, bool, bool) Property.readwrite

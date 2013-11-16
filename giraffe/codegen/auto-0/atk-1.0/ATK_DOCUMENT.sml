@@ -6,7 +6,6 @@ signature ATK_DOCUMENT =
       'a class_t
        -> string
        -> string
-    val getDocument : 'a class_t -> unit
     val getDocumentType : 'a class_t -> string
     val getLocale : 'a class_t -> string
     val setAttributeValue :

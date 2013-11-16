@@ -20,7 +20,6 @@ structure GioSettings :>
           )
       val newWithPath_ = call (load_sym libgio "g_settings_new_with_path") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val sync_ = call (load_sym libgio "g_settings_sync") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val unbind_ = call (load_sym libgio "g_settings_unbind") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val apply_ = call (load_sym libgio "g_settings_apply") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val bind_ =
         call (load_sym libgio "g_settings_bind")
@@ -151,7 +150,6 @@ structure GioSettings :>
         )
     fun newWithPath schema path = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) newWithPath_ (schema & path)
     fun sync () = (I ---> I) sync_ ()
-    fun unbind property = (FFI.String.C.withConstPtr ---> I) unbind_ property
     fun apply self = (GObjectObjectClass.C.withPtr ---> I) apply_ self
     fun bind self key object property flags =
       (

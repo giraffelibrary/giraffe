@@ -60,7 +60,6 @@ structure GioSettings :>
               x4
             )
     val sync_ = _import "g_settings_sync" : unit -> unit;
-    val unbind_ = _import "mlton_g_settings_unbind" : cstring * unit CPointer.t -> unit;
     val apply_ = _import "g_settings_apply" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val bind_ =
       fn
@@ -493,7 +492,6 @@ structure GioSettings :>
         )
     fun newWithPath schema path = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) newWithPath_ (schema & path)
     fun sync () = (I ---> I) sync_ ()
-    fun unbind property = (FFI.String.C.withConstPtr ---> I) unbind_ property
     fun apply self = (GObjectObjectClass.C.withPtr ---> I) apply_ self
     fun bind self key object property flags =
       (

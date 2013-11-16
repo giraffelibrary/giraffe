@@ -35,7 +35,7 @@ signature VTE_TERMINAL =
        -> string option
        -> string list
        -> string list option
-       -> GLibSpawnFlags.t
+       -> GLib.SpawnFlags.t
        -> Pid.t
     val getAllowBold : 'a class_t -> bool
     val getAudibleBell : 'a class_t -> bool

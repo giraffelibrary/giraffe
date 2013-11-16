@@ -15,16 +15,6 @@ signature GIO_INPUT_STREAM =
        -> bool
     val hasPending : 'a class_t -> bool
     val isClosed : 'a class_t -> bool
-    val read :
-      'a class_t
-       -> LargeInt.int
-       -> 'b cancellableclass_t option
-       -> LargeInt.int
-    val readAll :
-      'a class_t
-       -> LargeInt.int
-       -> 'b cancellableclass_t option
-       -> LargeInt.int option
     val readFinish :
       'a class_t
        -> 'b asyncresultclass_t

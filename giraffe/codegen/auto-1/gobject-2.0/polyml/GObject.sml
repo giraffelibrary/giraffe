@@ -30,6 +30,7 @@ structure GObject :
     structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass
+    structure Object = GObjectObject
     structure ParamSpec = GObjectParamSpec
     structure ParamSpecBooleanClass = GObjectParamSpecBooleanClass
     structure ParamSpecBoxedClass = GObjectParamSpecBoxedClass
@@ -58,7 +59,6 @@ structure GObject :
     structure TypePluginClass = GObjectTypePluginClass
     structure Binding = GObjectBinding
     structure InitiallyUnowned = GObjectInitiallyUnowned
-    structure Object = GObjectObject
     structure ParamSpecBoolean = GObjectParamSpecBoolean
     structure ParamSpecBoxed = GObjectParamSpecBoxed
     structure ParamSpecChar = GObjectParamSpecChar

@@ -86,7 +86,6 @@ structure GtkMenuItem :>
       fun deselectSig f = signal "deselect" (void ---> ret_void) f
       fun selectSig f = signal "select" (void ---> ret_void) f
       fun toggleSizeAllocateSig f = signal "toggle-size-allocate" (get 0w1 int ---> ret_void) f
-      fun toggleSizeRequestSig f = signal "toggle-size-request" (void ---> ret_void) f
     end
     local
       open Property

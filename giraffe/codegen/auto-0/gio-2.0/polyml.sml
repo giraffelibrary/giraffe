@@ -500,6 +500,7 @@ use "polyml/GioProxyResolver.sml";
 use "polyml/GioResolver.sml";
 use "polyml/GioSeekable.sml";
 use "polyml/GioSimpleAction.sml";
+use "polyml/GioSimpleActionGroup.sml";
 use "polyml/GioSimpleAsyncResult.sml";
 use "polyml/GioSimplePermissionClass.sml";
 use "polyml/GioSocketAddress.sml";

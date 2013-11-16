@@ -12,7 +12,6 @@ signature GTK_BUILDER =
        -> string
        -> LargeInt.int
        -> LargeInt.int
-    val connectSignals : 'a class_t -> unit
     val getObject :
       'a class_t
        -> string

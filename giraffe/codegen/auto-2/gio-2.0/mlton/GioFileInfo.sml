@@ -57,28 +57,6 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val getAttributeData_ =
-      fn
-        x1
-         & (x2, x3)
-         & x4
-         & x5 =>
-          (
-            _import "mlton_g_file_info_get_attribute_data" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * GioFileAttributeType.C.ref_
-               * GioFileAttributeStatus.C.ref_
-               -> FFI.Bool.C.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5
-            )
     val getAttributeInt32_ =
       fn
         x1 & (x2, x3) =>
@@ -257,25 +235,6 @@ structure GioFileInfo :>
               x1,
               x2,
               x3
-            )
-    val setAttribute_ =
-      fn
-        x1
-         & (x2, x3)
-         & x4 =>
-          (
-            _import "mlton_g_file_info_set_attribute" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * GioFileAttributeType.C.val_
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
             )
     val setAttributeBoolean_ =
       fn
@@ -571,30 +530,6 @@ structure GioFileInfo :>
     fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) getAttributeAsString_ (self & attribute)
     fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getAttributeBoolean_ (self & attribute)
     fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getAttributeByteString_ (self & attribute)
-    fun getAttributeData self attribute =
-      let
-        val type'
-         & status
-         & retVal =
-          (
-            GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
-             &&&> GioFileAttributeType.C.withRefVal
-             &&&> GioFileAttributeStatus.C.withRefVal
-             ---> GioFileAttributeType.C.fromVal
-                   && GioFileAttributeStatus.C.fromVal
-                   && FFI.Bool.C.fromVal
-          )
-            getAttributeData_
-            (
-              self
-               & attribute
-               & GioFileAttributeType.null
-               & GioFileAttributeStatus.null
-            )
-      in
-        if retVal then SOME (type', status) else NONE
-      end
     fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getAttributeInt32_ (self & attribute)
     fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int64.C.fromVal) getAttributeInt64_ (self & attribute)
     fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
@@ -620,19 +555,6 @@ structure GioFileInfo :>
     fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasNamespace_ (self & nameSpace)
     fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeAttribute_ (self & attribute)
-    fun setAttribute self attribute type' =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> GioFileAttributeType.C.withVal
-         ---> I
-      )
-        setAttribute_
-        (
-          self
-           & attribute
-           & type'
-        )
     fun setAttributeBoolean self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr

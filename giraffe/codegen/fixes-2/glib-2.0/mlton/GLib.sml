@@ -374,10 +374,10 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    structure Quark = GLibQuark
     structure SourceFunc = GLibSourceFunc
     structure ChildWatchFunc = GLibChildWatchFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
+    structure Quark = GLibQuark
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError

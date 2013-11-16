@@ -4,7 +4,6 @@ structure GioSimpleAsyncResult :>
     where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_simple_async_result_get_type" : unit -> GObjectType.C.val_;
-    val isValid_ = fn x1 & x2 => (_import "g_simple_async_result_is_valid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val complete_ = _import "g_simple_async_result_complete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val completeInIdle_ = _import "g_simple_async_result_complete_in_idle" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getOpResGboolean_ = _import "g_simple_async_result_get_op_res_gboolean" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -17,7 +16,6 @@ structure GioSimpleAsyncResult :>
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     fun asAsyncResult self = (GObjectObjectClass.C.withPtr ---> GioAsyncResultClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun isValid result source = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isValid_ (result & source)
     fun complete self = (GObjectObjectClass.C.withPtr ---> I) complete_ self
     fun completeInIdle self = (GObjectObjectClass.C.withPtr ---> I) completeInIdle_ self
     fun getOpResGboolean self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOpResGboolean_ self

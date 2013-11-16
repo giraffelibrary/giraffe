@@ -193,7 +193,6 @@ structure GdkWindow :>
       val getToplevel_ = call (load_sym libgdk "gdk_window_get_toplevel") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getTypeHint_ = call (load_sym libgdk "gdk_window_get_type_hint") (GObjectObjectClass.PolyML.PTR --> GdkWindowTypeHint.PolyML.VAL)
       val getUpdateArea_ = call (load_sym libgdk "gdk_window_get_update_area") (GObjectObjectClass.PolyML.PTR --> CairoRegionRecord.PolyML.PTR)
-      val getUserData_ = call (load_sym libgdk "gdk_window_get_user_data") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getVisibleRegion_ = call (load_sym libgdk "gdk_window_get_visible_region") (GObjectObjectClass.PolyML.PTR --> CairoRegionRecord.PolyML.PTR)
       val getVisual_ = call (load_sym libgdk "gdk_window_get_visual") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getWidth_ = call (load_sym libgdk "gdk_window_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
@@ -763,7 +762,6 @@ structure GdkWindow :>
     fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getToplevel_ self
     fun getTypeHint self = (GObjectObjectClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
     fun getUpdateArea self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getUpdateArea_ self
-    fun getUserData self = (GObjectObjectClass.C.withPtr ---> I) getUserData_ self
     fun getVisibleRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getVisibleRegion_ self
     fun getVisual self = (GObjectObjectClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self

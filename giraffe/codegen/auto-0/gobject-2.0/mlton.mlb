@@ -99,6 +99,7 @@ in
   mlton/GObjectClosure.sml
   mlton/GObjectBindingClass.sml
   mlton/GObjectInitiallyUnownedClass.sml
+  mlton/GObjectObject.sml
   mlton/GObjectParamSpec.sml
   mlton/GObjectParamSpecBooleanClass.sml
   mlton/GObjectParamSpecBoxedClass.sml
@@ -128,7 +129,6 @@ in
   mlton/Signal.sml
   mlton/GObjectBinding.sml
   mlton/GObjectInitiallyUnowned.sml
-  mlton/GObjectObject.sml
   mlton/GObjectParamSpecBoolean.sml
   mlton/GObjectParamSpecBoxed.sml
   mlton/GObjectParamSpecChar.sml

@@ -30,14 +30,6 @@ structure GioBufferedInputStream :>
           )
       val getAvailable_ = call (load_sym libgio "g_buffered_input_stream_get_available") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
       val getBufferSize_ = call (load_sym libgio "g_buffered_input_stream_get_buffer_size") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
-      val peek_ =
-        call (load_sym libgio "g_buffered_input_stream_peek")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> FFI.UInt64.PolyML.VAL
-             --> FFI.UInt64.PolyML.VAL
-          )
       val readByte_ =
         call (load_sym libgio "g_buffered_input_stream_read_byte")
           (
@@ -85,19 +77,6 @@ structure GioBufferedInputStream :>
         )
     fun getAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getAvailable_ self
     fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
-    fun peek self offset count =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
-         &&&> FFI.UInt64.C.withVal
-         ---> FFI.UInt64.C.fromVal
-      )
-        peek_
-        (
-          self
-           & offset
-           & count
-        )
     fun readByte self cancellable =
       (
         GObjectObjectClass.C.withPtr

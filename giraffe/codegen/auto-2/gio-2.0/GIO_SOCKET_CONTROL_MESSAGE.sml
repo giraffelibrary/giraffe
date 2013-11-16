@@ -5,5 +5,4 @@ signature GIO_SOCKET_CONTROL_MESSAGE =
     val getLevel : 'a class_t -> LargeInt.int
     val getMsgType : 'a class_t -> LargeInt.int
     val getSize : 'a class_t -> LargeInt.int
-    val serialize : 'a class_t -> unit
   end

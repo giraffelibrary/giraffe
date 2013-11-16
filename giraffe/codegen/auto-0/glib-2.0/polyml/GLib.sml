@@ -96,12 +96,6 @@ structure GLib : G_LIB =
              &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
-      val atomicPointerAdd_ = call (load_sym libglib "g_atomic_pointer_add") (FFI.Int64.PolyML.VAL --> FFI.Int64.PolyML.VAL)
-      val atomicPointerAnd_ = call (load_sym libglib "g_atomic_pointer_and") (FFI.UInt64.PolyML.VAL --> FFI.UInt64.PolyML.VAL)
-      val atomicPointerCompareAndExchange_ = call (load_sym libglib "g_atomic_pointer_compare_and_exchange") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val atomicPointerOr_ = call (load_sym libglib "g_atomic_pointer_or") (FFI.UInt64.PolyML.VAL --> FFI.UInt64.PolyML.VAL)
-      val atomicPointerSet_ = call (load_sym libglib "g_atomic_pointer_set") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val atomicPointerXor_ = call (load_sym libglib "g_atomic_pointer_xor") (FFI.UInt64.PolyML.VAL --> FFI.UInt64.PolyML.VAL)
       val basename_ = call (load_sym libglib "g_basename") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val bitNthLsf_ = call (load_sym libglib "g_bit_nth_lsf") (FFI.UInt64.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
       val bitNthMsf_ = call (load_sym libglib "g_bit_nth_msf") (FFI.UInt64.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
@@ -146,7 +140,6 @@ structure GLib : G_LIB =
       val datalistInit_ = call (load_sym libglib "g_datalist_init") (GLibDataRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val datalistSetFlags_ = call (load_sym libglib "g_datalist_set_flags") (GLibDataRecord.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
       val datalistUnsetFlags_ = call (load_sym libglib "g_datalist_unset_flags") (GLibDataRecord.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val datasetDestroy_ = call (load_sym libglib "g_dataset_destroy") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val dateGetDaysInMonth_ = call (load_sym libglib "g_date_get_days_in_month") (GLibDateMonth.PolyML.VAL &&> FFI.UInt16.PolyML.VAL --> FFI.UInt8.PolyML.VAL)
       val dateGetMondayWeeksInYear_ = call (load_sym libglib "g_date_get_monday_weeks_in_year") (FFI.UInt16.PolyML.VAL --> FFI.UInt8.PolyML.VAL)
       val dateGetSundayWeeksInYear_ = call (load_sym libglib "g_date_get_sunday_weeks_in_year") (FFI.UInt16.PolyML.VAL --> FFI.UInt8.PolyML.VAL)
@@ -160,9 +153,6 @@ structure GLib : G_LIB =
              &&> GLibDateRecord.PolyML.PTR
              --> FFI.UInt64.PolyML.VAL
           )
-      val dateTimeCompare_ = call (load_sym libglib "g_date_time_compare") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val dateTimeEqual_ = call (load_sym libglib "g_date_time_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val dateTimeHash_ = call (load_sym libglib "g_date_time_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val dateValidDay_ = call (load_sym libglib "g_date_valid_day") (FFI.UInt8.PolyML.VAL --> FFI.Bool.PolyML.VAL)
       val dateValidDmy_ =
         call (load_sym libglib "g_date_valid_dmy")
@@ -186,8 +176,6 @@ structure GLib : G_LIB =
           )
       val dgettext_ = call (load_sym libglib "g_dgettext") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val dirMakeTmp_ = call (load_sym libglib "g_dir_make_tmp") (FFI.String.PolyML.INOPTPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.String.PolyML.RETPTR)
-      val directEqual_ = call (load_sym libglib "g_direct_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val directHash_ = call (load_sym libglib "g_direct_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val dngettext_ =
         call (load_sym libglib "g_dngettext")
           (
@@ -197,8 +185,6 @@ structure GLib : G_LIB =
              &&> FFI.UInt64.PolyML.VAL
              --> FFI.String.PolyML.RETPTR
           )
-      val doubleEqual_ = call (load_sym libglib "g_double_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val doubleHash_ = call (load_sym libglib "g_double_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val dpgettext_ =
         call (load_sym libglib "g_dpgettext")
           (
@@ -287,12 +273,7 @@ structure GLib : G_LIB =
       val hostnameIsNonAscii_ = call (load_sym libglib "g_hostname_is_non_ascii") (FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val hostnameToAscii_ = call (load_sym libglib "g_hostname_to_ascii") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val hostnameToUnicode_ = call (load_sym libglib "g_hostname_to_unicode") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
-      val idleRemoveByData_ = call (load_sym libglib "g_idle_remove_by_data") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val idleSourceNew_ = call (load_sym libglib "g_idle_source_new") (FFI.PolyML.VOID --> GLibSourceRecord.PolyML.PTR)
-      val int64Equal_ = call (load_sym libglib "g_int64_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val int64Hash_ = call (load_sym libglib "g_int64_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val intEqual_ = call (load_sym libglib "g_int_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val intHash_ = call (load_sym libglib "g_int_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val internStaticString_ = call (load_sym libglib "g_intern_static_string") (FFI.String.PolyML.INOPTPTR --> FFI.String.PolyML.RETPTR)
       val internString_ = call (load_sym libglib "g_intern_string") (FFI.String.PolyML.INOPTPTR --> FFI.String.PolyML.RETPTR)
       val ioChannelErrorFromErrno_ = call (load_sym libglib "g_io_channel_error_from_errno") (FFI.Int32.PolyML.VAL --> GLibIOChannelError.PolyML.VAL)
@@ -300,15 +281,6 @@ structure GLib : G_LIB =
       val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.PTR &&> GLibIOCondition.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
       val keyFileErrorQuark_ = call (load_sym libglib "g_key_file_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val listPopAllocator_ = call (load_sym libglib "g_list_pop_allocator") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val listPushAllocator_ = call (load_sym libglib "g_list_push_allocator") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val logDefaultHandler_ =
-        call (load_sym libglib "g_log_default_handler")
-          (
-            FFI.String.PolyML.INPTR
-             &&> GLibLogLevelFlags.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
-             --> FFI.PolyML.VOID
-          )
       val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (FFI.String.PolyML.INPTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
       val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
       val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (FFI.String.PolyML.INPTR &&> GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
@@ -335,8 +307,6 @@ structure GLib : G_LIB =
              --> FFI.Int32.PolyML.VAL
           )
       val nodePopAllocator_ = call (load_sym libglib "g_node_pop_allocator") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val nodePushAllocator_ = call (load_sym libglib "g_node_push_allocator") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val nullifyPointer_ = call (load_sym libglib "g_nullify_pointer") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val onErrorQuery_ = call (load_sym libglib "g_on_error_query") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val onErrorStackTrace_ = call (load_sym libglib "g_on_error_stack_trace") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val optionErrorQuark_ = call (load_sym libglib "g_option_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
@@ -355,9 +325,6 @@ structure GLib : G_LIB =
           )
       val patternMatchSimple_ = call (load_sym libglib "g_pattern_match_simple") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val patternMatchString_ = call (load_sym libglib "g_pattern_match_string") (GLibPatternSpecRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val pointerBitLock_ = call (load_sym libglib "g_pointer_bit_lock") (FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val pointerBitTrylock_ = call (load_sym libglib "g_pointer_bit_trylock") (FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val pointerBitUnlock_ = call (load_sym libglib "g_pointer_bit_unlock") (FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
       val poll_ =
         call (load_sym libglib "g_poll")
           (
@@ -415,7 +382,6 @@ structure GLib : G_LIB =
           )
       val sequenceRemove_ = call (load_sym libglib "g_sequence_remove") (GLibSequenceIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val sequenceRemoveRange_ = call (load_sym libglib "g_sequence_remove_range") (GLibSequenceIterRecord.PolyML.PTR &&> GLibSequenceIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val sequenceSet_ = call (load_sym libglib "g_sequence_set") (GLibSequenceIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val sequenceSwap_ = call (load_sym libglib "g_sequence_swap") (GLibSequenceIterRecord.PolyML.PTR &&> GLibSequenceIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setApplicationName_ = call (load_sym libglib "g_set_application_name") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setPrgname_ = call (load_sym libglib "g_set_prgname") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
@@ -430,8 +396,6 @@ structure GLib : G_LIB =
       val shellErrorQuark_ = call (load_sym libglib "g_shell_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val shellQuote_ = call (load_sym libglib "g_shell_quote") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (FFI.String.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.String.PolyML.RETPTR)
-      val sliceFree1_ = call (load_sym libglib "g_slice_free1") (FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
-      val sliceFreeChainWithOffset_ = call (load_sym libglib "g_slice_free_chain_with_offset") (FFI.UInt64.PolyML.VAL &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
       val sliceGetConfig_ = call (load_sym libglib "g_slice_get_config") (GLibSliceConfig.PolyML.VAL --> FFI.Int64.PolyML.VAL)
       val sliceSetConfig_ = call (load_sym libglib "g_slice_set_config") (GLibSliceConfig.PolyML.VAL &&> FFI.Int64.PolyML.VAL --> FFI.PolyML.VOID)
       val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.UInt32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
@@ -441,10 +405,8 @@ structure GLib : G_LIB =
       val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (FFI.String.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val spawnErrorQuark_ = call (load_sym libglib "g_spawn_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val stpcpy_ = call (load_sym libglib "g_stpcpy") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
-      val strEqual_ = call (load_sym libglib "g_str_equal") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val strHasPrefix_ = call (load_sym libglib "g_str_has_prefix") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val strHasSuffix_ = call (load_sym libglib "g_str_has_suffix") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val strHash_ = call (load_sym libglib "g_str_hash") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
       val strcanon_ =
         call (load_sym libglib "g_strcanon")
           (
@@ -528,7 +490,6 @@ structure GLib : G_LIB =
       val testBugBase_ = call (load_sym libglib "g_test_bug_base") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val testFail_ = call (load_sym libglib "g_test_fail") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val testLogTypeName_ = call (load_sym libglib "g_test_log_type_name") (GLibTestLogType.PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val testQueueFree_ = call (load_sym libglib "g_test_queue_free") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val testRandDouble_ = call (load_sym libglib "g_test_rand_double") (FFI.PolyML.VOID --> FFI.Double.PolyML.VAL)
       val testRandDoubleRange_ = call (load_sym libglib "g_test_rand_double_range") (FFI.Double.PolyML.VAL &&> FFI.Double.PolyML.VAL --> FFI.Double.PolyML.VAL)
       val testRandInt_ = call (load_sym libglib "g_test_rand_int") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
@@ -553,7 +514,6 @@ structure GLib : G_LIB =
       val testTrapHasPassed_ = call (load_sym libglib "g_test_trap_has_passed") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val testTrapReachedTimeout_ = call (load_sym libglib "g_test_trap_reached_timeout") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val threadErrorQuark_ = call (load_sym libglib "g_thread_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val threadExit_ = call (load_sym libglib "g_thread_exit") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
       val threadGetInitialized_ = call (load_sym libglib "g_thread_get_initialized") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
       val threadInit_ = call (load_sym libglib "g_thread_init") (GLibThreadFunctionsRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val threadInitWithErrorcheckMutexes_ = call (load_sym libglib "g_thread_init_with_errorcheck_mutexes") (GLibThreadFunctionsRecord.PolyML.PTR --> FFI.PolyML.VOID)
@@ -567,7 +527,6 @@ structure GLib : G_LIB =
       val timeoutSourceNew_ = call (load_sym libglib "g_timeout_source_new") (FFI.UInt32.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
       val timeoutSourceNewSeconds_ = call (load_sym libglib "g_timeout_source_new_seconds") (FFI.UInt32.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
       val trashStackHeight_ = call (load_sym libglib "g_trash_stack_height") (GLibTrashStackRecord.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val trashStackPush_ = call (load_sym libglib "g_trash_stack_push") (GLibTrashStackRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val unicharBreakType_ = call (load_sym libglib "g_unichar_break_type") (FFI.Char.PolyML.VAL --> GLibUnicodeBreakType.PolyML.VAL)
       val unicharCombiningClass_ = call (load_sym libglib "g_unichar_combining_class") (FFI.Char.PolyML.VAL --> FFI.Int32.PolyML.VAL)
       val unicharDigitValue_ = call (load_sym libglib "g_unichar_digit_value") (FFI.Char.PolyML.VAL --> FFI.Int32.PolyML.VAL)
@@ -1058,12 +1017,6 @@ structure GLib : G_LIB =
            & func
            & expr
         )
-    fun atomicPointerAdd val' = (FFI.Int64.C.withVal ---> FFI.Int64.C.fromVal) atomicPointerAdd_ val'
-    fun atomicPointerAnd val' = (FFI.UInt64.C.withVal ---> FFI.UInt64.C.fromVal) atomicPointerAnd_ val'
-    fun atomicPointerCompareAndExchange () = (I ---> FFI.Bool.C.fromVal) atomicPointerCompareAndExchange_ ()
-    fun atomicPointerOr val' = (FFI.UInt64.C.withVal ---> FFI.UInt64.C.fromVal) atomicPointerOr_ val'
-    fun atomicPointerSet () = (I ---> I) atomicPointerSet_ ()
-    fun atomicPointerXor val' = (FFI.UInt64.C.withVal ---> FFI.UInt64.C.fromVal) atomicPointerXor_ val'
     fun basename fileName = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) basename_ fileName
     fun bitNthLsf mask nthBit = (FFI.UInt64.C.withVal &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) bitNthLsf_ (mask & nthBit)
     fun bitNthMsf mask nthBit = (FFI.UInt64.C.withVal &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) bitNthMsf_ (mask & nthBit)
@@ -1140,7 +1093,6 @@ structure GLib : G_LIB =
     fun datalistInit datalist = (GLibDataRecord.C.withPtr ---> I) datalistInit_ datalist
     fun datalistSetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) datalistSetFlags_ (datalist & flags)
     fun datalistUnsetFlags datalist flags = (GLibDataRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
-    fun datasetDestroy () = (I ---> I) datasetDestroy_ ()
     fun dateGetDaysInMonth month year = (GLibDateMonth.C.withVal &&&> FFI.UInt16.C.withVal ---> FFI.UInt8.C.fromVal) dateGetDaysInMonth_ (month & year)
     fun dateGetMondayWeeksInYear year = (FFI.UInt16.C.withVal ---> FFI.UInt8.C.fromVal) dateGetMondayWeeksInYear_ year
     fun dateGetSundayWeeksInYear year = (FFI.UInt16.C.withVal ---> FFI.UInt8.C.fromVal) dateGetSundayWeeksInYear_ year
@@ -1160,9 +1112,6 @@ structure GLib : G_LIB =
            & format
            & date
         )
-    fun dateTimeCompare () = (I ---> FFI.Int32.C.fromVal) dateTimeCompare_ ()
-    fun dateTimeEqual () = (I ---> FFI.Bool.C.fromVal) dateTimeEqual_ ()
-    fun dateTimeHash () = (I ---> FFI.UInt32.C.fromVal) dateTimeHash_ ()
     fun dateValidDay day = (FFI.UInt8.C.withVal ---> FFI.Bool.C.fromVal) dateValidDay_ day
     fun dateValidDmy day month year =
       (
@@ -1196,8 +1145,6 @@ structure GLib : G_LIB =
         )
     fun dgettext domain msgid = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) dgettext_ (domain & msgid)
     fun dirMakeTmp tmpl = (FFI.String.C.withConstOptPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.C.fromPtr true) dirMakeTmp_ (tmpl & [])
-    fun directEqual () = (I ---> FFI.Bool.C.fromVal) directEqual_ ()
-    fun directHash () = (I ---> FFI.UInt32.C.fromVal) directHash_ ()
     fun dngettext domain msgid msgidPlural n =
       (
         FFI.String.C.withConstPtr
@@ -1213,8 +1160,6 @@ structure GLib : G_LIB =
            & msgidPlural
            & n
         )
-    fun doubleEqual () = (I ---> FFI.Bool.C.fromVal) doubleEqual_ ()
-    fun doubleHash () = (I ---> FFI.UInt32.C.fromVal) doubleHash_ ()
     fun dpgettext domain msgctxtid msgidoffset =
       (
         FFI.String.C.withConstPtr
@@ -1338,12 +1283,7 @@ structure GLib : G_LIB =
     fun hostnameIsNonAscii hostname = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsNonAscii_ hostname
     fun hostnameToAscii hostname = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) hostnameToAscii_ hostname
     fun hostnameToUnicode hostname = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) hostnameToUnicode_ hostname
-    fun idleRemoveByData () = (I ---> FFI.Bool.C.fromVal) idleRemoveByData_ ()
     fun idleSourceNew () = (I ---> GLibSourceRecord.C.fromPtr true) idleSourceNew_ ()
-    fun int64Equal () = (I ---> FFI.Bool.C.fromVal) int64Equal_ ()
-    fun int64Hash () = (I ---> FFI.UInt32.C.fromVal) int64Hash_ ()
-    fun intEqual () = (I ---> FFI.Bool.C.fromVal) intEqual_ ()
-    fun intHash () = (I ---> FFI.UInt32.C.fromVal) intHash_ ()
     fun internStaticString string = (FFI.String.C.withConstOptPtr ---> FFI.String.C.fromPtr false) internStaticString_ string
     fun internString string = (FFI.String.C.withConstOptPtr ---> FFI.String.C.fromPtr false) internString_ string
     fun ioChannelErrorFromErrno en = (FFI.Int32.C.withVal ---> GLibIOChannelError.C.fromVal) ioChannelErrorFromErrno_ en
@@ -1351,20 +1291,6 @@ structure GLib : G_LIB =
     fun ioCreateWatch channel condition = (GLibIOChannelRecord.C.withPtr &&&> GLibIOCondition.C.withVal ---> GLibSourceRecord.C.fromPtr true) ioCreateWatch_ (channel & condition)
     fun keyFileErrorQuark () = (I ---> FFI.UInt32.C.fromVal) keyFileErrorQuark_ ()
     fun listPopAllocator () = (I ---> I) listPopAllocator_ ()
-    fun listPushAllocator () = (I ---> I) listPushAllocator_ ()
-    fun logDefaultHandler logDomain logLevel message =
-      (
-        FFI.String.C.withConstPtr
-         &&&> GLibLogLevelFlags.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         ---> I
-      )
-        logDefaultHandler_
-        (
-          logDomain
-           & logLevel
-           & message
-        )
     fun logRemoveHandler logDomain handlerId = (FFI.String.C.withConstPtr &&&> FFI.UInt32.C.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask logDomain fatalMask = (FFI.String.C.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
@@ -1396,8 +1322,6 @@ structure GLib : G_LIB =
            & mode
         )
     fun nodePopAllocator () = (I ---> I) nodePopAllocator_ ()
-    fun nodePushAllocator () = (I ---> I) nodePushAllocator_ ()
-    fun nullifyPointer () = (I ---> I) nullifyPointer_ ()
     fun onErrorQuery prgName = (FFI.String.C.withConstPtr ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (FFI.String.C.withConstPtr ---> I) onErrorStackTrace_ prgName
     fun optionErrorQuark () = (I ---> FFI.UInt32.C.fromVal) optionErrorQuark_ ()
@@ -1422,9 +1346,6 @@ structure GLib : G_LIB =
         )
     fun patternMatchSimple pattern string = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchSimple_ (pattern & string)
     fun patternMatchString pspec string = (GLibPatternSpecRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchString_ (pspec & string)
-    fun pointerBitLock lockBit = (FFI.Int32.C.withVal ---> I) pointerBitLock_ lockBit
-    fun pointerBitTrylock lockBit = (FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) pointerBitTrylock_ lockBit
-    fun pointerBitUnlock lockBit = (FFI.Int32.C.withVal ---> I) pointerBitUnlock_ lockBit
     fun poll fds nfds timeout =
       (
         GLibPollFDRecord.C.withPtr
@@ -1513,7 +1434,6 @@ structure GLib : G_LIB =
         )
     fun sequenceRemove iter = (GLibSequenceIterRecord.C.withPtr ---> I) sequenceRemove_ iter
     fun sequenceRemoveRange begin end' = (GLibSequenceIterRecord.C.withPtr &&&> GLibSequenceIterRecord.C.withPtr ---> I) sequenceRemoveRange_ (begin & end')
-    fun sequenceSet iter = (GLibSequenceIterRecord.C.withPtr ---> I) sequenceSet_ iter
     fun sequenceSwap a b = (GLibSequenceIterRecord.C.withPtr &&&> GLibSequenceIterRecord.C.withPtr ---> I) sequenceSwap_ (a & b)
     fun setApplicationName applicationName = (FFI.String.C.withConstPtr ---> I) setApplicationName_ applicationName
     fun setPrgname prgname = (FFI.String.C.withConstPtr ---> I) setPrgname_ prgname
@@ -1533,8 +1453,6 @@ structure GLib : G_LIB =
     fun shellErrorQuark () = (I ---> FFI.UInt32.C.fromVal) shellErrorQuark_ ()
     fun shellQuote unquotedString = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) shellQuote_ unquotedString
     fun shellUnquote quotedString = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.C.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sliceFree1 blockSize = (FFI.UInt64.C.withVal ---> I) sliceFree1_ blockSize
-    fun sliceFreeChainWithOffset blockSize nextOffset = (FFI.UInt64.C.withVal &&&> FFI.UInt64.C.withVal ---> I) sliceFreeChainWithOffset_ (blockSize & nextOffset)
     fun sliceGetConfig ckey = (GLibSliceConfig.C.withVal ---> FFI.Int64.C.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig ckey value = (GLibSliceConfig.C.withVal &&&> FFI.Int64.C.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun sourceRemove tag = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) sourceRemove_ tag
@@ -1544,10 +1462,8 @@ structure GLib : G_LIB =
     fun spawnCommandLineAsync commandLine = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun spawnErrorQuark () = (I ---> FFI.UInt32.C.fromVal) spawnErrorQuark_ ()
     fun stpcpy dest src = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) stpcpy_ (dest & src)
-    fun strEqual () = (I ---> FFI.Bool.C.fromVal) strEqual_ ()
     fun strHasPrefix str prefix = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasPrefix_ (str & prefix)
     fun strHasSuffix str suffix = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasSuffix_ (str & suffix)
-    fun strHash () = (I ---> FFI.UInt32.C.fromVal) strHash_ ()
     fun strcanon string validChars substitutor =
       (
         FFI.String.C.withConstPtr
@@ -1666,7 +1582,6 @@ structure GLib : G_LIB =
     fun testBugBase uriPattern = (FFI.String.C.withConstPtr ---> I) testBugBase_ uriPattern
     fun testFail () = (I ---> I) testFail_ ()
     fun testLogTypeName logType = (GLibTestLogType.C.withVal ---> FFI.String.C.fromPtr false) testLogTypeName_ logType
-    fun testQueueFree () = (I ---> I) testQueueFree_ ()
     fun testRandDouble () = (I ---> FFI.Double.C.fromVal) testRandDouble_ ()
     fun testRandDoubleRange rangeStart rangeEnd = (FFI.Double.C.withVal &&&> FFI.Double.C.withVal ---> FFI.Double.C.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
     fun testRandInt () = (I ---> FFI.Int32.C.fromVal) testRandInt_ ()
@@ -1699,7 +1614,6 @@ structure GLib : G_LIB =
     fun testTrapHasPassed () = (I ---> FFI.Bool.C.fromVal) testTrapHasPassed_ ()
     fun testTrapReachedTimeout () = (I ---> FFI.Bool.C.fromVal) testTrapReachedTimeout_ ()
     fun threadErrorQuark () = (I ---> FFI.UInt32.C.fromVal) threadErrorQuark_ ()
-    fun threadExit () = (I ---> I) threadExit_ ()
     fun threadGetInitialized () = (I ---> FFI.Bool.C.fromVal) threadGetInitialized_ ()
     fun threadInit vtable = (GLibThreadFunctionsRecord.C.withPtr ---> I) threadInit_ vtable
     fun threadInitWithErrorcheckMutexes vtable = (GLibThreadFunctionsRecord.C.withPtr ---> I) threadInitWithErrorcheckMutexes_ vtable
@@ -1713,7 +1627,6 @@ structure GLib : G_LIB =
     fun timeoutSourceNew interval = (FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNewSeconds_ interval
     fun trashStackHeight stackP = (GLibTrashStackRecord.C.withPtr ---> FFI.UInt32.C.fromVal) trashStackHeight_ stackP
-    fun trashStackPush stackP = (GLibTrashStackRecord.C.withPtr ---> I) trashStackPush_ stackP
     fun unicharBreakType c = (FFI.Char.C.withVal ---> GLibUnicodeBreakType.C.fromVal) unicharBreakType_ c
     fun unicharCombiningClass uc = (FFI.Char.C.withVal ---> FFI.Int32.C.fromVal) unicharCombiningClass_ uc
     fun unicharDigitValue c = (FFI.Char.C.withVal ---> FFI.Int32.C.fromVal) unicharDigitValue_ c

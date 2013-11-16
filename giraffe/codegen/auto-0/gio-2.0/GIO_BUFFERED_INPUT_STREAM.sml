@@ -21,11 +21,6 @@ signature GIO_BUFFERED_INPUT_STREAM =
        -> LargeInt.int
     val getAvailable : 'a class_t -> LargeInt.int
     val getBufferSize : 'a class_t -> LargeInt.int
-    val peek :
-      'a class_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
     val readByte :
       'a class_t
        -> 'b cancellableclass_t option

@@ -197,7 +197,6 @@ signature GIO =
     structure Credentials :
       GIO_CREDENTIALS
         where type 'a class_t = 'a CredentialsClass.t
-        where type credentialstype_t = CredentialsType.t
     structure DBusAuthObserver :
       GIO_D_BUS_AUTH_OBSERVER
         where type 'a class_t = 'a DBusAuthObserverClass.t
@@ -416,7 +415,6 @@ signature GIO =
     structure PollableInputStream :
       GIO_POLLABLE_INPUT_STREAM
         where type 'a class_t = 'a PollableInputStreamClass.t
-        where type 'a cancellableclass_t = 'a CancellableClass.t
     structure PollableOutputStream :
       GIO_POLLABLE_OUTPUT_STREAM
         where type 'a class_t = 'a PollableOutputStreamClass.t
@@ -439,6 +437,11 @@ signature GIO =
     structure SimpleAction :
       GIO_SIMPLE_ACTION
         where type 'a class_t = 'a SimpleActionClass.t
+        where type 'a actionclass_t = 'a ActionClass.t
+    structure SimpleActionGroup :
+      GIO_SIMPLE_ACTION_GROUP
+        where type 'a class_t = 'a SimpleActionGroupClass.t
+        where type 'a actiongroupclass_t = 'a ActionGroupClass.t
         where type 'a actionclass_t = 'a ActionClass.t
     structure SimpleAsyncResult :
       GIO_SIMPLE_ASYNC_RESULT
@@ -986,12 +989,10 @@ signature GIO =
     val dbusIsName : string -> bool
     val dbusIsSupportedAddress : string -> bool
     val dbusIsUniqueName : string -> bool
-    val fileHash : unit -> LargeInt.int
     val fileNewForCommandlineArg : string -> base FileClass.t
     val fileNewForPath : string -> base FileClass.t
     val fileNewForUri : string -> base FileClass.t
     val fileParseName : string -> base FileClass.t
-    val iconHash : unit -> LargeInt.int
     val iconNewForString : string -> base IconClass.t
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> LargeInt.int

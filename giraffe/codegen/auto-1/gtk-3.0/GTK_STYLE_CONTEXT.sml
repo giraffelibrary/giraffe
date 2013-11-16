@@ -36,7 +36,6 @@ signature GTK_STYLE_CONTEXT =
        -> string
        -> regionflags_t
        -> unit
-    val cancelAnimations : 'a class_t -> unit
     val getBackgroundColor :
       'a class_t
        -> stateflags_t
@@ -92,14 +91,7 @@ signature GTK_STYLE_CONTEXT =
       'a class_t
        -> string
        -> iconsetrecord_t
-    val notifyStateChange :
-      'a class_t
-       -> 'b Gdk.WindowClass.t
-       -> statetype_t
-       -> bool
-       -> unit
     val popAnimatableRegion : 'a class_t -> unit
-    val pushAnimatableRegion : 'a class_t -> unit
     val removeClass :
       'a class_t
        -> string

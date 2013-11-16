@@ -323,12 +323,6 @@ signature G_LIB =
        -> string
        -> string
        -> unit
-    val atomicPointerAdd : LargeInt.int -> LargeInt.int
-    val atomicPointerAnd : LargeInt.int -> LargeInt.int
-    val atomicPointerCompareAndExchange : unit -> bool
-    val atomicPointerOr : LargeInt.int -> LargeInt.int
-    val atomicPointerSet : unit -> unit
-    val atomicPointerXor : LargeInt.int -> LargeInt.int
     val basename : string -> string
     val bitNthLsf :
       LargeInt.int
@@ -375,7 +369,6 @@ signature G_LIB =
       DataRecord.t
        -> LargeInt.int
        -> unit
-    val datasetDestroy : unit -> unit
     val dateGetDaysInMonth :
       DateMonth.t
        -> LargeInt.int
@@ -389,9 +382,6 @@ signature G_LIB =
        -> string
        -> DateRecord.t
        -> LargeInt.int
-    val dateTimeCompare : unit -> LargeInt.int
-    val dateTimeEqual : unit -> bool
-    val dateTimeHash : unit -> LargeInt.int
     val dateValidDay : LargeInt.int -> bool
     val dateValidDmy :
       LargeInt.int
@@ -412,16 +402,12 @@ signature G_LIB =
        -> string
        -> string
     val dirMakeTmp : string option -> string
-    val directEqual : unit -> bool
-    val directHash : unit -> LargeInt.int
     val dngettext :
       string
        -> string
        -> string
        -> LargeInt.int
        -> string
-    val doubleEqual : unit -> bool
-    val doubleHash : unit -> LargeInt.int
     val dpgettext :
       string
        -> string
@@ -507,12 +493,7 @@ signature G_LIB =
     val hostnameIsNonAscii : string -> bool
     val hostnameToAscii : string -> string
     val hostnameToUnicode : string -> string
-    val idleRemoveByData : unit -> bool
     val idleSourceNew : unit -> SourceRecord.t
-    val int64Equal : unit -> bool
-    val int64Hash : unit -> LargeInt.int
-    val intEqual : unit -> bool
-    val intHash : unit -> LargeInt.int
     val internStaticString : string option -> string
     val internString : string option -> string
     val ioChannelErrorFromErrno : LargeInt.int -> IOChannelError.t
@@ -523,12 +504,6 @@ signature G_LIB =
        -> SourceRecord.t
     val keyFileErrorQuark : unit -> LargeInt.int
     val listPopAllocator : unit -> unit
-    val listPushAllocator : unit -> unit
-    val logDefaultHandler :
-      string
-       -> LogLevelFlags.t
-       -> string
-       -> unit
     val logRemoveHandler :
       string
        -> LargeInt.int
@@ -567,8 +542,6 @@ signature G_LIB =
        -> LargeInt.int
        -> LargeInt.int
     val nodePopAllocator : unit -> unit
-    val nodePushAllocator : unit -> unit
-    val nullifyPointer : unit -> unit
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
     val optionErrorQuark : unit -> LargeInt.int
@@ -590,9 +563,6 @@ signature G_LIB =
       PatternSpecRecord.t
        -> string
        -> bool
-    val pointerBitLock : LargeInt.int -> unit
-    val pointerBitTrylock : LargeInt.int -> bool
-    val pointerBitUnlock : LargeInt.int -> unit
     val poll :
       PollFDRecord.t
        -> LargeInt.int
@@ -646,7 +616,6 @@ signature G_LIB =
       SequenceIterRecord.t
        -> SequenceIterRecord.t
        -> unit
-    val sequenceSet : SequenceIterRecord.t -> unit
     val sequenceSwap :
       SequenceIterRecord.t
        -> SequenceIterRecord.t
@@ -661,11 +630,6 @@ signature G_LIB =
     val shellErrorQuark : unit -> LargeInt.int
     val shellQuote : string -> string
     val shellUnquote : string -> string
-    val sliceFree1 : LargeInt.int -> unit
-    val sliceFreeChainWithOffset :
-      LargeInt.int
-       -> LargeInt.int
-       -> unit
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
     val sliceSetConfig :
       SliceConfig.t
@@ -684,7 +648,6 @@ signature G_LIB =
       string
        -> string
        -> string
-    val strEqual : unit -> bool
     val strHasPrefix :
       string
        -> string
@@ -693,7 +656,6 @@ signature G_LIB =
       string
        -> string
        -> bool
-    val strHash : unit -> LargeInt.int
     val strcanon :
       string
        -> string
@@ -786,7 +748,6 @@ signature G_LIB =
     val testBugBase : string -> unit
     val testFail : unit -> unit
     val testLogTypeName : TestLogType.t -> string
-    val testQueueFree : unit -> unit
     val testRandDouble : unit -> real
     val testRandDoubleRange :
       real
@@ -817,7 +778,6 @@ signature G_LIB =
     val testTrapHasPassed : unit -> bool
     val testTrapReachedTimeout : unit -> bool
     val threadErrorQuark : unit -> LargeInt.int
-    val threadExit : unit -> unit
     val threadGetInitialized : unit -> bool
     val threadInit : ThreadFunctionsRecord.t -> unit
     val threadInitWithErrorcheckMutexes : ThreadFunctionsRecord.t -> unit
@@ -834,7 +794,6 @@ signature G_LIB =
     val timeoutSourceNew : LargeInt.int -> SourceRecord.t
     val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
     val trashStackHeight : TrashStackRecord.t -> LargeInt.int
-    val trashStackPush : TrashStackRecord.t -> unit
     val unicharBreakType : char -> UnicodeBreakType.t
     val unicharCombiningClass : char -> LargeInt.int
     val unicharDigitValue : char -> LargeInt.int

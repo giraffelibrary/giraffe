@@ -508,6 +508,7 @@ in
   mlton/GioResolver.sml
   mlton/GioSeekable.sml
   mlton/GioSimpleAction.sml
+  mlton/GioSimpleActionGroup.sml
   mlton/GioSimpleAsyncResult.sml
   mlton/GioSimplePermissionClass.sml
   mlton/GioSocketAddress.sml

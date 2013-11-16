@@ -5,7 +5,6 @@ signature G_LIB_MAIN_CONTEXT =
     type mutexrecord_t
     type pollfdrecord_t
     type sourcerecord_t
-    type sourcefuncsrecord_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val acquire : record_t -> bool
@@ -15,15 +14,10 @@ signature G_LIB_MAIN_CONTEXT =
        -> LargeInt.int
        -> unit
     val dispatch : record_t -> unit
-    val findSourceByFuncsUserData :
-      record_t
-       -> sourcefuncsrecord_t
-       -> sourcerecord_t
     val findSourceById :
       record_t
        -> LargeInt.int
        -> sourcerecord_t
-    val findSourceByUserData : record_t -> sourcerecord_t
     val isOwner : record_t -> bool
     val iteration :
       record_t

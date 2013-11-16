@@ -345,7 +345,6 @@ structure GdkWindow :>
     val getToplevel_ = _import "gdk_window_get_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getTypeHint_ = _import "gdk_window_get_type_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkWindowTypeHint.C.val_;
     val getUpdateArea_ = _import "gdk_window_get_update_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
-    val getUserData_ = _import "gdk_window_get_user_data" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getVisibleRegion_ = _import "gdk_window_get_visible_region" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
     val getVisual_ = _import "gdk_window_get_visual" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getWidth_ = _import "gdk_window_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
@@ -1117,7 +1116,6 @@ structure GdkWindow :>
     fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getToplevel_ self
     fun getTypeHint self = (GObjectObjectClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
     fun getUpdateArea self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getUpdateArea_ self
-    fun getUserData self = (GObjectObjectClass.C.withPtr ---> I) getUserData_ self
     fun getVisibleRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getVisibleRegion_ self
     fun getVisual self = (GObjectObjectClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self

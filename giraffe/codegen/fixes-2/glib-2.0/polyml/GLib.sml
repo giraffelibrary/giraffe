@@ -140,10 +140,10 @@ structure GLib : G_LIB =
           )
       val uriUnescapeString_ = call (load_sym libglib "g_uri_unescape_string") (FFI.String.PolyML.INPTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
     end
-    structure Quark = GLibQuark
     structure SourceFunc = GLibSourceFunc
     structure ChildWatchFunc = GLibChildWatchFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
+    structure Quark = GLibQuark
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError

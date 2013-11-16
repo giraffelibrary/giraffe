@@ -154,7 +154,6 @@ signature GDK_WINDOW =
     val getToplevel : 'a class_t -> base class_t
     val getTypeHint : 'a class_t -> windowtypehint_t
     val getUpdateArea : 'a class_t -> Cairo.RegionRecord.t
-    val getUserData : 'a class_t -> unit
     val getVisibleRegion : 'a class_t -> Cairo.RegionRecord.t
     val getVisual : 'a class_t -> base visualclass_t
     val getWidth : 'a class_t -> LargeInt.int

@@ -323,12 +323,10 @@ structure Gio : GIO =
               x3
             )
     val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val fileHash_ = _import "g_file_hash" : unit -> FFI.UInt32.C.val_;
     val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val fileNewForPath_ = _import "mlton_g_file_new_for_path" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val fileParseName_ = _import "mlton_g_file_parse_name" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val iconHash_ = _import "g_icon_hash" : unit -> FFI.UInt32.C.val_;
     val iconNewForString_ =
       fn
         (x1, x2) & x3 =>
@@ -645,6 +643,7 @@ structure Gio : GIO =
     structure Resolver = GioResolver
     structure Seekable = GioSeekable
     structure SimpleAction = GioSimpleAction
+    structure SimpleActionGroup = GioSimpleActionGroup
     structure SimpleAsyncResult = GioSimpleAsyncResult
     structure SimplePermissionClass = GioSimplePermissionClass
     structure SocketAddress = GioSocketAddress
@@ -987,12 +986,10 @@ structure Gio : GIO =
     fun dbusIsName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsName_ string
     fun dbusIsSupportedAddress string = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dbusIsSupportedAddress_ (string & [])
     fun dbusIsUniqueName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsUniqueName_ string
-    fun fileHash () = (I ---> FFI.UInt32.C.fromVal) fileHash_ ()
     fun fileNewForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForCommandlineArg_ arg
     fun fileNewForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForPath_ path
     fun fileNewForUri uri = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForUri_ uri
     fun fileParseName parseName = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileParseName_ parseName
-    fun iconHash () = (I ---> FFI.UInt32.C.fromVal) iconHash_ ()
     fun iconNewForString str = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioIconClass.C.fromPtr true) iconNewForString_ (str & [])
     fun ioErrorFromErrno errNo = (FFI.Int32.C.withVal ---> GioIOErrorEnum.C.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> FFI.UInt32.C.fromVal) ioErrorQuark_ ()

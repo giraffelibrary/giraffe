@@ -27,25 +27,6 @@ structure GioInputStream :>
           )
       val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val read_ =
-        call (load_sym libgio "g_input_stream_read")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
-          )
-      val readAll_ =
-        call (load_sym libgio "g_input_stream_read_all")
-          (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> FFI.UInt64.PolyML.REF
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
-          )
       val readFinish_ =
         call (load_sym libgio "g_input_stream_read_finish")
           (
@@ -106,43 +87,6 @@ structure GioInputStream :>
         )
     fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
     fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun read self count cancellable =
-      (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
-      )
-        read_
-        (
-          self
-           & count
-           & cancellable
-           & []
-        )
-    fun readAll self count cancellable =
-      let
-        val bytesRead & retVal =
-          (
-            GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.C.withVal
-             &&&> FFI.UInt64.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.Bool.C.fromVal
-          )
-            readAll_
-            (
-              self
-               & count
-               & 0
-               & cancellable
-               & []
-            )
-      in
-        if retVal then SOME bytesRead else NONE
-      end
     fun readFinish self result =
       (
         GObjectObjectClass.C.withPtr

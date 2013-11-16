@@ -41,6 +41,13 @@ signature G_OBJECT =
       G_OBJECT_INITIALLY_UNOWNED_CLASS
         where type 'a objectclass_t = 'a ObjectClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
+    structure Object :
+      G_OBJECT_OBJECT
+        where type 'a class_t = 'a ObjectClass.t
+        where type type_t = Type.t
+        where type valuerecord_t = ValueRecord.t
+        where type closurerecord_t = ClosureRecord.t
+        where type 'a paramspecclass_t = 'a ParamSpecClass.t
     structure ParamSpec :
       G_OBJECT_PARAM_SPEC
         where type 'a class_t = 'a ParamSpecClass.t
@@ -158,15 +165,6 @@ signature G_OBJECT =
       G_OBJECT_INITIALLY_UNOWNED
         where type 'a class_t = 'a InitiallyUnownedClass.t
         where type type_t = Type.t
-    structure Object :
-      G_OBJECT_OBJECT
-        where type 'a class_t = 'a ObjectClass.t
-        where type type_t = Type.t
-        where type 'a bindingclass_t = 'a BindingClass.t
-        where type bindingflags_t = BindingFlags.t
-        where type valuerecord_t = ValueRecord.t
-        where type closurerecord_t = ClosureRecord.t
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
     structure ParamSpecBoolean :
       G_OBJECT_PARAM_SPEC_BOOLEAN
         where type 'a class_t = 'a ParamSpecBooleanClass.t
