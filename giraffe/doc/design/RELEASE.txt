@@ -1,27 +1,50 @@
-# Take a copy of the source directory, breaking symbolic links
-#
-RELEASEDIR=/tmp/release/
-mkdir -p ${RELEASEDIR}
-cp -dprL ~/SML/Giraffe/devel/giraffe ${RELEASEDIR}
-cd ${RELEASEDIR}/giraffe/
+Steps to create a release archive.
+
+The version is specific by VERSION.
+REPODIR should be set to the root directory of the Git repo.
+
+  VERSION=1.0a3
+  REPODIR=~/SML/Giraffe/devel
 
 
-# Remove non-release components
-#
-rm -rf codegen graveyard doc/design
-rmdir doc/user_guide  # just for now
-rm auto/polyml/giraffe-gobject-introspection-1.0.c
+Create a temporary directory for the release image
+
+  RELEASEDIR=/tmp/release/
+  mkdir -p ${RELEASEDIR}
 
 
-# Edit Makefile to remove the line:
-#
-#         giraffe-gobject-introspection-1.0 \
+Copy source code to the release directory.  Either:
+
+ A. To create a formal release from a Git tag, extract the source code
+    with Git.  VERSION is used as the Git tag name.
+
+      cd ${REPODIR}
+      git archive ${VERSION} giraffe | tar -x -C ${RELEASEDIR}
 
 
-# Make TAR file
-#
+ B. To create an informal release from the working directory, take a copy
+    after cleaning up any generated files:
 
-cd ${RELEASEDIR}/
+      cd ${REPODIR}/giraffe
+      make cleanall
+      cp -dpr ${REPODIR}/giraffe ${RELEASEDIR}
 
-VERSION=1.0a1
-tar --owner=root --group=root -czf giraffe-${VERSION}.tar.gz giraffe
+
+Remove non-release components:
+
+  cd ${RELEASEDIR}/giraffe
+  rm -rf codegen codegen.x86 graveyard doc/design gir
+  rm -rf doc/user_guide  # just for now
+  rm -rf auto/girepository-2.0
+  rm auto/polyml/giraffe-gobject-introspection-1.0.c
+
+
+Edit Makefile to remove the line:
+
+        giraffe-gobject-introspection-1.0 \
+
+
+Make TAR file
+
+  cd ${RELEASEDIR}
+  tar --owner=root --group=root -czf giraffe-${VERSION}.tar.gz giraffe
