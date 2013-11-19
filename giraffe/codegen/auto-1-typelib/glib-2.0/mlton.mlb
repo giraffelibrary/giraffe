@@ -5,6 +5,7 @@ local
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
   G_LIB_QUARK.sml
+  G_LIB_PID.sml
   G_LIB_SOURCE_FUNC.sml
   G_LIB_CHILD_WATCH_FUNC.sml
   G_LIB_SPAWN_CHILD_SETUP_FUNC.sml
@@ -77,8 +78,8 @@ in
   G_LIB_VARIANT_PARSE_ERROR.sml
   G_LIB.sml
   mlton/GLibQuark.sml
+  mlton/GLibPid.sml
   mlton/GLibSourceFunc.sml
-  mlton/GLibChildWatchFunc.sml
   mlton/GLibSpawnChildSetupFunc.sml
   mlton/GLibAsciiType.sml
   mlton/GLibChecksumType.sml
@@ -126,6 +127,7 @@ in
   mlton/GLibUserDirectory.sml
   mlton/GLibVariantClass.sml
   mlton/GLibVariantParseError.sml
+  mlton/GLibChildWatchFunc.sml
   mlton/GLibIOFunc.sml
   mlton/GLibErrorRecord.sml
   mlton/GLibKeyFile.sml

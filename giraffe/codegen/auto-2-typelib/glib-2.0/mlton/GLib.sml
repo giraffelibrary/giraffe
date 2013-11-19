@@ -25,7 +25,7 @@ structure GLib : G_LIB =
           (
             _import "giraffe_g_child_watch_add" :
               FFI.Int.C.val_
-               * Pid.C.val_
+               * GLibPid.C.val_
                * GLibChildWatchFunc.C.callback
                -> FFI.UInt.C.val_;
           )
@@ -34,7 +34,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : Pid.C.val_ * GLibChildWatchFunc.C.callback -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
+    val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.C.val_ * GLibChildWatchFunc.C.callback -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
     val filenameFromUri_ =
       fn
         (x1, x2)
@@ -238,7 +238,7 @@ structure GLib : G_LIB =
                * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t  (* GCharVecVec.C.in_p *)
                * GLibSpawnFlags.C.val_
                * GLibSpawnChildSetupFunc.C.callback
-               * Pid.C.ref_
+               * GLibPid.C.ref_
                * FileDesc.C.ref_
                * FileDesc.C.ref_
                * FileDesc.C.ref_
@@ -262,7 +262,7 @@ structure GLib : G_LIB =
               x14,
               x15
             )
-    val spawnClosePid_ = _import "g_spawn_close_pid" : Pid.C.val_ -> unit;
+    val spawnClosePid_ = _import "g_spawn_close_pid" : GLibPid.C.val_ -> unit;
     val spawnCommandLineAsync_ =
       fn
         (x1, x2) & x3 =>
@@ -374,10 +374,10 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    structure SourceFunc = GLibSourceFunc
-    structure ChildWatchFunc = GLibChildWatchFunc
-    structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
     structure Quark = GLibQuark
+    structure Pid = GLibPid
+    structure SourceFunc = GLibSourceFunc
+    structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError
@@ -395,6 +395,7 @@ structure GLib : G_LIB =
     structure SourceRecord = GLibSourceRecord
     structure SpawnFlags = GLibSpawnFlags
     structure TimeValRecord = GLibTimeValRecord
+    structure ChildWatchFunc = GLibChildWatchFunc
     structure IOFunc = GLibIOFunc
     structure ErrorRecord = GLibErrorRecord
     structure KeyFile = GLibKeyFile
@@ -465,7 +466,7 @@ structure GLib : G_LIB =
     fun childWatchAdd priority pid function =
       (
         FFI.Int.C.withVal
-         &&&> Pid.C.withVal
+         &&&> GLibPid.C.withVal
          &&&> GLibChildWatchFunc.C.withCallback
          ---> FFI.UInt.C.fromVal
       )
@@ -475,7 +476,7 @@ structure GLib : G_LIB =
            & pid
            & function
         )
-    fun childWatchSourceNew pid function = (Pid.C.withVal &&&> GLibChildWatchFunc.C.withCallback ---> GLibSourceRecord.C.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew pid function = (GLibPid.C.withVal &&&> GLibChildWatchFunc.C.withCallback ---> GLibSourceRecord.C.fromPtr true) childWatchSourceNew_ (pid & function)
     fun filenameFromUri uri hostname =
       (
         FFI.String.C.withConstPtr
@@ -591,12 +592,12 @@ structure GLib : G_LIB =
              &&&> FFI.StringVector.C.withConstOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibSpawnChildSetupFunc.C.withCallback
-             &&&> Pid.C.withRefVal
+             &&&> GLibPid.C.withRefVal
              &&&> FileDesc.C.withRefVal
              &&&> FileDesc.C.withRefVal
              &&&> FileDesc.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> Pid.C.fromVal
+             ---> GLibPid.C.fromVal
                    && FileDesc.C.fromVal
                    && FileDesc.C.fromVal
                    && FileDesc.C.fromVal
@@ -609,7 +610,7 @@ structure GLib : G_LIB =
                & envp
                & flags
                & childSetup
-               & Pid.null
+               & GLibPid.null
                & FileDesc.null
                & FileDesc.null
                & FileDesc.null
@@ -618,7 +619,7 @@ structure GLib : G_LIB =
       in
         (childPid, standardInput, standardOutput, standardError)
       end
-    fun spawnClosePid pid = (Pid.C.withVal ---> I) spawnClosePid_ pid
+    fun spawnClosePid pid = (GLibPid.C.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun timeoutAdd priority interval function =
       (

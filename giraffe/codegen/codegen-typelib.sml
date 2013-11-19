@@ -10030,6 +10030,7 @@ val aTyVar : tyvar = (false, "a")
 (* GLib *)
 
 val quarkLocalType = toLocalType ([], ("GLib", "Quark", "t"))
+val pidLocalType = toLocalType ([], ("GLib", "Pid", "t"))
 val ioChannelRecordLocalType = toLocalType ([], ("GLib", "IOChannelRecord", "t"))
 val ioConditionLocalType = toLocalType ([], ("GLib", "IOCondition", "t"))
 
@@ -10053,6 +10054,7 @@ generate outDir repo ("GLib", "2.0")
   (
     [
       makeSig "G_LIB_QUARK" [],                     (* TYPELIB only *)
+      makeSig "G_LIB_PID" [],                       (* TYPELIB only *)
       makeSig "G_LIB_SOURCE_FUNC" [],
       makeSig "G_LIB_CHILD_WATCH_FUNC" [],
       makeSig "G_LIB_SPAWN_CHILD_SETUP_FUNC" [],
@@ -10060,8 +10062,10 @@ generate outDir repo ("GLib", "2.0")
     ],
     [
       makeStr ("GLib", "Quark", "G_LIB_QUARK") [],  (* TYPELIB only *)
+      makeStr ("GLib", "Pid", "G_LIB_PID") [],      (* TYPELIB only *)
       makeStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
-      makeStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC") [],
+      makeStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC")
+        [pidLocalType],
       makeStr ("GLib", "SpawnChildSetupFunc", "G_LIB_SPAWN_CHILD_SETUP_FUNC") [],
       makeStr ("GLib", "IOFunc", "G_LIB_I_O_FUNC")
         [ioChannelRecordLocalType, ioConditionLocalType],

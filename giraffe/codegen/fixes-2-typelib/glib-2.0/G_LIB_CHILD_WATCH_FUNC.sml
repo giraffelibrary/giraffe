@@ -1,6 +1,7 @@
 signature G_LIB_CHILD_WATCH_FUNC =
   sig
-    type t = Pid.t * LargeInt.int -> unit
+    type pid_t
+    type t = pid_t * LargeInt.int -> unit
 
     structure C :
       sig

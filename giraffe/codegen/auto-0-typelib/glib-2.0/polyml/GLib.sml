@@ -677,8 +677,8 @@ structure GLib : G_LIB =
           )
     end
     structure Quark = GLibQuark
+    structure Pid = GLibPid
     structure SourceFunc = GLibSourceFunc
-    structure ChildWatchFunc = GLibChildWatchFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
     structure AsciiType = GLibAsciiType
     structure ChecksumType = GLibChecksumType
@@ -726,6 +726,7 @@ structure GLib : G_LIB =
     structure UserDirectory = GLibUserDirectory
     structure VariantClass = GLibVariantClass
     structure VariantParseError = GLibVariantParseError
+    structure ChildWatchFunc = GLibChildWatchFunc
     structure IOFunc = GLibIOFunc
     structure ErrorRecord = GLibErrorRecord
     structure KeyFile = GLibKeyFile

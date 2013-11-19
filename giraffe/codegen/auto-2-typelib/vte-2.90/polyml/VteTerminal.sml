@@ -48,7 +48,7 @@ structure VteTerminal :>
              &&> FFI.StringVector.PolyML.INPTR
              &&> FFI.StringVector.PolyML.INOPTPTR
              &&> GLibSpawnFlags.PolyML.VAL
-             &&> Pid.PolyML.REF
+             &&> GLibPid.PolyML.REF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -196,7 +196,7 @@ structure VteTerminal :>
           )
       val setVisibleBell_ = call (load_sym libvte "vte_terminal_set_visible_bell") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setWordChars_ = call (load_sym libvte "vte_terminal_set_word_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val watchChild_ = call (load_sym libvte "vte_terminal_watch_child") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val watchChild_ = call (load_sym libvte "vte_terminal_watch_child") (GObjectObjectClass.PolyML.PTR &&> GLibPid.PolyML.VAL --> FFI.PolyML.VOID)
       val writeContents_ =
         call (load_sym libvte "vte_terminal_write_contents")
           (
@@ -271,9 +271,9 @@ structure VteTerminal :>
              &&&> FFI.StringVector.C.withConstPtr
              &&&> FFI.StringVector.C.withConstOptPtr
              &&&> GLibSpawnFlags.C.withVal
-             &&&> Pid.C.withRefVal
+             &&&> GLibPid.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> Pid.C.fromVal
+             ---> GLibPid.C.fromVal
                    && I
           )
             forkCommandFull_
@@ -284,7 +284,7 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
-               & Pid.null 
+               & GLibPid.null 
                & [GLibSpawnError.handler]
             )
       in
@@ -485,7 +485,7 @@ structure VteTerminal :>
         )
     fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
     fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setWordChars_ (self & spec)
-    fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) watchChild_ (self & childPid)
+    fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (
         GObjectObjectClass.C.withPtr

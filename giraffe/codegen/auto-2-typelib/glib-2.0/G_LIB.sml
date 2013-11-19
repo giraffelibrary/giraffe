@@ -1,9 +1,9 @@
 signature G_LIB =
   sig
-    structure SourceFunc : G_LIB_SOURCE_FUNC
-    structure ChildWatchFunc : G_LIB_CHILD_WATCH_FUNC
-    structure SpawnChildSetupFunc : G_LIB_SPAWN_CHILD_SETUP_FUNC
     structure Quark : G_LIB_QUARK
+    structure Pid : G_LIB_PID
+    structure SourceFunc : G_LIB_SOURCE_FUNC
+    structure SpawnChildSetupFunc : G_LIB_SPAWN_CHILD_SETUP_FUNC
     structure IOChannelRecord : G_LIB_I_O_CHANNEL_RECORD
     structure IOCondition : G_LIB_I_O_CONDITION
     structure IOError : G_LIB_I_O_ERROR
@@ -21,6 +21,9 @@ signature G_LIB =
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
     structure TimeValRecord : G_LIB_TIME_VAL_RECORD
+    structure ChildWatchFunc :
+      G_LIB_CHILD_WATCH_FUNC
+        where type pid_t = Pid.t
     structure IOFunc :
       G_LIB_I_O_FUNC
         where type iochannelrecord_t = IOChannelRecord.t

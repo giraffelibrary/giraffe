@@ -84,7 +84,7 @@ structure VteTerminal :>
                 * unit GCharVec.C.out_p array
                 * unit CPointer.t  (* unit FFI.StringVector.inp *)
              * GLibSpawnFlags.C.val_
-             * Pid.C.ref_
+             * GLibPid.C.ref_
              * (unit, unit) GLibErrorRecord.C.r
              -> FFI.Bool.C.val_;
         )
@@ -400,7 +400,7 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibPid.C.val_ -> unit;) (x1, x2)
     val writeContents_ =
       fn
         x1
@@ -487,9 +487,9 @@ structure VteTerminal :>
              &&&> FFI.StringVector.C.withConstPtr
              &&&> FFI.StringVector.C.withConstOptPtr
              &&&> GLibSpawnFlags.C.withVal
-             &&&> Pid.C.withRefVal
+             &&&> GLibPid.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> Pid.C.fromVal
+             ---> GLibPid.C.fromVal
                    && I
           )
             forkCommandFull_
@@ -500,7 +500,7 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
-               & Pid.null 
+               & GLibPid.null 
                & [GLibSpawnError.handler]
             )
       in
@@ -701,7 +701,7 @@ structure VteTerminal :>
         )
     fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
     fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setWordChars_ (self & spec)
-    fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) watchChild_ (self & childPid)
+    fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (
         GObjectObjectClass.C.withPtr

@@ -1,6 +1,7 @@
 signature F_F_I_SCALAR =
   sig
     type t
+    val null : t
     structure C :
       sig
         type val_

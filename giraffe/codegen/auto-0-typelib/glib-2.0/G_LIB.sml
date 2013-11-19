@@ -1,8 +1,8 @@
 signature G_LIB =
   sig
     structure Quark : G_LIB_QUARK
+    structure Pid : G_LIB_PID
     structure SourceFunc : G_LIB_SOURCE_FUNC
-    structure ChildWatchFunc : G_LIB_CHILD_WATCH_FUNC
     structure SpawnChildSetupFunc : G_LIB_SPAWN_CHILD_SETUP_FUNC
     structure AsciiType : G_LIB_ASCII_TYPE
     structure ChecksumType : G_LIB_CHECKSUM_TYPE
@@ -50,6 +50,9 @@ signature G_LIB =
     structure UserDirectory : G_LIB_USER_DIRECTORY
     structure VariantClass : G_LIB_VARIANT_CLASS
     structure VariantParseError : G_LIB_VARIANT_PARSE_ERROR
+    structure ChildWatchFunc :
+      G_LIB_CHILD_WATCH_FUNC
+        where type pid_t = Pid.t
     structure IOFunc :
       G_LIB_I_O_FUNC
         where type iochannelrecord_t = IOChannelRecord.t

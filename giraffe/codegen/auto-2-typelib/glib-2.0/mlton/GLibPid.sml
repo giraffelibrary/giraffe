@@ -1,14 +1,11 @@
-structure Pid :>
-  sig
-    include PID
-  end =
+structure GLibPid :> G_LIB_PID =
   struct
     type t = Posix.Process.pid
 
-    val null = Posix.Process.wordToPid 0w0
-
     val intToPid = Posix.Process.wordToPid o SysWord.fromLargeInt
     val pidToInt = SysWord.toLargeInt o Posix.Process.pidToWord
+
+    val null = intToPid FFI.Int32.null
 
     structure C =
       struct

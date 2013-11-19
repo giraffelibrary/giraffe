@@ -36,7 +36,7 @@ signature VTE_TERMINAL =
        -> string list
        -> string list option
        -> GLib.SpawnFlags.t
-       -> Pid.t
+       -> GLib.Pid.t
     val getAllowBold : 'a class_t -> bool
     val getAudibleBell : 'a class_t -> bool
     val getCharHeight : 'a class_t -> LargeInt.int
@@ -277,7 +277,7 @@ signature VTE_TERMINAL =
        -> unit
     val watchChild :
       'a class_t
-       -> LargeInt.int
+       -> GLib.Pid.t
        -> unit
     val writeContents :
       'a class_t

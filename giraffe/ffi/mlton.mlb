@@ -11,7 +11,6 @@ in
   HighLevelFFI.sml
   POINTER.sml
   C_ARRAY.sml
-  PID.sml
   FILE_DESC.sml
   mlton/CString.sml
   mlton/CPointer.sml
@@ -23,6 +22,5 @@ in
   mlton/F_F_I_FLAGS_ENUM.sml
   mlton/F_F_I.sml
   mlton/FFI.sml
-  mlton/Pid.sml
   mlton/FileDesc.sml
 end
