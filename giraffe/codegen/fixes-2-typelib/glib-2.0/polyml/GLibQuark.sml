@@ -5,22 +5,11 @@ structure GLibQuark :>
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
+        val REF : C.ref_ CInterface.Conversion
       end
   end =
   struct
-    structure C =
-      struct
-        type val_ = int
-        fun withVal f = f
-        fun fromVal w = w
-      end
-
-    structure PolyML =
-      struct
-        val VAL = CInterface.UINT
-      end
-
-    type t = int
+    open FFI.UInt32
 
     local
       open PolyMLFFI
