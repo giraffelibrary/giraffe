@@ -92,8 +92,8 @@ structure GdkDisplay :>
             getMaximalCursorSize_
             (
               self
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.UInt32.null
             )
       in
         (width, height)

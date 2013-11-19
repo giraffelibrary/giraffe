@@ -651,7 +651,7 @@ structure GioDBusConnection :>
               self
                & message
                & flags
-               & 0
+               & FFI.UInt32.null
                & []
             )
       in
@@ -689,7 +689,7 @@ structure GioDBusConnection :>
                & message
                & flags
                & timeoutMsec
-               & 0
+               & FFI.UInt32.null
                & cancellable
                & []
             )

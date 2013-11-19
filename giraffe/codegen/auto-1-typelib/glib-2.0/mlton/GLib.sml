@@ -2481,8 +2481,8 @@ structure GLib : G_LIB =
                & len
                & toCodeset
                & fromCodeset
-               & 0
-               & 0
+               & FFI.UInt64.null
+               & FFI.UInt64.null
                & []
             )
       in
@@ -2785,7 +2785,7 @@ structure GLib : G_LIB =
             regexCheckReplacement_
             (
               replacement
-               & false
+               & FFI.Bool.null
                & []
             )
       in

@@ -189,7 +189,7 @@ structure Pango : PANGO =
                & accelMarker
                & NONE
                & NONE
-               & #"\^@"
+               & FFI.Char.null
                & []
             )
       in

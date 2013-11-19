@@ -716,6 +716,7 @@ val valId : id = "val_"
 val refId : id = "ref_"
 val selfId = "self"
 val flagsId : id = "flags"
+val nullId : id = "null"
 val CId : id = "C"
 val FFIId : id = "FFI"
 val withValId : id = "withVal"
@@ -1790,28 +1791,6 @@ in
     | STUNICHAR      => charTyRef
 end
 
-local
-  (* Initial argument values for OUT parameters *)
-  val int0Exp = ExpConst (ConstInt (0, NONE))
-  val real0Exp = ExpConst (ConstReal (0, 0, NONE))
-  val char0Exp = ExpConst (ConstChar #"\000")
-in
-  val initValExp =
-    fn
-      STBOOLEAN      => falseExp
-    | STINT8         => int0Exp
-    | STUINT8        => int0Exp
-    | STINT16        => int0Exp
-    | STUINT16       => int0Exp
-    | STINT32        => int0Exp
-    | STUINT32       => int0Exp
-    | STINT64        => int0Exp
-    | STUINT64       => int0Exp
-    | STFLOAT        => real0Exp
-    | STDOUBLE       => real0Exp
-    | STUNICHAR      => char0Exp
-end
-
 
 val stringTyRef : int * lid = (0, toList1 ["string"])
 
@@ -2801,7 +2780,7 @@ local
 
   fun argValScalar (dir, {ty, name, ...} : scalarinfo) =
     case dir of
-      OUT _ => initValExp ty
+      OUT _ => mkLIdLNameExp [FFIId, scalarStrId ty, nullId]
     | _     => mkIdLNameExp name
 
   fun argValUtf8 (dir, {name, ...} : utf8info) =
@@ -8393,7 +8372,6 @@ end
 val EnumId : id = "Enum"
 val enumValTy : ty = mkLIdTy [FFIId, EnumId, CId, valId]
 val enumRefTy : ty = mkLIdTy [FFIId, EnumId, CId, refId]
-val nullId : id = "null"
 val valueId : id = "Value"
 
 (*

@@ -206,7 +206,7 @@ structure GioDataInputStream :>
             (
               self
                & result
-               & 0
+               & FFI.UInt64.null
                & []
             )
       in
@@ -225,7 +225,7 @@ structure GioDataInputStream :>
             readLineUtf8_
             (
               self
-               & 0
+               & FFI.UInt64.null
                & cancellable
                & []
             )
@@ -286,7 +286,7 @@ structure GioDataInputStream :>
             (
               self
                & stopChars
-               & 0
+               & FFI.UInt64.null
                & cancellable
                & []
             )
@@ -307,7 +307,7 @@ structure GioDataInputStream :>
             (
               self
                & result
-               & 0
+               & FFI.UInt64.null
                & []
             )
       in
@@ -330,7 +330,7 @@ structure GioDataInputStream :>
               self
                & stopChars
                & stopCharsLen
-               & 0
+               & FFI.UInt64.null
                & cancellable
                & []
             )
@@ -351,7 +351,7 @@ structure GioDataInputStream :>
             (
               self
                & result
-               & 0
+               & FFI.UInt64.null
                & []
             )
       in

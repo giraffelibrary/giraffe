@@ -243,7 +243,7 @@ structure GtkImage :>
             (
               self
                & NONE
-               & 0
+               & FFI.Int32.null
             )
       in
         (gicon, size)
@@ -265,7 +265,7 @@ structure GtkImage :>
             (
               self
                & NONE
-               & 0
+               & FFI.Int32.null
             )
       in
         (iconName, size)
@@ -287,7 +287,7 @@ structure GtkImage :>
             (
               self
                & NONE
-               & 0
+               & FFI.Int32.null
             )
       in
         (iconSet, size)
@@ -311,7 +311,7 @@ structure GtkImage :>
             (
               self
                & NONE
-               & 0
+               & FFI.Int32.null
             )
       in
         (stockId, size)

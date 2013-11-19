@@ -1566,7 +1566,7 @@ structure Gtk :
             acceleratorParse_
             (
               accelerator
-               & 0
+               & FFI.UInt32.null
                & GdkModifierType.flags []
             )
       in
@@ -1769,8 +1769,8 @@ structure Gtk :
             iconSizeLookup_
             (
               size
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -1793,8 +1793,8 @@ structure Gtk :
             (
               settings
                & size
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -2725,9 +2725,9 @@ structure Gtk :
               r
                & g
                & b
-               & 0.0
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (

@@ -76,7 +76,7 @@ structure GtkIconInfo :>
                & successColor
                & warningColor
                & errorColor
-               & false
+               & FFI.Bool.null
                & []
             )
       in
@@ -96,7 +96,7 @@ structure GtkIconInfo :>
             (
               self
                & context
-               & false
+               & FFI.Bool.null
                & []
             )
       in

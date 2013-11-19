@@ -150,8 +150,8 @@ structure GtkEditable :>
             getSelectionBounds_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE

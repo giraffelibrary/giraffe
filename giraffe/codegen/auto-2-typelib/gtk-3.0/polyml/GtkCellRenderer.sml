@@ -237,8 +237,8 @@ structure GtkCellRenderer :>
             getAlignment_
             (
               self
-               & 0.0
-               & 0.0
+               & FFI.Float.null
+               & FFI.Float.null
             )
       in
         (xalign, yalign)
@@ -259,8 +259,8 @@ structure GtkCellRenderer :>
             getFixedSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -281,8 +281,8 @@ structure GtkCellRenderer :>
             getPadding_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (xpad, ypad)
@@ -305,8 +305,8 @@ structure GtkCellRenderer :>
             (
               self
                & widget
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumSize, naturalSize)
@@ -331,8 +331,8 @@ structure GtkCellRenderer :>
               self
                & widget
                & width
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -379,8 +379,8 @@ structure GtkCellRenderer :>
             (
               self
                & widget
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumSize, naturalSize)
@@ -405,8 +405,8 @@ structure GtkCellRenderer :>
               self
                & widget
                & height
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)

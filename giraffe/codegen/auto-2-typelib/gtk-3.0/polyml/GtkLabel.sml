@@ -111,8 +111,8 @@ structure GtkLabel :>
             getLayoutOffsets_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (x, y)
@@ -139,8 +139,8 @@ structure GtkLabel :>
             getSelectionBounds_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (start, end') else NONE

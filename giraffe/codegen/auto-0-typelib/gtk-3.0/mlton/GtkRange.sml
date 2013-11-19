@@ -125,8 +125,8 @@ structure GtkRange :>
             getSliderRange_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (sliderStart, sliderEnd)

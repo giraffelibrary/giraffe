@@ -741,8 +741,8 @@ structure GtkCellArea :>
               self
                & context
                & widget
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -769,8 +769,8 @@ structure GtkCellArea :>
                & context
                & widget
                & width
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -795,8 +795,8 @@ structure GtkCellArea :>
               self
                & context
                & widget
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -823,8 +823,8 @@ structure GtkCellArea :>
                & context
                & widget
                & height
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -926,8 +926,8 @@ structure GtkCellArea :>
                & orientation
                & widget
                & forSize
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumSize, naturalSize)

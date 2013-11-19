@@ -478,7 +478,7 @@ structure VteTerminal :>
               self
                & column
                & row
-               & 0
+               & FFI.Int32.null
             )
       in
         (retVal, tag)

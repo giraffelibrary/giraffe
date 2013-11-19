@@ -86,10 +86,10 @@ structure GtkPrintContext :>
             getHardMargins_
             (
               self
-               & 0.0
-               & 0.0
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         if retVal

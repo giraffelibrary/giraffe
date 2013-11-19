@@ -289,7 +289,7 @@ structure GtkThemingEngine :>
             (
               self
                & state
-               & 0.0
+               & FFI.Double.null
             )
       in
         if retVal then SOME progress else NONE

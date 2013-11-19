@@ -66,8 +66,8 @@ structure VtePty :>
             getSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
                & []
             )
       in

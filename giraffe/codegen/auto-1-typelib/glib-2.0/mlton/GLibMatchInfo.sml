@@ -123,8 +123,8 @@ structure GLibMatchInfo :>
             (
               self
                & name
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE
@@ -147,8 +147,8 @@ structure GLibMatchInfo :>
             (
               self
                & matchNum
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE

@@ -20,23 +20,6 @@ structure FFI :> F_F_I =
 
 
         (**
-         * Pointer
-         *)
-        structure Pointer =
-          struct
-            type val_ = CPointer.notnull CPointer.t
-            type ref_ = val_ ref
-            val withVal = I
-            val withRefVal
-              : (ref_ -> 'a)
-                 -> CPointer.notnull CPointer.t
-                 -> (CPointer.notnull CPointer.t, 'a) pair =
-              withRef
-            val fromVal = I
-          end
-
-
-        (**
          * OptPointer
          *)
         structure OptPointer =
@@ -455,21 +438,12 @@ structure FFI :> F_F_I =
 
 
     (**
-     * Pointer
-     *)
-    structure Pointer =
-      struct
-        type t = CPointer.notnull CPointer.t
-        structure C = C.Pointer
-      end
-
-
-    (**
      * OptPointer
      *)
     structure OptPointer =
       struct
         type t = unit CPointer.t
+        val null = CPointer.null
         structure C = C.OptPointer
       end
 
@@ -480,6 +454,7 @@ structure FFI :> F_F_I =
     structure Char =
       struct
         type t = char
+        val null = #"\000"
         structure C = C.Char
       end
 
@@ -490,6 +465,7 @@ structure FFI :> F_F_I =
     structure Short =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Short
       end
 
@@ -500,6 +476,7 @@ structure FFI :> F_F_I =
     structure UShort =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UShort
       end
 
@@ -510,6 +487,7 @@ structure FFI :> F_F_I =
     structure Int =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int
       end
 
@@ -520,6 +498,7 @@ structure FFI :> F_F_I =
     structure UInt =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt
       end
 
@@ -530,6 +509,7 @@ structure FFI :> F_F_I =
     structure Long =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Long
       end
 
@@ -540,6 +520,7 @@ structure FFI :> F_F_I =
     structure ULong =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.ULong
       end
 
@@ -550,6 +531,7 @@ structure FFI :> F_F_I =
     structure Bool =
       struct
         type t = bool
+        val null = false
         structure C = C.Bool
       end
 
@@ -560,6 +542,7 @@ structure FFI :> F_F_I =
     structure Int8 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int8
       end
 
@@ -570,6 +553,7 @@ structure FFI :> F_F_I =
     structure UInt8 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt8
       end
 
@@ -580,6 +564,7 @@ structure FFI :> F_F_I =
     structure Int16 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int16
       end
 
@@ -590,6 +575,7 @@ structure FFI :> F_F_I =
     structure UInt16 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt16
       end
 
@@ -600,6 +586,7 @@ structure FFI :> F_F_I =
     structure Int32 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int32
       end
 
@@ -610,6 +597,7 @@ structure FFI :> F_F_I =
     structure UInt32 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt32
       end
 
@@ -620,6 +608,7 @@ structure FFI :> F_F_I =
     structure Int64 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int64
       end
 
@@ -630,6 +619,7 @@ structure FFI :> F_F_I =
     structure UInt64 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt64
       end
 
@@ -640,6 +630,7 @@ structure FFI :> F_F_I =
     structure SSize =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.SSize
       end
 
@@ -650,6 +641,7 @@ structure FFI :> F_F_I =
     structure Size =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Size
       end
 
@@ -660,6 +652,7 @@ structure FFI :> F_F_I =
     structure Float =
       struct
         type t = real
+        val null = 0.0
         structure C = C.Float
       end
 
@@ -670,6 +663,7 @@ structure FFI :> F_F_I =
     structure Double =
       struct
         type t = real
+        val null = 0.0
         structure C = C.Double
       end
 

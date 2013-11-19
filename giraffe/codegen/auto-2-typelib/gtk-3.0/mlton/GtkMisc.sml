@@ -93,8 +93,8 @@ structure GtkMisc :>
             getAlignment_
             (
               self
-               & 0.0
-               & 0.0
+               & FFI.Float.null
+               & FFI.Float.null
             )
       in
         (xalign, yalign)
@@ -115,8 +115,8 @@ structure GtkMisc :>
             getPadding_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (xpad, ypad)

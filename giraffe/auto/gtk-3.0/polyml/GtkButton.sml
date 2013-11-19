@@ -79,8 +79,8 @@ structure GtkButton :>
             getAlignment_
             (
               self
-               & 0.0
-               & 0.0
+               & FFI.Float.null
+               & FFI.Float.null
             )
       in
         (xalign, yalign)

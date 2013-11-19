@@ -1084,7 +1084,7 @@ structure GtkWidget :>
             classPath_
             (
               self
-               & 0
+               & FFI.UInt32.null
                & NONE
                & NONE
             )
@@ -1264,8 +1264,8 @@ structure GtkWidget :>
             getPointer_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (x, y)
@@ -1286,8 +1286,8 @@ structure GtkWidget :>
             getPreferredHeight_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -1310,8 +1310,8 @@ structure GtkWidget :>
             (
               self
                & width
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -1354,8 +1354,8 @@ structure GtkWidget :>
             getPreferredWidth_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -1378,8 +1378,8 @@ structure GtkWidget :>
             (
               self
                & height
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -1407,8 +1407,8 @@ structure GtkWidget :>
             getSizeRequest_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -1589,7 +1589,7 @@ structure GtkWidget :>
             path_
             (
               self
-               & 0
+               & FFI.UInt32.null
                & NONE
                & NONE
             )
@@ -1801,8 +1801,8 @@ structure GtkWidget :>
                & destWidget
                & srcX
                & srcY
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (destX, destY) else NONE

@@ -116,8 +116,8 @@ structure GtkIconSize :>
             lookup_
             (
               size
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -140,8 +140,8 @@ structure GtkIconSize :>
             (
               settings
                & size
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (width, height) else NONE

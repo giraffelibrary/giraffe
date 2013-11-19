@@ -138,9 +138,9 @@ structure GtkBox :>
             (
               self
                & child
-               & false
-               & false
-               & 0
+               & FFI.Bool.null
+               & FFI.Bool.null
+               & FFI.UInt32.null
                & GtkPackType.null
             )
       in

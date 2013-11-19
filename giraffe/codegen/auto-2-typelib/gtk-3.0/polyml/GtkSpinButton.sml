@@ -167,8 +167,8 @@ structure GtkSpinButton :>
             getIncrements_
             (
               self
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (step, page)
@@ -190,8 +190,8 @@ structure GtkSpinButton :>
             getRange_
             (
               self
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (min, max)

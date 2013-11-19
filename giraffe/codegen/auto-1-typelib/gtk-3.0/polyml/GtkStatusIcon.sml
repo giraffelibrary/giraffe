@@ -94,9 +94,9 @@ structure GtkStatusIcon :>
             positionMenu_
             (
               menu
-               & 0
-               & 0
-               & false
+               & FFI.Int32.null
+               & FFI.Int32.null
+               & FFI.Bool.null
                & userData
             )
       in

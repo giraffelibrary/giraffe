@@ -457,8 +457,8 @@ structure GtkTextView :>
                & win
                & bufferX
                & bufferY
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (windowX, windowY)
@@ -535,7 +535,7 @@ structure GtkTextView :>
             (
               self
                & ()
-               & 0
+               & FFI.Int32.null
                & x
                & y
             )
@@ -581,7 +581,7 @@ structure GtkTextView :>
               self
                & ()
                & y
-               & 0
+               & FFI.Int32.null
             )
       in
         (targetIter, lineTop)
@@ -604,8 +604,8 @@ structure GtkTextView :>
             (
               self
                & iter
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (y, height)
@@ -746,8 +746,8 @@ structure GtkTextView :>
                & win
                & windowX
                & windowY
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (bufferX, bufferY)

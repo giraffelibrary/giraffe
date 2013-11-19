@@ -104,7 +104,7 @@ structure PangoLayoutLine :>
               self
                & index
                & trailing
-               & 0
+               & FFI.Int32.null
             )
       in
         xPos
@@ -127,8 +127,8 @@ structure PangoLayoutLine :>
             (
               self
                & xPos
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (index, trailing) else NONE

@@ -380,8 +380,8 @@ structure PangoLayout :>
             getPixelSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -403,8 +403,8 @@ structure PangoLayout :>
             getSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -435,8 +435,8 @@ structure PangoLayout :>
               self
                & index
                & trailing
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (line, xPos)
@@ -498,7 +498,7 @@ structure PangoLayout :>
                & markup
                & length
                & accelMarker
-               & #"\^@"
+               & FFI.Char.null
             )
       in
         accelChar
@@ -541,8 +541,8 @@ structure PangoLayout :>
               self
                & x
                & y
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (index, trailing) else NONE

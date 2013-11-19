@@ -57,7 +57,7 @@ structure PangoTabArray :>
               self
                & tabIndex
                & PangoTabAlign.null
-               & 0
+               & FFI.Int32.null
             )
       in
         (alignment, location)

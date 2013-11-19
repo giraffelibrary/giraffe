@@ -180,8 +180,8 @@ structure GtkCellAreaContext :>
             getAllocation_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -203,8 +203,8 @@ structure GtkCellAreaContext :>
             getPreferredHeight_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -227,8 +227,8 @@ structure GtkCellAreaContext :>
             (
               self
                & width
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -249,8 +249,8 @@ structure GtkCellAreaContext :>
             getPreferredWidth_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -273,8 +273,8 @@ structure GtkCellAreaContext :>
             (
               self
                & height
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (minimumWidth, naturalWidth)

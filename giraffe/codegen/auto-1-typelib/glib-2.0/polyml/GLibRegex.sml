@@ -139,7 +139,7 @@ structure GLibRegex :>
             checkReplacement_
             (
               replacement
-               & false
+               & FFI.Bool.null
                & []
             )
       in

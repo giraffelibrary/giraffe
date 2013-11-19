@@ -139,7 +139,7 @@ structure GdkDevice :>
               display
                & device
                & NONE
-               & false
+               & FFI.Bool.null
             )
       in
         if retVal then SOME (grabWindow, ownerEvents) else NONE
@@ -167,7 +167,7 @@ structure GdkDevice :>
             (
               self
                & index
-               & 0
+               & FFI.UInt32.null
                & GdkModifierType.flags []
             )
       in
@@ -197,8 +197,8 @@ structure GdkDevice :>
             (
               self
                & NONE
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (
@@ -224,8 +224,8 @@ structure GdkDevice :>
             getWindowAtPosition_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (

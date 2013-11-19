@@ -224,8 +224,8 @@ structure GtkIconView :>
               self
                & wx
                & wy
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (bx, by)

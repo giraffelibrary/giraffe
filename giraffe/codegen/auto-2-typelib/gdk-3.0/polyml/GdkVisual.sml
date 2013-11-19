@@ -82,9 +82,9 @@ structure GdkVisual :>
             getBluePixelDetails_
             (
               self
-               & 0
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (
@@ -115,9 +115,9 @@ structure GdkVisual :>
             getGreenPixelDetails_
             (
               self
-               & 0
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (
@@ -145,9 +145,9 @@ structure GdkVisual :>
             getRedPixelDetails_
             (
               self
-               & 0
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (

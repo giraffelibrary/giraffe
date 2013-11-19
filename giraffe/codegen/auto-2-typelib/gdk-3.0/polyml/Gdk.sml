@@ -2777,8 +2777,8 @@ structure Gdk : GDK =
             keyvalConvertCase_
             (
               symbol
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.UInt32.null
             )
       in
         (lower, upper)

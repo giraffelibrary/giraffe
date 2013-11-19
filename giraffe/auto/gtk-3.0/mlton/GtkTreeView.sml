@@ -664,8 +664,8 @@ structure GtkTreeView :>
               self
                & bx
                & by
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (tx, ty)
@@ -690,8 +690,8 @@ structure GtkTreeView :>
               self
                & bx
                & by
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (wx, wy)
@@ -716,8 +716,8 @@ structure GtkTreeView :>
               self
                & tx
                & ty
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (bx, by)
@@ -742,8 +742,8 @@ structure GtkTreeView :>
               self
                & tx
                & ty
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (wx, wy)
@@ -768,8 +768,8 @@ structure GtkTreeView :>
               self
                & wx
                & wy
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (bx, by)
@@ -794,8 +794,8 @@ structure GtkTreeView :>
               self
                & wx
                & wy
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (tx, ty)
@@ -967,8 +967,8 @@ structure GtkTreeView :>
                & y
                & NONE
                & NONE
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal
@@ -1107,8 +1107,8 @@ structure GtkTreeView :>
                & y
                & NONE
                & NONE
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal

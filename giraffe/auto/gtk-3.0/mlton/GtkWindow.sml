@@ -569,8 +569,8 @@ structure GtkWindow :>
             getDefaultSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)
@@ -606,8 +606,8 @@ structure GtkWindow :>
             getPosition_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (rootX, rootY)
@@ -637,8 +637,8 @@ structure GtkWindow :>
             getSize_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (width, height)

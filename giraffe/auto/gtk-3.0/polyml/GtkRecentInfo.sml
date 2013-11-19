@@ -84,8 +84,8 @@ structure GtkRecentInfo :>
               self
                & appName
                & NONE
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.Int64.null
             )
       in
         if retVal

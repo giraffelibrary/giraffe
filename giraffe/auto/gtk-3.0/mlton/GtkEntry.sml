@@ -401,8 +401,8 @@ structure GtkEntry :>
             getLayoutOffsets_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (x, y)

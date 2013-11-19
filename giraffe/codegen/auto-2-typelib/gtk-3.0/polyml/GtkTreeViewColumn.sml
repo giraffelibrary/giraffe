@@ -163,8 +163,8 @@ structure GtkTreeViewColumn :>
             (
               self
                & cellRenderer
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         if retVal then SOME (xOffset, width) else NONE
@@ -193,10 +193,10 @@ structure GtkTreeViewColumn :>
             (
               self
                & cellArea
-               & 0
-               & 0
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (

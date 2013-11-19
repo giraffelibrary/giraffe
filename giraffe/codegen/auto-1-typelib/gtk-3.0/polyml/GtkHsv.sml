@@ -86,9 +86,9 @@ structure GtkHsv :>
               h
                & s
                & v
-               & 0.0
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (
@@ -116,9 +116,9 @@ structure GtkHsv :>
             getColor_
             (
               self
-               & 0.0
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (
@@ -143,8 +143,8 @@ structure GtkHsv :>
             getMetrics_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (size, ringWidth)

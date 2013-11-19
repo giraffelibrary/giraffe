@@ -65,9 +65,9 @@ structure GtkCalendar :>
             getDate_
             (
               self
-               & 0
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.UInt32.null
+               & FFI.UInt32.null
             )
       in
         (

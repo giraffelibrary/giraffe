@@ -179,16 +179,6 @@ structure FFI :> F_F_I =
 
 
         (**
-         * Pointer
-         *)
-        structure Pointer =
-          struct
-            val VAL = CPointer.PolyML.POINTER : CPointer.notnull CPointer.t CInterface.Conversion
-            val REF = CPointer.PolyML.POINTER : unit CPointer.t CInterface.Conversion
-          end
-
-
-        (**
          * OptPointer
          *)
         structure OptPointer =
@@ -198,7 +188,7 @@ structure FFI :> F_F_I =
           end
 
 
-        val REF = OptPointer.VAL
+        val REF = CPointer.PolyML.POINTER : unit CPointer.t CInterface.Conversion
 
 
         (**
@@ -504,19 +494,6 @@ structure FFI :> F_F_I =
             type val_ = Int32.int
             type ref_ = ref_
             val withRef = fn f => withRef PolyML.Enum.VAL f
-          end
-
-
-        (**
-         * Pointer
-         *)
-        structure Pointer =
-          struct
-            type val_ = CPointer.notnull CPointer.t
-            type ref_ = ref_
-            val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Pointer.VAL f)
-            val fromVal = I
           end
 
 
@@ -917,22 +894,12 @@ structure FFI :> F_F_I =
 
 
     (**
-     * Pointer
-     *)
-    structure Pointer =
-      struct
-        type t = CPointer.notnull CPointer.t
-        structure C = C.Pointer
-        structure PolyML = PolyML.Pointer
-      end
-
-
-    (**
      * OptPointer
      *)
     structure OptPointer =
       struct
         type t = unit CPointer.t
+        val null = CPointer.null
         structure C = C.OptPointer
         structure PolyML = PolyML.OptPointer
       end
@@ -944,6 +911,7 @@ structure FFI :> F_F_I =
     structure Char =
       struct
         type t = char
+        val null = #"\000"
         structure C = C.Char
         structure PolyML = PolyML.Char
       end
@@ -955,6 +923,7 @@ structure FFI :> F_F_I =
     structure Short =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Short
         structure PolyML = PolyML.Short
       end
@@ -966,6 +935,7 @@ structure FFI :> F_F_I =
     structure UShort =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UShort
         structure PolyML = PolyML.UShort
       end
@@ -977,6 +947,7 @@ structure FFI :> F_F_I =
     structure Int =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int
         structure PolyML = PolyML.Int
       end
@@ -988,6 +959,7 @@ structure FFI :> F_F_I =
     structure UInt =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt
         structure PolyML = PolyML.UInt
       end
@@ -999,6 +971,7 @@ structure FFI :> F_F_I =
     structure Long =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Long
         structure PolyML = PolyML.Long
       end
@@ -1010,6 +983,7 @@ structure FFI :> F_F_I =
     structure ULong =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.ULong
         structure PolyML = PolyML.ULong
       end
@@ -1021,6 +995,7 @@ structure FFI :> F_F_I =
     structure Bool =
       struct
         type t = bool
+        val null = false
         structure C = C.Bool
         structure PolyML = PolyML.Bool
       end
@@ -1032,6 +1007,7 @@ structure FFI :> F_F_I =
     structure Int8 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int8
         structure PolyML = PolyML.Int8
       end
@@ -1043,6 +1019,7 @@ structure FFI :> F_F_I =
     structure UInt8 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt8
         structure PolyML = PolyML.UInt8
       end
@@ -1054,6 +1031,7 @@ structure FFI :> F_F_I =
     structure Int16 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int16
         structure PolyML = PolyML.Int16
       end
@@ -1065,6 +1043,7 @@ structure FFI :> F_F_I =
     structure UInt16 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt16
         structure PolyML = PolyML.UInt16
       end
@@ -1076,6 +1055,7 @@ structure FFI :> F_F_I =
     structure Int32 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int32
         structure PolyML = PolyML.Int32
       end
@@ -1087,6 +1067,7 @@ structure FFI :> F_F_I =
     structure UInt32 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt32
         structure PolyML = PolyML.UInt32
       end
@@ -1098,6 +1079,7 @@ structure FFI :> F_F_I =
     structure Int64 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Int64
         structure PolyML = PolyML.Int64
       end
@@ -1109,6 +1091,7 @@ structure FFI :> F_F_I =
     structure UInt64 =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.UInt64
         structure PolyML = PolyML.UInt64
       end
@@ -1120,6 +1103,7 @@ structure FFI :> F_F_I =
     structure SSize =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.SSize
         structure PolyML = PolyML.SSize
       end
@@ -1131,6 +1115,7 @@ structure FFI :> F_F_I =
     structure Size =
       struct
         type t = LargeInt.int
+        val null = 0
         structure C = C.Size
         structure PolyML = PolyML.Size
       end
@@ -1142,6 +1127,7 @@ structure FFI :> F_F_I =
     structure Float =
       struct
         type t = real
+        val null = 0.0
         structure C = C.Float
         structure PolyML = PolyML.Float
       end
@@ -1153,6 +1139,7 @@ structure FFI :> F_F_I =
     structure Double =
       struct
         type t = real
+        val null = 0.0
         structure C = C.Double
         structure PolyML = PolyML.Double
       end

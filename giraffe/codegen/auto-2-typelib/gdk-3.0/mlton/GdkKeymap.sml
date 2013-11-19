@@ -99,9 +99,9 @@ structure GdkKeymap :>
                & hardwareKeycode
                & state
                & group
-               & 0
-               & 0
-               & 0
+               & FFI.UInt32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
                & GdkModifierType.flags []
             )
       in

@@ -435,8 +435,8 @@ structure GdkWindow :>
                & flags
                & width
                & height
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (newWidth, newHeight)
@@ -503,8 +503,8 @@ structure GdkWindow :>
               self
                & parentX
                & parentY
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (x, y)
@@ -529,8 +529,8 @@ structure GdkWindow :>
               self
                & x
                & y
-               & 0.0
-               & 0.0
+               & FFI.Double.null
+               & FFI.Double.null
             )
       in
         (parentX, parentY)
@@ -596,8 +596,8 @@ structure GdkWindow :>
             (
               self
                & device
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
                & GdkModifierType.flags []
             )
       in
@@ -642,10 +642,10 @@ structure GdkWindow :>
             getGeometry_
             (
               self
-               & 0
-               & 0
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (
@@ -674,8 +674,8 @@ structure GdkWindow :>
             getOrigin_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (
@@ -701,8 +701,8 @@ structure GdkWindow :>
             getPosition_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (x, y)
@@ -727,8 +727,8 @@ structure GdkWindow :>
               self
                & x
                & y
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (rootX, rootY)
@@ -749,8 +749,8 @@ structure GdkWindow :>
             getRootOrigin_
             (
               self
-               & 0
-               & 0
+               & FFI.Int32.null
+               & FFI.Int32.null
             )
       in
         (x, y)

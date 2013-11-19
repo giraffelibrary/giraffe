@@ -6,7 +6,6 @@ signature F_F_I =
       end
     structure Flags : F_F_I_FLAGS_ENUM where type t = Word32.word
     structure Enum : F_F_I_FLAGS_ENUM where type t = Int32.int
-    structure Pointer : F_F_I_SCALAR where type t = CPointer.notnull CPointer.t
     structure OptPointer : F_F_I_SCALAR where type t = unit CPointer.t
     structure Char : F_F_I_SCALAR where type t = char
     structure Short : F_F_I_SCALAR where type t = LargeInt.int

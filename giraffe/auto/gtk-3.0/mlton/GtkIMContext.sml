@@ -110,7 +110,7 @@ structure GtkIMContext :>
               self
                & NONE
                & NONE
-               & 0
+               & FFI.Int32.null
             )
       in
         (
