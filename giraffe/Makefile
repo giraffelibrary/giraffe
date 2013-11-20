@@ -21,6 +21,7 @@ default :
 	@echo "Makefile usage:"
 	@echo "  make mlton         - build libraries for MLton"
 	@echo "  make polyml        - build libraries for Poly/ML"
+	@echo "  make install       - install to $(INSTALLDIR)"
 	@echo "  make clean         - clean up intermediate files"
 	@echo "  make distclean     - clean up all files"
 	@echo
@@ -216,13 +217,13 @@ install :
 # Cleaning
 #
 
-.PHONY : clean cleanall
+.PHONY : clean distclean
 
 clean :
 	rm -f polyml.log
 	rm -f $(POLYMLOFILES)
 
-cleanall : clean
+distclean : clean
 	rm -f ffi/mlton/gcharvecveclib.o
 	rm -f auto/mlton/giraffe.h
 	rm -f $(MLTONOFILES)
