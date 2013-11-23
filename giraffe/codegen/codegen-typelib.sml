@@ -1870,7 +1870,6 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
     val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
 
     val typeInfo = ArgInfo.getType argInfo
-    val tag = TypeInfo.getTag typeInfo
 
     val argName = getName argInfo
     val argId = mkId (toLCC argName)
@@ -1900,195 +1899,217 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
         IN => mayBeNull orelse forceOpt
       | _  => forceOpt
 
-    fun checkVoid () =
-      if
-        if usePtrDefault
+    local
+      open Transfer
+    in
+      fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+        if isPtr
         then
-          true
+          case (dir, ownershipTransfer) of
+            (_,     NOTHING)    => SOME false
+          | (OUT _, EVERYTHING) => SOME true
+          | (IN,    EVERYTHING) => infoError everythingForIn
+          | (INOUT, EVERYTHING) => infoError everythingForInOut
+          | (_,     CONTAINER)  => infoError containerForInterface
         else
-          TypeInfo.isPointer typeInfo
-      then infoError ptrForVoid
-      else ()
+          infoError nonPtrForX
+      val objectMsg = nonPtrForObject
+      val interfaceMsg = nonPtrForInterface
 
-    fun toScalarInfo ty =
-      if
-        if usePtrDefault
-        then
-          false
-        else
-          TypeInfo.isPointer typeInfo
-      then infoError (ptrForScalar scalarToString ty)
-      else
-        {
-          name  = argId,
-          ty    = ty
-        }
+      fun ptrOwnXferStructUnion isPtr (nonPtrForInX, everythingForNonPtrX) =
+        case (dir, isPtr, ownershipTransfer) of
+          (IN,    false, NOTHING)    => infoError nonPtrForInX
+        | (_,     false, NOTHING)    => NONE
+        | (_,     true,  NOTHING)    => SOME false
+        | (OUT _, true,  EVERYTHING) => SOME true
+        | (_,     false, EVERYTHING) => infoError everythingForNonPtrX
+        | (IN,    true,  EVERYTHING) => infoError everythingForIn
+        | (INOUT, true,  EVERYTHING) => infoError everythingForInOut
+        | (_,     _,     CONTAINER)  => infoError containerForInterface
+      val structMsg = (nonPtrForInStruct, everythingForNonPtrStruct)
+      val unionMsg = (nonPtrForInUnion, everythingForNonPtrUnion)
+
+      fun ptrOwnXferFlagsEnum isPtr ptrForX =
+        if isPtr
+        then infoError ptrForX
+        else NONE
+      val flagsMsg = ptrForFlags
+      val enumMsg = ptrForEnum
+    end
 
     fun notExpected s = infoError ("parameter type " ^ s ^ " not expected")
     fun notSupported s = infoError ("parameter type " ^ s ^ " not supported")
 
-    open TypeTag
-  in
-    case tag of
-      ERROR        => notExpected "ERROR"
-    | GTYPE        => notSupported "GTYPE"
-    | ARRAY        => notSupported "ARRAY"
-    | GLIST        => notSupported "GLIST"
-    | GSLIST       => notSupported "GSLIST"
-    | GHASH        => notSupported "GHASH"
-    | VOID         => (checkVoid (); PIVOID)
-    | BOOLEAN      => PISCALAR (dir, toScalarInfo STBOOLEAN)
-    | INT8         => PISCALAR (dir, toScalarInfo STINT8)
-    | UINT8        => PISCALAR (dir, toScalarInfo STUINT8)
-    | INT16        => PISCALAR (dir, toScalarInfo STINT16)
-    | UINT16       => PISCALAR (dir, toScalarInfo STUINT16)
-    | INT32        => PISCALAR (dir, toScalarInfo STINT32)
-    | UINT32       => PISCALAR (dir, toScalarInfo STUINT32)
-    | INT64        => PISCALAR (dir, toScalarInfo STINT64)
-    | UINT64       => PISCALAR (dir, toScalarInfo STUINT64)
-    | FLOAT        => PISCALAR (dir, toScalarInfo STFLOAT)
-    | DOUBLE       => PISCALAR (dir, toScalarInfo STDOUBLE)
-    | FILENAME     =>
-        let
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                Transfer.NOTHING    => false
-              | Transfer.EVERYTHING => true
-              | Transfer.CONTAINER  => infoError containerForFilename
-          }
-        in
-          PIUTF8 (dir, utf8Info)
-        end
-    | UTF8         =>
-        let
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                Transfer.NOTHING    => false
-              | Transfer.EVERYTHING => true
-              | Transfer.CONTAINER  => infoError containerForUtf8
-          }
-        in
-          PIUTF8 (dir, utf8Info)
-        end
-    | UNICHAR      => PISCALAR (dir, toScalarInfo STUNICHAR)
-    | INTERFACE    =>
-        let
-          val interfaceInfo = getInterface typeInfo
-          val interfaceName = getName interfaceInfo
-          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-          val interfaceCPrefix = getCPrefix repo interfaceNamespace
-          val interfaceScope =
-            if interfaceNamespace <> functionNamespace
-            then GLOBAL
+    fun resolveType () () typeInfo =
+      let
+        open TypeTag
+
+        fun checkVoid () =
+          if
+            if usePtrDefault
+            then
+              true
             else
-              case optContainerName of
-                NONE               => LOCALNAMESPACE
-              | SOME containerName =>
-                  if interfaceName = containerName
-                  then LOCALINTERFACESELF
-                  else LOCALINTERFACEOTHER
-          val interfaceTy = getIRefTy interfaceInfo
+              TypeInfo.isPointer typeInfo
+          then infoError ptrForVoid
+          else ()
 
-          val iRef = {
-            namespace = interfaceNamespace,
-            cPrefix   = interfaceCPrefix,
-            name      = interfaceName,
-            scope     = interfaceScope,
-            ty        = interfaceTy
-          }
+        fun toScalarInfo ty =
+          if
+            if usePtrDefault
+            then
+              false
+            else
+              TypeInfo.isPointer typeInfo
+          then infoError (ptrForScalar scalarToString ty)
+          else
+            {
+              name  = argId,
+              ty    = ty
+            }
+      in
+        case TypeInfo.getTag typeInfo of
+          ERROR        => notExpected "ERROR"
+        | GTYPE        => notSupported "GTYPE"
+        | ARRAY        => notSupported "ARRAY"
+        | GLIST        => notSupported "GLIST"
+        | GSLIST       => notSupported "GSLIST"
+        | GHASH        => notSupported "GHASH"
+        | VOID         => (checkVoid (); PIVOID)
+        | BOOLEAN      => PISCALAR (dir, toScalarInfo STBOOLEAN)
+        | INT8         => PISCALAR (dir, toScalarInfo STINT8)
+        | UINT8        => PISCALAR (dir, toScalarInfo STUINT8)
+        | INT16        => PISCALAR (dir, toScalarInfo STINT16)
+        | UINT16       => PISCALAR (dir, toScalarInfo STUINT16)
+        | INT32        => PISCALAR (dir, toScalarInfo STINT32)
+        | UINT32       => PISCALAR (dir, toScalarInfo STUINT32)
+        | INT64        => PISCALAR (dir, toScalarInfo STINT64)
+        | UINT64       => PISCALAR (dir, toScalarInfo STUINT64)
+        | FLOAT        => PISCALAR (dir, toScalarInfo STFLOAT)
+        | DOUBLE       => PISCALAR (dir, toScalarInfo STDOUBLE)
+        | FILENAME     =>
+            let
+              open Transfer
 
-          val infoType = InfoType.getType interfaceInfo
+              val utf8Info = {
+                name    = argId,
+                isOpt   = isOpt,
+                ownXfer =
+                  case ownershipTransfer of
+                    NOTHING    => false
+                  | EVERYTHING => true
+                  | CONTAINER  => infoError containerForFilename
+              }
+            in
+              PIUTF8 (dir, utf8Info)
+            end
+        | UTF8         =>
+            let
+              open Transfer
 
-          local
-            open Transfer
+              val utf8Info = {
+                name    = argId,
+                isOpt   = isOpt,
+                ownXfer =
+                  case ownershipTransfer of
+                    NOTHING    => false
+                  | EVERYTHING => true
+                  | CONTAINER  => infoError containerForUtf8
+              }
+            in
+              PIUTF8 (dir, utf8Info)
+            end
+        | UNICHAR      => PISCALAR (dir, toScalarInfo STUNICHAR)
+        | INTERFACE    =>
+            let
+              val interfaceInfo = getInterface typeInfo
+              val interfaceTy = getIRefTy interfaceInfo
 
-            fun ptrOwnXferObjectInterface isPtr nonPtrForX =
-              if isPtr
-              then
-                case (dir, ownershipTransfer) of
-                  (_,     NOTHING)    => SOME false
-                | (OUT _, EVERYTHING) => SOME true
-                | (IN,    EVERYTHING) => infoError everythingForIn
-                | (INOUT, EVERYTHING) => infoError everythingForInOut
-                | (_,     CONTAINER)  => infoError containerForInterface
-              else
-                infoError nonPtrForX
-            val objectMsg = nonPtrForObject
-            val interfaceMsg = nonPtrForInterface
+              val iRef =
+                case () of
+                  () =>
+                    let
+                      val interfaceName = getName interfaceInfo
+                      val interfaceNamespace =
+                        BaseInfo.getNamespace interfaceInfo
+                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
+                      val interfaceScope =
+                        if interfaceNamespace <> functionNamespace
+                        then GLOBAL
+                        else
+                          case optContainerName of
+                            NONE               => LOCALNAMESPACE
+                          | SOME containerName =>
+                              if interfaceName = containerName
+                              then LOCALINTERFACESELF
+                              else LOCALINTERFACEOTHER
+                    in
+                      {
+                        namespace = interfaceNamespace,
+                        cPrefix   = interfaceCPrefix,
+                        name      = interfaceName,
+                        scope     = interfaceScope,
+                        ty        = interfaceTy
+                      }
+                    end
 
-            fun ptrOwnXferStructUnion isPtr (nonPtrForInX, everythingForNonPtrX) =
-              case (dir, isPtr, ownershipTransfer) of
-                (IN,    false, NOTHING)    => infoError nonPtrForInX
-              | (_,     false, NOTHING)    => NONE
-              | (_,     true,  NOTHING)    => SOME false
-              | (OUT _, true,  EVERYTHING) => SOME true
-              | (_,     false, EVERYTHING) => infoError everythingForNonPtrX
-              | (IN,    true,  EVERYTHING) => infoError everythingForIn
-              | (INOUT, true,  EVERYTHING) => infoError everythingForInOut
-              | (_,     _,     CONTAINER)  => infoError containerForInterface
-            val structMsg = (nonPtrForInStruct, everythingForNonPtrStruct)
-            val unionMsg = (nonPtrForInUnion, everythingForNonPtrUnion)
-
-            fun ptrOwnXferFlagsEnum isPtr ptrForX =
-              if isPtr
-              then infoError ptrForX
-              else NONE
-            val flagsMsg = ptrForFlags
-            val enumMsg = ptrForEnum
-
-            open InfoType
-
-            val isPtr =
-              if usePtrDefault
-              then
-                case infoType of
-                  OBJECT _    => true
-                | INTERFACE _ => true
-                | STRUCT _    => true
-                | UNION _     => true
-                | FLAGS _     => false
-                | ENUM _      => false
-                | _           => infoError (unsupportedInterface infoType)
-              else
-                TypeInfo.isPointer typeInfo
-          in
-            val (ptrOwnXfer, rootIRef) =
+              val infoType = InfoType.getType interfaceInfo
+              open InfoType
+            in
               case infoType of
-                OBJECT objectInfo =>
-                  (
-                    ptrOwnXferObjectInterface isPtr objectMsg,
-                    getRootObjectIRef repo functionNamespace optContainerName
-                      (objectInfo, iRef)
-                  )
-              | INTERFACE _       =>
-                  (
-                    ptrOwnXferObjectInterface isPtr interfaceMsg,
-                    makeInterfaceRootIRef functionNamespace optContainerName
-                  )
-              | STRUCT _          => (ptrOwnXferStructUnion isPtr structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
-              | _                 => infoError (unsupportedInterface infoType)
-          end
+                _ =>
+                  let
+                    val isPtr =
+                      if usePtrDefault
+                      then
+                        case infoType of
+                          OBJECT _    => true
+                        | INTERFACE _ => true
+                        | STRUCT _    => true
+                        | UNION _     => true
+                        | FLAGS _     => false
+                        | ENUM _      => false
+                        | _           => infoError (unsupportedInterface infoType)
+                      else
+                        TypeInfo.isPointer typeInfo
 
-          val interfaceInfo = {
-            name       = argId,
-            rootIRef   = rootIRef,
-            iRef       = iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-        in
-          PIINTERFACE (dir, interfaceInfo)
-        end
+                    val (ptrOwnXfer, rootIRef) =
+                      case infoType of
+                        OBJECT objectInfo
+                                    =>
+                          (
+                            ptrOwnXferObjectInterface isPtr objectMsg,
+                            getRootObjectIRef repo functionNamespace
+                              optContainerName
+                              (objectInfo, iRef)
+                          )
+                      | INTERFACE _ =>
+                          (
+                            ptrOwnXferObjectInterface isPtr interfaceMsg,
+                            makeInterfaceRootIRef functionNamespace
+                              optContainerName
+                          )
+                      | STRUCT _    => (ptrOwnXferStructUnion isPtr structMsg, iRef)
+                      | UNION _     => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+                      | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
+                      | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
+                      | _           => infoError (unsupportedInterface infoType)
+
+                    val interfaceInfo = {
+                      name       = argId,
+                      rootIRef   = rootIRef,
+                      iRef       = iRef,
+                      infoType   = infoType,
+                      isOpt      = isOpt,
+                      ptrOwnXfer = ptrOwnXfer
+                    }
+                  in
+                    PIINTERFACE (dir, interfaceInfo)
+                  end
+            end
+      end
+  in
+    resolveType () () typeInfo
   end
 
 
@@ -2114,191 +2135,209 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionNam
 
     val isOpt = mayReturnNull
 
-    fun checkVoid () =
-      if
-        (* Don't need a c:type attribute to determine pointer depth for
-         * VOID tag, so no need to use default when `usePtrDefault`. *)
-        TypeInfo.isPointer typeInfo
-      then infoError ptrForVoid
-      else ()
-
-    fun toScalarInfo ty =
-      if
-        if usePtrDefault
+    local
+      open Transfer
+    in
+      fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+        if isPtr
         then
-          false
+          case ownershipTransfer of
+            NOTHING    => SOME false
+          | EVERYTHING => SOME true
+          | CONTAINER  => infoError containerForInterface
         else
-          TypeInfo.isPointer typeInfo
-      then infoError (ptrForScalar scalarToString ty)
-      else
-        {
-          name  = argId,
-          ty    = ty
-        }
+          infoError nonPtrForX
+      val objectMsg = nonPtrForObject
+      val interfaceMsg = nonPtrForInterface
+
+      fun ptrOwnXferStructUnion isPtr nonPtrForRetX =
+        case (isPtr, ownershipTransfer) of
+          (false, _)          => infoError nonPtrForRetX
+        | (_,     NOTHING)    => SOME false
+        | (_,     EVERYTHING) => SOME true
+        | (_,     CONTAINER)  => infoError containerForInterface
+      val structMsg = nonPtrForRetStruct
+      val unionMsg = nonPtrForRetUnion
+
+      fun ptrOwnXferFlagsEnum isPtr ptrForX =
+        if isPtr
+        then infoError ptrForX
+        else NONE
+      val flagsMsg = ptrForFlags
+      val enumMsg = ptrForEnum
+    end
 
     fun notExpected s = infoError ("return type " ^ s ^ " not expected")
     fun notSupported s = infoError ("return type " ^ s ^ " not supported")
 
-    open TypeTag
-  in
-    case TypeInfo.getTag typeInfo of
-      ERROR        => notExpected "ERROR"
-    | GTYPE        => notSupported "GTYPE"
-    | ARRAY        => notSupported "ARRAY"
-    | GLIST        => notSupported "GLIST"
-    | GSLIST       => notSupported "GSLIST"
-    | GHASH        => notSupported "GHASH"
-    | VOID         => (checkVoid (); RIVOID)
-    | BOOLEAN      => RISCALAR (toScalarInfo STBOOLEAN)
-    | INT8         => RISCALAR (toScalarInfo STINT8)
-    | UINT8        => RISCALAR (toScalarInfo STUINT8)
-    | INT16        => RISCALAR (toScalarInfo STINT16)
-    | UINT16       => RISCALAR (toScalarInfo STUINT16)
-    | INT32        => RISCALAR (toScalarInfo STINT32)
-    | UINT32       => RISCALAR (toScalarInfo STUINT32)
-    | INT64        => RISCALAR (toScalarInfo STINT64)
-    | UINT64       => RISCALAR (toScalarInfo STUINT64)
-    | FLOAT        => RISCALAR (toScalarInfo STFLOAT)
-    | DOUBLE       => RISCALAR (toScalarInfo STDOUBLE)
-    | FILENAME     =>
-        let
-          open Transfer
+    fun resolveType () () typeInfo =
+      let
+        open TypeTag
 
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                NOTHING    => false
-              | EVERYTHING => true
-              | CONTAINER  => infoError containerForFilename
-          }
-        in
-          RIUTF8 utf8Info
-        end
-    | UTF8         =>
-        let
-          open Transfer
+        fun checkVoid () =
+          if
+            (* Don't need a c:type attribute to determine pointer depth for
+             * VOID tag, so no need to use default when `usePtrDefault`. *)
+            TypeInfo.isPointer typeInfo
+          then infoError ptrForVoid
+          else ()
 
-          val utf8Info = {
-            name    = argId,
-            isOpt   = isOpt,
-            ownXfer =
-              case ownershipTransfer of
-                NOTHING    => false
-              | EVERYTHING => true
-              | CONTAINER  => infoError containerForUtf8
-          }
-        in
-          RIUTF8 utf8Info
-        end
-    | UNICHAR      => RISCALAR (toScalarInfo STUNICHAR)
-    | INTERFACE    =>
-        let
-          val interfaceInfo = getInterface typeInfo
-          val interfaceName = getName interfaceInfo
-          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-          val interfaceCPrefix = getCPrefix repo interfaceNamespace
-          val interfaceScope =
-            if interfaceNamespace <> functionNamespace
-            then GLOBAL
+        fun toScalarInfo ty =
+          if
+            if usePtrDefault
+            then
+              false
             else
-              case optContainerName of
-                NONE               => LOCALNAMESPACE
-              | SOME containerName =>
-                  if interfaceName = containerName
-                  then LOCALINTERFACESELF
-                  else LOCALINTERFACEOTHER
-          val interfaceTy = getIRefTy interfaceInfo
+              TypeInfo.isPointer typeInfo
+          then infoError (ptrForScalar scalarToString ty)
+          else
+            {
+              name  = argId,
+              ty    = ty
+            }
+      in
+        case TypeInfo.getTag typeInfo of
+          ERROR        => notExpected "ERROR"
+        | GTYPE        => notSupported "GTYPE"
+        | ARRAY        => notSupported "ARRAY"
+        | GLIST        => notSupported "GLIST"
+        | GSLIST       => notSupported "GSLIST"
+        | GHASH        => notSupported "GHASH"
+        | VOID         => (checkVoid (); RIVOID)
+        | BOOLEAN      => RISCALAR (toScalarInfo STBOOLEAN)
+        | INT8         => RISCALAR (toScalarInfo STINT8)
+        | UINT8        => RISCALAR (toScalarInfo STUINT8)
+        | INT16        => RISCALAR (toScalarInfo STINT16)
+        | UINT16       => RISCALAR (toScalarInfo STUINT16)
+        | INT32        => RISCALAR (toScalarInfo STINT32)
+        | UINT32       => RISCALAR (toScalarInfo STUINT32)
+        | INT64        => RISCALAR (toScalarInfo STINT64)
+        | UINT64       => RISCALAR (toScalarInfo STUINT64)
+        | FLOAT        => RISCALAR (toScalarInfo STFLOAT)
+        | DOUBLE       => RISCALAR (toScalarInfo STDOUBLE)
+        | FILENAME     =>
+            let
+              open Transfer
 
-          val iRef = {
-            namespace = interfaceNamespace,
-            cPrefix   = interfaceCPrefix,
-            name      = interfaceName,
-            scope     = interfaceScope,
-            ty        = interfaceTy
-          }
+              val utf8Info = {
+                name    = argId,
+                isOpt   = isOpt,
+                ownXfer =
+                  case ownershipTransfer of
+                    NOTHING    => false
+                  | EVERYTHING => true
+                  | CONTAINER  => infoError containerForFilename
+              }
+            in
+              RIUTF8 utf8Info
+            end
+        | UTF8         =>
+            let
+              open Transfer
 
-          val infoType = InfoType.getType interfaceInfo
+              val utf8Info = {
+                name    = argId,
+                isOpt   = isOpt,
+                ownXfer =
+                  case ownershipTransfer of
+                    NOTHING    => false
+                  | EVERYTHING => true
+                  | CONTAINER  => infoError containerForUtf8
+              }
+            in
+              RIUTF8 utf8Info
+            end
+        | UNICHAR      => RISCALAR (toScalarInfo STUNICHAR)
+        | INTERFACE    =>
+            let
+              val interfaceInfo = getInterface typeInfo
+              val interfaceTy = getIRefTy interfaceInfo
 
-          local
-            open Transfer
+              val iRef =
+                case () of
+                  () =>
+                    let
+                      val interfaceName = getName interfaceInfo
+                      val interfaceNamespace =
+                        BaseInfo.getNamespace interfaceInfo
+                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
+                      val interfaceScope =
+                        if interfaceNamespace <> functionNamespace
+                        then GLOBAL
+                        else
+                          case optContainerName of
+                            NONE               => LOCALNAMESPACE
+                          | SOME containerName =>
+                              if interfaceName = containerName
+                              then LOCALINTERFACESELF
+                              else LOCALINTERFACEOTHER
+                    in
+                      {
+                        namespace = interfaceNamespace,
+                        cPrefix   = interfaceCPrefix,
+                        name      = interfaceName,
+                        scope     = interfaceScope,
+                        ty        = interfaceTy
+                      }
+                    end
 
-            fun ptrOwnXferObjectInterface isPtr nonPtrForX =
-              if isPtr
-              then
-                case ownershipTransfer of
-                  NOTHING    => SOME false
-                | EVERYTHING => SOME true
-                | CONTAINER  => infoError containerForInterface
-              else
-                infoError nonPtrForX
-            val objectMsg = nonPtrForObject
-            val interfaceMsg = nonPtrForInterface
-
-            fun ptrOwnXferStructUnion isPtr nonPtrForRetX =
-              case (isPtr, ownershipTransfer) of
-                (false, _)          => infoError nonPtrForRetX
-              | (_,     NOTHING)    => SOME false
-              | (_,     EVERYTHING) => SOME true
-              | (_,     CONTAINER)  => infoError containerForInterface
-            val structMsg = nonPtrForRetStruct
-            val unionMsg = nonPtrForRetUnion
-
-            fun ptrOwnXferFlagsEnum isPtr ptrForX =
-              if isPtr
-              then infoError ptrForX
-              else NONE
-            val flagsMsg = ptrForFlags
-            val enumMsg = ptrForEnum
-
-            open InfoType
-
-            val isPtr =
-              if usePtrDefault
-              then
-                case infoType of
-                  OBJECT _    => true
-                | INTERFACE _ => true
-                | STRUCT _    => true
-                | UNION _     => true
-                | FLAGS _     => false
-                | ENUM _      => false
-                | _           => infoError (unsupportedInterface infoType)
-              else
-                TypeInfo.isPointer typeInfo
-          in
-            val (ptrOwnXfer, rootIRef) =
+              val infoType = InfoType.getType interfaceInfo
+              open InfoType
+            in
               case infoType of
-                OBJECT objectInfo =>
-                  (
-                    ptrOwnXferObjectInterface isPtr objectMsg,
-                    getRootObjectIRef repo functionNamespace optContainerName
-                      (objectInfo, iRef)
-                  )
-              | INTERFACE _       =>
-                  (
-                    ptrOwnXferObjectInterface isPtr interfaceMsg,
-                    makeInterfaceRootIRef functionNamespace optContainerName
-                  )
-              | STRUCT _          => (ptrOwnXferStructUnion isPtr structMsg, iRef)
-              | UNION _           => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
-              | FLAGS _           => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
-              | ENUM _            => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
-              | _                 => infoError (unsupportedInterface infoType)
-          end
+                _ =>
+                  let
+                    val isPtr =
+                      if usePtrDefault
+                      then
+                        case infoType of
+                          OBJECT _    => true
+                        | INTERFACE _ => true
+                        | STRUCT _    => true
+                        | UNION _     => true
+                        | FLAGS _     => false
+                        | ENUM _      => false
+                        | _           => infoError (unsupportedInterface infoType)
+                      else
+                        TypeInfo.isPointer typeInfo
 
-          val interfaceInfo = {
-            name       = argId,
-            rootIRef   = rootIRef,
-            iRef       = iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-        in
-          RIINTERFACE interfaceInfo
-        end
+                    val (ptrOwnXfer, rootIRef) =
+                      case infoType of
+                        OBJECT objectInfo
+                                    =>
+                          (
+                            ptrOwnXferObjectInterface isPtr objectMsg,
+                            getRootObjectIRef repo functionNamespace
+                              optContainerName
+                              (objectInfo, iRef)
+                          )
+                      | INTERFACE _ =>
+                          (
+                            ptrOwnXferObjectInterface isPtr interfaceMsg,
+                            makeInterfaceRootIRef functionNamespace
+                              optContainerName
+                          )
+                      | STRUCT _    => (ptrOwnXferStructUnion isPtr structMsg, iRef)
+                      | UNION _     => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+                      | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
+                      | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
+                      | _           => infoError (unsupportedInterface infoType)
+
+                    val interfaceInfo = {
+                      name       = argId,
+                      rootIRef   = rootIRef,
+                      iRef       = iRef,
+                      infoType   = infoType,
+                      isOpt      = isOpt,
+                      ptrOwnXfer = ptrOwnXfer
+                    }
+                  in
+                    RIINTERFACE interfaceInfo
+                  end
+            end
+      end
+  in
+    resolveType () () typeInfo
   end
 
 
@@ -4714,8 +4753,6 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
     val ownershipTransfer = PropertyInfo.getOwnershipTransfer propertyInfo
 
     val typeInfo = PropertyInfo.getType propertyInfo
-    val tag = TypeInfo.getTag typeInfo
-    val isPointer = TypeInfo.isPointer typeInfo
 
     val paramFlags = PropertyInfo.getFlags propertyInfo
     val isReadable =
@@ -4730,127 +4767,146 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
       | (true,  true)  => READWRITE
       | (false, false) => infoError "property neither readable nor writable"
 
-    fun toScalarInfo ty =
-      if isPointer
-      then infoError (ptrForScalar scalarToString ty)
-      else
-        {
-          ty = ty
-        }
-
     fun notExpected s = infoError ("type " ^ s ^ " not expected")
     fun notSupported s = infoError ("type " ^ s ^ " not supported")
     fun noGType s =
       infoError ("type " ^ s ^ " not expected: no corresponding GType")
 
-    open TypeTag
+    fun resolveType () () typeInfo =
+      let
+        open TypeTag
+
+        fun toScalarInfo ty =
+          if
+            TypeInfo.isPointer typeInfo
+          then
+            infoError (ptrForScalar scalarToString ty)
+          else
+            {
+              ty = ty
+            }
+      in
+        case TypeInfo.getTag typeInfo of
+          ERROR        => notExpected "ERROR"
+        | GTYPE        => notSupported "GTYPE"
+        | ARRAY        => notSupported "ARRAY"
+        | GLIST        => notSupported "GLIST"
+        | GSLIST       => notSupported "GSLIST"
+        | GHASH        => notSupported "GHASH"
+        | VOID         => notExpected "VOID"
+        | BOOLEAN      => PISCALAR (mode, toScalarInfo STBOOLEAN)
+        | INT8         => noGType "INT8"
+        | UINT8        => noGType "UINT8"
+        | INT16        => noGType "INT16"
+        | UINT16       => noGType "UINT16"
+        | INT32        => PISCALAR (mode, toScalarInfo STINT32)
+        | UINT32       => PISCALAR (mode, toScalarInfo STUINT32)
+        | INT64        => PISCALAR (mode, toScalarInfo STINT64)
+        | UINT64       => PISCALAR (mode, toScalarInfo STUINT64)
+        | FLOAT        => PISCALAR (mode, toScalarInfo STFLOAT)
+        | DOUBLE       => PISCALAR (mode, toScalarInfo STDOUBLE)
+        | FILENAME     =>
+            let
+              val isOpt = true
+
+              val () =
+                case ownershipTransfer of
+                  Transfer.NOTHING => ()
+                | _                => infoError containerOrEverythingForProp
+
+              val utf8Info = {
+                isOpt = isOpt
+              }
+            in
+              PIUTF8 (mode, utf8Info)
+            end
+        | UTF8         =>
+            let
+              val isOpt = true
+
+              val () =
+                case ownershipTransfer of
+                  Transfer.NOTHING => ()
+                | _                => infoError containerOrEverythingForProp
+
+              val utf8Info = {
+                isOpt = isOpt
+              }
+            in
+              PIUTF8 (mode, utf8Info)
+            end
+        | UNICHAR      => PISCALAR (mode, toScalarInfo STUNICHAR)
+        | INTERFACE    =>
+            let
+              val interfaceInfo = getInterface typeInfo
+              val interfaceTy = getIRefTy interfaceInfo
+
+              val iRef =
+                case () of
+                  () =>
+                    let
+                      val {
+                        name      = containerName,
+                        namespace = containerNamespace,
+                        ...
+                      } = containerIRef
+
+                      val interfaceName = getName interfaceInfo
+                      val interfaceNamespace =
+                        BaseInfo.getNamespace interfaceInfo
+                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
+                      val interfaceScope =
+                        if interfaceNamespace <> containerNamespace
+                        then GLOBAL
+                        else
+                          if interfaceName = containerName
+                          then LOCALINTERFACESELF
+                          else LOCALINTERFACEOTHER
+                    in
+                      {
+                        namespace = interfaceNamespace,
+                        cPrefix   = interfaceCPrefix,
+                        name      = interfaceName,
+                        scope     = interfaceScope,
+                        ty        = interfaceTy
+                      }
+                    end
+
+              val infoType = InfoType.getType interfaceInfo
+              open InfoType
+            in
+              case infoType of
+                _ =>
+                  let
+                    (* There are no introspection annotation to determine
+                     * whether a property is an optional value, though almost
+                     * all (pointer) values can be null.
+                     *)
+                    val isOpt =
+                      case infoType of
+                        OBJECT _    => true
+                      | INTERFACE _ => true
+                      | STRUCT _    => true
+                      | UNION _     => true
+                      | _           => false
+
+                    val () =
+                      case ownershipTransfer of
+                        Transfer.NOTHING => ()
+                      | _                => infoError containerOrEverythingForProp
+
+                    val interfaceInfo = {
+                      iRef     = iRef,
+                      infoType = infoType,
+                      isOpt    = isOpt
+                    }
+                  in
+                    PIINTERFACE (mode, interfaceInfo)
+                  end
+            end
+      end
   in
-    case tag of
-      ERROR        => notExpected "ERROR"
-    | GTYPE        => notSupported "GTYPE"
-    | ARRAY        => notSupported "ARRAY"
-    | GLIST        => notSupported "GLIST"
-    | GSLIST       => notSupported "GSLIST"
-    | GHASH        => notSupported "GHASH"
-    | VOID         => notExpected "VOID"
-    | BOOLEAN      => PISCALAR (mode, toScalarInfo STBOOLEAN)
-    | INT8         => noGType "INT8"
-    | UINT8        => noGType "UINT8"
-    | INT16        => noGType "INT16"
-    | UINT16       => noGType "UINT16"
-    | INT32        => PISCALAR (mode, toScalarInfo STINT32)
-    | UINT32       => PISCALAR (mode, toScalarInfo STUINT32)
-    | INT64        => PISCALAR (mode, toScalarInfo STINT64)
-    | UINT64       => PISCALAR (mode, toScalarInfo STUINT64)
-    | FLOAT        => PISCALAR (mode, toScalarInfo STFLOAT)
-    | DOUBLE       => PISCALAR (mode, toScalarInfo STDOUBLE)
-    | FILENAME     =>
-        let
-          val isOpt = true
-
-          val () =
-            case ownershipTransfer of
-              Transfer.NOTHING => ()
-            | _                => infoError containerOrEverythingForProp
-
-          val utf8Info = {
-            isOpt = isOpt
-          }
-        in
-          PIUTF8 (mode, utf8Info)
-        end
-    | UTF8         =>
-        let
-          val isOpt = true
-
-          val () =
-            case ownershipTransfer of
-              Transfer.NOTHING => ()
-            | _                => infoError containerOrEverythingForProp
-
-          val utf8Info = {
-            isOpt = isOpt
-          }
-        in
-          PIUTF8 (mode, utf8Info)
-        end
-    | UNICHAR      => PISCALAR (mode, toScalarInfo STUNICHAR)
-    | INTERFACE    =>
-        let
-          val {
-            name      = containerName,
-            namespace = containerNamespace,
-            ...
-          } = containerIRef
-
-          val interfaceInfo = getInterface typeInfo
-          val interfaceName = getName interfaceInfo
-          val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-          val interfaceCPrefix = getCPrefix repo interfaceNamespace
-          val interfaceScope =
-            if interfaceNamespace <> containerNamespace
-            then GLOBAL
-            else
-              if interfaceName = containerName
-              then LOCALINTERFACESELF
-              else LOCALINTERFACEOTHER
-          val interfaceTy = getIRefTy interfaceInfo
-
-          val iRef = {
-            namespace = interfaceNamespace,
-            cPrefix   = interfaceCPrefix,
-            name      = interfaceName,
-            scope     = interfaceScope,
-            ty        = interfaceTy
-          }
-
-          val infoType = InfoType.getType interfaceInfo
-
-          (* There are no introspection annotation to determine whether a
-           * property is an optional value, though almost all (pointer)
-           * values can be null.
-           *)
-          val isOpt =
-            case infoType of
-              InfoType.OBJECT _    => true
-            | InfoType.INTERFACE _ => true
-            | InfoType.STRUCT _    => true
-            | InfoType.UNION _     => true
-            | _                    => false
-
-          val () =
-            case ownershipTransfer of
-              Transfer.NOTHING => ()
-            | _                => infoError containerOrEverythingForProp
-
-          val interfaceInfo = {
-            iRef     = iRef,
-            infoType = infoType,
-            isOpt    = isOpt
-          }
-        in
-          PIINTERFACE (mode, interfaceInfo)
-        end
+    resolveType () () typeInfo
   end
 
 
@@ -9376,40 +9432,6 @@ fun translateInfo
       in
         ((modules'1, constants'0, functions'0), errs'2)
       end
-(* -------- GIR only --------
-  | InfoType.ALIAS aliasInfo         =>
-      let
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeAliasStr repo cPrefix namespace aliasInfo errs'0
-
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
-
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeAliasSig repo cPrefix namespace aliasInfo errs'1
-
-        val isSigPortable = isPortable sigProgram
-        val isStrPortable = isPortable strProgram
-
-        val sigs'1 =
-          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
-        val strs'1 =
-          insertNewList dupStr (
-            [(strId, ((isStrPortable, strSpecDec), strDeps))],
-            strs'0
-          )
-        val files'1 =
-          insertNewList dupFile (
-            [
-              (sigId, sigProgram),
-              (strId, strProgram)
-            ],
-            files'0
-          )
-        val modules'1 = (files'1, sigs'1, strs'1)
-      in
-        ((modules'1, constants'0, functions'0), errs'2)
-      end
- * -------------------------- *)
   | InfoType.CONSTANT constantInfo   =>
       let
         val (spec, (_, errs'1)) =
@@ -10361,7 +10383,7 @@ generate outDir repo ("GModule", "2.0") ([], []);
  * academic because this library is used only for aliases which is not
  * required by the TYPELIB version.
  *
-generate outDir repo ("xlib", "2.0") ([], []);
+ * generate outDir repo ("xlib", "2.0") ([], []);
  *)
 
 generate outDir repo ("PangoCairo", "1.0") ([], []);
