@@ -1,0 +1,1 @@
+structure XlibAtom = FFI.ULong

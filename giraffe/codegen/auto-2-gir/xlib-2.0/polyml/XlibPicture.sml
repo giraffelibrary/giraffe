@@ -1,0 +1,1 @@
+structure XlibPicture = FFI.ULong

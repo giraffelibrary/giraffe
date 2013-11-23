@@ -1,0 +1,75 @@
+=Alias=
+
+Context
+
+  repo
+    the repository in use
+
+  aliasInfo
+    the alias info (does not exist for typelib)
+
+
+Placeholders
+
+  AliasName = GIBaseInfo.getName objectInfo
+
+  AliasNamespace = GIBaseInfo.getNamespace objectInfo
+
+  sourceTypeInfo = GIAliasInfo.getType aliasInfo
+
+
+
+Conditions
+
+  infoType = GIInfoType.getType sourceTypeInfo
+  isClass = infoType is OBJECT _ | INTERFACE _
+  isRecord = infoType is STRUCT _
+  isUnion = infoType is UNION _
+  isOther = not (isClass or isRecord or isUnion)
+
+
+==Signature==
+
+  signature <ALIAS_NAMESPACE>_<ALIAS_NAME>_CLASS = <SOURCE_NAMESPACE>_<SOURCE_NAME>_CLASS
+
+    if isClass
+
+
+  signature <ALIAS_NAMESPACE>_<ALIAS_NAME>_RECORD = <SOURCE_NAMESPACE>_<SOURCE_NAME>_RECORD
+
+    if isRecord
+
+
+  signature <ALIAS_NAMESPACE>_<ALIAS_NAME> = <SOURCE_NAMESPACE>_<SOURCE_NAME>
+
+    if isUnion
+
+
+  signature <ALIAS_NAMESPACE>_<ALIAS_NAME> = <SOURCE_NAMESPACE>_<SOURCE_NAME>
+
+    if isOther
+
+
+==Structure==
+
+There are no signature constraints on the top-leve structures to ensure that the PolyML substructure is not hidden.  (The signature constraints are present on the alias structures in the namespace signature.)
+
+  structure <AliasNamespace><AliasName>Class = <SourceNamespace><SourceName>Class
+
+    if isClass
+
+
+  structure <AliasNamespace><AliasName>Record = <SourceNamespace><SourceName>Record
+
+    if isRecord
+
+
+  structure <AliasNamespace><AliasName> = <SourceNamespace><SourceName>
+
+    if isUnion
+
+
+  structure <AliasNamespace><AliasName> = <SourceNamespace><SourceName>
+
+    if isOther
+

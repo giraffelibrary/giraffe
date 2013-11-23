@@ -1,0 +1,1 @@
+structure XlibPixmap = FFI.ULong

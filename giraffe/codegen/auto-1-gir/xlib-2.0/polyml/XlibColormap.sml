@@ -1,0 +1,1 @@
+structure XlibColormap = FFI.ULong

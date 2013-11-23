@@ -1,0 +1,1 @@
+structure XlibKeySym = FFI.ULong

@@ -1,0 +1,1 @@
+structure PangoLayoutRunRecord = PangoGlyphItemRecord

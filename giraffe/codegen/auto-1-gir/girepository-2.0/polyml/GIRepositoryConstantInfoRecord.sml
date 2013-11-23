@@ -1,0 +1,1 @@
+structure GIRepositoryConstantInfoRecord = GIRepositoryBaseInfoRecord

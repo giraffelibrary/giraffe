@@ -1,0 +1,1 @@
+structure GIRepositoryVFuncInfoRecord = GIRepositoryBaseInfoRecord

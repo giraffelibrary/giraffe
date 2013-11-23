@@ -1,0 +1,1 @@
+signature XLIB_CURSOR = F_F_I_SCALAR

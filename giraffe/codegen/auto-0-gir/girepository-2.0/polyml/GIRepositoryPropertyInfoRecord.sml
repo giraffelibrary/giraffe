@@ -1,0 +1,1 @@
+structure GIRepositoryPropertyInfoRecord = GIRepositoryBaseInfoRecord

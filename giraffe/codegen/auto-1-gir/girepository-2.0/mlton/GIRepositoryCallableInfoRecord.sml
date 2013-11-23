@@ -1,0 +1,1 @@
+structure GIRepositoryCallableInfoRecord = GIRepositoryBaseInfoRecord

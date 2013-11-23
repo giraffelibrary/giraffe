@@ -1,0 +1,1 @@
+structure GObjectType = FFI.Size

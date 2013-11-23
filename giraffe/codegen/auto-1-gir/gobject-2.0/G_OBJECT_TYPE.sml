@@ -1,0 +1,1 @@
+signature G_OBJECT_TYPE = F_F_I_SCALAR
