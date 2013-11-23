@@ -11,7 +11,7 @@ structure GtkTreeSortable :>
         call (load_sym libgtk "gtk_tree_sortable_get_sort_column_id")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              &&> GtkSortType.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
@@ -20,7 +20,7 @@ structure GtkTreeSortable :>
         call (load_sym libgtk "gtk_tree_sortable_set_sort_column_id")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkSortType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -36,16 +36,16 @@ structure GtkTreeSortable :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              &&&> GtkSortType.C.withRefVal
-             ---> FFI.Int32.C.fromVal
+             ---> FFI.Int.C.fromVal
                    && GtkSortType.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             getSortColumnId_
             (
               self
-               & FFI.Int32.null
+               & FFI.Int.null
                & GtkSortType.null
             )
       in
@@ -55,7 +55,7 @@ structure GtkTreeSortable :>
     fun setSortColumnId self sortColumnId order =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkSortType.C.withVal
          ---> I
       )

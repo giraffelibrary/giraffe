@@ -13,7 +13,7 @@ structure GtkSourceGutterRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -22,8 +22,8 @@ structure GtkSourceGutterRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> CairoContextRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              --> FFI.PolyML.VOID
@@ -33,8 +33,8 @@ structure GtkSourceGutterRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> CairoContextRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> GtkSourceGutterRendererState.PolyML.VAL
@@ -55,11 +55,11 @@ structure GtkSourceGutterRenderer :>
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
-      val getSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getView_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_view") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getWindowType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_window_type") (GObjectObjectClass.PolyML.PTR --> GtkTextWindowType.PolyML.VAL)
@@ -68,7 +68,7 @@ structure GtkSourceGutterRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
@@ -86,9 +86,9 @@ structure GtkSourceGutterRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
@@ -107,11 +107,11 @@ structure GtkSourceGutterRenderer :>
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceGutterRendererClass.t
@@ -122,7 +122,7 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
          ---> I
       )
@@ -137,8 +137,8 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
@@ -156,8 +156,8 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkSourceGutterRendererState.C.withVal
@@ -210,22 +210,22 @@ structure GtkSourceGutterRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefNewVal
-             &&&> FFI.Int32.C.withRefNewVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefNewVal
+             &&&> FFI.Int.C.withRefNewVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPadding_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (xpad, ypad)
       end
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getView self = (GObjectObjectClass.C.withPtr ---> GtkTextViewClass.C.fromPtr false) getView_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getWindowType self = (GObjectObjectClass.C.withPtr ---> GtkTextWindowType.C.fromVal) getWindowType_ self
@@ -233,7 +233,7 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -263,9 +263,9 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -297,8 +297,8 @@ structure GtkSourceGutterRenderer :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setPadding_
@@ -307,7 +307,7 @@ structure GtkSourceGutterRenderer :>
            & xpad
            & ypad
         )
-    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
+    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal

@@ -52,7 +52,7 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -69,10 +69,10 @@ structure GioInputStream :>
           (
             _import "g_input_stream_skip" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.val_
+               * FFI.Size.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -90,7 +90,7 @@ structure GioInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -135,7 +135,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         readFinish_
         (
@@ -147,10 +147,10 @@ structure GioInputStream :>
     fun skip self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         skip_
         (
@@ -164,7 +164,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         skipFinish_
         (

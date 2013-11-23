@@ -11,19 +11,19 @@ structure GioUnixFDList :>
         call (load_sym libgio "g_unix_fd_list_append")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int32.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val get_ =
         call (load_sym libgio "g_unix_fd_list_get")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int32.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
-      val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
     end
     type 'a class_t = 'a GioUnixFDListClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -31,9 +31,9 @@ structure GioUnixFDList :>
     fun append self fd =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         append_
         (
@@ -44,9 +44,9 @@ structure GioUnixFDList :>
     fun get self index =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         get_
         (
@@ -54,5 +54,5 @@ structure GioUnixFDList :>
            & index
            & []
         )
-    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLength_ self
+    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLength_ self
   end

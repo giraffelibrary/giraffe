@@ -12,7 +12,7 @@ structure AtkRelation :>
         call (load_sym libatk "atk_relation_new")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> AtkRelationType.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -27,7 +27,7 @@ structure AtkRelation :>
     fun new targets nTargets relationship =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> AtkRelationType.C.withVal
          ---> AtkRelationClass.C.fromPtr true
       )

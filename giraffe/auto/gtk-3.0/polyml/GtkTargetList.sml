@@ -12,15 +12,15 @@ structure GtkTargetList :>
           (
             GtkTargetListRecord.PolyML.PTR
              &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val addImageTargets_ =
         call (load_sym libgtk "gtk_target_list_add_image_targets")
           (
             GtkTargetListRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -28,13 +28,13 @@ structure GtkTargetList :>
         call (load_sym libgtk "gtk_target_list_add_rich_text_targets")
           (
             GtkTargetListRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val addTextTargets_ = call (load_sym libgtk "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val addUriTargets_ = call (load_sym libgtk "gtk_target_list_add_uri_targets") (GtkTargetListRecord.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val addTextTargets_ = call (load_sym libgtk "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val addUriTargets_ = call (load_sym libgtk "gtk_target_list_add_uri_targets") (GtkTargetListRecord.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val remove_ = call (load_sym libgtk "gtk_target_list_remove") (GtkTargetListRecord.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type record_t = GtkTargetListRecord.t
@@ -44,8 +44,8 @@ structure GtkTargetList :>
       (
         GtkTargetListRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         add_
@@ -58,7 +58,7 @@ structure GtkTargetList :>
     fun addImageTargets self info writable =
       (
         GtkTargetListRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -71,7 +71,7 @@ structure GtkTargetList :>
     fun addRichTextTargets self info deserializable buffer =
       (
         GtkTargetListRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
@@ -83,7 +83,7 @@ structure GtkTargetList :>
            & deserializable
            & buffer
         )
-    fun addTextTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) addTextTargets_ (self & info)
-    fun addUriTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) addUriTargets_ (self & info)
+    fun addTextTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt.C.withVal ---> I) addTextTargets_ (self & info)
+    fun addUriTargets self info = (GtkTargetListRecord.C.withPtr &&&> FFI.UInt.C.withVal ---> I) addUriTargets_ (self & info)
     fun remove self target = (GtkTargetListRecord.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) remove_ (self & target)
   end

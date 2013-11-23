@@ -14,8 +14,8 @@ structure GtkFixed :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val put_ =
@@ -23,8 +23,8 @@ structure GtkFixed :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -39,8 +39,8 @@ structure GtkFixed :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         move_
@@ -54,8 +54,8 @@ structure GtkFixed :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         put_

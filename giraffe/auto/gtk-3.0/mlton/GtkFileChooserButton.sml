@@ -26,7 +26,7 @@ structure GtkFileChooserButton :>
     val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getTitle_ = _import "gtk_file_chooser_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_focus_on_click" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
@@ -43,7 +43,7 @@ structure GtkFileChooserButton :>
               x2,
               x3
             )
-    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkFileChooserButtonClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
@@ -59,10 +59,10 @@ structure GtkFileChooserButton :>
     fun newWithDialog dialog = (GObjectObjectClass.C.withPtr ---> GtkFileChooserButtonClass.C.fromPtr false) newWithDialog_ dialog
     fun getFocusOnClick self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnClick_ self
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
-    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidthChars_ self
+    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthChars_ self
     fun setFocusOnClick self focusOnClick = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
     fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
-    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidthChars_ (self & nChars)
+    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
     local
       open ClosureMarshal Signal
     in

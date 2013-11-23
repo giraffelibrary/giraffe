@@ -348,7 +348,6 @@ signature VTE_TERMINAL =
     val fontDescProp : ('a class_t, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
     val iconTitleProp : ('a class_t, string option) Property.readonly
     val pointerAutohideProp : ('a class_t, bool, bool) Property.readwrite
-    val ptyProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val ptyObjectProp : ('a class_t, base ptyclass_t option, 'b ptyclass_t option) Property.readwrite
     val scrollBackgroundProp : ('a class_t, bool, bool) Property.readwrite
     val scrollOnKeystrokeProp : ('a class_t, bool, bool) Property.readwrite

@@ -89,7 +89,7 @@ structure GioSocketListener :>
              --> FFI.Bool.PolyML.VAL
           )
       val close_ = call (load_sym libgio "g_socket_listener_close") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setBacklog_ = call (load_sym libgio "g_socket_listener_set_backlog") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setBacklog_ = call (load_sym libgio "g_socket_listener_set_backlog") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSocketListenerClass.t
     type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
@@ -251,7 +251,7 @@ structure GioSocketListener :>
            & []
         )
     fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setBacklog_ (self & listenBacklog)
+    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setBacklog_ (self & listenBacklog)
     local
       open Property
     in

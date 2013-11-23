@@ -63,5 +63,4 @@ signature GIO_TLS_CONNECTION =
     val peerCertificateErrorsProp : ('a class_t, tlscertificateflags_t) Property.readonly
     val rehandshakeModeProp : ('a class_t, tlsrehandshakemode_t, tlsrehandshakemode_t) Property.readwrite
     val requireCloseNotifyProp : ('a class_t, bool, bool) Property.readwrite
-    val useSystemCertdbProp : ('a class_t, bool, bool) Property.readwrite
   end

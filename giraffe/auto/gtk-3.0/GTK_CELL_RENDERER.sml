@@ -14,16 +14,16 @@ signature GTK_CELL_RENDERER =
        -> 'b Gdk.Event.t
        -> 'c widgetclass_t
        -> string
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> bool
     val getAlignedArea :
       'a class_t
        -> 'b widgetclass_t
        -> cellrendererstate_t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val getAlignment : 'a class_t -> real * real
     val getFixedSize : 'a class_t -> LargeInt.int * LargeInt.int
     val getPadding : 'a class_t -> LargeInt.int * LargeInt.int
@@ -62,8 +62,8 @@ signature GTK_CELL_RENDERER =
       'a class_t
        -> Cairo.ContextRecord.t
        -> 'b widgetclass_t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> unit
     val setAlignment :
@@ -94,8 +94,8 @@ signature GTK_CELL_RENDERER =
        -> 'b Gdk.Event.t
        -> 'c widgetclass_t
        -> string
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> base celleditableclass_t
     val stopEditing :

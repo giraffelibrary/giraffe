@@ -14,7 +14,7 @@ structure GtkToolItem :>
     val getEllipsizeMode_ = _import "gtk_tool_item_get_ellipsize_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoEllipsizeMode.C.val_;
     val getExpand_ = _import "gtk_tool_item_get_expand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getHomogeneous_ = _import "gtk_tool_item_get_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getIconSize_ = _import "gtk_tool_item_get_icon_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getIconSize_ = _import "gtk_tool_item_get_icon_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getIsImportant_ = _import "gtk_tool_item_get_is_important" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getOrientation_ = _import "gtk_tool_item_get_orientation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkOrientation.C.val_;
     val getProxyMenuItem_ =
@@ -114,7 +114,7 @@ structure GtkToolItem :>
     fun getEllipsizeMode self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsizeMode_ self
     fun getExpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpand_ self
     fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
-    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIconSize_ self
+    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
     fun getIsImportant self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsImportant_ self
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
     fun getProxyMenuItem self menuItemId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getProxyMenuItem_ (self & menuItemId)

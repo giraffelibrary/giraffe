@@ -11,7 +11,7 @@ structure GtkCellAreaBox :>
     in
       val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_end")
           (
@@ -32,7 +32,7 @@ structure GtkCellAreaBox :>
              &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellAreaBoxClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -44,7 +44,7 @@ structure GtkCellAreaBox :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellAreaBoxClass.C.fromPtr false) new_ ()
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun packEnd self renderer expand align fixed =
       (
         GObjectObjectClass.C.withPtr
@@ -79,7 +79,7 @@ structure GtkCellAreaBox :>
            & align
            & fixed
         )
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

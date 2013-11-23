@@ -7,7 +7,7 @@ structure Pango : PANGO =
       val attrTypeRegister_ = call (load_sym libpango "pango_attr_type_register") (FFI.String.PolyML.INPTR --> PangoAttrType.PolyML.VAL)
       val bidiTypeForUnichar_ = call (load_sym libpango "pango_bidi_type_for_unichar") (FFI.Char.PolyML.VAL --> PangoBidiType.PolyML.VAL)
       val extentsToPixels_ = call (load_sym libpango "pango_extents_to_pixels") (PangoRectangleRecord.PolyML.OPTPTR &&> PangoRectangleRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val findBaseDir_ = call (load_sym libpango "pango_find_base_dir") (FFI.String.PolyML.INPTR &&> FFI.Int32.PolyML.VAL --> PangoDirection.PolyML.VAL)
+      val findBaseDir_ = call (load_sym libpango "pango_find_base_dir") (FFI.String.PolyML.INPTR &&> FFI.Int.PolyML.VAL --> PangoDirection.PolyML.VAL)
       val fontDescriptionFromString_ = call (load_sym libpango "pango_font_description_from_string") (FFI.String.PolyML.INPTR --> PangoFontDescriptionRecord.PolyML.PTR)
       val gravityGetForMatrix_ = call (load_sym libpango "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.PTR --> PangoGravity.PolyML.VAL)
       val gravityGetForScript_ =
@@ -35,7 +35,7 @@ structure Pango : PANGO =
         call (load_sym libpango "pango_parse_markup")
           (
             FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Char.PolyML.VAL
              &&> PangoAttrListRecord.PolyML.OUTREF
              &&> FFI.String.PolyML.OUTREF
@@ -43,25 +43,27 @@ structure Pango : PANGO =
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val quantizeLineGeometry_ = call (load_sym libpango "pango_quantize_line_geometry") (FFI.Int32.PolyML.REF &&> FFI.Int32.PolyML.REF --> FFI.PolyML.VOID)
+      val quantizeLineGeometry_ = call (load_sym libpango "pango_quantize_line_geometry") (FFI.Int.PolyML.REF &&> FFI.Int.PolyML.REF --> FFI.PolyML.VOID)
       val scriptForUnichar_ = call (load_sym libpango "pango_script_for_unichar") (FFI.Char.PolyML.VAL --> PangoScript.PolyML.VAL)
       val scriptGetSampleLanguage_ = call (load_sym libpango "pango_script_get_sample_language") (PangoScript.PolyML.VAL --> PangoLanguageRecord.PolyML.PTR)
       val skipSpace_ = call (load_sym libpango "pango_skip_space") (FFI.String.PolyML.INOUTREF --> FFI.Bool.PolyML.VAL)
       val trimString_ = call (load_sym libpango "pango_trim_string") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
       val unicharDirection_ = call (load_sym libpango "pango_unichar_direction") (FFI.Char.PolyML.VAL --> PangoDirection.PolyML.VAL)
-      val unitsFromDouble_ = call (load_sym libpango "pango_units_from_double") (FFI.Double.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val unitsToDouble_ = call (load_sym libpango "pango_units_to_double") (FFI.Int32.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val version_ = call (load_sym libpango "pango_version") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
+      val unitsFromDouble_ = call (load_sym libpango "pango_units_from_double") (FFI.Double.PolyML.VAL --> FFI.Int.PolyML.VAL)
+      val unitsToDouble_ = call (load_sym libpango "pango_units_to_double") (FFI.Int.PolyML.VAL --> FFI.Double.PolyML.VAL)
+      val version_ = call (load_sym libpango "pango_version") (FFI.PolyML.VOID --> FFI.Int.PolyML.VAL)
       val versionCheck_ =
         call (load_sym libpango "pango_version_check")
           (
-            FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+            FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.String.PolyML.RETPTR
           )
       val versionString_ = call (load_sym libpango "pango_version_string") (FFI.PolyML.VOID --> FFI.String.PolyML.RETPTR)
     end
+    structure Glyph = PangoGlyph
+    structure GlyphUnit = PangoGlyphUnit
     structure Alignment = PangoAlignment
     structure AttrListRecord = PangoAttrListRecord
     structure AttrType = PangoAttrType
@@ -97,6 +99,7 @@ structure Pango : PANGO =
     structure Variant = PangoVariant
     structure Weight = PangoWeight
     structure WrapMode = PangoWrapMode
+    structure LayoutRunRecord = PangoLayoutRunRecord
     structure AttrList = PangoAttrList
     structure Attribute = PangoAttribute
     structure Font = PangoFont
@@ -128,7 +131,7 @@ structure Pango : PANGO =
     fun attrTypeRegister name = (FFI.String.C.withConstPtr ---> PangoAttrType.C.fromVal) attrTypeRegister_ name
     fun bidiTypeForUnichar ch = (FFI.Char.C.withVal ---> PangoBidiType.C.fromVal) bidiTypeForUnichar_ ch
     fun extentsToPixels inclusive nearest = (PangoRectangleRecord.C.withOptPtr &&&> PangoRectangleRecord.C.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
-    fun findBaseDir text length = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> PangoDirection.C.fromVal) findBaseDir_ (text & length)
+    fun findBaseDir text length = (FFI.String.C.withConstPtr &&&> FFI.Int.C.withVal ---> PangoDirection.C.fromVal) findBaseDir_ (text & length)
     fun fontDescriptionFromString str = (FFI.String.C.withConstPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fontDescriptionFromString_ str
     fun gravityGetForMatrix matrix = (PangoMatrixRecord.C.withPtr ---> PangoGravity.C.fromVal) gravityGetForMatrix_ matrix
     fun gravityGetForScript script baseGravity hint =
@@ -171,7 +174,7 @@ structure Pango : PANGO =
          & retVal =
           (
             FFI.String.C.withConstPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> FFI.String.C.withRefConstOptPtr
@@ -209,9 +212,9 @@ structure Pango : PANGO =
          & position
          & () =
           (
-            FFI.Int32.C.withRefVal &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            FFI.Int.C.withRefVal &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             quantizeLineGeometry_
@@ -229,14 +232,14 @@ structure Pango : PANGO =
       end
     fun trimString str = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) trimString_ str
     fun unicharDirection ch = (FFI.Char.C.withVal ---> PangoDirection.C.fromVal) unicharDirection_ ch
-    fun unitsFromDouble d = (FFI.Double.C.withVal ---> FFI.Int32.C.fromVal) unitsFromDouble_ d
-    fun unitsToDouble i = (FFI.Int32.C.withVal ---> FFI.Double.C.fromVal) unitsToDouble_ i
-    fun version () = (I ---> FFI.Int32.C.fromVal) version_ ()
+    fun unitsFromDouble d = (FFI.Double.C.withVal ---> FFI.Int.C.fromVal) unitsFromDouble_ d
+    fun unitsToDouble i = (FFI.Int.C.withVal ---> FFI.Double.C.fromVal) unitsToDouble_ i
+    fun version () = (I ---> FFI.Int.C.fromVal) version_ ()
     fun versionCheck requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> FFI.String.C.fromPtr false
       )
         versionCheck_

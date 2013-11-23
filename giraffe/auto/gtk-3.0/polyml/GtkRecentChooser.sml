@@ -14,7 +14,7 @@ structure GtkRecentChooser :>
       val getCurrentItem_ = call (load_sym libgtk "gtk_recent_chooser_get_current_item") (GObjectObjectClass.PolyML.PTR --> GtkRecentInfoRecord.PolyML.PTR)
       val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getFilter_ = call (load_sym libgtk "gtk_recent_chooser_get_filter") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_get_select_multiple") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_get_show_icons") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -41,7 +41,7 @@ structure GtkRecentChooser :>
              --> FFI.Bool.PolyML.VAL
           )
       val setFilter_ = call (load_sym libgtk "gtk_recent_chooser_set_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_set_local_only") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_set_select_multiple") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_set_show_icons") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -62,7 +62,7 @@ structure GtkRecentChooser :>
     fun getCurrentItem self = (GObjectObjectClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self
     fun getCurrentUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getCurrentUri_ self
     fun getFilter self = (GObjectObjectClass.C.withPtr ---> GtkRecentFilterClass.C.fromPtr false) getFilter_ self
-    fun getLimit self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLimit_ self
+    fun getLimit self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLimit_ self
     fun getLocalOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocalOnly_ self
     fun getSelectMultiple self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSelectMultiple_ self
     fun getShowIcons self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowIcons_ self
@@ -99,7 +99,7 @@ structure GtkRecentChooser :>
            & []
         )
     fun setFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFilter_ (self & filter)
-    fun setLimit self limit = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setLimit_ (self & limit)
+    fun setLimit self limit = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setLimit_ (self & limit)
     fun setLocalOnly self localOnly = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setSelectMultiple self selectMultiple = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
     fun setShowIcons self showIcons = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowIcons_ (self & showIcons)

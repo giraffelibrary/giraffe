@@ -13,7 +13,7 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_add_entry" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> unit;
           )
@@ -34,7 +34,7 @@ structure GtkAccelMap :>
             _import "mlton_gtk_accel_map_change_entry" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -48,7 +48,7 @@ structure GtkAccelMap :>
             )
     val get_ = _import "gtk_accel_map_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val load_ = _import "mlton_gtk_accel_map_load" : cstring * unit CPointer.t -> unit;
-    val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int32.C.val_ -> unit;
+    val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int.C.val_ -> unit;
     val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : cstring * unit CPointer.t -> unit;
     val lookupEntry_ =
       fn
@@ -66,7 +66,7 @@ structure GtkAccelMap :>
               x3
             )
     val save_ = _import "mlton_gtk_accel_map_save" : cstring * unit CPointer.t -> unit;
-    val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int32.C.val_ -> unit;
+    val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int.C.val_ -> unit;
     val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : cstring * unit CPointer.t -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
     type accelkeyrecord_t = GtkAccelKeyRecord.t
@@ -74,7 +74,7 @@ structure GtkAccelMap :>
     fun addEntry accelPath accelKey accelMods =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
       )
@@ -88,7 +88,7 @@ structure GtkAccelMap :>
     fun changeEntry accelPath accelKey accelMods replace =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -102,7 +102,7 @@ structure GtkAccelMap :>
         )
     fun get () = (I ---> GtkAccelMapClass.C.fromPtr false) get_ ()
     fun load fileName = (FFI.String.C.withConstPtr ---> I) load_ fileName
-    fun loadFd fd = (FFI.Int32.C.withVal ---> I) loadFd_ fd
+    fun loadFd fd = (FFI.Int.C.withVal ---> I) loadFd_ fd
     fun lockPath accelPath = (FFI.String.C.withConstPtr ---> I) lockPath_ accelPath
     fun lookupEntry accelPath =
       let
@@ -111,7 +111,7 @@ structure GtkAccelMap :>
         if retVal then SOME key else NONE
       end
     fun save fileName = (FFI.String.C.withConstPtr ---> I) save_ fileName
-    fun saveFd fd = (FFI.Int32.C.withVal ---> I) saveFd_ fd
+    fun saveFd fd = (FFI.Int.C.withVal ---> I) saveFd_ fd
     fun unlockPath accelPath = (FFI.String.C.withConstPtr ---> I) unlockPath_ accelPath
     local
       open ClosureMarshal Signal

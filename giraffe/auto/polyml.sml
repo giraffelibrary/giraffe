@@ -32,5 +32,6 @@ use "cairo-1.0/polyml.sml";
 use "pangocairo-1.0/polyml.sml";
 use "gdk-3.0/polyml.sml";
 use "atk-1.0/polyml.sml";
+use "xlib-2.0/polyml.sml";
 use "gtk-3.0/polyml.sml";
 use "vte-2.90/polyml.sml";

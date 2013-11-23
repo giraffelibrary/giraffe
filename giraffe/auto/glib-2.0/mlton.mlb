@@ -5,12 +5,16 @@ local
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
   ../gobject-2.0/mlton.mlb
-  G_LIB_QUARK.sml
-  G_LIB_PID.sml
   G_LIB_SOURCE_FUNC.sml
   G_LIB_CHILD_WATCH_FUNC.sml
   G_LIB_SPAWN_CHILD_SETUP_FUNC.sml
   G_LIB_I_O_FUNC.sml
+  G_LIB_DATE_DAY.sml
+  G_LIB_DATE_YEAR.sml
+  G_LIB_PID.sml
+  G_LIB_QUARK.sml
+  G_LIB_TIME.sml
+  G_LIB_TIME_SPAN.sml
   G_LIB_ERROR_RECORD.sml
   G_LIB_ERROR.sml
   G_LIB_I_O_CHANNEL_RECORD.sml
@@ -42,10 +46,14 @@ in
   G_LIB_TIME_VAL_RECORD.sml
   G_LIB_TIME_VAL.sml
   G_LIB.sml
-  mlton/GLibQuark.sml
-  mlton/GLibPid.sml
   mlton/GLibSourceFunc.sml
   mlton/GLibSpawnChildSetupFunc.sml
+  mlton/GLibDateDay.sml
+  mlton/GLibDateYear.sml
+  mlton/GLibPid.sml
+  mlton/GLibQuark.sml
+  mlton/GLibTime.sml
+  mlton/GLibTimeSpan.sml
   mlton/GLibIOChannelRecord.sml
   mlton/GLibIOCondition.sml
   mlton/GLibIOError.sml

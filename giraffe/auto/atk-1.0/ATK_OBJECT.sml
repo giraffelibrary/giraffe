@@ -5,6 +5,7 @@ signature ATK_OBJECT =
     type relationtype_t
     type 'a statesetclass_t
     type 'a relationsetclass_t
+    type state_t
     val getType : unit -> GObject.Type.t
     val addRelationship :
       'a class_t
@@ -19,7 +20,7 @@ signature ATK_OBJECT =
     val getRole : 'a class_t -> role_t
     val notifyStateChange :
       'a class_t
-       -> LargeInt.int
+       -> state_t
        -> bool
        -> unit
     val refAccessibleChild :

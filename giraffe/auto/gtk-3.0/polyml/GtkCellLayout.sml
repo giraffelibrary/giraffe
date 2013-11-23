@@ -14,7 +14,7 @@ structure GtkCellLayout :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -41,7 +41,7 @@ structure GtkCellLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -54,7 +54,7 @@ structure GtkCellLayout :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addAttribute_
@@ -97,7 +97,7 @@ structure GtkCellLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         reorder_

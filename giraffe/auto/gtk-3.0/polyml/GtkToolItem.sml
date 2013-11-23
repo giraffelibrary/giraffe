@@ -17,7 +17,7 @@ structure GtkToolItem :>
       val getEllipsizeMode_ = call (load_sym libgtk "gtk_tool_item_get_ellipsize_mode") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
       val getExpand_ = call (load_sym libgtk "gtk_tool_item_get_expand") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHomogeneous_ = call (load_sym libgtk "gtk_tool_item_get_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIconSize_ = call (load_sym libgtk "gtk_tool_item_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getIconSize_ = call (load_sym libgtk "gtk_tool_item_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getIsImportant_ = call (load_sym libgtk "gtk_tool_item_get_is_important") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getOrientation_ = call (load_sym libgtk "gtk_tool_item_get_orientation") (GObjectObjectClass.PolyML.PTR --> GtkOrientation.PolyML.VAL)
       val getProxyMenuItem_ = call (load_sym libgtk "gtk_tool_item_get_proxy_menu_item") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
@@ -65,7 +65,7 @@ structure GtkToolItem :>
     fun getEllipsizeMode self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsizeMode_ self
     fun getExpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpand_ self
     fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
-    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIconSize_ self
+    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
     fun getIsImportant self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsImportant_ self
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
     fun getProxyMenuItem self menuItemId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getProxyMenuItem_ (self & menuItemId)

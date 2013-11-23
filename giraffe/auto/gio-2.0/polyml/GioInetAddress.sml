@@ -22,7 +22,7 @@ structure GioInetAddress :>
       val getIsMcSiteLocal_ = call (load_sym libgio "g_inet_address_get_is_mc_site_local") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIsMulticast_ = call (load_sym libgio "g_inet_address_get_is_multicast") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIsSiteLocal_ = call (load_sym libgio "g_inet_address_get_is_site_local") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getNativeSize_ = call (load_sym libgio "g_inet_address_get_native_size") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
+      val getNativeSize_ = call (load_sym libgio "g_inet_address_get_native_size") (GObjectObjectClass.PolyML.PTR --> FFI.Size.PolyML.VAL)
       val toString_ = call (load_sym libgio "g_inet_address_to_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioInetAddressClass.t
@@ -43,7 +43,7 @@ structure GioInetAddress :>
     fun getIsMcSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMcSiteLocal_ self
     fun getIsMulticast self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMulticast_ self
     fun getIsSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsSiteLocal_ self
-    fun getNativeSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getNativeSize_ self
+    fun getNativeSize self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getNativeSize_ self
     fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
     local
       open Property

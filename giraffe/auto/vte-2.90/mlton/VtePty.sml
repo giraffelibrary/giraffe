@@ -5,10 +5,10 @@ structure VtePty :>
   struct
     val getType_ = _import "vte_pty_get_type" : unit -> GObjectType.C.val_;
     val new_ = fn x1 & x2 => (_import "vte_pty_new" : VtePtyFlags.C.val_ * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : FFI.Int32.C.val_ * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : FFI.Int.C.val_ * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val childSetup_ = _import "vte_pty_child_setup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val close_ = _import "vte_pty_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getFd_ = _import "vte_pty_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getFd_ = _import "vte_pty_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getSize_ =
       fn
         x1
@@ -18,8 +18,8 @@ structure VtePty :>
           (
             _import "vte_pty_get_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -38,8 +38,8 @@ structure VtePty :>
           (
             _import "vte_pty_set_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -86,10 +86,10 @@ structure VtePty :>
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])
-    fun newForeign fd = (FFI.Int32.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
+    fun newForeign fd = (FFI.Int.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
     fun childSetup self = (GObjectObjectClass.C.withPtr ---> I) childSetup_ self
     fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
@@ -97,18 +97,18 @@ structure VtePty :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             getSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
                & []
             )
       in
@@ -117,8 +117,8 @@ structure VtePty :>
     fun setSize self rows columns =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

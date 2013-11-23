@@ -12,7 +12,7 @@ structure GtkSourceGutterRendererText :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setText_ =
@@ -20,7 +20,7 @@ structure GtkSourceGutterRendererText :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -31,7 +31,7 @@ structure GtkSourceGutterRendererText :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setMarkup_
@@ -44,7 +44,7 @@ structure GtkSourceGutterRendererText :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setText_

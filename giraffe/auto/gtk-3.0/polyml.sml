@@ -1,6 +1,7 @@
 use "CHILD_SIGNAL.sml";
 use "STYLE_PROPERTY.sml";
 use "GTK_ACTION_ENTRY.sml";
+use "GTK_ALLOCATION_RECORD.sml";
 use "GTK_ABOUT_DIALOG_CLASS.sml";
 use "GTK_ABOUT_DIALOG.sml";
 use "GTK_ACCEL_FLAGS.sml";
@@ -527,6 +528,7 @@ use "GTK_WINDOW_TYPE.sml";
 use "GTK_WRAP_MODE.sml";
 use "GTK.sml";
 use "polyml/GtkActionEntry.sml";
+use "polyml/GtkAllocationRecord.sml";
 use "polyml/GtkAccelFlags.sml";
 use "polyml/GtkAccelGroupClass.sml";
 use "polyml/GtkAccelKeyRecord.sml";

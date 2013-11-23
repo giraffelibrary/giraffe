@@ -13,7 +13,7 @@ structure AtkRelation :>
           (
             _import "atk_relation_new" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * AtkRelationType.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -32,7 +32,7 @@ structure AtkRelation :>
     fun new targets nTargets relationship =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> AtkRelationType.C.withVal
          ---> AtkRelationClass.C.fromPtr true
       )

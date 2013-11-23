@@ -38,7 +38,7 @@ structure GtkAction :>
     val activate_ = _import "gtk_action_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val blockActivate_ = _import "gtk_action_block_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val connectAccelerator_ = _import "gtk_action_connect_accelerator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val createMenu_ = _import "gtk_action_create_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val createMenuItem_ = _import "gtk_action_create_menu_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val createToolItem_ = _import "gtk_action_create_tool_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -184,7 +184,7 @@ structure GtkAction :>
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun blockActivate self = (GObjectObjectClass.C.withPtr ---> I) blockActivate_ self
     fun connectAccelerator self = (GObjectObjectClass.C.withPtr ---> I) connectAccelerator_ self
-    fun createIcon self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
+    fun createIcon self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
     fun createMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenu_ self
     fun createMenuItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenuItem_ self
     fun createToolItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createToolItem_ self

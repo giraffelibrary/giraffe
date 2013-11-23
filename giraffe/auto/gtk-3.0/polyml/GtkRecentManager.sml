@@ -37,7 +37,7 @@ structure GtkRecentManager :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val purgeItems_ = call (load_sym libgtk "gtk_recent_manager_purge_items") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Int32.PolyML.VAL)
+      val purgeItems_ = call (load_sym libgtk "gtk_recent_manager_purge_items") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Int.PolyML.VAL)
       val removeItem_ =
         call (load_sym libgtk "gtk_recent_manager_remove_item")
           (
@@ -96,7 +96,7 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
         GObjectObjectClass.C.withPtr

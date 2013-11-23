@@ -12,7 +12,7 @@ structure PangoGlyphItem :>
           (
             PangoGlyphItemRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> PangoGlyphItemRecord.PolyML.PTR
           )
     end
@@ -23,7 +23,7 @@ structure PangoGlyphItem :>
       (
         PangoGlyphItemRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> PangoGlyphItemRecord.C.fromPtr true
       )
         split_

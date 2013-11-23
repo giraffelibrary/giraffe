@@ -8,9 +8,9 @@ signature GTK_SOCKET =
     val new : unit -> base class_t
     val addId :
       'a class_t
-       -> LargeInt.int
+       -> Xlib.Window.t
        -> unit
-    val getId : 'a class_t -> LargeInt.int
+    val getId : 'a class_t -> Xlib.Window.t
     val getPlugWindow : 'a class_t -> base Gdk.WindowClass.t
     val plugAddedSig : (unit -> unit) -> 'a class_t Signal.signal
     val plugRemovedSig : (unit -> bool) -> 'a class_t Signal.signal

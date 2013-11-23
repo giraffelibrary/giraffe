@@ -19,8 +19,8 @@ structure PangoAttrList :>
             _import "pango_attr_list_splice" :
               PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p
                * PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -41,8 +41,8 @@ structure PangoAttrList :>
       (
         PangoAttrListRecord.C.withPtr
          &&&> PangoAttrListRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         splice_

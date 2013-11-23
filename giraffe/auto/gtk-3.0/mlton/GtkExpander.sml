@@ -12,7 +12,7 @@ structure GtkExpander :>
     val getLabelFill_ = _import "gtk_expander_get_label_fill" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getLabelWidget_ = _import "gtk_expander_get_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getResizeToplevel_ = _import "gtk_expander_get_resize_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getSpacing_ = _import "gtk_expander_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSpacing_ = _import "gtk_expander_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getUseMarkup_ = _import "gtk_expander_get_use_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getUseUnderline_ = _import "gtk_expander_get_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setExpanded_ = fn x1 & x2 => (_import "gtk_expander_set_expanded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
@@ -34,7 +34,7 @@ structure GtkExpander :>
     val setLabelFill_ = fn x1 & x2 => (_import "gtk_expander_set_label_fill" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setLabelWidget_ = fn x1 & x2 => (_import "gtk_expander_set_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setResizeToplevel_ = fn x1 & x2 => (_import "gtk_expander_set_resize_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_expander_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_expander_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setUseMarkup_ = fn x1 & x2 => (_import "gtk_expander_set_use_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setUseUnderline_ = fn x1 & x2 => (_import "gtk_expander_set_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkExpanderClass.t
@@ -50,7 +50,7 @@ structure GtkExpander :>
     fun getLabelFill self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLabelFill_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
     fun getResizeToplevel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getResizeToplevel_ self
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun getUseMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
     fun setExpanded self expanded = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExpanded_ (self & expanded)
@@ -58,7 +58,7 @@ structure GtkExpander :>
     fun setLabelFill self labelFill = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLabelFill_ (self & labelFill)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
     fun setResizeToplevel self resizeToplevel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizeToplevel_ (self & resizeToplevel)
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
     fun setUseMarkup self useMarkup = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseMarkup_ (self & useMarkup)
     fun setUseUnderline self useUnderline = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & useUnderline)
     local

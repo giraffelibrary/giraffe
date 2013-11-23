@@ -26,7 +26,7 @@ structure GtkEntry :>
       val getAlignment_ = call (load_sym libgtk "gtk_entry_get_alignment") (GObjectObjectClass.PolyML.PTR --> FFI.Float.PolyML.VAL)
       val getBuffer_ = call (load_sym libgtk "gtk_entry_get_buffer") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getCompletion_ = call (load_sym libgtk "gtk_entry_get_completion") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getCurrentIconDragSource_ = call (load_sym libgtk "gtk_entry_get_current_icon_drag_source") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCurrentIconDragSource_ = call (load_sym libgtk "gtk_entry_get_current_icon_drag_source") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getCursorHadjustment_ = call (load_sym libgtk "gtk_entry_get_cursor_hadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getHasFrame_ = call (load_sym libgtk "gtk_entry_get_has_frame") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIconActivatable_ = call (load_sym libgtk "gtk_entry_get_icon_activatable") (GObjectObjectClass.PolyML.PTR &&> GtkEntryIconPosition.PolyML.VAL --> FFI.Bool.PolyML.VAL)
@@ -35,16 +35,16 @@ structure GtkEntry :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkEntryIconPosition.PolyML.VAL
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
       val getIconAtPos_ =
         call (load_sym libgtk "gtk_entry_get_icon_at_pos")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val getIconGicon_ = call (load_sym libgtk "gtk_entry_get_icon_gicon") (GObjectObjectClass.PolyML.PTR &&> GtkEntryIconPosition.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val getIconName_ = call (load_sym libgtk "gtk_entry_get_icon_name") (GObjectObjectClass.PolyML.PTR &&> GtkEntryIconPosition.PolyML.VAL --> FFI.String.PolyML.RETPTR)
@@ -61,22 +61,22 @@ structure GtkEntry :>
         call (load_sym libgtk "gtk_entry_get_layout_offsets")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
-      val getMaxLength_ = call (load_sym libgtk "gtk_entry_get_max_length") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getMaxLength_ = call (load_sym libgtk "gtk_entry_get_max_length") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getOverwriteMode_ = call (load_sym libgtk "gtk_entry_get_overwrite_mode") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getPlaceholderText_ = call (load_sym libgtk "gtk_entry_get_placeholder_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getProgressFraction_ = call (load_sym libgtk "gtk_entry_get_progress_fraction") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
       val getProgressPulseStep_ = call (load_sym libgtk "gtk_entry_get_progress_pulse_step") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
       val getText_ = call (load_sym libgtk "gtk_entry_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getTextArea_ = call (load_sym libgtk "gtk_entry_get_text_area") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getTextArea_ = call (load_sym libgtk "gtk_entry_get_text_area") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getTextLength_ = call (load_sym libgtk "gtk_entry_get_text_length") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
       val getVisibility_ = call (load_sym libgtk "gtk_entry_get_visibility") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getWidthChars_ = call (load_sym libgtk "gtk_entry_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getWidthChars_ = call (load_sym libgtk "gtk_entry_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val imContextFilterKeypress_ = call (load_sym libgtk "gtk_entry_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val layoutIndexToTextIndex_ = call (load_sym libgtk "gtk_entry_layout_index_to_text_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
+      val layoutIndexToTextIndex_ = call (load_sym libgtk "gtk_entry_layout_index_to_text_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Int.PolyML.VAL)
       val progressPulse_ = call (load_sym libgtk "gtk_entry_progress_pulse") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val resetImContext_ = call (load_sym libgtk "gtk_entry_reset_im_context") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setActivatesDefault_ = call (load_sym libgtk "gtk_entry_set_activates_default") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -160,15 +160,15 @@ structure GtkEntry :>
           )
       val setInnerBorder_ = call (load_sym libgtk "gtk_entry_set_inner_border") (GObjectObjectClass.PolyML.PTR &&> GtkBorderRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setInvisibleChar_ = call (load_sym libgtk "gtk_entry_set_invisible_char") (GObjectObjectClass.PolyML.PTR &&> FFI.Char.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMaxLength_ = call (load_sym libgtk "gtk_entry_set_max_length") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setMaxLength_ = call (load_sym libgtk "gtk_entry_set_max_length") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setOverwriteMode_ = call (load_sym libgtk "gtk_entry_set_overwrite_mode") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setPlaceholderText_ = call (load_sym libgtk "gtk_entry_set_placeholder_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setProgressFraction_ = call (load_sym libgtk "gtk_entry_set_progress_fraction") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
       val setProgressPulseStep_ = call (load_sym libgtk "gtk_entry_set_progress_pulse_step") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
       val setText_ = call (load_sym libgtk "gtk_entry_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setVisibility_ = call (load_sym libgtk "gtk_entry_set_visibility") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWidthChars_ = call (load_sym libgtk "gtk_entry_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val textIndexToLayoutIndex_ = call (load_sym libgtk "gtk_entry_text_index_to_layout_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
+      val setWidthChars_ = call (load_sym libgtk "gtk_entry_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val textIndexToLayoutIndex_ = call (load_sym libgtk "gtk_entry_text_index_to_layout_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Int.PolyML.VAL)
       val unsetInvisibleChar_ = call (load_sym libgtk "gtk_entry_unset_invisible_char") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkEntryClass.t
@@ -197,7 +197,7 @@ structure GtkEntry :>
     fun getAlignment self = (GObjectObjectClass.C.withPtr ---> FFI.Float.C.fromVal) getAlignment_ self
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkEntryBufferClass.C.fromPtr false) getBuffer_ self
     fun getCompletion self = (GObjectObjectClass.C.withPtr ---> GtkEntryCompletionClass.C.fromPtr false) getCompletion_ self
-    fun getCurrentIconDragSource self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentIconDragSource_ self
+    fun getCurrentIconDragSource self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCurrentIconDragSource_ self
     fun getCursorHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getCursorHadjustment_ self
     fun getHasFrame self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasFrame_ self
     fun getIconActivatable self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.C.fromVal) getIconActivatable_ (self & iconPos)
@@ -207,8 +207,8 @@ structure GtkEntry :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkEntryIconPosition.C.withVal
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getIconArea_
             (
@@ -222,9 +222,9 @@ structure GtkEntry :>
     fun getIconAtPos self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         ---> FFI.Int.C.fromVal
       )
         getIconAtPos_
         (
@@ -250,22 +250,22 @@ structure GtkEntry :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getLayoutOffsets_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (x, y)
       end
-    fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxLength_ self
+    fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxLength_ self
     fun getOverwriteMode self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOverwriteMode_ self
     fun getPlaceholderText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPlaceholderText_ self
     fun getProgressFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getProgressFraction_ self
@@ -273,15 +273,15 @@ structure GtkEntry :>
     fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
     fun getTextArea self =
       let
-        val textArea & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getTextArea_ (self & ())
+        val textArea & () = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && I) getTextArea_ (self & ())
       in
         textArea
       end
     fun getTextLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.C.fromVal) getTextLength_ self
     fun getVisibility self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibility_ self
-    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidthChars_ self
+    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthChars_ self
     fun imContextFilterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) imContextFilterKeypress_ (self & event)
-    fun layoutIndexToTextIndex self layoutIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) layoutIndexToTextIndex_ (self & layoutIndex)
+    fun layoutIndexToTextIndex self layoutIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) layoutIndexToTextIndex_ (self & layoutIndex)
     fun progressPulse self = (GObjectObjectClass.C.withPtr ---> I) progressPulse_ self
     fun resetImContext self = (GObjectObjectClass.C.withPtr ---> I) resetImContext_ self
     fun setActivatesDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActivatesDefault_ (self & setting)
@@ -411,15 +411,15 @@ structure GtkEntry :>
         )
     fun setInnerBorder self border = (GObjectObjectClass.C.withPtr &&&> GtkBorderRecord.C.withOptPtr ---> I) setInnerBorder_ (self & border)
     fun setInvisibleChar self ch = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> I) setInvisibleChar_ (self & ch)
-    fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxLength_ (self & max)
+    fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxLength_ (self & max)
     fun setOverwriteMode self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverwriteMode_ (self & overwrite)
     fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPlaceholderText_ (self & text)
     fun setProgressFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressFraction_ (self & fraction)
     fun setProgressPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressPulseStep_ (self & fraction)
     fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setText_ (self & text)
     fun setVisibility self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibility_ (self & visible)
-    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidthChars_ (self & nChars)
-    fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) textIndexToLayoutIndex_ (self & textIndex)
+    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
+    fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) textIndexToLayoutIndex_ (self & textIndex)
     fun unsetInvisibleChar self = (GObjectObjectClass.C.withPtr ---> I) unsetInvisibleChar_ self
     local
       open ClosureMarshal Signal

@@ -20,20 +20,20 @@ structure GtkSourceView :>
       val getGutter_ = call (load_sym libgtksourceview "gtk_source_view_get_gutter") (GObjectObjectClass.PolyML.PTR &&> GtkTextWindowType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val getHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_get_highlight_current_line") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_on_tab") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_get_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_get_right_margin_position") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_get_right_margin_position") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val getShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_marks") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_get_show_right_margin") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_get_smart_home_end") (GObjectObjectClass.PolyML.PTR --> GtkSourceSmartHomeEndType.PolyML.VAL)
-      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_tab_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val getVisualColumn_ = call (load_sym libgtksourceview "gtk_source_view_get_visual_column") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_tab_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
+      val getVisualColumn_ = call (load_sym libgtksourceview "gtk_source_view_get_visual_column") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val setAutoIndent_ = call (load_sym libgtksourceview "gtk_source_view_set_auto_indent") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setDrawSpaces_ = call (load_sym libgtksourceview "gtk_source_view_set_draw_spaces") (GObjectObjectClass.PolyML.PTR &&> GtkSourceDrawSpacesFlags.PolyML.VAL --> FFI.PolyML.VOID)
       val setHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_set_highlight_current_line") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_on_tab") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_set_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setMarkAttributes_ =
         call (load_sym libgtksourceview "gtk_source_view_set_mark_attributes")
@@ -41,15 +41,15 @@ structure GtkSourceView :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_set_right_margin_position") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_set_right_margin_position") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val setShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_marks") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_set_show_right_margin") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_set_smart_home_end") (GObjectObjectClass.PolyML.PTR &&> GtkSourceSmartHomeEndType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_tab_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_tab_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceViewClass.t
     type 'a bufferclass_t = 'a GtkSourceBufferClass.t
@@ -70,27 +70,27 @@ structure GtkSourceView :>
     fun getGutter self windowType = (GObjectObjectClass.C.withPtr &&&> GtkTextWindowType.C.withVal ---> GtkSourceGutterClass.C.fromPtr false) getGutter_ (self & windowType)
     fun getHighlightCurrentLine self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightCurrentLine_ self
     fun getIndentOnTab self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIndentOnTab_ self
-    fun getIndentWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIndentWidth_ self
+    fun getIndentWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIndentWidth_ self
     fun getInsertSpacesInsteadOfTabs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInsertSpacesInsteadOfTabs_ self
-    fun getRightMarginPosition self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getRightMarginPosition_ self
+    fun getRightMarginPosition self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getRightMarginPosition_ self
     fun getShowLineMarks self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowLineMarks_ self
     fun getShowLineNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowLineNumbers_ self
     fun getShowRightMargin self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowRightMargin_ self
     fun getSmartHomeEnd self = (GObjectObjectClass.C.withPtr ---> GtkSourceSmartHomeEndType.C.fromVal) getSmartHomeEnd_ self
-    fun getTabWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getTabWidth_ self
-    fun getVisualColumn self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.UInt32.C.fromVal) getVisualColumn_ (self & iter)
+    fun getTabWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getTabWidth_ self
+    fun getVisualColumn self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.UInt.C.fromVal) getVisualColumn_ (self & iter)
     fun setAutoIndent self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAutoIndent_ (self & enable)
     fun setDrawSpaces self flags = (GObjectObjectClass.C.withPtr &&&> GtkSourceDrawSpacesFlags.C.withVal ---> I) setDrawSpaces_ (self & flags)
     fun setHighlightCurrentLine self hl = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightCurrentLine_ (self & hl)
     fun setIndentOnTab self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIndentOnTab_ (self & enable)
-    fun setIndentWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setIndentWidth_ (self & width)
+    fun setIndentWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIndentWidth_ (self & width)
     fun setInsertSpacesInsteadOfTabs self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInsertSpacesInsteadOfTabs_ (self & enable)
     fun setMarkAttributes self category attributes priority =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setMarkAttributes_
@@ -100,12 +100,12 @@ structure GtkSourceView :>
            & attributes
            & priority
         )
-    fun setRightMarginPosition self pos = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setRightMarginPosition_ (self & pos)
+    fun setRightMarginPosition self pos = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setRightMarginPosition_ (self & pos)
     fun setShowLineMarks self show = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowLineMarks_ (self & show)
     fun setShowLineNumbers self show = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowLineNumbers_ (self & show)
     fun setShowRightMargin self show = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowRightMargin_ (self & show)
     fun setSmartHomeEnd self smartHe = (GObjectObjectClass.C.withPtr &&&> GtkSourceSmartHomeEndType.C.withVal ---> I) setSmartHomeEnd_ (self & smartHe)
-    fun setTabWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setTabWidth_ (self & width)
+    fun setTabWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setTabWidth_ (self & width)
     local
       open ClosureMarshal Signal
     in

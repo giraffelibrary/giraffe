@@ -11,8 +11,8 @@ structure GtkIMContext :>
           (
             _import "gtk_im_context_delete_surrounding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
             (
@@ -35,7 +35,7 @@ structure GtkIMContext :>
                * cstring
                * unit CPointer.t ref
                * (unit, PangoAttrListRecord.C.notnull) PangoAttrListRecord.C.r
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -47,7 +47,7 @@ structure GtkIMContext :>
             )
     val reset_ = _import "gtk_im_context_reset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
+    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> unit;) (x1, x2)
     val setSurrounding_ =
       fn
         x1
@@ -59,8 +59,8 @@ structure GtkIMContext :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -76,8 +76,8 @@ structure GtkIMContext :>
     fun deleteSurrounding self offset nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
         deleteSurrounding_
@@ -99,10 +99,10 @@ structure GtkIMContext :>
             GObjectObjectClass.C.withPtr
              &&&> FFI.String.C.withRefConstOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              ---> FFI.String.C.fromPtr true
                    && PangoAttrListRecord.C.fromPtr true
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreeditString_
@@ -110,7 +110,7 @@ structure GtkIMContext :>
               self
                & NONE
                & NONE
-               & FFI.Int32.null
+               & FFI.Int.null
             )
       in
         (
@@ -121,13 +121,13 @@ structure GtkIMContext :>
       end
     fun reset self = (GObjectObjectClass.C.withPtr ---> I) reset_ self
     fun setClientWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setClientWindow_ (self & window)
-    fun setCursorLocation self area = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
+    fun setCursorLocation self area = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setSurrounding_

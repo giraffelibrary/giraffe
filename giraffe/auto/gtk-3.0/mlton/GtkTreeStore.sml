@@ -38,7 +38,7 @@ structure GtkTreeStore :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -104,7 +104,7 @@ structure GtkTreeStore :>
               x2,
               x3
             )
-    val iterDepth_ = fn x1 & x2 => (_import "gtk_tree_store_iter_depth" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Int32.C.val_;) (x1, x2)
+    val iterDepth_ = fn x1 & x2 => (_import "gtk_tree_store_iter_depth" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
     val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_store_iter_is_valid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val moveAfter_ =
       fn
@@ -168,7 +168,7 @@ structure GtkTreeStore :>
             _import "gtk_tree_store_set_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -234,7 +234,7 @@ structure GtkTreeStore :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTreeIterRecord.C.fromPtr true && I
           )
             insert_
@@ -300,7 +300,7 @@ structure GtkTreeStore :>
            & iter
            & descendant
         )
-    fun iterDepth self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Int32.C.fromVal) iterDepth_ (self & iter)
+    fun iterDepth self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Int.C.fromVal) iterDepth_ (self & iter)
     fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
     fun moveAfter self iter position =
       (
@@ -351,7 +351,7 @@ structure GtkTreeStore :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

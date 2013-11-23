@@ -25,7 +25,7 @@ signature GTK_I_M_CONTEXT =
        -> unit
     val setCursorLocation :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> unit
     val setSurrounding :
       'a class_t

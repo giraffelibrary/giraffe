@@ -7,22 +7,22 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val activate :
       'a class_t
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> 'b Gdk.Event.t
        -> unit
     val begin :
       'a class_t
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> Gtk.TextIterRecord.t
        -> Gtk.TextIterRecord.t
        -> unit
     val draw :
       'a class_t
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> Gtk.TextIterRecord.t
        -> Gtk.TextIterRecord.t
        -> gutterrendererstate_t
@@ -39,7 +39,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryActivatable :
       'a class_t
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> 'b Gdk.Event.t
        -> bool
     val queryData :
@@ -51,7 +51,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryTooltip :
       'a class_t
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> LargeInt.int
        -> LargeInt.int
        -> 'b Gtk.TooltipClass.t

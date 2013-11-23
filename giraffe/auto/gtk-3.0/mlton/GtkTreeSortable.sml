@@ -12,7 +12,7 @@ structure GtkTreeSortable :>
           (
             _import "gtk_tree_sortable_get_sort_column_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
                * GtkSortType.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -30,7 +30,7 @@ structure GtkTreeSortable :>
           (
             _import "gtk_tree_sortable_set_sort_column_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GtkSortType.C.val_
                -> unit;
           )
@@ -50,16 +50,16 @@ structure GtkTreeSortable :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              &&&> GtkSortType.C.withRefVal
-             ---> FFI.Int32.C.fromVal
+             ---> FFI.Int.C.fromVal
                    && GtkSortType.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             getSortColumnId_
             (
               self
-               & FFI.Int32.null
+               & FFI.Int.null
                & GtkSortType.null
             )
       in
@@ -69,7 +69,7 @@ structure GtkTreeSortable :>
     fun setSortColumnId self sortColumnId order =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkSortType.C.withVal
          ---> I
       )

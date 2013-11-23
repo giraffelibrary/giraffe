@@ -59,17 +59,17 @@ signature GTK_WIDGET_PATH =
     val iterHasQclass :
       record_t
        -> LargeInt.int
-       -> LargeInt.int
+       -> GLib.Quark.t
        -> bool
     val iterHasQname :
       record_t
        -> LargeInt.int
-       -> LargeInt.int
+       -> GLib.Quark.t
        -> bool
     val iterHasQregion :
       record_t
        -> LargeInt.int
-       -> LargeInt.int
+       -> GLib.Quark.t
        -> regionflags_t option
     val iterHasRegion :
       record_t

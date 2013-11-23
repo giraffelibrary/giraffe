@@ -19,7 +19,7 @@ structure GtkClipboard :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val store_ = call (load_sym libgtk "gtk_clipboard_store") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -46,7 +46,7 @@ structure GtkClipboard :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setText_

@@ -23,8 +23,8 @@ structure GtkStatusIcon :>
           (
             _import "gtk_status_icon_position_menu" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                * FFI.Bool.C.ref_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
@@ -46,7 +46,7 @@ structure GtkStatusIcon :>
             _import "gtk_status_icon_get_geometry" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkOrientation.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -61,7 +61,7 @@ structure GtkStatusIcon :>
     val getIconName_ = _import "gtk_status_icon_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getScreen_ = _import "gtk_status_icon_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSize_ = _import "gtk_status_icon_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSize_ = _import "gtk_status_icon_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getStock_ = _import "gtk_status_icon_get_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getStorageType_ = _import "gtk_status_icon_get_storage_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkImageType.C.val_;
     val getTitle_ = _import "gtk_status_icon_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -200,20 +200,20 @@ structure GtkStatusIcon :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              &&&> FFI.Bool.C.withRefVal
              &&&> GObjectObjectClass.C.withPtr
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
                    && I
           )
             positionMenu_
             (
               menu
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
                & FFI.Bool.null
                & userData
             )
@@ -233,10 +233,10 @@ structure GtkStatusIcon :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
              &&&> GtkOrientation.C.withRefVal
              ---> GdkScreenClass.C.fromPtr false
-                   && CairoRectangleIntRecord.C.fromPtr true
+                   && GdkRectangleRecord.C.fromPtr true
                    && GtkOrientation.C.fromVal
                    && FFI.Bool.C.fromVal
           )
@@ -263,7 +263,7 @@ structure GtkStatusIcon :>
     fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getStock self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStock_ self
     fun getStorageType self = (GObjectObjectClass.C.withPtr ---> GtkImageType.C.fromVal) getStorageType_ self
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self

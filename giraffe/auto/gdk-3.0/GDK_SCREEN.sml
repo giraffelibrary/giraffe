@@ -3,6 +3,7 @@ signature GDK_SCREEN =
     type 'a class_t
     type 'a visualclass_t
     type 'a windowclass_t
+    type rectanglerecord_t
     type 'a displayclass_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
@@ -27,7 +28,7 @@ signature GDK_SCREEN =
     val getMonitorGeometry :
       'a class_t
        -> LargeInt.int
-       -> Cairo.RectangleIntRecord.t
+       -> rectanglerecord_t
     val getMonitorHeightMm :
       'a class_t
        -> LargeInt.int

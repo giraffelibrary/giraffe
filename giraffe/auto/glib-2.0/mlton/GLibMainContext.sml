@@ -18,7 +18,7 @@ structure GLibMainContext :>
             _import "g_main_context_add_poll" :
               GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p
                * GLibPollFDRecord.C.notnull GLibPollFDRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -27,7 +27,7 @@ structure GLibMainContext :>
               x3
             )
     val dispatch_ = _import "g_main_context_dispatch" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
-    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt32.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
+    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.UInt.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
     val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
     val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val pending_ = _import "g_main_context_pending" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.Bool.C.val_;
@@ -67,7 +67,7 @@ structure GLibMainContext :>
       (
         GLibMainContextRecord.C.withPtr
          &&&> GLibPollFDRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addPoll_
@@ -77,7 +77,7 @@ structure GLibMainContext :>
            & priority
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
-    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
     fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) iteration_ (self & mayBlock)
     fun pending self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) pending_ self

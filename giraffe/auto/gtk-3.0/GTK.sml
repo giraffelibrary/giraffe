@@ -2,6 +2,7 @@ signature GTK =
   sig
     type ('widget, 'a) styleproperty_readonly
     structure ActionEntry : GTK_ACTION_ENTRY
+    structure AllocationRecord : GTK_ALLOCATION_RECORD
     structure AccelFlags : GTK_ACCEL_FLAGS
     structure AccelGroupClass : GTK_ACCEL_GROUP_CLASS
     structure AccelKeyRecord : GTK_ACCEL_KEY_RECORD
@@ -1578,15 +1579,16 @@ signature GTK =
         where type 'a settingsclass_t = 'a SettingsClass.t
         where type 'a stylecontextclass_t = 'a StyleContextClass.t
         where type 'a rcstyleclass_t = 'a RcStyleClass.t
+        where type statetype_t = StateType.t
         where type 'a accelgroupclass_t = 'a AccelGroupClass.t
         where type 'a windowclass_t = 'a WindowClass.t
+        where type allocationrecord_t = AllocationRecord.t
         where type textdirection_t = TextDirection.t
         where type dragresult_t = DragResult.t
         where type directiontype_t = DirectionType.t
         where type 'a tooltipclass_t = 'a TooltipClass.t
         where type selectiondatarecord_t = SelectionDataRecord.t
         where type widgethelptype_t = WidgetHelpType.t
-        where type statetype_t = StateType.t
         where type stateflags_t = StateFlags.t
         where type 'a containerclass_t = 'a ContainerClass.t
         where type 'a styleclass_t = 'a StyleClass.t
@@ -2095,7 +2097,7 @@ signature GTK =
        -> Gdk.ModifierType.t
        -> bool
     val alternativeDialogButtonOrder : 'a Gdk.ScreenClass.t option -> bool
-    val builderErrorQuark : unit -> LargeInt.int
+    val builderErrorQuark : unit -> GLib.Quark.t
     val cairoShouldDrawWindow :
       Cairo.ContextRecord.t
        -> 'a Gdk.WindowClass.t
@@ -2110,7 +2112,7 @@ signature GTK =
        -> LargeInt.int
        -> LargeInt.int
        -> string
-    val cssProviderErrorQuark : unit -> LargeInt.int
+    val cssProviderErrorQuark : unit -> GLib.Quark.t
     val deviceGrabAdd :
       'a WidgetClass.t
        -> 'b Gdk.DeviceClass.t
@@ -2166,13 +2168,13 @@ signature GTK =
     val drawInsertionCursor :
       'a WidgetClass.t
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> bool
        -> TextDirection.t
        -> bool
        -> unit
     val eventsPending : unit -> bool
-    val fileChooserErrorQuark : unit -> LargeInt.int
+    val fileChooserErrorQuark : unit -> GLib.Quark.t
     val getBinaryAge : unit -> LargeInt.int
     val getCurrentEvent : unit -> base Gdk.Event.t
     val getCurrentEventDevice : unit -> base Gdk.DeviceClass.t
@@ -2202,7 +2204,7 @@ signature GTK =
       string
        -> LargeInt.int
        -> unit
-    val iconThemeErrorQuark : unit -> LargeInt.int
+    val iconThemeErrorQuark : unit -> GLib.Quark.t
     val init : string list -> string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
@@ -2455,7 +2457,7 @@ signature GTK =
        -> LargeInt.int
        -> unit
     val paperSizeGetDefault : unit -> string
-    val printErrorQuark : unit -> LargeInt.int
+    val printErrorQuark : unit -> GLib.Quark.t
     val printRunPageSetupDialog :
       'a WindowClass.t option
        -> 'b PageSetupClass.t option
@@ -2467,8 +2469,8 @@ signature GTK =
        -> unit
     val rcAddDefaultFile : string -> unit
     val rcGetStyle : 'a WidgetClass.t -> base StyleClass.t
-    val recentChooserErrorQuark : unit -> LargeInt.int
-    val recentManagerErrorQuark : unit -> LargeInt.int
+    val recentChooserErrorQuark : unit -> GLib.Quark.t
+    val recentManagerErrorQuark : unit -> GLib.Quark.t
     val renderActivity :
       'a StyleContextClass.t
        -> Cairo.ContextRecord.t

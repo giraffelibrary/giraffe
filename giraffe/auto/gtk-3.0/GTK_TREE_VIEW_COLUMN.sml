@@ -27,7 +27,7 @@ signature GTK_TREE_VIEW_COLUMN =
        -> (LargeInt.int * LargeInt.int) option
     val cellGetSize :
       'a class_t
-       -> Cairo.RectangleIntRecord.t option
+       -> Gdk.RectangleRecord.t option
        -> LargeInt.int
            * LargeInt.int
            * LargeInt.int

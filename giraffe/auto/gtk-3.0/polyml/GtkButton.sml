@@ -118,10 +118,6 @@ structure GtkButton :>
     in
       fun activateSig f = signal "activate" (void ---> ret_void) f
       fun clickedSig f = signal "clicked" (void ---> ret_void) f
-      fun enterSig f = signal "enter" (void ---> ret_void) f
-      fun leaveSig f = signal "leave" (void ---> ret_void) f
-      fun pressedSig f = signal "pressed" (void ---> ret_void) f
-      fun releasedSig f = signal "released" (void ---> ret_void) f
     end
     local
       open Property

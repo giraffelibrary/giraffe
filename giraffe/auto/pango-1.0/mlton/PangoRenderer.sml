@@ -1,6 +1,7 @@
 structure PangoRenderer :>
   PANGO_RENDERER
     where type 'a class_t = 'a PangoRendererClass.t
+    where type glyph_t = PangoGlyph.t
     where type glyphitemrecord_t = PangoGlyphItemRecord.t
     where type glyphstringrecord_t = PangoGlyphStringRecord.t
     where type 'a fontclass_t = 'a PangoFontClass.t
@@ -23,10 +24,10 @@ structure PangoRenderer :>
           (
             _import "pango_renderer_draw_error_underline" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -47,7 +48,7 @@ structure PangoRenderer :>
             _import "pango_renderer_draw_glyph" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * PangoGlyph.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> unit;
@@ -72,8 +73,8 @@ structure PangoRenderer :>
                * cstring
                * unit CPointer.t
                * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -96,8 +97,8 @@ structure PangoRenderer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * PangoGlyphStringRecord.C.notnull PangoGlyphStringRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -117,8 +118,8 @@ structure PangoRenderer :>
             _import "pango_renderer_draw_layout" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -137,8 +138,8 @@ structure PangoRenderer :>
             _import "pango_renderer_draw_layout_line" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -159,10 +160,10 @@ structure PangoRenderer :>
             _import "pango_renderer_draw_rectangle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * PangoRenderPart.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -229,6 +230,7 @@ structure PangoRenderer :>
             )
     val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoMatrixRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a PangoRendererClass.t
+    type glyph_t = PangoGlyph.t
     type glyphitemrecord_t = PangoGlyphItemRecord.t
     type glyphstringrecord_t = PangoGlyphStringRecord.t
     type 'a fontclass_t = 'a PangoFontClass.t
@@ -243,10 +245,10 @@ structure PangoRenderer :>
     fun drawErrorUnderline self x y width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawErrorUnderline_
@@ -261,7 +263,7 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> PangoGlyph.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> I
@@ -279,8 +281,8 @@ structure PangoRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawGlyphItem_
@@ -296,8 +298,8 @@ structure PangoRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> PangoGlyphStringRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawGlyphs_
@@ -312,8 +314,8 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawLayout_
@@ -327,8 +329,8 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> PangoLayoutLineRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawLayoutLine_
@@ -342,10 +344,10 @@ structure PangoRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         drawRectangle_

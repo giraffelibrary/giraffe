@@ -31,7 +31,7 @@ structure GtkSettings :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
              &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
@@ -86,7 +86,7 @@ structure GtkSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )

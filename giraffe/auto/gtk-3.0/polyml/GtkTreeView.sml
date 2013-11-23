@@ -21,7 +21,7 @@ structure GtkTreeView :>
       val getType_ = call (load_sym libgtk "gtk_tree_view_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_tree_view_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val newWithModel_ = call (load_sym libgtk "gtk_tree_view_new_with_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val appendColumn_ = call (load_sym libgtk "gtk_tree_view_append_column") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val appendColumn_ = call (load_sym libgtk "gtk_tree_view_append_column") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val collapseAll_ = call (load_sym libgtk "gtk_tree_view_collapse_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val collapseRow_ = call (load_sym libgtk "gtk_tree_view_collapse_row") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val columnsAutosize_ = call (load_sym libgtk "gtk_tree_view_columns_autosize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -29,60 +29,60 @@ structure GtkTreeView :>
         call (load_sym libgtk "gtk_tree_view_convert_bin_window_to_tree_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val convertBinWindowToWidgetCoords_ =
         call (load_sym libgtk "gtk_tree_view_convert_bin_window_to_widget_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val convertTreeToBinWindowCoords_ =
         call (load_sym libgtk "gtk_tree_view_convert_tree_to_bin_window_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val convertTreeToWidgetCoords_ =
         call (load_sym libgtk "gtk_tree_view_convert_tree_to_widget_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val convertWidgetToBinWindowCoords_ =
         call (load_sym libgtk "gtk_tree_view_convert_widget_to_bin_window_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val convertWidgetToTreeCoords_ =
         call (load_sym libgtk "gtk_tree_view_convert_widget_to_tree_coords")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val createRowDragIcon_ = call (load_sym libgtk "gtk_tree_view_create_row_drag_icon") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> CairoSurfaceRecord.PolyML.PTR)
@@ -102,7 +102,7 @@ structure GtkTreeView :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreePathRecord.PolyML.OPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
       val getBinWindow_ = call (load_sym libgtk "gtk_tree_view_get_bin_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -112,10 +112,10 @@ structure GtkTreeView :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreePathRecord.PolyML.OPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val getColumn_ = call (load_sym libgtk "gtk_tree_view_get_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getColumn_ = call (load_sym libgtk "gtk_tree_view_get_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val getCursor_ =
         call (load_sym libgtk "gtk_tree_view_get_cursor")
           (
@@ -128,8 +128,8 @@ structure GtkTreeView :>
         call (load_sym libgtk "gtk_tree_view_get_dest_row_at_pos")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkTreePathRecord.PolyML.OUTREF
              &&> GtkTreeViewDropPosition.PolyML.REF
              --> FFI.Bool.PolyML.VAL
@@ -151,34 +151,34 @@ structure GtkTreeView :>
       val getHeadersVisible_ = call (load_sym libgtk "gtk_tree_view_get_headers_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHoverExpand_ = call (load_sym libgtk "gtk_tree_view_get_hover_expand") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHoverSelection_ = call (load_sym libgtk "gtk_tree_view_get_hover_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_get_level_indentation") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_get_level_indentation") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getModel_ = call (load_sym libgtk "gtk_tree_view_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getPathAtPos_ =
         call (load_sym libgtk "gtk_tree_view_get_path_at_pos")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkTreePathRecord.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OUTREF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
       val getReorderable_ = call (load_sym libgtk "gtk_tree_view_get_reorderable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getRubberBanding_ = call (load_sym libgtk "gtk_tree_view_get_rubber_banding") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getRulesHint_ = call (load_sym libgtk "gtk_tree_view_get_rules_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSearchColumn_ = call (load_sym libgtk "gtk_tree_view_get_search_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getSearchColumn_ = call (load_sym libgtk "gtk_tree_view_get_search_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getSearchEntry_ = call (load_sym libgtk "gtk_tree_view_get_search_entry") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSelection_ = call (load_sym libgtk "gtk_tree_view_get_selection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getShowExpanders_ = call (load_sym libgtk "gtk_tree_view_get_show_expanders") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_get_tooltip_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_get_tooltip_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getTooltipContext_ =
         call (load_sym libgtk "gtk_tree_view_get_tooltip_context")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              &&> FFI.Bool.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> GtkTreePathRecord.PolyML.OUTREF
@@ -193,25 +193,25 @@ structure GtkTreeView :>
              &&> GtkTreePathRecord.PolyML.OUTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val getVisibleRect_ = call (load_sym libgtk "gtk_tree_view_get_visible_rect") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getVisibleRect_ = call (load_sym libgtk "gtk_tree_view_get_visible_rect") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val insertColumn_ =
         call (load_sym libgtk "gtk_tree_view_insert_column")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val isBlankAtPos_ =
         call (load_sym libgtk "gtk_tree_view_is_blank_at_pos")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkTreePathRecord.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OUTREF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
       val isRubberBandingActive_ = call (load_sym libgtk "gtk_tree_view_is_rubber_banding_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -223,7 +223,7 @@ structure GtkTreeView :>
              &&> GObjectObjectClass.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
-      val removeColumn_ = call (load_sym libgtk "gtk_tree_view_remove_column") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val removeColumn_ = call (load_sym libgtk "gtk_tree_view_remove_column") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val rowActivated_ =
         call (load_sym libgtk "gtk_tree_view_row_activated")
           (
@@ -248,8 +248,8 @@ structure GtkTreeView :>
         call (load_sym libgtk "gtk_tree_view_scroll_to_point")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setCursor_ =
@@ -288,12 +288,12 @@ structure GtkTreeView :>
       val setHeadersVisible_ = call (load_sym libgtk "gtk_tree_view_set_headers_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setHoverExpand_ = call (load_sym libgtk "gtk_tree_view_set_hover_expand") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setHoverSelection_ = call (load_sym libgtk "gtk_tree_view_set_hover_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_set_level_indentation") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_set_level_indentation") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setModel_ = call (load_sym libgtk "gtk_tree_view_set_model") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setReorderable_ = call (load_sym libgtk "gtk_tree_view_set_reorderable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setRubberBanding_ = call (load_sym libgtk "gtk_tree_view_set_rubber_banding") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setRulesHint_ = call (load_sym libgtk "gtk_tree_view_set_rules_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSearchColumn_ = call (load_sym libgtk "gtk_tree_view_set_search_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSearchColumn_ = call (load_sym libgtk "gtk_tree_view_set_search_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setSearchEntry_ = call (load_sym libgtk "gtk_tree_view_set_search_entry") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setShowExpanders_ = call (load_sym libgtk "gtk_tree_view_set_show_expanders") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setTooltipCell_ =
@@ -306,7 +306,7 @@ structure GtkTreeView :>
              &&> GObjectObjectClass.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
-      val setTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_set_tooltip_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_set_tooltip_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setTooltipRow_ =
         call (load_sym libgtk "gtk_tree_view_set_tooltip_row")
           (
@@ -338,7 +338,7 @@ structure GtkTreeView :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreeViewClass.C.fromPtr false) new_ ()
     fun newWithModel model = (GObjectObjectClass.C.withPtr ---> GtkTreeViewClass.C.fromPtr false) newWithModel_ model
-    fun appendColumn self column = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) appendColumn_ (self & column)
+    fun appendColumn self column = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) appendColumn_ (self & column)
     fun collapseAll self = (GObjectObjectClass.C.withPtr ---> I) collapseAll_ self
     fun collapseRow self path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) collapseRow_ (self & path)
     fun columnsAutosize self = (GObjectObjectClass.C.withPtr ---> I) columnsAutosize_ self
@@ -349,12 +349,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertBinWindowToTreeCoords_
@@ -362,8 +362,8 @@ structure GtkTreeView :>
               self
                & bx
                & by
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (tx, ty)
@@ -375,12 +375,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertBinWindowToWidgetCoords_
@@ -388,8 +388,8 @@ structure GtkTreeView :>
               self
                & bx
                & by
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (wx, wy)
@@ -401,12 +401,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertTreeToBinWindowCoords_
@@ -414,8 +414,8 @@ structure GtkTreeView :>
               self
                & tx
                & ty
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (bx, by)
@@ -427,12 +427,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertTreeToWidgetCoords_
@@ -440,8 +440,8 @@ structure GtkTreeView :>
               self
                & tx
                & ty
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (wx, wy)
@@ -453,12 +453,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertWidgetToBinWindowCoords_
@@ -466,8 +466,8 @@ structure GtkTreeView :>
               self
                & wx
                & wy
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (bx, by)
@@ -479,12 +479,12 @@ structure GtkTreeView :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             convertWidgetToTreeCoords_
@@ -492,8 +492,8 @@ structure GtkTreeView :>
               self
                & wx
                & wy
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (tx, ty)
@@ -521,8 +521,8 @@ structure GtkTreeView :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreePathRecord.C.withOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getBackgroundArea_
             (
@@ -542,8 +542,8 @@ structure GtkTreeView :>
             GObjectObjectClass.C.withPtr
              &&&> GtkTreePathRecord.C.withOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getCellArea_
             (
@@ -555,7 +555,7 @@ structure GtkTreeView :>
       in
         rect
       end
-    fun getColumn self n = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkTreeViewColumnClass.C.fromPtr false) getColumn_ (self & n)
+    fun getColumn self n = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkTreeViewColumnClass.C.fromPtr false) getColumn_ (self & n)
     fun getCursor self =
       let
         val path
@@ -585,8 +585,8 @@ structure GtkTreeView :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GtkTreePathRecord.C.withRefOptPtr
              &&&> GtkTreeViewDropPosition.C.withRefVal
              ---> GtkTreePathRecord.C.fromPtr true
@@ -635,7 +635,7 @@ structure GtkTreeView :>
     fun getHeadersVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHeadersVisible_ self
     fun getHoverExpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHoverExpand_ self
     fun getHoverSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHoverSelection_ self
-    fun getLevelIndentation self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLevelIndentation_ self
+    fun getLevelIndentation self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLevelIndentation_ self
     fun getModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
     fun getPathAtPos self x y =
       let
@@ -646,16 +646,16 @@ structure GtkTreeView :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GtkTreePathRecord.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              ---> GtkTreePathRecord.C.fromPtr true
                    && GtkTreeViewColumnClass.C.fromPtr false
-                   && FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             getPathAtPos_
@@ -665,8 +665,8 @@ structure GtkTreeView :>
                & y
                & NONE
                & NONE
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal
@@ -683,11 +683,11 @@ structure GtkTreeView :>
     fun getReorderable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReorderable_ self
     fun getRubberBanding self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRubberBanding_ self
     fun getRulesHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRulesHint_ self
-    fun getSearchColumn self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSearchColumn_ self
+    fun getSearchColumn self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSearchColumn_ self
     fun getSearchEntry self = (GObjectObjectClass.C.withPtr ---> GtkEntryClass.C.fromPtr false) getSearchEntry_ self
     fun getSelection self = (GObjectObjectClass.C.withPtr ---> GtkTreeSelectionClass.C.fromPtr false) getSelection_ self
     fun getShowExpanders self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowExpanders_ self
-    fun getTooltipColumn self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getTooltipColumn_ self
+    fun getTooltipColumn self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getTooltipColumn_ self
     fun getTooltipContext self x y keyboardTip =
       let
         val x
@@ -698,14 +698,14 @@ structure GtkTreeView :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              &&&> FFI.Bool.C.withVal
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GtkTreePathRecord.C.withRefOptPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && GtkTreeModelClass.C.fromPtr false
                    && GtkTreePathRecord.C.fromPtr true
                    && GtkTreeIterRecord.C.fromPtr true
@@ -760,7 +760,7 @@ structure GtkTreeView :>
       end
     fun getVisibleRect self =
       let
-        val visibleRect & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getVisibleRect_ (self & ())
+        val visibleRect & () = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
@@ -768,8 +768,8 @@ structure GtkTreeView :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+         &&&> FFI.Int.C.withVal
+         ---> FFI.Int.C.fromVal
       )
         insertColumn_
         (
@@ -786,16 +786,16 @@ structure GtkTreeView :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GtkTreePathRecord.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              ---> GtkTreePathRecord.C.fromPtr true
                    && GtkTreeViewColumnClass.C.fromPtr true
-                   && FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             isBlankAtPos_
@@ -805,8 +805,8 @@ structure GtkTreeView :>
                & y
                & NONE
                & NONE
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal
@@ -834,7 +834,7 @@ structure GtkTreeView :>
            & column
            & baseColumn
         )
-    fun removeColumn self column = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) removeColumn_ (self & column)
+    fun removeColumn self column = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) removeColumn_ (self & column)
     fun rowActivated self path column =
       (
         GObjectObjectClass.C.withPtr
@@ -871,8 +871,8 @@ structure GtkTreeView :>
     fun scrollToPoint self treeX treeY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         scrollToPoint_
@@ -935,12 +935,12 @@ structure GtkTreeView :>
     fun setHeadersVisible self headersVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHeadersVisible_ (self & headersVisible)
     fun setHoverExpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHoverExpand_ (self & expand)
     fun setHoverSelection self hover = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHoverSelection_ (self & hover)
-    fun setLevelIndentation self indentation = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setLevelIndentation_ (self & indentation)
+    fun setLevelIndentation self indentation = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setLevelIndentation_ (self & indentation)
     fun setModel self model = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setModel_ (self & model)
     fun setReorderable self reorderable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReorderable_ (self & reorderable)
     fun setRubberBanding self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRubberBanding_ (self & enable)
     fun setRulesHint self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRulesHint_ (self & setting)
-    fun setSearchColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSearchColumn_ (self & column)
+    fun setSearchColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSearchColumn_ (self & column)
     fun setSearchEntry self entry = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setSearchEntry_ (self & entry)
     fun setShowExpanders self enabled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowExpanders_ (self & enabled)
     fun setTooltipCell self tooltip path column cell =
@@ -960,7 +960,7 @@ structure GtkTreeView :>
            & column
            & cell
         )
-    fun setTooltipColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setTooltipColumn_ (self & column)
+    fun setTooltipColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setTooltipColumn_ (self & column)
     fun setTooltipRow self tooltip path =
       (
         GObjectObjectClass.C.withPtr

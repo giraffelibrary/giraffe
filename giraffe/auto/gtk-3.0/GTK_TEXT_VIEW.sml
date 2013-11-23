@@ -65,7 +65,7 @@ signature GTK_TEXT_VIEW =
     val getCursorLocations :
       'a class_t
        -> textiterrecord_t option
-       -> Cairo.RectangleIntRecord.t * Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t * Gdk.RectangleRecord.t
     val getCursorVisible : 'a class_t -> bool
     val getDefaultAttributes : 'a class_t -> textattributesrecord_t
     val getEditable : 'a class_t -> bool
@@ -83,7 +83,7 @@ signature GTK_TEXT_VIEW =
     val getIterLocation :
       'a class_t
        -> textiterrecord_t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
     val getJustification : 'a class_t -> justification_t
     val getLeftMargin : 'a class_t -> LargeInt.int
     val getLineAtY :
@@ -100,7 +100,7 @@ signature GTK_TEXT_VIEW =
     val getPixelsInsideWrap : 'a class_t -> LargeInt.int
     val getRightMargin : 'a class_t -> LargeInt.int
     val getTabs : 'a class_t -> Pango.TabArrayRecord.t
-    val getVisibleRect : 'a class_t -> Cairo.RectangleIntRecord.t
+    val getVisibleRect : 'a class_t -> Gdk.RectangleRecord.t
     val getWindow :
       'a class_t
        -> textwindowtype_t

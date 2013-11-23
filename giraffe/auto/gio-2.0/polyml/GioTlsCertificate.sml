@@ -21,7 +21,7 @@ structure GioTlsCertificate :>
         call (load_sym libgio "g_tls_certificate_new_from_pem")
           (
             FFI.String.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.SSize.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -56,7 +56,7 @@ structure GioTlsCertificate :>
     fun newFromPem data length =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.SSize.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )

@@ -8,7 +8,7 @@ structure GtkTreeSelection :>
     where type selectionmode_t = GtkSelectionMode.t =
   struct
     val getType_ = _import "gtk_tree_selection_get_type" : unit -> GObjectType.C.val_;
-    val countSelectedRows_ = _import "gtk_tree_selection_count_selected_rows" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val countSelectedRows_ = _import "gtk_tree_selection_count_selected_rows" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getMode_ = _import "gtk_tree_selection_get_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSelectionMode.C.val_;
     val getSelected_ =
       fn
@@ -78,7 +78,7 @@ structure GtkTreeSelection :>
     type treepathrecord_t = GtkTreePathRecord.t
     type selectionmode_t = GtkSelectionMode.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) countSelectedRows_ self
+    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) countSelectedRows_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self
     fun getSelected self =
       let

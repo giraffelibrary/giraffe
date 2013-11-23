@@ -10,8 +10,8 @@ structure GtkIMContext :>
         call (load_sym libgtk "gtk_im_context_delete_surrounding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
       val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -23,19 +23,19 @@ structure GtkIMContext :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.OUTREF
              &&> PangoAttrListRecord.PolyML.OUTREF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val reset_ = call (load_sym libgtk "gtk_im_context_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setClientWindow_ = call (load_sym libgtk "gtk_im_context_set_client_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setCursorLocation_ = call (load_sym libgtk "gtk_im_context_set_cursor_location") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val setCursorLocation_ = call (load_sym libgtk "gtk_im_context_set_cursor_location") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setSurrounding_ =
         call (load_sym libgtk "gtk_im_context_set_surrounding")
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -45,8 +45,8 @@ structure GtkIMContext :>
     fun deleteSurrounding self offset nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
         deleteSurrounding_
@@ -68,10 +68,10 @@ structure GtkIMContext :>
             GObjectObjectClass.C.withPtr
              &&&> FFI.String.C.withRefConstOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              ---> FFI.String.C.fromPtr true
                    && PangoAttrListRecord.C.fromPtr true
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreeditString_
@@ -79,7 +79,7 @@ structure GtkIMContext :>
               self
                & NONE
                & NONE
-               & FFI.Int32.null
+               & FFI.Int.null
             )
       in
         (
@@ -90,13 +90,13 @@ structure GtkIMContext :>
       end
     fun reset self = (GObjectObjectClass.C.withPtr ---> I) reset_ self
     fun setClientWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setClientWindow_ (self & window)
-    fun setCursorLocation self area = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
+    fun setCursorLocation self area = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setSurrounding_

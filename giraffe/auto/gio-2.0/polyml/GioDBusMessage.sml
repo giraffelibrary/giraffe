@@ -58,7 +58,7 @@ structure GioDBusMessage :>
              --> GObjectObjectClass.PolyML.PTR
           )
       val newMethodReply_ = call (load_sym libgio "g_dbus_message_new_method_reply") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val print_ = call (load_sym libgio "g_dbus_message_print") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val print_ = call (load_sym libgio "g_dbus_message_print") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.String.PolyML.RETPTR)
       val setBody_ = call (load_sym libgio "g_dbus_message_set_body") (GObjectObjectClass.PolyML.PTR &&> GLibVariantRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setByteOrder_ = call (load_sym libgio "g_dbus_message_set_byte_order") (GObjectObjectClass.PolyML.PTR &&> GioDBusMessageByteOrder.PolyML.VAL --> FFI.PolyML.VOID)
       val setDestination_ = call (load_sym libgio "g_dbus_message_set_destination") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
@@ -154,7 +154,7 @@ structure GioDBusMessage :>
            & errorMessage
         )
     fun newMethodReply self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr true) newMethodReply_ self
-    fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.String.C.fromPtr true) print_ (self & indent)
+    fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.String.C.fromPtr true) print_ (self & indent)
     fun setBody self body = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setBody_ (self & body)
     fun setByteOrder self byteOrder = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageByteOrder.C.withVal ---> I) setByteOrder_ (self & byteOrder)
     fun setDestination self value = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDestination_ (self & value)

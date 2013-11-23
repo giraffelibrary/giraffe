@@ -136,5 +136,5 @@ signature GTK_SOURCE =
         where type 'a class_t = 'a GutterRendererTextClass.t
     val COMPLETION_CAPABILITY_AUTOMATIC : string
     val COMPLETION_CAPABILITY_INTERACTIVE : string
-    val completionErrorQuark : unit -> LargeInt.int
+    val completionErrorQuark : unit -> GLib.Quark.t
   end

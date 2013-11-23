@@ -124,7 +124,7 @@ structure GtkPrintSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               -> FFI.Int32.C.val_;
+               -> FFI.Int.C.val_;
           )
             (
               x1,
@@ -141,8 +141,8 @@ structure GtkPrintSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               -> FFI.Int32.C.val_;
+               * FFI.Int.C.val_
+               -> FFI.Int.C.val_;
           )
             (
               x1,
@@ -170,8 +170,8 @@ structure GtkPrintSettings :>
               x4
             )
     val getMediaType_ = _import "gtk_print_settings_get_media_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getNCopies_ = _import "gtk_print_settings_get_n_copies" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getNumberUp_ = _import "gtk_print_settings_get_number_up" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getNCopies_ = _import "gtk_print_settings_get_n_copies" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getNumberUp_ = _import "gtk_print_settings_get_number_up" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getNumberUpLayout_ = _import "gtk_print_settings_get_number_up_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkNumberUpLayout.C.val_;
     val getOrientation_ = _import "gtk_print_settings_get_orientation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkPageOrientation.C.val_;
     val getOutputBin_ = _import "gtk_print_settings_get_output_bin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -183,9 +183,9 @@ structure GtkPrintSettings :>
     val getPrinter_ = _import "gtk_print_settings_get_printer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPrinterLpi_ = _import "gtk_print_settings_get_printer_lpi" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getQuality_ = _import "gtk_print_settings_get_quality" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkPrintQuality.C.val_;
-    val getResolution_ = _import "gtk_print_settings_get_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getResolutionX_ = _import "gtk_print_settings_get_resolution_x" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getResolutionY_ = _import "gtk_print_settings_get_resolution_y" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getResolution_ = _import "gtk_print_settings_get_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getResolutionX_ = _import "gtk_print_settings_get_resolution_x" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getResolutionY_ = _import "gtk_print_settings_get_resolution_y" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getReverse_ = _import "gtk_print_settings_get_reverse" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getScale_ = _import "gtk_print_settings_get_scale" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getUseColor_ = _import "gtk_print_settings_get_use_color" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -361,7 +361,7 @@ structure GtkPrintSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -407,8 +407,8 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setNCopies_ = fn x1 & x2 => (_import "gtk_print_settings_set_n_copies" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setNumberUp_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setNCopies_ = fn x1 & x2 => (_import "gtk_print_settings_set_n_copies" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setNumberUp_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setNumberUpLayout_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkNumberUpLayout.C.val_ -> unit;) (x1, x2)
     val setOrientation_ = fn x1 & x2 => (_import "gtk_print_settings_set_orientation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkPageOrientation.C.val_ -> unit;) (x1, x2)
     val setOutputBin_ =
@@ -480,7 +480,7 @@ structure GtkPrintSettings :>
             )
     val setPrinterLpi_ = fn x1 & x2 => (_import "gtk_print_settings_set_printer_lpi" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     val setQuality_ = fn x1 & x2 => (_import "gtk_print_settings_set_quality" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkPrintQuality.C.val_ -> unit;) (x1, x2)
-    val setResolution_ = fn x1 & x2 => (_import "gtk_print_settings_set_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setResolution_ = fn x1 & x2 => (_import "gtk_print_settings_set_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setResolutionXy_ =
       fn
         x1
@@ -489,8 +489,8 @@ structure GtkPrintSettings :>
           (
             _import "gtk_print_settings_set_resolution_xy" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -601,13 +601,13 @@ structure GtkPrintSettings :>
         )
     fun getDuplex self = (GObjectObjectClass.C.withPtr ---> GtkPrintDuplex.C.fromVal) getDuplex_ self
     fun getFinishings self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getFinishings_ self
-    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getInt_ (self & key)
+    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) getInt_ (self & key)
     fun getIntWithDefault self key def =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+         &&&> FFI.Int.C.withVal
+         ---> FFI.Int.C.fromVal
       )
         getIntWithDefault_
         (
@@ -629,8 +629,8 @@ structure GtkPrintSettings :>
            & unit
         )
     fun getMediaType self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getMediaType_ self
-    fun getNCopies self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNCopies_ self
-    fun getNumberUp self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNumberUp_ self
+    fun getNCopies self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNCopies_ self
+    fun getNumberUp self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNumberUp_ self
     fun getNumberUpLayout self = (GObjectObjectClass.C.withPtr ---> GtkNumberUpLayout.C.fromVal) getNumberUpLayout_ self
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkPageOrientation.C.fromVal) getOrientation_ self
     fun getOutputBin self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getOutputBin_ self
@@ -642,9 +642,9 @@ structure GtkPrintSettings :>
     fun getPrinter self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPrinter_ self
     fun getPrinterLpi self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPrinterLpi_ self
     fun getQuality self = (GObjectObjectClass.C.withPtr ---> GtkPrintQuality.C.fromVal) getQuality_ self
-    fun getResolution self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getResolution_ self
-    fun getResolutionX self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getResolutionX_ self
-    fun getResolutionY self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getResolutionY_ self
+    fun getResolution self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getResolution_ self
+    fun getResolutionX self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getResolutionX_ self
+    fun getResolutionY self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getResolutionY_ self
     fun getReverse self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReverse_ self
     fun getScale self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getScale_ self
     fun getUseColor self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseColor_ self
@@ -725,7 +725,7 @@ structure GtkPrintSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setInt_
@@ -750,8 +750,8 @@ structure GtkPrintSettings :>
            & unit
         )
     fun setMediaType self mediaType = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setMediaType_ (self & mediaType)
-    fun setNCopies self numCopies = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setNCopies_ (self & numCopies)
-    fun setNumberUp self numberUp = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setNumberUp_ (self & numberUp)
+    fun setNCopies self numCopies = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setNCopies_ (self & numCopies)
+    fun setNumberUp self numberUp = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setNumberUp_ (self & numberUp)
     fun setNumberUpLayout self numberUpLayout = (GObjectObjectClass.C.withPtr &&&> GtkNumberUpLayout.C.withVal ---> I) setNumberUpLayout_ (self & numberUpLayout)
     fun setOrientation self orientation = (GObjectObjectClass.C.withPtr &&&> GtkPageOrientation.C.withVal ---> I) setOrientation_ (self & orientation)
     fun setOutputBin self outputBin = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setOutputBin_ (self & outputBin)
@@ -787,12 +787,12 @@ structure GtkPrintSettings :>
     fun setPrinter self printer = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPrinter_ (self & printer)
     fun setPrinterLpi self lpi = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPrinterLpi_ (self & lpi)
     fun setQuality self quality = (GObjectObjectClass.C.withPtr &&&> GtkPrintQuality.C.withVal ---> I) setQuality_ (self & quality)
-    fun setResolution self resolution = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setResolution_ (self & resolution)
+    fun setResolution self resolution = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setResolution_ (self & resolution)
     fun setResolutionXy self resolutionX resolutionY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setResolutionXy_

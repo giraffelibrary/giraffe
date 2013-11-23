@@ -7,7 +7,7 @@ structure GioBufferedInputStream :>
   struct
     val getType_ = _import "g_buffered_input_stream_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_buffered_input_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newSized_ = fn x1 & x2 => (_import "g_buffered_input_stream_new_sized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val newSized_ = fn x1 & x2 => (_import "g_buffered_input_stream_new_sized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Size.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val fill_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure GioBufferedInputStream :>
           (
             _import "g_buffered_input_stream_fill" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int64.C.val_
+               * FFI.SSize.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -38,15 +38,15 @@ structure GioBufferedInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getAvailable_ = _import "g_buffered_input_stream_get_available" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
-    val getBufferSize_ = _import "g_buffered_input_stream_get_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
+    val getAvailable_ = _import "g_buffered_input_stream_get_available" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
+    val getBufferSize_ = _import "g_buffered_input_stream_get_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
     val readByte_ =
       fn
         x1
@@ -57,28 +57,28 @@ structure GioBufferedInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int32.C.val_;
+               -> FFI.Int.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_input_stream_set_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
+    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_input_stream_set_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Size.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioBufferedInputStreamClass.t
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
+    fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
     fun fill self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.SSize.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         fill_
         (
@@ -92,7 +92,7 @@ structure GioBufferedInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         fillFinish_
         (
@@ -100,14 +100,14 @@ structure GioBufferedInputStream :>
            & result
            & []
         )
-    fun getAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getAvailable_ self
-    fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
+    fun getAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getAvailable_ self
+    fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
     fun readByte self cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         readByte_
         (
@@ -115,7 +115,7 @@ structure GioBufferedInputStream :>
            & cancellable
            & []
         )
-    fun setBufferSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) setBufferSize_ (self & size)
+    fun setBufferSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

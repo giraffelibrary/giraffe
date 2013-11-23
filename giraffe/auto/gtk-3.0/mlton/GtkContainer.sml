@@ -73,7 +73,7 @@ structure GtkContainer :>
               x4,
               x5
             )
-    val getBorderWidth_ = _import "gtk_container_get_border_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
+    val getBorderWidth_ = _import "gtk_container_get_border_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt.C.val_;
     val getFocusChild_ = _import "gtk_container_get_focus_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
     val getFocusHadjustment_ = _import "gtk_container_get_focus_hadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFocusVadjustment_ = _import "gtk_container_get_focus_vadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -98,7 +98,7 @@ structure GtkContainer :>
             )
     val remove_ = fn x1 & x2 => (_import "gtk_container_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val resizeChildren_ = _import "gtk_container_resize_children" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setBorderWidth_ = fn x1 & x2 => (_import "gtk_container_set_border_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setBorderWidth_ = fn x1 & x2 => (_import "gtk_container_set_border_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
     val setFocusChild_ = fn x1 & x2 => (_import "gtk_container_set_focus_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setFocusHadjustment_ = fn x1 & x2 => (_import "gtk_container_set_focus_hadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setFocusVadjustment_ = fn x1 & x2 => (_import "gtk_container_set_focus_vadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
@@ -159,7 +159,7 @@ structure GtkContainer :>
            & propertyName
            & value
         )
-    fun getBorderWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getBorderWidth_ self
+    fun getBorderWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getBorderWidth_ self
     fun getFocusChild self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getFocusChild_ self
     fun getFocusHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusHadjustment_ self
     fun getFocusVadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusVadjustment_ self
@@ -180,7 +180,7 @@ structure GtkContainer :>
         )
     fun remove self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & widget)
     fun resizeChildren self = (GObjectObjectClass.C.withPtr ---> I) resizeChildren_ self
-    fun setBorderWidth self borderWidth = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setBorderWidth_ (self & borderWidth)
+    fun setBorderWidth self borderWidth = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setBorderWidth_ (self & borderWidth)
     fun setFocusChild self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFocusChild_ (self & child)
     fun setFocusHadjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFocusHadjustment_ (self & adjustment)
     fun setFocusVadjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFocusVadjustment_ (self & adjustment)

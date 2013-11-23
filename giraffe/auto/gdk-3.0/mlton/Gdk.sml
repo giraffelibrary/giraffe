@@ -18,8 +18,8 @@ structure Gdk : GDK =
     val atomInternStaticString_ = _import "mlton_gdk_atom_intern_static_string" : cstring * unit CPointer.t -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val beep_ = _import "gdk_beep" : unit -> unit;
     val cairoCreate_ = _import "gdk_cairo_create" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoContextRecord.C.notnull CairoContextRecord.C.p;
-    val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val cairoRectangle_ = fn x1 & x2 => (_import "gdk_cairo_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
+    val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val cairoRectangle_ = fn x1 & x2 => (_import "gdk_cairo_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> unit;) (x1, x2)
     val cairoRegion_ = fn x1 & x2 => (_import "gdk_cairo_region" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRegionRecord.C.notnull CairoRegionRecord.C.p -> unit;) (x1, x2)
     val cairoRegionCreateFromSurface_ = _import "gdk_cairo_region_create_from_surface" : CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p -> CairoRegionRecord.C.notnull CairoRegionRecord.C.p;
     val cairoSetSourceColor_ = fn x1 & x2 => (_import "gdk_cairo_set_source_color" : CairoContextRecord.C.notnull CairoContextRecord.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
@@ -97,8 +97,8 @@ structure Gdk : GDK =
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
                * GdkDragProtocol.C.ref_
                -> unit;
@@ -128,8 +128,8 @@ structure Gdk : GDK =
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkDragProtocol.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GdkDragAction.C.val_
                * GdkDragAction.C.val_
                * FFI.UInt32.C.val_
@@ -196,7 +196,7 @@ structure Gdk : GDK =
               x2,
               x3
             )
-    val errorTrapPop_ = _import "gdk_error_trap_pop" : unit -> FFI.Int32.C.val_;
+    val errorTrapPop_ = _import "gdk_error_trap_pop" : unit -> FFI.Int.C.val_;
     val errorTrapPopIgnored_ = _import "gdk_error_trap_pop_ignored" : unit -> unit;
     val errorTrapPush_ = _import "gdk_error_trap_push" : unit -> unit;
     val eventGet_ = _import "gdk_event_get" : unit -> GdkEvent.C.notnull GdkEvent.C.p;
@@ -216,9 +216,9 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_keyval_convert_case" :
-              FFI.UInt32.C.val_
-               * FFI.UInt32.C.ref_
-               * FFI.UInt32.C.ref_
+              FFI.UInt.C.val_
+               * FFI.UInt.C.ref_
+               * FFI.UInt.C.ref_
                -> unit;
           )
             (
@@ -226,13 +226,13 @@ structure Gdk : GDK =
               x2,
               x3
             )
-    val keyvalFromName_ = _import "mlton_gdk_keyval_from_name" : cstring * unit CPointer.t -> FFI.UInt32.C.val_;
-    val keyvalIsLower_ = _import "gdk_keyval_is_lower" : FFI.UInt32.C.val_ -> FFI.Bool.C.val_;
-    val keyvalIsUpper_ = _import "gdk_keyval_is_upper" : FFI.UInt32.C.val_ -> FFI.Bool.C.val_;
-    val keyvalName_ = _import "gdk_keyval_name" : FFI.UInt32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val keyvalToLower_ = _import "gdk_keyval_to_lower" : FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;
-    val keyvalToUnicode_ = _import "gdk_keyval_to_unicode" : FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;
-    val keyvalToUpper_ = _import "gdk_keyval_to_upper" : FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;
+    val keyvalFromName_ = _import "mlton_gdk_keyval_from_name" : cstring * unit CPointer.t -> FFI.UInt.C.val_;
+    val keyvalIsLower_ = _import "gdk_keyval_is_lower" : FFI.UInt.C.val_ -> FFI.Bool.C.val_;
+    val keyvalIsUpper_ = _import "gdk_keyval_is_upper" : FFI.UInt.C.val_ -> FFI.Bool.C.val_;
+    val keyvalName_ = _import "gdk_keyval_name" : FFI.UInt.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val keyvalToLower_ = _import "gdk_keyval_to_lower" : FFI.UInt.C.val_ -> FFI.UInt.C.val_;
+    val keyvalToUnicode_ = _import "gdk_keyval_to_unicode" : FFI.UInt.C.val_ -> FFI.UInt32.C.val_;
+    val keyvalToUpper_ = _import "gdk_keyval_to_upper" : FFI.UInt.C.val_ -> FFI.UInt.C.val_;
     val notifyStartupComplete_ = _import "gdk_notify_startup_complete" : unit -> unit;
     val notifyStartupCompleteWithId_ = _import "mlton_gdk_notify_startup_complete_with_id" : cstring * unit CPointer.t -> unit;
     val offscreenWindowGetEmbedder_ = _import "gdk_offscreen_window_get_embedder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -250,10 +250,10 @@ structure Gdk : GDK =
           (
             _import "gdk_pixbuf_get_from_surface" :
               CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -273,10 +273,10 @@ structure Gdk : GDK =
           (
             _import "gdk_pixbuf_get_from_window" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -295,9 +295,9 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_rectangle_intersect" :
-              CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+              GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> FFI.Bool.C.val_;
           )
             (
@@ -312,9 +312,9 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_rectangle_union" :
-              CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+              GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
           )
             (
@@ -436,7 +436,7 @@ structure Gdk : GDK =
               x5,
               x6
             )
-    val setDoubleClickTime_ = _import "gdk_set_double_click_time" : FFI.UInt32.C.val_ -> unit;
+    val setDoubleClickTime_ = _import "gdk_set_double_click_time" : FFI.UInt.C.val_ -> unit;
     val setProgramClass_ = _import "mlton_gdk_set_program_class" : cstring * unit CPointer.t -> unit;
     val setShowEvents_ = _import "gdk_set_show_events" : FFI.Bool.C.val_ -> unit;
     val settingGet_ =
@@ -483,9 +483,9 @@ structure Gdk : GDK =
           (
             _import "gdk_test_simulate_button" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.UInt32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                * GdkEventType.C.val_
                -> FFI.Bool.C.val_;
@@ -509,9 +509,9 @@ structure Gdk : GDK =
           (
             _import "gdk_test_simulate_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.UInt32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                * GdkEventType.C.val_
                -> FFI.Bool.C.val_;
@@ -527,8 +527,9 @@ structure Gdk : GDK =
     val threadsEnter_ = _import "gdk_threads_enter" : unit -> unit;
     val threadsInit_ = _import "gdk_threads_init" : unit -> unit;
     val threadsLeave_ = _import "gdk_threads_leave" : unit -> unit;
-    val unicodeToKeyval_ = _import "gdk_unicode_to_keyval" : FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;
+    val unicodeToKeyval_ = _import "gdk_unicode_to_keyval" : FFI.UInt32.C.val_ -> FFI.UInt.C.val_;
     val utf8ToStringTarget_ = _import "mlton_gdk_utf8_to_string_target" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    structure RectangleRecord = GdkRectangleRecord
     structure AppLaunchContextClass = GdkAppLaunchContextClass
     structure AtomRecord = GdkAtomRecord
     structure AxisUse = GdkAxisUse
@@ -2884,11 +2885,11 @@ structure Gdk : GDK =
     fun cairoCreate window = (GObjectObjectClass.C.withPtr ---> CairoContextRecord.C.fromPtr true) cairoCreate_ window
     fun cairoGetClipRectangle cr =
       let
-        val rect & retVal = (CairoContextRecord.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal) cairoGetClipRectangle_ (cr & ())
+        val rect & retVal = (CairoContextRecord.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && FFI.Bool.C.fromVal) cairoGetClipRectangle_ (cr & ())
       in
         if retVal then SOME rect else NONE
       end
-    fun cairoRectangle cr rectangle = (CairoContextRecord.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) cairoRectangle_ (cr & rectangle)
+    fun cairoRectangle cr rectangle = (CairoContextRecord.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) cairoRectangle_ (cr & rectangle)
     fun cairoRegion cr region = (CairoContextRecord.C.withPtr &&&> CairoRegionRecord.C.withPtr ---> I) cairoRegion_ (cr & region)
     fun cairoRegionCreateFromSurface surface = (CairoSurfaceRecord.C.withPtr ---> CairoRegionRecord.C.fromPtr true) cairoRegionCreateFromSurface_ surface
     fun cairoSetSourceColor cr color = (CairoContextRecord.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) cairoSetSourceColor_ (cr & color)
@@ -2942,8 +2943,8 @@ structure Gdk : GDK =
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GdkDragProtocol.C.withRefVal
              ---> GdkWindowClass.C.fromPtr true
@@ -2969,8 +2970,8 @@ structure Gdk : GDK =
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkDragProtocol.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GdkDragAction.C.withVal
          &&&> GdkDragAction.C.withVal
          &&&> FFI.UInt32.C.withVal
@@ -3026,7 +3027,7 @@ structure Gdk : GDK =
            & accepted
            & time
         )
-    fun errorTrapPop () = (I ---> FFI.Int32.C.fromVal) errorTrapPop_ ()
+    fun errorTrapPop () = (I ---> FFI.Int.C.fromVal) errorTrapPop_ ()
     fun errorTrapPopIgnored () = (I ---> I) errorTrapPopIgnored_ ()
     fun errorTrapPush () = (I ---> I) errorTrapPush_ ()
     fun eventGet () = (I ---> GdkEvent.C.fromPtr true) eventGet_ ()
@@ -3045,29 +3046,29 @@ structure Gdk : GDK =
          & upper
          & () =
           (
-            FFI.UInt32.C.withVal
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
+            FFI.UInt.C.withVal
+             &&&> FFI.UInt.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
+             ---> FFI.UInt.C.fromVal
+                   && FFI.UInt.C.fromVal
                    && I
           )
             keyvalConvertCase_
             (
               symbol
-               & FFI.UInt32.null
-               & FFI.UInt32.null
+               & FFI.UInt.null
+               & FFI.UInt.null
             )
       in
         (lower, upper)
       end
-    fun keyvalFromName keyvalName = (FFI.String.C.withConstPtr ---> FFI.UInt32.C.fromVal) keyvalFromName_ keyvalName
-    fun keyvalIsLower keyval = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsLower_ keyval
-    fun keyvalIsUpper keyval = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsUpper_ keyval
-    fun keyvalName keyval = (FFI.UInt32.C.withVal ---> FFI.String.C.fromPtr false) keyvalName_ keyval
-    fun keyvalToLower keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToLower_ keyval
-    fun keyvalToUnicode keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUnicode_ keyval
-    fun keyvalToUpper keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUpper_ keyval
+    fun keyvalFromName keyvalName = (FFI.String.C.withConstPtr ---> FFI.UInt.C.fromVal) keyvalFromName_ keyvalName
+    fun keyvalIsLower keyval = (FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsLower_ keyval
+    fun keyvalIsUpper keyval = (FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsUpper_ keyval
+    fun keyvalName keyval = (FFI.UInt.C.withVal ---> FFI.String.C.fromPtr false) keyvalName_ keyval
+    fun keyvalToLower keyval = (FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) keyvalToLower_ keyval
+    fun keyvalToUnicode keyval = (FFI.UInt.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUnicode_ keyval
+    fun keyvalToUpper keyval = (FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
     fun notifyStartupCompleteWithId startupId = (FFI.String.C.withConstPtr ---> I) notifyStartupCompleteWithId_ startupId
     fun offscreenWindowGetEmbedder window = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) offscreenWindowGetEmbedder_ window
@@ -3078,10 +3079,10 @@ structure Gdk : GDK =
     fun pixbufGetFromSurface surface srcX srcY width height =
       (
         CairoSurfaceRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         pixbufGetFromSurface_
@@ -3095,10 +3096,10 @@ structure Gdk : GDK =
     fun pixbufGetFromWindow window srcX srcY width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         pixbufGetFromWindow_
@@ -3115,10 +3116,10 @@ structure Gdk : GDK =
       let
         val dest & retVal =
           (
-            CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             rectangleIntersect_
             (
@@ -3133,10 +3134,10 @@ structure Gdk : GDK =
       let
         val dest & () =
           (
-            CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+            GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             rectangleUnion_
             (
@@ -3232,7 +3233,7 @@ structure Gdk : GDK =
            & property
            & time
         )
-    fun setDoubleClickTime msec = (FFI.UInt32.C.withVal ---> I) setDoubleClickTime_ msec
+    fun setDoubleClickTime msec = (FFI.UInt.C.withVal ---> I) setDoubleClickTime_ msec
     fun setProgramClass programClass = (FFI.String.C.withConstPtr ---> I) setProgramClass_ programClass
     fun setShowEvents showEvents = (FFI.Bool.C.withVal ---> I) setShowEvents_ showEvents
     fun settingGet name value = (FFI.String.C.withConstPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) settingGet_ (name & value)
@@ -3253,9 +3254,9 @@ structure Gdk : GDK =
     fun testSimulateButton window x y button modifiers buttonPressrelease =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GdkEventType.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -3272,9 +3273,9 @@ structure Gdk : GDK =
     fun testSimulateKey window x y keyval modifiers keyPressrelease =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GdkEventType.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -3291,6 +3292,6 @@ structure Gdk : GDK =
     fun threadsEnter () = (I ---> I) threadsEnter_ ()
     fun threadsInit () = (I ---> I) threadsInit_ ()
     fun threadsLeave () = (I ---> I) threadsLeave_ ()
-    fun unicodeToKeyval wc = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) unicodeToKeyval_ wc
+    fun unicodeToKeyval wc = (FFI.UInt32.C.withVal ---> FFI.UInt.C.fromVal) unicodeToKeyval_ wc
     fun utf8ToStringTarget str = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) utf8ToStringTarget_ str
   end

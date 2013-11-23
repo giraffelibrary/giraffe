@@ -21,7 +21,7 @@ structure GtkStyleContext :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val removeProviderForScreen_ = call (load_sym libgtk "gtk_style_context_remove_provider_for_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -32,7 +32,7 @@ structure GtkStyleContext :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val addRegion_ =
@@ -135,8 +135,8 @@ structure GtkStyleContext :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setBackground_ = call (load_sym libgtk "gtk_style_context_set_background") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -170,7 +170,7 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         addProviderForScreen_
@@ -186,7 +186,7 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         addProvider_
@@ -384,8 +384,8 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         scrollAnimations_

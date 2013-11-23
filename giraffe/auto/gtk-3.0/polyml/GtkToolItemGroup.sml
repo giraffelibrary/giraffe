@@ -17,23 +17,23 @@ structure GtkToolItemGroup :>
         call (load_sym libgtk "gtk_tool_item_group_get_drop_item")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val getEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_get_ellipsize") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
       val getHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_get_header_relief") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
-      val getItemPosition_ = call (load_sym libgtk "gtk_tool_item_group_get_item_position") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getItemPosition_ = call (load_sym libgtk "gtk_tool_item_group_get_item_position") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getLabel_ = call (load_sym libgtk "gtk_tool_item_group_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
+      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val insert_ =
         call (load_sym libgtk "gtk_tool_item_group_insert")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_set_collapsed") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -44,7 +44,7 @@ structure GtkToolItemGroup :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
@@ -65,8 +65,8 @@ structure GtkToolItemGroup :>
     fun getDropItem self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GtkToolItemClass.C.fromPtr false
       )
         getDropItem_
@@ -77,16 +77,16 @@ structure GtkToolItemGroup :>
         )
     fun getEllipsize self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsize_ self
     fun getHeaderRelief self = (GObjectObjectClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getHeaderRelief_ self
-    fun getItemPosition self item = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getItemPosition_ (self & item)
+    fun getItemPosition self item = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getItemPosition_ (self & item)
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNItems_ self
-    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
+    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getNItems_ self
+    fun getNthItem self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
     fun insert self item position =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         insert_
@@ -102,7 +102,7 @@ structure GtkToolItemGroup :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setItemPosition_

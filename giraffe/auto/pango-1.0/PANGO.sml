@@ -1,5 +1,7 @@
 signature PANGO =
   sig
+    structure Glyph : PANGO_GLYPH
+    structure GlyphUnit : PANGO_GLYPH_UNIT
     structure Alignment : PANGO_ALIGNMENT
     structure AttrListRecord : PANGO_ATTR_LIST_RECORD
     structure AttrType : PANGO_ATTR_TYPE
@@ -35,6 +37,7 @@ signature PANGO =
     structure Variant : PANGO_VARIANT
     structure Weight : PANGO_WEIGHT
     structure WrapMode : PANGO_WRAP_MODE
+    structure LayoutRunRecord : PANGO_LAYOUT_RUN_RECORD
     structure AttrList :
       PANGO_ATTR_LIST
         where type record_t = AttrListRecord.t
@@ -48,6 +51,7 @@ signature PANGO =
         where type fontdescriptionrecord_t = FontDescriptionRecord.t
         where type 'a fontmapclass_t = 'a FontMapClass.t
         where type rectanglerecord_t = RectangleRecord.t
+        where type glyph_t = Glyph.t
         where type fontmetricsrecord_t = FontMetricsRecord.t
         where type languagerecord_t = LanguageRecord.t
     structure FontFace :

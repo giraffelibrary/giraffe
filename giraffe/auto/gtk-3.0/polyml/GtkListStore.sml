@@ -19,7 +19,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val insertAfter_ =
@@ -62,7 +62,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -101,7 +101,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTreeIterRecord.C.fromPtr true && I
           )
             insert_
@@ -187,7 +187,7 @@ structure GtkListStore :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

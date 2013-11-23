@@ -20,7 +20,7 @@ structure VteTerminal :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val feedChild_ =
@@ -28,7 +28,7 @@ structure VteTerminal :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val feedChildBinary_ =
@@ -36,7 +36,7 @@ structure VteTerminal :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val forkCommandFull_ =
@@ -54,10 +54,10 @@ structure VteTerminal :>
           )
       val getAllowBold_ = call (load_sym libvte "vte_terminal_get_allow_bold") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getAudibleBell_ = call (load_sym libvte "vte_terminal_get_audible_bell") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCharHeight_ = call (load_sym libvte "vte_terminal_get_char_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getChildExitStatus_ = call (load_sym libvte "vte_terminal_get_child_exit_status") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
+      val getCharHeight_ = call (load_sym libvte "vte_terminal_get_char_height") (GObjectObjectClass.PolyML.PTR --> FFI.Long.PolyML.VAL)
+      val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (GObjectObjectClass.PolyML.PTR --> FFI.Long.PolyML.VAL)
+      val getChildExitStatus_ = call (load_sym libvte "vte_terminal_get_child_exit_status") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (GObjectObjectClass.PolyML.PTR --> FFI.Long.PolyML.VAL)
       val getCursorBlinkMode_ = call (load_sym libvte "vte_terminal_get_cursor_blink_mode") (GObjectObjectClass.PolyML.PTR --> VteTerminalCursorBlinkMode.PolyML.VAL)
       val getCursorShape_ = call (load_sym libvte "vte_terminal_get_cursor_shape") (GObjectObjectClass.PolyML.PTR --> VteTerminalCursorShape.PolyML.VAL)
       val getDefaultEmulation_ = call (load_sym libvte "vte_terminal_get_default_emulation") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
@@ -68,7 +68,7 @@ structure VteTerminal :>
       val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getMouseAutohide_ = call (load_sym libvte "vte_terminal_get_mouse_autohide") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getPtyObject_ = call (load_sym libvte "vte_terminal_get_pty_object") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
+      val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (GObjectObjectClass.PolyML.PTR --> FFI.Long.PolyML.VAL)
       val getStatusLine_ = call (load_sym libvte "vte_terminal_get_status_line") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getVisibleBell_ = call (load_sym libvte "vte_terminal_get_visible_bell") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
@@ -80,24 +80,24 @@ structure VteTerminal :>
             GObjectObjectClass.PolyML.PTR
              &&> GLibRegexRecord.PolyML.PTR
              &&> GLibRegexMatchFlags.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val matchCheck_ =
         call (load_sym libvte "vte_terminal_match_check")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Long.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
              --> FFI.String.PolyML.RETPTR
           )
       val matchClearAll_ = call (load_sym libvte "vte_terminal_match_clear_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val matchSetCursor_ =
         call (load_sym libvte "vte_terminal_match_set_cursor")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
@@ -105,7 +105,7 @@ structure VteTerminal :>
         call (load_sym libvte "vte_terminal_match_set_cursor_name")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
@@ -113,7 +113,7 @@ structure VteTerminal :>
         call (load_sym libvte "vte_terminal_match_set_cursor_type")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GdkCursorType.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -185,13 +185,13 @@ structure VteTerminal :>
       val setScrollBackground_ = call (load_sym libvte "vte_terminal_set_scroll_background") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setScrollOnKeystroke_ = call (load_sym libvte "vte_terminal_set_scroll_on_keystroke") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setScrollOnOutput_ = call (load_sym libvte "vte_terminal_set_scroll_on_output") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setScrollbackLines_ = call (load_sym libvte "vte_terminal_set_scrollback_lines") (GObjectObjectClass.PolyML.PTR &&> FFI.Int64.PolyML.VAL --> FFI.PolyML.VOID)
+      val setScrollbackLines_ = call (load_sym libvte "vte_terminal_set_scrollback_lines") (GObjectObjectClass.PolyML.PTR &&> FFI.Long.PolyML.VAL --> FFI.PolyML.VOID)
       val setSize_ =
         call (load_sym libvte "vte_terminal_set_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int64.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
+             &&> FFI.Long.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setVisibleBell_ = call (load_sym libvte "vte_terminal_set_visible_bell") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -226,7 +226,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
          ---> I
       )
         feed_
@@ -239,7 +239,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
          ---> I
       )
         feedChild_
@@ -252,7 +252,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
          ---> I
       )
         feedChildBinary_
@@ -292,10 +292,10 @@ structure VteTerminal :>
       end
     fun getAllowBold self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowBold_ self
     fun getAudibleBell self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAudibleBell_ self
-    fun getCharHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getCharHeight_ self
-    fun getCharWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getCharWidth_ self
-    fun getChildExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getChildExitStatus_ self
-    fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getColumnCount_ self
+    fun getCharHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getCharHeight_ self
+    fun getCharWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getCharWidth_ self
+    fun getChildExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getChildExitStatus_ self
+    fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getColumnCount_ self
     fun getCursorBlinkMode self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
     fun getCursorShape self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorShape.C.fromVal) getCursorShape_ self
     fun getDefaultEmulation self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDefaultEmulation_ self
@@ -306,7 +306,7 @@ structure VteTerminal :>
     fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconTitle_ self
     fun getMouseAutohide self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
     fun getPtyObject self = (GObjectObjectClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPtyObject_ self
-    fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getRowCount_ self
+    fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getRowCount_ self
     fun getStatusLine self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStatusLine_ self
     fun getVisibleBell self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleBell_ self
     fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getWindowTitle_ self
@@ -317,7 +317,7 @@ structure VteTerminal :>
         GObjectObjectClass.C.withPtr
          &&&> GLibRegexRecord.C.withPtr
          &&&> GLibRegexMatchFlags.C.withVal
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         matchAddGregex_
         (
@@ -330,27 +330,27 @@ structure VteTerminal :>
         val tag & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int64.C.withVal
-             &&&> FFI.Int64.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && FFI.String.C.fromPtr true
+             &&&> FFI.Long.C.withVal
+             &&&> FFI.Long.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal && FFI.String.C.fromPtr true
           )
             matchCheck_
             (
               self
                & column
                & row
-               & FFI.Int32.null
+               & FFI.Int.null
             )
       in
         (retVal, tag)
       end
     fun matchClearAll self = (GObjectObjectClass.C.withPtr ---> I) matchClearAll_ self
-    fun matchRemove self tag = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) matchRemove_ (self & tag)
+    fun matchRemove self tag = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) matchRemove_ (self & tag)
     fun matchSetCursor self tag cursor =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          ---> I
       )
@@ -363,7 +363,7 @@ structure VteTerminal :>
     fun matchSetCursorName self tag cursorName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )
@@ -376,7 +376,7 @@ structure VteTerminal :>
     fun matchSetCursorType self tag cursorType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GdkCursorType.C.withVal
          ---> I
       )
@@ -469,12 +469,12 @@ structure VteTerminal :>
     fun setScrollBackground self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollBackground_ (self & scroll)
     fun setScrollOnKeystroke self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
     fun setScrollOnOutput self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnOutput_ (self & scroll)
-    fun setScrollbackLines self lines = (GObjectObjectClass.C.withPtr &&&> FFI.Int64.C.withVal ---> I) setScrollbackLines_ (self & lines)
+    fun setScrollbackLines self lines = (GObjectObjectClass.C.withPtr &&&> FFI.Long.C.withVal ---> I) setScrollbackLines_ (self & lines)
     fun setSize self columns rows =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
+         &&&> FFI.Long.C.withVal
          ---> I
       )
         setSize_
@@ -620,11 +620,6 @@ structure VteTerminal :>
         {
           get = fn x => get "pointer-autohide" boolean x,
           set = fn x => set "pointer-autohide" boolean x
-        }
-      val ptyProp =
-        {
-          get = fn x => get "pty" int x,
-          set = fn x => set "pty" int x
         }
       val ptyObjectProp =
         {

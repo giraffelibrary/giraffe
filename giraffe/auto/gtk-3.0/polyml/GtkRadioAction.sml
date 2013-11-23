@@ -14,12 +14,12 @@ structure GtkRadioAction :>
              &&> FFI.String.PolyML.INOPTPTR
              &&> FFI.String.PolyML.INOPTPTR
              &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getCurrentValue_ = call (load_sym libgtk "gtk_radio_action_get_current_value") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCurrentValue_ = call (load_sym libgtk "gtk_radio_action_get_current_value") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val joinGroup_ = call (load_sym libgtk "gtk_radio_action_join_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRadioActionClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -31,7 +31,7 @@ structure GtkRadioAction :>
          &&&> FFI.String.C.withConstOptPtr
          &&&> FFI.String.C.withConstOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GtkRadioActionClass.C.fromPtr true
       )
         new_
@@ -42,9 +42,9 @@ structure GtkRadioAction :>
            & stockId
            & value
         )
-    fun getCurrentValue self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentValue_ self
+    fun getCurrentValue self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCurrentValue_ self
     fun joinGroup self groupSource = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
-    fun setCurrentValue self currentValue = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentValue_ (self & currentValue)
+    fun setCurrentValue self currentValue = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCurrentValue_ (self & currentValue)
     local
       open ClosureMarshal Signal
     in

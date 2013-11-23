@@ -25,10 +25,10 @@ structure GtkStyle :>
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkStateType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -93,7 +93,7 @@ structure GtkStyle :>
                * GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
                * GtkTextDirection.C.val_
                * GtkStateType.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
@@ -140,10 +140,10 @@ structure GtkStyle :>
          &&&> CairoContextRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         applyDefaultBackground_
@@ -185,7 +185,7 @@ structure GtkStyle :>
          &&&> GtkIconSourceRecord.C.withPtr
          &&&> GtkTextDirection.C.withVal
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true

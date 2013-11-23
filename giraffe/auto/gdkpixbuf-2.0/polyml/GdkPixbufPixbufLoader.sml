@@ -20,8 +20,8 @@ structure GdkPixbufPixbufLoader :>
         call (load_sym libgdkpixbuf "gdk_pixbuf_loader_set_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -40,8 +40,8 @@ structure GdkPixbufPixbufLoader :>
     fun setSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setSize_

@@ -16,8 +16,8 @@ structure GtkLayout :>
         call (load_sym libgtk "gtk_layout_get_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.UInt32.PolyML.REF
+             &&> FFI.UInt.PolyML.REF
+             &&> FFI.UInt.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val move_ =
@@ -25,8 +25,8 @@ structure GtkLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val put_ =
@@ -34,16 +34,16 @@ structure GtkLayout :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setSize_ =
         call (load_sym libgtk "gtk_layout_set_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
     end
@@ -65,17 +65,17 @@ structure GtkLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
+             &&&> FFI.UInt.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
+             ---> FFI.UInt.C.fromVal
+                   && FFI.UInt.C.fromVal
                    && I
           )
             getSize_
             (
               self
-               & FFI.UInt32.null
-               & FFI.UInt32.null
+               & FFI.UInt.null
+               & FFI.UInt.null
             )
       in
         (width, height)
@@ -84,8 +84,8 @@ structure GtkLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         move_
@@ -99,8 +99,8 @@ structure GtkLayout :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         put_
@@ -113,8 +113,8 @@ structure GtkLayout :>
     fun setSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         setSize_

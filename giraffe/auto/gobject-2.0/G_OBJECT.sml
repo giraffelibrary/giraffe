@@ -3,8 +3,8 @@ signature G_OBJECT =
     type ('object, 'a) property_readonly
     type ('object, 'a) property_writeonly
     type ('object, 'a, 'b) property_readwrite
-    structure Type : G_OBJECT_TYPE
     structure ValueRecord : G_OBJECT_VALUE_RECORD
+    structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
     structure ParamFlags : G_OBJECT_PARAM_FLAGS
     structure SignalFlags : G_OBJECT_SIGNAL_FLAGS

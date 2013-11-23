@@ -13,8 +13,8 @@ structure GObject :
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
-    structure Type = GObjectType
     structure ValueRecord = GObjectValueRecord
+    structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
     structure ParamFlags = GObjectParamFlags
     structure SignalFlags = GObjectSignalFlags

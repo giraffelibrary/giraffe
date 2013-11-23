@@ -24,22 +24,22 @@ structure GtkLabel :>
         call (load_sym libgtk "gtk_label_get_layout_offsets")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getLineWrap_ = call (load_sym libgtk "gtk_label_get_line_wrap") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getLineWrapMode_ = call (load_sym libgtk "gtk_label_get_line_wrap_mode") (GObjectObjectClass.PolyML.PTR --> PangoWrapMode.PolyML.VAL)
-      val getMaxWidthChars_ = call (load_sym libgtk "gtk_label_get_max_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getMaxWidthChars_ = call (load_sym libgtk "gtk_label_get_max_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val getMnemonicWidget_ = call (load_sym libgtk "gtk_label_get_mnemonic_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSelectable_ = call (load_sym libgtk "gtk_label_get_selectable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getSelectionBounds_ =
         call (load_sym libgtk "gtk_label_get_selection_bounds")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
       val getSingleLineMode_ = call (load_sym libgtk "gtk_label_get_single_line_mode") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -47,13 +47,13 @@ structure GtkLabel :>
       val getTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_get_track_visited_links") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getUseMarkup_ = call (load_sym libgtk "gtk_label_get_use_markup") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getUseUnderline_ = call (load_sym libgtk "gtk_label_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getWidthChars_ = call (load_sym libgtk "gtk_label_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getWidthChars_ = call (load_sym libgtk "gtk_label_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val selectRegion_ =
         call (load_sym libgtk "gtk_label_select_region")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setAngle_ = call (load_sym libgtk "gtk_label_set_angle") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
@@ -65,7 +65,7 @@ structure GtkLabel :>
       val setLineWrapMode_ = call (load_sym libgtk "gtk_label_set_line_wrap_mode") (GObjectObjectClass.PolyML.PTR &&> PangoWrapMode.PolyML.VAL --> FFI.PolyML.VOID)
       val setMarkup_ = call (load_sym libgtk "gtk_label_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setMarkupWithMnemonic_ = call (load_sym libgtk "gtk_label_set_markup_with_mnemonic") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setMaxWidthChars_ = call (load_sym libgtk "gtk_label_set_max_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setMaxWidthChars_ = call (load_sym libgtk "gtk_label_set_max_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setMnemonicWidget_ = call (load_sym libgtk "gtk_label_set_mnemonic_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setPattern_ = call (load_sym libgtk "gtk_label_set_pattern") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setSelectable_ = call (load_sym libgtk "gtk_label_set_selectable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -75,7 +75,7 @@ structure GtkLabel :>
       val setTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_set_track_visited_links") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setUseMarkup_ = call (load_sym libgtk "gtk_label_set_use_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setUseUnderline_ = call (load_sym libgtk "gtk_label_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWidthChars_ = call (load_sym libgtk "gtk_label_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setWidthChars_ = call (load_sym libgtk "gtk_label_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkLabelClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -102,25 +102,25 @@ structure GtkLabel :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getLayoutOffsets_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (x, y)
       end
     fun getLineWrap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLineWrap_ self
     fun getLineWrapMode self = (GObjectObjectClass.C.withPtr ---> PangoWrapMode.C.fromVal) getLineWrapMode_ self
-    fun getMaxWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxWidthChars_ self
-    fun getMnemonicKeyval self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getMnemonicKeyval_ self
+    fun getMaxWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxWidthChars_ self
+    fun getMnemonicKeyval self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getMnemonicKeyval_ self
     fun getMnemonicWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMnemonicWidget_ self
     fun getSelectable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSelectable_ self
     fun getSelectionBounds self =
@@ -130,17 +130,17 @@ structure GtkLabel :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             getSelectionBounds_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (start, end') else NONE
@@ -150,12 +150,12 @@ structure GtkLabel :>
     fun getTrackVisitedLinks self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTrackVisitedLinks_ self
     fun getUseMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
-    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidthChars_ self
+    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthChars_ self
     fun selectRegion self startOffset endOffset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         selectRegion_
@@ -173,7 +173,7 @@ structure GtkLabel :>
     fun setLineWrapMode self wrapMode = (GObjectObjectClass.C.withPtr &&&> PangoWrapMode.C.withVal ---> I) setLineWrapMode_ (self & wrapMode)
     fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setMarkup_ (self & str)
     fun setMarkupWithMnemonic self str = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setMarkupWithMnemonic_ (self & str)
-    fun setMaxWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxWidthChars_ (self & nChars)
+    fun setMaxWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxWidthChars_ (self & nChars)
     fun setMnemonicWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setMnemonicWidget_ (self & widget)
     fun setPattern self pattern = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPattern_ (self & pattern)
     fun setSelectable self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectable_ (self & setting)
@@ -183,7 +183,7 @@ structure GtkLabel :>
     fun setTrackVisitedLinks self trackLinks = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTrackVisitedLinks_ (self & trackLinks)
     fun setUseMarkup self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseMarkup_ (self & setting)
     fun setUseUnderline self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & setting)
-    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidthChars_ (self & nChars)
+    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
     local
       open ClosureMarshal Signal
     in

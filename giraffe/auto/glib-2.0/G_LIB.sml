@@ -1,9 +1,13 @@
 signature G_LIB =
   sig
-    structure Quark : G_LIB_QUARK
-    structure Pid : G_LIB_PID
     structure SourceFunc : G_LIB_SOURCE_FUNC
     structure SpawnChildSetupFunc : G_LIB_SPAWN_CHILD_SETUP_FUNC
+    structure DateDay : G_LIB_DATE_DAY
+    structure DateYear : G_LIB_DATE_YEAR
+    structure Pid : G_LIB_PID
+    structure Quark : G_LIB_QUARK
+    structure Time : G_LIB_TIME
+    structure TimeSpan : G_LIB_TIME_SPAN
     structure IOChannelRecord : G_LIB_I_O_CHANNEL_RECORD
     structure IOCondition : G_LIB_I_O_CONDITION
     structure IOError : G_LIB_I_O_ERROR

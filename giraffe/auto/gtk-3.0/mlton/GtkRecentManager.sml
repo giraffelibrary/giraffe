@@ -99,7 +99,7 @@ structure GtkRecentManager :>
               x5,
               x6
             )
-    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int32.C.val_;) (x1, x2)
+    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int.C.val_;) (x1, x2)
     val removeItem_ =
       fn
         x1
@@ -168,7 +168,7 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
         GObjectObjectClass.C.withPtr

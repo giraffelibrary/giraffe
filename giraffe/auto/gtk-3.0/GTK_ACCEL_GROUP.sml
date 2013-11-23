@@ -7,7 +7,7 @@ signature GTK_ACCEL_GROUP =
     val fromAccelClosure : GObject.ClosureRecord.t -> base class_t
     val activate :
       'a class_t
-       -> LargeInt.int
+       -> GLib.Quark.t
        -> 'b GObject.ObjectClass.t
        -> LargeInt.int
        -> Gdk.ModifierType.t

@@ -20,8 +20,8 @@ structure GtkCellRenderer :>
              &&> GdkEvent.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -31,8 +31,8 @@ structure GtkCellRenderer :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
       val getAlignment_ =
@@ -47,16 +47,16 @@ structure GtkCellRenderer :>
         call (load_sym libgtk "gtk_cell_renderer_get_fixed_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_get_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getPreferredHeight_ =
@@ -64,8 +64,8 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getPreferredHeightForWidth_ =
@@ -73,9 +73,9 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getPreferredSize_ =
@@ -92,8 +92,8 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getPreferredWidthForHeight_ =
@@ -101,9 +101,9 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getRequestMode_ = call (load_sym libgtk "gtk_cell_renderer_get_request_mode") (GObjectObjectClass.PolyML.PTR --> GtkSizeRequestMode.PolyML.VAL)
@@ -124,8 +124,8 @@ structure GtkCellRenderer :>
             GObjectObjectClass.PolyML.PTR
              &&> CairoContextRecord.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -141,16 +141,16 @@ structure GtkCellRenderer :>
         call (load_sym libgtk "gtk_cell_renderer_set_fixed_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_set_padding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setSensitive_ = call (load_sym libgtk "gtk_cell_renderer_set_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -162,8 +162,8 @@ structure GtkCellRenderer :>
              &&> GdkEvent.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
+             &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -184,8 +184,8 @@ structure GtkCellRenderer :>
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -206,9 +206,9 @@ structure GtkCellRenderer :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GtkCellRendererState.C.withVal
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getAlignedArea_
             (
@@ -250,17 +250,17 @@ structure GtkCellRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getFixedSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (width, height)
@@ -272,17 +272,17 @@ structure GtkCellRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPadding_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (xpad, ypad)
@@ -295,18 +295,18 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredHeight_
             (
               self
                & widget
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumSize, naturalSize)
@@ -319,11 +319,11 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredHeightForWidth_
@@ -331,8 +331,8 @@ structure GtkCellRenderer :>
               self
                & widget
                & width
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -369,18 +369,18 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredWidth_
             (
               self
                & widget
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumSize, naturalSize)
@@ -393,11 +393,11 @@ structure GtkCellRenderer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredWidthForHeight_
@@ -405,8 +405,8 @@ structure GtkCellRenderer :>
               self
                & widget
                & height
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -433,8 +433,8 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          ---> I
       )
@@ -463,8 +463,8 @@ structure GtkCellRenderer :>
     fun setFixedSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setFixedSize_
@@ -476,8 +476,8 @@ structure GtkCellRenderer :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setPadding_
@@ -494,8 +494,8 @@ structure GtkCellRenderer :>
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          ---> GtkCellEditableClass.C.fromPtr false
       )

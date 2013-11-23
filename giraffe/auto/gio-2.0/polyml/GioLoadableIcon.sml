@@ -13,7 +13,7 @@ structure GioLoadableIcon :>
         call (load_sym libgio "g_loadable_icon_load")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.String.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -39,7 +39,7 @@ structure GioLoadableIcon :>
         val type' & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.String.C.withRefConstOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError

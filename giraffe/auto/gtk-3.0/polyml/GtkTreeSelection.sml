@@ -11,7 +11,7 @@ structure GtkTreeSelection :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_tree_selection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getMode_ = call (load_sym libgtk "gtk_tree_selection_get_mode") (GObjectObjectClass.PolyML.PTR --> GtkSelectionMode.PolyML.VAL)
       val getSelected_ =
         call (load_sym libgtk "gtk_tree_selection_get_selected")
@@ -55,7 +55,7 @@ structure GtkTreeSelection :>
     type treepathrecord_t = GtkTreePathRecord.t
     type selectionmode_t = GtkSelectionMode.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) countSelectedRows_ self
+    fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) countSelectedRows_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self
     fun getSelected self =
       let

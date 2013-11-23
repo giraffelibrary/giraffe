@@ -11,7 +11,7 @@ structure GtkToolShell :>
     in
       val getType_ = call (load_sym libgtk "gtk_tool_shell_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val getEllipsizeMode_ = call (load_sym libgtk "gtk_tool_shell_get_ellipsize_mode") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
-      val getIconSize_ = call (load_sym libgtk "gtk_tool_shell_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getIconSize_ = call (load_sym libgtk "gtk_tool_shell_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getOrientation_ = call (load_sym libgtk "gtk_tool_shell_get_orientation") (GObjectObjectClass.PolyML.PTR --> GtkOrientation.PolyML.VAL)
       val getReliefStyle_ = call (load_sym libgtk "gtk_tool_shell_get_relief_style") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
       val getStyle_ = call (load_sym libgtk "gtk_tool_shell_get_style") (GObjectObjectClass.PolyML.PTR --> GtkToolbarStyle.PolyML.VAL)
@@ -27,7 +27,7 @@ structure GtkToolShell :>
     type 'a sizegroupclass_t = 'a GtkSizeGroupClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEllipsizeMode self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsizeMode_ self
-    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIconSize_ self
+    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
     fun getReliefStyle self = (GObjectObjectClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getReliefStyle_ self
     fun getStyle self = (GObjectObjectClass.C.withPtr ---> GtkToolbarStyle.C.fromVal) getStyle_ self

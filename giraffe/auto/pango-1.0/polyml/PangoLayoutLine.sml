@@ -27,18 +27,18 @@ structure PangoLayoutLine :>
         call (load_sym libpango "pango_layout_line_index_to_x")
           (
             PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val xToIndex_ =
         call (load_sym libpango "pango_layout_line_x_to_index")
           (
             PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
     end
@@ -94,17 +94,17 @@ structure PangoLayoutLine :>
         val xPos & () =
           (
             PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.Bool.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && I
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal && I
           )
             indexToX_
             (
               self
                & index
                & trailing
-               & FFI.Int32.null
+               & FFI.Int.null
             )
       in
         xPos
@@ -116,19 +116,19 @@ structure PangoLayoutLine :>
          & retVal =
           (
             PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             xToIndex_
             (
               self
                & xPos
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (index, trailing) else NONE

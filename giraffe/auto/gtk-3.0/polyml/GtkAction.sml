@@ -22,7 +22,7 @@ structure GtkAction :>
       val activate_ = call (load_sym libgtk "gtk_action_activate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val blockActivate_ = call (load_sym libgtk "gtk_action_block_activate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val connectAccelerator_ = call (load_sym libgtk "gtk_action_connect_accelerator") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val createIcon_ = call (load_sym libgtk "gtk_action_create_icon") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val createIcon_ = call (load_sym libgtk "gtk_action_create_icon") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val createMenu_ = call (load_sym libgtk "gtk_action_create_menu") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val createMenuItem_ = call (load_sym libgtk "gtk_action_create_menu_item") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val createToolItem_ = call (load_sym libgtk "gtk_action_create_tool_item") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -85,7 +85,7 @@ structure GtkAction :>
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun blockActivate self = (GObjectObjectClass.C.withPtr ---> I) blockActivate_ self
     fun connectAccelerator self = (GObjectObjectClass.C.withPtr ---> I) connectAccelerator_ self
-    fun createIcon self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
+    fun createIcon self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
     fun createMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenu_ self
     fun createMenuItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenuItem_ self
     fun createToolItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createToolItem_ self

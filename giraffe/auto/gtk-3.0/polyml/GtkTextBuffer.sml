@@ -115,7 +115,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val getCharCount_ = call (load_sym libgtk "gtk_text_buffer_get_char_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCharCount_ = call (load_sym libgtk "gtk_text_buffer_get_char_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getCopyTargetList_ = call (load_sym libgtk "gtk_text_buffer_get_copy_target_list") (GObjectObjectClass.PolyML.PTR --> GtkTargetListRecord.PolyML.PTR)
       val getEndIter_ = call (load_sym libgtk "gtk_text_buffer_get_end_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getHasSelection_ = call (load_sym libgtk "gtk_text_buffer_get_has_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -133,7 +133,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val getIterAtLineIndex_ =
@@ -141,8 +141,8 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val getIterAtLineOffset_ =
@@ -150,8 +150,8 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val getIterAtMark_ =
@@ -167,10 +167,10 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val getLineCount_ = call (load_sym libgtk "gtk_text_buffer_get_line_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getLineCount_ = call (load_sym libgtk "gtk_text_buffer_get_line_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getMark_ = call (load_sym libgtk "gtk_text_buffer_get_mark") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getModified_ = call (load_sym libgtk "gtk_text_buffer_get_modified") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getPasteTargetList_ = call (load_sym libgtk "gtk_text_buffer_get_paste_target_list") (GObjectObjectClass.PolyML.PTR --> GtkTargetListRecord.PolyML.PTR)
@@ -209,7 +209,7 @@ structure GtkTextBuffer :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val insertAtCursor_ =
@@ -217,7 +217,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val insertChildAnchor_ =
@@ -234,7 +234,7 @@ structure GtkTextBuffer :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -243,7 +243,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -343,7 +343,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val unregisterDeserializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_deserialize_format") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.VOID)
@@ -529,7 +529,7 @@ structure GtkTextBuffer :>
       in
         (start, end')
       end
-    fun getCharCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCharCount_ self
+    fun getCharCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCharCount_ self
     fun getCopyTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) getCopyTargetList_ self
     fun getEndIter self =
       let
@@ -563,7 +563,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true && I
           )
             getIterAtLine_
@@ -581,8 +581,8 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true && I
           )
             getIterAtLineIndex_
@@ -601,8 +601,8 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true && I
           )
             getIterAtLineOffset_
@@ -639,7 +639,7 @@ structure GtkTextBuffer :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true && I
           )
             getIterAtOffset_
@@ -651,7 +651,7 @@ structure GtkTextBuffer :>
       in
         iter
       end
-    fun getLineCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLineCount_ self
+    fun getLineCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLineCount_ self
     fun getMark self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkTextMarkClass.C.fromPtr false) getMark_ (self & name)
     fun getModified self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getModified_ self
     fun getPasteTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) getPasteTargetList_ self
@@ -720,7 +720,7 @@ structure GtkTextBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         insert_
@@ -734,7 +734,7 @@ structure GtkTextBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         insertAtCursor_
@@ -761,7 +761,7 @@ structure GtkTextBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -777,7 +777,7 @@ structure GtkTextBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -939,7 +939,7 @@ structure GtkTextBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setText_

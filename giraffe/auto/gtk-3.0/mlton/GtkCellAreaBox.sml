@@ -8,7 +8,7 @@ structure GtkCellAreaBox :>
   struct
     val getType_ = _import "gtk_cell_area_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_area_box_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val packEnd_ =
       fn
         x1
@@ -55,7 +55,7 @@ structure GtkCellAreaBox :>
               x4,
               x5
             )
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkCellAreaBoxClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
@@ -66,7 +66,7 @@ structure GtkCellAreaBox :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellAreaBoxClass.C.fromPtr false) new_ ()
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun packEnd self renderer expand align fixed =
       (
         GObjectObjectClass.C.withPtr
@@ -101,7 +101,7 @@ structure GtkCellAreaBox :>
            & align
            & fixed
         )
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

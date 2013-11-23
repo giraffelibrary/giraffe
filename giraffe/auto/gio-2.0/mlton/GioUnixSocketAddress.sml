@@ -9,7 +9,7 @@ structure GioUnixSocketAddress :>
     val abstractNamesSupported_ = _import "g_unix_socket_address_abstract_names_supported" : unit -> FFI.Bool.C.val_;
     val getAddressType_ = _import "g_unix_socket_address_get_address_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioUnixSocketAddressType.C.val_;
     val getPath_ = _import "g_unix_socket_address_get_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getPathLen_ = _import "g_unix_socket_address_get_path_len" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
+    val getPathLen_ = _import "g_unix_socket_address_get_path_len" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
     type 'a class_t = 'a GioUnixSocketAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     type unixsocketaddresstype_t = GioUnixSocketAddressType.t
@@ -19,15 +19,10 @@ structure GioUnixSocketAddress :>
     fun abstractNamesSupported () = (I ---> FFI.Bool.C.fromVal) abstractNamesSupported_ ()
     fun getAddressType self = (GObjectObjectClass.C.withPtr ---> GioUnixSocketAddressType.C.fromVal) getAddressType_ self
     fun getPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPath_ self
-    fun getPathLen self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getPathLen_ self
+    fun getPathLen self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getPathLen_ self
     local
       open Property
     in
-      val abstractProp =
-        {
-          get = fn x => get "abstract" boolean x,
-          set = fn x => set "abstract" boolean x
-        }
       val addressTypeProp =
         {
           get = fn x => get "address-type" GioUnixSocketAddressType.t x,

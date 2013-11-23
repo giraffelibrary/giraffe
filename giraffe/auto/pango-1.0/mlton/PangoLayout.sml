@@ -19,8 +19,8 @@ structure PangoLayout :>
     val getAlignment_ = _import "pango_layout_get_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoAlignment.C.val_;
     val getAttributes_ = _import "pango_layout_get_attributes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p;
     val getAutoDir_ = _import "pango_layout_get_auto_dir" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getBaseline_ = _import "pango_layout_get_baseline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getCharacterCount_ = _import "pango_layout_get_character_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getBaseline_ = _import "pango_layout_get_baseline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getCharacterCount_ = _import "pango_layout_get_character_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getContext_ = _import "pango_layout_get_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCursorPos_ =
       fn
@@ -31,7 +31,7 @@ structure PangoLayout :>
           (
             _import "pango_layout_get_cursor_pos" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                -> unit;
@@ -61,13 +61,13 @@ structure PangoLayout :>
               x3
             )
     val getFontDescription_ = _import "pango_layout_get_font_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    val getHeight_ = _import "pango_layout_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getIndent_ = _import "pango_layout_get_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getHeight_ = _import "pango_layout_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getIndent_ = _import "pango_layout_get_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getIter_ = _import "pango_layout_get_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p;
     val getJustify_ = _import "pango_layout_get_justify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p;) (x1, x2)
-    val getLineCount_ = _import "pango_layout_get_line_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p;) (x1, x2)
+    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p;) (x1, x2)
+    val getLineCount_ = _import "pango_layout_get_line_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p;) (x1, x2)
     val getPixelExtents_ =
       fn
         x1
@@ -93,8 +93,8 @@ structure PangoLayout :>
           (
             _import "pango_layout_get_pixel_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -111,8 +111,8 @@ structure PangoLayout :>
           (
             _import "pango_layout_get_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -120,11 +120,11 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val getSpacing_ = _import "pango_layout_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSpacing_ = _import "pango_layout_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getTabs_ = _import "pango_layout_get_tabs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoTabArrayRecord.C.notnull PangoTabArrayRecord.C.p;
     val getText_ = _import "pango_layout_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUnknownGlyphsCount_ = _import "pango_layout_get_unknown_glyphs_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getWidth_ = _import "pango_layout_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getUnknownGlyphsCount_ = _import "pango_layout_get_unknown_glyphs_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getWidth_ = _import "pango_layout_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getWrap_ = _import "pango_layout_get_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoWrapMode.C.val_;
     val indexToLineX_ =
       fn
@@ -136,10 +136,10 @@ structure PangoLayout :>
           (
             _import "pango_layout_index_to_line_x" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * FFI.Bool.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -157,7 +157,7 @@ structure PangoLayout :>
           (
             _import "pango_layout_index_to_pos" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                -> unit;
           )
@@ -172,8 +172,8 @@ structure PangoLayout :>
     val setAutoDir_ = fn x1 & x2 => (_import "pango_layout_set_auto_dir" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setEllipsize_ = fn x1 & x2 => (_import "pango_layout_set_ellipsize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoEllipsizeMode.C.val_ -> unit;) (x1, x2)
     val setFontDescription_ = fn x1 & x2 => (_import "pango_layout_set_font_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoFontDescriptionRecord.C.p -> unit;) (x1, x2)
-    val setHeight_ = fn x1 & x2 => (_import "pango_layout_set_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setIndent_ = fn x1 & x2 => (_import "pango_layout_set_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setHeight_ = fn x1 & x2 => (_import "pango_layout_set_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setIndent_ = fn x1 & x2 => (_import "pango_layout_set_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setJustify_ = fn x1 & x2 => (_import "pango_layout_set_justify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setMarkup_ =
       fn
@@ -185,7 +185,7 @@ structure PangoLayout :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -206,7 +206,7 @@ structure PangoLayout :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * FFI.Char.C.val_
                * FFI.Char.C.ref_
                -> unit;
@@ -220,7 +220,7 @@ structure PangoLayout :>
               x6
             )
     val setSingleParagraphMode_ = fn x1 & x2 => (_import "pango_layout_set_single_paragraph_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "pango_layout_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "pango_layout_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setTabs_ = fn x1 & x2 => (_import "pango_layout_set_tabs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoTabArrayRecord.C.p -> unit;) (x1, x2)
     val setText_ =
       fn
@@ -232,7 +232,7 @@ structure PangoLayout :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -241,7 +241,7 @@ structure PangoLayout :>
               x3,
               x4
             )
-    val setWidth_ = fn x1 & x2 => (_import "pango_layout_set_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setWidth_ = fn x1 & x2 => (_import "pango_layout_set_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setWrap_ = fn x1 & x2 => (_import "pango_layout_set_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoWrapMode.C.val_ -> unit;) (x1, x2)
     val xyToIndex_ =
       fn
@@ -253,10 +253,10 @@ structure PangoLayout :>
           (
             _import "pango_layout_xy_to_index" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -284,8 +284,8 @@ structure PangoLayout :>
     fun getAlignment self = (GObjectObjectClass.C.withPtr ---> PangoAlignment.C.fromVal) getAlignment_ self
     fun getAttributes self = (GObjectObjectClass.C.withPtr ---> PangoAttrListRecord.C.fromPtr true) getAttributes_ self
     fun getAutoDir self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAutoDir_ self
-    fun getBaseline self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getBaseline_ self
-    fun getCharacterCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCharacterCount_ self
+    fun getBaseline self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getBaseline_ self
+    fun getCharacterCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCharacterCount_ self
     fun getContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr false) getContext_ self
     fun getCursorPos self index =
       let
@@ -294,7 +294,7 @@ structure PangoLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true
@@ -335,13 +335,13 @@ structure PangoLayout :>
         (inkRect, logicalRect)
       end
     fun getFontDescription self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFontDescription_ self
-    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getHeight_ self
-    fun getIndent self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIndent_ self
+    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
+    fun getIndent self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIndent_ self
     fun getIter self = (GObjectObjectClass.C.withPtr ---> PangoLayoutIterRecord.C.fromPtr true) getIter_ self
     fun getJustify self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getJustify_ self
-    fun getLine self line = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> PangoLayoutLineRecord.C.fromPtr true) getLine_ (self & line)
-    fun getLineCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLineCount_ self
-    fun getLineReadonly self line = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> PangoLayoutLineRecord.C.fromPtr true) getLineReadonly_ (self & line)
+    fun getLine self line = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> PangoLayoutLineRecord.C.fromPtr false) getLine_ (self & line)
+    fun getLineCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLineCount_ self
+    fun getLineReadonly self line = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> PangoLayoutLineRecord.C.fromPtr false) getLineReadonly_ (self & line)
     fun getPixelExtents self =
       let
         val inkRect
@@ -371,17 +371,17 @@ structure PangoLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPixelSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (width, height)
@@ -394,26 +394,26 @@ structure PangoLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefNewVal
-             &&&> FFI.Int32.C.withRefNewVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefNewVal
+             &&&> FFI.Int.C.withRefNewVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (width, height)
       end
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun getTabs self = (GObjectObjectClass.C.withPtr ---> PangoTabArrayRecord.C.fromPtr true) getTabs_ self
     fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
-    fun getUnknownGlyphsCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getUnknownGlyphsCount_ self
-    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self
+    fun getUnknownGlyphsCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getUnknownGlyphsCount_ self
+    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun getWrap self = (GObjectObjectClass.C.withPtr ---> PangoWrapMode.C.fromVal) getWrap_ self
     fun indexToLineX self index trailing =
       let
@@ -422,12 +422,12 @@ structure PangoLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.Bool.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             indexToLineX_
@@ -435,8 +435,8 @@ structure PangoLayout :>
               self
                & index
                & trailing
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (line, xPos)
@@ -446,7 +446,7 @@ structure PangoLayout :>
         val pos & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true && I
           )
@@ -465,14 +465,14 @@ structure PangoLayout :>
     fun setAutoDir self autoDir = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAutoDir_ (self & autoDir)
     fun setEllipsize self ellipsize = (GObjectObjectClass.C.withPtr &&&> PangoEllipsizeMode.C.withVal ---> I) setEllipsize_ (self & ellipsize)
     fun setFontDescription self desc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFontDescription_ (self & desc)
-    fun setHeight self height = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setHeight_ (self & height)
-    fun setIndent self indent = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setIndent_ (self & indent)
+    fun setHeight self height = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setHeight_ (self & height)
+    fun setIndent self indent = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIndent_ (self & indent)
     fun setJustify self justify = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setJustify_ (self & justify)
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setMarkup_
@@ -487,7 +487,7 @@ structure PangoLayout :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.String.C.withConstPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> FFI.Char.C.withRefNewVal
              ---> FFI.Char.C.fromVal && I
@@ -504,13 +504,13 @@ structure PangoLayout :>
         accelChar
       end
     fun setSingleParagraphMode self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSingleParagraphMode_ (self & setting)
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
     fun setTabs self tabs = (GObjectObjectClass.C.withPtr &&&> PangoTabArrayRecord.C.withOptPtr ---> I) setTabs_ (self & tabs)
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setText_
@@ -519,7 +519,7 @@ structure PangoLayout :>
            & text
            & length
         )
-    fun setWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidth_ (self & width)
+    fun setWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidth_ (self & width)
     fun setWrap self wrap = (GObjectObjectClass.C.withPtr &&&> PangoWrapMode.C.withVal ---> I) setWrap_ (self & wrap)
     fun xyToIndex self x y =
       let
@@ -528,12 +528,12 @@ structure PangoLayout :>
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             xyToIndex_
@@ -541,8 +541,8 @@ structure PangoLayout :>
               self
                & x
                & y
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (index, trailing) else NONE

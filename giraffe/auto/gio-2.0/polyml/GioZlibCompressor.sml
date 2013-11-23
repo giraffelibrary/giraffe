@@ -9,7 +9,7 @@ structure GioZlibCompressor :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_zlib_compressor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.VAL &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val getFileInfo_ = call (load_sym libgio "g_zlib_compressor_get_file_info") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val setFileInfo_ = call (load_sym libgio "g_zlib_compressor_set_file_info") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
@@ -19,7 +19,7 @@ structure GioZlibCompressor :>
     type zlibcompressorformat_t = GioZlibCompressorFormat.t
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new format level = (GioZlibCompressorFormat.C.withVal &&&> FFI.Int32.C.withVal ---> GioZlibCompressorClass.C.fromPtr true) new_ (format & level)
+    fun new format level = (GioZlibCompressorFormat.C.withVal &&&> FFI.Int.C.withVal ---> GioZlibCompressorClass.C.fromPtr true) new_ (format & level)
     fun getFileInfo self = (GObjectObjectClass.C.withPtr ---> GioFileInfoClass.C.fromPtr false) getFileInfo_ self
     fun setFileInfo self fileInfo = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFileInfo_ (self & fileInfo)
     local

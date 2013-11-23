@@ -11,12 +11,12 @@ structure GtkNumerableIcon :>
       val newWithStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_new_with_style_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_get_background_gicon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_get_background_icon_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getCount_ = call (load_sym libgtk "gtk_numerable_icon_get_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCount_ = call (load_sym libgtk "gtk_numerable_icon_get_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getLabel_ = call (load_sym libgtk "gtk_numerable_icon_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_get_style_context") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val setBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_set_background_gicon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_set_background_icon_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setCount_ = call (load_sym libgtk "gtk_numerable_icon_set_count") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCount_ = call (load_sym libgtk "gtk_numerable_icon_set_count") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setLabel_ = call (load_sym libgtk "gtk_numerable_icon_set_label") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_set_style_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -28,12 +28,12 @@ structure GtkNumerableIcon :>
     fun newWithStyleContext baseIcon context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) newWithStyleContext_ (baseIcon & context)
     fun getBackgroundGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getBackgroundGicon_ self
     fun getBackgroundIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getBackgroundIconName_ self
-    fun getCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCount_ self
+    fun getCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCount_ self
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
     fun getStyleContext self = (GObjectObjectClass.C.withPtr ---> GtkStyleContextClass.C.fromPtr false) getStyleContext_ self
     fun setBackgroundGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundGicon_ (self & icon)
     fun setBackgroundIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setBackgroundIconName_ (self & iconName)
-    fun setCount self count = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCount_ (self & count)
+    fun setCount self count = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCount_ (self & count)
     fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setLabel_ (self & label)
     fun setStyleContext self style = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setStyleContext_ (self & style)
     local

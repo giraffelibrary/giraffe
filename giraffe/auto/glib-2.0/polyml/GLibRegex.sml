@@ -18,12 +18,12 @@ structure GLibRegex :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibRegexRecord.PolyML.PTR
           )
-      val getCaptureCount_ = call (load_sym libglib "g_regex_get_capture_count") (GLibRegexRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCaptureCount_ = call (load_sym libglib "g_regex_get_capture_count") (GLibRegexRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getCompileFlags_ = call (load_sym libglib "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.PTR --> GLibRegexCompileFlags.PolyML.VAL)
       val getMatchFlags_ = call (load_sym libglib "g_regex_get_match_flags") (GLibRegexRecord.PolyML.PTR --> GLibRegexMatchFlags.PolyML.VAL)
-      val getMaxBackref_ = call (load_sym libglib "g_regex_get_max_backref") (GLibRegexRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getMaxBackref_ = call (load_sym libglib "g_regex_get_max_backref") (GLibRegexRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getPattern_ = call (load_sym libglib "g_regex_get_pattern") (GLibRegexRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getStringNumber_ = call (load_sym libglib "g_regex_get_string_number") (GLibRegexRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
+      val getStringNumber_ = call (load_sym libglib "g_regex_get_string_number") (GLibRegexRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Int.PolyML.VAL)
       val match_ =
         call (load_sym libglib "g_regex_match")
           (
@@ -50,7 +50,7 @@ structure GLibRegex :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val escapeNul_ = call (load_sym libglib "g_regex_escape_nul") (FFI.String.PolyML.INPTR &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val escapeNul_ = call (load_sym libglib "g_regex_escape_nul") (FFI.String.PolyML.INPTR &&> FFI.Int.PolyML.VAL --> FFI.String.PolyML.RETPTR)
       val matchSimple_ =
         call (load_sym libglib "g_regex_match_simple")
           (
@@ -81,12 +81,12 @@ structure GLibRegex :>
            & matchOptions
            & []
         )
-    fun getCaptureCount self = (GLibRegexRecord.C.withPtr ---> FFI.Int32.C.fromVal) getCaptureCount_ self
+    fun getCaptureCount self = (GLibRegexRecord.C.withPtr ---> FFI.Int.C.fromVal) getCaptureCount_ self
     fun getCompileFlags self = (GLibRegexRecord.C.withPtr ---> GLibRegexCompileFlags.C.fromVal) getCompileFlags_ self
     fun getMatchFlags self = (GLibRegexRecord.C.withPtr ---> GLibRegexMatchFlags.C.fromVal) getMatchFlags_ self
-    fun getMaxBackref self = (GLibRegexRecord.C.withPtr ---> FFI.Int32.C.fromVal) getMaxBackref_ self
+    fun getMaxBackref self = (GLibRegexRecord.C.withPtr ---> FFI.Int.C.fromVal) getMaxBackref_ self
     fun getPattern self = (GLibRegexRecord.C.withPtr ---> FFI.String.C.fromPtr false) getPattern_ self
-    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getStringNumber_ (self & name)
+    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) getStringNumber_ (self & name)
     fun match self string matchOptions =
       let
         val matchInfo & retVal =
@@ -145,7 +145,7 @@ structure GLibRegex :>
       in
         if retVal then SOME hasReferences else NONE
       end
-    fun escapeNul string length = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr true) escapeNul_ (string & length)
+    fun escapeNul string length = (FFI.String.C.withConstPtr &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr true) escapeNul_ (string & length)
     fun matchSimple pattern string compileOptions matchOptions =
       (
         FFI.String.C.withConstPtr

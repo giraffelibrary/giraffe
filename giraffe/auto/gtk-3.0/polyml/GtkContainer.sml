@@ -39,7 +39,7 @@ structure GtkContainer :>
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val getFocusChild_ = call (load_sym libgtk "gtk_container_get_focus_child") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
       val getFocusHadjustment_ = call (load_sym libgtk "gtk_container_get_focus_hadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getFocusVadjustment_ = call (load_sym libgtk "gtk_container_get_focus_vadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -55,7 +55,7 @@ structure GtkContainer :>
           )
       val remove_ = call (load_sym libgtk "gtk_container_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val resizeChildren_ = call (load_sym libgtk "gtk_container_resize_children") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val setFocusChild_ = call (load_sym libgtk "gtk_container_set_focus_child") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setFocusHadjustment_ = call (load_sym libgtk "gtk_container_set_focus_hadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setFocusVadjustment_ = call (load_sym libgtk "gtk_container_set_focus_vadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -117,7 +117,7 @@ structure GtkContainer :>
            & propertyName
            & value
         )
-    fun getBorderWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getBorderWidth_ self
+    fun getBorderWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getBorderWidth_ self
     fun getFocusChild self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getFocusChild_ self
     fun getFocusHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusHadjustment_ self
     fun getFocusVadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusVadjustment_ self
@@ -138,7 +138,7 @@ structure GtkContainer :>
         )
     fun remove self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & widget)
     fun resizeChildren self = (GObjectObjectClass.C.withPtr ---> I) resizeChildren_ self
-    fun setBorderWidth self borderWidth = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setBorderWidth_ (self & borderWidth)
+    fun setBorderWidth self borderWidth = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setBorderWidth_ (self & borderWidth)
     fun setFocusChild self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFocusChild_ (self & child)
     fun setFocusHadjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFocusHadjustment_ (self & adjustment)
     fun setFocusVadjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFocusVadjustment_ (self & adjustment)

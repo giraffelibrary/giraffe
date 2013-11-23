@@ -9,6 +9,7 @@ signature PANGO_RENDERER =
     type 'a fontclass_t
     type glyphstringrecord_t
     type glyphitemrecord_t
+    type glyph_t
     val getType : unit -> GObject.Type.t
     val activate : 'a class_t -> unit
     val deactivate : 'a class_t -> unit
@@ -22,7 +23,7 @@ signature PANGO_RENDERER =
     val drawGlyph :
       'a class_t
        -> 'b fontclass_t
-       -> LargeInt.int
+       -> glyph_t
        -> real
        -> real
        -> unit

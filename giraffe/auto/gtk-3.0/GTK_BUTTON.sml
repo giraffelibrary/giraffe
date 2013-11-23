@@ -59,10 +59,6 @@ signature GTK_BUTTON =
        -> unit
     val activateSig : (unit -> unit) -> 'a class_t Signal.signal
     val clickedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val enterSig : (unit -> unit) -> 'a class_t Signal.signal
-    val leaveSig : (unit -> unit) -> 'a class_t Signal.signal
-    val pressedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val releasedSig : (unit -> unit) -> 'a class_t Signal.signal
     val focusOnClickProp : ('a class_t, bool, bool) Property.readwrite
     val imageProp : ('a class_t, base widgetclass_t option, 'b widgetclass_t option) Property.readwrite
     val imagePositionProp : ('a class_t, positiontype_t, positiontype_t) Property.readwrite

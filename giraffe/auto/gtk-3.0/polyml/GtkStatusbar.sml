@@ -10,26 +10,26 @@ structure GtkStatusbar :>
     in
       val getType_ = call (load_sym libgtk "gtk_statusbar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.UInt32.PolyML.VAL)
+      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.UInt.PolyML.VAL)
       val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val push_ =
         call (load_sym libgtk "gtk_statusbar_push")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> FFI.String.PolyML.INPTR
-             --> FFI.UInt32.PolyML.VAL
+             --> FFI.UInt.PolyML.VAL
           )
       val remove_ =
         call (load_sym libgtk "gtk_statusbar_remove")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkStatusbarClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -40,15 +40,15 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt32.C.fromVal) getContextId_ (self & contextDescription)
+    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) pop_ (self & contextId)
+    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> FFI.String.C.withConstPtr
-         ---> FFI.UInt32.C.fromVal
+         ---> FFI.UInt.C.fromVal
       )
         push_
         (
@@ -59,8 +59,8 @@ structure GtkStatusbar :>
     fun remove self contextId messageId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         remove_
@@ -69,7 +69,7 @@ structure GtkStatusbar :>
            & contextId
            & messageId
         )
-    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeAll_ (self & contextId)
+    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeAll_ (self & contextId)
     local
       open ClosureMarshal Signal
     in

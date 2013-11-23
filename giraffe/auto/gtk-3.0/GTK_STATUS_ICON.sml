@@ -21,7 +21,7 @@ signature GTK_STATUS_ICON =
     val getGeometry :
       'a class_t
        -> (base Gdk.ScreenClass.t
-            * Cairo.RectangleIntRecord.t
+            * Gdk.RectangleRecord.t
             * orientation_t)
             option
     val getGicon : 'a class_t -> base Gio.IconClass.t

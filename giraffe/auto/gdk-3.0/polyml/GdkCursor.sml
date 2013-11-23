@@ -16,8 +16,8 @@ structure GdkCursor :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GObjectObjectClass.PolyML.PTR --> GdkCursorType.PolyML.VAL)
@@ -35,8 +35,8 @@ structure GdkCursor :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkCursorClass.C.fromPtr true
       )
         newFromPixbuf_

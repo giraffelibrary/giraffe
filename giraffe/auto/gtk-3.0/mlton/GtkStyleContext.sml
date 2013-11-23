@@ -22,7 +22,7 @@ structure GtkStyleContext :>
             _import "gtk_style_context_add_provider_for_screen" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                -> unit;
           )
             (
@@ -56,7 +56,7 @@ structure GtkStyleContext :>
             _import "gtk_style_context_add_provider" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                -> unit;
           )
             (
@@ -323,8 +323,8 @@ structure GtkStyleContext :>
             _import "gtk_style_context_scroll_animations" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -372,7 +372,7 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         addProviderForScreen_
@@ -388,7 +388,7 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         addProvider_
@@ -586,8 +586,8 @@ structure GtkStyleContext :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         scrollAnimations_

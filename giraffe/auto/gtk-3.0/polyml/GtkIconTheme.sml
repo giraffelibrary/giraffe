@@ -13,7 +13,7 @@ structure GtkIconTheme :>
         call (load_sym libgtk "gtk_icon_theme_add_builtin_icon")
           (
             FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -27,7 +27,7 @@ structure GtkIconTheme :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkIconLookupFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -37,7 +37,7 @@ structure GtkIconTheme :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkIconLookupFlags.PolyML.VAL
              --> GtkIconInfoRecord.PolyML.PTR
           )
@@ -46,7 +46,7 @@ structure GtkIconTheme :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GtkIconLookupFlags.PolyML.VAL
              --> GtkIconInfoRecord.PolyML.PTR
           )
@@ -63,7 +63,7 @@ structure GtkIconTheme :>
     fun addBuiltinIcon iconName size pixbuf =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -82,7 +82,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
@@ -99,7 +99,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )
@@ -114,7 +114,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )

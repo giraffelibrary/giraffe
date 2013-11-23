@@ -49,8 +49,8 @@ structure GtkTextView :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextWindowType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -74,10 +74,10 @@ structure GtkTextView :>
             _import "gtk_text_view_buffer_to_window_coords" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextWindowType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -91,7 +91,7 @@ structure GtkTextView :>
     val forwardDisplayLine_ = fn x1 & x2 => (_import "gtk_text_view_forward_display_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val forwardDisplayLineEnd_ = fn x1 & x2 => (_import "gtk_text_view_forward_display_line_end" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getAcceptsTab_ = _import "gtk_text_view_get_accepts_tab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getBorderWindowSize_ = fn x1 & x2 => (_import "gtk_text_view_get_border_window_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextWindowType.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
+    val getBorderWindowSize_ = fn x1 & x2 => (_import "gtk_text_view_get_border_window_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextWindowType.C.val_ -> FFI.Int.C.val_;) (x1, x2)
     val getBuffer_ = _import "gtk_text_view_get_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCursorLocations_ =
       fn
@@ -103,8 +103,8 @@ structure GtkTextView :>
             _import "gtk_text_view_get_cursor_locations" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GtkTextIterRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
           )
             (
@@ -116,7 +116,7 @@ structure GtkTextView :>
     val getCursorVisible_ = _import "gtk_text_view_get_cursor_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getDefaultAttributes_ = _import "gtk_text_view_get_default_attributes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p;
     val getEditable_ = _import "gtk_text_view_get_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getIndent_ = _import "gtk_text_view_get_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getIndent_ = _import "gtk_text_view_get_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getIterAtLocation_ =
       fn
         x1
@@ -127,8 +127,8 @@ structure GtkTextView :>
             _import "gtk_text_view_get_iter_at_location" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -148,9 +148,9 @@ structure GtkTextView :>
             _import "gtk_text_view_get_iter_at_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -169,7 +169,7 @@ structure GtkTextView :>
             _import "gtk_text_view_get_iter_location" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
           )
             (
@@ -178,7 +178,7 @@ structure GtkTextView :>
               x3
             )
     val getJustification_ = _import "gtk_text_view_get_justification" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkJustification.C.val_;
-    val getLeftMargin_ = _import "gtk_text_view_get_left_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getLeftMargin_ = _import "gtk_text_view_get_left_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getLineAtY_ =
       fn
         x1
@@ -189,8 +189,8 @@ structure GtkTextView :>
             _import "gtk_text_view_get_line_at_y" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -209,8 +209,8 @@ structure GtkTextView :>
             _import "gtk_text_view_get_line_yrange" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -220,12 +220,12 @@ structure GtkTextView :>
               x4
             )
     val getOverwrite_ = _import "gtk_text_view_get_overwrite" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getPixelsAboveLines_ = _import "gtk_text_view_get_pixels_above_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getPixelsBelowLines_ = _import "gtk_text_view_get_pixels_below_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getPixelsInsideWrap_ = _import "gtk_text_view_get_pixels_inside_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getRightMargin_ = _import "gtk_text_view_get_right_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getPixelsAboveLines_ = _import "gtk_text_view_get_pixels_above_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getPixelsBelowLines_ = _import "gtk_text_view_get_pixels_below_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getPixelsInsideWrap_ = _import "gtk_text_view_get_pixels_inside_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getRightMargin_ = _import "gtk_text_view_get_right_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getTabs_ = _import "gtk_text_view_get_tabs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoTabArrayRecord.C.notnull PangoTabArrayRecord.C.p;
-    val getVisibleRect_ = fn x1 & x2 => (_import "gtk_text_view_get_visible_rect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
+    val getVisibleRect_ = fn x1 & x2 => (_import "gtk_text_view_get_visible_rect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> unit;) (x1, x2)
     val getWindow_ = fn x1 & x2 => (_import "gtk_text_view_get_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextWindowType.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getWindowType_ = fn x1 & x2 => (_import "gtk_text_view_get_window_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTextWindowType.C.val_;) (x1, x2)
     val getWrapMode_ = _import "gtk_text_view_get_wrap_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkWrapMode.C.val_;
@@ -240,8 +240,8 @@ structure GtkTextView :>
             _import "gtk_text_view_move_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -260,7 +260,7 @@ structure GtkTextView :>
             _import "gtk_text_view_move_visually" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
             (
@@ -333,7 +333,7 @@ structure GtkTextView :>
             _import "gtk_text_view_set_border_window_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextWindowType.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -344,14 +344,14 @@ structure GtkTextView :>
     val setBuffer_ = fn x1 & x2 => (_import "gtk_text_view_set_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setCursorVisible_ = fn x1 & x2 => (_import "gtk_text_view_set_cursor_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setEditable_ = fn x1 & x2 => (_import "gtk_text_view_set_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setIndent_ = fn x1 & x2 => (_import "gtk_text_view_set_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setIndent_ = fn x1 & x2 => (_import "gtk_text_view_set_indent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setJustification_ = fn x1 & x2 => (_import "gtk_text_view_set_justification" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkJustification.C.val_ -> unit;) (x1, x2)
-    val setLeftMargin_ = fn x1 & x2 => (_import "gtk_text_view_set_left_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setLeftMargin_ = fn x1 & x2 => (_import "gtk_text_view_set_left_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setOverwrite_ = fn x1 & x2 => (_import "gtk_text_view_set_overwrite" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setPixelsAboveLines_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_above_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setPixelsBelowLines_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_below_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setPixelsInsideWrap_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_inside_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setRightMargin_ = fn x1 & x2 => (_import "gtk_text_view_set_right_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setPixelsAboveLines_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_above_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setPixelsBelowLines_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_below_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setPixelsInsideWrap_ = fn x1 & x2 => (_import "gtk_text_view_set_pixels_inside_wrap" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setRightMargin_ = fn x1 & x2 => (_import "gtk_text_view_set_right_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setTabs_ = fn x1 & x2 => (_import "gtk_text_view_set_tabs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoTabArrayRecord.C.notnull PangoTabArrayRecord.C.p -> unit;) (x1, x2)
     val setWrapMode_ = fn x1 & x2 => (_import "gtk_text_view_set_wrap_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkWrapMode.C.val_ -> unit;) (x1, x2)
     val startsDisplayLine_ = fn x1 & x2 => (_import "gtk_text_view_starts_display_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
@@ -367,10 +367,10 @@ structure GtkTextView :>
             _import "gtk_text_view_window_to_buffer_coords" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextWindowType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -421,8 +421,8 @@ structure GtkTextView :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkTextWindowType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addChildInWindow_
@@ -443,12 +443,12 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextWindowType.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             bufferToWindowCoords_
@@ -457,8 +457,8 @@ structure GtkTextView :>
                & win
                & bufferX
                & bufferY
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (windowX, windowY)
@@ -466,7 +466,7 @@ structure GtkTextView :>
     fun forwardDisplayLine self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardDisplayLine_ (self & iter)
     fun forwardDisplayLineEnd self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardDisplayLineEnd_ (self & iter)
     fun getAcceptsTab self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAcceptsTab_ self
-    fun getBorderWindowSize self type' = (GObjectObjectClass.C.withPtr &&&> GtkTextWindowType.C.withVal ---> FFI.Int32.C.fromVal) getBorderWindowSize_ (self & type')
+    fun getBorderWindowSize self type' = (GObjectObjectClass.C.withPtr &&&> GtkTextWindowType.C.withVal ---> FFI.Int.C.fromVal) getBorderWindowSize_ (self & type')
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkTextBufferClass.C.fromPtr false) getBuffer_ self
     fun getCursorLocations self iter =
       let
@@ -476,10 +476,10 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withOptPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true
-                   && CairoRectangleIntRecord.C.fromPtr true
+             &&&> GdkRectangleRecord.C.withNewPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true
+                   && GdkRectangleRecord.C.fromPtr true
                    && I
           )
             getCursorLocations_
@@ -495,15 +495,15 @@ structure GtkTextView :>
     fun getCursorVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCursorVisible_ self
     fun getDefaultAttributes self = (GObjectObjectClass.C.withPtr ---> GtkTextAttributesRecord.C.fromPtr true) getDefaultAttributes_ self
     fun getEditable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEditable_ self
-    fun getIndent self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIndent_ self
+    fun getIndent self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIndent_ self
     fun getIterAtLocation self x y =
       let
         val iter & () =
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true && I
           )
             getIterAtLocation_
@@ -524,18 +524,18 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTextIterRecord.C.fromPtr true
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getIterAtPosition_
             (
               self
                & ()
-               & FFI.Int32.null
+               & FFI.Int.null
                & x
                & y
             )
@@ -548,8 +548,8 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getIterLocation_
             (
@@ -561,7 +561,7 @@ structure GtkTextView :>
         location
       end
     fun getJustification self = (GObjectObjectClass.C.withPtr ---> GtkJustification.C.fromVal) getJustification_ self
-    fun getLeftMargin self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLeftMargin_ self
+    fun getLeftMargin self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLeftMargin_ self
     fun getLineAtY self y =
       let
         val targetIter
@@ -570,10 +570,10 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
              ---> GtkTextIterRecord.C.fromPtr true
-                   && FFI.Int32.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getLineAtY_
@@ -581,7 +581,7 @@ structure GtkTextView :>
               self
                & ()
                & y
-               & FFI.Int32.null
+               & FFI.Int.null
             )
       in
         (targetIter, lineTop)
@@ -594,31 +594,31 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextIterRecord.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getLineYrange_
             (
               self
                & iter
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (y, height)
       end
     fun getOverwrite self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOverwrite_ self
-    fun getPixelsAboveLines self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPixelsAboveLines_ self
-    fun getPixelsBelowLines self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPixelsBelowLines_ self
-    fun getPixelsInsideWrap self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPixelsInsideWrap_ self
-    fun getRightMargin self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getRightMargin_ self
+    fun getPixelsAboveLines self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getPixelsAboveLines_ self
+    fun getPixelsBelowLines self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getPixelsBelowLines_ self
+    fun getPixelsInsideWrap self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getPixelsInsideWrap_ self
+    fun getRightMargin self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getRightMargin_ self
     fun getTabs self = (GObjectObjectClass.C.withPtr ---> PangoTabArrayRecord.C.fromPtr true) getTabs_ self
     fun getVisibleRect self =
       let
-        val visibleRect & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getVisibleRect_ (self & ())
+        val visibleRect & () = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
@@ -630,8 +630,8 @@ structure GtkTextView :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         moveChild_
@@ -646,7 +646,7 @@ structure GtkTextView :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
         moveVisually_
@@ -701,7 +701,7 @@ structure GtkTextView :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextWindowType.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setBorderWindowSize_
@@ -713,14 +713,14 @@ structure GtkTextView :>
     fun setBuffer self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBuffer_ (self & buffer)
     fun setCursorVisible self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCursorVisible_ (self & setting)
     fun setEditable self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEditable_ (self & setting)
-    fun setIndent self indent = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setIndent_ (self & indent)
+    fun setIndent self indent = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIndent_ (self & indent)
     fun setJustification self justification = (GObjectObjectClass.C.withPtr &&&> GtkJustification.C.withVal ---> I) setJustification_ (self & justification)
-    fun setLeftMargin self leftMargin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setLeftMargin_ (self & leftMargin)
+    fun setLeftMargin self leftMargin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setLeftMargin_ (self & leftMargin)
     fun setOverwrite self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverwrite_ (self & overwrite)
-    fun setPixelsAboveLines self pixelsAboveLines = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPixelsAboveLines_ (self & pixelsAboveLines)
-    fun setPixelsBelowLines self pixelsBelowLines = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPixelsBelowLines_ (self & pixelsBelowLines)
-    fun setPixelsInsideWrap self pixelsInsideWrap = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPixelsInsideWrap_ (self & pixelsInsideWrap)
-    fun setRightMargin self rightMargin = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setRightMargin_ (self & rightMargin)
+    fun setPixelsAboveLines self pixelsAboveLines = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setPixelsAboveLines_ (self & pixelsAboveLines)
+    fun setPixelsBelowLines self pixelsBelowLines = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setPixelsBelowLines_ (self & pixelsBelowLines)
+    fun setPixelsInsideWrap self pixelsInsideWrap = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setPixelsInsideWrap_ (self & pixelsInsideWrap)
+    fun setRightMargin self rightMargin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRightMargin_ (self & rightMargin)
     fun setTabs self tabs = (GObjectObjectClass.C.withPtr &&&> PangoTabArrayRecord.C.withPtr ---> I) setTabs_ (self & tabs)
     fun setWrapMode self wrapMode = (GObjectObjectClass.C.withPtr &&&> GtkWrapMode.C.withVal ---> I) setWrapMode_ (self & wrapMode)
     fun startsDisplayLine self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) startsDisplayLine_ (self & iter)
@@ -732,12 +732,12 @@ structure GtkTextView :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTextWindowType.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             windowToBufferCoords_
@@ -746,8 +746,8 @@ structure GtkTextView :>
                & win
                & windowX
                & windowY
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (bufferX, bufferY)

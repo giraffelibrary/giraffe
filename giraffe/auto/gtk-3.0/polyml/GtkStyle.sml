@@ -19,10 +19,10 @@ structure GtkStyle :>
              &&> CairoContextRecord.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GtkStateType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val copy_ = call (load_sym libgtk "gtk_style_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -44,7 +44,7 @@ structure GtkStyle :>
              &&> GtkIconSourceRecord.PolyML.PTR
              &&> GtkTextDirection.PolyML.VAL
              &&> GtkStateType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> FFI.String.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
@@ -72,10 +72,10 @@ structure GtkStyle :>
          &&&> CairoContextRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         applyDefaultBackground_
@@ -117,7 +117,7 @@ structure GtkStyle :>
          &&&> GtkIconSourceRecord.C.withPtr
          &&&> GtkTextDirection.C.withVal
          &&&> GtkStateType.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true

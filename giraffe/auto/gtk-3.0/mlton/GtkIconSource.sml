@@ -12,7 +12,7 @@ structure GtkIconSource :>
     val getFilename_ = _import "gtk_icon_source_get_filename" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getIconName_ = _import "gtk_icon_source_get_icon_name" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getPixbuf_ = _import "gtk_icon_source_get_pixbuf" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSize_ = _import "gtk_icon_source_get_size" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Int32.C.val_;
+    val getSize_ = _import "gtk_icon_source_get_size" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Int.C.val_;
     val getSizeWildcarded_ = _import "gtk_icon_source_get_size_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Bool.C.val_;
     val getState_ = _import "gtk_icon_source_get_state" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> GtkStateType.C.val_;
     val getStateWildcarded_ = _import "gtk_icon_source_get_state_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Bool.C.val_;
@@ -49,7 +49,7 @@ structure GtkIconSource :>
               x3
             )
     val setPixbuf_ = fn x1 & x2 => (_import "gtk_icon_source_set_pixbuf" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setSize_ = fn x1 & x2 => (_import "gtk_icon_source_set_size" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "gtk_icon_source_set_size" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setSizeWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_size_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setState_ = fn x1 & x2 => (_import "gtk_icon_source_set_state" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * GtkStateType.C.val_ -> unit;) (x1, x2)
     val setStateWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_state_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
@@ -64,7 +64,7 @@ structure GtkIconSource :>
     fun getFilename self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getFilename_ self
     fun getIconName self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GtkIconSourceRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getSize self = (GtkIconSourceRecord.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GtkIconSourceRecord.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getSizeWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getSizeWildcarded_ self
     fun getState self = (GtkIconSourceRecord.C.withPtr ---> GtkStateType.C.fromVal) getState_ self
     fun getStateWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getStateWildcarded_ self
@@ -73,7 +73,7 @@ structure GtkIconSource :>
     fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFilename_ (self & filename)
     fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GtkIconSourceRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
+    fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setSizeWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSizeWildcarded_ (self & setting)
     fun setState self state = (GtkIconSourceRecord.C.withPtr &&&> GtkStateType.C.withVal ---> I) setState_ (self & state)
     fun setStateWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setStateWildcarded_ (self & setting)

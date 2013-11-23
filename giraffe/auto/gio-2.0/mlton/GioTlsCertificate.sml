@@ -50,7 +50,7 @@ structure GioTlsCertificate :>
             _import "mlton_g_tls_certificate_new_from_pem" :
               cstring
                * unit CPointer.t
-               * FFI.Int64.C.val_
+               * FFI.SSize.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -99,7 +99,7 @@ structure GioTlsCertificate :>
     fun newFromPem data length =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.SSize.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )

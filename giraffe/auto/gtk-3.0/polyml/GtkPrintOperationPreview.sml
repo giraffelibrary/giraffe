@@ -9,16 +9,16 @@ structure GtkPrintOperationPreview :>
     in
       val getType_ = call (load_sym libgtk "gtk_print_operation_preview_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val endPreview_ = call (load_sym libgtk "gtk_print_operation_preview_end_preview") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val isSelected_ = call (load_sym libgtk "gtk_print_operation_preview_is_selected") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val isSelected_ = call (load_sym libgtk "gtk_print_operation_preview_is_selected") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkPrintOperationPreviewClass.t
     type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
     type 'a printcontextclass_t = 'a GtkPrintContextClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun endPreview self = (GObjectObjectClass.C.withPtr ---> I) endPreview_ self
-    fun isSelected self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) isSelected_ (self & pageNr)
-    fun renderPage self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) renderPage_ (self & pageNr)
+    fun isSelected self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) isSelected_ (self & pageNr)
+    fun renderPage self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) renderPage_ (self & pageNr)
     local
       open ClosureMarshal Signal
     in

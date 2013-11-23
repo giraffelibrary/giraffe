@@ -13,7 +13,7 @@ structure GioUnixFDMessage :>
         call (load_sym libgio "g_unix_fd_message_append_fd")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -27,7 +27,7 @@ structure GioUnixFDMessage :>
     fun appendFd self fd =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

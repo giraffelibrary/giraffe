@@ -15,7 +15,7 @@ structure GtkIconSource :>
       val getFilename_ = call (load_sym libgtk "gtk_icon_source_get_filename") (GtkIconSourceRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getIconName_ = call (load_sym libgtk "gtk_icon_source_get_icon_name") (GtkIconSourceRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getPixbuf_ = call (load_sym libgtk "gtk_icon_source_get_pixbuf") (GtkIconSourceRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSize_ = call (load_sym libgtk "gtk_icon_source_get_size") (GtkIconSourceRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getSize_ = call (load_sym libgtk "gtk_icon_source_get_size") (GtkIconSourceRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getSizeWildcarded_ = call (load_sym libgtk "gtk_icon_source_get_size_wildcarded") (GtkIconSourceRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getState_ = call (load_sym libgtk "gtk_icon_source_get_state") (GtkIconSourceRecord.PolyML.PTR --> GtkStateType.PolyML.VAL)
       val getStateWildcarded_ = call (load_sym libgtk "gtk_icon_source_get_state_wildcarded") (GtkIconSourceRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -24,7 +24,7 @@ structure GtkIconSource :>
       val setFilename_ = call (load_sym libgtk "gtk_icon_source_set_filename") (GtkIconSourceRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setIconName_ = call (load_sym libgtk "gtk_icon_source_set_icon_name") (GtkIconSourceRecord.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setPixbuf_ = call (load_sym libgtk "gtk_icon_source_set_pixbuf") (GtkIconSourceRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setSize_ = call (load_sym libgtk "gtk_icon_source_set_size") (GtkIconSourceRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSize_ = call (load_sym libgtk "gtk_icon_source_set_size") (GtkIconSourceRecord.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setSizeWildcarded_ = call (load_sym libgtk "gtk_icon_source_set_size_wildcarded") (GtkIconSourceRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setState_ = call (load_sym libgtk "gtk_icon_source_set_state") (GtkIconSourceRecord.PolyML.PTR &&> GtkStateType.PolyML.VAL --> FFI.PolyML.VOID)
       val setStateWildcarded_ = call (load_sym libgtk "gtk_icon_source_set_state_wildcarded") (GtkIconSourceRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -40,7 +40,7 @@ structure GtkIconSource :>
     fun getFilename self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getFilename_ self
     fun getIconName self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GtkIconSourceRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getSize self = (GtkIconSourceRecord.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GtkIconSourceRecord.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getSizeWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getSizeWildcarded_ self
     fun getState self = (GtkIconSourceRecord.C.withPtr ---> GtkStateType.C.fromVal) getState_ self
     fun getStateWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getStateWildcarded_ self
@@ -49,7 +49,7 @@ structure GtkIconSource :>
     fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFilename_ (self & filename)
     fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GtkIconSourceRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
+    fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setSizeWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSizeWildcarded_ (self & setting)
     fun setState self state = (GtkIconSourceRecord.C.withPtr &&&> GtkStateType.C.withVal ---> I) setState_ (self & state)
     fun setStateWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setStateWildcarded_ (self & setting)

@@ -53,7 +53,7 @@ structure GtkSourceBuffer :>
       val getHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_get_highlight_matching_brackets") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_buffer_get_highlight_syntax") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getLanguage_ = call (load_sym libgtksourceview "gtk_source_buffer_get_language") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_get_max_undo_levels") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_get_max_undo_levels") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getStyleScheme_ = call (load_sym libgtksourceview "gtk_source_buffer_get_style_scheme") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getUndoManager_ = call (load_sym libgtksourceview "gtk_source_buffer_get_undo_manager") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val iterBackwardToContextClassToggle_ =
@@ -93,7 +93,7 @@ structure GtkSourceBuffer :>
       val setHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_matching_brackets") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_syntax") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setLanguage_ = call (load_sym libgtksourceview "gtk_source_buffer_set_language") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_set_max_undo_levels") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_set_max_undo_levels") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setStyleScheme_ = call (load_sym libgtksourceview "gtk_source_buffer_set_style_scheme") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setUndoManager_ = call (load_sym libgtksourceview "gtk_source_buffer_set_undo_manager") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val undo_ = call (load_sym libgtksourceview "gtk_source_buffer_undo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -168,7 +168,7 @@ structure GtkSourceBuffer :>
     fun getHighlightMatchingBrackets self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightSyntax_ self
     fun getLanguage self = (GObjectObjectClass.C.withPtr ---> GtkSourceLanguageClass.C.fromPtr false) getLanguage_ self
-    fun getMaxUndoLevels self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxUndoLevels_ self
+    fun getMaxUndoLevels self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxUndoLevels_ self
     fun getStyleScheme self = (GObjectObjectClass.C.withPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getStyleScheme_ self
     fun getUndoManager self = (GObjectObjectClass.C.withPtr ---> GtkSourceUndoManagerClass.C.fromPtr false) getUndoManager_ self
     fun iterBackwardToContextClassToggle self iter contextClass =
@@ -229,7 +229,7 @@ structure GtkSourceBuffer :>
     fun setHighlightMatchingBrackets self highlight = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightMatchingBrackets_ (self & highlight)
     fun setHighlightSyntax self highlight = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightSyntax_ (self & highlight)
     fun setLanguage self language = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLanguage_ (self & language)
-    fun setMaxUndoLevels self maxUndoLevels = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxUndoLevels_ (self & maxUndoLevels)
+    fun setMaxUndoLevels self maxUndoLevels = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxUndoLevels_ (self & maxUndoLevels)
     fun setStyleScheme self scheme = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setStyleScheme_ (self & scheme)
     fun setUndoManager self manager = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUndoManager_ (self & manager)
     fun undo self = (GObjectObjectClass.C.withPtr ---> I) undo_ self

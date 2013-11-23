@@ -55,7 +55,7 @@ structure GioOutputStream :>
              &&> GioOutputStreamSpliceFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
       val spliceFinish_ =
         call (load_sym libgio "g_output_stream_splice_finish")
@@ -63,7 +63,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
       val writeFinish_ =
         call (load_sym libgio "g_output_stream_write_finish")
@@ -71,7 +71,7 @@ structure GioOutputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioOutputStreamClass.t
@@ -144,7 +144,7 @@ structure GioOutputStream :>
          &&&> GioOutputStreamSpliceFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         splice_
         (
@@ -159,7 +159,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         spliceFinish_
         (
@@ -172,7 +172,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         writeFinish_
         (

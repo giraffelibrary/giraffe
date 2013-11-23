@@ -22,7 +22,7 @@ structure GioUnixConnection :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int32.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val sendCredentials_ =
         call (load_sym libgio "g_unix_connection_send_credentials")
@@ -36,7 +36,7 @@ structure GioUnixConnection :>
         call (load_sym libgio "g_unix_connection_send_fd")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -64,7 +64,7 @@ structure GioUnixConnection :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         receiveFd_
         (
@@ -88,7 +88,7 @@ structure GioUnixConnection :>
     fun sendFd self fd cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal

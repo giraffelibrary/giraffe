@@ -70,7 +70,7 @@ signature GTK_WINDOW =
     val getOpacity : 'a class_t -> real
     val getPosition : 'a class_t -> LargeInt.int * LargeInt.int
     val getResizable : 'a class_t -> bool
-    val getResizeGripArea : 'a class_t -> Cairo.RectangleIntRecord.t option
+    val getResizeGripArea : 'a class_t -> Gdk.RectangleRecord.t option
     val getRole : 'a class_t -> string
     val getScreen : 'a class_t -> base Gdk.ScreenClass.t
     val getSize : 'a class_t -> LargeInt.int * LargeInt.int

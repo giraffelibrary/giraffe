@@ -9,8 +9,8 @@ structure GioCancellable :>
       val new_ = call (load_sym libgio "g_cancellable_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val getCurrent_ = call (load_sym libgio "g_cancellable_get_current") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val cancel_ = call (load_sym libgio "g_cancellable_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val disconnect_ = call (load_sym libgio "g_cancellable_disconnect") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
-      val getFd_ = call (load_sym libgio "g_cancellable_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val disconnect_ = call (load_sym libgio "g_cancellable_disconnect") (GObjectObjectClass.PolyML.PTR &&> FFI.ULong.PolyML.VAL --> FFI.PolyML.VOID)
+      val getFd_ = call (load_sym libgio "g_cancellable_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val isCancelled_ = call (load_sym libgio "g_cancellable_is_cancelled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val makePollfd_ = call (load_sym libgio "g_cancellable_make_pollfd") (GObjectObjectClass.PolyML.PTR &&> GLibPollFDRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val popCurrent_ = call (load_sym libgio "g_cancellable_pop_current") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -24,8 +24,8 @@ structure GioCancellable :>
     fun new () = (I ---> GioCancellableClass.C.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.C.fromPtr false) getCurrent_ ()
     fun cancel self = (GObjectObjectClass.C.withPtr ---> I) cancel_ self
-    fun disconnect self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) disconnect_ (self & handlerId)
-    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun disconnect self handlerId = (GObjectObjectClass.C.withPtr &&&> FFI.ULong.C.withVal ---> I) disconnect_ (self & handlerId)
+    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFd_ self
     fun isCancelled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isCancelled_ self
     fun makePollfd self pollfd = (GObjectObjectClass.C.withPtr &&&> GLibPollFDRecord.C.withPtr ---> FFI.Bool.C.fromVal) makePollfd_ (self & pollfd)
     fun popCurrent self = (GObjectObjectClass.C.withPtr ---> I) popCurrent_ self

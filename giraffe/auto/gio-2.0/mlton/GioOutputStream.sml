@@ -94,7 +94,7 @@ structure GioOutputStream :>
                * GioOutputStreamSpliceFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -113,7 +113,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -130,7 +130,7 @@ structure GioOutputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int64.C.val_;
+               -> FFI.SSize.C.val_;
           )
             (
               x1,
@@ -207,7 +207,7 @@ structure GioOutputStream :>
          &&&> GioOutputStreamSpliceFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         splice_
         (
@@ -222,7 +222,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         spliceFinish_
         (
@@ -235,7 +235,7 @@ structure GioOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         writeFinish_
         (

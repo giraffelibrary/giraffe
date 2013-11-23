@@ -54,7 +54,7 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * cstring
                * unit CPointer.t
                * cstring
@@ -77,7 +77,7 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -124,7 +124,7 @@ structure GtkComboBoxText :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_combo_box_text_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_combo_box_text_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val removeAll_ = _import "gtk_combo_box_text_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkComboBoxTextClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
@@ -155,7 +155,7 @@ structure GtkComboBoxText :>
     fun insert self position id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstOptPtr
          &&&> FFI.String.C.withConstPtr
          ---> I
@@ -170,7 +170,7 @@ structure GtkComboBoxText :>
     fun insertText self position text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )
@@ -194,6 +194,6 @@ structure GtkComboBoxText :>
            & text
         )
     fun prependText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependText_ (self & text)
-    fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) remove_ (self & position)
+    fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) remove_ (self & position)
     fun removeAll self = (GObjectObjectClass.C.withPtr ---> I) removeAll_ self
   end

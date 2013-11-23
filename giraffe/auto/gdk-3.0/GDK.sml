@@ -1,5 +1,6 @@
 signature GDK =
   sig
+    structure RectangleRecord : GDK_RECTANGLE_RECORD
     structure AppLaunchContextClass : GDK_APP_LAUNCH_CONTEXT_CLASS
     structure AtomRecord : GDK_ATOM_RECORD
     structure AxisUse : GDK_AXIS_USE
@@ -186,6 +187,7 @@ signature GDK =
       GDK_SCREEN
         where type 'a class_t = 'a ScreenClass.t
         where type 'a displayclass_t = 'a DisplayClass.t
+        where type rectanglerecord_t = RectangleRecord.t
         where type 'a windowclass_t = 'a WindowClass.t
         where type 'a visualclass_t = 'a VisualClass.t
     structure Visual :
@@ -206,6 +208,7 @@ signature GDK =
         where type windowstate_t = WindowState.t
         where type 'a visualclass_t = 'a VisualClass.t
         where type windowtype_t = WindowType.t
+        where type rectanglerecord_t = RectangleRecord.t
         where type colorrecord_t = ColorRecord.t
         where type rgbarecord_t = RgbaRecord.t
         where type wmdecoration_t = WMDecoration.t
@@ -2488,10 +2491,10 @@ signature GDK =
     val atomInternStaticString : string -> AtomRecord.t
     val beep : unit -> unit
     val cairoCreate : 'a WindowClass.t -> Cairo.ContextRecord.t
-    val cairoGetClipRectangle : Cairo.ContextRecord.t -> Cairo.RectangleIntRecord.t option
+    val cairoGetClipRectangle : Cairo.ContextRecord.t -> RectangleRecord.t option
     val cairoRectangle :
       Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> RectangleRecord.t
        -> unit
     val cairoRegion :
       Cairo.ContextRecord.t
@@ -2613,13 +2616,13 @@ signature GDK =
        -> AtomRecord.t
        -> unit
     val rectangleIntersect :
-      Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t option
+      RectangleRecord.t
+       -> RectangleRecord.t
+       -> RectangleRecord.t option
     val rectangleUnion :
-      Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+      RectangleRecord.t
+       -> RectangleRecord.t
+       -> RectangleRecord.t
     val selectionConvert :
       'a WindowClass.t
        -> AtomRecord.t

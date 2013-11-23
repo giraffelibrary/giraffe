@@ -10,7 +10,7 @@ structure Gtk :
           (
             _import "gtk_accel_groups_activate" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -20,8 +20,8 @@ structure Gtk :
               x3
             )
     val acceleratorGetDefaultModMask_ = _import "gtk_accelerator_get_default_mod_mask" : unit -> GdkModifierType.C.val_;
-    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : FFI.UInt32.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : FFI.UInt32.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val acceleratorParse_ =
       fn
         (x1, x2)
@@ -31,7 +31,7 @@ structure Gtk :
             _import "mlton_gtk_accelerator_parse" :
               cstring
                * unit CPointer.t
-               * FFI.UInt32.C.ref_
+               * FFI.UInt.C.ref_
                * GdkModifierType.C.ref_
                -> unit;
           )
@@ -42,9 +42,9 @@ structure Gtk :
               x4
             )
     val acceleratorSetDefaultModMask_ = _import "gtk_accelerator_set_default_mod_mask" : GdkModifierType.C.val_ -> unit;
-    val acceleratorValid_ = fn x1 & x2 => (_import "gtk_accelerator_valid" : FFI.UInt32.C.val_ * GdkModifierType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val acceleratorValid_ = fn x1 & x2 => (_import "gtk_accelerator_valid" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val alternativeDialogButtonOrder_ = _import "gtk_alternative_dialog_button_order" : unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val builderErrorQuark_ = _import "gtk_builder_error_quark" : unit -> FFI.UInt32.C.val_;
+    val builderErrorQuark_ = _import "gtk_builder_error_quark" : unit -> GLibQuark.C.val_;
     val cairoShouldDrawWindow_ = fn x1 & x2 => (_import "gtk_cairo_should_draw_window" : CairoContextRecord.C.notnull CairoContextRecord.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val cairoTransformToWindow_ =
       fn
@@ -70,9 +70,9 @@ structure Gtk :
          & x3 =>
           (
             _import "gtk_check_version" :
-              FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
+              FFI.UInt.C.val_
+               * FFI.UInt.C.val_
+               * FFI.UInt.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -80,7 +80,7 @@ structure Gtk :
               x2,
               x3
             )
-    val cssProviderErrorQuark_ = _import "gtk_css_provider_error_quark" : unit -> FFI.UInt32.C.val_;
+    val cssProviderErrorQuark_ = _import "gtk_css_provider_error_quark" : unit -> GLibQuark.C.val_;
     val deviceGrabAdd_ =
       fn
         x1
@@ -132,8 +132,8 @@ structure Gtk :
             _import "gtk_drag_set_icon_gicon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -153,8 +153,8 @@ structure Gtk :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -174,8 +174,8 @@ structure Gtk :
             _import "gtk_drag_set_icon_pixbuf" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -195,8 +195,8 @@ structure Gtk :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -217,8 +217,8 @@ structure Gtk :
             _import "gtk_drag_set_icon_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -239,7 +239,7 @@ structure Gtk :
             _import "gtk_draw_insertion_cursor" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * FFI.Bool.C.val_
                * GtkTextDirection.C.val_
                * FFI.Bool.C.val_
@@ -254,22 +254,22 @@ structure Gtk :
               x6
             )
     val eventsPending_ = _import "gtk_events_pending" : unit -> FFI.Bool.C.val_;
-    val fileChooserErrorQuark_ = _import "gtk_file_chooser_error_quark" : unit -> FFI.UInt32.C.val_;
-    val getBinaryAge_ = _import "gtk_get_binary_age" : unit -> FFI.UInt32.C.val_;
+    val fileChooserErrorQuark_ = _import "gtk_file_chooser_error_quark" : unit -> GLibQuark.C.val_;
+    val getBinaryAge_ = _import "gtk_get_binary_age" : unit -> FFI.UInt.C.val_;
     val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> GdkEvent.C.notnull GdkEvent.C.p;
     val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCurrentEventState_ = _import "gtk_get_current_event_state" : GdkModifierType.C.ref_ -> FFI.Bool.C.val_;
     val getCurrentEventTime_ = _import "gtk_get_current_event_time" : unit -> FFI.UInt32.C.val_;
-    val getDebugFlags_ = _import "gtk_get_debug_flags" : unit -> FFI.UInt32.C.val_;
+    val getDebugFlags_ = _import "gtk_get_debug_flags" : unit -> FFI.UInt.C.val_;
     val getDefaultLanguage_ = _import "gtk_get_default_language" : unit -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.C.notnull GdkEvent.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getInterfaceAge_ = _import "gtk_get_interface_age" : unit -> FFI.UInt32.C.val_;
-    val getMajorVersion_ = _import "gtk_get_major_version" : unit -> FFI.UInt32.C.val_;
-    val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> FFI.UInt32.C.val_;
-    val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> FFI.UInt32.C.val_;
+    val getInterfaceAge_ = _import "gtk_get_interface_age" : unit -> FFI.UInt.C.val_;
+    val getMajorVersion_ = _import "gtk_get_major_version" : unit -> FFI.UInt.C.val_;
+    val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> FFI.UInt.C.val_;
+    val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> FFI.UInt.C.val_;
     val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
-    val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int.C.val_;
+    val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val iconSizeLookup_ =
       fn
         x1
@@ -277,9 +277,9 @@ structure Gtk :
          & x3 =>
           (
             _import "gtk_icon_size_lookup" :
-              FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+              FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -296,9 +296,9 @@ structure Gtk :
           (
             _import "gtk_icon_size_lookup_for_settings" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -316,9 +316,9 @@ structure Gtk :
             _import "mlton_gtk_icon_size_register" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               -> FFI.Int32.C.val_;
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               -> FFI.Int.C.val_;
           )
             (
               x1,
@@ -333,7 +333,7 @@ structure Gtk :
             _import "mlton_gtk_icon_size_register_alias" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -341,7 +341,7 @@ structure Gtk :
               x2,
               x3
             )
-    val iconThemeErrorQuark_ = _import "gtk_icon_theme_error_quark" : unit -> FFI.UInt32.C.val_;
+    val iconThemeErrorQuark_ = _import "gtk_icon_theme_error_quark" : unit -> GLibQuark.C.val_;
     val init_ =
       fn x1 & (x2, x3, x4) =>
         (_import "mlton_gtk_init"
@@ -351,12 +351,12 @@ structure Gtk :
                 * unit CPointer.t ref
              -> unit;)
         (x1, x2, x3, x4)
-    val keySnooperRemove_ = _import "gtk_key_snooper_remove" : FFI.UInt32.C.val_ -> unit;
+    val keySnooperRemove_ = _import "gtk_key_snooper_remove" : FFI.UInt.C.val_ -> unit;
     val main_ = _import "gtk_main" : unit -> unit;
     val mainDoEvent_ = _import "gtk_main_do_event" : GdkEvent.C.notnull GdkEvent.C.p -> unit;
     val mainIteration_ = _import "gtk_main_iteration" : unit -> FFI.Bool.C.val_;
     val mainIterationDo_ = _import "gtk_main_iteration_do" : FFI.Bool.C.val_ -> FFI.Bool.C.val_;
-    val mainLevel_ = _import "gtk_main_level" : unit -> FFI.UInt32.C.val_;
+    val mainLevel_ = _import "gtk_main_level" : unit -> FFI.UInt.C.val_;
     val mainQuit_ = _import "gtk_main_quit" : unit -> unit;
     val paintArrow_ =
       fn
@@ -383,10 +383,10 @@ structure Gtk :
                * unit CPointer.t
                * GtkArrowType.C.val_
                * FFI.Bool.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -425,10 +425,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -468,13 +468,13 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkPositionType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -514,10 +514,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -554,10 +554,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -591,8 +591,8 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkExpanderStyle.C.val_
                -> unit;
           )
@@ -629,10 +629,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkPositionType.C.val_
                -> unit;
           )
@@ -671,10 +671,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -709,10 +709,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -749,10 +749,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkOrientation.C.val_
                -> unit;
           )
@@ -788,9 +788,9 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -824,8 +824,8 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -862,10 +862,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -902,10 +902,10 @@ structure Gtk :
                * cstring
                * unit CPointer.t
                * GdkWindowEdge.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -942,10 +942,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -985,13 +985,13 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkPositionType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -1032,10 +1032,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GtkOrientation.C.val_
                -> unit;
           )
@@ -1073,11 +1073,11 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.UInt.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -1114,10 +1114,10 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -1151,9 +1151,9 @@ structure Gtk :
                * unit GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -1168,7 +1168,7 @@ structure Gtk :
               x9
             )
     val paperSizeGetDefault_ = _import "gtk_paper_size_get_default" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val printErrorQuark_ = _import "gtk_print_error_quark" : unit -> FFI.UInt32.C.val_;
+    val printErrorQuark_ = _import "gtk_print_error_quark" : unit -> GLibQuark.C.val_;
     val printRunPageSetupDialog_ =
       fn
         x1
@@ -1189,8 +1189,8 @@ structure Gtk :
     val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> unit;) (x1, x2)
     val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : cstring * unit CPointer.t -> unit;
     val rcGetStyle_ = _import "gtk_rc_get_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val recentChooserErrorQuark_ = _import "gtk_recent_chooser_error_quark" : unit -> FFI.UInt32.C.val_;
-    val recentManagerErrorQuark_ = _import "gtk_recent_manager_error_quark" : unit -> FFI.UInt32.C.val_;
+    val recentChooserErrorQuark_ = _import "gtk_recent_chooser_error_quark" : unit -> GLibQuark.C.val_;
+    val recentManagerErrorQuark_ = _import "gtk_recent_manager_error_quark" : unit -> GLibQuark.C.val_;
     val renderActivity_ =
       fn
         x1
@@ -1495,7 +1495,7 @@ structure Gtk :
             _import "gtk_render_icon_pixbuf" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -1644,7 +1644,7 @@ structure Gtk :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                -> unit;
           )
             (
@@ -1712,7 +1712,7 @@ structure Gtk :
               x4
             )
     val selectionRemoveAll_ = _import "gtk_selection_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setDebugFlags_ = _import "gtk_set_debug_flags" : FFI.UInt32.C.val_ -> unit;
+    val setDebugFlags_ = _import "gtk_set_debug_flags" : FFI.UInt.C.val_ -> unit;
     val showUri_ =
       fn
         x1
@@ -1793,7 +1793,7 @@ structure Gtk :
           (
             _import "gtk_test_spin_button_click" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -1826,7 +1826,7 @@ structure Gtk :
           (
             _import "gtk_test_widget_click" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -1843,7 +1843,7 @@ structure Gtk :
           (
             _import "gtk_test_widget_send_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -1890,6 +1890,7 @@ structure Gtk :
             )
     type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly
     structure ActionEntry = GtkActionEntry
+    structure AllocationRecord = GtkAllocationRecord
     structure AccelFlags = GtkAccelFlags
     structure AccelGroupClass = GtkAccelGroupClass
     structure AccelKeyRecord = GtkAccelKeyRecord
@@ -2643,7 +2644,7 @@ structure Gtk :
     fun accelGroupsActivate object accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -2654,8 +2655,8 @@ structure Gtk :
            & accelMods
         )
     fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.C.fromVal) acceleratorGetDefaultModMask_ ()
-    fun acceleratorGetLabel acceleratorKey acceleratorMods = (FFI.UInt32.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
-    fun acceleratorName acceleratorKey acceleratorMods = (FFI.UInt32.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetLabel acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorName acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorName_ (acceleratorKey & acceleratorMods)
     fun acceleratorParse accelerator =
       let
         val acceleratorKey
@@ -2663,25 +2664,25 @@ structure Gtk :
          & () =
           (
             FFI.String.C.withConstPtr
-             &&&> FFI.UInt32.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
+             ---> FFI.UInt.C.fromVal
                    && GdkModifierType.C.fromVal
                    && I
           )
             acceleratorParse_
             (
               accelerator
-               & FFI.UInt32.null
+               & FFI.UInt.null
                & GdkModifierType.flags []
             )
       in
         (acceleratorKey, acceleratorMods)
       end
     fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.C.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
-    fun acceleratorValid keyval modifiers = (FFI.UInt32.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.Bool.C.fromVal) acceleratorValid_ (keyval & modifiers)
+    fun acceleratorValid keyval modifiers = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.Bool.C.fromVal) acceleratorValid_ (keyval & modifiers)
     fun alternativeDialogButtonOrder screen = (GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) alternativeDialogButtonOrder_ screen
-    fun builderErrorQuark () = (I ---> FFI.UInt32.C.fromVal) builderErrorQuark_ ()
+    fun builderErrorQuark () = (I ---> GLibQuark.C.fromVal) builderErrorQuark_ ()
     fun cairoShouldDrawWindow cr window = (CairoContextRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) cairoShouldDrawWindow_ (cr & window)
     fun cairoTransformToWindow cr widget window =
       (
@@ -2698,9 +2699,9 @@ structure Gtk :
         )
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+        FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> FFI.String.C.fromPtr false
       )
         checkVersion_
@@ -2709,7 +2710,7 @@ structure Gtk :
            & requiredMinor
            & requiredMicro
         )
-    fun cssProviderErrorQuark () = (I ---> FFI.UInt32.C.fromVal) cssProviderErrorQuark_ ()
+    fun cssProviderErrorQuark () = (I ---> GLibQuark.C.fromVal) cssProviderErrorQuark_ ()
     fun deviceGrabAdd widget device blockOthers =
       (
         GObjectObjectClass.C.withPtr
@@ -2746,8 +2747,8 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         dragSetIconGicon_
@@ -2761,8 +2762,8 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         dragSetIconName_
@@ -2776,8 +2777,8 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         dragSetIconPixbuf_
@@ -2791,8 +2792,8 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         dragSetIconStock_
@@ -2807,8 +2808,8 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         dragSetIconWidget_
@@ -2822,7 +2823,7 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> GtkTextDirection.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -2838,8 +2839,8 @@ structure Gtk :
            & drawArrow
         )
     fun eventsPending () = (I ---> FFI.Bool.C.fromVal) eventsPending_ ()
-    fun fileChooserErrorQuark () = (I ---> FFI.UInt32.C.fromVal) fileChooserErrorQuark_ ()
-    fun getBinaryAge () = (I ---> FFI.UInt32.C.fromVal) getBinaryAge_ ()
+    fun fileChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) fileChooserErrorQuark_ ()
+    fun getBinaryAge () = (I ---> FFI.UInt.C.fromVal) getBinaryAge_ ()
     fun getCurrentEvent () = (I ---> GdkEvent.C.fromPtr true) getCurrentEvent_ ()
     fun getCurrentEventDevice () = (I ---> GdkDeviceClass.C.fromPtr false) getCurrentEventDevice_ ()
     fun getCurrentEventState () =
@@ -2849,34 +2850,34 @@ structure Gtk :
         if retVal then SOME state else NONE
       end
     fun getCurrentEventTime () = (I ---> FFI.UInt32.C.fromVal) getCurrentEventTime_ ()
-    fun getDebugFlags () = (I ---> FFI.UInt32.C.fromVal) getDebugFlags_ ()
+    fun getDebugFlags () = (I ---> FFI.UInt.C.fromVal) getDebugFlags_ ()
     fun getDefaultLanguage () = (I ---> PangoLanguageRecord.C.fromPtr true) getDefaultLanguage_ ()
     fun getEventWidget event = (GdkEvent.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getEventWidget_ event
-    fun getInterfaceAge () = (I ---> FFI.UInt32.C.fromVal) getInterfaceAge_ ()
-    fun getMajorVersion () = (I ---> FFI.UInt32.C.fromVal) getMajorVersion_ ()
-    fun getMicroVersion () = (I ---> FFI.UInt32.C.fromVal) getMicroVersion_ ()
-    fun getMinorVersion () = (I ---> FFI.UInt32.C.fromVal) getMinorVersion_ ()
+    fun getInterfaceAge () = (I ---> FFI.UInt.C.fromVal) getInterfaceAge_ ()
+    fun getMajorVersion () = (I ---> FFI.UInt.C.fromVal) getMajorVersion_ ()
+    fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
+    fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
     fun grabGetCurrent () = (I ---> GtkWidgetClass.C.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) iconSizeFromName_ name
-    fun iconSizeGetName size = (FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) iconSizeGetName_ size
+    fun iconSizeFromName name = (FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
+    fun iconSizeGetName size = (FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) iconSizeGetName_ size
     fun iconSizeLookup size =
       let
         val width
          & height
          & retVal =
           (
-            FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             iconSizeLookup_
             (
               size
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -2888,19 +2889,19 @@ structure Gtk :
          & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             iconSizeLookupForSettings_
             (
               settings
                & size
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -2908,9 +2909,9 @@ structure Gtk :
     fun iconSizeRegister name width height =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         ---> FFI.Int.C.fromVal
       )
         iconSizeRegister_
         (
@@ -2918,8 +2919,8 @@ structure Gtk :
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
-    fun iconThemeErrorQuark () = (I ---> FFI.UInt32.C.fromVal) iconThemeErrorQuark_ ()
+    fun iconSizeRegisterAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconThemeErrorQuark () = (I ---> GLibQuark.C.fromVal) iconThemeErrorQuark_ ()
     fun init argv =
       let
         val _ & argv & _ =
@@ -2931,12 +2932,12 @@ structure Gtk :
       in
         argv
       end
-    fun keySnooperRemove snooperHandlerId = (FFI.UInt32.C.withVal ---> I) keySnooperRemove_ snooperHandlerId
+    fun keySnooperRemove snooperHandlerId = (FFI.UInt.C.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
     fun mainDoEvent event = (GdkEvent.C.withPtr ---> I) mainDoEvent_ event
     fun mainIteration () = (I ---> FFI.Bool.C.fromVal) mainIteration_ ()
     fun mainIterationDo blocking = (FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) mainIterationDo_ blocking
-    fun mainLevel () = (I ---> FFI.UInt32.C.fromVal) mainLevel_ ()
+    fun mainLevel () = (I ---> FFI.UInt.C.fromVal) mainLevel_ ()
     fun mainQuit () = (I ---> I) mainQuit_ ()
     fun paintArrow style cr stateType shadowType widget detail arrowType fill x y width height =
       (
@@ -2948,10 +2949,10 @@ structure Gtk :
          &&&> FFI.String.C.withConstOptPtr
          &&&> GtkArrowType.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintArrow_
@@ -2977,10 +2978,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintBox_
@@ -3004,13 +3005,13 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkPositionType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintBoxGap_
@@ -3037,10 +3038,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintCheck_
@@ -3064,10 +3065,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintDiamond_
@@ -3090,8 +3091,8 @@ structure Gtk :
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkExpanderStyle.C.withVal
          ---> I
       )
@@ -3114,10 +3115,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkPositionType.C.withVal
          ---> I
       )
@@ -3143,10 +3144,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintFlatBox_
@@ -3169,10 +3170,10 @@ structure Gtk :
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintFocus_
@@ -3195,10 +3196,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkOrientation.C.withVal
          ---> I
       )
@@ -3223,9 +3224,9 @@ structure Gtk :
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintHline_
@@ -3247,8 +3248,8 @@ structure Gtk :
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -3272,10 +3273,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintOption_
@@ -3299,10 +3300,10 @@ structure Gtk :
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
          &&&> GdkWindowEdge.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintResizeGrip_
@@ -3326,10 +3327,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintShadow_
@@ -3353,13 +3354,13 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkPositionType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintShadowGap_
@@ -3386,10 +3387,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkOrientation.C.withVal
          ---> I
       )
@@ -3414,11 +3415,11 @@ structure Gtk :
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintSpinner_
@@ -3442,10 +3443,10 @@ structure Gtk :
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintTab_
@@ -3468,9 +3469,9 @@ structure Gtk :
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         paintVline_
@@ -3485,7 +3486,7 @@ structure Gtk :
            & x
         )
     fun paperSizeGetDefault () = (I ---> FFI.String.C.fromPtr false) paperSizeGetDefault_ ()
-    fun printErrorQuark () = (I ---> FFI.UInt32.C.fromVal) printErrorQuark_ ()
+    fun printErrorQuark () = (I ---> GLibQuark.C.fromVal) printErrorQuark_ ()
     fun printRunPageSetupDialog parent pageSetup settings =
       (
         GObjectObjectClass.C.withOptPtr
@@ -3502,8 +3503,8 @@ structure Gtk :
     fun propagateEvent widget event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (FFI.String.C.withConstPtr ---> I) rcAddDefaultFile_ filename
     fun rcGetStyle widget = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) rcGetStyle_ widget
-    fun recentChooserErrorQuark () = (I ---> FFI.UInt32.C.fromVal) recentChooserErrorQuark_ ()
-    fun recentManagerErrorQuark () = (I ---> FFI.UInt32.C.fromVal) recentManagerErrorQuark_ ()
+    fun recentChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) recentChooserErrorQuark_ ()
+    fun recentManagerErrorQuark () = (I ---> GLibQuark.C.fromVal) recentManagerErrorQuark_ ()
     fun renderActivity context cr x y width height =
       (
         GObjectObjectClass.C.withPtr
@@ -3723,7 +3724,7 @@ structure Gtk :
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkIconSourceRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIconPixbuf_
@@ -3847,7 +3848,7 @@ structure Gtk :
         GObjectObjectClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         selectionAddTarget_
@@ -3902,7 +3903,7 @@ structure Gtk :
            & time
         )
     fun selectionRemoveAll widget = (GObjectObjectClass.C.withPtr ---> I) selectionRemoveAll_ widget
-    fun setDebugFlags flags = (FFI.UInt32.C.withVal ---> I) setDebugFlags_ flags
+    fun setDebugFlags flags = (FFI.UInt.C.withVal ---> I) setDebugFlags_ flags
     fun showUri screen uri timestamp =
       (
         GObjectObjectClass.C.withOptPtr
@@ -3932,7 +3933,7 @@ structure Gtk :
     fun testSpinButtonClick spinner button upwards =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -3947,7 +3948,7 @@ structure Gtk :
     fun testWidgetClick widget button modifiers =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -3960,7 +3961,7 @@ structure Gtk :
     fun testWidgetSendKey widget keyval modifiers =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )

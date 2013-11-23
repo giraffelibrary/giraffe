@@ -21,7 +21,7 @@ signature GIO_D_BUS_METHOD_INVOCATION =
        -> unit
     val returnErrorLiteral :
       'a class_t
-       -> LargeInt.int
+       -> GLib.Quark.t
        -> LargeInt.int
        -> string
        -> unit

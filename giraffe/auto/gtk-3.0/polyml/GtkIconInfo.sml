@@ -10,10 +10,10 @@ structure GtkIconInfo :>
       val getType_ = call (load_sym libgtk "gtk_icon_info_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val newForPixbuf_ = call (load_sym libgtk "gtk_icon_info_new_for_pixbuf") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GtkIconInfoRecord.PolyML.PTR)
       val copy_ = call (load_sym libgtk "gtk_icon_info_copy") (GtkIconInfoRecord.PolyML.PTR --> GtkIconInfoRecord.PolyML.PTR)
-      val getBaseSize_ = call (load_sym libgtk "gtk_icon_info_get_base_size") (GtkIconInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getBaseSize_ = call (load_sym libgtk "gtk_icon_info_get_base_size") (GtkIconInfoRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getBuiltinPixbuf_ = call (load_sym libgtk "gtk_icon_info_get_builtin_pixbuf") (GtkIconInfoRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getDisplayName_ = call (load_sym libgtk "gtk_icon_info_get_display_name") (GtkIconInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getEmbeddedRect_ = call (load_sym libgtk "gtk_icon_info_get_embedded_rect") (GtkIconInfoRecord.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getEmbeddedRect_ = call (load_sym libgtk "gtk_icon_info_get_embedded_rect") (GtkIconInfoRecord.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getFilename_ = call (load_sym libgtk "gtk_icon_info_get_filename") (GtkIconInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val loadIcon_ = call (load_sym libgtk "gtk_icon_info_load_icon") (GtkIconInfoRecord.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
       val loadSymbolic_ =
@@ -45,12 +45,12 @@ structure GtkIconInfo :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForPixbuf iconTheme pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) copy_ self
-    fun getBaseSize self = (GtkIconInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) getBaseSize_ self
+    fun getBaseSize self = (GtkIconInfoRecord.C.withPtr ---> FFI.Int.C.fromVal) getBaseSize_ self
     fun getBuiltinPixbuf self = (GtkIconInfoRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getBuiltinPixbuf_ self
     fun getDisplayName self = (GtkIconInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) getDisplayName_ self
     fun getEmbeddedRect self =
       let
-        val rectangle & retVal = (GtkIconInfoRecord.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal) getEmbeddedRect_ (self & ())
+        val rectangle & retVal = (GtkIconInfoRecord.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && FFI.Bool.C.fromVal) getEmbeddedRect_ (self & ())
       in
         if retVal then SOME rectangle else NONE
       end

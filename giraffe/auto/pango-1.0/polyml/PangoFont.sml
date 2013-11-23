@@ -4,6 +4,7 @@ structure PangoFont :>
     where type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
     where type 'a fontmapclass_t = 'a PangoFontMapClass.t
     where type rectanglerecord_t = PangoRectangleRecord.t
+    where type glyph_t = PangoGlyph.t
     where type fontmetricsrecord_t = PangoFontMetricsRecord.t
     where type languagerecord_t = PangoLanguageRecord.t =
   struct
@@ -18,7 +19,7 @@ structure PangoFont :>
         call (load_sym libpango "pango_font_get_glyph_extents")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> PangoGlyph.PolyML.VAL
              &&> PangoRectangleRecord.PolyML.PTR
              &&> PangoRectangleRecord.PolyML.PTR
              --> FFI.PolyML.VOID
@@ -29,6 +30,7 @@ structure PangoFont :>
     type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
     type 'a fontmapclass_t = 'a PangoFontMapClass.t
     type rectanglerecord_t = PangoRectangleRecord.t
+    type glyph_t = PangoGlyph.t
     type fontmetricsrecord_t = PangoFontMetricsRecord.t
     type languagerecord_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -42,7 +44,7 @@ structure PangoFont :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.C.withVal
+             &&&> PangoGlyph.C.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true

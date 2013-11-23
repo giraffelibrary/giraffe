@@ -31,7 +31,7 @@ structure GtkTreeModelFilter :>
       val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_path_to_child_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
       val getModel_ = call (load_sym libgtk "gtk_tree_model_filter_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTreeModelFilterClass.t
     type 'a treedragsourceclass_t = 'a GtkTreeDragSourceClass.t
@@ -82,7 +82,7 @@ structure GtkTreeModelFilter :>
     fun convertPathToChildPath self filterPath = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) convertPathToChildPath_ (self & filterPath)
     fun getModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
     fun refilter self = (GObjectObjectClass.C.withPtr ---> I) refilter_ self
-    fun setVisibleColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setVisibleColumn_ (self & column)
+    fun setVisibleColumn self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setVisibleColumn_ (self & column)
     local
       open Property
     in

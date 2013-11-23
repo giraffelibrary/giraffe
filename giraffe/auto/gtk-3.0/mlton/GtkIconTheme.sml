@@ -15,7 +15,7 @@ structure GtkIconTheme :>
             _import "mlton_gtk_icon_theme_add_builtin_icon" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -70,7 +70,7 @@ structure GtkIconTheme :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GtkIconLookupFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -93,7 +93,7 @@ structure GtkIconTheme :>
             _import "gtk_icon_theme_lookup_by_gicon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
           )
@@ -114,7 +114,7 @@ structure GtkIconTheme :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
           )
@@ -165,7 +165,7 @@ structure GtkIconTheme :>
     fun addBuiltinIcon iconName size pixbuf =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -184,7 +184,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
@@ -201,7 +201,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )
@@ -216,7 +216,7 @@ structure GtkIconTheme :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
       )

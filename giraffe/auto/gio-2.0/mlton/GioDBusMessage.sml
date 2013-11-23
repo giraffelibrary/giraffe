@@ -102,7 +102,7 @@ structure GioDBusMessage :>
               x5
             )
     val newMethodReply_ = _import "g_dbus_message_new_method_reply" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val print_ = fn x1 & x2 => (_import "g_dbus_message_print" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val print_ = fn x1 & x2 => (_import "g_dbus_message_print" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val setBody_ = fn x1 & x2 => (_import "g_dbus_message_set_body" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibVariantRecord.C.notnull GLibVariantRecord.C.p -> unit;) (x1, x2)
     val setByteOrder_ = fn x1 & x2 => (_import "g_dbus_message_set_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDBusMessageByteOrder.C.val_ -> unit;) (x1, x2)
     val setDestination_ =
@@ -304,7 +304,7 @@ structure GioDBusMessage :>
            & errorMessage
         )
     fun newMethodReply self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr true) newMethodReply_ self
-    fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.String.C.fromPtr true) print_ (self & indent)
+    fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.String.C.fromPtr true) print_ (self & indent)
     fun setBody self body = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setBody_ (self & body)
     fun setByteOrder self byteOrder = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageByteOrder.C.withVal ---> I) setByteOrder_ (self & byteOrder)
     fun setDestination self value = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDestination_ (self & value)

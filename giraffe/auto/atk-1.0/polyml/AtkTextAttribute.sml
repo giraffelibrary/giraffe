@@ -133,12 +133,12 @@ structure AtkTextAttribute :>
     in
       val forName_ = call (load_sym libatk "atk_text_attribute_for_name") (FFI.String.PolyML.INPTR --> PolyML.VAL)
       val getName_ = call (load_sym libatk "atk_text_attribute_get_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.VAL &&> FFI.Int.PolyML.VAL --> FFI.String.PolyML.RETPTR)
       val register_ = call (load_sym libatk "atk_text_attribute_register") (FFI.String.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
     fun getName attr = (C.withVal ---> FFI.String.C.fromPtr false) getName_ attr
-    fun getValue attr index = (C.withVal &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getValue_ (attr & index)
+    fun getValue attr index = (C.withVal &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) getValue_ (attr & index)
     fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
   end

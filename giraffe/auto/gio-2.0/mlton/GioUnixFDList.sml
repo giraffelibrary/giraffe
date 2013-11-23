@@ -12,9 +12,9 @@ structure GioUnixFDList :>
           (
             _import "g_unix_fd_list_append" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int32.C.val_;
+               -> FFI.Int.C.val_;
           )
             (
               x1,
@@ -29,25 +29,25 @@ structure GioUnixFDList :>
           (
             _import "g_unix_fd_list_get" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int32.C.val_;
+               -> FFI.Int.C.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getLength_ = _import "g_unix_fd_list_get_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getLength_ = _import "g_unix_fd_list_get_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     type 'a class_t = 'a GioUnixFDListClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDListClass.C.fromPtr true) new_ ()
     fun append self fd =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         append_
         (
@@ -58,9 +58,9 @@ structure GioUnixFDList :>
     fun get self index =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         get_
         (
@@ -68,5 +68,5 @@ structure GioUnixFDList :>
            & index
            & []
         )
-    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLength_ self
+    fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLength_ self
   end

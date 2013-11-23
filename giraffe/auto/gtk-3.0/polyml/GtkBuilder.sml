@@ -13,16 +13,16 @@ structure GtkBuilder :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+             --> FFI.UInt.PolyML.VAL
           )
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+             --> FFI.UInt.PolyML.VAL
           )
       val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
@@ -46,7 +46,7 @@ structure GtkBuilder :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.C.fromVal
+         ---> FFI.UInt.C.fromVal
       )
         addFromFile_
         (
@@ -58,9 +58,9 @@ structure GtkBuilder :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.UInt32.C.fromVal
+         ---> FFI.UInt.C.fromVal
       )
         addFromString_
         (

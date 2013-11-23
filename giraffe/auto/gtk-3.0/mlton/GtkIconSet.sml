@@ -18,7 +18,7 @@ structure GtkIconSet :>
             _import "gtk_icon_set_render_icon_pixbuf" :
               GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -38,7 +38,7 @@ structure GtkIconSet :>
       (
         GtkIconSetRecord.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIconPixbuf_

@@ -36,7 +36,7 @@ signature GTK_ENTRY =
     val getIconArea :
       'a class_t
        -> entryiconposition_t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
     val getIconAtPos :
       'a class_t
        -> LargeInt.int
@@ -84,7 +84,7 @@ signature GTK_ENTRY =
     val getProgressFraction : 'a class_t -> real
     val getProgressPulseStep : 'a class_t -> real
     val getText : 'a class_t -> string
-    val getTextArea : 'a class_t -> Cairo.RectangleIntRecord.t
+    val getTextArea : 'a class_t -> Gdk.RectangleRecord.t
     val getTextLength : 'a class_t -> LargeInt.int
     val getVisibility : 'a class_t -> bool
     val getWidthChars : 'a class_t -> LargeInt.int

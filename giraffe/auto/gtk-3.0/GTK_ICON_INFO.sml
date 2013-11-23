@@ -12,7 +12,7 @@ signature GTK_ICON_INFO =
     val getBaseSize : record_t -> LargeInt.int
     val getBuiltinPixbuf : record_t -> base GdkPixbuf.PixbufClass.t
     val getDisplayName : record_t -> string
-    val getEmbeddedRect : record_t -> Cairo.RectangleIntRecord.t option
+    val getEmbeddedRect : record_t -> Gdk.RectangleRecord.t option
     val getFilename : record_t -> string
     val loadIcon : record_t -> base GdkPixbuf.PixbufClass.t
     val loadSymbolic :

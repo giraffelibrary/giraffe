@@ -16,7 +16,7 @@ structure GtkTooltip :>
             _import "gtk_tooltip_set_icon_from_gicon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -34,7 +34,7 @@ structure GtkTooltip :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -53,7 +53,7 @@ structure GtkTooltip :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -92,7 +92,7 @@ structure GtkTooltip :>
               x2,
               x3
             )
-    val setTipArea_ = fn x1 & x2 => (_import "gtk_tooltip_set_tip_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
+    val setTipArea_ = fn x1 & x2 => (_import "gtk_tooltip_set_tip_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTooltipClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -103,7 +103,7 @@ structure GtkTooltip :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setIconFromGicon_
@@ -116,7 +116,7 @@ structure GtkTooltip :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setIconFromIconName_
@@ -129,7 +129,7 @@ structure GtkTooltip :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setIconFromStock_
@@ -140,5 +140,5 @@ structure GtkTooltip :>
         )
     fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
     fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
-    fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setTipArea_ (self & rect)
+    fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

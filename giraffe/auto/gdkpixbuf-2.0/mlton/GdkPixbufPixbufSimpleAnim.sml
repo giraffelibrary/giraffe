@@ -11,8 +11,8 @@ structure GdkPixbufPixbufSimpleAnim :>
          & x3 =>
           (
             _import "gdk_pixbuf_simple_anim_new" :
-              FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+              FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Float.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -29,8 +29,8 @@ structure GdkPixbufPixbufSimpleAnim :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =
       (
-        FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Float.C.withVal
          ---> GdkPixbufPixbufSimpleAnimClass.C.fromPtr true
       )

@@ -27,7 +27,7 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_add_mnemonic")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -35,9 +35,9 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_begin_move_drag")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.UInt32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -46,9 +46,9 @@ structure GtkWindow :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GdkWindowEdge.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.UInt32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -61,8 +61,8 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_get_default_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getDefaultWidget_ = call (load_sym libgtk "gtk_window_get_default_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -84,20 +84,20 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_get_position")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getResizable_ = call (load_sym libgtk "gtk_window_get_resizable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getScreen_ = call (load_sym libgtk "gtk_window_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSize_ =
         call (load_sym libgtk "gtk_window_get_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
+             &&> FFI.Int.PolyML.REF
+             &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
           )
       val getSkipPagerHint_ = call (load_sym libgtk "gtk_window_get_skip_pager_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -116,7 +116,7 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_mnemonic_activate")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -124,8 +124,8 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_move")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
@@ -137,7 +137,7 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_remove_mnemonic")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -146,8 +146,8 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_resize")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val resizeGripIsVisible_ = call (load_sym libgtk "gtk_window_resize_grip_is_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -155,8 +155,8 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_resize_to_geometry")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setAcceptFocus_ = call (load_sym libgtk "gtk_window_set_accept_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -167,16 +167,16 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_set_default_geometry")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setDefaultSize_ =
         call (load_sym libgtk "gtk_window_set_default_size")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setDeletable_ = call (load_sym libgtk "gtk_window_set_deletable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -260,7 +260,7 @@ structure GtkWindow :>
     fun addMnemonic self keyval target =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -273,9 +273,9 @@ structure GtkWindow :>
     fun beginMoveDrag self button rootX rootY timestamp =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
       )
@@ -291,9 +291,9 @@ structure GtkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GdkWindowEdge.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
       )
@@ -318,17 +318,17 @@ structure GtkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getDefaultSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (width, height)
@@ -355,17 +355,17 @@ structure GtkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPosition_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (rootX, rootY)
@@ -373,7 +373,7 @@ structure GtkWindow :>
     fun getResizable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getResizable_ self
     fun getResizeGripArea self =
       let
-        val rect & retVal = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal) getResizeGripArea_ (self & ())
+        val rect & retVal = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && FFI.Bool.C.fromVal) getResizeGripArea_ (self & ())
       in
         if retVal then SOME rect else NONE
       end
@@ -386,17 +386,17 @@ structure GtkWindow :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (width, height)
@@ -416,7 +416,7 @@ structure GtkWindow :>
     fun mnemonicActivate self keyval modifier =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -429,8 +429,8 @@ structure GtkWindow :>
     fun move self x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         move_
@@ -447,7 +447,7 @@ structure GtkWindow :>
     fun removeMnemonic self keyval target =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -461,8 +461,8 @@ structure GtkWindow :>
     fun resize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         resize_
@@ -475,8 +475,8 @@ structure GtkWindow :>
     fun resizeToGeometry self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         resizeToGeometry_
@@ -492,8 +492,8 @@ structure GtkWindow :>
     fun setDefaultGeometry self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setDefaultGeometry_
@@ -505,8 +505,8 @@ structure GtkWindow :>
     fun setDefaultSize self width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setDefaultSize_

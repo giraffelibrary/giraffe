@@ -16,7 +16,7 @@ structure GioLoadableIcon :>
           (
             _import "mlton_g_loadable_icon_load" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * cstring
                * unit CPointer.t ref
                * unit GObjectObjectClass.C.p
@@ -63,7 +63,7 @@ structure GioLoadableIcon :>
         val type' & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.String.C.withRefConstOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError

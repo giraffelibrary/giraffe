@@ -14,7 +14,7 @@ structure GioUnixFDMessage :>
           (
             _import "g_unix_fd_message_append_fd" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -32,7 +32,7 @@ structure GioUnixFDMessage :>
     fun appendFd self fd =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

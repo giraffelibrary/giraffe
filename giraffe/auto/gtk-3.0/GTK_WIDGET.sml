@@ -5,15 +5,16 @@ signature GTK_WIDGET =
     type 'a styleclass_t
     type 'a containerclass_t
     type stateflags_t
-    type statetype_t
     type widgethelptype_t
     type selectiondatarecord_t
     type 'a tooltipclass_t
     type directiontype_t
     type dragresult_t
     type textdirection_t
+    type allocationrecord_t
     type 'a windowclass_t
     type 'a accelgroupclass_t
+    type statetype_t
     type 'a rcstyleclass_t
     type 'a stylecontextclass_t
     type 'a settingsclass_t
@@ -178,7 +179,7 @@ signature GTK_WIDGET =
     val getAccessible : 'a class_t -> base Atk.ObjectClass.t
     val getAllocatedHeight : 'a class_t -> LargeInt.int
     val getAllocatedWidth : 'a class_t -> LargeInt.int
-    val getAllocation : 'a class_t -> Cairo.RectangleIntRecord.t
+    val getAllocation : 'a class_t -> allocationrecord_t
     val getAppPaintable : 'a class_t -> bool
     val getCanDefault : 'a class_t -> bool
     val getCanFocus : 'a class_t -> bool
@@ -270,8 +271,8 @@ signature GTK_WIDGET =
        -> unit
     val intersect :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> bool
     val isAncestor :
       'a class_t
@@ -404,7 +405,7 @@ signature GTK_WIDGET =
        -> unit
     val setAllocation :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
+       -> allocationrecord_t
        -> unit
     val setAppPaintable :
       'a class_t
@@ -579,7 +580,7 @@ signature GTK_WIDGET =
     val showNow : 'a class_t -> unit
     val sizeAllocate :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
+       -> allocationrecord_t
        -> unit
     val styleGetProperty :
       'a class_t
@@ -709,7 +710,6 @@ signature GTK_WIDGET =
     val showSig : (unit -> unit) -> 'a class_t Signal.signal
     val showHelpSig : (widgethelptype_t -> bool) -> 'a class_t Signal.signal
     val sizeAllocateSig : (Cairo.RectangleIntRecord.t -> unit) -> 'a class_t Signal.signal
-    val stateChangedSig : (statetype_t -> unit) -> 'a class_t Signal.signal
     val stateFlagsChangedSig : (stateflags_t -> unit) -> 'a class_t Signal.signal
     val styleSetSig : (base styleclass_t option -> unit) -> 'a class_t Signal.signal
     val styleUpdatedSig : (unit -> unit) -> 'a class_t Signal.signal

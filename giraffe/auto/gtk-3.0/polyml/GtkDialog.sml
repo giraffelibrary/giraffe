@@ -14,7 +14,7 @@ structure GtkDialog :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val addButton_ =
@@ -22,21 +22,21 @@ structure GtkDialog :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
       val getActionArea_ = call (load_sym libgtk "gtk_dialog_get_action_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getContentArea_ = call (load_sym libgtk "gtk_dialog_get_content_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val response_ = call (load_sym libgtk "gtk_dialog_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val run_ = call (load_sym libgtk "gtk_dialog_run") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val response_ = call (load_sym libgtk "gtk_dialog_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val run_ = call (load_sym libgtk "gtk_dialog_run") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setResponseSensitive_ =
         call (load_sym libgtk "gtk_dialog_set_response_sensitive")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -52,7 +52,7 @@ structure GtkDialog :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addActionWidget_
@@ -65,7 +65,7 @@ structure GtkDialog :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )
         addButton_
@@ -76,15 +76,15 @@ structure GtkDialog :>
         )
     fun getActionArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActionArea_ self
     fun getContentArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getContentArea_ self
-    fun getResponseForWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) getWidgetForResponse_ (self & responseId)
-    fun response self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) response_ (self & responseId)
-    fun run self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) run_ self
-    fun setDefaultResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun getResponseForWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getResponseForWidget_ (self & widget)
+    fun getWidgetForResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkWidgetClass.C.fromPtr false) getWidgetForResponse_ (self & responseId)
+    fun response self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) response_ (self & responseId)
+    fun run self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) run_ self
+    fun setDefaultResponse self responseId = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setResponseSensitive self responseId setting =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
       )

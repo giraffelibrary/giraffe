@@ -23,7 +23,7 @@ structure GLibMatchInfo :>
               x3,
               x4
             )
-    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p * FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p * FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val fetchNamed_ =
       fn
         x1 & (x2, x3) =>
@@ -50,8 +50,8 @@ structure GLibMatchInfo :>
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -70,9 +70,9 @@ structure GLibMatchInfo :>
           (
             _import "g_match_info_fetch_pos" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -81,7 +81,7 @@ structure GLibMatchInfo :>
               x3,
               x4
             )
-    val getMatchCount_ = _import "g_match_info_get_match_count" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.Int32.C.val_;
+    val getMatchCount_ = _import "g_match_info_get_match_count" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.Int.C.val_;
     val getRegex_ = _import "g_match_info_get_regex" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> GLibRegexRecord.C.notnull GLibRegexRecord.C.p;
     val getString_ = _import "g_match_info_get_string" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val isPartialMatch_ = _import "g_match_info_is_partial_match" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.Bool.C.val_;
@@ -103,7 +103,7 @@ structure GLibMatchInfo :>
            & stringToExpand
            & []
         )
-    fun fetch self matchNum = (GLibMatchInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr true) fetch_ (self & matchNum)
+    fun fetch self matchNum = (GLibMatchInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr true) fetch_ (self & matchNum)
     fun fetchNamed self name = (GLibMatchInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
@@ -113,18 +113,18 @@ structure GLibMatchInfo :>
           (
             GLibMatchInfoRecord.C.withPtr
              &&&> FFI.String.C.withConstPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             fetchNamedPos_
             (
               self
                & name
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE
@@ -136,24 +136,24 @@ structure GLibMatchInfo :>
          & retVal =
           (
             GLibMatchInfoRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             fetchPos_
             (
               self
                & matchNum
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE
       end
-    fun getMatchCount self = (GLibMatchInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) getMatchCount_ self
+    fun getMatchCount self = (GLibMatchInfoRecord.C.withPtr ---> FFI.Int.C.fromVal) getMatchCount_ self
     fun getRegex self = (GLibMatchInfoRecord.C.withPtr ---> GLibRegexRecord.C.fromPtr true) getRegex_ self
     fun getString self = (GLibMatchInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) getString_ self
     fun isPartialMatch self = (GLibMatchInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) isPartialMatch_ self

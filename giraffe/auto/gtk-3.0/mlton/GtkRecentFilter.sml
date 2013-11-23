@@ -7,7 +7,7 @@ structure GtkRecentFilter :>
   struct
     val getType_ = _import "gtk_recent_filter_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_recent_filter_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val addAge_ = fn x1 & x2 => (_import "gtk_recent_filter_add_age" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val addAge_ = fn x1 & x2 => (_import "gtk_recent_filter_add_age" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val addApplication_ =
       fn
         x1 & (x2, x3) =>
@@ -94,7 +94,7 @@ structure GtkRecentFilter :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentFilterClass.C.fromPtr false) new_ ()
-    fun addAge self days = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) addAge_ (self & days)
+    fun addAge self days = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) addAge_ (self & days)
     fun addApplication self application = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addApplication_ (self & application)
     fun addGroup self group = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addGroup_ (self & group)
     fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addMimeType_ (self & mimeType)

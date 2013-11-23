@@ -10,7 +10,7 @@ structure GtkRecentFilter :>
     in
       val getType_ = call (load_sym libgtk "gtk_recent_filter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_recent_filter_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val addAge_ = call (load_sym libgtk "gtk_recent_filter_add_age") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val addAge_ = call (load_sym libgtk "gtk_recent_filter_add_age") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val addApplication_ = call (load_sym libgtk "gtk_recent_filter_add_application") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val addGroup_ = call (load_sym libgtk "gtk_recent_filter_add_group") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val addMimeType_ = call (load_sym libgtk "gtk_recent_filter_add_mime_type") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
@@ -28,7 +28,7 @@ structure GtkRecentFilter :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentFilterClass.C.fromPtr false) new_ ()
-    fun addAge self days = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) addAge_ (self & days)
+    fun addAge self days = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) addAge_ (self & days)
     fun addApplication self application = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addApplication_ (self & application)
     fun addGroup self group = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addGroup_ (self & group)
     fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addMimeType_ (self & mimeType)

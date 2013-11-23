@@ -34,10 +34,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.ref_
-               * FFI.UInt32.C.ref_
-               * FFI.UInt32.C.ref_
-               * FFI.UInt32.C.ref_
+               * FFI.UInt.C.ref_
+               * FFI.UInt.C.ref_
+               * FFI.UInt.C.ref_
+               * FFI.UInt.C.ref_
                -> unit;
           )
             (
@@ -80,10 +80,10 @@ structure GtkAlignment :>
           (
             _import "gtk_alignment_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
+               * FFI.UInt.C.val_
+               * FFI.UInt.C.val_
+               * FFI.UInt.C.val_
                -> unit;
           )
             (
@@ -122,23 +122,23 @@ structure GtkAlignment :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
+             &&&> FFI.UInt.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
+             &&&> FFI.UInt.C.withRefVal
+             ---> FFI.UInt.C.fromVal
+                   && FFI.UInt.C.fromVal
+                   && FFI.UInt.C.fromVal
+                   && FFI.UInt.C.fromVal
                    && I
           )
             getPadding_
             (
               self
-               & FFI.UInt32.null
-               & FFI.UInt32.null
-               & FFI.UInt32.null
-               & FFI.UInt32.null
+               & FFI.UInt.null
+               & FFI.UInt.null
+               & FFI.UInt.null
+               & FFI.UInt.null
             )
       in
         (
@@ -168,10 +168,10 @@ structure GtkAlignment :>
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         setPadding_

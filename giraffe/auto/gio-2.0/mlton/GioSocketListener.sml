@@ -178,7 +178,7 @@ structure GioSocketListener :>
               x4
             )
     val close_ = _import "g_socket_listener_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioSocketListenerClass.t
     type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
@@ -339,7 +339,7 @@ structure GioSocketListener :>
            & []
         )
     fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setBacklog_ (self & listenBacklog)
+    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setBacklog_ (self & listenBacklog)
     local
       open Property
     in

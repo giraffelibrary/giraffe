@@ -17,9 +17,9 @@ structure GdkPixbufPixbuf :>
             _import "gdk_pixbuf_new" :
               GdkPixbufColorspace.C.val_
                * FFI.Bool.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -55,8 +55,8 @@ structure GdkPixbufPixbuf :>
             _import "mlton_gdk_pixbuf_new_from_file_at_scale" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Bool.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -79,8 +79,8 @@ structure GdkPixbufPixbuf :>
             _import "mlton_gdk_pixbuf_new_from_file_at_size" :
               cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -119,8 +119,8 @@ structure GdkPixbufPixbuf :>
           (
             _import "gdk_pixbuf_new_from_stream_at_scale" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Bool.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -180,16 +180,16 @@ structure GdkPixbufPixbuf :>
             _import "gdk_pixbuf_composite" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * GdkPixbufInterpType.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -229,19 +229,19 @@ structure GdkPixbufPixbuf :>
             _import "gdk_pixbuf_composite_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * GdkPixbufInterpType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
                -> unit;
@@ -278,11 +278,11 @@ structure GdkPixbufPixbuf :>
           (
             _import "gdk_pixbuf_composite_color_simple" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GdkPixbufInterpType.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -311,13 +311,13 @@ structure GdkPixbufPixbuf :>
           (
             _import "gdk_pixbuf_copy_area" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -332,11 +332,11 @@ structure GdkPixbufPixbuf :>
             )
     val fill_ = fn x1 & x2 => (_import "gdk_pixbuf_fill" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val flip_ = fn x1 & x2 => (_import "gdk_pixbuf_flip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getBitsPerSample_ = _import "gdk_pixbuf_get_bits_per_sample" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getBitsPerSample_ = _import "gdk_pixbuf_get_bits_per_sample" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getColorspace_ = _import "gdk_pixbuf_get_colorspace" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkPixbufColorspace.C.val_;
     val getHasAlpha_ = _import "gdk_pixbuf_get_has_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getHeight_ = _import "gdk_pixbuf_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getNChannels_ = _import "gdk_pixbuf_get_n_channels" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getHeight_ = _import "gdk_pixbuf_get_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getNChannels_ = _import "gdk_pixbuf_get_n_channels" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getOption_ =
       fn
         x1 & (x2, x3) =>
@@ -352,8 +352,8 @@ structure GdkPixbufPixbuf :>
               x2,
               x3
             )
-    val getRowstride_ = _import "gdk_pixbuf_get_rowstride" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getWidth_ = _import "gdk_pixbuf_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getRowstride_ = _import "gdk_pixbuf_get_rowstride" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getWidth_ = _import "gdk_pixbuf_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val newSubpixbuf_ =
       fn
         x1
@@ -364,10 +364,10 @@ structure GdkPixbufPixbuf :>
           (
             _import "gdk_pixbuf_new_subpixbuf" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -415,10 +415,10 @@ structure GdkPixbufPixbuf :>
             _import "gdk_pixbuf_scale" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
@@ -448,8 +448,8 @@ structure GdkPixbufPixbuf :>
           (
             _import "gdk_pixbuf_scale_simple" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GdkPixbufInterpType.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -469,9 +469,9 @@ structure GdkPixbufPixbuf :>
       (
         GdkPixbufColorspace.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         new_
@@ -486,8 +486,8 @@ structure GdkPixbufPixbuf :>
     fun newFromFileAtScale filename width height preserveAspectRatio =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
@@ -503,8 +503,8 @@ structure GdkPixbufPixbuf :>
     fun newFromFileAtSize filename width height =
       (
         FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
@@ -531,8 +531,8 @@ structure GdkPixbufPixbuf :>
     fun newFromStreamAtScale stream width height preserveAspectRatio cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -573,16 +573,16 @@ structure GdkPixbufPixbuf :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> GdkPixbufInterpType.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         composite_
@@ -604,19 +604,19 @@ structure GdkPixbufPixbuf :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> GdkPixbufInterpType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
@@ -644,11 +644,11 @@ structure GdkPixbufPixbuf :>
     fun compositeColorSimple self destWidth destHeight interpType overallAlpha checkSize color1 color2 =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GdkPixbufInterpType.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
@@ -668,13 +668,13 @@ structure GdkPixbufPixbuf :>
     fun copyArea self srcX srcY width height destPixbuf destX destY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         copyArea_
@@ -690,21 +690,21 @@ structure GdkPixbufPixbuf :>
         )
     fun fill self pixel = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) fill_ (self & pixel)
     fun flip self horizontal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> GdkPixbufPixbufClass.C.fromPtr true) flip_ (self & horizontal)
-    fun getBitsPerSample self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getBitsPerSample_ self
+    fun getBitsPerSample self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getBitsPerSample_ self
     fun getColorspace self = (GObjectObjectClass.C.withPtr ---> GdkPixbufColorspace.C.fromVal) getColorspace_ self
     fun getHasAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasAlpha_ self
-    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getHeight_ self
-    fun getNChannels self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNChannels_ self
+    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
+    fun getNChannels self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNChannels_ self
     fun getOption self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getOption_ (self & key)
-    fun getRowstride self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getRowstride_ self
-    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self
+    fun getRowstride self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getRowstride_ self
+    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun newSubpixbuf self srcX srcY width height =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         newSubpixbuf_
@@ -735,10 +735,10 @@ structure GdkPixbufPixbuf :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
@@ -763,8 +763,8 @@ structure GdkPixbufPixbuf :>
     fun scaleSimple self destWidth destHeight interpType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GdkPixbufInterpType.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )

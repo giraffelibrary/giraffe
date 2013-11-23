@@ -7,7 +7,7 @@ structure GtkFontChooser :>
     val getFontDesc_ = _import "gtk_font_chooser_get_font_desc" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     val getFontFace_ = _import "gtk_font_chooser_get_font_face" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFontFamily_ = _import "gtk_font_chooser_get_font_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getShowPreviewEntry_ = _import "gtk_font_chooser_get_show_preview_entry" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setFont_ =
@@ -48,7 +48,7 @@ structure GtkFontChooser :>
     fun getFontDesc self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) getFontDesc_ self
     fun getFontFace self = (GObjectObjectClass.C.withPtr ---> PangoFontFaceClass.C.fromPtr false) getFontFace_ self
     fun getFontFamily self = (GObjectObjectClass.C.withPtr ---> PangoFontFamilyClass.C.fromPtr false) getFontFamily_ self
-    fun getFontSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFontSize_ self
+    fun getFontSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFontSize_ self
     fun getPreviewText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getPreviewText_ self
     fun getShowPreviewEntry self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowPreviewEntry_ self
     fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFont_ (self & fontname)

@@ -60,7 +60,7 @@ structure GioDBusProxy :>
              &&> FFI.String.PolyML.INPTR
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibVariantRecord.PolyML.PTR
@@ -81,7 +81,7 @@ structure GioDBusProxy :>
              &&> FFI.String.PolyML.INPTR
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OPTPTR
@@ -90,7 +90,7 @@ structure GioDBusProxy :>
           )
       val getCachedProperty_ = call (load_sym libgio "g_dbus_proxy_get_cached_property") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
       val getConnection_ = call (load_sym libgio "g_dbus_proxy_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_get_default_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_get_default_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getFlags_ = call (load_sym libgio "g_dbus_proxy_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusProxyFlags.PolyML.VAL)
       val getInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_get_interface_info") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceInfoRecord.PolyML.PTR)
       val getInterfaceName_ = call (load_sym libgio "g_dbus_proxy_get_interface_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
@@ -105,7 +105,7 @@ structure GioDBusProxy :>
              &&> GLibVariantRecord.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
-      val setDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_set_default_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_set_default_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_set_interface_info") (GObjectObjectClass.PolyML.PTR &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioDBusProxyClass.t
@@ -191,7 +191,7 @@ structure GioDBusProxy :>
          &&&> FFI.String.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibVariantRecord.C.fromPtr true
@@ -234,7 +234,7 @@ structure GioDBusProxy :>
              &&&> FFI.String.C.withConstPtr
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
@@ -258,7 +258,7 @@ structure GioDBusProxy :>
       end
     fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDefaultTimeout_ self
+    fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusProxyFlags.C.fromVal) getFlags_ self
     fun getInterfaceInfo self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr true) getInterfaceInfo_ self
     fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getInterfaceName_ self
@@ -278,7 +278,7 @@ structure GioDBusProxy :>
            & propertyName
            & value
         )
-    fun setDefaultTimeout self timeoutMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
+    fun setDefaultTimeout self timeoutMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
     fun setInterfaceInfo self info = (GObjectObjectClass.C.withPtr &&&> GioDBusInterfaceInfoRecord.C.withOptPtr ---> I) setInterfaceInfo_ (self & info)
     local
       open ClosureMarshal Signal

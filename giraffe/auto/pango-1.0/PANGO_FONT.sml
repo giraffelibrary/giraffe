@@ -3,6 +3,7 @@ signature PANGO_FONT =
     type 'a class_t
     type languagerecord_t
     type fontmetricsrecord_t
+    type glyph_t
     type rectanglerecord_t
     type 'a fontmapclass_t
     type fontdescriptionrecord_t
@@ -12,7 +13,7 @@ signature PANGO_FONT =
     val getFontMap : 'a class_t -> base fontmapclass_t
     val getGlyphExtents :
       'a class_t
-       -> LargeInt.int
+       -> glyph_t
        -> rectanglerecord_t * rectanglerecord_t
     val getMetrics :
       'a class_t

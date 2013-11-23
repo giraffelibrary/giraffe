@@ -49,7 +49,7 @@ structure GtkSettings :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int64.C.val_
+               * FFI.Long.C.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -140,7 +140,7 @@ structure GtkSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int64.C.withVal
+         &&&> FFI.Long.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )

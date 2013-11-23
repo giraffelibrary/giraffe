@@ -28,7 +28,7 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -55,7 +55,7 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -120,7 +120,7 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -209,9 +209,9 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
-               -> FFI.Int32.C.val_;
+               -> FFI.Int.C.val_;
           )
             (
               x1,
@@ -236,8 +236,8 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
           )
             (
@@ -262,10 +262,10 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -294,8 +294,8 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -318,9 +318,9 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -343,8 +343,8 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -367,9 +367,9 @@ structure GtkCellArea :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -392,8 +392,8 @@ structure GtkCellArea :>
             _import "gtk_cell_area_inner_cell_area" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
           )
             (
@@ -454,8 +454,8 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -485,9 +485,9 @@ structure GtkCellArea :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkOrientation.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.val_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -522,7 +522,7 @@ structure GtkCellArea :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -542,7 +542,7 @@ structure GtkCellArea :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -591,7 +591,7 @@ structure GtkCellArea :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         attributeConnect_
@@ -652,9 +652,9 @@ structure GtkCellArea :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         event_
         (
@@ -674,9 +674,9 @@ structure GtkCellArea :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             getCellAllocation_
             (
@@ -697,11 +697,11 @@ structure GtkCellArea :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && GtkCellRendererClass.C.fromPtr false
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withVal
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && GtkCellRendererClass.C.fromPtr false
           )
             getCellAtPosition_
             (
@@ -730,10 +730,10 @@ structure GtkCellArea :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredHeight_
@@ -741,8 +741,8 @@ structure GtkCellArea :>
               self
                & context
                & widget
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -756,11 +756,11 @@ structure GtkCellArea :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredHeightForWidth_
@@ -769,8 +769,8 @@ structure GtkCellArea :>
                & context
                & widget
                & width
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -784,10 +784,10 @@ structure GtkCellArea :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredWidth_
@@ -795,8 +795,8 @@ structure GtkCellArea :>
               self
                & context
                & widget
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -810,11 +810,11 @@ structure GtkCellArea :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPreferredWidthForHeight_
@@ -823,8 +823,8 @@ structure GtkCellArea :>
                & context
                & widget
                & height
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -837,9 +837,9 @@ structure GtkCellArea :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withNewPtr
-             ---> CairoRectangleIntRecord.C.fromPtr true && I
+             &&&> GdkRectangleRecord.C.withPtr
+             &&&> GdkRectangleRecord.C.withNewPtr
+             ---> GdkRectangleRecord.C.fromPtr true && I
           )
             innerCellArea_
             (
@@ -885,8 +885,8 @@ structure GtkCellArea :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -912,11 +912,11 @@ structure GtkCellArea :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> GtkOrientation.C.withVal
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             requestRenderer_
@@ -926,8 +926,8 @@ structure GtkCellArea :>
                & orientation
                & widget
                & forSize
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (minimumSize, naturalSize)

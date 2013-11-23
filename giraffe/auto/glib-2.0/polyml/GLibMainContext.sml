@@ -17,11 +17,11 @@ structure GLibMainContext :>
           (
             GLibMainContextRecord.PolyML.PTR
              &&> GLibPollFDRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val dispatch_ = call (load_sym libglib "g_main_context_dispatch") (GLibMainContextRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val findSourceById_ = call (load_sym libglib "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
+      val findSourceById_ = call (load_sym libglib "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
       val isOwner_ = call (load_sym libglib "g_main_context_is_owner") (GLibMainContextRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val iteration_ = call (load_sym libglib "g_main_context_iteration") (GLibMainContextRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.Bool.PolyML.VAL)
       val pending_ = call (load_sym libglib "g_main_context_pending") (GLibMainContextRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -53,7 +53,7 @@ structure GLibMainContext :>
       (
         GLibMainContextRecord.C.withPtr
          &&&> GLibPollFDRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addPoll_
@@ -63,7 +63,7 @@ structure GLibMainContext :>
            & priority
         )
     fun dispatch self = (GLibMainContextRecord.C.withPtr ---> I) dispatch_ self
-    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.C.withPtr &&&> FFI.UInt.C.withVal ---> GLibSourceRecord.C.fromPtr false) findSourceById_ (self & sourceId)
     fun isOwner self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) iteration_ (self & mayBlock)
     fun pending self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) pending_ self

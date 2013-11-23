@@ -175,10 +175,5 @@ structure GioTlsConnection :>
           get = fn x => get "require-close-notify" boolean x,
           set = fn x => set "require-close-notify" boolean x
         }
-      val useSystemCertdbProp =
-        {
-          get = fn x => get "use-system-certdb" boolean x,
-          set = fn x => set "use-system-certdb" boolean x
-        }
     end
   end

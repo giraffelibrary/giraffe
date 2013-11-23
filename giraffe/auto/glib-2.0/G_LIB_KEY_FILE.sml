@@ -144,7 +144,7 @@ signature G_LIB_KEY_FILE =
        -> unit
     val setListSeparator :
       record_t
-       -> LargeInt.int
+       -> char
        -> unit
     val setLocaleString :
       record_t

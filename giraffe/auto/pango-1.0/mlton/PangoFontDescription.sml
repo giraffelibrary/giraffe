@@ -33,13 +33,13 @@ structure PangoFontDescription :>
     val getFamily_ = _import "pango_font_description_get_family" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getGravity_ = _import "pango_font_description_get_gravity" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoGravity.C.val_;
     val getSetFields_ = _import "pango_font_description_get_set_fields" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoFontMask.C.val_;
-    val getSize_ = _import "pango_font_description_get_size" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.Int32.C.val_;
+    val getSize_ = _import "pango_font_description_get_size" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.Int.C.val_;
     val getSizeIsAbsolute_ = _import "pango_font_description_get_size_is_absolute" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.Bool.C.val_;
     val getStretch_ = _import "pango_font_description_get_stretch" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoStretch.C.val_;
     val getStyle_ = _import "pango_font_description_get_style" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoStyle.C.val_;
     val getVariant_ = _import "pango_font_description_get_variant" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoVariant.C.val_;
     val getWeight_ = _import "pango_font_description_get_weight" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> PangoWeight.C.val_;
-    val hash_ = _import "pango_font_description_hash" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.UInt32.C.val_;
+    val hash_ = _import "pango_font_description_hash" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.UInt.C.val_;
     val merge_ =
       fn
         x1
@@ -106,7 +106,7 @@ structure PangoFontDescription :>
               x3
             )
     val setGravity_ = fn x1 & x2 => (_import "pango_font_description_set_gravity" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoGravity.C.val_ -> unit;) (x1, x2)
-    val setSize_ = fn x1 & x2 => (_import "pango_font_description_set_size" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "pango_font_description_set_size" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setStretch_ = fn x1 & x2 => (_import "pango_font_description_set_stretch" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoStretch.C.val_ -> unit;) (x1, x2)
     val setStyle_ = fn x1 & x2 => (_import "pango_font_description_set_style" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoStyle.C.val_ -> unit;) (x1, x2)
     val setVariant_ = fn x1 & x2 => (_import "pango_font_description_set_variant" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoVariant.C.val_ -> unit;) (x1, x2)
@@ -143,13 +143,13 @@ structure PangoFontDescription :>
     fun getFamily self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.String.C.fromPtr false) getFamily_ self
     fun getGravity self = (PangoFontDescriptionRecord.C.withPtr ---> PangoGravity.C.fromVal) getGravity_ self
     fun getSetFields self = (PangoFontDescriptionRecord.C.withPtr ---> PangoFontMask.C.fromVal) getSetFields_ self
-    fun getSize self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getSizeIsAbsolute self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.Bool.C.fromVal) getSizeIsAbsolute_ self
     fun getStretch self = (PangoFontDescriptionRecord.C.withPtr ---> PangoStretch.C.fromVal) getStretch_ self
     fun getStyle self = (PangoFontDescriptionRecord.C.withPtr ---> PangoStyle.C.fromVal) getStyle_ self
     fun getVariant self = (PangoFontDescriptionRecord.C.withPtr ---> PangoVariant.C.fromVal) getVariant_ self
     fun getWeight self = (PangoFontDescriptionRecord.C.withPtr ---> PangoWeight.C.fromVal) getWeight_ self
-    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.UInt32.C.fromVal) hash_ self
+    fun hash self = (PangoFontDescriptionRecord.C.withPtr ---> FFI.UInt.C.fromVal) hash_ self
     fun merge self descToMerge replaceExisting =
       (
         PangoFontDescriptionRecord.C.withPtr
@@ -180,7 +180,7 @@ structure PangoFontDescription :>
     fun setFamily self family = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFamily_ (self & family)
     fun setFamilyStatic self family = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFamilyStatic_ (self & family)
     fun setGravity self gravity = (PangoFontDescriptionRecord.C.withPtr &&&> PangoGravity.C.withVal ---> I) setGravity_ (self & gravity)
-    fun setSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
+    fun setSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setStretch self stretch = (PangoFontDescriptionRecord.C.withPtr &&&> PangoStretch.C.withVal ---> I) setStretch_ (self & stretch)
     fun setStyle self style = (PangoFontDescriptionRecord.C.withPtr &&&> PangoStyle.C.withVal ---> I) setStyle_ (self & style)
     fun setVariant self variant = (PangoFontDescriptionRecord.C.withPtr &&&> PangoVariant.C.withVal ---> I) setVariant_ (self & variant)

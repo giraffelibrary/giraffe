@@ -374,10 +374,14 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    structure Quark = GLibQuark
-    structure Pid = GLibPid
     structure SourceFunc = GLibSourceFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
+    structure DateDay = GLibDateDay
+    structure DateYear = GLibDateYear
+    structure Pid = GLibPid
+    structure Quark = GLibQuark
+    structure Time = GLibTime
+    structure TimeSpan = GLibTimeSpan
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError

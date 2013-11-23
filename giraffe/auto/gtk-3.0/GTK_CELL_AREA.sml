@@ -20,7 +20,7 @@ signature GTK_CELL_AREA =
       'a class_t
        -> 'b cellareacontextclass_t
        -> 'c widgetclass_t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> bool
        -> bool
@@ -29,7 +29,7 @@ signature GTK_CELL_AREA =
        -> 'b widgetclass_t
        -> 'c cellrendererclass_t
        -> 'd Gdk.Event.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> bool
     val add :
@@ -81,7 +81,7 @@ signature GTK_CELL_AREA =
        -> 'b cellareacontextclass_t
        -> 'c widgetclass_t
        -> 'd Gdk.Event.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> LargeInt.int
     val focus :
@@ -93,16 +93,16 @@ signature GTK_CELL_AREA =
        -> 'b cellareacontextclass_t
        -> 'c widgetclass_t
        -> 'd cellrendererclass_t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val getCellAtPosition :
       'a class_t
        -> 'b cellareacontextclass_t
        -> 'c widgetclass_t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> LargeInt.int
        -> LargeInt.int
-       -> base cellrendererclass_t * Cairo.RectangleIntRecord.t
+       -> base cellrendererclass_t * Gdk.RectangleRecord.t
     val getCurrentPathString : 'a class_t -> string
     val getEditWidget : 'a class_t -> base celleditableclass_t
     val getEditedCell : 'a class_t -> base cellrendererclass_t
@@ -141,8 +141,8 @@ signature GTK_CELL_AREA =
     val innerCellArea :
       'a class_t
        -> 'b widgetclass_t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val isActivatable : 'a class_t -> bool
     val isFocusSibling :
       'a class_t
@@ -163,8 +163,8 @@ signature GTK_CELL_AREA =
        -> 'b cellareacontextclass_t
        -> 'c widgetclass_t
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
        -> cellrendererstate_t
        -> bool
        -> unit

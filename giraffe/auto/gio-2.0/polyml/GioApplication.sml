@@ -15,7 +15,7 @@ structure GioApplication :>
       val activate_ = call (load_sym libgio "g_application_activate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getApplicationId_ = call (load_sym libgio "g_application_get_application_id") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getFlags_ = call (load_sym libgio "g_application_get_flags") (GObjectObjectClass.PolyML.PTR --> GioApplicationFlags.PolyML.VAL)
-      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val getIsRegistered_ = call (load_sym libgio "g_application_get_is_registered") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIsRemote_ = call (load_sym libgio "g_application_get_is_remote") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val hold_ = call (load_sym libgio "g_application_hold") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -31,7 +31,7 @@ structure GioApplication :>
       val setActionGroup_ = call (load_sym libgio "g_application_set_action_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setApplicationId_ = call (load_sym libgio "g_application_set_application_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
       val setFlags_ = call (load_sym libgio "g_application_set_flags") (GObjectObjectClass.PolyML.PTR &&> GioApplicationFlags.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioApplicationClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
@@ -45,7 +45,7 @@ structure GioApplication :>
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun getApplicationId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getApplicationId_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioApplicationFlags.C.fromVal) getFlags_ self
-    fun getInactivityTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getInactivityTimeout_ self
+    fun getInactivityTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getInactivityTimeout_ self
     fun getIsRegistered self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRemote_ self
     fun hold self = (GObjectObjectClass.C.withPtr ---> I) hold_ self
@@ -66,7 +66,7 @@ structure GioApplication :>
     fun setActionGroup self actionGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setActionGroup_ (self & actionGroup)
     fun setApplicationId self applicationId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setApplicationId_ (self & applicationId)
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioApplicationFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun setInactivityTimeout self inactivityTimeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
+    fun setInactivityTimeout self inactivityTimeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
     local
       open ClosureMarshal Signal
     in

@@ -12,6 +12,7 @@ signature GDK_WINDOW =
     type wmdecoration_t
     type rgbarecord_t
     type colorrecord_t
+    type rectanglerecord_t
     type windowtype_t
     type 'a visualclass_t
     type windowstate_t
@@ -45,7 +46,7 @@ signature GDK_WINDOW =
        -> unit
     val beginPaintRect :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
+       -> rectanglerecord_t
        -> unit
     val beginPaintRegion :
       'a class_t
@@ -120,7 +121,7 @@ signature GDK_WINDOW =
     val getFocusOnMap : 'a class_t -> bool
     val getFrameExtents :
       'a class_t
-       -> Cairo.RectangleIntRecord.t
+       -> rectanglerecord_t
        -> unit
     val getGeometry :
       'a class_t
@@ -169,7 +170,7 @@ signature GDK_WINDOW =
        -> unit
     val invalidateRect :
       'a class_t
-       -> Cairo.RectangleIntRecord.t option
+       -> rectanglerecord_t option
        -> bool
        -> unit
     val invalidateRegion :

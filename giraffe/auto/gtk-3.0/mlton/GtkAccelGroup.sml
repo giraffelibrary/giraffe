@@ -16,9 +16,9 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_activate" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * GLibQuark.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -39,7 +39,7 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_connect" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                * GtkAccelFlags.C.val_
                * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
@@ -80,7 +80,7 @@ structure GtkAccelGroup :>
           (
             _import "gtk_accel_group_disconnect_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
+               * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -101,9 +101,9 @@ structure GtkAccelGroup :>
     fun activate self accelQuark acceleratable accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> GLibQuark.C.withVal
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -118,7 +118,7 @@ structure GtkAccelGroup :>
     fun connect self accelKey accelMods accelFlags closure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          &&&> GObjectClosureRecord.C.withPtr
@@ -149,7 +149,7 @@ structure GtkAccelGroup :>
     fun disconnectKey self accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )

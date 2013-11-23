@@ -45,8 +45,8 @@ structure GioDBusMethodInvocation :>
           (
             _import "mlton_g_dbus_method_invocation_return_error_literal" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt32.C.val_
-               * FFI.Int32.C.val_
+               * GLibQuark.C.val_
+               * FFI.Int.C.val_
                * cstring
                * unit CPointer.t
                -> unit;
@@ -106,8 +106,8 @@ structure GioDBusMethodInvocation :>
     fun returnErrorLiteral self domain code message =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> GLibQuark.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )

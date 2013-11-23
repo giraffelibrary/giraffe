@@ -19,7 +19,7 @@ structure GioFileMonitor :>
              --> FFI.PolyML.VOID
           )
       val isCancelled_ = call (load_sym libgio "g_file_monitor_is_cancelled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setRateLimit_ = call (load_sym libgio "g_file_monitor_set_rate_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRateLimit_ = call (load_sym libgio "g_file_monitor_set_rate_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioFileMonitorClass.t
     type filemonitorevent_t = GioFileMonitorEvent.t
@@ -42,7 +42,7 @@ structure GioFileMonitor :>
            & eventType
         )
     fun isCancelled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isCancelled_ self
-    fun setRateLimit self limitMsecs = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setRateLimit_ (self & limitMsecs)
+    fun setRateLimit self limitMsecs = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRateLimit_ (self & limitMsecs)
     local
       open ClosureMarshal Signal
     in

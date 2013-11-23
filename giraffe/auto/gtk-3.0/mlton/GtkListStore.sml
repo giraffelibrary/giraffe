@@ -20,7 +20,7 @@ structure GtkListStore :>
             _import "gtk_list_store_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -109,7 +109,7 @@ structure GtkListStore :>
             _import "gtk_list_store_set_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -162,7 +162,7 @@ structure GtkListStore :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              ---> GtkTreeIterRecord.C.fromPtr true && I
           )
             insert_
@@ -248,7 +248,7 @@ structure GtkListStore :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

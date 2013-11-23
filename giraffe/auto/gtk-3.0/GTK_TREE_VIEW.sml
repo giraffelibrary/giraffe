@@ -78,13 +78,13 @@ signature GTK_TREE_VIEW =
       'a class_t
        -> treepathrecord_t option
        -> 'b treeviewcolumnclass_t option
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
     val getBinWindow : 'a class_t -> base Gdk.WindowClass.t
     val getCellArea :
       'a class_t
        -> treepathrecord_t option
        -> 'b treeviewcolumnclass_t option
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
     val getColumn :
       'a class_t
        -> LargeInt.int
@@ -136,7 +136,7 @@ signature GTK_TREE_VIEW =
            * LargeInt.int
            * LargeInt.int
     val getVisibleRange : 'a class_t -> (treepathrecord_t * treepathrecord_t) option
-    val getVisibleRect : 'a class_t -> Cairo.RectangleIntRecord.t
+    val getVisibleRect : 'a class_t -> Gdk.RectangleRecord.t
     val insertColumn :
       'a class_t
        -> 'b treeviewcolumnclass_t

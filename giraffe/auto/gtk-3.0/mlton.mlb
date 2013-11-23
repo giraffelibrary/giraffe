@@ -4,18 +4,20 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  ../atk-1.0/mlton.mlb
-  ../glib-2.0/mlton.mlb
-  ../gmodule-2.0/mlton.mlb
-  ../gobject-2.0/mlton.mlb
-  ../gdk-3.0/mlton.mlb
-  ../gdkpixbuf-2.0/mlton.mlb
-  ../gio-2.0/mlton.mlb
-  ../pango-1.0/mlton.mlb
+  ../xlib-2.0/mlton.mlb
   ../cairo-1.0/mlton.mlb
+  ../pango-1.0/mlton.mlb
+  ../gio-2.0/mlton.mlb
+  ../gdkpixbuf-2.0/mlton.mlb
+  ../gdk-3.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../gmodule-2.0/mlton.mlb
+  ../glib-2.0/mlton.mlb
+  ../atk-1.0/mlton.mlb
   CHILD_SIGNAL.sml
   STYLE_PROPERTY.sml
   GTK_ACTION_ENTRY.sml
+  GTK_ALLOCATION_RECORD.sml
   GTK_ABOUT_DIALOG_CLASS.sml
   GTK_ABOUT_DIALOG.sml
   GTK_ACCEL_FLAGS.sml
@@ -542,6 +544,7 @@ in
   GTK_WRAP_MODE.sml
   GTK.sml
   mlton/GtkActionEntry.sml
+  mlton/GtkAllocationRecord.sml
   mlton/GtkAccelFlags.sml
   mlton/GtkAccelGroupClass.sml
   mlton/GtkAccelKeyRecord.sml

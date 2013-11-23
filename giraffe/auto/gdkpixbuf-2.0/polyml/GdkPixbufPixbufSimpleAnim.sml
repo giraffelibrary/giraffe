@@ -10,8 +10,8 @@ structure GdkPixbufPixbufSimpleAnim :>
       val new_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_new")
           (
-            FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+            FFI.Int.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.Float.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -24,8 +24,8 @@ structure GdkPixbufPixbufSimpleAnim :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =
       (
-        FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.Float.C.withVal
          ---> GdkPixbufPixbufSimpleAnimClass.C.fromPtr true
       )

@@ -7,7 +7,7 @@ structure GtkTextTagTable :>
     val getType_ = _import "gtk_text_tag_table_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_text_tag_table_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val add_ = fn x1 & x2 => (_import "gtk_text_tag_table_add" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getSize_ = _import "gtk_text_tag_table_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSize_ = _import "gtk_text_tag_table_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val lookup_ =
       fn
         x1 & (x2, x3) =>
@@ -31,7 +31,7 @@ structure GtkTextTagTable :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()
     fun add self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & tag)
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun lookup self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
     fun remove self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & tag)
     local

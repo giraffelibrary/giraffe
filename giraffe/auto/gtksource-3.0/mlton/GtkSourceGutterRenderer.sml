@@ -15,7 +15,7 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_activate" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                -> unit;
           )
@@ -37,8 +37,8 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_begin" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -64,8 +64,8 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_draw" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkSourceGutterRendererState.C.val_
@@ -108,8 +108,8 @@ structure GtkSourceGutterRenderer :>
           (
             _import "gtk_source_gutter_renderer_get_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -117,7 +117,7 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val getSize_ = _import "gtk_source_gutter_renderer_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSize_ = _import "gtk_source_gutter_renderer_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getView_ = _import "gtk_source_gutter_renderer_get_view" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getVisible_ = _import "gtk_source_gutter_renderer_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getWindowType_ = _import "gtk_source_gutter_renderer_get_window_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTextWindowType.C.val_;
@@ -131,7 +131,7 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_query_activatable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                -> FFI.Bool.C.val_;
           )
@@ -173,9 +173,9 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_query_tooltip" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> FFI.Bool.C.val_;
           )
@@ -215,8 +215,8 @@ structure GtkSourceGutterRenderer :>
           (
             _import "gtk_source_gutter_renderer_set_padding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -224,7 +224,7 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val setSize_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setVisible_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkSourceGutterRendererClass.t
     type gutterrendererstate_t = GtkSourceGutterRendererState.t
@@ -234,7 +234,7 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
          ---> I
       )
@@ -249,8 +249,8 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
@@ -268,8 +268,8 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkSourceGutterRendererState.C.withVal
@@ -322,22 +322,22 @@ structure GtkSourceGutterRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefNewVal
-             &&&> FFI.Int32.C.withRefNewVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefNewVal
+             &&&> FFI.Int.C.withRefNewVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             getPadding_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (xpad, ypad)
       end
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getView self = (GObjectObjectClass.C.withPtr ---> GtkTextViewClass.C.fromPtr false) getView_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getWindowType self = (GObjectObjectClass.C.withPtr ---> GtkTextWindowType.C.fromVal) getWindowType_ self
@@ -345,7 +345,7 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
+         &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -375,9 +375,9 @@ structure GtkSourceGutterRenderer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> CairoRectangleIntRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> GdkRectangleRecord.C.withPtr
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -409,8 +409,8 @@ structure GtkSourceGutterRenderer :>
     fun setPadding self xpad ypad =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setPadding_
@@ -419,7 +419,7 @@ structure GtkSourceGutterRenderer :>
            & xpad
            & ypad
         )
-    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
+    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal

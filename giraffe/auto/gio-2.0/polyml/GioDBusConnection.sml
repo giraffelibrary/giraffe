@@ -61,7 +61,7 @@ structure GioDBusConnection :>
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GLibVariantTypeRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibVariantRecord.PolyML.PTR
@@ -86,7 +86,7 @@ structure GioDBusConnection :>
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GLibVariantTypeRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GObjectObjectClass.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OPTPTR
@@ -144,7 +144,7 @@ structure GioDBusConnection :>
       val getStream_ = call (load_sym libgio "g_dbus_connection_get_stream") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getUniqueName_ = call (load_sym libgio "g_dbus_connection_get_unique_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val isClosed_ = call (load_sym libgio "g_dbus_connection_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val sendMessage_ =
         call (load_sym libgio "g_dbus_connection_send_message")
           (
@@ -169,17 +169,17 @@ structure GioDBusConnection :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GioDBusSendMessageFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.UInt32.PolyML.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
       val setExitOnClose_ = call (load_sym libgio "g_dbus_connection_set_exit_on_close") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val startMessageProcessing_ = call (load_sym libgio "g_dbus_connection_start_message_processing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioDBusConnectionClass.t
     type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
@@ -259,7 +259,7 @@ structure GioDBusConnection :>
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibVariantRecord.C.fromPtr true
@@ -310,7 +310,7 @@ structure GioDBusConnection :>
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GLibVariantTypeRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
@@ -416,7 +416,7 @@ structure GioDBusConnection :>
     fun getStream self = (GObjectObjectClass.C.withPtr ---> GioIOStreamClass.C.fromPtr false) getStream_ self
     fun getUniqueName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getUniqueName_ self
     fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun removeFilter self filterId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeFilter_ (self & filterId)
+    fun removeFilter self filterId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self message flags =
       let
         val outSerial & retVal =
@@ -459,7 +459,7 @@ structure GioDBusConnection :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GioDBusSendMessageFlags.C.withVal
-             &&&> FFI.Int32.C.withVal
+             &&&> FFI.Int.C.withVal
              &&&> FFI.UInt32.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
@@ -479,10 +479,10 @@ structure GioDBusConnection :>
         (retVal, outSerial)
       end
     fun setExitOnClose self exitOnClose = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExitOnClose_ (self & exitOnClose)
-    fun signalUnsubscribe self subscriptionId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
+    fun signalUnsubscribe self subscriptionId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
     fun startMessageProcessing self = (GObjectObjectClass.C.withPtr ---> I) startMessageProcessing_ self
-    fun unregisterObject self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) unregisterObject_ (self & registrationId)
-    fun unregisterSubtree self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) unregisterSubtree_ (self & registrationId)
+    fun unregisterObject self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterObject_ (self & registrationId)
+    fun unregisterSubtree self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterSubtree_ (self & registrationId)
     local
       open Property
     in

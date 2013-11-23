@@ -11,7 +11,7 @@ structure GtkRecentChooser :>
     val getCurrentItem_ = _import "gtk_recent_chooser_get_current_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p;
     val getCurrentUri_ = _import "gtk_recent_chooser_get_current_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getFilter_ = _import "gtk_recent_chooser_get_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getLimit_ = _import "gtk_recent_chooser_get_limit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getLimit_ = _import "gtk_recent_chooser_get_limit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getLocalOnly_ = _import "gtk_recent_chooser_get_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getSelectMultiple_ = _import "gtk_recent_chooser_get_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getShowIcons_ = _import "gtk_recent_chooser_get_show_icons" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -60,7 +60,7 @@ structure GtkRecentChooser :>
               x4
             )
     val setFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setLimit_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_limit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setLimit_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_limit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setLocalOnly_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_local_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_select_multiple" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setShowIcons_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_icons" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
@@ -94,7 +94,7 @@ structure GtkRecentChooser :>
     fun getCurrentItem self = (GObjectObjectClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self
     fun getCurrentUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getCurrentUri_ self
     fun getFilter self = (GObjectObjectClass.C.withPtr ---> GtkRecentFilterClass.C.fromPtr false) getFilter_ self
-    fun getLimit self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLimit_ self
+    fun getLimit self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLimit_ self
     fun getLocalOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocalOnly_ self
     fun getSelectMultiple self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSelectMultiple_ self
     fun getShowIcons self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowIcons_ self
@@ -131,7 +131,7 @@ structure GtkRecentChooser :>
            & []
         )
     fun setFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFilter_ (self & filter)
-    fun setLimit self limit = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setLimit_ (self & limit)
+    fun setLimit self limit = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setLimit_ (self & limit)
     fun setLocalOnly self localOnly = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setSelectMultiple self selectMultiple = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
     fun setShowIcons self showIcons = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowIcons_ (self & showIcons)

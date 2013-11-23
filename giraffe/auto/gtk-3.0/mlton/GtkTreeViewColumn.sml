@@ -26,7 +26,7 @@ structure GtkTreeViewColumn :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> unit;
           )
             (
@@ -46,8 +46,8 @@ structure GtkTreeViewColumn :>
             _import "gtk_tree_view_column_cell_get_position" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
           )
             (
@@ -67,11 +67,11 @@ structure GtkTreeViewColumn :>
           (
             _import "gtk_tree_view_column_cell_get_size" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit CairoRectangleIntRecord.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
+               * unit GdkRectangleRecord.C.p
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
+               * FFI.Int.C.ref_
                -> unit;
           )
             (
@@ -114,22 +114,22 @@ structure GtkTreeViewColumn :>
     val getButton_ = _import "gtk_tree_view_column_get_button" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getClickable_ = _import "gtk_tree_view_column_get_clickable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getExpand_ = _import "gtk_tree_view_column_get_expand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getFixedWidth_ = _import "gtk_tree_view_column_get_fixed_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getMaxWidth_ = _import "gtk_tree_view_column_get_max_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getMinWidth_ = _import "gtk_tree_view_column_get_min_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getFixedWidth_ = _import "gtk_tree_view_column_get_fixed_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getMaxWidth_ = _import "gtk_tree_view_column_get_max_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getMinWidth_ = _import "gtk_tree_view_column_get_min_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getReorderable_ = _import "gtk_tree_view_column_get_reorderable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getResizable_ = _import "gtk_tree_view_column_get_resizable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getSizing_ = _import "gtk_tree_view_column_get_sizing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTreeViewColumnSizing.C.val_;
-    val getSortColumnId_ = _import "gtk_tree_view_column_get_sort_column_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSortColumnId_ = _import "gtk_tree_view_column_get_sort_column_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getSortIndicator_ = _import "gtk_tree_view_column_get_sort_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getSortOrder_ = _import "gtk_tree_view_column_get_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSortType.C.val_;
-    val getSpacing_ = _import "gtk_tree_view_column_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getSpacing_ = _import "gtk_tree_view_column_get_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getTitle_ = _import "gtk_tree_view_column_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getTreeView_ = _import "gtk_tree_view_column_get_tree_view" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getVisible_ = _import "gtk_tree_view_column_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getWidget_ = _import "gtk_tree_view_column_get_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getWidth_ = _import "gtk_tree_view_column_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getXOffset_ = _import "gtk_tree_view_column_get_x_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getWidth_ = _import "gtk_tree_view_column_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val getXOffset_ = _import "gtk_tree_view_column_get_x_offset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val packEnd_ =
       fn
         x1
@@ -168,16 +168,16 @@ structure GtkTreeViewColumn :>
     val setAlignment_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_alignment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Float.C.val_ -> unit;) (x1, x2)
     val setClickable_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_clickable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setExpand_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_expand" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setFixedWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_fixed_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setMaxWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_max_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setMinWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_min_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setFixedWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_fixed_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setMaxWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_max_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setMinWidth_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_min_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setReorderable_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_reorderable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setResizable_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_resizable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSizing_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_sizing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeViewColumnSizing.C.val_ -> unit;) (x1, x2)
-    val setSortColumnId_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_sort_column_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSortColumnId_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_sort_column_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setSortIndicator_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_sort_indicator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setSortOrder_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_sort_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkSortType.C.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
@@ -215,7 +215,7 @@ structure GtkTreeViewColumn :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         addAttribute_
@@ -233,18 +233,18 @@ structure GtkTreeViewColumn :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && FFI.Bool.C.fromVal
           )
             cellGetPosition_
             (
               self
                & cellRenderer
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         if retVal then SOME (xOffset, width) else NONE
@@ -258,25 +258,25 @@ structure GtkTreeViewColumn :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> CairoRectangleIntRecord.C.withOptPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+             &&&> GdkRectangleRecord.C.withOptPtr
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
+             ---> FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
+                   && FFI.Int.C.fromVal
                    && I
           )
             cellGetSize_
             (
               self
                & cellArea
-               & FFI.Int32.null
-               & FFI.Int32.null
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & FFI.Int.null
+               & FFI.Int.null
+               & FFI.Int.null
+               & FFI.Int.null
             )
       in
         (
@@ -312,22 +312,22 @@ structure GtkTreeViewColumn :>
     fun getButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getButton_ self
     fun getClickable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getClickable_ self
     fun getExpand self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpand_ self
-    fun getFixedWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFixedWidth_ self
-    fun getMaxWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxWidth_ self
-    fun getMinWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMinWidth_ self
+    fun getFixedWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFixedWidth_ self
+    fun getMaxWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxWidth_ self
+    fun getMinWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMinWidth_ self
     fun getReorderable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReorderable_ self
     fun getResizable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getResizable_ self
     fun getSizing self = (GObjectObjectClass.C.withPtr ---> GtkTreeViewColumnSizing.C.fromVal) getSizing_ self
-    fun getSortColumnId self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSortColumnId_ self
+    fun getSortColumnId self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSortColumnId_ self
     fun getSortIndicator self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSortIndicator_ self
     fun getSortOrder self = (GObjectObjectClass.C.withPtr ---> GtkSortType.C.fromVal) getSortOrder_ self
-    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
     fun getTreeView self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getTreeView_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getWidth_ self
-    fun getXOffset self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getXOffset_ self
+    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
+    fun getXOffset self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getXOffset_ self
     fun packEnd self cell expand =
       (
         GObjectObjectClass.C.withPtr
@@ -358,16 +358,16 @@ structure GtkTreeViewColumn :>
     fun setAlignment self xalign = (GObjectObjectClass.C.withPtr &&&> FFI.Float.C.withVal ---> I) setAlignment_ (self & xalign)
     fun setClickable self clickable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setClickable_ (self & clickable)
     fun setExpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExpand_ (self & expand)
-    fun setFixedWidth self fixedWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setFixedWidth_ (self & fixedWidth)
-    fun setMaxWidth self maxWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxWidth_ (self & maxWidth)
-    fun setMinWidth self minWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMinWidth_ (self & minWidth)
+    fun setFixedWidth self fixedWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setFixedWidth_ (self & fixedWidth)
+    fun setMaxWidth self maxWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxWidth_ (self & maxWidth)
+    fun setMinWidth self minWidth = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMinWidth_ (self & minWidth)
     fun setReorderable self reorderable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReorderable_ (self & reorderable)
     fun setResizable self resizable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizable_ (self & resizable)
     fun setSizing self type' = (GObjectObjectClass.C.withPtr &&&> GtkTreeViewColumnSizing.C.withVal ---> I) setSizing_ (self & type')
-    fun setSortColumnId self sortColumnId = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSortColumnId_ (self & sortColumnId)
+    fun setSortColumnId self sortColumnId = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSortColumnId_ (self & sortColumnId)
     fun setSortIndicator self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSortIndicator_ (self & setting)
     fun setSortOrder self order = (GObjectObjectClass.C.withPtr &&&> GtkSortType.C.withVal ---> I) setSortOrder_ (self & order)
-    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
     fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     fun setWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setWidget_ (self & widget)

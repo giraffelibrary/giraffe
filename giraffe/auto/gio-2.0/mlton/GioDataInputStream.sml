@@ -89,7 +89,7 @@ structure GioDataInputStream :>
             _import "g_data_input_stream_read_line_finish_utf8" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.ref_
+               * FFI.Size.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -108,7 +108,7 @@ structure GioDataInputStream :>
           (
             _import "g_data_input_stream_read_line_utf8" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.ref_
+               * FFI.Size.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -182,7 +182,7 @@ structure GioDataInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.UInt64.C.ref_
+               * FFI.Size.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -205,7 +205,7 @@ structure GioDataInputStream :>
             _import "g_data_input_stream_read_until_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.ref_
+               * FFI.Size.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -228,8 +228,8 @@ structure GioDataInputStream :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int64.C.val_
-               * FFI.UInt64.C.ref_
+               * FFI.SSize.C.val_
+               * FFI.Size.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -253,7 +253,7 @@ structure GioDataInputStream :>
             _import "g_data_input_stream_read_upto_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * FFI.UInt64.C.ref_
+               * FFI.Size.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -333,15 +333,15 @@ structure GioDataInputStream :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readLineFinishUtf8_
             (
               self
                & result
-               & FFI.UInt64.null
+               & FFI.Size.null
                & []
             )
       in
@@ -352,15 +352,15 @@ structure GioDataInputStream :>
         val length & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readLineUtf8_
             (
               self
-               & FFI.UInt64.null
+               & FFI.Size.null
                & cancellable
                & []
             )
@@ -412,16 +412,16 @@ structure GioDataInputStream :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.String.C.withConstPtr
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readUntil_
             (
               self
                & stopChars
-               & FFI.UInt64.null
+               & FFI.Size.null
                & cancellable
                & []
             )
@@ -434,15 +434,15 @@ structure GioDataInputStream :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readUntilFinish_
             (
               self
                & result
-               & FFI.UInt64.null
+               & FFI.Size.null
                & []
             )
       in
@@ -454,18 +454,18 @@ structure GioDataInputStream :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.String.C.withConstPtr
-             &&&> FFI.Int64.C.withVal
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.SSize.C.withVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readUpto_
             (
               self
                & stopChars
                & stopCharsLen
-               & FFI.UInt64.null
+               & FFI.Size.null
                & cancellable
                & []
             )
@@ -478,15 +478,15 @@ structure GioDataInputStream :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.UInt64.C.withRefVal
+             &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Size.C.fromVal && FFI.String.C.fromPtr true
           )
             readUptoFinish_
             (
               self
                & result
-               & FFI.UInt64.null
+               & FFI.Size.null
                & []
             )
       in

@@ -7,8 +7,8 @@ structure GtkSelectionData :>
     val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p;
     val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Int32.C.val_;
-    val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Int32.C.val_;
+    val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Int.C.val_;
+    val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Int.C.val_;
     val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSelection_ = _import "gtk_selection_data_get_selection" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val getTarget_ = _import "gtk_selection_data_get_target" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
@@ -24,7 +24,7 @@ structure GtkSelectionData :>
               GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
                * cstring
                * unit CPointer.t
-               * FFI.Int32.C.val_
+               * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
             (
@@ -43,8 +43,8 @@ structure GtkSelectionData :>
     fun copy self = (GtkSelectionDataRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) copy_ self
     fun getDataType self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getDataType_ self
     fun getDisplay self = (GtkSelectionDataRecord.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getFormat self = (GtkSelectionDataRecord.C.withPtr ---> FFI.Int32.C.fromVal) getFormat_ self
-    fun getLength self = (GtkSelectionDataRecord.C.withPtr ---> FFI.Int32.C.fromVal) getLength_ self
+    fun getFormat self = (GtkSelectionDataRecord.C.withPtr ---> FFI.Int.C.fromVal) getFormat_ self
+    fun getLength self = (GtkSelectionDataRecord.C.withPtr ---> FFI.Int.C.fromVal) getLength_ self
     fun getPixbuf self = (GtkSelectionDataRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) getPixbuf_ self
     fun getSelection self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getSelection_ self
     fun getTarget self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getTarget_ self
@@ -54,7 +54,7 @@ structure GtkSelectionData :>
       (
         GtkSelectionDataRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
         setText_

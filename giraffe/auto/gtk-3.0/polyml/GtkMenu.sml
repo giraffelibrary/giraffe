@@ -16,10 +16,10 @@ structure GtkMenu :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val detach_ = call (load_sym libgtk "gtk_menu_detach") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -27,7 +27,7 @@ structure GtkMenu :>
       val getAccelPath_ = call (load_sym libgtk "gtk_menu_get_accel_path") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
       val getActive_ = call (load_sym libgtk "gtk_menu_get_active") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getAttachWidget_ = call (load_sym libgtk "gtk_menu_get_attach_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getMonitor_ = call (load_sym libgtk "gtk_menu_get_monitor") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getMonitor_ = call (load_sym libgtk "gtk_menu_get_monitor") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getReserveToggleSize_ = call (load_sym libgtk "gtk_menu_get_reserve_toggle_size") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getTearoffState_ = call (load_sym libgtk "gtk_menu_get_tearoff_state") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getTitle_ = call (load_sym libgtk "gtk_menu_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
@@ -37,14 +37,14 @@ structure GtkMenu :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val reposition_ = call (load_sym libgtk "gtk_menu_reposition") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setAccelGroup_ = call (load_sym libgtk "gtk_menu_set_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setAccelPath_ = call (load_sym libgtk "gtk_menu_set_accel_path") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMonitor_ = call (load_sym libgtk "gtk_menu_set_monitor") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val setMonitor_ = call (load_sym libgtk "gtk_menu_set_monitor") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val setReserveToggleSize_ = call (load_sym libgtk "gtk_menu_set_reserve_toggle_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setScreen_ = call (load_sym libgtk "gtk_menu_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setTearoffState_ = call (load_sym libgtk "gtk_menu_set_tearoff_state") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -63,10 +63,10 @@ structure GtkMenu :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
+         &&&> FFI.UInt.C.withVal
          ---> I
       )
         attach_
@@ -83,7 +83,7 @@ structure GtkMenu :>
     fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getAccelPath_ self
     fun getActive self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActive_ self
     fun getAttachWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAttachWidget_ self
-    fun getMonitor self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMonitor_ self
+    fun getMonitor self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMonitor_ self
     fun getReserveToggleSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReserveToggleSize_ self
     fun getTearoffState self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTearoffState_ self
     fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
@@ -92,7 +92,7 @@ structure GtkMenu :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         reorderChild_
@@ -104,8 +104,8 @@ structure GtkMenu :>
     fun reposition self = (GObjectObjectClass.C.withPtr ---> I) reposition_ self
     fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
     fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setActive_ (self & index)
-    fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMonitor_ (self & monitorNum)
+    fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setActive_ (self & index)
+    fun setMonitor self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMonitor_ (self & monitorNum)
     fun setReserveToggleSize self reserveToggleSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setScreen_ (self & screen)
     fun setTearoffState self tornOff = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTearoffState_ (self & tornOff)

@@ -13,9 +13,9 @@ structure GtkAccelGroup :>
         call (load_sym libgtk "gtk_accel_group_activate")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> GLibQuark.PolyML.VAL
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -23,7 +23,7 @@ structure GtkAccelGroup :>
         call (load_sym libgtk "gtk_accel_group_connect")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GdkModifierType.PolyML.VAL
              &&> GtkAccelFlags.PolyML.VAL
              &&> GObjectClosureRecord.PolyML.PTR
@@ -42,7 +42,7 @@ structure GtkAccelGroup :>
         call (load_sym libgtk "gtk_accel_group_disconnect_key")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
+             &&> FFI.UInt.PolyML.VAL
              &&> GdkModifierType.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -59,9 +59,9 @@ structure GtkAccelGroup :>
     fun activate self accelQuark acceleratable accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> GLibQuark.C.withVal
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -76,7 +76,7 @@ structure GtkAccelGroup :>
     fun connect self accelKey accelMods accelFlags closure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> GtkAccelFlags.C.withVal
          &&&> GObjectClosureRecord.C.withPtr
@@ -107,7 +107,7 @@ structure GtkAccelGroup :>
     fun disconnectKey self accelKey accelMods =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+         &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> FFI.Bool.C.fromVal
       )

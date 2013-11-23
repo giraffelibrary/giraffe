@@ -5,7 +5,7 @@ structure GdkColor :>
     val getType_ = _import "gdk_color_get_type" : unit -> GObjectType.C.val_;
     val copy_ = _import "gdk_color_copy" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> GdkColorRecord.C.notnull GdkColorRecord.C.p;
     val equal_ = fn x1 & x2 => (_import "gdk_color_equal" : GdkColorRecord.C.notnull GdkColorRecord.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val hash_ = _import "gdk_color_hash" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> FFI.UInt32.C.val_;
+    val hash_ = _import "gdk_color_hash" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> FFI.UInt.C.val_;
     val toString_ = _import "gdk_color_to_string" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val parse_ =
       fn
@@ -26,7 +26,7 @@ structure GdkColor :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkColorRecord.C.withPtr ---> GdkColorRecord.C.fromPtr true) copy_ self
     fun equal self colorb = (GdkColorRecord.C.withPtr &&&> GdkColorRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & colorb)
-    fun hash self = (GdkColorRecord.C.withPtr ---> FFI.UInt32.C.fromVal) hash_ self
+    fun hash self = (GdkColorRecord.C.withPtr ---> FFI.UInt.C.fromVal) hash_ self
     fun toString self = (GdkColorRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
     fun parse spec =
       let

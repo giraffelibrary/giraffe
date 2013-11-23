@@ -25,7 +25,7 @@ structure GtkComboBoxText :>
         call (load_sym libgtk "gtk_combo_box_text_insert")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.String.PolyML.INOPTPTR
              &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
@@ -34,7 +34,7 @@ structure GtkComboBoxText :>
         call (load_sym libgtk "gtk_combo_box_text_insert_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              &&> FFI.String.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
@@ -47,7 +47,7 @@ structure GtkComboBoxText :>
              --> FFI.PolyML.VOID
           )
       val prependText_ = call (load_sym libgtk "gtk_combo_box_text_prepend_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val remove_ = call (load_sym libgtk "gtk_combo_box_text_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val remove_ = call (load_sym libgtk "gtk_combo_box_text_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val removeAll_ = call (load_sym libgtk "gtk_combo_box_text_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkComboBoxTextClass.t
@@ -79,7 +79,7 @@ structure GtkComboBoxText :>
     fun insert self position id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstOptPtr
          &&&> FFI.String.C.withConstPtr
          ---> I
@@ -94,7 +94,7 @@ structure GtkComboBoxText :>
     fun insertText self position text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          &&&> FFI.String.C.withConstPtr
          ---> I
       )
@@ -118,6 +118,6 @@ structure GtkComboBoxText :>
            & text
         )
     fun prependText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependText_ (self & text)
-    fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) remove_ (self & position)
+    fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) remove_ (self & position)
     fun removeAll self = (GObjectObjectClass.C.withPtr ---> I) removeAll_ self
   end

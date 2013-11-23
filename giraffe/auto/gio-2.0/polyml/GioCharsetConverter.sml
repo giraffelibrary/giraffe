@@ -16,7 +16,7 @@ structure GioCharsetConverter :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
+      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
@@ -39,7 +39,7 @@ structure GioCharsetConverter :>
            & fromCharset
            & []
         )
-    fun getNumFallbacks self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumFallbacks_ self
+    fun getNumFallbacks self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getNumFallbacks_ self
     fun getUseFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFallback_ self
     fun setUseFallback self useFallback = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFallback_ (self & useFallback)
     local

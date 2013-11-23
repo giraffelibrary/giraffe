@@ -33,17 +33,17 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
       val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val skip_ =
         call (load_sym libgio "g_input_stream_skip")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
       val skipFinish_ =
         call (load_sym libgio "g_input_stream_skip_finish")
@@ -51,7 +51,7 @@ structure GioInputStream :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+             --> FFI.SSize.PolyML.VAL
           )
     end
     type 'a class_t = 'a GioInputStreamClass.t
@@ -92,7 +92,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         readFinish_
         (
@@ -104,10 +104,10 @@ structure GioInputStream :>
     fun skip self count cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         skip_
         (
@@ -121,7 +121,7 @@ structure GioInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> FFI.SSize.C.fromVal
       )
         skipFinish_
         (

@@ -49,7 +49,7 @@ structure GLibKeyFile :>
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int32.PolyML.VAL
+             --> FFI.Int.PolyML.VAL
           )
       val getLocaleString_ =
         call (load_sym libglib "g_key_file_get_locale_string")
@@ -95,7 +95,7 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              &&> GLibKeyFileFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -172,7 +172,7 @@ structure GLibKeyFile :>
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
              &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setComment_ =
@@ -201,7 +201,7 @@ structure GLibKeyFile :>
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
              &&> FFI.Double.PolyML.VAL
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setInt64_ =
@@ -219,7 +219,7 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setIntegerList_ =
@@ -228,11 +228,11 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.PTR
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Int.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setListSeparator_ = call (load_sym libglib "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.PTR &&> FFI.UInt8.PolyML.VAL --> FFI.PolyML.VOID)
+      val setListSeparator_ = call (load_sym libglib "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.PTR &&> FFI.Char.PolyML.VAL --> FFI.PolyML.VOID)
       val setLocaleString_ =
         call (load_sym libglib "g_key_file_set_locale_string")
           (
@@ -251,7 +251,7 @@ structure GLibKeyFile :>
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
              &&> FFI.String.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
+             &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
           )
       val setString_ =
@@ -350,7 +350,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.Int32.C.fromVal
+         ---> FFI.Int.C.fromVal
       )
         getInteger_
         (
@@ -427,7 +427,7 @@ structure GLibKeyFile :>
       (
         GLibKeyFileRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -555,7 +555,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.Bool.C.withVal
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          ---> I
       )
         setBooleanList_
@@ -604,7 +604,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.Double.C.withVal
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          ---> I
       )
         setDoubleList_
@@ -635,7 +635,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
+         &&&> FFI.Int.C.withVal
          ---> I
       )
         setInteger_
@@ -650,8 +650,8 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Int.C.withVal
+         &&&> FFI.Size.C.withVal
          ---> I
       )
         setIntegerList_
@@ -662,7 +662,7 @@ structure GLibKeyFile :>
            & list
            & length
         )
-    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.UInt8.C.withVal ---> I) setListSeparator_ (self & separator)
+    fun setListSeparator self separator = (GLibKeyFileRecord.C.withPtr &&&> FFI.Char.C.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString self groupName key locale string =
       (
         GLibKeyFileRecord.C.withPtr
@@ -687,7 +687,7 @@ structure GLibKeyFile :>
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
          &&&> FFI.String.C.withConstPtr
-         &&&> FFI.UInt64.C.withVal
+         &&&> FFI.Size.C.withVal
          ---> I
       )
         setLocaleStringList_
