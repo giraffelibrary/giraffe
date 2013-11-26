@@ -293,8 +293,8 @@ structure GtkSourceGutterRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Float.C.withRefNewVal
-             &&&> FFI.Float.C.withRefNewVal
+             &&&> FFI.Float.C.withRefVal
+             &&&> FFI.Float.C.withRefVal
              ---> FFI.Float.C.fromVal
                    && FFI.Float.C.fromVal
                    && I
@@ -322,8 +322,8 @@ structure GtkSourceGutterRenderer :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int.C.withRefNewVal
-             &&&> FFI.Int.C.withRefNewVal
+             &&&> FFI.Int.C.withRefVal
+             &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
                    && FFI.Int.C.fromVal
                    && I

@@ -2682,10 +2682,7 @@ local
       withFunExp prefixIds {
         isRef = dir <> IN,
         isDup = false,
-        isNew =
-          case dir of
-            OUT isCallerAllocates => isCallerAllocates
-          | _                     => false,
+        isNew = false,
         isCon = false,
         isOpt = false,
         isPtr = false

@@ -394,8 +394,8 @@ structure PangoLayout :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.Int32.C.withRefNewVal
-             &&&> FFI.Int32.C.withRefNewVal
+             &&&> FFI.Int32.C.withRefVal
+             &&&> FFI.Int32.C.withRefVal
              ---> FFI.Int32.C.fromVal
                    && FFI.Int32.C.fromVal
                    && I
@@ -489,7 +489,7 @@ structure PangoLayout :>
              &&&> FFI.String.C.withConstPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Char.C.withVal
-             &&&> FFI.Char.C.withRefNewVal
+             &&&> FFI.Char.C.withRefVal
              ---> FFI.Char.C.fromVal && I
           )
             setMarkupWithAccel_
