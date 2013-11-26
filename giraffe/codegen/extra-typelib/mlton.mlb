@@ -12,5 +12,6 @@ in
   gtk-3.0/mlton.mlb
   pango-1.0/mlton.mlb
   pangocairo-1.0/mlton.mlb
+  gtksource-3.0/mlton.mlb
   vte-2.90/mlton.mlb
 end
