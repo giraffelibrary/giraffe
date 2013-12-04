@@ -14,6 +14,8 @@ in
   PANGO_ATTRIBUTE_RECORD.sml
   PANGO_ATTRIBUTE.sml
   PANGO_BIDI_TYPE.sml
+  PANGO_COLOR_RECORD.sml
+  PANGO_COLOR.sml
   PANGO_CONTEXT_CLASS.sml
   PANGO_CONTEXT.sml
   PANGO_COVERAGE_LEVEL.sml
@@ -44,6 +46,8 @@ in
   PANGO_LANGUAGE.sml
   PANGO_LAYOUT_CLASS.sml
   PANGO_LAYOUT.sml
+  PANGO_LAYOUT_ITER_RECORD.sml
+  PANGO_LAYOUT_ITER.sml
   PANGO_LAYOUT_LINE_RECORD.sml
   PANGO_LAYOUT_LINE.sml
   PANGO_MATRIX_RECORD.sml
@@ -69,6 +73,7 @@ in
   mlton/PangoAttrType.sml
   mlton/PangoAttributeRecord.sml
   mlton/PangoBidiType.sml
+  mlton/PangoColorRecord.sml
   mlton/PangoContextClass.sml
   mlton/PangoCoverageLevel.sml
   mlton/PangoDirection.sml
@@ -86,6 +91,7 @@ in
   mlton/PangoGravityHint.sml
   mlton/PangoLanguageRecord.sml
   mlton/PangoLayoutClass.sml
+  mlton/PangoLayoutIterRecord.sml
   mlton/PangoLayoutLineRecord.sml
   mlton/PangoMatrixRecord.sml
   mlton/PangoRectangleRecord.sml
@@ -101,6 +107,7 @@ in
   mlton/PangoWrapMode.sml
   mlton/PangoAttrList.sml
   mlton/PangoAttribute.sml
+  mlton/PangoColor.sml
   mlton/PangoFont.sml
   mlton/PangoFontFace.sml
   mlton/PangoFontFamily.sml
@@ -109,9 +116,12 @@ in
   mlton/PangoFontset.sml
   mlton/PangoGlyphItem.sml
   mlton/PangoGlyphString.sml
+  mlton/PangoLayout.sml
+  mlton/PangoLayoutIter.sml
   mlton/PangoLayoutLine.sml
   mlton/PangoMatrix.sml
   mlton/PangoRectangle.sml
+  mlton/PangoRenderer.sml
   mlton/PangoScript.sml
   mlton/PangoTabArray.sml
   mlton/PangoGravity.sml

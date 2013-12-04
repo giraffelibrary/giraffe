@@ -5,6 +5,7 @@ signature PANGO =
     structure AttrType : PANGO_ATTR_TYPE
     structure AttributeRecord : PANGO_ATTRIBUTE_RECORD
     structure BidiType : PANGO_BIDI_TYPE
+    structure ColorRecord : PANGO_COLOR_RECORD
     structure ContextClass : PANGO_CONTEXT_CLASS
     structure CoverageLevel : PANGO_COVERAGE_LEVEL
     structure Direction : PANGO_DIRECTION
@@ -22,6 +23,7 @@ signature PANGO =
     structure GravityHint : PANGO_GRAVITY_HINT
     structure LanguageRecord : PANGO_LANGUAGE_RECORD
     structure LayoutClass : PANGO_LAYOUT_CLASS
+    structure LayoutIterRecord : PANGO_LAYOUT_ITER_RECORD
     structure LayoutLineRecord : PANGO_LAYOUT_LINE_RECORD
     structure MatrixRecord : PANGO_MATRIX_RECORD
     structure RectangleRecord : PANGO_RECTANGLE_RECORD
@@ -42,6 +44,9 @@ signature PANGO =
     structure Attribute :
       PANGO_ATTRIBUTE
         where type record_t = AttributeRecord.t
+    structure Color :
+      PANGO_COLOR
+        where type record_t = ColorRecord.t
     structure Font :
       PANGO_FONT
         where type 'a class_t = 'a FontClass.t
@@ -81,6 +86,26 @@ signature PANGO =
         where type record_t = GlyphStringRecord.t
         where type rectanglerecord_t = RectangleRecord.t
         where type 'a fontclass_t = 'a FontClass.t
+    structure Layout :
+      PANGO_LAYOUT
+        where type 'a class_t = 'a LayoutClass.t
+        where type attrlistrecord_t = AttrListRecord.t
+        where type 'a contextclass_t = 'a ContextClass.t
+        where type layoutiterrecord_t = LayoutIterRecord.t
+        where type layoutlinerecord_t = LayoutLineRecord.t
+        where type rectanglerecord_t = RectangleRecord.t
+        where type alignment_t = Alignment.t
+        where type ellipsizemode_t = EllipsizeMode.t
+        where type fontdescriptionrecord_t = FontDescriptionRecord.t
+        where type tabarrayrecord_t = TabArrayRecord.t
+        where type wrapmode_t = WrapMode.t
+    structure LayoutIter :
+      PANGO_LAYOUT_ITER
+        where type record_t = LayoutIterRecord.t
+        where type 'a layoutclass_t = 'a LayoutClass.t
+        where type layoutlinerecord_t = LayoutLineRecord.t
+        where type rectanglerecord_t = RectangleRecord.t
+        where type glyphitemrecord_t = GlyphItemRecord.t
     structure LayoutLine :
       PANGO_LAYOUT_LINE
         where type record_t = LayoutLineRecord.t
@@ -91,6 +116,17 @@ signature PANGO =
     structure Rectangle :
       PANGO_RECTANGLE
         where type record_t = RectangleRecord.t
+    structure Renderer :
+      PANGO_RENDERER
+        where type 'a class_t = 'a RendererClass.t
+        where type glyphitemrecord_t = GlyphItemRecord.t
+        where type glyphstringrecord_t = GlyphStringRecord.t
+        where type 'a fontclass_t = 'a FontClass.t
+        where type 'a layoutclass_t = 'a LayoutClass.t
+        where type layoutlinerecord_t = LayoutLineRecord.t
+        where type colorrecord_t = ColorRecord.t
+        where type renderpart_t = RenderPart.t
+        where type matrixrecord_t = MatrixRecord.t
     structure Script :
       PANGO_SCRIPT
         where type languagerecord_t = LanguageRecord.t
