@@ -1,0 +1,8 @@
+1.0.0-alpha.3 (2014-12-19)
+
+    SML generated from GIR files:
+      - no longer platform-specific
+      - alias types included
+    Added support for Pango and GtkSourceView libraries.
+    Pid.t moved to GLib.Pid.t
+    FFI module for basic types restructured.
