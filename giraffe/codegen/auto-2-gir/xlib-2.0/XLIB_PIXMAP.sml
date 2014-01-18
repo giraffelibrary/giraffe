@@ -1,1 +1,0 @@
-signature XLIB_PIXMAP = F_F_I_SCALAR

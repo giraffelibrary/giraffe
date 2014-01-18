@@ -1,1 +1,0 @@
-structure XlibVisualID = FFI.ULong

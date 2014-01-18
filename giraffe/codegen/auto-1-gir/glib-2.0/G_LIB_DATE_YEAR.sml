@@ -1,1 +1,0 @@
-signature G_LIB_DATE_YEAR = F_F_I_SCALAR

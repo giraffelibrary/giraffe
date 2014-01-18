@@ -1,1 +1,0 @@
-structure GLibPid = FFI.Int

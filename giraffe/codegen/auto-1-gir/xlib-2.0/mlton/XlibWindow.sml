@@ -1,1 +1,0 @@
-structure XlibWindow = FFI.ULong
