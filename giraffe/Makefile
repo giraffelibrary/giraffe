@@ -125,6 +125,7 @@ MLTONCFLAGS := $(CFLAGS) -iquote "ffi" -iquote "auto"
 MLTONLIBS   := \
 	giraffe-glib-2.0 \
         giraffe-gobject-2.0 \
+        giraffe-pango-1.0 \
         giraffe-gdk-3.0 \
         giraffe-gtk-3.0 \
         giraffe-vte-2.90
