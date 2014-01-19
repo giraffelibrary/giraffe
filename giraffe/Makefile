@@ -84,6 +84,22 @@ endef
 
 CFLAGS := -DGIRAFFE_DEBUG -ggdb -std=c99 -O2
 
+# pkg-lookup maps a GIR module name (of the form namespace-version) to the
+# corresponding package name, given by <package name="..."> in the GIR file, for
+# use with pkg-config.  This function will also work with a list of names but
+# it is only used with single names below.
+define pkg-lookup
+$(strip \
+  $(if $(findstring glib-2.0,$(1)),glib-2.0) \
+  $(if $(findstring gobject-2.0,$(1)),gobject-2.0) \
+  $(if $(findstring girepository-2.0,$(1)),gobject-introspection-1.0) \
+  $(if $(findstring cairo-1.0,$(1)),cairo) \
+  $(if $(findstring pango-1.0,$(1)),pango) \
+  $(if $(findstring gdk-3.0,$(1)),gdk-3.0) \
+  $(if $(findstring gtk-3.0,$(1)),gtk+-3.0) \
+  $(if $(findstring vte-2.90,$(1)),vte-2.90))
+endef
+
 
 #   - MLton
 
@@ -110,12 +126,12 @@ MLTONLIBS   := \
 	giraffe-glib-2.0 \
         giraffe-gobject-2.0 \
         giraffe-gdk-3.0 \
-        giraffe-gtk+-3.0 \
+        giraffe-gtk-3.0 \
         giraffe-vte-2.90
 MLTONOFILES := $(patsubst %,auto/mlton/%.o,$(MLTONLIBS))
 
 $(MLTONOFILES) : auto/mlton/giraffe-%.o : auto/mlton/giraffe-%.c auto/mlton/giraffe.h ffi/mlton/gcharptrffi.h ffi/mlton/gcharptrptrffi.h
-	@$(CC) $(MLTONCFLAGS) -c -I$(MLTONINCLUDE) -o $@ `pkg-config --cflags $(patsubst auto/mlton/giraffe-%.c,%,$<)` $<
+	@$(CC) $(MLTONCFLAGS) -c -I$(MLTONINCLUDE) -o $@ `pkg-config --cflags $(call pkg-lookup,$(patsubst auto/mlton/giraffe-%.c,%,$<))` $<
 
 
 .PHONY : mlton
@@ -129,20 +145,20 @@ POLYMLCFLAGS := $(CFLAGS) -fPIC
 POLYMLLIBS   := \
 	giraffe-glib-2.0 \
         giraffe-gobject-2.0 \
-        giraffe-gobject-introspection-1.0 \
-        giraffe-cairo \
-        giraffe-pango \
+        giraffe-girepository-2.0 \
+        giraffe-cairo-1.0 \
+        giraffe-pango-1.0 \
         giraffe-gdk-3.0 \
-        giraffe-gtk+-3.0 \
+        giraffe-gtk-3.0 \
         giraffe-vte-2.90
 POLYMLOFILES  := $(patsubst %,auto/polyml/%.o,$(POLYMLLIBS))
 POLYMLSOFILES := $(patsubst %,auto/polyml/lib%.so,$(POLYMLLIBS))
 
 $(POLYMLOFILES) : auto/polyml/giraffe-%.o : auto/polyml/giraffe-%.c
-	@$(CC) $(POLYMLCFLAGS) -c -o $@ `pkg-config --cflags $(patsubst auto/polyml/giraffe-%.c,%,$<)` $<
+	@$(CC) $(POLYMLCFLAGS) -c -o $@ `pkg-config --cflags $(call pkg-lookup,$(patsubst auto/polyml/giraffe-%.c,%,$<))` $<
 
 $(POLYMLSOFILES) : auto/polyml/libgiraffe-%.so : auto/polyml/giraffe-%.o
-	@$(CC) -shared -Wl,-soname,auto/polyml/libgiraffe-glib.so.1 -o $@ `pkg-config --libs-only-l $(patsubst auto/polyml/giraffe-%.o,%,$<)` $<
+	@$(CC) -shared -Wl,-soname,auto/polyml/libgiraffe-glib.so.1 -o $@ `pkg-config --libs-only-l $(call pkg-lookup,$(patsubst auto/polyml/giraffe-%.o,%,$<))` $<
 
 
 .PHONY : polyml

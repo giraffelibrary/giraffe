@@ -26,7 +26,7 @@ Copy source code to the release directory.  Either:
     after cleaning up any generated files:
 
       cd ${REPODIR}/giraffe
-      make cleanall
+      make distclean
       cp -dpr ${REPODIR}/giraffe ${RELEASEDIR}
 
 
@@ -36,12 +36,12 @@ Remove non-release components:
   rm -rf codegen codegen.x86 graveyard doc/design gir
   rm -rf doc/user_guide  # just for now
   rm -rf auto/girepository-2.0
-  rm auto/polyml/giraffe-gobject-introspection-1.0.c
+  rm auto/polyml/giraffe-girepository-2.0.c
 
 
 Edit Makefile to remove the line:
 
-        giraffe-gobject-introspection-1.0 \
+        giraffe-girepository-2.0 \
 
 
 Make TAR file

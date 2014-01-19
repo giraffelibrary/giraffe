@@ -18,7 +18,7 @@ val libgiraffegobject = CInterface.load_lib "libgiraffe-gobject-2.0.so"
 val libgiraffecairo = CInterface.load_lib "libgiraffe-cairo.so"
 val libgiraffepango = CInterface.load_lib "libgiraffe-pango.so"
 val libgiraffegdk = CInterface.load_lib "libgiraffe-gdk-3.0.so"
-val libgiraffegtk = CInterface.load_lib "libgiraffe-gtk+-3.0.so"
+val libgiraffegtk = CInterface.load_lib "libgiraffe-gtk-3.0.so"
 val libgiraffevte = CInterface.load_lib "libgiraffe-vte-2.90.so"
 ;
 
