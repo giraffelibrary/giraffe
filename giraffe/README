@@ -3,7 +3,7 @@
  \_\|__|/_/
    \(o  o)      Giraffe Library
     |\ _|
-    |\`-'       SML bindings for C libraries with GIR support
+    |\`-'       Standard ML bindings for GObject-based libraries
     |/|
     |\|         http://www.giraffelibrary.org/
     |/|
@@ -14,8 +14,8 @@
  *                 Warning!  This is an unstable pre-release!                 *
  *                                                                            *
  * This release has limitations and omissions that may not be documented.     *
- * Furthermore, subsequent releases may introduce changes to the SML API that *
- * are incompatible with SML code using this release.                         *
+ * Furthermore, subsequent releases may introduce changes to the Standard ML  *
+ * API that are incompatible with code using this release.                    *
  *                                                                            *
  ******************************************************************************
 
@@ -28,63 +28,62 @@ This README file covers the following topics:
   5. Contact and support
 
 
-Full documentation is available in the User Manual at
+Full documentation is available in the User Guide at
 
-  http://www.giraffelibrary.org/doc/  **** not yet available ****
+  http://www.giraffelibrary.org/doc/
 
 
          ---------------          1.  Overview          ---------------
 
-Giraffe Library is a set of SML libraries that wrap existing C libraries, such
-as GTK+, making the capabilities of the C libraries available to SML programs.
-The SML libraries provide an abstracted view of the C libraries that is guided
-by general conventions and philosophies of SML, including
+Giraffe Library is a Standard ML library that provides an interface to
+GObject-based libraries, such as GTK+.  The interface introduces some
+abstraction of the libraries to provide expected features of Standard ML such
+as:
 
+  - automatic memory management (garbage collection)
   - type-safety
-  - automatic memory management
   - no uninitialized values
   - portable source code
-  - naming conventions following the SML Basis Library
 
-Most of the SML library source code is generated automatically using the GIR
-data of the C libraries.  Support is available for the following C libraries:
+For the most part, Giraffe Library is generated automatically from the GIR data
+of the libraries.  At present, interfaces to parts of the following libraries
+are available:
 
-  Pango
-  GTK+
-  VTE (Virtual Terminal Emulator)
-
-and some parts of GLib.  Details on the library coverage and limitations are
-given in the User Manual:
-
-  http://www.giraffelibrary.org/doc/???  **** not yet available ****
-
-Notably, there are no SML bindings for the Cairo library which does not use
-GIR.  Support is expected in future by writing SML bindings manually.
+  - GTK+
+  - Pango
+  - GtkSourceView
+  - VTE (Virtual Terminal Emulator)
 
 
          ---------------    2.  System Requirements     ---------------
 
-**** This pre-release requires Linux x86_64. ****
+Giraffe Library has been tested only on Fedora Linux i686 and x86_64 systems.
+However, in principle, any system that satisfies the following requirements
+should work.
 
-The following versions of SML compilers are supported:
+At least one of the following Standard ML compilers is required:
 
-  MLton    >= r7618
+  MLton    >= 20130715
   Poly/ML  >= 5.5.0
 
 The following libraries are required:
 
-  GLib
-  Pango
   GTK+           >= 3.2.0
+  Pango          >= 1.30.0
+  GtkSourceView  >= 3.2.3
   VTE            >= 2.90
 
-**** In this pre-release, these libraries are not optional. ****
+with the same major (most significant) version number.  Other versions may still
+work depending on the functions actually used.
+
+Other standard tools are required:
+  - An ANSI C compiler, such as GCC.
+  - Common GNU utilites, such as Make and Bash.
 
 
          ---------------        3.  Installation        ---------------
 
 See the file 'INSTALL'.
-
 
 
          ---------------          4.  Licence           ---------------
@@ -96,9 +95,8 @@ A copy of the GNU GPL and the (additional terms of) the GNU LGPL are provided in
 the files 'COPYING' and 'COPYING.LESSER' respectively.
 
 
-
          ---------------    5.  Contact and support     ---------------
 
 For queries, please email
 
-  Phil Clayton <phil.clayton@lineone.net>
+  Phil Clayton <phil.clayton@veonix.com>

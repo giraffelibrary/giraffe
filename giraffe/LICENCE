@@ -1,5 +1,5 @@
-Giraffe Library - SML bindings for C libraries with GIR metadata
-Copyright (C) 2012  Phil Clayton <phil.clayton@lineone.net>
+Giraffe Library runtime
+Copyright (C) 2012-2014 Phil Clayton <phil.clayton@veonix.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
