@@ -1,8 +1,9 @@
 signature GTK_CELL_LAYOUT =
   sig
     type 'a class_t
-    type 'a cellrendererclass_t
     type 'a cellareaclass_t
+    type 'a cellrendererclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addAttribute :
       'a class_t

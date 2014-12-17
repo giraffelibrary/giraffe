@@ -357,6 +357,7 @@ structure GtkTextBuffer :>
     type 'a texttagclass_t = 'a GtkTextTagClass.t
     type targetlistrecord_t = GtkTargetListRecord.t
     type 'a texttagtableclass_t = 'a GtkTextTagTableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkTextBufferClass.C.fromPtr true) new_ table
     fun addMark self mark where' =

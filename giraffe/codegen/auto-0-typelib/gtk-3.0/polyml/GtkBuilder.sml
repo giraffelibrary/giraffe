@@ -39,6 +39,7 @@ structure GtkBuilder :>
           )
     end
     type 'a class_t = 'a GtkBuilderClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkBuilderClass.C.fromPtr true) new_ ()
     fun addFromFile self filename =

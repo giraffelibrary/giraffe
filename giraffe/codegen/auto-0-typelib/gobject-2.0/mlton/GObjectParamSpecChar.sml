@@ -6,5 +6,6 @@ structure GObjectParamSpecChar :>
     val getType_ = _import "intern" : unit -> GObjectType.C.val_;
     type 'a class_t = 'a GObjectParamSpecCharClass.t
     type type_t = GObjectType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

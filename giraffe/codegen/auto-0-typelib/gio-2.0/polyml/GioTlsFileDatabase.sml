@@ -11,6 +11,7 @@ structure GioTlsFileDatabase :>
     end
     type 'a class_t = 'a GioTlsFileDatabaseClass.t
     type 'a tlsdatabaseclass_t = 'a GioTlsDatabaseClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new anchors = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
     local

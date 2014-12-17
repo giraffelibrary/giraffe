@@ -68,6 +68,7 @@ structure GtkPaperSize :>
     end
     type record_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (FFI.String.C.withConstOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
     fun newCustom name displayName width height unit =

@@ -9,6 +9,7 @@ structure GioFilterOutputStream :>
     val setCloseBaseStream_ = fn x1 & x2 => (_import "g_filter_output_stream_set_close_base_stream" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioFilterOutputStreamClass.t
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBaseStream self = (GObjectObjectClass.C.withPtr ---> GioOutputStreamClass.C.fromPtr false) getBaseStream_ self
     fun getCloseBaseStream self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCloseBaseStream_ self

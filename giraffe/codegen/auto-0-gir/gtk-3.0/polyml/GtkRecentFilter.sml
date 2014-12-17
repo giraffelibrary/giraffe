@@ -25,6 +25,7 @@ structure GtkRecentFilter :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type recentfilterinforecord_t = GtkRecentFilterInfoRecord.t
     type recentfilterflags_t = GtkRecentFilterFlags.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentFilterClass.C.fromPtr false) new_ ()

@@ -19,6 +19,7 @@ structure AtkDocument :>
           )
     end
     type 'a class_t = 'a AtkDocumentClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getAttributeValue_ (self & attributeName)
     fun getDocumentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDocumentType_ self

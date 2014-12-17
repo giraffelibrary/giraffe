@@ -1,9 +1,10 @@
 signature GTK_TREE_MODEL =
   sig
     type 'a class_t
-    type treepathrecord_t
-    type treeiterrecord_t
     type treemodelflags_t
+    type treeiterrecord_t
+    type treepathrecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val filterNew :
       'a class_t

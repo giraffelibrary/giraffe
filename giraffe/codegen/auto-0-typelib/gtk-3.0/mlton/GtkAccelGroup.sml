@@ -95,6 +95,7 @@ structure GtkAccelGroup :>
     val unlock_ = _import "gtk_accel_group_unlock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkAccelGroupClass.t
     type accelflags_t = GtkAccelFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.C.fromPtr true) new_ ()
     fun fromAccelClosure closure = (GObjectClosureRecord.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) fromAccelClosure_ closure

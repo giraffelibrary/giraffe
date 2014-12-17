@@ -148,6 +148,7 @@ structure GtkUIManager :>
     type 'a actiongroupclass_t = 'a GtkActionGroupClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type 'a actionclass_t = 'a GtkActionClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkUIManagerClass.C.fromPtr true) new_ ()

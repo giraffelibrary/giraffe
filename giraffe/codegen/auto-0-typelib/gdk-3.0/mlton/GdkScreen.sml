@@ -90,6 +90,7 @@ structure GdkScreen :>
     type 'a displayclass_t = 'a GdkDisplayClass.t
     type 'a windowclass_t = 'a GdkWindowClass.t
     type 'a visualclass_t = 'a GdkVisualClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkScreenClass.C.fromPtr false) getDefault_ ()
     fun height () = (I ---> FFI.Int32.C.fromVal) height_ ()

@@ -173,6 +173,7 @@ structure GtkSpinButton :>
     type scrolltype_t = GtkScrollType.t
     type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
     type spinbuttonupdatepolicy_t = GtkSpinButtonUpdatePolicy.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self

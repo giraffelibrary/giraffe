@@ -33,6 +33,7 @@ structure GioLoadableIcon :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun load self size cancellable =
       let

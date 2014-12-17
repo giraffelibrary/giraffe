@@ -9,6 +9,7 @@ structure GtkSpinner :>
     val stop_ = _import "gtk_spinner_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkSpinnerClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

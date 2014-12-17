@@ -9,6 +9,7 @@ structure AtkValue :>
     val getMinimumValue_ = fn x1 & x2 => (_import "atk_value_get_minimum_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> unit;) (x1, x2)
     val setCurrentValue_ = fn x1 & x2 => (_import "atk_value_set_current_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     type 'a class_t = 'a AtkValueClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getCurrentValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getCurrentValue_ (self & value)
     fun getMaximumValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMaximumValue_ (self & value)

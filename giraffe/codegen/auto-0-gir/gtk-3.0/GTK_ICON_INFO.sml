@@ -1,8 +1,9 @@
 signature GTK_ICON_INFO =
   sig
     type record_t
-    type 'a stylecontextclass_t
     type 'a iconthemeclass_t
+    type 'a stylecontextclass_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val newForPixbuf :
       'a iconthemeclass_t

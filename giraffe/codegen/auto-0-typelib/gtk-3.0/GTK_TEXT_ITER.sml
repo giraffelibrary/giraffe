@@ -1,11 +1,12 @@
 signature GTK_TEXT_ITER =
   sig
     type record_t
-    type 'a texttagclass_t
-    type 'a textchildanchorclass_t
-    type 'a textbufferclass_t
-    type textattributesrecord_t
     type textsearchflags_t
+    type textattributesrecord_t
+    type 'a textbufferclass_t
+    type 'a textchildanchorclass_t
+    type 'a texttagclass_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val assign :
       record_t

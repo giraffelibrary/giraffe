@@ -10,6 +10,7 @@ structure GtkTextChildAnchor :>
       val getDeleted_ = call (load_sym libgtk "gtk_text_child_anchor_get_deleted") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GtkTextChildAnchorClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTextChildAnchorClass.C.fromPtr true) new_ ()
     fun getDeleted self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDeleted_ self

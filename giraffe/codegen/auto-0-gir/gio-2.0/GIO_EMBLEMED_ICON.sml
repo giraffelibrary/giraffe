@@ -1,8 +1,9 @@
 signature GIO_EMBLEMED_ICON =
   sig
     type 'a class_t
-    type 'a iconclass_t
     type 'a emblemclass_t
+    type 'a iconclass_t
+    type t = base class_t
     val asIcon : 'a class_t -> base iconclass_t
     val getType : unit -> GObject.Type.t
     val new :

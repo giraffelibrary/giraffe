@@ -52,6 +52,7 @@ structure GioSeekable :>
             )
     type 'a class_t = 'a GioSeekableClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canSeek self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canSeek_ self
     fun canTruncate self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canTruncate_ self

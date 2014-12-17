@@ -9,6 +9,7 @@ structure GtkCellRendererPixbuf :>
       val new_ = call (load_sym libgtk "gtk_cell_renderer_pixbuf_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkCellRendererPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererPixbufClass.C.fromPtr false) new_ ()
     local

@@ -18,6 +18,7 @@ structure GLibError :>
     end
     type record_t = GLibErrorRecord.t
     type quark_t = GLibQuark.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun matches self domain code =
       (

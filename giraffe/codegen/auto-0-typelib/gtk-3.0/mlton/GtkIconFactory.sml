@@ -46,6 +46,7 @@ structure GtkIconFactory :>
     type 'a class_t = 'a GtkIconFactoryClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type iconsetrecord_t = GtkIconSetRecord.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconFactoryClass.C.fromPtr true) new_ ()

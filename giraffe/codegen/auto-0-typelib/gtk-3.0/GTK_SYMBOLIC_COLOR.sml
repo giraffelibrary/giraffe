@@ -2,6 +2,7 @@ signature GTK_SYMBOLIC_COLOR =
   sig
     type record_t
     type 'a stylepropertiesclass_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val newAlpha :
       record_t

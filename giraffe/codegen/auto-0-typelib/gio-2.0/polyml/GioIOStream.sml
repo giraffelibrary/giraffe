@@ -39,6 +39,7 @@ structure GioIOStream :>
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun spliceFinish result = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spliceFinish_ (result & [])
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self

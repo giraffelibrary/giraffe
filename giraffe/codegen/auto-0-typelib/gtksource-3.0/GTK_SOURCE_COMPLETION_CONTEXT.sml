@@ -1,8 +1,9 @@
 signature GTK_SOURCE_COMPLETION_CONTEXT =
   sig
     type 'a class_t
-    type 'a completionclass_t
     type completionactivation_t
+    type 'a completionclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getActivation : 'a class_t -> completionactivation_t
     val getIter : 'a class_t -> Gtk.TextIterRecord.t

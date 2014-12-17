@@ -50,6 +50,7 @@ structure GtkFileChooserButton :>
     type filechooseraction_t = GtkFileChooserAction.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type 'a filechooserclass_t = 'a GtkFileChooserClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asFileChooser self = (GObjectObjectClass.C.withPtr ---> GtkFileChooserClass.C.fromPtr false) I self

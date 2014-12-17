@@ -2,6 +2,7 @@ signature GIO_THEMED_ICON =
   sig
     type 'a class_t
     type 'a iconclass_t
+    type t = base class_t
     val asIcon : 'a class_t -> base iconclass_t
     val getType : unit -> GObject.Type.t
     val new : string -> base iconclass_t

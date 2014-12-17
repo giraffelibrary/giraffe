@@ -162,6 +162,7 @@ structure PangoLayout :>
     type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
     type tabarrayrecord_t = PangoTabArrayRecord.t
     type wrapmode_t = PangoWrapMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new context = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr true) new_ context
     fun contextChanged self = (GObjectObjectClass.C.withPtr ---> I) contextChanged_ self

@@ -10,5 +10,6 @@ structure GObjectParamSpecOverride :>
     end
     type 'a class_t = 'a GObjectParamSpecOverrideClass.t
     type type_t = GObjectType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

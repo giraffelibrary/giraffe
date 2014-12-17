@@ -8,6 +8,7 @@ structure GtkRecentChooserDialog :>
     type 'a class_t = 'a GtkRecentChooserDialogClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a recentchooserclass_t = 'a GtkRecentChooserClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self

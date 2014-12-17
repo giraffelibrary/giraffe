@@ -41,6 +41,7 @@ structure GtkSourceGutterRendererPixbuf :>
               x3
             )
     type 'a class_t = 'a GtkSourceGutterRendererPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererPixbufClass.C.fromPtr true) new_ ()
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self

@@ -35,6 +35,7 @@ structure GtkClipboard :>
     type 'a class_t = 'a GtkClipboardClass.t
     type selectiondatarecord_t = GtkSelectionDataRecord.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get selection = (GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) get_ selection
     fun getForDisplay display selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) getForDisplay_ (display & selection)

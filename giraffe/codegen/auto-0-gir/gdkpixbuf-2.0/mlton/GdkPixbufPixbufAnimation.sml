@@ -28,6 +28,7 @@ structure GdkPixbufPixbufAnimation :>
     type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
     type 'a pixbufanimationiterclass_t = 'a GdkPixbufPixbufAnimationIterClass.t
     type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile filename = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self

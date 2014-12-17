@@ -3,4 +3,5 @@ structure PangoRectangle :>
     where type record_t = PangoRectangleRecord.t =
   struct
     type record_t = PangoRectangleRecord.t
+    type t = record_t
   end

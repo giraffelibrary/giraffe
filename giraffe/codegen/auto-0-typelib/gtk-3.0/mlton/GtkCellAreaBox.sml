@@ -61,6 +61,7 @@ structure GtkCellAreaBox :>
     type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
     type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

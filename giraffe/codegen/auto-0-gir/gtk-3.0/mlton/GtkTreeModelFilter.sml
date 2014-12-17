@@ -52,6 +52,7 @@ structure GtkTreeModelFilter :>
     type treeiterrecord_t = GtkTreeIterRecord.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
     type treepathrecord_t = GtkTreePathRecord.t
+    type t = base class_t
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
     fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

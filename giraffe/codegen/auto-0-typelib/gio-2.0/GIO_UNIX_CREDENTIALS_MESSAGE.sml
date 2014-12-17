@@ -2,6 +2,7 @@ signature GIO_UNIX_CREDENTIALS_MESSAGE =
   sig
     type 'a class_t
     type 'a credentialsclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newWithCredentials : 'a credentialsclass_t -> base class_t

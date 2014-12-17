@@ -3,4 +3,5 @@ structure GdkKeymapKey :>
     where type record_t = GdkKeymapKeyRecord.t =
   struct
     type record_t = GdkKeymapKeyRecord.t
+    type t = record_t
   end

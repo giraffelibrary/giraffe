@@ -1,10 +1,11 @@
 signature GTK_TEXT_TAG =
   sig
     type 'a class_t
-    type wrapmode_t
-    type justification_t
-    type textdirection_t
     type textiterrecord_t
+    type textdirection_t
+    type justification_t
+    type wrapmode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : string option -> base class_t
     val event :

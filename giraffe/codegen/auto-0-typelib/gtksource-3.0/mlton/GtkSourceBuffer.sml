@@ -192,6 +192,7 @@ structure GtkSourceBuffer :>
     type 'a languageclass_t = 'a GtkSourceLanguageClass.t
     type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t
     type 'a undomanagerclass_t = 'a GtkSourceUndoManagerClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table
     fun newWithLanguage language = (GObjectObjectClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr true) newWithLanguage_ language

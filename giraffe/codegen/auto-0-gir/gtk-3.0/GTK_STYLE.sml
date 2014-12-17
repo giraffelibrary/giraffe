@@ -1,12 +1,13 @@
 signature GTK_STYLE =
   sig
     type 'a class_t
-    type 'a stylecontextclass_t
-    type statetype_t
-    type iconsourcerecord_t
-    type textdirection_t
-    type 'a widgetclass_t
     type iconsetrecord_t
+    type 'a widgetclass_t
+    type textdirection_t
+    type iconsourcerecord_t
+    type statetype_t
+    type 'a stylecontextclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val applyDefaultBackground :
       'a class_t

@@ -12,6 +12,7 @@ structure GtkOrientable :>
     end
     type 'a class_t = 'a GtkOrientableClass.t
     type orientation_t = GtkOrientation.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
     fun setOrientation self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> I) setOrientation_ (self & orientation)

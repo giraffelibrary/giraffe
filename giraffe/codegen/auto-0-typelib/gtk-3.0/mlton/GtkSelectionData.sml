@@ -39,6 +39,7 @@ structure GtkSelectionData :>
     val targetsIncludeUri_ = _import "gtk_selection_data_targets_include_uri" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Bool.C.val_;
     type record_t = GtkSelectionDataRecord.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) copy_ self
     fun getDataType self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getDataType_ self

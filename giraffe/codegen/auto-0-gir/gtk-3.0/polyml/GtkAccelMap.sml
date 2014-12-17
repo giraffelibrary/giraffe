@@ -36,6 +36,7 @@ structure GtkAccelMap :>
     end
     type 'a class_t = 'a GtkAccelMapClass.t
     type accelkeyrecord_t = GtkAccelKeyRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =
       (

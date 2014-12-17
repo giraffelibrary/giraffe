@@ -42,6 +42,7 @@ structure GtkIconInfo :>
     type record_t = GtkIconInfoRecord.t
     type 'a iconthemeclass_t = 'a GtkIconThemeClass.t
     type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForPixbuf iconTheme pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) copy_ self

@@ -12,6 +12,7 @@ structure AtkGObjectAccessible :>
     end
     type 'a class_t = 'a AtkGObjectAccessibleClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forObject obj = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) forObject_ obj
     fun getObject self = (GObjectObjectClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ self

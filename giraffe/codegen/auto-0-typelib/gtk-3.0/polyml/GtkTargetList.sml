@@ -39,6 +39,7 @@ structure GtkTargetList :>
     end
     type record_t = GtkTargetListRecord.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun add self target flags info =
       (

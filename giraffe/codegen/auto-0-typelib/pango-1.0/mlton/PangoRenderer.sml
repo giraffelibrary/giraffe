@@ -237,6 +237,7 @@ structure PangoRenderer :>
     type colorrecord_t = PangoColorRecord.t
     type renderpart_t = PangoRenderPart.t
     type matrixrecord_t = PangoMatrixRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun deactivate self = (GObjectObjectClass.C.withPtr ---> I) deactivate_ self

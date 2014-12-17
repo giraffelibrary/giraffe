@@ -9,6 +9,7 @@ structure GtkCellRendererCombo :>
     type 'a class_t = 'a GtkCellRendererComboClass.t
     type treeiterrecord_t = GtkTreeIterRecord.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererComboClass.C.fromPtr false) new_ ()
     local

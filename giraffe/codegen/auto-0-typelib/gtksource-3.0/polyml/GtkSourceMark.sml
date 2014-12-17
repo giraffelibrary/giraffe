@@ -12,6 +12,7 @@ structure GtkSourceMark :>
       val prev_ = call (load_sym libgtksourceview "gtk_source_mark_prev") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkSourceMarkClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name category = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> GtkSourceMarkClass.C.fromPtr true) new_ (name & category)
     fun getCategory self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCategory_ self

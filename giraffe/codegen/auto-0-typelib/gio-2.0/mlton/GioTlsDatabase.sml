@@ -160,6 +160,7 @@ structure GioTlsDatabase :>
     type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
     type tlscertificateflags_t = GioTlsCertificateFlags.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =

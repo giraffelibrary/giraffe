@@ -122,6 +122,7 @@ structure GtkRecentManager :>
     type 'a class_t = 'a GtkRecentManagerClass.t
     type recentdatarecord_t = GtkRecentDataRecord.t
     type recentinforecord_t = GtkRecentInfoRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkRecentManagerClass.C.fromPtr false) getDefault_ ()

@@ -1,11 +1,12 @@
 signature GTK_FILE_CHOOSER_BUTTON =
   sig
     type 'a class_t
-    type 'a filechooserclass_t
-    type 'a widgetclass_t
-    type filechooseraction_t
-    type 'a orientableclass_t
     type 'a buildableclass_t
+    type 'a orientableclass_t
+    type filechooseraction_t
+    type 'a widgetclass_t
+    type 'a filechooserclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asFileChooser : 'a class_t -> base filechooserclass_t

@@ -32,6 +32,7 @@ structure GioDBusObjectManagerClient :>
     type bustype_t = GioBusType.t
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
     type dbusobjectmanagerclientflags_t = GioDBusObjectManagerClientFlags.t
+    type t = base class_t
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self

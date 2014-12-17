@@ -38,6 +38,7 @@ structure GioThemedIcon :>
             )
     type 'a class_t = 'a GioThemedIconClass.t
     type 'a iconclass_t = 'a GioIconClass.t
+    type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new iconname = (FFI.String.C.withConstPtr ---> GioIconClass.C.fromPtr true) new_ iconname

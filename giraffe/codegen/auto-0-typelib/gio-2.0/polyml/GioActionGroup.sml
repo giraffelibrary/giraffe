@@ -48,6 +48,7 @@ structure GioActionGroup :>
       val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioActionGroupClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =

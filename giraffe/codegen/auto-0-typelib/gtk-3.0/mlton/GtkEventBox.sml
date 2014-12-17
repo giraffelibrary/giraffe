@@ -11,6 +11,7 @@ structure GtkEventBox :>
     val setVisibleWindow_ = fn x1 & x2 => (_import "gtk_event_box_set_visible_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkEventBoxClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

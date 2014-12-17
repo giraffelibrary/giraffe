@@ -16,6 +16,7 @@ structure GioBufferedOutputStream :>
     end
     type 'a class_t = 'a GioBufferedOutputStreamClass.t
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
     fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)

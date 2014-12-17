@@ -49,6 +49,7 @@ structure GioResolver :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a inetaddressclass_t = 'a GioInetAddressClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioResolverClass.C.fromPtr true) getDefault_ ()
     fun lookupByAddress self address cancellable =

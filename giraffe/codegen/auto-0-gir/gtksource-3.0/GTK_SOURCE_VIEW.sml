@@ -1,12 +1,13 @@
 signature GTK_SOURCE_VIEW =
   sig
     type 'a class_t
-    type smarthomeendtype_t
-    type drawspacesflags_t
-    type 'a completionclass_t
-    type 'a markattributesclass_t
-    type 'a gutterclass_t
     type 'a bufferclass_t
+    type 'a gutterclass_t
+    type 'a markattributesclass_t
+    type 'a completionclass_t
+    type drawspacesflags_t
+    type smarthomeendtype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
     val asScrollable : 'a class_t -> base Gtk.ScrollableClass.t

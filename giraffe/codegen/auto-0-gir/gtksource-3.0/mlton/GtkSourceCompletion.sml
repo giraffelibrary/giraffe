@@ -53,6 +53,7 @@ structure GtkSourceCompletion :>
     type 'a completionproviderclass_t = 'a GtkSourceCompletionProviderClass.t
     type 'a completioncontextclass_t = 'a GtkSourceCompletionContextClass.t
     type 'a viewclass_t = 'a GtkSourceViewClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addProvider self provider =
       (

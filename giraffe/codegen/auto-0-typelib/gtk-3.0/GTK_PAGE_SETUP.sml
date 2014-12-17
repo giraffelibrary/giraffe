@@ -1,9 +1,10 @@
 signature GTK_PAGE_SETUP =
   sig
     type 'a class_t
-    type unit_t
-    type papersizerecord_t
     type pageorientation_t
+    type papersizerecord_t
+    type unit_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newFromFile : string -> base class_t

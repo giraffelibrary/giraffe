@@ -1,8 +1,9 @@
 signature GIO_SETTINGS =
   sig
     type 'a class_t
-    type settingsbindflags_t
     type settingsbackendrecord_t
+    type settingsbindflags_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t
     val newWithBackend :

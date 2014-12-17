@@ -99,6 +99,7 @@ structure GioSocketListener :>
     type sockettype_t = GioSocketType.t
     type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
     type 'a socketclass_t = 'a GioSocketClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketListenerClass.C.fromPtr true) new_ ()
     fun accept self cancellable =

@@ -1,6 +1,7 @@
 signature GTK_SOURCE_LANGUAGE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getHidden : 'a class_t -> bool
     val getId : 'a class_t -> string

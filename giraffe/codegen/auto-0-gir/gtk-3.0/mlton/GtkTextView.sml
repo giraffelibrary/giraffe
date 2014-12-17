@@ -397,6 +397,7 @@ structure GtkTextView :>
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
     type justification_t = GtkJustification.t
     type wrapmode_t = GtkWrapMode.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

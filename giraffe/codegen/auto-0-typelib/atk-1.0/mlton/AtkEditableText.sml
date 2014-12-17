@@ -71,6 +71,7 @@ structure AtkEditableText :>
               x3
             )
     type 'a class_t = 'a AtkEditableTextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyText self startPos endPos =
       (

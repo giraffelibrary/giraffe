@@ -2,6 +2,7 @@ signature PANGO_TAB_ARRAY =
   sig
     type record_t
     type tabalign_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int

@@ -29,6 +29,7 @@ structure AtkRelationSet :>
     type 'a objectclass_t = 'a AtkObjectClass.t
     type relationtype_t = AtkRelationType.t
     type 'a relationclass_t = 'a AtkRelationClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkRelationSetClass.C.fromPtr true) new_ ()
     fun add self relation = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & relation)

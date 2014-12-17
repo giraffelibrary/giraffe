@@ -12,6 +12,7 @@ structure GdkPixbufPixbufFormat :>
     val isWritable_ = _import "gdk_pixbuf_format_is_writable" : GdkPixbufPixbufFormatRecord.C.notnull GdkPixbufPixbufFormatRecord.C.p -> FFI.Bool.C.val_;
     val setDisabled_ = fn x1 & x2 => (_import "gdk_pixbuf_format_set_disabled" : GdkPixbufPixbufFormatRecord.C.notnull GdkPixbufPixbufFormatRecord.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type record_t = GdkPixbufPixbufFormatRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) copy_ self
     fun getDescription self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> FFI.String.C.fromPtr true) getDescription_ self

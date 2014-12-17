@@ -1,9 +1,10 @@
 signature G_OBJECT_BINDING =
   sig
     type 'a class_t
-    type 'a objectclass_t
-    type bindingflags_t
     type type_t
+    type bindingflags_t
+    type 'a objectclass_t
+    type t = base class_t
     type ('object, 'a) property_readonly
     type ('object, 'a) property_writeonly
     type ('object, 'a, 'b) property_readwrite

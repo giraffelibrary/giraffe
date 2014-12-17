@@ -52,6 +52,7 @@ structure PangoFontMap :>
     type languagerecord_t = PangoLanguageRecord.t
     type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
     type 'a contextclass_t = 'a PangoContextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createContext_ self
     fun loadFont self context desc =

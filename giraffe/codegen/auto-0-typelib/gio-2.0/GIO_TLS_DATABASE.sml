@@ -1,14 +1,15 @@
 signature GIO_TLS_DATABASE =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
-    type tlscertificateflags_t
-    type 'a tlscertificateclass_t
-    type 'a socketconnectableclass_t
-    type 'a tlsinteractionclass_t
-    type tlsdatabaseverifyflags_t
-    type 'a cancellableclass_t
     type tlsdatabaselookupflags_t
+    type 'a cancellableclass_t
+    type tlsdatabaseverifyflags_t
+    type 'a tlsinteractionclass_t
+    type 'a socketconnectableclass_t
+    type 'a tlscertificateclass_t
+    type tlscertificateflags_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val createCertificateHandle :
       'a class_t

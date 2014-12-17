@@ -10,6 +10,7 @@ structure GioProxyResolver :>
       val isSupported_ = call (load_sym libgio "g_proxy_resolver_is_supported") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioProxyResolverClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioProxyResolverClass.C.fromPtr false) getDefault_ ()
     fun isSupported self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isSupported_ self

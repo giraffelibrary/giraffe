@@ -35,6 +35,7 @@ structure GtkTextTag :>
     type textdirection_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
     type wrapmode_t = GtkWrapMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =

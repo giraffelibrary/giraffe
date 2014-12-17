@@ -13,6 +13,7 @@ structure GtkAccessible :>
     end
     type 'a class_t = 'a GtkAccessibleClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun connectWidgetDestroyed self = (GObjectObjectClass.C.withPtr ---> I) connectWidgetDestroyed_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self

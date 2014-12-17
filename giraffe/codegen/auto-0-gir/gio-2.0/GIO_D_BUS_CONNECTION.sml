@@ -1,19 +1,20 @@
 signature GIO_D_BUS_CONNECTION =
   sig
     type 'a class_t
-    type 'a iostreamclass_t
-    type dbusconnectionflags_t
-    type dbuscapabilityflags_t
-    type 'a dbusauthobserverclass_t
-    type 'a dbusmessageclass_t
-    type dbussendmessageflags_t
-    type 'a cancellableclass_t
-    type 'a asyncresultclass_t
-    type 'a credentialsclass_t
-    type dbuscallflags_t
-    type 'a unixfdlistclass_t
-    type 'a initableclass_t
     type 'a asyncinitableclass_t
+    type 'a initableclass_t
+    type 'a unixfdlistclass_t
+    type dbuscallflags_t
+    type 'a credentialsclass_t
+    type 'a asyncresultclass_t
+    type 'a cancellableclass_t
+    type dbussendmessageflags_t
+    type 'a dbusmessageclass_t
+    type 'a dbusauthobserverclass_t
+    type dbuscapabilityflags_t
+    type dbusconnectionflags_t
+    type 'a iostreamclass_t
+    type t = base class_t
     val asAsyncInitable : 'a class_t -> base asyncinitableclass_t
     val asInitable : 'a class_t -> base initableclass_t
     val getType : unit -> GObject.Type.t

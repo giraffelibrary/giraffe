@@ -1,23 +1,24 @@
 signature GIO_FILE =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
-    type 'a cancellableclass_t
-    type 'a fileinfoclass_t
-    type filequeryinfoflags_t
-    type 'a fileiostreamclass_t
-    type filecreateflags_t
-    type 'a fileoutputstreamclass_t
-    type 'a fileinputstreamclass_t
-    type fileattributeinfolistrecord_t
-    type filetype_t
-    type 'a appinfoclass_t
-    type filemonitorflags_t
-    type 'a filemonitorclass_t
-    type 'a iconclass_t
-    type 'a mountclass_t
-    type 'a fileenumeratorclass_t
     type filecopyflags_t
+    type 'a fileenumeratorclass_t
+    type 'a mountclass_t
+    type 'a iconclass_t
+    type 'a filemonitorclass_t
+    type filemonitorflags_t
+    type 'a appinfoclass_t
+    type filetype_t
+    type fileattributeinfolistrecord_t
+    type 'a fileinputstreamclass_t
+    type 'a fileoutputstreamclass_t
+    type filecreateflags_t
+    type 'a fileiostreamclass_t
+    type filequeryinfoflags_t
+    type 'a fileinfoclass_t
+    type 'a cancellableclass_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val newForCommandlineArg : string -> base class_t
     val newForPath : string -> base class_t

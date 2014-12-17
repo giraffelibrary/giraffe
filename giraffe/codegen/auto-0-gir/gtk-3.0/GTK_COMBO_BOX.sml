@@ -1,14 +1,15 @@
 signature GTK_COMBO_BOX =
   sig
     type 'a class_t
-    type 'a treemodelclass_t
-    type 'a cellareaclass_t
-    type sensitivitytype_t
-    type scrolltype_t
-    type treeiterrecord_t
-    type 'a celllayoutclass_t
-    type 'a celleditableclass_t
     type 'a buildableclass_t
+    type 'a celleditableclass_t
+    type 'a celllayoutclass_t
+    type treeiterrecord_t
+    type scrolltype_t
+    type sensitivitytype_t
+    type 'a cellareaclass_t
+    type 'a treemodelclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellEditable : 'a class_t -> base celleditableclass_t

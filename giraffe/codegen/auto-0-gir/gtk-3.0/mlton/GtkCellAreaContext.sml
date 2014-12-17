@@ -150,6 +150,7 @@ structure GtkCellAreaContext :>
     val reset_ = _import "gtk_cell_area_context_reset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkCellAreaContextClass.t
     type 'a cellareaclass_t = 'a GtkCellAreaClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun allocate self width height =
       (

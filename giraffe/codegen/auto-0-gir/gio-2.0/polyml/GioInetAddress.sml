@@ -27,6 +27,7 @@ structure GioInetAddress :>
     end
     type 'a class_t = 'a GioInetAddressClass.t
     type socketfamily_t = GioSocketFamily.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
     fun newFromString string = (FFI.String.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string

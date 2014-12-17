@@ -271,6 +271,7 @@ structure GioDataInputStream :>
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     type datastreambyteorder_t = GioDataStreamByteOrder.t
     type datastreamnewlinetype_t = GioDataStreamNewlineType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
     fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self

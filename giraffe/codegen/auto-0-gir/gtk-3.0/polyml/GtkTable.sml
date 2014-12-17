@@ -88,6 +88,7 @@ structure GtkTable :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type attachoptions_t = GtkAttachOptions.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

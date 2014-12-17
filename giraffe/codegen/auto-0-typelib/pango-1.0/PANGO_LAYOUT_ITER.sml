@@ -1,10 +1,11 @@
 signature PANGO_LAYOUT_ITER =
   sig
     type record_t
-    type glyphitemrecord_t
-    type rectanglerecord_t
-    type layoutlinerecord_t
     type 'a layoutclass_t
+    type layoutlinerecord_t
+    type rectanglerecord_t
+    type glyphitemrecord_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val atLastLine : record_t -> bool
     val copy : record_t -> record_t

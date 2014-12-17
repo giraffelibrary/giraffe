@@ -15,6 +15,7 @@ structure GioFileIcon :>
     type 'a iconclass_t = 'a GioIconClass.t
     type 'a loadableiconclass_t = 'a GioLoadableIconClass.t
     type 'a fileclass_t = 'a GioFileClass.t
+    type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     fun asLoadableIcon self = (GObjectObjectClass.C.withPtr ---> GioLoadableIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

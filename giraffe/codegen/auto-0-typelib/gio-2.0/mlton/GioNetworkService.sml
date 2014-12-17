@@ -48,6 +48,7 @@ structure GioNetworkService :>
             )
     type 'a class_t = 'a GioNetworkServiceClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
+    type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new service protocol domain =

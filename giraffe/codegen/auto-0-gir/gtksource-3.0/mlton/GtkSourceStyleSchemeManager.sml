@@ -54,6 +54,7 @@ structure GtkSourceStyleSchemeManager :>
             )
     type 'a class_t = 'a GtkSourceStyleSchemeManagerClass.t
     type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr false) getDefault_ ()

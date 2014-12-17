@@ -73,6 +73,7 @@ structure GtkScrolledWindow :>
     type policytype_t = GtkPolicyType.t
     type cornertype_t = GtkCornerType.t
     type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

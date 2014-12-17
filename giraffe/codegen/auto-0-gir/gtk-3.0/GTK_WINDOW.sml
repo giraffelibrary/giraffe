@@ -1,13 +1,14 @@
 signature GTK_WINDOW =
   sig
     type 'a class_t
-    type windowposition_t
-    type windowtype_t
-    type 'a applicationclass_t
-    type 'a widgetclass_t
-    type 'a accelgroupclass_t
-    type 'a windowgroupclass_t
     type 'a buildableclass_t
+    type 'a windowgroupclass_t
+    type 'a accelgroupclass_t
+    type 'a widgetclass_t
+    type 'a applicationclass_t
+    type windowtype_t
+    type windowposition_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t

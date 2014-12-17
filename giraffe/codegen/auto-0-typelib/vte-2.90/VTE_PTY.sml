@@ -2,6 +2,7 @@ signature VTE_PTY =
   sig
     type 'a class_t
     type ptyflags_t
+    type t = base class_t
     val asInitable : 'a class_t -> base Gio.InitableClass.t
     val getType : unit -> GObject.Type.t
     val new : ptyflags_t -> base class_t

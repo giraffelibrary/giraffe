@@ -7,6 +7,7 @@ structure GioMemoryInputStream :>
     val new_ = _import "g_memory_input_stream_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GioMemoryInputStreamClass.t
     type 'a seekableclass_t = 'a GioSeekableClass.t
+    type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioMemoryInputStreamClass.C.fromPtr true) new_ ()

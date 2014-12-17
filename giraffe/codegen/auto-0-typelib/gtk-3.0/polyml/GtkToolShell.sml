@@ -25,6 +25,7 @@ structure GtkToolShell :>
     type toolbarstyle_t = GtkToolbarStyle.t
     type orientation_t = GtkOrientation.t
     type 'a sizegroupclass_t = 'a GtkSizeGroupClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEllipsizeMode self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsizeMode_ self
     fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIconSize_ self

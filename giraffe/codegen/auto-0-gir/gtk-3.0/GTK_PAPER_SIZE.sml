@@ -2,6 +2,7 @@ signature GTK_PAPER_SIZE =
   sig
     type record_t
     type unit_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : string option -> record_t
     val newCustom :

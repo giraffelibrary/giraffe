@@ -563,6 +563,7 @@ structure GtkPrintSettings :>
     type unit_t = GtkUnit.t
     type printpages_t = GtkPrintPages.t
     type printquality_t = GtkPrintQuality.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.C.fromPtr true) new_ ()
     fun newFromFile fileName = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GtkPrintSettingsClass.C.fromPtr true) newFromFile_ (fileName & [])

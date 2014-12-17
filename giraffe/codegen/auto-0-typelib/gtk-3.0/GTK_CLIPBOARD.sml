@@ -1,8 +1,9 @@
 signature GTK_CLIPBOARD =
   sig
     type 'a class_t
-    type 'a textbufferclass_t
     type selectiondatarecord_t
+    type 'a textbufferclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val get : Gdk.AtomRecord.t -> base class_t
     val getForDisplay :

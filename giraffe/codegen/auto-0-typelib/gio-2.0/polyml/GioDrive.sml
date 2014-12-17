@@ -59,6 +59,7 @@ structure GioDrive :>
     type 'a iconclass_t = 'a GioIconClass.t
     type drivestartstoptype_t = GioDriveStartStopType.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self
     fun canPollForMedia self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canPollForMedia_ self

@@ -9,6 +9,7 @@ structure AtkHypertext :>
     val getNLinks_ = _import "atk_hypertext_get_n_links" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     type 'a class_t = 'a AtkHypertextClass.t
     type 'a hyperlinkclass_t = 'a AtkHyperlinkClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLink self linkIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> AtkHyperlinkClass.C.fromPtr false) getLink_ (self & linkIndex)
     fun getLinkIndex self charIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getLinkIndex_ (self & charIndex)

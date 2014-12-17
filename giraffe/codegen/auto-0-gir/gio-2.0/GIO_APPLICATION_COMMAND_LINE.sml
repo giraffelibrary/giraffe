@@ -1,6 +1,7 @@
 signature GIO_APPLICATION_COMMAND_LINE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getCwd : 'a class_t -> string
     val getExitStatus : 'a class_t -> LargeInt.int

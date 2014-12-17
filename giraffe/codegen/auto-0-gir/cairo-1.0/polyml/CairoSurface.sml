@@ -8,5 +8,6 @@ structure CairoSurface :>
       val getType_ = call (load_sym libcairogobject "cairo_gobject_surface_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
     end
     type record_t = CairoSurfaceRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

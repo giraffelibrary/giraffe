@@ -9,6 +9,7 @@ structure GtkSourceStyle :>
       val copy_ = call (load_sym libgtksourceview "gtk_source_style_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkSourceStyleClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GObjectObjectClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
     local

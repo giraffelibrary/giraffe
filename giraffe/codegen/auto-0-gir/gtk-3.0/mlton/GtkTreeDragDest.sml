@@ -42,6 +42,7 @@ structure GtkTreeDragDest :>
     type 'a class_t = 'a GtkTreeDragDestClass.t
     type selectiondatarecord_t = GtkSelectionDataRecord.t
     type treepathrecord_t = GtkTreePathRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dragDataReceived self dest selectionData =
       (

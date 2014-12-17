@@ -1,11 +1,12 @@
 signature GTK_SOURCE_BUFFER =
   sig
     type 'a class_t
-    type 'a undomanagerclass_t
-    type 'a styleschemeclass_t
-    type 'a languageclass_t
-    type bracketmatchtype_t
     type 'a markclass_t
+    type bracketmatchtype_t
+    type 'a languageclass_t
+    type 'a styleschemeclass_t
+    type 'a undomanagerclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a Gtk.TextTagTableClass.t option -> base class_t
     val newWithLanguage : 'a languageclass_t -> base class_t

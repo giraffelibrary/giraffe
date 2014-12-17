@@ -1,10 +1,11 @@
 signature GTK_APP_CHOOSER_WIDGET =
   sig
     type 'a class_t
-    type 'a menuclass_t
-    type 'a orientableclass_t
-    type 'a buildableclass_t
     type 'a appchooserclass_t
+    type 'a buildableclass_t
+    type 'a orientableclass_t
+    type 'a menuclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asAppChooser : 'a class_t -> base appchooserclass_t
     val asBuildable : 'a class_t -> base buildableclass_t

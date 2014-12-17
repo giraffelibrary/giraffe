@@ -77,6 +77,7 @@ structure GtkEntryCompletion :>
     type treeiterrecord_t = GtkTreeIterRecord.t
     type 'a cellareaclass_t = 'a GtkCellAreaClass.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

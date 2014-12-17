@@ -1,14 +1,15 @@
 signature GIO_TLS_CONNECTION =
   sig
     type 'a class_t
-    type tlsrehandshakemode_t
-    type tlscertificateflags_t
-    type 'a tlscertificateclass_t
-    type 'a tlsinteractionclass_t
-    type 'a tlsdatabaseclass_t
-    type 'a iostreamclass_t
-    type 'a asyncresultclass_t
     type 'a cancellableclass_t
+    type 'a asyncresultclass_t
+    type 'a iostreamclass_t
+    type 'a tlsdatabaseclass_t
+    type 'a tlsinteractionclass_t
+    type 'a tlscertificateclass_t
+    type tlscertificateflags_t
+    type tlsrehandshakemode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val emitAcceptCertificate :
       'a class_t

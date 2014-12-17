@@ -27,6 +27,7 @@ structure AtkNoOpObject :>
     type 'a textclass_t = 'a AtkTextClass.t
     type 'a valueclass_t = 'a AtkValueClass.t
     type 'a windowclass_t = 'a AtkWindowClass.t
+    type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     fun asDocument self = (GObjectObjectClass.C.withPtr ---> AtkDocumentClass.C.fromPtr false) I self

@@ -44,6 +44,7 @@ structure GLibMatchInfo :>
     end
     type record_t = GLibMatchInfoRecord.t
     type regexrecord_t = GLibRegexRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun expandReferences self stringToExpand =
       (

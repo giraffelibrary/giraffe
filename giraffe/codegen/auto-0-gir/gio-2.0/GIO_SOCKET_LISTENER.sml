@@ -1,13 +1,14 @@
 signature GIO_SOCKET_LISTENER =
   sig
     type 'a class_t
-    type 'a socketclass_t
-    type 'a socketaddressclass_t
-    type sockettype_t
-    type socketprotocol_t
-    type 'a asyncresultclass_t
-    type 'a cancellableclass_t
     type 'a socketconnectionclass_t
+    type 'a cancellableclass_t
+    type 'a asyncresultclass_t
+    type socketprotocol_t
+    type sockettype_t
+    type 'a socketaddressclass_t
+    type 'a socketclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val accept :

@@ -1,8 +1,9 @@
 signature GIO_CHARSET_CONVERTER =
   sig
     type 'a class_t
-    type 'a initableclass_t
     type 'a converterclass_t
+    type 'a initableclass_t
+    type t = base class_t
     val asConverter : 'a class_t -> base converterclass_t
     val asInitable : 'a class_t -> base initableclass_t
     val getType : unit -> GObject.Type.t

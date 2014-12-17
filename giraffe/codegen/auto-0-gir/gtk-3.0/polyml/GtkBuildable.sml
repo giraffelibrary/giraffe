@@ -47,6 +47,7 @@ structure GtkBuildable :>
     end
     type 'a class_t = 'a GtkBuildableClass.t
     type 'a builderclass_t = 'a GtkBuilderClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChild self builder child type' =
       (

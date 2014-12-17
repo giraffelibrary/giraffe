@@ -2,6 +2,7 @@ signature GTK_ORIENTABLE =
   sig
     type 'a class_t
     type orientation_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getOrientation : 'a class_t -> orientation_t
     val setOrientation :

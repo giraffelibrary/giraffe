@@ -14,6 +14,7 @@ structure GioDBusObjectProxy :>
     type 'a class_t = 'a GioDBusObjectProxyClass.t
     type 'a dbusobjectclass_t = 'a GioDBusObjectClass.t
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
+    type t = base class_t
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new connection objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioDBusObjectProxyClass.C.fromPtr true) new_ (connection & objectPath)

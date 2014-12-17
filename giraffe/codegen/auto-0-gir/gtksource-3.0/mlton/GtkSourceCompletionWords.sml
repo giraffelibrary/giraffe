@@ -23,6 +23,7 @@ structure GtkSourceCompletionWords :>
     val unregister_ = fn x1 & x2 => (_import "gtk_source_completion_words_unregister" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkSourceCompletionWordsClass.t
     type 'a completionproviderclass_t = 'a GtkSourceCompletionProviderClass.t
+    type t = base class_t
     fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name icon = (FFI.String.C.withConstOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)

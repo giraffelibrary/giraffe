@@ -23,6 +23,7 @@ structure GtkApplication :>
     val removeWindow_ = fn x1 & x2 => (_import "gtk_application_remove_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkApplicationClass.t
     type 'a windowclass_t = 'a GtkWindowClass.t
+    type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new applicationId flags = (FFI.String.C.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)

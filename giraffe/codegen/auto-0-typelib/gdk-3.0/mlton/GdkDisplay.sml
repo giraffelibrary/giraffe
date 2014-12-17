@@ -81,6 +81,7 @@ structure GdkDisplay :>
     type 'a screenclass_t = 'a GdkScreenClass.t
     type 'a event_t = 'a GdkEvent.t
     type atomrecord_t = GdkAtomRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.C.fromPtr false) getDefault_ ()
     fun open' displayName = (FFI.String.C.withConstPtr ---> GdkDisplayClass.C.fromPtr false) open_ displayName

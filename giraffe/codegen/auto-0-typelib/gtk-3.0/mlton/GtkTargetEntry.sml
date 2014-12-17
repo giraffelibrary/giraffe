@@ -24,6 +24,7 @@ structure GtkTargetEntry :>
             )
     val copy_ = _import "gtk_target_entry_copy" : GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p -> GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p;
     type record_t = GtkTargetEntryRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (

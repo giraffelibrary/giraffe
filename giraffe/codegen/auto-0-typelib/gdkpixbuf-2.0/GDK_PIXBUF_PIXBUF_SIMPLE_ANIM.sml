@@ -2,6 +2,7 @@ signature GDK_PIXBUF_PIXBUF_SIMPLE_ANIM =
   sig
     type 'a class_t
     type 'a pixbufclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int

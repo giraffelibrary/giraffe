@@ -205,6 +205,7 @@ structure GtkTreeViewColumn :>
     type treeviewcolumnsizing_t = GtkTreeViewColumnSizing.t
     type sorttype_t = GtkSortType.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

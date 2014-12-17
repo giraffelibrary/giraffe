@@ -1,6 +1,7 @@
 signature GDK_ATOM =
   sig
     type record_t
+    type t = record_t
     val name : record_t -> string
     val intern :
       string

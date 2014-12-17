@@ -2,6 +2,7 @@ signature ATK_TABLE =
   sig
     type 'a class_t
     type 'a objectclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addColumnSelection :
       'a class_t

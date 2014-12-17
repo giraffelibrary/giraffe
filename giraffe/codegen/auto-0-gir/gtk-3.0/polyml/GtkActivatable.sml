@@ -16,6 +16,7 @@ structure GtkActivatable :>
     end
     type 'a class_t = 'a GtkActivatableClass.t
     type 'a actionclass_t = 'a GtkActionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doSetRelatedAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) doSetRelatedAction_ (self & action)
     fun getRelatedAction self = (GObjectObjectClass.C.withPtr ---> GtkActionClass.C.fromPtr false) getRelatedAction_ self

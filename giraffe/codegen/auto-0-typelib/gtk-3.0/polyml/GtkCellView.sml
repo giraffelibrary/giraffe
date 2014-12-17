@@ -37,6 +37,7 @@ structure GtkCellView :>
     type 'a cellareaclass_t = 'a GtkCellAreaClass.t
     type 'a cellareacontextclass_t = 'a GtkCellAreaContextClass.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

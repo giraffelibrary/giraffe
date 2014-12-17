@@ -102,6 +102,7 @@ structure GtkSourcePrintCompositor :>
     type 'a class_t = 'a GtkSourcePrintCompositorClass.t
     type 'a viewclass_t = 'a GtkSourceViewClass.t
     type 'a bufferclass_t = 'a GtkSourceBufferClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new buffer = (GObjectObjectClass.C.withPtr ---> GtkSourcePrintCompositorClass.C.fromPtr true) new_ buffer
     fun newFromView view = (GObjectObjectClass.C.withPtr ---> GtkSourcePrintCompositorClass.C.fromPtr true) newFromView_ view

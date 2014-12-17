@@ -1,10 +1,11 @@
 signature GIO_APPLICATION =
   sig
     type 'a class_t
-    type applicationflags_t
-    type 'a actiongroupclass_t
-    type 'a applicationcommandlineclass_t
     type 'a cancellableclass_t
+    type 'a applicationcommandlineclass_t
+    type 'a actiongroupclass_t
+    type applicationflags_t
+    type t = base class_t
     val asActionGroup : 'a class_t -> base actiongroupclass_t
     val getType : unit -> GObject.Type.t
     val new :

@@ -107,6 +107,7 @@ structure AtkObject :>
     type 'a statesetclass_t = 'a AtkStateSetClass.t
     type relationtype_t = AtkRelationType.t
     type role_t = AtkRole.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addRelationship self relationship target =
       (

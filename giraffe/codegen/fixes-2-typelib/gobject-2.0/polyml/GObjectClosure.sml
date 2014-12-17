@@ -16,6 +16,7 @@ structure GObjectClosure :>
     end
     type record_t = GObjectClosureRecord.t
     type type_t = GObjectType.t
+    type t = record_t
     type 'a marshaller = 'a ClosureMarshal.marshaller
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new marshaller callback =

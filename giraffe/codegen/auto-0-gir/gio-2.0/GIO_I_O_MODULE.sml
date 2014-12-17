@@ -1,6 +1,7 @@
 signature GIO_I_O_MODULE =
   sig
     type 'a class_t
+    type t = base class_t
     val asTypePlugin : 'a class_t -> base GObject.TypePluginClass.t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t

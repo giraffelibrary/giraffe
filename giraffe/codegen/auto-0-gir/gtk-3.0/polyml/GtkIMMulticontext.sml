@@ -14,6 +14,7 @@ structure GtkIMMulticontext :>
     end
     type 'a class_t = 'a GtkIMMulticontextClass.t
     type 'a menushellclass_t = 'a GtkMenuShellClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIMMulticontextClass.C.fromPtr true) new_ ()
     fun appendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) appendMenuitems_ (self & menushell)

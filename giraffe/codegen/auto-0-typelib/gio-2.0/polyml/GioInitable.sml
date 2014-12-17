@@ -18,6 +18,7 @@ structure GioInitable :>
     end
     type 'a class_t = 'a GioInitableClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun init self cancellable =
       (

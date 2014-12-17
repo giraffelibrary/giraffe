@@ -20,6 +20,7 @@ structure GioDesktopAppInfo :>
     end
     type 'a class_t = 'a GioDesktopAppInfoClass.t
     type 'a appinfoclass_t = 'a GioAppInfoClass.t
+    type t = base class_t
     fun asAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new desktopId = (FFI.String.C.withConstPtr ---> GioDesktopAppInfoClass.C.fromPtr true) new_ desktopId

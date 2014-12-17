@@ -1,13 +1,14 @@
 signature GTK_CELL_RENDERER =
   sig
     type 'a class_t
-    type cellrenderermode_t
-    type 'a celleditableclass_t
-    type 'a widgetclass_t
-    type cellrendererstate_t
-    type stateflags_t
-    type sizerequestmode_t
     type requisitionrecord_t
+    type sizerequestmode_t
+    type stateflags_t
+    type cellrendererstate_t
+    type 'a widgetclass_t
+    type 'a celleditableclass_t
+    type cellrenderermode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val activate :
       'a class_t

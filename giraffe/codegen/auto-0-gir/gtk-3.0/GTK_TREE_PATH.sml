@@ -1,6 +1,7 @@
 signature GTK_TREE_PATH =
   sig
     type record_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val newFirst : unit -> record_t

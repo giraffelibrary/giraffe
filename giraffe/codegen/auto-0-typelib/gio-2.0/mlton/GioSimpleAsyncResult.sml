@@ -14,6 +14,7 @@ structure GioSimpleAsyncResult :>
     val setOpResGssize_ = fn x1 & x2 => (_import "g_simple_async_result_set_op_res_gssize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int64.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioSimpleAsyncResultClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     fun asAsyncResult self = (GObjectObjectClass.C.withPtr ---> GioAsyncResultClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun complete self = (GObjectObjectClass.C.withPtr ---> I) complete_ self

@@ -19,6 +19,7 @@ structure AtkHyperlink :>
     type 'a class_t = 'a AtkHyperlinkClass.t
     type 'a actionclass_t = 'a AtkActionClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
+    type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEndIndex self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getEndIndex_ self

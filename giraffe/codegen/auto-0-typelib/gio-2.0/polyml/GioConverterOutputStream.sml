@@ -14,6 +14,7 @@ structure GioConverterOutputStream :>
     type 'a class_t = 'a GioConverterOutputStreamClass.t
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
     type 'a converterclass_t = 'a GioConverterClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream converter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GioConverterOutputStreamClass.C.fromPtr true) new_ (baseStream & converter)
     fun getConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) getConverter_ self

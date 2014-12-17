@@ -10,6 +10,7 @@ structure GioPollableOutputStream :>
       val isWritable_ = call (load_sym libgio "g_pollable_output_stream_is_writable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioPollableOutputStreamClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canPoll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canPoll_ self
     fun isWritable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isWritable_ self

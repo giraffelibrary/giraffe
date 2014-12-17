@@ -1,19 +1,20 @@
 signature GTK_TREE_VIEW =
   sig
     type 'a class_t
-    type 'a treemodelclass_t
-    type 'a treeviewcolumnclass_t
-    type treeviewgridlines_t
-    type treeiterrecord_t
-    type treepathrecord_t
-    type movementstep_t
-    type 'a tooltipclass_t
-    type 'a cellrendererclass_t
-    type 'a entryclass_t
-    type treeviewdropposition_t
-    type 'a treeselectionclass_t
-    type 'a scrollableclass_t
     type 'a buildableclass_t
+    type 'a scrollableclass_t
+    type 'a treeselectionclass_t
+    type treeviewdropposition_t
+    type 'a entryclass_t
+    type 'a cellrendererclass_t
+    type 'a tooltipclass_t
+    type movementstep_t
+    type treepathrecord_t
+    type treeiterrecord_t
+    type treeviewgridlines_t
+    type 'a treeviewcolumnclass_t
+    type 'a treemodelclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asScrollable : 'a class_t -> base scrollableclass_t

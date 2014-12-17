@@ -1,18 +1,19 @@
 signature GTK_CELL_AREA =
   sig
     type 'a class_t
-    type 'a cellrendererclass_t
-    type 'a celleditableclass_t
-    type 'a treemodelclass_t
-    type treeiterrecord_t
-    type orientation_t
-    type 'a widgetclass_t
-    type 'a cellareacontextclass_t
-    type cellrendererstate_t
-    type sizerequestmode_t
-    type directiontype_t
-    type 'a celllayoutclass_t
     type 'a buildableclass_t
+    type 'a celllayoutclass_t
+    type directiontype_t
+    type sizerequestmode_t
+    type cellrendererstate_t
+    type 'a cellareacontextclass_t
+    type 'a widgetclass_t
+    type orientation_t
+    type treeiterrecord_t
+    type 'a treemodelclass_t
+    type 'a celleditableclass_t
+    type 'a cellrendererclass_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellLayout : 'a class_t -> base celllayoutclass_t
     val getType : unit -> GObject.Type.t

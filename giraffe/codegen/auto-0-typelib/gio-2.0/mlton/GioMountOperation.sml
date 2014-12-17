@@ -66,6 +66,7 @@ structure GioMountOperation :>
     type askpasswordflags_t = GioAskPasswordFlags.t
     type mountoperationresult_t = GioMountOperationResult.t
     type passwordsave_t = GioPasswordSave.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioMountOperationClass.C.fromPtr true) new_ ()
     fun getAnonymous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAnonymous_ self

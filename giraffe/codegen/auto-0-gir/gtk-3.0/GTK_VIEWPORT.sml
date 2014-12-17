@@ -1,10 +1,11 @@
 signature GTK_VIEWPORT =
   sig
     type 'a class_t
-    type shadowtype_t
-    type 'a adjustmentclass_t
-    type 'a scrollableclass_t
     type 'a buildableclass_t
+    type 'a scrollableclass_t
+    type 'a adjustmentclass_t
+    type shadowtype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asScrollable : 'a class_t -> base scrollableclass_t

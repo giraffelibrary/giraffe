@@ -13,6 +13,7 @@ structure AtkSelection :>
     val selectAllSelection_ = _import "atk_selection_select_all_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a AtkSelectionClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addSelection self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addSelection_ (self & i)
     fun clearSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) clearSelection_ self

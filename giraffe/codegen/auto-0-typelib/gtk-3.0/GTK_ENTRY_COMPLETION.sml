@@ -1,12 +1,13 @@
 signature GTK_ENTRY_COMPLETION =
   sig
     type 'a class_t
-    type 'a treemodelclass_t
-    type 'a cellareaclass_t
-    type treeiterrecord_t
-    type 'a widgetclass_t
-    type 'a celllayoutclass_t
     type 'a buildableclass_t
+    type 'a celllayoutclass_t
+    type 'a widgetclass_t
+    type treeiterrecord_t
+    type 'a cellareaclass_t
+    type 'a treemodelclass_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellLayout : 'a class_t -> base celllayoutclass_t
     val getType : unit -> GObject.Type.t

@@ -30,6 +30,7 @@ structure GioSocketAddressEnumerator :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun next self cancellable =
       (

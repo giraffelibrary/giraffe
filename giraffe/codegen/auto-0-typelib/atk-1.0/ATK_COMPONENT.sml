@@ -1,10 +1,11 @@
 signature ATK_COMPONENT =
   sig
     type 'a class_t
-    type rectanglerecord_t
-    type coordtype_t
-    type 'a objectclass_t
     type layer_t
+    type 'a objectclass_t
+    type coordtype_t
+    type rectanglerecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val contains :
       'a class_t

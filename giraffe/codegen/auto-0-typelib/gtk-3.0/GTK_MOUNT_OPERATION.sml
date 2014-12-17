@@ -2,6 +2,7 @@ signature GTK_MOUNT_OPERATION =
   sig
     type 'a class_t
     type 'a windowclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a windowclass_t option -> base class_t
     val getParent : 'a class_t -> base windowclass_t

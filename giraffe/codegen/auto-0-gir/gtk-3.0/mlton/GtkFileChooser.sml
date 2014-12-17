@@ -310,6 +310,7 @@ structure GtkFileChooser :>
     type filechooseraction_t = GtkFileChooserAction.t
     type 'a filefilterclass_t = 'a GtkFileFilterClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)
     fun addShortcutFolder self folder =

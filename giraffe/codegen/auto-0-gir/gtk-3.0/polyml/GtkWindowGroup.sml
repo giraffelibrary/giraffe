@@ -17,6 +17,7 @@ structure GtkWindowGroup :>
     type 'a class_t = 'a GtkWindowGroupClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type 'a windowclass_t = 'a GtkWindowClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWindowGroupClass.C.fromPtr true) new_ ()
     fun addWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addWindow_ (self & window)

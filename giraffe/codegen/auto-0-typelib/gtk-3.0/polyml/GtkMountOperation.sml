@@ -16,6 +16,7 @@ structure GtkMountOperation :>
     end
     type 'a class_t = 'a GtkMountOperationClass.t
     type 'a windowclass_t = 'a GtkWindowClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent = (GObjectObjectClass.C.withOptPtr ---> GtkMountOperationClass.C.fromPtr true) new_ parent
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getParent_ self

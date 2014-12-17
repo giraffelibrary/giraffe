@@ -1,14 +1,15 @@
 signature GTK_SCROLLED_WINDOW =
   sig
     type 'a class_t
-    type cornertype_t
-    type policytype_t
-    type 'a adjustmentclass_t
-    type shadowtype_t
-    type scrolltype_t
-    type directiontype_t
-    type 'a widgetclass_t
     type 'a buildableclass_t
+    type 'a widgetclass_t
+    type directiontype_t
+    type scrolltype_t
+    type shadowtype_t
+    type 'a adjustmentclass_t
+    type policytype_t
+    type cornertype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t

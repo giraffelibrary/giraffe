@@ -1,6 +1,7 @@
 signature GDK_PIXBUF_PIXBUF_FORMAT =
   sig
     type record_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val copy : record_t -> record_t
     val getDescription : record_t -> string

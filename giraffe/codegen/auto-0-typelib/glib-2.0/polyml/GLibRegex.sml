@@ -65,6 +65,7 @@ structure GLibRegex :>
     type matchinforecord_t = GLibMatchInfoRecord.t
     type regexmatchflags_t = GLibRegexMatchFlags.t
     type regexcompileflags_t = GLibRegexCompileFlags.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new pattern compileOptions matchOptions =
       (

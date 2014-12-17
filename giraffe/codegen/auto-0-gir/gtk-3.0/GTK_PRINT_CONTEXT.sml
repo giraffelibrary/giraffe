@@ -2,6 +2,7 @@ signature GTK_PRINT_CONTEXT =
   sig
     type 'a class_t
     type 'a pagesetupclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val createPangoContext : 'a class_t -> base Pango.ContextClass.t
     val createPangoLayout : 'a class_t -> base Pango.LayoutClass.t

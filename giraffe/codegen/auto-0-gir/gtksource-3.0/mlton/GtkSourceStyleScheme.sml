@@ -25,6 +25,7 @@ structure GtkSourceStyleScheme :>
             )
     type 'a class_t = 'a GtkSourceStyleSchemeClass.t
     type 'a styleclass_t = 'a GtkSourceStyleClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getFilename_ self

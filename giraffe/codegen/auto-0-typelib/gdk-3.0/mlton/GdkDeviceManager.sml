@@ -10,6 +10,7 @@ structure GdkDeviceManager :>
     type 'a class_t = 'a GdkDeviceManagerClass.t
     type 'a deviceclass_t = 'a GdkDeviceClass.t
     type 'a displayclass_t = 'a GdkDisplayClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getClientPointer self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
     fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self

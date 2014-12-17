@@ -37,15 +37,20 @@ Conditions
 
 signature <STRUCT_NAMESPACE>_<STRUCT_NAME> =
   sig
-    (* Types *)
+    (* Local Types *)
 
-    type 'a record_t
+    type record_t
 
     type <varlist[1]> <typename[1]>_t
 
     ...
 
     type <varlist[N]> <typename[N]>_t
+
+
+    (* Type Abbreviations *)
+
+    type t = record_t
 
 
     (* Functions *)
@@ -92,7 +97,7 @@ where
 
 structure <StructNamespace><StructName> :>
   <STRUCT_NAMESPACE>_<STRUCT_NAME>
-    where type 'a record_t = 'a <StructNamespace><StructName>Record.t
+    where type record_t = <StructNamespace><StructName>Record.t
 
     where type <varlist[1]> <typename[1]>_t = <varlist[1]> <StructNamespace><TypeName[1]>.t
 
@@ -132,15 +137,20 @@ structure <StructNamespace><StructName> :>
     <LowLevelFunction[M]>                                                                 -'
 
 
-    (* Types *)
+    (* Local Types *)
 
-    type 'a record_t = 'a <StructNamespace><StructName>Record.t
+    type record_t = <StructNamespace><StructName>Record.t
 
     type <varlist[1]> <typename[1]>_t = <varlist[1]> <StructNamespace><TypeName[1]>.t
 
     ...
 
     type <varlist[N]> <typename[N]>_t = <varlist[N]> <StructNamespace><TypeName[N]>.t
+
+
+    (* Type Abbreviations *)
+
+    type t = record_t
 
 
     (* High-Level Functions *)

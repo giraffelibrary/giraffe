@@ -1,9 +1,10 @@
 signature GIO_D_BUS_OBJECT_SKELETON =
   sig
     type 'a class_t
-    type 'a dbusinterfaceskeletonclass_t
-    type 'a dbusmethodinvocationclass_t
     type 'a dbusobjectclass_t
+    type 'a dbusmethodinvocationclass_t
+    type 'a dbusinterfaceskeletonclass_t
+    type t = base class_t
     val asDBusObject : 'a class_t -> base dbusobjectclass_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t

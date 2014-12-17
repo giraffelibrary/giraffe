@@ -401,6 +401,7 @@ structure GdkWindow :>
     type inputsource_t = GdkInputSource.t
     type windowtypehint_t = GdkWindowTypeHint.t
     type 'a cursorclass_t = 'a GdkCursorClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent attributes attributesMask =
       (

@@ -29,6 +29,7 @@ structure GdkPixbufPixbufLoader :>
     type 'a pixbufanimationclass_t = 'a GdkPixbufPixbufAnimationClass.t
     type pixbufformatrecord_t = GdkPixbufPixbufFormatRecord.t
     type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) new_ ()
     fun newWithMimeType mimeType = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithMimeType_ (mimeType & [])

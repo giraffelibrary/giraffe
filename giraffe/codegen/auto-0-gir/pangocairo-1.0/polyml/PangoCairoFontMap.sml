@@ -13,6 +13,7 @@ structure PangoCairoFontMap :>
       val setResolution_ = call (load_sym libpangocairo "pango_cairo_font_map_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a PangoCairoFontMapClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> PangoFontMapClass.C.fromPtr false) getDefault_ ()
     fun new () = (I ---> PangoFontMapClass.C.fromPtr true) new_ ()

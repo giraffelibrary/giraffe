@@ -83,6 +83,7 @@ structure GioTlsConnection :>
     type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
     type tlscertificateflags_t = GioTlsCertificateFlags.t
     type tlsrehandshakemode_t = GioTlsRehandshakeMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun emitAcceptCertificate self peerCert errors =
       (

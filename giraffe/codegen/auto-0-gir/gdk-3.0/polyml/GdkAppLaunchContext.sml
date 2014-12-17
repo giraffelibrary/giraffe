@@ -17,6 +17,7 @@ structure GdkAppLaunchContext :>
     type 'a class_t = 'a GdkAppLaunchContextClass.t
     type 'a screenclass_t = 'a GdkScreenClass.t
     type 'a displayclass_t = 'a GdkDisplayClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun setDesktop self desktop = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDesktop_ (self & desktop)
     fun setIcon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setIcon_ (self & icon)

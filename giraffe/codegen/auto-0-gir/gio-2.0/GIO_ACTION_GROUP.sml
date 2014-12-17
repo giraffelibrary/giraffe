@@ -1,6 +1,7 @@
 signature GIO_ACTION_GROUP =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val actionAdded :
       'a class_t

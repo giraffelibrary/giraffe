@@ -12,6 +12,7 @@ structure AtkStreamableContent :>
       val getUri_ = call (load_sym libatk "atk_streamable_content_get_uri") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a AtkStreamableContentClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getMimeType self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getMimeType_ (self & i)
     fun getNMimeTypes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMimeTypes_ self

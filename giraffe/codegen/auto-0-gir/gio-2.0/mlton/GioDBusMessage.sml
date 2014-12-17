@@ -240,6 +240,7 @@ structure GioDBusMessage :>
     type dbusmessageheaderfield_t = GioDBusMessageHeaderField.t
     type dbusmessagetype_t = GioDBusMessageType.t
     type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioDBusMessageClass.C.fromPtr true) new_ ()
     fun newMethodCall name path interface method =

@@ -31,6 +31,7 @@ structure PangoAttrList :>
             )
     type record_t = PangoAttrListRecord.t
     type attributerecord_t = PangoAttributeRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()
     fun change self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) change_ (self & attr)

@@ -129,6 +129,7 @@ structure GtkPaperSize :>
     val getDefault_ = _import "gtk_paper_size_get_default" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     type record_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (FFI.String.C.withConstOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
     fun newCustom name displayName width height unit =

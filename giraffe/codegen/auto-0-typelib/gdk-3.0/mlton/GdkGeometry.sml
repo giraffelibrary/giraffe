@@ -3,4 +3,5 @@ structure GdkGeometry :>
     where type record_t = GdkGeometryRecord.t =
   struct
     type record_t = GdkGeometryRecord.t
+    type t = record_t
   end

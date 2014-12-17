@@ -2,6 +2,7 @@ signature GTK_NUMERABLE_ICON =
   sig
     type 'a class_t
     type 'a stylecontextclass_t
+    type t = base class_t
     val asIcon : 'a class_t -> base Gio.IconClass.t
     val getType : unit -> GObject.Type.t
     val new : 'a Gio.IconClass.t -> base Gio.IconClass.t

@@ -25,6 +25,7 @@ structure GtkColorButton :>
     type 'a class_t = 'a GtkColorButtonClass.t
     type 'a activatableclass_t = 'a GtkActivatableClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

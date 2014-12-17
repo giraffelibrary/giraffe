@@ -13,6 +13,7 @@ structure AtkHypertext :>
     end
     type 'a class_t = 'a AtkHypertextClass.t
     type 'a hyperlinkclass_t = 'a AtkHyperlinkClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLink self linkIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkHyperlinkClass.C.fromPtr false) getLink_ (self & linkIndex)
     fun getLinkIndex self charIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) getLinkIndex_ (self & charIndex)

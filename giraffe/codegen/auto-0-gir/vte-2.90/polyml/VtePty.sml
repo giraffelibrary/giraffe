@@ -42,6 +42,7 @@ structure VtePty :>
     end
     type 'a class_t = 'a VtePtyClass.t
     type ptyflags_t = VtePtyFlags.t
+    type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])

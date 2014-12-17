@@ -11,6 +11,7 @@ structure GtkCellRendererAccel :>
     end
     type 'a class_t = 'a GtkCellRendererAccelClass.t
     type cellrendereraccelmode_t = GtkCellRendererAccelMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererAccelClass.C.fromPtr false) new_ ()
     local

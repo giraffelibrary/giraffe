@@ -11,6 +11,7 @@ structure GioSocketConnection :>
     type 'a class_t = 'a GioSocketConnectionClass.t
     type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
     type 'a socketclass_t = 'a GioSocketClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLocalAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getLocalAddress_ (self & [])
     fun getRemoteAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getRemoteAddress_ (self & [])

@@ -62,6 +62,7 @@ structure GtkSettings :>
     type iconsize_t = GtkIconSize.t
     type toolbarstyle_t = GtkToolbarStyle.t
     type policytype_t = GtkPolicyType.t
+    type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GtkSettingsClass.C.fromPtr false) getDefault_ ()

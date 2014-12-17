@@ -242,6 +242,7 @@ structure GioSocket :>
     type socketprotocol_t = GioSocketProtocol.t
     type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
     type sockettype_t = GioSocketType.t
+    type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new family type' protocol =

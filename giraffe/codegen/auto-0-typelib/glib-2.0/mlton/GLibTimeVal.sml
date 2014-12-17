@@ -20,6 +20,7 @@ structure GLibTimeVal :>
               x3
             )
     type record_t = GLibTimeValRecord.t
+    type t = record_t
     fun add self microseconds = (GLibTimeValRecord.C.withPtr &&&> FFI.Int64.C.withVal ---> I) add_ (self & microseconds)
     fun toIso8601 self = (GLibTimeValRecord.C.withPtr ---> FFI.String.C.fromPtr true) toIso8601_ self
     fun fromIso8601 isoDate time = (FFI.String.C.withConstPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) fromIso8601_ (isoDate & time)

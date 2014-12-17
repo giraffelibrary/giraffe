@@ -143,6 +143,7 @@ structure GtkListStore :>
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
     type 'a treesortableclass_t = 'a GtkTreeSortableClass.t
     type treeiterrecord_t = GtkTreeIterRecord.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asTreeDragDest self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragDestClass.C.fromPtr false) I self
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self

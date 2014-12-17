@@ -14,6 +14,7 @@ structure GObjectParamSpec :>
     end
     type 'a class_t = 'a GObjectParamSpecClass.t
     type type_t = GObjectType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBlurb self = (GObjectParamSpecClass.C.withPtr ---> FFI.String.C.fromPtr false) getBlurb_ self
     fun getName self = (GObjectParamSpecClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self

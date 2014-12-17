@@ -121,6 +121,7 @@ structure GtkEntryBuffer :>
               x4
             )
     type 'a class_t = 'a GtkEntryBufferClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new initialChars nInitialChars = (FFI.String.C.withConstOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =

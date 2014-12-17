@@ -1,6 +1,7 @@
 signature GTK_FONT_CHOOSER =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getFont : 'a class_t -> string
     val getFontDesc : 'a class_t -> Pango.FontDescriptionRecord.t

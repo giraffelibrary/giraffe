@@ -30,6 +30,7 @@ structure GioDBusObjectManagerServer :>
     type 'a dbusobjectmanagerclass_t = 'a GioDBusObjectManagerClass.t
     type 'a dbusobjectskeletonclass_t = 'a GioDBusObjectSkeletonClass.t
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
+    type t = base class_t
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new objectPath = (FFI.String.C.withConstPtr ---> GioDBusObjectManagerServerClass.C.fromPtr true) new_ objectPath

@@ -1,10 +1,11 @@
 signature GTK_CELL_AREA_BOX =
   sig
     type 'a class_t
-    type 'a cellrendererclass_t
-    type 'a orientableclass_t
-    type 'a celllayoutclass_t
     type 'a buildableclass_t
+    type 'a celllayoutclass_t
+    type 'a orientableclass_t
+    type 'a cellrendererclass_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellLayout : 'a class_t -> base celllayoutclass_t
     val asOrientable : 'a class_t -> base orientableclass_t

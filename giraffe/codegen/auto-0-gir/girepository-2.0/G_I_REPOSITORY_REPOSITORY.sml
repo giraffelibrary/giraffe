@@ -1,10 +1,11 @@
 signature G_I_REPOSITORY_REPOSITORY =
   sig
     type 'a class_t
-    type repositoryloadflags_t
-    type typelibrecord_t
-    type baseinforecord_t
     type enuminforecord_t
+    type baseinforecord_t
+    type typelibrecord_t
+    type repositoryloadflags_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val dump : string -> bool
     val getDefault : unit -> base class_t

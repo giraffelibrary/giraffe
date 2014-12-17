@@ -2,6 +2,7 @@ signature GDK_DISPLAY_MANAGER =
   sig
     type 'a class_t
     type 'a displayclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val get : unit -> base class_t
     val getDefaultDisplay : 'a class_t -> base displayclass_t

@@ -1,9 +1,10 @@
 signature GTK_RECENT_ACTION =
   sig
     type 'a class_t
-    type 'a recentmanagerclass_t
-    type 'a recentchooserclass_t
     type 'a buildableclass_t
+    type 'a recentchooserclass_t
+    type 'a recentmanagerclass_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asRecentChooser : 'a class_t -> base recentchooserclass_t
     val getType : unit -> GObject.Type.t

@@ -634,6 +634,7 @@ structure GtkTreeView :>
     type treeviewgridlines_t = GtkTreeViewGridLines.t
     type 'a treeviewcolumnclass_t = 'a GtkTreeViewColumnClass.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

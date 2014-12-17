@@ -77,6 +77,7 @@ structure GtkTreeSelection :>
     type treeiterrecord_t = GtkTreeIterRecord.t
     type treepathrecord_t = GtkTreePathRecord.t
     type selectionmode_t = GtkSelectionMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) countSelectedRows_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self

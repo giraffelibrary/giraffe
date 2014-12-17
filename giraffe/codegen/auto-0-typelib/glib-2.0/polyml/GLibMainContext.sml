@@ -46,6 +46,7 @@ structure GLibMainContext :>
     type pollfdrecord_t = GLibPollFDRecord.t
     type mutexrecord_t = GLibMutexRecord.t
     type condrecord_t = GLibCondRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GLibMainContextRecord.C.fromPtr true) new_ ()
     fun acquire self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) acquire_ self

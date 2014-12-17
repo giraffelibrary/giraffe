@@ -1,6 +1,7 @@
 signature GTK_SOURCE_COMPLETION_INFO =
   sig
     type 'a class_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
     val getType : unit -> GObject.Type.t

@@ -52,6 +52,7 @@ structure GioFileOutputStream :>
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEtag self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getEtag_ self

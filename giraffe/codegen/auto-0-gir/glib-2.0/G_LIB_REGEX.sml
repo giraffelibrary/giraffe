@@ -1,9 +1,10 @@
 signature G_LIB_REGEX =
   sig
     type record_t
-    type regexcompileflags_t
-    type regexmatchflags_t
     type matchinforecord_t
+    type regexmatchflags_t
+    type regexcompileflags_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new :
       string

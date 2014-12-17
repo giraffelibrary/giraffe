@@ -1,8 +1,9 @@
 signature GTK_WIDGET_PATH =
   sig
     type record_t
-    type regionflags_t
     type 'a widgetclass_t
+    type regionflags_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val appendForWidget :

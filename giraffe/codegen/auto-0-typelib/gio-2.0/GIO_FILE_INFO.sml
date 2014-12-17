@@ -1,11 +1,12 @@
 signature GIO_FILE_INFO =
   sig
     type 'a class_t
-    type 'a iconclass_t
-    type filetype_t
-    type fileattributestatus_t
-    type fileattributematcherrecord_t
     type fileattributetype_t
+    type fileattributematcherrecord_t
+    type fileattributestatus_t
+    type filetype_t
+    type 'a iconclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val clearStatus : 'a class_t -> unit

@@ -1,20 +1,21 @@
 signature GTK_ENTRY =
   sig
     type 'a class_t
-    type shadowtype_t
-    type imagetype_t
-    type borderrecord_t
-    type 'a entrycompletionclass_t
-    type 'a entrybufferclass_t
-    type 'a menuclass_t
-    type movementstep_t
-    type entryiconposition_t
-    type deletetype_t
-    type targetlistrecord_t
-    type 'a adjustmentclass_t
-    type 'a editableclass_t
-    type 'a celleditableclass_t
     type 'a buildableclass_t
+    type 'a celleditableclass_t
+    type 'a editableclass_t
+    type 'a adjustmentclass_t
+    type targetlistrecord_t
+    type deletetype_t
+    type entryiconposition_t
+    type movementstep_t
+    type 'a menuclass_t
+    type 'a entrybufferclass_t
+    type 'a entrycompletionclass_t
+    type borderrecord_t
+    type imagetype_t
+    type shadowtype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellEditable : 'a class_t -> base celleditableclass_t

@@ -20,6 +20,7 @@ structure GdkAtom :>
             )
     val internStaticString_ = _import "mlton_gdk_atom_intern_static_string" : cstring * unit CPointer.t -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     type record_t = GdkAtomRecord.t
+    type t = record_t
     fun name self = (GdkAtomRecord.C.withPtr ---> FFI.String.C.fromPtr true) name_ self
     fun intern atomName onlyIfExists = (FFI.String.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GdkAtomRecord.C.fromPtr false) intern_ (atomName & onlyIfExists)
     fun internStaticString atomName = (FFI.String.C.withConstPtr ---> GdkAtomRecord.C.fromPtr false) internStaticString_ atomName

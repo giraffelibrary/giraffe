@@ -132,6 +132,7 @@ structure GioSettings :>
     type 'a class_t = 'a GioSettingsClass.t
     type settingsbackendrecord_t = GioSettingsBackendRecord.t
     type settingsbindflags_t = GioSettingsBindFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new schema = (FFI.String.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) new_ schema
     fun newWithBackend schema backend = (FFI.String.C.withConstPtr &&&> GioSettingsBackendRecord.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithBackend_ (schema & backend)

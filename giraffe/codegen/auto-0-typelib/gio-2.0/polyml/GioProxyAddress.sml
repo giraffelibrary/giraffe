@@ -29,6 +29,7 @@ structure GioProxyAddress :>
     type 'a class_t = 'a GioProxyAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     type 'a inetaddressclass_t = 'a GioInetAddressClass.t
+    type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new inetaddr port protocol destHostname destPort username password =

@@ -20,6 +20,7 @@ structure GioDBusObjectSkeleton :>
     type 'a dbusobjectclass_t = 'a GioDBusObjectClass.t
     type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
     type 'a dbusinterfaceskeletonclass_t = 'a GioDBusInterfaceSkeletonClass.t
+    type t = base class_t
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new objectPath = (FFI.String.C.withConstPtr ---> GioDBusObjectSkeletonClass.C.fromPtr true) new_ objectPath

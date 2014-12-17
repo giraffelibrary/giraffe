@@ -50,6 +50,7 @@ structure GtkStyleProperties :>
     type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
     type symboliccolorrecord_t = GtkSymbolicColorRecord.t
     type stateflags_t = GtkStateFlags.t
+    type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()

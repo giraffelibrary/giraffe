@@ -1,8 +1,9 @@
 signature GIO_UNIX_CONNECTION =
   sig
     type 'a class_t
-    type 'a cancellableclass_t
     type 'a credentialsclass_t
+    type 'a cancellableclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val receiveCredentials :
       'a class_t

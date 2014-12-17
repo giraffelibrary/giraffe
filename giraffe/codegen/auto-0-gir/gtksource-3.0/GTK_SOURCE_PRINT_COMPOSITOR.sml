@@ -1,8 +1,9 @@
 signature GTK_SOURCE_PRINT_COMPOSITOR =
   sig
     type 'a class_t
-    type 'a bufferclass_t
     type 'a viewclass_t
+    type 'a bufferclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a bufferclass_t -> base class_t
     val newFromView : 'a viewclass_t -> base class_t

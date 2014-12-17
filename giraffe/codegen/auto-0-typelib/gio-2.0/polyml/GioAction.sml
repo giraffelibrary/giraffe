@@ -16,6 +16,7 @@ structure GioAction :>
       val getStateType_ = call (load_sym libgio "g_action_get_state_type") (GObjectObjectClass.PolyML.PTR --> GLibVariantTypeRecord.PolyML.PTR)
     end
     type 'a class_t = 'a GioActionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self parameter = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withOptPtr ---> I) activate_ (self & parameter)
     fun changeState self value = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) changeState_ (self & value)

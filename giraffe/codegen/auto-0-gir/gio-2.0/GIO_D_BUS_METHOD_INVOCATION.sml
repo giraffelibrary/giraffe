@@ -1,10 +1,11 @@
 signature GIO_D_BUS_METHOD_INVOCATION =
   sig
     type 'a class_t
-    type 'a unixfdlistclass_t
-    type dbusmethodinforecord_t
-    type 'a dbusmessageclass_t
     type 'a dbusconnectionclass_t
+    type 'a dbusmessageclass_t
+    type dbusmethodinforecord_t
+    type 'a unixfdlistclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getConnection : 'a class_t -> base dbusconnectionclass_t
     val getInterfaceName : 'a class_t -> string

@@ -58,6 +58,7 @@ structure GtkPrintContext :>
             )
     type 'a class_t = 'a GtkPrintContextClass.t
     type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self
     fun createPangoLayout self = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ self

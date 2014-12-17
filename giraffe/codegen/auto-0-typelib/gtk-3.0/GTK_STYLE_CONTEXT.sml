@@ -1,15 +1,16 @@
 signature GTK_STYLE_CONTEXT =
   sig
     type 'a class_t
-    type textdirection_t
-    type statetype_t
-    type stateflags_t
-    type widgetpathrecord_t
-    type junctionsides_t
-    type 'a styleproviderclass_t
-    type iconsetrecord_t
-    type regionflags_t
     type borderrecord_t
+    type regionflags_t
+    type iconsetrecord_t
+    type 'a styleproviderclass_t
+    type junctionsides_t
+    type widgetpathrecord_t
+    type stateflags_t
+    type statetype_t
+    type textdirection_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val addProviderForScreen :

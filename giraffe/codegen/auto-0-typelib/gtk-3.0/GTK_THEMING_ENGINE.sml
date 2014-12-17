@@ -1,13 +1,14 @@
 signature GTK_THEMING_ENGINE =
   sig
     type 'a class_t
-    type statetype_t
-    type regionflags_t
-    type stateflags_t
-    type widgetpathrecord_t
-    type borderrecord_t
-    type junctionsides_t
     type textdirection_t
+    type junctionsides_t
+    type borderrecord_t
+    type widgetpathrecord_t
+    type stateflags_t
+    type regionflags_t
+    type statetype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val load : string -> base class_t
     val getBackgroundColor :

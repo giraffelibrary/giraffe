@@ -29,6 +29,7 @@ structure GtkIconSet :>
     type record_t = GtkIconSetRecord.t
     type iconsourcerecord_t = GtkIconSourceRecord.t
     type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSetRecord.C.fromPtr true) new_ ()
     fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) newFromPixbuf_ pixbuf

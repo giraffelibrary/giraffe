@@ -1200,6 +1200,7 @@ structure GioFile :>
     type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
     fun newForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path

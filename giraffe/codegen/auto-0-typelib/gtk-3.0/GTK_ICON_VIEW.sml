@@ -1,19 +1,20 @@
 signature GTK_ICON_VIEW =
   sig
     type 'a class_t
-    type selectionmode_t
-    type 'a treemodelclass_t
-    type orientation_t
-    type 'a cellareaclass_t
-    type movementstep_t
-    type treepathrecord_t
-    type 'a tooltipclass_t
-    type 'a cellrendererclass_t
-    type iconviewdropposition_t
-    type treeiterrecord_t
-    type 'a scrollableclass_t
-    type 'a celllayoutclass_t
     type 'a buildableclass_t
+    type 'a celllayoutclass_t
+    type 'a scrollableclass_t
+    type treeiterrecord_t
+    type iconviewdropposition_t
+    type 'a cellrendererclass_t
+    type 'a tooltipclass_t
+    type treepathrecord_t
+    type movementstep_t
+    type 'a cellareaclass_t
+    type orientation_t
+    type 'a treemodelclass_t
+    type selectionmode_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellLayout : 'a class_t -> base celllayoutclass_t

@@ -1,14 +1,15 @@
 signature GIO_SOCKET =
   sig
     type 'a class_t
-    type sockettype_t
-    type 'a socketaddressclass_t
-    type socketprotocol_t
-    type socketfamily_t
-    type 'a cancellableclass_t
-    type 'a credentialsclass_t
-    type 'a socketconnectionclass_t
     type 'a initableclass_t
+    type 'a socketconnectionclass_t
+    type 'a credentialsclass_t
+    type 'a cancellableclass_t
+    type socketfamily_t
+    type socketprotocol_t
+    type 'a socketaddressclass_t
+    type sockettype_t
+    type t = base class_t
     val asInitable : 'a class_t -> base initableclass_t
     val getType : unit -> GObject.Type.t
     val new :

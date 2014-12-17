@@ -89,6 +89,7 @@ structure GtkRecentChooser :>
     type 'a recentfilterclass_t = 'a GtkRecentFilterClass.t
     type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t
     type recentsorttype_t = GtkRecentSortType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)
     fun getCurrentItem self = (GObjectObjectClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self

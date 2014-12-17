@@ -180,6 +180,7 @@ structure GioAppInfo :>
     type appinfocreateflags_t = GioAppInfoCreateFlags.t
     type 'a applaunchcontextclass_t = 'a GioAppLaunchContextClass.t
     type 'a iconclass_t = 'a GioIconClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (

@@ -205,6 +205,7 @@ structure GdkDevice :>
     type inputmode_t = GdkInputMode.t
     type inputsource_t = GdkInputSource.t
     type devicetype_t = GdkDeviceType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun grabInfoLibgtkOnly display device =
       let

@@ -1,27 +1,28 @@
 signature GDK_WINDOW =
   sig
     type 'a class_t
-    type 'a cursorclass_t
-    type windowtypehint_t
-    type inputsource_t
-    type eventmask_t
-    type geometryrecord_t
-    type windowhints_t
-    type wmfunction_t
-    type 'a deviceclass_t
-    type wmdecoration_t
-    type rgbarecord_t
-    type colorrecord_t
-    type rectanglerecord_t
-    type windowtype_t
-    type 'a visualclass_t
-    type windowstate_t
-    type 'a screenclass_t
-    type dragprotocol_t
-    type 'a displayclass_t
-    type modifiertype_t
-    type windowedge_t
     type windowattrrecord_t
+    type windowedge_t
+    type modifiertype_t
+    type 'a displayclass_t
+    type dragprotocol_t
+    type 'a screenclass_t
+    type windowstate_t
+    type 'a visualclass_t
+    type windowtype_t
+    type rectanglerecord_t
+    type colorrecord_t
+    type rgbarecord_t
+    type wmdecoration_t
+    type 'a deviceclass_t
+    type wmfunction_t
+    type windowhints_t
+    type geometryrecord_t
+    type eventmask_t
+    type inputsource_t
+    type windowtypehint_t
+    type 'a cursorclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new :
       'a class_t option

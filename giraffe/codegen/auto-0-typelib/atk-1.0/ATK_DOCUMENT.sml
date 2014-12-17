@@ -1,6 +1,7 @@
 signature ATK_DOCUMENT =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getAttributeValue :
       'a class_t

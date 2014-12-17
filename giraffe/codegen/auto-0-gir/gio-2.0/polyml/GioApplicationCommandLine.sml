@@ -14,6 +14,7 @@ structure GioApplicationCommandLine :>
       val setExitStatus_ = call (load_sym libgio "g_application_command_line_set_exit_status") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioApplicationCommandLineClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getCwd self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCwd_ self
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getExitStatus_ self

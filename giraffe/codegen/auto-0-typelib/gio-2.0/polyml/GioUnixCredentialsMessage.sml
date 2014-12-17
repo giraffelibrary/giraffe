@@ -14,6 +14,7 @@ structure GioUnixCredentialsMessage :>
     end
     type 'a class_t = 'a GioUnixCredentialsMessageClass.t
     type 'a credentialsclass_t = 'a GioCredentialsClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.C.fromPtr true) new_ ()
     fun newWithCredentials credentials = (GObjectObjectClass.C.withPtr ---> GioUnixCredentialsMessageClass.C.fromPtr true) newWithCredentials_ credentials

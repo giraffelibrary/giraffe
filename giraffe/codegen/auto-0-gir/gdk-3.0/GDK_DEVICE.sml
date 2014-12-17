@@ -1,19 +1,20 @@
 signature GDK_DEVICE =
   sig
     type 'a class_t
-    type devicetype_t
-    type inputsource_t
-    type inputmode_t
-    type 'a displayclass_t
-    type 'a devicemanagerclass_t
-    type 'a screenclass_t
-    type modifiertype_t
-    type axisuse_t
-    type 'a windowclass_t
-    type grabownership_t
-    type eventmask_t
-    type 'a cursorclass_t
     type grabstatus_t
+    type 'a cursorclass_t
+    type eventmask_t
+    type grabownership_t
+    type 'a windowclass_t
+    type axisuse_t
+    type modifiertype_t
+    type 'a screenclass_t
+    type 'a devicemanagerclass_t
+    type 'a displayclass_t
+    type inputmode_t
+    type inputsource_t
+    type devicetype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val grabInfoLibgtkOnly :
       'a displayclass_t

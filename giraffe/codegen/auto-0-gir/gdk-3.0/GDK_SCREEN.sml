@@ -1,10 +1,11 @@
 signature GDK_SCREEN =
   sig
     type 'a class_t
-    type 'a visualclass_t
-    type 'a windowclass_t
-    type rectanglerecord_t
     type 'a displayclass_t
+    type rectanglerecord_t
+    type 'a windowclass_t
+    type 'a visualclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
     val height : unit -> LargeInt.int

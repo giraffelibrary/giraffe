@@ -2,6 +2,7 @@ signature ATK_SELECTION =
   sig
     type 'a class_t
     type 'a objectclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addSelection :
       'a class_t

@@ -2,6 +2,7 @@ signature GTK_ACCEL_GROUP =
   sig
     type 'a class_t
     type accelflags_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val fromAccelClosure : GObject.ClosureRecord.t -> base class_t

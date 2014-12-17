@@ -2,6 +2,7 @@ signature PANGO_ATTR_LIST =
   sig
     type record_t
     type attributerecord_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val change :

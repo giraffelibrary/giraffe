@@ -10,6 +10,7 @@ structure GdkPixbufPixbufAnimationIter :>
     val onCurrentlyLoadingFrame_ = _import "gdk_pixbuf_animation_iter_on_currently_loading_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a GdkPixbufPixbufAnimationIterClass.t
     type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun advance self currentTime = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) advance_ (self & currentTime)
     fun getDelayTime self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDelayTime_ self

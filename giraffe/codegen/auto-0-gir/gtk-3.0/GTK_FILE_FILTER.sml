@@ -1,9 +1,10 @@
 signature GTK_FILE_FILTER =
   sig
     type 'a class_t
-    type filefilterflags_t
-    type filefilterinforecord_t
     type 'a buildableclass_t
+    type filefilterinforecord_t
+    type filefilterflags_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t

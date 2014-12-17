@@ -7,6 +7,7 @@ structure GtkTextAttributes :>
     val copy_ = _import "gtk_text_attributes_copy" : GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p -> GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p;
     val copyValues_ = fn x1 & x2 => (_import "gtk_text_attributes_copy_values" : GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p * GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p -> unit;) (x1, x2)
     type record_t = GtkTextAttributesRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTextAttributesRecord.C.fromPtr true) new_ ()
     fun copy self = (GtkTextAttributesRecord.C.withPtr ---> GtkTextAttributesRecord.C.fromPtr true) copy_ self

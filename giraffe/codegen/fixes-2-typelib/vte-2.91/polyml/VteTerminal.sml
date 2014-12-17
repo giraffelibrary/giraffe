@@ -221,6 +221,7 @@ structure VteTerminal :>
     type cursorshape_t = VteCursorShape.t
     type erasebinding_t = VteEraseBinding.t
     type 'a ptyclass_t = 'a VtePtyClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

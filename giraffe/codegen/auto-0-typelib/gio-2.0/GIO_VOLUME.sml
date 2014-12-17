@@ -1,11 +1,12 @@
 signature GIO_VOLUME =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
-    type 'a mountclass_t
-    type 'a iconclass_t
-    type 'a driveclass_t
     type 'a fileclass_t
+    type 'a driveclass_t
+    type 'a iconclass_t
+    type 'a mountclass_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val canEject : 'a class_t -> bool
     val canMount : 'a class_t -> bool

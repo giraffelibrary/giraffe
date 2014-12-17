@@ -23,6 +23,7 @@ structure GtkRadioAction :>
     end
     type 'a class_t = 'a GtkRadioActionClass.t
     type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =

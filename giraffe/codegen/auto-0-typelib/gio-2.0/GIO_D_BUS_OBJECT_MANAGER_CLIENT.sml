@@ -1,15 +1,16 @@
 signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
   sig
     type 'a class_t
-    type dbusobjectmanagerclientflags_t
-    type 'a dbusconnectionclass_t
-    type bustype_t
-    type 'a dbusobjectproxyclass_t
-    type 'a dbusproxyclass_t
-    type 'a asyncresultclass_t
-    type 'a initableclass_t
-    type 'a dbusobjectmanagerclass_t
     type 'a asyncinitableclass_t
+    type 'a dbusobjectmanagerclass_t
+    type 'a initableclass_t
+    type 'a asyncresultclass_t
+    type 'a dbusproxyclass_t
+    type 'a dbusobjectproxyclass_t
+    type bustype_t
+    type 'a dbusconnectionclass_t
+    type dbusobjectmanagerclientflags_t
+    type t = base class_t
     val asAsyncInitable : 'a class_t -> base asyncinitableclass_t
     val asDBusObjectManager : 'a class_t -> base dbusobjectmanagerclass_t
     val asInitable : 'a class_t -> base initableclass_t

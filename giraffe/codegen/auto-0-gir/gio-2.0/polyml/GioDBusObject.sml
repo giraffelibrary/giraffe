@@ -12,6 +12,7 @@ structure GioDBusObject :>
     end
     type 'a class_t = 'a GioDBusObjectClass.t
     type 'a dbusinterfaceclass_t = 'a GioDBusInterfaceClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getInterface self interfaceName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioDBusInterfaceClass.C.fromPtr true) getInterface_ (self & interfaceName)
     fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self

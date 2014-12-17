@@ -1,6 +1,7 @@
 signature GTK_CELL_EDITABLE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val editingDone : 'a class_t -> unit
     val removeWidget : 'a class_t -> unit

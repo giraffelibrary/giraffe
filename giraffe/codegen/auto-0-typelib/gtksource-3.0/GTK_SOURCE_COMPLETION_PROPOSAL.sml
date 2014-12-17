@@ -1,6 +1,7 @@
 signature GTK_SOURCE_COMPLETION_PROPOSAL =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val changed : 'a class_t -> unit
     val equal :

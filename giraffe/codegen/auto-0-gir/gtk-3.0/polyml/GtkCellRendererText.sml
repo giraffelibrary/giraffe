@@ -10,6 +10,7 @@ structure GtkCellRendererText :>
       val setFixedHeightFromFont_ = call (load_sym libgtk "gtk_cell_renderer_text_set_fixed_height_from_font") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellRendererTextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererTextClass.C.fromPtr false) new_ ()
     fun setFixedHeightFromFont self numberOfRows = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)

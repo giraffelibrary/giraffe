@@ -11,6 +11,7 @@ structure GtkAppChooser :>
       val refresh_ = call (load_sym libgtk "gtk_app_chooser_refresh") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAppChooserClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getAppInfo_ self
     fun getContentType self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getContentType_ self

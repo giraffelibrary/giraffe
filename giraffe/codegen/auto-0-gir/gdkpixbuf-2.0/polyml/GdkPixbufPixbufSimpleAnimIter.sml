@@ -8,5 +8,6 @@ structure GdkPixbufPixbufSimpleAnimIter :>
       val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_iter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
     end
     type 'a class_t = 'a GdkPixbufPixbufSimpleAnimIterClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

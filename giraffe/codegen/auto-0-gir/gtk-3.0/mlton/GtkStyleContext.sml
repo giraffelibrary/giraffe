@@ -366,6 +366,7 @@ structure GtkStyleContext :>
     type stateflags_t = GtkStateFlags.t
     type statetype_t = GtkStateType.t
     type textdirection_t = GtkTextDirection.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStyleContextClass.C.fromPtr true) new_ ()
     fun addProviderForScreen screen provider priority =

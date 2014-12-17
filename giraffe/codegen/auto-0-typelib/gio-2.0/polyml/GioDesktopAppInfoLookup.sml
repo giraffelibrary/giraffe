@@ -8,5 +8,6 @@ structure GioDesktopAppInfoLookup :>
       val getType_ = call (load_sym libgio "g_desktop_app_info_lookup_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
     end
     type 'a class_t = 'a GioDesktopAppInfoLookupClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

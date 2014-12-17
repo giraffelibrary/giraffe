@@ -89,6 +89,7 @@ structure GioDataOutputStream :>
     type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type datastreambyteorder_t = GioDataStreamByteOrder.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataOutputStreamClass.C.fromPtr true) new_ baseStream
     fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self

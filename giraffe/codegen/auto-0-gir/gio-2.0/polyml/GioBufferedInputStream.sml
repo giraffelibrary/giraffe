@@ -44,6 +44,7 @@ structure GioBufferedInputStream :>
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream
     fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)

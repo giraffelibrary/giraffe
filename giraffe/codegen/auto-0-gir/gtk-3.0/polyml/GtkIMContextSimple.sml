@@ -9,6 +9,7 @@ structure GtkIMContextSimple :>
       val new_ = call (load_sym libgtk "gtk_im_context_simple_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkIMContextSimpleClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIMContextSimpleClass.C.fromPtr true) new_ ()
   end

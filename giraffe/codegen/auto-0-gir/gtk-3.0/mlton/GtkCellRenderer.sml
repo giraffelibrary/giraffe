@@ -361,6 +361,7 @@ structure GtkCellRenderer :>
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type 'a celleditableclass_t = 'a GtkCellEditableClass.t
     type cellrenderermode_t = GtkCellRendererMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self event widget path backgroundArea cellArea flags =
       (

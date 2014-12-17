@@ -51,6 +51,7 @@ structure GdkKeymap :>
     type 'a displayclass_t = 'a GdkDisplayClass.t
     type keymapkeyrecord_t = GdkKeymapKeyRecord.t
     type modifiertype_t = GdkModifierType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkKeymapClass.C.fromPtr false) getDefault_ ()
     fun getForDisplay display = (GObjectObjectClass.C.withPtr ---> GdkKeymapClass.C.fromPtr false) getForDisplay_ display

@@ -1,12 +1,13 @@
 signature PANGO_FONT =
   sig
     type 'a class_t
-    type languagerecord_t
-    type fontmetricsrecord_t
-    type glyph_t
-    type rectanglerecord_t
-    type 'a fontmapclass_t
     type fontdescriptionrecord_t
+    type 'a fontmapclass_t
+    type rectanglerecord_t
+    type glyph_t
+    type fontmetricsrecord_t
+    type languagerecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val describe : 'a class_t -> fontdescriptionrecord_t
     val describeWithAbsoluteSize : 'a class_t -> fontdescriptionrecord_t

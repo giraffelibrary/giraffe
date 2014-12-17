@@ -2,6 +2,7 @@ signature GTK_SELECTION_DATA =
   sig
     type record_t
     type 'a textbufferclass_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val copy : record_t -> record_t
     val getDataType : record_t -> Gdk.AtomRecord.t

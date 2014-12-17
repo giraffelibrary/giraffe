@@ -23,6 +23,7 @@ structure GioInetAddress :>
     val toString_ = _import "g_inet_address_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GioInetAddressClass.t
     type socketfamily_t = GioSocketFamily.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
     fun newFromString string = (FFI.String.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string

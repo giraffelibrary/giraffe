@@ -1,14 +1,15 @@
 signature GTK_PRINT_SETTINGS =
   sig
     type 'a class_t
-    type printquality_t
-    type printpages_t
-    type unit_t
-    type papersizerecord_t
-    type pageset_t
-    type pageorientation_t
-    type numberuplayout_t
     type printduplex_t
+    type numberuplayout_t
+    type pageorientation_t
+    type pageset_t
+    type papersizerecord_t
+    type unit_t
+    type printpages_t
+    type printquality_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newFromFile : string -> base class_t

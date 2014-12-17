@@ -62,6 +62,7 @@ structure GtkCssProvider :>
     val toString_ = _import "gtk_css_provider_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GtkCssProviderClass.t
     type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
+    type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.C.fromPtr true) new_ ()

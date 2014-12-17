@@ -1,21 +1,22 @@
 signature GTK_TEXT_VIEW =
   sig
     type 'a class_t
-    type wrapmode_t
-    type justification_t
-    type 'a textbufferclass_t
-    type 'a menuclass_t
-    type scrollstep_t
-    type movementstep_t
-    type deletetype_t
-    type textwindowtype_t
-    type textiterrecord_t
-    type 'a textmarkclass_t
-    type 'a widgetclass_t
-    type textattributesrecord_t
-    type 'a textchildanchorclass_t
-    type 'a scrollableclass_t
     type 'a buildableclass_t
+    type 'a scrollableclass_t
+    type 'a textchildanchorclass_t
+    type textattributesrecord_t
+    type 'a widgetclass_t
+    type 'a textmarkclass_t
+    type textiterrecord_t
+    type textwindowtype_t
+    type deletetype_t
+    type movementstep_t
+    type scrollstep_t
+    type 'a menuclass_t
+    type 'a textbufferclass_t
+    type justification_t
+    type wrapmode_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asScrollable : 'a class_t -> base scrollableclass_t

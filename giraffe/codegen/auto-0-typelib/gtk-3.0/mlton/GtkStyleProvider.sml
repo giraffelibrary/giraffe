@@ -37,6 +37,7 @@ structure GtkStyleProvider :>
     type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t
     type stateflags_t = GtkStateFlags.t
     type widgetpathrecord_t = GtkWidgetPathRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getIconFactory self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)
     fun getStyle self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkStylePropertiesClass.C.fromPtr true) getStyle_ (self & path)

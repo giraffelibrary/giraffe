@@ -1,10 +1,11 @@
 signature GTK_FILE_CHOOSER =
   sig
     type 'a class_t
-    type 'a widgetclass_t
-    type 'a filefilterclass_t
-    type filechooseraction_t
     type filechooserconfirmation_t
+    type filechooseraction_t
+    type 'a filefilterclass_t
+    type 'a widgetclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addFilter :
       'a class_t

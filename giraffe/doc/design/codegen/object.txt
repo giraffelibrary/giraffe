@@ -107,7 +107,7 @@ structure <ObjectNamespace><ObjectName>Class :>
 
 signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
   sig
-    (* Types *)
+    (* Local Types *)
 
     type 'a class_t
 
@@ -121,6 +121,11 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
     type ('object, 'a) property_writeonly                    | isGObject and P > 0
     type ('object, 'a, 'b) property_readwrite                |
                                                             -'
+
+    (* Type Abbreviations *)
+
+    type t = base class_t
+
 
     (* Interfaces *)
 
@@ -243,8 +248,7 @@ structure <ObjectNamespace><ObjectName> :>
     <LowLevelFunction[M]>                                                    |
                                                                             -'
 
-
-    (* Types *)
+    (* Local Types *)
 
     type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
 
@@ -258,6 +262,11 @@ structure <ObjectNamespace><ObjectName> :>
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
                                                                                           -'
+
+    (* Type Abbreviations *)
+
+    type t = base class_t
+
 
     (* Interfaces *)
 

@@ -26,6 +26,7 @@ structure GLibSource :>
     end
     type record_t = GLibSourceRecord.t
     type maincontextrecord_t = GLibMainContextRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) addChildSource_ (self & childSource)
     fun attach self context = (GLibSourceRecord.C.withPtr &&&> GLibMainContextRecord.C.withPtr ---> FFI.UInt32.C.fromVal) attach_ (self & context)

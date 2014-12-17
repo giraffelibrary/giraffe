@@ -1,13 +1,14 @@
 signature GTK_SPIN_BUTTON =
   sig
     type 'a class_t
-    type spinbuttonupdatepolicy_t
-    type 'a adjustmentclass_t
-    type scrolltype_t
-    type spintype_t
-    type 'a editableclass_t
-    type 'a celleditableclass_t
     type 'a buildableclass_t
+    type 'a celleditableclass_t
+    type 'a editableclass_t
+    type spintype_t
+    type scrolltype_t
+    type 'a adjustmentclass_t
+    type spinbuttonupdatepolicy_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellEditable : 'a class_t -> base celleditableclass_t

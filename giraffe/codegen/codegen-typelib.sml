@@ -1494,6 +1494,27 @@ fun makeRefBaseTy ((nTys, longId), tyVarIdx) =
 
 
 
+fun makeIRefLocalTypeRef makeRefTy (iRef, tyVarIdx) =
+  let
+    val tyRef = (
+      numInterfaceRefTyVars iRef,
+      makeInterfaceRefTyLongId iRef
+    )
+  in
+    makeRefTy (tyRef, tyVarIdx)
+  end
+
+fun makeIRefLocalTypeSpec iRef =
+  let
+    val tyId = makeLocalInterfaceId iRef
+    val nTys = numInterfaceRefTyVars iRef
+    val (tyVars, _) = makeTyList makeTyVar (nTys, 0)
+  in
+    mkTypeSpec ((tyVars, tyId), NONE)
+  end
+
+
+
 
 
 
@@ -2538,11 +2559,8 @@ fun makeFunctionSpec
         case optContainerIRef of
           SOME containerIRef =>
             let
-              val selfTyRef = (
-                numInterfaceRefTyVars containerIRef,
-                makeInterfaceRefTyLongId containerIRef
-              )
-              val (selfTy, tyVarIdx'1) = makeRefVarTy (selfTyRef, tyVarIdx'0)
+              val (selfTy, tyVarIdx'1) =
+                makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
             in
               ([selfTy], tyVarIdx'1)
             end
@@ -2633,12 +2651,7 @@ fun makeFunctionSpec
  *)
 fun getTypeSpec typeIRef =
   let
-    val iRef = typeIRef
-    val ifTyRef = (
-      numInterfaceRefTyVars iRef,
-      makeInterfaceRefTyLongId iRef
-    )
-    val (typeRefTy, _) = makeRefBaseTy (ifTyRef, 0)
+    val (typeRefTy, _) = makeIRefLocalTypeRef makeRefBaseTy (typeIRef, 0)
   in
     mkValSpec (getTypeId, TyFun (unitTy, typeRefTy))
   end
@@ -4377,11 +4390,8 @@ fun makeSignalSpec
     (*
      * <functionTy> -> <var> class_t Signal.signal
      *)
-    val containerTyRef = (
-      numInterfaceRefTyVars containerIRef,
-      makeInterfaceRefTyLongId containerIRef
-    )
-    val (containerTy, _) = makeRefVarTy (containerTyRef, tyVarIdx'3)
+    val (containerTy, _) =
+      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'3)
     val signalTy = TyFun (TyParen functionTy, signalTy containerTy)
   in
     (mkValSpec (signalNameId, signalTy), (iRefs'3, errs))
@@ -4968,12 +4978,9 @@ fun makePropertySpec
     val paramInfo = getParamInfo repo containerIRef propertyInfo
 
 
-    val containerTyRef = (
-      numInterfaceRefTyVars containerIRef,
-      makeInterfaceRefTyLongId containerIRef
-    )
     val tyVarIdx'0 = 0
-    val (containerTy, tyVarIdx'1) = makeRefVarTy (containerTyRef, tyVarIdx'0)
+    val (containerTy, tyVarIdx'1) =
+      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
 
     fun mkTy mode isOpt (tyRef, tyVarIdx) =
       let
@@ -5257,17 +5264,11 @@ fun makeInterfaceConvSpec
     (*
      * <containerTy> -> <interfaceTy>
      *)
-    val containerTyRef = (
-      numInterfaceRefTyVars containerIRef,
-      makeInterfaceRefTyLongId containerIRef
-    )
-    val interfaceTyRef = (
-      numInterfaceRefTyVars interfaceIRef,
-      makeInterfaceRefTyLongId interfaceIRef
-    )
     val tyVarIdx'0 = 0
-    val (containerTy, tyVarIdx'1) = makeRefVarTy (containerTyRef, tyVarIdx'0)
-    val (interfaceTy, _) = makeRefBaseTy (interfaceTyRef, tyVarIdx'1)
+    val (containerTy, tyVarIdx'1) =
+       makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
+    val (interfaceTy, _) =
+       makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, tyVarIdx'1)
     val interfaceConvTy = TyFun (containerTy, interfaceTy)
   in
     (mkValSpec (interfaceConvId, interfaceConvTy), (iRefs'1, errs))
@@ -5417,15 +5418,6 @@ fun addGetTypeFunctionStrDecLowLevel
     (strDecs', errs)
   end
 
-
-fun makeIRefLocalTypeSpec iRef =
-  let
-    val tyId = makeLocalInterfaceId iRef
-    val nTys = numInterfaceRefTyVars iRef
-    val (tyVars, _) = makeTyList makeTyVar (nTys, 0)
-  in
-    mkTypeSpec ((tyVars, tyId), NONE)
-  end
 
 type localtype = {
   tyVars    : (bool * id) list,
@@ -6601,22 +6593,32 @@ fun makeObjectSig
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
     val (specs'6, iRefs'6, errs'6) = acc'6
 
+    val sigIRefs =
+      objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
+
     val numProps = ObjectInfo.getNProperties objectInfo
     val specs'7 = addPropertySpecs objectNamespace numProps specs'6
 
     (*
+     *     type t = base class_t
+     *)
+    val specs'8 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (objectIRef, 0)
+      in
+        mkTypeSpec (([], tId), SOME ty) :: specs'7
+      end
+
+    (*
+     *     type 'a class_t
+     *
      *     type <varlist[1]> <typename[1]>_t
      *
      *     ...
      *
      *     type <varlist[N]> <typename[N]>_t
      *)
-    val specs'8 = revMapAppend makeIRefLocalTypeSpec (iRefs'6, specs'7)
-
-    (*
-     *     type 'a class_t
-     *)
-    val specs'9 = makeIRefLocalTypeSpec objectIRef :: specs'8
+    val specs'9 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'8)
 
     val sig1 = mkSigSpec specs'9
     val qSig : qsig = (sig1, [])
@@ -6786,16 +6788,37 @@ fun makeObjectStr
         (objectInfo, acc'5)
     val (strDecs'6, iRefs'6, errs'6) = acc'6
 
+    val strIRefs =
+      objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
+
     val numProps = ObjectInfo.getNProperties objectInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
     val strDecs'7 =
       revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
 
-    val strIRefs =
-      objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
+    (*
+     *     type t = base class_t
+     *)
+    val strDecs'8 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (objectIRef, 0)
+      in
+        StrDecDec (mkTypeDec (([], tId), ty)) :: strDecs'7
+      end
 
+    (*
+     *     type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
+     * 
+     *     type <varlist[1]> <typename[1]>_t =
+     *       <varlist[1]> <ObjectNamespace><TypeName[1]>.t
+     * 
+     *     ...
+     * 
+     *     type <varlist[N]> <typename[N]>_t =
+     *       <varlist[N]> <ObjectNamespace><TypeName[N]>.t
+     *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
-    val strDecs'8 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'7)
+    val strDecs'9 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'8)
 
     fun mkModule isPolyML =
       let
@@ -6814,7 +6837,7 @@ fun makeObjectStr
             )
             rootObjectIRef
             objectIRef
-            (objectInfo, (strDecs'8, errs'6))
+            (objectInfo, (strDecs'9, errs'6))
 
         val struct1 = mkStructBody strDecs
 
@@ -7260,22 +7283,33 @@ fun makeInterfaceSig
     val acc'6 = acc'5
     val (specs'6, iRefs'6, errs'6) = acc'6
 
+    val sigIRefs =
+      interfaceIRef :: iRefs'6
+      (* `interfaceIRef` for class structure dependence *)
+
     val numProps = InterfaceInfo.getNProperties interfaceInfo
     val specs'7 = addPropertySpecs interfaceNamespace numProps specs'6
 
     (*
+     *     type t = base class_t
+     *)
+    val specs'8 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, 0)
+      in
+        mkTypeSpec (([], tId), SOME ty) :: specs'7
+      end
+
+    (*
+     *     type 'a class_t
+     *
      *     type <varlist[1]> <typename[1]>_t
      *
      *     ...
      *
      *     type <varlist[N]> <typename[N]>_t
      *)
-    val specs'8 = revMapAppend makeIRefLocalTypeSpec (iRefs'6, specs'7)
-
-    (*
-     *     type 'a class_t
-     *)
-    val specs'9 = makeIRefLocalTypeSpec interfaceIRef :: specs'8
+    val specs'9 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'8)
 
     val sig1 = mkSigSpec specs'9
     val qSig : qsig = (sig1, [])
@@ -7438,17 +7472,38 @@ fun makeInterfaceStr
     val acc'6 = acc'5
     val (strDecs'6, iRefs'6, errs'6) = acc'6
 
+    val strIRefs =
+      interfaceIRef :: iRefs'6
+      (* `interfaceIRef` for class structure dependence *)
+
     val numProps = InterfaceInfo.getNProperties interfaceInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
     val strDecs'7 =
       revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
 
-    val strIRefs =
-      interfaceIRef :: iRefs'6
-      (* `interfaceIRef` for class structure dependence *)
+    (*
+     *     type t = base class_t
+     *)
+    val strDecs'8 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, 0)
+      in
+        StrDecDec (mkTypeDec (([], tId), ty)) :: strDecs'7
+      end
 
+    (*
+     *     type 'a class_t = 'a <InterfaceNamespace><InterfaceName>Class.t
+     * 
+     *     type <varlist[1]> <typename[1]>_t =
+     *       <varlist[1]> <InterfaceNamespace><TypeName[1]>.t
+     * 
+     *     ...
+     * 
+     *     type <varlist[N]> <typename[N]>_t =
+     *       <varlist[N]> <InterfaceNamespace><TypeName[N]>.t
+     *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
-    val strDecs'8 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'7)
+    val strDecs'9 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'8)
 
     fun mkModule isPolyML =
       let
@@ -7467,7 +7522,7 @@ fun makeInterfaceStr
             )
             interfaceRootIRef
             interfaceIRef
-            (interfaceInfo, (strDecs'8, errs'6))
+            (interfaceInfo, (strDecs'9, errs'6))
 
         val struct1 = mkStructBody strDecs
 
@@ -7654,10 +7709,31 @@ fun makeStructSig
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionSpec typeIRef acc'1
       | NONE   => acc'1
-
     val (specs'2, iRefs'2, errs'2) = acc'2
-    val specs'3 = revMapAppend makeIRefLocalTypeSpec (iRefs'2, specs'2)
-    val specs'4 = makeIRefLocalTypeSpec structIRef :: specs'3
+
+    val sigIRefs =
+      structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
+
+    (*
+     *     type t = record_t
+     *)
+    val specs'3 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (structIRef, 0)
+      in
+        mkTypeSpec (([], tId), SOME ty) :: specs'2
+      end
+
+    (*
+     *     type record_t
+     *
+     *     type <varlist[1]> <typename[1]>_t
+     *
+     *     ...
+     *
+     *     type <varlist[N]> <typename[N]>_t
+     *)
+    val specs'4 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'3)
 
     val sig1 = mkSigSpec specs'4
     val qSig : qsig = (sig1, [])
@@ -7747,8 +7823,29 @@ fun makeStructStr
     val strIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
 
+    (*
+     *     type t = record_t
+     *)
+    val strDecs'3 =
+      let
+        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (structIRef, 0)
+      in
+        StrDecDec (mkTypeDec (([], tId), ty)) :: strDecs'2
+      end
+
+    (*
+     *     type record_t = <StructNamespace><StructName>Record.t
+     * 
+     *     type <varlist[1]> <typename[1]>_t =
+     *       <varlist[1]> <StructNamespace><TypeName[1]>.t
+     * 
+     *     ...
+     * 
+     *     type <varlist[N]> <typename[N]>_t =
+     *       <varlist[N]> <StructNamespace><TypeName[N]>.t
+     *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
-    val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
+    val strDecs'4 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'3)
 
     fun mkModule isPolyML =
       let
@@ -7759,7 +7856,7 @@ fun makeStructStr
             libId
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
-            (structInfo, (strDecs'3, errs'2))
+            (structInfo, (strDecs'4, errs'2))
 
         val struct1 = mkStructBody strDecs
 

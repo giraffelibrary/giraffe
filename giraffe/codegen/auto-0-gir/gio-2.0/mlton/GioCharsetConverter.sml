@@ -32,6 +32,7 @@ structure GioCharsetConverter :>
     type 'a class_t = 'a GioCharsetConverterClass.t
     type 'a converterclass_t = 'a GioConverterClass.t
     type 'a initableclass_t = 'a GioInitableClass.t
+    type t = base class_t
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

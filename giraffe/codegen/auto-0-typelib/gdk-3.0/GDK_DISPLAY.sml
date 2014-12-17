@@ -1,13 +1,14 @@
 signature GDK_DISPLAY =
   sig
     type 'a class_t
-    type atomrecord_t
-    type 'a event_t
-    type 'a screenclass_t
-    type 'a devicemanagerclass_t
-    type 'a windowclass_t
-    type 'a applaunchcontextclass_t
     type 'a deviceclass_t
+    type 'a applaunchcontextclass_t
+    type 'a windowclass_t
+    type 'a devicemanagerclass_t
+    type 'a screenclass_t
+    type 'a event_t
+    type atomrecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
     val open' : string -> base class_t

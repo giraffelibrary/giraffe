@@ -1,8 +1,9 @@
 signature GIO_CONVERTER_OUTPUT_STREAM =
   sig
     type 'a class_t
-    type 'a converterclass_t
     type 'a outputstreamclass_t
+    type 'a converterclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new :
       'a outputstreamclass_t

@@ -1,8 +1,9 @@
 signature GTK_SCROLLABLE =
   sig
     type 'a class_t
-    type scrollablepolicy_t
     type 'a adjustmentclass_t
+    type scrollablepolicy_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getHadjustment : 'a class_t -> base adjustmentclass_t
     val getHscrollPolicy : 'a class_t -> scrollablepolicy_t

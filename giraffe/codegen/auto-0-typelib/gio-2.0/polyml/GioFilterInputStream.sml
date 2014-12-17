@@ -13,6 +13,7 @@ structure GioFilterInputStream :>
     end
     type 'a class_t = 'a GioFilterInputStreamClass.t
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBaseStream self = (GObjectObjectClass.C.withPtr ---> GioInputStreamClass.C.fromPtr false) getBaseStream_ self
     fun getCloseBaseStream self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCloseBaseStream_ self

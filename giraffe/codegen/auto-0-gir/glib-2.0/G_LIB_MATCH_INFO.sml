@@ -2,6 +2,7 @@ signature G_LIB_MATCH_INFO =
   sig
     type record_t
     type regexrecord_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val expandReferences :
       record_t

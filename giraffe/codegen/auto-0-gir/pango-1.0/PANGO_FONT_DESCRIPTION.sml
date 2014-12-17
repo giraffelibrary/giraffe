@@ -1,12 +1,13 @@
 signature PANGO_FONT_DESCRIPTION =
   sig
     type record_t
-    type fontmask_t
-    type weight_t
-    type variant_t
-    type style_t
-    type stretch_t
     type gravity_t
+    type stretch_t
+    type style_t
+    type variant_t
+    type weight_t
+    type fontmask_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val betterMatch :

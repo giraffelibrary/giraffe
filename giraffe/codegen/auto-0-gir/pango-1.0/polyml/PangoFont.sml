@@ -33,6 +33,7 @@ structure PangoFont :>
     type glyph_t = PangoGlyph.t
     type fontmetricsrecord_t = PangoFontMetricsRecord.t
     type languagerecord_t = PangoLanguageRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
     fun describeWithAbsoluteSize self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describeWithAbsoluteSize_ self

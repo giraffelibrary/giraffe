@@ -2,6 +2,7 @@ signature GIO_SEEKABLE =
   sig
     type 'a class_t
     type 'a cancellableclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val canSeek : 'a class_t -> bool
     val canTruncate : 'a class_t -> bool

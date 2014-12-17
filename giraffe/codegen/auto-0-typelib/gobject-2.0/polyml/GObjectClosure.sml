@@ -11,6 +11,7 @@ structure GObjectClosure :>
     end
     type record_t = GObjectClosureRecord.t
     type type_t = GObjectType.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun invalidate self = (GObjectClosureRecord.C.withPtr ---> I) invalidate_ self
   end

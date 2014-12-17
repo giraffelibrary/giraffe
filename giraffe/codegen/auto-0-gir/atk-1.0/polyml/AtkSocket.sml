@@ -13,6 +13,7 @@ structure AtkSocket :>
     end
     type 'a class_t = 'a AtkSocketClass.t
     type 'a componentclass_t = 'a AtkComponentClass.t
+    type t = base class_t
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkSocketClass.C.fromPtr true) new_ ()

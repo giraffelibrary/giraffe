@@ -44,6 +44,7 @@ structure GtkSourceLanguageManager :>
             )
     type 'a class_t = 'a GtkSourceLanguageManagerClass.t
     type 'a languageclass_t = 'a GtkSourceLanguageClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr false) getDefault_ ()

@@ -1,6 +1,7 @@
 signature GTK_EDITABLE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val copyClipboard : 'a class_t -> unit
     val cutClipboard : 'a class_t -> unit

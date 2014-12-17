@@ -3,4 +3,5 @@ structure GtkSettingsValue :>
     where type record_t = GtkSettingsValueRecord.t =
   struct
     type record_t = GtkSettingsValueRecord.t
+    type t = record_t
   end

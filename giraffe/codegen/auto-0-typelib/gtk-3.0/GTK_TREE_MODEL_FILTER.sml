@@ -1,10 +1,11 @@
 signature GTK_TREE_MODEL_FILTER =
   sig
     type 'a class_t
-    type treepathrecord_t
-    type 'a treemodelclass_t
-    type treeiterrecord_t
     type 'a treedragsourceclass_t
+    type treeiterrecord_t
+    type 'a treemodelclass_t
+    type treepathrecord_t
+    type t = base class_t
     val asTreeDragSource : 'a class_t -> base treedragsourceclass_t
     val asTreeModel : 'a class_t -> base treemodelclass_t
     val getType : unit -> GObject.Type.t

@@ -1,9 +1,10 @@
 signature GTK_COMBO_BOX_TEXT =
   sig
     type 'a class_t
-    type 'a celllayoutclass_t
-    type 'a celleditableclass_t
     type 'a buildableclass_t
+    type 'a celleditableclass_t
+    type 'a celllayoutclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asCellEditable : 'a class_t -> base celleditableclass_t

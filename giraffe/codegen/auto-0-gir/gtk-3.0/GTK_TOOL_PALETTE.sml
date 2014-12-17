@@ -1,18 +1,19 @@
 signature GTK_TOOL_PALETTE =
   sig
     type 'a class_t
-    type toolbarstyle_t
-    type iconsize_t
-    type 'a toolitemgroupclass_t
-    type toolpalettedragtargets_t
-    type 'a toolitemclass_t
-    type selectiondatarecord_t
-    type 'a widgetclass_t
-    type destdefaults_t
-    type targetentryrecord_t
-    type 'a scrollableclass_t
-    type 'a orientableclass_t
     type 'a buildableclass_t
+    type 'a orientableclass_t
+    type 'a scrollableclass_t
+    type targetentryrecord_t
+    type destdefaults_t
+    type 'a widgetclass_t
+    type selectiondatarecord_t
+    type 'a toolitemclass_t
+    type toolpalettedragtargets_t
+    type 'a toolitemgroupclass_t
+    type iconsize_t
+    type toolbarstyle_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asOrientable : 'a class_t -> base orientableclass_t

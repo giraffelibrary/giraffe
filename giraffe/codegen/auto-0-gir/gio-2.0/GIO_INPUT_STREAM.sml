@@ -1,8 +1,9 @@
 signature GIO_INPUT_STREAM =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
     type 'a cancellableclass_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val clearPending : 'a class_t -> unit
     val close :

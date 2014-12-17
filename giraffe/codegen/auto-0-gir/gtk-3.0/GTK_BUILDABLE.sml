@@ -2,6 +2,7 @@ signature GTK_BUILDABLE =
   sig
     type 'a class_t
     type 'a builderclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addChild :
       'a class_t

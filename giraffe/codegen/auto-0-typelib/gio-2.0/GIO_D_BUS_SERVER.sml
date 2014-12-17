@@ -1,11 +1,12 @@
 signature GIO_D_BUS_SERVER =
   sig
     type 'a class_t
-    type dbusserverflags_t
-    type 'a dbusauthobserverclass_t
-    type 'a dbusconnectionclass_t
-    type 'a cancellableclass_t
     type 'a initableclass_t
+    type 'a cancellableclass_t
+    type 'a dbusconnectionclass_t
+    type 'a dbusauthobserverclass_t
+    type dbusserverflags_t
+    type t = base class_t
     val asInitable : 'a class_t -> base initableclass_t
     val getType : unit -> GObject.Type.t
     val newSync :

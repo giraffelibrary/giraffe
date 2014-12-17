@@ -110,6 +110,7 @@ structure GtkThemingEngine :>
     type stateflags_t = GtkStateFlags.t
     type regionflags_t = GtkRegionFlags.t
     type statetype_t = GtkStateType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun load name = (FFI.String.C.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
     fun getBackgroundColor self state =

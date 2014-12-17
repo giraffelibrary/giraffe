@@ -2,6 +2,7 @@ signature GIO_FILTER_OUTPUT_STREAM =
   sig
     type 'a class_t
     type 'a outputstreamclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getBaseStream : 'a class_t -> base outputstreamclass_t
     val getCloseBaseStream : 'a class_t -> bool

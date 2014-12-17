@@ -48,6 +48,7 @@ structure GdkCursor :>
     type 'a class_t = 'a GdkCursorClass.t
     type cursortype_t = GdkCursorType.t
     type 'a displayclass_t = 'a GdkDisplayClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
     fun newForDisplay display cursorType = (GObjectObjectClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)

@@ -1,9 +1,10 @@
 signature GDK_PIXBUF_PIXBUF =
   sig
     type 'a class_t
-    type colorspace_t
-    type interptype_t
     type pixbufrotation_t
+    type interptype_t
+    type colorspace_t
+    type t = base class_t
     val asIcon : 'a class_t -> base Gio.IconClass.t
     val getType : unit -> GObject.Type.t
     val new :

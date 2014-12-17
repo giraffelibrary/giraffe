@@ -21,6 +21,7 @@ structure GdkPixbufPixbufSimpleAnim :>
     end
     type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
     type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =
       (

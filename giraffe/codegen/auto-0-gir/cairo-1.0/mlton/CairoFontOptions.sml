@@ -3,4 +3,5 @@ structure CairoFontOptions :>
     where type record_t = CairoFontOptionsRecord.t =
   struct
     type record_t = CairoFontOptionsRecord.t
+    type t = record_t
   end

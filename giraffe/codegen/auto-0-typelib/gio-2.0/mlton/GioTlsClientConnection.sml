@@ -33,6 +33,7 @@ structure GioTlsClientConnection :>
     type 'a iostreamclass_t = 'a GioIOStreamClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     type tlscertificateflags_t = GioTlsCertificateFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIoStream serverIdentity =
       (

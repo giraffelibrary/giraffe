@@ -16,6 +16,7 @@ structure GioCancellable :>
     val reset_ = _import "g_cancellable_reset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setErrorIfCancelled_ = fn x1 & x2 => (_import "g_cancellable_set_error_if_cancelled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     type 'a class_t = 'a GioCancellableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.C.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.C.fromPtr false) getCurrent_ ()

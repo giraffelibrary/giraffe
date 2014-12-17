@@ -45,6 +45,7 @@ structure GtkSymbolicColor :>
     val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type record_t = GtkSymbolicColorRecord.t
     type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAlpha color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newAlpha_ (color & factor)
     fun newLiteral color = (GdkRgbaRecord.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newLiteral_ color

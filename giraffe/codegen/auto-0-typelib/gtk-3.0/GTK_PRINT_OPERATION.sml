@@ -1,16 +1,17 @@
 signature GTK_PRINT_OPERATION =
   sig
     type 'a class_t
-    type unit_t
-    type printstatus_t
-    type 'a printsettingsclass_t
-    type 'a pagesetupclass_t
-    type 'a widgetclass_t
-    type 'a printcontextclass_t
-    type 'a printoperationpreviewclass_t
-    type 'a windowclass_t
-    type printoperationresult_t
     type printoperationaction_t
+    type printoperationresult_t
+    type 'a windowclass_t
+    type 'a printoperationpreviewclass_t
+    type 'a printcontextclass_t
+    type 'a widgetclass_t
+    type 'a pagesetupclass_t
+    type 'a printsettingsclass_t
+    type printstatus_t
+    type unit_t
+    type t = base class_t
     val asPrintOperationPreview : 'a class_t -> base printoperationpreviewclass_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t

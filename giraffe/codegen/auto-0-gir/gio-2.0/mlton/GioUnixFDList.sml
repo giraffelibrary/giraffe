@@ -40,6 +40,7 @@ structure GioUnixFDList :>
             )
     val getLength_ = _import "g_unix_fd_list_get_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     type 'a class_t = 'a GioUnixFDListClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDListClass.C.fromPtr true) new_ ()
     fun append self fd =

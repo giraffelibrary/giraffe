@@ -1,17 +1,18 @@
 signature GIO_D_BUS_PROXY =
   sig
     type 'a class_t
-    type dbusinterfaceinforecord_t
-    type dbusproxyflags_t
-    type 'a dbusconnectionclass_t
-    type bustype_t
-    type dbuscallflags_t
-    type 'a unixfdlistclass_t
-    type 'a cancellableclass_t
-    type 'a asyncresultclass_t
-    type 'a initableclass_t
-    type 'a dbusinterfaceclass_t
     type 'a asyncinitableclass_t
+    type 'a dbusinterfaceclass_t
+    type 'a initableclass_t
+    type 'a asyncresultclass_t
+    type 'a cancellableclass_t
+    type 'a unixfdlistclass_t
+    type dbuscallflags_t
+    type bustype_t
+    type 'a dbusconnectionclass_t
+    type dbusproxyflags_t
+    type dbusinterfaceinforecord_t
+    type t = base class_t
     val asAsyncInitable : 'a class_t -> base asyncinitableclass_t
     val asDBusInterface : 'a class_t -> base dbusinterfaceclass_t
     val asInitable : 'a class_t -> base initableclass_t

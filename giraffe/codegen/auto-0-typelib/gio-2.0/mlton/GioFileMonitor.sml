@@ -31,6 +31,7 @@ structure GioFileMonitor :>
     type 'a class_t = 'a GioFileMonitorClass.t
     type filemonitorevent_t = GioFileMonitorEvent.t
     type 'a fileclass_t = 'a GioFileClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun cancel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) cancel_ self
     fun emitEvent self child otherFile eventType =

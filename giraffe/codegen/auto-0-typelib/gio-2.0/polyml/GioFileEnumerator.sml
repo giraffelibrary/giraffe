@@ -44,6 +44,7 @@ structure GioFileEnumerator :>
     type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a fileclass_t = 'a GioFileClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun close self cancellable =
       (

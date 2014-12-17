@@ -77,6 +77,7 @@ structure GIRepositoryRepository :>
     type baseinforecord_t = GIRepositoryBaseInfoRecord.t
     type typelibrecord_t = GIRepositoryTypelibRecord.t
     type repositoryloadflags_t = GIRepositoryRepositoryLoadFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dump arg = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()

@@ -1,9 +1,10 @@
 signature GIO_VOLUME_MONITOR =
   sig
     type 'a class_t
-    type 'a volumeclass_t
-    type 'a mountclass_t
     type 'a driveclass_t
+    type 'a mountclass_t
+    type 'a volumeclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val get : unit -> base class_t
     val getMountForUuid :

@@ -2,6 +2,7 @@ signature GTK_SOURCE_STYLE_SCHEME_MANAGER =
   sig
     type 'a class_t
     type 'a styleschemeclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getDefault : unit -> base class_t

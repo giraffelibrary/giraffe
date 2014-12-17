@@ -117,6 +117,7 @@ structure GtkSourceGutterRenderer :>
     type 'a class_t = 'a GtkSourceGutterRendererClass.t
     type gutterrendererstate_t = GtkSourceGutterRendererState.t
     type gutterrendereralignmentmode_t = GtkSourceGutterRendererAlignmentMode.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self iter area event =
       (

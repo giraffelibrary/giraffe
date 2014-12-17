@@ -79,6 +79,7 @@ structure GtkSourceGutter :>
     type 'a class_t = 'a GtkSourceGutterClass.t
     type 'a gutterrendererclass_t = 'a GtkSourceGutterRendererClass.t
     type 'a viewclass_t = 'a GtkSourceViewClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getRendererAtPos self x y =
       (

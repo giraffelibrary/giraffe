@@ -17,6 +17,7 @@ structure GioTlsPassword :>
     end
     type 'a class_t = 'a GioTlsPasswordClass.t
     type tlspasswordflags_t = GioTlsPasswordFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> FFI.String.C.withConstPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self

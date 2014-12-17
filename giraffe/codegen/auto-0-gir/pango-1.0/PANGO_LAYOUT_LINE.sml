@@ -2,6 +2,7 @@ signature PANGO_LAYOUT_LINE =
   sig
     type record_t
     type rectanglerecord_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val getExtents : record_t -> rectanglerecord_t * rectanglerecord_t
     val getPixelExtents : record_t -> rectanglerecord_t * rectanglerecord_t

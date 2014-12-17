@@ -44,6 +44,7 @@ structure PangoLayoutLine :>
     end
     type record_t = PangoLayoutLineRecord.t
     type rectanglerecord_t = PangoRectangleRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getExtents self =
       let

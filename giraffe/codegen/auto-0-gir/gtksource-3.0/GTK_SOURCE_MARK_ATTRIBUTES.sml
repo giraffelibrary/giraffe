@@ -2,6 +2,7 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
   sig
     type 'a class_t
     type 'a markclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getBackground : 'a class_t -> Gdk.RgbaRecord.t option

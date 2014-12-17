@@ -12,6 +12,7 @@ structure GtkSourceCompletionProposal :>
     val getText_ = _import "gtk_source_completion_proposal_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val hash_ = _import "gtk_source_completion_proposal_hash" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt.C.val_;
     type 'a class_t = 'a GtkSourceCompletionProposalClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun changed self = (GObjectObjectClass.C.withPtr ---> I) changed_ self
     fun equal self other = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & other)

@@ -11,6 +11,7 @@ structure PangoColor :>
       val toString_ = call (load_sym libpango "pango_color_to_string") (PangoColorRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type record_t = PangoColorRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoColorRecord.C.withPtr ---> PangoColorRecord.C.fromPtr true) copy_ self
     fun parse self spec = (PangoColorRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)

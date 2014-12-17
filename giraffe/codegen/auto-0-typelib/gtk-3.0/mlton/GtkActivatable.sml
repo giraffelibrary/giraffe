@@ -12,6 +12,7 @@ structure GtkActivatable :>
     val syncActionProperties_ = fn x1 & x2 => (_import "gtk_activatable_sync_action_properties" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkActivatableClass.t
     type 'a actionclass_t = 'a GtkActionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doSetRelatedAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) doSetRelatedAction_ (self & action)
     fun getRelatedAction self = (GObjectObjectClass.C.withPtr ---> GtkActionClass.C.fromPtr false) getRelatedAction_ self

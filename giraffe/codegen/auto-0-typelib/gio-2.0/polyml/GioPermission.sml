@@ -56,6 +56,7 @@ structure GioPermission :>
     type 'a class_t = 'a GioPermissionClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun acquire self cancellable =
       (

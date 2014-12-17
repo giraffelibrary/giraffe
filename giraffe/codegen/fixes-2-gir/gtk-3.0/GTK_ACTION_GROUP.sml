@@ -1,10 +1,11 @@
 signature GTK_ACTION_GROUP =
   sig
     type 'a class_t
-    type 'a actionclass_t
-    type 'a widgetclass_t
-    type actionentry_t
     type 'a buildableclass_t
+    type actionentry_t
+    type 'a widgetclass_t
+    type 'a actionclass_t
+    type t = base class_t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t

@@ -82,6 +82,7 @@ structure GtkToolbar :>
     type 'a toolitemclass_t = 'a GtkToolItemClass.t
     type orientation_t = GtkOrientation.t
     type toolbarstyle_t = GtkToolbarStyle.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

@@ -1,10 +1,11 @@
 signature G_LIB_MAIN_CONTEXT =
   sig
     type record_t
-    type condrecord_t
-    type mutexrecord_t
-    type pollfdrecord_t
     type sourcerecord_t
+    type pollfdrecord_t
+    type mutexrecord_t
+    type condrecord_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val acquire : record_t -> bool

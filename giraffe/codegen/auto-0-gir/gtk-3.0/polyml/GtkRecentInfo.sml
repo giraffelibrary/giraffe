@@ -45,6 +45,7 @@ structure GtkRecentInfo :>
       val match_ = call (load_sym libgtk "gtk_recent_info_match") (GtkRecentInfoRecord.PolyML.PTR &&> GtkRecentInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type record_t = GtkRecentInfoRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createAppInfo self appName =
       (

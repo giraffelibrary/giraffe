@@ -15,6 +15,7 @@ structure GtkPrintOperationPreview :>
     type 'a class_t = 'a GtkPrintOperationPreviewClass.t
     type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
     type 'a printcontextclass_t = 'a GtkPrintContextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun endPreview self = (GObjectObjectClass.C.withPtr ---> I) endPreview_ self
     fun isSelected self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) isSelected_ (self & pageNr)

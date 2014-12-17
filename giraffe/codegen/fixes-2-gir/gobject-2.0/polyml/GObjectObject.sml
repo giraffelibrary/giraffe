@@ -46,6 +46,7 @@ structure GObjectObject :>
     type valuerecord_t = GObjectValueRecord.t
     type closurerecord_t = GObjectClosureRecord.t
     type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
 (*
     fun forceFloating self = (GObjectObjectClass.C.withPtr ---> I) forceFloating_ self

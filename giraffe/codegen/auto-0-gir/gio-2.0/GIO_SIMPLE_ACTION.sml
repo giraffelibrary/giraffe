@@ -2,6 +2,7 @@ signature GIO_SIMPLE_ACTION =
   sig
     type 'a class_t
     type 'a actionclass_t
+    type t = base class_t
     val asAction : 'a class_t -> base actionclass_t
     val getType : unit -> GObject.Type.t
     val new :

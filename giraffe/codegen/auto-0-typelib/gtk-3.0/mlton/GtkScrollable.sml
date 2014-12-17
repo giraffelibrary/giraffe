@@ -16,6 +16,7 @@ structure GtkScrollable :>
     type 'a class_t = 'a GtkScrollableClass.t
     type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
     type scrollablepolicy_t = GtkScrollablePolicy.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getHadjustment_ self
     fun getHscrollPolicy self = (GObjectObjectClass.C.withPtr ---> GtkScrollablePolicy.C.fromVal) getHscrollPolicy_ self

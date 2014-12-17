@@ -10,6 +10,7 @@ structure GioUnixMountMonitor :>
       val setRateLimit_ = call (load_sym libgio "g_unix_mount_monitor_set_rate_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioUnixMountMonitorClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixMountMonitorClass.C.fromPtr true) new_ ()
     fun setRateLimit self limitMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRateLimit_ (self & limitMsec)

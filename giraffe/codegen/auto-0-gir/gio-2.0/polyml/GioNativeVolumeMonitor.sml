@@ -8,5 +8,6 @@ structure GioNativeVolumeMonitor :>
       val getType_ = call (load_sym libgio "g_native_volume_monitor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
     end
     type 'a class_t = 'a GioNativeVolumeMonitorClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

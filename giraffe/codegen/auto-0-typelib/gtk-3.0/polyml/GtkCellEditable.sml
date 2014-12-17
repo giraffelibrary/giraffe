@@ -11,6 +11,7 @@ structure GtkCellEditable :>
       val startEditing_ = call (load_sym libgtk "gtk_cell_editable_start_editing") (GObjectObjectClass.PolyML.PTR &&> GdkEvent.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellEditableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun editingDone self = (GObjectObjectClass.C.withPtr ---> I) editingDone_ self
     fun removeWidget self = (GObjectObjectClass.C.withPtr ---> I) removeWidget_ self

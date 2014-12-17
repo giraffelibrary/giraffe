@@ -3,4 +3,5 @@ structure GdkWindowAttr :>
     where type record_t = GdkWindowAttrRecord.t =
   struct
     type record_t = GdkWindowAttrRecord.t
+    type t = record_t
   end

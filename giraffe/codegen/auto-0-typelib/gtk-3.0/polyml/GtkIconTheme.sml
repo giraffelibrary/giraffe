@@ -58,6 +58,7 @@ structure GtkIconTheme :>
     type 'a class_t = 'a GtkIconThemeClass.t
     type iconinforecord_t = GtkIconInfoRecord.t
     type iconlookupflags_t = GtkIconLookupFlags.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconThemeClass.C.fromPtr true) new_ ()
     fun addBuiltinIcon iconName size pixbuf =

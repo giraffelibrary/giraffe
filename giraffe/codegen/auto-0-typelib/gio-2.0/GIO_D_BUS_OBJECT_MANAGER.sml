@@ -1,8 +1,9 @@
 signature GIO_D_BUS_OBJECT_MANAGER =
   sig
     type 'a class_t
-    type 'a dbusobjectclass_t
     type 'a dbusinterfaceclass_t
+    type 'a dbusobjectclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getInterface :
       'a class_t

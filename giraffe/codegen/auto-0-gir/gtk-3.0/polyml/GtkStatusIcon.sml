@@ -67,6 +67,7 @@ structure GtkStatusIcon :>
     type 'a tooltipclass_t = 'a GtkTooltipClass.t
     type orientation_t = GtkOrientation.t
     type imagetype_t = GtkImageType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()
     fun newFromFile filename = (FFI.String.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename

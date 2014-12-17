@@ -1,9 +1,10 @@
 signature ATK_TEXT =
   sig
     type 'a class_t
-    type coordtype_t
-    type textrectanglerecord_t
     type textrangerecord_t
+    type textrectanglerecord_t
+    type coordtype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val freeRanges : textrangerecord_t -> unit
     val addSelection :

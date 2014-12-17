@@ -1,6 +1,7 @@
 signature GTK_SOURCE_GUTTER_RENDERER_PIXBUF =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getGicon : 'a class_t -> base Gio.IconClass.t

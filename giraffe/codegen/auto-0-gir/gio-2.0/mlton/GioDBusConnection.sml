@@ -413,6 +413,7 @@ structure GioDBusConnection :>
     type dbuscapabilityflags_t = GioDBusCapabilityFlags.t
     type dbusconnectionflags_t = GioDBusConnectionFlags.t
     type 'a iostreamclass_t = 'a GioIOStreamClass.t
+    type t = base class_t
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

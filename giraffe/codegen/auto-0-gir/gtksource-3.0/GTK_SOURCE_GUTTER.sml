@@ -1,8 +1,9 @@
 signature GTK_SOURCE_GUTTER =
   sig
     type 'a class_t
-    type 'a viewclass_t
     type 'a gutterrendererclass_t
+    type 'a viewclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getRendererAtPos :
       'a class_t

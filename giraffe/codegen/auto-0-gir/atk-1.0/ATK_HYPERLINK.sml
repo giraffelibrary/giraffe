@@ -1,8 +1,9 @@
 signature ATK_HYPERLINK =
   sig
     type 'a class_t
-    type 'a objectclass_t
     type 'a actionclass_t
+    type 'a objectclass_t
+    type t = base class_t
     val asAction : 'a class_t -> base actionclass_t
     val getType : unit -> GObject.Type.t
     val getEndIndex : 'a class_t -> LargeInt.int

@@ -121,6 +121,7 @@ structure GtkWidgetPath :>
     type record_t = GtkWidgetPathRecord.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type regionflags_t = GtkRegionFlags.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.C.fromPtr true) new_ ()
     fun appendForWidget self widget = (GtkWidgetPathRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) appendForWidget_ (self & widget)

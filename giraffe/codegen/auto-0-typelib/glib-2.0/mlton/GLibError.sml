@@ -21,6 +21,7 @@ structure GLibError :>
               x3
             )
     type record_t = GLibErrorRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun matches self domain code =
       (

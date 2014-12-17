@@ -1,10 +1,11 @@
 signature GIO_I_O_STREAM =
   sig
     type 'a class_t
-    type 'a outputstreamclass_t
-    type 'a inputstreamclass_t
-    type 'a asyncresultclass_t
     type 'a cancellableclass_t
+    type 'a asyncresultclass_t
+    type 'a inputstreamclass_t
+    type 'a outputstreamclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val spliceFinish : 'a asyncresultclass_t -> bool
     val clearPending : 'a class_t -> unit

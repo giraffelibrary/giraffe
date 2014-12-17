@@ -17,6 +17,7 @@ structure PangoGlyphItem :>
           )
     end
     type record_t = PangoGlyphItemRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoGlyphItemRecord.C.withPtr ---> PangoGlyphItemRecord.C.fromPtr true) copy_ self
     fun split self text splitIndex =

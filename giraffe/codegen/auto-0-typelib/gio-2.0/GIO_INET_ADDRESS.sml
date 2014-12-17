@@ -2,6 +2,7 @@ signature GIO_INET_ADDRESS =
   sig
     type 'a class_t
     type socketfamily_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val newAny : socketfamily_t -> base class_t
     val newFromString : string -> base class_t

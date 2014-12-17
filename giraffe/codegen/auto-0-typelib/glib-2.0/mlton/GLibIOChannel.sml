@@ -178,6 +178,7 @@ structure GLibIOChannel :>
     type ioflags_t = GLibIOFlags.t
     type iostatus_t = GLibIOStatus.t
     type iochannelerror_t = GLibIOChannelError.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (

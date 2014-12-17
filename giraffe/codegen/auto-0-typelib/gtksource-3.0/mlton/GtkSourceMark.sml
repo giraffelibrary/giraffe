@@ -52,6 +52,7 @@ structure GtkSourceMark :>
               x3
             )
     type 'a class_t = 'a GtkSourceMarkClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name category = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> GtkSourceMarkClass.C.fromPtr true) new_ (name & category)
     fun getCategory self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCategory_ self

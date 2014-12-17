@@ -11,6 +11,7 @@ structure GtkCellRendererProgress :>
     end
     type 'a class_t = 'a GtkCellRendererProgressClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type t = base class_t
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererProgressClass.C.fromPtr false) new_ ()

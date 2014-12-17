@@ -2,6 +2,7 @@ signature GIO_VFS =
   sig
     type 'a class_t
     type 'a fileclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
     val getLocal : unit -> base class_t

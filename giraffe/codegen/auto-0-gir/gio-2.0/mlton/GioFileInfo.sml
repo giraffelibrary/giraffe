@@ -522,6 +522,7 @@ structure GioFileInfo :>
     type fileattributestatus_t = GioFileAttributeStatus.t
     type filetype_t = GioFileType.t
     type 'a iconclass_t = 'a GioIconClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioFileInfoClass.C.fromPtr true) new_ ()
     fun clearStatus self = (GObjectObjectClass.C.withPtr ---> I) clearStatus_ self

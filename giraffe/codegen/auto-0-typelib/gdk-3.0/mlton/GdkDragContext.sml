@@ -20,6 +20,7 @@ structure GdkDragContext :>
     type 'a windowclass_t = 'a GdkWindowClass.t
     type dragaction_t = GdkDragAction.t
     type 'a deviceclass_t = 'a GdkDeviceClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActions self = (GObjectObjectClass.C.withPtr ---> GdkDragAction.C.fromVal) getActions_ self
     fun getDestWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getDestWindow_ self

@@ -2,6 +2,7 @@ signature GTK_TARGET_LIST =
   sig
     type record_t
     type 'a textbufferclass_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val add :
       record_t

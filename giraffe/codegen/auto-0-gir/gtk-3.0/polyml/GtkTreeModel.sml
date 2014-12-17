@@ -102,6 +102,7 @@ structure GtkTreeModel :>
     type treemodelflags_t = GtkTreeModelFlags.t
     type treeiterrecord_t = GtkTreeIterRecord.t
     type treepathrecord_t = GtkTreePathRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun filterNew self root = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withOptPtr ---> GtkTreeModelClass.C.fromPtr true) filterNew_ (self & root)
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelFlags.C.fromVal) getFlags_ self

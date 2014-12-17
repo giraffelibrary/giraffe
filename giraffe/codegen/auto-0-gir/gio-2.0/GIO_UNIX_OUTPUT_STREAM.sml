@@ -2,6 +2,7 @@ signature GIO_UNIX_OUTPUT_STREAM =
   sig
     type 'a class_t
     type 'a pollableoutputstreamclass_t
+    type t = base class_t
     val asPollableOutputStream : 'a class_t -> base pollableoutputstreamclass_t
     val getType : unit -> GObject.Type.t
     val new :

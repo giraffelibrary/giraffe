@@ -1,10 +1,11 @@
 signature ATK_OBJECT =
   sig
     type 'a class_t
-    type role_t
-    type relationtype_t
-    type 'a statesetclass_t
     type 'a relationsetclass_t
+    type 'a statesetclass_t
+    type relationtype_t
+    type role_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addRelationship :
       'a class_t

@@ -1,11 +1,12 @@
 signature GIO_D_BUS_MESSAGE =
   sig
     type 'a class_t
-    type 'a unixfdlistclass_t
-    type dbusmessagetype_t
-    type dbusmessageheaderfield_t
-    type dbusmessageflags_t
     type dbusmessagebyteorder_t
+    type dbusmessageflags_t
+    type dbusmessageheaderfield_t
+    type dbusmessagetype_t
+    type 'a unixfdlistclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newMethodCall :

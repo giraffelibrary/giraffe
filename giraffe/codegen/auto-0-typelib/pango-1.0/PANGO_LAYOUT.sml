@@ -1,16 +1,17 @@
 signature PANGO_LAYOUT =
   sig
     type 'a class_t
-    type wrapmode_t
-    type tabarrayrecord_t
-    type fontdescriptionrecord_t
-    type ellipsizemode_t
-    type alignment_t
-    type rectanglerecord_t
-    type layoutlinerecord_t
-    type layoutiterrecord_t
-    type 'a contextclass_t
     type attrlistrecord_t
+    type 'a contextclass_t
+    type layoutiterrecord_t
+    type layoutlinerecord_t
+    type rectanglerecord_t
+    type alignment_t
+    type ellipsizemode_t
+    type fontdescriptionrecord_t
+    type tabarrayrecord_t
+    type wrapmode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a contextclass_t -> base class_t
     val contextChanged : 'a class_t -> unit

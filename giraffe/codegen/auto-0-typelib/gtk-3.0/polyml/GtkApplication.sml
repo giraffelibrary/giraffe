@@ -13,6 +13,7 @@ structure GtkApplication :>
     end
     type 'a class_t = 'a GtkApplicationClass.t
     type 'a windowclass_t = 'a GtkWindowClass.t
+    type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new applicationId flags = (FFI.String.C.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)

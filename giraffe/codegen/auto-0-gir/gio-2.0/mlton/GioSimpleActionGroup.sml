@@ -40,6 +40,7 @@ structure GioSimpleActionGroup :>
     type 'a class_t = 'a GioSimpleActionGroupClass.t
     type 'a actiongroupclass_t = 'a GioActionGroupClass.t
     type 'a actionclass_t = 'a GioActionClass.t
+    type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSimpleActionGroupClass.C.fromPtr true) new_ ()

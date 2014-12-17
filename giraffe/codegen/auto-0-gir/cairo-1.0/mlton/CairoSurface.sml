@@ -4,5 +4,6 @@ structure CairoSurface :>
   struct
     val getType_ = _import "cairo_gobject_surface_get_type" : unit -> GObjectType.C.val_;
     type record_t = CairoSurfaceRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

@@ -15,6 +15,7 @@ structure GtkFontChooserWidget :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a fontchooserclass_t = 'a GtkFontChooserClass.t
     type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asFontChooser self = (GObjectObjectClass.C.withPtr ---> GtkFontChooserClass.C.fromPtr false) I self

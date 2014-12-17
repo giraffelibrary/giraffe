@@ -54,6 +54,7 @@ structure GtkTreeModelSort :>
     type treepathrecord_t = GtkTreePathRecord.t
     type treeiterrecord_t = GtkTreeIterRecord.t
     type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type t = base class_t
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
     fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.C.withPtr ---> GtkTreeSortableClass.C.fromPtr false) I self

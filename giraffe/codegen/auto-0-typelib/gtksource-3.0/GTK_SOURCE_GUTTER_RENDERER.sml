@@ -1,8 +1,9 @@
 signature GTK_SOURCE_GUTTER_RENDERER =
   sig
     type 'a class_t
-    type gutterrendereralignmentmode_t
     type gutterrendererstate_t
+    type gutterrendereralignmentmode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val activate :
       'a class_t

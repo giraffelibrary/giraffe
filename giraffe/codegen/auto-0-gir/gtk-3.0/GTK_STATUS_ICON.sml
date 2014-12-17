@@ -1,10 +1,11 @@
 signature GTK_STATUS_ICON =
   sig
     type 'a class_t
-    type imagetype_t
-    type orientation_t
-    type 'a tooltipclass_t
     type 'a menuclass_t
+    type 'a tooltipclass_t
+    type orientation_t
+    type imagetype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newFromFile : string -> base class_t

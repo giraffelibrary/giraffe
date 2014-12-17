@@ -86,6 +86,7 @@ structure GtkSourceCompletionItem :>
             )
     type 'a class_t = 'a GtkSourceCompletionItemClass.t
     type 'a completionproposalclass_t = 'a GtkSourceCompletionProposalClass.t
+    type t = base class_t
     fun asCompletionProposal self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProposalClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label text icon info =

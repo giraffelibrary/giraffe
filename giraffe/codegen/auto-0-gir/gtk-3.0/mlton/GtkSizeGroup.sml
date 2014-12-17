@@ -17,6 +17,7 @@ structure GtkSizeGroup :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type sizegroupmode_t = GtkSizeGroupMode.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new mode = (GtkSizeGroupMode.C.withVal ---> GtkSizeGroupClass.C.fromPtr true) new_ mode

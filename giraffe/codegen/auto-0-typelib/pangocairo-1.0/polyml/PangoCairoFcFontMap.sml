@@ -10,6 +10,7 @@ structure PangoCairoFcFontMap :>
     end
     type 'a class_t = 'a PangoCairoFcFontMapClass.t
     type 'a fontmapclass_t = 'a PangoCairoFontMapClass.t
+    type t = base class_t
     fun asFontMap self = (GObjectObjectClass.C.withPtr ---> PangoCairoFontMapClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

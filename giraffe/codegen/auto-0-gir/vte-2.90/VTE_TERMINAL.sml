@@ -1,12 +1,13 @@
 signature VTE_TERMINAL =
   sig
     type 'a class_t
-    type 'a ptyclass_t
-    type terminalerasebinding_t
-    type terminalcursorshape_t
-    type terminalcursorblinkmode_t
-    type terminalwriteflags_t
     type ptyflags_t
+    type terminalwriteflags_t
+    type terminalcursorblinkmode_t
+    type terminalcursorshape_t
+    type terminalerasebinding_t
+    type 'a ptyclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
     val asScrollable : 'a class_t -> base Gtk.ScrollableClass.t

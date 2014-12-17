@@ -1,10 +1,11 @@
 signature GTK_STYLE_PROVIDER =
   sig
     type 'a class_t
-    type widgetpathrecord_t
-    type stateflags_t
-    type 'a stylepropertiesclass_t
     type 'a iconfactoryclass_t
+    type 'a stylepropertiesclass_t
+    type stateflags_t
+    type widgetpathrecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getIconFactory :
       'a class_t

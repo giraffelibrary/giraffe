@@ -54,6 +54,7 @@ structure GdkVisual :>
     type byteorder_t = GdkByteOrder.t
     type 'a screenclass_t = 'a GdkScreenClass.t
     type visualtype_t = GdkVisualType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBest () = (I ---> GdkVisualClass.C.fromPtr false) getBest_ ()
     fun getBestDepth () = (I ---> FFI.Int32.C.fromVal) getBestDepth_ ()

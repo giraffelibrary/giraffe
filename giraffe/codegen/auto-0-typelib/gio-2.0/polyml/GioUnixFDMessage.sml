@@ -21,6 +21,7 @@ structure GioUnixFDMessage :>
     end
     type 'a class_t = 'a GioUnixFDMessageClass.t
     type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDMessageClass.C.fromPtr true) new_ ()
     fun newWithFdList fdList = (GObjectObjectClass.C.withPtr ---> GioUnixFDMessageClass.C.fromPtr true) newWithFdList_ fdList

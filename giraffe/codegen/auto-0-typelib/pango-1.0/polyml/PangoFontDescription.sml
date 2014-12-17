@@ -71,6 +71,7 @@ structure PangoFontDescription :>
     type variant_t = PangoVariant.t
     type weight_t = PangoWeight.t
     type fontmask_t = PangoFontMask.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoFontDescriptionRecord.C.fromPtr true) new_ ()
     fun betterMatch self oldMatch newMatch =

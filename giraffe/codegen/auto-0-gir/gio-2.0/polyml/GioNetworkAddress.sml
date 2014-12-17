@@ -30,6 +30,7 @@ structure GioNetworkAddress :>
     end
     type 'a class_t = 'a GioNetworkAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
+    type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new hostname port = (FFI.String.C.withConstPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)

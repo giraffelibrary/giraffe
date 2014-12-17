@@ -111,6 +111,7 @@ structure PangoLayoutIter :>
     type layoutlinerecord_t = PangoLayoutLineRecord.t
     type rectanglerecord_t = PangoRectangleRecord.t
     type layoutrunrecord_t = PangoLayoutRunRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun atLastLine self = (PangoLayoutIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) atLastLine_ self
     fun copy self = (PangoLayoutIterRecord.C.withPtr ---> PangoLayoutIterRecord.C.fromPtr true) copy_ self

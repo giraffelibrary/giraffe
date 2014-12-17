@@ -1,9 +1,10 @@
 signature GDK_VISUAL =
   sig
     type 'a class_t
-    type visualtype_t
-    type 'a screenclass_t
     type byteorder_t
+    type 'a screenclass_t
+    type visualtype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getBest : unit -> base class_t
     val getBestDepth : unit -> LargeInt.int

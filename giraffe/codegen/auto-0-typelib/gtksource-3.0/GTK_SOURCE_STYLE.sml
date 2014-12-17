@@ -1,6 +1,7 @@
 signature GTK_SOURCE_STYLE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val copy : 'a class_t -> base class_t
     val backgroundProp : ('a class_t, string option, string option) Property.readwrite

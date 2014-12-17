@@ -181,6 +181,7 @@ structure AtkTable :>
     val setSummary_ = fn x1 & x2 => (_import "atk_table_set_summary" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a AtkTableClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addColumnSelection self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addColumnSelection_ (self & column)
     fun addRowSelection self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)

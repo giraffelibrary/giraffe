@@ -50,6 +50,7 @@ structure GioDBusServer :>
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
     type 'a dbusauthobserverclass_t = 'a GioDBusAuthObserverClass.t
     type dbusserverflags_t = GioDBusServerFlags.t
+    type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =

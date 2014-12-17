@@ -164,6 +164,7 @@ structure GtkAction :>
     type 'a widgetclass_t = 'a GtkWidgetClass.t
     type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
     type 'a actiongroupclass_t = 'a GtkActionGroupClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =

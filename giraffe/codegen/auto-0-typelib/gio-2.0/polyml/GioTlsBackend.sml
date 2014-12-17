@@ -13,6 +13,7 @@ structure GioTlsBackend :>
     end
     type 'a class_t = 'a GioTlsBackendClass.t
     type 'a tlsdatabaseclass_t = 'a GioTlsDatabaseClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioTlsBackendClass.C.fromPtr false) getDefault_ ()
     fun getDefaultDatabase self = (GObjectObjectClass.C.withPtr ---> GioTlsDatabaseClass.C.fromPtr true) getDefaultDatabase_ self

@@ -1,10 +1,11 @@
 signature GTK_HANDLE_BOX =
   sig
     type 'a class_t
-    type positiontype_t
-    type shadowtype_t
-    type 'a widgetclass_t
     type 'a buildableclass_t
+    type 'a widgetclass_t
+    type shadowtype_t
+    type positiontype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t

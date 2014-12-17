@@ -12,6 +12,7 @@ structure GioZlibDecompressor :>
     type 'a converterclass_t = 'a GioConverterClass.t
     type 'a fileinfoclass_t = 'a GioFileInfoClass.t
     type zlibcompressorformat_t = GioZlibCompressorFormat.t
+    type t = base class_t
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new format = (GioZlibCompressorFormat.C.withVal ---> GioZlibDecompressorClass.C.fromPtr true) new_ format

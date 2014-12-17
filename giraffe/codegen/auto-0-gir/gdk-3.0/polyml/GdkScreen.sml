@@ -67,6 +67,7 @@ structure GdkScreen :>
     type rectanglerecord_t = GdkRectangleRecord.t
     type 'a windowclass_t = 'a GdkWindowClass.t
     type 'a visualclass_t = 'a GdkVisualClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkScreenClass.C.fromPtr false) getDefault_ ()
     fun height () = (I ---> FFI.Int.C.fromVal) height_ ()

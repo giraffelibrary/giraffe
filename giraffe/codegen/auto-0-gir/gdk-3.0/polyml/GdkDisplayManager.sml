@@ -14,6 +14,7 @@ structure GdkDisplayManager :>
     end
     type 'a class_t = 'a GdkDisplayManagerClass.t
     type 'a displayclass_t = 'a GdkDisplayClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()
     fun getDefaultDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDefaultDisplay_ self

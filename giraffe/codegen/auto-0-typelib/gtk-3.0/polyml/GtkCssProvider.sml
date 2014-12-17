@@ -30,6 +30,7 @@ structure GtkCssProvider :>
     end
     type 'a class_t = 'a GtkCssProviderClass.t
     type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
+    type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.C.fromPtr true) new_ ()

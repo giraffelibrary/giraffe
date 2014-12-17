@@ -54,6 +54,7 @@ structure GtkAdjustment :>
       val valueChanged_ = call (load_sym libgtk "gtk_adjustment_value_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAdjustmentClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new value lower upper stepIncrement pageIncrement pageSize =
       (

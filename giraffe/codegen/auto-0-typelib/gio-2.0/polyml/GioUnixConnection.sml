@@ -45,6 +45,7 @@ structure GioUnixConnection :>
     type 'a class_t = 'a GioUnixConnectionClass.t
     type 'a credentialsclass_t = 'a GioCredentialsClass.t
     type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun receiveCredentials self cancellable =
       (

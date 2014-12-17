@@ -1,11 +1,12 @@
 signature GTK_TREE_SELECTION =
   sig
     type 'a class_t
-    type selectionmode_t
-    type treepathrecord_t
-    type treeiterrecord_t
-    type 'a treeviewclass_t
     type 'a treemodelclass_t
+    type 'a treeviewclass_t
+    type treeiterrecord_t
+    type treepathrecord_t
+    type selectionmode_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val countSelectedRows : 'a class_t -> LargeInt.int
     val getMode : 'a class_t -> selectionmode_t

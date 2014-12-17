@@ -1,10 +1,11 @@
 signature GTK_TOOL_SHELL =
   sig
     type 'a class_t
-    type 'a sizegroupclass_t
-    type orientation_t
-    type toolbarstyle_t
     type reliefstyle_t
+    type toolbarstyle_t
+    type orientation_t
+    type 'a sizegroupclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getEllipsizeMode : 'a class_t -> Pango.EllipsizeMode.t
     val getIconSize : 'a class_t -> LargeInt.int

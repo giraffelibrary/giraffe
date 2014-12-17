@@ -3,4 +3,5 @@ structure GtkStockItem :>
     where type record_t = GtkStockItemRecord.t =
   struct
     type record_t = GtkStockItemRecord.t
+    type t = record_t
   end

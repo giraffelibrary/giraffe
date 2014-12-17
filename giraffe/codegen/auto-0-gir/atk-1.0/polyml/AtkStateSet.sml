@@ -19,6 +19,7 @@ structure AtkStateSet :>
     end
     type 'a class_t = 'a AtkStateSetClass.t
     type statetype_t = AtkStateType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkStateSetClass.C.fromPtr true) new_ ()
     fun addState self type' = (GObjectObjectClass.C.withPtr &&&> AtkStateType.C.withVal ---> FFI.Bool.C.fromVal) addState_ (self & type')

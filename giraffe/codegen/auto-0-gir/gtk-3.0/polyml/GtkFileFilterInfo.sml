@@ -3,4 +3,5 @@ structure GtkFileFilterInfo :>
     where type record_t = GtkFileFilterInfoRecord.t =
   struct
     type record_t = GtkFileFilterInfoRecord.t
+    type t = record_t
   end

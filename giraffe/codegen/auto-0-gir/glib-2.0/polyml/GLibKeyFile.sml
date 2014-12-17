@@ -284,6 +284,7 @@ structure GLibKeyFile :>
     end
     type record_t = GLibKeyFileRecord.t
     type keyfileflags_t = GLibKeyFileFlags.t
+    type t = record_t
     fun getBoolean self groupName key =
       (
         GLibKeyFileRecord.C.withPtr

@@ -1,30 +1,31 @@
 signature GTK_WIDGET =
   sig
     type 'a class_t
-    type align_t
-    type 'a styleclass_t
-    type 'a containerclass_t
-    type stateflags_t
-    type statetype_t
-    type widgethelptype_t
-    type selectiondatarecord_t
-    type 'a tooltipclass_t
-    type directiontype_t
-    type dragresult_t
-    type textdirection_t
-    type 'a windowclass_t
-    type 'a accelgroupclass_t
-    type 'a rcstyleclass_t
-    type 'a stylecontextclass_t
-    type 'a settingsclass_t
-    type sizerequestmode_t
-    type requisitionrecord_t
-    type widgetpathrecord_t
-    type 'a clipboardclass_t
-    type targetlistrecord_t
-    type orientation_t
-    type accelflags_t
     type 'a buildableclass_t
+    type accelflags_t
+    type orientation_t
+    type targetlistrecord_t
+    type 'a clipboardclass_t
+    type widgetpathrecord_t
+    type requisitionrecord_t
+    type sizerequestmode_t
+    type 'a settingsclass_t
+    type 'a stylecontextclass_t
+    type 'a rcstyleclass_t
+    type 'a accelgroupclass_t
+    type 'a windowclass_t
+    type textdirection_t
+    type dragresult_t
+    type directiontype_t
+    type 'a tooltipclass_t
+    type selectiondatarecord_t
+    type widgethelptype_t
+    type statetype_t
+    type stateflags_t
+    type 'a containerclass_t
+    type 'a styleclass_t
+    type align_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t

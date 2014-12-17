@@ -38,6 +38,7 @@ structure GtkSourceLanguage :>
               x3
             )
     type 'a class_t = 'a GtkSourceLanguageClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHidden_ self
     fun getId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getId_ self

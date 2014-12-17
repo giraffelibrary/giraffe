@@ -70,6 +70,7 @@ structure GtkAccelMap :>
     val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : cstring * unit CPointer.t -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
     type accelkeyrecord_t = GtkAccelKeyRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =
       (

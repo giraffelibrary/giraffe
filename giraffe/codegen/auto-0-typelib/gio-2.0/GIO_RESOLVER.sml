@@ -1,9 +1,10 @@
 signature GIO_RESOLVER =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
-    type 'a inetaddressclass_t
     type 'a cancellableclass_t
+    type 'a inetaddressclass_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
     val lookupByAddress :

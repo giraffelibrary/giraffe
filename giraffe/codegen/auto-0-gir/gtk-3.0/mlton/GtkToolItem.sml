@@ -106,6 +106,7 @@ structure GtkToolItem :>
     type 'a sizegroupclass_t = 'a GtkSizeGroupClass.t
     type toolbarstyle_t = GtkToolbarStyle.t
     type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

@@ -49,6 +49,7 @@ structure GtkSourceCompletionProvider :>
     type 'a completioncontextclass_t = 'a GtkSourceCompletionContextClass.t
     type 'a completioninfoclass_t = 'a GtkSourceCompletionInfoClass.t
     type 'a completionproposalclass_t = 'a GtkSourceCompletionProposalClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activateProposal self proposal iter =
       (

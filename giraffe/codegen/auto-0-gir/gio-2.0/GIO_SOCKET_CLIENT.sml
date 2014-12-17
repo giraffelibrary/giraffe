@@ -1,15 +1,16 @@
 signature GIO_SOCKET_CLIENT =
   sig
     type 'a class_t
-    type sockettype_t
-    type tlscertificateflags_t
-    type socketprotocol_t
-    type 'a socketaddressclass_t
-    type socketfamily_t
-    type 'a asyncresultclass_t
-    type 'a socketconnectionclass_t
-    type 'a cancellableclass_t
     type 'a socketconnectableclass_t
+    type 'a cancellableclass_t
+    type 'a socketconnectionclass_t
+    type 'a asyncresultclass_t
+    type socketfamily_t
+    type 'a socketaddressclass_t
+    type socketprotocol_t
+    type tlscertificateflags_t
+    type sockettype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val addApplicationProxy :

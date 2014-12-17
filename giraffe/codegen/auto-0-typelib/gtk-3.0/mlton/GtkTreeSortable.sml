@@ -42,6 +42,7 @@ structure GtkTreeSortable :>
     val sortColumnChanged_ = _import "gtk_tree_sortable_sort_column_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkTreeSortableClass.t
     type sorttype_t = GtkSortType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSortColumnId self =
       let

@@ -8,6 +8,7 @@ structure GioMemoryOutputStream :>
     val getSize_ = _import "g_memory_output_stream_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
     type 'a class_t = 'a GioMemoryOutputStreamClass.t
     type 'a seekableclass_t = 'a GioSeekableClass.t
+    type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDataSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getDataSize_ self

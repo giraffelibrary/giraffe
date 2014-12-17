@@ -43,6 +43,7 @@ structure GtkSourceGutterRendererText :>
               x4
             )
     type 'a class_t = 'a GtkSourceGutterRendererTextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
     fun setMarkup self markup length =

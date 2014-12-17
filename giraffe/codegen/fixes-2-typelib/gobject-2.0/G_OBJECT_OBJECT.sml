@@ -1,10 +1,11 @@
 signature G_OBJECT_OBJECT =
   sig
     type 'a class_t
-    type 'a paramspecclass_t
-    type closurerecord_t
-    type valuerecord_t
     type type_t
+    type valuerecord_t
+    type closurerecord_t
+    type 'a paramspecclass_t
+    type t = base class_t
     val getType : unit -> type_t
 (*
     val forceFloating : 'a class_t -> unit

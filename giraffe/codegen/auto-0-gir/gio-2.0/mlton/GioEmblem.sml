@@ -12,6 +12,7 @@ structure GioEmblem :>
     type 'a class_t = 'a GioEmblemClass.t
     type 'a iconclass_t = 'a GioIconClass.t
     type emblemorigin_t = GioEmblemOrigin.t
+    type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new icon = (GObjectObjectClass.C.withPtr ---> GioEmblemClass.C.fromPtr true) new_ icon

@@ -115,6 +115,7 @@ structure GtkPrintOperation :>
     type 'a printsettingsclass_t = 'a GtkPrintSettingsClass.t
     type printstatus_t = GtkPrintStatus.t
     type unit_t = GtkUnit.t
+    type t = base class_t
     fun asPrintOperationPreview self = (GObjectObjectClass.C.withPtr ---> GtkPrintOperationPreviewClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPrintOperationClass.C.fromPtr true) new_ ()

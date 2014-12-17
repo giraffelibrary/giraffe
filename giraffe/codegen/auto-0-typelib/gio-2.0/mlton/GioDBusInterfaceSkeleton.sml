@@ -44,6 +44,7 @@ structure GioDBusInterfaceSkeleton :>
     type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t
     type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
     type dbusinterfaceskeletonflags_t = GioDBusInterfaceSkeletonFlags.t
+    type t = base class_t
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun export self connection objectPath =

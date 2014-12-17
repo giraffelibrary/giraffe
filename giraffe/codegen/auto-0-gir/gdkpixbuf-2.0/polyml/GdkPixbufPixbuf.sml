@@ -199,6 +199,7 @@ structure GdkPixbufPixbuf :>
     type pixbufrotation_t = GdkPixbufPixbufRotation.t
     type interptype_t = GdkPixbufInterpType.t
     type colorspace_t = GdkPixbufColorspace.t
+    type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new colorspace hasAlpha bitsPerSample width height =

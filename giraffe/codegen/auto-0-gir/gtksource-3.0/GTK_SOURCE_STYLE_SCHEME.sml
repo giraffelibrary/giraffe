@@ -2,6 +2,7 @@ signature GTK_SOURCE_STYLE_SCHEME =
   sig
     type 'a class_t
     type 'a styleclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDescription : 'a class_t -> string
     val getFilename : 'a class_t -> string

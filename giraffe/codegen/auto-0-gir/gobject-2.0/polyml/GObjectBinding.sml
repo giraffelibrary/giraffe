@@ -22,6 +22,7 @@ structure GObjectBinding :>
     type type_t = GObjectType.t
     type bindingflags_t = GObjectBindingFlags.t
     type 'a objectclass_t = 'a GObjectObjectClass.t
+    type t = base class_t
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite

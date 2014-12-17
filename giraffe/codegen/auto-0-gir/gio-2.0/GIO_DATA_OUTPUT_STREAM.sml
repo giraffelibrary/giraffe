@@ -1,9 +1,10 @@
 signature GIO_DATA_OUTPUT_STREAM =
   sig
     type 'a class_t
-    type datastreambyteorder_t
-    type 'a cancellableclass_t
     type 'a outputstreamclass_t
+    type 'a cancellableclass_t
+    type datastreambyteorder_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a outputstreamclass_t -> base class_t
     val getByteOrder : 'a class_t -> datastreambyteorder_t

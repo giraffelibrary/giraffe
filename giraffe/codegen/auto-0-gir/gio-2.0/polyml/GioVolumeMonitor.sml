@@ -17,6 +17,7 @@ structure GioVolumeMonitor :>
     type 'a driveclass_t = 'a GioDriveClass.t
     type 'a mountclass_t = 'a GioMountClass.t
     type 'a volumeclass_t = 'a GioVolumeClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
     fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)

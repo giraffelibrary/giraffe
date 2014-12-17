@@ -1,10 +1,11 @@
 signature GTK_SOURCE_COMPLETION_PROVIDER =
   sig
     type 'a class_t
-    type 'a completionproposalclass_t
-    type 'a completioninfoclass_t
-    type 'a completioncontextclass_t
     type completionactivation_t
+    type 'a completioncontextclass_t
+    type 'a completioninfoclass_t
+    type 'a completionproposalclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val activateProposal :
       'a class_t

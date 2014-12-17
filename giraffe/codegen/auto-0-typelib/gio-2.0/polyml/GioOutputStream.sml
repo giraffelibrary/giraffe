@@ -79,6 +79,7 @@ structure GioOutputStream :>
     type outputstreamspliceflags_t = GioOutputStreamSpliceFlags.t
     type 'a inputstreamclass_t = 'a GioInputStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self
     fun close self cancellable =

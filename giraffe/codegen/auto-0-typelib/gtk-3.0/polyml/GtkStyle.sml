@@ -65,6 +65,7 @@ structure GtkStyle :>
     type iconsourcerecord_t = GtkIconSourceRecord.t
     type statetype_t = GtkStateType.t
     type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun applyDefaultBackground self cr window stateType x y width height =
       (

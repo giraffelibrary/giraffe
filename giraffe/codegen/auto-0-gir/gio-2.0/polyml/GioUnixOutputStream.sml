@@ -14,6 +14,7 @@ structure GioUnixOutputStream :>
     end
     type 'a class_t = 'a GioUnixOutputStreamClass.t
     type 'a pollableoutputstreamclass_t = 'a GioPollableOutputStreamClass.t
+    type t = base class_t
     fun asPollableOutputStream self = (GObjectObjectClass.C.withPtr ---> GioPollableOutputStreamClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new fd closeFd = (FFI.Int.C.withVal &&&> FFI.Bool.C.withVal ---> GioUnixOutputStreamClass.C.fromPtr true) new_ (fd & closeFd)

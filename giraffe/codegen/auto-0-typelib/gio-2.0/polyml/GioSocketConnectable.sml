@@ -12,6 +12,7 @@ structure GioSocketConnectable :>
     end
     type 'a class_t = 'a GioSocketConnectableClass.t
     type 'a socketaddressenumeratorclass_t = 'a GioSocketAddressEnumeratorClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun enumerate self = (GObjectObjectClass.C.withPtr ---> GioSocketAddressEnumeratorClass.C.fromPtr true) enumerate_ self
     fun proxyEnumerate self = (GObjectObjectClass.C.withPtr ---> GioSocketAddressEnumeratorClass.C.fromPtr true) proxyEnumerate_ self

@@ -15,6 +15,7 @@ structure GioInetSocketAddress :>
     type 'a class_t = 'a GioInetSocketAddressClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
     type 'a inetaddressclass_t = 'a GioInetAddressClass.t
+    type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new address port = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioInetSocketAddressClass.C.fromPtr true) new_ (address & port)

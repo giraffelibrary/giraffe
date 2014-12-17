@@ -22,6 +22,7 @@ structure AtkAction :>
           )
     end
     type 'a class_t = 'a AtkActionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doAction self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) doAction_ (self & i)
     fun getDescription self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getDescription_ (self & i)

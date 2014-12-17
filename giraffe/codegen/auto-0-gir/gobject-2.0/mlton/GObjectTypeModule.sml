@@ -25,6 +25,7 @@ structure GObjectTypeModule :>
     type 'a class_t = 'a GObjectTypeModuleClass.t
     type 'a typepluginclass_t = 'a GObjectTypePluginClass.t
     type type_t = GObjectType.t
+    type t = base class_t
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)

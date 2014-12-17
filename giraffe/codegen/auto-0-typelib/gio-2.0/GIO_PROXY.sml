@@ -1,10 +1,11 @@
 signature GIO_PROXY =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
-    type 'a iostreamclass_t
-    type 'a proxyaddressclass_t
     type 'a cancellableclass_t
+    type 'a proxyaddressclass_t
+    type 'a iostreamclass_t
+    type 'a asyncresultclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefaultForProtocol : string -> base class_t
     val connect :

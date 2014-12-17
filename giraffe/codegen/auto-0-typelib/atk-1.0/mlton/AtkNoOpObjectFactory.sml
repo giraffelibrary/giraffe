@@ -5,6 +5,7 @@ structure AtkNoOpObjectFactory :>
     val getType_ = _import "atk_no_op_object_factory_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_no_op_object_factory_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a AtkNoOpObjectFactoryClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkNoOpObjectFactoryClass.C.fromPtr true) new_ ()
   end

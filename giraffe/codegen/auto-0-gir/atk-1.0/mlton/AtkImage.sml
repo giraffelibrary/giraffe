@@ -21,6 +21,7 @@ structure AtkImage :>
               x3
             )
     type 'a class_t = 'a AtkImageClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getImageDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getImageDescription_ self
     fun getImageLocale self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getImageLocale_ self

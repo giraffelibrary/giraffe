@@ -23,6 +23,7 @@ structure GdkRgba :>
             )
     val toString_ = _import "gdk_rgba_to_string" : GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type record_t = GdkRgbaRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkRgbaRecord.C.withPtr ---> GdkRgbaRecord.C.fromPtr true) copy_ self
     fun equal self p2 = (GdkRgbaRecord.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & p2)

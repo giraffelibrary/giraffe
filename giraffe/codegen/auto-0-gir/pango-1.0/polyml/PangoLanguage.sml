@@ -16,6 +16,7 @@ structure PangoLanguage :>
     end
     type record_t = PangoLanguageRecord.t
     type script_t = PangoScript.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.C.withPtr ---> FFI.String.C.fromPtr false) getSampleString_ self
     fun includesScript self script = (PangoLanguageRecord.C.withPtr &&&> PangoScript.C.withVal ---> FFI.Bool.C.fromVal) includesScript_ (self & script)

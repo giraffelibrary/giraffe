@@ -115,6 +115,7 @@ structure GioSocketClient :>
     type socketprotocol_t = GioSocketProtocol.t
     type tlscertificateflags_t = GioTlsCertificateFlags.t
     type sockettype_t = GioSocketType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()
     fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addApplicationProxy_ (self & protocol)

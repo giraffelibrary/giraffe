@@ -71,6 +71,7 @@ structure GioApplication :>
     type 'a applicationcommandlineclass_t = 'a GioApplicationCommandLineClass.t
     type 'a actiongroupclass_t = 'a GioActionGroupClass.t
     type applicationflags_t = GioApplicationFlags.t
+    type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new applicationId flags = (FFI.String.C.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GioApplicationClass.C.fromPtr true) new_ (applicationId & flags)

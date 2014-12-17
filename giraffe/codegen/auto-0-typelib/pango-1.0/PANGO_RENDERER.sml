@@ -1,14 +1,15 @@
 signature PANGO_RENDERER =
   sig
     type 'a class_t
-    type matrixrecord_t
-    type renderpart_t
-    type colorrecord_t
-    type layoutlinerecord_t
-    type 'a layoutclass_t
-    type 'a fontclass_t
-    type glyphstringrecord_t
     type glyphitemrecord_t
+    type glyphstringrecord_t
+    type 'a fontclass_t
+    type 'a layoutclass_t
+    type layoutlinerecord_t
+    type colorrecord_t
+    type renderpart_t
+    type matrixrecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val activate : 'a class_t -> unit
     val deactivate : 'a class_t -> unit

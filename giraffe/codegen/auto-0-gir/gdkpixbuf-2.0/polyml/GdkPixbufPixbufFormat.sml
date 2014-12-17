@@ -16,6 +16,7 @@ structure GdkPixbufPixbufFormat :>
       val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type record_t = GdkPixbufPixbufFormatRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) copy_ self
     fun getDescription self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> FFI.String.C.fromPtr true) getDescription_ self

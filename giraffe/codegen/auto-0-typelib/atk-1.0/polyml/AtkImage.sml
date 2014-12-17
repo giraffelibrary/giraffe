@@ -11,6 +11,7 @@ structure AtkImage :>
       val setImageDescription_ = call (load_sym libatk "atk_image_set_image_description") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkImageClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getImageDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getImageDescription_ self
     fun getImageLocale self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getImageLocale_ self

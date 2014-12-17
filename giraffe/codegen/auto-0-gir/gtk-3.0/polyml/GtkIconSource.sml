@@ -32,6 +32,7 @@ structure GtkIconSource :>
     type record_t = GtkIconSourceRecord.t
     type textdirection_t = GtkTextDirection.t
     type statetype_t = GtkStateType.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSourceRecord.C.fromPtr true) new_ ()
     fun copy self = (GtkIconSourceRecord.C.withPtr ---> GtkIconSourceRecord.C.fromPtr true) copy_ self

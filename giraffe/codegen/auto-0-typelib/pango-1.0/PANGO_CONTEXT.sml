@@ -1,16 +1,17 @@
 signature PANGO_CONTEXT =
   sig
     type 'a class_t
-    type matrixrecord_t
-    type languagerecord_t
-    type gravityhint_t
-    type 'a fontmapclass_t
-    type fontdescriptionrecord_t
-    type gravity_t
-    type direction_t
-    type 'a fontsetclass_t
-    type 'a fontclass_t
     type fontmetricsrecord_t
+    type 'a fontclass_t
+    type 'a fontsetclass_t
+    type direction_t
+    type gravity_t
+    type fontdescriptionrecord_t
+    type 'a fontmapclass_t
+    type gravityhint_t
+    type languagerecord_t
+    type matrixrecord_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getBaseDir : 'a class_t -> direction_t

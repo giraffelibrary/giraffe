@@ -2,6 +2,7 @@ signature G_LIB_KEY_FILE =
   sig
     type record_t
     type keyfileflags_t
+    type t = record_t
     val getBoolean :
       record_t
        -> string

@@ -10,6 +10,7 @@ structure GioSocketService :>
     val stop_ = _import "g_socket_service_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GioSocketServiceClass.t
     type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketServiceClass.C.fromPtr true) new_ ()
     fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self

@@ -26,6 +26,7 @@ structure PangoLanguage :>
     val getDefault_ = _import "pango_language_get_default" : unit -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     type record_t = PangoLanguageRecord.t
     type script_t = PangoScript.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.C.withPtr ---> FFI.String.C.fromPtr false) getSampleString_ self
     fun includesScript self script = (PangoLanguageRecord.C.withPtr &&&> PangoScript.C.withVal ---> FFI.Bool.C.fromVal) includesScript_ (self & script)

@@ -1,13 +1,14 @@
 signature GTK_TEXT_BUFFER =
   sig
     type 'a class_t
-    type 'a texttagtableclass_t
-    type targetlistrecord_t
-    type 'a texttagclass_t
-    type textiterrecord_t
-    type 'a clipboardclass_t
-    type 'a textmarkclass_t
     type 'a textchildanchorclass_t
+    type 'a textmarkclass_t
+    type 'a clipboardclass_t
+    type textiterrecord_t
+    type 'a texttagclass_t
+    type targetlistrecord_t
+    type 'a texttagtableclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a texttagtableclass_t option -> base class_t
     val addMark :

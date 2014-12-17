@@ -103,6 +103,7 @@ structure GtkPageSetup :>
     type pageorientation_t = GtkPageOrientation.t
     type papersizerecord_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPageSetupClass.C.fromPtr true) new_ ()
     fun newFromFile fileName = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GtkPageSetupClass.C.fromPtr true) newFromFile_ (fileName & [])

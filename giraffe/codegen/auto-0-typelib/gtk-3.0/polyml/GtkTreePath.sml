@@ -23,6 +23,7 @@ structure GtkTreePath :>
       val up_ = call (load_sym libgtk "gtk_tree_path_up") (GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type record_t = GtkTreePathRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.C.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.C.fromPtr true) newFirst_ ()

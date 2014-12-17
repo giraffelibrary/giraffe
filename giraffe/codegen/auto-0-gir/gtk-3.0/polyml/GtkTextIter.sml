@@ -130,6 +130,7 @@ structure GtkTextIter :>
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
     type 'a textchildanchorclass_t = 'a GtkTextChildAnchorClass.t
     type 'a texttagclass_t = 'a GtkTextTagClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun assign self other = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) assign_ (self & other)
     fun backwardChar self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardChar_ self

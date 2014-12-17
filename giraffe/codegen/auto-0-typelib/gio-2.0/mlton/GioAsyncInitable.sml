@@ -40,6 +40,7 @@ structure GioAsyncInitable :>
             )
     type 'a class_t = 'a GioAsyncInitableClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun initFinish self res =
       (

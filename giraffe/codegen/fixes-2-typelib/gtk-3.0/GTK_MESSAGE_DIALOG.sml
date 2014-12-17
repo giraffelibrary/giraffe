@@ -1,12 +1,13 @@
 signature GTK_MESSAGE_DIALOG =
   sig
     type 'a class_t
-    type messagetype_t
-    type 'a widgetclass_t
-    type buttonstype_t
-    type 'a windowclass_t
-    type dialogflags_t
     type 'a buildableclass_t
+    type dialogflags_t
+    type 'a windowclass_t
+    type buttonstype_t
+    type 'a widgetclass_t
+    type messagetype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val getType : unit -> GObject.Type.t

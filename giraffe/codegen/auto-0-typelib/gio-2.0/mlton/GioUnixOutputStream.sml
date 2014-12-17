@@ -10,6 +10,7 @@ structure GioUnixOutputStream :>
     val setCloseFd_ = fn x1 & x2 => (_import "g_unix_output_stream_set_close_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioUnixOutputStreamClass.t
     type 'a pollableoutputstreamclass_t = 'a GioPollableOutputStreamClass.t
+    type t = base class_t
     fun asPollableOutputStream self = (GObjectObjectClass.C.withPtr ---> GioPollableOutputStreamClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new fd closeFd = (FFI.Int32.C.withVal &&&> FFI.Bool.C.withVal ---> GioUnixOutputStreamClass.C.fromPtr true) new_ (fd & closeFd)

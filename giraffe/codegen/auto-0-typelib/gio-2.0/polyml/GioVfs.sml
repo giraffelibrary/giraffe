@@ -16,6 +16,7 @@ structure GioVfs :>
     end
     type 'a class_t = 'a GioVfsClass.t
     type 'a fileclass_t = 'a GioFileClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioVfsClass.C.fromPtr false) getDefault_ ()
     fun getLocal () = (I ---> GioVfsClass.C.fromPtr false) getLocal_ ()

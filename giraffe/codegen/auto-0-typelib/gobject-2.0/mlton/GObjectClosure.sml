@@ -7,6 +7,7 @@ structure GObjectClosure :>
     val invalidate_ = _import "g_closure_invalidate" : GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p -> unit;
     type record_t = GObjectClosureRecord.t
     type type_t = GObjectType.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun invalidate self = (GObjectClosureRecord.C.withPtr ---> I) invalidate_ self
   end

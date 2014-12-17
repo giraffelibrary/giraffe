@@ -1,12 +1,13 @@
 signature G_LIB_I_O_CHANNEL =
   sig
     type record_t
-    type iochannelerror_t
-    type iostatus_t
-    type ioflags_t
-    type seektype_t
-    type ioerror_t
     type iocondition_t
+    type ioerror_t
+    type seektype_t
+    type ioflags_t
+    type iostatus_t
+    type iochannelerror_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val newFile :
       string

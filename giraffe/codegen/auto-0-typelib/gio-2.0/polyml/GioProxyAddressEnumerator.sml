@@ -10,6 +10,7 @@ structure GioProxyAddressEnumerator :>
     end
     type 'a class_t = 'a GioProxyAddressEnumeratorClass.t
     type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     local
       open Property

@@ -130,6 +130,7 @@ structure GtkComboBoxText :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a celleditableclass_t = 'a GtkCellEditableClass.t
     type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self

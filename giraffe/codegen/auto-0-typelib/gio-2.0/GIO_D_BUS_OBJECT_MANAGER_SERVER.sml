@@ -1,9 +1,10 @@
 signature GIO_D_BUS_OBJECT_MANAGER_SERVER =
   sig
     type 'a class_t
-    type 'a dbusconnectionclass_t
-    type 'a dbusobjectskeletonclass_t
     type 'a dbusobjectmanagerclass_t
+    type 'a dbusobjectskeletonclass_t
+    type 'a dbusconnectionclass_t
+    type t = base class_t
     val asDBusObjectManager : 'a class_t -> base dbusobjectmanagerclass_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t

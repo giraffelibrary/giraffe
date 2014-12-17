@@ -71,6 +71,7 @@ structure GtkRecentAction :>
     type 'a buildableclass_t = 'a GtkBuildableClass.t
     type 'a recentchooserclass_t = 'a GtkRecentChooserClass.t
     type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t
+    type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

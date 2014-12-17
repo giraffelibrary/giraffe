@@ -65,6 +65,7 @@ structure AtkText :>
     type textrangerecord_t = AtkTextRangeRecord.t
     type textrectanglerecord_t = AtkTextRectangleRecord.t
     type coordtype_t = AtkCoordType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun freeRanges ranges = (AtkTextRangeRecord.C.withPtr ---> I) freeRanges_ ranges
     fun addSelection self startOffset endOffset =

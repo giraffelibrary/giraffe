@@ -36,6 +36,7 @@ structure PangoGlyphString :>
     type record_t = PangoGlyphStringRecord.t
     type rectanglerecord_t = PangoRectangleRecord.t
     type 'a fontclass_t = 'a PangoFontClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoGlyphStringRecord.C.fromPtr true) new_ ()
     fun copy self = (PangoGlyphStringRecord.C.withPtr ---> PangoGlyphStringRecord.C.fromPtr true) copy_ self

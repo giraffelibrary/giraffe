@@ -66,6 +66,7 @@ structure GtkTargetList :>
     val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
     type record_t = GtkTargetListRecord.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun add self target flags info =
       (

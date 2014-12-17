@@ -1,8 +1,9 @@
 signature GDK_PIXBUF_PIXBUF_ANIMATION =
   sig
     type 'a class_t
-    type 'a pixbufclass_t
     type 'a pixbufanimationiterclass_t
+    type 'a pixbufclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val newFromFile : string -> base class_t
     val getHeight : 'a class_t -> LargeInt.int

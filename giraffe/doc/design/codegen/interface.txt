@@ -40,7 +40,7 @@ See Object, Derived class structure.
 
 signature <INTERFACE_NAMESPACE>_<INTERFACE_NAME> =
   sig
-    (* Types *)
+    (* Local Types *)
 
     type 'a class_t
 
@@ -57,6 +57,10 @@ signature <INTERFACE_NAMESPACE>_<INTERFACE_NAME> =
     type ('object, 'a) property_writeonly                    | isGObject and P > 0
     type ('object, 'a, 'b) property_readwrite                |
                                                             -'
+
+    (* Type Abbreviations *)
+
+    type t = base class_t
 
 
     (* Constants *)
@@ -173,7 +177,7 @@ structure <InterfaceNamespace><InterfaceName> :>
                                                                             -'
 
 
-    (* Types *)
+    (* Local Types *)
 
     type 'a class_t = 'a <InterfaceNamespace><InterfaceName>Class.t
 
@@ -190,6 +194,11 @@ structure <InterfaceNamespace><InterfaceName> :>
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
                                                                                           -'
+
+    (* Type Abbreviations *)
+
+    type t = base class_t
+
 
     (* Constants *)
 

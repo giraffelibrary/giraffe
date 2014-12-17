@@ -1,10 +1,11 @@
 signature GTK_RECENT_CHOOSER =
   sig
     type 'a class_t
-    type recentsorttype_t
-    type 'a recentmanagerclass_t
-    type 'a recentfilterclass_t
     type recentinforecord_t
+    type 'a recentfilterclass_t
+    type 'a recentmanagerclass_t
+    type recentsorttype_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val addFilter :
       'a class_t

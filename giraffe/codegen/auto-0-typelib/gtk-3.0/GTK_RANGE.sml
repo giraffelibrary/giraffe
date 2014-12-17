@@ -1,11 +1,12 @@
 signature GTK_RANGE =
   sig
     type 'a class_t
-    type sensitivitytype_t
-    type 'a adjustmentclass_t
-    type scrolltype_t
-    type 'a orientableclass_t
     type 'a buildableclass_t
+    type 'a orientableclass_t
+    type scrolltype_t
+    type 'a adjustmentclass_t
+    type sensitivitytype_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asOrientable : 'a class_t -> base orientableclass_t

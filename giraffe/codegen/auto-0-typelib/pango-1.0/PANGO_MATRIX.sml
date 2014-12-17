@@ -1,6 +1,7 @@
 signature PANGO_MATRIX =
   sig
     type record_t
+    type t = record_t
     val getType : unit -> GObject.Type.t
     val concat :
       record_t

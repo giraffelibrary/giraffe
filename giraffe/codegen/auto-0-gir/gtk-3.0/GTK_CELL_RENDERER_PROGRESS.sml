@@ -2,6 +2,7 @@ signature GTK_CELL_RENDERER_PROGRESS =
   sig
     type 'a class_t
     type 'a orientableclass_t
+    type t = base class_t
     val asOrientable : 'a class_t -> base orientableclass_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t

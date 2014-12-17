@@ -50,6 +50,7 @@ structure GioDBusMethodInvocation :>
     type 'a dbusmessageclass_t = 'a GioDBusMessageClass.t
     type dbusmethodinforecord_t = GioDBusMethodInfoRecord.t
     type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getInterfaceName_ self

@@ -1,6 +1,7 @@
 signature GTK_CELL_RENDERER_TOGGLE =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getActivatable : 'a class_t -> bool

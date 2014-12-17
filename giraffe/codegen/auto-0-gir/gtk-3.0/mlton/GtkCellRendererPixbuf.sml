@@ -5,6 +5,7 @@ structure GtkCellRendererPixbuf :>
     val getType_ = _import "gtk_cell_renderer_pixbuf_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_pixbuf_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GtkCellRendererPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererPixbufClass.C.fromPtr false) new_ ()
     local

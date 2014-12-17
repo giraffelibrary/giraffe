@@ -89,6 +89,7 @@ structure GLibMatchInfo :>
     val next_ = fn x1 & x2 => (_import "g_match_info_next" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     type record_t = GLibMatchInfoRecord.t
     type regexrecord_t = GLibRegexRecord.t
+    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun expandReferences self stringToExpand =
       (

@@ -75,6 +75,7 @@ structure PangoContext :>
     type gravityhint_t = PangoGravityHint.t
     type languagerecord_t = PangoLanguageRecord.t
     type matrixrecord_t = PangoMatrixRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoContextClass.C.fromPtr true) new_ ()
     fun getBaseDir self = (GObjectObjectClass.C.withPtr ---> PangoDirection.C.fromVal) getBaseDir_ self

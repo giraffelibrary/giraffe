@@ -13,6 +13,7 @@ structure PangoFontFace :>
     end
     type 'a class_t = 'a PangoFontFaceClass.t
     type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
     fun getFaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getFaceName_ self

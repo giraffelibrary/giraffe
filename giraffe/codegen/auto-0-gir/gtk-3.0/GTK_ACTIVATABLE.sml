@@ -2,6 +2,7 @@ signature GTK_ACTIVATABLE =
   sig
     type 'a class_t
     type 'a actionclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val doSetRelatedAction :
       'a class_t

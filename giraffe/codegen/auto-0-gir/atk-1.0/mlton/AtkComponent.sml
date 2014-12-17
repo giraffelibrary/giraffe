@@ -120,6 +120,7 @@ structure AtkComponent :>
     type 'a objectclass_t = 'a AtkObjectClass.t
     type coordtype_t = AtkCoordType.t
     type rectanglerecord_t = AtkRectangleRecord.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun contains self x y coordType =
       (

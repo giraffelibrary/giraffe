@@ -1,8 +1,9 @@
 signature GDK_CURSOR =
   sig
     type 'a class_t
-    type 'a displayclass_t
     type cursortype_t
+    type 'a displayclass_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : cursortype_t -> base class_t
     val newForDisplay :

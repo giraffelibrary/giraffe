@@ -23,6 +23,7 @@ structure AtkRelation :>
     type 'a class_t = 'a AtkRelationClass.t
     type 'a objectclass_t = 'a AtkObjectClass.t
     type relationtype_t = AtkRelationType.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new targets nTargets relationship =
       (

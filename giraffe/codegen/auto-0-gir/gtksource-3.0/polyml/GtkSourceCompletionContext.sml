@@ -14,6 +14,7 @@ structure GtkSourceCompletionContext :>
     type 'a class_t = 'a GtkSourceCompletionContextClass.t
     type completionactivation_t = GtkSourceCompletionActivation.t
     type 'a completionclass_t = 'a GtkSourceCompletionClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActivation self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self
     fun getIter self =

@@ -21,6 +21,7 @@ structure GtkViewport :>
     type 'a scrollableclass_t = 'a GtkScrollableClass.t
     type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
     type shadowtype_t = GtkShadowType.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

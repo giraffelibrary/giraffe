@@ -17,6 +17,7 @@ structure GtkTextMark :>
     end
     type 'a class_t = 'a GtkTextMarkClass.t
     type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name leftGravity = (FFI.String.C.withConstOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkTextBufferClass.C.fromPtr false) getBuffer_ self

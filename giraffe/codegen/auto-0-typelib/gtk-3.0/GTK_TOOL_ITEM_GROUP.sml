@@ -1,11 +1,12 @@
 signature GTK_TOOL_ITEM_GROUP =
   sig
     type 'a class_t
-    type 'a widgetclass_t
-    type reliefstyle_t
-    type 'a toolitemclass_t
-    type 'a toolshellclass_t
     type 'a buildableclass_t
+    type 'a toolshellclass_t
+    type 'a toolitemclass_t
+    type reliefstyle_t
+    type 'a widgetclass_t
+    type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base buildableclass_t
     val asToolShell : 'a class_t -> base toolshellclass_t

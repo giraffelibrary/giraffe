@@ -26,6 +26,7 @@ structure GdkPixbufPixbufSimpleAnim :>
     val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
     type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =
       (

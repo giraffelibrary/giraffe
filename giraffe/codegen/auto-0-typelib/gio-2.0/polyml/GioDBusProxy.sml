@@ -120,6 +120,7 @@ structure GioDBusProxy :>
     type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
     type dbusproxyflags_t = GioDBusProxyFlags.t
     type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t
+    type t = base class_t
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self

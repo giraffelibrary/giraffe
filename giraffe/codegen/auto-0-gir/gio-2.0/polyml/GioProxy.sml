@@ -36,6 +36,7 @@ structure GioProxy :>
     type 'a proxyaddressclass_t = 'a GioProxyAddressClass.t
     type 'a iostreamclass_t = 'a GioIOStreamClass.t
     type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefaultForProtocol protocol = (FFI.String.C.withConstPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol
     fun connect self connection proxyAddress cancellable =

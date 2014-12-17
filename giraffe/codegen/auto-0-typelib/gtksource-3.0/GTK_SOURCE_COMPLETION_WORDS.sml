@@ -2,6 +2,7 @@ signature GTK_SOURCE_COMPLETION_WORDS =
   sig
     type 'a class_t
     type 'a completionproviderclass_t
+    type t = base class_t
     val asCompletionProvider : 'a class_t -> base completionproviderclass_t
     val getType : unit -> GObject.Type.t
     val new :

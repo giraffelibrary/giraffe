@@ -538,6 +538,7 @@ structure GtkWidget :>
     type 'a containerclass_t = 'a GtkContainerClass.t
     type 'a styleclass_t = 'a GtkStyleClass.t
     type align_t = GtkAlign.t
+    type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

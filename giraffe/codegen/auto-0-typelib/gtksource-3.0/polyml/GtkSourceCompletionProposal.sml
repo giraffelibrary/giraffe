@@ -16,6 +16,7 @@ structure GtkSourceCompletionProposal :>
       val hash_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_hash") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
     end
     type 'a class_t = 'a GtkSourceCompletionProposalClass.t
+    type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun changed self = (GObjectObjectClass.C.withPtr ---> I) changed_ self
     fun equal self other = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & other)

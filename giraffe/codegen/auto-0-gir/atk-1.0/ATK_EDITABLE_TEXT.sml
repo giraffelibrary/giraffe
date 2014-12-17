@@ -1,6 +1,7 @@
 signature ATK_EDITABLE_TEXT =
   sig
     type 'a class_t
+    type t = base class_t
     val getType : unit -> GObject.Type.t
     val copyText :
       'a class_t
