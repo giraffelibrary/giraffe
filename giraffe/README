@@ -88,8 +88,8 @@ See the file 'INSTALL'.
 
          ---------------          4.  Licence           ---------------
 
-Giraffe Library is released under the GNU LGPL.  See the file 'LICENCE' for
-details.
+The Giraffe Library runtime is released under the GNU LGPL.  See the file
+'LICENCE.RUNTIME' for details.
 
 A copy of the GNU GPL and the (additional terms of) the GNU LGPL are provided in
 the files 'COPYING' and 'COPYING.LESSER' respectively.
