@@ -1,3 +1,10 @@
+(* Copyright (C) 2013-2014 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 val libglib = CInterface.load_lib "libglib-2.0.so"
 val libgobject = CInterface.load_lib "libgobject-2.0.so"
 val libgio = CInterface.load_lib "libgio-2.0.so"
