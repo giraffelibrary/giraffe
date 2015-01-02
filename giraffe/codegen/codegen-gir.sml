@@ -9758,7 +9758,7 @@ val unionNames = [
 fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
 fun dupStr id _ = raise Fail (String.concat ["duplicate structure ", id])
 fun dupFile id _ = raise Fail (String.concat ["duplicate file for module ", id])
-fun insertNew f (x as ((id, _), _)) = #2 (ListDict.insert I (f id) x)
+fun insertNew f (x as ((id, _), _)) = ListDict.insert I (f id) x
 fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
 fun translateInfo
@@ -10531,10 +10531,10 @@ fun makeNamespaceSigStr
 
 fun addDeps ((_, extraDeps), (x, deps)) = (x, List.foldl insert deps extraDeps)
 
-fun insertSig x = #2 (ListDict.insert I addDeps x)
+fun insertSig x = ListDict.insert I addDeps x
 fun insertSigs (xs, m) = List.foldr insertSig m xs
 
-fun insertStr x = #2 (ListDict.insert I addDeps x)
+fun insertStr x = ListDict.insert I addDeps x
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
 fun generate dir repo (namespace, version) (extraSigs, extraStrs) =

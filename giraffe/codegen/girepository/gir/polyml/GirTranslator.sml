@@ -1729,8 +1729,7 @@ fun initNamespaceElem typelib =
  *)
                     val x = ((tag, data), typePtrDepth)
 
-                    val (_, dict') =
-                      Dict.insert I (dupFail name) ((name, x), dict)
+                    val dict' = Dict.insert I (dupFail name) ((name, x), dict)
                   in
                     dict'
                   end
@@ -1852,7 +1851,7 @@ local
   open GIRepositoryTypeTag
 in
   fun addBasicTypeElems typelib dict =
-    foldl (#2 o Dict.insert I dupFail) dict [
+    foldl (Dict.insert I dupFail) dict [
       makeMaplet typelib "gboolean"      BOOLEAN      (SOME 0),
 
       makeMaplet typelib "gchar"         CHAR         (SOME 0),
@@ -1932,7 +1931,7 @@ fun translate elemDicts repository =
          * References to type names in this namespace and basic type
          * names are unprefixed, so the prefix will be the empty string
          * ("") when looking up a type reference. *)
-        val (_, elemDicts'1) =
+        val elemDicts'1 =
           ListDict.insert I
             (fn _ => raise Fail "translate: namespace already loaded")
             (("", localDict'2), elemDicts)
@@ -1951,7 +1950,7 @@ fun translate elemDicts repository =
         val elemDicts'2 =
           if name = "GLib"
           then
-            (#2 o ListDict.insert I #2) (
+            (ListDict.insert I #2) (
               (
                 name,
                 Dict.fromList (List.filter isSpecial (Dict.toList localDict'1))

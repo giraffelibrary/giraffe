@@ -24,20 +24,22 @@ functor ListMap (Key : EQ_KEY) :> MAP where type key = Key.key =
       end
 
 
-    fun insert g f ((k, dNew), xs) =
+    fun insertMap g f ((k, dNew), xs) =
       case extractMaplet k xs of
         SOME (ys, dOld, xs') =>
           let
-            val d' = f (dNew, dOld)
+            val (acc, d') = f (dNew, dOld)
           in
-            (d', (k, d') :: List.revAppend (ys, xs'))
+            (acc, (k, d') :: List.revAppend (ys, xs'))
           end
       | NONE                 =>
           let
-            val d' = g dNew
+            val (acc, d') = g dNew
           in
-            (d', (k, d') :: xs)
+            (acc, (k, d') :: xs)
           end
+
+    fun insert g f = #2 o insertMap (D o g) (D o f)
 
 
     fun delete (k, xs) =
@@ -111,7 +113,7 @@ functor ListMap (Key : EQ_KEY) :> MAP where type key = Key.key =
       end
 
 
-    fun fromList xs = foldl (#2 o insert I (fn _ => raise Domain)) empty xs
+    fun fromList xs = foldl (insert I (fn _ => raise Domain)) empty xs
 
     fun toList xs = xs
   end

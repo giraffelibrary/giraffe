@@ -47,7 +47,7 @@ structure GIRepositoryRepository :>
 
         val repodata & _ = GIRepositoryRepositoryClass.Obj.unpack repository
         val ref {path, loaded} = repodata
-        val (_, path') = ListDict.insert I #1 ((directory, ()), path)
+        val path' = ListDict.insert I #1 ((directory, ()), path)
       in
         repodata := {path = path', loaded = loaded}
       end
@@ -64,7 +64,7 @@ structure GIRepositoryRepository :>
           then typelib
           else raise Fail (errMsg name version oldVersion)
 
-        val loaded' = (#2 o ListDict.insert I check) ((name, typelib), loaded)
+        val loaded' = ListDict.insert I check ((name, typelib), loaded)
       in
         repodata := {path = path, loaded = loaded'};
         name
@@ -116,7 +116,7 @@ structure GIRepositoryRepository :>
         val repodata & _ = GIRepositoryRepositoryClass.Obj.unpack repository
         val ref {path, loaded} = repodata
 
-        fun loadTypelib () =
+        fun makeTypelib () =
           let
             val file = String.concat [namespace_, "-", version, ".gir"]
 
@@ -152,7 +152,7 @@ structure GIRepositoryRepository :>
                   then
                     raise Fail (inclVerNotLoadedVerMsg namespace_ incl (#version namespace))
                   else
-                    (#2 o ListDict.insert I (fn _ => raise Fail (multipleInclMsg name)))
+                    ListDict.insert I (fn _ => raise Fail (multipleInclMsg name))
                       ((name, elemDict), elemDicts)
                 )
               | NONE                                  => raise Fail (inclNotLoaded name)
@@ -174,7 +174,7 @@ structure GIRepositoryRepository :>
           else raise Fail (errMsg namespace_ version oldVersion)
 
         val (typelib, loaded') =
-          ListDict.insert ($ ()) check ((namespace_, loadTypelib), loaded)
+          ListDict.insertMap (D o makeTypelib) check ((namespace_, ()), loaded)
             handle
               Unchanged typelib => (typelib, loaded)
       in

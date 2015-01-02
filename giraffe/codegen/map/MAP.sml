@@ -19,15 +19,41 @@ signature MAP =
     (**
      * Function: insert
      * Arguments:
-     *   (g : 'a -> 'b)
-     *   (f : 'a * 'b -> 'b)
+     *   (g : 'a -> 'c)
+     *   (f : 'a * 'c -> 'c)
      *   (
      *     (k, d) : 'a maplet,
-     *     m      : 'b t
+     *     m      : 'c t
+     *   )
+     * Returns:
+     *   (m' : 'c t)
+     *
+     * Description:
+     *   ...
+     *
+     *
+     *
+     *   insert g f = #2 o insertMap (D o g) (D o f)
+     *
+     * Usage notes:
+     *   f          : ('a, 'c) fold
+     *   insert g f : ('a maplet, 'c t) fold
+     *
+     **)
+    val insert : ('a -> 'c) -> ('a * 'c -> 'c) -> 'a maplet * 'c t -> 'c t
+
+    (**
+     * Function: insertMap
+     * Arguments:
+     *   (g : 'a -> 'b * 'c)
+     *   (f : 'a * 'c -> 'b * 'c)
+     *   (
+     *     (k, d) : 'a maplet,
+     *     m      : 'c t
      *   )
      * Returns:
      *   (d' : 'b)
-     *   (m' : 'b t)
+     *   (m' : 'c t)
      *
      * Description:
      *   ...
@@ -36,11 +62,13 @@ signature MAP =
      *
      *
      * Usage notes:
-     *   insert g f      : ('a t, 'b, 'b maplet) foldmap
-     *   #2 o insert g f : ('a t, 'b maplet) fold
+     *   f                  : ('a, 'b, 'c) foldmap
+     *   insertMap g f      : ('a maplet, 'b, 'c t) foldmap
+     *   #2 o insertMap g f : ('a maplet, 'c t) fold
      *
      **)
-    val insert : ('a -> 'b) -> ('a * 'b -> 'b) -> 'a maplet * 'b t -> 'b * 'b t
+    val insertMap :
+      ('a -> 'b * 'c) -> ('a * 'c -> 'b * 'c) -> 'a maplet * 'c t -> 'b * 'c t
 
     (**
      * Function: delete
