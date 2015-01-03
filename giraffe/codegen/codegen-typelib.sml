@@ -3,9 +3,9 @@
  *
  * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen-typelib.sml -c poly
  *
- * Set typelib path first, if reqired, e.g.
+ * For gobject-introspection-1.42, open file using the following command:
  *
- *  export GI_TYPELIB_PATH=/tmp/gtk+-test/lib/girepository-1.0:/tmp/atk-test/lib/girepository-1.0:/tmp/at-spi2-core-test/lib/girepository-1.0:/tmp/gdk-pixbuf-test/lib/girepository-1.0:/tmp/pango-test/lib/girepository-1.0:/tmp/gobject-introspection-test/lib/girepository-1.0:${GI_TYPELIB_PATH}
+ * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml:/opt/gobject-introspection/gobject-introspection-1.42.0/lib: xpp -f codegen-typelib.sml -c poly
  *)
 
 PolyML.Compiler.reportUnreferencedIds := true;
@@ -623,8 +623,8 @@ fun checkDeprecated info =
   then infoError "deprecated"
   else ()
 
-fun getSharedLibraryFile repo namespace =
-  case Repository.getSharedLibrary repo namespace of
+fun getSharedLibraryFile repo vers namespace =
+  case Repository.getSharedLibrary repo vers namespace of
     SOME sharedLibrary => sharedLibrary
   | NONE               => infoError "no shared library"
 
@@ -647,8 +647,8 @@ local
       mkId (String.implode cs)
     end
 in
-  fun getSharedLibraryId repo =
-    getLibId o OS.Path.file o getSharedLibraryFile repo
+  fun getSharedLibraryId repo vers =
+    getLibId o OS.Path.file o getSharedLibraryFile repo vers
 end
 
 fun getName info =
@@ -5338,6 +5338,7 @@ fun addGetTypeFunctionStrDecHighLevel
 
 fun addGetTypeFunctionStrDecLowLevel
   repo
+  vers
   libId
   namespace
   getTypeSymbol
@@ -5346,7 +5347,7 @@ fun addGetTypeFunctionStrDecLowLevel
   let
     val getTypeLibId =
       if namespace = "GLib"
-      then getSharedLibraryId repo "GObject"
+      then getSharedLibraryId repo vers "GObject"
       else libId
 
     val strDecs' =
@@ -5727,7 +5728,7 @@ end
  *
  *
  *   valueLibId
- *     is `getSharedLibraryId repo "GObject"`
+ *     is `getSharedLibraryId repo vers "GObject"`
  *
  *)
 local
@@ -5943,6 +5944,7 @@ local
 
   fun addStrDecsLowLevelPolyML
     repo
+    vers
     libId
     namespace
     getTypeSymbol
@@ -5951,7 +5953,7 @@ local
     strDecs =
     let
       val valueIRef = makeValueIRef namespace (SOME "")
-      val gobjectLibId = getSharedLibraryId repo "GObject"
+      val gobjectLibId = getSharedLibraryId repo vers "GObject"
       val getTypeLibId =
         if namespace = "GLib"
         then gobjectLibId
@@ -5979,6 +5981,7 @@ local
 in
   fun addAccessorRootStrDecs
     repo
+    vers
     libId
     namespace
     info =
@@ -5999,7 +6002,7 @@ in
 
               val strDecs'3 = (
                 if isPolyML
-                then addStrDecsLowLevelPolyML repo libId
+                then addStrDecsLowLevelPolyML repo vers libId
                 else addStrDecsLowLevelMLton
               )
                 namespace getTypeSymbol valueType isPtr strDecs'2
@@ -6671,6 +6674,7 @@ fun addObjectPropertyStrDecs repo objectIRef =
 
 fun makeObjectStr
   (repo            : 'a RepositoryClass.t)
+  (vers            : Repository.typelibvers_t)
   (libId           : id)
   (objectNamespace : string)
   (objectInfo      : 'a ObjectInfoClass.t)
@@ -6746,6 +6750,7 @@ fun makeObjectStr
             (
               addGetTypeFunctionStrDecLowLevel
                 repo
+                vers
                 libId
                 objectNamespace
                 getTypeSymbol
@@ -7322,6 +7327,7 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
 
 fun makeInterfaceStr
   (repo               : 'a RepositoryClass.t)
+  (vers               : Repository.typelibvers_t)
   (libId              : id)
   (interfaceNamespace : string)
   (interfaceInfo      : 'a InterfaceInfoClass.t)
@@ -7397,6 +7403,7 @@ fun makeInterfaceStr
             (
               addGetTypeFunctionStrDecLowLevel
                 repo
+                vers
                 libId
                 interfaceNamespace
                 getTypeSymbol
@@ -7629,6 +7636,7 @@ fun addStructMethodStrDecsHighLevel repo structIRef =
 
 fun makeStructStr
   (repo            : 'a RepositoryClass.t)
+  (vers            : Repository.typelibvers_t)
   (libId           : id)
   (structNamespace : string)
   (structInfo      : 'a StructInfoClass.t)
@@ -7659,6 +7667,7 @@ fun makeStructStr
         SOME getTypeSymbol =>
           addGetTypeFunctionStrDecLowLevel
             repo
+            vers
             libId
             structNamespace
             getTypeSymbol
@@ -8217,6 +8226,7 @@ local
 in
   fun makeFlagsStr
     (repo          : 'a RepositoryClass.t)
+    (vers          : Repository.typelibvers_t)
     (libId         : id)
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
@@ -8260,7 +8270,7 @@ in
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
       val (addAccessorStrDecs, revAccessorLocalTypes) =
-        addAccessorRootStrDecs repo libId enumNamespace enumInfo
+        addAccessorRootStrDecs repo vers libId enumNamespace enumInfo
 
       fun mkModule isPolyML =
         let
@@ -8772,6 +8782,7 @@ local
 in
   fun makeEnumStr
     (repo          : 'a RepositoryClass.t)
+    (vers          : Repository.typelibvers_t)
     (libId         : id)
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
@@ -8818,7 +8829,7 @@ in
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
       val (addAccessorStrDecs, revAccessorLocalTypes) =
-        addAccessorRootStrDecs repo libId enumNamespace enumInfo
+        addAccessorRootStrDecs repo vers libId enumNamespace enumInfo
 
       fun addNullStrDec strDecs = nullStrDec enumInfo :: strDecs
 
@@ -9046,6 +9057,7 @@ fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
 fun translateInfo
   repo
+  vers
   getLibId
   namespace
   (
@@ -9080,7 +9092,7 @@ fun translateInfo
           makeObjectClassStr repo namespace objectInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeObjectStr repo libId namespace objectInfo errs'0
+          makeObjectStr repo vers libId namespace objectInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -9137,7 +9149,7 @@ fun translateInfo
           makeInterfaceClassStr repo namespace interfaceInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeInterfaceStr repo libId namespace interfaceInfo errs'0
+          makeInterfaceStr repo vers libId namespace interfaceInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -9203,7 +9215,7 @@ fun translateInfo
             makeStructRecordStr repo namespace structInfo
 
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeStructStr repo libId namespace structInfo errs'0
+            makeStructStr repo vers libId namespace structInfo errs'0
 
           val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -9294,7 +9306,7 @@ fun translateInfo
         val libId = getLibId ()
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeFlagsStr repo libId namespace enumInfo errs'0
+          makeFlagsStr repo vers libId namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
@@ -9328,7 +9340,7 @@ fun translateInfo
         val libId = getLibId ()
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeEnumStr repo libId namespace enumInfo errs'0
+          makeEnumStr repo vers libId namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
@@ -9407,9 +9419,9 @@ fun translateInfo
   | _                                => acc
 
 
-fun translateLoadedNamespace repo namespace =
+fun translateLoadedNamespace repo vers namespace =
   let
-    val getLibId = lazy (fn () => getSharedLibraryId repo namespace)
+    val getLibId = lazy (fn () => getSharedLibraryId repo vers namespace)
 
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
     val constants'0 = ([], [])
@@ -9417,9 +9429,9 @@ fun translateLoadedNamespace repo namespace =
     val errs'0 = []
   in
     revFoldInfosWithErrs
-      (Repository.getNInfos repo)
-      (Repository.getInfo repo)
-      (translateInfo repo getLibId namespace)
+      (Repository.getNInfos repo vers)
+      (Repository.getInfo repo vers)
+      (translateInfo repo vers getLibId namespace)
       (namespace, ((modules'0, constants'0, functions'0), errs'0))
   end
 
@@ -9428,7 +9440,7 @@ fun translateLoadedNamespace repo namespace =
 
 fun loadNamespace repo (namespace, version) =
   let
-    val tylib =
+    val (tylib, vers) =
       Repository.require
         repo
         namespace
@@ -9457,7 +9469,7 @@ fun loadNamespace repo (namespace, version) =
             ]
           )
   in
-    ()
+    vers
   end
 
 
@@ -9786,9 +9798,11 @@ fun insertSigs (xs, m) = List.foldr insertSig m xs
 fun insertStr x = ListDict.insert I addDeps x
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
-fun generate dir repo (namespace, version) (extraSigs, extraStrs) =
+fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
   let
-    val () = loadNamespace repo (namespace, version)
+    val vers'1 = loadNamespace repo (namespace, version)
+    val vers = Repository.extendTypelibVers extraVers vers'1
+
     val curDir = OS.FileSys.getDir ()
     val () = OS.FileSys.chDir dir
   in
@@ -9797,11 +9811,11 @@ fun generate dir repo (namespace, version) (extraSigs, extraStrs) =
       val namespaceDir = createNamespaceDir (namespace, version)
 
       val namespaceDeps =
-        getOpt (Repository.getDependencies repo namespace, [])
+        getOpt (Repository.getDependencies repo vers namespace, [])
 
       (* generate code for the entire namespace *)
       val ((modules, constants, functions), errs) =
-        translateLoadedNamespace repo namespace
+        translateLoadedNamespace repo vers namespace
 
       val (files'1, sigs'1, strs'1) = modules
 
@@ -9895,6 +9909,22 @@ PolyML.print_depth 1000;
 Gtk.init (CommandLine.name () :: CommandLine.arguments ());
 
 val repo = Repository.getDefault ();
+
+val () =
+  List.app Repository.prependSearchPath [
+    "/usr/lib64/girepository-1.0",
+(*
+    "/opt/gobject-introspection/gobject-introspection-1.32.1/lib/girepository-1.0",
+    "/opt/gdk-pixbuf/gdk-pixbuf-2.26.1/lib/girepository-1.0",
+    "/opt/atk/atk-2.4.0/lib/girepository-1.0",
+ *)
+    "/opt/vte/vte-0.39.1/lib/girepository-1.0",  (* vte-2.91 *)
+    "/opt/pango/pango-1.30.0/lib/girepository-1.0"
+(*
+    "/opt/gtk+/gtk+-3.4.1/lib/girepository-1.0",
+*)
+  ]
+;
 
 constructorNames :=
   [
@@ -9995,9 +10025,10 @@ val modifierTypeLocalType = toLocalType ([], ("Gdk", "ModifierType", "t"))
  * Generate output for each namespace
  *)
 
-generate outDir repo ("Atk", "1.0") ([], []);
+generate outDir repo ("Atk", "1.0") ([], [], []);
 generate outDir repo ("GLib", "2.0")
   (
+    [("GObject", "2.0")],
     [
       makeSig "G_LIB_QUARK" [],                     (* TYPELIB only *)
       makeSig "G_LIB_PID" [],                       (* TYPELIB only *)
@@ -10020,6 +10051,7 @@ generate outDir repo ("GLib", "2.0")
   );
 generate outDir repo ("GObject", "2.0")
   (
+    [],
     [
       makeSig "CLOSURE_MARSHAL" [],
       makeSig "SIGNAL" [],
@@ -10151,12 +10183,13 @@ generate outDir repo ("GObject", "2.0")
       )
     ]
   );
-generate outDir repo ("Gio", "2.0") ([], []);
-generate outDir repo ("GdkPixbuf", "2.0") ([], []);
-generate outDir repo ("Pango", "1.0") ([], []);
-generate outDir repo ("cairo", "1.0") ([], []);
+generate outDir repo ("Gio", "2.0") ([], [], []);
+generate outDir repo ("GdkPixbuf", "2.0") ([], [], []);
+generate outDir repo ("Pango", "1.0") ([], [], []);
+generate outDir repo ("cairo", "1.0") ([("GObject", "2.0")], [], []);
 generate outDir repo ("Gdk", "3.0")
   (
+    [],
     [
       makeSig "GDK_EVENT_ANY_RECORD" [],
       makeSig "GDK_EVENT_BUTTON_RECORD" [],
@@ -10286,6 +10319,7 @@ generate outDir repo ("Gdk", "3.0")
   );
 generate outDir repo ("Gtk", "3.0")
   (
+    [],
     [
       makeSig "CHILD_SIGNAL" [],
       makeSig "STYLE_PROPERTY" [],
@@ -10299,18 +10333,19 @@ generate outDir repo ("Gtk", "3.0")
       ("GtkActionGroup", ((false, ([], [])), ["GtkActionEntry", "GtkAction"]))
     ]
   );
-generate outDir repo ("Vte", "2.90") ([], []);
-generate outDir repo ("GModule", "2.0") ([], []);
+generate outDir repo ("Vte", "2.90") ([], [], []);
+generate outDir repo ("Vte", "2.91") ([], [], []);
+generate outDir repo ("GModule", "2.0") ([], [], []);
 
 (* xlib fails because g_irepository_get_c_prefix returns NULL even though
  * this namespace has, according to the GIR file, the prefix "X".  This is
  * academic because this library is used only for aliases which is not
  * required by the TYPELIB version.
  *
- * generate outDir repo ("xlib", "2.0") ([], []);
+ * generate outDir repo ("xlib", "2.0") ([], [], []);
  *)
 
-generate outDir repo ("PangoCairo", "1.0") ([], []);
-generate outDir repo ("GIRepository", "2.0") ([], []);
-generate outDir repo ("GtkSource", "3.0") ([], []);
+generate outDir repo ("PangoCairo", "1.0") ([], [], []);
+generate outDir repo ("GIRepository", "2.0") ([], [], []);
+generate outDir repo ("GtkSource", "3.0") ([], [], []);
 

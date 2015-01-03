@@ -80,8 +80,9 @@ structure Info =
 
     withtype repodata =
       {
-        includes  : {name : string, version : string} list,
-        namespace :
+        includes     : {name : string, version : string} list,
+        dependencies : string ListDict.t,
+        namespace    :
           {
             name      : string,
             version   : string,
@@ -89,7 +90,7 @@ structure Info =
             sharedLib : string option,
             infos     : data basedata Vector.vector
           },
-        elemDict  : ((GIRepositoryTypeTag.t * data basedata option) * int option) Dict.t
+        elemDict     : ((GIRepositoryTypeTag.t * data basedata option) * int option) Dict.t
       }
         ref
 
@@ -190,10 +191,17 @@ structure Info =
         field  : data basedata list
       }
 
+    (* Unlike the GIRepository library, the GIR interface allows different
+     * versions of the same namespace to be loaded simultaneously.  The
+     * field `loaded` is a map from namespace names to a map from namespace
+     * versions to a `repodata`.  Functions that take a namespace name
+     * argument still work provided that there is only one version of the
+     * specified name loaded.
+     *)
     type repository =
       {
         path   : unit ListDict.t,
-        loaded : repodata ListDict.t
+        loaded : repodata ListDict.t ListDict.t
       }
         ref
   end

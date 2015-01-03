@@ -4,9 +4,9 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  ../cairo-1.0/mlton.mlb
-  ../gobject-2.0/mlton.mlb
   ../glib-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../cairo-1.0/mlton.mlb
   PANGO_GLYPH.sml
   PANGO_GLYPH_UNIT.sml
   PANGO_ALIGNMENT.sml

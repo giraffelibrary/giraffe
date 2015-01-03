@@ -1,3 +1,4 @@
+use "map/polyml.sml";
 use "girepository/polyml-typelib.sml";
 use "../general/INT_INF_MATH.sml";
 use "../general/IntInfMath.sml";

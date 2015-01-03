@@ -4,8 +4,8 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  ../gobject-2.0/mlton.mlb
   ../glib-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
   GIO_ACTION_CLASS.sml
   GIO_ACTION.sml
   GIO_ACTION_GROUP_CLASS.sml

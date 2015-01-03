@@ -9,27 +9,78 @@ structure GIRepositoryRepository :>
     type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
     type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
     type typelibtype_t = GIRepositoryTypelibType.t
+    type typelibvers_t = string ListDict.t
 
 
-    fun lookupTypelib repository namespace_ =
+    fun errMsgVerExists name ver =
+      String.concat [
+        "namespace ", name, " version ", ver, " already present"
+      ]
+
+    fun errMsgVerConflict name ver1 ver2 =
+      String.concat [
+        "namespace ", name, " version ", ver1,
+        " conflicts with version ", ver2, " that is already present"
+      ]
+
+    fun checkVer name (ver1, ver2) =
+      if ver1 = ver2
+      then raise Fail (errMsgVerExists name ver2)
+      else raise Fail (errMsgVerConflict name ver1 ver2)
+
+    fun insertTypelibVer ((name, ver), vers) =
+      ListDict.insert I (checkVer name) ((name, ver), vers)
+
+    fun extendTypelibVers extraVers vers = foldl insertTypelibVer vers extraVers
+
+
+    fun errMsgNamespaceNotLoaded name =
+      String.concat ["namespace '", name, "' not loaded"]
+
+    fun errMsgNamespaceVerNotLoaded name version =
+      String.concat
+        ["namespace '", name, "', version '", version, "' not loaded"]
+
+    fun errMsgNamespaceNotInVers name  =
+      String.concat [
+        "typelib versions do not include namespace '",
+        name,
+        "'"
+      ]
+
+    fun lookupTypelibDict loaded name version =
+      case ListDict.lookup loaded name of
+        SOME loadedVersions => (
+          case ListDict.lookup loadedVersions version of
+            SOME typelib => typelib
+          | NONE         =>
+              raise Fail (errMsgNamespaceVerNotLoaded name version)
+        )
+      | NONE                => raise Fail (errMsgNamespaceNotLoaded name)
+
+    fun lookupTypelib repository versions name =
       let
+        val version =
+          case ListDict.lookup versions name of
+            SOME version => version
+          | NONE         => raise Fail (errMsgNamespaceNotInVers name)
+
         val ref {loaded, ...} & _ =
           GIRepositoryRepositoryClass.Obj.unpack repository
       in
-        case ListDict.lookup loaded namespace_ of
-          SOME typelib => typelib
-        | NONE         => raise Fail "namespace not loaded"
+        lookupTypelibDict loaded name version
       end
 
-    fun lookupNamespace repository namespace_ =
-      #namespace (! (lookupTypelib repository namespace_))
+    fun lookupNamespace repository versions name =
+      #namespace (! (lookupTypelib repository versions name))
+
 
     fun errMsg name version oldVersion =
       String.concat [
         "Attempting to load namespace '", name,
         "', version '", version, "', but version '", oldVersion,
         "' is already loaded"
-    ]
+      ]
 
 
     fun getDefault () =
@@ -59,12 +110,11 @@ structure GIRepositoryRepository :>
 
         val ref {namespace = {name, version, ...}, ...} = typelib
 
-        fun check (_, ref {namespace = {version = oldVersion, ...}, ...}) =
-          if version = oldVersion
-          then typelib
-          else raise Fail (errMsg name version oldVersion)
+        fun create typelib = ListDict.singleton (version, typelib)
+        fun update (typelib, versionDict) =
+          ListDict.insert I #1 ((version, typelib), versionDict)
 
-        val loaded' = ListDict.insert I check ((name, typelib), loaded)
+        val loaded' = ListDict.insert create update ((name, typelib), loaded)
       in
         repodata := {path = path, loaded = loaded'};
         name
@@ -82,17 +132,23 @@ structure GIRepositoryRepository :>
     fun failedToParseXMLFileMsg file =
       String.concat ["failed to parse XML file \"", String.toString file, "\""]
 
-    fun inclNotLoaded name =
-      String.concat ["included namespace \"", String.toString name, "\" is not loaded"]
+    fun fmtInclude (name, version) = String.concat [name, "-", version]
 
-    fun multipleInclMsg name =
-      String.concat ["namespace \"", String.toString name, "\" included more than once"]
-
-    fun inclVerNotLoadedVerMsg namespace {name, version} loadedVersion =
+    fun errMsgInclVerConlift name (version1, path1) (version2, path2) =
       String.concat [
-        "namespace \"", String.toString namespace,
-        "\" requires namespace \"", String.toString name,
-        "\" at version ", version, " but version ", loadedVersion, " is already loaded"
+        "different versions of namespace '", name, "' included",
+        "; version ", version1, " is included by the path: ",
+        String.concatWith ", " (map fmtInclude (ListDict.toList path1)),
+        "; version ", version2, " is included by the path: ",
+        String.concatWith ", " (map fmtInclude (ListDict.toList path2))
+      ]
+
+    fun errMsgInclCycle name path =
+      String.concat [
+        "namespace '", name, "' includes itself",
+        "; it is included by the path: ",
+        String.concatWith ", " (map fmtInclude (ListDict.toList path)),
+        "in which it has already been included"
       ]
 
     fun findFile path file =
@@ -111,6 +167,107 @@ structure GIRepositoryRepository :>
         check dirs
       end
 
+    fun genTypelib (loaded, path, namespace_, version)
+      : Info.repodata * string ListDict.t =
+      let
+        val file = String.concat [namespace_, "-", version, ".gir"]
+
+        (* Find GIR file *)
+        val fullFile = findFile path file
+
+        (* Validate `fullFile`; note: `fullFile` exists on the file system *)
+        val () =
+          if OS.FileSys.isDir fullFile
+          then raise Fail (fileIsDirMsg fullFile)
+          else
+            if OS.FileSys.access (fullFile, [OS.FileSys.A_READ])
+            then ()
+            else raise Fail (fileNotReadableMsg fullFile)
+
+        (* Parse XML *)
+        val tree =
+          XML.parsefile fullFile
+            handle
+              XML.XML _ => raise Fail (failedToParseXMLFileMsg fullFile)
+
+        (* Parse GIR XML *)
+        val repository as {includes, ...} = GirXmlParser.parseTree tree
+
+        (* Create type dictionary for included namespaces, checking that
+         * included namespaces are already loaded at the required version and
+         * that, if a namespace is already included, it is the same version
+         * that was already included.
+         *
+         * For each included elemDict, we store
+         *   - the version, to check subsequent inclusion of a different version
+         *   - the include path, for error reporting and cycle detection
+         *
+         * In practice, a cycle should not occur because a cycle would prevent
+         * all namespaces in the cycle from being loaded due to a missing
+         * dependency.  Therefore a missing dependency error would be reported.
+         * It is possible to avoid traversal of the include hierarchy by
+         * including each element of the `dependencies` field of each included
+         * namespace.  The include hierarchy is traversed to provide better
+         * error messages, in particular include paths to conflicting versions.
+         * This requires cycle detection for the namespace because the include
+         * hierarchy is traversed before the translation occurs. *)
+
+        exception Unchanged
+        exception Cycle
+        exception Included of string * string ListDict.t
+
+        fun checkIncludedVersion (new, {version, path, ...}) =
+          if #version new = version
+          then raise Unchanged
+          else raise Included (version, path)
+
+        fun errorCycle _ = raise Cycle
+
+        fun addInclude path (incl as {name, version}, dict) =
+          let
+            val path'1 = ListDict.insert I errorCycle ((name, version), path)
+
+            val ref {elemDict, includes, ...} =
+              lookupTypelibDict loaded name version
+
+            val dict'1 = addIncludes path'1 (includes, dict)
+            val new = {
+              version  = version,
+              path     = path,
+              elemDict = elemDict
+            }
+          in
+            ListDict.insert I checkIncludedVersion ((name, new), dict'1)
+              handle
+                Unchanged         => dict'1
+              | Included included =>
+                  raise Fail (errMsgInclVerConlift name included (version, path))
+          end
+            handle
+              Cycle =>
+                raise Fail (errMsgInclCycle name path)
+
+        and addIncludes path (includes, dict) =
+          foldl (addInclude path) dict includes
+
+        val path'0 = ListDict.singleton (namespace_, version)
+        val includeInfo = addIncludes path'0 (includes, ListDict.empty)
+
+        val elemDicts = ListDict.map #elemDict includeInfo
+
+        val dependencies = ListDict.map #version includeInfo
+        val versions =
+          ListDict.insert I
+            (fn _ => raise Fail "typelib dependency contains itself")
+            ((namespace_, version), dependencies)
+
+        (* Parse GIR abstract syntax *)
+        val {data = repodata, ...} =
+          GirTranslator.translate dependencies elemDicts repository
+      in
+        (repodata, versions)
+      end
+
     fun require repository namespace_ version _ =
       let
         val repodata & _ = GIRepositoryRepositoryClass.Obj.unpack repository
@@ -118,90 +275,71 @@ structure GIRepositoryRepository :>
 
         fun makeTypelib () =
           let
-            val file = String.concat [namespace_, "-", version, ".gir"]
-
-            (* Find GIR file *)
-            val fullFile = findFile path file
-
-            (* Validate `fullFile`; note: `fullFile` exists on the file system *)
-            val () =
-              if OS.FileSys.isDir fullFile
-              then raise Fail (fileIsDirMsg fullFile)
-              else
-                if OS.FileSys.access (fullFile, [OS.FileSys.A_READ])
-                then ()
-                else raise Fail (fileNotReadableMsg fullFile)
-
-            (* Parse XML *)
-            val tree =
-              XML.parsefile fullFile
-                handle
-                  XML.XML _ => raise Fail (failedToParseXMLFileMsg fullFile)
-
-            (* Parse GIR XML *)
-            val repository as {includes, ...} = GirXmlParser.parseTree tree
-
-            (* Create type dictionary for included namespaces, checking that
-             * included namespaces are already loaded at the required version
-             * and that a namespace is not included more than once
-             *)
-            fun addLoadedElemDict (incl as {name, version}, elemDicts) =
-              case ListDict.lookup loaded name of
-                SOME (ref {namespace, elemDict, ...}) => (
-                  if #version namespace <> version
-                  then
-                    raise Fail (inclVerNotLoadedVerMsg namespace_ incl (#version namespace))
-                  else
-                    ListDict.insert I (fn _ => raise Fail (multipleInclMsg name))
-                      ((name, elemDict), elemDicts)
-                )
-              | NONE                                  => raise Fail (inclNotLoaded name)
-
-            val elemDicts = foldl addLoadedElemDict ListDict.empty includes
-
-            (* Parse GIR abstract syntax *)
-            val {data = repodata, ...} =
-              GirTranslator.translate elemDicts repository
+            val (typelib, versions) =
+              genTypelib (loaded, path, namespace_, version)
           in
-            repodata
+            ((typelib, versions), typelib)
           end
 
         exception Unchanged of Info.repodata
+        fun keepTypelib ((), oldTypelib) = raise (Unchanged oldTypelib)
 
-        fun check (_, oldTypelib as ref {namespace = {version = oldVersion, ...}, ...}) =
-          if version = oldVersion
-          then raise (Unchanged oldTypelib)
-          else raise Fail (errMsg namespace_ version oldVersion)
+        fun create () =
+          let
+            val (typelib, versions) =
+              genTypelib (loaded, path, namespace_, version)
+          in
+            ((typelib, versions), ListDict.singleton (version, typelib))
+          end
 
-        val (typelib, loaded') =
-          ListDict.insertMap (D o makeTypelib) check ((namespace_, ()), loaded)
-            handle
-              Unchanged typelib => (typelib, loaded)
+        fun update ((), versionDict) =
+          ListDict.insertMap
+            makeTypelib
+            keepTypelib
+            ((version, ()), versionDict)
       in
-        repodata := {path = path, loaded = loaded'};
-        typelib
+        let
+          val ((typelib, versions), loaded') =
+            ListDict.insertMap create update ((namespace_, ()), loaded)
+        in
+          repodata := {path = path, loaded = loaded'};
+          (typelib, versions)
+        end
+          handle
+            Unchanged (typelib as ref {dependencies, ...}) =>
+              let
+                val versions =
+                  ListDict.insert I
+                    (fn _ => raise Fail "typelib dependency contains itself")
+                    ((namespace_, version), dependencies)
+              in
+                (typelib, versions)
+              end
       end
 
-    fun getDependencies repository namespace_ =
+    fun getDependencies repository versions namespace_ =
       let
-        val ref {includes, ...} = lookupTypelib repository namespace_
-        fun fmt {name, version} = String.concat [name, "-", version]
+        val ref {dependencies, ...} = lookupTypelib repository versions namespace_
+        fun fmt (name, version) = String.concat [name, "-", version]
       in
-        case includes of
-          [] => NONE
-        | _  => SOME (map fmt includes)
+        case ListDict.toList dependencies of
+          []   => NONE
+        | deps => SOME (map fmt deps)
       end
 
-    fun getNInfos repository namespace_ =
-      Vector.length (#infos (lookupNamespace repository namespace_))
+    fun getNInfos repository versions namespace_ =
+      Vector.length (#infos (lookupNamespace repository versions namespace_))
 
-    fun getInfo repository namespace_ index =
+    fun getInfo repository versions namespace_ index =
       GIRepositoryBaseInfoClass.Obj.pack
-        (Vector.sub (#infos (lookupNamespace repository namespace_), index) & ())
+        (Vector.sub (#infos (lookupNamespace repository versions namespace_), index) & ())
 
-    fun getSharedLibrary repository namespace_ =
-      #sharedLib (lookupNamespace repository namespace_)
+    fun getSharedLibrary repository versions namespace_ =
+      #sharedLib (lookupNamespace repository versions namespace_)
 
-    fun getCPrefix repository namespace_ =
-      #cPrefix (lookupNamespace repository namespace_)
+    fun getVersion repository versions namespace_ =
+      #version (lookupNamespace repository versions namespace_)
+
+    fun getCPrefix repository versions namespace_ =
+      #cPrefix (lookupNamespace repository versions namespace_)
   end

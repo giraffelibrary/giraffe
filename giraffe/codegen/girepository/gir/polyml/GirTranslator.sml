@@ -1778,6 +1778,7 @@ fun dropNamespaceElem annElem =
 
 fun initRepodata
   includes
+  dependencies
   (
     {
       name,
@@ -1791,8 +1792,9 @@ fun initRepodata
     : Info.repodata =
   ref
     {
-      includes  = includes,
-      namespace =
+      includes     = includes,
+      dependencies = dependencies,
+      namespace    =
         {
           name      = name,
           version   = version,
@@ -1800,7 +1802,7 @@ fun initRepodata
           sharedLib = sharedLibrary,
           infos     = Vector.fromList []
         },
-      elemDict  = Dict.empty
+      elemDict     = Dict.empty
     }
 
 fun updateRepodataInfos infos elemDict typelib =
@@ -1809,6 +1811,7 @@ fun updateRepodataInfos infos elemDict typelib =
       ref
         {
           includes,
+          dependencies,
           namespace =
             {
               name,
@@ -1823,8 +1826,9 @@ fun updateRepodataInfos infos elemDict typelib =
   in
     typelib :=
       {
-        includes  = includes,
-        namespace =
+        includes     = includes,
+        dependencies = dependencies,
+        namespace    =
           {
             name      = name,
             version   = version,
@@ -1832,7 +1836,7 @@ fun updateRepodataInfos infos elemDict typelib =
             sharedLib = sharedLib,
             infos     = infos
           },
-        elemDict  = elemDict
+        elemDict     = elemDict
       }
   end
 
@@ -1896,11 +1900,11 @@ end
  * type dictionary for each included namespace, to resolve type references
  * when translating. *)
 
-fun translate elemDicts repository =
+fun translate dependencies elemDicts repository =
   let
     val {version, includes, namespace, data = ()} = repository
 
-    val typelib : Info.repodata = initRepodata includes namespace
+    val typelib : Info.repodata = initRepodata includes dependencies namespace
 
     val (namespace' as {elems, ...}, elemDict') =
       let

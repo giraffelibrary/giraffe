@@ -4,17 +4,17 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  ../xlib-2.0/mlton.mlb
-  ../cairo-1.0/mlton.mlb
-  ../pango-1.0/mlton.mlb
-  ../gtk-3.0/mlton.mlb
+  ../glib-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../atk-1.0/mlton.mlb
+  ../gmodule-2.0/mlton.mlb
   ../gio-2.0/mlton.mlb
   ../gdkpixbuf-2.0/mlton.mlb
+  ../cairo-1.0/mlton.mlb
+  ../pango-1.0/mlton.mlb
   ../gdk-3.0/mlton.mlb
-  ../gobject-2.0/mlton.mlb
-  ../gmodule-2.0/mlton.mlb
-  ../glib-2.0/mlton.mlb
-  ../atk-1.0/mlton.mlb
+  ../xlib-2.0/mlton.mlb
+  ../gtk-3.0/mlton.mlb
   GTK_SOURCE_BRACKET_MATCH_TYPE.sml
   GTK_SOURCE_BUFFER_CLASS.sml
   GTK_SOURCE_BUFFER.sml

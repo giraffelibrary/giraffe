@@ -4,8 +4,8 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  ../gobject-2.0/mlton.mlb
   ../glib-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
   ATK_STATE.sml
   ATK_ACTION_CLASS.sml
   ATK_ACTION.sml

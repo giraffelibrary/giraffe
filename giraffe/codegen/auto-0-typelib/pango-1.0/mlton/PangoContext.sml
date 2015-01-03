@@ -79,7 +79,7 @@ structure PangoContext :>
     fun new () = (I ---> PangoContextClass.C.fromPtr true) new_ ()
     fun getBaseDir self = (GObjectObjectClass.C.withPtr ---> PangoDirection.C.fromVal) getBaseDir_ self
     fun getBaseGravity self = (GObjectObjectClass.C.withPtr ---> PangoGravity.C.fromVal) getBaseGravity_ self
-    fun getFontDescription self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) getFontDescription_ self
+    fun getFontDescription self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFontDescription_ self
     fun getFontMap self = (GObjectObjectClass.C.withPtr ---> PangoFontMapClass.C.fromPtr false) getFontMap_ self
     fun getGravity self = (GObjectObjectClass.C.withPtr ---> PangoGravity.C.fromVal) getGravity_ self
     fun getGravityHint self = (GObjectObjectClass.C.withPtr ---> PangoGravityHint.C.fromVal) getGravityHint_ self
