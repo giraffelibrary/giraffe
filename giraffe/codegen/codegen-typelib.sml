@@ -623,11 +623,6 @@ fun checkDeprecated info =
   then infoError "deprecated"
   else ()
 
-fun getCPrefix repo namespace =
-  case Repository.getCPrefix repo namespace of
-    SOME cPrefix => cPrefix
-  | NONE         => infoError "no C prefix"
-
 fun getSharedLibraryFile repo namespace =
   case Repository.getSharedLibrary repo namespace of
     SOME sharedLibrary => sharedLibrary
@@ -996,7 +991,6 @@ datatype interfacescope =
 
 type interfaceref = {
   namespace : string,
-  cPrefix   : string,
   name      : string,
   scope     : interfacescope,
   ty        : interfacetype
@@ -1092,8 +1086,6 @@ fun makeGlobalIds iRef = prefixGlobalIds iRef [tId]
  *                           -----------+-----------------------------------
  *                             UNION    | 1   <Namespace>.<Name>.t
  *   -----------------------------------+-----------------------------------
- *
- * Note that `cPrefix` is not used by `makeInterfaceRefTyLongId`.
  *)
 
 fun numInterfaceRefTyVars ({ty, ...} : interfaceref) =
@@ -1118,7 +1110,6 @@ fun makeInterfaceRefTyLongId
 fun test (namespace, name, scope, ty) =
   makeInterfaceRefTyLongId {
     namespace = namespace,
-    cPrefix   = "CPrefix",
     name      = name,
     scope     = scope,
     ty        = ty
@@ -1183,8 +1174,6 @@ fun makeIRefInterfaceOtherStrId ({namespace, name, ty, ...} : interfaceref) =
  * Note that, in the case of `LOCALINTERFACESELF`, prefixing occurs
  * for objects, structs and unions because these use a separate structure
  * to declare the type.
- *
- * Note that `cPrefix` is not used by `prefixInterfaceStrId`.
  *)
 
 fun prefixInterfaceStrId
@@ -1206,7 +1195,6 @@ fun prefixInterfaceStrId
 fun test (namespace, name, scope, ty) id =
   prefixInterfaceStrId {
     namespace = namespace,
-    cPrefix   = "CPrefix",
     name      = name,
     scope     = scope,
     ty        = ty
@@ -1239,7 +1227,6 @@ test ("XNamespace", "XName", LOCALINTERFACESELF,  UNION)  ["id"];
 fun makeErrorIRef namespace optName : interfaceref =
   let
     val errorNamespace = "GLib"
-    val errorCPrefix = "G"
     val errorName = "Error"
     val errorScope =
       if namespace <> errorNamespace
@@ -1255,7 +1242,6 @@ fun makeErrorIRef namespace optName : interfaceref =
   in
     {
       namespace = errorNamespace,
-      cPrefix   = errorCPrefix,
       name      = errorName,
       scope     = errorScope,
       ty        = errorTy
@@ -1265,7 +1251,6 @@ fun makeErrorIRef namespace optName : interfaceref =
 fun makeTypeIRef namespace optName : interfaceref =
   let
     val typeNamespace = "GObject"
-    val typeCPrefix = "G"
     val typeName = "Type"
     val typeScope =
       if namespace <> typeNamespace
@@ -1281,7 +1266,6 @@ fun makeTypeIRef namespace optName : interfaceref =
   in
     {
       namespace = typeNamespace,
-      cPrefix   = typeCPrefix,
       name      = typeName,
       scope     = typeScope,
       ty        = typeTy
@@ -1291,7 +1275,6 @@ fun makeTypeIRef namespace optName : interfaceref =
 fun makeValueIRef namespace optName : interfaceref =
   let
     val valueNamespace = "GObject"
-    val valueCPrefix = "G"
     val valueName = "Value"
     val valueScope =
       if namespace <> valueNamespace
@@ -1307,7 +1290,6 @@ fun makeValueIRef namespace optName : interfaceref =
   in
     {
       namespace = valueNamespace,
-      cPrefix   = valueCPrefix,
       name      = valueName,
       scope     = valueScope,
       ty        = valueTy
@@ -1317,7 +1299,6 @@ fun makeValueIRef namespace optName : interfaceref =
 fun makeObjectIRef namespace optName : interfaceref =
   let
     val objectNamespace = "GObject"
-    val objectCPrefix = "G"
     val objectName = "Object"
     val objectScope =
       if namespace <> objectNamespace
@@ -1333,7 +1314,6 @@ fun makeObjectIRef namespace optName : interfaceref =
   in
     {
       namespace = objectNamespace,
-      cPrefix   = objectCPrefix,
       name      = objectName,
       scope     = objectScope,
       ty        = objectTy
@@ -1358,7 +1338,6 @@ fun getRootObjectIRef
         val rootInfo = iterate ObjectInfo.getParent info
         val rootObjectName = getName rootInfo
         val rootObjectNamespace = BaseInfo.getNamespace rootInfo
-        val rootObjectCPrefix = getCPrefix repo rootObjectNamespace
         val rootObjectScope =
           if rootObjectNamespace <> namespace
           then GLOBAL
@@ -1370,7 +1349,6 @@ fun getRootObjectIRef
       in
         {
           namespace = rootObjectNamespace,
-          cPrefix   = rootObjectCPrefix,
           name      = rootObjectName,
           scope     = rootObjectScope,
           ty        = rootObjectTy
@@ -2032,7 +2010,6 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
                       val interfaceName = getName interfaceInfo
                       val interfaceNamespace =
                         BaseInfo.getNamespace interfaceInfo
-                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
                       val interfaceScope =
                         if interfaceNamespace <> functionNamespace
                         then GLOBAL
@@ -2046,7 +2023,6 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
                     in
                       {
                         namespace = interfaceNamespace,
-                        cPrefix   = interfaceCPrefix,
                         name      = interfaceName,
                         scope     = interfaceScope,
                         ty        = interfaceTy
@@ -2260,7 +2236,6 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionNam
                       val interfaceName = getName interfaceInfo
                       val interfaceNamespace =
                         BaseInfo.getNamespace interfaceInfo
-                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
                       val interfaceScope =
                         if interfaceNamespace <> functionNamespace
                         then GLOBAL
@@ -2274,7 +2249,6 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionNam
                     in
                       {
                         namespace = interfaceNamespace,
-                        cPrefix   = interfaceCPrefix,
                         name      = interfaceName,
                         scope     = interfaceScope,
                         ty        = interfaceTy
@@ -4851,7 +4825,6 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
                       val interfaceName = getName interfaceInfo
                       val interfaceNamespace =
                         BaseInfo.getNamespace interfaceInfo
-                      val interfaceCPrefix = getCPrefix repo interfaceNamespace
                       val interfaceScope =
                         if interfaceNamespace <> containerNamespace
                         then GLOBAL
@@ -4862,7 +4835,6 @@ fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
                     in
                       {
                         namespace = interfaceNamespace,
-                        cPrefix   = interfaceCPrefix,
                         name      = interfaceName,
                         scope     = interfaceScope,
                         ty        = interfaceTy
@@ -5203,7 +5175,6 @@ fun makeInterfaceConvSpec
     val () = checkDeprecated interfaceInfo
 
     val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-    val interfaceCPrefix = getCPrefix repo interfaceNamespace
     val interfaceName = getName interfaceInfo
     val interfaceScope =
       if interfaceNamespace <> containerNamespace
@@ -5213,7 +5184,6 @@ fun makeInterfaceConvSpec
 
     val interfaceIRef = {
       namespace = interfaceNamespace,
-      cPrefix   = interfaceCPrefix,
       name      = interfaceName,
       scope     = interfaceScope,
       ty        = interfaceTy
@@ -5259,7 +5229,6 @@ fun makeInterfaceConvStrDec
     val () = checkDeprecated interfaceInfo
 
     val interfaceNamespace = BaseInfo.getNamespace interfaceInfo
-    val interfaceCPrefix = getCPrefix repo interfaceNamespace
     val interfaceName = getName interfaceInfo
     val interfaceScope =
       if interfaceNamespace <> containerNamespace
@@ -5269,7 +5238,6 @@ fun makeInterfaceConvStrDec
 
     val interfaceIRef = {
       namespace = interfaceNamespace,
-      cPrefix   = interfaceCPrefix,
       name      = interfaceName,
       scope     = interfaceScope,
       ty        = interfaceTy
@@ -6095,7 +6063,6 @@ local
 in
   fun makeObjectDerivedClassSig
     (repo             : 'a RepositoryClass.t)
-    (objectCPrefix    : string)
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.t)
     (objectInfo       : 'c ObjectInfoClass.t)
@@ -6107,7 +6074,6 @@ in
       val objectNameTypeId = toLC objectName
 
       val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
-      val parentObjectCPrefix = getCPrefix repo parentObjectNamespace
       val parentObjectName = getName parentObjectInfo
       val parentObjectScope =
         if parentObjectNamespace <> objectNamespace
@@ -6117,7 +6083,6 @@ in
 
       val parentObjectIRef = {
         namespace = parentObjectNamespace,
-        cPrefix   = parentObjectCPrefix,
         name      = parentObjectName,
         scope     = parentObjectScope,
         ty        = parentObjectTy
@@ -6177,7 +6142,6 @@ in
     end
 
   fun makeObjectRootClassSig
-    (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'a ObjectInfoClass.t)
     : id * program * id list =
@@ -6197,7 +6161,6 @@ in
 
   fun makeObjectClassSig
     (repo            : 'a RepositoryClass.t)
-    (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'b ObjectInfoClass.t)
     : id * program * id list =
@@ -6205,12 +6168,11 @@ in
       SOME parentObjectInfo =>
         makeObjectDerivedClassSig
           repo
-          objectCPrefix
           objectNamespace
           parentObjectInfo
           objectInfo
     | NONE                  =>
-        makeObjectRootClassSig objectCPrefix objectNamespace objectInfo
+        makeObjectRootClassSig objectNamespace objectInfo
 end
 
 
@@ -6236,7 +6198,6 @@ local
 in
   fun makeObjectDerivedClassStr
     (repo             : 'a RepositoryClass.t)
-    (objectCPrefix    : string)
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.t)
     (objectInfo       : 'c ObjectInfoClass.t)
@@ -6248,7 +6209,6 @@ in
       val objectNameTypeId = toLC objectName
 
       val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
-      val parentObjectCPrefix = getCPrefix repo parentObjectNamespace
       val parentObjectName = getName parentObjectInfo
       val parentObjectScope =
         if parentObjectNamespace <> objectNamespace
@@ -6258,7 +6218,6 @@ in
 
       val parentObjectIRef = {
         namespace = parentObjectNamespace,
-        cPrefix   = parentObjectCPrefix,
         name      = parentObjectName,
         scope     = parentObjectScope,
         ty        = parentObjectTy
@@ -6444,7 +6403,6 @@ in
 
   fun makeObjectRootClassStr
     (_               : 'a RepositoryClass.t)
-    (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'b ObjectInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
@@ -6497,7 +6455,6 @@ in
 
   fun makeObjectClassStr
     (repo            : 'a RepositoryClass.t)
-    (objectCPrefix   : string)
     (objectNamespace : string)
     (objectInfo      : 'b ObjectInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
@@ -6505,14 +6462,12 @@ in
       SOME parentObjectInfo =>
         makeObjectDerivedClassStr
           repo
-          objectCPrefix
           objectNamespace
           parentObjectInfo
           objectInfo
     | NONE                  =>
         makeObjectRootClassStr
           repo
-          objectCPrefix
           objectNamespace
           objectInfo
 end
@@ -6553,7 +6508,6 @@ fun addObjectPropertySpecs repo objectIRef =
 
 fun makeObjectSig
   (repo            : 'a RepositoryClass.t)
-  (objectCPrefix   : string)
   (objectNamespace : string)
   (objectInfo      : 'a ObjectInfoClass.t)
   (errs'0          : infoerrorhier list)
@@ -6564,7 +6518,6 @@ fun makeObjectSig
     val objectName = getName objectInfo
     val objectIRef = {
       namespace = objectNamespace,
-      cPrefix   = objectCPrefix,
       name      = objectName,
       scope     = LOCALINTERFACESELF,
       ty        = CLASS
@@ -6719,7 +6672,6 @@ fun addObjectPropertyStrDecs repo objectIRef =
 fun makeObjectStr
   (repo            : 'a RepositoryClass.t)
   (libId           : id)
-  (objectCPrefix   : string)
   (objectNamespace : string)
   (objectInfo      : 'a ObjectInfoClass.t)
   (errs'0          : infoerrorhier list)
@@ -6732,7 +6684,6 @@ fun makeObjectStr
     val objectName = getName objectInfo
     val objectIRef = {
       namespace = objectNamespace,
-      cPrefix   = objectCPrefix,
       name      = objectName,
       scope     = LOCALINTERFACESELF,
       ty        = CLASS
@@ -6894,7 +6845,6 @@ local
 in
   fun makeInterfaceClassSig
     (_                  : 'a RepositoryClass.t)
-    (interfaceCPrefix   : string)
     (interfaceNamespace : string)
     (interfaceInfo      : 'b InterfaceInfoClass.t)
     : id * program * id list =
@@ -6983,7 +6933,6 @@ local
 in
   fun makeInterfaceClassStr
     (_                  : 'a RepositoryClass.t)
-    (interfaceCPrefix   : string)
     (interfaceNamespace : string)
     (interfaceInfo      : 'c InterfaceInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
@@ -7213,7 +7162,6 @@ fun addInterfacePropertySpecs repo interfaceIRef =
 
 fun makeInterfaceSig
   (repo               : 'a RepositoryClass.t)
-  (interfaceCPrefix   : string)
   (interfaceNamespace : string)
   (interfaceInfo      : 'a InterfaceInfoClass.t)
   (errs'0             : infoerrorhier list)
@@ -7224,7 +7172,6 @@ fun makeInterfaceSig
     val interfaceName = getName interfaceInfo
     val interfaceIRef = {
       namespace = interfaceNamespace,
-      cPrefix   = interfaceCPrefix,
       name      = interfaceName,
       scope     = LOCALINTERFACESELF,
       ty        = CLASS
@@ -7376,7 +7323,6 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
 fun makeInterfaceStr
   (repo               : 'a RepositoryClass.t)
   (libId              : id)
-  (interfaceCPrefix   : string)
   (interfaceNamespace : string)
   (interfaceInfo      : 'a InterfaceInfoClass.t)
   (errs'0             : infoerrorhier list)
@@ -7392,7 +7338,6 @@ fun makeInterfaceStr
     val interfaceName = getName interfaceInfo
     val interfaceIRef = {
       namespace = interfaceNamespace,
-      cPrefix   = interfaceCPrefix,
       name      = interfaceName,
       scope     = LOCALINTERFACESELF,
       ty        = CLASS
@@ -7522,7 +7467,6 @@ local
 in
   fun makeStructRecordSig
     (_               : 'a RepositoryClass.t)
-    (structCPrefix   : string)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.t)
     : id * program * id list =
@@ -7548,7 +7492,6 @@ local
 in
   fun makeStructRecordStr
     (_               : 'a RepositoryClass.t)
-    (structCPrefix   : string)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.t)
     : id * (spec list * strdec list) * program * interfaceref list =
@@ -7615,7 +7558,6 @@ fun addStructMethodSpecs repo structIRef =
 
 fun makeStructSig
   (repo            : 'a RepositoryClass.t)
-  (structCPrefix   : string)
   (structNamespace : string)
   (structInfo      : 'a StructInfoClass.t)
   (errs'0          : infoerrorhier list)
@@ -7628,7 +7570,6 @@ fun makeStructSig
     val structName = getName structInfo
     val structIRef = {
       namespace = structNamespace,
-      cPrefix   = structCPrefix,
       name      = structName,
       scope     = LOCALINTERFACESELF,
       ty        = RECORD
@@ -7689,7 +7630,6 @@ fun addStructMethodStrDecsHighLevel repo structIRef =
 fun makeStructStr
   (repo            : 'a RepositoryClass.t)
   (libId           : id)
-  (structCPrefix   : string)
   (structNamespace : string)
   (structInfo      : 'a StructInfoClass.t)
   (errs'0          : infoerrorhier list)
@@ -7702,7 +7642,6 @@ fun makeStructStr
     val structName = getName structInfo
     val structIRef = {
       namespace = structNamespace,
-      cPrefix   = structCPrefix,
       name      = structName,
       scope     = LOCALINTERFACESELF,
       ty        = RECORD
@@ -7812,7 +7751,6 @@ fun makeStructStr
 
 fun makeUnionSig
   (_              : 'a RepositoryClass.t)
-  (unionCPrefix   : string)
   (unionNamespace : string)
   (unionInfo      : 'a UnionInfoClass.t)
   (errs'0         : infoerrorhier list)
@@ -7824,7 +7762,6 @@ fun makeUnionSig
 (*
     val unionIRef = {
       namespace = unionNamespace,
-      cPrefix   = unionCPrefix,
       name      = unionName,
       scope     = LOCALINTERFACESELF,
       ty        = UNION
@@ -7846,7 +7783,6 @@ fun makeUnionSig
 
 fun makeUnionStr
   (_              : 'a RepositoryClass.t)
-  (unionCPrefix   : string)
   (unionNamespace : string)
   (unionInfo      : 'a UnionInfoClass.t)
   (errs'0         : infoerrorhier list)
@@ -7858,7 +7794,6 @@ fun makeUnionStr
 (*
     val unionIRef = {
       namespace = unionNamespace,
-      cPrefix   = unionCPrefix,
       name      = unionName,
       scope     = LOCALINTERFACESELF,
       ty        = UNION
@@ -8109,7 +8044,6 @@ local
 in
   fun makeFlagsSig
     (repo        : 'a RepositoryClass.t)
-    (enumCPrefix : string)
     (enumNamespace : string)
     (enumInfo    : 'a EnumInfoClass.t)
     (errs'0      : infoerrorhier list)
@@ -8120,7 +8054,6 @@ in
       val enumName = getName enumInfo
       val enumIRef = {
         namespace = enumNamespace,
-        cPrefix   = enumCPrefix,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
         ty        = SIMPLE
@@ -8285,7 +8218,6 @@ in
   fun makeFlagsStr
     (repo          : 'a RepositoryClass.t)
     (libId         : id)
-    (enumCPrefix   : string)
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
@@ -8298,7 +8230,6 @@ in
       val enumName = getName enumInfo
       val enumIRef = {
         namespace = enumNamespace,
-        cPrefix   = enumCPrefix,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
         ty        = SIMPLE
@@ -8602,7 +8533,6 @@ local
 in
   fun makeEnumSig
     (repo          : 'a RepositoryClass.t)
-    (enumCPrefix   : string)
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
@@ -8616,7 +8546,6 @@ in
       val enumName = getName enumInfo
       val enumIRef = {
         namespace = enumNamespace,
-        cPrefix   = enumCPrefix,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
         ty        = SIMPLE
@@ -8844,7 +8773,6 @@ in
   fun makeEnumStr
     (repo          : 'a RepositoryClass.t)
     (libId         : id)
-    (enumCPrefix   : string)
     (enumNamespace : string)
     (enumInfo      : 'a EnumInfoClass.t)
     (errs'0        : infoerrorhier list)
@@ -8858,7 +8786,6 @@ in
       val enumName = getName enumInfo
       val enumIRef = {
         namespace = enumNamespace,
-        cPrefix   = enumCPrefix,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
         ty        = SIMPLE
@@ -9120,7 +9047,6 @@ fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 fun translateInfo
   repo
   getLibId
-  cPrefix
   namespace
   (
     baseInfo,
@@ -9143,7 +9069,7 @@ fun translateInfo
         val libId = getLibId ()
 
         val (classSigId, classSigProgram, classSigDeps) =
-          makeObjectClassSig repo cPrefix namespace objectInfo
+          makeObjectClassSig repo namespace objectInfo
 
         val (
           classStrId,
@@ -9151,16 +9077,16 @@ fun translateInfo
           classStrProgram,
           classStrIRefs
         ) =
-          makeObjectClassStr repo cPrefix namespace objectInfo
+          makeObjectClassStr repo namespace objectInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeObjectStr repo libId cPrefix namespace objectInfo errs'0
+          makeObjectStr repo libId namespace objectInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeObjectSig repo cPrefix namespace objectInfo errs'1
+          makeObjectSig repo namespace objectInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -9200,7 +9126,7 @@ fun translateInfo
         val libId = getLibId ()
 
         val (classSigId, classSigProgram, classSigDeps) =
-          makeInterfaceClassSig repo cPrefix namespace interfaceInfo
+          makeInterfaceClassSig repo namespace interfaceInfo
 
         val (
           classStrId,
@@ -9208,16 +9134,16 @@ fun translateInfo
           classStrProgram,
           classStrIRefs
         ) =
-          makeInterfaceClassStr repo cPrefix namespace interfaceInfo
+          makeInterfaceClassStr repo namespace interfaceInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeInterfaceStr repo libId cPrefix namespace interfaceInfo errs'0
+          makeInterfaceStr repo libId namespace interfaceInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeInterfaceSig repo cPrefix namespace interfaceInfo errs'1
+          makeInterfaceSig repo namespace interfaceInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -9266,7 +9192,7 @@ fun translateInfo
           val libId = getLibId ()
 
           val (recordSigId, recordSigProgram, recordSigDeps) =
-            makeStructRecordSig repo cPrefix namespace structInfo
+            makeStructRecordSig repo namespace structInfo
 
           val (
             recordStrId,
@@ -9274,16 +9200,16 @@ fun translateInfo
             recordStrProgram,
             recordStrIRefs
           ) =
-            makeStructRecordStr repo cPrefix namespace structInfo
+            makeStructRecordStr repo namespace structInfo
 
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeStructStr repo libId cPrefix namespace structInfo errs'0
+            makeStructStr repo libId namespace structInfo errs'0
 
           val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
           val (sigId, sigProgram, sigDeps, errs'2) =
-            makeStructSig repo cPrefix namespace structInfo errs'1
+            makeStructSig repo namespace structInfo errs'1
 
           val isRecordSigPortable = isPortable recordSigProgram
           val isRecordStrPortable = isPortable recordStrProgram
@@ -9332,12 +9258,12 @@ fun translateInfo
       then
         let
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeUnionStr repo cPrefix namespace unionInfo errs'0
+            makeUnionStr repo namespace unionInfo errs'0
 
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
           val (sigId, sigProgram, sigDeps, errs'2) =
-            makeUnionSig repo cPrefix namespace unionInfo errs'1
+            makeUnionSig repo namespace unionInfo errs'1
 
           val isSigPortable = isPortable sigProgram
           val isStrPortable = isPortable strProgram
@@ -9368,12 +9294,12 @@ fun translateInfo
         val libId = getLibId ()
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeFlagsStr repo libId cPrefix namespace enumInfo errs'0
+          makeFlagsStr repo libId namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeFlagsSig repo cPrefix namespace enumInfo errs'1
+          makeFlagsSig repo namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -9402,12 +9328,12 @@ fun translateInfo
         val libId = getLibId ()
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeEnumStr repo libId cPrefix namespace enumInfo errs'0
+          makeEnumStr repo libId namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeEnumSig repo cPrefix namespace enumInfo errs'1
+          makeEnumSig repo namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -9484,7 +9410,6 @@ fun translateInfo
 fun translateLoadedNamespace repo namespace =
   let
     val getLibId = lazy (fn () => getSharedLibraryId repo namespace)
-    val cPrefix = getCPrefix repo namespace
 
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
     val constants'0 = ([], [])
@@ -9494,7 +9419,7 @@ fun translateLoadedNamespace repo namespace =
     revFoldInfosWithErrs
       (Repository.getNInfos repo)
       (Repository.getInfo repo)
-      (translateInfo repo getLibId cPrefix namespace)
+      (translateInfo repo getLibId namespace)
       (namespace, ((modules'0, constants'0, functions'0), errs'0))
   end
 
