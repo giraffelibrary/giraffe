@@ -51,7 +51,7 @@ use "typelib/G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS.sml";
 use "typelib/G_I_REPOSITORY_REPOSITORY_CLASS.sml";
 use "typelib/G_I_REPOSITORY_TYPELIB.sml";
 use "typelib/G_I_REPOSITORY_REPOSITORY.sml";
-use "common/G_I_REPOSITORY.sml";
+use "typelib/G_I_REPOSITORY.sml";
 
 use "typelib/polyml/GIRepositoryFieldInfoFlags.sml";
 use "typelib/polyml/GIRepositoryFunctionInfoFlags.sml";
@@ -102,4 +102,4 @@ use "typelib/polyml/GIRepositoryRepositoryLoadFlags.sml";
 use "typelib/polyml/GIRepositoryRepositoryClass.sml";
 use "typelib/polyml/GIRepositoryTypelib.sml";
 use "typelib/polyml/GIRepositoryRepository.sml";
-use "common/polyml/GIRepository.sml";
+use "typelib/polyml/GIRepository.sml";
