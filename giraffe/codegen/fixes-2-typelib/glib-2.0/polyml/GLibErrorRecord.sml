@@ -21,10 +21,10 @@ structure GLibErrorRecord :>
     in
       val copy_ =
         call
-          (load_sym libgtk "g_error_copy")
+          (load_sym libglib "g_error_copy")
           (PTR --> PTR);
 
-      val free_sym = load_sym libgtk "g_error_free";
+      val free_sym = load_sym libglib "g_error_free";
     end
 
     type t = notnull p Finalizable.t

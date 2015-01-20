@@ -1,3 +1,4 @@
+val libatk = PolyMLFFI.load_lib "libatk-1.0.so.0";
 use "ATK_ACTION_CLASS.sml";
 use "ATK_ACTION.sml";
 use "ATK_COMPONENT_CLASS.sml";

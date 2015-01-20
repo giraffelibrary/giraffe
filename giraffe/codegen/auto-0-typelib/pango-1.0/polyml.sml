@@ -1,3 +1,4 @@
+val libpango = PolyMLFFI.load_lib "libpango-1.0.so.0";
 use "PANGO_ALIGNMENT.sml";
 use "PANGO_ATTR_LIST_RECORD.sml";
 use "PANGO_ATTR_LIST.sml";

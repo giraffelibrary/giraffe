@@ -1,3 +1,5 @@
+val libglib = PolyMLFFI.load_lib "libglib-2.0.so.0";
+val libgiraffeglib = PolyMLFFI.load_lib "libgiraffe-glib-2.0.so";
 use "G_LIB_QUARK.sml";
 use "G_LIB_PID.sml";
 use "G_LIB_SOURCE_FUNC.sml";

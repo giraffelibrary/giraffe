@@ -1,3 +1,4 @@
+val libglib = PolyMLFFI.load_lib "libglib-2.0.so.0";
 use "G_LIB_SOURCE_FUNC.sml";
 use "G_LIB_CHILD_WATCH_FUNC.sml";
 use "G_LIB_SPAWN_CHILD_SETUP_FUNC.sml";

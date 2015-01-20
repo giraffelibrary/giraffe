@@ -1,3 +1,4 @@
+val libgio = PolyMLFFI.load_lib "libgio-2.0.so.0";
 use "GIO_ACTION_GROUP_CLASS.sml";
 use "GIO_APP_INFO_CLASS.sml";
 use "GIO_APP_LAUNCH_CONTEXT_CLASS.sml";
