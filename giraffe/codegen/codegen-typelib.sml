@@ -625,7 +625,11 @@ fun checkDeprecated info =
 
 fun getSharedLibraryFile repo vers namespace =
   case Repository.getSharedLibrary repo vers namespace of
-    SOME sharedLibrary => sharedLibrary
+    SOME sharedLibraries => (
+      case String.fields (fn c => c = #",") sharedLibraries of
+        sharedLibrary :: _ => sharedLibrary
+      | []                 => infoError "no shared library"
+    )
   | NONE               => infoError "no shared library"
 
 local

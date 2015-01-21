@@ -1075,8 +1075,7 @@ fun parseNamespace (attrs, ts) : unit namespace =
       {
         name          = name,
         version       = version,
-        sharedLibrary =
-          Option.map (hd o String.fields (fn c => c = #",")) sharedLibrary,
+        sharedLibrary = sharedLibrary,
         cPrefix       = cPrefix,
         elems         = parseNamespaceElems ts
       }
