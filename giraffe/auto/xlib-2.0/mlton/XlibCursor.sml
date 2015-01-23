@@ -1,1 +1,0 @@
-structure XlibCursor = FFI.ULong
