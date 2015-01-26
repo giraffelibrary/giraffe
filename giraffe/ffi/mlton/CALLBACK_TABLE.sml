@@ -28,7 +28,7 @@ signature CALLBACK_TABLE =
      * `fmtId` returns a string representation of an `id`.  Different
      * `id` values must have a different string representation.
      *)
-    eqtype id
+    type id = C_UInt.word
     val fmtId : id -> string
 
     type 'a t

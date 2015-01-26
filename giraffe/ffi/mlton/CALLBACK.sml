@@ -12,7 +12,7 @@
  *)
 signature CALLBACK =
   sig
-    eqtype id
+    type id = C_UInt.word
     val fmtId : id -> string
 
     type callback

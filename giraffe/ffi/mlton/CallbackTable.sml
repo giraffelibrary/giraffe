@@ -17,9 +17,9 @@ structure CallbackTable :> CALLBACK_TABLE =
      * This provides more than enough unique keys and enabled efficient
      * bitwise tranformations on the keys.
      *)
-    type id = Word32.word
+    type id = C_UInt.word
 
-    val fmtId = Word32.fmt StringCvt.DEC
+    val fmtId = C_UInt.fmt StringCvt.DEC
 
     (* The callback table is effectively a dynamic array whose size grows as
      * required.  No attempt is made to shrink the structure where possible.
@@ -30,7 +30,7 @@ structure CallbackTable :> CALLBACK_TABLE =
      *
      * The keys are simply an index into the concatenation of the blocks and
      * are allocated sequentially starting from 1. For type `id` defined as
-     * `Word32.word` and excluding key 0, at most 32 blocks are required.
+     * `C_UInt.word` and excluding key 0, at most 32 blocks are required.
      *)
     val numBlocks = 32
 
@@ -50,14 +50,14 @@ structure CallbackTable :> CALLBACK_TABLE =
      * These indices are computed by the function `keyIndex`.
      *)
     local
-      val << = Word32.<<
-      val >> = Word32.>>
-      val andb = Word32.andb
-      val toInt = Word32.toInt
+      val << = C_UInt.<<
+      val >> = C_UInt.>>
+      val andb = C_UInt.andb
+      val toInt = C_UInt.toInt
       infix << >>
 
       (**
-       * `log2` computes log to base 2 for Word32.word values by
+       * `log2` computes log to base 2 for C_UInt.word values by
        *
        *   pow (0w2, log2 w) <= w < pow (0w2, (log2 w) + 1)
        *
@@ -66,7 +66,7 @@ structure CallbackTable :> CALLBACK_TABLE =
        * no value for `log2 w` that satisfies the specification above so
        * `log2 0w0` raises `Domain`, like `IntInf.log2 0`.
        *)
-      fun log2 (w : Word32.word) : Word.word =
+      fun log2 (w : C_UInt.word) : Word.word =
         let
           fun aux (n, w) =
             if w = 0w0
@@ -100,13 +100,13 @@ structure CallbackTable :> CALLBACK_TABLE =
      *   fun blockLength idx =
      *     case idx of
      *       0w0 => 0w1
-     *     | _   => Word32.<< (0w1, idx - 0w1)
+     *     | _   => C_UInt.<< (0w1, idx - 0w1)
      *
      *   fun keyIndex id =
      *     let
      *       val bIdx = case id of 0w0 => 0w0 | _ => log2 id + 0w1
      *       val bLen = blockLength bIdx
-     *       val eIdx = Word32.andb (bLen - 0w1, id)
+     *       val eIdx = C_UInt.andb (bLen - 0w1, id)
      *     in
      *       {bIdx = Word.toInt bIdx, eIdx = toInt eIdx, bLen = toInt bLen}
      *     end
