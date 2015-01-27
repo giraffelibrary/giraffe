@@ -6,10 +6,37 @@
  */
 
 /*
- * GLib C interface support for Poly/ML
+ * GLib C interface support for MLton
  */
 
 #include <glib.h>
+
+#include "mlton/gcharptrffi.h"
+#include "mlton/gcharptrptrffi.h"
+#include "mlton/giraffe-sml-glib-2.0.h"
+
+
+/* GQuark */
+
+GQuark
+mlton_g_quark_from_string (SML_GCHARPTR_VAL(string))
+{
+  return g_quark_from_string (GET_SML_GCHARPTR_VAL(string));
+}
+
+
+/* GLog */
+
+void
+mlton_g_log_default_handler (SML_GCHARPTR_VAL(log_domain),
+                             GLogLevelFlags log_level,
+                             SML_GCHARPTR_VAL(message))
+{
+  g_log_default_handler (GET_SML_GCHARPTR_VAL(log_domain),
+                         log_level,
+                         GET_SML_GCHARPTR_VAL(message),
+                         NULL);
+}
 
 
 /* GError */
@@ -56,67 +83,57 @@ giraffe_g_time_val_free (GTimeVal *time)
 
 /* GSourceFunc */
 
-typedef gboolean (*SourceCallback) (void);
-
 static gboolean
 giraffe_source_dispatch (gpointer data)
 {
-  return ((SourceCallback) data) ();
+  return (gboolean) giraffe_source_dispatch_smlside (GPOINTER_TO_UINT(data));
 }
 
 static void
 giraffe_source_destroy (gpointer data)
 {
-  return;
+  giraffe_source_destroy_smlside (GPOINTER_TO_UINT(data));
 }
 
 
 /* GChildWatchFunc */
 
-typedef void (*ChildWatchCallback) (GPid pid,
-                                    gint status);
-
 static void
 giraffe_child_watch_dispatch (GPid pid, gint status, gpointer data)
 {
-  ((ChildWatchCallback) data) (pid, status);
+  giraffe_child_watch_dispatch_smlside (pid, status, GPOINTER_TO_UINT(data));
 }
 
 static void
 giraffe_child_watch_destroy (gpointer data)
 {
-  return;
+  giraffe_child_watch_destroy_smlside (GPOINTER_TO_UINT(data));
 }
 
 
 /* GIOFunc */
-
-typedef gboolean (*IOCallback) (GIOChannel *source,
-                                GIOCondition condition);
 
 static gboolean
 giraffe_io_dispatch (GIOChannel *source,
                           GIOCondition condition,
                           gpointer data)
 {
-  ((IOCallback) data) (source, condition);
+  giraffe_io_dispatch_smlside (source, condition, GPOINTER_TO_UINT(data));
 }
 
 static void
 giraffe_io_destroy (gpointer data)
 {
-  return;
+  giraffe_io_destroy_smlside (GPOINTER_TO_UINT(data));
 }
 
 
 /* GSpawnChildSetupFunc */
 
-typedef void (*SpawnChildSetupCallback) (void);
-
 static void
 giraffe_spawn_child_setup_dispatch (gpointer data)
 {
-  ((SpawnChildSetupCallback) data) ();
+  giraffe_spawn_child_setup_dispatch_smlside (GPOINTER_TO_UINT(data));
 }
 
 
@@ -125,13 +142,13 @@ giraffe_spawn_child_setup_dispatch (gpointer data)
 guint
 giraffe_g_timeout_add (gint priority,
                        guint interval,
-                       SourceCallback callback)
+                       guint callback_id)
 {
   guint res;
   res = g_timeout_add_full (priority,
                             interval,
                             giraffe_source_dispatch,
-                            (gpointer) callback,
+                            GUINT_TO_POINTER(callback_id),
                             giraffe_source_destroy);
   return res;
 }
@@ -139,25 +156,25 @@ giraffe_g_timeout_add (gint priority,
 guint
 giraffe_g_timeout_add_seconds (gint priority,
                                guint interval,
-                               SourceCallback callback)
+                               guint callback_id)
 {
   guint res;
   res = g_timeout_add_seconds_full (priority,
                                     interval,
                                     giraffe_source_dispatch,
-                                    (gpointer) callback,
+                                    GUINT_TO_POINTER(callback_id),
                                     giraffe_source_destroy);
   return res;
 }
 
 guint
 giraffe_g_idle_add (gint priority,
-                    SourceCallback callback)
+                    guint callback_id)
 {
   guint res;
   res = g_idle_add_full (priority,
                          giraffe_source_dispatch,
-                         (gpointer) callback,
+                         GUINT_TO_POINTER(callback_id),
                          giraffe_source_destroy);
   return res;
 }
@@ -165,13 +182,13 @@ giraffe_g_idle_add (gint priority,
 guint
 giraffe_g_child_watch_add (gint priority,
                            GPid pid,
-                           ChildWatchCallback callback)
+                           guint callback_id)
 {
   guint res;
   res = g_child_watch_add_full (priority,
                                 pid,
                                 giraffe_child_watch_dispatch,
-                                (gpointer) callback,
+                                GUINT_TO_POINTER(callback_id),
                                 giraffe_child_watch_destroy);
   return res;
 }
@@ -180,50 +197,50 @@ guint
 giraffe_g_io_add_watch (GIOChannel *channel,
                         gint priority,
                         GIOCondition condition,
-                        IOCallback callback)
+                        guint callback_id)
 {
   return g_io_add_watch_full (channel,
                               priority,
                               condition,
                               giraffe_io_dispatch,
-                              (gpointer) callback,
+                              GUINT_TO_POINTER(callback_id),
                               giraffe_io_destroy);
 }
 
 GSource *
 giraffe_g_timeout_source_new (guint interval,
-                              SourceCallback callback)
+                              guint callback_id)
 {
   GSource *source;
   source = g_timeout_source_new (interval);
   g_source_set_callback (source,
                          giraffe_source_dispatch,
-                         (gpointer) callback,
+                         GUINT_TO_POINTER(callback_id),
                          giraffe_source_destroy);
   return source;
 }
 
 GSource *
-giraffe_g_idle_source_new (SourceCallback callback)
+giraffe_g_idle_source_new (guint callback_id)
 {
   GSource *source;
   source = g_idle_source_new ();
   g_source_set_callback (source,
                          giraffe_source_dispatch,
-                         (gpointer) callback,
+                         GUINT_TO_POINTER(callback_id),
                          giraffe_source_destroy);
   return source;
 }
 
 GSource *
 giraffe_g_child_watch_source_new (GPid pid,
-                                  ChildWatchCallback callback)
+                                  guint callback_id)
 {
   GSource *source;
   source = g_child_watch_source_new (pid);
   g_source_set_callback (source,
                          (GSourceFunc) giraffe_child_watch_dispatch,
-                         (gpointer) callback,
+                         GUINT_TO_POINTER(callback_id),
                          giraffe_child_watch_destroy);
   return source;
 }
@@ -320,13 +337,13 @@ GSourceFuncs giraffe_g_poll_funcs =
 };
 
 GSource *
-giraffe_g_poll_source_new (SourceCallback callback)
+giraffe_g_poll_source_new (guint callback_id)
 {
   GSource *source;
   source = g_source_new (&giraffe_g_poll_funcs, sizeof (GSource));
   g_source_set_callback (source,
                          giraffe_source_dispatch,
-                         (gpointer) callback,
+                         GUINT_TO_POINTER(callback_id),
                          giraffe_source_destroy);
   return source;
 }
@@ -344,23 +361,49 @@ giraffe_g_source_add_poll (GSource *source, gint fd, gint events)
 }
 
 gboolean
-giraffe_g_spawn_async_with_pipes (const gchar *working_directory,
-                                  gchar **argv,
-                                  gchar **envp,
+mlton_g_shell_parse_argv (SML_GCHARPTR_VAL(command_line),
+                          gint *argcp,
+                          SML_GCHARPTRPTR_REF(argvp),
+                          GError **error)
+{
+  return g_shell_parse_argv (GET_SML_GCHARPTR_VAL(command_line),
+                             argcp,
+                             GET_SML_GCHARPTRPTR_REF(argvp),
+                             error);
+}
+
+gchar *
+mlton_g_shell_quote (SML_GCHARPTR_VAL(unquoted_string))
+{
+  return g_shell_quote (GET_SML_GCHARPTR_VAL(unquoted_string));
+}
+
+gchar *
+mlton_g_shell_unquote (SML_GCHARPTR_VAL(quoted_string),
+                       GError **error)
+{
+  return g_shell_unquote (GET_SML_GCHARPTR_VAL(quoted_string),
+                          error);
+}
+
+gboolean
+giraffe_g_spawn_async_with_pipes (SML_GCHARPTR_VAL(working_directory),
+                                  SML_GCHARPTRPTR_VAL(argv),
+                                  SML_GCHARPTRPTR_VAL(envp),
                                   gint flags,
-                                  SpawnChildSetupCallback child_setup,
+                                  guint callback_id,
                                   GPid *child_pid,
                                   gint *standard_input,
                                   gint *standard_output,
                                   gint *standard_error,
                                   GError **error)
 {
-  return g_spawn_async_with_pipes (working_directory,
-                                   argv,
-                                   envp,
+  return g_spawn_async_with_pipes (GET_SML_GCHARPTR_VAL(working_directory),
+                                   GET_SML_GCHARPTRPTR_VAL(argv),
+                                   GET_SML_GCHARPTRPTR_VAL(envp),
                                    flags,
                                    giraffe_spawn_child_setup_dispatch,
-                                   child_setup,
+                                   GUINT_TO_POINTER(callback_id),
                                    child_pid,
                                    standard_input,
                                    standard_output,

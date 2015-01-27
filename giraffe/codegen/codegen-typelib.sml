@@ -1,7 +1,7 @@
 (*
  * Open file using the following command:
  *
- * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml: xpp -f codegen-typelib.sml -c poly
+ * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/src/polyml: xpp -f codegen-typelib.sml -c poly
  *
  * For gobject-introspection-1.42, open file using the following command:
  *
@@ -9,7 +9,21 @@
  *)
 
 PolyML.Compiler.reportUnreferencedIds := true;
-OS.FileSys.chDir "../"; use "polyml.sml"; OS.FileSys.chDir "codegen/";
+use "../src/sml/polyml.sml";
+use "../src/sml/general/polyml.sml";
+use "../src/sml/ffi/polyml.sml";
+use "../src/sml/gobject-2.0/polyml.sml";
+use "../src/sml/glib-2.0/polyml.sml";
+use "../src/sml/gio-2.0/polyml.sml";
+use "../src/sml/gmodule-2.0/polyml.sml";
+use "../src/sml/gdkpixbuf-2.0/polyml.sml";
+use "../src/sml/pango-1.0/polyml.sml";
+use "../src/sml/cairo-1.0/polyml.sml";
+use "../src/sml/pangocairo-1.0/polyml.sml";
+use "../src/sml/gdk-3.0/polyml.sml";
+use "../src/sml/atk-1.0/polyml.sml";
+use "../src/sml/xlib-2.0/polyml.sml";
+use "../src/sml/gtk-3.0/polyml.sml";
 use "polyml-typelib.sml";
 
 

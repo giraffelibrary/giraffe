@@ -36,7 +36,7 @@ Remove non-release components:
   rm -rf codegen codegen.x86 graveyard doc/design gir
   rm -rf doc/user_guide  # just for now
   rm -rf auto/girepository-2.0
-  rm auto/polyml/giraffe-girepository-2.0.c
+  rm src/polyml/giraffe-girepository-2.0.c
 
 
 Edit Makefile to remove the line:

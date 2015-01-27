@@ -4,25 +4,11 @@
  * xpp -f codegen-gir.sml -c poly
  *)
 
-PolyML.Compiler.reportUnreferencedIds := true;
-fun use file =
-  case OS.Path.splitDirFile file of
-    {dir = "", file} => PolyML.use file
-  | {dir, file}      =>
-      let
-        val curDir = OS.FileSys.getDir ()
-      in
-        (
-          OS.FileSys.chDir dir;
-          PolyML.use file;
-          OS.FileSys.chDir curDir
-        )
-          handle
-            e => (OS.FileSys.chDir curDir; raise e)
-      end
-;
 use "fxlib-polyml.sml";
-use "../general/polyml.sml";
+
+PolyML.Compiler.reportUnreferencedIds := true;
+use "../src/sml/polyml.sml";
+use "../src/sml/general/polyml.sml";
 use "polyml-gir.sml";
 
 

@@ -19,9 +19,9 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 
-#include "mlton/giraffe.h"
 #include "mlton/gcharptrffi.h"
 #include "mlton/gcharptrptrffi.h"
+#include "mlton/giraffe-sml-gobject-2.0.h"
 
 
 /* GType */
@@ -239,8 +239,8 @@ giraffe_closure_dispatch (GClosure *closure,
   }
 #endif /* GIRAFFE_DEBUG */
   giraffe_closure_dispatch_smlside (GPOINTER_TO_UINT(closure->data),
-                                    (Pointer) return_value,
-                                    (Pointer) param_values,
+                                    return_value,
+                                    param_values,
                                     n_param_values);
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
