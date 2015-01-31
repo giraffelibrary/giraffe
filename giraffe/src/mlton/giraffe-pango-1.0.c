@@ -30,6 +30,12 @@ mlton_pango_layout_set_text (PangoLayout *layout,
 
 /* PangoFontDescription */
 
+PangoFontDescription *
+mlton_pango_font_description_from_string (SML_GCHARPTR_VAL(str))
+{
+  return pango_font_description_from_string (GET_SML_GCHARPTR_VAL(str));
+}
+
 void
 mlton_pango_font_description_set_family (PangoFontDescription *desc,
                                          SML_GCHARPTR_VAL(family))

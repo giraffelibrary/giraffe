@@ -102,6 +102,14 @@ giraffe_gdk_rgba_new (void)
   return g_slice_new (GdkRGBA);
 }
 
+gboolean
+mlton_gdk_rgba_parse (GdkRGBA *rgba,
+                      SML_GCHARPTR_VAL(spec))
+{
+  return gdk_rgba_parse (rgba,
+                         GET_SML_GCHARPTR_VAL(spec));
+}
+
 
 /* GdkEvent */
 
