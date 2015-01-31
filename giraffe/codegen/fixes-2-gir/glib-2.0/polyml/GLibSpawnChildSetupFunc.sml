@@ -13,7 +13,15 @@ structure GLibSpawnChildSetupFunc :>
     structure C =
       struct
         type callback = unit -> unit
+
         val withCallback = I
+
+        fun withOptCallback f optCallback =
+          withCallback f (
+            case optCallback of
+              SOME callback => callback
+            | NONE          => fn () => ()
+          )
       end
 
     structure PolyML =

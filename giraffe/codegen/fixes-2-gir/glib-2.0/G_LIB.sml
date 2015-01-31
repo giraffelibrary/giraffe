@@ -187,7 +187,7 @@ signature G_LIB =
        -> string list
        -> string list option
        -> SpawnFlags.t
-       -> SpawnChildSetupFunc.t
+       -> SpawnChildSetupFunc.t option
        -> Pid.t
            * FileDesc.t
            * FileDesc.t

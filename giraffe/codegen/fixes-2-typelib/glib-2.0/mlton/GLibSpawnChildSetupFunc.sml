@@ -32,6 +32,7 @@ structure GLibSpawnChildSetupFunc :>
     structure C =
       struct
         type callback = SpawnChildSetupCallback.id
+
         fun withCallback f callback =
           let
             val callbackId = SpawnChildSetupCallback.add callback
@@ -40,5 +41,12 @@ structure GLibSpawnChildSetupFunc :>
               handle
                 e => (SpawnChildSetupCallback.remove callbackId; raise e)
           end
+
+        fun withOptCallback f optCallback =
+          withCallback f (
+            case optCallback of
+              SOME callback => callback
+            | NONE          => fn () => ()
+          )
       end
   end

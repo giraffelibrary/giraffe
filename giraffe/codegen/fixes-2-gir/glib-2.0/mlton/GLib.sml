@@ -595,7 +595,7 @@ structure GLib : G_LIB =
              &&&> FFI.StringVector.C.withConstPtr
              &&&> FFI.StringVector.C.withConstOptPtr
              &&&> GLibSpawnFlags.C.withVal
-             &&&> GLibSpawnChildSetupFunc.C.withCallback
+             &&&> GLibSpawnChildSetupFunc.C.withOptCallback
              &&&> GLibPid.C.withRefVal
              &&&> FileDesc.C.withRefVal
              &&&> FileDesc.C.withRefVal
