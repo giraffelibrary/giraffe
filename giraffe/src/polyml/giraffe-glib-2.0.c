@@ -11,6 +11,8 @@
 
 #include <glib.h>
 
+#include "polyml/giraffe-glib-2.0.h"
+
 
 /* GError */
 
@@ -56,15 +58,13 @@ giraffe_g_time_val_free (GTimeVal *time)
 
 /* GSourceFunc */
 
-typedef gboolean (*SourceCallback) (void);
-
-static gboolean
+gboolean
 giraffe_source_dispatch (gpointer data)
 {
   return ((SourceCallback) data) ();
 }
 
-static void
+void
 giraffe_source_destroy (gpointer data)
 {
   return;
@@ -73,16 +73,13 @@ giraffe_source_destroy (gpointer data)
 
 /* GChildWatchFunc */
 
-typedef void (*ChildWatchCallback) (GPid pid,
-                                    gint status);
-
-static void
+void
 giraffe_child_watch_dispatch (GPid pid, gint status, gpointer data)
 {
   ((ChildWatchCallback) data) (pid, status);
 }
 
-static void
+void
 giraffe_child_watch_destroy (gpointer data)
 {
   return;
@@ -91,10 +88,7 @@ giraffe_child_watch_destroy (gpointer data)
 
 /* GIOFunc */
 
-typedef gboolean (*IOCallback) (GIOChannel *source,
-                                GIOCondition condition);
-
-static gboolean
+gboolean
 giraffe_io_dispatch (GIOChannel *source,
                           GIOCondition condition,
                           gpointer data)
@@ -102,7 +96,7 @@ giraffe_io_dispatch (GIOChannel *source,
   ((IOCallback) data) (source, condition);
 }
 
-static void
+void
 giraffe_io_destroy (gpointer data)
 {
   return;
@@ -111,9 +105,7 @@ giraffe_io_destroy (gpointer data)
 
 /* GSpawnChildSetupFunc */
 
-typedef void (*SpawnChildSetupCallback) (void);
-
-static void
+void
 giraffe_spawn_child_setup_dispatch (gpointer data)
 {
   ((SpawnChildSetupCallback) data) ();

@@ -14,6 +14,7 @@
 #include "mlton/gcharptrffi.h"
 #include "mlton/gcharptrptrffi.h"
 #include "mlton/giraffe-sml-glib-2.0.h"
+#include "mlton/giraffe-glib-2.0.h"
 
 
 /* GQuark */
@@ -83,13 +84,13 @@ giraffe_g_time_val_free (GTimeVal *time)
 
 /* GSourceFunc */
 
-static gboolean
+gboolean
 giraffe_source_dispatch (gpointer data)
 {
   return (gboolean) giraffe_source_dispatch_smlside (GPOINTER_TO_UINT(data));
 }
 
-static void
+void
 giraffe_source_destroy (gpointer data)
 {
   giraffe_source_destroy_smlside (GPOINTER_TO_UINT(data));
@@ -98,13 +99,13 @@ giraffe_source_destroy (gpointer data)
 
 /* GChildWatchFunc */
 
-static void
+void
 giraffe_child_watch_dispatch (GPid pid, gint status, gpointer data)
 {
   giraffe_child_watch_dispatch_smlside (pid, status, GPOINTER_TO_UINT(data));
 }
 
-static void
+void
 giraffe_child_watch_destroy (gpointer data)
 {
   giraffe_child_watch_destroy_smlside (GPOINTER_TO_UINT(data));
@@ -113,15 +114,15 @@ giraffe_child_watch_destroy (gpointer data)
 
 /* GIOFunc */
 
-static gboolean
+gboolean
 giraffe_io_dispatch (GIOChannel *source,
-                          GIOCondition condition,
-                          gpointer data)
+                     GIOCondition condition,
+                     gpointer data)
 {
   giraffe_io_dispatch_smlside (source, condition, GPOINTER_TO_UINT(data));
 }
 
-static void
+void
 giraffe_io_destroy (gpointer data)
 {
   giraffe_io_destroy_smlside (GPOINTER_TO_UINT(data));
@@ -130,7 +131,7 @@ giraffe_io_destroy (gpointer data)
 
 /* GSpawnChildSetupFunc */
 
-static void
+void
 giraffe_spawn_child_setup_dispatch (gpointer data)
 {
   giraffe_spawn_child_setup_dispatch_smlside (GPOINTER_TO_UINT(data));

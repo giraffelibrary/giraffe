@@ -70,7 +70,8 @@ $(strip \
   $(if $(findstring pango-1.0,$(1)),pango) \
   $(if $(findstring gdk-3.0,$(1)),gdk-3.0) \
   $(if $(findstring gtk-3.0,$(1)),gtk+-3.0) \
-  $(if $(findstring vte-2.90,$(1)),vte-2.90))
+  $(if $(findstring vte-2.90,$(1)),vte-2.90) \
+  $(if $(findstring vte-2.91,$(1)),vte-2.91))
 endef
 
 
@@ -86,7 +87,8 @@ MLTONLIBS   := \
         giraffe-pango-1.0 \
         giraffe-gdk-3.0 \
         giraffe-gtk-3.0 \
-        giraffe-vte-2.90
+        giraffe-vte-2.90 \
+        giraffe-vte-2.91
 MLTONOFILES := $(patsubst %,src/mlton/%.o,$(MLTONLIBS))
 
 $(MLTONOFILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/gcharptrffi.h src/mlton/gcharptrptrffi.h
@@ -100,7 +102,7 @@ mlton : src/mlton/gcharvecveclib.o $(MLTONOFILES)
 
 #   - Poly/ML
 
-POLYMLCFLAGS := $(CFLAGS) -fPIC
+POLYMLCFLAGS := $(CFLAGS) -iquote "src" -fPIC
 POLYMLLIBS   := \
 	giraffe-glib-2.0 \
         giraffe-gobject-2.0 \
@@ -109,7 +111,8 @@ POLYMLLIBS   := \
         giraffe-pango-1.0 \
         giraffe-gdk-3.0 \
         giraffe-gtk-3.0 \
-        giraffe-vte-2.90
+        giraffe-vte-2.90 \
+        giraffe-vte-2.91
 POLYMLOFILES  := $(patsubst %,src/polyml/%.o,$(POLYMLLIBS))
 POLYMLSOFILES := $(patsubst %,src/polyml/lib%.so,$(POLYMLLIBS))
 
@@ -117,7 +120,7 @@ $(POLYMLOFILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
 	@$(CC) $(POLYMLCFLAGS) -c -o $@ `pkg-config --cflags $(call pkg-lookup,$(patsubst src/polyml/giraffe-%.c,%,$<))` $<
 
 $(POLYMLSOFILES) : src/polyml/libgiraffe-%.so : src/polyml/giraffe-%.o
-	@$(CC) -shared -Wl,-soname,src/polyml/libgiraffe-glib.so.1 -o $@ `pkg-config --libs-only-l $(call pkg-lookup,$(patsubst src/polyml/giraffe-%.o,%,$<))` $<
+	@$(CC) -shared -Wl,-soname,src/polyml/libgiraffe-glib.so.1 -o $@ `pkg-config --libs $(call pkg-lookup,$(patsubst src/polyml/giraffe-%.o,%,$<))` $<
 
 
 .PHONY : polyml
