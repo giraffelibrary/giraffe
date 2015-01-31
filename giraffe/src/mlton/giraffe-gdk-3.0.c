@@ -29,6 +29,12 @@ mlton_gdk_atom_intern (SML_GCHARPTR_VAL(atom_name),
 /* GdkGeometry */
 
 GdkGeometry *
+giraffe_gdk_geometry_new (void)
+{
+  return g_slice_new (GdkGeometry);
+}
+
+GdkGeometry *
 giraffe_gdk_geometry_copy (const GdkGeometry *geometry)
 {
   return g_slice_dup (GdkGeometry, geometry);

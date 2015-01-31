@@ -6,6 +6,8 @@ structure GdkGeometryRecord :>
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.t
 
+    val new_ = _import "giraffe_gdk_geometry_new" : unit -> notnull p;
+
     val copy_ = _import "giraffe_gdk_geometry_copy" : notnull p -> notnull p;
 
     val free_ = _import "giraffe_gdk_geometry_free" : notnull p -> unit;
@@ -24,6 +26,13 @@ structure GdkGeometryRecord :>
           fn
             SOME ptr => withPtr (f o Pointer.toOptNull) ptr
           | NONE     => f Pointer.null
+
+        fun withNewPtr f () =
+          let
+            val ptr = new_ ()
+          in
+            ptr & f ptr
+          end
 
         fun fromPtr transfer ptr =
           let

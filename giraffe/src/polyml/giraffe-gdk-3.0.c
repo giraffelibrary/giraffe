@@ -15,6 +15,12 @@
 /* GdkGeometry */
 
 GdkGeometry *
+giraffe_gdk_geometry_new (void)
+{
+  return g_slice_new (GdkGeometry);
+}
+
+GdkGeometry *
 giraffe_gdk_geometry_copy (const GdkGeometry *geometry)
 {
   return g_slice_dup (GdkGeometry, geometry);

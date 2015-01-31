@@ -13,6 +13,10 @@ signature GDK_GEOMETRY_RECORD =
           (unit p -> 'a)
            -> t option
            -> 'a
+        val withNewPtr :
+          (notnull p -> 'a)
+           -> unit
+           -> (notnull p, 'a) pair
         val fromPtr :
           bool
            -> notnull p

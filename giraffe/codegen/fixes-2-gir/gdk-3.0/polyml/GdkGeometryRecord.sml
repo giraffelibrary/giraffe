@@ -18,6 +18,11 @@ structure GdkGeometryRecord :>
     local
       open PolyMLFFI
     in
+      val new_ =
+        call
+          (load_sym libgiraffegdk "giraffe_gdk_geometry_new")
+          (FFI.PolyML.VOID --> PTR);
+
       val copy_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_geometry_copy")
@@ -41,6 +46,13 @@ structure GdkGeometryRecord :>
           fn
             SOME ptr => withPtr (f o Pointer.toOptNull) ptr
           | NONE     => f Pointer.null
+
+        fun withNewPtr f () =
+          let
+            val ptr = new_ ()
+          in
+            ptr & f ptr
+          end
 
         fun fromPtr transfer ptr =
           let
