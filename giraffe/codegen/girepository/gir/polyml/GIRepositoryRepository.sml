@@ -327,6 +327,9 @@ structure GIRepositoryRepository :>
         | deps => SOME (map fmt deps)
       end
 
+    fun getPackages repository versions namespace_ =
+      #packages (! (lookupTypelib repository versions namespace_))
+
     fun getNInfos repository versions namespace_ =
       Vector.length (#infos (lookupNamespace repository versions namespace_))
 

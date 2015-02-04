@@ -9905,7 +9905,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
        *   7. Extend `files'1` with namespace signature and structure
        *      modules from step 2, giving `files'2`.
        *
-       *   8. Write module files `files'2` from step 6.
+       *   8. Write module files `files'2` from step 7.
        *)
 
       (* Step 1 *)

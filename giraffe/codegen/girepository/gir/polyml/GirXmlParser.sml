@@ -1123,12 +1123,28 @@ fun parseInclude (attrs, _) : {name : string, version : string} =
   end
 
 
+fun parsePackage (attrs, _) : string =
+  let
+    val elemName = "package"
+    val name =
+      getAttr attrs "name"
+        handle XMLFail ms =>
+          raise XMLFail (
+            HText.concat ["element \"", elemName, "\""]
+             :: ms
+          )
+  in
+    name
+  end
+
+
 fun parseRepo (attrs, ts) : (unit, unit) repository =
   let
     val version = getAttr attrs "version"
 
     val elemDict = splitElems ts
     val includes = map parseInclude (lookupElems elemDict "include")
+    val packages = map parsePackage (lookupElems elemDict "package")
     val namespace =
       case lookupElems elemDict "namespace" of
         []  => raise XMLFail [HText.string "namespace element not found"]
@@ -1138,6 +1154,7 @@ fun parseRepo (attrs, ts) : (unit, unit) repository =
     {
       version   = version,
       includes  = includes,
+      packages  = packages,
       namespace = namespace,
       data      = ()
     }

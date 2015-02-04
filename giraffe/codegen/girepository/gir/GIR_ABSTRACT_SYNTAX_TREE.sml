@@ -308,6 +308,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
       {
         version   : string,
         includes  : {name : string, version : string} list,
+        packages  : string list,
         namespace : 'b namespace,
         data      : 'a
       }

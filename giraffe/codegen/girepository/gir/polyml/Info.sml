@@ -81,6 +81,7 @@ structure Info =
     withtype repodata =
       {
         includes     : {name : string, version : string} list,
+        packages     : string list,
         dependencies : string ListDict.t,
         namespace    :
           {

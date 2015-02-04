@@ -10382,6 +10382,23 @@ fun writeBasisFile
   end
 
 
+val package = "package"
+
+fun writePackageFile
+  repo
+  vers
+  namespace
+  namespaceDir =
+  let
+    val packages = Repository.getPackages repo vers namespace  (* GIR only *)
+
+    open HVTextTree
+    val v = V.seq (map V.str packages)
+  in
+    writeFile namespaceDir package v
+  end
+
+
 (* `createNamespaceDir (namespace, version)` creates the directory hierarchy
  * into which generated files for the namespace given by `namespace` and
  * `version` are placed.  The directory is created relative to the current
@@ -10547,7 +10564,9 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
        *   7. Extend `files'1` with namespace signature and structure
        *      modules from step 2, giving `files'2`.
        *
-       *   8. Write module files `files'2` from step 6.
+       *   8. Write module files `files'2` from step 7.
+       *
+       *   9. Write the package file - GIR only.
        *)
 
       (* Step 1 *)
@@ -10593,6 +10612,9 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
     in
       (* Step 8 *)
       ListDict.appi (writeProgramFile namespaceDir) files'2;
+
+      (* Step 9 - GIR only *)
+      writePackageFile repo vers namespace namespaceDir;
 
       OS.FileSys.chDir curDir;
       errs
