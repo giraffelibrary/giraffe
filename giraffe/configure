@@ -1,0 +1,353 @@
+#! /bin/sh
+#
+# Giraffe Library configure script
+# This script generates config.mk that is included by Makefile.
+#
+# Copyright (C) 2015 Phil Clayton <phil.clayton@veonix.com>
+#
+# This file is part of the Giraffe Library runtime.  For your rights to use
+# this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+# or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+
+
+################################################################################
+# Process arguments
+
+# Use GIRAFFEHOME for installation directory if it is defined
+DEFAULTPREFIX="/tmp/giraffe"
+PREFIX=${GIRAFFEHOME:-"${DEFAULTPREFIX}"}
+
+SHOWHELP=
+
+while test $# != 0
+do
+  case $1 in
+  --prefix)
+    shift
+    if [ -n "$1" ]
+    then
+      PREFIX="$1"
+    else
+      echo "error: argument expected after --prefix"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --help)
+    SHOWHELP=${SHOWHELP:-0}
+    shift
+    ;;
+  *)
+    echo "error: unrecognized option \"$1\""
+    SHOWHELP=1
+    shift
+    ;;
+  esac
+done
+
+if [ -n "$SHOWHELP" ]
+then
+  cat << EOF
+
+Usage: $0 [OPTION]
+
+Options
+  --prefix PREFIX       install to directory PREFIX
+                        [$DEFAULTPREFIX]
+
+  --help                display this help and exit
+
+EOF
+  exit $SHOWHELP
+fi
+
+# Check that PREFIX does not contain whitespace because such a path does not
+# appear to work as a value for the MLton option '-mlb-path-var name value'.
+if echo "${PREFIX}" | grep "[[:space:]]" > /dev/null
+then
+  echo
+  echo "error: installation directory \"${PREFIX}\" contains whitespace"
+  echo
+  echo "The installation directory must not contain whitespace because such a path does not work as a value for the MLton option '-mlb-path-var name value'"
+  exit 1
+fi
+
+# Check that pkg-config is present
+if ! which pkg-config > /dev/null 2>&1
+then
+  echo
+  echo "error: pkg-config command not found"
+  exit 1
+fi
+
+################################################################################
+# Check SML compilers
+
+echo
+echo "== Checking SML compilers =="
+
+
+# MLton
+
+echo -n "Checking MLton... "
+
+MLTON=`which mlton 2> /dev/null`
+if [ -n "${MLTON}" ]
+then
+  MLTONBIN=`dirname "${MLTON}" 2> /dev/null`
+
+  if [ -d `dirname "${MLTONBIN}" 2> /dev/null` ]
+  then
+    MLTONROOT=`dirname "${MLTONBIN}" 2> /dev/null`
+
+    if [ -d "${MLTONROOT}/lib" ]
+    then
+      MLTONLIB=${MLTONROOT}/lib
+
+      if [ -d "${MLTONLIB}/mlton/include" ]
+      then
+        MLTONINCLUDE=${MLTONLIB}/mlton/include
+      elif [ -d "${MLTONLIB}/include" ]
+      then
+        MLTONINCLUDE=${MLTONLIB}/include
+      fi
+    fi
+  fi
+
+  HAVEMLTON=Y
+  if [ -z "${MLTONROOT}" ]
+  then
+    MLTONROOT="NOT FOUND"
+    HAVEMLTON=
+  fi
+  if [ -z "${MLTONLIB}" ]
+  then
+    MLTONLIB="NOT FOUND"
+    HAVEMLTON=
+  fi
+  if [ -z "${MLTONINCLUDE}" ]
+  then
+    MLTONINCLUDE="NOT FOUND"
+    HAVEMLTON=
+  fi
+
+  if [ -n "${HAVEMLTON}" ]
+  then
+    echo "found"
+    MLTONVER="installed at ${MLTONROOT}"
+  else
+    echo "INSTALLATION DIRECTORIES NOT FOUND"
+    echo "  executable:        ${MLTON}"
+    MLTONVER="NOT AVAILABLE"
+  fi
+  echo "  root directory:    ${MLTONROOT}"
+  echo "  lib directory:     ${MLTONLIB}"
+  echo "  include directory: ${MLTONINCLUDE}"
+
+else
+  echo "NOT FOUND (using PATH)"
+  HAVEMLTON=
+  MLTONVER="NOT AVAILABLE"
+fi
+
+
+# Poly/ML
+
+echo -n "Checking Poly/ML... "
+
+POLYML=`which poly 2> /dev/null`
+
+if pkg-config --exists polyml
+then
+  POLYMLVER=`pkg-config --modversion polyml`
+  echo "found ${POLYMLVER}"
+
+  HAVEPOLYML=Y
+  POLYMLINCLUDE=`pkg-config --variable=includedir polyml`  # not currently used
+
+elif [ -n "${POLYML}" ]
+then
+  POLYMLBIN=`dirname "${POLYML}" 2> /dev/null`
+
+  if [ -d `dirname "${POLYMLBIN}" 2> /dev/null` ]
+  then
+    POLYMLROOT=`dirname "${POLYMLBIN}" 2> /dev/null`
+
+    if [ -d "${POLYMLROOT}/lib" ]
+    then
+      POLYMLLIB=${POLYMLROOT}/lib
+    fi
+  fi
+
+  HAVEPOLYML=Y
+  if [ -z "${POLYMLROOT}" ]
+  then
+    POLYMLROOT="NOT FOUND"
+    HAVEPOLYML=
+  fi
+  if [ -z "${POLYMLLIB}" ]
+  then
+    POLYMLLIB="NOT FOUND"
+    HAVEPOLYML=
+  fi
+
+  if [ -n "${HAVEPOLYML}" ]
+  then
+    echo "found"
+    POLYMLVER="installed at ${POLYMLROOT}"
+  else
+    echo "INSTALLATION DIRECTORIES NOT FOUND"
+    echo "  executable:        ${POLYML}"
+    POLYMLVER="NOT AVAILABLE"
+  fi
+  echo "  root directory:    ${POLYMLROOT}"
+  echo "  lib directory:     ${POLYMLLIB}"
+
+else
+  echo "NOT FOUND (using PKG_CONFIG_PATH and PATH)"
+  HAVEPOLYML=
+  POLYMLVER="NOT AVAILABLE"
+fi
+
+
+################################################################################
+# Check libraries
+
+echo
+echo "== Checking libraries =="
+
+declare -A ALLLIBS
+declare -A SMLLIBS
+declare -A POLYMLLIBS
+declare -A MLTONLIBS
+
+for DIR in src/sml/*-*
+do
+  if [ -f "${DIR}/package" ]
+  then
+    PKGNAME=`cat "${DIR}/package"`
+  else
+    echo
+    echo "error: ${DIR}/package not found"
+  fi
+
+  if [ -f "${DIR}/version" ]
+  then
+    VERSION=`cat "${DIR}/version"`
+  else
+    VERSION=
+  fi
+
+  NAME=`basename ${DIR}`
+
+  if [ -n "${PKGNAME}" ]
+  then
+    echo -n "Checking ${NAME}... "
+
+    if pkg-config --exists "${PKGNAME}"
+    then
+      MODVERSION=`pkg-config --modversion "${PKGNAME}"`
+      echo -n "found version ${MODVERSION}"
+
+      USELIB=
+      if [ -n "${VERSION}" ]
+      then
+        # check installed version is new enough
+        if pkg-config --atleast-version="${VERSION}" "${PKGNAME}"
+        then
+          echo " >= ${VERSION}"
+          ALLLIBS[${NAME}]="${MODVERSION}"
+          USELIB=Y
+        else
+          echo " < ${VERSION} (REQUIRED VERSION)"
+
+          # for now, use old version but warn that build may fail
+          ALLLIBS[${NAME}]="${MODVERSION} < ${VERSION} (REQUIRED VERSION), BUILD MAY FAIL"
+          USELIB=Y
+        fi
+      else
+        # no version check, just use it
+        echo
+        ALLLIBS[${NAME}]="${MODVERSION}"
+        USELIB=Y
+      fi
+
+      if [ -n "${USELIB}" ]
+      then
+        SMLLIBS[${NAME}]=
+
+        if [ -n "${HAVEMLTON}" ] && [ -f "src/mlton/giraffe-${NAME}.c" ]
+        then
+          MLTONLIBS[${NAME}]=
+        fi
+        if [ -n "${HAVEPOLYML}" ] && [ -f "src/polyml/giraffe-${NAME}.c" ]
+        then
+          POLYMLLIBS[${NAME}]=
+        fi
+      fi
+    else
+      echo "NOT FOUND"
+      ALLLIBS[${NAME}]="NOT AVAILABLE"
+    fi
+  else
+    # always include if no package dependency
+    SMLLIBS[${NAME}]=
+  fi
+done
+
+
+
+################################################################################
+# Check we have something to do
+
+if [ -z "${HAVEMLTON}" ] && [ -z "${HAVEPOLYML}" ]
+then
+  echo "error: no Standard ML compilers found"
+  exit 1
+fi
+
+
+
+################################################################################
+# Summary
+
+echo
+echo
+echo "Giraffe Library configuration"
+echo
+echo "  Installation directory    ${PREFIX}"
+echo
+echo "  Standard ML compilers   Using version"
+printf "    %-24s%s\n" "MLton" "${MLTONVER}"
+printf "    %-24s%s\n" "Poly/ML" "${POLYMLVER}"
+echo
+echo "  Libraries               Using package version"
+(
+  # don't let IFS=... leak
+  IFS=$'\n' ALLLIBKEYS=`sort <<< "${!ALLLIBS[*]}"`
+  for NAME in ${ALLLIBKEYS[@]}
+  do
+    printf "    %-24s%s\n" ${NAME} "${ALLLIBS[${NAME}]}"
+  done
+)
+
+
+################################################################################
+# Write config.mk
+
+OUTFILE="config.mk"
+
+# Try to clear ${OUTFILE}
+if ! ( > "${OUTFILE}") 2> /dev/null
+then
+  echo "cannot write to ${OUTFILE}"
+  exit 1
+fi
+
+write_line () { echo "$1" >> "${OUTFILE}" ; }
+
+write_line "PREFIX=${PREFIX}"
+write_line "SMLLIBS=${!SMLLIBS[*]}"
+write_line "MLTONLIBS=${!MLTONLIBS[*]}"
+write_line "POLYMLLIBS=${!POLYMLLIBS[*]}"
+write_line "MLTONINCLUDE=${MLTONINCLUDE}"

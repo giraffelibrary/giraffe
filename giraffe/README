@@ -47,7 +47,7 @@ as:
 
 For the most part, Giraffe Library is generated automatically from the GIR data
 of the libraries.  At present, interfaces to parts of the following libraries
-are available:
+(and their dependencies) are available:
 
   - GTK+
   - Pango
@@ -66,19 +66,21 @@ At least one of the following Standard ML compilers is required:
   MLton    >= 20130715
   Poly/ML  >= 5.5.0
 
-The following libraries are required:
+The following library versions are supported:
 
-  GTK+           >= 3.2.0
-  Pango          >= 1.30.0
-  GtkSourceView  >= 3.2.3
-  VTE            >= 2.90
+  GLib 2.0           = 2.30.3
+  Pango 1.0          = 1.30.0
+  GTK+ 3.0           = 3.2.4
+  GtkSourceView 3.0  = 3.2.3
+  VTE 2.90           = 0.28.2
+  VTE 2.91           = 0.39.1
 
-with the same major (most significant) version number.  Other versions may still
-work depending on the functions actually used.
+Later versions are expected to work but newer features are not supported.
+Earlier versions may still work, depending on the actual dependencies.
 
 Other standard tools are required:
   - An ANSI C compiler, such as GCC.
-  - Common GNU utilites, such as Make and Bash.
+  - Common GNU utilities, such as Bash, Make, Grep and Sed.
 
 
          ---------------        3.  Installation        ---------------

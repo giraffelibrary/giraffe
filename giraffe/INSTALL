@@ -23,7 +23,7 @@ This INSTALL file covers the following topics:
 
   1. Prerequisites
        1.1  Standard ML compilers
-       1.2  C Libraries
+       1.2  Libraries
        1.3  Tools
   2. Installation
 
@@ -35,7 +35,7 @@ Full documentation is available in the User Manual at
 
          ---------------        1.  Prerequisites       ---------------
 
-1.1  Standard ML Compilers
+1.1  Standard ML compilers
 
 Giraffe Library supports both MLton and Poly/ML compilers.  It is not necessary
 to install both compilers to use Giraffe Library.
@@ -56,22 +56,24 @@ If using Poly/ML, version 5.5.0 or later is required.  See
 for instructions on downloading and installing Poly/ML.
 
 
-1.2  C Libraries
+1.2  Libraries
 
-In this alpha release, all supported C libraries must be installed.  Therefore
-the following C libraries must be installed:
+It is not necessary for all supported libraries to be installed.  
 
-  GTK+           >= 3.2.0
-  Pango          >= 1.30.0
-  GtkSourceView  >= 3.2.3
-  VTE            >= 2.90
+The following library versions are supported:
 
-The major version should not be greater than the version specified above to
-ensure compatibility.  Other versions may still work depending on the functions
-actually used.
+  GLib 2.0           = 2.30.3
+  Pango 1.0          = 1.30.0
+  GTK+ 3.0           = 3.2.4
+  GtkSourceView 3.0  = 3.2.3
+  VTE 2.90           = 0.28.2
+  VTE 2.91           = 0.39.1
+
+Later versions are expected to work but newer features are not supported.
+Earlier versions may still work, depending on the actual dependencies.
 
 The C header files for these libraries are required.  Therefore, when using a
-package management system, the `devel' or `dev' package is required.
+package management system, the 'devel' or 'dev' package is required.
 
 On recent releases of Fedora, the above libraries and source header files are
 installed by the following Yum command:
@@ -84,58 +86,89 @@ installed by the following Yum command:
 Standard tools commonly found on Unix-like systems are required.
 
 An ANSI C compiler, such as GCC, is required to build minimal C libraries
-that support the SML interface to GObect-based libraries.
+that support the SML interface to GObject-based libraries.
 
-Common GNU utilites are required, including:
-  - Bash
-  - Make
+Common GNU utilities are required, including Bash, Make, Grep and Sed.
+
+pkg-config is required for the purpose of finding library dependencies.
 
 
          ---------------        2.  Installation        ---------------
 
-1.  Unpack the source release tarball for version <ver> with the command
-
-  tar -xzf giraffe-<ver>.tar.gz
+2.1  Installation steps
 
 
-2.  Change directory to the source directory with the command
+  1.  Unpack the source release tarball for version <ver> with the command
 
-  cd giraffe/
-
-
-3.  In `Makefile`, update the line
-
-  INSTALLDIR := <dir>
-
-to make <dir> the root installation directory.  For this alpha release, it
-is recommended that <dir> is not a system location such as /usr or /usr/local
-but a non-system location such as ${HOME}/giraffe .
+        tar -xzf giraffe-<ver>.tar.gz
 
 
-4.  Ensure that versions of MLton and Poly/ML in the path are suitable
-versions to build with.  Check using the commands
+  2.  Change directory to the source directory with the command
 
-  mlton
-  poly -v
-
-If an alternative version is required, add its bin directory to the front
-of the PATH environment variable.  For example,
-
-  PATH=/opt/mlton/mlton-20130715/bin:${PATH}
+        cd giraffe/
 
 
-5.  Build using the command
+  3.  Enter the command
 
-  make mlton polyml
+        ./configure
 
-It is not necessary to specify both 'mlton' and 'polyml', only the required
-compilers.
+      or
+
+        ./configure --prefix <installdir>
+
+      to install to <installdir>.
+
+      If 'configure' does not find the required Standard ML compilers or
+      libraries, refer to section 2.2 'Modifying the configuration', below.
 
 
-6.  Install using the command
+  4.  Build using the command
 
-  make install
+        make
 
-This command requires permissions to write to the root installation
-directory INSTALLDIR, set in step 3.  If any compilers were not specified in
-step 5, `make install' may report errors but these can be ignored.
+
+  5.  Install using the command
+
+        make install
+
+      This command requires permissions to write to the installation
+      directory <installdir>, set in step 3.
+
+
+2.2  Modifying the configuration
+
+'configure' uses the PATH environment variable and pkg-config utility to find
+dependencies.
+
+'configure' checks for:
+
+  - MLton by searching for 'mlton' in a directory in PATH
+
+  - Poly/ML
+      1. using pkg-config and, failing that,
+      2. by searching for 'poly' in a directory in PATH
+
+  - supported libraries using pkg-config
+
+If any required dependencies are not found but are installed on your system,
+either PATH or PKG_CONFIG_PATH (the pkg-config path) should be modified so
+that the above checks find them.  The following sections describe how to update
+these environment variables.
+
+
+2.2.1  Changing PATH
+
+PATH should be updated to include the directory containing the required program.
+For example, to specify Poly/ML installed to /opt/polyml/polyml-5.5.2, then PATH
+would be updated as follows:
+
+  PATH=/opt/polyml/polyml-5.5.2/bin:${PATH}
+
+
+2.2.2  Changing PKG_CONFIG_PATH
+
+PKG_CONFIG_PATH should be updated to include the directory containing the
+required PC file.  For example, to specify Poly/ML installed to
+/opt/polyml/polyml-5.5.2, then PKG_CONFIG_PATH would be updated as follows:
+
+  PKG_CONFIG_PATH=/opt/polyml/polyml-5.5.2/lib/pkgconfig:${PKG_CONFIG_PATH}

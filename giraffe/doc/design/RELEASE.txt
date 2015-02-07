@@ -3,7 +3,7 @@ Steps to create a release archive.
 The version is specific by VERSION.
 REPODIR should be set to the root directory of the Git repo.
 
-  VERSION=1.0a3
+  VERSION=1.0a4
   REPODIR=~/SML/Giraffe/devel
 
 
@@ -37,11 +37,6 @@ Remove non-release components:
   rm -rf doc/user_guide  # just for now
   rm -rf auto/girepository-2.0
   rm src/polyml/giraffe-girepository-2.0.c
-
-
-Edit Makefile to remove the line:
-
-        giraffe-girepository-2.0 \
 
 
 Make TAR file
