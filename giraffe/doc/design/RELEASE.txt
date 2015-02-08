@@ -30,12 +30,19 @@ Copy source code to the release directory.  Either:
       cp -dpr ${REPODIR}/giraffe ${RELEASEDIR}
 
 
+Add generated library code:
+
+  cd ${RELEASEDIR}/giraffe/codegen
+  ./make-gir
+  ./copy-gir
+
+
 Remove non-release components:
 
   cd ${RELEASEDIR}/giraffe
-  rm -rf codegen codegen.x86 graveyard doc/design gir
+  rm -rf codegen codegen.x86 graveyard doc/design
   rm -rf doc/user_guide  # just for now
-  rm -rf auto/girepository-2.0
+  rm -rf src/sml/girepository-2.0  # girepository-2.0 not part of release
   rm src/polyml/giraffe-girepository-2.0.c
 
 

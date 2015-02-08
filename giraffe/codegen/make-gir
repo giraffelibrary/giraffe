@@ -1,0 +1,28 @@
+#! /bin/bash
+
+SUFFIX=gir
+
+if ! TMPDIR=`mktemp -d`
+then
+  echo "error: could not create temporary directory"
+fi
+
+SML1="${TMPDIR}/sml-1-${SUFFIX}"
+SML2="${TMPDIR}/sml-2-${SUFFIX}"
+SML="sml-${SUFFIX}"
+
+if [ -e "${SML}" ]
+then
+  echo "${SML} already exists, remove first"
+  exit 1
+fi
+
+cp -a auto-0-${SUFFIX}    ${SML1}
+cp -a fixes-1-${SUFFIX}/* ${SML1}
+cp -a ${SML1}             ${SML2}
+cp -a fixes-2-${SUFFIX}/* ${SML2}
+cp -a extra-${SUFFIX}/*   ${SML2}
+cp -a version/*           ${SML2}
+
+cp -a ${SML2} ${SML}
+rm -r ${TMPDIR}
