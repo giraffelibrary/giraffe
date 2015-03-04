@@ -90,10 +90,10 @@ giraffe_child_watch_destroy (gpointer data)
 
 gboolean
 giraffe_io_dispatch (GIOChannel *source,
-                          GIOCondition condition,
-                          gpointer data)
+                     GIOCondition condition,
+                     gpointer data)
 {
-  ((IOCallback) data) (source, condition);
+  return ((IOCallback) data) (source, condition);
 }
 
 void

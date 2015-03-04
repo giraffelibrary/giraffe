@@ -43,6 +43,7 @@ giraffe_gtk_file_chooser_dialog_new (const gchar *title,
   return gtk_file_chooser_dialog_new (title,
                                       parent,
                                       action,
+                                      NULL,
                                       NULL);
 }
 

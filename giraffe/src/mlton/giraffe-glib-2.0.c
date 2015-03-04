@@ -119,7 +119,9 @@ giraffe_io_dispatch (GIOChannel *source,
                      GIOCondition condition,
                      gpointer data)
 {
-  giraffe_io_dispatch_smlside (source, condition, GPOINTER_TO_UINT(data));
+  return giraffe_io_dispatch_smlside (source,
+                                      condition,
+                                      GPOINTER_TO_UINT(data));
 }
 
 void

@@ -64,9 +64,9 @@ mlton_gtk_action_group_add_action_with_accel (GtkActionGroup *action_group,
                                               GtkAction *action,
                                               SML_GCHARPTR_VAL(accelerator))
 {
-  return gtk_action_group_add_action_with_accel (action_group,
-                                                 action,
-                                                 GET_SML_GCHARPTR_VAL(accelerator));
+  gtk_action_group_add_action_with_accel (action_group,
+                                          action,
+                                          GET_SML_GCHARPTR_VAL(accelerator));
 }
 
 GtkAction *
@@ -160,6 +160,7 @@ giraffe_gtk_file_chooser_dialog_new (SML_GCHARPTR_VAL(title),
   return gtk_file_chooser_dialog_new (GET_SML_GCHARPTR_VAL(title),
                                       parent,
                                       action,
+                                      NULL,
                                       NULL);
 }
 
@@ -318,7 +319,7 @@ mlton_gtk_text_buffer_insert (GtkTextBuffer *buffer,
 GtkTextTag *
 mlton_gtk_text_tag_new (SML_GCHARPTR_VAL(name))
 {
-  gtk_text_tag_new (GET_SML_GCHARPTR_VAL(name));
+  return gtk_text_tag_new (GET_SML_GCHARPTR_VAL(name));
 }
 
 

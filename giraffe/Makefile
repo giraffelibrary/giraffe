@@ -38,7 +38,7 @@ help :
 # Building
 #
 
-CFLAGS := -DGIRAFFE_DEBUG -ggdb -std=c99 -O2
+CFLAGS := -DGIRAFFE_DEBUG -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Werror -O2
 
 
 #   - MLton

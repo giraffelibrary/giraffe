@@ -38,9 +38,9 @@ void giraffe_spawn_child_setup_dispatch_smlside (guint id);
 /* GIOFunc */
 
 extern
-void giraffe_io_dispatch_smlside (GIOChannel *source,
-                                  GIOCondition condition,
-                                  guint id);
+gboolean giraffe_io_dispatch_smlside (GIOChannel *source,
+                                      GIOCondition condition,
+                                      guint id);
 
 extern
 void giraffe_io_destroy_smlside (guint id);
