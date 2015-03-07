@@ -1,52 +1,38 @@
-Steps to create a release archive.
+Steps to create a source release archive.
 
 The version is specific by VERSION.
 REPODIR should be set to the root directory of the Git repo.
 
-  VERSION=1.0a4
+  VERSION=A.B.C
   REPODIR=~/SML/Giraffe/devel
 
 
-Create a temporary directory for the release image
-
-  RELEASEDIR=/tmp/release/
-  mkdir -p ${RELEASEDIR}
-
-
-Copy source code to the release directory.  Either:
+Set up the release directory.
 
  A. To create a formal release from a Git tag, extract the source code
     with Git.  VERSION is used as the Git tag name.
 
+      RELEASEDIR=/tmp/release/
+      mkdir -p ${RELEASEDIR}
       cd ${REPODIR}
       git archive ${VERSION} giraffe | tar -x -C ${RELEASEDIR}
 
 
- B. To create an informal release from the working directory, take a copy
-    after cleaning up any generated files:
+ B. To create an informal release from the current working directory, 
+    operate in the working directory.
 
-      cd ${REPODIR}/giraffe
-      make distclean
-      cp -dpr ${REPODIR}/giraffe ${RELEASEDIR}
+      RELEASEDIR=${REPODIR}
 
 
-Add generated library code:
+Create library code by patching generated code and copy to src/sml:
 
   cd ${RELEASEDIR}/giraffe/codegen
   ./make-gir
   ./copy-gir
 
 
-Remove non-release components:
+Create source release archive:
 
   cd ${RELEASEDIR}/giraffe
-  rm -rf codegen codegen.x86 graveyard doc/design
-  rm -rf doc/user_guide  # just for now
-  rm -rf src/sml/girepository-2.0  # girepository-2.0 not part of release
-  rm src/polyml/giraffe-girepository-2.0.c
-
-
-Make TAR file
-
-  cd ${RELEASEDIR}
-  tar --owner=root --group=root -czf giraffe-${VERSION}.tar.gz giraffe
+  export VERSION
+  make -f release.mk archive

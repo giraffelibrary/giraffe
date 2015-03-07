@@ -1,13 +1,13 @@
 
- __ o  o __
- \_\|__|/_/
-   \(o  o)      Giraffe Library
-    |\ _|
-    |\`-'       Standard ML bindings for GObject-based libraries
-    |/|
-    |\|         http://www.giraffelibrary.org/
-    |/|
-    |\|
+   __ o  o __
+   \_\|__|/_/
+     \(o  o)      Giraffe Library
+      |\ _|
+      |\`-'       Version @GIRAFFE_VERSION@
+      |/|
+      |\|         Standard ML bindings for GObject-based libraries
+      |/|         http://www.giraffelibrary.org/
+      |\|
 
  ******************************************************************************
  *                                                                            *
