@@ -9,23 +9,13 @@
       |/|         http://www.giraffelibrary.org/
       |\|
 
- ******************************************************************************
- *                                                                            *
- *                 Warning!  This is an unstable pre-release!                 *
- *                                                                            *
- * This release has limitations and omissions that may not be documented.     *
- * Furthermore, subsequent releases may introduce changes to the Standard ML  *
- * API that are incompatible with code using this release.                    *
- *                                                                            *
- ******************************************************************************
 
 This README file covers the following topics:
 
   1. Overview
   2. System Requirements
   3. Installation
-  4. Licence
-  5. Contact and support
+  4. Contact and support
 
 
 Full documentation is available in the User Guide at
@@ -35,7 +25,7 @@ Full documentation is available in the User Guide at
 
          ---------------          1.  Overview          ---------------
 
-Giraffe Library is a Standard ML library that provides an interface to
+Giraffe Library is a Standard ML library that provides an interface to various
 GObject-based libraries, such as GTK+.  The interface introduces some
 abstraction of the libraries to provide expected features of Standard ML such
 as:
@@ -57,23 +47,25 @@ of the libraries.  At present, interfaces to parts of the following libraries
 
          ---------------    2.  System Requirements     ---------------
 
-Giraffe Library has been tested only on Fedora Linux i686 and x86_64 systems.
-However, in principle, any system that satisfies the following requirements
-should work.
+Giraffe Library has been tested on various combinations of
+  - Fedora and Ubuntu GNU/Linux and Mac OS X systems
+  - i686 and x86_64 platforms
+In principle, any system that satisfies the following requirements should work.
 
 At least one of the following Standard ML compilers is required:
 
   MLton    >= 20130715
-  Poly/ML  >= 5.5.0
+  Poly/ML  >= 5.5.1
 
-The following library versions are supported:
+The following libraries are supported, where the interface is based on the
+indicated version:
 
-  GLib 2.0           = 2.30.3
-  Pango 1.0          = 1.30.0
-  GTK+ 3.0           = 3.2.4
-  GtkSourceView 3.0  = 3.2.3
-  VTE 2.90           = 0.28.2
-  VTE 2.91           = 0.39.1
+  GLib 2.0              2.30.3
+  Pango 1.0             1.30.0
+  GTK+ 3.0              3.2.4
+  GtkSourceView 3.0     3.2.3
+  VTE 2.90              0.28.2
+  VTE 2.91              0.39.1
 
 Later versions are expected to work but newer features are not supported.
 Earlier versions may still work, depending on the actual dependencies.
@@ -81,6 +73,7 @@ Earlier versions may still work, depending on the actual dependencies.
 Other standard tools are required:
   - An ANSI C compiler, such as GCC.
   - Common GNU utilities, such as Bash, Make, Grep and Sed.
+  - The pkg-config utility.
 
 
          ---------------        3.  Installation        ---------------
@@ -88,16 +81,7 @@ Other standard tools are required:
 See the file 'INSTALL'.
 
 
-         ---------------          4.  Licence           ---------------
-
-The Giraffe Library runtime is released under the GNU LGPL.  See the file
-'LICENCE.RUNTIME' for details.
-
-A copy of the GNU GPL and the (additional terms of) the GNU LGPL are provided in
-the files 'COPYING' and 'COPYING.LESSER' respectively.
-
-
-         ---------------    5.  Contact and support     ---------------
+         ---------------    4.  Contact and support     ---------------
 
 For queries, please email
 

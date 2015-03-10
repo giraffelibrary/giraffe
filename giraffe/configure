@@ -11,17 +11,70 @@
 
 
 ################################################################################
+# Portable support for maps
+#
+# Associative arrays are not available in (at least) Dash or Bash v3.
+
+size ()
+{
+  # size is the number of newline characters
+
+  wc -l
+}
+
+empty ()
+{
+  # a dummy character is added as a terminator to avoid a trailing newline
+  # (that would be removed by command substitution)
+
+  printf "-"
+}
+
+prepend ()
+{
+  # $1 has the format <key>=<value> where <key> does not contain '='
+
+  printf "$1\n" ; cat -
+}
+
+lookup ()
+{
+  # $1 has the form <key>
+
+  if [ $# -eq 0 ]
+  then
+    echo "lookup: argument required"
+    exit 1
+  fi
+
+  grep "^$1=" | sed -e "s/^$1=//"
+}
+
+keys ()
+{
+  sed -n -e "s/^\([^=]*\)=.*$/\1/p"
+}
+
+values ()
+{
+  sed -n -e "s/^[^=]*=\(.*\)$/\1/p"
+}
+
+
+################################################################################
 # Process arguments
 
 # Use GIRAFFEHOME for installation directory if it is defined
-DEFAULTPREFIX="/tmp/giraffe"
-PREFIX=${GIRAFFEHOME:-"${DEFAULTPREFIX}"}
+DEFAULT_PREFIX="/opt/giraffe"
+PREFIX=${GIRAFFEHOME:-"${DEFAULT_PREFIX}"}
 
 SHOWHELP=
+WITH_MLTON=
+WITH_POLYML=
 
 while test $# != 0
 do
-  case $1 in
+  case "$1" in
   --prefix)
     shift
     if [ -n "$1" ]
@@ -29,6 +82,88 @@ do
       PREFIX="$1"
     else
       echo "error: argument expected after --prefix"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --without-mlton)
+    WITH_MLTON=N
+    shift
+    ;;
+  --without-polyml)
+    WITH_POLYML=N
+    shift
+    ;;
+  --with-mlton)
+    WITH_MLTON=Y
+    shift
+    ;;
+  --with-polyml)
+    WITH_POLYML=Y
+    shift
+    ;;
+  --mlton-prefix)
+    shift
+    if [ -n "$1" ]
+    then
+      MLTON_PREFIX="$1"
+    else
+      echo "error: argument expected after --mlton-prefix"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --mlton-bindir)
+    shift
+    if [ -n "$1" ]
+    then
+      MLTON_BINDIR="$1"
+    else
+      echo "error: argument expected after --mlton-bindir"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --mlton-includedir)
+    shift
+    if [ -n "$1" ]
+    then
+      MLTON_INCLUDEDIR="$1"
+    else
+      echo "error: argument expected after --mlton-includedir"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --polyml-prefix)
+    shift
+    if [ -n "$1" ]
+    then
+      POLYML_PREFIX="$1"
+    else
+      echo "error: argument expected after --polyml-prefix"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --polyml-bindir)
+    shift
+    if [ -n "$1" ]
+    then
+      POLYML_BINDIR="$1"
+    else
+      echo "error: argument expected after --polyml-bindir"
+      SHOWHELP=1
+    fi
+    shift
+    ;;
+  --polyml-libdir)
+    shift
+    if [ -n "$1" ]
+    then
+      POLYML_LIBDIR="$1"
+    else
+      echo "error: argument expected after --polyml-libdir"
       SHOWHELP=1
     fi
     shift
@@ -49,13 +184,31 @@ if [ -n "$SHOWHELP" ]
 then
   cat << EOF
 
-Usage: $0 [OPTION]
+Usage: $0 [OPTION]...
 
-Options
-  --prefix PREFIX       install to directory PREFIX
-                        [$DEFAULTPREFIX]
+Installation directories:
+  --prefix PREFIX         install to directory PREFIX
+                          By default, install to GIRAFFEHOME, if set
+                           and ${DEFAULT_PREFIX}, otherwise.
 
-  --help                display this help and exit
+Compilers:
+  --without-COMPILER      exclude support for COMPILER
+  --with-COMPILER         include support for COMPILER
+                          COMPILER is either 'mlton' or 'polyml'.
+                          By default, install support for all compilers
+                           either specified (using compiler directory options)
+                           or found (using PATH or pkg-config).
+
+Compiler directories:
+  --mlton-prefix DIR      MLton home directory
+  --mlton-bindir DIR      MLton bin directory
+  --mlton-includedir DIR  MLton include directory
+  --polyml-prefix DIR     Poly/ML home directory
+  --polyml-bindir DIR     Poly/ML bin directory
+  --polyml-libdir DIR     Poly/ML lib directory
+
+Configuration:
+  --help                  display this help and exit
 
 EOF
   exit $SHOWHELP
@@ -80,8 +233,12 @@ then
   exit 1
 fi
 
+
 ################################################################################
 # Check SML compilers
+
+MIN_MLTON_VERSION="20130715"
+MIN_POLYML_VERSION="5.5.2"
 
 echo
 echo "== Checking SML compilers =="
@@ -89,124 +246,281 @@ echo "== Checking SML compilers =="
 
 # MLton
 
-echo -n "Checking MLton... "
-
-MLTON=`which mlton 2> /dev/null`
-if [ -n "${MLTON}" ]
+if test "X${WITH_MLTON}" != "XN"  # check for MLton if not excluded
 then
-  MLTONBIN=`dirname "${MLTON}" 2> /dev/null`
+  printf "Checking MLton... "
 
-  if [ -d `dirname "${MLTONBIN}" 2> /dev/null` ]
+  # check for user-specified directories
+  if [ -n "${MLTON_PREFIX}" ] || [ -n "${MLTON_BINDIR}" ] || [ -n "${MLTON_INCLUDEDIR}" ]
   then
-    MLTONROOT=`dirname "${MLTONBIN}" 2> /dev/null`
+    MLTON_VERSION_EXPECTED=
+    echo "using user-specified directories"
 
-    if [ -d "${MLTONROOT}/lib" ]
+    HAVE_MLTON="1"
+    MLTON_BINDIR="${MLTON_BINDIR:-${MLTON_PREFIX%/}/bin}"
+    if [ -n "${MLTON_PREFIX}" ] && [ -z "${MLTON_INCLUDEDIR}" ]
     then
-      MLTONLIB=${MLTONROOT}/lib
-
-      if [ -d "${MLTONLIB}/mlton/include" ]
+      MLTON_LIBDIR="${MLTON_PREFIX%/}/lib"
+      if [ -d "${MLTON_LIBDIR}/include" ]
       then
-        MLTONINCLUDE=${MLTONLIB}/mlton/include
-      elif [ -d "${MLTONLIB}/include" ]
-      then
-        MLTONINCLUDE=${MLTONLIB}/include
+        MLTON_INCLUDEDIR="${MLTON_LIBDIR}/include"
+      else
+        MLTON_INCLUDEDIR="${MLTON_LIBDIR}/mlton/include"
       fi
+    fi
+
+    if [ -z "${MLTON_BINDIR}" ]
+    then
+      echo "error: MLton bin directory not determined (either bin or prefix directory must be specified)"
+      exit 1
+    fi
+    if [ -z "${MLTON_INCLUDEDIR}" ]
+    then
+      echo "error: MLton include directory not determined (either include or prefix directory must be specified)"
+      exit 1
+    fi
+
+    echo "  bin directory:     ${MLTON_BINDIR}"
+    echo "  include directory: ${MLTON_INCLUDEDIR}"
+
+  else
+    # check in PATH
+    MLTON=`which mlton 2> /dev/null`
+
+    if [ -n "${MLTON}" ]
+    then
+      MLTON_VERSION_EXPECTED=
+      echo "found using PATH"
+
+      HAVE_MLTON="1"
+      MLTON_BINDIR=`dirname "${MLTON}" 2> /dev/null`
+      MLTON_PREFIX=`dirname "${MLTON_BINDIR}" 2> /dev/null`
+      MLTON_LIBDIR=${MLTON_PREFIX}/lib
+      if [ -d "${MLTON_LIBDIR}/include" ]
+      then
+        MLTON_INCLUDEDIR=${MLTON_LIBDIR}/include
+      else
+        MLTON_INCLUDEDIR=${MLTON_LIBDIR}/mlton/include
+      fi
+
+      echo "  bin directory:     ${MLTON_BINDIR}"
+      echo "  include directory: ${MLTON_INCLUDEDIR}"
+
+    else
+      # give up
+      echo "NOT FOUND (using PATH)"
+      HAVE_MLTON=
+    fi
+  fi
+else
+  echo "Not checking MLton"
+  HAVE_MLTON=
+fi
+
+# check directories
+if [ -n "${HAVE_MLTON}" ]
+then
+  MLTON_MLTON="${MLTON_BINDIR%/}/mlton"
+
+  if [ ! -d "${MLTON_BINDIR}" ]
+  then
+    echo "error: MLton bin directory ${MLTON_BINDIR} does not exist"
+    exit 1
+  fi
+  if [ ! -x "${MLTON_MLTON}" ]
+  then
+    echo "error: MLton executable file ${MLTON_MLTON} does not exist"
+    exit 1
+  fi
+
+  if [ ! -d "${MLTON_INCLUDEDIR}" ]
+  then
+    echo "error: MLton include directory ${MLTON_INCLUDEDIR} does not exist"
+    exit 1
+  fi
+
+  printf "  version:           "
+  if MLTON_VERSION=`${MLTON_MLTON} | cut -d " " -f2`
+  then
+    printf "${MLTON_VERSION}"
+  else
+    echo
+    echo "error: failed to run ${MLTON_MLTON}"
+    exit 1
+  fi
+
+  if [ -n "${MLTON_VERSION_EXPECTED}" ]
+  then
+    if test "${MLTON_VERSION}" != "${MLTON_VERSION_EXPECTED}"
+    then
+      echo
+      echo "error: mlton version does not match expected version ${MLTON_VERSION_EXPECTED}"
+      exit 1
     fi
   fi
 
-  HAVEMLTON=Y
-  if [ -z "${MLTONROOT}" ]
+  if test "${MLTON_VERSION}" \< "${MIN_MLTON_VERSION}"
   then
-    MLTONROOT="NOT FOUND"
-    HAVEMLTON=
-  fi
-  if [ -z "${MLTONLIB}" ]
-  then
-    MLTONLIB="NOT FOUND"
-    HAVEMLTON=
-  fi
-  if [ -z "${MLTONINCLUDE}" ]
-  then
-    MLTONINCLUDE="NOT FOUND"
-    HAVEMLTON=
-  fi
-
-  if [ -n "${HAVEMLTON}" ]
-  then
-    echo "found"
-    MLTONVER="installed at ${MLTONROOT}"
+    echo " < ${MIN_MLTON_VERSION} (REQUIRED VERSION)"
+    echo "error: MLton version 20130715 or later is required"
+    exit 1
   else
-    echo "INSTALLATION DIRECTORIES NOT FOUND"
-    echo "  executable:        ${MLTON}"
-    MLTONVER="NOT AVAILABLE"
+    echo " >= ${MIN_MLTON_VERSION}"
   fi
-  echo "  root directory:    ${MLTONROOT}"
-  echo "  lib directory:     ${MLTONLIB}"
-  echo "  include directory: ${MLTONINCLUDE}"
 
+  MLTON_VERSION_TEXT="${MLTON_VERSION}"
 else
-  echo "NOT FOUND (using PATH)"
-  HAVEMLTON=
-  MLTONVER="NOT AVAILABLE"
+  MLTON_VERSION_TEXT="NOT AVAILABLE"
 fi
 
 
 # Poly/ML
 
-echo -n "Checking Poly/ML... "
-
-POLYML=`which poly 2> /dev/null`
-
-if pkg-config --exists polyml
+# find directories
+if test "X${WITH_POLYML}" != "XN"  # check for Poly/ML if not excluded
 then
-  POLYMLVER=`pkg-config --modversion polyml`
-  echo "found ${POLYMLVER}"
+  printf "Checking Poly/ML... "
 
-  HAVEPOLYML=Y
-  POLYMLINCLUDE=`pkg-config --variable=includedir polyml`  # not currently used
-
-elif [ -n "${POLYML}" ]
-then
-  POLYMLBIN=`dirname "${POLYML}" 2> /dev/null`
-
-  if [ -d `dirname "${POLYMLBIN}" 2> /dev/null` ]
+  # check for user-specified directories
+  if [ -n "${POLYML_PREFIX}" ] || [ -n "${POLYML_BINDIR}" ] || [ -n "${POLYML_LIBDIR}" ]
   then
-    POLYMLROOT=`dirname "${POLYMLBIN}" 2> /dev/null`
+    POLYML_VERSION_EXPECTED=
+    echo "using user-specified directories"
 
-    if [ -d "${POLYMLROOT}/lib" ]
+    HAVE_POLYML="1"
+    POLYML_BINDIR="${POLYML_BINDIR:-${POLYML_PREFIX%/}/bin}"
+    POLYML_LIBDIR="${POLYML_LIBDIR:-${POLYML_PREFIX%/}/lib}"
+    POLYML_INCLUDEDIR="${POLYML_INCLUDEDIR:-${POLYML_PREFIX%/}/include}"  # not used
+
+    if [ -z "${POLYML_BINDIR}" ]
     then
-      POLYMLLIB=${POLYMLROOT}/lib
+      echo "error: Poly/ML bin directory not determined (either bin or prefix directory must be specified)"
+      exit 1
+    fi
+    if [ -z "${POLYML_LIBDIR}" ]
+    then
+      echo "error: Poly/ML lib directory not determined (either lib or prefix directory must be specified)"
+      exit 1
+    fi
+
+    echo "  bin directory:     ${POLYML_BINDIR}"
+    echo "  lib directory:     ${POLYML_LIBDIR}"
+
+  # check with pkg-config
+  elif pkg-config --exists polyml
+  then
+    POLYML_VERSION_EXPECTED=`pkg-config --modversion polyml`
+    echo "found version ${POLYML_VERSION_EXPECTED} using pkg-config"
+
+    HAVE_POLYML="1"
+    POLYML_BINDIR=`pkg-config --variable=bindir polyml`
+    POLYML_LIBDIR=`pkg-config --variable=libdir polyml`
+    POLYML_INCLUDEDIR=`pkg-config --variable=includedir polyml`  # not used
+
+    echo "  bin directory:     ${POLYML_BINDIR}"
+    echo "  lib directory:     ${POLYML_LIBDIR}"
+
+  else
+    # check in PATH
+    WHICH_POLY=`which poly 2> /dev/null`
+
+    if [ -n "${WHICH_POLY}" ]
+    then
+      POLYML_VERSION_EXPECTED=
+      echo "found using PATH"
+
+      HAVE_POLYML="1"
+      POLYML_BINDIR=`dirname "${WHICH_POLY}" 2> /dev/null`
+      POLYML_PREFIX=`dirname "${POLYML_BINDIR}" 2> /dev/null`
+      POLYML_LIBDIR="${POLYML_PREFIX}/lib"
+
+      echo "  bin directory:     ${POLYML_BINDIR}"
+      echo "  lib directory:     ${POLYML_LIBDIR}"
+
+    else
+      # give up
+      echo "NOT FOUND (using PKG_CONFIG_PATH or PATH)"
+      HAVE_POLYML=
     fi
   fi
 
-  HAVEPOLYML=Y
-  if [ -z "${POLYMLROOT}" ]
-  then
-    POLYMLROOT="NOT FOUND"
-    HAVEPOLYML=
-  fi
-  if [ -z "${POLYMLLIB}" ]
-  then
-    POLYMLLIB="NOT FOUND"
-    HAVEPOLYML=
-  fi
-
-  if [ -n "${HAVEPOLYML}" ]
-  then
-    echo "found"
-    POLYMLVER="installed at ${POLYMLROOT}"
-  else
-    echo "INSTALLATION DIRECTORIES NOT FOUND"
-    echo "  executable:        ${POLYML}"
-    POLYMLVER="NOT AVAILABLE"
-  fi
-  echo "  root directory:    ${POLYMLROOT}"
-  echo "  lib directory:     ${POLYMLLIB}"
-
 else
-  echo "NOT FOUND (using PKG_CONFIG_PATH and PATH)"
-  HAVEPOLYML=
-  POLYMLVER="NOT AVAILABLE"
+  echo "Not checking Poly/ML"
+  HAVE_POLYML=
+fi
+
+# check directories
+if [ -n "${HAVE_POLYML}" ]
+then
+  POLYML_POLY="${POLYML_BINDIR%/}/poly"
+  POLYML_POLYC="${POLYML_BINDIR%/}/polyc"
+
+  if [ ! -d "${POLYML_BINDIR}" ]
+  then
+    echo "error: Poly/ML bin directory ${POLYML_BINDIR} does not exist"
+    exit 1
+  fi
+  if [ ! -x "${POLYML_POLY}" ]
+  then
+    echo "error: Poly/ML executable file ${POLYML_POLY} does not exist"
+    exit 1
+  fi
+
+  if [ ! -d "${POLYML_LIBDIR}" ]
+  then
+    echo "error: Poly/ML lib directory ${POLYML_LIBDIR} does not exist"
+    exit 1
+  fi
+
+  printf "  version:           "
+  if POLYML_VERSION=`${POLYML_POLY} -v | cut -d " " -f2`
+  then
+    printf "${POLYML_VERSION}"
+  else
+    echo
+    echo "error: failed to run ${POLYML_POLY}"
+    exit 1
+  fi
+
+  if [ -n "${POLYML_VERSION_EXPECTED}" ]
+  then
+    if test "${POLYML_VERSION}" != "${POLYML_VERSION_EXPECTED}"
+    then
+      echo
+      echo "error: poly version does not match expected version ${POLYML_VERSION_EXPECTED}"
+      exit 1
+    fi
+  fi
+
+  A1=`echo "${POLYML_VERSION}." | cut -d "." -f 1`
+  AS=`echo "${POLYML_VERSION}." | cut -d "." -f 2-`
+  B1=`echo "${MIN_POLYML_VERSION}." | cut -d "." -f 1`
+  BS=`echo "${MIN_POLYML_VERSION}." | cut -d "." -f 2-`
+  while [ -n "${A1}" ] && [ "${A1}" -eq "${B1}" ]
+  do
+    A1=`echo "${AS}" | cut -d "." -f 1`
+    AS=`echo "${AS}" | cut -d "." -f 2-`
+    B1=`echo "${BS}" | cut -d "." -f 1`
+    BS=`echo "${BS}" | cut -d "." -f 2-`
+  done
+  if [ -n "${B1}" ] && [ 0 -lt "${B1}" ] && ([ -z "${A1}" ] || [ "${A1}" -lt "${B1}" ])
+  then
+    echo " < ${MIN_POLYML_VERSION} (REQUIRED VERSION)"
+    echo "error: Poly/ML version ${MIN_POLYML_VERSION} or later is required"
+    exit 1
+  else
+    echo " >= ${MIN_POLYML_VERSION}"
+  fi
+
+  if [ ! -x "${POLYML_POLYC}" ]
+  then
+    echo "error: Poly/ML executable file ${POLYML_POLYC} does not exist"
+    exit 1
+  fi
+
+  POLYML_VERSION_TEXT="${POLYML_VERSION}"
+else
+  POLYML_VERSION_TEXT="NOT AVAILABLE"
 fi
 
 
@@ -216,10 +530,10 @@ fi
 echo
 echo "== Checking libraries =="
 
-declare -A ALLLIBS
-declare -A SMLLIBS
-declare -A POLYMLLIBS
-declare -A MLTONLIBS
+ALL_LIB_NAMES=`empty`
+SML_LIB_NAMES=`empty`
+POLYML_LIB_NAMES=`empty`
+MLTON_LIB_NAMES=`empty`
 
 for DIR in src/sml/*-*
 do
@@ -242,94 +556,111 @@ do
 
   if [ -n "${PKGNAME}" ]
   then
-    echo -n "Checking ${NAME}... "
+    printf "Checking ${NAME}... "
 
     if pkg-config --exists "${PKGNAME}"
     then
       MODVERSION=`pkg-config --modversion "${PKGNAME}"`
-      echo -n "found version ${MODVERSION}"
+      printf "found version ${MODVERSION}"
 
-      USELIB=
+      USE_LIB=
       if [ -n "${VERSION}" ]
       then
         # check installed version is new enough
         if pkg-config --atleast-version="${VERSION}" "${PKGNAME}"
         then
           echo " >= ${VERSION}"
-          ALLLIBS[${NAME}]="${MODVERSION}"
-          USELIB=Y
+          ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
+          USE_LIB=Y
         else
-          echo " < ${VERSION} (REQUIRED VERSION)"
+          echo " < ${VERSION} (GIRAFFE VERSION)"
 
           # for now, use old version but warn that build may fail
-          ALLLIBS[${NAME}]="${MODVERSION} < ${VERSION} (REQUIRED VERSION), BUILD MAY FAIL"
-          USELIB=Y
+          ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" \
+                    | prepend "${NAME}=${MODVERSION} < ${VERSION} (GIRAFFE VERSION), BUILD MAY FAIL"`
+          USE_LIB=Y
         fi
       else
         # no version check, just use it
         echo
-        ALLLIBS[${NAME}]="${MODVERSION}"
-        USELIB=Y
+        ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
+        USE_LIB=Y
       fi
 
-      if [ -n "${USELIB}" ]
+      if [ -n "${USE_LIB}" ]
       then
-        SMLLIBS[${NAME}]=
+        SML_LIB_NAMES=`echo "${SML_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
 
-        if [ -n "${HAVEMLTON}" ] && [ -f "src/mlton/giraffe-${NAME}.c" ]
+        if [ -n "${HAVE_MLTON}" ] && [ -f "src/mlton/giraffe-${NAME}.c" ]
         then
-          MLTONLIBS[${NAME}]=
+          MLTON_LIB_NAMES=`echo "${MLTON_LIB_NAMES}" | prepend "${NAME}="`
         fi
-        if [ -n "${HAVEPOLYML}" ] && [ -f "src/polyml/giraffe-${NAME}.c" ]
+        if [ -n "${HAVE_POLYML}" ] && [ -f "src/polyml/giraffe-${NAME}.c" ]
         then
-          POLYMLLIBS[${NAME}]=
+          POLYML_LIB_NAMES=`echo "${POLYML_LIB_NAMES}" | prepend "${NAME}="`
         fi
       fi
     else
       echo "NOT FOUND"
-      ALLLIBS[${NAME}]="NOT AVAILABLE"
+      ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=NOT AVAILABLE"`
     fi
   else
     # always include if no package dependency
-    SMLLIBS[${NAME}]=
+    SML_LIB_NAMES=`echo "${SML_LIB_NAMES}" | prepend "${NAME}=0"`
   fi
 done
 
 
-
 ################################################################################
-# Check we have something to do
+# Check configuration consistency
 
-if [ -z "${HAVEMLTON}" ] && [ -z "${HAVEPOLYML}" ]
+echo
+
+if test -z "${HAVE_MLTON}" -a -z "${HAVE_POLYML}"
 then
   echo "error: no Standard ML compilers found"
   exit 1
 fi
 
+if test "X${WITH_MLTON}" = "XY" -a -z "${HAVE_MLTON}"
+then
+  echo "error: MLton required but not found"
+  exit 1
+fi
+
+if test "X${WITH_POLYML}" = "XY" -a -z "${HAVE_POLYML}"
+then
+  echo "error: Poly/ML required but not found"
+  exit 1
+fi
 
 
 ################################################################################
 # Summary
 
 echo
-echo
-echo "Giraffe Library configuration"
+echo "Configuration summary"
 echo
 echo "  Installation directory    ${PREFIX}"
 echo
 echo "  Standard ML compilers   Using version"
-printf "    %-24s%s\n" "MLton" "${MLTONVER}"
-printf "    %-24s%s\n" "Poly/ML" "${POLYMLVER}"
+if test "X${WITH_MLTON}" != "XN"
+then
+  printf "    %-24s%s\n" "MLton" "${MLTON_VERSION_TEXT}"
+fi
+if test "X${WITH_POLYML}" != "XN"
+then
+  printf "    %-24s%s\n" "Poly/ML" "${POLYML_VERSION_TEXT}"
+fi
 echo
 echo "  Libraries               Using package version"
-(
-  # don't let IFS=... leak
-  IFS=$'\n' ALLLIBKEYS=`sort <<< "${!ALLLIBS[*]}"`
-  for NAME in ${ALLLIBKEYS[@]}
+echo "${ALL_LIB_NAMES}" | keys | sort |
+  while read NAME
   do
-    printf "    %-24s%s\n" ${NAME} "${ALLLIBS[${NAME}]}"
+    VERSION=`echo "${ALL_LIB_NAMES}" | lookup "${NAME}"`
+    printf "    %-24s%s\n" "${NAME}" "${VERSION}"
   done
-)
+echo
 
 
 ################################################################################
@@ -344,10 +675,24 @@ then
   exit 1
 fi
 
-write_line () { echo "$1" >> "${OUTFILE}" ; }
+write_line () { echo "$@" >> "${OUTFILE}" ; }
 
-write_line "PREFIX=${PREFIX}"
-write_line "SMLLIBS=${!SMLLIBS[*]}"
-write_line "MLTONLIBS=${!MLTONLIBS[*]}"
-write_line "POLYMLLIBS=${!POLYMLLIBS[*]}"
-write_line "MLTONINCLUDE=${MLTONINCLUDE}"
+write_line "PREFIX := ${PREFIX}"
+write_line "SML_LIB_NAMES :=" `echo "${SML_LIB_NAMES}" | keys | sort`
+write_line "MLTON_VERSION = ${MLTON_VERSION}"
+if [ -n "${HAVE_MLTON}" ]
+then
+  write_line "MLTON_LIB_NAMES :=" `echo "${MLTON_LIB_NAMES}" | keys | sort`
+  write_line "MLTON_MLTON := ${MLTON_MLTON}"
+  write_line "MLTON_BINDIR := ${MLTON_BINDIR}"
+  write_line "MLTON_INCLUDEDIR := ${MLTON_INCLUDEDIR}"
+fi
+write_line "POLYML_VERSION := ${POLYML_VERSION}"
+if [ -n "${HAVE_POLYML}" ]
+then
+  write_line "POLYML_LIB_NAMES :=" `echo "${POLYML_LIB_NAMES}" | keys | sort`
+  write_line "POLYML_POLY := ${POLYML_POLY}"
+  write_line "POLYML_POLYC := ${POLYML_POLYC}"
+  write_line "POLYML_BINDIR := ${POLYML_BINDIR}"
+  write_line "POLYML_LIBDIR := ${POLYML_LIBDIR}"
+fi

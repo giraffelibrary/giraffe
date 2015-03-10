@@ -7,13 +7,22 @@
 # or visit <http://www.giraffelibrary.org/licence-runtime.html>.
 
 
+
+################################################################################
+# Configuration
+#
+
+SHELL=/bin/sh
+
 -include config.mk
 
-ifndef SMLLIBS
-default :
-	@echo
-	@echo "error: config.mk not found; run ./configure first"
-else
+ifndef SML_LIB_NAMES
+$(info Configuration file "config.mk" not found or contents missing.)
+$(info )
+$(info Run "./configure" first.)
+$(info )
+$(error No configuration found)
+endif
 
 
 
@@ -44,36 +53,44 @@ CFLAGS := -DGIRAFFE_DEBUG -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Wer
 #   - MLton
 
 src/mlton/gcharvecveclib.o : src/mlton/gcharvecveclib.c
-	@$(CC) $(CFLAGS) -c -o $@ `pkg-config --cflags glib-2.0` $<
+	$(CC) $(CFLAGS) -c -o $@ `pkg-config --cflags glib-2.0` $<
 
-MLTONCFLAGS := $(CFLAGS) -iquote "src"
-MLTONOFILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTONLIBS))
+MLTON_CFLAGS := $(CFLAGS) -iquote "src"
+MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 
-$(MLTONOFILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/gcharptrffi.h src/mlton/gcharptrptrffi.h
-	@$(CC) $(MLTONCFLAGS) -c -I$(MLTONINCLUDE) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
+$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/gcharptrffi.h src/mlton/gcharptrptrffi.h
+	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
 
 
 .PHONY : mlton
 
-mlton : src/mlton/gcharvecveclib.o $(MLTONOFILES)
+ifdef MLTON_VERSION
+mlton : src/mlton/gcharvecveclib.o $(MLTON_OBJ_FILES)
+else
+mlton :
+endif
 
 
 #   - Poly/ML
 
-POLYMLCFLAGS := $(CFLAGS) -iquote "src" -fPIC
-POLYMLOFILES  := $(patsubst %,src/polyml/giraffe-%.o,$(POLYMLLIBS))
-POLYMLSOFILES := $(patsubst %,src/polyml/libgiraffe-%.so,$(POLYMLLIBS))
+POLYML_CFLAGS := $(CFLAGS) -iquote "src" -fPIC
+POLYML_OBJ_FILES  := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
+POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.so,$(POLYML_LIB_NAMES))
 
-$(POLYMLOFILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
-	@$(CC) $(POLYMLCFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
+$(POLYML_OBJ_FILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
+	$(CC) $(POLYML_CFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
 
-$(POLYMLSOFILES) : src/polyml/libgiraffe-%.so : src/polyml/giraffe-%.o
-	@$(CC) -shared -Wl,-soname,src/polyml/libgiraffe-glib.so.1 -o $@ `pkg-config --libs $(shell cat src/sml/$*/package)` $<
+$(POLYML_LIB_FILES) : src/polyml/libgiraffe-%.so : src/polyml/giraffe-%.o
+	$(CC) -shared -Wl,-soname,libgiraffe-$*.so -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
 
 
 .PHONY : polyml
 
-polyml : $(POLYMLSOFILES)
+ifdef POLYML_VERSION
+polyml : $(POLYML_LIB_FILES)
+else
+polyml :
+endif
 
 
 
@@ -81,41 +98,58 @@ polyml : $(POLYMLSOFILES)
 # Installation
 #
 
-LIBDIR := "$(PREFIX)/lib"
-INCLUDEDIR := "$(PREFIX)/include"
+LIBDIR := $(PREFIX)/lib
+INCLUDEDIR := $(PREFIX)/include
 
 .PHONY : install-mlton install-polyml install-sml install
 
+ifdef MLTON_VERSION
 install-mlton :
-	@mkdir -p "$(LIBDIR)"
-	@mkdir -p "$(LIBDIR)/mlton"
-	@install -p -m 644 -t "$(LIBDIR)/mlton" \
-	  src/mlton/gcharvecveclib.o \
-	  $(MLTONOFILES)
-	@mkdir -p "$(INCLUDEDIR)"
-	@mkdir -p "$(INCLUDEDIR)/mlton"
-	@install -p -m 644 -t "$(INCLUDEDIR)/mlton" \
-	  src/mlton/gcharptrffi.h \
-	  src/mlton/gcharptrptrffi.h
+	install -d "$(LIBDIR)"
+	install -d "$(LIBDIR)/mlton"
+	install -c -p -m 644 \
+	 src/mlton/libgcharvecveclib.a \
+	 $(MLTON_LIB_FILES) \
+	 "$(LIBDIR)/mlton"
+	install -d "$(INCLUDEDIR)"
+	install -d "$(INCLUDEDIR)/mlton"
+	install -c -p -m 644 \
+	 src/mlton/gcharptrffi.h \
+	 src/mlton/gcharptrptrffi.h \
+	 "$(INCLUDEDIR)/mlton"
+else
+install-mlton :
+endif
 
+ifdef POLYML_VERSION
 install-polyml :
-	@mkdir -p "$(LIBDIR)"
-	@mkdir -p "$(LIBDIR)/polyml"
-	@install -p -m 755 -t "$(LIBDIR)/polyml" \
-	  $(POLYMLSOFILES)
+	install -d "$(LIBDIR)"
+	install -d "$(LIBDIR)/polyml"
+	install -c -p -m 755 $(POLYML_LIB_FILES) "$(LIBDIR)/polyml"
+else
+install-polyml :
+endif
 
 install-sml :
-	@mkdir -p "$(LIBDIR)"
-	@mkdir -p "$(LIBDIR)/sml"
-	@install -p -m 644 -t "$(LIBDIR)/sml" src/sml/polyml.sml
-	@for d in ffi general ${SMLLIBS} ;\
-	 do \
-	   mkdir -p "$(LIBDIR)/sml/$${d}" ;\
-	   install -p -m 644 -t "$(LIBDIR)/sml/$${d}" src/sml/$${d}/*.sml src/sml/$${d}/*.mlb ;\
-	   mkdir -p "$(LIBDIR)/sml/$${d}/mlton" "$(LIBDIR)/sml/$${d}/polyml" ;\
-	   install -p -m 644 -t "$(LIBDIR)/sml/$${d}/mlton" src/sml/$${d}/mlton/*.sml ;\
-	   install -p -m 644 -t "$(LIBDIR)/sml/$${d}/polyml" src/sml/$${d}/polyml/*.sml ;\
-	 done
+	install -c -p -m 644 config.mk "$(PREFIX)"
+	install -d "$(LIBDIR)"
+	install -d "$(LIBDIR)/sml"
+	install -c -p -m 644 src/sml/polyml.sml "$(LIBDIR)/sml"
+	for dir in ffi general $(SML_LIB_NAMES) ; \
+	do \
+	  install -d "$(LIBDIR)/sml/$${dir}" ; \
+	  install -c -p -m 644 src/sml/$${dir}/*.sml src/sml/$${dir}/*.mlb "$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(LIBDIR)/sml/$${dir}/mlton" "$(LIBDIR)/sml/$${dir}/polyml" ; \
+	  install -c -p -m 644 src/sml/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
+	  install -c -p -m 644 src/sml/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
+	done
+	for dir in $(SML_LIB_NAMES) ; \
+	do \
+	  install -c -p -m 644 src/sml/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \
+	  [ -e src/sml/$${dir}/version ] \
+	   && install -c -p -m 644 src/sml/$${dir}/version "$(LIBDIR)/sml/$${dir}" \
+	   || true ; \
+	done
 
 install : install-mlton install-polyml install-sml
 
@@ -128,12 +162,10 @@ install : install-mlton install-polyml install-sml
 .PHONY : clean distclean
 
 clean :
-	rm -f $(POLYMLOFILES)
+	rm -f $(POLYML_OBJ_FILES)
 
 distclean : clean
 	rm -f src/mlton/gcharvecveclib.o
-	rm -f $(MLTONOFILES)
-	rm -f $(POLYMLSOFILES)
+	rm -f $(MLTON_OBJ_FILES)
+	rm -f $(POLYML_LIB_FILES)
 	rm -f config.mk
-
-endif
