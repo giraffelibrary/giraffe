@@ -47,7 +47,7 @@ help :
 # Building
 #
 
-CFLAGS := -DGIRAFFE_DEBUG -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Werror -O2
+CFLAGS := -DGIRAFFE_DEBUG -fPIC -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Werror -O2
 
 
 #   - MLton
@@ -57,15 +57,21 @@ src/mlton/gcharvecveclib.o : src/mlton/gcharvecveclib.c
 
 MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
+MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
 $(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/gcharptrffi.h src/mlton/gcharptrptrffi.h
 	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
+
+MLTON_AR_FLAGS := rcs
+
+$(MLTON_LIB_FILES) src/mlton/libgcharvecveclib.a : src/mlton/lib%.a : src/mlton/%.o
+	$(AR) $(MLTON_AR_FLAGS) $@ $<
 
 
 .PHONY : mlton
 
 ifdef MLTON_VERSION
-mlton : src/mlton/gcharvecveclib.o $(MLTON_OBJ_FILES)
+mlton : src/mlton/libgcharvecveclib.a $(MLTON_LIB_FILES)
 else
 mlton :
 endif
@@ -73,7 +79,7 @@ endif
 
 #   - Poly/ML
 
-POLYML_CFLAGS := $(CFLAGS) -iquote "src" -fPIC
+POLYML_CFLAGS := $(CFLAGS) -iquote "src"
 POLYML_OBJ_FILES  := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
 POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.so,$(POLYML_LIB_NAMES))
 
@@ -162,10 +168,12 @@ install : install-mlton install-polyml install-sml
 .PHONY : clean distclean
 
 clean :
+	rm -f src/mlton/gcharvecveclib.o
+	rm -f $(MLTON_OBJ_FILES)
 	rm -f $(POLYML_OBJ_FILES)
 
 distclean : clean
-	rm -f src/mlton/gcharvecveclib.o
-	rm -f $(MLTON_OBJ_FILES)
+	rm -f src/mlton/libgcharvecveclib.a
+	rm -f $(MLTON_LIB_FILES)
 	rm -f $(POLYML_LIB_FILES)
 	rm -f config.mk
