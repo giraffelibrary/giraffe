@@ -5,9 +5,6 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-val libc = CInterface.load_lib "libc.so.6"
-val libglib = CInterface.load_lib "libglib-2.0.so.0"
-;
 use "polyml/POLY_M_L_F_F_I.sml";
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
@@ -16,6 +13,10 @@ use "C_ARRAY.sml";
 use "FILE_DESC";
 use "polyml/CPointer.sml";
 use "polyml/Finalizable.sml";
+
+val libc = PolyMLFFI.load_lib ""
+val libglib = PolyMLFFI.load_lib ""
+;
 use "polyml/GCharVec.sml";
 use "polyml/GCharVecVec.sml";
 use "polyml/F_F_I_SCALAR.sml";

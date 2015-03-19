@@ -1,4 +1,4 @@
-val libpango = PolyMLFFI.load_lib "libpango-1.0.so.0";
+val libpango = PolyMLFFI.load_lib "";
 use "PANGO_GLYPH.sml";
 use "PANGO_GLYPH_UNIT.sml";
 use "PANGO_ALIGNMENT.sml";

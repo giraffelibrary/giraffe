@@ -1,4 +1,4 @@
-val libgirepository = PolyMLFFI.load_lib "libgirepository-1.0.so.1";
+val libgirepository = PolyMLFFI.load_lib "";
 use "G_I_REPOSITORY_ARRAY_TYPE.sml";
 use "G_I_REPOSITORY_DIRECTION.sml";
 use "G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";

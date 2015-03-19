@@ -1,5 +1,5 @@
-val libgdk = PolyMLFFI.load_lib "libgdk-3.so.0";
-val libgiraffegdk = PolyMLFFI.load_lib "libgiraffe-gdk-3.0.so";
+val libgdk = PolyMLFFI.load_lib "";
+val libgiraffegdk = PolyMLFFI.load_lib "";
 use "GDK_EVENT_ANY_RECORD.sml";
 use "GDK_EVENT_BUTTON_RECORD.sml";
 use "GDK_EVENT_CONFIGURE_RECORD.sml";

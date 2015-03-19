@@ -1,11 +1,11 @@
 (*
  * Open file using the following command:
  *
- * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/src/polyml: xpp -f codegen-typelib.sml -c poly
+ * LD_PRELOAD=libglib-2.0.so:libgtk-3.so:libgirepository-1.0.so:libgiraffe-girepository-2.0.so LD_LIBRARY_PATH=/usr/lib64:/home/pclayton/SML/Giraffe/devel/giraffe/src/polyml: xpp -f codegen-typelib.sml -c poly
  *
  * For gobject-introspection-1.42, open file using the following command:
  *
- * LD_LIBRARY_PATH=/home/pclayton/SML/Giraffe/devel/giraffe/auto/polyml:/opt/gobject-introspection/gobject-introspection-1.42.0/lib: xpp -f codegen-typelib.sml -c poly
+ * LD_PRELOAD=libglib-2.0.so:libgtk-3.so:libgirepository-1.0.so:libgiraffe-girepository-2.0.so LD_LIBRARY_PATH=/usr/lib64:/home/pclayton/SML/Giraffe/devel/giraffe/src/polyml:/opt/gobject-introspection/gobject-introspection-1.42.0/lib: xpp -f codegen-typelib.sml -c poly
  *)
 
 PolyML.Compiler.reportUnreferencedIds := true;
@@ -637,6 +637,14 @@ fun checkDeprecated info =
   then infoError "deprecated"
   else ()
 
+
+(* `getSharedLibraryFile repo vers namespace` returns the first filename in
+ * the comma-separated list of shared libraries for `namespace`.
+ *
+ * At this stage it is not known why there can be multiple files listed for
+ * a namespace.
+ *)
+
 fun getSharedLibraryFile repo vers namespace =
   case Repository.getSharedLibrary repo vers namespace of
     SOME sharedLibraries => (
@@ -646,6 +654,33 @@ fun getSharedLibraryFile repo vers namespace =
     )
   | NONE               => infoError "no shared library"
 
+(* On Darwin, the shared library file returned by `getSharedLibraryFile`
+ * includes a path.  `getSharedLibraryFileName` returns just the file name,
+ * i.e. removes the path.
+ *)
+
+fun getSharedLibraryFileName repo vers namespace =
+  OS.Path.file (getSharedLibraryFile repo vers namespace)
+
+
+(* Shared library file names vary between systems.  The following formats are
+ * expected for a library called <name> with an optional compatibility
+ * version number <version>.  <version> is one or more digits.  <name> may
+ * contain the characters '-' and '.', for example "gtk-3.0".
+ *
+ *                     with version                without version
+ *
+ *   Linux, BSD etc.   <name>.so.<version>         <name>.so
+ *   Darwin            <name>.<version>.dylib      <name>.dylib
+ *   MinGW             <name>-<version>.dll        <name>.dll
+ *
+ * For MinGW, see the file listing here:
+ * http://www.tarnyko.net/repo/gtk3_build_system/tutorial/gtk3_tutorial.htm
+ *)
+
+(* `getSharedLibraryId repo vers namespace` returns an SML identifier for use
+ * as a reference to the shared library name.
+ *)
 local
   fun getLibId s =
     let
@@ -666,8 +701,10 @@ local
     end
 in
   fun getSharedLibraryId repo vers =
-    getLibId o OS.Path.file o getSharedLibraryFile repo vers
+    getLibId o getSharedLibraryFileName repo vers
 end
+
+
 
 fun getName info =
   case BaseInfo.getName info of
@@ -9644,11 +9681,13 @@ local
 
   (*
    *   val <libId> = PolyMLFFI.load_lib "<libFile>";
+   *
+   * where <libFile> is the empty string (to pass NULL to dlopen).
    *)
   fun mkLibTopLevelDec repo vers namespace =
     let
       val libId = getSharedLibraryId repo vers namespace
-      val libFile = getSharedLibraryFile repo vers namespace
+      val libFile = ""
       val pat = PatA (APatId libId)
       val exp =
         ExpApp (

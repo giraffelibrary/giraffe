@@ -1,6 +1,6 @@
-val libcairogobject = PolyMLFFI.load_lib "libcairo-gobject.so.2";
-val libcairo = PolyMLFFI.load_lib "libcairo.so.2";
-val libgiraffecairo = PolyMLFFI.load_lib "libgiraffe-cairo-1.0.so";
+val libcairogobject = PolyMLFFI.load_lib "";
+val libcairo = PolyMLFFI.load_lib "";
+val libgiraffecairo = PolyMLFFI.load_lib "";
 use "CAIRO_CONTEXT_RECORD.sml";
 use "CAIRO_CONTEXT.sml";
 use "CAIRO_SURFACE_RECORD.sml";

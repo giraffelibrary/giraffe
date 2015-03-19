@@ -1,4 +1,4 @@
-val libgobject = PolyMLFFI.load_lib "libgobject-2.0.so.0";
+val libgobject = PolyMLFFI.load_lib "";
 use "CLOSURE_MARSHAL.sml";
 use "SIGNAL.sml";
 use "PROPERTY.sml";

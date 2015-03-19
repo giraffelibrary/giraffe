@@ -1,5 +1,5 @@
-val libvte = PolyMLFFI.load_lib "libvte2_90.so.9";
-val libgiraffevte = PolyMLFFI.load_lib "libgiraffe-vte-2.90.so";
+val libvte = PolyMLFFI.load_lib "";
+val libgiraffevte = PolyMLFFI.load_lib "";
 use "VTE_PTY_CLASS.sml";
 use "VTE_PTY.sml";
 use "VTE_PTY_ERROR.sml";

@@ -1,4 +1,4 @@
-val libgtksourceview = PolyMLFFI.load_lib "libgtksourceview-3.0.so.0";
+val libgtksourceview = PolyMLFFI.load_lib "";
 use "GTK_SOURCE_BRACKET_MATCH_TYPE.sml";
 use "GTK_SOURCE_BUFFER_CLASS.sml";
 use "GTK_SOURCE_BUFFER.sml";

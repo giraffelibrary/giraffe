@@ -1,5 +1,5 @@
-val libgirepository = CInterface.load_lib "libgirepository-1.0.so"
-val libgiraffegirepository = CInterface.load_lib "libgiraffe-girepository-2.0.so"
+val libgirepository = PolyMLFFI.load_lib ""
+val libgiraffegirepository = PolyMLFFI.load_lib ""
 ;
 
 use "typelib/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";

@@ -1,4 +1,4 @@
-val libpangocairo = PolyMLFFI.load_lib "libpangocairo-1.0.so.0";
+val libpangocairo = PolyMLFFI.load_lib "";
 use "PANGO_CAIRO_FC_FONT_MAP_CLASS.sml";
 use "PANGO_CAIRO_FC_FONT_MAP.sml";
 use "PANGO_CAIRO_FONT_CLASS.sml";

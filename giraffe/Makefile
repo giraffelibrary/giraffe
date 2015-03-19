@@ -24,6 +24,16 @@ $(info )
 $(error No configuration found)
 endif
 
+ifndef KERNEL_NAME
+KERNEL_NAME = $(shell uname -s)
+endif
+
+ifeq ($(KERNEL_NAME),Darwin)
+LIB := dylib
+else
+LIB := so
+endif
+
 
 
 ################################################################################
@@ -80,14 +90,18 @@ endif
 #   - Poly/ML
 
 POLYML_CFLAGS := $(CFLAGS) -iquote "src"
-POLYML_OBJ_FILES  := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
-POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.so,$(POLYML_LIB_NAMES))
+POLYML_OBJ_FILES := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
+POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.$(LIB),$(POLYML_LIB_NAMES))
 
 $(POLYML_OBJ_FILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
 	$(CC) $(POLYML_CFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
 
-$(POLYML_LIB_FILES) : src/polyml/libgiraffe-%.so : src/polyml/giraffe-%.o
-	$(CC) -shared -Wl,-soname,libgiraffe-$*.so -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
+$(POLYML_LIB_FILES) : src/polyml/libgiraffe-%.$(LIB) : src/polyml/giraffe-%.o
+ifeq ($(KERNEL_NAME),Darwin)
+	$(CC) -dynamiclib -Wl,-install_name,"@rpath/libgiraffe-$*.$(LIB)" -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
+else
+	$(CC) -shared -Wl,-soname,libgiraffe-$*.$(LIB) -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
+endif
 
 
 .PHONY : polyml

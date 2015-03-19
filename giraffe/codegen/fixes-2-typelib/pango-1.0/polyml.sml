@@ -1,5 +1,5 @@
-val libpango = PolyMLFFI.load_lib "libpango-1.0.so.0";
-val libgiraffepango = PolyMLFFI.load_lib "libgiraffe-pango-1.0.so";
+val libpango = PolyMLFFI.load_lib "";
+val libgiraffepango = PolyMLFFI.load_lib "";
 use "PANGO_ALIGNMENT.sml";
 use "PANGO_ATTR_LIST_RECORD.sml";
 use "PANGO_ATTR_LIST.sml";

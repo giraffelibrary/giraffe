@@ -1,5 +1,5 @@
-val libgtk = PolyMLFFI.load_lib "libgtk-3.so.0";
-val libgiraffegtk = PolyMLFFI.load_lib "libgiraffe-gtk-3.0.so";
+val libgtk = PolyMLFFI.load_lib "";
+val libgiraffegtk = PolyMLFFI.load_lib "";
 use "CHILD_SIGNAL.sml";
 use "STYLE_PROPERTY.sml";
 use "GTK_ACTION_ENTRY.sml";

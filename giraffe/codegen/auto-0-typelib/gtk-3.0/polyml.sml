@@ -1,4 +1,4 @@
-val libgtk = PolyMLFFI.load_lib "libgtk-3.so.0";
+val libgtk = PolyMLFFI.load_lib "";
 use "CHILD_SIGNAL.sml";
 use "STYLE_PROPERTY.sml";
 use "GTK_ACTION_ENTRY.sml";
