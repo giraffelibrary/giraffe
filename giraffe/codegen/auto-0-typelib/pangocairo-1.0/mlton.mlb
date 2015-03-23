@@ -3,7 +3,6 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../glib-2.0/mlton.mlb
   ../gobject-2.0/mlton.mlb
   ../pango-1.0/mlton.mlb
@@ -11,6 +10,7 @@ in
   ../cairo-1.0/mlton.mlb
   ../fontconfig-2.0/mlton.mlb
   ../freetype2-2.0/mlton.mlb
+in
   PANGO_CAIRO_FC_FONT_MAP_CLASS.sml
   PANGO_CAIRO_FC_FONT_MAP.sml
   PANGO_CAIRO_FONT_CLASS.sml

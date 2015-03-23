@@ -3,7 +3,6 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../glib-2.0/mlton.mlb
   ../gobject-2.0/mlton.mlb
   ../atk-1.0/mlton.mlb
@@ -15,6 +14,7 @@ in
   ../gdk-3.0/mlton.mlb
   ../xlib-2.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
+in
   VTE_PTY_CLASS.sml
   VTE_PTY.sml
   VTE_PTY_ERROR.sml

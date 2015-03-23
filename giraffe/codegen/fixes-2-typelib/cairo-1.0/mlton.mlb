@@ -3,8 +3,8 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../gobject-2.0/mlton.mlb
+in
   CAIRO_CONTEXT_RECORD.sml
   CAIRO_CONTEXT.sml
   CAIRO_SURFACE_RECORD.sml

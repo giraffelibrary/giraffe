@@ -3,10 +3,10 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../glib-2.0/mlton.mlb
   ../gobject-2.0/mlton.mlb
   ../cairo-1.0/mlton.mlb
+in
   PANGO_ALIGNMENT.sml
   PANGO_ATTR_LIST_RECORD.sml
   PANGO_ATTR_LIST.sml

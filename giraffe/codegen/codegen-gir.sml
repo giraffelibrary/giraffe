@@ -10297,7 +10297,9 @@ fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
     val mkMLtonFile = mkProgramFile false
     val basDecs'1 = revMap mkMLtonFile revStrs
     val basDecs'2 = revMapAppend mkMLtonFile (revSigs, basDecs'1)
-    val basDecs'3 = revMapAppend mkNamespaceBasDec (namespaceDeps, basDecs'2)
+
+    val namespaceDepBasDecs = revMap mkNamespaceBasDec namespaceDeps
+    val localBasDecs = mltonBasDecs @ giraffeBasDecs @ namespaceDepBasDecs
 
     open HVTextTree
     val indent = V.indentWith (H.str "  ") true
@@ -10305,11 +10307,11 @@ fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
     V.seq [
       V.str "local",
       indent (
-        V.seq (map V.str (mltonBasDecs @ giraffeBasDecs))
+        V.seq (map V.str localBasDecs)
       ),
       V.str "in",
       indent (
-        V.seq (map V.str basDecs'3)
+        V.seq (map V.str basDecs'2)
       ),
       V.str "end"
     ]

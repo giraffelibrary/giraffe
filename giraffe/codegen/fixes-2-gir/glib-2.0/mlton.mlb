@@ -3,8 +3,8 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../gobject-2.0/mlton.mlb
+in
   G_LIB_SOURCE_FUNC.sml
   G_LIB_CHILD_WATCH_FUNC.sml
   G_LIB_SPAWN_CHILD_SETUP_FUNC.sml

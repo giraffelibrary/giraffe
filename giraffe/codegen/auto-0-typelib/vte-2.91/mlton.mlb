@@ -3,10 +3,10 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
   ../gdk-3.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
   ../pango-1.0/mlton.mlb
+in
   VTE_CURSOR_BLINK_MODE.sml
   VTE_CURSOR_SHAPE.sml
   VTE_ERASE_BINDING.sml
