@@ -1,0 +1,86 @@
+Source release directory layout
+
+  README                    - Giraffe Library overview
+  INSTALL                   - installation instructions
+  CHANGES                   - description of changes
+  LICENCE.RUNTIME           - licence for run-time files
+  COPYING                   - GNU LGPL version 2.1
+  configure
+  Makefile
+
+  doc/                      - documentation
+    layout.txt                - this file
+
+  src/                      - source code
+    mlton/                    - C interface support for MLton
+      gcharptrffi.h             - interface functions for GCharVec FFI
+      gcharptrptrffi.h          - interface functions for GCharVecVec FFI
+      gcharvecveclib.c          - internal functions for GCharVecVec FFI
+      giraffe-sml-<namespace>-<version>.h
+                                - SML interface exported by MLton
+      giraffe-<namespace>-<version>.h
+      giraffe-<namespace>-<version>.c
+
+    polyml/                   - C interface support for Poly/ML
+      giraffe-<namespace>-<version>.h
+      giraffe-<namespace>-<version>.c
+
+    sml/                      - SML libraries
+      polyml.sml                - recursive 'use' function for Poly/ML
+
+      general/                  - general purpose SML utilities
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+      ffi/                      - FFI extensions (for high-level FFI)
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+      <namespace>-<version>/    - SML bindings for <namespace>-<version>
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+
+
+Installation directory layout
+
+  lib/                      - libraries for target platform
+    mlton/                    - interface (static) libraries for MLton
+      libgcharvecveclib.a
+      libgiraffe-<namespace>-<version>.a
+
+    polyml/                   - interface (shared) libraries for Poly/ML
+      libgiraffe-<namespace>-<version>.so
+
+    sml/                      - SML libraries (source code, not compiled)
+      polyml.sml                - copy of src/sml/polyml.sml
+
+      general/                  - copy of src/sml/general
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+      ffi/                      - copy of src/sml/ffi
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+      <namespace>-<version>/    - copy of src/sml/<namespace>-<version>
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+
+  include/
+    mlton/
+      gcharptrffi.h             - copy of src/mlton/gcharptrffi.h
+      gcharptrptrffi.h          - copy of src/mlton/gcharptrptrffi.h
+

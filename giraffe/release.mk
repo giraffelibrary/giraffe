@@ -62,7 +62,7 @@ RELEASEFILES := \
 	CHANGES \
 	configure \
 	COPYING \
-	doc/source_code.txt \
+	doc/layout.txt \
 	INSTALL \
 	LICENCE.RUNTIME \
 	Makefile \
