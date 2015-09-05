@@ -1,3 +1,32 @@
+1.0.0-alpha.6 (2015-09-16)
+
+    Added type abbreviation for object and structure types:
+      - for class C, object type C.t = base C.class_t
+      - for record R, structure type R.t = R.record_t
+
+
+1.0.0-alpha.5 (2015-05-29)
+
+    Added support for Darwin (Mac OS X).
+    Poly/ML 5.5.2 required.
+    Improved installation:
+      - scripts compatible with Dash and Bash 3
+      - further configure options and checks
+      - corrections to Makefile
+    config.mk file installed to provide configuration to applications.
+    Archive (A) files built for MLton C libraries instead of object (O) files.
+    Fixed bugs in C libraries and turned on C compiler warnings.
+    Changed runtime licence to LGPL v2.1.
+
+
+1.0.0-alpha.4 (2015-02-08)
+
+    Added support for multiple versions of a library.
+    Added library vte-2.91.
+    Restructured source code directories.
+    Introduced configure script for installation.
+
+
 1.0.0-alpha.3 (2014-12-19)
 
     SML generated from GIR files:
