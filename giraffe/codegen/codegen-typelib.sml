@@ -1671,6 +1671,20 @@ val optArgNames = [
 ]
 
 
+(* Flags/Enum value names to be transformed *)
+
+val newFlagsEnumValueNames = [
+  ("2big", "too_big"),
+  ("2button_press", "double_button_press"),
+  ("3button_press", "triple_button_press")
+]
+
+fun fixFlagsEnumValueName name =
+  case List.find (fn (x, _) => x = name) newFlagsEnumValueNames of
+    SOME (_, name') => name'
+  | NONE            => name
+
+
 (* Support for parameters and return values *)
 
 val containerForUtf8 =
@@ -8031,7 +8045,7 @@ fun getEnumIntConst valueInfo =
     ConstInt (IntInf.fromLarge n, NONE)
   end
 
-fun getValueNameId valueInfo = toUC (getName valueInfo)
+fun getValueNameId valueInfo = toUC (fixFlagsEnumValueName (getName valueInfo))
 
 (*
  *     [

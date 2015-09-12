@@ -15,8 +15,8 @@ structure GdkEventType :>
     | EXPOSE
     | MOTIONNOTIFY
     | BUTTONPRESS
-    | 2BUTTONPRESS
-    | 3BUTTONPRESS
+    | DOUBLEBUTTONPRESS
+    | TRIPLEBUTTONPRESS
     | BUTTONRELEASE
     | KEYPRESS
     | KEYRELEASE
@@ -60,8 +60,8 @@ structure GdkEventType :>
           | EXPOSE => f 2
           | MOTIONNOTIFY => f 3
           | BUTTONPRESS => f 4
-          | 2BUTTONPRESS => f 5
-          | 3BUTTONPRESS => f 6
+          | DOUBLEBUTTONPRESS => f 5
+          | TRIPLEBUTTONPRESS => f 6
           | BUTTONRELEASE => f 7
           | KEYPRESS => f 8
           | KEYRELEASE => f 9
@@ -101,8 +101,8 @@ structure GdkEventType :>
           | 2 => EXPOSE
           | 3 => MOTIONNOTIFY
           | 4 => BUTTONPRESS
-          | 5 => 2BUTTONPRESS
-          | 6 => 3BUTTONPRESS
+          | 5 => DOUBLEBUTTONPRESS
+          | 6 => TRIPLEBUTTONPRESS
           | 7 => BUTTONRELEASE
           | 8 => KEYPRESS
           | 9 => KEYRELEASE

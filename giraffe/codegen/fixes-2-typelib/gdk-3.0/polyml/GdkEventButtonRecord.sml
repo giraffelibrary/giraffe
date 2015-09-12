@@ -19,8 +19,8 @@ structure GdkEventButtonRecord :>
 
     datatype event =
       BUTTONPRESS
-    | TWOBUTTONPRESS
-    | THREEBUTTONPRESS
+    | DOUBLEBUTTONPRESS
+    | TRIPLEBUTTONPRESS
     | BUTTONRELEASE
 
 

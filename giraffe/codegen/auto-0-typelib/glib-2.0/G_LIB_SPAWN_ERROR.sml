@@ -6,7 +6,7 @@ signature G_LIB_SPAWN_ERROR =
     | CHDIR
     | ACCES
     | PERM
-    | 2BIG
+    | TOOBIG
     | NOEXEC
     | NAMETOOLONG
     | NOENT

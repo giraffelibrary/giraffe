@@ -11,7 +11,7 @@ structure GLibSpawnError :>
     | CHDIR
     | ACCES
     | PERM
-    | 2BIG
+    | TOOBIG
     | NOEXEC
     | NAMETOOLONG
     | NOENT
@@ -38,7 +38,7 @@ structure GLibSpawnError :>
           | CHDIR => f 2
           | ACCES => f 3
           | PERM => f 4
-          | 2BIG => f 5
+          | TOOBIG => f 5
           | NOEXEC => f 6
           | NAMETOOLONG => f 7
           | NOENT => f 8
@@ -61,7 +61,7 @@ structure GLibSpawnError :>
           | 2 => CHDIR
           | 3 => ACCES
           | 4 => PERM
-          | 5 => 2BIG
+          | 5 => TOOBIG
           | 6 => NOEXEC
           | 7 => NAMETOOLONG
           | 8 => NOENT
