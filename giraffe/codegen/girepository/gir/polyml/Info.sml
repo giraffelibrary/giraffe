@@ -53,15 +53,15 @@ structure Info =
     | TRANSLATING
     | UNTRANSLATED
 
-    and 'data basedata =
+    and basedata =
       BASE of
         {
           name       : string option,
-          container  : data basedata option,
+          container  : basedata option,
           typelib    : repodata,
           deprecated : bool,
           attributes : string ListDict.t,
-          instance   : 'data
+          instance   : data
         }
           ref
 
@@ -69,8 +69,8 @@ structure Info =
       TYPEDATA of
         {
           tag                 : GIRepositoryTypeTag.t,
-          interface           : data basedata option,
-          params              : data basedata list,
+          interface           : basedata option,
+          params              : basedata list,
           ptrDepth            : int option,  (* NONE only for ALIAS INTERFACE *)
           arrayLength         : LargeInt.int option,
           arrayFixedSize      : LargeInt.int option,
@@ -89,9 +89,9 @@ structure Info =
             version   : string,
             cPrefix   : string option,
             sharedLib : string option,
-            infos     : data basedata Vector.vector
+            infos     : basedata Vector.vector
           },
-        elemDict     : ((GIRepositoryTypeTag.t * data basedata option) * int option) Dict.t
+        elemDict     : ((GIRepositoryTypeTag.t * basedata option) * int option) Dict.t
       }
         ref
 
@@ -99,15 +99,15 @@ structure Info =
       {
         returnValue :
           {
-            type_             : data basedata,
+            type_             : basedata,
             transferOwnership : GIRepositoryTransfer.t
           },
-        parameter   : data basedata list
+        parameter   : basedata list
       }
 
     and aliasdata =
       {
-        type_ : data basedata
+        type_ : basedata
       }
 
     and argdata =
@@ -119,32 +119,32 @@ structure Info =
         scope             : GIRepositoryScopeType.t,
         closure           : LargeInt.int option,
         destroy           : LargeInt.int option,
-        type_             : data basedata
+        type_             : basedata
       }
 
     and propertydata =
       {
         flags             : GObjectParamFlags.t,
         transferOwnership : GIRepositoryTransfer.t,
-        type_             : data basedata
+        type_             : basedata
       }
 
     and fielddata =
       {
         flags : GIRepositoryFieldInfoFlags.t,
-        type_ : data basedata
+        type_ : basedata
       }
 
     and constantdata =
       {
         value : GIRepositoryArgument.t,
-        type_ : data basedata
+        type_ : basedata
       }
 
     and enumdata =
       {
-        member      : data basedata list,
-        method      : data basedata list,
+        member      : basedata list,
+        method      : basedata list,
         errorDomain : string option
       }
 
@@ -154,42 +154,42 @@ structure Info =
         getType      : string,
         abstract     : bool,
         fundamental  : bool,
-        classStruct  : data basedata option,
-        parent       : data basedata option,
-        implements   : data basedata list,
-        constant     : data basedata list,
-        vfunc        : data basedata list,
-        method       : data basedata list,
-        field        : data basedata list,
-        signal       : data basedata list,
-        property     : data basedata list
+        classStruct  : basedata option,
+        parent       : basedata option,
+        implements   : basedata list,
+        constant     : basedata list,
+        vfunc        : basedata list,
+        method       : basedata list,
+        field        : basedata list,
+        signal       : basedata list,
+        property     : basedata list
       }
 
     and interfacedata =
       {
         typeName     : string,
         getType      : string,
-        ifaceStruct  : data basedata option,
-        prerequisite : data basedata list,
-        constant     : data basedata list,
-        vfunc        : data basedata list,
-        method       : data basedata list,
-        signal       : data basedata list,
-        property     : data basedata list
+        ifaceStruct  : basedata option,
+        prerequisite : basedata list,
+        constant     : basedata list,
+        vfunc        : basedata list,
+        method       : basedata list,
+        signal       : basedata list,
+        property     : basedata list
       }
 
     and structdata =
       {
         isGTypeStruct : bool,
         isForeign     : bool,
-        method        : data basedata list,
-        field         : data basedata list
+        method        : basedata list,
+        field         : basedata list
       }
 
     and uniondata =
       {
-        method : data basedata list,
-        field  : data basedata list
+        method : basedata list,
+        field  : basedata list
       }
 
     (* Unlike the GIRepository library, the GIR interface allows different

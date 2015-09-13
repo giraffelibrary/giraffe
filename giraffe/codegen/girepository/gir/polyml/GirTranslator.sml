@@ -326,35 +326,48 @@ fun makeBaseDataConfig (config : config) =
  * `NotIntrospectable` for elements that can be skipped during translation.
  * -------------------------------------------------------------------------- *)
 
-fun makeElemBaseData makeInstance con typelib name x
-  : 'a Info.basedata =
+fun makeElemBaseData container makeInstance con typelib name x
+  : Info.basedata =
   let
-    val instance = makeInstance con typelib x
-
+    (* Create a reference to a dummy value so that `makeInstance` can be
+     * given the `basedata` value for itself.  `makeInstance` requires this
+     * to use as the container for `basedata` values that it generates.
+     *)
     val refData =
       ref {
-        name       = name,
+        name       = NONE,
         container  = NONE,
         typelib    = typelib,
         deprecated = false,
         attributes = ListDict.empty,
-        instance   = instance
+        instance   = Info.INVALID
       }
     val baseData = Info.BASE refData
+
+    val instance = makeInstance con baseData typelib x
   in
+    refData := {
+      name       = name,
+      container  = container,
+      typelib    = typelib,
+      deprecated = false,
+      attributes = ListDict.empty,
+      instance   = instance
+    };
     baseData
   end
 
 fun makeConfigElemBaseData
   elemName
   handleError
+  container
   makeInstance
   con
   typelib
   name
   config
   x
-  : 'a Info.basedata option =
+  : Info.basedata option =
   let
     val {introspectable, deprecated, attributes} =
       makeBaseDataConfig config
@@ -363,22 +376,34 @@ fun makeConfigElemBaseData
             raise
               GIRFail (HText.concat (elemName :: " " :: fmtOptQuoted name) :: ms)
 
-    val instance =
-      if introspectable
-      then makeInstance con typelib x
-      else handleError Info.INVALID
-
+    (* Create a reference to a dummy value so that `makeInstance` can be
+     * given the `basedata` value for itself.  `makeInstance` requires this
+     * to use as the container for `basedata` values that it generates.
+     *)
     val refData =
       ref {
-        name       = name,
+        name       = NONE,
         container  = NONE,
         typelib    = typelib,
-        deprecated = deprecated,
-        attributes = attributes,
-        instance   = instance
+        deprecated = false,
+        attributes = ListDict.empty,
+        instance   = Info.INVALID
       }
     val baseData = Info.BASE refData
+
+    val instance =
+      if introspectable
+      then makeInstance con baseData typelib x
+      else handleError Info.INVALID
   in
+    refData := {
+      name       = name,
+      container  = container,
+      typelib    = typelib,
+      deprecated = deprecated,
+      attributes = attributes,
+      instance   = instance
+    };
     SOME baseData
   end
     handle
@@ -386,8 +411,9 @@ fun makeConfigElemBaseData
 
 fun ni _ = raise NotIntrospectable
 
-fun updateElemBaseData elemDicts makeInstance con x (Info.BASE refData) : unit =
+fun updateElemBaseData makeInstance con x baseData : unit =
   let
+    val Info.BASE refData = baseData
     val
       ref {name, container, typelib, deprecated, attributes, instance} =
       refData
@@ -407,7 +433,7 @@ fun updateElemBaseData elemDicts makeInstance con x (Info.BASE refData) : unit =
               }
 
           val instance =
-            makeInstance elemDicts con typelib x
+            makeInstance con baseData typelib x
               handle
                 NotIntrospectable => Info.INVALID
         in
@@ -424,7 +450,7 @@ fun updateElemBaseData elemDicts makeInstance con x (Info.BASE refData) : unit =
     | _                 => ()
   end
 
-fun makeUntranslated _ _ _ = Info.UNTRANSLATED
+fun makeUntranslated _ _ _ _ = Info.UNTRANSLATED
 
 
 
@@ -459,7 +485,7 @@ fun getCTypePtrDepth cTypeStr =
     | _               => getNext 0 (Substring.full cTypeStr)
   end
 
-fun makeType name con _ typeData =
+fun makeType name con _ _ typeData =
   let
   in
     con (typeData & ())
@@ -469,8 +495,11 @@ fun makeType name con _ typeData =
         raise
           GIRFail (HText.concat ("type" :: " " :: fmtOptQuoted name) :: ms)
 
-and makeTypeBaseData typelib name (typeData as Info.TYPEDATA {tag, interface, ...}) =
-  ((tag, interface), makeElemBaseData (makeType name) Info.TYPE typelib name typeData)
+and makeTypeBaseData containerData typelib name (typeData as Info.TYPEDATA {tag, interface, ...}) =
+  (
+    (tag, interface),
+    makeElemBaseData (SOME containerData) (makeType name) Info.TYPE typelib name typeData
+  )
 
 
 (* `lookupType` returns the tag, in addition to the base info, for use in
@@ -478,7 +507,7 @@ and makeTypeBaseData typelib name (typeData as Info.TYPEDATA {tag, interface, ..
  *)
 
 and lookupType elemDicts name
-  : (GIRepositoryTypeTag.t * Info.data Info.basedata option) * int option =
+  : (GIRepositoryTypeTag.t * Info.basedata option) * int option =
   let
   in
     case name of
@@ -491,13 +520,13 @@ and lookupType elemDicts name
           GIRFail (HText.concat ("type" :: " " :: fmtOptQuoted name) :: ms)
 
 
-and arrayTypeBaseData elemDicts typelib (arrayType, param) =
+and arrayTypeBaseData containerData elemDicts typelib (arrayType, param) =
   let
     val tag = GIRepositoryTypeTag.ARRAY
     val interface = NONE
     val tagIsPointer = SOME true
 
-    val params = [#2 (lookupTypeBaseData elemDicts typelib param)]
+    val params = [#2 (lookupTypeBaseData containerData elemDicts typelib param)]
 
     val cTypePtrDepth = Option.map getCTypePtrDepth (#cType arrayType)
 
@@ -544,14 +573,15 @@ and arrayTypeBaseData elemDicts typelib (arrayType, param) =
           arrayType           = arrayType
         }
   in
-    makeTypeBaseData typelib NONE typeData
+    makeTypeBaseData containerData typelib NONE typeData
   end
 
-and namedTypeBaseData elemDicts typelib (namedType, params) =
+and namedTypeBaseData containerData elemDicts typelib (namedType, params) =
   let
     val {name, cType} = namedType
     val ((tag, interface), typePtrDepth) = lookupType elemDicts name
-    val params = List.map (#2 o lookupTypeBaseData elemDicts typelib) params
+    val params =
+      List.map (#2 o lookupTypeBaseData containerData elemDicts typelib) params
 
     (* `typePtrDepth` is `NONE` iff `tag` is `INTERFACE` and the type of
      * `interface` is `ALIAS _`.  
@@ -579,13 +609,14 @@ and namedTypeBaseData elemDicts typelib (namedType, params) =
           arrayType           = NONE
         }
   in
-    makeTypeBaseData typelib NONE typeData
+    makeTypeBaseData containerData typelib NONE typeData
   end
 
-and callbackTypeBaseData elemDicts typelib callback =
+and callbackTypeBaseData containerData elemDicts typelib callback =
   let
     val tag = GIRepositoryTypeTag.INTERFACE
-    val interface = makeCallbackBaseData elemDicts Info.CALLBACK typelib callback
+    val interface =
+      makeCallbackBaseData containerData elemDicts Info.CALLBACK typelib callback
     (* Note that `interface` is not the result of looking up a namespace element *
      * because the callback type is inline.                                      *)
 
@@ -602,14 +633,14 @@ and callbackTypeBaseData elemDicts typelib callback =
           arrayType           = NONE
         }
   in
-    makeTypeBaseData typelib NONE typeData
+    makeTypeBaseData containerData typelib NONE typeData
   end
 
-and lookupTypeBaseData elemDicts typelib =
+and lookupTypeBaseData containerData elemDicts typelib =
   fn
-    TYPEARRAY x    => arrayTypeBaseData elemDicts typelib x
-  | TYPENAMED x    => namedTypeBaseData elemDicts typelib x
-  | TYPECALLBACK x => callbackTypeBaseData elemDicts typelib x
+    TYPEARRAY x    => arrayTypeBaseData containerData elemDicts typelib x
+  | TYPENAMED x    => namedTypeBaseData containerData elemDicts typelib x
+  | TYPECALLBACK x => callbackTypeBaseData containerData elemDicts typelib x
   | TYPEVARARGS    => raise Fail "type varargs not supported"
 
 
@@ -618,9 +649,9 @@ and lookupTypeBaseData elemDicts typelib =
  * element "return-value"
  * -------------------------------------------------------------------------- *)
 
-and makeReturnValue elemDicts typelib {type_, transferOwnership} =
+and makeReturnValue container elemDicts typelib {type_, transferOwnership} =
   let
-    val (_, type_) = lookupTypeBaseData elemDicts typelib type_
+    val (_, type_) = lookupTypeBaseData container elemDicts typelib type_
     val transferOwnership =
       withDefault GIRepositoryTransfer.EVERYTHING makeTransferOwnership
         transferOwnership
@@ -642,6 +673,7 @@ and makeReturnValue elemDicts typelib {type_, transferOwnership} =
 and makeParameter
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -665,7 +697,7 @@ and makeParameter
     val closure = Option.map makeValueInt closure
     val destroy = Option.map makeValueInt destroy
     val isOut = direction = GIRepositoryDirection.OUT
-    val (_, type_) = lookupTypeBaseData elemDicts typelib type_
+    val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val argData =
       {
         transferOwnership = transferOwnership,
@@ -685,8 +717,8 @@ and makeParameter
         raise
           GIRFail (HText.concat ("parameter" :: " " :: fmtOptQuoted name) :: ms)
 
-and makeParameterBaseData elemDicts con typelib (x as {name, ...} : parameter) =
-  makeElemBaseData (makeParameter elemDicts) con typelib name x
+and makeParameterBaseData containerData elemDicts con typelib (x as {name, ...} : parameter) =
+  makeElemBaseData (SOME containerData) (makeParameter elemDicts) con typelib name x
 
 
 
@@ -694,11 +726,16 @@ and makeParameterBaseData elemDicts con typelib (x as {name, ...} : parameter) =
  * element "constructor", "method", "virtual-method", "function"
  * -------------------------------------------------------------------------- *)
 
-and makeCallableData elemDicts typelib {returnValue, parameter} : Info.callabledata =
+and makeCallableData containerData elemDicts typelib {returnValue, parameter}
+  : Info.callabledata =
   let
-    val returnValue = makeReturnValue elemDicts typelib returnValue
+    val returnValue =
+      makeReturnValue containerData elemDicts typelib returnValue
+
     val parameter =
-      List.map (makeParameterBaseData elemDicts Info.ARG typelib) parameter
+      List.map
+        (makeParameterBaseData containerData elemDicts Info.ARG typelib)
+        parameter
         handle
           GIRFail ms => raise GIRFail (HText.string "parameters" :: ms)
   in
@@ -717,10 +754,11 @@ and makeCallableData elemDicts typelib {returnValue, parameter} : Info.callabled
 and makeCallback
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   ({name, callable, ...} : callback) =
   let
-    val callableData = makeCallableData elemDicts typelib callable
+    val callableData = makeCallableData baseData elemDicts typelib callable
   in
      con (callableData & ())
   end
@@ -729,20 +767,29 @@ and makeCallback
         raise
           GIRFail (HText.concat ("callback" :: " " :: fmtQuoted name) :: ms)
 
-and makeCallbackBaseData elemDicts con typelib (x as {name, config, ...} : callback) =
-  makeConfigElemBaseData "callback" ni (makeCallback elemDicts) con typelib
+and makeCallbackBaseData containerData elemDicts con typelib
+  (x as {name, config, ...} : callback) =
+  makeConfigElemBaseData "callback" ni
+    (SOME containerData)
+    (makeCallback elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
 
 and initCallbackBaseData typelib (x as {name, config, ...} : callback) =
-  makeConfigElemBaseData "callback" I makeUntranslated I typelib
+  makeConfigElemBaseData "callback" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateCallbackBaseData elemDicts con (x : callback) baseData =
-  updateElemBaseData elemDicts makeCallback con x baseData
+  updateElemBaseData (makeCallback elemDicts) con x baseData
 
 
 
@@ -759,6 +806,7 @@ and getFunctionElemName functionElem =
 and makeFunction
   elemDicts
   con
+  baseData  (* self reference *)
   typelib
   ({elem, name, config, callable, cIdentifier, throws} : function) =
   let
@@ -788,7 +836,7 @@ and makeFunction
         symbol = cIdentifier,
         flags  = flags'
       }
-    val callableData = makeCallableData elemDicts typelib callable
+    val callableData = makeCallableData baseData elemDicts typelib callable
   in
     con (callableData & (functionData & ()))
   end
@@ -797,8 +845,10 @@ and makeFunction
         raise
           GIRFail (HText.concat (getFunctionElemName elem :: " " :: fmtQuoted name) :: ms)
 
-and makeFunctionBaseData elemDicts con typelib (x as {elem, name, config, ...} : function) =
-  makeConfigElemBaseData (getFunctionElemName elem) ni (makeFunction elemDicts)
+and makeFunctionBaseData containerData elemDicts con typelib (x as {elem, name, config, ...} : function) =
+  makeConfigElemBaseData (getFunctionElemName elem) ni
+    (SOME containerData)
+    (makeFunction elemDicts)
     con
     typelib
     (SOME name)
@@ -806,13 +856,17 @@ and makeFunctionBaseData elemDicts con typelib (x as {elem, name, config, ...} :
     x
 
 and initFunctionBaseData typelib (x as {elem, name, config, ...} : function) =
-  makeConfigElemBaseData (getFunctionElemName elem) I makeUntranslated I typelib
+  makeConfigElemBaseData (getFunctionElemName elem) I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateFunctionBaseData elemDicts con (x : function) baseData =
-  updateElemBaseData elemDicts makeFunction con x baseData
+  updateElemBaseData (makeFunction elemDicts) con x baseData
 
 
 
@@ -823,6 +877,7 @@ and updateFunctionBaseData elemDicts con (x : function) baseData =
 and makeVFunc
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -870,7 +925,7 @@ and makeVFunc
       {
         flags = flags
       }
-    val callableData = makeCallableData elemDicts typelib callable
+    val callableData = makeCallableData baseData elemDicts typelib callable
   in
     con (callableData & (vfuncData & ()))
   end
@@ -879,8 +934,12 @@ and makeVFunc
         raise
           GIRFail (HText.concat ("virtual-method" :: " " :: fmtQuoted name) :: ms)
 
-and makeVFuncBaseData elemDicts con typelib (x as {name, config, ...} : virtual_method) =
-  makeConfigElemBaseData "virtual-method" ni (makeVFunc elemDicts) con typelib
+and makeVFuncBaseData containerData elemDicts con typelib (x as {name, config, ...} : virtual_method) =
+  makeConfigElemBaseData "virtual-method" ni
+    (SOME containerData)
+    (makeVFunc elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
@@ -894,6 +953,7 @@ and makeVFuncBaseData elemDicts con typelib (x as {name, config, ...} : virtual_
 and makeSignal
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -966,7 +1026,7 @@ and makeSignal
         flags           = flags'5,
         hasClassClosure = hasClassClosure
       }
-    val callableData = makeCallableData elemDicts typelib callable
+    val callableData = makeCallableData baseData elemDicts typelib callable
   in
     con (callableData & (signalData & ()))
   end
@@ -975,8 +1035,12 @@ and makeSignal
         raise
           GIRFail (HText.concat ("signal" :: " " :: fmtQuoted name) :: ms)
 
-and makeSignalBaseData elemDicts con typelib (x as {name, config, ...} : signal) =
-  makeConfigElemBaseData "signal" ni (makeSignal elemDicts) con typelib
+and makeSignalBaseData containerData elemDicts con typelib (x as {name, config, ...} : signal) =
+  makeConfigElemBaseData "signal" ni
+    (SOME containerData)
+    (makeSignal elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
@@ -990,6 +1054,7 @@ and makeSignalBaseData elemDicts con typelib (x as {name, config, ...} : signal)
 and makeProperty
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1045,7 +1110,7 @@ and makeProperty
     val transferOwnership =
       withDefault GIRepositoryTransfer.EVERYTHING makeTransferOwnership
         transferOwnership
-    val (_, type_) = lookupTypeBaseData elemDicts typelib type_
+    val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
 
     val propertyData : Info.propertydata =
       {
@@ -1061,8 +1126,12 @@ and makeProperty
         raise
           GIRFail (HText.concat ("property" :: " " :: fmtQuoted name) :: ms)
 
-and makePropertyBaseData elemDicts con typelib (x as {name, config, ...} : property) =
-  makeConfigElemBaseData "property" ni (makeProperty elemDicts) con typelib
+and makePropertyBaseData containerData elemDicts con typelib (x as {name, config, ...} : property) =
+  makeConfigElemBaseData "property" ni
+    (SOME containerData)
+    (makeProperty elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
@@ -1076,6 +1145,7 @@ and makePropertyBaseData elemDicts con typelib (x as {name, config, ...} : prope
 and makeField
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   ({name, readable, writable, private = _, type_, ...} : field) =
   let
@@ -1098,7 +1168,7 @@ and makeField
       then GIRepositoryFieldInfoFlags.flags [flags'1, GIRepositoryFieldInfoFlags.WRITABLE]
       else flags'1
 
-    val (_, type_) = lookupTypeBaseData elemDicts typelib type_
+    val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val fieldData : Info.fielddata =
       {
         flags = flags,
@@ -1112,8 +1182,12 @@ and makeField
         raise
           GIRFail (HText.concat ("field" :: " " :: fmtQuoted name) :: ms)
 
-and makeFieldBaseData elemDicts con typelib (x as {name, config, ...} : field) =
-  makeConfigElemBaseData "field" ni (makeField elemDicts) con typelib
+and makeFieldBaseData containerData elemDicts con typelib (x as {name, config, ...} : field) =
+  makeConfigElemBaseData "field" ni
+    (SOME containerData)
+    (makeField elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
@@ -1127,10 +1201,11 @@ and makeFieldBaseData elemDicts con typelib (x as {name, config, ...} : field) =
 and makeAlias
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   ({name, type_, ...} : alias) =
   let
-    val (_, type_) = lookupTypeBaseData elemDicts typelib type_
+    val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val aliasData =
       {
         type_ = type_
@@ -1143,20 +1218,18 @@ and makeAlias
         raise
           GIRFail (HText.concat ("alias" :: " " :: fmtQuoted name) :: ms)
 
-and makeAliasBaseData elemDicts con typelib (x as {name, config, ...} : alias) =
-  makeConfigElemBaseData "alias" ni (makeAlias elemDicts) con typelib
-    (SOME name)
-    config
-    x
-
 and initAliasBaseData typelib (x as {name, config, ...} : alias) =
-  makeConfigElemBaseData "alias" I makeUntranslated I typelib
+  makeConfigElemBaseData "alias" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateAliasBaseData elemDicts con (x : alias) baseData =
-  updateElemBaseData elemDicts makeAlias con x baseData
+  updateElemBaseData (makeAlias elemDicts) con x baseData
 
 
 
@@ -1167,10 +1240,11 @@ and updateAliasBaseData elemDicts con (x : alias) baseData =
 and makeConstant
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   ({name, value, type_, ...} : constant) =
   let
-    val ((tag, _), type_) = lookupTypeBaseData elemDicts typelib type_
+    val ((tag, _), type_) = lookupTypeBaseData baseData elemDicts typelib type_
 
     val constantData : Info.constantdata =
       {
@@ -1185,21 +1259,29 @@ and makeConstant
         raise
           GIRFail (HText.concat ("constant" :: " " :: fmtQuoted name) :: ms)
 
-and makeConstantBaseData elemDicts con typelib
+and makeConstantBaseData containerData elemDicts con typelib
   (x as {name, config, ...} : constant) =
-  makeConfigElemBaseData "constant" ni (makeConstant elemDicts) con typelib
+  makeConfigElemBaseData "constant" ni
+    (SOME containerData)
+    (makeConstant elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
 
 and initConstantBaseData typelib (x as {name, config, ...} : constant) =
-  makeConfigElemBaseData "alias" I makeUntranslated I typelib
+  makeConfigElemBaseData "constant" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateConstantBaseData elemDicts con (x : constant) baseData =
-  updateElemBaseData elemDicts makeConstant con x baseData
+  updateElemBaseData (makeConstant elemDicts) con x baseData
 
 
 
@@ -1207,12 +1289,13 @@ and updateConstantBaseData elemDicts con (x : constant) baseData =
  * namespace element "class"
  * -------------------------------------------------------------------------- *)
 
-and lookupBase elemDicts name : Info.data Info.basedata =
+and lookupBase elemDicts name : Info.basedata =
   (valOf o #2 o #1) (lookupElem elemDicts name)
 
 and makeClass
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1244,31 +1327,31 @@ and makeClass
 
     val constant = 
       List.mapPartial
-        (makeConstantBaseData elemDicts Info.CONSTANT typelib) constant
+        (makeConstantBaseData baseData elemDicts Info.CONSTANT typelib) constant
 
     val vfunc =
       List.mapPartial
-        (makeVFuncBaseData elemDicts Info.VFUNC typelib)
+        (makeVFuncBaseData baseData elemDicts Info.VFUNC typelib)
         virtualMethod
 
     val method =
       List.mapPartial
-        (makeFunctionBaseData elemDicts Info.FUNCTION typelib)
+        (makeFunctionBaseData baseData elemDicts Info.FUNCTION typelib)
         method
 
     val field =
       List.mapPartial
-        (makeFieldBaseData elemDicts Info.FIELD typelib)
+        (makeFieldBaseData baseData elemDicts Info.FIELD typelib)
         field
 
     val signal =
       List.mapPartial
-        (makeSignalBaseData elemDicts Info.SIGNAL typelib)
+        (makeSignalBaseData baseData elemDicts Info.SIGNAL typelib)
         signal
 
     val property =
       List.mapPartial
-        (makePropertyBaseData elemDicts Info.PROPERTY typelib)
+        (makePropertyBaseData baseData elemDicts Info.PROPERTY typelib)
         property
 
     val objectData : Info.objectdata =
@@ -1301,13 +1384,17 @@ and makeClass
           GIRFail (HText.concat ("class" :: " " :: fmtQuoted name) :: ms)
 
 and initClassBaseData typelib (x as {name, config, ...} : class) =
-  makeConfigElemBaseData "class" I makeUntranslated I typelib
+  makeConfigElemBaseData "class" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateClassBaseData elemDicts con (x : class) baseData =
-  updateElemBaseData elemDicts makeClass con x baseData
+  updateElemBaseData (makeClass elemDicts) con x baseData
 
 
 
@@ -1315,7 +1402,7 @@ and updateClassBaseData elemDicts con (x : class) baseData =
  * namespace element "interface"
  * -------------------------------------------------------------------------- *)
 
-and lookupPrerequisite elemDicts name : Info.data Info.basedata =
+and lookupPrerequisite elemDicts name : Info.basedata =
   (valOf o #2 o #1) (lookupElem elemDicts name)
     handle
       GIRFail ms =>
@@ -1325,6 +1412,7 @@ and lookupPrerequisite elemDicts name : Info.data Info.basedata =
 and makeInterface
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1346,28 +1434,28 @@ and makeInterface
 
     val constant =
       List.mapPartial
-        (makeConstantBaseData elemDicts Info.CONSTANT typelib) constant
+        (makeConstantBaseData baseData elemDicts Info.CONSTANT typelib) constant
 
     val prerequisite = List.map (lookupPrerequisite elemDicts) prerequisite
 
     val vfunc =
       List.mapPartial
-        (makeVFuncBaseData elemDicts Info.VFUNC typelib)
+        (makeVFuncBaseData baseData elemDicts Info.VFUNC typelib)
         virtualMethod
 
     val method =
       List.mapPartial
-        (makeFunctionBaseData elemDicts Info.FUNCTION typelib)
+        (makeFunctionBaseData baseData elemDicts Info.FUNCTION typelib)
         method
 
     val property =
       List.mapPartial
-        (makePropertyBaseData elemDicts Info.PROPERTY typelib)
+        (makePropertyBaseData baseData elemDicts Info.PROPERTY typelib)
         property
 
     val signal =
       List.mapPartial
-        (makeSignalBaseData elemDicts Info.SIGNAL typelib)
+        (makeSignalBaseData baseData elemDicts Info.SIGNAL typelib)
         signal
 
     val interfaceData : Info.interfacedata =
@@ -1396,13 +1484,17 @@ and makeInterface
           GIRFail (HText.concat ("interface" :: " " :: fmtQuoted name) :: ms)
 
 and initInterfaceBaseData typelib (x as {name, config, ...} : interface) =
-  makeConfigElemBaseData "interface" I makeUntranslated I typelib
+  makeConfigElemBaseData "interface" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateInterfaceBaseData elemDicts con (x : interface) baseData =
-  updateElemBaseData elemDicts makeInterface con x baseData
+  updateElemBaseData (makeInterface elemDicts) con x baseData
 
 
 
@@ -1413,6 +1505,7 @@ and updateInterfaceBaseData elemDicts con (x : interface) baseData =
 and makeRecord
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1442,11 +1535,11 @@ and makeRecord
 
     val method =
       List.mapPartial
-        (makeFunctionBaseData elemDicts Info.FUNCTION typelib)
+        (makeFunctionBaseData baseData elemDicts Info.FUNCTION typelib)
         method
 
     val field =
-      List.mapPartial (makeFieldBaseData elemDicts Info.FIELD typelib) field
+      List.mapPartial (makeFieldBaseData baseData elemDicts Info.FIELD typelib) field
 
     val structData : Info.structdata =
       {
@@ -1469,13 +1562,17 @@ and makeRecord
           GIRFail (HText.concat ("record" :: " " :: fmtQuoted name) :: ms)
 
 and initRecordBaseData typelib (x as {name, config, ...} : record) =
-  makeConfigElemBaseData "record" I makeUntranslated I typelib
+  makeConfigElemBaseData "record" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateRecordBaseData elemDicts con (x : record) baseData =
-  updateElemBaseData elemDicts makeRecord con x baseData
+  updateElemBaseData (makeRecord elemDicts) con x baseData
 
 
 
@@ -1486,6 +1583,7 @@ and updateRecordBaseData elemDicts con (x : record) baseData =
 and makeUnion
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1501,11 +1599,11 @@ and makeUnion
   let
     val method =
       List.mapPartial
-        (makeFunctionBaseData elemDicts Info.FUNCTION typelib)
+        (makeFunctionBaseData baseData elemDicts Info.FUNCTION typelib)
         method
 
     val field =
-      List.mapPartial (makeFieldBaseData elemDicts Info.FIELD typelib) field
+      List.mapPartial (makeFieldBaseData baseData elemDicts Info.FIELD typelib) field
 
     val unionData : Info.uniondata =
       {
@@ -1526,13 +1624,17 @@ and makeUnion
           GIRFail (HText.concat ("union" :: " " :: fmtQuoted name) :: ms)
 
 and initUnionBaseData typelib (x as {name, config, ...} : union) =
-  makeConfigElemBaseData "union" I makeUntranslated I typelib
+  makeConfigElemBaseData "union" I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateUnionBaseData elemDicts con (x : union) baseData =
-  updateElemBaseData elemDicts makeUnion con x baseData
+  updateElemBaseData (makeUnion elemDicts) con x baseData
 
 
 
@@ -1543,6 +1645,7 @@ and updateUnionBaseData elemDicts con (x : union) baseData =
 and makeMember
   _
   con
+  _ (* self reference *)
   _
   ({name, value, ...} : member) =
   let
@@ -1558,8 +1661,12 @@ and makeMember
         raise
           GIRFail (HText.concat ("member" :: " " :: fmtQuoted name) :: ms)
 
-and makeMemberBaseData elemDicts con typelib (x as {name, config, ...} : member) =
-  makeConfigElemBaseData "member" ni (makeMember elemDicts) con typelib
+and makeMemberBaseData containerData elemDicts con typelib (x as {name, config, ...} : member) =
+  makeConfigElemBaseData "member" ni
+    (SOME containerData)
+    (makeMember elemDicts)
+    con
+    typelib
     (SOME name)
     config
     x
@@ -1578,6 +1685,7 @@ and getEnumElemName enumElem =
 and makeEnum
   elemDicts
   con
+  baseData (* self reference *)
   typelib
   (
     {
@@ -1594,11 +1702,13 @@ and makeEnum
   ) =
   let
     val member =
-      List.mapPartial (makeMemberBaseData elemDicts Info.VALUE typelib) member
+      List.mapPartial
+        (makeMemberBaseData baseData elemDicts Info.VALUE typelib)
+        member
 
     val method =
       List.mapPartial
-        (makeFunctionBaseData elemDicts Info.FUNCTION typelib)
+        (makeFunctionBaseData baseData elemDicts Info.FUNCTION typelib)
         method
 
     val enumData : Info.enumdata =
@@ -1621,13 +1731,17 @@ and makeEnum
           GIRFail (HText.concat (getEnumElemName elem :: " " :: fmtQuoted name) :: ms)
 
 and initEnumBaseData typelib (x as {elem, name, config, ...} : enum) =
-  makeConfigElemBaseData (getEnumElemName elem) I makeUntranslated I typelib
+  makeConfigElemBaseData (getEnumElemName elem) I
+    NONE
+    makeUntranslated
+    I
+    typelib
     (SOME name)
     config
     x
 
 and updateEnumBaseData elemDicts con (x : enum) baseData =
-  updateElemBaseData elemDicts makeEnum con x baseData
+  updateElemBaseData (makeEnum elemDicts) con x baseData
 
 
 
@@ -1725,7 +1839,7 @@ fun initNamespaceElem typelib =
                           arrayType           = NONE
                         }
 
-                    val x = makeTypeBaseData typelib (SOME name) typeData
+                    val x = makeTypeBaseData container typelib (SOME name) typeData
  *)
                     val x = ((tag, data), typePtrDepth)
 
@@ -2000,7 +2114,7 @@ fun translate dependencies elemDicts repository =
       namespace = namespace',
       data      = typelib
     }
-      : (Info.repodata, Info.data Info.basedata option) repository
+      : (Info.repodata, Info.basedata option) repository
   end
     handle
       GIRFail ms => (

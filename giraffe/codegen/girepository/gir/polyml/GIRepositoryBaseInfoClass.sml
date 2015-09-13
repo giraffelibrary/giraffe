@@ -1,8 +1,8 @@
 structure GIRepositoryBaseInfoClass :>
   G_I_REPOSITORY_BASE_INFO_CLASS
-    where type Obj.data = Info.data Info.basedata =
+    where type Obj.data = Info.basedata =
   struct
-    type data = Info.data Info.basedata
+    type data = Info.basedata
     type 'a t = (data, 'a) pair
     structure Obj =
       struct
