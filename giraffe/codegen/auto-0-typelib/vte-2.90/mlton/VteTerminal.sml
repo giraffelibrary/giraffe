@@ -387,7 +387,7 @@ structure VteTerminal :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> VteTerminalClass.C.fromPtr true) new_ ()
+    fun new () = (I ---> VteTerminalClass.C.fromPtr false) new_ ()
     fun copyClipboard self = (GObjectObjectClass.C.withPtr ---> I) copyClipboard_ self
     fun copyPrimary self = (GObjectObjectClass.C.withPtr ---> I) copyPrimary_ self
     fun feed self data length =

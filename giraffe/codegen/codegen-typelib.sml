@@ -1648,29 +1648,6 @@ fun checkFunctionName name =
   else ()
 
 
-(* OUT/INOUT parameter and return values that are optional *)
-
-val optRetFunNames = [
-  ("Gtk", SOME "FileChooser", "get_filename"),
-  ("Gtk", SOME "FileChooser", "get_current_folder"),
-  ("Gtk", SOME "FileChooser", "get_uri"),
-  ("Gtk", SOME "FileChooser", "get_current_folder_uri"),
-  ("Gtk", SOME "FileChooser", "get_preview_widget"),
-  ("Gtk", SOME "FileChooser", "get_preview_filename"),
-  ("Gtk", SOME "FileChooser", "get_preview_uri"),
-  ("Gtk", SOME "FileChooser", "get_extra_widget"),
-  ("Gtk", SOME "FileChooser", "get_filter"),
-  ("Gtk", SOME "FileChooser", "get_preview_file"),
-  ("Gtk", SOME "Paned", "get_child1"),
-  ("Gtk", SOME "Paned", "get_child2"),
-  ("Gtk", SOME "Container", "get_focus_child")
-]
-
-val optArgNames = [
-  ("Gtk", SOME "Container", "set-focus-child", "object")
-]
-
-
 (* Flags/Enum value names to be transformed *)
 
 val newFlagsEnumValueNames = [
@@ -1950,24 +1927,7 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
       | Direction.OUT   => OUT isCallerAllocates
       | Direction.INOUT => INOUT
 
-    (* Currently, `mayBeNull` is valid only for IN parameters.  For OUT/INOUT
-     * parameters, it indicates whether the C parameter is optional, not
-     * whether the imported/exported value is optionally null, i.e. what
-     * we would expect from `isOptional`.  Therefore we use the list of
-     * function name-argument name pairs `optArgNames` to force parameters
-     * to be optional. *)
-    val forceOpt =
-      let
-        fun isArg x =
-          x = (functionNamespace, optContainerName, functionName, argName)
-      in
-        List.exists isArg optArgNames
-      end
-
-    val isOpt =
-      case dir of
-        IN => mayBeNull orelse forceOpt
-      | _  => forceOpt
+    val isOpt = mayBeNull
 
     local
       open Transfer
@@ -2183,17 +2143,7 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
 
 fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionName callableInfo =
   let
-    (* At present, CallableInfo.mayReturnNull does not indicate
-     * whether the return value is optional.  Therefore we use the list
-     * of function names `optRetFunNames` to determine whether a
-     * return value is optional. *)
-    val mayReturnNull =
-      (* CallableInfo.mayReturnNull callableInfo *)
-      let
-        fun isFun x = x = (functionNamespace, optContainerName, functionName)
-      in
-        List.exists isFun optRetFunNames
-      end
+    val mayReturnNull = CallableInfo.mayReturnNull callableInfo
 
     val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 

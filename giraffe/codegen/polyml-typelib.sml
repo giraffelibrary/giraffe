@@ -14,4 +14,5 @@ use "pp/HVTextTree.sml";
 use "pp/ConcreteSyntaxTree.sml";
 use "pp/PrettyPrint.sml";
 use "pp/NameFormat.sml";
-use "map/polyml.sml";
+use "GIRepository.sml";
+use "overrides.sml";

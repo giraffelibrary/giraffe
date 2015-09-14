@@ -5,7 +5,7 @@ structure GLibSource :>
   struct
     val getType_ = _import "g_source_get_type" : unit -> GObjectType.C.val_;
     val addChildSource_ = fn x1 & x2 => (_import "g_source_add_child_source" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p * GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> unit;) (x1, x2)
-    val attach_ = fn x1 & x2 => (_import "g_source_attach" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p * GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> FFI.UInt.C.val_;) (x1, x2)
+    val attach_ = fn x1 & x2 => (_import "g_source_attach" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p * unit GLibMainContextRecord.C.p -> FFI.UInt.C.val_;) (x1, x2)
     val destroy_ = _import "g_source_destroy" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> unit;
     val getCanRecurse_ = _import "g_source_get_can_recurse" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.Bool.C.val_;
     val getContext_ = _import "g_source_get_context" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
@@ -53,7 +53,7 @@ structure GLibSource :>
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) addChildSource_ (self & childSource)
-    fun attach self context = (GLibSourceRecord.C.withPtr &&&> GLibMainContextRecord.C.withPtr ---> FFI.UInt.C.fromVal) attach_ (self & context)
+    fun attach self context = (GLibSourceRecord.C.withPtr &&&> GLibMainContextRecord.C.withOptPtr ---> FFI.UInt.C.fromVal) attach_ (self & context)
     fun destroy self = (GLibSourceRecord.C.withPtr ---> I) destroy_ self
     fun getCanRecurse self = (GLibSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getCanRecurse_ self
     fun getContext self = (GLibSourceRecord.C.withPtr ---> GLibMainContextRecord.C.fromPtr false) getContext_ self

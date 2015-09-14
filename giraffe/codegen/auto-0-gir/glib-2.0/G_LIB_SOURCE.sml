@@ -10,7 +10,7 @@ signature G_LIB_SOURCE =
        -> unit
     val attach :
       record_t
-       -> maincontextrecord_t
+       -> maincontextrecord_t option
        -> LargeInt.int
     val destroy : record_t -> unit
     val getCanRecurse : record_t -> bool

@@ -8,7 +8,7 @@ structure GLibSource :>
     in
       val getType_ = call (load_sym libgobject "g_source_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val addChildSource_ = call (load_sym libglib "g_source_add_child_source") (GLibSourceRecord.PolyML.PTR &&> GLibSourceRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val attach_ = call (load_sym libglib "g_source_attach") (GLibSourceRecord.PolyML.PTR &&> GLibMainContextRecord.PolyML.PTR --> FFI.UInt.PolyML.VAL)
+      val attach_ = call (load_sym libglib "g_source_attach") (GLibSourceRecord.PolyML.PTR &&> GLibMainContextRecord.PolyML.OPTPTR --> FFI.UInt.PolyML.VAL)
       val destroy_ = call (load_sym libglib "g_source_destroy") (GLibSourceRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getCanRecurse_ = call (load_sym libglib "g_source_get_can_recurse") (GLibSourceRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getContext_ = call (load_sym libglib "g_source_get_context") (GLibSourceRecord.PolyML.PTR --> GLibMainContextRecord.PolyML.PTR)
@@ -29,7 +29,7 @@ structure GLibSource :>
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) addChildSource_ (self & childSource)
-    fun attach self context = (GLibSourceRecord.C.withPtr &&&> GLibMainContextRecord.C.withPtr ---> FFI.UInt.C.fromVal) attach_ (self & context)
+    fun attach self context = (GLibSourceRecord.C.withPtr &&&> GLibMainContextRecord.C.withOptPtr ---> FFI.UInt.C.fromVal) attach_ (self & context)
     fun destroy self = (GLibSourceRecord.C.withPtr ---> I) destroy_ self
     fun getCanRecurse self = (GLibSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getCanRecurse_ self
     fun getContext self = (GLibSourceRecord.C.withPtr ---> GLibMainContextRecord.C.fromPtr false) getContext_ self
