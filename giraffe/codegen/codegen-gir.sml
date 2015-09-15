@@ -11147,13 +11147,10 @@ generate outDir repo ("Gtk", "3.0")
     [],
     [
       makeSig "CHILD_SIGNAL" [],
-      makeSig "STYLE_PROPERTY" [],
       makeSig "GTK_ACTION_ENTRY" []
     ],
     [
       ("ChildSignal", ((false, ([], [])), ["GtkWidgetClass", "GtkWidget"])),
-      ("StyleProperty", ((false, ([], [])), ["GtkWidgetClass"])),
-      ("GtkScrolledWindow", ((false, ([], [])), ["StyleProperty"])),
       makeStr ("Gtk", "ActionEntry", "GTK_ACTION_ENTRY") [],
       ("GtkActionGroup", ((false, ([], [])), ["GtkActionEntry", "GtkAction"]))
     ]

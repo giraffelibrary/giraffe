@@ -1,6 +1,4 @@
-structure Gtk :
-  GTK
-    where type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly =
+structure Gtk : GTK =
   struct
     val accelGroupsActivate_ =
       fn
@@ -1888,7 +1886,6 @@ structure Gtk :
               x2,
               x3
             )
-    type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly
     structure ActionEntry = GtkActionEntry
     structure AccelFlags = GtkAccelFlags
     structure AccelGroupClass = GtkAccelGroupClass
@@ -2301,7 +2298,6 @@ structure Gtk :
     structure VSeparator = GtkVSeparator
     structure ViewportClass = GtkViewportClass
     structure WindowClass = GtkWindowClass
-    structure ScrolledWindow = GtkScrolledWindow
     structure AccelLabel = GtkAccelLabel
     structure Alignment = GtkAlignment
     structure AppChooserButtonClass = GtkAppChooserButtonClass
@@ -2348,6 +2344,7 @@ structure Gtk :
     structure RecentChooserMenuClass = GtkRecentChooserMenuClass
     structure RecentChooserWidget = GtkRecentChooserWidget
     structure ScaleButtonClass = GtkScaleButtonClass
+    structure ScrolledWindow = GtkScrolledWindow
     structure SeparatorMenuItemClass = GtkSeparatorMenuItemClass
     structure SeparatorToolItemClass = GtkSeparatorToolItemClass
     structure StatusIcon = GtkStatusIcon

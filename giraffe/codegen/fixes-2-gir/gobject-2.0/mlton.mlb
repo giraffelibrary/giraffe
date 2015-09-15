@@ -7,9 +7,9 @@ in
   CLOSURE_MARSHAL.sml
   SIGNAL.sml
   PROPERTY.sml
-  G_OBJECT_TYPE.sml
   G_OBJECT_VALUE_RECORD.sml
   G_OBJECT_VALUE.sml
+  G_OBJECT_TYPE.sml
   G_OBJECT_BINDING_CLASS.sml
   G_OBJECT_BINDING.sml
   G_OBJECT_BINDING_FLAGS.sml
@@ -79,8 +79,8 @@ in
   G_OBJECT_TYPE_PLUGIN_CLASS.sml
   G_OBJECT_TYPE_PLUGIN.sml
   G_OBJECT.sml
-  mlton/GObjectType.sml
   mlton/GObjectValueRecord.sml
+  mlton/GObjectType.sml
   mlton/GObjectConnectFlags.sml
   mlton/GObjectParamFlags.sml
   mlton/GObjectSignalFlags.sml
@@ -98,6 +98,7 @@ in
   mlton/GObjectClosure.sml
   mlton/GObjectBindingClass.sml
   mlton/GObjectInitiallyUnownedClass.sml
+  mlton/GObjectObject.sml
   mlton/GObjectParamSpec.sml
   mlton/GObjectParamSpecBooleanClass.sml
   mlton/GObjectParamSpecBoxedClass.sml
@@ -127,7 +128,6 @@ in
   mlton/Signal.sml
   mlton/GObjectBinding.sml
   mlton/GObjectInitiallyUnowned.sml
-  mlton/GObjectObject.sml
   mlton/GObjectParamSpecBoolean.sml
   mlton/GObjectParamSpecBoxed.sml
   mlton/GObjectParamSpecChar.sml

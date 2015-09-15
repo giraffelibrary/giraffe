@@ -1183,17 +1183,6 @@ signature GTK =
     structure WindowClass :
       GTK_WINDOW_CLASS
         where type 'a binclass_t = 'a BinClass.t
-    structure ScrolledWindow :
-      GTK_SCROLLED_WINDOW
-        where type 'a class_t = 'a ScrolledWindowClass.t
-        where type 'a buildableclass_t = 'a BuildableClass.t
-        where type 'a widgetclass_t = 'a WidgetClass.t
-        where type directiontype_t = DirectionType.t
-        where type scrolltype_t = ScrollType.t
-        where type shadowtype_t = ShadowType.t
-        where type 'a adjustmentclass_t = 'a AdjustmentClass.t
-        where type policytype_t = PolicyType.t
-        where type cornertype_t = CornerType.t
     structure AccelLabel :
       GTK_ACCEL_LABEL
         where type 'a class_t = 'a AccelLabelClass.t
@@ -1442,6 +1431,17 @@ signature GTK =
     structure ScaleButtonClass :
       GTK_SCALE_BUTTON_CLASS
         where type 'a buttonclass_t = 'a ButtonClass.t
+    structure ScrolledWindow :
+      GTK_SCROLLED_WINDOW
+        where type 'a class_t = 'a ScrolledWindowClass.t
+        where type 'a buildableclass_t = 'a BuildableClass.t
+        where type 'a widgetclass_t = 'a WidgetClass.t
+        where type directiontype_t = DirectionType.t
+        where type scrolltype_t = ScrollType.t
+        where type shadowtype_t = ShadowType.t
+        where type 'a adjustmentclass_t = 'a AdjustmentClass.t
+        where type policytype_t = PolicyType.t
+        where type cornertype_t = CornerType.t
     structure SeparatorMenuItemClass :
       GTK_SEPARATOR_MENU_ITEM_CLASS
         where type 'a menuitemclass_t = 'a MenuItemClass.t

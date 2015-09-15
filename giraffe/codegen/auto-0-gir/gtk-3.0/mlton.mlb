@@ -15,7 +15,6 @@ local
   ../xlib-2.0/mlton.mlb
 in
   CHILD_SIGNAL.sml
-  STYLE_PROPERTY.sml
   GTK_ACTION_ENTRY.sml
   GTK_ALLOCATION_RECORD.sml
   GTK_ABOUT_DIALOG_CLASS.sml
@@ -734,7 +733,6 @@ in
   mlton/GtkWindowPosition.sml
   mlton/GtkWindowType.sml
   mlton/GtkWrapMode.sml
-  mlton/StyleProperty.sml
   mlton/GtkAccelGroup.sml
   mlton/GtkAccelKey.sml
   mlton/GtkAccelMap.sml
@@ -950,7 +948,6 @@ in
   mlton/GtkVSeparator.sml
   mlton/GtkViewportClass.sml
   mlton/GtkWindowClass.sml
-  mlton/GtkScrolledWindow.sml
   mlton/GtkAccelLabel.sml
   mlton/GtkAlignment.sml
   mlton/GtkAppChooserButtonClass.sml
@@ -997,6 +994,7 @@ in
   mlton/GtkRecentChooserMenuClass.sml
   mlton/GtkRecentChooserWidget.sml
   mlton/GtkScaleButtonClass.sml
+  mlton/GtkScrolledWindow.sml
   mlton/GtkSeparatorMenuItemClass.sml
   mlton/GtkSeparatorToolItemClass.sml
   mlton/GtkStatusIcon.sml
