@@ -5,8 +5,8 @@ signature GIO_D_BUS_MESSAGE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val NOREPLYEXPECTED : t
-    val NOAUTOSTART : t
+    val NO_REPLY_EXPECTED : t
+    val NO_AUTO_START : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

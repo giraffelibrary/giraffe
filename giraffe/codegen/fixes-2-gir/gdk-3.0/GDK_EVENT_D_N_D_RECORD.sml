@@ -5,12 +5,12 @@ signature GDK_EVENT_D_N_D_RECORD =
     type t = dnd event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      DRAGENTER
-    | DRAGLEAVE
-    | DRAGMOTION
-    | DRAGSTATUS
-    | DROPSTART
-    | DROPFINISHED
+      DRAG_ENTER
+    | DRAG_LEAVE
+    | DRAG_MOTION
+    | DRAG_STATUS
+    | DROP_START
+    | DROP_FINISHED
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

@@ -1,7 +1,7 @@
 signature GIO_D_BUS_OBJECT_MANAGER_SERVER_CLASS =
   sig
-    type 'a dbusobjectmanagerserver
-    type 'a t = 'a dbusobjectmanagerserver GObject.ObjectClass.t
+    type 'a d_bus_object_manager_server
+    type 'a t = 'a d_bus_object_manager_server GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

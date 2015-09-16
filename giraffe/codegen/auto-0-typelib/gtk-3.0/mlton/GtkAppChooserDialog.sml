@@ -1,11 +1,11 @@
 structure GtkAppChooserDialog :>
   GTK_APP_CHOOSER_DIALOG
     where type 'a class_t = 'a GtkAppChooserDialogClass.t
-    where type 'a appchooserclass_t = 'a GtkAppChooserClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type dialogflags_t = GtkDialogFlags.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type dialog_flags_t = GtkDialogFlags.t
+    where type 'a window_class_t = 'a GtkWindowClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_app_chooser_dialog_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -62,11 +62,11 @@ structure GtkAppChooserDialog :>
               x3
             )
     type 'a class_t = 'a GtkAppChooserDialogClass.t
-    type 'a appchooserclass_t = 'a GtkAppChooserClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type dialogflags_t = GtkDialogFlags.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type dialog_flags_t = GtkDialogFlags.t
+    type 'a window_class_t = 'a GtkWindowClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asAppChooser self = (GObjectObjectClass.C.withPtr ---> GtkAppChooserClass.C.fromPtr false) I self

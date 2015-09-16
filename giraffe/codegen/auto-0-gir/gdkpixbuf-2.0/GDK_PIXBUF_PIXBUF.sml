@@ -1,8 +1,8 @@
 signature GDK_PIXBUF_PIXBUF =
   sig
     type 'a class_t
-    type pixbufrotation_t
-    type interptype_t
+    type pixbuf_rotation_t
+    type interp_type_t
     type colorspace_t
     type t = base class_t
     val asIcon : 'a class_t -> base Gio.IconClass.t
@@ -60,7 +60,7 @@ signature GDK_PIXBUF_PIXBUF =
        -> real
        -> real
        -> real
-       -> interptype_t
+       -> interp_type_t
        -> LargeInt.int
        -> unit
     val compositeColor :
@@ -74,7 +74,7 @@ signature GDK_PIXBUF_PIXBUF =
        -> real
        -> real
        -> real
-       -> interptype_t
+       -> interp_type_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -86,7 +86,7 @@ signature GDK_PIXBUF_PIXBUF =
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> interptype_t
+       -> interp_type_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -131,7 +131,7 @@ signature GDK_PIXBUF_PIXBUF =
        -> base class_t
     val rotateSimple :
       'a class_t
-       -> pixbufrotation_t
+       -> pixbuf_rotation_t
        -> base class_t
     val saturateAndPixelate :
       'a class_t
@@ -150,13 +150,13 @@ signature GDK_PIXBUF_PIXBUF =
        -> real
        -> real
        -> real
-       -> interptype_t
+       -> interp_type_t
        -> unit
     val scaleSimple :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> interptype_t
+       -> interp_type_t
        -> base class_t
     val bitsPerSampleProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val colorspaceProp : ('a class_t, colorspace_t, colorspace_t) Property.readwrite

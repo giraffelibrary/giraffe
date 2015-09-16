@@ -12,33 +12,33 @@ structure GLibUnicodeType :>
       CONTROL
     | FORMAT
     | UNASSIGNED
-    | PRIVATEUSE
+    | PRIVATE_USE
     | SURROGATE
-    | LOWERCASELETTER
-    | MODIFIERLETTER
-    | OTHERLETTER
-    | TITLECASELETTER
-    | UPPERCASELETTER
-    | SPACINGMARK
-    | ENCLOSINGMARK
-    | NONSPACINGMARK
-    | DECIMALNUMBER
-    | LETTERNUMBER
-    | OTHERNUMBER
-    | CONNECTPUNCTUATION
-    | DASHPUNCTUATION
-    | CLOSEPUNCTUATION
-    | FINALPUNCTUATION
-    | INITIALPUNCTUATION
-    | OTHERPUNCTUATION
-    | OPENPUNCTUATION
-    | CURRENCYSYMBOL
-    | MODIFIERSYMBOL
-    | MATHSYMBOL
-    | OTHERSYMBOL
-    | LINESEPARATOR
-    | PARAGRAPHSEPARATOR
-    | SPACESEPARATOR
+    | LOWERCASE_LETTER
+    | MODIFIER_LETTER
+    | OTHER_LETTER
+    | TITLECASE_LETTER
+    | UPPERCASE_LETTER
+    | SPACING_MARK
+    | ENCLOSING_MARK
+    | NON_SPACING_MARK
+    | DECIMAL_NUMBER
+    | LETTER_NUMBER
+    | OTHER_NUMBER
+    | CONNECT_PUNCTUATION
+    | DASH_PUNCTUATION
+    | CLOSE_PUNCTUATION
+    | FINAL_PUNCTUATION
+    | INITIAL_PUNCTUATION
+    | OTHER_PUNCTUATION
+    | OPEN_PUNCTUATION
+    | CURRENCY_SYMBOL
+    | MODIFIER_SYMBOL
+    | MATH_SYMBOL
+    | OTHER_SYMBOL
+    | LINE_SEPARATOR
+    | PARAGRAPH_SEPARATOR
+    | SPACE_SEPARATOR
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -49,66 +49,66 @@ structure GLibUnicodeType :>
             CONTROL => f 0
           | FORMAT => f 1
           | UNASSIGNED => f 2
-          | PRIVATEUSE => f 3
+          | PRIVATE_USE => f 3
           | SURROGATE => f 4
-          | LOWERCASELETTER => f 5
-          | MODIFIERLETTER => f 6
-          | OTHERLETTER => f 7
-          | TITLECASELETTER => f 8
-          | UPPERCASELETTER => f 9
-          | SPACINGMARK => f 10
-          | ENCLOSINGMARK => f 11
-          | NONSPACINGMARK => f 12
-          | DECIMALNUMBER => f 13
-          | LETTERNUMBER => f 14
-          | OTHERNUMBER => f 15
-          | CONNECTPUNCTUATION => f 16
-          | DASHPUNCTUATION => f 17
-          | CLOSEPUNCTUATION => f 18
-          | FINALPUNCTUATION => f 19
-          | INITIALPUNCTUATION => f 20
-          | OTHERPUNCTUATION => f 21
-          | OPENPUNCTUATION => f 22
-          | CURRENCYSYMBOL => f 23
-          | MODIFIERSYMBOL => f 24
-          | MATHSYMBOL => f 25
-          | OTHERSYMBOL => f 26
-          | LINESEPARATOR => f 27
-          | PARAGRAPHSEPARATOR => f 28
-          | SPACESEPARATOR => f 29
+          | LOWERCASE_LETTER => f 5
+          | MODIFIER_LETTER => f 6
+          | OTHER_LETTER => f 7
+          | TITLECASE_LETTER => f 8
+          | UPPERCASE_LETTER => f 9
+          | SPACING_MARK => f 10
+          | ENCLOSING_MARK => f 11
+          | NON_SPACING_MARK => f 12
+          | DECIMAL_NUMBER => f 13
+          | LETTER_NUMBER => f 14
+          | OTHER_NUMBER => f 15
+          | CONNECT_PUNCTUATION => f 16
+          | DASH_PUNCTUATION => f 17
+          | CLOSE_PUNCTUATION => f 18
+          | FINAL_PUNCTUATION => f 19
+          | INITIAL_PUNCTUATION => f 20
+          | OTHER_PUNCTUATION => f 21
+          | OPEN_PUNCTUATION => f 22
+          | CURRENCY_SYMBOL => f 23
+          | MODIFIER_SYMBOL => f 24
+          | MATH_SYMBOL => f 25
+          | OTHER_SYMBOL => f 26
+          | LINE_SEPARATOR => f 27
+          | PARAGRAPH_SEPARATOR => f 28
+          | SPACE_SEPARATOR => f 29
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CONTROL
           | 1 => FORMAT
           | 2 => UNASSIGNED
-          | 3 => PRIVATEUSE
+          | 3 => PRIVATE_USE
           | 4 => SURROGATE
-          | 5 => LOWERCASELETTER
-          | 6 => MODIFIERLETTER
-          | 7 => OTHERLETTER
-          | 8 => TITLECASELETTER
-          | 9 => UPPERCASELETTER
-          | 10 => SPACINGMARK
-          | 11 => ENCLOSINGMARK
-          | 12 => NONSPACINGMARK
-          | 13 => DECIMALNUMBER
-          | 14 => LETTERNUMBER
-          | 15 => OTHERNUMBER
-          | 16 => CONNECTPUNCTUATION
-          | 17 => DASHPUNCTUATION
-          | 18 => CLOSEPUNCTUATION
-          | 19 => FINALPUNCTUATION
-          | 20 => INITIALPUNCTUATION
-          | 21 => OTHERPUNCTUATION
-          | 22 => OPENPUNCTUATION
-          | 23 => CURRENCYSYMBOL
-          | 24 => MODIFIERSYMBOL
-          | 25 => MATHSYMBOL
-          | 26 => OTHERSYMBOL
-          | 27 => LINESEPARATOR
-          | 28 => PARAGRAPHSEPARATOR
-          | 29 => SPACESEPARATOR
+          | 5 => LOWERCASE_LETTER
+          | 6 => MODIFIER_LETTER
+          | 7 => OTHER_LETTER
+          | 8 => TITLECASE_LETTER
+          | 9 => UPPERCASE_LETTER
+          | 10 => SPACING_MARK
+          | 11 => ENCLOSING_MARK
+          | 12 => NON_SPACING_MARK
+          | 13 => DECIMAL_NUMBER
+          | 14 => LETTER_NUMBER
+          | 15 => OTHER_NUMBER
+          | 16 => CONNECT_PUNCTUATION
+          | 17 => DASH_PUNCTUATION
+          | 18 => CLOSE_PUNCTUATION
+          | 19 => FINAL_PUNCTUATION
+          | 20 => INITIAL_PUNCTUATION
+          | 21 => OTHER_PUNCTUATION
+          | 22 => OPEN_PUNCTUATION
+          | 23 => CURRENCY_SYMBOL
+          | 24 => MODIFIER_SYMBOL
+          | 25 => MATH_SYMBOL
+          | 26 => OTHER_SYMBOL
+          | 27 => LINE_SEPARATOR
+          | 28 => PARAGRAPH_SEPARATOR
+          | 29 => SPACE_SEPARATOR
           | n => raise Value n
       end
     structure PolyML =

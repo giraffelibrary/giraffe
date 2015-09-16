@@ -1,7 +1,7 @@
 structure GioNetworkAddress :>
   GIO_NETWORK_ADDRESS
     where type 'a class_t = 'a GioNetworkAddressClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t =
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
   struct
     local
       open PolyMLFFI
@@ -29,7 +29,7 @@ structure GioNetworkAddress :>
       val getScheme_ = call (load_sym libgio "g_network_address_get_scheme") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioNetworkAddressClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

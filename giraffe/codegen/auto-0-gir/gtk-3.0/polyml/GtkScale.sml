@@ -1,11 +1,11 @@
 structure GtkScale :>
   GTK_SCALE
     where type 'a class_t = 'a GtkScaleClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
     where type orientation_t = GtkOrientation.t
-    where type positiontype_t = GtkPositionType.t =
+    where type position_type_t = GtkPositionType.t =
   struct
     local
       open PolyMLFFI
@@ -48,11 +48,11 @@ structure GtkScale :>
       val setValuePos_ = call (load_sym libgtk "gtk_scale_set_value_pos") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkScaleClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
     type orientation_t = GtkOrientation.t
-    type positiontype_t = GtkPositionType.t
+    type position_type_t = GtkPositionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

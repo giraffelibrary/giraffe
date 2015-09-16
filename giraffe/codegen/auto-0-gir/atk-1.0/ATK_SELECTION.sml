@@ -1,7 +1,7 @@
 signature ATK_SELECTION =
   sig
     type 'a class_t
-    type 'a objectclass_t
+    type 'a object_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val addSelection :
@@ -17,7 +17,7 @@ signature ATK_SELECTION =
     val refSelection :
       'a class_t
        -> LargeInt.int
-       -> base objectclass_t
+       -> base object_class_t
     val removeSelection :
       'a class_t
        -> LargeInt.int

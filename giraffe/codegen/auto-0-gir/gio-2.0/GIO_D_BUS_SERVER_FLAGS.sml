@@ -5,8 +5,8 @@ signature GIO_D_BUS_SERVER_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val RUNINTHREAD : t
-    val AUTHENTICATIONALLOWANONYMOUS : t
+    val RUN_IN_THREAD : t
+    val AUTHENTICATION_ALLOW_ANONYMOUS : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

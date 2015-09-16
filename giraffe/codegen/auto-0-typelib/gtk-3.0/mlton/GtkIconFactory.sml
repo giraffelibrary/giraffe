@@ -1,8 +1,8 @@
 structure GtkIconFactory :>
   GTK_ICON_FACTORY
     where type 'a class_t = 'a GtkIconFactoryClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type iconsetrecord_t = GtkIconSetRecord.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type icon_set_record_t = GtkIconSetRecord.t =
   struct
     val getType_ = _import "gtk_icon_factory_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_icon_factory_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -44,8 +44,8 @@ structure GtkIconFactory :>
             )
     val removeDefault_ = _import "gtk_icon_factory_remove_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkIconFactoryClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type iconsetrecord_t = GtkIconSetRecord.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type icon_set_record_t = GtkIconSetRecord.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -1,7 +1,7 @@
 signature GIO_FILE_ICON_CLASS =
   sig
-    type 'a fileicon
-    type 'a t = 'a fileicon GObject.ObjectClass.t
+    type 'a file_icon
+    type 'a t = 'a file_icon GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

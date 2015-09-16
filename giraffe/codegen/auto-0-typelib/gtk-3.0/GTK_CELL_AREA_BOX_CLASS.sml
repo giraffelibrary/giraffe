@@ -1,8 +1,8 @@
 signature GTK_CELL_AREA_BOX_CLASS =
   sig
-    type 'a cellareabox
-    type 'a cellareaclass_t
-    type 'a t = 'a cellareabox cellareaclass_t
+    type 'a cell_area_box
+    type 'a cell_area_class_t
+    type 'a t = 'a cell_area_box cell_area_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

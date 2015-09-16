@@ -6,12 +6,12 @@ structure GioFileAttributeType :>
     datatype t =
       INVALID
     | STRING
-    | BYTESTRING
+    | BYTE_STRING
     | BOOLEAN
-    | UINT32
-    | INT32
-    | UINT64
-    | INT64
+    | UINT_32
+    | INT_32
+    | UINT_64
+    | INT_64
     | OBJECT
     | STRINGV
     structure C =
@@ -23,12 +23,12 @@ structure GioFileAttributeType :>
           fn
             INVALID => f 0
           | STRING => f 1
-          | BYTESTRING => f 2
+          | BYTE_STRING => f 2
           | BOOLEAN => f 3
-          | UINT32 => f 4
-          | INT32 => f 5
-          | UINT64 => f 6
-          | INT64 => f 7
+          | UINT_32 => f 4
+          | INT_32 => f 5
+          | UINT_64 => f 6
+          | INT_64 => f 7
           | OBJECT => f 8
           | STRINGV => f 9
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
@@ -36,12 +36,12 @@ structure GioFileAttributeType :>
           fn
             0 => INVALID
           | 1 => STRING
-          | 2 => BYTESTRING
+          | 2 => BYTE_STRING
           | 3 => BOOLEAN
-          | 4 => UINT32
-          | 5 => INT32
-          | 6 => UINT64
-          | 7 => INT64
+          | 4 => UINT_32
+          | 5 => INT_32
+          | 6 => UINT_64
+          | 7 => INT_64
           | 8 => OBJECT
           | 9 => STRINGV
           | n => raise Value n

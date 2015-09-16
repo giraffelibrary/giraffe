@@ -1,8 +1,8 @@
 signature GDK_BYTE_ORDER =
   sig
     datatype t =
-      LSBFIRST
-    | MSBFIRST
+      LSB_FIRST
+    | MSB_FIRST
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

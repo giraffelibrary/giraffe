@@ -1,8 +1,8 @@
 signature G_OBJECT_BINDING_CLASS =
   sig
     type 'a binding
-    type 'a objectclass_t
-    type 'a t = 'a binding objectclass_t
+    type 'a object_class_t
+    type 'a t = 'a binding object_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

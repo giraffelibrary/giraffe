@@ -1,8 +1,8 @@
 signature G_OBJECT_PARAM_SPEC_VALUE_ARRAY_CLASS =
   sig
-    type 'a paramspecvaluearray
-    type 'a paramspecclass_t
-    type 'a t = 'a paramspecvaluearray paramspecclass_t
+    type 'a param_spec_value_array
+    type 'a param_spec_class_t
+    type 'a t = 'a param_spec_value_array param_spec_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

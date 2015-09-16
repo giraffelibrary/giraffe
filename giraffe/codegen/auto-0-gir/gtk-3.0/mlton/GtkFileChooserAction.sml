@@ -6,8 +6,8 @@ structure GtkFileChooserAction :>
     datatype t =
       OPEN
     | SAVE
-    | SELECTFOLDER
-    | CREATEFOLDER
+    | SELECT_FOLDER
+    | CREATE_FOLDER
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -17,15 +17,15 @@ structure GtkFileChooserAction :>
           fn
             OPEN => f 0
           | SAVE => f 1
-          | SELECTFOLDER => f 2
-          | CREATEFOLDER => f 3
+          | SELECT_FOLDER => f 2
+          | CREATE_FOLDER => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => OPEN
           | 1 => SAVE
-          | 2 => SELECTFOLDER
-          | 3 => CREATEFOLDER
+          | 2 => SELECT_FOLDER
+          | 3 => CREATE_FOLDER
           | n => raise Value n
       end
     val getType_ = _import "gtk_file_chooser_action_get_type" : unit -> GObjectType.C.val_;

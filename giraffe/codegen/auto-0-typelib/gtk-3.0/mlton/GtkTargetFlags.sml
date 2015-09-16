@@ -3,16 +3,16 @@ structure GtkTargetFlags :>
     include GTK_TARGET_FLAGS
   end =
   struct
-    val SAMEAPP = 0w1
-    val SAMEWIDGET = 0w2
-    val OTHERAPP = 0w4
-    val OTHERWIDGET = 0w8
+    val SAME_APP = 0w1
+    val SAME_WIDGET = 0w2
+    val OTHER_APP = 0w4
+    val OTHER_WIDGET = 0w8
     val allFlags =
       [
-        SAMEAPP,
-        SAMEWIDGET,
-        OTHERAPP,
-        OTHERWIDGET
+        SAME_APP,
+        SAME_WIDGET,
+        OTHER_APP,
+        OTHER_WIDGET
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -4,13 +4,13 @@ signature GIO_APPLICATION_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val FLAGSNONE : t
-    val ISSERVICE : t
-    val ISLAUNCHER : t
-    val HANDLESOPEN : t
-    val HANDLESCOMMANDLINE : t
-    val SENDENVIRONMENT : t
-    val NONUNIQUE : t
+    val FLAGS_NONE : t
+    val IS_SERVICE : t
+    val IS_LAUNCHER : t
+    val HANDLES_OPEN : t
+    val HANDLES_COMMAND_LINE : t
+    val SEND_ENVIRONMENT : t
+    val NON_UNIQUE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

@@ -1,9 +1,9 @@
 structure GIRepositoryRepository :>
   G_I_REPOSITORY_REPOSITORY
     where type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    where type baseinforecord_t = GIRepositoryBaseInfoRecord.t
-    where type typelibrecord_t = GIRepositoryTypelibRecord.t
-    where type repositoryloadflags_t = GIRepositoryRepositoryLoadFlags.t =
+    where type base_info_record_t = GIRepositoryBaseInfoRecord.t
+    where type typelib_record_t = GIRepositoryTypelibRecord.t
+    where type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t =
   struct
     local
       open PolyMLFFI
@@ -74,9 +74,9 @@ structure GIRepositoryRepository :>
           )
     end
     type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    type baseinforecord_t = GIRepositoryBaseInfoRecord.t
-    type typelibrecord_t = GIRepositoryTypelibRecord.t
-    type repositoryloadflags_t = GIRepositoryRepositoryLoadFlags.t
+    type base_info_record_t = GIRepositoryBaseInfoRecord.t
+    type typelib_record_t = GIRepositoryTypelibRecord.t
+    type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dump arg = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])

@@ -1,7 +1,7 @@
 structure GtkCellRendererAccel :>
   GTK_CELL_RENDERER_ACCEL
     where type 'a class_t = 'a GtkCellRendererAccelClass.t
-    where type cellrendereraccelmode_t = GtkCellRendererAccelMode.t =
+    where type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t =
   struct
     local
       open PolyMLFFI
@@ -10,7 +10,7 @@ structure GtkCellRendererAccel :>
       val new_ = call (load_sym libgtk "gtk_cell_renderer_accel_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkCellRendererAccelClass.t
-    type cellrendereraccelmode_t = GtkCellRendererAccelMode.t
+    type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererAccelClass.C.fromPtr false) new_ ()

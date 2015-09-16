@@ -2,8 +2,8 @@ signature GTK_FILE_CHOOSER_CONFIRMATION =
   sig
     datatype t =
       CONFIRM
-    | ACCEPTFILENAME
-    | SELECTAGAIN
+    | ACCEPT_FILENAME
+    | SELECT_AGAIN
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

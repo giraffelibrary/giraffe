@@ -1,8 +1,8 @@
 structure GtkCellLayout :>
   GTK_CELL_LAYOUT
     where type 'a class_t = 'a GtkCellLayoutClass.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    where type 'a cellrendererclass_t = 'a GtkCellRendererClass.t =
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t =
   struct
     val getType_ = _import "gtk_cell_layout_get_type" : unit -> GObjectType.C.val_;
     val addAttribute_ =
@@ -82,8 +82,8 @@ structure GtkCellLayout :>
               x3
             )
     type 'a class_t = 'a GtkCellLayoutClass.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addAttribute self cell attribute column =

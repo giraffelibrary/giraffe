@@ -4,8 +4,8 @@ signature GTK_TREE_MODEL_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val ITERSPERSIST : t
-    val LISTONLY : t
+    val ITERS_PERSIST : t
+    val LIST_ONLY : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

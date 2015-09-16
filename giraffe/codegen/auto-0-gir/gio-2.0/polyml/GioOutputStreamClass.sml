@@ -3,8 +3,8 @@ structure GioOutputStreamClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a outputstream = unit
-    type 'a t = 'a outputstream GObjectObjectClass.t
+    type 'a output_stream = unit
+    type 'a t = 'a output_stream GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

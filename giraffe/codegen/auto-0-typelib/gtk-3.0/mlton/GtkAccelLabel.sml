@@ -1,8 +1,8 @@
 structure GtkAccelLabel :>
   GTK_ACCEL_LABEL
     where type 'a class_t = 'a GtkAccelLabelClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_accel_label_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_accel_label_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -12,8 +12,8 @@ structure GtkAccelLabel :>
     val setAccelClosure_ = fn x1 & x2 => (_import "gtk_accel_label_set_accel_closure" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p -> unit;) (x1, x2)
     val setAccelWidget_ = fn x1 & x2 => (_import "gtk_accel_label_set_accel_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkAccelLabelClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

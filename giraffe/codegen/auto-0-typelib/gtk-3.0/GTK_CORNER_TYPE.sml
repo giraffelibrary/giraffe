@@ -1,10 +1,10 @@
 signature GTK_CORNER_TYPE =
   sig
     datatype t =
-      TOPLEFT
-    | BOTTOMLEFT
-    | TOPRIGHT
-    | BOTTOMRIGHT
+      TOP_LEFT
+    | BOTTOM_LEFT
+    | TOP_RIGHT
+    | BOTTOM_RIGHT
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

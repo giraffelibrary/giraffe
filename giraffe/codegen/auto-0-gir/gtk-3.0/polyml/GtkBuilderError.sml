@@ -9,15 +9,15 @@ structure GtkBuilderError :>
   end =
   struct
     datatype t =
-      INVALIDTYPEFUNCTION
-    | UNHANDLEDTAG
-    | MISSINGATTRIBUTE
-    | INVALIDATTRIBUTE
-    | INVALIDTAG
-    | MISSINGPROPERTYVALUE
-    | INVALIDVALUE
-    | VERSIONMISMATCH
-    | DUPLICATEID
+      INVALID_TYPE_FUNCTION
+    | UNHANDLED_TAG
+    | MISSING_ATTRIBUTE
+    | INVALID_ATTRIBUTE
+    | INVALID_TAG
+    | MISSING_PROPERTY_VALUE
+    | INVALID_VALUE
+    | VERSION_MISMATCH
+    | DUPLICATE_ID
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,27 +25,27 @@ structure GtkBuilderError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            INVALIDTYPEFUNCTION => f 0
-          | UNHANDLEDTAG => f 1
-          | MISSINGATTRIBUTE => f 2
-          | INVALIDATTRIBUTE => f 3
-          | INVALIDTAG => f 4
-          | MISSINGPROPERTYVALUE => f 5
-          | INVALIDVALUE => f 6
-          | VERSIONMISMATCH => f 7
-          | DUPLICATEID => f 8
+            INVALID_TYPE_FUNCTION => f 0
+          | UNHANDLED_TAG => f 1
+          | MISSING_ATTRIBUTE => f 2
+          | INVALID_ATTRIBUTE => f 3
+          | INVALID_TAG => f 4
+          | MISSING_PROPERTY_VALUE => f 5
+          | INVALID_VALUE => f 6
+          | VERSION_MISMATCH => f 7
+          | DUPLICATE_ID => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => INVALIDTYPEFUNCTION
-          | 1 => UNHANDLEDTAG
-          | 2 => MISSINGATTRIBUTE
-          | 3 => INVALIDATTRIBUTE
-          | 4 => INVALIDTAG
-          | 5 => MISSINGPROPERTYVALUE
-          | 6 => INVALIDVALUE
-          | 7 => VERSIONMISMATCH
-          | 8 => DUPLICATEID
+            0 => INVALID_TYPE_FUNCTION
+          | 1 => UNHANDLED_TAG
+          | 2 => MISSING_ATTRIBUTE
+          | 3 => INVALID_ATTRIBUTE
+          | 4 => INVALID_TAG
+          | 5 => MISSING_PROPERTY_VALUE
+          | 6 => INVALID_VALUE
+          | 7 => VERSION_MISMATCH
+          | 8 => DUPLICATE_ID
           | n => raise Value n
       end
     structure PolyML =

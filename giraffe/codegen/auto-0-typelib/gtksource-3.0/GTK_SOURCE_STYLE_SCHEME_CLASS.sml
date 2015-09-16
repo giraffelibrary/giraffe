@@ -1,7 +1,7 @@
 signature GTK_SOURCE_STYLE_SCHEME_CLASS =
   sig
-    type 'a stylescheme
-    type 'a t = 'a stylescheme GObject.ObjectClass.t
+    type 'a style_scheme
+    type 'a t = 'a style_scheme GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

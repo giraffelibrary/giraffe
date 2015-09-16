@@ -1,8 +1,8 @@
 structure GioInputStream :>
   GIO_INPUT_STREAM
     where type 'a class_t = 'a GioInputStreamClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_input_stream_get_type" : unit -> GObjectType.C.val_;
     val clearPending_ = _import "g_input_stream_clear_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -98,8 +98,8 @@ structure GioInputStream :>
               x3
             )
     type 'a class_t = 'a GioInputStreamClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self

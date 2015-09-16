@@ -1,7 +1,7 @@
 structure GioSimpleAsyncResult :>
   GIO_SIMPLE_ASYNC_RESULT
     where type 'a class_t = 'a GioSimpleAsyncResultClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     local
       open PolyMLFFI
@@ -17,7 +17,7 @@ structure GioSimpleAsyncResult :>
       val setOpResGssize_ = call (load_sym libgio "g_simple_async_result_set_op_res_gssize") (GObjectObjectClass.PolyML.PTR &&> FFI.Int64.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSimpleAsyncResultClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     fun asAsyncResult self = (GObjectObjectClass.C.withPtr ---> GioAsyncResultClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

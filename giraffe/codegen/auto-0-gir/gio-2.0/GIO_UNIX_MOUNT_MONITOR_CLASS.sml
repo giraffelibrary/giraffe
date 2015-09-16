@@ -1,7 +1,7 @@
 signature GIO_UNIX_MOUNT_MONITOR_CLASS =
   sig
-    type 'a unixmountmonitor
-    type 'a t = 'a unixmountmonitor GObject.ObjectClass.t
+    type 'a unix_mount_monitor
+    type 'a t = 'a unix_mount_monitor GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

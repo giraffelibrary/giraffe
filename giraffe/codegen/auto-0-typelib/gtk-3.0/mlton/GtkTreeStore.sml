@@ -1,12 +1,12 @@
 structure GtkTreeStore :>
   GTK_TREE_STORE
     where type 'a class_t = 'a GtkTreeStoreClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a treedragdestclass_t = 'a GtkTreeDragDestClass.t
-    where type 'a treedragsourceclass_t = 'a GtkTreeDragSourceClass.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    where type 'a treesortableclass_t = 'a GtkTreeSortableClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a tree_drag_dest_class_t = 'a GtkTreeDragDestClass.t
+    where type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    where type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t =
   struct
     val getType_ = _import "gtk_tree_store_get_type" : unit -> GObjectType.C.val_;
     val append_ =
@@ -196,12 +196,12 @@ structure GtkTreeStore :>
               x3
             )
     type 'a class_t = 'a GtkTreeStoreClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a treedragdestclass_t = 'a GtkTreeDragDestClass.t
-    type 'a treedragsourceclass_t = 'a GtkTreeDragSourceClass.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    type 'a treesortableclass_t = 'a GtkTreeSortableClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a tree_drag_dest_class_t = 'a GtkTreeDragDestClass.t
+    type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asTreeDragDest self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragDestClass.C.fromPtr false) I self

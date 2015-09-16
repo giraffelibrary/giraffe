@@ -1,15 +1,15 @@
 signature GIO_APP_INFO =
   sig
     type 'a class_t
-    type appinfocreateflags_t
-    type 'a applaunchcontextclass_t
-    type 'a iconclass_t
+    type app_info_create_flags_t
+    type 'a app_launch_context_class_t
+    type 'a icon_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val createFromCommandline :
       string
        -> string option
-       -> appinfocreateflags_t
+       -> app_info_create_flags_t
        -> base class_t
     val getDefaultForType :
       string
@@ -18,7 +18,7 @@ signature GIO_APP_INFO =
     val getDefaultForUriScheme : string -> base class_t
     val launchDefaultForUri :
       string
-       -> 'a applaunchcontextclass_t option
+       -> 'a app_launch_context_class_t option
        -> bool
     val resetTypeAssociations : string -> unit
     val addSupportsType :
@@ -37,7 +37,7 @@ signature GIO_APP_INFO =
     val getDescription : 'a class_t -> string
     val getDisplayName : 'a class_t -> string
     val getExecutable : 'a class_t -> string
-    val getIcon : 'a class_t -> base iconclass_t
+    val getIcon : 'a class_t -> base icon_class_t
     val getId : 'a class_t -> string
     val getName : 'a class_t -> string
     val removeSupportsType :

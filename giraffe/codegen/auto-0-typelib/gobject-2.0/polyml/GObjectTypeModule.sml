@@ -1,7 +1,7 @@
 structure GObjectTypeModule :>
   G_OBJECT_TYPE_MODULE
     where type 'a class_t = 'a GObjectTypeModuleClass.t
-    where type 'a typepluginclass_t = 'a GObjectTypePluginClass.t
+    where type 'a type_plugin_class_t = 'a GObjectTypePluginClass.t
     where type type_t = GObjectType.t =
   struct
     local
@@ -13,7 +13,7 @@ structure GObjectTypeModule :>
       val use_ = call (load_sym libgobject "g_type_module_use") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GObjectTypeModuleClass.t
-    type 'a typepluginclass_t = 'a GObjectTypePluginClass.t
+    type 'a type_plugin_class_t = 'a GObjectTypePluginClass.t
     type type_t = GObjectType.t
     type t = base class_t
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self

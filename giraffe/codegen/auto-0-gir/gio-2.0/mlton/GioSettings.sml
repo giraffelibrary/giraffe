@@ -1,8 +1,8 @@
 structure GioSettings :>
   GIO_SETTINGS
     where type 'a class_t = 'a GioSettingsClass.t
-    where type settingsbackendrecord_t = GioSettingsBackendRecord.t
-    where type settingsbindflags_t = GioSettingsBindFlags.t =
+    where type settings_backend_record_t = GioSettingsBackendRecord.t
+    where type settings_bind_flags_t = GioSettingsBindFlags.t =
   struct
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_g_settings_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -472,8 +472,8 @@ structure GioSettings :>
               x4
             )
     type 'a class_t = 'a GioSettingsClass.t
-    type settingsbackendrecord_t = GioSettingsBackendRecord.t
-    type settingsbindflags_t = GioSettingsBindFlags.t
+    type settings_backend_record_t = GioSettingsBackendRecord.t
+    type settings_bind_flags_t = GioSettingsBindFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new schema = (FFI.String.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) new_ schema

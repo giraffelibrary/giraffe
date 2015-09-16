@@ -1,8 +1,8 @@
 structure GtkRecentManager :>
   GTK_RECENT_MANAGER
     where type 'a class_t = 'a GtkRecentManagerClass.t
-    where type recentdatarecord_t = GtkRecentDataRecord.t
-    where type recentinforecord_t = GtkRecentInfoRecord.t =
+    where type recent_data_record_t = GtkRecentDataRecord.t
+    where type recent_info_record_t = GtkRecentInfoRecord.t =
   struct
     val getType_ = _import "gtk_recent_manager_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_recent_manager_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -120,8 +120,8 @@ structure GtkRecentManager :>
               x4
             )
     type 'a class_t = 'a GtkRecentManagerClass.t
-    type recentdatarecord_t = GtkRecentDataRecord.t
-    type recentinforecord_t = GtkRecentInfoRecord.t
+    type recent_data_record_t = GtkRecentDataRecord.t
+    type recent_info_record_t = GtkRecentInfoRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentManagerClass.C.fromPtr true) new_ ()

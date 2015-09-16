@@ -1,7 +1,7 @@
 structure GioSeekable :>
   GIO_SEEKABLE
     where type 'a class_t = 'a GioSeekableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
   struct
     val getType_ = _import "g_seekable_get_type" : unit -> GObjectType.C.val_;
     val canSeek_ = _import "g_seekable_can_seek" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -51,7 +51,7 @@ structure GioSeekable :>
               x4
             )
     type 'a class_t = 'a GioSeekableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canSeek self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canSeek_ self

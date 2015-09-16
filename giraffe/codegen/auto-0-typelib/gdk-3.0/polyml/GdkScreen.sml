@@ -1,9 +1,9 @@
 structure GdkScreen :>
   GDK_SCREEN
     where type 'a class_t = 'a GdkScreenClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type 'a visualclass_t = 'a GdkVisualClass.t =
+    where type 'a display_class_t = 'a GdkDisplayClass.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type 'a visual_class_t = 'a GdkVisualClass.t =
   struct
     local
       open PolyMLFFI
@@ -62,9 +62,9 @@ structure GdkScreen :>
       val setResolution_ = call (load_sym libgdk "gdk_screen_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GdkScreenClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type 'a visualclass_t = 'a GdkVisualClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type 'a visual_class_t = 'a GdkVisualClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkScreenClass.C.fromPtr false) getDefault_ ()

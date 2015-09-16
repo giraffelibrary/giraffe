@@ -11,7 +11,7 @@ signature GDK_WINDOW_ATTRIBUTES_TYPE =
     val VISUAL : t
     val WMCLASS : t
     val NOREDIR : t
-    val TYPEHINT : t
+    val TYPE_HINT : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

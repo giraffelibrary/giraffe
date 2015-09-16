@@ -4,7 +4,7 @@ signature G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val IREPOSITORYLOADFLAGLAZY : t
+    val IREPOSITORY_LOAD_FLAG_LAZY : t
     structure C :
       sig
         type val_

@@ -3,8 +3,8 @@ structure GioSocketListenerClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a socketlistener = unit
-    type 'a t = 'a socketlistener GObjectObjectClass.t
+    type 'a socket_listener = unit
+    type 'a t = 'a socket_listener GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

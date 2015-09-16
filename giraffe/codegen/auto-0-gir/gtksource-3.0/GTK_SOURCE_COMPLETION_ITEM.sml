@@ -1,9 +1,9 @@
 signature GTK_SOURCE_COMPLETION_ITEM =
   sig
     type 'a class_t
-    type 'a completionproposalclass_t
+    type 'a completion_proposal_class_t
     type t = base class_t
-    val asCompletionProposal : 'a class_t -> base completionproposalclass_t
+    val asCompletionProposal : 'a class_t -> base completion_proposal_class_t
     val getType : unit -> GObject.Type.t
     val new :
       string

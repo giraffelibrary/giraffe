@@ -1,7 +1,7 @@
 signature GTK_TREE_DRAG_DEST_CLASS =
   sig
-    type 'a treedragdest
-    type 'a t = 'a treedragdest GObject.ObjectClass.t
+    type 'a tree_drag_dest
+    type 'a t = 'a tree_drag_dest GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,14 +1,14 @@
 structure GioTlsConnection :>
   GIO_TLS_CONNECTION
     where type 'a class_t = 'a GioTlsConnectionClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a iostreamclass_t = 'a GioIOStreamClass.t
-    where type 'a tlsdatabaseclass_t = 'a GioTlsDatabaseClass.t
-    where type 'a tlsinteractionclass_t = 'a GioTlsInteractionClass.t
-    where type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
-    where type tlscertificateflags_t = GioTlsCertificateFlags.t
-    where type tlsrehandshakemode_t = GioTlsRehandshakeMode.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    where type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
+    where type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
+    where type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    where type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    where type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t =
   struct
     val getType_ = _import "g_tls_connection_get_type" : unit -> GObjectType.C.val_;
     val emitAcceptCertificate_ =
@@ -75,14 +75,14 @@ structure GioTlsConnection :>
     val setRehandshakeMode_ = fn x1 & x2 => (_import "g_tls_connection_set_rehandshake_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsRehandshakeMode.C.val_ -> unit;) (x1, x2)
     val setRequireCloseNotify_ = fn x1 & x2 => (_import "g_tls_connection_set_require_close_notify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioTlsConnectionClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a iostreamclass_t = 'a GioIOStreamClass.t
-    type 'a tlsdatabaseclass_t = 'a GioTlsDatabaseClass.t
-    type 'a tlsinteractionclass_t = 'a GioTlsInteractionClass.t
-    type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
-    type tlscertificateflags_t = GioTlsCertificateFlags.t
-    type tlsrehandshakemode_t = GioTlsRehandshakeMode.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
+    type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
+    type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun emitAcceptCertificate self peerCert errors =

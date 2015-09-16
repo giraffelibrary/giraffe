@@ -1,7 +1,7 @@
 structure GtkSourceLanguageManager :>
   GTK_SOURCE_LANGUAGE_MANAGER
     where type 'a class_t = 'a GtkSourceLanguageManagerClass.t
-    where type 'a languageclass_t = 'a GtkSourceLanguageClass.t =
+    where type 'a language_class_t = 'a GtkSourceLanguageClass.t =
   struct
     val getType_ = _import "gtk_source_language_manager_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_language_manager_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -43,7 +43,7 @@ structure GtkSourceLanguageManager :>
               x5
             )
     type 'a class_t = 'a GtkSourceLanguageManagerClass.t
-    type 'a languageclass_t = 'a GtkSourceLanguageClass.t
+    type 'a language_class_t = 'a GtkSourceLanguageClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr true) new_ ()

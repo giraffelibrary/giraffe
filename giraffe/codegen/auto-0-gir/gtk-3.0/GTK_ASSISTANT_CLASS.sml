@@ -1,8 +1,8 @@
 signature GTK_ASSISTANT_CLASS =
   sig
     type 'a assistant
-    type 'a windowclass_t
-    type 'a t = 'a assistant windowclass_t
+    type 'a window_class_t
+    type 'a t = 'a assistant window_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

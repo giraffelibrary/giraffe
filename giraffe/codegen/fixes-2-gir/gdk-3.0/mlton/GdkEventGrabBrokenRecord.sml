@@ -6,13 +6,13 @@ structure GdkEventGrabBrokenRecord :>
       where type 'a C.p = 'a GdkEvent.C.p
   end =
   struct
-    type grabbroken = unit
+    type grab_broken = unit
     type 'a event_t = 'a GdkEvent.t
-    type t = grabbroken event_t
+    type t = grab_broken event_t
 
 
     datatype event =
-      GRABBROKEN
+      GRAB_BROKEN
 
 
     structure C = GdkEvent.C

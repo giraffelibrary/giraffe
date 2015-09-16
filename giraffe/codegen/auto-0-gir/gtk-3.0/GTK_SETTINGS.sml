@@ -1,16 +1,16 @@
 signature GTK_SETTINGS =
   sig
     type 'a class_t
-    type 'a styleproviderclass_t
-    type settingsvaluerecord_t
-    type impreeditstyle_t
-    type imstatusstyle_t
-    type cornertype_t
-    type iconsize_t
-    type toolbarstyle_t
-    type policytype_t
+    type 'a style_provider_class_t
+    type settings_value_record_t
+    type i_m_preedit_style_t
+    type i_m_status_style_t
+    type corner_type_t
+    type icon_size_t
+    type toolbar_style_t
+    type policy_type_t
     type t = base class_t
-    val asStyleProvider : 'a class_t -> base styleproviderclass_t
+    val asStyleProvider : 'a class_t -> base style_provider_class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
     val getForScreen : 'a Gdk.ScreenClass.t -> base class_t
@@ -30,7 +30,7 @@ signature GTK_SETTINGS =
     val setPropertyValue :
       'a class_t
        -> string
-       -> settingsvaluerecord_t
+       -> settings_value_record_t
        -> unit
     val setStringProperty :
       'a class_t
@@ -70,8 +70,8 @@ signature GTK_SETTINGS =
     val gtkIconSizesProp : ('a class_t, string option, string option) Property.readwrite
     val gtkIconThemeNameProp : ('a class_t, string option, string option) Property.readwrite
     val gtkImModuleProp : ('a class_t, string option, string option) Property.readwrite
-    val gtkImPreeditStyleProp : ('a class_t, impreeditstyle_t, impreeditstyle_t) Property.readwrite
-    val gtkImStatusStyleProp : ('a class_t, imstatusstyle_t, imstatusstyle_t) Property.readwrite
+    val gtkImPreeditStyleProp : ('a class_t, i_m_preedit_style_t, i_m_preedit_style_t) Property.readwrite
+    val gtkImStatusStyleProp : ('a class_t, i_m_status_style_t, i_m_status_style_t) Property.readwrite
     val gtkKeyThemeNameProp : ('a class_t, string option, string option) Property.readwrite
     val gtkKeynavCursorOnlyProp : ('a class_t, bool, bool) Property.readwrite
     val gtkKeynavWrapAroundProp : ('a class_t, bool, bool) Property.readwrite
@@ -86,7 +86,7 @@ signature GTK_SETTINGS =
     val gtkPrintPreviewCommandProp : ('a class_t, string option, string option) Property.readwrite
     val gtkRecentFilesLimitProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkRecentFilesMaxAgeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkScrolledWindowPlacementProp : ('a class_t, cornertype_t, cornertype_t) Property.readwrite
+    val gtkScrolledWindowPlacementProp : ('a class_t, corner_type_t, corner_type_t) Property.readwrite
     val gtkShowInputMethodMenuProp : ('a class_t, bool, bool) Property.readwrite
     val gtkShowUnicodeMenuProp : ('a class_t, bool, bool) Property.readwrite
     val gtkSoundThemeNameProp : ('a class_t, string option, string option) Property.readwrite
@@ -95,13 +95,13 @@ signature GTK_SETTINGS =
     val gtkTimeoutExpandProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkTimeoutInitialProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkTimeoutRepeatProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkToolbarIconSizeProp : ('a class_t, iconsize_t, iconsize_t) Property.readwrite
-    val gtkToolbarStyleProp : ('a class_t, toolbarstyle_t, toolbarstyle_t) Property.readwrite
+    val gtkToolbarIconSizeProp : ('a class_t, icon_size_t, icon_size_t) Property.readwrite
+    val gtkToolbarStyleProp : ('a class_t, toolbar_style_t, toolbar_style_t) Property.readwrite
     val gtkTooltipBrowseModeTimeoutProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkTooltipBrowseTimeoutProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkTooltipTimeoutProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkTouchscreenModeProp : ('a class_t, bool, bool) Property.readwrite
-    val gtkVisibleFocusProp : ('a class_t, policytype_t, policytype_t) Property.readwrite
+    val gtkVisibleFocusProp : ('a class_t, policy_type_t, policy_type_t) Property.readwrite
     val gtkXftAntialiasProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkXftDpiProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val gtkXftHintingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite

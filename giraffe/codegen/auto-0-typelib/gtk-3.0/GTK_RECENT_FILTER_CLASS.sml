@@ -1,7 +1,7 @@
 signature GTK_RECENT_FILTER_CLASS =
   sig
-    type 'a recentfilter
-    type 'a t = 'a recentfilter GObject.InitiallyUnownedClass.t
+    type 'a recent_filter
+    type 'a t = 'a recent_filter GObject.InitiallyUnownedClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

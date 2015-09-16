@@ -1,8 +1,8 @@
 signature GIO_SIMPLE_PERMISSION_CLASS =
   sig
-    type 'a simplepermission
-    type 'a permissionclass_t
-    type 'a t = 'a simplepermission permissionclass_t
+    type 'a simple_permission
+    type 'a permission_class_t
+    type 'a t = 'a simple_permission permission_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

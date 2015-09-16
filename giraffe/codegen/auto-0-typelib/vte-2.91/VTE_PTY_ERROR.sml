@@ -1,8 +1,8 @@
 signature VTE_PTY_ERROR =
   sig
     datatype t =
-      PTYHELPERFAILED
-    | PTY98FAILED
+      PTY_HELPER_FAILED
+    | PTY_98_FAILED
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

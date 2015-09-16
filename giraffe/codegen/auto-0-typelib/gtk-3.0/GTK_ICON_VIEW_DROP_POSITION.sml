@@ -1,12 +1,12 @@
 signature GTK_ICON_VIEW_DROP_POSITION =
   sig
     datatype t =
-      NODROP
-    | DROPINTO
-    | DROPLEFT
-    | DROPRIGHT
-    | DROPABOVE
-    | DROPBELOW
+      NO_DROP
+    | DROP_INTO
+    | DROP_LEFT
+    | DROP_RIGHT
+    | DROP_ABOVE
+    | DROP_BELOW
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

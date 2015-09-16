@@ -1,18 +1,18 @@
 signature GTK_WINDOW =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type 'a windowgroupclass_t
-    type 'a accelgroupclass_t
-    type 'a widgetclass_t
-    type 'a applicationclass_t
-    type windowtype_t
-    type windowposition_t
+    type 'a buildable_class_t
+    type 'a window_group_class_t
+    type 'a accel_group_class_t
+    type 'a widget_class_t
+    type 'a application_class_t
+    type window_type_t
+    type window_position_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
-    val new : windowtype_t -> base class_t
+    val new : window_type_t -> base class_t
     val getDefaultIconName : unit -> string
     val setAutoStartupNotification : bool -> unit
     val setDefaultIcon : 'a GdkPixbuf.PixbufClass.t -> unit
@@ -26,12 +26,12 @@ signature GTK_WINDOW =
        -> bool
     val addAccelGroup :
       'a class_t
-       -> 'b accelgroupclass_t
+       -> 'b accel_group_class_t
        -> unit
     val addMnemonic :
       'a class_t
        -> LargeInt.int
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> unit
     val beginMoveDrag :
       'a class_t
@@ -51,17 +51,17 @@ signature GTK_WINDOW =
     val deiconify : 'a class_t -> unit
     val fullscreen : 'a class_t -> unit
     val getAcceptFocus : 'a class_t -> bool
-    val getApplication : 'a class_t -> base applicationclass_t
+    val getApplication : 'a class_t -> base application_class_t
     val getDecorated : 'a class_t -> bool
     val getDefaultSize : 'a class_t -> LargeInt.int * LargeInt.int
-    val getDefaultWidget : 'a class_t -> base widgetclass_t
+    val getDefaultWidget : 'a class_t -> base widget_class_t
     val getDeletable : 'a class_t -> bool
     val getDestroyWithParent : 'a class_t -> bool
-    val getFocus : 'a class_t -> base widgetclass_t
+    val getFocus : 'a class_t -> base widget_class_t
     val getFocusOnMap : 'a class_t -> bool
     val getFocusVisible : 'a class_t -> bool
     val getGravity : 'a class_t -> Gdk.Gravity.t
-    val getGroup : 'a class_t -> base windowgroupclass_t
+    val getGroup : 'a class_t -> base window_group_class_t
     val getHasResizeGrip : 'a class_t -> bool
     val getIcon : 'a class_t -> base GdkPixbuf.PixbufClass.t
     val getIconName : 'a class_t -> string
@@ -81,7 +81,7 @@ signature GTK_WINDOW =
     val getTransientFor : 'a class_t -> base class_t
     val getTypeHint : 'a class_t -> Gdk.WindowTypeHint.t
     val getUrgencyHint : 'a class_t -> bool
-    val getWindowType : 'a class_t -> windowtype_t
+    val getWindowType : 'a class_t -> window_type_t
     val hasGroup : 'a class_t -> bool
     val hasToplevelFocus : 'a class_t -> bool
     val iconify : 'a class_t -> unit
@@ -112,12 +112,12 @@ signature GTK_WINDOW =
        -> bool
     val removeAccelGroup :
       'a class_t
-       -> 'b accelgroupclass_t
+       -> 'b accel_group_class_t
        -> unit
     val removeMnemonic :
       'a class_t
        -> LargeInt.int
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> unit
     val reshowWithInitialSize : 'a class_t -> unit
     val resize :
@@ -137,7 +137,7 @@ signature GTK_WINDOW =
        -> unit
     val setApplication :
       'a class_t
-       -> 'b applicationclass_t option
+       -> 'b application_class_t option
        -> unit
     val setDecorated :
       'a class_t
@@ -145,7 +145,7 @@ signature GTK_WINDOW =
        -> unit
     val setDefault :
       'a class_t
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> unit
     val setDefaultGeometry :
       'a class_t
@@ -167,7 +167,7 @@ signature GTK_WINDOW =
        -> unit
     val setFocus :
       'a class_t
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> unit
     val setFocusOnMap :
       'a class_t
@@ -179,7 +179,7 @@ signature GTK_WINDOW =
        -> unit
     val setGeometryHints :
       'a class_t
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> Gdk.GeometryRecord.t option
        -> Gdk.WindowHints.t
        -> unit
@@ -233,7 +233,7 @@ signature GTK_WINDOW =
        -> unit
     val setPosition :
       'a class_t
-       -> windowposition_t
+       -> window_position_t
        -> unit
     val setResizable :
       'a class_t
@@ -287,9 +287,9 @@ signature GTK_WINDOW =
     val activateDefaultSig : (unit -> unit) -> 'a class_t Signal.signal
     val activateFocusSig : (unit -> unit) -> 'a class_t Signal.signal
     val keysChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val setFocusSig : (base widgetclass_t -> unit) -> 'a class_t Signal.signal
+    val setFocusSig : (base widget_class_t -> unit) -> 'a class_t Signal.signal
     val acceptFocusProp : ('a class_t, bool, bool) Property.readwrite
-    val applicationProp : ('a class_t, base applicationclass_t option, 'b applicationclass_t option) Property.readwrite
+    val applicationProp : ('a class_t, base application_class_t option, 'b application_class_t option) Property.readwrite
     val decoratedProp : ('a class_t, bool, bool) Property.readwrite
     val defaultHeightProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val defaultWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
@@ -315,8 +315,8 @@ signature GTK_WINDOW =
     val startupIdProp : ('a class_t, string option) Property.writeonly
     val titleProp : ('a class_t, string option, string option) Property.readwrite
     val transientForProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val typeProp : ('a class_t, windowtype_t, windowtype_t) Property.readwrite
+    val typeProp : ('a class_t, window_type_t, window_type_t) Property.readwrite
     val typeHintProp : ('a class_t, Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t) Property.readwrite
     val urgencyHintProp : ('a class_t, bool, bool) Property.readwrite
-    val windowPositionProp : ('a class_t, windowposition_t, windowposition_t) Property.readwrite
+    val windowPositionProp : ('a class_t, window_position_t, window_position_t) Property.readwrite
   end

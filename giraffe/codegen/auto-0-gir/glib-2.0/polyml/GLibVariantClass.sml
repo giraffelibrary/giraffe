@@ -11,22 +11,22 @@ structure GLibVariantClass :>
     datatype t =
       BOOLEAN
     | BYTE
-    | INT16
-    | UINT16
-    | INT32
-    | UINT32
-    | INT64
-    | UINT64
+    | INT_16
+    | UINT_16
+    | INT_32
+    | UINT_32
+    | INT_64
+    | UINT_64
     | HANDLE
     | DOUBLE
     | STRING
-    | OBJECTPATH
+    | OBJECT_PATH
     | SIGNATURE
     | VARIANT
     | MAYBE
     | ARRAY
     | TUPLE
-    | DICTENTRY
+    | DICT_ENTRY
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -36,43 +36,43 @@ structure GLibVariantClass :>
           fn
             BOOLEAN => f 98
           | BYTE => f 121
-          | INT16 => f 110
-          | UINT16 => f 113
-          | INT32 => f 105
-          | UINT32 => f 117
-          | INT64 => f 120
-          | UINT64 => f 116
+          | INT_16 => f 110
+          | UINT_16 => f 113
+          | INT_32 => f 105
+          | UINT_32 => f 117
+          | INT_64 => f 120
+          | UINT_64 => f 116
           | HANDLE => f 104
           | DOUBLE => f 100
           | STRING => f 115
-          | OBJECTPATH => f 111
+          | OBJECT_PATH => f 111
           | SIGNATURE => f 103
           | VARIANT => f 118
           | MAYBE => f 109
           | ARRAY => f 97
           | TUPLE => f 40
-          | DICTENTRY => f 123
+          | DICT_ENTRY => f 123
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             98 => BOOLEAN
           | 121 => BYTE
-          | 110 => INT16
-          | 113 => UINT16
-          | 105 => INT32
-          | 117 => UINT32
-          | 120 => INT64
-          | 116 => UINT64
+          | 110 => INT_16
+          | 113 => UINT_16
+          | 105 => INT_32
+          | 117 => UINT_32
+          | 120 => INT_64
+          | 116 => UINT_64
           | 104 => HANDLE
           | 100 => DOUBLE
           | 115 => STRING
-          | 111 => OBJECTPATH
+          | 111 => OBJECT_PATH
           | 103 => SIGNATURE
           | 118 => VARIANT
           | 109 => MAYBE
           | 97 => ARRAY
           | 40 => TUPLE
-          | 123 => DICTENTRY
+          | 123 => DICT_ENTRY
           | n => raise Value n
       end
     structure PolyML =

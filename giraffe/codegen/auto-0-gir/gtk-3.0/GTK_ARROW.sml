@@ -1,22 +1,22 @@
 signature GTK_ARROW =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type arrowtype_t
-    type shadowtype_t
+    type 'a buildable_class_t
+    type arrow_type_t
+    type shadow_type_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
     val new :
-      arrowtype_t
-       -> shadowtype_t
+      arrow_type_t
+       -> shadow_type_t
        -> base class_t
     val set :
       'a class_t
-       -> arrowtype_t
-       -> shadowtype_t
+       -> arrow_type_t
+       -> shadow_type_t
        -> unit
-    val arrowTypeProp : ('a class_t, arrowtype_t, arrowtype_t) Property.readwrite
-    val shadowTypeProp : ('a class_t, shadowtype_t, shadowtype_t) Property.readwrite
+    val arrowTypeProp : ('a class_t, arrow_type_t, arrow_type_t) Property.readwrite
+    val shadowTypeProp : ('a class_t, shadow_type_t, shadow_type_t) Property.readwrite
   end

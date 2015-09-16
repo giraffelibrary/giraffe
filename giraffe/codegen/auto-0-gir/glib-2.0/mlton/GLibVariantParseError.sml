@@ -5,23 +5,23 @@ structure GLibVariantParseError :>
   struct
     datatype t =
       FAILED
-    | BASICTYPEEXPECTED
-    | CANNOTINFERTYPE
-    | DEFINITETYPEEXPECTED
-    | INPUTNOTATEND
-    | INVALIDCHARACTER
-    | INVALIDFORMATSTRING
-    | INVALIDOBJECTPATH
-    | INVALIDSIGNATURE
-    | INVALIDTYPESTRING
-    | NOCOMMONTYPE
-    | NUMBEROUTOFRANGE
-    | NUMBERTOOBIG
-    | TYPEERROR
-    | UNEXPECTEDTOKEN
-    | UNKNOWNKEYWORD
-    | UNTERMINATEDSTRINGCONSTANT
-    | VALUEEXPECTED
+    | BASIC_TYPE_EXPECTED
+    | CANNOT_INFER_TYPE
+    | DEFINITE_TYPE_EXPECTED
+    | INPUT_NOT_AT_END
+    | INVALID_CHARACTER
+    | INVALID_FORMAT_STRING
+    | INVALID_OBJECT_PATH
+    | INVALID_SIGNATURE
+    | INVALID_TYPE_STRING
+    | NO_COMMON_TYPE
+    | NUMBER_OUT_OF_RANGE
+    | NUMBER_TOO_BIG
+    | TYPE_ERROR
+    | UNEXPECTED_TOKEN
+    | UNKNOWN_KEYWORD
+    | UNTERMINATED_STRING_CONSTANT
+    | VALUE_EXPECTED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -30,44 +30,44 @@ structure GLibVariantParseError :>
         fun withVal f =
           fn
             FAILED => f 0
-          | BASICTYPEEXPECTED => f 1
-          | CANNOTINFERTYPE => f 2
-          | DEFINITETYPEEXPECTED => f 3
-          | INPUTNOTATEND => f 4
-          | INVALIDCHARACTER => f 5
-          | INVALIDFORMATSTRING => f 6
-          | INVALIDOBJECTPATH => f 7
-          | INVALIDSIGNATURE => f 8
-          | INVALIDTYPESTRING => f 9
-          | NOCOMMONTYPE => f 10
-          | NUMBEROUTOFRANGE => f 11
-          | NUMBERTOOBIG => f 12
-          | TYPEERROR => f 13
-          | UNEXPECTEDTOKEN => f 14
-          | UNKNOWNKEYWORD => f 15
-          | UNTERMINATEDSTRINGCONSTANT => f 16
-          | VALUEEXPECTED => f 17
+          | BASIC_TYPE_EXPECTED => f 1
+          | CANNOT_INFER_TYPE => f 2
+          | DEFINITE_TYPE_EXPECTED => f 3
+          | INPUT_NOT_AT_END => f 4
+          | INVALID_CHARACTER => f 5
+          | INVALID_FORMAT_STRING => f 6
+          | INVALID_OBJECT_PATH => f 7
+          | INVALID_SIGNATURE => f 8
+          | INVALID_TYPE_STRING => f 9
+          | NO_COMMON_TYPE => f 10
+          | NUMBER_OUT_OF_RANGE => f 11
+          | NUMBER_TOO_BIG => f 12
+          | TYPE_ERROR => f 13
+          | UNEXPECTED_TOKEN => f 14
+          | UNKNOWN_KEYWORD => f 15
+          | UNTERMINATED_STRING_CONSTANT => f 16
+          | VALUE_EXPECTED => f 17
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => FAILED
-          | 1 => BASICTYPEEXPECTED
-          | 2 => CANNOTINFERTYPE
-          | 3 => DEFINITETYPEEXPECTED
-          | 4 => INPUTNOTATEND
-          | 5 => INVALIDCHARACTER
-          | 6 => INVALIDFORMATSTRING
-          | 7 => INVALIDOBJECTPATH
-          | 8 => INVALIDSIGNATURE
-          | 9 => INVALIDTYPESTRING
-          | 10 => NOCOMMONTYPE
-          | 11 => NUMBEROUTOFRANGE
-          | 12 => NUMBERTOOBIG
-          | 13 => TYPEERROR
-          | 14 => UNEXPECTEDTOKEN
-          | 15 => UNKNOWNKEYWORD
-          | 16 => UNTERMINATEDSTRINGCONSTANT
-          | 17 => VALUEEXPECTED
+          | 1 => BASIC_TYPE_EXPECTED
+          | 2 => CANNOT_INFER_TYPE
+          | 3 => DEFINITE_TYPE_EXPECTED
+          | 4 => INPUT_NOT_AT_END
+          | 5 => INVALID_CHARACTER
+          | 6 => INVALID_FORMAT_STRING
+          | 7 => INVALID_OBJECT_PATH
+          | 8 => INVALID_SIGNATURE
+          | 9 => INVALID_TYPE_STRING
+          | 10 => NO_COMMON_TYPE
+          | 11 => NUMBER_OUT_OF_RANGE
+          | 12 => NUMBER_TOO_BIG
+          | 13 => TYPE_ERROR
+          | 14 => UNEXPECTED_TOKEN
+          | 15 => UNKNOWN_KEYWORD
+          | 16 => UNTERMINATED_STRING_CONSTANT
+          | 17 => VALUE_EXPECTED
           | n => raise Value n
       end
     val null = FAILED

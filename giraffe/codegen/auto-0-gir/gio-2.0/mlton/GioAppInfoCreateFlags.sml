@@ -8,15 +8,15 @@ structure GioAppInfoCreateFlags :>
     in
       val NONE = NONE ()
     end
-    val NEEDSTERMINAL = 0w1
-    val SUPPORTSURIS = 0w2
-    val SUPPORTSSTARTUPNOTIFICATION = 0w4
+    val NEEDS_TERMINAL = 0w1
+    val SUPPORTS_URIS = 0w2
+    val SUPPORTS_STARTUP_NOTIFICATION = 0w4
     val allFlags =
       [
         NONE,
-        NEEDSTERMINAL,
-        SUPPORTSURIS,
-        SUPPORTSSTARTUPNOTIFICATION
+        NEEDS_TERMINAL,
+        SUPPORTS_URIS,
+        SUPPORTS_STARTUP_NOTIFICATION
       ]
     structure BitFlags =
       Word32BitFlags (

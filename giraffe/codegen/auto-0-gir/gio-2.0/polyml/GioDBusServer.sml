@@ -1,11 +1,11 @@
 structure GioDBusServer :>
   GIO_D_BUS_SERVER
     where type 'a class_t = 'a GioDBusServerClass.t
-    where type 'a initableclass_t = 'a GioInitableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    where type 'a dbusauthobserverclass_t = 'a GioDBusAuthObserverClass.t
-    where type dbusserverflags_t = GioDBusServerFlags.t =
+    where type 'a initable_class_t = 'a GioInitableClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    where type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    where type d_bus_server_flags_t = GioDBusServerFlags.t =
   struct
     local
       open PolyMLFFI
@@ -30,11 +30,11 @@ structure GioDBusServer :>
       val stop_ = call (load_sym libgio "g_dbus_server_stop") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioDBusServerClass.t
-    type 'a initableclass_t = 'a GioInitableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    type 'a dbusauthobserverclass_t = 'a GioDBusAuthObserverClass.t
-    type dbusserverflags_t = GioDBusServerFlags.t
+    type 'a initable_class_t = 'a GioInitableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    type d_bus_server_flags_t = GioDBusServerFlags.t
     type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

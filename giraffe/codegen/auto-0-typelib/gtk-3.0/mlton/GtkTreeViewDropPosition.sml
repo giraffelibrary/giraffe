@@ -6,8 +6,8 @@ structure GtkTreeViewDropPosition :>
     datatype t =
       BEFORE
     | AFTER
-    | INTOORBEFORE
-    | INTOORAFTER
+    | INTO_OR_BEFORE
+    | INTO_OR_AFTER
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -17,15 +17,15 @@ structure GtkTreeViewDropPosition :>
           fn
             BEFORE => f 0
           | AFTER => f 1
-          | INTOORBEFORE => f 2
-          | INTOORAFTER => f 3
+          | INTO_OR_BEFORE => f 2
+          | INTO_OR_AFTER => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => BEFORE
           | 1 => AFTER
-          | 2 => INTOORBEFORE
-          | 3 => INTOORAFTER
+          | 2 => INTO_OR_BEFORE
+          | 3 => INTO_OR_AFTER
           | n => raise Value n
       end
     val getType_ = _import "gtk_tree_view_drop_position_get_type" : unit -> GObjectType.C.val_;

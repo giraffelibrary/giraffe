@@ -9,8 +9,8 @@ structure GtkSourceCompletionError :>
   end =
   struct
     datatype t =
-      ALREADYBOUND
-    | NOTBOUND
+      ALREADY_BOUND
+    | NOT_BOUND
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -18,13 +18,13 @@ structure GtkSourceCompletionError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            ALREADYBOUND => f 0
-          | NOTBOUND => f 1
+            ALREADY_BOUND => f 0
+          | NOT_BOUND => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => ALREADYBOUND
-          | 1 => NOTBOUND
+            0 => ALREADY_BOUND
+          | 1 => NOT_BOUND
           | n => raise Value n
       end
     structure PolyML =

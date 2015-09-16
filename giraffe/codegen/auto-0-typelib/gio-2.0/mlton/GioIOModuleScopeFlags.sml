@@ -5,7 +5,7 @@ structure GioIOModuleScopeFlags :>
   struct
     datatype t =
       NONE
-    | BLOCKDUPLICATES
+    | BLOCK_DUPLICATES
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -14,12 +14,12 @@ structure GioIOModuleScopeFlags :>
         fun withVal f =
           fn
             NONE => f 0
-          | BLOCKDUPLICATES => f 1
+          | BLOCK_DUPLICATES => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
-          | 1 => BLOCKDUPLICATES
+          | 1 => BLOCK_DUPLICATES
           | n => raise Value n
       end
     val getType_ = _import "g_io_module_scope_flags_get_type" : unit -> GObjectType.C.val_;

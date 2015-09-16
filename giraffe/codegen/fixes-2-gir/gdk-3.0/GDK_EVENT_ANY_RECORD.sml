@@ -9,7 +9,7 @@ signature GDK_EVENT_ANY_RECORD =
     | DESTROY
     | MAP
     | UNMAP
-    | CLIENTEVENT
+    | CLIENT_EVENT
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

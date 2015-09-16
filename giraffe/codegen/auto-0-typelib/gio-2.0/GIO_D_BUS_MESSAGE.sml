@@ -1,11 +1,11 @@
 signature GIO_D_BUS_MESSAGE =
   sig
     type 'a class_t
-    type dbusmessagebyteorder_t
-    type dbusmessageflags_t
-    type dbusmessageheaderfield_t
-    type dbusmessagetype_t
-    type 'a unixfdlistclass_t
+    type d_bus_message_byte_order_t
+    type d_bus_message_flags_t
+    type d_bus_message_header_field_t
+    type d_bus_message_type_t
+    type 'a unix_f_d_list_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -23,25 +23,25 @@ signature GIO_D_BUS_MESSAGE =
     val copy : 'a class_t -> base class_t
     val getArg0 : 'a class_t -> string
     val getBody : 'a class_t -> GLib.VariantRecord.t
-    val getByteOrder : 'a class_t -> dbusmessagebyteorder_t
+    val getByteOrder : 'a class_t -> d_bus_message_byte_order_t
     val getDestination : 'a class_t -> string
     val getErrorName : 'a class_t -> string
-    val getFlags : 'a class_t -> dbusmessageflags_t
+    val getFlags : 'a class_t -> d_bus_message_flags_t
     val getHeader :
       'a class_t
-       -> dbusmessageheaderfield_t
+       -> d_bus_message_header_field_t
        -> GLib.VariantRecord.t
     val getInterface : 'a class_t -> string
     val getLocked : 'a class_t -> bool
     val getMember : 'a class_t -> string
-    val getMessageType : 'a class_t -> dbusmessagetype_t
+    val getMessageType : 'a class_t -> d_bus_message_type_t
     val getNumUnixFds : 'a class_t -> LargeInt.int
     val getPath : 'a class_t -> string
     val getReplySerial : 'a class_t -> LargeInt.int
     val getSender : 'a class_t -> string
     val getSerial : 'a class_t -> LargeInt.int
     val getSignature : 'a class_t -> string
-    val getUnixFdList : 'a class_t -> base unixfdlistclass_t
+    val getUnixFdList : 'a class_t -> base unix_f_d_list_class_t
     val lock : 'a class_t -> unit
     val newMethodErrorLiteral :
       'a class_t
@@ -59,7 +59,7 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setByteOrder :
       'a class_t
-       -> dbusmessagebyteorder_t
+       -> d_bus_message_byte_order_t
        -> unit
     val setDestination :
       'a class_t
@@ -71,11 +71,11 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setFlags :
       'a class_t
-       -> dbusmessageflags_t
+       -> d_bus_message_flags_t
        -> unit
     val setHeader :
       'a class_t
-       -> dbusmessageheaderfield_t
+       -> d_bus_message_header_field_t
        -> GLib.VariantRecord.t
        -> unit
     val setInterface :
@@ -88,7 +88,7 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setMessageType :
       'a class_t
-       -> dbusmessagetype_t
+       -> d_bus_message_type_t
        -> unit
     val setNumUnixFds :
       'a class_t
@@ -116,7 +116,7 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setUnixFdList :
       'a class_t
-       -> 'b unixfdlistclass_t option
+       -> 'b unix_f_d_list_class_t option
        -> unit
     val toGerror : 'a class_t -> bool
     val lockedProp : ('a class_t, bool) Property.readonly

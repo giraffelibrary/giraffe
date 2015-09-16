@@ -1,11 +1,11 @@
 structure GtkLabel :>
   GTK_LABEL
     where type 'a class_t = 'a GtkLabelClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type movementstep_t = GtkMovementStep.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type movement_step_t = GtkMovementStep.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t
     where type justification_t = GtkJustification.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_label_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_label_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -185,11 +185,11 @@ structure GtkLabel :>
     val setUseUnderline_ = fn x1 & x2 => (_import "gtk_label_set_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setWidthChars_ = fn x1 & x2 => (_import "gtk_label_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkLabelClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type movementstep_t = GtkMovementStep.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type movement_step_t = GtkMovementStep.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
     type justification_t = GtkJustification.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

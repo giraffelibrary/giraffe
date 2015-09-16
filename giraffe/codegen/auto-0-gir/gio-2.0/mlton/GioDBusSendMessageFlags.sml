@@ -8,8 +8,8 @@ structure GioDBusSendMessageFlags :>
     in
       val NONE = NONE ()
     end
-    val PRESERVESERIAL = 0w1
-    val allFlags = [NONE, PRESERVESERIAL]
+    val PRESERVE_SERIAL = 0w1
+    val allFlags = [NONE, PRESERVE_SERIAL]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

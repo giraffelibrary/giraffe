@@ -9,20 +9,20 @@ structure GLibOptionFlags :>
   end =
   struct
     val HIDDEN = 0w1
-    val INMAIN = 0w2
+    val IN_MAIN = 0w2
     val REVERSE = 0w4
-    val NOARG = 0w8
+    val NO_ARG = 0w8
     val FILENAME = 0w16
-    val OPTIONALARG = 0w32
+    val OPTIONAL_ARG = 0w32
     val NOALIAS = 0w64
     val allFlags =
       [
         HIDDEN,
-        INMAIN,
+        IN_MAIN,
         REVERSE,
-        NOARG,
+        NO_ARG,
         FILENAME,
-        OPTIONALARG,
+        OPTIONAL_ARG,
         NOALIAS
       ]
     structure BitFlags =

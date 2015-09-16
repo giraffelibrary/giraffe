@@ -8,17 +8,17 @@ structure GLibFileTest :>
       end
   end =
   struct
-    val ISREGULAR = 0w1
-    val ISSYMLINK = 0w2
-    val ISDIR = 0w4
-    val ISEXECUTABLE = 0w8
+    val IS_REGULAR = 0w1
+    val IS_SYMLINK = 0w2
+    val IS_DIR = 0w4
+    val IS_EXECUTABLE = 0w8
     val EXISTS = 0w16
     val allFlags =
       [
-        ISREGULAR,
-        ISSYMLINK,
-        ISDIR,
-        ISEXECUTABLE,
+        IS_REGULAR,
+        IS_SYMLINK,
+        IS_DIR,
+        IS_EXECUTABLE,
         EXISTS
       ]
     structure BitFlags =

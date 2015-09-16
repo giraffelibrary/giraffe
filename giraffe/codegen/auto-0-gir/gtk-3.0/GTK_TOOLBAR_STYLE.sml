@@ -4,7 +4,7 @@ signature GTK_TOOLBAR_STYLE =
       ICONS
     | TEXT
     | BOTH
-    | BOTHHORIZ
+    | BOTH_HORIZ
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

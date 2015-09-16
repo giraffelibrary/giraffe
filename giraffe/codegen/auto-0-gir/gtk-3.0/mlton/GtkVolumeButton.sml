@@ -1,16 +1,16 @@
 structure GtkVolumeButton :>
   GTK_VOLUME_BUTTON
     where type 'a class_t = 'a GtkVolumeButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t =
   struct
     val getType_ = _import "gtk_volume_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_volume_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GtkVolumeButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

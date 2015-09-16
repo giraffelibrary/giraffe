@@ -1,7 +1,7 @@
 structure GtkPrintContext :>
   GTK_PRINT_CONTEXT
     where type 'a class_t = 'a GtkPrintContextClass.t
-    where type 'a pagesetupclass_t = 'a GtkPageSetupClass.t =
+    where type 'a page_setup_class_t = 'a GtkPageSetupClass.t =
   struct
     local
       open PolyMLFFI
@@ -37,7 +37,7 @@ structure GtkPrintContext :>
           )
     end
     type 'a class_t = 'a GtkPrintContextClass.t
-    type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
+    type 'a page_setup_class_t = 'a GtkPageSetupClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self

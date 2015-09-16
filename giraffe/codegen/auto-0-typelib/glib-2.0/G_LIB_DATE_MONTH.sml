@@ -1,7 +1,7 @@
 signature G_LIB_DATE_MONTH =
   sig
     datatype t =
-      BADMONTH
+      BAD_MONTH
     | JANUARY
     | FEBRUARY
     | MARCH

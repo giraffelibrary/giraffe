@@ -1,8 +1,8 @@
 signature GTK_GRID_CLASS =
   sig
     type 'a grid
-    type 'a containerclass_t
-    type 'a t = 'a grid containerclass_t
+    type 'a container_class_t
+    type 'a t = 'a grid container_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

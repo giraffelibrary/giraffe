@@ -1,10 +1,10 @@
 structure GdkDragContext :>
   GDK_DRAG_CONTEXT
     where type 'a class_t = 'a GdkDragContextClass.t
-    where type dragprotocol_t = GdkDragProtocol.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type dragaction_t = GdkDragAction.t
-    where type 'a deviceclass_t = 'a GdkDeviceClass.t =
+    where type drag_protocol_t = GdkDragProtocol.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type drag_action_t = GdkDragAction.t
+    where type 'a device_class_t = 'a GdkDeviceClass.t =
   struct
     local
       open PolyMLFFI
@@ -20,10 +20,10 @@ structure GdkDragContext :>
       val setDevice_ = call (load_sym libgdk "gdk_drag_context_set_device") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GdkDragContextClass.t
-    type dragprotocol_t = GdkDragProtocol.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type dragaction_t = GdkDragAction.t
-    type 'a deviceclass_t = 'a GdkDeviceClass.t
+    type drag_protocol_t = GdkDragProtocol.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type drag_action_t = GdkDragAction.t
+    type 'a device_class_t = 'a GdkDeviceClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActions self = (GObjectObjectClass.C.withPtr ---> GdkDragAction.C.fromVal) getActions_ self

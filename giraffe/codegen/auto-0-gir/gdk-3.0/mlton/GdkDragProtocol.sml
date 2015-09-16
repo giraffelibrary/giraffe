@@ -8,8 +8,8 @@ structure GdkDragProtocol :>
     | MOTIF
     | XDND
     | ROOTWIN
-    | WIN32DROPFILES
-    | OLE2
+    | WIN_32_DROPFILES
+    | OLE_2
     | LOCAL
     structure C =
       struct
@@ -22,8 +22,8 @@ structure GdkDragProtocol :>
           | MOTIF => f 1
           | XDND => f 2
           | ROOTWIN => f 3
-          | WIN32DROPFILES => f 4
-          | OLE2 => f 5
+          | WIN_32_DROPFILES => f 4
+          | OLE_2 => f 5
           | LOCAL => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
@@ -32,8 +32,8 @@ structure GdkDragProtocol :>
           | 1 => MOTIF
           | 2 => XDND
           | 3 => ROOTWIN
-          | 4 => WIN32DROPFILES
-          | 5 => OLE2
+          | 4 => WIN_32_DROPFILES
+          | 5 => OLE_2
           | 6 => LOCAL
           | n => raise Value n
       end

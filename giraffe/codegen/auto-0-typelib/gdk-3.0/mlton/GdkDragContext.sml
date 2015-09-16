@@ -1,10 +1,10 @@
 structure GdkDragContext :>
   GDK_DRAG_CONTEXT
     where type 'a class_t = 'a GdkDragContextClass.t
-    where type dragprotocol_t = GdkDragProtocol.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type dragaction_t = GdkDragAction.t
-    where type 'a deviceclass_t = 'a GdkDeviceClass.t =
+    where type drag_protocol_t = GdkDragProtocol.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type drag_action_t = GdkDragAction.t
+    where type 'a device_class_t = 'a GdkDeviceClass.t =
   struct
     val getType_ = _import "gdk_drag_context_get_type" : unit -> GObjectType.C.val_;
     val getActions_ = _import "gdk_drag_context_get_actions" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDragAction.C.val_;
@@ -16,10 +16,10 @@ structure GdkDragContext :>
     val getSuggestedAction_ = _import "gdk_drag_context_get_suggested_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDragAction.C.val_;
     val setDevice_ = fn x1 & x2 => (_import "gdk_drag_context_set_device" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GdkDragContextClass.t
-    type dragprotocol_t = GdkDragProtocol.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type dragaction_t = GdkDragAction.t
-    type 'a deviceclass_t = 'a GdkDeviceClass.t
+    type drag_protocol_t = GdkDragProtocol.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type drag_action_t = GdkDragAction.t
+    type 'a device_class_t = 'a GdkDeviceClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActions self = (GObjectObjectClass.C.withPtr ---> GdkDragAction.C.fromVal) getActions_ self

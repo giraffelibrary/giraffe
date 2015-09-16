@@ -1,12 +1,12 @@
 signature G_LIB_SHELL_ERROR =
   sig
     datatype t =
-      BADQUOTING
-    | EMPTYSTRING
+      BAD_QUOTING
+    | EMPTY_STRING
     | FAILED
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

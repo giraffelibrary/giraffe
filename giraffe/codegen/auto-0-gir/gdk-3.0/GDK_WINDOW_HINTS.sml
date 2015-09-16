@@ -5,14 +5,14 @@ signature GDK_WINDOW_HINTS =
       BIT_FLAGS
         where type flags = t
     val POS : t
-    val MINSIZE : t
-    val MAXSIZE : t
-    val BASESIZE : t
+    val MIN_SIZE : t
+    val MAX_SIZE : t
+    val BASE_SIZE : t
     val ASPECT : t
-    val RESIZEINC : t
-    val WINGRAVITY : t
-    val USERPOS : t
-    val USERSIZE : t
+    val RESIZE_INC : t
+    val WIN_GRAVITY : t
+    val USER_POS : t
+    val USER_SIZE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

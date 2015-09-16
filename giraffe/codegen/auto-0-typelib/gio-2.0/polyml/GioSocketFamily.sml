@@ -11,8 +11,8 @@ structure GioSocketFamily :>
     datatype t =
       INVALID
     | UNIX
-    | IPV4
-    | IPV6
+    | IPV_4
+    | IPV_6
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -22,15 +22,15 @@ structure GioSocketFamily :>
           fn
             INVALID => f 0
           | UNIX => f 1
-          | IPV4 => f 2
-          | IPV6 => f 10
+          | IPV_4 => f 2
+          | IPV_6 => f 10
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
           | 1 => UNIX
-          | 2 => IPV4
-          | 10 => IPV6
+          | 2 => IPV_4
+          | 10 => IPV_6
           | n => raise Value n
       end
     structure PolyML =

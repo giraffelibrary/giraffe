@@ -5,10 +5,10 @@ signature GTK_JUNCTION_SIDES =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val CORNERTOPLEFT : t
-    val CORNERTOPRIGHT : t
-    val CORNERBOTTOMLEFT : t
-    val CORNERBOTTOMRIGHT : t
+    val CORNER_TOPLEFT : t
+    val CORNER_TOPRIGHT : t
+    val CORNER_BOTTOMLEFT : t
+    val CORNER_BOTTOMRIGHT : t
     val TOP : t
     val BOTTOM : t
     val LEFT : t

@@ -1,7 +1,7 @@
 structure VtePty :>
   VTE_PTY
     where type 'a class_t = 'a VtePtyClass.t
-    where type ptyflags_t = VtePtyFlags.t =
+    where type pty_flags_t = VtePtyFlags.t =
   struct
     val getType_ = _import "vte_pty_get_type" : unit -> GObjectType.C.val_;
     val newForeignSync_ =
@@ -99,7 +99,7 @@ structure VtePty :>
               x3
             )
     type 'a class_t = 'a VtePtyClass.t
-    type ptyflags_t = VtePtyFlags.t
+    type pty_flags_t = VtePtyFlags.t
     type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

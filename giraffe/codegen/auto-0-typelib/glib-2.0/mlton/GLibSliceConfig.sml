@@ -4,12 +4,12 @@ structure GLibSliceConfig :>
   end =
   struct
     datatype t =
-      ALWAYSMALLOC
-    | BYPASSMAGAZINES
-    | WORKINGSETMSECS
-    | COLORINCREMENT
-    | CHUNKSIZES
-    | CONTENTIONCOUNTER
+      ALWAYS_MALLOC
+    | BYPASS_MAGAZINES
+    | WORKING_SET_MSECS
+    | COLOR_INCREMENT
+    | CHUNK_SIZES
+    | CONTENTION_COUNTER
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -17,22 +17,22 @@ structure GLibSliceConfig :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            ALWAYSMALLOC => f 1
-          | BYPASSMAGAZINES => f 2
-          | WORKINGSETMSECS => f 3
-          | COLORINCREMENT => f 4
-          | CHUNKSIZES => f 5
-          | CONTENTIONCOUNTER => f 6
+            ALWAYS_MALLOC => f 1
+          | BYPASS_MAGAZINES => f 2
+          | WORKING_SET_MSECS => f 3
+          | COLOR_INCREMENT => f 4
+          | CHUNK_SIZES => f 5
+          | CONTENTION_COUNTER => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            1 => ALWAYSMALLOC
-          | 2 => BYPASSMAGAZINES
-          | 3 => WORKINGSETMSECS
-          | 4 => COLORINCREMENT
-          | 5 => CHUNKSIZES
-          | 6 => CONTENTIONCOUNTER
+            1 => ALWAYS_MALLOC
+          | 2 => BYPASS_MAGAZINES
+          | 3 => WORKING_SET_MSECS
+          | 4 => COLOR_INCREMENT
+          | 5 => CHUNK_SIZES
+          | 6 => CONTENTION_COUNTER
           | n => raise Value n
       end
-    val null = ALWAYSMALLOC
+    val null = ALWAYS_MALLOC
   end

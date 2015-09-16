@@ -1,7 +1,7 @@
 signature GTK_ENTRY_COMPLETION_CLASS =
   sig
-    type 'a entrycompletion
-    type 'a t = 'a entrycompletion GObject.ObjectClass.t
+    type 'a entry_completion
+    type 'a t = 'a entry_completion GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

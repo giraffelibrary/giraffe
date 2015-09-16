@@ -1,7 +1,7 @@
 signature GTK_CELL_AREA_CONTEXT =
   sig
     type 'a class_t
-    type 'a cellareaclass_t
+    type 'a cell_area_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val allocate :
@@ -10,7 +10,7 @@ signature GTK_CELL_AREA_CONTEXT =
        -> LargeInt.int
        -> unit
     val getAllocation : 'a class_t -> LargeInt.int * LargeInt.int
-    val getArea : 'a class_t -> base cellareaclass_t
+    val getArea : 'a class_t -> base cell_area_class_t
     val getPreferredHeight : 'a class_t -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
       'a class_t
@@ -32,7 +32,7 @@ signature GTK_CELL_AREA_CONTEXT =
        -> LargeInt.int
        -> unit
     val reset : 'a class_t -> unit
-    val areaProp : ('a class_t, base cellareaclass_t option, 'b cellareaclass_t option) Property.readwrite
+    val areaProp : ('a class_t, base cell_area_class_t option, 'b cell_area_class_t option) Property.readwrite
     val minimumHeightProp : ('a class_t, LargeInt.int) Property.readonly
     val minimumWidthProp : ('a class_t, LargeInt.int) Property.readonly
     val naturalHeightProp : ('a class_t, LargeInt.int) Property.readonly

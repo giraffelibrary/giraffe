@@ -10,11 +10,11 @@ structure GtkDeleteType :>
   struct
     datatype t =
       CHARS
-    | WORDENDS
+    | WORD_ENDS
     | WORDS
-    | DISPLAYLINES
-    | DISPLAYLINEENDS
-    | PARAGRAPHENDS
+    | DISPLAY_LINES
+    | DISPLAY_LINE_ENDS
+    | PARAGRAPH_ENDS
     | PARAGRAPHS
     | WHITESPACE
     structure C =
@@ -25,22 +25,22 @@ structure GtkDeleteType :>
         fun withVal f =
           fn
             CHARS => f 0
-          | WORDENDS => f 1
+          | WORD_ENDS => f 1
           | WORDS => f 2
-          | DISPLAYLINES => f 3
-          | DISPLAYLINEENDS => f 4
-          | PARAGRAPHENDS => f 5
+          | DISPLAY_LINES => f 3
+          | DISPLAY_LINE_ENDS => f 4
+          | PARAGRAPH_ENDS => f 5
           | PARAGRAPHS => f 6
           | WHITESPACE => f 7
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CHARS
-          | 1 => WORDENDS
+          | 1 => WORD_ENDS
           | 2 => WORDS
-          | 3 => DISPLAYLINES
-          | 4 => DISPLAYLINEENDS
-          | 5 => PARAGRAPHENDS
+          | 3 => DISPLAY_LINES
+          | 4 => DISPLAY_LINE_ENDS
+          | 5 => PARAGRAPH_ENDS
           | 6 => PARAGRAPHS
           | 7 => WHITESPACE
           | n => raise Value n

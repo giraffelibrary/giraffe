@@ -3,8 +3,8 @@ signature GIO_SOCKET_FAMILY =
     datatype t =
       INVALID
     | UNIX
-    | IPV4
-    | IPV6
+    | IPV_4
+    | IPV_6
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

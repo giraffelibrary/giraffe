@@ -1,7 +1,7 @@
 structure GtkBuildable :>
   GTK_BUILDABLE
     where type 'a class_t = 'a GtkBuildableClass.t
-    where type 'a builderclass_t = 'a GtkBuilderClass.t =
+    where type 'a builder_class_t = 'a GtkBuilderClass.t =
   struct
     local
       open PolyMLFFI
@@ -46,7 +46,7 @@ structure GtkBuildable :>
       val setName_ = call (load_sym libgtk "gtk_buildable_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkBuildableClass.t
-    type 'a builderclass_t = 'a GtkBuilderClass.t
+    type 'a builder_class_t = 'a GtkBuilderClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChild self builder child type' =

@@ -2,9 +2,9 @@ signature GDK_GRAB_STATUS =
   sig
     datatype t =
       SUCCESS
-    | ALREADYGRABBED
-    | INVALIDTIME
-    | NOTVIEWABLE
+    | ALREADY_GRABBED
+    | INVALID_TIME
+    | NOT_VIEWABLE
     | FROZEN
     val null : t
     val t : (t, t) GObject.Value.accessor

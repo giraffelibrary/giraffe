@@ -1,15 +1,15 @@
 signature G_LIB_CONVERT_ERROR =
   sig
     datatype t =
-      NOCONVERSION
-    | ILLEGALSEQUENCE
+      NO_CONVERSION
+    | ILLEGAL_SEQUENCE
     | FAILED
-    | PARTIALINPUT
-    | BADURI
-    | NOTABSOLUTEPATH
+    | PARTIAL_INPUT
+    | BAD_URI
+    | NOT_ABSOLUTE_PATH
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

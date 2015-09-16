@@ -8,14 +8,14 @@ structure GtkTextSearchFlags :>
       end
   end =
   struct
-    val VISIBLEONLY = 0w1
-    val TEXTONLY = 0w2
-    val CASEINSENSITIVE = 0w4
+    val VISIBLE_ONLY = 0w1
+    val TEXT_ONLY = 0w2
+    val CASE_INSENSITIVE = 0w4
     val allFlags =
       [
-        VISIBLEONLY,
-        TEXTONLY,
-        CASEINSENSITIVE
+        VISIBLE_ONLY,
+        TEXT_ONLY,
+        CASE_INSENSITIVE
       ]
     structure BitFlags =
       Word32BitFlags (

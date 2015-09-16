@@ -1,7 +1,7 @@
 structure GtkTargetList :>
   GTK_TARGET_LIST
     where type record_t = GtkTargetListRecord.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t =
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
   struct
     local
       open PolyMLFFI
@@ -38,7 +38,7 @@ structure GtkTargetList :>
       val remove_ = call (load_sym libgtk "gtk_target_list_remove") (GtkTargetListRecord.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type record_t = GtkTargetListRecord.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun add self target flags info =

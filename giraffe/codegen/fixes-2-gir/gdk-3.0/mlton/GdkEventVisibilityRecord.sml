@@ -12,7 +12,7 @@ structure GdkEventVisibilityRecord :>
 
 
     datatype event =
-      VISIBILITYNOTIFY
+      VISIBILITY_NOTIFY
 
 
     structure C = GdkEvent.C

@@ -1,10 +1,10 @@
 structure GtkCellAreaBox :>
   GTK_CELL_AREA_BOX
     where type 'a class_t = 'a GtkCellAreaBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a cellrendererclass_t = 'a GtkCellRendererClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t =
   struct
     local
       open PolyMLFFI
@@ -35,10 +35,10 @@ structure GtkCellAreaBox :>
       val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellAreaBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

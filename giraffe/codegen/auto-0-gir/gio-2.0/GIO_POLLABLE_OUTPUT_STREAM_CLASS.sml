@@ -1,7 +1,7 @@
 signature GIO_POLLABLE_OUTPUT_STREAM_CLASS =
   sig
-    type 'a pollableoutputstream
-    type 'a t = 'a pollableoutputstream GObject.ObjectClass.t
+    type 'a pollable_output_stream
+    type 'a t = 'a pollable_output_stream GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

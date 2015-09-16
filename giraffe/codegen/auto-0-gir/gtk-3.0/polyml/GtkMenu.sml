@@ -1,10 +1,10 @@
 structure GtkMenu :>
   GTK_MENU
     where type 'a class_t = 'a GtkMenuClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type scrolltype_t = GtkScrollType.t
-    where type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type scroll_type_t = GtkScrollType.t
+    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -51,10 +51,10 @@ structure GtkMenu :>
       val setTitle_ = call (load_sym libgtk "gtk_menu_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMenuClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type scrolltype_t = GtkScrollType.t
-    type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type scroll_type_t = GtkScrollType.t
+    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

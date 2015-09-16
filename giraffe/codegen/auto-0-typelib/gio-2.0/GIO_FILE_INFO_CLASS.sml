@@ -1,7 +1,7 @@
 signature GIO_FILE_INFO_CLASS =
   sig
-    type 'a fileinfo
-    type 'a t = 'a fileinfo GObject.ObjectClass.t
+    type 'a file_info
+    type 'a t = 'a file_info GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

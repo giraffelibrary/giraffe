@@ -6,8 +6,8 @@ structure GtkPageOrientation :>
     datatype t =
       PORTRAIT
     | LANDSCAPE
-    | REVERSEPORTRAIT
-    | REVERSELANDSCAPE
+    | REVERSE_PORTRAIT
+    | REVERSE_LANDSCAPE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -17,15 +17,15 @@ structure GtkPageOrientation :>
           fn
             PORTRAIT => f 0
           | LANDSCAPE => f 1
-          | REVERSEPORTRAIT => f 2
-          | REVERSELANDSCAPE => f 3
+          | REVERSE_PORTRAIT => f 2
+          | REVERSE_LANDSCAPE => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => PORTRAIT
           | 1 => LANDSCAPE
-          | 2 => REVERSEPORTRAIT
-          | 3 => REVERSELANDSCAPE
+          | 2 => REVERSE_PORTRAIT
+          | 3 => REVERSE_LANDSCAPE
           | n => raise Value n
       end
     val getType_ = _import "gtk_page_orientation_get_type" : unit -> GObjectType.C.val_;

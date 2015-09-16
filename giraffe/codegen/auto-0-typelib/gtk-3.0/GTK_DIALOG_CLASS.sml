@@ -1,8 +1,8 @@
 signature GTK_DIALOG_CLASS =
   sig
     type 'a dialog
-    type 'a windowclass_t
-    type 'a t = 'a dialog windowclass_t
+    type 'a window_class_t
+    type 'a t = 'a dialog window_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

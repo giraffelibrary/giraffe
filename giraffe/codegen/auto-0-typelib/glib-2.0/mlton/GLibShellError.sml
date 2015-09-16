@@ -2,12 +2,12 @@ structure GLibShellError :>
   sig
     include
       G_LIB_SHELL_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
   end =
   struct
     datatype t =
-      BADQUOTING
-    | EMPTYSTRING
+      BAD_QUOTING
+    | EMPTY_STRING
     | FAILED
     structure C =
       struct
@@ -16,19 +16,19 @@ structure GLibShellError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BADQUOTING => f 0
-          | EMPTYSTRING => f 1
+            BAD_QUOTING => f 0
+          | EMPTY_STRING => f 1
           | FAILED => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => BADQUOTING
-          | 1 => EMPTYSTRING
+            0 => BAD_QUOTING
+          | 1 => EMPTY_STRING
           | 2 => FAILED
           | n => raise Value n
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

@@ -1,10 +1,10 @@
 signature GTK_STATUS_ICON =
   sig
     type 'a class_t
-    type 'a menuclass_t
-    type 'a tooltipclass_t
+    type 'a menu_class_t
+    type 'a tooltip_class_t
     type orientation_t
-    type imagetype_t
+    type image_type_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -14,7 +14,7 @@ signature GTK_STATUS_ICON =
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.t -> base class_t
     val newFromStock : string -> base class_t
     val positionMenu :
-      'a menuclass_t
+      'a menu_class_t
        -> 'b class_t
        -> LargeInt.int
            * LargeInt.int
@@ -32,7 +32,7 @@ signature GTK_STATUS_ICON =
     val getScreen : 'a class_t -> base Gdk.ScreenClass.t
     val getSize : 'a class_t -> LargeInt.int
     val getStock : 'a class_t -> string
-    val getStorageType : 'a class_t -> imagetype_t
+    val getStorageType : 'a class_t -> image_type_t
     val getTitle : 'a class_t -> string
     val getTooltipMarkup : 'a class_t -> string
     val getTooltipText : 'a class_t -> string
@@ -99,7 +99,7 @@ signature GTK_STATUS_ICON =
       (LargeInt.int
         -> LargeInt.int
         -> bool
-        -> base tooltipclass_t
+        -> base tooltip_class_t
         -> bool)
        -> 'a class_t Signal.signal
     val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class_t Signal.signal
@@ -114,7 +114,7 @@ signature GTK_STATUS_ICON =
     val screenProp : ('a class_t, base Gdk.ScreenClass.t option, 'b Gdk.ScreenClass.t option) Property.readwrite
     val sizeProp : ('a class_t, LargeInt.int) Property.readonly
     val stockProp : ('a class_t, string option, string option) Property.readwrite
-    val storageTypeProp : ('a class_t, imagetype_t) Property.readonly
+    val storageTypeProp : ('a class_t, image_type_t) Property.readonly
     val titleProp : ('a class_t, string option, string option) Property.readwrite
     val tooltipMarkupProp : ('a class_t, string option, string option) Property.readwrite
     val tooltipTextProp : ('a class_t, string option, string option) Property.readwrite

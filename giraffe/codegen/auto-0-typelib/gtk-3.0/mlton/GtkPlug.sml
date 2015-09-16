@@ -1,7 +1,7 @@
 structure GtkPlug :>
   GTK_PLUG
     where type 'a class_t = 'a GtkPlugClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     val getType_ = _import "gtk_plug_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_plug_new" : FFI.UInt64.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -28,7 +28,7 @@ structure GtkPlug :>
     val getId_ = _import "gtk_plug_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
     val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GtkPlugClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

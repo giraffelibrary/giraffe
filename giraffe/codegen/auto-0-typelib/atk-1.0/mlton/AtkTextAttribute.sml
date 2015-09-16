@@ -5,15 +5,15 @@ structure AtkTextAttribute :>
   struct
     datatype t =
       INVALID
-    | LEFTMARGIN
-    | RIGHTMARGIN
+    | LEFT_MARGIN
+    | RIGHT_MARGIN
     | INDENT
     | INVISIBLE
     | EDITABLE
-    | PIXELSABOVELINES
-    | PIXELSBELOWLINES
-    | PIXELSINSIDEWRAP
-    | BGFULLHEIGHT
+    | PIXELS_ABOVE_LINES
+    | PIXELS_BELOW_LINES
+    | PIXELS_INSIDE_WRAP
+    | BG_FULL_HEIGHT
     | RISE
     | UNDERLINE
     | STRIKETHROUGH
@@ -21,18 +21,18 @@ structure AtkTextAttribute :>
     | SCALE
     | WEIGHT
     | LANGUAGE
-    | FAMILYNAME
-    | BGCOLOR
-    | FGCOLOR
-    | BGSTIPPLE
-    | FGSTIPPLE
-    | WRAPMODE
+    | FAMILY_NAME
+    | BG_COLOR
+    | FG_COLOR
+    | BG_STIPPLE
+    | FG_STIPPLE
+    | WRAP_MODE
     | DIRECTION
     | JUSTIFICATION
     | STRETCH
     | VARIANT
     | STYLE
-    | LASTDEFINED
+    | LAST_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -41,15 +41,15 @@ structure AtkTextAttribute :>
         fun withVal f =
           fn
             INVALID => f 0
-          | LEFTMARGIN => f 1
-          | RIGHTMARGIN => f 2
+          | LEFT_MARGIN => f 1
+          | RIGHT_MARGIN => f 2
           | INDENT => f 3
           | INVISIBLE => f 4
           | EDITABLE => f 5
-          | PIXELSABOVELINES => f 6
-          | PIXELSBELOWLINES => f 7
-          | PIXELSINSIDEWRAP => f 8
-          | BGFULLHEIGHT => f 9
+          | PIXELS_ABOVE_LINES => f 6
+          | PIXELS_BELOW_LINES => f 7
+          | PIXELS_INSIDE_WRAP => f 8
+          | BG_FULL_HEIGHT => f 9
           | RISE => f 10
           | UNDERLINE => f 11
           | STRIKETHROUGH => f 12
@@ -57,31 +57,31 @@ structure AtkTextAttribute :>
           | SCALE => f 14
           | WEIGHT => f 15
           | LANGUAGE => f 16
-          | FAMILYNAME => f 17
-          | BGCOLOR => f 18
-          | FGCOLOR => f 19
-          | BGSTIPPLE => f 20
-          | FGSTIPPLE => f 21
-          | WRAPMODE => f 22
+          | FAMILY_NAME => f 17
+          | BG_COLOR => f 18
+          | FG_COLOR => f 19
+          | BG_STIPPLE => f 20
+          | FG_STIPPLE => f 21
+          | WRAP_MODE => f 22
           | DIRECTION => f 23
           | JUSTIFICATION => f 24
           | STRETCH => f 25
           | VARIANT => f 26
           | STYLE => f 27
-          | LASTDEFINED => f 28
+          | LAST_DEFINED => f 28
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
-          | 1 => LEFTMARGIN
-          | 2 => RIGHTMARGIN
+          | 1 => LEFT_MARGIN
+          | 2 => RIGHT_MARGIN
           | 3 => INDENT
           | 4 => INVISIBLE
           | 5 => EDITABLE
-          | 6 => PIXELSABOVELINES
-          | 7 => PIXELSBELOWLINES
-          | 8 => PIXELSINSIDEWRAP
-          | 9 => BGFULLHEIGHT
+          | 6 => PIXELS_ABOVE_LINES
+          | 7 => PIXELS_BELOW_LINES
+          | 8 => PIXELS_INSIDE_WRAP
+          | 9 => BG_FULL_HEIGHT
           | 10 => RISE
           | 11 => UNDERLINE
           | 12 => STRIKETHROUGH
@@ -89,18 +89,18 @@ structure AtkTextAttribute :>
           | 14 => SCALE
           | 15 => WEIGHT
           | 16 => LANGUAGE
-          | 17 => FAMILYNAME
-          | 18 => BGCOLOR
-          | 19 => FGCOLOR
-          | 20 => BGSTIPPLE
-          | 21 => FGSTIPPLE
-          | 22 => WRAPMODE
+          | 17 => FAMILY_NAME
+          | 18 => BG_COLOR
+          | 19 => FG_COLOR
+          | 20 => BG_STIPPLE
+          | 21 => FG_STIPPLE
+          | 22 => WRAP_MODE
           | 23 => DIRECTION
           | 24 => JUSTIFICATION
           | 25 => STRETCH
           | 26 => VARIANT
           | 27 => STYLE
-          | 28 => LASTDEFINED
+          | 28 => LAST_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "atk_text_attribute_get_type" : unit -> GObjectType.C.val_;

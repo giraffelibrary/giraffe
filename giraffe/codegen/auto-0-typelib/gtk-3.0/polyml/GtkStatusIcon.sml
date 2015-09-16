@@ -1,10 +1,10 @@
 structure GtkStatusIcon :>
   GTK_STATUS_ICON
     where type 'a class_t = 'a GtkStatusIconClass.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t
-    where type 'a tooltipclass_t = 'a GtkTooltipClass.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t
+    where type 'a tooltip_class_t = 'a GtkTooltipClass.t
     where type orientation_t = GtkOrientation.t
-    where type imagetype_t = GtkImageType.t =
+    where type image_type_t = GtkImageType.t =
   struct
     local
       open PolyMLFFI
@@ -63,10 +63,10 @@ structure GtkStatusIcon :>
       val setVisible_ = call (load_sym libgtk "gtk_status_icon_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkStatusIconClass.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
-    type 'a tooltipclass_t = 'a GtkTooltipClass.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
+    type 'a tooltip_class_t = 'a GtkTooltipClass.t
     type orientation_t = GtkOrientation.t
-    type imagetype_t = GtkImageType.t
+    type image_type_t = GtkImageType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()

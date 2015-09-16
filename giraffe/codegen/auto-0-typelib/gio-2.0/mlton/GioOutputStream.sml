@@ -1,10 +1,10 @@
 structure GioOutputStream :>
   GIO_OUTPUT_STREAM
     where type 'a class_t = 'a GioOutputStreamClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type outputstreamspliceflags_t = GioOutputStreamSpliceFlags.t
-    where type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type output_stream_splice_flags_t = GioOutputStreamSpliceFlags.t
+    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_output_stream_get_type" : unit -> GObjectType.C.val_;
     val clearPending_ = _import "g_output_stream_clear_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -138,10 +138,10 @@ structure GioOutputStream :>
               x3
             )
     type 'a class_t = 'a GioOutputStreamClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type outputstreamspliceflags_t = GioOutputStreamSpliceFlags.t
-    type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type output_stream_splice_flags_t = GioOutputStreamSpliceFlags.t
+    type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self

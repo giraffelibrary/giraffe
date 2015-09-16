@@ -9,8 +9,8 @@ structure GtkDirectionType :>
   end =
   struct
     datatype t =
-      TABFORWARD
-    | TABBACKWARD
+      TAB_FORWARD
+    | TAB_BACKWARD
     | UP
     | DOWN
     | LEFT
@@ -22,8 +22,8 @@ structure GtkDirectionType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            TABFORWARD => f 0
-          | TABBACKWARD => f 1
+            TAB_FORWARD => f 0
+          | TAB_BACKWARD => f 1
           | UP => f 2
           | DOWN => f 3
           | LEFT => f 4
@@ -31,8 +31,8 @@ structure GtkDirectionType :>
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => TABFORWARD
-          | 1 => TABBACKWARD
+            0 => TAB_FORWARD
+          | 1 => TAB_BACKWARD
           | 2 => UP
           | 3 => DOWN
           | 4 => LEFT
@@ -58,6 +58,6 @@ structure GtkDirectionType :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = TABFORWARD
+    val null = TAB_FORWARD
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

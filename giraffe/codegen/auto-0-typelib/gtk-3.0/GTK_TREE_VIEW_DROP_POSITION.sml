@@ -3,8 +3,8 @@ signature GTK_TREE_VIEW_DROP_POSITION =
     datatype t =
       BEFORE
     | AFTER
-    | INTOORBEFORE
-    | INTOORAFTER
+    | INTO_OR_BEFORE
+    | INTO_OR_AFTER
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

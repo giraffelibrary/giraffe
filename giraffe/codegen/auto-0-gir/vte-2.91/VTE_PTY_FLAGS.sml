@@ -4,11 +4,11 @@ signature VTE_PTY_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val NOLASTLOG : t
-    val NOUTMP : t
-    val NOWTMP : t
-    val NOHELPER : t
-    val NOFALLBACK : t
+    val NO_LASTLOG : t
+    val NO_UTMP : t
+    val NO_WTMP : t
+    val NO_HELPER : t
+    val NO_FALLBACK : t
     val DEFAULT : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

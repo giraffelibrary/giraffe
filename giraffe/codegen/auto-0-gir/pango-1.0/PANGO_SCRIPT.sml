@@ -1,7 +1,7 @@
 signature PANGO_SCRIPT =
   sig
     datatype t =
-      INVALIDCODE
+      INVALID_CODE
     | COMMON
     | INHERITED
     | ARABIC
@@ -32,7 +32,7 @@ signature PANGO_SCRIPT =
     | MONGOLIAN
     | MYANMAR
     | OGHAM
-    | OLDITALIC
+    | OLD_ITALIC
     | ORIYA
     | RUNIC
     | SINHALA
@@ -42,7 +42,7 @@ signature PANGO_SCRIPT =
     | THAANA
     | THAI
     | TIBETAN
-    | CANADIANABORIGINAL
+    | CANADIAN_ABORIGINAL
     | YI
     | TAGALOG
     | HANUNOO
@@ -53,39 +53,39 @@ signature PANGO_SCRIPT =
     | LIMBU
     | OSMANYA
     | SHAVIAN
-    | LINEARB
-    | TAILE
+    | LINEAR_B
+    | TAI_LE
     | UGARITIC
-    | NEWTAILUE
+    | NEW_TAI_LUE
     | BUGINESE
     | GLAGOLITIC
     | TIFINAGH
-    | SYLOTINAGRI
-    | OLDPERSIAN
+    | SYLOTI_NAGRI
+    | OLD_PERSIAN
     | KHAROSHTHI
     | UNKNOWN
     | BALINESE
     | CUNEIFORM
     | PHOENICIAN
-    | PHAGSPA
+    | PHAGS_PA
     | NKO
-    | KAYAHLI
+    | KAYAH_LI
     | LEPCHA
     | REJANG
     | SUNDANESE
     | SAURASHTRA
     | CHAM
-    | OLCHIKI
+    | OL_CHIKI
     | VAI
     | CARIAN
     | LYCIAN
     | LYDIAN
     val null : t
     val t : (t, t) GObject.Value.accessor
-    type languagerecord_t
+    type language_record_t
     val getType : unit -> GObject.Type.t
     val forUnichar : char -> t
-    val getSampleLanguage : t -> languagerecord_t
+    val getSampleLanguage : t -> language_record_t
     structure C :
       sig
         type val_

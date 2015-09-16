@@ -3,20 +3,20 @@ signature GTK_ICON_SIZE =
     datatype t =
       INVALID
     | MENU
-    | SMALLTOOLBAR
-    | LARGETOOLBAR
+    | SMALL_TOOLBAR
+    | LARGE_TOOLBAR
     | BUTTON
     | DND
     | DIALOG
     val null : t
     val t : (t, t) GObject.Value.accessor
-    type 'a settingsclass_t
+    type 'a settings_class_t
     val getType : unit -> GObject.Type.t
     val fromName : string -> LargeInt.int
     val getName : LargeInt.int -> string
     val lookup : LargeInt.int -> (LargeInt.int * LargeInt.int) option
     val lookupForSettings :
-      'a settingsclass_t
+      'a settings_class_t
        -> LargeInt.int
        -> (LargeInt.int * LargeInt.int) option
     val register :

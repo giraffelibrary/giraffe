@@ -1,11 +1,11 @@
 structure GtkSourceBuffer :>
   GTK_SOURCE_BUFFER
     where type 'a class_t = 'a GtkSourceBufferClass.t
-    where type 'a markclass_t = 'a GtkSourceMarkClass.t
-    where type bracketmatchtype_t = GtkSourceBracketMatchType.t
-    where type 'a languageclass_t = 'a GtkSourceLanguageClass.t
-    where type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a undomanagerclass_t = 'a GtkSourceUndoManagerClass.t =
+    where type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    where type bracket_match_type_t = GtkSourceBracketMatchType.t
+    where type 'a language_class_t = 'a GtkSourceLanguageClass.t
+    where type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
+    where type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t =
   struct
     local
       open PolyMLFFI
@@ -99,11 +99,11 @@ structure GtkSourceBuffer :>
       val undo_ = call (load_sym libgtksourceview "gtk_source_buffer_undo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceBufferClass.t
-    type 'a markclass_t = 'a GtkSourceMarkClass.t
-    type bracketmatchtype_t = GtkSourceBracketMatchType.t
-    type 'a languageclass_t = 'a GtkSourceLanguageClass.t
-    type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a undomanagerclass_t = 'a GtkSourceUndoManagerClass.t
+    type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    type bracket_match_type_t = GtkSourceBracketMatchType.t
+    type 'a language_class_t = 'a GtkSourceLanguageClass.t
+    type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
+    type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table

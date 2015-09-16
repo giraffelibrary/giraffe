@@ -1,8 +1,8 @@
 signature GIO_FILESYSTEM_PREVIEW_TYPE =
   sig
     datatype t =
-      IFALWAYS
-    | IFLOCAL
+      IF_ALWAYS
+    | IF_LOCAL
     | NEVER
     val null : t
     val t : (t, t) GObject.Value.accessor

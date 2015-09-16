@@ -1,8 +1,8 @@
 structure GtkExpander :>
   GTK_EXPANDER
     where type 'a class_t = 'a GtkExpanderClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -28,8 +28,8 @@ structure GtkExpander :>
       val setUseUnderline_ = call (load_sym libgtk "gtk_expander_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkExpanderClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

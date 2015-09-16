@@ -7,9 +7,9 @@
 
 structure ChildSignal :>
   CHILD_SIGNAL
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
 
     fun connect parent object signal f =
       let

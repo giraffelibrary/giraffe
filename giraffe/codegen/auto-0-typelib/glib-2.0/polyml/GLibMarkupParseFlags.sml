@@ -8,14 +8,14 @@ structure GLibMarkupParseFlags :>
       end
   end =
   struct
-    val DONOTUSETHISUNSUPPORTEDFLAG = 0w1
-    val TREATCDATAASTEXT = 0w2
-    val PREFIXERRORPOSITION = 0w4
+    val DO_NOT_USE_THIS_UNSUPPORTED_FLAG = 0w1
+    val TREAT_CDATA_AS_TEXT = 0w2
+    val PREFIX_ERROR_POSITION = 0w4
     val allFlags =
       [
-        DONOTUSETHISUNSUPPORTEDFLAG,
-        TREATCDATAASTEXT,
-        PREFIXERRORPOSITION
+        DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
+        TREAT_CDATA_AS_TEXT,
+        PREFIX_ERROR_POSITION
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,8 +1,8 @@
 signature GTK_TOGGLE_ACTION_CLASS =
   sig
-    type 'a toggleaction
-    type 'a actionclass_t
-    type 'a t = 'a toggleaction actionclass_t
+    type 'a toggle_action
+    type 'a action_class_t
+    type 'a t = 'a toggle_action action_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

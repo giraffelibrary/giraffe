@@ -1,8 +1,8 @@
 structure GioUnixSocketAddress :>
   GIO_UNIX_SOCKET_ADDRESS
     where type 'a class_t = 'a GioUnixSocketAddressClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    where type unixsocketaddresstype_t = GioUnixSocketAddressType.t =
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type unix_socket_address_type_t = GioUnixSocketAddressType.t =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,8 @@ structure GioUnixSocketAddress :>
       val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
     end
     type 'a class_t = 'a GioUnixSocketAddressClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    type unixsocketaddresstype_t = GioUnixSocketAddressType.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type unix_socket_address_type_t = GioUnixSocketAddressType.t
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

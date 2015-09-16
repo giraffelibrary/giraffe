@@ -1,8 +1,8 @@
 signature GTK_SEPARATOR_TOOL_ITEM_CLASS =
   sig
-    type 'a separatortoolitem
-    type 'a toolitemclass_t
-    type 'a t = 'a separatortoolitem toolitemclass_t
+    type 'a separator_tool_item
+    type 'a tool_item_class_t
+    type 'a t = 'a separator_tool_item tool_item_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

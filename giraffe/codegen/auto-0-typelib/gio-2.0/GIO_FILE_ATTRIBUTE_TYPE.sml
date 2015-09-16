@@ -3,12 +3,12 @@ signature GIO_FILE_ATTRIBUTE_TYPE =
     datatype t =
       INVALID
     | STRING
-    | BYTESTRING
+    | BYTE_STRING
     | BOOLEAN
-    | UINT32
-    | INT32
-    | UINT64
-    | INT64
+    | UINT_32
+    | INT_32
+    | UINT_64
+    | INT_64
     | OBJECT
     | STRINGV
     val null : t

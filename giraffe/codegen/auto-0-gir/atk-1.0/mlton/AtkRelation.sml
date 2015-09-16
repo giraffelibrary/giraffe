@@ -1,8 +1,8 @@
 structure AtkRelation :>
   ATK_RELATION
     where type 'a class_t = 'a AtkRelationClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t
-    where type relationtype_t = AtkRelationType.t =
+    where type 'a object_class_t = 'a AtkObjectClass.t
+    where type relation_type_t = AtkRelationType.t =
   struct
     val getType_ = _import "atk_relation_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -26,8 +26,8 @@ structure AtkRelation :>
     val getRelationType_ = _import "atk_relation_get_relation_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkRelationType.C.val_;
     val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     type 'a class_t = 'a AtkRelationClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
-    type relationtype_t = AtkRelationType.t
+    type 'a object_class_t = 'a AtkObjectClass.t
+    type relation_type_t = AtkRelationType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new targets nTargets relationship =

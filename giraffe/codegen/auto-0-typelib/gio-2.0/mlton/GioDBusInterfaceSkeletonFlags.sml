@@ -8,8 +8,8 @@ structure GioDBusInterfaceSkeletonFlags :>
     in
       val NONE = NONE ()
     end
-    val HANDLEMETHODINVOCATIONSINTHREAD = 0w1
-    val allFlags = [NONE, HANDLEMETHODINVOCATIONSINTHREAD]
+    val HANDLE_METHOD_INVOCATIONS_IN_THREAD = 0w1
+    val allFlags = [NONE, HANDLE_METHOD_INVOCATIONS_IN_THREAD]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

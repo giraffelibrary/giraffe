@@ -3,7 +3,7 @@ signature CAIRO_CONTENT =
     datatype t =
       COLOR
     | ALPHA
-    | COLORALPHA
+    | COLOR_ALPHA
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

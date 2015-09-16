@@ -6,7 +6,7 @@ signature GTK_SOURCE_COMPLETION_ACTIVATION =
         where type flags = t
     val NONE : t
     val INTERACTIVE : t
-    val USERREQUESTED : t
+    val USER_REQUESTED : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

@@ -5,7 +5,7 @@ signature G_OBJECT_TYPE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val ABSTRACT : t
-    val VALUEABSTRACT : t
+    val VALUE_ABSTRACT : t
     structure C :
       sig
         type val_

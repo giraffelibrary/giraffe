@@ -1,15 +1,15 @@
 structure GtkSourceCompletionContext :>
   GTK_SOURCE_COMPLETION_CONTEXT
     where type 'a class_t = 'a GtkSourceCompletionContextClass.t
-    where type completionactivation_t = GtkSourceCompletionActivation.t
-    where type 'a completionclass_t = 'a GtkSourceCompletionClass.t =
+    where type completion_activation_t = GtkSourceCompletionActivation.t
+    where type 'a completion_class_t = 'a GtkSourceCompletionClass.t =
   struct
     val getType_ = _import "gtk_source_completion_context_get_type" : unit -> GObjectType.C.val_;
     val getActivation_ = _import "gtk_source_completion_context_get_activation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSourceCompletionActivation.C.val_;
     val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkSourceCompletionContextClass.t
-    type completionactivation_t = GtkSourceCompletionActivation.t
-    type 'a completionclass_t = 'a GtkSourceCompletionClass.t
+    type completion_activation_t = GtkSourceCompletionActivation.t
+    type 'a completion_class_t = 'a GtkSourceCompletionClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActivation self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self

@@ -4,8 +4,8 @@ structure GtkDialogFlags :>
   end =
   struct
     val MODAL = 0w1
-    val DESTROYWITHPARENT = 0w2
-    val allFlags = [MODAL, DESTROYWITHPARENT]
+    val DESTROY_WITH_PARENT = 0w2
+    val allFlags = [MODAL, DESTROY_WITH_PARENT]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

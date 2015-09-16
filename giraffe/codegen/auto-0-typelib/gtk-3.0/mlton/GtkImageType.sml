@@ -7,9 +7,9 @@ structure GtkImageType :>
       EMPTY
     | PIXBUF
     | STOCK
-    | ICONSET
+    | ICON_SET
     | ANIMATION
-    | ICONNAME
+    | ICON_NAME
     | GICON
     structure C =
       struct
@@ -21,9 +21,9 @@ structure GtkImageType :>
             EMPTY => f 0
           | PIXBUF => f 1
           | STOCK => f 2
-          | ICONSET => f 3
+          | ICON_SET => f 3
           | ANIMATION => f 4
-          | ICONNAME => f 5
+          | ICON_NAME => f 5
           | GICON => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
@@ -31,9 +31,9 @@ structure GtkImageType :>
             0 => EMPTY
           | 1 => PIXBUF
           | 2 => STOCK
-          | 3 => ICONSET
+          | 3 => ICON_SET
           | 4 => ANIMATION
-          | 5 => ICONNAME
+          | 5 => ICON_NAME
           | 6 => GICON
           | n => raise Value n
       end

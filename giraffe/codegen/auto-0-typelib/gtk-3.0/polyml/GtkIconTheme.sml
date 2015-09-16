@@ -1,8 +1,8 @@
 structure GtkIconTheme :>
   GTK_ICON_THEME
     where type 'a class_t = 'a GtkIconThemeClass.t
-    where type iconinforecord_t = GtkIconInfoRecord.t
-    where type iconlookupflags_t = GtkIconLookupFlags.t =
+    where type icon_info_record_t = GtkIconInfoRecord.t
+    where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
     local
       open PolyMLFFI
@@ -56,8 +56,8 @@ structure GtkIconTheme :>
       val setScreen_ = call (load_sym libgtk "gtk_icon_theme_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkIconThemeClass.t
-    type iconinforecord_t = GtkIconInfoRecord.t
-    type iconlookupflags_t = GtkIconLookupFlags.t
+    type icon_info_record_t = GtkIconInfoRecord.t
+    type icon_lookup_flags_t = GtkIconLookupFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconThemeClass.C.fromPtr true) new_ ()

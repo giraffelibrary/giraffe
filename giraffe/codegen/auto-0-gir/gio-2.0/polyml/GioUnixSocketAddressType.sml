@@ -13,7 +13,7 @@ structure GioUnixSocketAddressType :>
     | ANONYMOUS
     | PATH
     | ABSTRACT
-    | ABSTRACTPADDED
+    | ABSTRACT_PADDED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,7 +25,7 @@ structure GioUnixSocketAddressType :>
           | ANONYMOUS => f 1
           | PATH => f 2
           | ABSTRACT => f 3
-          | ABSTRACTPADDED => f 4
+          | ABSTRACT_PADDED => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -33,7 +33,7 @@ structure GioUnixSocketAddressType :>
           | 1 => ANONYMOUS
           | 2 => PATH
           | 3 => ABSTRACT
-          | 4 => ABSTRACTPADDED
+          | 4 => ABSTRACT_PADDED
           | n => raise Value n
       end
     structure PolyML =

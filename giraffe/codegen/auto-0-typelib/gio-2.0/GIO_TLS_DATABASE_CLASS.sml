@@ -1,7 +1,7 @@
 signature GIO_TLS_DATABASE_CLASS =
   sig
-    type 'a tlsdatabase
-    type 'a t = 'a tlsdatabase GObject.ObjectClass.t
+    type 'a tls_database
+    type 'a t = 'a tls_database GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,8 +1,8 @@
 structure GtkRadioButton :>
   GTK_RADIO_BUTTON
     where type 'a class_t = 'a GtkRadioButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     local
       open PolyMLFFI
@@ -14,8 +14,8 @@ structure GtkRadioButton :>
       val joinGroup_ = call (load_sym libgtk "gtk_radio_button_join_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRadioButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

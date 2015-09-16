@@ -2,23 +2,23 @@ signature ATK_RELATION_TYPE =
   sig
     datatype t =
       NULL
-    | CONTROLLEDBY
-    | CONTROLLERFOR
-    | LABELFOR
-    | LABELLEDBY
-    | MEMBEROF
-    | NODECHILDOF
-    | FLOWSTO
-    | FLOWSFROM
-    | SUBWINDOWOF
+    | CONTROLLED_BY
+    | CONTROLLER_FOR
+    | LABEL_FOR
+    | LABELLED_BY
+    | MEMBER_OF
+    | NODE_CHILD_OF
+    | FLOWS_TO
+    | FLOWS_FROM
+    | SUBWINDOW_OF
     | EMBEDS
-    | EMBEDDEDBY
-    | POPUPFOR
-    | PARENTWINDOWOF
-    | DESCRIBEDBY
-    | DESCRIPTIONFOR
-    | NODEPARENTOF
-    | LASTDEFINED
+    | EMBEDDED_BY
+    | POPUP_FOR
+    | PARENT_WINDOW_OF
+    | DESCRIBED_BY
+    | DESCRIPTION_FOR
+    | NODE_PARENT_OF
+    | LAST_DEFINED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

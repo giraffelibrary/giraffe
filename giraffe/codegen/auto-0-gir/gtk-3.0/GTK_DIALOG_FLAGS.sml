@@ -5,7 +5,7 @@ signature GTK_DIALOG_FLAGS =
       BIT_FLAGS
         where type flags = t
     val MODAL : t
-    val DESTROYWITHPARENT : t
+    val DESTROY_WITH_PARENT : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

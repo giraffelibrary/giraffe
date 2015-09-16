@@ -1,7 +1,7 @@
 signature GTK_CELL_AREA_CLASS =
   sig
-    type 'a cellarea
-    type 'a t = 'a cellarea GObject.InitiallyUnownedClass.t
+    type 'a cell_area
+    type 'a t = 'a cell_area GObject.InitiallyUnownedClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

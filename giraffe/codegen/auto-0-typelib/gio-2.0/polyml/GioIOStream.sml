@@ -1,10 +1,10 @@
 structure GioIOStream :>
   GIO_I_O_STREAM
     where type 'a class_t = 'a GioIOStreamClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    where type 'a outputstreamclass_t = 'a GioOutputStreamClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t =
   struct
     local
       open PolyMLFFI
@@ -35,10 +35,10 @@ structure GioIOStream :>
       val setPending_ = call (load_sym libgio "g_io_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioIOStreamClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun spliceFinish result = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spliceFinish_ (result & [])

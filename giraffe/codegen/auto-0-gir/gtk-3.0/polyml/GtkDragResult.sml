@@ -10,10 +10,10 @@ structure GtkDragResult :>
   struct
     datatype t =
       SUCCESS
-    | NOTARGET
-    | USERCANCELLED
-    | TIMEOUTEXPIRED
-    | GRABBROKEN
+    | NO_TARGET
+    | USER_CANCELLED
+    | TIMEOUT_EXPIRED
+    | GRAB_BROKEN
     | ERROR
     structure C =
       struct
@@ -23,19 +23,19 @@ structure GtkDragResult :>
         fun withVal f =
           fn
             SUCCESS => f 0
-          | NOTARGET => f 1
-          | USERCANCELLED => f 2
-          | TIMEOUTEXPIRED => f 3
-          | GRABBROKEN => f 4
+          | NO_TARGET => f 1
+          | USER_CANCELLED => f 2
+          | TIMEOUT_EXPIRED => f 3
+          | GRAB_BROKEN => f 4
           | ERROR => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => SUCCESS
-          | 1 => NOTARGET
-          | 2 => USERCANCELLED
-          | 3 => TIMEOUTEXPIRED
-          | 4 => GRABBROKEN
+          | 1 => NO_TARGET
+          | 2 => USER_CANCELLED
+          | 3 => TIMEOUT_EXPIRED
+          | 4 => GRAB_BROKEN
           | 5 => ERROR
           | n => raise Value n
       end

@@ -3,12 +3,12 @@ signature GTK_LICENSE =
     datatype t =
       UNKNOWN
     | CUSTOM
-    | GPL20
-    | GPL30
-    | LGPL21
-    | LGPL30
+    | GPL_2_0
+    | GPL_3_0
+    | LGPL_2_1
+    | LGPL_3_0
     | BSD
-    | MITX11
+    | MIT_X_11
     | ARTISTIC
     val null : t
     val t : (t, t) GObject.Value.accessor

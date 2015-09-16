@@ -1,11 +1,11 @@
 signature GDK_EVENT_GRAB_BROKEN_RECORD =
   sig
-    type grabbroken
+    type grab_broken
     type 'a event_t
-    type t = grabbroken event_t
+    type t = grab_broken event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      GRABBROKEN
+      GRAB_BROKEN
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

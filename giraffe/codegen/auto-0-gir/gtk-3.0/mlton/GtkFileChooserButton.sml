@@ -1,11 +1,11 @@
 structure GtkFileChooserButton :>
   GTK_FILE_CHOOSER_BUTTON
     where type 'a class_t = 'a GtkFileChooserButtonClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type filechooseraction_t = GtkFileChooserAction.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a filechooserclass_t = 'a GtkFileChooserClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type file_chooser_action_t = GtkFileChooserAction.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a file_chooser_class_t = 'a GtkFileChooserClass.t =
   struct
     val getType_ = _import "gtk_file_chooser_button_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -45,11 +45,11 @@ structure GtkFileChooserButton :>
             )
     val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkFileChooserButtonClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type filechooseraction_t = GtkFileChooserAction.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a filechooserclass_t = 'a GtkFileChooserClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type file_chooser_action_t = GtkFileChooserAction.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a file_chooser_class_t = 'a GtkFileChooserClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

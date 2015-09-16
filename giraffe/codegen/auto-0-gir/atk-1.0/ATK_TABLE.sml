@@ -1,7 +1,7 @@
 signature ATK_TABLE =
   sig
     type 'a class_t
-    type 'a objectclass_t
+    type 'a object_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val addColumnSelection :
@@ -12,7 +12,7 @@ signature ATK_TABLE =
       'a class_t
        -> LargeInt.int
        -> bool
-    val getCaption : 'a class_t -> base objectclass_t
+    val getCaption : 'a class_t -> base object_class_t
     val getColumnAtIndex :
       'a class_t
        -> LargeInt.int
@@ -29,7 +29,7 @@ signature ATK_TABLE =
     val getColumnHeader :
       'a class_t
        -> LargeInt.int
-       -> base objectclass_t
+       -> base object_class_t
     val getIndexAt :
       'a class_t
        -> LargeInt.int
@@ -53,8 +53,8 @@ signature ATK_TABLE =
     val getRowHeader :
       'a class_t
        -> LargeInt.int
-       -> base objectclass_t
-    val getSummary : 'a class_t -> base objectclass_t
+       -> base object_class_t
+    val getSummary : 'a class_t -> base object_class_t
     val isColumnSelected :
       'a class_t
        -> LargeInt.int
@@ -72,7 +72,7 @@ signature ATK_TABLE =
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> base objectclass_t
+       -> base object_class_t
     val removeColumnSelection :
       'a class_t
        -> LargeInt.int
@@ -83,7 +83,7 @@ signature ATK_TABLE =
        -> bool
     val setCaption :
       'a class_t
-       -> 'b objectclass_t
+       -> 'b object_class_t
        -> unit
     val setColumnDescription :
       'a class_t
@@ -93,7 +93,7 @@ signature ATK_TABLE =
     val setColumnHeader :
       'a class_t
        -> LargeInt.int
-       -> 'b objectclass_t
+       -> 'b object_class_t
        -> unit
     val setRowDescription :
       'a class_t
@@ -103,11 +103,11 @@ signature ATK_TABLE =
     val setRowHeader :
       'a class_t
        -> LargeInt.int
-       -> 'b objectclass_t
+       -> 'b object_class_t
        -> unit
     val setSummary :
       'a class_t
-       -> 'b objectclass_t
+       -> 'b object_class_t
        -> unit
     val columnDeletedSig :
       (LargeInt.int

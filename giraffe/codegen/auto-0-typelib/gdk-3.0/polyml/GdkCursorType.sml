@@ -9,65 +9,65 @@ structure GdkCursorType :>
   end =
   struct
     datatype t =
-      XCURSOR
+      X_CURSOR
     | ARROW
-    | BASEDARROWDOWN
-    | BASEDARROWUP
+    | BASED_ARROW_DOWN
+    | BASED_ARROW_UP
     | BOAT
     | BOGOSITY
-    | BOTTOMLEFTCORNER
-    | BOTTOMRIGHTCORNER
-    | BOTTOMSIDE
-    | BOTTOMTEE
-    | BOXSPIRAL
-    | CENTERPTR
+    | BOTTOM_LEFT_CORNER
+    | BOTTOM_RIGHT_CORNER
+    | BOTTOM_SIDE
+    | BOTTOM_TEE
+    | BOX_SPIRAL
+    | CENTER_PTR
     | CIRCLE
     | CLOCK
-    | COFFEEMUG
+    | COFFEE_MUG
     | CROSS
-    | CROSSREVERSE
+    | CROSS_REVERSE
     | CROSSHAIR
-    | DIAMONDCROSS
+    | DIAMOND_CROSS
     | DOT
     | DOTBOX
-    | DOUBLEARROW
-    | DRAFTLARGE
-    | DRAFTSMALL
-    | DRAPEDBOX
+    | DOUBLE_ARROW
+    | DRAFT_LARGE
+    | DRAFT_SMALL
+    | DRAPED_BOX
     | EXCHANGE
     | FLEUR
     | GOBBLER
     | GUMBY
-    | HAND1
-    | HAND2
+    | HAND_1
+    | HAND_2
     | HEART
     | ICON
-    | IRONCROSS
-    | LEFTPTR
-    | LEFTSIDE
-    | LEFTTEE
+    | IRON_CROSS
+    | LEFT_PTR
+    | LEFT_SIDE
+    | LEFT_TEE
     | LEFTBUTTON
-    | LLANGLE
-    | LRANGLE
+    | LL_ANGLE
+    | LR_ANGLE
     | MAN
     | MIDDLEBUTTON
     | MOUSE
     | PENCIL
     | PIRATE
     | PLUS
-    | QUESTIONARROW
-    | RIGHTPTR
-    | RIGHTSIDE
-    | RIGHTTEE
+    | QUESTION_ARROW
+    | RIGHT_PTR
+    | RIGHT_SIDE
+    | RIGHT_TEE
     | RIGHTBUTTON
-    | RTLLOGO
+    | RTL_LOGO
     | SAILBOAT
-    | SBDOWNARROW
-    | SBHDOUBLEARROW
-    | SBLEFTARROW
-    | SBRIGHTARROW
-    | SBUPARROW
-    | SBVDOUBLEARROW
+    | SB_DOWN_ARROW
+    | SB_H_DOUBLE_ARROW
+    | SB_LEFT_ARROW
+    | SB_RIGHT_ARROW
+    | SB_UP_ARROW
+    | SB_V_DOUBLE_ARROW
     | SHUTTLE
     | SIZING
     | SPIDER
@@ -75,20 +75,20 @@ structure GdkCursorType :>
     | STAR
     | TARGET
     | TCROSS
-    | TOPLEFTARROW
-    | TOPLEFTCORNER
-    | TOPRIGHTCORNER
-    | TOPSIDE
-    | TOPTEE
+    | TOP_LEFT_ARROW
+    | TOP_LEFT_CORNER
+    | TOP_RIGHT_CORNER
+    | TOP_SIDE
+    | TOP_TEE
     | TREK
-    | ULANGLE
+    | UL_ANGLE
     | UMBRELLA
-    | URANGLE
+    | UR_ANGLE
     | WATCH
     | XTERM
-    | LASTCURSOR
-    | BLANKCURSOR
-    | CURSORISPIXMAP
+    | LAST_CURSOR
+    | BLANK_CURSOR
+    | CURSOR_IS_PIXMAP
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -96,65 +96,65 @@ structure GdkCursorType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            XCURSOR => f 0
+            X_CURSOR => f 0
           | ARROW => f 2
-          | BASEDARROWDOWN => f 4
-          | BASEDARROWUP => f 6
+          | BASED_ARROW_DOWN => f 4
+          | BASED_ARROW_UP => f 6
           | BOAT => f 8
           | BOGOSITY => f 10
-          | BOTTOMLEFTCORNER => f 12
-          | BOTTOMRIGHTCORNER => f 14
-          | BOTTOMSIDE => f 16
-          | BOTTOMTEE => f 18
-          | BOXSPIRAL => f 20
-          | CENTERPTR => f 22
+          | BOTTOM_LEFT_CORNER => f 12
+          | BOTTOM_RIGHT_CORNER => f 14
+          | BOTTOM_SIDE => f 16
+          | BOTTOM_TEE => f 18
+          | BOX_SPIRAL => f 20
+          | CENTER_PTR => f 22
           | CIRCLE => f 24
           | CLOCK => f 26
-          | COFFEEMUG => f 28
+          | COFFEE_MUG => f 28
           | CROSS => f 30
-          | CROSSREVERSE => f 32
+          | CROSS_REVERSE => f 32
           | CROSSHAIR => f 34
-          | DIAMONDCROSS => f 36
+          | DIAMOND_CROSS => f 36
           | DOT => f 38
           | DOTBOX => f 40
-          | DOUBLEARROW => f 42
-          | DRAFTLARGE => f 44
-          | DRAFTSMALL => f 46
-          | DRAPEDBOX => f 48
+          | DOUBLE_ARROW => f 42
+          | DRAFT_LARGE => f 44
+          | DRAFT_SMALL => f 46
+          | DRAPED_BOX => f 48
           | EXCHANGE => f 50
           | FLEUR => f 52
           | GOBBLER => f 54
           | GUMBY => f 56
-          | HAND1 => f 58
-          | HAND2 => f 60
+          | HAND_1 => f 58
+          | HAND_2 => f 60
           | HEART => f 62
           | ICON => f 64
-          | IRONCROSS => f 66
-          | LEFTPTR => f 68
-          | LEFTSIDE => f 70
-          | LEFTTEE => f 72
+          | IRON_CROSS => f 66
+          | LEFT_PTR => f 68
+          | LEFT_SIDE => f 70
+          | LEFT_TEE => f 72
           | LEFTBUTTON => f 74
-          | LLANGLE => f 76
-          | LRANGLE => f 78
+          | LL_ANGLE => f 76
+          | LR_ANGLE => f 78
           | MAN => f 80
           | MIDDLEBUTTON => f 82
           | MOUSE => f 84
           | PENCIL => f 86
           | PIRATE => f 88
           | PLUS => f 90
-          | QUESTIONARROW => f 92
-          | RIGHTPTR => f 94
-          | RIGHTSIDE => f 96
-          | RIGHTTEE => f 98
+          | QUESTION_ARROW => f 92
+          | RIGHT_PTR => f 94
+          | RIGHT_SIDE => f 96
+          | RIGHT_TEE => f 98
           | RIGHTBUTTON => f 100
-          | RTLLOGO => f 102
+          | RTL_LOGO => f 102
           | SAILBOAT => f 104
-          | SBDOWNARROW => f 106
-          | SBHDOUBLEARROW => f 108
-          | SBLEFTARROW => f 110
-          | SBRIGHTARROW => f 112
-          | SBUPARROW => f 114
-          | SBVDOUBLEARROW => f 116
+          | SB_DOWN_ARROW => f 106
+          | SB_H_DOUBLE_ARROW => f 108
+          | SB_LEFT_ARROW => f 110
+          | SB_RIGHT_ARROW => f 112
+          | SB_UP_ARROW => f 114
+          | SB_V_DOUBLE_ARROW => f 116
           | SHUTTLE => f 118
           | SIZING => f 120
           | SPIDER => f 122
@@ -162,82 +162,82 @@ structure GdkCursorType :>
           | STAR => f 126
           | TARGET => f 128
           | TCROSS => f 130
-          | TOPLEFTARROW => f 132
-          | TOPLEFTCORNER => f 134
-          | TOPRIGHTCORNER => f 136
-          | TOPSIDE => f 138
-          | TOPTEE => f 140
+          | TOP_LEFT_ARROW => f 132
+          | TOP_LEFT_CORNER => f 134
+          | TOP_RIGHT_CORNER => f 136
+          | TOP_SIDE => f 138
+          | TOP_TEE => f 140
           | TREK => f 142
-          | ULANGLE => f 144
+          | UL_ANGLE => f 144
           | UMBRELLA => f 146
-          | URANGLE => f 148
+          | UR_ANGLE => f 148
           | WATCH => f 150
           | XTERM => f 152
-          | LASTCURSOR => f 153
-          | BLANKCURSOR => f ~2
-          | CURSORISPIXMAP => f ~1
+          | LAST_CURSOR => f 153
+          | BLANK_CURSOR => f ~2
+          | CURSOR_IS_PIXMAP => f ~1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => XCURSOR
+            0 => X_CURSOR
           | 2 => ARROW
-          | 4 => BASEDARROWDOWN
-          | 6 => BASEDARROWUP
+          | 4 => BASED_ARROW_DOWN
+          | 6 => BASED_ARROW_UP
           | 8 => BOAT
           | 10 => BOGOSITY
-          | 12 => BOTTOMLEFTCORNER
-          | 14 => BOTTOMRIGHTCORNER
-          | 16 => BOTTOMSIDE
-          | 18 => BOTTOMTEE
-          | 20 => BOXSPIRAL
-          | 22 => CENTERPTR
+          | 12 => BOTTOM_LEFT_CORNER
+          | 14 => BOTTOM_RIGHT_CORNER
+          | 16 => BOTTOM_SIDE
+          | 18 => BOTTOM_TEE
+          | 20 => BOX_SPIRAL
+          | 22 => CENTER_PTR
           | 24 => CIRCLE
           | 26 => CLOCK
-          | 28 => COFFEEMUG
+          | 28 => COFFEE_MUG
           | 30 => CROSS
-          | 32 => CROSSREVERSE
+          | 32 => CROSS_REVERSE
           | 34 => CROSSHAIR
-          | 36 => DIAMONDCROSS
+          | 36 => DIAMOND_CROSS
           | 38 => DOT
           | 40 => DOTBOX
-          | 42 => DOUBLEARROW
-          | 44 => DRAFTLARGE
-          | 46 => DRAFTSMALL
-          | 48 => DRAPEDBOX
+          | 42 => DOUBLE_ARROW
+          | 44 => DRAFT_LARGE
+          | 46 => DRAFT_SMALL
+          | 48 => DRAPED_BOX
           | 50 => EXCHANGE
           | 52 => FLEUR
           | 54 => GOBBLER
           | 56 => GUMBY
-          | 58 => HAND1
-          | 60 => HAND2
+          | 58 => HAND_1
+          | 60 => HAND_2
           | 62 => HEART
           | 64 => ICON
-          | 66 => IRONCROSS
-          | 68 => LEFTPTR
-          | 70 => LEFTSIDE
-          | 72 => LEFTTEE
+          | 66 => IRON_CROSS
+          | 68 => LEFT_PTR
+          | 70 => LEFT_SIDE
+          | 72 => LEFT_TEE
           | 74 => LEFTBUTTON
-          | 76 => LLANGLE
-          | 78 => LRANGLE
+          | 76 => LL_ANGLE
+          | 78 => LR_ANGLE
           | 80 => MAN
           | 82 => MIDDLEBUTTON
           | 84 => MOUSE
           | 86 => PENCIL
           | 88 => PIRATE
           | 90 => PLUS
-          | 92 => QUESTIONARROW
-          | 94 => RIGHTPTR
-          | 96 => RIGHTSIDE
-          | 98 => RIGHTTEE
+          | 92 => QUESTION_ARROW
+          | 94 => RIGHT_PTR
+          | 96 => RIGHT_SIDE
+          | 98 => RIGHT_TEE
           | 100 => RIGHTBUTTON
-          | 102 => RTLLOGO
+          | 102 => RTL_LOGO
           | 104 => SAILBOAT
-          | 106 => SBDOWNARROW
-          | 108 => SBHDOUBLEARROW
-          | 110 => SBLEFTARROW
-          | 112 => SBRIGHTARROW
-          | 114 => SBUPARROW
-          | 116 => SBVDOUBLEARROW
+          | 106 => SB_DOWN_ARROW
+          | 108 => SB_H_DOUBLE_ARROW
+          | 110 => SB_LEFT_ARROW
+          | 112 => SB_RIGHT_ARROW
+          | 114 => SB_UP_ARROW
+          | 116 => SB_V_DOUBLE_ARROW
           | 118 => SHUTTLE
           | 120 => SIZING
           | 122 => SPIDER
@@ -245,20 +245,20 @@ structure GdkCursorType :>
           | 126 => STAR
           | 128 => TARGET
           | 130 => TCROSS
-          | 132 => TOPLEFTARROW
-          | 134 => TOPLEFTCORNER
-          | 136 => TOPRIGHTCORNER
-          | 138 => TOPSIDE
-          | 140 => TOPTEE
+          | 132 => TOP_LEFT_ARROW
+          | 134 => TOP_LEFT_CORNER
+          | 136 => TOP_RIGHT_CORNER
+          | 138 => TOP_SIDE
+          | 140 => TOP_TEE
           | 142 => TREK
-          | 144 => ULANGLE
+          | 144 => UL_ANGLE
           | 146 => UMBRELLA
-          | 148 => URANGLE
+          | 148 => UR_ANGLE
           | 150 => WATCH
           | 152 => XTERM
-          | 153 => LASTCURSOR
-          | ~2 => BLANKCURSOR
-          | ~1 => CURSORISPIXMAP
+          | 153 => LAST_CURSOR
+          | ~2 => BLANK_CURSOR
+          | ~1 => CURSOR_IS_PIXMAP
           | n => raise Value n
       end
     structure PolyML =
@@ -280,6 +280,6 @@ structure GdkCursorType :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = XCURSOR
+    val null = X_CURSOR
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

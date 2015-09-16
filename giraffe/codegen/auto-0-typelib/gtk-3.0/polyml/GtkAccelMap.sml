@@ -1,7 +1,7 @@
 structure GtkAccelMap :>
   GTK_ACCEL_MAP
     where type 'a class_t = 'a GtkAccelMapClass.t
-    where type accelkeyrecord_t = GtkAccelKeyRecord.t =
+    where type accel_key_record_t = GtkAccelKeyRecord.t =
   struct
     local
       open PolyMLFFI
@@ -35,7 +35,7 @@ structure GtkAccelMap :>
       val unlockPath_ = call (load_sym libgtk "gtk_accel_map_unlock_path") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAccelMapClass.t
-    type accelkeyrecord_t = GtkAccelKeyRecord.t
+    type accel_key_record_t = GtkAccelKeyRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =

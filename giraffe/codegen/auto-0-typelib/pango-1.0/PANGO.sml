@@ -40,7 +40,7 @@ signature PANGO =
     structure AttrList :
       PANGO_ATTR_LIST
         where type record_t = AttrListRecord.t
-        where type attributerecord_t = AttributeRecord.t
+        where type attribute_record_t = AttributeRecord.t
     structure Attribute :
       PANGO_ATTRIBUTE
         where type record_t = AttributeRecord.t
@@ -50,66 +50,66 @@ signature PANGO =
     structure Font :
       PANGO_FONT
         where type 'a class_t = 'a FontClass.t
-        where type fontdescriptionrecord_t = FontDescriptionRecord.t
-        where type 'a fontmapclass_t = 'a FontMapClass.t
-        where type rectanglerecord_t = RectangleRecord.t
-        where type fontmetricsrecord_t = FontMetricsRecord.t
-        where type languagerecord_t = LanguageRecord.t
+        where type font_description_record_t = FontDescriptionRecord.t
+        where type 'a font_map_class_t = 'a FontMapClass.t
+        where type rectangle_record_t = RectangleRecord.t
+        where type font_metrics_record_t = FontMetricsRecord.t
+        where type language_record_t = LanguageRecord.t
     structure FontFace :
       PANGO_FONT_FACE
         where type 'a class_t = 'a FontFaceClass.t
-        where type fontdescriptionrecord_t = FontDescriptionRecord.t
+        where type font_description_record_t = FontDescriptionRecord.t
     structure FontFamily :
       PANGO_FONT_FAMILY
         where type 'a class_t = 'a FontFamilyClass.t
     structure FontMap :
       PANGO_FONT_MAP
         where type 'a class_t = 'a FontMapClass.t
-        where type 'a fontclass_t = 'a FontClass.t
-        where type 'a fontsetclass_t = 'a FontsetClass.t
-        where type languagerecord_t = LanguageRecord.t
-        where type fontdescriptionrecord_t = FontDescriptionRecord.t
-        where type 'a contextclass_t = 'a ContextClass.t
+        where type 'a font_class_t = 'a FontClass.t
+        where type 'a fontset_class_t = 'a FontsetClass.t
+        where type language_record_t = LanguageRecord.t
+        where type font_description_record_t = FontDescriptionRecord.t
+        where type 'a context_class_t = 'a ContextClass.t
     structure FontMetrics :
       PANGO_FONT_METRICS
         where type record_t = FontMetricsRecord.t
     structure Fontset :
       PANGO_FONTSET
         where type 'a class_t = 'a FontsetClass.t
-        where type 'a fontclass_t = 'a FontClass.t
-        where type fontmetricsrecord_t = FontMetricsRecord.t
+        where type 'a font_class_t = 'a FontClass.t
+        where type font_metrics_record_t = FontMetricsRecord.t
     structure GlyphItem :
       PANGO_GLYPH_ITEM
         where type record_t = GlyphItemRecord.t
     structure GlyphString :
       PANGO_GLYPH_STRING
         where type record_t = GlyphStringRecord.t
-        where type rectanglerecord_t = RectangleRecord.t
-        where type 'a fontclass_t = 'a FontClass.t
+        where type rectangle_record_t = RectangleRecord.t
+        where type 'a font_class_t = 'a FontClass.t
     structure Layout :
       PANGO_LAYOUT
         where type 'a class_t = 'a LayoutClass.t
-        where type attrlistrecord_t = AttrListRecord.t
-        where type 'a contextclass_t = 'a ContextClass.t
-        where type layoutiterrecord_t = LayoutIterRecord.t
-        where type layoutlinerecord_t = LayoutLineRecord.t
-        where type rectanglerecord_t = RectangleRecord.t
+        where type attr_list_record_t = AttrListRecord.t
+        where type 'a context_class_t = 'a ContextClass.t
+        where type layout_iter_record_t = LayoutIterRecord.t
+        where type layout_line_record_t = LayoutLineRecord.t
+        where type rectangle_record_t = RectangleRecord.t
         where type alignment_t = Alignment.t
-        where type ellipsizemode_t = EllipsizeMode.t
-        where type fontdescriptionrecord_t = FontDescriptionRecord.t
-        where type tabarrayrecord_t = TabArrayRecord.t
-        where type wrapmode_t = WrapMode.t
+        where type ellipsize_mode_t = EllipsizeMode.t
+        where type font_description_record_t = FontDescriptionRecord.t
+        where type tab_array_record_t = TabArrayRecord.t
+        where type wrap_mode_t = WrapMode.t
     structure LayoutIter :
       PANGO_LAYOUT_ITER
         where type record_t = LayoutIterRecord.t
-        where type 'a layoutclass_t = 'a LayoutClass.t
-        where type layoutlinerecord_t = LayoutLineRecord.t
-        where type rectanglerecord_t = RectangleRecord.t
-        where type glyphitemrecord_t = GlyphItemRecord.t
+        where type 'a layout_class_t = 'a LayoutClass.t
+        where type layout_line_record_t = LayoutLineRecord.t
+        where type rectangle_record_t = RectangleRecord.t
+        where type glyph_item_record_t = GlyphItemRecord.t
     structure LayoutLine :
       PANGO_LAYOUT_LINE
         where type record_t = LayoutLineRecord.t
-        where type rectanglerecord_t = RectangleRecord.t
+        where type rectangle_record_t = RectangleRecord.t
     structure Matrix :
       PANGO_MATRIX
         where type record_t = MatrixRecord.t
@@ -119,25 +119,25 @@ signature PANGO =
     structure Renderer :
       PANGO_RENDERER
         where type 'a class_t = 'a RendererClass.t
-        where type glyphitemrecord_t = GlyphItemRecord.t
-        where type glyphstringrecord_t = GlyphStringRecord.t
-        where type 'a fontclass_t = 'a FontClass.t
-        where type 'a layoutclass_t = 'a LayoutClass.t
-        where type layoutlinerecord_t = LayoutLineRecord.t
-        where type colorrecord_t = ColorRecord.t
-        where type renderpart_t = RenderPart.t
-        where type matrixrecord_t = MatrixRecord.t
+        where type glyph_item_record_t = GlyphItemRecord.t
+        where type glyph_string_record_t = GlyphStringRecord.t
+        where type 'a font_class_t = 'a FontClass.t
+        where type 'a layout_class_t = 'a LayoutClass.t
+        where type layout_line_record_t = LayoutLineRecord.t
+        where type color_record_t = ColorRecord.t
+        where type render_part_t = RenderPart.t
+        where type matrix_record_t = MatrixRecord.t
     structure Script :
       PANGO_SCRIPT
-        where type languagerecord_t = LanguageRecord.t
+        where type language_record_t = LanguageRecord.t
     structure TabArray :
       PANGO_TAB_ARRAY
         where type record_t = TabArrayRecord.t
-        where type tabalign_t = TabAlign.t
+        where type tab_align_t = TabAlign.t
     structure Gravity :
       PANGO_GRAVITY
-        where type matrixrecord_t = MatrixRecord.t
-        where type gravityhint_t = GravityHint.t
+        where type matrix_record_t = MatrixRecord.t
+        where type gravity_hint_t = GravityHint.t
         where type script_t = Script.t
     structure Language :
       PANGO_LANGUAGE
@@ -146,16 +146,16 @@ signature PANGO =
     structure Context :
       PANGO_CONTEXT
         where type 'a class_t = 'a ContextClass.t
-        where type fontmetricsrecord_t = FontMetricsRecord.t
-        where type 'a fontclass_t = 'a FontClass.t
-        where type 'a fontsetclass_t = 'a FontsetClass.t
+        where type font_metrics_record_t = FontMetricsRecord.t
+        where type 'a font_class_t = 'a FontClass.t
+        where type 'a fontset_class_t = 'a FontsetClass.t
         where type direction_t = Direction.t
         where type gravity_t = Gravity.t
-        where type fontdescriptionrecord_t = FontDescriptionRecord.t
-        where type 'a fontmapclass_t = 'a FontMapClass.t
-        where type gravityhint_t = GravityHint.t
-        where type languagerecord_t = LanguageRecord.t
-        where type matrixrecord_t = MatrixRecord.t
+        where type font_description_record_t = FontDescriptionRecord.t
+        where type 'a font_map_class_t = 'a FontMapClass.t
+        where type gravity_hint_t = GravityHint.t
+        where type language_record_t = LanguageRecord.t
+        where type matrix_record_t = MatrixRecord.t
     structure FontDescription :
       PANGO_FONT_DESCRIPTION
         where type record_t = FontDescriptionRecord.t
@@ -164,7 +164,7 @@ signature PANGO =
         where type style_t = Style.t
         where type variant_t = Variant.t
         where type weight_t = Weight.t
-        where type fontmask_t = FontMask.t
+        where type font_mask_t = FontMask.t
     val ANALYSIS_FLAG_CENTERED_BASELINE : LargeInt.int
     val ATTR_INDEX_FROM_TEXT_BEGINNING : LargeInt.int
     val ENGINE_TYPE_LANG : string

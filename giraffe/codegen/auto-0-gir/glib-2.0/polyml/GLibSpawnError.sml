@@ -2,7 +2,7 @@ structure GLibSpawnError :>
   sig
     include
       G_LIB_SPAWN_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -16,7 +16,7 @@ structure GLibSpawnError :>
     | CHDIR
     | ACCES
     | PERM
-    | TOOBIG
+    | TOO_BIG
     | NOEXEC
     | NAMETOOLONG
     | NOENT
@@ -43,7 +43,7 @@ structure GLibSpawnError :>
           | CHDIR => f 2
           | ACCES => f 3
           | PERM => f 4
-          | TOOBIG => f 5
+          | TOO_BIG => f 5
           | NOEXEC => f 6
           | NAMETOOLONG => f 7
           | NOENT => f 8
@@ -66,7 +66,7 @@ structure GLibSpawnError :>
           | 2 => CHDIR
           | 3 => ACCES
           | 4 => PERM
-          | 5 => TOOBIG
+          | 5 => TOO_BIG
           | 6 => NOEXEC
           | 7 => NAMETOOLONG
           | 8 => NOENT
@@ -89,7 +89,7 @@ structure GLibSpawnError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

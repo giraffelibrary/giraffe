@@ -1,12 +1,12 @@
 structure GtkMessageDialog :>
   GTK_MESSAGE_DIALOG
     where type 'a class_t = 'a GtkMessageDialogClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type dialogflags_t = GtkDialogFlags.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t
-    where type buttonstype_t = GtkButtonsType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type messagetype_t = GtkMessageType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type dialog_flags_t = GtkDialogFlags.t
+    where type 'a window_class_t = 'a GtkWindowClass.t
+    where type buttons_type_t = GtkButtonsType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type message_type_t = GtkMessageType.t =
   struct
     local
       open PolyMLFFI
@@ -27,12 +27,12 @@ structure GtkMessageDialog :>
       val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMessageDialogClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type dialogflags_t = GtkDialogFlags.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
-    type buttonstype_t = GtkButtonsType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type messagetype_t = GtkMessageType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type dialog_flags_t = GtkDialogFlags.t
+    type 'a window_class_t = 'a GtkWindowClass.t
+    type buttons_type_t = GtkButtonsType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type message_type_t = GtkMessageType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

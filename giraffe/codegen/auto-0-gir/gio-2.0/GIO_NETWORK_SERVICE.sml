@@ -1,15 +1,15 @@
 signature GIO_NETWORK_SERVICE =
   sig
     type 'a class_t
-    type 'a socketconnectableclass_t
+    type 'a socket_connectable_class_t
     type t = base class_t
-    val asSocketConnectable : 'a class_t -> base socketconnectableclass_t
+    val asSocketConnectable : 'a class_t -> base socket_connectable_class_t
     val getType : unit -> GObject.Type.t
     val new :
       string
        -> string
        -> string
-       -> base socketconnectableclass_t
+       -> base socket_connectable_class_t
     val getDomain : 'a class_t -> string
     val getProtocol : 'a class_t -> string
     val getScheme : 'a class_t -> string

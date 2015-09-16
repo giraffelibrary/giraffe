@@ -5,9 +5,9 @@ structure GtkPrintError :>
   struct
     datatype t =
       GENERAL
-    | INTERNALERROR
+    | INTERNAL_ERROR
     | NOMEM
-    | INVALIDFILE
+    | INVALID_FILE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -16,16 +16,16 @@ structure GtkPrintError :>
         fun withVal f =
           fn
             GENERAL => f 0
-          | INTERNALERROR => f 1
+          | INTERNAL_ERROR => f 1
           | NOMEM => f 2
-          | INVALIDFILE => f 3
+          | INVALID_FILE => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => GENERAL
-          | 1 => INTERNALERROR
+          | 1 => INTERNAL_ERROR
           | 2 => NOMEM
-          | 3 => INVALIDFILE
+          | 3 => INVALID_FILE
           | n => raise Value n
       end
     val getType_ = _import "gtk_print_error_get_type" : unit -> GObjectType.C.val_;

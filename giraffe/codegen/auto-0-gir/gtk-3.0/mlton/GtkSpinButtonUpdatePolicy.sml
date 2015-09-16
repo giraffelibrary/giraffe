@@ -5,7 +5,7 @@ structure GtkSpinButtonUpdatePolicy :>
   struct
     datatype t =
       ALWAYS
-    | IFVALID
+    | IF_VALID
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -14,12 +14,12 @@ structure GtkSpinButtonUpdatePolicy :>
         fun withVal f =
           fn
             ALWAYS => f 0
-          | IFVALID => f 1
+          | IF_VALID => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => ALWAYS
-          | 1 => IFVALID
+          | 1 => IF_VALID
           | n => raise Value n
       end
     val getType_ = _import "gtk_spin_button_update_policy_get_type" : unit -> GObjectType.C.val_;

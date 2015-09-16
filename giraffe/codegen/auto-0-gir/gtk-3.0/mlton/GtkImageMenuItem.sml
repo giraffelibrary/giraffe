@@ -1,10 +1,10 @@
 structure GtkImageMenuItem :>
   GTK_IMAGE_MENU_ITEM
     where type 'a class_t = 'a GtkImageMenuItemClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_image_menu_item_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_image_menu_item_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -33,10 +33,10 @@ structure GtkImageMenuItem :>
     val setImage_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setUseStock_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_use_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkImageMenuItemClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

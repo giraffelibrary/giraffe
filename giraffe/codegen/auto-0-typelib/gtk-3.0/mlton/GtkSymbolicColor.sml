@@ -1,7 +1,7 @@
 structure GtkSymbolicColor :>
   GTK_SYMBOLIC_COLOR
     where type record_t = GtkSymbolicColorRecord.t
-    where type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t =
+    where type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t =
   struct
     val getType_ = _import "gtk_symbolic_color_get_type" : unit -> GObjectType.C.val_;
     val newAlpha_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_alpha" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p * FFI.Double.C.val_ -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;) (x1, x2)
@@ -44,7 +44,7 @@ structure GtkSymbolicColor :>
             )
     val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type record_t = GtkSymbolicColorRecord.t
-    type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t
+    type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAlpha color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newAlpha_ (color & factor)

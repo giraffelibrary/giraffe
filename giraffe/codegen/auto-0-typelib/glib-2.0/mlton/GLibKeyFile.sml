@@ -1,7 +1,7 @@
 structure GLibKeyFile :>
   G_LIB_KEY_FILE
     where type record_t = GLibKeyFileRecord.t
-    where type keyfileflags_t = GLibKeyFileFlags.t =
+    where type key_file_flags_t = GLibKeyFileFlags.t =
   struct
     val getBoolean_ =
       fn
@@ -762,7 +762,7 @@ structure GLibKeyFile :>
               x7
             )
     type record_t = GLibKeyFileRecord.t
-    type keyfileflags_t = GLibKeyFileFlags.t
+    type key_file_flags_t = GLibKeyFileFlags.t
     type t = record_t
     fun getBoolean self groupName key =
       (

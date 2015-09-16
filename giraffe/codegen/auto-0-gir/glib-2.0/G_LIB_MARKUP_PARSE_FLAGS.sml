@@ -4,9 +4,9 @@ signature G_LIB_MARKUP_PARSE_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val DONOTUSETHISUNSUPPORTEDFLAG : t
-    val TREATCDATAASTEXT : t
-    val PREFIXERRORPOSITION : t
+    val DO_NOT_USE_THIS_UNSUPPORTED_FLAG : t
+    val TREAT_CDATA_AS_TEXT : t
+    val PREFIX_ERROR_POSITION : t
     structure C :
       sig
         type val_

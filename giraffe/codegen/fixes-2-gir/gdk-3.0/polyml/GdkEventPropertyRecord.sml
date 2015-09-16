@@ -18,7 +18,7 @@ structure GdkEventPropertyRecord :>
 
 
     datatype event =
-      PROPERTYNOTIFY
+      PROPERTY_NOTIFY
 
 
     structure C = GdkEvent.C

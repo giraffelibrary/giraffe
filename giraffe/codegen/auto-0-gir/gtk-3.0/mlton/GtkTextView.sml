@@ -1,21 +1,21 @@
 structure GtkTextView :>
   GTK_TEXT_VIEW
     where type 'a class_t = 'a GtkTextViewClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    where type 'a textchildanchorclass_t = 'a GtkTextChildAnchorClass.t
-    where type textattributesrecord_t = GtkTextAttributesRecord.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a textmarkclass_t = 'a GtkTextMarkClass.t
-    where type textiterrecord_t = GtkTextIterRecord.t
-    where type textwindowtype_t = GtkTextWindowType.t
-    where type deletetype_t = GtkDeleteType.t
-    where type movementstep_t = GtkMovementStep.t
-    where type scrollstep_t = GtkScrollStep.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    where type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
+    where type text_attributes_record_t = GtkTextAttributesRecord.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a text_mark_class_t = 'a GtkTextMarkClass.t
+    where type text_iter_record_t = GtkTextIterRecord.t
+    where type text_window_type_t = GtkTextWindowType.t
+    where type delete_type_t = GtkDeleteType.t
+    where type movement_step_t = GtkMovementStep.t
+    where type scroll_step_t = GtkScrollStep.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     where type justification_t = GtkJustification.t
-    where type wrapmode_t = GtkWrapMode.t =
+    where type wrap_mode_t = GtkWrapMode.t =
   struct
     val getType_ = _import "gtk_text_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_text_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -382,21 +382,21 @@ structure GtkTextView :>
               x6
             )
     type 'a class_t = 'a GtkTextViewClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    type 'a textchildanchorclass_t = 'a GtkTextChildAnchorClass.t
-    type textattributesrecord_t = GtkTextAttributesRecord.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a textmarkclass_t = 'a GtkTextMarkClass.t
-    type textiterrecord_t = GtkTextIterRecord.t
-    type textwindowtype_t = GtkTextWindowType.t
-    type deletetype_t = GtkDeleteType.t
-    type movementstep_t = GtkMovementStep.t
-    type scrollstep_t = GtkScrollStep.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
+    type text_attributes_record_t = GtkTextAttributesRecord.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a text_mark_class_t = 'a GtkTextMarkClass.t
+    type text_iter_record_t = GtkTextIterRecord.t
+    type text_window_type_t = GtkTextWindowType.t
+    type delete_type_t = GtkDeleteType.t
+    type movement_step_t = GtkMovementStep.t
+    type scroll_step_t = GtkScrollStep.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type justification_t = GtkJustification.t
-    type wrapmode_t = GtkWrapMode.t
+    type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

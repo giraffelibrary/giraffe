@@ -2,15 +2,15 @@ signature ATK_TEXT_ATTRIBUTE =
   sig
     datatype t =
       INVALID
-    | LEFTMARGIN
-    | RIGHTMARGIN
+    | LEFT_MARGIN
+    | RIGHT_MARGIN
     | INDENT
     | INVISIBLE
     | EDITABLE
-    | PIXELSABOVELINES
-    | PIXELSBELOWLINES
-    | PIXELSINSIDEWRAP
-    | BGFULLHEIGHT
+    | PIXELS_ABOVE_LINES
+    | PIXELS_BELOW_LINES
+    | PIXELS_INSIDE_WRAP
+    | BG_FULL_HEIGHT
     | RISE
     | UNDERLINE
     | STRIKETHROUGH
@@ -18,18 +18,18 @@ signature ATK_TEXT_ATTRIBUTE =
     | SCALE
     | WEIGHT
     | LANGUAGE
-    | FAMILYNAME
-    | BGCOLOR
-    | FGCOLOR
-    | BGSTIPPLE
-    | FGSTIPPLE
-    | WRAPMODE
+    | FAMILY_NAME
+    | BG_COLOR
+    | FG_COLOR
+    | BG_STIPPLE
+    | FG_STIPPLE
+    | WRAP_MODE
     | DIRECTION
     | JUSTIFICATION
     | STRETCH
     | VARIANT
     | STYLE
-    | LASTDEFINED
+    | LAST_DEFINED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

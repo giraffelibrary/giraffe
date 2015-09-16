@@ -5,9 +5,9 @@ signature GDK_EVENT_SELECTION_RECORD =
     type t = selection event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      SELECTIONCLEAR
-    | SELECTIONREQUEST
-    | SELECTIONNOTIFY
+      SELECTION_CLEAR
+    | SELECTION_REQUEST
+    | SELECTION_NOTIFY
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

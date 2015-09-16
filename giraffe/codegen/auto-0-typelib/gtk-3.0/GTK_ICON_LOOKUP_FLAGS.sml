@@ -4,11 +4,11 @@ signature GTK_ICON_LOOKUP_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val NOSVG : t
-    val FORCESVG : t
-    val USEBUILTIN : t
-    val GENERICFALLBACK : t
-    val FORCESIZE : t
+    val NO_SVG : t
+    val FORCE_SVG : t
+    val USE_BUILTIN : t
+    val GENERIC_FALLBACK : t
+    val FORCE_SIZE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

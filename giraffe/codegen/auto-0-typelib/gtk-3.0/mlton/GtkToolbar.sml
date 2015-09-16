@@ -1,13 +1,13 @@
 structure GtkToolbar :>
   GTK_TOOLBAR
     where type 'a class_t = 'a GtkToolbarClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a toolshellclass_t = 'a GtkToolShellClass.t
-    where type reliefstyle_t = GtkReliefStyle.t
-    where type 'a toolitemclass_t = 'a GtkToolItemClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    where type relief_style_t = GtkReliefStyle.t
+    where type 'a tool_item_class_t = 'a GtkToolItemClass.t
     where type orientation_t = GtkOrientation.t
-    where type toolbarstyle_t = GtkToolbarStyle.t =
+    where type toolbar_style_t = GtkToolbarStyle.t =
   struct
     val getType_ = _import "gtk_toolbar_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_toolbar_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -75,13 +75,13 @@ structure GtkToolbar :>
     val unsetIconSize_ = _import "gtk_toolbar_unset_icon_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unsetStyle_ = _import "gtk_toolbar_unset_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkToolbarClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a toolshellclass_t = 'a GtkToolShellClass.t
-    type reliefstyle_t = GtkReliefStyle.t
-    type 'a toolitemclass_t = 'a GtkToolItemClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    type relief_style_t = GtkReliefStyle.t
+    type 'a tool_item_class_t = 'a GtkToolItemClass.t
     type orientation_t = GtkOrientation.t
-    type toolbarstyle_t = GtkToolbarStyle.t
+    type toolbar_style_t = GtkToolbarStyle.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

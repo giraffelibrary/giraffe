@@ -1,14 +1,14 @@
 structure GioSocket :>
   GIO_SOCKET
     where type 'a class_t = 'a GioSocketClass.t
-    where type 'a initableclass_t = 'a GioInitableClass.t
-    where type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
-    where type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type socketfamily_t = GioSocketFamily.t
-    where type socketprotocol_t = GioSocketProtocol.t
-    where type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    where type sockettype_t = GioSocketType.t =
+    where type 'a initable_class_t = 'a GioInitableClass.t
+    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
+    where type 'a credentials_class_t = 'a GioCredentialsClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type socket_family_t = GioSocketFamily.t
+    where type socket_protocol_t = GioSocketProtocol.t
+    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type socket_type_t = GioSocketType.t =
   struct
     val getType_ = _import "g_socket_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -234,14 +234,14 @@ structure GioSocket :>
             )
     val speaksIpv4_ = _import "g_socket_speaks_ipv4" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a GioSocketClass.t
-    type 'a initableclass_t = 'a GioInitableClass.t
-    type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
-    type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type socketfamily_t = GioSocketFamily.t
-    type socketprotocol_t = GioSocketProtocol.t
-    type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    type sockettype_t = GioSocketType.t
+    type 'a initable_class_t = 'a GioInitableClass.t
+    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
+    type 'a credentials_class_t = 'a GioCredentialsClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type socket_family_t = GioSocketFamily.t
+    type socket_protocol_t = GioSocketProtocol.t
+    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type socket_type_t = GioSocketType.t
     type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

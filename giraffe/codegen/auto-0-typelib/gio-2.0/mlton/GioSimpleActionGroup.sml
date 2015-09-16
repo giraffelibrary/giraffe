@@ -1,8 +1,8 @@
 structure GioSimpleActionGroup :>
   GIO_SIMPLE_ACTION_GROUP
     where type 'a class_t = 'a GioSimpleActionGroupClass.t
-    where type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    where type 'a actionclass_t = 'a GioActionClass.t =
+    where type 'a action_group_class_t = 'a GioActionGroupClass.t
+    where type 'a action_class_t = 'a GioActionClass.t =
   struct
     val getType_ = _import "g_simple_action_group_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_simple_action_group_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -38,8 +38,8 @@ structure GioSimpleActionGroup :>
               x3
             )
     type 'a class_t = 'a GioSimpleActionGroupClass.t
-    type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    type 'a actionclass_t = 'a GioActionClass.t
+    type 'a action_group_class_t = 'a GioActionGroupClass.t
+    type 'a action_class_t = 'a GioActionClass.t
     type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

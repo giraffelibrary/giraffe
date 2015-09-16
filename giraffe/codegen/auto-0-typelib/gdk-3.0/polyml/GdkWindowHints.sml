@@ -9,25 +9,25 @@ structure GdkWindowHints :>
   end =
   struct
     val POS = 0w1
-    val MINSIZE = 0w2
-    val MAXSIZE = 0w4
-    val BASESIZE = 0w8
+    val MIN_SIZE = 0w2
+    val MAX_SIZE = 0w4
+    val BASE_SIZE = 0w8
     val ASPECT = 0w16
-    val RESIZEINC = 0w32
-    val WINGRAVITY = 0w64
-    val USERPOS = 0w128
-    val USERSIZE = 0w256
+    val RESIZE_INC = 0w32
+    val WIN_GRAVITY = 0w64
+    val USER_POS = 0w128
+    val USER_SIZE = 0w256
     val allFlags =
       [
         POS,
-        MINSIZE,
-        MAXSIZE,
-        BASESIZE,
+        MIN_SIZE,
+        MAX_SIZE,
+        BASE_SIZE,
         ASPECT,
-        RESIZEINC,
-        WINGRAVITY,
-        USERPOS,
-        USERSIZE
+        RESIZE_INC,
+        WIN_GRAVITY,
+        USER_POS,
+        USER_SIZE
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -5,8 +5,8 @@ signature GDK_DRAG_PROTOCOL =
     | MOTIF
     | XDND
     | ROOTWIN
-    | WIN32DROPFILES
-    | OLE2
+    | WIN_32_DROPFILES
+    | OLE_2
     | LOCAL
     val null : t
     val t : (t, t) GObject.Value.accessor

@@ -1,7 +1,7 @@
 signature GTK_ACCEL_MAP_CLASS =
   sig
-    type 'a accelmap
-    type 'a t = 'a accelmap GObject.ObjectClass.t
+    type 'a accel_map
+    type 'a t = 'a accel_map GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

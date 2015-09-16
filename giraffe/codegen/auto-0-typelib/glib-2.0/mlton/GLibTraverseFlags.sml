@@ -4,19 +4,19 @@ structure GLibTraverseFlags :>
   end =
   struct
     val LEAVES = 0w1
-    val NONLEAVES = 0w2
+    val NON_LEAVES = 0w2
     val ALL = 0w3
     val MASK = 0w3
     val LEAFS = 0w1
-    val NONLEAFS = 0w2
+    val NON_LEAFS = 0w2
     val allFlags =
       [
         LEAVES,
-        NONLEAVES,
+        NON_LEAVES,
         ALL,
         MASK,
         LEAFS,
-        NONLEAFS
+        NON_LEAFS
       ]
     structure BitFlags =
       Word32BitFlags (

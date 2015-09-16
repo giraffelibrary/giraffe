@@ -12,7 +12,7 @@ structure PangoAttrType :>
     | VARIANT
     | STRETCH
     | SIZE
-    | FONTDESC
+    | FONT_DESC
     | FOREGROUND
     | BACKGROUND
     | UNDERLINE
@@ -21,12 +21,12 @@ structure PangoAttrType :>
     | SHAPE
     | SCALE
     | FALLBACK
-    | LETTERSPACING
-    | UNDERLINECOLOR
-    | STRIKETHROUGHCOLOR
-    | ABSOLUTESIZE
+    | LETTER_SPACING
+    | UNDERLINE_COLOR
+    | STRIKETHROUGH_COLOR
+    | ABSOLUTE_SIZE
     | GRAVITY
-    | GRAVITYHINT
+    | GRAVITY_HINT
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -42,7 +42,7 @@ structure PangoAttrType :>
           | VARIANT => f 5
           | STRETCH => f 6
           | SIZE => f 7
-          | FONTDESC => f 8
+          | FONT_DESC => f 8
           | FOREGROUND => f 9
           | BACKGROUND => f 10
           | UNDERLINE => f 11
@@ -51,12 +51,12 @@ structure PangoAttrType :>
           | SHAPE => f 14
           | SCALE => f 15
           | FALLBACK => f 16
-          | LETTERSPACING => f 17
-          | UNDERLINECOLOR => f 18
-          | STRIKETHROUGHCOLOR => f 19
-          | ABSOLUTESIZE => f 20
+          | LETTER_SPACING => f 17
+          | UNDERLINE_COLOR => f 18
+          | STRIKETHROUGH_COLOR => f 19
+          | ABSOLUTE_SIZE => f 20
           | GRAVITY => f 21
-          | GRAVITYHINT => f 22
+          | GRAVITY_HINT => f 22
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -68,7 +68,7 @@ structure PangoAttrType :>
           | 5 => VARIANT
           | 6 => STRETCH
           | 7 => SIZE
-          | 8 => FONTDESC
+          | 8 => FONT_DESC
           | 9 => FOREGROUND
           | 10 => BACKGROUND
           | 11 => UNDERLINE
@@ -77,12 +77,12 @@ structure PangoAttrType :>
           | 14 => SHAPE
           | 15 => SCALE
           | 16 => FALLBACK
-          | 17 => LETTERSPACING
-          | 18 => UNDERLINECOLOR
-          | 19 => STRIKETHROUGHCOLOR
-          | 20 => ABSOLUTESIZE
+          | 17 => LETTER_SPACING
+          | 18 => UNDERLINE_COLOR
+          | 19 => STRIKETHROUGH_COLOR
+          | 20 => ABSOLUTE_SIZE
           | 21 => GRAVITY
-          | 22 => GRAVITYHINT
+          | 22 => GRAVITY_HINT
           | n => raise Value n
       end
     val getType_ = _import "pango_attr_type_get_type" : unit -> GObjectType.C.val_;

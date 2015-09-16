@@ -1,12 +1,12 @@
 structure GtkInfoBarClass :>
   GTK_INFO_BAR_CLASS
-    where type 'a boxclass_t = 'a GtkBoxClass.t
+    where type 'a box_class_t = 'a GtkBoxClass.t
     where type C.notnull = GtkBoxClass.C.notnull
     where type 'a C.p = 'a GtkBoxClass.C.p =
   struct
-    type 'a infobar = unit
-    type 'a boxclass_t = 'a GtkBoxClass.t
-    type 'a t = 'a infobar boxclass_t
+    type 'a info_bar = unit
+    type 'a box_class_t = 'a GtkBoxClass.t
+    type 'a t = 'a info_bar box_class_t
     fun toBase obj = obj
     val t = GtkBoxClass.t
     val tOpt = GtkBoxClass.tOpt

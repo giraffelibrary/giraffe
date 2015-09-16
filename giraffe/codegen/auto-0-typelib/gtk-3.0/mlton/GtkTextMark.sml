@@ -1,7 +1,7 @@
 structure GtkTextMark :>
   GTK_TEXT_MARK
     where type 'a class_t = 'a GtkTextMarkClass.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t =
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
   struct
     val getType_ = _import "gtk_text_mark_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -26,7 +26,7 @@ structure GtkTextMark :>
     val getVisible_ = _import "gtk_text_mark_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setVisible_ = fn x1 & x2 => (_import "gtk_text_mark_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTextMarkClass.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name leftGravity = (FFI.String.C.withConstOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)

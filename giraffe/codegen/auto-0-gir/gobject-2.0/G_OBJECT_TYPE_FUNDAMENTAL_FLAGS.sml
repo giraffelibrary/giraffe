@@ -7,7 +7,7 @@ signature G_OBJECT_TYPE_FUNDAMENTAL_FLAGS =
     val CLASSED : t
     val INSTANTIATABLE : t
     val DERIVABLE : t
-    val DEEPDERIVABLE : t
+    val DEEP_DERIVABLE : t
     structure C :
       sig
         type val_

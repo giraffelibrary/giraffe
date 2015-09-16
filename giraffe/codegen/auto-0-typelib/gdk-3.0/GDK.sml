@@ -80,8 +80,8 @@ signature GDK =
     structure EventKeyRecord :
       GDK_EVENT_KEY_RECORD
         where type 'a event_t = 'a Event.t
-        where type 'a windowclass_t = 'a WindowClass.t
-        where type modifiertype_t = ModifierType.t
+        where type 'a window_class_t = 'a WindowClass.t
+        where type modifier_type_t = ModifierType.t
     structure EventMotionRecord :
       GDK_EVENT_MOTION_RECORD
         where type 'a event_t = 'a Event.t
@@ -112,8 +112,8 @@ signature GDK =
     structure AppLaunchContext :
       GDK_APP_LAUNCH_CONTEXT
         where type 'a class_t = 'a AppLaunchContextClass.t
-        where type 'a screenclass_t = 'a ScreenClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
+        where type 'a screen_class_t = 'a ScreenClass.t
+        where type 'a display_class_t = 'a DisplayClass.t
     structure Atom :
       GDK_ATOM
         where type record_t = AtomRecord.t
@@ -123,59 +123,59 @@ signature GDK =
     structure Cursor :
       GDK_CURSOR
         where type 'a class_t = 'a CursorClass.t
-        where type cursortype_t = CursorType.t
-        where type 'a displayclass_t = 'a DisplayClass.t
+        where type cursor_type_t = CursorType.t
+        where type 'a display_class_t = 'a DisplayClass.t
     structure Device :
       GDK_DEVICE
         where type 'a class_t = 'a DeviceClass.t
-        where type grabstatus_t = GrabStatus.t
-        where type 'a cursorclass_t = 'a CursorClass.t
-        where type eventmask_t = EventMask.t
-        where type grabownership_t = GrabOwnership.t
-        where type 'a windowclass_t = 'a WindowClass.t
-        where type axisuse_t = AxisUse.t
-        where type modifiertype_t = ModifierType.t
-        where type 'a screenclass_t = 'a ScreenClass.t
-        where type 'a devicemanagerclass_t = 'a DeviceManagerClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
-        where type inputmode_t = InputMode.t
-        where type inputsource_t = InputSource.t
-        where type devicetype_t = DeviceType.t
+        where type grab_status_t = GrabStatus.t
+        where type 'a cursor_class_t = 'a CursorClass.t
+        where type event_mask_t = EventMask.t
+        where type grab_ownership_t = GrabOwnership.t
+        where type 'a window_class_t = 'a WindowClass.t
+        where type axis_use_t = AxisUse.t
+        where type modifier_type_t = ModifierType.t
+        where type 'a screen_class_t = 'a ScreenClass.t
+        where type 'a device_manager_class_t = 'a DeviceManagerClass.t
+        where type 'a display_class_t = 'a DisplayClass.t
+        where type input_mode_t = InputMode.t
+        where type input_source_t = InputSource.t
+        where type device_type_t = DeviceType.t
     structure DeviceManager :
       GDK_DEVICE_MANAGER
         where type 'a class_t = 'a DeviceManagerClass.t
-        where type 'a deviceclass_t = 'a DeviceClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
+        where type 'a device_class_t = 'a DeviceClass.t
+        where type 'a display_class_t = 'a DisplayClass.t
     structure Display :
       GDK_DISPLAY
         where type 'a class_t = 'a DisplayClass.t
-        where type 'a deviceclass_t = 'a DeviceClass.t
-        where type 'a applaunchcontextclass_t = 'a AppLaunchContextClass.t
-        where type 'a windowclass_t = 'a WindowClass.t
-        where type 'a devicemanagerclass_t = 'a DeviceManagerClass.t
-        where type 'a screenclass_t = 'a ScreenClass.t
+        where type 'a device_class_t = 'a DeviceClass.t
+        where type 'a app_launch_context_class_t = 'a AppLaunchContextClass.t
+        where type 'a window_class_t = 'a WindowClass.t
+        where type 'a device_manager_class_t = 'a DeviceManagerClass.t
+        where type 'a screen_class_t = 'a ScreenClass.t
         where type 'a event_t = 'a Event.t
-        where type atomrecord_t = AtomRecord.t
+        where type atom_record_t = AtomRecord.t
     structure DisplayManager :
       GDK_DISPLAY_MANAGER
         where type 'a class_t = 'a DisplayManagerClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
+        where type 'a display_class_t = 'a DisplayClass.t
     structure DragContext :
       GDK_DRAG_CONTEXT
         where type 'a class_t = 'a DragContextClass.t
-        where type dragprotocol_t = DragProtocol.t
-        where type 'a windowclass_t = 'a WindowClass.t
-        where type dragaction_t = DragAction.t
-        where type 'a deviceclass_t = 'a DeviceClass.t
+        where type drag_protocol_t = DragProtocol.t
+        where type 'a window_class_t = 'a WindowClass.t
+        where type drag_action_t = DragAction.t
+        where type 'a device_class_t = 'a DeviceClass.t
     structure Geometry :
       GDK_GEOMETRY
         where type record_t = GeometryRecord.t
     structure Keymap :
       GDK_KEYMAP
         where type 'a class_t = 'a KeymapClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
-        where type keymapkeyrecord_t = KeymapKeyRecord.t
-        where type modifiertype_t = ModifierType.t
+        where type 'a display_class_t = 'a DisplayClass.t
+        where type keymap_key_record_t = KeymapKeyRecord.t
+        where type modifier_type_t = ModifierType.t
     structure KeymapKey :
       GDK_KEYMAP_KEY
         where type record_t = KeymapKeyRecord.t
@@ -185,38 +185,38 @@ signature GDK =
     structure Screen :
       GDK_SCREEN
         where type 'a class_t = 'a ScreenClass.t
-        where type 'a displayclass_t = 'a DisplayClass.t
-        where type 'a windowclass_t = 'a WindowClass.t
-        where type 'a visualclass_t = 'a VisualClass.t
+        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a window_class_t = 'a WindowClass.t
+        where type 'a visual_class_t = 'a VisualClass.t
     structure Visual :
       GDK_VISUAL
         where type 'a class_t = 'a VisualClass.t
-        where type byteorder_t = ByteOrder.t
-        where type 'a screenclass_t = 'a ScreenClass.t
-        where type visualtype_t = VisualType.t
+        where type byte_order_t = ByteOrder.t
+        where type 'a screen_class_t = 'a ScreenClass.t
+        where type visual_type_t = VisualType.t
     structure Window :
       GDK_WINDOW
         where type 'a class_t = 'a WindowClass.t
-        where type windowattrrecord_t = WindowAttrRecord.t
-        where type windowedge_t = WindowEdge.t
-        where type modifiertype_t = ModifierType.t
-        where type 'a displayclass_t = 'a DisplayClass.t
-        where type dragprotocol_t = DragProtocol.t
-        where type 'a screenclass_t = 'a ScreenClass.t
-        where type windowstate_t = WindowState.t
-        where type 'a visualclass_t = 'a VisualClass.t
-        where type windowtype_t = WindowType.t
-        where type colorrecord_t = ColorRecord.t
-        where type rgbarecord_t = RgbaRecord.t
-        where type wmdecoration_t = WMDecoration.t
-        where type 'a deviceclass_t = 'a DeviceClass.t
-        where type wmfunction_t = WMFunction.t
-        where type windowhints_t = WindowHints.t
-        where type geometryrecord_t = GeometryRecord.t
-        where type eventmask_t = EventMask.t
-        where type inputsource_t = InputSource.t
-        where type windowtypehint_t = WindowTypeHint.t
-        where type 'a cursorclass_t = 'a CursorClass.t
+        where type window_attr_record_t = WindowAttrRecord.t
+        where type window_edge_t = WindowEdge.t
+        where type modifier_type_t = ModifierType.t
+        where type 'a display_class_t = 'a DisplayClass.t
+        where type drag_protocol_t = DragProtocol.t
+        where type 'a screen_class_t = 'a ScreenClass.t
+        where type window_state_t = WindowState.t
+        where type 'a visual_class_t = 'a VisualClass.t
+        where type window_type_t = WindowType.t
+        where type color_record_t = ColorRecord.t
+        where type rgba_record_t = RgbaRecord.t
+        where type w_m_decoration_t = WMDecoration.t
+        where type 'a device_class_t = 'a DeviceClass.t
+        where type w_m_function_t = WMFunction.t
+        where type window_hints_t = WindowHints.t
+        where type geometry_record_t = GeometryRecord.t
+        where type event_mask_t = EventMask.t
+        where type input_source_t = InputSource.t
+        where type window_type_hint_t = WindowTypeHint.t
+        where type 'a cursor_class_t = 'a CursorClass.t
     structure WindowAttr :
       GDK_WINDOW_ATTR
         where type record_t = WindowAttrRecord.t

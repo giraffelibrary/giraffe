@@ -1,8 +1,8 @@
 signature G_OBJECT_PARAM_SPEC_BOOLEAN_CLASS =
   sig
-    type 'a paramspecboolean
-    type 'a paramspecclass_t
-    type 'a t = 'a paramspecboolean paramspecclass_t
+    type 'a param_spec_boolean
+    type 'a param_spec_class_t
+    type 'a t = 'a param_spec_boolean param_spec_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

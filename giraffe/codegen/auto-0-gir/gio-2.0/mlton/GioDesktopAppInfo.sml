@@ -1,7 +1,7 @@
 structure GioDesktopAppInfo :>
   GIO_DESKTOP_APP_INFO
     where type 'a class_t = 'a GioDesktopAppInfoClass.t
-    where type 'a appinfoclass_t = 'a GioAppInfoClass.t =
+    where type 'a app_info_class_t = 'a GioAppInfoClass.t =
   struct
     val getType_ = _import "g_desktop_app_info_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_g_desktop_app_info_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -29,7 +29,7 @@ structure GioDesktopAppInfo :>
               x3
             )
     type 'a class_t = 'a GioDesktopAppInfoClass.t
-    type 'a appinfoclass_t = 'a GioAppInfoClass.t
+    type 'a app_info_class_t = 'a GioAppInfoClass.t
     type t = base class_t
     fun asAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -8,13 +8,13 @@ structure GioDBusServerFlags :>
     in
       val NONE = NONE ()
     end
-    val RUNINTHREAD = 0w1
-    val AUTHENTICATIONALLOWANONYMOUS = 0w2
+    val RUN_IN_THREAD = 0w1
+    val AUTHENTICATION_ALLOW_ANONYMOUS = 0w2
     val allFlags =
       [
         NONE,
-        RUNINTHREAD,
-        AUTHENTICATIONALLOWANONYMOUS
+        RUN_IN_THREAD,
+        AUTHENTICATION_ALLOW_ANONYMOUS
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,10 +1,10 @@
 structure GtkMenuItem :>
   GTK_MENU_ITEM
     where type 'a class_t = 'a GtkMenuItemClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t =
   struct
     local
       open PolyMLFFI
@@ -29,10 +29,10 @@ structure GtkMenuItem :>
       val toggleSizeAllocate_ = call (load_sym libgtk "gtk_menu_item_toggle_size_allocate") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMenuItemClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

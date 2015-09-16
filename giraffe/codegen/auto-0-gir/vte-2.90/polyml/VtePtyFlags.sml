@@ -8,19 +8,19 @@ structure VtePtyFlags :>
       end
   end =
   struct
-    val NOLASTLOG = 0w1
-    val NOUTMP = 0w2
-    val NOWTMP = 0w4
-    val NOHELPER = 0w8
-    val NOFALLBACK = 0w16
+    val NO_LASTLOG = 0w1
+    val NO_UTMP = 0w2
+    val NO_WTMP = 0w4
+    val NO_HELPER = 0w8
+    val NO_FALLBACK = 0w16
     val DEFAULT = 0w0
     val allFlags =
       [
-        NOLASTLOG,
-        NOUTMP,
-        NOWTMP,
-        NOHELPER,
-        NOFALLBACK,
+        NO_LASTLOG,
+        NO_UTMP,
+        NO_WTMP,
+        NO_HELPER,
+        NO_FALLBACK,
         DEFAULT
       ]
     structure BitFlags =

@@ -1,7 +1,7 @@
 structure GdkPixbufPixbufAnimationIter :>
   GDK_PIXBUF_PIXBUF_ANIMATION_ITER
     where type 'a class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    where type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,7 +13,7 @@ structure GdkPixbufPixbufAnimationIter :>
       val onCurrentlyLoadingFrame_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_on_currently_loading_frame") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun advance self currentTime = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) advance_ (self & currentTime)

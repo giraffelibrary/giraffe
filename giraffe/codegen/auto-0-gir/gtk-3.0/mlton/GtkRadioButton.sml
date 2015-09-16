@@ -1,8 +1,8 @@
 structure GtkRadioButton :>
   GTK_RADIO_BUTTON
     where type 'a class_t = 'a GtkRadioButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     val getType_ = _import "gtk_radio_button_get_type" : unit -> GObjectType.C.val_;
     val newFromWidget_ = _import "gtk_radio_button_new_from_widget" : unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -38,8 +38,8 @@ structure GtkRadioButton :>
             )
     val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_button_join_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkRadioButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

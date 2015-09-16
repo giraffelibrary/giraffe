@@ -1,15 +1,15 @@
 signature GTK_BUILDER_ERROR =
   sig
     datatype t =
-      INVALIDTYPEFUNCTION
-    | UNHANDLEDTAG
-    | MISSINGATTRIBUTE
-    | INVALIDATTRIBUTE
-    | INVALIDTAG
-    | MISSINGPROPERTYVALUE
-    | INVALIDVALUE
-    | VERSIONMISMATCH
-    | DUPLICATEID
+      INVALID_TYPE_FUNCTION
+    | UNHANDLED_TAG
+    | MISSING_ATTRIBUTE
+    | INVALID_ATTRIBUTE
+    | INVALID_TAG
+    | MISSING_PROPERTY_VALUE
+    | INVALID_VALUE
+    | VERSION_MISMATCH
+    | DUPLICATE_ID
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

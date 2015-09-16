@@ -1,11 +1,11 @@
 structure GtkButtonBox :>
   GTK_BUTTON_BOX
     where type 'a class_t = 'a GtkButtonBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
     where type orientation_t = GtkOrientation.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type buttonboxstyle_t = GtkButtonBoxStyle.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type button_box_style_t = GtkButtonBoxStyle.t =
   struct
     val getType_ = _import "gtk_button_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_button_box_new" : GtkOrientation.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -48,11 +48,11 @@ structure GtkButtonBox :>
             )
     val setLayout_ = fn x1 & x2 => (_import "gtk_button_box_set_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkButtonBoxStyle.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkButtonBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
     type orientation_t = GtkOrientation.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type buttonboxstyle_t = GtkButtonBoxStyle.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type button_box_style_t = GtkButtonBoxStyle.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

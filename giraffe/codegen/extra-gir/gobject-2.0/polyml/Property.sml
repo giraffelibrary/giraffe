@@ -8,7 +8,7 @@
 structure Property :>
   PROPERTY
     where type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
-    where type 'a objectclass_t = 'a GObjectObjectClass.t =
+    where type 'a object_class_t = 'a GObjectObjectClass.t =
   struct
     local
       open PolyMLFFI
@@ -33,7 +33,7 @@ structure Property :>
     end
 
     type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
-    type 'a objectclass_t = 'a GObjectObjectClass.t
+    type 'a object_class_t = 'a GObjectObjectClass.t
 
     fun getProperty self propertyName value =
       (
@@ -63,12 +63,12 @@ structure Property :>
            & value
         )
 
-    type ('objectclass, 'a) readonly = {get : 'objectclass -> 'a}
-    type ('objectclass, 'a) writeonly = {set : 'a -> 'objectclass -> unit}
-    type ('objectclass, 'a, 'b) readwrite =
+    type ('object_class, 'a) readonly = {get : 'object_class -> 'a}
+    type ('object_class, 'a) writeonly = {set : 'a -> 'object_class -> unit}
+    type ('object_class, 'a, 'b) readwrite =
       {
-        get : 'objectclass -> 'a,
-        set : 'b -> 'objectclass -> unit
+        get : 'object_class -> 'a,
+        set : 'b -> 'object_class -> unit
       }
 
     fun get name t object =

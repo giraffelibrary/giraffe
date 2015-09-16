@@ -10,14 +10,14 @@ structure GtkFileFilterFlags :>
   struct
     val FILENAME = 0w1
     val URI = 0w2
-    val DISPLAYNAME = 0w4
-    val MIMETYPE = 0w8
+    val DISPLAY_NAME = 0w4
+    val MIME_TYPE = 0w8
     val allFlags =
       [
         FILENAME,
         URI,
-        DISPLAYNAME,
-        MIMETYPE
+        DISPLAY_NAME,
+        MIME_TYPE
       ]
     structure BitFlags =
       Word32BitFlags (

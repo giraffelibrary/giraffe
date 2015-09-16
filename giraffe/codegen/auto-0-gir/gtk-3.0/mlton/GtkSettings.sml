@@ -1,14 +1,14 @@
 structure GtkSettings :>
   GTK_SETTINGS
     where type 'a class_t = 'a GtkSettingsClass.t
-    where type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
-    where type settingsvaluerecord_t = GtkSettingsValueRecord.t
-    where type impreeditstyle_t = GtkIMPreeditStyle.t
-    where type imstatusstyle_t = GtkIMStatusStyle.t
-    where type cornertype_t = GtkCornerType.t
-    where type iconsize_t = GtkIconSize.t
-    where type toolbarstyle_t = GtkToolbarStyle.t
-    where type policytype_t = GtkPolicyType.t =
+    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    where type settings_value_record_t = GtkSettingsValueRecord.t
+    where type i_m_preedit_style_t = GtkIMPreeditStyle.t
+    where type i_m_status_style_t = GtkIMStatusStyle.t
+    where type corner_type_t = GtkCornerType.t
+    where type icon_size_t = GtkIconSize.t
+    where type toolbar_style_t = GtkToolbarStyle.t
+    where type policy_type_t = GtkPolicyType.t =
   struct
     val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "gtk_settings_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -108,14 +108,14 @@ structure GtkSettings :>
               x7
             )
     type 'a class_t = 'a GtkSettingsClass.t
-    type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
-    type settingsvaluerecord_t = GtkSettingsValueRecord.t
-    type impreeditstyle_t = GtkIMPreeditStyle.t
-    type imstatusstyle_t = GtkIMStatusStyle.t
-    type cornertype_t = GtkCornerType.t
-    type iconsize_t = GtkIconSize.t
-    type toolbarstyle_t = GtkToolbarStyle.t
-    type policytype_t = GtkPolicyType.t
+    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    type settings_value_record_t = GtkSettingsValueRecord.t
+    type i_m_preedit_style_t = GtkIMPreeditStyle.t
+    type i_m_status_style_t = GtkIMStatusStyle.t
+    type corner_type_t = GtkCornerType.t
+    type icon_size_t = GtkIconSize.t
+    type toolbar_style_t = GtkToolbarStyle.t
+    type policy_type_t = GtkPolicyType.t
     type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

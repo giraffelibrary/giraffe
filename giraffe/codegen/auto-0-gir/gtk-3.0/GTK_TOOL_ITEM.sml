@@ -1,17 +1,17 @@
 signature GTK_TOOL_ITEM =
   sig
     type 'a class_t
-    type 'a activatableclass_t
-    type 'a buildableclass_t
-    type reliefstyle_t
+    type 'a activatable_class_t
+    type 'a buildable_class_t
+    type relief_style_t
     type orientation_t
-    type 'a sizegroupclass_t
-    type toolbarstyle_t
-    type 'a widgetclass_t
+    type 'a size_group_class_t
+    type toolbar_style_t
+    type 'a widget_class_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatableclass_t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asActivatable : 'a class_t -> base activatable_class_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val getEllipsizeMode : 'a class_t -> Pango.EllipsizeMode.t
@@ -23,17 +23,17 @@ signature GTK_TOOL_ITEM =
     val getProxyMenuItem :
       'a class_t
        -> string
-       -> base widgetclass_t
-    val getReliefStyle : 'a class_t -> reliefstyle_t
+       -> base widget_class_t
+    val getReliefStyle : 'a class_t -> relief_style_t
     val getTextAlignment : 'a class_t -> real
     val getTextOrientation : 'a class_t -> orientation_t
-    val getTextSizeGroup : 'a class_t -> base sizegroupclass_t
-    val getToolbarStyle : 'a class_t -> toolbarstyle_t
+    val getTextSizeGroup : 'a class_t -> base size_group_class_t
+    val getToolbarStyle : 'a class_t -> toolbar_style_t
     val getUseDragWindow : 'a class_t -> bool
     val getVisibleHorizontal : 'a class_t -> bool
     val getVisibleVertical : 'a class_t -> bool
     val rebuildMenu : 'a class_t -> unit
-    val retrieveProxyMenuItem : 'a class_t -> base widgetclass_t
+    val retrieveProxyMenuItem : 'a class_t -> base widget_class_t
     val setExpand :
       'a class_t
        -> bool
@@ -49,7 +49,7 @@ signature GTK_TOOL_ITEM =
     val setProxyMenuItem :
       'a class_t
        -> string
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> unit
     val setTooltipMarkup :
       'a class_t

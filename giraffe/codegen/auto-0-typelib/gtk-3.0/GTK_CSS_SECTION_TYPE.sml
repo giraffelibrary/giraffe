@@ -3,8 +3,8 @@ signature GTK_CSS_SECTION_TYPE =
     datatype t =
       DOCUMENT
     | IMPORT
-    | COLORDEFINITION
-    | BINDINGSET
+    | COLOR_DEFINITION
+    | BINDING_SET
     | RULESET
     | SELECTOR
     | DECLARATION

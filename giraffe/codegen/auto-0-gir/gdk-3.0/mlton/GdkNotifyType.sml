@@ -8,7 +8,7 @@ structure GdkNotifyType :>
     | VIRTUAL
     | INFERIOR
     | NONLINEAR
-    | NONLINEARVIRTUAL
+    | NONLINEAR_VIRTUAL
     | UNKNOWN
     structure C =
       struct
@@ -21,7 +21,7 @@ structure GdkNotifyType :>
           | VIRTUAL => f 1
           | INFERIOR => f 2
           | NONLINEAR => f 3
-          | NONLINEARVIRTUAL => f 4
+          | NONLINEAR_VIRTUAL => f 4
           | UNKNOWN => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
@@ -30,7 +30,7 @@ structure GdkNotifyType :>
           | 1 => VIRTUAL
           | 2 => INFERIOR
           | 3 => NONLINEAR
-          | 4 => NONLINEARVIRTUAL
+          | 4 => NONLINEAR_VIRTUAL
           | 5 => UNKNOWN
           | n => raise Value n
       end

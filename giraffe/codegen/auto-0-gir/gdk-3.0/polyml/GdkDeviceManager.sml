@@ -1,8 +1,8 @@
 structure GdkDeviceManager :>
   GDK_DEVICE_MANAGER
     where type 'a class_t = 'a GdkDeviceManagerClass.t
-    where type 'a deviceclass_t = 'a GdkDeviceClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t =
+    where type 'a device_class_t = 'a GdkDeviceClass.t
+    where type 'a display_class_t = 'a GdkDisplayClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,8 +12,8 @@ structure GdkDeviceManager :>
       val getDisplay_ = call (load_sym libgdk "gdk_device_manager_get_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GdkDeviceManagerClass.t
-    type 'a deviceclass_t = 'a GdkDeviceClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
+    type 'a device_class_t = 'a GdkDeviceClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getClientPointer self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self

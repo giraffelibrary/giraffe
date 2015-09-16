@@ -10,19 +10,19 @@ structure GioFileCopyFlags :>
     end
     val OVERWRITE = 0w1
     val BACKUP = 0w2
-    val NOFOLLOWSYMLINKS = 0w4
-    val ALLMETADATA = 0w8
-    val NOFALLBACKFORMOVE = 0w16
-    val TARGETDEFAULTPERMS = 0w32
+    val NOFOLLOW_SYMLINKS = 0w4
+    val ALL_METADATA = 0w8
+    val NO_FALLBACK_FOR_MOVE = 0w16
+    val TARGET_DEFAULT_PERMS = 0w32
     val allFlags =
       [
         NONE,
         OVERWRITE,
         BACKUP,
-        NOFOLLOWSYMLINKS,
-        ALLMETADATA,
-        NOFALLBACKFORMOVE,
-        TARGETDEFAULTPERMS
+        NOFOLLOW_SYMLINKS,
+        ALL_METADATA,
+        NO_FALLBACK_FOR_MOVE,
+        TARGET_DEFAULT_PERMS
       ]
     structure BitFlags =
       Word32BitFlags (

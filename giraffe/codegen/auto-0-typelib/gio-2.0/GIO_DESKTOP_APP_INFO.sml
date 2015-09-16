@@ -1,9 +1,9 @@
 signature GIO_DESKTOP_APP_INFO =
   sig
     type 'a class_t
-    type 'a appinfoclass_t
+    type 'a app_info_class_t
     type t = base class_t
-    val asAppInfo : 'a class_t -> base appinfoclass_t
+    val asAppInfo : 'a class_t -> base app_info_class_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t
     val newFromFilename : string -> base class_t

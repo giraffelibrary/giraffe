@@ -1,9 +1,9 @@
 signature GIO_SIMPLE_ASYNC_RESULT =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
+    type 'a async_result_class_t
     type t = base class_t
-    val asAsyncResult : 'a class_t -> base asyncresultclass_t
+    val asAsyncResult : 'a class_t -> base async_result_class_t
     val getType : unit -> GObject.Type.t
     val complete : 'a class_t -> unit
     val completeInIdle : 'a class_t -> unit

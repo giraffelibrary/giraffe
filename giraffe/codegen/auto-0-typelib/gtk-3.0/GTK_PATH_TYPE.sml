@@ -2,7 +2,7 @@ signature GTK_PATH_TYPE =
   sig
     datatype t =
       WIDGET
-    | WIDGETCLASS
+    | WIDGET_CLASS
     | CLASS
     val null : t
     val t : (t, t) GObject.Value.accessor

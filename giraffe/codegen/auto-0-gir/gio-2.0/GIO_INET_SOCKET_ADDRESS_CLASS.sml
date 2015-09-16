@@ -1,8 +1,8 @@
 signature GIO_INET_SOCKET_ADDRESS_CLASS =
   sig
-    type 'a inetsocketaddress
-    type 'a socketaddressclass_t
-    type 'a t = 'a inetsocketaddress socketaddressclass_t
+    type 'a inet_socket_address
+    type 'a socket_address_class_t
+    type 'a t = 'a inet_socket_address socket_address_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -22,7 +22,7 @@ structure GdkEventAnyRecord :>
     | DESTROY
     | MAP
     | UNMAP
-    | CLIENTEVENT
+    | CLIENT_EVENT
 
 
     structure C = GdkEvent.C

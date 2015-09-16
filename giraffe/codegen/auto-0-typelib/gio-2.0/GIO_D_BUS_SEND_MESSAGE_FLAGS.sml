@@ -5,7 +5,7 @@ signature GIO_D_BUS_SEND_MESSAGE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val PRESERVESERIAL : t
+    val PRESERVE_SERIAL : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

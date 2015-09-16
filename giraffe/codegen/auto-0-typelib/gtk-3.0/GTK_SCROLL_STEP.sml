@@ -4,9 +4,9 @@ signature GTK_SCROLL_STEP =
       STEPS
     | PAGES
     | ENDS
-    | HORIZONTALSTEPS
-    | HORIZONTALPAGES
-    | HORIZONTALENDS
+    | HORIZONTAL_STEPS
+    | HORIZONTAL_PAGES
+    | HORIZONTAL_ENDS
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

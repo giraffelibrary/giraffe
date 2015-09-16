@@ -1,7 +1,7 @@
 signature GDK_PIXBUF_PIXBUF_ANIMATION_ITER_CLASS =
   sig
-    type 'a pixbufanimationiter
-    type 'a t = 'a pixbufanimationiter GObject.ObjectClass.t
+    type 'a pixbuf_animation_iter
+    type 'a t = 'a pixbuf_animation_iter GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

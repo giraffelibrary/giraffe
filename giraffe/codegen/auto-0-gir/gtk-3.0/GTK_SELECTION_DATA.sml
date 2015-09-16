@@ -1,7 +1,7 @@
 signature GTK_SELECTION_DATA =
   sig
     type record_t
-    type 'a textbufferclass_t
+    type 'a text_buffer_class_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val copy : record_t -> record_t
@@ -28,7 +28,7 @@ signature GTK_SELECTION_DATA =
        -> bool
     val targetsIncludeRichText :
       record_t
-       -> 'a textbufferclass_t
+       -> 'a text_buffer_class_t
        -> bool
     val targetsIncludeText : record_t -> bool
     val targetsIncludeUri : record_t -> bool

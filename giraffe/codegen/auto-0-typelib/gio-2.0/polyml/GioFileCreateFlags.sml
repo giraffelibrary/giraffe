@@ -14,12 +14,12 @@ structure GioFileCreateFlags :>
       val NONE = NONE ()
     end
     val PRIVATE = 0w1
-    val REPLACEDESTINATION = 0w2
+    val REPLACE_DESTINATION = 0w2
     val allFlags =
       [
         NONE,
         PRIVATE,
-        REPLACEDESTINATION
+        REPLACE_DESTINATION
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,8 +1,8 @@
 structure GioSocketConnection :>
   GIO_SOCKET_CONNECTION
     where type 'a class_t = 'a GioSocketConnectionClass.t
-    where type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    where type 'a socketclass_t = 'a GioSocketClass.t =
+    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type 'a socket_class_t = 'a GioSocketClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GioSocketConnection :>
       val getSocket_ = call (load_sym libgio "g_socket_connection_get_socket") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioSocketConnectionClass.t
-    type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    type 'a socketclass_t = 'a GioSocketClass.t
+    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type 'a socket_class_t = 'a GioSocketClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLocalAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getLocalAddress_ (self & [])

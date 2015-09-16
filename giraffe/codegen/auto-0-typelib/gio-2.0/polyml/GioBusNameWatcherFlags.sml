@@ -13,8 +13,8 @@ structure GioBusNameWatcherFlags :>
     in
       val NONE = NONE ()
     end
-    val AUTOSTART = 0w1
-    val allFlags = [NONE, AUTOSTART]
+    val AUTO_START = 0w1
+    val allFlags = [NONE, AUTO_START]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

@@ -1,8 +1,8 @@
 structure GtkIconInfo :>
   GTK_ICON_INFO
     where type record_t = GtkIconInfoRecord.t
-    where type 'a iconthemeclass_t = 'a GtkIconThemeClass.t
-    where type 'a stylecontextclass_t = 'a GtkStyleContextClass.t =
+    where type 'a icon_theme_class_t = 'a GtkIconThemeClass.t
+    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
   struct
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.C.val_;
     val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;) (x1, x2)
@@ -64,8 +64,8 @@ structure GtkIconInfo :>
             )
     val setRawCoordinates_ = fn x1 & x2 => (_import "gtk_icon_info_set_raw_coordinates" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type record_t = GtkIconInfoRecord.t
-    type 'a iconthemeclass_t = 'a GtkIconThemeClass.t
-    type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type 'a icon_theme_class_t = 'a GtkIconThemeClass.t
+    type 'a style_context_class_t = 'a GtkStyleContextClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForPixbuf iconTheme pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)

@@ -1,7 +1,7 @@
 signature GIO_APP_LAUNCH_CONTEXT_CLASS =
   sig
-    type 'a applaunchcontext
-    type 'a t = 'a applaunchcontext GObject.ObjectClass.t
+    type 'a app_launch_context
+    type 'a t = 'a app_launch_context GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

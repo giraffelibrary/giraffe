@@ -1,11 +1,11 @@
 structure GioDBusMessage :>
   GIO_D_BUS_MESSAGE
     where type 'a class_t = 'a GioDBusMessageClass.t
-    where type dbusmessagebyteorder_t = GioDBusMessageByteOrder.t
-    where type dbusmessageflags_t = GioDBusMessageFlags.t
-    where type dbusmessageheaderfield_t = GioDBusMessageHeaderField.t
-    where type dbusmessagetype_t = GioDBusMessageType.t
-    where type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t =
+    where type d_bus_message_byte_order_t = GioDBusMessageByteOrder.t
+    where type d_bus_message_flags_t = GioDBusMessageFlags.t
+    where type d_bus_message_header_field_t = GioDBusMessageHeaderField.t
+    where type d_bus_message_type_t = GioDBusMessageType.t
+    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t =
   struct
     local
       open PolyMLFFI
@@ -85,11 +85,11 @@ structure GioDBusMessage :>
       val toGerror_ = call (load_sym libgio "g_dbus_message_to_gerror") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioDBusMessageClass.t
-    type dbusmessagebyteorder_t = GioDBusMessageByteOrder.t
-    type dbusmessageflags_t = GioDBusMessageFlags.t
-    type dbusmessageheaderfield_t = GioDBusMessageHeaderField.t
-    type dbusmessagetype_t = GioDBusMessageType.t
-    type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type d_bus_message_byte_order_t = GioDBusMessageByteOrder.t
+    type d_bus_message_flags_t = GioDBusMessageFlags.t
+    type d_bus_message_header_field_t = GioDBusMessageHeaderField.t
+    type d_bus_message_type_t = GioDBusMessageType.t
+    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioDBusMessageClass.C.fromPtr true) new_ ()

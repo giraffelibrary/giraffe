@@ -1,7 +1,7 @@
 signature GTK_TREE_SORTABLE_CLASS =
   sig
-    type 'a treesortable
-    type 'a t = 'a treesortable GObject.ObjectClass.t
+    type 'a tree_sortable
+    type 'a t = 'a tree_sortable GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

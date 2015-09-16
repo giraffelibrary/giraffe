@@ -11,7 +11,7 @@ signature G_I_REPOSITORY_INFO_TYPE =
     | OBJECT
     | INTERFACE
     | CONSTANT
-    | INVALID0
+    | INVALID_0
     | UNION
     | VALUE
     | SIGNAL

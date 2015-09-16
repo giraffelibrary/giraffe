@@ -1,9 +1,9 @@
 structure AtkText :>
   ATK_TEXT
     where type 'a class_t = 'a AtkTextClass.t
-    where type textrangerecord_t = AtkTextRangeRecord.t
-    where type textrectanglerecord_t = AtkTextRectangleRecord.t
-    where type coordtype_t = AtkCoordType.t =
+    where type text_range_record_t = AtkTextRangeRecord.t
+    where type text_rectangle_record_t = AtkTextRectangleRecord.t
+    where type coord_type_t = AtkCoordType.t =
   struct
     val getType_ = _import "atk_text_get_type" : unit -> GObjectType.C.val_;
     val freeRanges_ = _import "atk_text_free_ranges" : AtkTextRangeRecord.C.notnull AtkTextRangeRecord.C.p -> unit;
@@ -111,9 +111,9 @@ structure AtkText :>
               x4
             )
     type 'a class_t = 'a AtkTextClass.t
-    type textrangerecord_t = AtkTextRangeRecord.t
-    type textrectanglerecord_t = AtkTextRectangleRecord.t
-    type coordtype_t = AtkCoordType.t
+    type text_range_record_t = AtkTextRangeRecord.t
+    type text_rectangle_record_t = AtkTextRectangleRecord.t
+    type coord_type_t = AtkCoordType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun freeRanges ranges = (AtkTextRangeRecord.C.withPtr ---> I) freeRanges_ ranges

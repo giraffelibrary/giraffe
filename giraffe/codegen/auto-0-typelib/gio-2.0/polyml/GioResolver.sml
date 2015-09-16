@@ -1,9 +1,9 @@
 structure GioResolver :>
   GIO_RESOLVER
     where type 'a class_t = 'a GioResolverClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a inetaddressclass_t = 'a GioInetAddressClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a inet_address_class_t = 'a GioInetAddressClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     local
       open PolyMLFFI
@@ -30,9 +30,9 @@ structure GioResolver :>
       val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioResolverClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a inetaddressclass_t = 'a GioInetAddressClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a inet_address_class_t = 'a GioInetAddressClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioResolverClass.C.fromPtr true) getDefault_ ()

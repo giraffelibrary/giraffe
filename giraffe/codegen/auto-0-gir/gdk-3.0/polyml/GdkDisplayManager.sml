@@ -1,7 +1,7 @@
 structure GdkDisplayManager :>
   GDK_DISPLAY_MANAGER
     where type 'a class_t = 'a GdkDisplayManagerClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t =
+    where type 'a display_class_t = 'a GdkDisplayClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,7 +13,7 @@ structure GdkDisplayManager :>
       val setDefaultDisplay_ = call (load_sym libgdk "gdk_display_manager_set_default_display") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GdkDisplayManagerClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()

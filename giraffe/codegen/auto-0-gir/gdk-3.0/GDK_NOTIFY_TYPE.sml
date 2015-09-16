@@ -5,7 +5,7 @@ signature GDK_NOTIFY_TYPE =
     | VIRTUAL
     | INFERIOR
     | NONLINEAR
-    | NONLINEARVIRTUAL
+    | NONLINEAR_VIRTUAL
     | UNKNOWN
     val null : t
     val t : (t, t) GObject.Value.accessor

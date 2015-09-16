@@ -1,10 +1,10 @@
 structure GtkHandleBox :>
   GTK_HANDLE_BOX
     where type 'a class_t = 'a GtkHandleBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type shadowtype_t = GtkShadowType.t
-    where type positiontype_t = GtkPositionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type shadow_type_t = GtkShadowType.t
+    where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_handle_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_handle_box_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -16,10 +16,10 @@ structure GtkHandleBox :>
     val setShadowType_ = fn x1 & x2 => (_import "gtk_handle_box_set_shadow_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkShadowType.C.val_ -> unit;) (x1, x2)
     val setSnapEdge_ = fn x1 & x2 => (_import "gtk_handle_box_set_snap_edge" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkPositionType.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkHandleBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type shadowtype_t = GtkShadowType.t
-    type positiontype_t = GtkPositionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type shadow_type_t = GtkShadowType.t
+    type position_type_t = GtkPositionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

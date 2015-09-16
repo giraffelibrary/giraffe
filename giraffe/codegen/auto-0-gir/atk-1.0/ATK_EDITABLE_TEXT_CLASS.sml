@@ -1,7 +1,7 @@
 signature ATK_EDITABLE_TEXT_CLASS =
   sig
-    type 'a editabletext
-    type 'a t = 'a editabletext GObject.ObjectClass.t
+    type 'a editable_text
+    type 'a t = 'a editable_text GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

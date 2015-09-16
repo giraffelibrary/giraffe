@@ -1,7 +1,7 @@
 signature GTK_SOURCE_GUTTER_RENDERER_CLASS =
   sig
-    type 'a gutterrenderer
-    type 'a t = 'a gutterrenderer GObject.InitiallyUnownedClass.t
+    type 'a gutter_renderer
+    type 'a t = 'a gutter_renderer GObject.InitiallyUnownedClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

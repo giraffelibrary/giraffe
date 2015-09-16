@@ -1,17 +1,17 @@
 structure GioDBusProxy :>
   GIO_D_BUS_PROXY
     where type 'a class_t = 'a GioDBusProxyClass.t
-    where type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
-    where type 'a dbusinterfaceclass_t = 'a GioDBusInterfaceClass.t
-    where type 'a initableclass_t = 'a GioInitableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
-    where type dbuscallflags_t = GioDBusCallFlags.t
-    where type bustype_t = GioBusType.t
-    where type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    where type dbusproxyflags_t = GioDBusProxyFlags.t
-    where type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t =
+    where type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
+    where type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
+    where type 'a initable_class_t = 'a GioInitableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
+    where type d_bus_call_flags_t = GioDBusCallFlags.t
+    where type bus_type_t = GioBusType.t
+    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    where type d_bus_proxy_flags_t = GioDBusProxyFlags.t
+    where type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t =
   struct
     local
       open PolyMLFFI
@@ -109,17 +109,17 @@ structure GioDBusProxy :>
       val setInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_set_interface_info") (GObjectObjectClass.PolyML.PTR &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioDBusProxyClass.t
-    type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
-    type 'a dbusinterfaceclass_t = 'a GioDBusInterfaceClass.t
-    type 'a initableclass_t = 'a GioInitableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
-    type dbuscallflags_t = GioDBusCallFlags.t
-    type bustype_t = GioBusType.t
-    type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    type dbusproxyflags_t = GioDBusProxyFlags.t
-    type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t
+    type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
+    type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
+    type 'a initable_class_t = 'a GioInitableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
+    type d_bus_call_flags_t = GioDBusCallFlags.t
+    type bus_type_t = GioBusType.t
+    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    type d_bus_proxy_flags_t = GioDBusProxyFlags.t
+    type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t
     type t = base class_t
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self

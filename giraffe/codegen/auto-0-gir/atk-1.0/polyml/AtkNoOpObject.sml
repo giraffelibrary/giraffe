@@ -1,17 +1,17 @@
 structure AtkNoOpObject :>
   ATK_NO_OP_OBJECT
     where type 'a class_t = 'a AtkNoOpObjectClass.t
-    where type 'a actionclass_t = 'a AtkActionClass.t
-    where type 'a componentclass_t = 'a AtkComponentClass.t
-    where type 'a documentclass_t = 'a AtkDocumentClass.t
-    where type 'a editabletextclass_t = 'a AtkEditableTextClass.t
-    where type 'a hypertextclass_t = 'a AtkHypertextClass.t
-    where type 'a imageclass_t = 'a AtkImageClass.t
-    where type 'a selectionclass_t = 'a AtkSelectionClass.t
-    where type 'a tableclass_t = 'a AtkTableClass.t
-    where type 'a textclass_t = 'a AtkTextClass.t
-    where type 'a valueclass_t = 'a AtkValueClass.t
-    where type 'a windowclass_t = 'a AtkWindowClass.t =
+    where type 'a action_class_t = 'a AtkActionClass.t
+    where type 'a component_class_t = 'a AtkComponentClass.t
+    where type 'a document_class_t = 'a AtkDocumentClass.t
+    where type 'a editable_text_class_t = 'a AtkEditableTextClass.t
+    where type 'a hypertext_class_t = 'a AtkHypertextClass.t
+    where type 'a image_class_t = 'a AtkImageClass.t
+    where type 'a selection_class_t = 'a AtkSelectionClass.t
+    where type 'a table_class_t = 'a AtkTableClass.t
+    where type 'a text_class_t = 'a AtkTextClass.t
+    where type 'a value_class_t = 'a AtkValueClass.t
+    where type 'a window_class_t = 'a AtkWindowClass.t =
   struct
     local
       open PolyMLFFI
@@ -20,17 +20,17 @@ structure AtkNoOpObject :>
       val new_ = call (load_sym libatk "atk_no_op_object_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a AtkNoOpObjectClass.t
-    type 'a actionclass_t = 'a AtkActionClass.t
-    type 'a componentclass_t = 'a AtkComponentClass.t
-    type 'a documentclass_t = 'a AtkDocumentClass.t
-    type 'a editabletextclass_t = 'a AtkEditableTextClass.t
-    type 'a hypertextclass_t = 'a AtkHypertextClass.t
-    type 'a imageclass_t = 'a AtkImageClass.t
-    type 'a selectionclass_t = 'a AtkSelectionClass.t
-    type 'a tableclass_t = 'a AtkTableClass.t
-    type 'a textclass_t = 'a AtkTextClass.t
-    type 'a valueclass_t = 'a AtkValueClass.t
-    type 'a windowclass_t = 'a AtkWindowClass.t
+    type 'a action_class_t = 'a AtkActionClass.t
+    type 'a component_class_t = 'a AtkComponentClass.t
+    type 'a document_class_t = 'a AtkDocumentClass.t
+    type 'a editable_text_class_t = 'a AtkEditableTextClass.t
+    type 'a hypertext_class_t = 'a AtkHypertextClass.t
+    type 'a image_class_t = 'a AtkImageClass.t
+    type 'a selection_class_t = 'a AtkSelectionClass.t
+    type 'a table_class_t = 'a AtkTableClass.t
+    type 'a text_class_t = 'a AtkTextClass.t
+    type 'a value_class_t = 'a AtkValueClass.t
+    type 'a window_class_t = 'a AtkWindowClass.t
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self

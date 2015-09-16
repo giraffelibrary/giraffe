@@ -1,7 +1,7 @@
 signature GIO_ASYNC_INITABLE_CLASS =
   sig
-    type 'a asyncinitable
-    type 'a t = 'a asyncinitable GObject.ObjectClass.t
+    type 'a async_initable
+    type 'a t = 'a async_initable GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

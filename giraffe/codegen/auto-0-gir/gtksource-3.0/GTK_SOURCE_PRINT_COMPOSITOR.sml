@@ -1,12 +1,12 @@
 signature GTK_SOURCE_PRINT_COMPOSITOR =
   sig
     type 'a class_t
-    type 'a viewclass_t
-    type 'a bufferclass_t
+    type 'a view_class_t
+    type 'a buffer_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
-    val new : 'a bufferclass_t -> base class_t
-    val newFromView : 'a viewclass_t -> base class_t
+    val new : 'a buffer_class_t -> base class_t
+    val newFromView : 'a view_class_t -> base class_t
     val drawPage :
       'a class_t
        -> 'b Gtk.PrintContextClass.t
@@ -17,7 +17,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
       'a class_t
        -> Gtk.Unit.t
        -> real
-    val getBuffer : 'a class_t -> base bufferclass_t
+    val getBuffer : 'a class_t -> base buffer_class_t
     val getFooterFontName : 'a class_t -> string
     val getHeaderFontName : 'a class_t -> string
     val getHighlightSyntax : 'a class_t -> bool
@@ -120,7 +120,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
        -> Gtk.WrapMode.t
        -> unit
     val bodyFontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val bufferProp : ('a class_t, base bufferclass_t option, 'b bufferclass_t option) Property.readwrite
+    val bufferProp : ('a class_t, base buffer_class_t option, 'b buffer_class_t option) Property.readwrite
     val footerFontNameProp : ('a class_t, string option, string option) Property.readwrite
     val headerFontNameProp : ('a class_t, string option, string option) Property.readwrite
     val highlightSyntaxProp : ('a class_t, bool, bool) Property.readwrite

@@ -1,7 +1,7 @@
 signature GIO_NETWORK_ADDRESS_CLASS =
   sig
-    type 'a networkaddress
-    type 'a t = 'a networkaddress GObject.ObjectClass.t
+    type 'a network_address
+    type 'a t = 'a network_address GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -8,8 +8,8 @@ structure GioDBusCallFlags :>
     in
       val NONE = NONE ()
     end
-    val NOAUTOSTART = 0w1
-    val allFlags = [NONE, NOAUTOSTART]
+    val NO_AUTO_START = 0w1
+    val allFlags = [NONE, NO_AUTO_START]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

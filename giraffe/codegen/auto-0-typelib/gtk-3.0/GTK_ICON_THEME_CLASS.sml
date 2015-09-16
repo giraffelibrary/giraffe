@@ -1,7 +1,7 @@
 signature GTK_ICON_THEME_CLASS =
   sig
-    type 'a icontheme
-    type 'a t = 'a icontheme GObject.ObjectClass.t
+    type 'a icon_theme
+    type 'a t = 'a icon_theme GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

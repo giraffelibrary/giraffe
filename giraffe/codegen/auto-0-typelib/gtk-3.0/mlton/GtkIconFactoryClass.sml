@@ -3,8 +3,8 @@ structure GtkIconFactoryClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a iconfactory = unit
-    type 'a t = 'a iconfactory GObjectObjectClass.t
+    type 'a icon_factory = unit
+    type 'a t = 'a icon_factory GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

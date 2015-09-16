@@ -5,8 +5,8 @@ structure GioDBusMessageType :>
   struct
     datatype t =
       INVALID
-    | METHODCALL
-    | METHODRETURN
+    | METHOD_CALL
+    | METHOD_RETURN
     | ERROR
     | SIGNAL
     structure C =
@@ -17,16 +17,16 @@ structure GioDBusMessageType :>
         fun withVal f =
           fn
             INVALID => f 0
-          | METHODCALL => f 1
-          | METHODRETURN => f 2
+          | METHOD_CALL => f 1
+          | METHOD_RETURN => f 2
           | ERROR => f 3
           | SIGNAL => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
-          | 1 => METHODCALL
-          | 2 => METHODRETURN
+          | 1 => METHOD_CALL
+          | 2 => METHOD_RETURN
           | 3 => ERROR
           | 4 => SIGNAL
           | n => raise Value n

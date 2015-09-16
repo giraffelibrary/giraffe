@@ -4,8 +4,8 @@ structure GObjectTypeFlags :>
   end =
   struct
     val ABSTRACT = 0w16
-    val VALUEABSTRACT = 0w32
-    val allFlags = [ABSTRACT, VALUEABSTRACT]
+    val VALUE_ABSTRACT = 0w32
+    val allFlags = [ABSTRACT, VALUE_ABSTRACT]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

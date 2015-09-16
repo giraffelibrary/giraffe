@@ -1,8 +1,8 @@
 signature GTK_RECENT_ACTION_CLASS =
   sig
-    type 'a recentaction
-    type 'a actionclass_t
-    type 'a t = 'a recentaction actionclass_t
+    type 'a recent_action
+    type 'a action_class_t
+    type 'a t = 'a recent_action action_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

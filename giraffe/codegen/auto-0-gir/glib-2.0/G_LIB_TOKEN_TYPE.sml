@@ -2,13 +2,13 @@ signature G_LIB_TOKEN_TYPE =
   sig
     datatype t =
       EOF
-    | LEFTPAREN
-    | RIGHTPAREN
-    | LEFTCURLY
-    | RIGHTCURLY
-    | LEFTBRACE
-    | RIGHTBRACE
-    | EQUALSIGN
+    | LEFT_PAREN
+    | RIGHT_PAREN
+    | LEFT_CURLY
+    | RIGHT_CURLY
+    | LEFT_BRACE
+    | RIGHT_BRACE
+    | EQUAL_SIGN
     | COMMA
     | NONE
     | ERROR
@@ -21,9 +21,9 @@ signature G_LIB_TOKEN_TYPE =
     | STRING
     | SYMBOL
     | IDENTIFIER
-    | IDENTIFIERNULL
-    | COMMENTSINGLE
-    | COMMENTMULTI
+    | IDENTIFIER_NULL
+    | COMMENT_SINGLE
+    | COMMENT_MULTI
     | LAST
     val null : t
     structure C :

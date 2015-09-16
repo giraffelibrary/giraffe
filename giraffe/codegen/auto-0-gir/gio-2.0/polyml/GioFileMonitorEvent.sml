@@ -10,11 +10,11 @@ structure GioFileMonitorEvent :>
   struct
     datatype t =
       CHANGED
-    | CHANGESDONEHINT
+    | CHANGES_DONE_HINT
     | DELETED
     | CREATED
-    | ATTRIBUTECHANGED
-    | PREUNMOUNT
+    | ATTRIBUTE_CHANGED
+    | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
     structure C =
@@ -25,22 +25,22 @@ structure GioFileMonitorEvent :>
         fun withVal f =
           fn
             CHANGED => f 0
-          | CHANGESDONEHINT => f 1
+          | CHANGES_DONE_HINT => f 1
           | DELETED => f 2
           | CREATED => f 3
-          | ATTRIBUTECHANGED => f 4
-          | PREUNMOUNT => f 5
+          | ATTRIBUTE_CHANGED => f 4
+          | PRE_UNMOUNT => f 5
           | UNMOUNTED => f 6
           | MOVED => f 7
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CHANGED
-          | 1 => CHANGESDONEHINT
+          | 1 => CHANGES_DONE_HINT
           | 2 => DELETED
           | 3 => CREATED
-          | 4 => ATTRIBUTECHANGED
-          | 5 => PREUNMOUNT
+          | 4 => ATTRIBUTE_CHANGED
+          | 5 => PRE_UNMOUNT
           | 6 => UNMOUNTED
           | 7 => MOVED
           | n => raise Value n

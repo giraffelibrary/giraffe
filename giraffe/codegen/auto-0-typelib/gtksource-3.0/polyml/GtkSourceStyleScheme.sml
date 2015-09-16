@@ -1,7 +1,7 @@
 structure GtkSourceStyleScheme :>
   GTK_SOURCE_STYLE_SCHEME
     where type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a styleclass_t = 'a GtkSourceStyleClass.t =
+    where type 'a style_class_t = 'a GtkSourceStyleClass.t =
   struct
     local
       open PolyMLFFI
@@ -14,7 +14,7 @@ structure GtkSourceStyleScheme :>
       val getStyle_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_style") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a styleclass_t = 'a GtkSourceStyleClass.t
+    type 'a style_class_t = 'a GtkSourceStyleClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self

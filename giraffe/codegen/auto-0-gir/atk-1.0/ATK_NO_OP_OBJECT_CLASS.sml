@@ -1,8 +1,8 @@
 signature ATK_NO_OP_OBJECT_CLASS =
   sig
-    type 'a noopobject
-    type 'a objectclass_t
-    type 'a t = 'a noopobject objectclass_t
+    type 'a no_op_object
+    type 'a object_class_t
+    type 'a t = 'a no_op_object object_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

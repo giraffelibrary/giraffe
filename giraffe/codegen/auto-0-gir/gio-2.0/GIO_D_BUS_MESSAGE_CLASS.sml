@@ -1,7 +1,7 @@
 signature GIO_D_BUS_MESSAGE_CLASS =
   sig
-    type 'a dbusmessage
-    type 'a t = 'a dbusmessage GObject.ObjectClass.t
+    type 'a d_bus_message
+    type 'a t = 'a d_bus_message GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

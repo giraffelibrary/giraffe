@@ -12,12 +12,12 @@ structure GdkEventDNDRecord :>
 
 
     datatype event =
-      DRAGENTER
-    | DRAGLEAVE
-    | DRAGMOTION
-    | DRAGSTATUS
-    | DROPSTART
-    | DROPFINISHED
+      DRAG_ENTER
+    | DRAG_LEAVE
+    | DRAG_MOTION
+    | DRAG_STATUS
+    | DROP_START
+    | DROP_FINISHED
 
 
     structure C = GdkEvent.C

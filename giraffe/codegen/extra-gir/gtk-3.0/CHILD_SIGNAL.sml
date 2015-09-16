@@ -7,16 +7,16 @@
 
 signature CHILD_SIGNAL =
   sig
-    type 'a widgetclass_t
+    type 'a widget_class_t
 
     val connect :
-      'a widgetclass_t
+      'a widget_class_t
        -> 'b GObjectObjectClass.t
        -> ('func -> 'b GObjectObjectClass.t Signal.signal)
        -> 'func
        -> unit
     val connectAfter :
-      'a widgetclass_t
+      'a widget_class_t
        -> 'b GObjectObjectClass.t
        -> ('func -> 'b GObjectObjectClass.t Signal.signal)
        -> 'func

@@ -1,7 +1,7 @@
 structure GtkMisc :>
   GTK_MISC
     where type 'a class_t = 'a GtkMiscClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     local
       open PolyMLFFI
@@ -41,7 +41,7 @@ structure GtkMisc :>
           )
     end
     type 'a class_t = 'a GtkMiscClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

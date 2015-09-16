@@ -1,11 +1,11 @@
 structure GtkContainer :>
   GTK_CONTAINER
     where type 'a class_t = 'a GtkContainerClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type widgetpathrecord_t = GtkWidgetPathRecord.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type resizemode_t = GtkResizeMode.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type widget_path_record_t = GtkWidgetPathRecord.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type resize_mode_t = GtkResizeMode.t =
   struct
     val getType_ = _import "gtk_container_get_type" : unit -> GObjectType.C.val_;
     val add_ = fn x1 & x2 => (_import "gtk_container_add" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
@@ -106,11 +106,11 @@ structure GtkContainer :>
     val setResizeMode_ = fn x1 & x2 => (_import "gtk_container_set_resize_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkResizeMode.C.val_ -> unit;) (x1, x2)
     val unsetFocusChain_ = _import "gtk_container_unset_focus_chain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkContainerClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type widgetpathrecord_t = GtkWidgetPathRecord.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type resizemode_t = GtkResizeMode.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type widget_path_record_t = GtkWidgetPathRecord.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type resize_mode_t = GtkResizeMode.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

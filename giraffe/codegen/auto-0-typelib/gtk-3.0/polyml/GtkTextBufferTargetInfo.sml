@@ -9,8 +9,8 @@ structure GtkTextBufferTargetInfo :>
   end =
   struct
     datatype t =
-      BUFFERCONTENTS
-    | RICHTEXT
+      BUFFER_CONTENTS
+    | RICH_TEXT
     | TEXT
     structure C =
       struct
@@ -19,14 +19,14 @@ structure GtkTextBufferTargetInfo :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BUFFERCONTENTS => f ~1
-          | RICHTEXT => f ~2
+            BUFFER_CONTENTS => f ~1
+          | RICH_TEXT => f ~2
           | TEXT => f ~3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            ~1 => BUFFERCONTENTS
-          | ~2 => RICHTEXT
+            ~1 => BUFFER_CONTENTS
+          | ~2 => RICH_TEXT
           | ~3 => TEXT
           | n => raise Value n
       end
@@ -49,6 +49,6 @@ structure GtkTextBufferTargetInfo :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = BUFFERCONTENTS
+    val null = BUFFER_CONTENTS
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

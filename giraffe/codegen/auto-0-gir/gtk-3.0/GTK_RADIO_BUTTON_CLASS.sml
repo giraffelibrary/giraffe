@@ -1,8 +1,8 @@
 signature GTK_RADIO_BUTTON_CLASS =
   sig
-    type 'a radiobutton
-    type 'a checkbuttonclass_t
-    type 'a t = 'a radiobutton checkbuttonclass_t
+    type 'a radio_button
+    type 'a check_button_class_t
+    type 'a t = 'a radio_button check_button_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -4,8 +4,8 @@ structure GioResolverError :>
   end =
   struct
     datatype t =
-      NOTFOUND
-    | TEMPORARYFAILURE
+      NOT_FOUND
+    | TEMPORARY_FAILURE
     | INTERNAL
     structure C =
       struct
@@ -14,14 +14,14 @@ structure GioResolverError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NOTFOUND => f 0
-          | TEMPORARYFAILURE => f 1
+            NOT_FOUND => f 0
+          | TEMPORARY_FAILURE => f 1
           | INTERNAL => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NOTFOUND
-          | 1 => TEMPORARYFAILURE
+            0 => NOT_FOUND
+          | 1 => TEMPORARY_FAILURE
           | 2 => INTERNAL
           | n => raise Value n
       end

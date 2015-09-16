@@ -1,9 +1,9 @@
 signature G_LIB_I_O_FUNC =
   sig
-    type iochannelrecord_t
-    type iocondition_t
+    type i_o_channel_record_t
+    type i_o_condition_t
 
-    type t = iochannelrecord_t * iocondition_t -> bool
+    type t = i_o_channel_record_t * i_o_condition_t -> bool
 
     structure C :
       sig

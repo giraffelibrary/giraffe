@@ -13,8 +13,8 @@ structure GtkButtonsType :>
     | OK
     | CLOSE
     | CANCEL
-    | YESNO
-    | OKCANCEL
+    | YES_NO
+    | OK_CANCEL
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -26,8 +26,8 @@ structure GtkButtonsType :>
           | OK => f 1
           | CLOSE => f 2
           | CANCEL => f 3
-          | YESNO => f 4
-          | OKCANCEL => f 5
+          | YES_NO => f 4
+          | OK_CANCEL => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -35,8 +35,8 @@ structure GtkButtonsType :>
           | 1 => OK
           | 2 => CLOSE
           | 3 => CANCEL
-          | 4 => YESNO
-          | 5 => OKCANCEL
+          | 4 => YES_NO
+          | 5 => OK_CANCEL
           | n => raise Value n
       end
     structure PolyML =

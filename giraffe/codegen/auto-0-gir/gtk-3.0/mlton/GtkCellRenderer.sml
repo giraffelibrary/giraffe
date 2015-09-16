@@ -1,13 +1,13 @@
 structure GtkCellRenderer :>
   GTK_CELL_RENDERER
     where type 'a class_t = 'a GtkCellRendererClass.t
-    where type requisitionrecord_t = GtkRequisitionRecord.t
-    where type sizerequestmode_t = GtkSizeRequestMode.t
-    where type stateflags_t = GtkStateFlags.t
-    where type cellrendererstate_t = GtkCellRendererState.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type cellrenderermode_t = GtkCellRendererMode.t =
+    where type requisition_record_t = GtkRequisitionRecord.t
+    where type size_request_mode_t = GtkSizeRequestMode.t
+    where type state_flags_t = GtkStateFlags.t
+    where type cell_renderer_state_t = GtkCellRendererState.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type cell_renderer_mode_t = GtkCellRendererMode.t =
   struct
     val getType_ = _import "gtk_cell_renderer_get_type" : unit -> GObjectType.C.val_;
     val activate_ =
@@ -354,13 +354,13 @@ structure GtkCellRenderer :>
             )
     val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_renderer_stop_editing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkCellRendererClass.t
-    type requisitionrecord_t = GtkRequisitionRecord.t
-    type sizerequestmode_t = GtkSizeRequestMode.t
-    type stateflags_t = GtkStateFlags.t
-    type cellrendererstate_t = GtkCellRendererState.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type cellrenderermode_t = GtkCellRendererMode.t
+    type requisition_record_t = GtkRequisitionRecord.t
+    type size_request_mode_t = GtkSizeRequestMode.t
+    type state_flags_t = GtkStateFlags.t
+    type cell_renderer_state_t = GtkCellRendererState.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type cell_renderer_mode_t = GtkCellRendererMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self event widget path backgroundArea cellArea flags =

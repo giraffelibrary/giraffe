@@ -1,7 +1,7 @@
 signature GIO_SIMPLE_ACTION_CLASS =
   sig
-    type 'a simpleaction
-    type 'a t = 'a simpleaction GObject.ObjectClass.t
+    type 'a simple_action
+    type 'a t = 'a simple_action GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

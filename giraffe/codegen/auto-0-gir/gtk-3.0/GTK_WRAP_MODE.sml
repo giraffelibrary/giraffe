@@ -4,7 +4,7 @@ signature GTK_WRAP_MODE =
       NONE
     | CHAR
     | WORD
-    | WORDCHAR
+    | WORD_CHAR
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

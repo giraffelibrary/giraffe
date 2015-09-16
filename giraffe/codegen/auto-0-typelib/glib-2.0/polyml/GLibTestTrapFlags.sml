@@ -8,14 +8,14 @@ structure GLibTestTrapFlags :>
       end
   end =
   struct
-    val SILENCESTDOUT = 0w128
-    val SILENCESTDERR = 0w256
-    val INHERITSTDIN = 0w512
+    val SILENCE_STDOUT = 0w128
+    val SILENCE_STDERR = 0w256
+    val INHERIT_STDIN = 0w512
     val allFlags =
       [
-        SILENCESTDOUT,
-        SILENCESTDERR,
-        INHERITSTDIN
+        SILENCE_STDOUT,
+        SILENCE_STDERR,
+        INHERIT_STDIN
       ]
     structure BitFlags =
       Word32BitFlags (

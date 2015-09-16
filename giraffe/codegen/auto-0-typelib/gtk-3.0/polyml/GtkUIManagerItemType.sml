@@ -18,7 +18,7 @@ structure GtkUIManagerItemType :>
     val TOOLITEM = 0w64
     val SEPARATOR = 0w128
     val ACCELERATOR = 0w256
-    val POPUPWITHACCELS = 0w512
+    val POPUP_WITH_ACCELS = 0w512
     val allFlags =
       [
         AUTO,
@@ -31,7 +31,7 @@ structure GtkUIManagerItemType :>
         TOOLITEM,
         SEPARATOR,
         ACCELERATOR,
-        POPUPWITHACCELS
+        POPUP_WITH_ACCELS
       ]
     structure BitFlags =
       Word32BitFlags (

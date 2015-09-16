@@ -9,16 +9,16 @@ structure GtkRecentFilterFlags :>
   end =
   struct
     val URI = 0w1
-    val DISPLAYNAME = 0w2
-    val MIMETYPE = 0w4
+    val DISPLAY_NAME = 0w2
+    val MIME_TYPE = 0w4
     val APPLICATION = 0w8
     val GROUP = 0w16
     val AGE = 0w32
     val allFlags =
       [
         URI,
-        DISPLAYNAME,
-        MIMETYPE,
+        DISPLAY_NAME,
+        MIME_TYPE,
         APPLICATION,
         GROUP,
         AGE

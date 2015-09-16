@@ -5,7 +5,7 @@ signature GIO_FILE_QUERY_INFO_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val NOFOLLOWSYMLINKS : t
+    val NOFOLLOW_SYMLINKS : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

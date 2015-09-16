@@ -4,10 +4,10 @@ structure GtkRecentManagerError :>
   end =
   struct
     datatype t =
-      NOTFOUND
-    | INVALIDURI
-    | INVALIDENCODING
-    | NOTREGISTERED
+      NOT_FOUND
+    | INVALID_URI
+    | INVALID_ENCODING
+    | NOT_REGISTERED
     | READ
     | WRITE
     | UNKNOWN
@@ -18,20 +18,20 @@ structure GtkRecentManagerError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NOTFOUND => f 0
-          | INVALIDURI => f 1
-          | INVALIDENCODING => f 2
-          | NOTREGISTERED => f 3
+            NOT_FOUND => f 0
+          | INVALID_URI => f 1
+          | INVALID_ENCODING => f 2
+          | NOT_REGISTERED => f 3
           | READ => f 4
           | WRITE => f 5
           | UNKNOWN => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NOTFOUND
-          | 1 => INVALIDURI
-          | 2 => INVALIDENCODING
-          | 3 => NOTREGISTERED
+            0 => NOT_FOUND
+          | 1 => INVALID_URI
+          | 2 => INVALID_ENCODING
+          | 3 => NOT_REGISTERED
           | 4 => READ
           | 5 => WRITE
           | 6 => UNKNOWN

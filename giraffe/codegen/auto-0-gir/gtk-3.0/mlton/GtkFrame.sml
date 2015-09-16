@@ -1,9 +1,9 @@
 structure GtkFrame :>
   GTK_FRAME
     where type 'a class_t = 'a GtkFrameClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type shadowtype_t = GtkShadowType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_frame_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -62,9 +62,9 @@ structure GtkFrame :>
     val setLabelWidget_ = fn x1 & x2 => (_import "gtk_frame_set_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setShadowType_ = fn x1 & x2 => (_import "gtk_frame_set_shadow_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkShadowType.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkFrameClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type shadowtype_t = GtkShadowType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type shadow_type_t = GtkShadowType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

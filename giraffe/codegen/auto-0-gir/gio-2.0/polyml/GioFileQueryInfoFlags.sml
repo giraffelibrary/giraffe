@@ -13,8 +13,8 @@ structure GioFileQueryInfoFlags :>
     in
       val NONE = NONE ()
     end
-    val NOFOLLOWSYMLINKS = 0w1
-    val allFlags = [NONE, NOFOLLOWSYMLINKS]
+    val NOFOLLOW_SYMLINKS = 0w1
+    val allFlags = [NONE, NOFOLLOW_SYMLINKS]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

@@ -1,12 +1,12 @@
 signature GDK_VISUAL_TYPE =
   sig
     datatype t =
-      STATICGRAY
+      STATIC_GRAY
     | GRAYSCALE
-    | STATICCOLOR
-    | PSEUDOCOLOR
-    | TRUECOLOR
-    | DIRECTCOLOR
+    | STATIC_COLOR
+    | PSEUDO_COLOR
+    | TRUE_COLOR
+    | DIRECT_COLOR
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

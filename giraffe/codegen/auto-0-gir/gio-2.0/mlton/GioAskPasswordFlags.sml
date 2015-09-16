@@ -3,18 +3,18 @@ structure GioAskPasswordFlags :>
     include GIO_ASK_PASSWORD_FLAGS
   end =
   struct
-    val NEEDPASSWORD = 0w1
-    val NEEDUSERNAME = 0w2
-    val NEEDDOMAIN = 0w4
-    val SAVINGSUPPORTED = 0w8
-    val ANONYMOUSSUPPORTED = 0w16
+    val NEED_PASSWORD = 0w1
+    val NEED_USERNAME = 0w2
+    val NEED_DOMAIN = 0w4
+    val SAVING_SUPPORTED = 0w8
+    val ANONYMOUS_SUPPORTED = 0w16
     val allFlags =
       [
-        NEEDPASSWORD,
-        NEEDUSERNAME,
-        NEEDDOMAIN,
-        SAVINGSUPPORTED,
-        ANONYMOUSSUPPORTED
+        NEED_PASSWORD,
+        NEED_USERNAME,
+        NEED_DOMAIN,
+        SAVING_SUPPORTED,
+        ANONYMOUS_SUPPORTED
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,12 +1,12 @@
 structure GtkNotebook :>
   GTK_NOTEBOOK
     where type 'a class_t = 'a GtkNotebookClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type packtype_t = GtkPackType.t
-    where type notebooktab_t = GtkNotebookTab.t
-    where type directiontype_t = GtkDirectionType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type positiontype_t = GtkPositionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type pack_type_t = GtkPackType.t
+    where type notebook_tab_t = GtkNotebookTab.t
+    where type direction_type_t = GtkDirectionType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_notebook_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_notebook_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -311,12 +311,12 @@ structure GtkNotebook :>
               x3
             )
     type 'a class_t = 'a GtkNotebookClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type packtype_t = GtkPackType.t
-    type notebooktab_t = GtkNotebookTab.t
-    type directiontype_t = GtkDirectionType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type positiontype_t = GtkPositionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type pack_type_t = GtkPackType.t
+    type notebook_tab_t = GtkNotebookTab.t
+    type direction_type_t = GtkDirectionType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type position_type_t = GtkPositionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

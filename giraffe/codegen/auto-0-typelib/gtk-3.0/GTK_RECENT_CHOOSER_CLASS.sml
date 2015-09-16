@@ -1,7 +1,7 @@
 signature GTK_RECENT_CHOOSER_CLASS =
   sig
-    type 'a recentchooser
-    type 'a t = 'a recentchooser GObject.ObjectClass.t
+    type 'a recent_chooser
+    type 'a t = 'a recent_chooser GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

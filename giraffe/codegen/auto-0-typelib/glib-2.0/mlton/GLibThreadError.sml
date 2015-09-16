@@ -2,25 +2,25 @@ structure GLibThreadError :>
   sig
     include
       G_LIB_THREAD_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
   end =
   struct
     datatype t =
-      THREADERRORAGAIN
+      THREAD_ERROR_AGAIN
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
         type ref_ = FFI.Enum.C.ref_
         exception Value of FFI.Enum.C.val_
-        fun withVal f = fn THREADERRORAGAIN => f 0
+        fun withVal f = fn THREAD_ERROR_AGAIN => f 0
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => THREADERRORAGAIN
+            0 => THREAD_ERROR_AGAIN
           | n => raise Value n
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

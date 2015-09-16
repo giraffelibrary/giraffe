@@ -1,65 +1,65 @@
 signature GDK_CURSOR_TYPE =
   sig
     datatype t =
-      XCURSOR
+      X_CURSOR
     | ARROW
-    | BASEDARROWDOWN
-    | BASEDARROWUP
+    | BASED_ARROW_DOWN
+    | BASED_ARROW_UP
     | BOAT
     | BOGOSITY
-    | BOTTOMLEFTCORNER
-    | BOTTOMRIGHTCORNER
-    | BOTTOMSIDE
-    | BOTTOMTEE
-    | BOXSPIRAL
-    | CENTERPTR
+    | BOTTOM_LEFT_CORNER
+    | BOTTOM_RIGHT_CORNER
+    | BOTTOM_SIDE
+    | BOTTOM_TEE
+    | BOX_SPIRAL
+    | CENTER_PTR
     | CIRCLE
     | CLOCK
-    | COFFEEMUG
+    | COFFEE_MUG
     | CROSS
-    | CROSSREVERSE
+    | CROSS_REVERSE
     | CROSSHAIR
-    | DIAMONDCROSS
+    | DIAMOND_CROSS
     | DOT
     | DOTBOX
-    | DOUBLEARROW
-    | DRAFTLARGE
-    | DRAFTSMALL
-    | DRAPEDBOX
+    | DOUBLE_ARROW
+    | DRAFT_LARGE
+    | DRAFT_SMALL
+    | DRAPED_BOX
     | EXCHANGE
     | FLEUR
     | GOBBLER
     | GUMBY
-    | HAND1
-    | HAND2
+    | HAND_1
+    | HAND_2
     | HEART
     | ICON
-    | IRONCROSS
-    | LEFTPTR
-    | LEFTSIDE
-    | LEFTTEE
+    | IRON_CROSS
+    | LEFT_PTR
+    | LEFT_SIDE
+    | LEFT_TEE
     | LEFTBUTTON
-    | LLANGLE
-    | LRANGLE
+    | LL_ANGLE
+    | LR_ANGLE
     | MAN
     | MIDDLEBUTTON
     | MOUSE
     | PENCIL
     | PIRATE
     | PLUS
-    | QUESTIONARROW
-    | RIGHTPTR
-    | RIGHTSIDE
-    | RIGHTTEE
+    | QUESTION_ARROW
+    | RIGHT_PTR
+    | RIGHT_SIDE
+    | RIGHT_TEE
     | RIGHTBUTTON
-    | RTLLOGO
+    | RTL_LOGO
     | SAILBOAT
-    | SBDOWNARROW
-    | SBHDOUBLEARROW
-    | SBLEFTARROW
-    | SBRIGHTARROW
-    | SBUPARROW
-    | SBVDOUBLEARROW
+    | SB_DOWN_ARROW
+    | SB_H_DOUBLE_ARROW
+    | SB_LEFT_ARROW
+    | SB_RIGHT_ARROW
+    | SB_UP_ARROW
+    | SB_V_DOUBLE_ARROW
     | SHUTTLE
     | SIZING
     | SPIDER
@@ -67,20 +67,20 @@ signature GDK_CURSOR_TYPE =
     | STAR
     | TARGET
     | TCROSS
-    | TOPLEFTARROW
-    | TOPLEFTCORNER
-    | TOPRIGHTCORNER
-    | TOPSIDE
-    | TOPTEE
+    | TOP_LEFT_ARROW
+    | TOP_LEFT_CORNER
+    | TOP_RIGHT_CORNER
+    | TOP_SIDE
+    | TOP_TEE
     | TREK
-    | ULANGLE
+    | UL_ANGLE
     | UMBRELLA
-    | URANGLE
+    | UR_ANGLE
     | WATCH
     | XTERM
-    | LASTCURSOR
-    | BLANKCURSOR
-    | CURSORISPIXMAP
+    | LAST_CURSOR
+    | BLANK_CURSOR
+    | CURSOR_IS_PIXMAP
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

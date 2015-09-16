@@ -1,8 +1,8 @@
 signature GTK_V_SCALE_CLASS =
   sig
-    type 'a vscale
-    type 'a scaleclass_t
-    type 'a t = 'a vscale scaleclass_t
+    type 'a v_scale
+    type 'a scale_class_t
+    type 'a t = 'a v_scale scale_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

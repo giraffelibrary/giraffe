@@ -1,11 +1,11 @@
 structure GtkButton :>
   GTK_BUTTON
     where type 'a class_t = 'a GtkButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type positiontype_t = GtkPositionType.t
-    where type reliefstyle_t = GtkReliefStyle.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type position_type_t = GtkPositionType.t
+    where type relief_style_t = GtkReliefStyle.t =
   struct
     local
       open PolyMLFFI
@@ -49,11 +49,11 @@ structure GtkButton :>
       val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type positiontype_t = GtkPositionType.t
-    type reliefstyle_t = GtkReliefStyle.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type position_type_t = GtkPositionType.t
+    type relief_style_t = GtkReliefStyle.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

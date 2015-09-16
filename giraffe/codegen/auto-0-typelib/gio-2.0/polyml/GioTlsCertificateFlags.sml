@@ -8,24 +8,24 @@ structure GioTlsCertificateFlags :>
       end
   end =
   struct
-    val UNKNOWNCA = 0w1
-    val BADIDENTITY = 0w2
-    val NOTACTIVATED = 0w4
+    val UNKNOWN_CA = 0w1
+    val BAD_IDENTITY = 0w2
+    val NOT_ACTIVATED = 0w4
     val EXPIRED = 0w8
     val REVOKED = 0w16
     val INSECURE = 0w32
-    val GENERICERROR = 0w64
-    val VALIDATEALL = 0w127
+    val GENERIC_ERROR = 0w64
+    val VALIDATE_ALL = 0w127
     val allFlags =
       [
-        UNKNOWNCA,
-        BADIDENTITY,
-        NOTACTIVATED,
+        UNKNOWN_CA,
+        BAD_IDENTITY,
+        NOT_ACTIVATED,
         EXPIRED,
         REVOKED,
         INSECURE,
-        GENERICERROR,
-        VALIDATEALL
+        GENERIC_ERROR,
+        VALIDATE_ALL
       ]
     structure BitFlags =
       Word32BitFlags (

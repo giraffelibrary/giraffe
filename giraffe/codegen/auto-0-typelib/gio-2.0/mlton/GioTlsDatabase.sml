@@ -1,14 +1,14 @@
 structure GioTlsDatabase :>
   GIO_TLS_DATABASE
     where type 'a class_t = 'a GioTlsDatabaseClass.t
-    where type tlsdatabaselookupflags_t = GioTlsDatabaseLookupFlags.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type tlsdatabaseverifyflags_t = GioTlsDatabaseVerifyFlags.t
-    where type 'a tlsinteractionclass_t = 'a GioTlsInteractionClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    where type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
-    where type tlscertificateflags_t = GioTlsCertificateFlags.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type tls_database_lookup_flags_t = GioTlsDatabaseLookupFlags.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type tls_database_verify_flags_t = GioTlsDatabaseVerifyFlags.t
+    where type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    where type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_tls_database_get_type" : unit -> GObjectType.C.val_;
     val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
@@ -152,14 +152,14 @@ structure GioTlsDatabase :>
               x3
             )
     type 'a class_t = 'a GioTlsDatabaseClass.t
-    type tlsdatabaselookupflags_t = GioTlsDatabaseLookupFlags.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type tlsdatabaseverifyflags_t = GioTlsDatabaseVerifyFlags.t
-    type 'a tlsinteractionclass_t = 'a GioTlsInteractionClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    type 'a tlscertificateclass_t = 'a GioTlsCertificateClass.t
-    type tlscertificateflags_t = GioTlsCertificateFlags.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type tls_database_lookup_flags_t = GioTlsDatabaseLookupFlags.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type tls_database_verify_flags_t = GioTlsDatabaseVerifyFlags.t
+    type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) createCertificateHandle_ (self & certificate)

@@ -3,7 +3,7 @@ signature GDK_VISIBILITY_STATE =
     datatype t =
       UNOBSCURED
     | PARTIAL
-    | FULLYOBSCURED
+    | FULLY_OBSCURED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

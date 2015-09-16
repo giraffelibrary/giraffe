@@ -4,8 +4,8 @@ signature GTK_SHADOW_TYPE =
       NONE
     | IN
     | OUT
-    | ETCHEDIN
-    | ETCHEDOUT
+    | ETCHED_IN
+    | ETCHED_OUT
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

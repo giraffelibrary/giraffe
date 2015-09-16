@@ -12,7 +12,7 @@ structure GtkResponseType :>
       NONE
     | REJECT
     | ACCEPT
-    | DELETEEVENT
+    | DELETE_EVENT
     | OK
     | CANCEL
     | CLOSE
@@ -30,7 +30,7 @@ structure GtkResponseType :>
             NONE => f ~1
           | REJECT => f ~2
           | ACCEPT => f ~3
-          | DELETEEVENT => f ~4
+          | DELETE_EVENT => f ~4
           | OK => f ~5
           | CANCEL => f ~6
           | CLOSE => f ~7
@@ -44,7 +44,7 @@ structure GtkResponseType :>
             ~1 => NONE
           | ~2 => REJECT
           | ~3 => ACCEPT
-          | ~4 => DELETEEVENT
+          | ~4 => DELETE_EVENT
           | ~5 => OK
           | ~6 => CANCEL
           | ~7 => CLOSE

@@ -3,8 +3,8 @@ structure GdkPixbufPixbufAnimationClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a pixbufanimation = unit
-    type 'a t = 'a pixbufanimation GObjectObjectClass.t
+    type 'a pixbuf_animation = unit
+    type 'a t = 'a pixbuf_animation GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -18,8 +18,8 @@ structure GdkEventProximityRecord :>
 
 
     datatype event =
-      PROXIMITYIN
-    | PROXIMITYOUT
+      PROXIMITY_IN
+    | PROXIMITY_OUT
 
 
     structure C = GdkEvent.C

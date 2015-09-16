@@ -5,23 +5,23 @@ structure AtkRelationType :>
   struct
     datatype t =
       NULL
-    | CONTROLLEDBY
-    | CONTROLLERFOR
-    | LABELFOR
-    | LABELLEDBY
-    | MEMBEROF
-    | NODECHILDOF
-    | FLOWSTO
-    | FLOWSFROM
-    | SUBWINDOWOF
+    | CONTROLLED_BY
+    | CONTROLLER_FOR
+    | LABEL_FOR
+    | LABELLED_BY
+    | MEMBER_OF
+    | NODE_CHILD_OF
+    | FLOWS_TO
+    | FLOWS_FROM
+    | SUBWINDOW_OF
     | EMBEDS
-    | EMBEDDEDBY
-    | POPUPFOR
-    | PARENTWINDOWOF
-    | DESCRIBEDBY
-    | DESCRIPTIONFOR
-    | NODEPARENTOF
-    | LASTDEFINED
+    | EMBEDDED_BY
+    | POPUP_FOR
+    | PARENT_WINDOW_OF
+    | DESCRIBED_BY
+    | DESCRIPTION_FOR
+    | NODE_PARENT_OF
+    | LAST_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -30,44 +30,44 @@ structure AtkRelationType :>
         fun withVal f =
           fn
             NULL => f 0
-          | CONTROLLEDBY => f 1
-          | CONTROLLERFOR => f 2
-          | LABELFOR => f 3
-          | LABELLEDBY => f 4
-          | MEMBEROF => f 5
-          | NODECHILDOF => f 6
-          | FLOWSTO => f 7
-          | FLOWSFROM => f 8
-          | SUBWINDOWOF => f 9
+          | CONTROLLED_BY => f 1
+          | CONTROLLER_FOR => f 2
+          | LABEL_FOR => f 3
+          | LABELLED_BY => f 4
+          | MEMBER_OF => f 5
+          | NODE_CHILD_OF => f 6
+          | FLOWS_TO => f 7
+          | FLOWS_FROM => f 8
+          | SUBWINDOW_OF => f 9
           | EMBEDS => f 10
-          | EMBEDDEDBY => f 11
-          | POPUPFOR => f 12
-          | PARENTWINDOWOF => f 13
-          | DESCRIBEDBY => f 14
-          | DESCRIPTIONFOR => f 15
-          | NODEPARENTOF => f 16
-          | LASTDEFINED => f 17
+          | EMBEDDED_BY => f 11
+          | POPUP_FOR => f 12
+          | PARENT_WINDOW_OF => f 13
+          | DESCRIBED_BY => f 14
+          | DESCRIPTION_FOR => f 15
+          | NODE_PARENT_OF => f 16
+          | LAST_DEFINED => f 17
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NULL
-          | 1 => CONTROLLEDBY
-          | 2 => CONTROLLERFOR
-          | 3 => LABELFOR
-          | 4 => LABELLEDBY
-          | 5 => MEMBEROF
-          | 6 => NODECHILDOF
-          | 7 => FLOWSTO
-          | 8 => FLOWSFROM
-          | 9 => SUBWINDOWOF
+          | 1 => CONTROLLED_BY
+          | 2 => CONTROLLER_FOR
+          | 3 => LABEL_FOR
+          | 4 => LABELLED_BY
+          | 5 => MEMBER_OF
+          | 6 => NODE_CHILD_OF
+          | 7 => FLOWS_TO
+          | 8 => FLOWS_FROM
+          | 9 => SUBWINDOW_OF
           | 10 => EMBEDS
-          | 11 => EMBEDDEDBY
-          | 12 => POPUPFOR
-          | 13 => PARENTWINDOWOF
-          | 14 => DESCRIBEDBY
-          | 15 => DESCRIPTIONFOR
-          | 16 => NODEPARENTOF
-          | 17 => LASTDEFINED
+          | 11 => EMBEDDED_BY
+          | 12 => POPUP_FOR
+          | 13 => PARENT_WINDOW_OF
+          | 14 => DESCRIBED_BY
+          | 15 => DESCRIPTION_FOR
+          | 16 => NODE_PARENT_OF
+          | 17 => LAST_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "atk_relation_type_get_type" : unit -> GObjectType.C.val_;

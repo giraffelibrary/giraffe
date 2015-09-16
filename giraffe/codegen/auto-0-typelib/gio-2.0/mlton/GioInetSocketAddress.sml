@@ -1,16 +1,16 @@
 structure GioInetSocketAddress :>
   GIO_INET_SOCKET_ADDRESS
     where type 'a class_t = 'a GioInetSocketAddressClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    where type 'a inetaddressclass_t = 'a GioInetAddressClass.t =
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a inet_address_class_t = 'a GioInetAddressClass.t =
   struct
     val getType_ = _import "g_inet_socket_address_get_type" : unit -> GObjectType.C.val_;
     val new_ = fn x1 & x2 => (_import "g_inet_socket_address_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt16.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getAddress_ = _import "g_inet_socket_address_get_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getPort_ = _import "g_inet_socket_address_get_port" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.C.val_;
     type 'a class_t = 'a GioInetSocketAddressClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    type 'a inetaddressclass_t = 'a GioInetAddressClass.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a inet_address_class_t = 'a GioInetAddressClass.t
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

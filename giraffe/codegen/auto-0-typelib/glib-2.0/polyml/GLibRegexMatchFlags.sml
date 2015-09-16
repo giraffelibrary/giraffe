@@ -13,10 +13,10 @@ structure GLibRegexMatchFlags :>
     val NOTEOL = 0w256
     val NOTEMPTY = 0w1024
     val PARTIAL = 0w32768
-    val NEWLINECR = 0w1048576
-    val NEWLINELF = 0w2097152
-    val NEWLINECRLF = 0w3145728
-    val NEWLINEANY = 0w4194304
+    val NEWLINE_CR = 0w1048576
+    val NEWLINE_LF = 0w2097152
+    val NEWLINE_CRLF = 0w3145728
+    val NEWLINE_ANY = 0w4194304
     val allFlags =
       [
         ANCHORED,
@@ -24,10 +24,10 @@ structure GLibRegexMatchFlags :>
         NOTEOL,
         NOTEMPTY,
         PARTIAL,
-        NEWLINECR,
-        NEWLINELF,
-        NEWLINECRLF,
-        NEWLINEANY
+        NEWLINE_CR,
+        NEWLINE_LF,
+        NEWLINE_CRLF,
+        NEWLINE_ANY
       ]
     structure BitFlags =
       Word32BitFlags (

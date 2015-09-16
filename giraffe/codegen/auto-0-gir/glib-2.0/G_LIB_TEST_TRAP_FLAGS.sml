@@ -4,9 +4,9 @@ signature G_LIB_TEST_TRAP_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val SILENCESTDOUT : t
-    val SILENCESTDERR : t
-    val INHERITSTDIN : t
+    val SILENCE_STDOUT : t
+    val SILENCE_STDERR : t
+    val INHERIT_STDIN : t
     structure C :
       sig
         type val_

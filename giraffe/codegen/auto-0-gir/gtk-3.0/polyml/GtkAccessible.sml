@@ -1,7 +1,7 @@
 structure GtkAccessible :>
   GTK_ACCESSIBLE
     where type 'a class_t = 'a GtkAccessibleClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure GtkAccessible :>
       val setWidget_ = call (load_sym libgtk "gtk_accessible_set_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAccessibleClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun connectWidgetDestroyed self = (GObjectObjectClass.C.withPtr ---> I) connectWidgetDestroyed_ self

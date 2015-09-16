@@ -1,7 +1,7 @@
 signature GTK_TOOL_SHELL_CLASS =
   sig
-    type 'a toolshell
-    type 'a t = 'a toolshell GObject.ObjectClass.t
+    type 'a tool_shell
+    type 'a t = 'a tool_shell GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

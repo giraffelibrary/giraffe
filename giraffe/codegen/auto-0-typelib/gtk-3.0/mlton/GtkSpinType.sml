@@ -4,13 +4,13 @@ structure GtkSpinType :>
   end =
   struct
     datatype t =
-      STEPFORWARD
-    | STEPBACKWARD
-    | PAGEFORWARD
-    | PAGEBACKWARD
+      STEP_FORWARD
+    | STEP_BACKWARD
+    | PAGE_FORWARD
+    | PAGE_BACKWARD
     | HOME
     | END
-    | USERDEFINED
+    | USER_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -18,23 +18,23 @@ structure GtkSpinType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            STEPFORWARD => f 0
-          | STEPBACKWARD => f 1
-          | PAGEFORWARD => f 2
-          | PAGEBACKWARD => f 3
+            STEP_FORWARD => f 0
+          | STEP_BACKWARD => f 1
+          | PAGE_FORWARD => f 2
+          | PAGE_BACKWARD => f 3
           | HOME => f 4
           | END => f 5
-          | USERDEFINED => f 6
+          | USER_DEFINED => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => STEPFORWARD
-          | 1 => STEPBACKWARD
-          | 2 => PAGEFORWARD
-          | 3 => PAGEBACKWARD
+            0 => STEP_FORWARD
+          | 1 => STEP_BACKWARD
+          | 2 => PAGE_FORWARD
+          | 3 => PAGE_BACKWARD
           | 4 => HOME
           | 5 => END
-          | 6 => USERDEFINED
+          | 6 => USER_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "gtk_spin_type_get_type" : unit -> GObjectType.C.val_;
@@ -47,6 +47,6 @@ structure GtkSpinType :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = STEPFORWARD
+    val null = STEP_FORWARD
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

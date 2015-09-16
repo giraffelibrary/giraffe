@@ -1,9 +1,9 @@
 signature GTK_SIZE_REQUEST_MODE =
   sig
     datatype t =
-      HEIGHTFORWIDTH
-    | WIDTHFORHEIGHT
-    | CONSTANTSIZE
+      HEIGHT_FOR_WIDTH
+    | WIDTH_FOR_HEIGHT
+    | CONSTANT_SIZE
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

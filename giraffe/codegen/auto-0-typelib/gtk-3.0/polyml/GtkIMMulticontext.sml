@@ -1,7 +1,7 @@
 structure GtkIMMulticontext :>
   GTK_I_M_MULTICONTEXT
     where type 'a class_t = 'a GtkIMMulticontextClass.t
-    where type 'a menushellclass_t = 'a GtkMenuShellClass.t =
+    where type 'a menu_shell_class_t = 'a GtkMenuShellClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,7 +13,7 @@ structure GtkIMMulticontext :>
       val setContextId_ = call (load_sym libgtk "gtk_im_multicontext_set_context_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkIMMulticontextClass.t
-    type 'a menushellclass_t = 'a GtkMenuShellClass.t
+    type 'a menu_shell_class_t = 'a GtkMenuShellClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIMMulticontextClass.C.fromPtr true) new_ ()

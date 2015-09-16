@@ -1,7 +1,7 @@
 signature GIO_TLS_PASSWORD_CLASS =
   sig
-    type 'a tlspassword
-    type 'a t = 'a tlspassword GObject.ObjectClass.t
+    type 'a tls_password
+    type 'a t = 'a tls_password GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

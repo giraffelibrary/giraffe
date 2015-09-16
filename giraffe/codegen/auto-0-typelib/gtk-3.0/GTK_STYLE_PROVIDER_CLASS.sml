@@ -1,7 +1,7 @@
 signature GTK_STYLE_PROVIDER_CLASS =
   sig
-    type 'a styleprovider
-    type 'a t = 'a styleprovider GObject.ObjectClass.t
+    type 'a style_provider
+    type 'a t = 'a style_provider GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

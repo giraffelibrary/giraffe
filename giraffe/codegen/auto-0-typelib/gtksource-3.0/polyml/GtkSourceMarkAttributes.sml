@@ -1,7 +1,7 @@
 structure GtkSourceMarkAttributes :>
   GTK_SOURCE_MARK_ATTRIBUTES
     where type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    where type 'a markclass_t = 'a GtkSourceMarkClass.t =
+    where type 'a mark_class_t = 'a GtkSourceMarkClass.t =
   struct
     local
       open PolyMLFFI
@@ -30,7 +30,7 @@ structure GtkSourceMarkAttributes :>
       val setStockId_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_stock_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    type 'a markclass_t = 'a GtkSourceMarkClass.t
+    type 'a mark_class_t = 'a GtkSourceMarkClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceMarkAttributesClass.C.fromPtr true) new_ ()

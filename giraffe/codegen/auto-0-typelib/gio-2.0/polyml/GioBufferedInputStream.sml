@@ -1,9 +1,9 @@
 structure GioBufferedInputStream :>
   GIO_BUFFERED_INPUT_STREAM
     where type 'a class_t = 'a GioBufferedInputStreamClass.t
-    where type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t =
+    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
   struct
     local
       open PolyMLFFI
@@ -41,9 +41,9 @@ structure GioBufferedInputStream :>
       val setBufferSize_ = call (load_sym libgio "g_buffered_input_stream_set_buffer_size") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioBufferedInputStreamClass.t
-    type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream

@@ -5,11 +5,11 @@ signature G_LIB_TRAVERSE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val LEAVES : t
-    val NONLEAVES : t
+    val NON_LEAVES : t
     val ALL : t
     val MASK : t
     val LEAFS : t
-    val NONLEAFS : t
+    val NON_LEAFS : t
     structure C :
       sig
         type val_

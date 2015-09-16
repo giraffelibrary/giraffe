@@ -5,8 +5,8 @@ signature GIO_FILE_MONITOR_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val WATCHMOUNTS : t
-    val SENDMOVED : t
+    val WATCH_MOUNTS : t
+    val SEND_MOVED : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

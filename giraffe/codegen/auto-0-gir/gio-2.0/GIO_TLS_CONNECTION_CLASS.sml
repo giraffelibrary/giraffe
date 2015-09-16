@@ -1,8 +1,8 @@
 signature GIO_TLS_CONNECTION_CLASS =
   sig
-    type 'a tlsconnection
-    type 'a iostreamclass_t
-    type 'a t = 'a tlsconnection iostreamclass_t
+    type 'a tls_connection
+    type 'a i_o_stream_class_t
+    type 'a t = 'a tls_connection i_o_stream_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

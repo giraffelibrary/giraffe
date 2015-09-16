@@ -13,15 +13,15 @@ structure GLibRegexCompileFlags :>
     val DOTALL = 0w4
     val EXTENDED = 0w8
     val ANCHORED = 0w16
-    val DOLLARENDONLY = 0w32
+    val DOLLAR_ENDONLY = 0w32
     val UNGREEDY = 0w512
     val RAW = 0w2048
-    val NOAUTOCAPTURE = 0w4096
+    val NO_AUTO_CAPTURE = 0w4096
     val OPTIMIZE = 0w8192
     val DUPNAMES = 0w524288
-    val NEWLINECR = 0w1048576
-    val NEWLINELF = 0w2097152
-    val NEWLINECRLF = 0w3145728
+    val NEWLINE_CR = 0w1048576
+    val NEWLINE_LF = 0w2097152
+    val NEWLINE_CRLF = 0w3145728
     val allFlags =
       [
         CASELESS,
@@ -29,15 +29,15 @@ structure GLibRegexCompileFlags :>
         DOTALL,
         EXTENDED,
         ANCHORED,
-        DOLLARENDONLY,
+        DOLLAR_ENDONLY,
         UNGREEDY,
         RAW,
-        NOAUTOCAPTURE,
+        NO_AUTO_CAPTURE,
         OPTIMIZE,
         DUPNAMES,
-        NEWLINECR,
-        NEWLINELF,
-        NEWLINECRLF
+        NEWLINE_CR,
+        NEWLINE_LF,
+        NEWLINE_CRLF
       ]
     structure BitFlags =
       Word32BitFlags (

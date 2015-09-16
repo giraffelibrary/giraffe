@@ -12,13 +12,13 @@ structure GdkEventOwnerChangeRecord :>
       end
   end =
   struct
-    type ownerchange = unit
+    type owner_change = unit
     type 'a event_t = 'a GdkEvent.t
-    type t = ownerchange event_t
+    type t = owner_change event_t
 
 
     datatype event =
-      OWNERCHANGE
+      OWNER_CHANGE
 
 
     structure C = GdkEvent.C

@@ -1,7 +1,7 @@
 signature GIO_LOADABLE_ICON_CLASS =
   sig
-    type 'a loadableicon
-    type 'a t = 'a loadableicon GObject.ObjectClass.t
+    type 'a loadable_icon
+    type 'a t = 'a loadable_icon GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

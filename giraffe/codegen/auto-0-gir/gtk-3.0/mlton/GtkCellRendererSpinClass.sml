@@ -1,12 +1,12 @@
 structure GtkCellRendererSpinClass :>
   GTK_CELL_RENDERER_SPIN_CLASS
-    where type 'a cellrenderertextclass_t = 'a GtkCellRendererTextClass.t
+    where type 'a cell_renderer_text_class_t = 'a GtkCellRendererTextClass.t
     where type C.notnull = GtkCellRendererTextClass.C.notnull
     where type 'a C.p = 'a GtkCellRendererTextClass.C.p =
   struct
-    type 'a cellrendererspin = unit
-    type 'a cellrenderertextclass_t = 'a GtkCellRendererTextClass.t
-    type 'a t = 'a cellrendererspin cellrenderertextclass_t
+    type 'a cell_renderer_spin = unit
+    type 'a cell_renderer_text_class_t = 'a GtkCellRendererTextClass.t
+    type 'a t = 'a cell_renderer_spin cell_renderer_text_class_t
     fun toBase obj = obj
     val t = GtkCellRendererTextClass.t
     val tOpt = GtkCellRendererTextClass.tOpt

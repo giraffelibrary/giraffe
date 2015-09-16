@@ -11,17 +11,17 @@ structure GioSettingsBindFlags :>
     val DEFAULT = 0w0
     val GET = 0w1
     val SET = 0w2
-    val NOSENSITIVITY = 0w4
-    val GETNOCHANGES = 0w8
-    val INVERTBOOLEAN = 0w16
+    val NO_SENSITIVITY = 0w4
+    val GET_NO_CHANGES = 0w8
+    val INVERT_BOOLEAN = 0w16
     val allFlags =
       [
         DEFAULT,
         GET,
         SET,
-        NOSENSITIVITY,
-        GETNOCHANGES,
-        INVERTBOOLEAN
+        NO_SENSITIVITY,
+        GET_NO_CHANGES,
+        INVERT_BOOLEAN
       ]
     structure BitFlags =
       Word32BitFlags (

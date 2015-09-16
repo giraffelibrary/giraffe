@@ -1,10 +1,10 @@
 structure GdkScreen :>
   GDK_SCREEN
     where type 'a class_t = 'a GdkScreenClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t
-    where type rectanglerecord_t = GdkRectangleRecord.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type 'a visualclass_t = 'a GdkVisualClass.t =
+    where type 'a display_class_t = 'a GdkDisplayClass.t
+    where type rectangle_record_t = GdkRectangleRecord.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type 'a visual_class_t = 'a GdkVisualClass.t =
   struct
     val getType_ = _import "gdk_screen_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "gdk_screen_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -88,10 +88,10 @@ structure GdkScreen :>
     val setFontOptions_ = fn x1 & x2 => (_import "gdk_screen_set_font_options" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit CairoFontOptionsRecord.C.p -> unit;) (x1, x2)
     val setResolution_ = fn x1 & x2 => (_import "gdk_screen_set_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GdkScreenClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
-    type rectanglerecord_t = GdkRectangleRecord.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type 'a visualclass_t = 'a GdkVisualClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
+    type rectangle_record_t = GdkRectangleRecord.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type 'a visual_class_t = 'a GdkVisualClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkScreenClass.C.fromPtr false) getDefault_ ()

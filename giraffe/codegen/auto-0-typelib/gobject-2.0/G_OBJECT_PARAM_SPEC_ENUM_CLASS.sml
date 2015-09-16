@@ -1,8 +1,8 @@
 signature G_OBJECT_PARAM_SPEC_ENUM_CLASS =
   sig
-    type 'a paramspecenum
-    type 'a paramspecclass_t
-    type 'a t = 'a paramspecenum paramspecclass_t
+    type 'a param_spec_enum
+    type 'a param_spec_class_t
+    type 'a t = 'a param_spec_enum param_spec_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

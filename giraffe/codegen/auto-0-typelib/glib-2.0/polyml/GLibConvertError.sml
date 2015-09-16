@@ -2,7 +2,7 @@ structure GLibConvertError :>
   sig
     include
       G_LIB_CONVERT_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -11,12 +11,12 @@ structure GLibConvertError :>
   end =
   struct
     datatype t =
-      NOCONVERSION
-    | ILLEGALSEQUENCE
+      NO_CONVERSION
+    | ILLEGAL_SEQUENCE
     | FAILED
-    | PARTIALINPUT
-    | BADURI
-    | NOTABSOLUTEPATH
+    | PARTIAL_INPUT
+    | BAD_URI
+    | NOT_ABSOLUTE_PATH
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -24,21 +24,21 @@ structure GLibConvertError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NOCONVERSION => f 0
-          | ILLEGALSEQUENCE => f 1
+            NO_CONVERSION => f 0
+          | ILLEGAL_SEQUENCE => f 1
           | FAILED => f 2
-          | PARTIALINPUT => f 3
-          | BADURI => f 4
-          | NOTABSOLUTEPATH => f 5
+          | PARTIAL_INPUT => f 3
+          | BAD_URI => f 4
+          | NOT_ABSOLUTE_PATH => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NOCONVERSION
-          | 1 => ILLEGALSEQUENCE
+            0 => NO_CONVERSION
+          | 1 => ILLEGAL_SEQUENCE
           | 2 => FAILED
-          | 3 => PARTIALINPUT
-          | 4 => BADURI
-          | 5 => NOTABSOLUTEPATH
+          | 3 => PARTIAL_INPUT
+          | 4 => BAD_URI
+          | 5 => NOT_ABSOLUTE_PATH
           | n => raise Value n
       end
     structure PolyML =
@@ -47,7 +47,7 @@ structure GLibConvertError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

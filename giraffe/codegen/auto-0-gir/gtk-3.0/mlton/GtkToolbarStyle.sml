@@ -7,7 +7,7 @@ structure GtkToolbarStyle :>
       ICONS
     | TEXT
     | BOTH
-    | BOTHHORIZ
+    | BOTH_HORIZ
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -18,14 +18,14 @@ structure GtkToolbarStyle :>
             ICONS => f 0
           | TEXT => f 1
           | BOTH => f 2
-          | BOTHHORIZ => f 3
+          | BOTH_HORIZ => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => ICONS
           | 1 => TEXT
           | 2 => BOTH
-          | 3 => BOTHHORIZ
+          | 3 => BOTH_HORIZ
           | n => raise Value n
       end
     val getType_ = _import "gtk_toolbar_style_get_type" : unit -> GObjectType.C.val_;

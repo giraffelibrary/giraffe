@@ -1,12 +1,12 @@
 structure GioMemoryInputStreamClass :>
   GIO_MEMORY_INPUT_STREAM_CLASS
-    where type 'a inputstreamclass_t = 'a GioInputStreamClass.t
+    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
     where type C.notnull = GioInputStreamClass.C.notnull
     where type 'a C.p = 'a GioInputStreamClass.C.p =
   struct
-    type 'a memoryinputstream = unit
-    type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    type 'a t = 'a memoryinputstream inputstreamclass_t
+    type 'a memory_input_stream = unit
+    type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    type 'a t = 'a memory_input_stream input_stream_class_t
     fun toBase obj = obj
     val t = GioInputStreamClass.t
     val tOpt = GioInputStreamClass.tOpt

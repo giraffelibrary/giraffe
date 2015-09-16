@@ -1,8 +1,8 @@
 structure GtkIconFactory :>
   GTK_ICON_FACTORY
     where type 'a class_t = 'a GtkIconFactoryClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type iconsetrecord_t = GtkIconSetRecord.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type icon_set_record_t = GtkIconSetRecord.t =
   struct
     local
       open PolyMLFFI
@@ -23,8 +23,8 @@ structure GtkIconFactory :>
       val removeDefault_ = call (load_sym libgtk "gtk_icon_factory_remove_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkIconFactoryClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type iconsetrecord_t = GtkIconSetRecord.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type icon_set_record_t = GtkIconSetRecord.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

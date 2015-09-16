@@ -1,7 +1,7 @@
 signature GIO_I_O_MODULE_CLASS =
   sig
-    type 'a iomodule
-    type 'a t = 'a iomodule GObject.TypeModuleClass.t
+    type 'a i_o_module
+    type 'a t = 'a i_o_module GObject.TypeModuleClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

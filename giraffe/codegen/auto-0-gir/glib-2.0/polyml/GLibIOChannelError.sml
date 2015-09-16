@@ -2,7 +2,7 @@ structure GLibIOChannelError :>
   sig
     include
       G_LIB_I_O_CHANNEL_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -56,7 +56,7 @@ structure GLibIOChannelError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

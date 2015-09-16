@@ -1,7 +1,7 @@
 structure GtkAboutDialog :>
   GTK_ABOUT_DIALOG
     where type 'a class_t = 'a GtkAboutDialogClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
     where type license_t = GtkLicense.t =
   struct
     val getType_ = _import "gtk_about_dialog_get_type" : unit -> GObjectType.C.val_;
@@ -157,7 +157,7 @@ structure GtkAboutDialog :>
             )
     val setWrapLicense_ = fn x1 & x2 => (_import "gtk_about_dialog_set_wrap_license" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkAboutDialogClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type license_t = GtkLicense.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self

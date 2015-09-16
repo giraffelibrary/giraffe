@@ -4,9 +4,9 @@ signature GTK_TEXT_SEARCH_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val VISIBLEONLY : t
-    val TEXTONLY : t
-    val CASEINSENSITIVE : t
+    val VISIBLE_ONLY : t
+    val TEXT_ONLY : t
+    val CASE_INSENSITIVE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

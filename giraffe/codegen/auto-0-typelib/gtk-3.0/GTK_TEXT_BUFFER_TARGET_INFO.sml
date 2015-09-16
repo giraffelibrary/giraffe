@@ -1,8 +1,8 @@
 signature GTK_TEXT_BUFFER_TARGET_INFO =
   sig
     datatype t =
-      BUFFERCONTENTS
-    | RICHTEXT
+      BUFFER_CONTENTS
+    | RICH_TEXT
     | TEXT
     val null : t
     val t : (t, t) GObject.Value.accessor

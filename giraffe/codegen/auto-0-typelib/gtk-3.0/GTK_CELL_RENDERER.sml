@@ -1,28 +1,28 @@
 signature GTK_CELL_RENDERER =
   sig
     type 'a class_t
-    type requisitionrecord_t
-    type sizerequestmode_t
-    type stateflags_t
-    type cellrendererstate_t
-    type 'a widgetclass_t
-    type 'a celleditableclass_t
-    type cellrenderermode_t
+    type requisition_record_t
+    type size_request_mode_t
+    type state_flags_t
+    type cell_renderer_state_t
+    type 'a widget_class_t
+    type 'a cell_editable_class_t
+    type cell_renderer_mode_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val activate :
       'a class_t
        -> 'b Gdk.Event.t
-       -> 'c widgetclass_t
+       -> 'c widget_class_t
        -> string
        -> Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
-       -> cellrendererstate_t
+       -> cell_renderer_state_t
        -> bool
     val getAlignedArea :
       'a class_t
-       -> 'b widgetclass_t
-       -> cellrendererstate_t
+       -> 'b widget_class_t
+       -> cell_renderer_state_t
        -> Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
     val getAlignment : 'a class_t -> real * real
@@ -30,42 +30,42 @@ signature GTK_CELL_RENDERER =
     val getPadding : 'a class_t -> LargeInt.int * LargeInt.int
     val getPreferredHeight :
       'a class_t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
       'a class_t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getPreferredSize :
       'a class_t
-       -> 'b widgetclass_t
-       -> requisitionrecord_t * requisitionrecord_t
+       -> 'b widget_class_t
+       -> requisition_record_t * requisition_record_t
     val getPreferredWidth :
       'a class_t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> LargeInt.int * LargeInt.int
     val getPreferredWidthForHeight :
       'a class_t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
-    val getRequestMode : 'a class_t -> sizerequestmode_t
+    val getRequestMode : 'a class_t -> size_request_mode_t
     val getSensitive : 'a class_t -> bool
     val getState :
       'a class_t
-       -> 'b widgetclass_t
-       -> cellrendererstate_t
-       -> stateflags_t
+       -> 'b widget_class_t
+       -> cell_renderer_state_t
+       -> state_flags_t
     val getVisible : 'a class_t -> bool
     val isActivatable : 'a class_t -> bool
     val render :
       'a class_t
        -> Cairo.ContextRecord.t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
-       -> cellrendererstate_t
+       -> cell_renderer_state_t
        -> unit
     val setAlignment :
       'a class_t
@@ -93,19 +93,19 @@ signature GTK_CELL_RENDERER =
     val startEditing :
       'a class_t
        -> 'b Gdk.Event.t
-       -> 'c widgetclass_t
+       -> 'c widget_class_t
        -> string
        -> Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
-       -> cellrendererstate_t
-       -> base celleditableclass_t
+       -> cell_renderer_state_t
+       -> base cell_editable_class_t
     val stopEditing :
       'a class_t
        -> bool
        -> unit
     val editingCanceledSig : (unit -> unit) -> 'a class_t Signal.signal
     val editingStartedSig :
-      (base celleditableclass_t
+      (base cell_editable_class_t
         -> string
         -> unit)
        -> 'a class_t Signal.signal
@@ -117,7 +117,7 @@ signature GTK_CELL_RENDERER =
     val heightProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val isExpandedProp : ('a class_t, bool, bool) Property.readwrite
     val isExpanderProp : ('a class_t, bool, bool) Property.readwrite
-    val modeProp : ('a class_t, cellrenderermode_t, cellrenderermode_t) Property.readwrite
+    val modeProp : ('a class_t, cell_renderer_mode_t, cell_renderer_mode_t) Property.readwrite
     val sensitiveProp : ('a class_t, bool, bool) Property.readwrite
     val visibleProp : ('a class_t, bool, bool) Property.readwrite
     val widthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite

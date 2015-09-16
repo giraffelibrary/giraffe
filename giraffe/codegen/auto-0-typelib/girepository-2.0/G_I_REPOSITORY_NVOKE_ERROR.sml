@@ -2,8 +2,8 @@ signature G_I_REPOSITORY_NVOKE_ERROR =
   sig
     datatype t =
       FAILED
-    | SYMBOLNOTFOUND
-    | ARGUMENTMISMATCH
+    | SYMBOL_NOT_FOUND
+    | ARGUMENT_MISMATCH
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     structure C :

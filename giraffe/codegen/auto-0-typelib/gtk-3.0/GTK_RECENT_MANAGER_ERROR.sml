@@ -1,10 +1,10 @@
 signature GTK_RECENT_MANAGER_ERROR =
   sig
     datatype t =
-      NOTFOUND
-    | INVALIDURI
-    | INVALIDENCODING
-    | NOTREGISTERED
+      NOT_FOUND
+    | INVALID_URI
+    | INVALID_ENCODING
+    | NOT_REGISTERED
     | READ
     | WRITE
     | UNKNOWN

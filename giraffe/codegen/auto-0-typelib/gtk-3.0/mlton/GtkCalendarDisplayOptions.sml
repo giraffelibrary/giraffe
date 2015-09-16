@@ -3,18 +3,18 @@ structure GtkCalendarDisplayOptions :>
     include GTK_CALENDAR_DISPLAY_OPTIONS
   end =
   struct
-    val SHOWHEADING = 0w1
-    val SHOWDAYNAMES = 0w2
-    val NOMONTHCHANGE = 0w4
-    val SHOWWEEKNUMBERS = 0w8
-    val SHOWDETAILS = 0w32
+    val SHOW_HEADING = 0w1
+    val SHOW_DAY_NAMES = 0w2
+    val NO_MONTH_CHANGE = 0w4
+    val SHOW_WEEK_NUMBERS = 0w8
+    val SHOW_DETAILS = 0w32
     val allFlags =
       [
-        SHOWHEADING,
-        SHOWDAYNAMES,
-        NOMONTHCHANGE,
-        SHOWWEEKNUMBERS,
-        SHOWDETAILS
+        SHOW_HEADING,
+        SHOW_DAY_NAMES,
+        NO_MONTH_CHANGE,
+        SHOW_WEEK_NUMBERS,
+        SHOW_DETAILS
       ]
     structure BitFlags =
       Word32BitFlags (

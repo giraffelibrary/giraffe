@@ -3,7 +3,7 @@ signature GIO_FILE_ATTRIBUTE_STATUS =
     datatype t =
       UNSET
     | SET
-    | ERRORSETTING
+    | ERROR_SETTING
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

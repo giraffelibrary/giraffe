@@ -1,8 +1,8 @@
 structure GtkWindowGroup :>
   GTK_WINDOW_GROUP
     where type 'a class_t = 'a GtkWindowGroupClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a window_class_t = 'a GtkWindowClass.t =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,8 @@ structure GtkWindowGroup :>
       val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkWindowGroupClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWindowGroupClass.C.fromPtr true) new_ ()

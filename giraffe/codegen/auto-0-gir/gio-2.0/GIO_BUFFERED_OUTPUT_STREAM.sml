@@ -1,12 +1,12 @@
 signature GIO_BUFFERED_OUTPUT_STREAM =
   sig
     type 'a class_t
-    type 'a outputstreamclass_t
+    type 'a output_stream_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
-    val new : 'a outputstreamclass_t -> base class_t
+    val new : 'a output_stream_class_t -> base class_t
     val newSized :
-      'a outputstreamclass_t
+      'a output_stream_class_t
        -> LargeInt.int
        -> base class_t
     val getAutoGrow : 'a class_t -> bool

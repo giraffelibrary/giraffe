@@ -1,13 +1,13 @@
 structure GtkWindow :>
   GTK_WINDOW
     where type 'a class_t = 'a GtkWindowClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a windowgroupclass_t = 'a GtkWindowGroupClass.t
-    where type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a applicationclass_t = 'a GtkApplicationClass.t
-    where type windowtype_t = GtkWindowType.t
-    where type windowposition_t = GtkWindowPosition.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a window_group_class_t = 'a GtkWindowGroupClass.t
+    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a application_class_t = 'a GtkApplicationClass.t
+    where type window_type_t = GtkWindowType.t
+    where type window_position_t = GtkWindowPosition.t =
   struct
     local
       open PolyMLFFI
@@ -237,13 +237,13 @@ structure GtkWindow :>
       val unstick_ = call (load_sym libgtk "gtk_window_unstick") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkWindowClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a windowgroupclass_t = 'a GtkWindowGroupClass.t
-    type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a applicationclass_t = 'a GtkApplicationClass.t
-    type windowtype_t = GtkWindowType.t
-    type windowposition_t = GtkWindowPosition.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a window_group_class_t = 'a GtkWindowGroupClass.t
+    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a application_class_t = 'a GtkApplicationClass.t
+    type window_type_t = GtkWindowType.t
+    type window_position_t = GtkWindowPosition.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

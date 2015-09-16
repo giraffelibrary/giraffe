@@ -2,9 +2,9 @@ structure GObjectObject :>
   G_OBJECT_OBJECT
     where type 'a class_t = 'a GObjectObjectClass.t
     where type type_t = GObjectType.t
-    where type valuerecord_t = GObjectValueRecord.t
-    where type closurerecord_t = GObjectClosureRecord.t
-    where type 'a paramspecclass_t = 'a GObjectParamSpecClass.t =
+    where type value_record_t = GObjectValueRecord.t
+    where type closure_record_t = GObjectClosureRecord.t
+    where type 'a param_spec_class_t = 'a GObjectParamSpecClass.t =
   struct
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.C.val_;
     val forceFloating_ = _import "g_object_force_floating" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -69,9 +69,9 @@ structure GObjectObject :>
     val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GObjectObjectClass.t
     type type_t = GObjectType.t
-    type valuerecord_t = GObjectValueRecord.t
-    type closurerecord_t = GObjectClosureRecord.t
-    type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
+    type value_record_t = GObjectValueRecord.t
+    type closure_record_t = GObjectClosureRecord.t
+    type 'a param_spec_class_t = 'a GObjectParamSpecClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forceFloating self = (GObjectObjectClass.C.withPtr ---> I) forceFloating_ self

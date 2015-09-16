@@ -1,9 +1,9 @@
 structure GtkStyleProperties :>
   GTK_STYLE_PROPERTIES
     where type 'a class_t = 'a GtkStylePropertiesClass.t
-    where type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
-    where type symboliccolorrecord_t = GtkSymbolicColorRecord.t
-    where type stateflags_t = GtkStateFlags.t =
+    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    where type symbolic_color_record_t = GtkSymbolicColorRecord.t
+    where type state_flags_t = GtkStateFlags.t =
   struct
     local
       open PolyMLFFI
@@ -47,9 +47,9 @@ structure GtkStyleProperties :>
           )
     end
     type 'a class_t = 'a GtkStylePropertiesClass.t
-    type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
-    type symboliccolorrecord_t = GtkSymbolicColorRecord.t
-    type stateflags_t = GtkStateFlags.t
+    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    type symbolic_color_record_t = GtkSymbolicColorRecord.t
+    type state_flags_t = GtkStateFlags.t
     type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

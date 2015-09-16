@@ -1,7 +1,7 @@
 structure AtkHypertext :>
   ATK_HYPERTEXT
     where type 'a class_t = 'a AtkHypertextClass.t
-    where type 'a hyperlinkclass_t = 'a AtkHyperlinkClass.t =
+    where type 'a hyperlink_class_t = 'a AtkHyperlinkClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure AtkHypertext :>
       val getNLinks_ = call (load_sym libatk "atk_hypertext_get_n_links") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
     end
     type 'a class_t = 'a AtkHypertextClass.t
-    type 'a hyperlinkclass_t = 'a AtkHyperlinkClass.t
+    type 'a hyperlink_class_t = 'a AtkHyperlinkClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLink self linkIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkHyperlinkClass.C.fromPtr false) getLink_ (self & linkIndex)

@@ -10,9 +10,9 @@ structure GdkGrabStatus :>
   struct
     datatype t =
       SUCCESS
-    | ALREADYGRABBED
-    | INVALIDTIME
-    | NOTVIEWABLE
+    | ALREADY_GRABBED
+    | INVALID_TIME
+    | NOT_VIEWABLE
     | FROZEN
     structure C =
       struct
@@ -22,17 +22,17 @@ structure GdkGrabStatus :>
         fun withVal f =
           fn
             SUCCESS => f 0
-          | ALREADYGRABBED => f 1
-          | INVALIDTIME => f 2
-          | NOTVIEWABLE => f 3
+          | ALREADY_GRABBED => f 1
+          | INVALID_TIME => f 2
+          | NOT_VIEWABLE => f 3
           | FROZEN => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => SUCCESS
-          | 1 => ALREADYGRABBED
-          | 2 => INVALIDTIME
-          | 3 => NOTVIEWABLE
+          | 1 => ALREADY_GRABBED
+          | 2 => INVALID_TIME
+          | 3 => NOT_VIEWABLE
           | 4 => FROZEN
           | n => raise Value n
       end

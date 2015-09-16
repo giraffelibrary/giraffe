@@ -1,8 +1,8 @@
 signature GTK_OFFSCREEN_WINDOW_CLASS =
   sig
-    type 'a offscreenwindow
-    type 'a windowclass_t
-    type 'a t = 'a offscreenwindow windowclass_t
+    type 'a offscreen_window
+    type 'a window_class_t
+    type 'a t = 'a offscreen_window window_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

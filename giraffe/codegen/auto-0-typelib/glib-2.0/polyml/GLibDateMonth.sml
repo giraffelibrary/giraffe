@@ -9,7 +9,7 @@ structure GLibDateMonth :>
   end =
   struct
     datatype t =
-      BADMONTH
+      BAD_MONTH
     | JANUARY
     | FEBRUARY
     | MARCH
@@ -29,7 +29,7 @@ structure GLibDateMonth :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BADMONTH => f 0
+            BAD_MONTH => f 0
           | JANUARY => f 1
           | FEBRUARY => f 2
           | MARCH => f 3
@@ -45,7 +45,7 @@ structure GLibDateMonth :>
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => BADMONTH
+            0 => BAD_MONTH
           | 1 => JANUARY
           | 2 => FEBRUARY
           | 3 => MARCH
@@ -65,5 +65,5 @@ structure GLibDateMonth :>
         val VAL = FFI.Enum.PolyML.VAL
         val REF = FFI.Enum.PolyML.REF
       end
-    val null = BADMONTH
+    val null = BAD_MONTH
   end

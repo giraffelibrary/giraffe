@@ -1,7 +1,7 @@
 structure GtkCellRendererSpin :>
   GTK_CELL_RENDERER_SPIN
     where type 'a class_t = 'a GtkCellRendererSpinClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t =
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t =
   struct
     local
       open PolyMLFFI
@@ -10,7 +10,7 @@ structure GtkCellRendererSpin :>
       val new_ = call (load_sym libgtk "gtk_cell_renderer_spin_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkCellRendererSpinClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererSpinClass.C.fromPtr false) new_ ()

@@ -18,10 +18,10 @@ structure GdkEventButtonRecord :>
 
 
     datatype event =
-      BUTTONPRESS
-    | DOUBLEBUTTONPRESS
-    | TRIPLEBUTTONPRESS
-    | BUTTONRELEASE
+      BUTTON_PRESS
+    | DOUBLE_BUTTON_PRESS
+    | TRIPLE_BUTTON_PRESS
+    | BUTTON_RELEASE
 
 
     structure C = GdkEvent.C

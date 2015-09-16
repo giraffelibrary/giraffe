@@ -1,7 +1,7 @@
 signature PANGO_FONT_FAMILY_CLASS =
   sig
-    type 'a fontfamily
-    type 'a t = 'a fontfamily GObject.ObjectClass.t
+    type 'a font_family
+    type 'a t = 'a font_family GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,7 +1,7 @@
 signature ATK_STATE_SET_CLASS =
   sig
-    type 'a stateset
-    type 'a t = 'a stateset GObject.ObjectClass.t
+    type 'a state_set
+    type 'a t = 'a state_set GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

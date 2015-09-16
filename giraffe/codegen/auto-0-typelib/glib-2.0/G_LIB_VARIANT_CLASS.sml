@@ -3,22 +3,22 @@ signature G_LIB_VARIANT_CLASS =
     datatype t =
       BOOLEAN
     | BYTE
-    | INT16
-    | UINT16
-    | INT32
-    | UINT32
-    | INT64
-    | UINT64
+    | INT_16
+    | UINT_16
+    | INT_32
+    | UINT_32
+    | INT_64
+    | UINT_64
     | HANDLE
     | DOUBLE
     | STRING
-    | OBJECTPATH
+    | OBJECT_PATH
     | SIGNATURE
     | VARIANT
     | MAYBE
     | ARRAY
     | TUPLE
-    | DICTENTRY
+    | DICT_ENTRY
     val null : t
     structure C :
       sig

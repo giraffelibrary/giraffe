@@ -1,12 +1,12 @@
 structure GtkStyle :>
   GTK_STYLE
     where type 'a class_t = 'a GtkStyleClass.t
-    where type iconsetrecord_t = GtkIconSetRecord.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type textdirection_t = GtkTextDirection.t
-    where type iconsourcerecord_t = GtkIconSourceRecord.t
-    where type statetype_t = GtkStateType.t
-    where type 'a stylecontextclass_t = 'a GtkStyleContextClass.t =
+    where type icon_set_record_t = GtkIconSetRecord.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type text_direction_t = GtkTextDirection.t
+    where type icon_source_record_t = GtkIconSourceRecord.t
+    where type state_type_t = GtkStateType.t
+    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
   struct
     local
       open PolyMLFFI
@@ -59,12 +59,12 @@ structure GtkStyle :>
           )
     end
     type 'a class_t = 'a GtkStyleClass.t
-    type iconsetrecord_t = GtkIconSetRecord.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type textdirection_t = GtkTextDirection.t
-    type iconsourcerecord_t = GtkIconSourceRecord.t
-    type statetype_t = GtkStateType.t
-    type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type icon_set_record_t = GtkIconSetRecord.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type text_direction_t = GtkTextDirection.t
+    type icon_source_record_t = GtkIconSourceRecord.t
+    type state_type_t = GtkStateType.t
+    type 'a style_context_class_t = 'a GtkStyleContextClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun applyDefaultBackground self cr window stateType x y width height =

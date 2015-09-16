@@ -6,7 +6,7 @@ structure GdkVisibilityState :>
     datatype t =
       UNOBSCURED
     | PARTIAL
-    | FULLYOBSCURED
+    | FULLY_OBSCURED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -16,13 +16,13 @@ structure GdkVisibilityState :>
           fn
             UNOBSCURED => f 0
           | PARTIAL => f 1
-          | FULLYOBSCURED => f 2
+          | FULLY_OBSCURED => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => UNOBSCURED
           | 1 => PARTIAL
-          | 2 => FULLYOBSCURED
+          | 2 => FULLY_OBSCURED
           | n => raise Value n
       end
     val getType_ = _import "gdk_visibility_state_get_type" : unit -> GObjectType.C.val_;

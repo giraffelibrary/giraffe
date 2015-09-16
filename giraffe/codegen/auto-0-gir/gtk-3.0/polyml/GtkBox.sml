@@ -1,11 +1,11 @@
 structure GtkBox :>
   GTK_BOX
     where type 'a class_t = 'a GtkBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
     where type orientation_t = GtkOrientation.t
-    where type packtype_t = GtkPackType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type pack_type_t = GtkPackType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -68,11 +68,11 @@ structure GtkBox :>
       val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
     type orientation_t = GtkOrientation.t
-    type packtype_t = GtkPackType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type pack_type_t = GtkPackType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

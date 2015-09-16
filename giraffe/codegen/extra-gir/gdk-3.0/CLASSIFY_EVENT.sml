@@ -9,63 +9,63 @@ signature CLASSIFY_EVENT =
   sig
     type 'a event_t
 
-    type eventanyrecord_t
-    type eventkeyrecord_t
-    type eventbuttonrecord_t
-    type eventscrollrecord_t
-    type eventmotionrecord_t
-    type eventexposerecord_t
-    type eventvisibilityrecord_t
-    type eventcrossingrecord_t
-    type eventfocusrecord_t
-    type eventconfigurerecord_t
-    type eventpropertyrecord_t
-    type eventselectionrecord_t
-    type eventdndrecord_t
-    type eventproximityrecord_t
-    type eventwindowstaterecord_t
-    type eventsettingrecord_t
-    type eventownerchangerecord_t
-    type eventgrabbrokenrecord_t
+    type event_any_record_t
+    type event_key_record_t
+    type event_button_record_t
+    type event_scroll_record_t
+    type event_motion_record_t
+    type event_expose_record_t
+    type event_visibility_record_t
+    type event_crossing_record_t
+    type event_focus_record_t
+    type event_configure_record_t
+    type event_property_record_t
+    type event_selection_record_t
+    type event_dnd_record_t
+    type event_proximity_record_t
+    type event_window_state_record_t
+    type event_setting_record_t
+    type event_owner_change_record_t
+    type event_grab_broken_record_t
 
-    type eventanyrecord_event
-    type eventkeyrecord_event
-    type eventbuttonrecord_event
-    type eventscrollrecord_event
-    type eventmotionrecord_event
-    type eventexposerecord_event
-    type eventvisibilityrecord_event
-    type eventcrossingrecord_event
-    type eventfocusrecord_event
-    type eventconfigurerecord_event
-    type eventpropertyrecord_event
-    type eventselectionrecord_event
-    type eventdndrecord_event
-    type eventproximityrecord_event
-    type eventwindowstaterecord_event
-    type eventsettingrecord_event
-    type eventownerchangerecord_event
-    type eventgrabbrokenrecord_event
+    type event_any_record_event
+    type event_key_record_event
+    type event_button_record_event
+    type event_scroll_record_event
+    type event_motion_record_event
+    type event_expose_record_event
+    type event_visibility_record_event
+    type event_crossing_record_event
+    type event_focus_record_event
+    type event_configure_record_event
+    type event_property_record_event
+    type event_selection_record_event
+    type event_dnd_record_event
+    type event_proximity_record_event
+    type event_window_state_record_event
+    type event_setting_record_event
+    type event_owner_change_record_event
+    type event_grab_broken_record_event
 
     datatype t =
-      ANY         of eventanyrecord_t         * eventanyrecord_event
-    | KEY         of eventkeyrecord_t         * eventkeyrecord_event
-    | BUTTON      of eventbuttonrecord_t      * eventbuttonrecord_event
-    | SCROLL      of eventscrollrecord_t      * eventscrollrecord_event
-    | MOTION      of eventmotionrecord_t      * eventmotionrecord_event
-    | EXPOSE      of eventexposerecord_t      * eventexposerecord_event
-    | VISIBILITY  of eventvisibilityrecord_t  * eventvisibilityrecord_event
-    | CROSSING    of eventcrossingrecord_t    * eventcrossingrecord_event
-    | FOCUS       of eventfocusrecord_t       * eventfocusrecord_event
-    | CONFIGURE   of eventconfigurerecord_t   * eventconfigurerecord_event
-    | PROPERTY    of eventpropertyrecord_t    * eventpropertyrecord_event
-    | SELECTION   of eventselectionrecord_t   * eventselectionrecord_event
-    | DND         of eventdndrecord_t         * eventdndrecord_event
-    | PROXIMITY   of eventproximityrecord_t   * eventproximityrecord_event
-    | WINDOWSTATE of eventwindowstaterecord_t * eventwindowstaterecord_event
-    | SETTING     of eventsettingrecord_t     * eventsettingrecord_event
-    | OWNERCHANGE of eventownerchangerecord_t * eventownerchangerecord_event
-    | GRABBROKEN  of eventgrabbrokenrecord_t  * eventgrabbrokenrecord_event
+      ANY         of event_any_record_t         * event_any_record_event
+    | KEY         of event_key_record_t         * event_key_record_event
+    | BUTTON      of event_button_record_t      * event_button_record_event
+    | SCROLL      of event_scroll_record_t      * event_scroll_record_event
+    | MOTION      of event_motion_record_t      * event_motion_record_event
+    | EXPOSE      of event_expose_record_t      * event_expose_record_event
+    | VISIBILITY  of event_visibility_record_t  * event_visibility_record_event
+    | CROSSING    of event_crossing_record_t    * event_crossing_record_event
+    | FOCUS       of event_focus_record_t       * event_focus_record_event
+    | CONFIGURE   of event_configure_record_t   * event_configure_record_event
+    | PROPERTY    of event_property_record_t    * event_property_record_event
+    | SELECTION   of event_selection_record_t   * event_selection_record_event
+    | DND         of event_dnd_record_t         * event_dnd_record_event
+    | PROXIMITY   of event_proximity_record_t   * event_proximity_record_event
+    | WINDOW_STATE of event_window_state_record_t * event_window_state_record_event
+    | SETTING     of event_setting_record_t     * event_setting_record_event
+    | OWNER_CHANGE of event_owner_change_record_t * event_owner_change_record_event
+    | GRAB_BROKEN  of event_grab_broken_record_t  * event_grab_broken_record_event
 
     val classify : 'a event_t -> t option
   end

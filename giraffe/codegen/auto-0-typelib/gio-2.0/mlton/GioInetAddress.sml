@@ -1,7 +1,7 @@
 structure GioInetAddress :>
   GIO_INET_ADDRESS
     where type 'a class_t = 'a GioInetAddressClass.t
-    where type socketfamily_t = GioSocketFamily.t =
+    where type socket_family_t = GioSocketFamily.t =
   struct
     val getType_ = _import "g_inet_address_get_type" : unit -> GObjectType.C.val_;
     val newAny_ = _import "g_inet_address_new_any" : GioSocketFamily.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -22,7 +22,7 @@ structure GioInetAddress :>
     val getNativeSize_ = _import "g_inet_address_get_native_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
     val toString_ = _import "g_inet_address_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GioInetAddressClass.t
-    type socketfamily_t = GioSocketFamily.t
+    type socket_family_t = GioSocketFamily.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family

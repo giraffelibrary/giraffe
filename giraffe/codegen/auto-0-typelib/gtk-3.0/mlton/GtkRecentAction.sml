@@ -1,9 +1,9 @@
 structure GtkRecentAction :>
   GTK_RECENT_ACTION
     where type 'a class_t = 'a GtkRecentActionClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a recentchooserclass_t = 'a GtkRecentChooserClass.t
-    where type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a recent_chooser_class_t = 'a GtkRecentChooserClass.t
+    where type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t =
   struct
     val getType_ = _import "gtk_recent_action_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -68,9 +68,9 @@ structure GtkRecentAction :>
     val getShowNumbers_ = _import "gtk_recent_action_get_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_action_set_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkRecentActionClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a recentchooserclass_t = 'a GtkRecentChooserClass.t
-    type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a recent_chooser_class_t = 'a GtkRecentChooserClass.t
+    type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self

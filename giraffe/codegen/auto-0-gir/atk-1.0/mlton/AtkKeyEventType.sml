@@ -6,7 +6,7 @@ structure AtkKeyEventType :>
     datatype t =
       PRESS
     | RELEASE
-    | LASTDEFINED
+    | LAST_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -16,13 +16,13 @@ structure AtkKeyEventType :>
           fn
             PRESS => f 0
           | RELEASE => f 1
-          | LASTDEFINED => f 2
+          | LAST_DEFINED => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => PRESS
           | 1 => RELEASE
-          | 2 => LASTDEFINED
+          | 2 => LAST_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "atk_key_event_type_get_type" : unit -> GObjectType.C.val_;

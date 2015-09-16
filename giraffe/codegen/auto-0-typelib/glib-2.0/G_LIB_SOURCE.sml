@@ -1,7 +1,7 @@
 signature G_LIB_SOURCE =
   sig
     type record_t
-    type maincontextrecord_t
+    type main_context_record_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val addChildSource :
@@ -10,11 +10,11 @@ signature G_LIB_SOURCE =
        -> unit
     val attach :
       record_t
-       -> maincontextrecord_t option
+       -> main_context_record_t option
        -> LargeInt.int
     val destroy : record_t -> unit
     val getCanRecurse : record_t -> bool
-    val getContext : record_t -> maincontextrecord_t
+    val getContext : record_t -> main_context_record_t
     val getId : record_t -> LargeInt.int
     val getName : record_t -> string
     val getPriority : record_t -> LargeInt.int

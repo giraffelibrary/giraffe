@@ -1,7 +1,7 @@
 structure GLibSource :>
   G_LIB_SOURCE
     where type record_t = GLibSourceRecord.t
-    where type maincontextrecord_t = GLibMainContextRecord.t =
+    where type main_context_record_t = GLibMainContextRecord.t =
   struct
     local
       open PolyMLFFI
@@ -25,7 +25,7 @@ structure GLibSource :>
       val setNameById_ = call (load_sym libglib "g_source_set_name_by_id") (FFI.UInt32.PolyML.VAL &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type record_t = GLibSourceRecord.t
-    type maincontextrecord_t = GLibMainContextRecord.t
+    type main_context_record_t = GLibMainContextRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) addChildSource_ (self & childSource)

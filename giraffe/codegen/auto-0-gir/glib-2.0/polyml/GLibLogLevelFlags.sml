@@ -8,26 +8,26 @@ structure GLibLogLevelFlags :>
       end
   end =
   struct
-    val FLAGRECURSION = 0w1
-    val FLAGFATAL = 0w2
-    val LEVELERROR = 0w4
-    val LEVELCRITICAL = 0w8
-    val LEVELWARNING = 0w16
-    val LEVELMESSAGE = 0w32
-    val LEVELINFO = 0w64
-    val LEVELDEBUG = 0w128
-    val LEVELMASK = 0w4294967292
+    val FLAG_RECURSION = 0w1
+    val FLAG_FATAL = 0w2
+    val LEVEL_ERROR = 0w4
+    val LEVEL_CRITICAL = 0w8
+    val LEVEL_WARNING = 0w16
+    val LEVEL_MESSAGE = 0w32
+    val LEVEL_INFO = 0w64
+    val LEVEL_DEBUG = 0w128
+    val LEVEL_MASK = 0w4294967292
     val allFlags =
       [
-        FLAGRECURSION,
-        FLAGFATAL,
-        LEVELERROR,
-        LEVELCRITICAL,
-        LEVELWARNING,
-        LEVELMESSAGE,
-        LEVELINFO,
-        LEVELDEBUG,
-        LEVELMASK
+        FLAG_RECURSION,
+        FLAG_FATAL,
+        LEVEL_ERROR,
+        LEVEL_CRITICAL,
+        LEVEL_WARNING,
+        LEVEL_MESSAGE,
+        LEVEL_INFO,
+        LEVEL_DEBUG,
+        LEVEL_MASK
       ]
     structure BitFlags =
       Word32BitFlags (

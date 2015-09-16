@@ -5,71 +5,71 @@ structure AtkRole :>
   struct
     datatype t =
       INVALID
-    | ACCELLABEL
+    | ACCEL_LABEL
     | ALERT
     | ANIMATION
     | ARROW
     | CALENDAR
     | CANVAS
-    | CHECKBOX
-    | CHECKMENUITEM
-    | COLORCHOOSER
-    | COLUMNHEADER
-    | COMBOBOX
-    | DATEEDITOR
-    | DESKTOPICON
-    | DESKTOPFRAME
+    | CHECK_BOX
+    | CHECK_MENU_ITEM
+    | COLOR_CHOOSER
+    | COLUMN_HEADER
+    | COMBO_BOX
+    | DATE_EDITOR
+    | DESKTOP_ICON
+    | DESKTOP_FRAME
     | DIAL
     | DIALOG
-    | DIRECTORYPANE
-    | DRAWINGAREA
-    | FILECHOOSER
+    | DIRECTORY_PANE
+    | DRAWING_AREA
+    | FILE_CHOOSER
     | FILLER
-    | FONTCHOOSER
+    | FONT_CHOOSER
     | FRAME
-    | GLASSPANE
-    | HTMLCONTAINER
+    | GLASS_PANE
+    | HTML_CONTAINER
     | ICON
     | IMAGE
-    | INTERNALFRAME
+    | INTERNAL_FRAME
     | LABEL
-    | LAYEREDPANE
+    | LAYERED_PANE
     | LIST
-    | LISTITEM
+    | LIST_ITEM
     | MENU
-    | MENUBAR
-    | MENUITEM
-    | OPTIONPANE
-    | PAGETAB
-    | PAGETABLIST
+    | MENU_BAR
+    | MENU_ITEM
+    | OPTION_PANE
+    | PAGE_TAB
+    | PAGE_TAB_LIST
     | PANEL
-    | PASSWORDTEXT
-    | POPUPMENU
-    | PROGRESSBAR
-    | PUSHBUTTON
-    | RADIOBUTTON
-    | RADIOMENUITEM
-    | ROOTPANE
-    | ROWHEADER
-    | SCROLLBAR
-    | SCROLLPANE
+    | PASSWORD_TEXT
+    | POPUP_MENU
+    | PROGRESS_BAR
+    | PUSH_BUTTON
+    | RADIO_BUTTON
+    | RADIO_MENU_ITEM
+    | ROOT_PANE
+    | ROW_HEADER
+    | SCROLL_BAR
+    | SCROLL_PANE
     | SEPARATOR
     | SLIDER
-    | SPLITPANE
-    | SPINBUTTON
+    | SPLIT_PANE
+    | SPIN_BUTTON
     | STATUSBAR
     | TABLE
-    | TABLECELL
-    | TABLECOLUMNHEADER
-    | TABLEROWHEADER
-    | TEAROFFMENUITEM
+    | TABLE_CELL
+    | TABLE_COLUMN_HEADER
+    | TABLE_ROW_HEADER
+    | TEAR_OFF_MENU_ITEM
     | TERMINAL
     | TEXT
-    | TOGGLEBUTTON
-    | TOOLBAR
-    | TOOLTIP
+    | TOGGLE_BUTTON
+    | TOOL_BAR
+    | TOOL_TIP
     | TREE
-    | TREETABLE
+    | TREE_TABLE
     | UNKNOWN
     | VIEWPORT
     | WINDOW
@@ -84,28 +84,28 @@ structure AtkRole :>
     | ENTRY
     | CHART
     | CAPTION
-    | DOCUMENTFRAME
+    | DOCUMENT_FRAME
     | HEADING
     | PAGE
     | SECTION
-    | REDUNDANTOBJECT
+    | REDUNDANT_OBJECT
     | FORM
     | LINK
-    | INPUTMETHODWINDOW
-    | TABLEROW
-    | TREEITEM
-    | DOCUMENTSPREADSHEET
-    | DOCUMENTPRESENTATION
-    | DOCUMENTTEXT
-    | DOCUMENTWEB
-    | DOCUMENTEMAIL
+    | INPUT_METHOD_WINDOW
+    | TABLE_ROW
+    | TREE_ITEM
+    | DOCUMENT_SPREADSHEET
+    | DOCUMENT_PRESENTATION
+    | DOCUMENT_TEXT
+    | DOCUMENT_WEB
+    | DOCUMENT_EMAIL
     | COMMENT
-    | LISTBOX
+    | LIST_BOX
     | GROUPING
-    | IMAGEMAP
+    | IMAGE_MAP
     | NOTIFICATION
-    | INFOBAR
-    | LASTDEFINED
+    | INFO_BAR
+    | LAST_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -114,71 +114,71 @@ structure AtkRole :>
         fun withVal f =
           fn
             INVALID => f 0
-          | ACCELLABEL => f 1
+          | ACCEL_LABEL => f 1
           | ALERT => f 2
           | ANIMATION => f 3
           | ARROW => f 4
           | CALENDAR => f 5
           | CANVAS => f 6
-          | CHECKBOX => f 7
-          | CHECKMENUITEM => f 8
-          | COLORCHOOSER => f 9
-          | COLUMNHEADER => f 10
-          | COMBOBOX => f 11
-          | DATEEDITOR => f 12
-          | DESKTOPICON => f 13
-          | DESKTOPFRAME => f 14
+          | CHECK_BOX => f 7
+          | CHECK_MENU_ITEM => f 8
+          | COLOR_CHOOSER => f 9
+          | COLUMN_HEADER => f 10
+          | COMBO_BOX => f 11
+          | DATE_EDITOR => f 12
+          | DESKTOP_ICON => f 13
+          | DESKTOP_FRAME => f 14
           | DIAL => f 15
           | DIALOG => f 16
-          | DIRECTORYPANE => f 17
-          | DRAWINGAREA => f 18
-          | FILECHOOSER => f 19
+          | DIRECTORY_PANE => f 17
+          | DRAWING_AREA => f 18
+          | FILE_CHOOSER => f 19
           | FILLER => f 20
-          | FONTCHOOSER => f 21
+          | FONT_CHOOSER => f 21
           | FRAME => f 22
-          | GLASSPANE => f 23
-          | HTMLCONTAINER => f 24
+          | GLASS_PANE => f 23
+          | HTML_CONTAINER => f 24
           | ICON => f 25
           | IMAGE => f 26
-          | INTERNALFRAME => f 27
+          | INTERNAL_FRAME => f 27
           | LABEL => f 28
-          | LAYEREDPANE => f 29
+          | LAYERED_PANE => f 29
           | LIST => f 30
-          | LISTITEM => f 31
+          | LIST_ITEM => f 31
           | MENU => f 32
-          | MENUBAR => f 33
-          | MENUITEM => f 34
-          | OPTIONPANE => f 35
-          | PAGETAB => f 36
-          | PAGETABLIST => f 37
+          | MENU_BAR => f 33
+          | MENU_ITEM => f 34
+          | OPTION_PANE => f 35
+          | PAGE_TAB => f 36
+          | PAGE_TAB_LIST => f 37
           | PANEL => f 38
-          | PASSWORDTEXT => f 39
-          | POPUPMENU => f 40
-          | PROGRESSBAR => f 41
-          | PUSHBUTTON => f 42
-          | RADIOBUTTON => f 43
-          | RADIOMENUITEM => f 44
-          | ROOTPANE => f 45
-          | ROWHEADER => f 46
-          | SCROLLBAR => f 47
-          | SCROLLPANE => f 48
+          | PASSWORD_TEXT => f 39
+          | POPUP_MENU => f 40
+          | PROGRESS_BAR => f 41
+          | PUSH_BUTTON => f 42
+          | RADIO_BUTTON => f 43
+          | RADIO_MENU_ITEM => f 44
+          | ROOT_PANE => f 45
+          | ROW_HEADER => f 46
+          | SCROLL_BAR => f 47
+          | SCROLL_PANE => f 48
           | SEPARATOR => f 49
           | SLIDER => f 50
-          | SPLITPANE => f 51
-          | SPINBUTTON => f 52
+          | SPLIT_PANE => f 51
+          | SPIN_BUTTON => f 52
           | STATUSBAR => f 53
           | TABLE => f 54
-          | TABLECELL => f 55
-          | TABLECOLUMNHEADER => f 56
-          | TABLEROWHEADER => f 57
-          | TEAROFFMENUITEM => f 58
+          | TABLE_CELL => f 55
+          | TABLE_COLUMN_HEADER => f 56
+          | TABLE_ROW_HEADER => f 57
+          | TEAR_OFF_MENU_ITEM => f 58
           | TERMINAL => f 59
           | TEXT => f 60
-          | TOGGLEBUTTON => f 61
-          | TOOLBAR => f 62
-          | TOOLTIP => f 63
+          | TOGGLE_BUTTON => f 61
+          | TOOL_BAR => f 62
+          | TOOL_TIP => f 63
           | TREE => f 64
-          | TREETABLE => f 65
+          | TREE_TABLE => f 65
           | UNKNOWN => f 66
           | VIEWPORT => f 67
           | WINDOW => f 68
@@ -193,97 +193,97 @@ structure AtkRole :>
           | ENTRY => f 77
           | CHART => f 78
           | CAPTION => f 79
-          | DOCUMENTFRAME => f 80
+          | DOCUMENT_FRAME => f 80
           | HEADING => f 81
           | PAGE => f 82
           | SECTION => f 83
-          | REDUNDANTOBJECT => f 84
+          | REDUNDANT_OBJECT => f 84
           | FORM => f 85
           | LINK => f 86
-          | INPUTMETHODWINDOW => f 87
-          | TABLEROW => f 88
-          | TREEITEM => f 89
-          | DOCUMENTSPREADSHEET => f 90
-          | DOCUMENTPRESENTATION => f 91
-          | DOCUMENTTEXT => f 92
-          | DOCUMENTWEB => f 93
-          | DOCUMENTEMAIL => f 94
+          | INPUT_METHOD_WINDOW => f 87
+          | TABLE_ROW => f 88
+          | TREE_ITEM => f 89
+          | DOCUMENT_SPREADSHEET => f 90
+          | DOCUMENT_PRESENTATION => f 91
+          | DOCUMENT_TEXT => f 92
+          | DOCUMENT_WEB => f 93
+          | DOCUMENT_EMAIL => f 94
           | COMMENT => f 95
-          | LISTBOX => f 96
+          | LIST_BOX => f 96
           | GROUPING => f 97
-          | IMAGEMAP => f 98
+          | IMAGE_MAP => f 98
           | NOTIFICATION => f 99
-          | INFOBAR => f 100
-          | LASTDEFINED => f 101
+          | INFO_BAR => f 100
+          | LAST_DEFINED => f 101
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
-          | 1 => ACCELLABEL
+          | 1 => ACCEL_LABEL
           | 2 => ALERT
           | 3 => ANIMATION
           | 4 => ARROW
           | 5 => CALENDAR
           | 6 => CANVAS
-          | 7 => CHECKBOX
-          | 8 => CHECKMENUITEM
-          | 9 => COLORCHOOSER
-          | 10 => COLUMNHEADER
-          | 11 => COMBOBOX
-          | 12 => DATEEDITOR
-          | 13 => DESKTOPICON
-          | 14 => DESKTOPFRAME
+          | 7 => CHECK_BOX
+          | 8 => CHECK_MENU_ITEM
+          | 9 => COLOR_CHOOSER
+          | 10 => COLUMN_HEADER
+          | 11 => COMBO_BOX
+          | 12 => DATE_EDITOR
+          | 13 => DESKTOP_ICON
+          | 14 => DESKTOP_FRAME
           | 15 => DIAL
           | 16 => DIALOG
-          | 17 => DIRECTORYPANE
-          | 18 => DRAWINGAREA
-          | 19 => FILECHOOSER
+          | 17 => DIRECTORY_PANE
+          | 18 => DRAWING_AREA
+          | 19 => FILE_CHOOSER
           | 20 => FILLER
-          | 21 => FONTCHOOSER
+          | 21 => FONT_CHOOSER
           | 22 => FRAME
-          | 23 => GLASSPANE
-          | 24 => HTMLCONTAINER
+          | 23 => GLASS_PANE
+          | 24 => HTML_CONTAINER
           | 25 => ICON
           | 26 => IMAGE
-          | 27 => INTERNALFRAME
+          | 27 => INTERNAL_FRAME
           | 28 => LABEL
-          | 29 => LAYEREDPANE
+          | 29 => LAYERED_PANE
           | 30 => LIST
-          | 31 => LISTITEM
+          | 31 => LIST_ITEM
           | 32 => MENU
-          | 33 => MENUBAR
-          | 34 => MENUITEM
-          | 35 => OPTIONPANE
-          | 36 => PAGETAB
-          | 37 => PAGETABLIST
+          | 33 => MENU_BAR
+          | 34 => MENU_ITEM
+          | 35 => OPTION_PANE
+          | 36 => PAGE_TAB
+          | 37 => PAGE_TAB_LIST
           | 38 => PANEL
-          | 39 => PASSWORDTEXT
-          | 40 => POPUPMENU
-          | 41 => PROGRESSBAR
-          | 42 => PUSHBUTTON
-          | 43 => RADIOBUTTON
-          | 44 => RADIOMENUITEM
-          | 45 => ROOTPANE
-          | 46 => ROWHEADER
-          | 47 => SCROLLBAR
-          | 48 => SCROLLPANE
+          | 39 => PASSWORD_TEXT
+          | 40 => POPUP_MENU
+          | 41 => PROGRESS_BAR
+          | 42 => PUSH_BUTTON
+          | 43 => RADIO_BUTTON
+          | 44 => RADIO_MENU_ITEM
+          | 45 => ROOT_PANE
+          | 46 => ROW_HEADER
+          | 47 => SCROLL_BAR
+          | 48 => SCROLL_PANE
           | 49 => SEPARATOR
           | 50 => SLIDER
-          | 51 => SPLITPANE
-          | 52 => SPINBUTTON
+          | 51 => SPLIT_PANE
+          | 52 => SPIN_BUTTON
           | 53 => STATUSBAR
           | 54 => TABLE
-          | 55 => TABLECELL
-          | 56 => TABLECOLUMNHEADER
-          | 57 => TABLEROWHEADER
-          | 58 => TEAROFFMENUITEM
+          | 55 => TABLE_CELL
+          | 56 => TABLE_COLUMN_HEADER
+          | 57 => TABLE_ROW_HEADER
+          | 58 => TEAR_OFF_MENU_ITEM
           | 59 => TERMINAL
           | 60 => TEXT
-          | 61 => TOGGLEBUTTON
-          | 62 => TOOLBAR
-          | 63 => TOOLTIP
+          | 61 => TOGGLE_BUTTON
+          | 62 => TOOL_BAR
+          | 63 => TOOL_TIP
           | 64 => TREE
-          | 65 => TREETABLE
+          | 65 => TREE_TABLE
           | 66 => UNKNOWN
           | 67 => VIEWPORT
           | 68 => WINDOW
@@ -298,28 +298,28 @@ structure AtkRole :>
           | 77 => ENTRY
           | 78 => CHART
           | 79 => CAPTION
-          | 80 => DOCUMENTFRAME
+          | 80 => DOCUMENT_FRAME
           | 81 => HEADING
           | 82 => PAGE
           | 83 => SECTION
-          | 84 => REDUNDANTOBJECT
+          | 84 => REDUNDANT_OBJECT
           | 85 => FORM
           | 86 => LINK
-          | 87 => INPUTMETHODWINDOW
-          | 88 => TABLEROW
-          | 89 => TREEITEM
-          | 90 => DOCUMENTSPREADSHEET
-          | 91 => DOCUMENTPRESENTATION
-          | 92 => DOCUMENTTEXT
-          | 93 => DOCUMENTWEB
-          | 94 => DOCUMENTEMAIL
+          | 87 => INPUT_METHOD_WINDOW
+          | 88 => TABLE_ROW
+          | 89 => TREE_ITEM
+          | 90 => DOCUMENT_SPREADSHEET
+          | 91 => DOCUMENT_PRESENTATION
+          | 92 => DOCUMENT_TEXT
+          | 93 => DOCUMENT_WEB
+          | 94 => DOCUMENT_EMAIL
           | 95 => COMMENT
-          | 96 => LISTBOX
+          | 96 => LIST_BOX
           | 97 => GROUPING
-          | 98 => IMAGEMAP
+          | 98 => IMAGE_MAP
           | 99 => NOTIFICATION
-          | 100 => INFOBAR
-          | 101 => LASTDEFINED
+          | 100 => INFO_BAR
+          | 101 => LAST_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "atk_role_get_type" : unit -> GObjectType.C.val_;

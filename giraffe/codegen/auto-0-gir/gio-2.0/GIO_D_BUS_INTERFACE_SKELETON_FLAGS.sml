@@ -5,7 +5,7 @@ signature GIO_D_BUS_INTERFACE_SKELETON_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val HANDLEMETHODINVOCATIONSINTHREAD : t
+    val HANDLE_METHOD_INVOCATIONS_IN_THREAD : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

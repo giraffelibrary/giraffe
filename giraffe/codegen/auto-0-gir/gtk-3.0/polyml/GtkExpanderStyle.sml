@@ -10,8 +10,8 @@ structure GtkExpanderStyle :>
   struct
     datatype t =
       COLLAPSED
-    | SEMICOLLAPSED
-    | SEMIEXPANDED
+    | SEMI_COLLAPSED
+    | SEMI_EXPANDED
     | EXPANDED
     structure C =
       struct
@@ -21,15 +21,15 @@ structure GtkExpanderStyle :>
         fun withVal f =
           fn
             COLLAPSED => f 0
-          | SEMICOLLAPSED => f 1
-          | SEMIEXPANDED => f 2
+          | SEMI_COLLAPSED => f 1
+          | SEMI_EXPANDED => f 2
           | EXPANDED => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => COLLAPSED
-          | 1 => SEMICOLLAPSED
-          | 2 => SEMIEXPANDED
+          | 1 => SEMI_COLLAPSED
+          | 2 => SEMI_EXPANDED
           | 3 => EXPANDED
           | n => raise Value n
       end

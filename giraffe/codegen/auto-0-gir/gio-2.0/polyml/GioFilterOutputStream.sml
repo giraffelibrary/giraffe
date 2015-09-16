@@ -1,7 +1,7 @@
 structure GioFilterOutputStream :>
   GIO_FILTER_OUTPUT_STREAM
     where type 'a class_t = 'a GioFilterOutputStreamClass.t
-    where type 'a outputstreamclass_t = 'a GioOutputStreamClass.t =
+    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure GioFilterOutputStream :>
       val setCloseBaseStream_ = call (load_sym libgio "g_filter_output_stream_set_close_base_stream") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioFilterOutputStreamClass.t
-    type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
+    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBaseStream self = (GObjectObjectClass.C.withPtr ---> GioOutputStreamClass.C.fromPtr false) getBaseStream_ self

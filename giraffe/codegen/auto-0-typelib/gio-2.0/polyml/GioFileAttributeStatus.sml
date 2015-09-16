@@ -11,7 +11,7 @@ structure GioFileAttributeStatus :>
     datatype t =
       UNSET
     | SET
-    | ERRORSETTING
+    | ERROR_SETTING
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -21,13 +21,13 @@ structure GioFileAttributeStatus :>
           fn
             UNSET => f 0
           | SET => f 1
-          | ERRORSETTING => f 2
+          | ERROR_SETTING => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => UNSET
           | 1 => SET
-          | 2 => ERRORSETTING
+          | 2 => ERROR_SETTING
           | n => raise Value n
       end
     structure PolyML =

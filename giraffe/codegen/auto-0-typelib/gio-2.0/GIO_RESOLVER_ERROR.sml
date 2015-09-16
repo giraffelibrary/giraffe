@@ -1,8 +1,8 @@
 signature GIO_RESOLVER_ERROR =
   sig
     datatype t =
-      NOTFOUND
-    | TEMPORARYFAILURE
+      NOT_FOUND
+    | TEMPORARY_FAILURE
     | INTERNAL
     exception Error of t
     val handler : GLib.ErrorRecord.handler

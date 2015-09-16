@@ -1,7 +1,7 @@
 signature GTK_ACTION_GROUP_CLASS =
   sig
-    type 'a actiongroup
-    type 'a t = 'a actiongroup GObject.ObjectClass.t
+    type 'a action_group
+    type 'a t = 'a action_group GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

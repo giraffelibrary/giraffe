@@ -1,7 +1,7 @@
 signature GTK_TREE_VIEW_COLUMN_SIZING =
   sig
     datatype t =
-      GROWONLY
+      GROW_ONLY
     | AUTOSIZE
     | FIXED
     val null : t

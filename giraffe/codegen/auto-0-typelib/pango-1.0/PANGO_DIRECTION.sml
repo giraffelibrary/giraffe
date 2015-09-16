@@ -3,10 +3,10 @@ signature PANGO_DIRECTION =
     datatype t =
       LTR
     | RTL
-    | TTBLTR
-    | TTBRTL
-    | WEAKLTR
-    | WEAKRTL
+    | TTB_LTR
+    | TTB_RTL
+    | WEAK_LTR
+    | WEAK_RTL
     | NEUTRAL
     val null : t
     val t : (t, t) GObject.Value.accessor

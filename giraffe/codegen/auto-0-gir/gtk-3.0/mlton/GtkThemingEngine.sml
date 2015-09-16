@@ -1,13 +1,13 @@
 structure GtkThemingEngine :>
   GTK_THEMING_ENGINE
     where type 'a class_t = 'a GtkThemingEngineClass.t
-    where type textdirection_t = GtkTextDirection.t
-    where type junctionsides_t = GtkJunctionSides.t
-    where type borderrecord_t = GtkBorderRecord.t
-    where type widgetpathrecord_t = GtkWidgetPathRecord.t
-    where type stateflags_t = GtkStateFlags.t
-    where type regionflags_t = GtkRegionFlags.t
-    where type statetype_t = GtkStateType.t =
+    where type text_direction_t = GtkTextDirection.t
+    where type junction_sides_t = GtkJunctionSides.t
+    where type border_record_t = GtkBorderRecord.t
+    where type widget_path_record_t = GtkWidgetPathRecord.t
+    where type state_flags_t = GtkStateFlags.t
+    where type region_flags_t = GtkRegionFlags.t
+    where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_theming_engine_get_type" : unit -> GObjectType.C.val_;
     val load_ = _import "mlton_gtk_theming_engine_load" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -209,13 +209,13 @@ structure GtkThemingEngine :>
               x3
             )
     type 'a class_t = 'a GtkThemingEngineClass.t
-    type textdirection_t = GtkTextDirection.t
-    type junctionsides_t = GtkJunctionSides.t
-    type borderrecord_t = GtkBorderRecord.t
-    type widgetpathrecord_t = GtkWidgetPathRecord.t
-    type stateflags_t = GtkStateFlags.t
-    type regionflags_t = GtkRegionFlags.t
-    type statetype_t = GtkStateType.t
+    type text_direction_t = GtkTextDirection.t
+    type junction_sides_t = GtkJunctionSides.t
+    type border_record_t = GtkBorderRecord.t
+    type widget_path_record_t = GtkWidgetPathRecord.t
+    type state_flags_t = GtkStateFlags.t
+    type region_flags_t = GtkRegionFlags.t
+    type state_type_t = GtkStateType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun load name = (FFI.String.C.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name

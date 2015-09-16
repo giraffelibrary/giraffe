@@ -4,11 +4,11 @@ signature GIO_ASK_PASSWORD_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val NEEDPASSWORD : t
-    val NEEDUSERNAME : t
-    val NEEDDOMAIN : t
-    val SAVINGSUPPORTED : t
-    val ANONYMOUSSUPPORTED : t
+    val NEED_PASSWORD : t
+    val NEED_USERNAME : t
+    val NEED_DOMAIN : t
+    val SAVING_SUPPORTED : t
+    val ANONYMOUS_SUPPORTED : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

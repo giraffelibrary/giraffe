@@ -11,7 +11,7 @@ structure PangoWrapMode :>
     datatype t =
       WORD
     | CHAR
-    | WORDCHAR
+    | WORD_CHAR
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -21,13 +21,13 @@ structure PangoWrapMode :>
           fn
             WORD => f 0
           | CHAR => f 1
-          | WORDCHAR => f 2
+          | WORD_CHAR => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => WORD
           | 1 => CHAR
-          | 2 => WORDCHAR
+          | 2 => WORD_CHAR
           | n => raise Value n
       end
     structure PolyML =

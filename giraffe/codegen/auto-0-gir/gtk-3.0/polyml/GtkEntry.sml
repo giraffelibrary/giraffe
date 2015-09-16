@@ -1,20 +1,20 @@
 structure GtkEntry :>
   GTK_ENTRY
     where type 'a class_t = 'a GtkEntryClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type 'a editableclass_t = 'a GtkEditableClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type targetlistrecord_t = GtkTargetListRecord.t
-    where type deletetype_t = GtkDeleteType.t
-    where type entryiconposition_t = GtkEntryIconPosition.t
-    where type movementstep_t = GtkMovementStep.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t
-    where type 'a entrybufferclass_t = 'a GtkEntryBufferClass.t
-    where type 'a entrycompletionclass_t = 'a GtkEntryCompletionClass.t
-    where type borderrecord_t = GtkBorderRecord.t
-    where type imagetype_t = GtkImageType.t
-    where type shadowtype_t = GtkShadowType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type 'a editable_class_t = 'a GtkEditableClass.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type target_list_record_t = GtkTargetListRecord.t
+    where type delete_type_t = GtkDeleteType.t
+    where type entry_icon_position_t = GtkEntryIconPosition.t
+    where type movement_step_t = GtkMovementStep.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t
+    where type 'a entry_buffer_class_t = 'a GtkEntryBufferClass.t
+    where type 'a entry_completion_class_t = 'a GtkEntryCompletionClass.t
+    where type border_record_t = GtkBorderRecord.t
+    where type image_type_t = GtkImageType.t
+    where type shadow_type_t = GtkShadowType.t =
   struct
     local
       open PolyMLFFI
@@ -172,20 +172,20 @@ structure GtkEntry :>
       val unsetInvisibleChar_ = call (load_sym libgtk "gtk_entry_unset_invisible_char") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkEntryClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type 'a editableclass_t = 'a GtkEditableClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type targetlistrecord_t = GtkTargetListRecord.t
-    type deletetype_t = GtkDeleteType.t
-    type entryiconposition_t = GtkEntryIconPosition.t
-    type movementstep_t = GtkMovementStep.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
-    type 'a entrybufferclass_t = 'a GtkEntryBufferClass.t
-    type 'a entrycompletionclass_t = 'a GtkEntryCompletionClass.t
-    type borderrecord_t = GtkBorderRecord.t
-    type imagetype_t = GtkImageType.t
-    type shadowtype_t = GtkShadowType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type 'a editable_class_t = 'a GtkEditableClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type target_list_record_t = GtkTargetListRecord.t
+    type delete_type_t = GtkDeleteType.t
+    type entry_icon_position_t = GtkEntryIconPosition.t
+    type movement_step_t = GtkMovementStep.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
+    type 'a entry_buffer_class_t = 'a GtkEntryBufferClass.t
+    type 'a entry_completion_class_t = 'a GtkEntryCompletionClass.t
+    type border_record_t = GtkBorderRecord.t
+    type image_type_t = GtkImageType.t
+    type shadow_type_t = GtkShadowType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

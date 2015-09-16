@@ -1,11 +1,11 @@
 signature GDK_PIXBUF_PIXBUF_ERROR =
   sig
     datatype t =
-      CORRUPTIMAGE
-    | INSUFFICIENTMEMORY
-    | BADOPTION
-    | UNKNOWNTYPE
-    | UNSUPPORTEDOPERATION
+      CORRUPT_IMAGE
+    | INSUFFICIENT_MEMORY
+    | BAD_OPTION
+    | UNKNOWN_TYPE
+    | UNSUPPORTED_OPERATION
     | FAILED
     exception Error of t
     val handler : GLib.ErrorRecord.handler

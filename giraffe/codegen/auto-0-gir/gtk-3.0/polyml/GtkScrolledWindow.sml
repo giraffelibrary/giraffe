@@ -1,14 +1,14 @@
 structure GtkScrolledWindow :>
   GTK_SCROLLED_WINDOW
     where type 'a class_t = 'a GtkScrolledWindowClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type directiontype_t = GtkDirectionType.t
-    where type scrolltype_t = GtkScrollType.t
-    where type shadowtype_t = GtkShadowType.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type policytype_t = GtkPolicyType.t
-    where type cornertype_t = GtkCornerType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type direction_type_t = GtkDirectionType.t
+    where type scroll_type_t = GtkScrollType.t
+    where type shadow_type_t = GtkShadowType.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type policy_type_t = GtkPolicyType.t
+    where type corner_type_t = GtkCornerType.t =
   struct
     local
       open PolyMLFFI
@@ -49,14 +49,14 @@ structure GtkScrolledWindow :>
       val unsetPlacement_ = call (load_sym libgtk "gtk_scrolled_window_unset_placement") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkScrolledWindowClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type directiontype_t = GtkDirectionType.t
-    type scrolltype_t = GtkScrollType.t
-    type shadowtype_t = GtkShadowType.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type policytype_t = GtkPolicyType.t
-    type cornertype_t = GtkCornerType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type direction_type_t = GtkDirectionType.t
+    type scroll_type_t = GtkScrollType.t
+    type shadow_type_t = GtkShadowType.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type policy_type_t = GtkPolicyType.t
+    type corner_type_t = GtkCornerType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

@@ -1,7 +1,7 @@
 signature GTK_ENTRY_BUFFER_CLASS =
   sig
-    type 'a entrybuffer
-    type 'a t = 'a entrybuffer GObject.ObjectClass.t
+    type 'a entry_buffer
+    type 'a t = 'a entry_buffer GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

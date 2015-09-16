@@ -5,7 +5,7 @@ signature GIO_D_BUS_SIGNAL_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val NOMATCHRULE : t
+    val NO_MATCH_RULE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

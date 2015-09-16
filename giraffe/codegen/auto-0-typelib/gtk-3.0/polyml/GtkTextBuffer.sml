@@ -1,13 +1,13 @@
 structure GtkTextBuffer :>
   GTK_TEXT_BUFFER
     where type 'a class_t = 'a GtkTextBufferClass.t
-    where type 'a textchildanchorclass_t = 'a GtkTextChildAnchorClass.t
-    where type 'a textmarkclass_t = 'a GtkTextMarkClass.t
-    where type 'a clipboardclass_t = 'a GtkClipboardClass.t
-    where type textiterrecord_t = GtkTextIterRecord.t
-    where type 'a texttagclass_t = 'a GtkTextTagClass.t
-    where type targetlistrecord_t = GtkTargetListRecord.t
-    where type 'a texttagtableclass_t = 'a GtkTextTagTableClass.t =
+    where type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
+    where type 'a text_mark_class_t = 'a GtkTextMarkClass.t
+    where type 'a clipboard_class_t = 'a GtkClipboardClass.t
+    where type text_iter_record_t = GtkTextIterRecord.t
+    where type 'a text_tag_class_t = 'a GtkTextTagClass.t
+    where type target_list_record_t = GtkTargetListRecord.t
+    where type 'a text_tag_table_class_t = 'a GtkTextTagTableClass.t =
   struct
     local
       open PolyMLFFI
@@ -350,13 +350,13 @@ structure GtkTextBuffer :>
       val unregisterSerializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_serialize_format") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTextBufferClass.t
-    type 'a textchildanchorclass_t = 'a GtkTextChildAnchorClass.t
-    type 'a textmarkclass_t = 'a GtkTextMarkClass.t
-    type 'a clipboardclass_t = 'a GtkClipboardClass.t
-    type textiterrecord_t = GtkTextIterRecord.t
-    type 'a texttagclass_t = 'a GtkTextTagClass.t
-    type targetlistrecord_t = GtkTargetListRecord.t
-    type 'a texttagtableclass_t = 'a GtkTextTagTableClass.t
+    type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
+    type 'a text_mark_class_t = 'a GtkTextMarkClass.t
+    type 'a clipboard_class_t = 'a GtkClipboardClass.t
+    type text_iter_record_t = GtkTextIterRecord.t
+    type 'a text_tag_class_t = 'a GtkTextTagClass.t
+    type target_list_record_t = GtkTargetListRecord.t
+    type 'a text_tag_table_class_t = 'a GtkTextTagTableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkTextBufferClass.C.fromPtr true) new_ table

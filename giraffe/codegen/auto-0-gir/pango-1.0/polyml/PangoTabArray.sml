@@ -1,7 +1,7 @@
 structure PangoTabArray :>
   PANGO_TAB_ARRAY
     where type record_t = PangoTabArrayRecord.t
-    where type tabalign_t = PangoTabAlign.t =
+    where type tab_align_t = PangoTabAlign.t =
   struct
     local
       open PolyMLFFI
@@ -32,7 +32,7 @@ structure PangoTabArray :>
           )
     end
     type record_t = PangoTabArrayRecord.t
-    type tabalign_t = PangoTabAlign.t
+    type tab_align_t = PangoTabAlign.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new initialSize positionsInPixels = (FFI.Int.C.withVal &&&> FFI.Bool.C.withVal ---> PangoTabArrayRecord.C.fromPtr true) new_ (initialSize & positionsInPixels)

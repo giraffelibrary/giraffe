@@ -1,7 +1,7 @@
 signature GTK_WINDOW_GROUP_CLASS =
   sig
-    type 'a windowgroup
-    type 'a t = 'a windowgroup GObject.ObjectClass.t
+    type 'a window_group
+    type 'a t = 'a window_group GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

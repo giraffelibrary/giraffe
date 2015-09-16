@@ -1,10 +1,10 @@
 signature G_I_REPOSITORY_REPOSITORY =
   sig
     type 'a class_t
-    type enuminforecord_t
-    type baseinforecord_t
-    type typelibrecord_t
-    type repositoryloadflags_t
+    type enum_info_record_t
+    type base_info_record_t
+    type typelib_record_t
+    type repository_load_flags_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val dump : string -> bool
@@ -13,12 +13,12 @@ signature G_I_REPOSITORY_REPOSITORY =
     val findByErrorDomain :
       'a class_t
        -> GLib.Quark.t
-       -> enuminforecord_t
+       -> enum_info_record_t
     val findByName :
       'a class_t
        -> string
        -> string
-       -> baseinforecord_t
+       -> base_info_record_t
     val getCPrefix :
       'a class_t
        -> string
@@ -27,7 +27,7 @@ signature G_I_REPOSITORY_REPOSITORY =
       'a class_t
        -> string
        -> LargeInt.int
-       -> baseinforecord_t
+       -> base_info_record_t
     val getNInfos :
       'a class_t
        -> string
@@ -51,20 +51,20 @@ signature G_I_REPOSITORY_REPOSITORY =
        -> bool
     val loadTypelib :
       'a class_t
-       -> typelibrecord_t
-       -> repositoryloadflags_t
+       -> typelib_record_t
+       -> repository_load_flags_t
        -> string
     val require :
       'a class_t
        -> string
        -> string option
-       -> repositoryloadflags_t
-       -> typelibrecord_t
+       -> repository_load_flags_t
+       -> typelib_record_t
     val requirePrivate :
       'a class_t
        -> string
        -> string
        -> string option
-       -> repositoryloadflags_t
-       -> typelibrecord_t
+       -> repository_load_flags_t
+       -> typelib_record_t
   end

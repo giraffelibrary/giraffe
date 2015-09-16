@@ -5,7 +5,7 @@ signature GDK_EVENT_MOTION_RECORD =
     type t = motion event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      MOTIONNOTIFY
+      MOTION_NOTIFY
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

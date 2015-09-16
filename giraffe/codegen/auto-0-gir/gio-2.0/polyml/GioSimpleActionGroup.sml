@@ -1,8 +1,8 @@
 structure GioSimpleActionGroup :>
   GIO_SIMPLE_ACTION_GROUP
     where type 'a class_t = 'a GioSimpleActionGroupClass.t
-    where type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    where type 'a actionclass_t = 'a GioActionClass.t =
+    where type 'a action_group_class_t = 'a GioActionGroupClass.t
+    where type 'a action_class_t = 'a GioActionClass.t =
   struct
     local
       open PolyMLFFI
@@ -14,8 +14,8 @@ structure GioSimpleActionGroup :>
       val remove_ = call (load_sym libgio "g_simple_action_group_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioSimpleActionGroupClass.t
-    type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    type 'a actionclass_t = 'a GioActionClass.t
+    type 'a action_group_class_t = 'a GioActionGroupClass.t
+    type 'a action_class_t = 'a GioActionClass.t
     type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

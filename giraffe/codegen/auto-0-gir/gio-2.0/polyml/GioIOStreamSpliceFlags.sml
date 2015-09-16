@@ -13,15 +13,15 @@ structure GioIOStreamSpliceFlags :>
     in
       val NONE = NONE ()
     end
-    val CLOSESTREAM1 = 0w1
-    val CLOSESTREAM2 = 0w2
-    val WAITFORBOTH = 0w4
+    val CLOSE_STREAM_1 = 0w1
+    val CLOSE_STREAM_2 = 0w2
+    val WAIT_FOR_BOTH = 0w4
     val allFlags =
       [
         NONE,
-        CLOSESTREAM1,
-        CLOSESTREAM2,
-        WAITFORBOTH
+        CLOSE_STREAM_1,
+        CLOSE_STREAM_2,
+        WAIT_FOR_BOTH
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,13 +1,13 @@
 structure GObjectParamSpecFloatClass :>
   G_OBJECT_PARAM_SPEC_FLOAT_CLASS
-    where type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
+    where type 'a param_spec_class_t = 'a GObjectParamSpecClass.t
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
     where type C.notnull = GObjectParamSpecClass.C.notnull
     where type 'a C.p = 'a GObjectParamSpecClass.C.p =
   struct
-    type 'a paramspecfloat = unit
-    type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
-    type 'a t = 'a paramspecfloat paramspecclass_t
+    type 'a param_spec_float = unit
+    type 'a param_spec_class_t = 'a GObjectParamSpecClass.t
+    type 'a t = 'a param_spec_float param_spec_class_t
     fun toBase obj = obj
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
     val t = GObjectParamSpecClass.t

@@ -1,7 +1,7 @@
 signature GIO_UNIX_F_D_LIST_CLASS =
   sig
-    type 'a unixfdlist
-    type 'a t = 'a unixfdlist GObject.ObjectClass.t
+    type 'a unix_f_d_list
+    type 'a t = 'a unix_f_d_list GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

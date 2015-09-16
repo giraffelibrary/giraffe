@@ -1,15 +1,15 @@
 signature G_LIB_KEY_FILE_ERROR =
   sig
     datatype t =
-      UNKNOWNENCODING
+      UNKNOWN_ENCODING
     | PARSE
-    | NOTFOUND
-    | KEYNOTFOUND
-    | GROUPNOTFOUND
-    | INVALIDVALUE
+    | NOT_FOUND
+    | KEY_NOT_FOUND
+    | GROUP_NOT_FOUND
+    | INVALID_VALUE
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

@@ -10,13 +10,13 @@ structure GLibErrorType :>
   struct
     datatype t =
       UNKNOWN
-    | UNEXPEOF
-    | UNEXPEOFINSTRING
-    | UNEXPEOFINCOMMENT
-    | NONDIGITINCONST
-    | DIGITRADIX
-    | FLOATRADIX
-    | FLOATMALFORMED
+    | UNEXP_EOF
+    | UNEXP_EOF_IN_STRING
+    | UNEXP_EOF_IN_COMMENT
+    | NON_DIGIT_IN_CONST
+    | DIGIT_RADIX
+    | FLOAT_RADIX
+    | FLOAT_MALFORMED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,24 +25,24 @@ structure GLibErrorType :>
         fun withVal f =
           fn
             UNKNOWN => f 0
-          | UNEXPEOF => f 1
-          | UNEXPEOFINSTRING => f 2
-          | UNEXPEOFINCOMMENT => f 3
-          | NONDIGITINCONST => f 4
-          | DIGITRADIX => f 5
-          | FLOATRADIX => f 6
-          | FLOATMALFORMED => f 7
+          | UNEXP_EOF => f 1
+          | UNEXP_EOF_IN_STRING => f 2
+          | UNEXP_EOF_IN_COMMENT => f 3
+          | NON_DIGIT_IN_CONST => f 4
+          | DIGIT_RADIX => f 5
+          | FLOAT_RADIX => f 6
+          | FLOAT_MALFORMED => f 7
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => UNKNOWN
-          | 1 => UNEXPEOF
-          | 2 => UNEXPEOFINSTRING
-          | 3 => UNEXPEOFINCOMMENT
-          | 4 => NONDIGITINCONST
-          | 5 => DIGITRADIX
-          | 6 => FLOATRADIX
-          | 7 => FLOATMALFORMED
+          | 1 => UNEXP_EOF
+          | 2 => UNEXP_EOF_IN_STRING
+          | 3 => UNEXP_EOF_IN_COMMENT
+          | 4 => NON_DIGIT_IN_CONST
+          | 5 => DIGIT_RADIX
+          | 6 => FLOAT_RADIX
+          | 7 => FLOAT_MALFORMED
           | n => raise Value n
       end
     structure PolyML =

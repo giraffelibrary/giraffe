@@ -1,7 +1,7 @@
 structure GtkNumerableIcon :>
   GTK_NUMERABLE_ICON
     where type 'a class_t = 'a GtkNumerableIconClass.t
-    where type 'a stylecontextclass_t = 'a GtkStyleContextClass.t =
+    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
   struct
     local
       open PolyMLFFI
@@ -21,7 +21,7 @@ structure GtkNumerableIcon :>
       val setStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_set_style_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkNumerableIconClass.t
-    type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type 'a style_context_class_t = 'a GtkStyleContextClass.t
     type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

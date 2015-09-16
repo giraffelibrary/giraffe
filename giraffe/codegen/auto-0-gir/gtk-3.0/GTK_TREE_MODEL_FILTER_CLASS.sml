@@ -1,7 +1,7 @@
 signature GTK_TREE_MODEL_FILTER_CLASS =
   sig
-    type 'a treemodelfilter
-    type 'a t = 'a treemodelfilter GObject.ObjectClass.t
+    type 'a tree_model_filter
+    type 'a t = 'a tree_model_filter GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

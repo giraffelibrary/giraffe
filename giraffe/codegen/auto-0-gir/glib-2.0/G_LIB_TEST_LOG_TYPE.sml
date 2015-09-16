@@ -3,13 +3,13 @@ signature G_LIB_TEST_LOG_TYPE =
     datatype t =
       NONE
     | ERROR
-    | STARTBINARY
-    | LISTCASE
-    | SKIPCASE
-    | STARTCASE
-    | STOPCASE
-    | MINRESULT
-    | MAXRESULT
+    | START_BINARY
+    | LIST_CASE
+    | SKIP_CASE
+    | START_CASE
+    | STOP_CASE
+    | MIN_RESULT
+    | MAX_RESULT
     | MESSAGE
     val null : t
     structure C :

@@ -1,9 +1,9 @@
 structure GioDBusObjectSkeleton :>
   GIO_D_BUS_OBJECT_SKELETON
     where type 'a class_t = 'a GioDBusObjectSkeletonClass.t
-    where type 'a dbusobjectclass_t = 'a GioDBusObjectClass.t
-    where type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
-    where type 'a dbusinterfaceskeletonclass_t = 'a GioDBusInterfaceSkeletonClass.t =
+    where type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
+    where type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    where type 'a d_bus_interface_skeleton_class_t = 'a GioDBusInterfaceSkeletonClass.t =
   struct
     val getType_ = _import "g_dbus_object_skeleton_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_g_dbus_object_skeleton_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -41,9 +41,9 @@ structure GioDBusObjectSkeleton :>
               x3
             )
     type 'a class_t = 'a GioDBusObjectSkeletonClass.t
-    type 'a dbusobjectclass_t = 'a GioDBusObjectClass.t
-    type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
-    type 'a dbusinterfaceskeletonclass_t = 'a GioDBusInterfaceSkeletonClass.t
+    type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
+    type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    type 'a d_bus_interface_skeleton_class_t = 'a GioDBusInterfaceSkeletonClass.t
     type t = base class_t
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

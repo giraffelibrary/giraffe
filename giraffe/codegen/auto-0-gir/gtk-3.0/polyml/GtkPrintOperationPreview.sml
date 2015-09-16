@@ -1,8 +1,8 @@
 structure GtkPrintOperationPreview :>
   GTK_PRINT_OPERATION_PREVIEW
     where type 'a class_t = 'a GtkPrintOperationPreviewClass.t
-    where type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
-    where type 'a printcontextclass_t = 'a GtkPrintContextClass.t =
+    where type 'a page_setup_class_t = 'a GtkPageSetupClass.t
+    where type 'a print_context_class_t = 'a GtkPrintContextClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GtkPrintOperationPreview :>
       val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkPrintOperationPreviewClass.t
-    type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
-    type 'a printcontextclass_t = 'a GtkPrintContextClass.t
+    type 'a page_setup_class_t = 'a GtkPageSetupClass.t
+    type 'a print_context_class_t = 'a GtkPrintContextClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun endPreview self = (GObjectObjectClass.C.withPtr ---> I) endPreview_ self

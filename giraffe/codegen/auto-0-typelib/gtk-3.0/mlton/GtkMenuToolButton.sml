@@ -1,10 +1,10 @@
 structure GtkMenuToolButton :>
   GTK_MENU_TOOL_BUTTON
     where type 'a class_t = 'a GtkMenuToolButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t =
   struct
     val getType_ = _import "gtk_menu_tool_button_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -56,10 +56,10 @@ structure GtkMenuToolButton :>
             )
     val setMenu_ = fn x1 & x2 => (_import "gtk_menu_tool_button_set_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkMenuToolButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

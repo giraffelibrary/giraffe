@@ -1,9 +1,9 @@
 structure GtkTable :>
   GTK_TABLE
     where type 'a class_t = 'a GtkTableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type attachoptions_t = GtkAttachOptions.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type attach_options_t = GtkAttachOptions.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -85,9 +85,9 @@ structure GtkTable :>
       val setRowSpacings_ = call (load_sym libgtk "gtk_table_set_row_spacings") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type attachoptions_t = GtkAttachOptions.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type attach_options_t = GtkAttachOptions.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

@@ -4,8 +4,8 @@ structure GdkEventKeyRecord :>
       where type 'a event_t = 'a GdkEvent.t
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
-      where type 'a windowclass_t = 'a GdkWindowClass.t
-      where type modifiertype_t = GdkModifierType.t
+      where type 'a window_class_t = 'a GdkWindowClass.t
+      where type modifier_type_t = GdkModifierType.t
 
     structure PolyML :
       sig
@@ -20,8 +20,8 @@ structure GdkEventKeyRecord :>
 
 
     datatype event =
-      KEYPRESS
-    | KEYRELEASE
+      KEY_PRESS
+    | KEY_RELEASE
 
 
     structure C = GdkEvent.C
@@ -73,8 +73,8 @@ structure GdkEventKeyRecord :>
     end
 
 
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type modifiertype_t = GdkModifierType.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type modifier_type_t = GdkModifierType.t
 
 
     fun getWindow e = (C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ e

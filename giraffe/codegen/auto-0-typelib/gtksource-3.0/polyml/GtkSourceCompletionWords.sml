@@ -1,7 +1,7 @@
 structure GtkSourceCompletionWords :>
   GTK_SOURCE_COMPLETION_WORDS
     where type 'a class_t = 'a GtkSourceCompletionWordsClass.t
-    where type 'a completionproviderclass_t = 'a GtkSourceCompletionProviderClass.t =
+    where type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure GtkSourceCompletionWords :>
       val unregister_ = call (load_sym libgtksourceview "gtk_source_completion_words_unregister") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceCompletionWordsClass.t
-    type 'a completionproviderclass_t = 'a GtkSourceCompletionProviderClass.t
+    type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t
     type t = base class_t
     fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

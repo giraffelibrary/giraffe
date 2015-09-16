@@ -1,7 +1,7 @@
 signature GTK_PRINT_OPERATION_ACTION =
   sig
     datatype t =
-      PRINTDIALOG
+      PRINT_DIALOG
     | PRINT
     | PREVIEW
     | EXPORT

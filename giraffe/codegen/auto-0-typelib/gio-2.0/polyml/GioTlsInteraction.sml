@@ -1,10 +1,10 @@
 structure GioTlsInteraction :>
   GIO_TLS_INTERACTION
     where type 'a class_t = 'a GioTlsInteractionClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type tlsinteractionresult_t = GioTlsInteractionResult.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a tlspasswordclass_t = 'a GioTlsPasswordClass.t =
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type tls_interaction_result_t = GioTlsInteractionResult.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a tls_password_class_t = 'a GioTlsPasswordClass.t =
   struct
     local
       open PolyMLFFI
@@ -38,10 +38,10 @@ structure GioTlsInteraction :>
           )
     end
     type 'a class_t = 'a GioTlsInteractionClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type tlsinteractionresult_t = GioTlsInteractionResult.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a tlspasswordclass_t = 'a GioTlsPasswordClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type tls_interaction_result_t = GioTlsInteractionResult.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a tls_password_class_t = 'a GioTlsPasswordClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun askPassword self password cancellable =

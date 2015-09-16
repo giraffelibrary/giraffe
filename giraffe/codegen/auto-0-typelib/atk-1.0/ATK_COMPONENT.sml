@@ -2,16 +2,16 @@ signature ATK_COMPONENT =
   sig
     type 'a class_t
     type layer_t
-    type 'a objectclass_t
-    type coordtype_t
-    type rectanglerecord_t
+    type 'a object_class_t
+    type coord_type_t
+    type rectangle_record_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val contains :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> coordtype_t
+       -> coord_type_t
        -> bool
     val getAlpha : 'a class_t -> real
     val getLayer : 'a class_t -> layer_t
@@ -21,8 +21,8 @@ signature ATK_COMPONENT =
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> coordtype_t
-       -> base objectclass_t
+       -> coord_type_t
+       -> base object_class_t
     val removeFocusHandler :
       'a class_t
        -> LargeInt.int
@@ -33,18 +33,18 @@ signature ATK_COMPONENT =
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
-       -> coordtype_t
+       -> coord_type_t
        -> bool
     val setPosition :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> coordtype_t
+       -> coord_type_t
        -> bool
     val setSize :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
        -> bool
-    val boundsChangedSig : (rectanglerecord_t -> unit) -> 'a class_t Signal.signal
+    val boundsChangedSig : (rectangle_record_t -> unit) -> 'a class_t Signal.signal
   end

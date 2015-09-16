@@ -4,10 +4,10 @@ structure GLibTraverseType :>
   end =
   struct
     datatype t =
-      INORDER
-    | PREORDER
-    | POSTORDER
-    | LEVELORDER
+      IN_ORDER
+    | PRE_ORDER
+    | POST_ORDER
+    | LEVEL_ORDER
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -15,18 +15,18 @@ structure GLibTraverseType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            INORDER => f 0
-          | PREORDER => f 1
-          | POSTORDER => f 2
-          | LEVELORDER => f 3
+            IN_ORDER => f 0
+          | PRE_ORDER => f 1
+          | POST_ORDER => f 2
+          | LEVEL_ORDER => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => INORDER
-          | 1 => PREORDER
-          | 2 => POSTORDER
-          | 3 => LEVELORDER
+            0 => IN_ORDER
+          | 1 => PRE_ORDER
+          | 2 => POST_ORDER
+          | 3 => LEVEL_ORDER
           | n => raise Value n
       end
-    val null = INORDER
+    val null = IN_ORDER
   end

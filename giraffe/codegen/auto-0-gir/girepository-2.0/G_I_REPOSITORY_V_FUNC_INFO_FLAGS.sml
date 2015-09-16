@@ -4,9 +4,9 @@ signature G_I_REPOSITORY_V_FUNC_INFO_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val CHAINUP : t
+    val CHAIN_UP : t
     val OVERRIDE : t
-    val NOTOVERRIDE : t
+    val NOT_OVERRIDE : t
     structure C :
       sig
         type val_

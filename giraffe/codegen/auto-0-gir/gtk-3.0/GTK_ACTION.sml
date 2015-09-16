@@ -1,12 +1,12 @@
 signature GTK_ACTION =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type 'a widgetclass_t
-    type 'a accelgroupclass_t
-    type 'a actiongroupclass_t
+    type 'a buildable_class_t
+    type 'a widget_class_t
+    type 'a accel_group_class_t
+    type 'a action_group_class_t
     type t = base class_t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
     val new :
       string
@@ -20,10 +20,10 @@ signature GTK_ACTION =
     val createIcon :
       'a class_t
        -> LargeInt.int
-       -> base widgetclass_t
-    val createMenu : 'a class_t -> base widgetclass_t
-    val createMenuItem : 'a class_t -> base widgetclass_t
-    val createToolItem : 'a class_t -> base widgetclass_t
+       -> base widget_class_t
+    val createMenu : 'a class_t -> base widget_class_t
+    val createMenuItem : 'a class_t -> base widget_class_t
+    val createToolItem : 'a class_t -> base widget_class_t
     val disconnectAccelerator : 'a class_t -> unit
     val getAccelClosure : 'a class_t -> GObject.ClosureRecord.t
     val getAccelPath : 'a class_t -> string
@@ -44,7 +44,7 @@ signature GTK_ACTION =
     val isVisible : 'a class_t -> bool
     val setAccelGroup :
       'a class_t
-       -> 'b accelgroupclass_t option
+       -> 'b accel_group_class_t option
        -> unit
     val setAccelPath :
       'a class_t
@@ -100,7 +100,7 @@ signature GTK_ACTION =
        -> unit
     val unblockActivate : 'a class_t -> unit
     val activateSig : (unit -> unit) -> 'a class_t Signal.signal
-    val actionGroupProp : ('a class_t, base actiongroupclass_t option, 'b actiongroupclass_t option) Property.readwrite
+    val actionGroupProp : ('a class_t, base action_group_class_t option, 'b action_group_class_t option) Property.readwrite
     val alwaysShowImageProp : ('a class_t, bool, bool) Property.readwrite
     val giconProp : ('a class_t, base Gio.IconClass.t option, 'b Gio.IconClass.t option) Property.readwrite
     val hideIfEmptyProp : ('a class_t, bool, bool) Property.readwrite

@@ -2,7 +2,7 @@ signature GIO_PASSWORD_SAVE =
   sig
     datatype t =
       NEVER
-    | FORSESSION
+    | FOR_SESSION
     | PERMANENTLY
     val null : t
     val t : (t, t) GObject.Value.accessor

@@ -1,23 +1,23 @@
 structure GioFile :>
   GIO_FILE
     where type 'a class_t = 'a GioFileClass.t
-    where type filecopyflags_t = GioFileCopyFlags.t
-    where type 'a fileenumeratorclass_t = 'a GioFileEnumeratorClass.t
-    where type 'a mountclass_t = 'a GioMountClass.t
-    where type 'a iconclass_t = 'a GioIconClass.t
-    where type 'a filemonitorclass_t = 'a GioFileMonitorClass.t
-    where type filemonitorflags_t = GioFileMonitorFlags.t
-    where type 'a appinfoclass_t = 'a GioAppInfoClass.t
-    where type filetype_t = GioFileType.t
-    where type fileattributeinfolistrecord_t = GioFileAttributeInfoListRecord.t
-    where type 'a fileinputstreamclass_t = 'a GioFileInputStreamClass.t
-    where type 'a fileoutputstreamclass_t = 'a GioFileOutputStreamClass.t
-    where type filecreateflags_t = GioFileCreateFlags.t
-    where type 'a fileiostreamclass_t = 'a GioFileIOStreamClass.t
-    where type filequeryinfoflags_t = GioFileQueryInfoFlags.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type file_copy_flags_t = GioFileCopyFlags.t
+    where type 'a file_enumerator_class_t = 'a GioFileEnumeratorClass.t
+    where type 'a mount_class_t = 'a GioMountClass.t
+    where type 'a icon_class_t = 'a GioIconClass.t
+    where type 'a file_monitor_class_t = 'a GioFileMonitorClass.t
+    where type file_monitor_flags_t = GioFileMonitorFlags.t
+    where type 'a app_info_class_t = 'a GioAppInfoClass.t
+    where type file_type_t = GioFileType.t
+    where type file_attribute_info_list_record_t = GioFileAttributeInfoListRecord.t
+    where type 'a file_input_stream_class_t = 'a GioFileInputStreamClass.t
+    where type 'a file_output_stream_class_t = 'a GioFileOutputStreamClass.t
+    where type file_create_flags_t = GioFileCreateFlags.t
+    where type 'a file_i_o_stream_class_t = 'a GioFileIOStreamClass.t
+    where type file_query_info_flags_t = GioFileQueryInfoFlags.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_file_get_type" : unit -> GObjectType.C.val_;
     val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -1183,23 +1183,23 @@ structure GioFile :>
               x3
             )
     type 'a class_t = 'a GioFileClass.t
-    type filecopyflags_t = GioFileCopyFlags.t
-    type 'a fileenumeratorclass_t = 'a GioFileEnumeratorClass.t
-    type 'a mountclass_t = 'a GioMountClass.t
-    type 'a iconclass_t = 'a GioIconClass.t
-    type 'a filemonitorclass_t = 'a GioFileMonitorClass.t
-    type filemonitorflags_t = GioFileMonitorFlags.t
-    type 'a appinfoclass_t = 'a GioAppInfoClass.t
-    type filetype_t = GioFileType.t
-    type fileattributeinfolistrecord_t = GioFileAttributeInfoListRecord.t
-    type 'a fileinputstreamclass_t = 'a GioFileInputStreamClass.t
-    type 'a fileoutputstreamclass_t = 'a GioFileOutputStreamClass.t
-    type filecreateflags_t = GioFileCreateFlags.t
-    type 'a fileiostreamclass_t = 'a GioFileIOStreamClass.t
-    type filequeryinfoflags_t = GioFileQueryInfoFlags.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type file_copy_flags_t = GioFileCopyFlags.t
+    type 'a file_enumerator_class_t = 'a GioFileEnumeratorClass.t
+    type 'a mount_class_t = 'a GioMountClass.t
+    type 'a icon_class_t = 'a GioIconClass.t
+    type 'a file_monitor_class_t = 'a GioFileMonitorClass.t
+    type file_monitor_flags_t = GioFileMonitorFlags.t
+    type 'a app_info_class_t = 'a GioAppInfoClass.t
+    type file_type_t = GioFileType.t
+    type file_attribute_info_list_record_t = GioFileAttributeInfoListRecord.t
+    type 'a file_input_stream_class_t = 'a GioFileInputStreamClass.t
+    type 'a file_output_stream_class_t = 'a GioFileOutputStreamClass.t
+    type file_create_flags_t = GioFileCreateFlags.t
+    type 'a file_i_o_stream_class_t = 'a GioFileIOStreamClass.t
+    type file_query_info_flags_t = GioFileQueryInfoFlags.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg

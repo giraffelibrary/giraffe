@@ -8,8 +8,8 @@ structure GioDBusSubtreeFlags :>
     in
       val NONE = NONE ()
     end
-    val DISPATCHTOUNENUMERATEDNODES = 0w1
-    val allFlags = [NONE, DISPATCHTOUNENUMERATEDNODES]
+    val DISPATCH_TO_UNENUMERATED_NODES = 0w1
+    val allFlags = [NONE, DISPATCH_TO_UNENUMERATED_NODES]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

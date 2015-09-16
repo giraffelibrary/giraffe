@@ -3,8 +3,8 @@ signature GTK_PAGE_ORIENTATION =
     datatype t =
       PORTRAIT
     | LANDSCAPE
-    | REVERSEPORTRAIT
-    | REVERSELANDSCAPE
+    | REVERSE_PORTRAIT
+    | REVERSE_LANDSCAPE
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

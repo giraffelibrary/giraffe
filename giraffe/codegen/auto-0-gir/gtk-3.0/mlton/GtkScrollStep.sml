@@ -7,9 +7,9 @@ structure GtkScrollStep :>
       STEPS
     | PAGES
     | ENDS
-    | HORIZONTALSTEPS
-    | HORIZONTALPAGES
-    | HORIZONTALENDS
+    | HORIZONTAL_STEPS
+    | HORIZONTAL_PAGES
+    | HORIZONTAL_ENDS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -20,18 +20,18 @@ structure GtkScrollStep :>
             STEPS => f 0
           | PAGES => f 1
           | ENDS => f 2
-          | HORIZONTALSTEPS => f 3
-          | HORIZONTALPAGES => f 4
-          | HORIZONTALENDS => f 5
+          | HORIZONTAL_STEPS => f 3
+          | HORIZONTAL_PAGES => f 4
+          | HORIZONTAL_ENDS => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => STEPS
           | 1 => PAGES
           | 2 => ENDS
-          | 3 => HORIZONTALSTEPS
-          | 4 => HORIZONTALPAGES
-          | 5 => HORIZONTALENDS
+          | 3 => HORIZONTAL_STEPS
+          | 4 => HORIZONTAL_PAGES
+          | 5 => HORIZONTAL_ENDS
           | n => raise Value n
       end
     val getType_ = _import "gtk_scroll_step_get_type" : unit -> GObjectType.C.val_;

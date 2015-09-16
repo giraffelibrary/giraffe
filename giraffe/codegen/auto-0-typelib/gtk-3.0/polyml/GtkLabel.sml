@@ -1,11 +1,11 @@
 structure GtkLabel :>
   GTK_LABEL
     where type 'a class_t = 'a GtkLabelClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type movementstep_t = GtkMovementStep.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type movement_step_t = GtkMovementStep.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t
     where type justification_t = GtkJustification.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -78,11 +78,11 @@ structure GtkLabel :>
       val setWidthChars_ = call (load_sym libgtk "gtk_label_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkLabelClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type movementstep_t = GtkMovementStep.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type movement_step_t = GtkMovementStep.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
     type justification_t = GtkJustification.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

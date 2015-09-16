@@ -2,14 +2,14 @@ structure GtkIconSize :>
   sig
     include
       GTK_ICON_SIZE
-        where type 'a settingsclass_t = 'a GtkSettingsClass.t
+        where type 'a settings_class_t = 'a GtkSettingsClass.t
   end =
   struct
     datatype t =
       INVALID
     | MENU
-    | SMALLTOOLBAR
-    | LARGETOOLBAR
+    | SMALL_TOOLBAR
+    | LARGE_TOOLBAR
     | BUTTON
     | DND
     | DIALOG
@@ -22,8 +22,8 @@ structure GtkIconSize :>
           fn
             INVALID => f 0
           | MENU => f 1
-          | SMALLTOOLBAR => f 2
-          | LARGETOOLBAR => f 3
+          | SMALL_TOOLBAR => f 2
+          | LARGE_TOOLBAR => f 3
           | BUTTON => f 4
           | DND => f 5
           | DIALOG => f 6
@@ -32,8 +32,8 @@ structure GtkIconSize :>
           fn
             0 => INVALID
           | 1 => MENU
-          | 2 => SMALLTOOLBAR
-          | 3 => LARGETOOLBAR
+          | 2 => SMALL_TOOLBAR
+          | 3 => LARGE_TOOLBAR
           | 4 => BUTTON
           | 5 => DND
           | 6 => DIALOG
@@ -123,7 +123,7 @@ structure GtkIconSize :>
               x2,
               x3
             )
-    type 'a settingsclass_t = 'a GtkSettingsClass.t
+    type 'a settings_class_t = 'a GtkSettingsClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun fromName name = (FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) fromName_ name
     fun getName size = (FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) getName_ size

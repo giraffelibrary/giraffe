@@ -13,10 +13,10 @@ structure GtkJunctionSides :>
     in
       val NONE = NONE ()
     end
-    val CORNERTOPLEFT = 0w1
-    val CORNERTOPRIGHT = 0w2
-    val CORNERBOTTOMLEFT = 0w4
-    val CORNERBOTTOMRIGHT = 0w8
+    val CORNER_TOPLEFT = 0w1
+    val CORNER_TOPRIGHT = 0w2
+    val CORNER_BOTTOMLEFT = 0w4
+    val CORNER_BOTTOMRIGHT = 0w8
     val TOP = 0w3
     val BOTTOM = 0w12
     val LEFT = 0w5
@@ -24,10 +24,10 @@ structure GtkJunctionSides :>
     val allFlags =
       [
         NONE,
-        CORNERTOPLEFT,
-        CORNERTOPRIGHT,
-        CORNERBOTTOMLEFT,
-        CORNERBOTTOMRIGHT,
+        CORNER_TOPLEFT,
+        CORNER_TOPRIGHT,
+        CORNER_BOTTOMLEFT,
+        CORNER_BOTTOMRIGHT,
         TOP,
         BOTTOM,
         LEFT,

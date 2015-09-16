@@ -1,7 +1,7 @@
 signature GIO_SIMPLE_ASYNC_RESULT_CLASS =
   sig
-    type 'a simpleasyncresult
-    type 'a t = 'a simpleasyncresult GObject.ObjectClass.t
+    type 'a simple_async_result
+    type 'a t = 'a simple_async_result GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

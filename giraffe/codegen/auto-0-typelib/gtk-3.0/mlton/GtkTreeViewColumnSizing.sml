@@ -4,7 +4,7 @@ structure GtkTreeViewColumnSizing :>
   end =
   struct
     datatype t =
-      GROWONLY
+      GROW_ONLY
     | AUTOSIZE
     | FIXED
     structure C =
@@ -14,13 +14,13 @@ structure GtkTreeViewColumnSizing :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            GROWONLY => f 0
+            GROW_ONLY => f 0
           | AUTOSIZE => f 1
           | FIXED => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => GROWONLY
+            0 => GROW_ONLY
           | 1 => AUTOSIZE
           | 2 => FIXED
           | n => raise Value n
@@ -35,6 +35,6 @@ structure GtkTreeViewColumnSizing :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = GROWONLY
+    val null = GROW_ONLY
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

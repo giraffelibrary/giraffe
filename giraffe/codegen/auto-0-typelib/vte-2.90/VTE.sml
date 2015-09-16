@@ -13,15 +13,15 @@ signature VTE =
     structure Pty :
       VTE_PTY
         where type 'a class_t = 'a PtyClass.t
-        where type ptyflags_t = PtyFlags.t
+        where type pty_flags_t = PtyFlags.t
     structure Terminal :
       VTE_TERMINAL
         where type 'a class_t = 'a TerminalClass.t
-        where type ptyflags_t = PtyFlags.t
-        where type terminalwriteflags_t = TerminalWriteFlags.t
-        where type terminalcursorblinkmode_t = TerminalCursorBlinkMode.t
-        where type terminalcursorshape_t = TerminalCursorShape.t
-        where type terminalerasebinding_t = TerminalEraseBinding.t
-        where type 'a ptyclass_t = 'a PtyClass.t
+        where type pty_flags_t = PtyFlags.t
+        where type terminal_write_flags_t = TerminalWriteFlags.t
+        where type terminal_cursor_blink_mode_t = TerminalCursorBlinkMode.t
+        where type terminal_cursor_shape_t = TerminalCursorShape.t
+        where type terminal_erase_binding_t = TerminalEraseBinding.t
+        where type 'a pty_class_t = 'a PtyClass.t
     val getUserShell : unit -> string
   end

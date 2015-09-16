@@ -1,17 +1,17 @@
 structure GioZlibDecompressor :>
   GIO_ZLIB_DECOMPRESSOR
     where type 'a class_t = 'a GioZlibDecompressorClass.t
-    where type 'a converterclass_t = 'a GioConverterClass.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type zlibcompressorformat_t = GioZlibCompressorFormat.t =
+    where type 'a converter_class_t = 'a GioConverterClass.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type zlib_compressor_format_t = GioZlibCompressorFormat.t =
   struct
     val getType_ = _import "g_zlib_decompressor_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_zlib_decompressor_new" : GioZlibCompressorFormat.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFileInfo_ = _import "g_zlib_decompressor_get_file_info" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GioZlibDecompressorClass.t
-    type 'a converterclass_t = 'a GioConverterClass.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type zlibcompressorformat_t = GioZlibCompressorFormat.t
+    type 'a converter_class_t = 'a GioConverterClass.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class_t
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

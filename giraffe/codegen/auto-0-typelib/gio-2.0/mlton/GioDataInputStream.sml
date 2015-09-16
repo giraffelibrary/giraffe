@@ -1,11 +1,11 @@
 structure GioDataInputStream :>
   GIO_DATA_INPUT_STREAM
     where type 'a class_t = 'a GioDataInputStreamClass.t
-    where type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type datastreambyteorder_t = GioDataStreamByteOrder.t
-    where type datastreamnewlinetype_t = GioDataStreamNewlineType.t =
+    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type data_stream_byte_order_t = GioDataStreamByteOrder.t
+    where type data_stream_newline_type_t = GioDataStreamNewlineType.t =
   struct
     val getType_ = _import "g_data_input_stream_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_data_input_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -266,11 +266,11 @@ structure GioDataInputStream :>
     val setByteOrder_ = fn x1 & x2 => (_import "g_data_input_stream_set_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamByteOrder.C.val_ -> unit;) (x1, x2)
     val setNewlineType_ = fn x1 & x2 => (_import "g_data_input_stream_set_newline_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamNewlineType.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioDataInputStreamClass.t
-    type 'a inputstreamclass_t = 'a GioInputStreamClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type datastreambyteorder_t = GioDataStreamByteOrder.t
-    type datastreamnewlinetype_t = GioDataStreamNewlineType.t
+    type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type data_stream_byte_order_t = GioDataStreamByteOrder.t
+    type data_stream_newline_type_t = GioDataStreamNewlineType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream

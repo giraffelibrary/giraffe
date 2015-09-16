@@ -13,13 +13,13 @@ structure GLibKeyFileFlags :>
     in
       val NONE = NONE ()
     end
-    val KEEPCOMMENTS = 0w1
-    val KEEPTRANSLATIONS = 0w2
+    val KEEP_COMMENTS = 0w1
+    val KEEP_TRANSLATIONS = 0w2
     val allFlags =
       [
         NONE,
-        KEEPCOMMENTS,
-        KEEPTRANSLATIONS
+        KEEP_COMMENTS,
+        KEEP_TRANSLATIONS
       ]
     structure BitFlags =
       Word32BitFlags (

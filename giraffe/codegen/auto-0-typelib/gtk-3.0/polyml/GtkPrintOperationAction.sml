@@ -9,7 +9,7 @@ structure GtkPrintOperationAction :>
   end =
   struct
     datatype t =
-      PRINTDIALOG
+      PRINT_DIALOG
     | PRINT
     | PREVIEW
     | EXPORT
@@ -20,14 +20,14 @@ structure GtkPrintOperationAction :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            PRINTDIALOG => f 0
+            PRINT_DIALOG => f 0
           | PRINT => f 1
           | PREVIEW => f 2
           | EXPORT => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => PRINTDIALOG
+            0 => PRINT_DIALOG
           | 1 => PRINT
           | 2 => PREVIEW
           | 3 => EXPORT
@@ -52,6 +52,6 @@ structure GtkPrintOperationAction :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = PRINTDIALOG
+    val null = PRINT_DIALOG
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

@@ -1,7 +1,7 @@
 signature GTK_ICON_THEME_ERROR =
   sig
     datatype t =
-      NOTFOUND
+      NOT_FOUND
     | FAILED
     exception Error of t
     val handler : GLib.ErrorRecord.handler

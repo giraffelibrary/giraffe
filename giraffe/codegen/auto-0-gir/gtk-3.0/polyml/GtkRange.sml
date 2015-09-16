@@ -1,11 +1,11 @@
 structure GtkRange :>
   GTK_RANGE
     where type 'a class_t = 'a GtkRangeClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type scrolltype_t = GtkScrollType.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type sensitivitytype_t = GtkSensitivityType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type scroll_type_t = GtkScrollType.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type sensitivity_type_t = GtkSensitivityType.t =
   struct
     local
       open PolyMLFFI
@@ -62,11 +62,11 @@ structure GtkRange :>
       val setValue_ = call (load_sym libgtk "gtk_range_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRangeClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type scrolltype_t = GtkScrollType.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type sensitivitytype_t = GtkSensitivityType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type scroll_type_t = GtkScrollType.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type sensitivity_type_t = GtkSensitivityType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

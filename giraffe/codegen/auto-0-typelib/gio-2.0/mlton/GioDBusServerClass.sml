@@ -3,8 +3,8 @@ structure GioDBusServerClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a dbusserver = unit
-    type 'a t = 'a dbusserver GObjectObjectClass.t
+    type 'a d_bus_server = unit
+    type 'a t = 'a d_bus_server GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

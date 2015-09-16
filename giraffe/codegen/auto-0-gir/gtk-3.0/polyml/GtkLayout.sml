@@ -1,10 +1,10 @@
 structure GtkLayout :>
   GTK_LAYOUT
     where type 'a class_t = 'a GtkLayoutClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -48,10 +48,10 @@ structure GtkLayout :>
           )
     end
     type 'a class_t = 'a GtkLayoutClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

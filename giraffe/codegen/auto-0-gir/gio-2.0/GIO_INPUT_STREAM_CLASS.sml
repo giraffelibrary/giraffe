@@ -1,7 +1,7 @@
 signature GIO_INPUT_STREAM_CLASS =
   sig
-    type 'a inputstream
-    type 'a t = 'a inputstream GObject.ObjectClass.t
+    type 'a input_stream
+    type 'a t = 'a input_stream GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,7 +1,7 @@
 structure GioAsyncInitable :>
   GIO_ASYNC_INITABLE
     where type 'a class_t = 'a GioAsyncInitableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     local
       open PolyMLFFI
@@ -25,7 +25,7 @@ structure GioAsyncInitable :>
           )
     end
     type 'a class_t = 'a GioAsyncInitableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun initFinish self res =

@@ -1,8 +1,8 @@
 structure GioTlsCertificate :>
   GIO_TLS_CERTIFICATE
     where type 'a class_t = 'a GioTlsCertificateClass.t
-    where type tlscertificateflags_t = GioTlsCertificateFlags.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t =
+    where type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
   struct
     local
       open PolyMLFFI
@@ -36,8 +36,8 @@ structure GioTlsCertificate :>
           )
     end
     type 'a class_t = 'a GioTlsCertificateClass.t
-    type tlscertificateflags_t = GioTlsCertificateFlags.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
+    type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile file = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])

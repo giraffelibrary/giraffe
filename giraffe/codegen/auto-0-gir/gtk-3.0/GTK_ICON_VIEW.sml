@@ -1,28 +1,28 @@
 signature GTK_ICON_VIEW =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type 'a celllayoutclass_t
-    type 'a scrollableclass_t
-    type treeiterrecord_t
-    type iconviewdropposition_t
-    type 'a cellrendererclass_t
-    type 'a tooltipclass_t
-    type treepathrecord_t
-    type movementstep_t
-    type 'a cellareaclass_t
+    type 'a buildable_class_t
+    type 'a cell_layout_class_t
+    type 'a scrollable_class_t
+    type tree_iter_record_t
+    type icon_view_drop_position_t
+    type 'a cell_renderer_class_t
+    type 'a tooltip_class_t
+    type tree_path_record_t
+    type movement_step_t
+    type 'a cell_area_class_t
     type orientation_t
-    type 'a treemodelclass_t
-    type selectionmode_t
+    type 'a tree_model_class_t
+    type selection_mode_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
-    val asCellLayout : 'a class_t -> base celllayoutclass_t
-    val asScrollable : 'a class_t -> base scrollableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
+    val asCellLayout : 'a class_t -> base cell_layout_class_t
+    val asScrollable : 'a class_t -> base scrollable_class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
-    val newWithArea : 'a cellareaclass_t -> base class_t
-    val newWithModel : 'a treemodelclass_t -> base class_t
+    val newWithArea : 'a cell_area_class_t -> base class_t
+    val newWithModel : 'a tree_model_class_t -> base class_t
     val convertWidgetToBinWindowCoords :
       'a class_t
        -> LargeInt.int
@@ -30,45 +30,45 @@ signature GTK_ICON_VIEW =
        -> LargeInt.int * LargeInt.int
     val createDragIcon :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> Cairo.SurfaceRecord.t
     val getColumnSpacing : 'a class_t -> LargeInt.int
     val getColumns : 'a class_t -> LargeInt.int
-    val getCursor : 'a class_t -> (treepathrecord_t * base cellrendererclass_t) option
+    val getCursor : 'a class_t -> (tree_path_record_t * base cell_renderer_class_t) option
     val getDestItemAtPos :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> (treepathrecord_t * iconviewdropposition_t) option
-    val getDragDestItem : 'a class_t -> treepathrecord_t * iconviewdropposition_t
+       -> (tree_path_record_t * icon_view_drop_position_t) option
+    val getDragDestItem : 'a class_t -> tree_path_record_t * icon_view_drop_position_t
     val getItemAtPos :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> (treepathrecord_t * base cellrendererclass_t) option
+       -> (tree_path_record_t * base cell_renderer_class_t) option
     val getItemColumn :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> LargeInt.int
     val getItemOrientation : 'a class_t -> orientation_t
     val getItemPadding : 'a class_t -> LargeInt.int
     val getItemRow :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> LargeInt.int
     val getItemWidth : 'a class_t -> LargeInt.int
     val getMargin : 'a class_t -> LargeInt.int
     val getMarkupColumn : 'a class_t -> LargeInt.int
-    val getModel : 'a class_t -> base treemodelclass_t
+    val getModel : 'a class_t -> base tree_model_class_t
     val getPathAtPos :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int
-       -> treepathrecord_t
+       -> tree_path_record_t
     val getPixbufColumn : 'a class_t -> LargeInt.int
     val getReorderable : 'a class_t -> bool
     val getRowSpacing : 'a class_t -> LargeInt.int
-    val getSelectionMode : 'a class_t -> selectionmode_t
+    val getSelectionMode : 'a class_t -> selection_mode_t
     val getSpacing : 'a class_t -> LargeInt.int
     val getTextColumn : 'a class_t -> LargeInt.int
     val getTooltipColumn : 'a class_t -> LargeInt.int
@@ -77,24 +77,24 @@ signature GTK_ICON_VIEW =
        -> LargeInt.int
        -> LargeInt.int
        -> bool
-       -> (base treemodelclass_t
-            * treepathrecord_t
-            * treeiterrecord_t)
+       -> (base tree_model_class_t
+            * tree_path_record_t
+            * tree_iter_record_t)
             option
            * LargeInt.int
            * LargeInt.int
-    val getVisibleRange : 'a class_t -> (treepathrecord_t * treepathrecord_t) option
+    val getVisibleRange : 'a class_t -> (tree_path_record_t * tree_path_record_t) option
     val itemActivated :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> unit
     val pathIsSelected :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> bool
     val scrollToPath :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> bool
        -> real
        -> real
@@ -102,7 +102,7 @@ signature GTK_ICON_VIEW =
     val selectAll : 'a class_t -> unit
     val selectPath :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> unit
     val setColumnSpacing :
       'a class_t
@@ -114,14 +114,14 @@ signature GTK_ICON_VIEW =
        -> unit
     val setCursor :
       'a class_t
-       -> treepathrecord_t
-       -> 'b cellrendererclass_t option
+       -> tree_path_record_t
+       -> 'b cell_renderer_class_t option
        -> bool
        -> unit
     val setDragDestItem :
       'a class_t
-       -> treepathrecord_t option
-       -> iconviewdropposition_t
+       -> tree_path_record_t option
+       -> icon_view_drop_position_t
        -> unit
     val setItemOrientation :
       'a class_t
@@ -145,7 +145,7 @@ signature GTK_ICON_VIEW =
        -> unit
     val setModel :
       'a class_t
-       -> 'b treemodelclass_t option
+       -> 'b tree_model_class_t option
        -> unit
     val setPixbufColumn :
       'a class_t
@@ -161,7 +161,7 @@ signature GTK_ICON_VIEW =
        -> unit
     val setSelectionMode :
       'a class_t
-       -> selectionmode_t
+       -> selection_mode_t
        -> unit
     val setSpacing :
       'a class_t
@@ -173,9 +173,9 @@ signature GTK_ICON_VIEW =
        -> unit
     val setTooltipCell :
       'a class_t
-       -> 'b tooltipclass_t
-       -> treepathrecord_t
-       -> 'c cellrendererclass_t option
+       -> 'b tooltip_class_t
+       -> tree_path_record_t
+       -> 'c cell_renderer_class_t option
        -> unit
     val setTooltipColumn :
       'a class_t
@@ -183,20 +183,20 @@ signature GTK_ICON_VIEW =
        -> unit
     val setTooltipItem :
       'a class_t
-       -> 'b tooltipclass_t
-       -> treepathrecord_t
+       -> 'b tooltip_class_t
+       -> tree_path_record_t
        -> unit
     val unselectAll : 'a class_t -> unit
     val unselectPath :
       'a class_t
-       -> treepathrecord_t
+       -> tree_path_record_t
        -> unit
     val unsetModelDragDest : 'a class_t -> unit
     val unsetModelDragSource : 'a class_t -> unit
     val activateCursorItemSig : (unit -> bool) -> 'a class_t Signal.signal
-    val itemActivatedSig : (treepathrecord_t -> unit) -> 'a class_t Signal.signal
+    val itemActivatedSig : (tree_path_record_t -> unit) -> 'a class_t Signal.signal
     val moveCursorSig :
-      (movementstep_t
+      (movement_step_t
         -> LargeInt.int
         -> bool)
        -> 'a class_t Signal.signal
@@ -205,7 +205,7 @@ signature GTK_ICON_VIEW =
     val selectionChangedSig : (unit -> unit) -> 'a class_t Signal.signal
     val toggleCursorItemSig : (unit -> unit) -> 'a class_t Signal.signal
     val unselectAllSig : (unit -> unit) -> 'a class_t Signal.signal
-    val cellAreaProp : ('a class_t, base cellareaclass_t option, 'b cellareaclass_t option) Property.readwrite
+    val cellAreaProp : ('a class_t, base cell_area_class_t option, 'b cell_area_class_t option) Property.readwrite
     val columnSpacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val columnsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val itemOrientationProp : ('a class_t, orientation_t, orientation_t) Property.readwrite
@@ -213,11 +213,11 @@ signature GTK_ICON_VIEW =
     val itemWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val marginProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val markupColumnProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val modelProp : ('a class_t, base treemodelclass_t option, 'b treemodelclass_t option) Property.readwrite
+    val modelProp : ('a class_t, base tree_model_class_t option, 'b tree_model_class_t option) Property.readwrite
     val pixbufColumnProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val reorderableProp : ('a class_t, bool, bool) Property.readwrite
     val rowSpacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val selectionModeProp : ('a class_t, selectionmode_t, selectionmode_t) Property.readwrite
+    val selectionModeProp : ('a class_t, selection_mode_t, selection_mode_t) Property.readwrite
     val spacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val textColumnProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val tooltipColumnProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite

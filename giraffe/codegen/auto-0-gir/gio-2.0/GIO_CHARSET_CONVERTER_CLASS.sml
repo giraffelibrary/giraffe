@@ -1,7 +1,7 @@
 signature GIO_CHARSET_CONVERTER_CLASS =
   sig
-    type 'a charsetconverter
-    type 'a t = 'a charsetconverter GObject.ObjectClass.t
+    type 'a charset_converter
+    type 'a t = 'a charset_converter GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

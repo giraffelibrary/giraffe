@@ -5,42 +5,42 @@ structure GLibUnicodeBreakType :>
   struct
     datatype t =
       MANDATORY
-    | CARRIAGERETURN
-    | LINEFEED
-    | COMBININGMARK
+    | CARRIAGE_RETURN
+    | LINE_FEED
+    | COMBINING_MARK
     | SURROGATE
-    | ZEROWIDTHSPACE
+    | ZERO_WIDTH_SPACE
     | INSEPARABLE
-    | NONBREAKINGGLUE
+    | NON_BREAKING_GLUE
     | CONTINGENT
     | SPACE
     | AFTER
     | BEFORE
-    | BEFOREANDAFTER
+    | BEFORE_AND_AFTER
     | HYPHEN
-    | NONSTARTER
-    | OPENPUNCTUATION
-    | CLOSEPUNCTUATION
+    | NON_STARTER
+    | OPEN_PUNCTUATION
+    | CLOSE_PUNCTUATION
     | QUOTATION
     | EXCLAMATION
     | IDEOGRAPHIC
     | NUMERIC
-    | INFIXSEPARATOR
+    | INFIX_SEPARATOR
     | SYMBOL
     | ALPHABETIC
     | PREFIX
     | POSTFIX
-    | COMPLEXCONTEXT
+    | COMPLEX_CONTEXT
     | AMBIGUOUS
     | UNKNOWN
-    | NEXTLINE
-    | WORDJOINER
-    | HANGULLJAMO
-    | HANGULVJAMO
-    | HANGULTJAMO
-    | HANGULLVSYLLABLE
-    | HANGULLVTSYLLABLE
-    | CLOSEPARANTHESIS
+    | NEXT_LINE
+    | WORD_JOINER
+    | HANGUL_L_JAMO
+    | HANGUL_V_JAMO
+    | HANGUL_T_JAMO
+    | HANGUL_LV_SYLLABLE
+    | HANGUL_LVT_SYLLABLE
+    | CLOSE_PARANTHESIS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -49,82 +49,82 @@ structure GLibUnicodeBreakType :>
         fun withVal f =
           fn
             MANDATORY => f 0
-          | CARRIAGERETURN => f 1
-          | LINEFEED => f 2
-          | COMBININGMARK => f 3
+          | CARRIAGE_RETURN => f 1
+          | LINE_FEED => f 2
+          | COMBINING_MARK => f 3
           | SURROGATE => f 4
-          | ZEROWIDTHSPACE => f 5
+          | ZERO_WIDTH_SPACE => f 5
           | INSEPARABLE => f 6
-          | NONBREAKINGGLUE => f 7
+          | NON_BREAKING_GLUE => f 7
           | CONTINGENT => f 8
           | SPACE => f 9
           | AFTER => f 10
           | BEFORE => f 11
-          | BEFOREANDAFTER => f 12
+          | BEFORE_AND_AFTER => f 12
           | HYPHEN => f 13
-          | NONSTARTER => f 14
-          | OPENPUNCTUATION => f 15
-          | CLOSEPUNCTUATION => f 16
+          | NON_STARTER => f 14
+          | OPEN_PUNCTUATION => f 15
+          | CLOSE_PUNCTUATION => f 16
           | QUOTATION => f 17
           | EXCLAMATION => f 18
           | IDEOGRAPHIC => f 19
           | NUMERIC => f 20
-          | INFIXSEPARATOR => f 21
+          | INFIX_SEPARATOR => f 21
           | SYMBOL => f 22
           | ALPHABETIC => f 23
           | PREFIX => f 24
           | POSTFIX => f 25
-          | COMPLEXCONTEXT => f 26
+          | COMPLEX_CONTEXT => f 26
           | AMBIGUOUS => f 27
           | UNKNOWN => f 28
-          | NEXTLINE => f 29
-          | WORDJOINER => f 30
-          | HANGULLJAMO => f 31
-          | HANGULVJAMO => f 32
-          | HANGULTJAMO => f 33
-          | HANGULLVSYLLABLE => f 34
-          | HANGULLVTSYLLABLE => f 35
-          | CLOSEPARANTHESIS => f 36
+          | NEXT_LINE => f 29
+          | WORD_JOINER => f 30
+          | HANGUL_L_JAMO => f 31
+          | HANGUL_V_JAMO => f 32
+          | HANGUL_T_JAMO => f 33
+          | HANGUL_LV_SYLLABLE => f 34
+          | HANGUL_LVT_SYLLABLE => f 35
+          | CLOSE_PARANTHESIS => f 36
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => MANDATORY
-          | 1 => CARRIAGERETURN
-          | 2 => LINEFEED
-          | 3 => COMBININGMARK
+          | 1 => CARRIAGE_RETURN
+          | 2 => LINE_FEED
+          | 3 => COMBINING_MARK
           | 4 => SURROGATE
-          | 5 => ZEROWIDTHSPACE
+          | 5 => ZERO_WIDTH_SPACE
           | 6 => INSEPARABLE
-          | 7 => NONBREAKINGGLUE
+          | 7 => NON_BREAKING_GLUE
           | 8 => CONTINGENT
           | 9 => SPACE
           | 10 => AFTER
           | 11 => BEFORE
-          | 12 => BEFOREANDAFTER
+          | 12 => BEFORE_AND_AFTER
           | 13 => HYPHEN
-          | 14 => NONSTARTER
-          | 15 => OPENPUNCTUATION
-          | 16 => CLOSEPUNCTUATION
+          | 14 => NON_STARTER
+          | 15 => OPEN_PUNCTUATION
+          | 16 => CLOSE_PUNCTUATION
           | 17 => QUOTATION
           | 18 => EXCLAMATION
           | 19 => IDEOGRAPHIC
           | 20 => NUMERIC
-          | 21 => INFIXSEPARATOR
+          | 21 => INFIX_SEPARATOR
           | 22 => SYMBOL
           | 23 => ALPHABETIC
           | 24 => PREFIX
           | 25 => POSTFIX
-          | 26 => COMPLEXCONTEXT
+          | 26 => COMPLEX_CONTEXT
           | 27 => AMBIGUOUS
           | 28 => UNKNOWN
-          | 29 => NEXTLINE
-          | 30 => WORDJOINER
-          | 31 => HANGULLJAMO
-          | 32 => HANGULVJAMO
-          | 33 => HANGULTJAMO
-          | 34 => HANGULLVSYLLABLE
-          | 35 => HANGULLVTSYLLABLE
-          | 36 => CLOSEPARANTHESIS
+          | 29 => NEXT_LINE
+          | 30 => WORD_JOINER
+          | 31 => HANGUL_L_JAMO
+          | 32 => HANGUL_V_JAMO
+          | 33 => HANGUL_T_JAMO
+          | 34 => HANGUL_LV_SYLLABLE
+          | 35 => HANGUL_LVT_SYLLABLE
+          | 36 => CLOSE_PARANTHESIS
           | n => raise Value n
       end
     val null = MANDATORY

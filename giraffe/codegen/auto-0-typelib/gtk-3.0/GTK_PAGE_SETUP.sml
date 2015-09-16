@@ -1,8 +1,8 @@
 signature GTK_PAGE_SETUP =
   sig
     type 'a class_t
-    type pageorientation_t
-    type papersizerecord_t
+    type page_orientation_t
+    type paper_size_record_t
     type unit_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
@@ -21,7 +21,7 @@ signature GTK_PAGE_SETUP =
       'a class_t
        -> unit_t
        -> real
-    val getOrientation : 'a class_t -> pageorientation_t
+    val getOrientation : 'a class_t -> page_orientation_t
     val getPageHeight :
       'a class_t
        -> unit_t
@@ -34,7 +34,7 @@ signature GTK_PAGE_SETUP =
       'a class_t
        -> unit_t
        -> real
-    val getPaperSize : 'a class_t -> papersizerecord_t
+    val getPaperSize : 'a class_t -> paper_size_record_t
     val getPaperWidth :
       'a class_t
        -> unit_t
@@ -68,15 +68,15 @@ signature GTK_PAGE_SETUP =
        -> unit
     val setOrientation :
       'a class_t
-       -> pageorientation_t
+       -> page_orientation_t
        -> unit
     val setPaperSize :
       'a class_t
-       -> papersizerecord_t
+       -> paper_size_record_t
        -> unit
     val setPaperSizeAndDefaultMargins :
       'a class_t
-       -> papersizerecord_t
+       -> paper_size_record_t
        -> unit
     val setRightMargin :
       'a class_t

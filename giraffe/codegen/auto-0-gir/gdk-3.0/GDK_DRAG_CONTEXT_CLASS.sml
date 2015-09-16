@@ -1,7 +1,7 @@
 signature GDK_DRAG_CONTEXT_CLASS =
   sig
-    type 'a dragcontext
-    type 'a t = 'a dragcontext GObject.ObjectClass.t
+    type 'a drag_context
+    type 'a t = 'a drag_context GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

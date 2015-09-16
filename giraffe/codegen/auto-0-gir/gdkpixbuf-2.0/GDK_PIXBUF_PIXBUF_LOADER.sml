@@ -1,18 +1,18 @@
 signature GDK_PIXBUF_PIXBUF_LOADER =
   sig
     type 'a class_t
-    type 'a pixbufanimationclass_t
-    type pixbufformatrecord_t
-    type 'a pixbufclass_t
+    type 'a pixbuf_animation_class_t
+    type pixbuf_format_record_t
+    type 'a pixbuf_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val newWithMimeType : string -> base class_t
     val newWithType : string -> base class_t
     val close : 'a class_t -> bool
-    val getAnimation : 'a class_t -> base pixbufanimationclass_t
-    val getFormat : 'a class_t -> pixbufformatrecord_t
-    val getPixbuf : 'a class_t -> base pixbufclass_t
+    val getAnimation : 'a class_t -> base pixbuf_animation_class_t
+    val getFormat : 'a class_t -> pixbuf_format_record_t
+    val getPixbuf : 'a class_t -> base pixbuf_class_t
     val setSize :
       'a class_t
        -> LargeInt.int

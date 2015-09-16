@@ -3,8 +3,8 @@ signature G_I_REPOSITORY_ARRAY_TYPE =
     datatype t =
       C
     | ARRAY
-    | PTRARRAY
-    | BYTEARRAY
+    | PTR_ARRAY
+    | BYTE_ARRAY
     val null : t
     structure C :
       sig

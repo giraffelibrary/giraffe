@@ -1,19 +1,19 @@
 signature GTK_GRID =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type 'a orientableclass_t
-    type positiontype_t
-    type 'a widgetclass_t
+    type 'a buildable_class_t
+    type 'a orientable_class_t
+    type position_type_t
+    type 'a widget_class_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
-    val asOrientable : 'a class_t -> base orientableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
+    val asOrientable : 'a class_t -> base orientable_class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val attach :
       'a class_t
-       -> 'b widgetclass_t
+       -> 'b widget_class_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -21,9 +21,9 @@ signature GTK_GRID =
        -> unit
     val attachNextTo :
       'a class_t
-       -> 'b widgetclass_t
-       -> 'c widgetclass_t
-       -> positiontype_t
+       -> 'b widget_class_t
+       -> 'c widget_class_t
+       -> position_type_t
        -> LargeInt.int
        -> LargeInt.int
        -> unit
@@ -37,8 +37,8 @@ signature GTK_GRID =
        -> unit
     val insertNextTo :
       'a class_t
-       -> 'b widgetclass_t
-       -> positiontype_t
+       -> 'b widget_class_t
+       -> position_type_t
        -> unit
     val insertRow :
       'a class_t

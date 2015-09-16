@@ -3,8 +3,8 @@ structure GtkNumerableIconClass :>
     where type C.notnull = GioEmblemedIconClass.C.notnull
     where type 'a C.p = 'a GioEmblemedIconClass.C.p =
   struct
-    type 'a numerableicon = unit
-    type 'a t = 'a numerableicon GioEmblemedIconClass.t
+    type 'a numerable_icon = unit
+    type 'a t = 'a numerable_icon GioEmblemedIconClass.t
     fun toBase obj = obj
     val t = GioEmblemedIconClass.t
     val tOpt = GioEmblemedIconClass.tOpt

@@ -11,7 +11,7 @@ structure GioDataStreamNewlineType :>
     datatype t =
       LF
     | CR
-    | CRLF
+    | CR_LF
     | ANY
     structure C =
       struct
@@ -22,14 +22,14 @@ structure GioDataStreamNewlineType :>
           fn
             LF => f 0
           | CR => f 1
-          | CRLF => f 2
+          | CR_LF => f 2
           | ANY => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => LF
           | 1 => CR
-          | 2 => CRLF
+          | 2 => CR_LF
           | 3 => ANY
           | n => raise Value n
       end

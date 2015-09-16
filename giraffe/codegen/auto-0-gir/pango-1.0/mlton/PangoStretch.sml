@@ -4,15 +4,15 @@ structure PangoStretch :>
   end =
   struct
     datatype t =
-      ULTRACONDENSED
-    | EXTRACONDENSED
+      ULTRA_CONDENSED
+    | EXTRA_CONDENSED
     | CONDENSED
-    | SEMICONDENSED
+    | SEMI_CONDENSED
     | NORMAL
-    | SEMIEXPANDED
+    | SEMI_EXPANDED
     | EXPANDED
-    | EXTRAEXPANDED
-    | ULTRAEXPANDED
+    | EXTRA_EXPANDED
+    | ULTRA_EXPANDED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -20,27 +20,27 @@ structure PangoStretch :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            ULTRACONDENSED => f 0
-          | EXTRACONDENSED => f 1
+            ULTRA_CONDENSED => f 0
+          | EXTRA_CONDENSED => f 1
           | CONDENSED => f 2
-          | SEMICONDENSED => f 3
+          | SEMI_CONDENSED => f 3
           | NORMAL => f 4
-          | SEMIEXPANDED => f 5
+          | SEMI_EXPANDED => f 5
           | EXPANDED => f 6
-          | EXTRAEXPANDED => f 7
-          | ULTRAEXPANDED => f 8
+          | EXTRA_EXPANDED => f 7
+          | ULTRA_EXPANDED => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => ULTRACONDENSED
-          | 1 => EXTRACONDENSED
+            0 => ULTRA_CONDENSED
+          | 1 => EXTRA_CONDENSED
           | 2 => CONDENSED
-          | 3 => SEMICONDENSED
+          | 3 => SEMI_CONDENSED
           | 4 => NORMAL
-          | 5 => SEMIEXPANDED
+          | 5 => SEMI_EXPANDED
           | 6 => EXPANDED
-          | 7 => EXTRAEXPANDED
-          | 8 => ULTRAEXPANDED
+          | 7 => EXTRA_EXPANDED
+          | 8 => ULTRA_EXPANDED
           | n => raise Value n
       end
     val getType_ = _import "pango_stretch_get_type" : unit -> GObjectType.C.val_;
@@ -53,6 +53,6 @@ structure PangoStretch :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = ULTRACONDENSED
+    val null = ULTRA_CONDENSED
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

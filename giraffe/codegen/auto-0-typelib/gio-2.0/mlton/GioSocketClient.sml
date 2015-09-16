@@ -1,15 +1,15 @@
 structure GioSocketClient :>
   GIO_SOCKET_CLIENT
     where type 'a class_t = 'a GioSocketClientClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type socketfamily_t = GioSocketFamily.t
-    where type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    where type socketprotocol_t = GioSocketProtocol.t
-    where type tlscertificateflags_t = GioTlsCertificateFlags.t
-    where type sockettype_t = GioSocketType.t =
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type socket_family_t = GioSocketFamily.t
+    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type socket_protocol_t = GioSocketProtocol.t
+    where type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    where type socket_type_t = GioSocketType.t =
   struct
     val getType_ = _import "g_socket_client_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_socket_client_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -210,15 +210,15 @@ structure GioSocketClient :>
     val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsCertificateFlags.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioSocketClientClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type socketfamily_t = GioSocketFamily.t
-    type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    type socketprotocol_t = GioSocketProtocol.t
-    type tlscertificateflags_t = GioTlsCertificateFlags.t
-    type sockettype_t = GioSocketType.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type socket_family_t = GioSocketFamily.t
+    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type socket_protocol_t = GioSocketProtocol.t
+    type tls_certificate_flags_t = GioTlsCertificateFlags.t
+    type socket_type_t = GioSocketType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()

@@ -1,9 +1,9 @@
 structure GtkComboBoxText :>
   GTK_COMBO_BOX_TEXT
     where type 'a class_t = 'a GtkComboBoxTextClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t =
   struct
     local
       open PolyMLFFI
@@ -51,9 +51,9 @@ structure GtkComboBoxText :>
       val removeAll_ = call (load_sym libgtk "gtk_combo_box_text_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkComboBoxTextClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

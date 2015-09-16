@@ -2,10 +2,10 @@ signature GTK_DRAG_RESULT =
   sig
     datatype t =
       SUCCESS
-    | NOTARGET
-    | USERCANCELLED
-    | TIMEOUTEXPIRED
-    | GRABBROKEN
+    | NO_TARGET
+    | USER_CANCELLED
+    | TIMEOUT_EXPIRED
+    | GRAB_BROKEN
     | ERROR
     val null : t
     val t : (t, t) GObject.Value.accessor

@@ -4,10 +4,10 @@ structure GIRepositoryRepositoryError :>
   end =
   struct
     datatype t =
-      TYPELIBNOTFOUND
-    | NAMESPACEMISMATCH
-    | NAMESPACEVERSIONCONFLICT
-    | LIBRARYNOTFOUND
+      TYPELIB_NOT_FOUND
+    | NAMESPACE_MISMATCH
+    | NAMESPACE_VERSION_CONFLICT
+    | LIBRARY_NOT_FOUND
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -15,18 +15,18 @@ structure GIRepositoryRepositoryError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            TYPELIBNOTFOUND => f 0
-          | NAMESPACEMISMATCH => f 1
-          | NAMESPACEVERSIONCONFLICT => f 2
-          | LIBRARYNOTFOUND => f 3
+            TYPELIB_NOT_FOUND => f 0
+          | NAMESPACE_MISMATCH => f 1
+          | NAMESPACE_VERSION_CONFLICT => f 2
+          | LIBRARY_NOT_FOUND => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => TYPELIBNOTFOUND
-          | 1 => NAMESPACEMISMATCH
-          | 2 => NAMESPACEVERSIONCONFLICT
-          | 3 => LIBRARYNOTFOUND
+            0 => TYPELIB_NOT_FOUND
+          | 1 => NAMESPACE_MISMATCH
+          | 2 => NAMESPACE_VERSION_CONFLICT
+          | 3 => LIBRARY_NOT_FOUND
           | n => raise Value n
       end
-    val null = TYPELIBNOTFOUND
+    val null = TYPELIB_NOT_FOUND
   end

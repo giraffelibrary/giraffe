@@ -1,7 +1,7 @@
 signature GTK_CELL_LAYOUT_CLASS =
   sig
-    type 'a celllayout
-    type 'a t = 'a celllayout GObject.ObjectClass.t
+    type 'a cell_layout
+    type 'a t = 'a cell_layout GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,7 +1,7 @@
 signature GTK_STATUS_ICON_CLASS =
   sig
-    type 'a statusicon
-    type 'a t = 'a statusicon GObject.ObjectClass.t
+    type 'a status_icon
+    type 'a t = 'a status_icon GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

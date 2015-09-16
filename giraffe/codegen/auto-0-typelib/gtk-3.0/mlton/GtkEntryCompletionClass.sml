@@ -3,8 +3,8 @@ structure GtkEntryCompletionClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a entrycompletion = unit
-    type 'a t = 'a entrycompletion GObjectObjectClass.t
+    type 'a entry_completion = unit
+    type 'a t = 'a entry_completion GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

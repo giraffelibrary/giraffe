@@ -1,12 +1,12 @@
 signature G_LIB_OPTION_ERROR =
   sig
     datatype t =
-      UNKNOWNOPTION
-    | BADVALUE
+      UNKNOWN_OPTION
+    | BAD_VALUE
     | FAILED
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

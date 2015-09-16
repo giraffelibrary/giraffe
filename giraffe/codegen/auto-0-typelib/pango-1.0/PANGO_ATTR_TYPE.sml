@@ -9,7 +9,7 @@ signature PANGO_ATTR_TYPE =
     | VARIANT
     | STRETCH
     | SIZE
-    | FONTDESC
+    | FONT_DESC
     | FOREGROUND
     | BACKGROUND
     | UNDERLINE
@@ -18,12 +18,12 @@ signature PANGO_ATTR_TYPE =
     | SHAPE
     | SCALE
     | FALLBACK
-    | LETTERSPACING
-    | UNDERLINECOLOR
-    | STRIKETHROUGHCOLOR
-    | ABSOLUTESIZE
+    | LETTER_SPACING
+    | UNDERLINE_COLOR
+    | STRIKETHROUGH_COLOR
+    | ABSOLUTE_SIZE
     | GRAVITY
-    | GRAVITYHINT
+    | GRAVITY_HINT
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

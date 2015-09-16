@@ -5,7 +5,7 @@ signature GIO_CONVERTER_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val INPUTATEND : t
+    val INPUT_AT_END : t
     val FLUSH : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -9,15 +9,15 @@ structure GLibUserDirectory :>
   end =
   struct
     datatype t =
-      DIRECTORYDESKTOP
-    | DIRECTORYDOCUMENTS
-    | DIRECTORYDOWNLOAD
-    | DIRECTORYMUSIC
-    | DIRECTORYPICTURES
-    | DIRECTORYPUBLICSHARE
-    | DIRECTORYTEMPLATES
-    | DIRECTORYVIDEOS
-    | NDIRECTORIES
+      DIRECTORY_DESKTOP
+    | DIRECTORY_DOCUMENTS
+    | DIRECTORY_DOWNLOAD
+    | DIRECTORY_MUSIC
+    | DIRECTORY_PICTURES
+    | DIRECTORY_PUBLIC_SHARE
+    | DIRECTORY_TEMPLATES
+    | DIRECTORY_VIDEOS
+    | N_DIRECTORIES
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,27 +25,27 @@ structure GLibUserDirectory :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            DIRECTORYDESKTOP => f 0
-          | DIRECTORYDOCUMENTS => f 1
-          | DIRECTORYDOWNLOAD => f 2
-          | DIRECTORYMUSIC => f 3
-          | DIRECTORYPICTURES => f 4
-          | DIRECTORYPUBLICSHARE => f 5
-          | DIRECTORYTEMPLATES => f 6
-          | DIRECTORYVIDEOS => f 7
-          | NDIRECTORIES => f 8
+            DIRECTORY_DESKTOP => f 0
+          | DIRECTORY_DOCUMENTS => f 1
+          | DIRECTORY_DOWNLOAD => f 2
+          | DIRECTORY_MUSIC => f 3
+          | DIRECTORY_PICTURES => f 4
+          | DIRECTORY_PUBLIC_SHARE => f 5
+          | DIRECTORY_TEMPLATES => f 6
+          | DIRECTORY_VIDEOS => f 7
+          | N_DIRECTORIES => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => DIRECTORYDESKTOP
-          | 1 => DIRECTORYDOCUMENTS
-          | 2 => DIRECTORYDOWNLOAD
-          | 3 => DIRECTORYMUSIC
-          | 4 => DIRECTORYPICTURES
-          | 5 => DIRECTORYPUBLICSHARE
-          | 6 => DIRECTORYTEMPLATES
-          | 7 => DIRECTORYVIDEOS
-          | 8 => NDIRECTORIES
+            0 => DIRECTORY_DESKTOP
+          | 1 => DIRECTORY_DOCUMENTS
+          | 2 => DIRECTORY_DOWNLOAD
+          | 3 => DIRECTORY_MUSIC
+          | 4 => DIRECTORY_PICTURES
+          | 5 => DIRECTORY_PUBLIC_SHARE
+          | 6 => DIRECTORY_TEMPLATES
+          | 7 => DIRECTORY_VIDEOS
+          | 8 => N_DIRECTORIES
           | n => raise Value n
       end
     structure PolyML =
@@ -53,5 +53,5 @@ structure GLibUserDirectory :>
         val VAL = FFI.Enum.PolyML.VAL
         val REF = FFI.Enum.PolyML.REF
       end
-    val null = DIRECTORYDESKTOP
+    val null = DIRECTORY_DESKTOP
   end

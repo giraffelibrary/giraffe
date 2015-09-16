@@ -9,20 +9,20 @@ signature PANGO_GRAVITY =
     val null : t
     val t : (t, t) GObject.Value.accessor
     type script_t
-    type gravityhint_t
-    type matrixrecord_t
+    type gravity_hint_t
+    type matrix_record_t
     val getType : unit -> GObject.Type.t
-    val getForMatrix : matrixrecord_t -> t
+    val getForMatrix : matrix_record_t -> t
     val getForScript :
       script_t
        -> t
-       -> gravityhint_t
+       -> gravity_hint_t
        -> t
     val getForScriptAndWidth :
       script_t
        -> bool
        -> t
-       -> gravityhint_t
+       -> gravity_hint_t
        -> t
     val toRotation : t -> real
     structure C :

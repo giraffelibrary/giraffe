@@ -1,7 +1,7 @@
 signature GTK_CELL_RENDERER_CLASS =
   sig
-    type 'a cellrenderer
-    type 'a t = 'a cellrenderer GObject.InitiallyUnownedClass.t
+    type 'a cell_renderer
+    type 'a t = 'a cell_renderer GObject.InitiallyUnownedClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

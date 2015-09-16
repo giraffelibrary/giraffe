@@ -18,9 +18,9 @@ structure GdkEventSelectionRecord :>
 
 
     datatype event =
-      SELECTIONCLEAR
-    | SELECTIONREQUEST
-    | SELECTIONNOTIFY
+      SELECTION_CLEAR
+    | SELECTION_REQUEST
+    | SELECTION_NOTIFY
 
 
     structure C = GdkEvent.C

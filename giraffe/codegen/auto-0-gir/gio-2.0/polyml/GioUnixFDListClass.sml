@@ -3,8 +3,8 @@ structure GioUnixFDListClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a unixfdlist = unit
-    type 'a t = 'a unixfdlist GObjectObjectClass.t
+    type 'a unix_f_d_list = unit
+    type 'a t = 'a unix_f_d_list GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

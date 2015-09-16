@@ -6,24 +6,24 @@ structure GObjectParamFlags :>
     val READABLE = 0w1
     val WRITABLE = 0w2
     val CONSTRUCT = 0w4
-    val CONSTRUCTONLY = 0w8
-    val LAXVALIDATION = 0w16
-    val STATICNAME = 0w32
+    val CONSTRUCT_ONLY = 0w8
+    val LAX_VALIDATION = 0w16
+    val STATIC_NAME = 0w32
     val PRIVATE = 0w32
-    val STATICNICK = 0w64
-    val STATICBLURB = 0w128
+    val STATIC_NICK = 0w64
+    val STATIC_BLURB = 0w128
     val DEPRECATED = 0w2147483648
     val allFlags =
       [
         READABLE,
         WRITABLE,
         CONSTRUCT,
-        CONSTRUCTONLY,
-        LAXVALIDATION,
-        STATICNAME,
+        CONSTRUCT_ONLY,
+        LAX_VALIDATION,
+        STATIC_NAME,
         PRIVATE,
-        STATICNICK,
-        STATICBLURB,
+        STATIC_NICK,
+        STATIC_BLURB,
         DEPRECATED
       ]
     structure BitFlags =

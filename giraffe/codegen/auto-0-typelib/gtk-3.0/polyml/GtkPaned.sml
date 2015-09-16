@@ -1,11 +1,11 @@
 structure GtkPaned :>
   GTK_PANED
     where type 'a class_t = 'a GtkPanedClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
     where type orientation_t = GtkOrientation.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type scrolltype_t = GtkScrollType.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type scroll_type_t = GtkScrollType.t =
   struct
     local
       open PolyMLFFI
@@ -39,11 +39,11 @@ structure GtkPaned :>
       val setPosition_ = call (load_sym libgtk "gtk_paned_set_position") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkPanedClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
     type orientation_t = GtkOrientation.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type scrolltype_t = GtkScrollType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type scroll_type_t = GtkScrollType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

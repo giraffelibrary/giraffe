@@ -2,7 +2,7 @@ signature GTK_WIDGET_HELP_TYPE =
   sig
     datatype t =
       TOOLTIP
-    | WHATSTHIS
+    | WHATS_THIS
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -6,8 +6,8 @@ signature GIO_TLS_PASSWORD_FLAGS =
         where type flags = t
     val NONE : t
     val RETRY : t
-    val MANYTRIES : t
-    val FINALTRY : t
+    val MANY_TRIES : t
+    val FINAL_TRY : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

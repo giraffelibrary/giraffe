@@ -27,8 +27,8 @@ signature G_LIB_FILE_ERROR =
     | NOSYS
     | FAILED
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

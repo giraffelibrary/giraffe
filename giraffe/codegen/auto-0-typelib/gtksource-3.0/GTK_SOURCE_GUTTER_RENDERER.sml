@@ -1,8 +1,8 @@
 signature GTK_SOURCE_GUTTER_RENDERER =
   sig
     type 'a class_t
-    type gutterrendererstate_t
-    type gutterrendereralignmentmode_t
+    type gutter_renderer_state_t
+    type gutter_renderer_alignment_mode_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val activate :
@@ -26,11 +26,11 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> Cairo.RectangleIntRecord.t
        -> Gtk.TextIterRecord.t
        -> Gtk.TextIterRecord.t
-       -> gutterrendererstate_t
+       -> gutter_renderer_state_t
        -> unit
     val end' : 'a class_t -> unit
     val getAlignment : 'a class_t -> real * real
-    val getAlignmentMode : 'a class_t -> gutterrendereralignmentmode_t
+    val getAlignmentMode : 'a class_t -> gutter_renderer_alignment_mode_t
     val getBackground : 'a class_t -> Gdk.RgbaRecord.t option
     val getPadding : 'a class_t -> LargeInt.int * LargeInt.int
     val getSize : 'a class_t -> LargeInt.int
@@ -47,7 +47,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
       'a class_t
        -> Gtk.TextIterRecord.t
        -> Gtk.TextIterRecord.t
-       -> gutterrendererstate_t
+       -> gutter_renderer_state_t
        -> unit
     val queryTooltip :
       'a class_t
@@ -65,7 +65,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> unit
     val setAlignmentMode :
       'a class_t
-       -> gutterrendereralignmentmode_t
+       -> gutter_renderer_alignment_mode_t
        -> unit
     val setBackground :
       'a class_t
@@ -99,7 +99,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryDataSig :
       (Gtk.TextIterRecord.t
         -> Gtk.TextIterRecord.t
-        -> gutterrendererstate_t
+        -> gutter_renderer_state_t
         -> unit)
        -> 'a class_t Signal.signal
     val queryTooltipSig :
@@ -111,7 +111,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
         -> bool)
        -> 'a class_t Signal.signal
     val queueDrawSig : (unit -> unit) -> 'a class_t Signal.signal
-    val alignmentModeProp : ('a class_t, gutterrendereralignmentmode_t, gutterrendereralignmentmode_t) Property.readwrite
+    val alignmentModeProp : ('a class_t, gutter_renderer_alignment_mode_t, gutter_renderer_alignment_mode_t) Property.readwrite
     val backgroundRgbaProp : ('a class_t, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
     val backgroundSetProp : ('a class_t, bool, bool) Property.readwrite
     val sizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite

@@ -1,7 +1,7 @@
 signature G_LIB_KEY_FILE =
   sig
     type record_t
-    type keyfileflags_t
+    type key_file_flags_t
     type t = record_t
     val getBoolean :
       record_t
@@ -58,25 +58,25 @@ signature G_LIB_KEY_FILE =
       record_t
        -> string
        -> LargeInt.int
-       -> keyfileflags_t
+       -> key_file_flags_t
        -> bool
     val loadFromDataDirs :
       record_t
        -> string
        -> string
-       -> keyfileflags_t
+       -> key_file_flags_t
        -> bool
     val loadFromDirs :
       record_t
        -> string
        -> string
        -> string
-       -> keyfileflags_t
+       -> key_file_flags_t
        -> bool
     val loadFromFile :
       record_t
        -> string
-       -> keyfileflags_t
+       -> key_file_flags_t
        -> bool
     val removeComment :
       record_t

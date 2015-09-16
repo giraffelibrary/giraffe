@@ -1,8 +1,8 @@
 signature GTK_SOURCE_COMPLETION_ERROR =
   sig
     datatype t =
-      ALREADYBOUND
-    | NOTBOUND
+      ALREADY_BOUND
+    | NOT_BOUND
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

@@ -1,15 +1,15 @@
 signature GTK_SOURCE_BUFFER =
   sig
     type 'a class_t
-    type 'a markclass_t
-    type bracketmatchtype_t
-    type 'a languageclass_t
-    type 'a styleschemeclass_t
-    type 'a undomanagerclass_t
+    type 'a mark_class_t
+    type bracket_match_type_t
+    type 'a language_class_t
+    type 'a style_scheme_class_t
+    type 'a undo_manager_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : 'a Gtk.TextTagTableClass.t option -> base class_t
-    val newWithLanguage : 'a languageclass_t -> base class_t
+    val newWithLanguage : 'a language_class_t -> base class_t
     val backwardIterToSourceMark :
       'a class_t
        -> Gtk.TextIterRecord.t
@@ -23,7 +23,7 @@ signature GTK_SOURCE_BUFFER =
        -> string option
        -> string
        -> Gtk.TextIterRecord.t
-       -> base markclass_t
+       -> base mark_class_t
     val endNotUndoableAction : 'a class_t -> unit
     val ensureHighlight :
       'a class_t
@@ -37,10 +37,10 @@ signature GTK_SOURCE_BUFFER =
        -> bool
     val getHighlightMatchingBrackets : 'a class_t -> bool
     val getHighlightSyntax : 'a class_t -> bool
-    val getLanguage : 'a class_t -> base languageclass_t
+    val getLanguage : 'a class_t -> base language_class_t
     val getMaxUndoLevels : 'a class_t -> LargeInt.int
-    val getStyleScheme : 'a class_t -> base styleschemeclass_t
-    val getUndoManager : 'a class_t -> base undomanagerclass_t
+    val getStyleScheme : 'a class_t -> base style_scheme_class_t
+    val getUndoManager : 'a class_t -> base undo_manager_class_t
     val iterBackwardToContextClassToggle :
       'a class_t
        -> Gtk.TextIterRecord.t
@@ -73,7 +73,7 @@ signature GTK_SOURCE_BUFFER =
        -> unit
     val setLanguage :
       'a class_t
-       -> 'b languageclass_t option
+       -> 'b language_class_t option
        -> unit
     val setMaxUndoLevels :
       'a class_t
@@ -81,16 +81,16 @@ signature GTK_SOURCE_BUFFER =
        -> unit
     val setStyleScheme :
       'a class_t
-       -> 'b styleschemeclass_t option
+       -> 'b style_scheme_class_t option
        -> unit
     val setUndoManager :
       'a class_t
-       -> 'b undomanagerclass_t option
+       -> 'b undo_manager_class_t option
        -> unit
     val undo : 'a class_t -> unit
     val bracketMatchedSig :
       (Gtk.TextIterRecord.t
-        -> bracketmatchtype_t
+        -> bracket_match_type_t
         -> unit)
        -> 'a class_t Signal.signal
     val highlightUpdatedSig :
@@ -105,8 +105,8 @@ signature GTK_SOURCE_BUFFER =
     val canUndoProp : ('a class_t, bool) Property.readonly
     val highlightMatchingBracketsProp : ('a class_t, bool, bool) Property.readwrite
     val highlightSyntaxProp : ('a class_t, bool, bool) Property.readwrite
-    val languageProp : ('a class_t, base languageclass_t option, 'b languageclass_t option) Property.readwrite
+    val languageProp : ('a class_t, base language_class_t option, 'b language_class_t option) Property.readwrite
     val maxUndoLevelsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val styleSchemeProp : ('a class_t, base styleschemeclass_t option, 'b styleschemeclass_t option) Property.readwrite
-    val undoManagerProp : ('a class_t, base undomanagerclass_t option, 'b undomanagerclass_t option) Property.readwrite
+    val styleSchemeProp : ('a class_t, base style_scheme_class_t option, 'b style_scheme_class_t option) Property.readwrite
+    val undoManagerProp : ('a class_t, base undo_manager_class_t option, 'b undo_manager_class_t option) Property.readwrite
   end

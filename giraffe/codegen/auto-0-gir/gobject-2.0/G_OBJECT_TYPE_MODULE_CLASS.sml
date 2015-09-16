@@ -1,8 +1,8 @@
 signature G_OBJECT_TYPE_MODULE_CLASS =
   sig
-    type 'a typemodule
-    type 'a objectclass_t
-    type 'a t = 'a typemodule objectclass_t
+    type 'a type_module
+    type 'a object_class_t
+    type 'a t = 'a type_module object_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

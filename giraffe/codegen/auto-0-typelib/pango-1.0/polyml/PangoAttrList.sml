@@ -1,7 +1,7 @@
 structure PangoAttrList :>
   PANGO_ATTR_LIST
     where type record_t = PangoAttrListRecord.t
-    where type attributerecord_t = PangoAttributeRecord.t =
+    where type attribute_record_t = PangoAttributeRecord.t =
   struct
     local
       open PolyMLFFI
@@ -23,7 +23,7 @@ structure PangoAttrList :>
           )
     end
     type record_t = PangoAttrListRecord.t
-    type attributerecord_t = PangoAttributeRecord.t
+    type attribute_record_t = PangoAttributeRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()

@@ -5,8 +5,8 @@ signature GTK_RECENT_FILTER_FLAGS =
       BIT_FLAGS
         where type flags = t
     val URI : t
-    val DISPLAYNAME : t
-    val MIMETYPE : t
+    val DISPLAY_NAME : t
+    val MIME_TYPE : t
     val APPLICATION : t
     val GROUP : t
     val AGE : t

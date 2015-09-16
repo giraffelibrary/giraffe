@@ -2,9 +2,9 @@ signature GIO_CREDENTIALS_TYPE =
   sig
     datatype t =
       INVALID
-    | LINUXUCRED
-    | FREEBSDCMSGCRED
-    | OPENBSDSOCKPEERCRED
+    | LINUX_UCRED
+    | FREEBSD_CMSGCRED
+    | OPENBSD_SOCKPEERCRED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

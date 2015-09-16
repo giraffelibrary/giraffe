@@ -1,10 +1,10 @@
 structure GtkStyleProvider :>
   GTK_STYLE_PROVIDER
     where type 'a class_t = 'a GtkStyleProviderClass.t
-    where type 'a iconfactoryclass_t = 'a GtkIconFactoryClass.t
-    where type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t
-    where type stateflags_t = GtkStateFlags.t
-    where type widgetpathrecord_t = GtkWidgetPathRecord.t =
+    where type 'a icon_factory_class_t = 'a GtkIconFactoryClass.t
+    where type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
+    where type state_flags_t = GtkStateFlags.t
+    where type widget_path_record_t = GtkWidgetPathRecord.t =
   struct
     val getType_ = _import "gtk_style_provider_get_type" : unit -> GObjectType.C.val_;
     val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
@@ -33,10 +33,10 @@ structure GtkStyleProvider :>
               x5
             )
     type 'a class_t = 'a GtkStyleProviderClass.t
-    type 'a iconfactoryclass_t = 'a GtkIconFactoryClass.t
-    type 'a stylepropertiesclass_t = 'a GtkStylePropertiesClass.t
-    type stateflags_t = GtkStateFlags.t
-    type widgetpathrecord_t = GtkWidgetPathRecord.t
+    type 'a icon_factory_class_t = 'a GtkIconFactoryClass.t
+    type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
+    type state_flags_t = GtkStateFlags.t
+    type widget_path_record_t = GtkWidgetPathRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getIconFactory self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)

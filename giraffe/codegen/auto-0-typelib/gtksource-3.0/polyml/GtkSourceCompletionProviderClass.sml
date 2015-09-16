@@ -3,8 +3,8 @@ structure GtkSourceCompletionProviderClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a completionprovider = unit
-    type 'a t = 'a completionprovider GObjectObjectClass.t
+    type 'a completion_provider = unit
+    type 'a t = 'a completion_provider GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

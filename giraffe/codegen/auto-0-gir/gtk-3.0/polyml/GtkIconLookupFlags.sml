@@ -8,18 +8,18 @@ structure GtkIconLookupFlags :>
       end
   end =
   struct
-    val NOSVG = 0w1
-    val FORCESVG = 0w2
-    val USEBUILTIN = 0w4
-    val GENERICFALLBACK = 0w8
-    val FORCESIZE = 0w16
+    val NO_SVG = 0w1
+    val FORCE_SVG = 0w2
+    val USE_BUILTIN = 0w4
+    val GENERIC_FALLBACK = 0w8
+    val FORCE_SIZE = 0w16
     val allFlags =
       [
-        NOSVG,
-        FORCESVG,
-        USEBUILTIN,
-        GENERICFALLBACK,
-        FORCESIZE
+        NO_SVG,
+        FORCE_SVG,
+        USE_BUILTIN,
+        GENERIC_FALLBACK,
+        FORCE_SIZE
       ]
     structure BitFlags =
       Word32BitFlags (

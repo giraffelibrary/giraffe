@@ -3,8 +3,8 @@ structure GtkPrintOperationPreviewClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a printoperationpreview = unit
-    type 'a t = 'a printoperationpreview GObjectObjectClass.t
+    type 'a print_operation_preview = unit
+    type 'a t = 'a print_operation_preview GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

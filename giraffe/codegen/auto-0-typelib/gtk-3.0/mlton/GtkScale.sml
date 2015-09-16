@@ -1,11 +1,11 @@
 structure GtkScale :>
   GTK_SCALE
     where type 'a class_t = 'a GtkScaleClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
     where type orientation_t = GtkOrientation.t
-    where type positiontype_t = GtkPositionType.t =
+    where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_scale_get_type" : unit -> GObjectType.C.val_;
     val new_ = fn x1 & x2 => (_import "gtk_scale_new" : GtkOrientation.C.val_ * unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
@@ -77,11 +77,11 @@ structure GtkScale :>
     val setDrawValue_ = fn x1 & x2 => (_import "gtk_scale_set_draw_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setValuePos_ = fn x1 & x2 => (_import "gtk_scale_set_value_pos" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkPositionType.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkScaleClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
     type orientation_t = GtkOrientation.t
-    type positiontype_t = GtkPositionType.t
+    type position_type_t = GtkPositionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

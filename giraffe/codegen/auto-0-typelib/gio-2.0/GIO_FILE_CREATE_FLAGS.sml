@@ -6,7 +6,7 @@ signature GIO_FILE_CREATE_FLAGS =
         where type flags = t
     val NONE : t
     val PRIVATE : t
-    val REPLACEDESTINATION : t
+    val REPLACE_DESTINATION : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

@@ -1,10 +1,10 @@
 structure GtkRecentChooser :>
   GTK_RECENT_CHOOSER
     where type 'a class_t = 'a GtkRecentChooserClass.t
-    where type recentinforecord_t = GtkRecentInfoRecord.t
-    where type 'a recentfilterclass_t = 'a GtkRecentFilterClass.t
-    where type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t
-    where type recentsorttype_t = GtkRecentSortType.t =
+    where type recent_info_record_t = GtkRecentInfoRecord.t
+    where type 'a recent_filter_class_t = 'a GtkRecentFilterClass.t
+    where type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
+    where type recent_sort_type_t = GtkRecentSortType.t =
   struct
     local
       open PolyMLFFI
@@ -53,10 +53,10 @@ structure GtkRecentChooser :>
       val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRecentChooserClass.t
-    type recentinforecord_t = GtkRecentInfoRecord.t
-    type 'a recentfilterclass_t = 'a GtkRecentFilterClass.t
-    type 'a recentmanagerclass_t = 'a GtkRecentManagerClass.t
-    type recentsorttype_t = GtkRecentSortType.t
+    type recent_info_record_t = GtkRecentInfoRecord.t
+    type 'a recent_filter_class_t = 'a GtkRecentFilterClass.t
+    type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
+    type recent_sort_type_t = GtkRecentSortType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)

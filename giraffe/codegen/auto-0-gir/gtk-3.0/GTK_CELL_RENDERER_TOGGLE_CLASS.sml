@@ -1,8 +1,8 @@
 signature GTK_CELL_RENDERER_TOGGLE_CLASS =
   sig
-    type 'a cellrenderertoggle
-    type 'a cellrendererclass_t
-    type 'a t = 'a cellrenderertoggle cellrendererclass_t
+    type 'a cell_renderer_toggle
+    type 'a cell_renderer_class_t
+    type 'a t = 'a cell_renderer_toggle cell_renderer_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

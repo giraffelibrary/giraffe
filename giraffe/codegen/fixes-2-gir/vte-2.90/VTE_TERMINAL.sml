@@ -1,12 +1,12 @@
 signature VTE_TERMINAL =
   sig
     type 'a class_t
-    type ptyflags_t
-    type terminalwriteflags_t
-    type terminalcursorblinkmode_t
-    type terminalcursorshape_t
-    type terminalerasebinding_t
-    type 'a ptyclass_t
+    type pty_flags_t
+    type terminal_write_flags_t
+    type terminal_cursor_blink_mode_t
+    type terminal_cursor_shape_t
+    type terminal_erase_binding_t
+    type 'a pty_class_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
@@ -32,7 +32,7 @@ signature VTE_TERMINAL =
        -> unit
     val forkCommandFull :
       'a class_t
-       -> ptyflags_t
+       -> pty_flags_t
        -> string option
        -> string list
        -> string list option
@@ -44,8 +44,8 @@ signature VTE_TERMINAL =
     val getCharWidth : 'a class_t -> LargeInt.int
     val getChildExitStatus : 'a class_t -> LargeInt.int
     val getColumnCount : 'a class_t -> LargeInt.int
-    val getCursorBlinkMode : 'a class_t -> terminalcursorblinkmode_t
-    val getCursorShape : 'a class_t -> terminalcursorshape_t
+    val getCursorBlinkMode : 'a class_t -> terminal_cursor_blink_mode_t
+    val getCursorShape : 'a class_t -> terminal_cursor_shape_t
     val getDefaultEmulation : 'a class_t -> string
     val getEmulation : 'a class_t -> string
     val getEncoding : 'a class_t -> string
@@ -53,7 +53,7 @@ signature VTE_TERMINAL =
     val getHasSelection : 'a class_t -> bool
     val getIconTitle : 'a class_t -> string
     val getMouseAutohide : 'a class_t -> bool
-    val getPtyObject : 'a class_t -> base ptyclass_t
+    val getPtyObject : 'a class_t -> base pty_class_t
     val getRowCount : 'a class_t -> LargeInt.int
     val getStatusLine : 'a class_t -> string
     val getVisibleBell : 'a class_t -> bool
@@ -100,8 +100,8 @@ signature VTE_TERMINAL =
     val pastePrimary : 'a class_t -> unit
     val ptyNew :
       'a class_t
-       -> ptyflags_t
-       -> base ptyclass_t
+       -> pty_flags_t
+       -> base pty_class_t
     val reset :
       'a class_t
        -> bool
@@ -151,7 +151,7 @@ signature VTE_TERMINAL =
        -> unit
     val setBackspaceBinding :
       'a class_t
-       -> terminalerasebinding_t
+       -> terminal_erase_binding_t
        -> unit
     val setColorBackground :
       'a class_t
@@ -208,16 +208,16 @@ signature VTE_TERMINAL =
        -> unit
     val setCursorBlinkMode :
       'a class_t
-       -> terminalcursorblinkmode_t
+       -> terminal_cursor_blink_mode_t
        -> unit
     val setCursorShape :
       'a class_t
-       -> terminalcursorshape_t
+       -> terminal_cursor_shape_t
        -> unit
     val setDefaultColors : 'a class_t -> unit
     val setDeleteBinding :
       'a class_t
-       -> terminalerasebinding_t
+       -> terminal_erase_binding_t
        -> unit
     val setEmulation :
       'a class_t
@@ -245,7 +245,7 @@ signature VTE_TERMINAL =
        -> unit
     val setPtyObject :
       'a class_t
-       -> 'b ptyclass_t option
+       -> 'b pty_class_t option
        -> unit
     val setScrollBackground :
       'a class_t
@@ -283,7 +283,7 @@ signature VTE_TERMINAL =
     val writeContents :
       'a class_t
        -> 'b Gio.OutputStreamClass.t
-       -> terminalwriteflags_t
+       -> terminal_write_flags_t
        -> 'c Gio.CancellableClass.t option
        -> bool
     val beepSig : (unit -> unit) -> 'a class_t Signal.signal
@@ -340,16 +340,16 @@ signature VTE_TERMINAL =
     val backgroundSaturationProp : ('a class_t, real, real) Property.readwrite
     val backgroundTintColorProp : ('a class_t, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val backgroundTransparentProp : ('a class_t, bool, bool) Property.readwrite
-    val backspaceBindingProp : ('a class_t, terminalerasebinding_t, terminalerasebinding_t) Property.readwrite
-    val cursorBlinkModeProp : ('a class_t, terminalcursorblinkmode_t, terminalcursorblinkmode_t) Property.readwrite
-    val cursorShapeProp : ('a class_t, terminalcursorshape_t, terminalcursorshape_t) Property.readwrite
-    val deleteBindingProp : ('a class_t, terminalerasebinding_t, terminalerasebinding_t) Property.readwrite
+    val backspaceBindingProp : ('a class_t, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
+    val cursorBlinkModeProp : ('a class_t, terminal_cursor_blink_mode_t, terminal_cursor_blink_mode_t) Property.readwrite
+    val cursorShapeProp : ('a class_t, terminal_cursor_shape_t, terminal_cursor_shape_t) Property.readwrite
+    val deleteBindingProp : ('a class_t, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
     val emulationProp : ('a class_t, string option, string option) Property.readwrite
     val encodingProp : ('a class_t, string option, string option) Property.readwrite
     val fontDescProp : ('a class_t, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
     val iconTitleProp : ('a class_t, string option) Property.readonly
     val pointerAutohideProp : ('a class_t, bool, bool) Property.readwrite
-    val ptyObjectProp : ('a class_t, base ptyclass_t option, 'b ptyclass_t option) Property.readwrite
+    val ptyObjectProp : ('a class_t, base pty_class_t option, 'b pty_class_t option) Property.readwrite
     val scrollBackgroundProp : ('a class_t, bool, bool) Property.readwrite
     val scrollOnKeystrokeProp : ('a class_t, bool, bool) Property.readwrite
     val scrollOnOutputProp : ('a class_t, bool, bool) Property.readwrite

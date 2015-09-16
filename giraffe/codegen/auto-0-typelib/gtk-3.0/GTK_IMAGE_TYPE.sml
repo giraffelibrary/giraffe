@@ -4,9 +4,9 @@ signature GTK_IMAGE_TYPE =
       EMPTY
     | PIXBUF
     | STOCK
-    | ICONSET
+    | ICON_SET
     | ANIMATION
-    | ICONNAME
+    | ICON_NAME
     | GICON
     val null : t
     val t : (t, t) GObject.Value.accessor

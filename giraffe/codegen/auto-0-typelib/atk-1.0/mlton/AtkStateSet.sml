@@ -1,7 +1,7 @@
 structure AtkStateSet :>
   ATK_STATE_SET
     where type 'a class_t = 'a AtkStateSetClass.t
-    where type statetype_t = AtkStateType.t =
+    where type state_type_t = AtkStateType.t =
   struct
     val getType_ = _import "atk_state_set_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_state_set_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -14,7 +14,7 @@ structure AtkStateSet :>
     val removeState_ = fn x1 & x2 => (_import "atk_state_set_remove_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * AtkStateType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val xorSets_ = fn x1 & x2 => (_import "atk_state_set_xor_sets" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     type 'a class_t = 'a AtkStateSetClass.t
-    type statetype_t = AtkStateType.t
+    type state_type_t = AtkStateType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkStateSetClass.C.fromPtr true) new_ ()

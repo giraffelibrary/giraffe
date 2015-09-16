@@ -1,11 +1,11 @@
 structure GtkToolItemGroup :>
   GTK_TOOL_ITEM_GROUP
     where type 'a class_t = 'a GtkToolItemGroupClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a toolshellclass_t = 'a GtkToolShellClass.t
-    where type 'a toolitemclass_t = 'a GtkToolItemClass.t
-    where type reliefstyle_t = GtkReliefStyle.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    where type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    where type relief_style_t = GtkReliefStyle.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -51,11 +51,11 @@ structure GtkToolItemGroup :>
       val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkToolItemGroupClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a toolshellclass_t = 'a GtkToolShellClass.t
-    type 'a toolitemclass_t = 'a GtkToolItemClass.t
-    type reliefstyle_t = GtkReliefStyle.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    type relief_style_t = GtkReliefStyle.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

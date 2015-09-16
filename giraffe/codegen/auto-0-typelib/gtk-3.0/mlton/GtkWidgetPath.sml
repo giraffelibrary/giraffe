@@ -1,8 +1,8 @@
 structure GtkWidgetPath :>
   GTK_WIDGET_PATH
     where type record_t = GtkWidgetPathRecord.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type regionflags_t = GtkRegionFlags.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type region_flags_t = GtkRegionFlags.t =
   struct
     val getType_ = _import "gtk_widget_path_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_widget_path_new" : unit -> GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p;
@@ -245,8 +245,8 @@ structure GtkWidgetPath :>
     val length_ = _import "gtk_widget_path_length" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p -> FFI.Int32.C.val_;
     val toString_ = _import "gtk_widget_path_to_string" : GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type record_t = GtkWidgetPathRecord.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type regionflags_t = GtkRegionFlags.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type region_flags_t = GtkRegionFlags.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.C.fromPtr true) new_ ()

@@ -1,16 +1,16 @@
 structure PangoLayout :>
   PANGO_LAYOUT
     where type 'a class_t = 'a PangoLayoutClass.t
-    where type attrlistrecord_t = PangoAttrListRecord.t
-    where type 'a contextclass_t = 'a PangoContextClass.t
-    where type layoutiterrecord_t = PangoLayoutIterRecord.t
-    where type layoutlinerecord_t = PangoLayoutLineRecord.t
-    where type rectanglerecord_t = PangoRectangleRecord.t
+    where type attr_list_record_t = PangoAttrListRecord.t
+    where type 'a context_class_t = 'a PangoContextClass.t
+    where type layout_iter_record_t = PangoLayoutIterRecord.t
+    where type layout_line_record_t = PangoLayoutLineRecord.t
+    where type rectangle_record_t = PangoRectangleRecord.t
     where type alignment_t = PangoAlignment.t
-    where type ellipsizemode_t = PangoEllipsizeMode.t
-    where type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
-    where type tabarrayrecord_t = PangoTabArrayRecord.t
-    where type wrapmode_t = PangoWrapMode.t =
+    where type ellipsize_mode_t = PangoEllipsizeMode.t
+    where type font_description_record_t = PangoFontDescriptionRecord.t
+    where type tab_array_record_t = PangoTabArrayRecord.t
+    where type wrap_mode_t = PangoWrapMode.t =
   struct
     val getType_ = _import "pango_layout_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "pango_layout_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -267,16 +267,16 @@ structure PangoLayout :>
               x5
             )
     type 'a class_t = 'a PangoLayoutClass.t
-    type attrlistrecord_t = PangoAttrListRecord.t
-    type 'a contextclass_t = 'a PangoContextClass.t
-    type layoutiterrecord_t = PangoLayoutIterRecord.t
-    type layoutlinerecord_t = PangoLayoutLineRecord.t
-    type rectanglerecord_t = PangoRectangleRecord.t
+    type attr_list_record_t = PangoAttrListRecord.t
+    type 'a context_class_t = 'a PangoContextClass.t
+    type layout_iter_record_t = PangoLayoutIterRecord.t
+    type layout_line_record_t = PangoLayoutLineRecord.t
+    type rectangle_record_t = PangoRectangleRecord.t
     type alignment_t = PangoAlignment.t
-    type ellipsizemode_t = PangoEllipsizeMode.t
-    type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
-    type tabarrayrecord_t = PangoTabArrayRecord.t
-    type wrapmode_t = PangoWrapMode.t
+    type ellipsize_mode_t = PangoEllipsizeMode.t
+    type font_description_record_t = PangoFontDescriptionRecord.t
+    type tab_array_record_t = PangoTabArrayRecord.t
+    type wrap_mode_t = PangoWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new context = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr true) new_ context

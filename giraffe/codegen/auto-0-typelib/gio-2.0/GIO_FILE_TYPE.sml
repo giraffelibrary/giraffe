@@ -4,7 +4,7 @@ signature GIO_FILE_TYPE =
       UNKNOWN
     | REGULAR
     | DIRECTORY
-    | SYMBOLICLINK
+    | SYMBOLIC_LINK
     | SPECIAL
     | SHORTCUT
     | MOUNTABLE

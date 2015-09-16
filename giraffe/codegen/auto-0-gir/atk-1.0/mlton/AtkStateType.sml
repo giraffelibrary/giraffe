@@ -19,7 +19,7 @@ structure AtkStateType :>
     | HORIZONTAL
     | ICONIFIED
     | MODAL
-    | MULTILINE
+    | MULTI_LINE
     | MULTISELECTABLE
     | OPAQUE
     | PRESSED
@@ -28,22 +28,22 @@ structure AtkStateType :>
     | SELECTED
     | SENSITIVE
     | SHOWING
-    | SINGLELINE
+    | SINGLE_LINE
     | STALE
     | TRANSIENT
     | VERTICAL
     | VISIBLE
-    | MANAGESDESCENDANTS
+    | MANAGES_DESCENDANTS
     | INDETERMINATE
     | TRUNCATED
     | REQUIRED
-    | INVALIDENTRY
-    | SUPPORTSAUTOCOMPLETION
-    | SELECTABLETEXT
+    | INVALID_ENTRY
+    | SUPPORTS_AUTOCOMPLETION
+    | SELECTABLE_TEXT
     | DEFAULT
     | ANIMATED
     | VISITED
-    | LASTDEFINED
+    | LAST_DEFINED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -66,7 +66,7 @@ structure AtkStateType :>
           | HORIZONTAL => f 12
           | ICONIFIED => f 13
           | MODAL => f 14
-          | MULTILINE => f 15
+          | MULTI_LINE => f 15
           | MULTISELECTABLE => f 16
           | OPAQUE => f 17
           | PRESSED => f 18
@@ -75,22 +75,22 @@ structure AtkStateType :>
           | SELECTED => f 21
           | SENSITIVE => f 22
           | SHOWING => f 23
-          | SINGLELINE => f 24
+          | SINGLE_LINE => f 24
           | STALE => f 25
           | TRANSIENT => f 26
           | VERTICAL => f 27
           | VISIBLE => f 28
-          | MANAGESDESCENDANTS => f 29
+          | MANAGES_DESCENDANTS => f 29
           | INDETERMINATE => f 30
           | TRUNCATED => f 31
           | REQUIRED => f 32
-          | INVALIDENTRY => f 33
-          | SUPPORTSAUTOCOMPLETION => f 34
-          | SELECTABLETEXT => f 35
+          | INVALID_ENTRY => f 33
+          | SUPPORTS_AUTOCOMPLETION => f 34
+          | SELECTABLE_TEXT => f 35
           | DEFAULT => f 36
           | ANIMATED => f 37
           | VISITED => f 38
-          | LASTDEFINED => f 39
+          | LAST_DEFINED => f 39
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -109,7 +109,7 @@ structure AtkStateType :>
           | 12 => HORIZONTAL
           | 13 => ICONIFIED
           | 14 => MODAL
-          | 15 => MULTILINE
+          | 15 => MULTI_LINE
           | 16 => MULTISELECTABLE
           | 17 => OPAQUE
           | 18 => PRESSED
@@ -118,22 +118,22 @@ structure AtkStateType :>
           | 21 => SELECTED
           | 22 => SENSITIVE
           | 23 => SHOWING
-          | 24 => SINGLELINE
+          | 24 => SINGLE_LINE
           | 25 => STALE
           | 26 => TRANSIENT
           | 27 => VERTICAL
           | 28 => VISIBLE
-          | 29 => MANAGESDESCENDANTS
+          | 29 => MANAGES_DESCENDANTS
           | 30 => INDETERMINATE
           | 31 => TRUNCATED
           | 32 => REQUIRED
-          | 33 => INVALIDENTRY
-          | 34 => SUPPORTSAUTOCOMPLETION
-          | 35 => SELECTABLETEXT
+          | 33 => INVALID_ENTRY
+          | 34 => SUPPORTS_AUTOCOMPLETION
+          | 35 => SELECTABLE_TEXT
           | 36 => DEFAULT
           | 37 => ANIMATED
           | 38 => VISITED
-          | 39 => LASTDEFINED
+          | 39 => LAST_DEFINED
           | n => raise Value n
       end
     val getType_ = _import "atk_state_type_get_type" : unit -> GObjectType.C.val_;

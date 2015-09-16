@@ -1,11 +1,11 @@
 signature GDK_EVENT_WINDOW_STATE_RECORD =
   sig
-    type windowstate
+    type window_state
     type 'a event_t
-    type t = windowstate event_t
+    type t = window_state event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      WINDOWSTATE
+      WINDOW_STATE
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

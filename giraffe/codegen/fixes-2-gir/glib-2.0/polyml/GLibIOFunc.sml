@@ -2,8 +2,8 @@ structure GLibIOFunc :>
   sig
     include
       G_LIB_I_O_FUNC
-        where type iochannelrecord_t = GLibIOChannelRecord.t
-        where type iocondition_t = GLibIOCondition.t
+        where type i_o_channel_record_t = GLibIOChannelRecord.t
+        where type i_o_condition_t = GLibIOCondition.t
 
     structure PolyML :
       sig
@@ -11,8 +11,8 @@ structure GLibIOFunc :>
       end
   end =
   struct
-    type iochannelrecord_t = GLibIOChannelRecord.t
-    type iocondition_t = GLibIOCondition.t
+    type i_o_channel_record_t = GLibIOChannelRecord.t
+    type i_o_condition_t = GLibIOCondition.t
 
     type t = GLibIOChannelRecord.t * GLibIOCondition.t -> bool
 

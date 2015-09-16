@@ -1,9 +1,9 @@
 signature GIO_DATA_STREAM_BYTE_ORDER =
   sig
     datatype t =
-      BIGENDIAN
-    | LITTLEENDIAN
-    | HOSTENDIAN
+      BIG_ENDIAN
+    | LITTLE_ENDIAN
+    | HOST_ENDIAN
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

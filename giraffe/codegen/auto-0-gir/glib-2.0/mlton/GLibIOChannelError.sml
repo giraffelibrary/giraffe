@@ -2,7 +2,7 @@ structure GLibIOChannelError :>
   sig
     include
       G_LIB_I_O_CHANNEL_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
   end =
   struct
     datatype t =
@@ -46,7 +46,7 @@ structure GLibIOChannelError :>
           | n => raise Value n
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

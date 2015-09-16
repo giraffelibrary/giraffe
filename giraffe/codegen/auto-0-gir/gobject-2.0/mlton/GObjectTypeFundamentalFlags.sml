@@ -6,13 +6,13 @@ structure GObjectTypeFundamentalFlags :>
     val CLASSED = 0w1
     val INSTANTIATABLE = 0w2
     val DERIVABLE = 0w4
-    val DEEPDERIVABLE = 0w8
+    val DEEP_DERIVABLE = 0w8
     val allFlags =
       [
         CLASSED,
         INSTANTIATABLE,
         DERIVABLE,
-        DEEPDERIVABLE
+        DEEP_DERIVABLE
       ]
     structure BitFlags =
       Word32BitFlags (

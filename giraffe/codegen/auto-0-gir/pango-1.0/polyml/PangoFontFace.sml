@@ -1,7 +1,7 @@
 structure PangoFontFace :>
   PANGO_FONT_FACE
     where type 'a class_t = 'a PangoFontFaceClass.t
-    where type fontdescriptionrecord_t = PangoFontDescriptionRecord.t =
+    where type font_description_record_t = PangoFontDescriptionRecord.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure PangoFontFace :>
       val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a PangoFontFaceClass.t
-    type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
+    type font_description_record_t = PangoFontDescriptionRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self

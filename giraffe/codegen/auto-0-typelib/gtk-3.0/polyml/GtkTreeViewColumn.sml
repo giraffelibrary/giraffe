@@ -1,15 +1,15 @@
 structure GtkTreeViewColumn :>
   GTK_TREE_VIEW_COLUMN
     where type 'a class_t = 'a GtkTreeViewColumnClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    where type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    where type treeviewcolumnsizing_t = GtkTreeViewColumnSizing.t
-    where type sorttype_t = GtkSortType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type tree_view_column_sizing_t = GtkTreeViewColumnSizing.t
+    where type sort_type_t = GtkSortType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -116,15 +116,15 @@ structure GtkTreeViewColumn :>
       val setWidget_ = call (load_sym libgtk "gtk_tree_view_column_set_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTreeViewColumnClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    type treeviewcolumnsizing_t = GtkTreeViewColumnSizing.t
-    type sorttype_t = GtkSortType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type tree_view_column_sizing_t = GtkTreeViewColumnSizing.t
+    type sort_type_t = GtkSortType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

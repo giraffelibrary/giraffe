@@ -5,7 +5,7 @@ structure GioPasswordSave :>
   struct
     datatype t =
       NEVER
-    | FORSESSION
+    | FOR_SESSION
     | PERMANENTLY
     structure C =
       struct
@@ -15,13 +15,13 @@ structure GioPasswordSave :>
         fun withVal f =
           fn
             NEVER => f 0
-          | FORSESSION => f 1
+          | FOR_SESSION => f 1
           | PERMANENTLY => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NEVER
-          | 1 => FORSESSION
+          | 1 => FOR_SESSION
           | 2 => PERMANENTLY
           | n => raise Value n
       end

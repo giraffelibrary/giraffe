@@ -1,7 +1,7 @@
 signature GTK_FILE_CHOOSER_CLASS =
   sig
-    type 'a filechooser
-    type 'a t = 'a filechooser GObject.ObjectClass.t
+    type 'a file_chooser
+    type 'a t = 'a file_chooser GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

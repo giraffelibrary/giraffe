@@ -8,12 +8,12 @@ structure GioConverterFlags :>
     in
       val NONE = NONE ()
     end
-    val INPUTATEND = 0w1
+    val INPUT_AT_END = 0w1
     val FLUSH = 0w2
     val allFlags =
       [
         NONE,
-        INPUTATEND,
+        INPUT_AT_END,
         FLUSH
       ]
     structure BitFlags =

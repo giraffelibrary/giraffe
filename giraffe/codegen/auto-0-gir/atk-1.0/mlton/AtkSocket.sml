@@ -1,7 +1,7 @@
 structure AtkSocket :>
   ATK_SOCKET
     where type 'a class_t = 'a AtkSocketClass.t
-    where type 'a componentclass_t = 'a AtkComponentClass.t =
+    where type 'a component_class_t = 'a AtkComponentClass.t =
   struct
     val getType_ = _import "atk_socket_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_socket_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -22,7 +22,7 @@ structure AtkSocket :>
             )
     val isOccupied_ = _import "atk_socket_is_occupied" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a AtkSocketClass.t
-    type 'a componentclass_t = 'a AtkComponentClass.t
+    type 'a component_class_t = 'a AtkComponentClass.t
     type t = base class_t
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

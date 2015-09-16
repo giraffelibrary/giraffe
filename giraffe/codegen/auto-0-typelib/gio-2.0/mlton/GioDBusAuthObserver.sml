@@ -1,8 +1,8 @@
 structure GioDBusAuthObserver :>
   GIO_D_BUS_AUTH_OBSERVER
     where type 'a class_t = 'a GioDBusAuthObserverClass.t
-    where type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    where type 'a iostreamclass_t = 'a GioIOStreamClass.t =
+    where type 'a credentials_class_t = 'a GioCredentialsClass.t
+    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t =
   struct
     val getType_ = _import "g_dbus_auth_observer_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_dbus_auth_observer_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -24,8 +24,8 @@ structure GioDBusAuthObserver :>
               x3
             )
     type 'a class_t = 'a GioDBusAuthObserverClass.t
-    type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    type 'a iostreamclass_t = 'a GioIOStreamClass.t
+    type 'a credentials_class_t = 'a GioCredentialsClass.t
+    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioDBusAuthObserverClass.C.fromPtr true) new_ ()

@@ -1,8 +1,8 @@
 structure GtkPageSetup :>
   GTK_PAGE_SETUP
     where type 'a class_t = 'a GtkPageSetupClass.t
-    where type pageorientation_t = GtkPageOrientation.t
-    where type papersizerecord_t = GtkPaperSizeRecord.t
+    where type page_orientation_t = GtkPageOrientation.t
+    where type paper_size_record_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_page_setup_get_type" : unit -> GObjectType.C.val_;
@@ -203,8 +203,8 @@ structure GtkPageSetup :>
               x4
             )
     type 'a class_t = 'a GtkPageSetupClass.t
-    type pageorientation_t = GtkPageOrientation.t
-    type papersizerecord_t = GtkPaperSizeRecord.t
+    type page_orientation_t = GtkPageOrientation.t
+    type paper_size_record_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_

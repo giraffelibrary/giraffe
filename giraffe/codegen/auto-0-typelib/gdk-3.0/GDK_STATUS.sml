@@ -3,9 +3,9 @@ signature GDK_STATUS =
     datatype t =
       OK
     | ERROR
-    | ERRORPARAM
-    | ERRORFILE
-    | ERRORMEM
+    | ERROR_PARAM
+    | ERROR_FILE
+    | ERROR_MEM
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

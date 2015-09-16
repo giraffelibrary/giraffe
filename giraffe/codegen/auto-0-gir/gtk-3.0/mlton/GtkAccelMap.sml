@@ -1,7 +1,7 @@
 structure GtkAccelMap :>
   GTK_ACCEL_MAP
     where type 'a class_t = 'a GtkAccelMapClass.t
-    where type accelkeyrecord_t = GtkAccelKeyRecord.t =
+    where type accel_key_record_t = GtkAccelKeyRecord.t =
   struct
     val getType_ = _import "gtk_accel_map_get_type" : unit -> GObjectType.C.val_;
     val addEntry_ =
@@ -69,7 +69,7 @@ structure GtkAccelMap :>
     val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int.C.val_ -> unit;
     val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : cstring * unit CPointer.t -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
-    type accelkeyrecord_t = GtkAccelKeyRecord.t
+    type accel_key_record_t = GtkAccelKeyRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =

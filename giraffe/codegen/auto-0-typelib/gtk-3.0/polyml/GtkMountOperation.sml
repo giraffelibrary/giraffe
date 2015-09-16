@@ -1,7 +1,7 @@
 structure GtkMountOperation :>
   GTK_MOUNT_OPERATION
     where type 'a class_t = 'a GtkMountOperationClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t =
+    where type 'a window_class_t = 'a GtkWindowClass.t =
   struct
     local
       open PolyMLFFI
@@ -15,7 +15,7 @@ structure GtkMountOperation :>
       val setScreen_ = call (load_sym libgtk "gtk_mount_operation_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMountOperationClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent = (GObjectObjectClass.C.withOptPtr ---> GtkMountOperationClass.C.fromPtr true) new_ parent

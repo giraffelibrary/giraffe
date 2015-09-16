@@ -1,16 +1,16 @@
 signature GTK_MOVEMENT_STEP =
   sig
     datatype t =
-      LOGICALPOSITIONS
-    | VISUALPOSITIONS
+      LOGICAL_POSITIONS
+    | VISUAL_POSITIONS
     | WORDS
-    | DISPLAYLINES
-    | DISPLAYLINEENDS
+    | DISPLAY_LINES
+    | DISPLAY_LINE_ENDS
     | PARAGRAPHS
-    | PARAGRAPHENDS
+    | PARAGRAPH_ENDS
     | PAGES
-    | BUFFERENDS
-    | HORIZONTALPAGES
+    | BUFFER_ENDS
+    | HORIZONTAL_PAGES
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

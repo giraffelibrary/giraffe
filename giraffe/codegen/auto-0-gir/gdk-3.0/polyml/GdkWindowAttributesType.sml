@@ -15,7 +15,7 @@ structure GdkWindowAttributesType :>
     val VISUAL = 0w32
     val WMCLASS = 0w64
     val NOREDIR = 0w128
-    val TYPEHINT = 0w256
+    val TYPE_HINT = 0w256
     val allFlags =
       [
         TITLE,
@@ -25,7 +25,7 @@ structure GdkWindowAttributesType :>
         VISUAL,
         WMCLASS,
         NOREDIR,
-        TYPEHINT
+        TYPE_HINT
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,10 +1,10 @@
 structure GtkTextTag :>
   GTK_TEXT_TAG
     where type 'a class_t = 'a GtkTextTagClass.t
-    where type textiterrecord_t = GtkTextIterRecord.t
-    where type textdirection_t = GtkTextDirection.t
+    where type text_iter_record_t = GtkTextIterRecord.t
+    where type text_direction_t = GtkTextDirection.t
     where type justification_t = GtkJustification.t
-    where type wrapmode_t = GtkWrapMode.t =
+    where type wrap_mode_t = GtkWrapMode.t =
   struct
     val getType_ = _import "gtk_text_tag_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_text_tag_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -31,10 +31,10 @@ structure GtkTextTag :>
     val getPriority_ = _import "gtk_text_tag_get_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTextTagClass.t
-    type textiterrecord_t = GtkTextIterRecord.t
-    type textdirection_t = GtkTextDirection.t
+    type text_iter_record_t = GtkTextIterRecord.t
+    type text_direction_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
-    type wrapmode_t = GtkWrapMode.t
+    type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name

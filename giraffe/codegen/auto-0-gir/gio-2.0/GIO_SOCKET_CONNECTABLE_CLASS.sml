@@ -1,7 +1,7 @@
 signature GIO_SOCKET_CONNECTABLE_CLASS =
   sig
-    type 'a socketconnectable
-    type 'a t = 'a socketconnectable GObject.ObjectClass.t
+    type 'a socket_connectable
+    type 'a t = 'a socket_connectable GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

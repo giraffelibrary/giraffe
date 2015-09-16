@@ -1,11 +1,11 @@
 structure GioDBusInterfaceSkeleton :>
   GIO_D_BUS_INTERFACE_SKELETON
     where type 'a class_t = 'a GioDBusInterfaceSkeletonClass.t
-    where type 'a dbusinterfaceclass_t = 'a GioDBusInterfaceClass.t
-    where type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    where type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t
-    where type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
-    where type dbusinterfaceskeletonflags_t = GioDBusInterfaceSkeletonFlags.t =
+    where type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
+    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    where type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t
+    where type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    where type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t =
   struct
     local
       open PolyMLFFI
@@ -30,11 +30,11 @@ structure GioDBusInterfaceSkeleton :>
       val unexport_ = call (load_sym libgio "g_dbus_interface_skeleton_unexport") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioDBusInterfaceSkeletonClass.t
-    type 'a dbusinterfaceclass_t = 'a GioDBusInterfaceClass.t
-    type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    type dbusinterfaceinforecord_t = GioDBusInterfaceInfoRecord.t
-    type 'a dbusmethodinvocationclass_t = 'a GioDBusMethodInvocationClass.t
-    type dbusinterfaceskeletonflags_t = GioDBusInterfaceSkeletonFlags.t
+    type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
+    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t
+    type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t
     type t = base class_t
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

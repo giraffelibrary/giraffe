@@ -6,12 +6,12 @@ structure GtkLicense :>
     datatype t =
       UNKNOWN
     | CUSTOM
-    | GPL20
-    | GPL30
-    | LGPL21
-    | LGPL30
+    | GPL_2_0
+    | GPL_3_0
+    | LGPL_2_1
+    | LGPL_3_0
     | BSD
-    | MITX11
+    | MIT_X_11
     | ARTISTIC
     structure C =
       struct
@@ -22,24 +22,24 @@ structure GtkLicense :>
           fn
             UNKNOWN => f 0
           | CUSTOM => f 1
-          | GPL20 => f 2
-          | GPL30 => f 3
-          | LGPL21 => f 4
-          | LGPL30 => f 5
+          | GPL_2_0 => f 2
+          | GPL_3_0 => f 3
+          | LGPL_2_1 => f 4
+          | LGPL_3_0 => f 5
           | BSD => f 6
-          | MITX11 => f 7
+          | MIT_X_11 => f 7
           | ARTISTIC => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => UNKNOWN
           | 1 => CUSTOM
-          | 2 => GPL20
-          | 3 => GPL30
-          | 4 => LGPL21
-          | 5 => LGPL30
+          | 2 => GPL_2_0
+          | 3 => GPL_3_0
+          | 4 => LGPL_2_1
+          | 5 => LGPL_3_0
           | 6 => BSD
-          | 7 => MITX11
+          | 7 => MIT_X_11
           | 8 => ARTISTIC
           | n => raise Value n
       end

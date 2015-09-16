@@ -1,9 +1,9 @@
 structure AtkRelationSet :>
   ATK_RELATION_SET
     where type 'a class_t = 'a AtkRelationSetClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t
-    where type relationtype_t = AtkRelationType.t
-    where type 'a relationclass_t = 'a AtkRelationClass.t =
+    where type 'a object_class_t = 'a AtkObjectClass.t
+    where type relation_type_t = AtkRelationType.t
+    where type 'a relation_class_t = 'a AtkRelationClass.t =
   struct
     local
       open PolyMLFFI
@@ -26,9 +26,9 @@ structure AtkRelationSet :>
       val remove_ = call (load_sym libatk "atk_relation_set_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a AtkRelationSetClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
-    type relationtype_t = AtkRelationType.t
-    type 'a relationclass_t = 'a AtkRelationClass.t
+    type 'a object_class_t = 'a AtkObjectClass.t
+    type relation_type_t = AtkRelationType.t
+    type 'a relation_class_t = 'a AtkRelationClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkRelationSetClass.C.fromPtr true) new_ ()

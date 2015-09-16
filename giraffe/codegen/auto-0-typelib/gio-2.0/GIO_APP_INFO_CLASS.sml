@@ -1,7 +1,7 @@
 signature GIO_APP_INFO_CLASS =
   sig
-    type 'a appinfo
-    type 'a t = 'a appinfo GObject.ObjectClass.t
+    type 'a app_info
+    type 'a t = 'a app_info GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

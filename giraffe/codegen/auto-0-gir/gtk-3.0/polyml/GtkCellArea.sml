@@ -1,18 +1,18 @@
 structure GtkCellArea :>
   GTK_CELL_AREA
     where type 'a class_t = 'a GtkCellAreaClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type directiontype_t = GtkDirectionType.t
-    where type sizerequestmode_t = GtkSizeRequestMode.t
-    where type cellrendererstate_t = GtkCellRendererState.t
-    where type 'a cellareacontextclass_t = 'a GtkCellAreaContextClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type direction_type_t = GtkDirectionType.t
+    where type size_request_mode_t = GtkSizeRequestMode.t
+    where type cell_renderer_state_t = GtkCellRendererState.t
+    where type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
     where type orientation_t = GtkOrientation.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type 'a cellrendererclass_t = 'a GtkCellRendererClass.t =
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t =
   struct
     local
       open PolyMLFFI
@@ -236,18 +236,18 @@ structure GtkCellArea :>
       val stopEditing_ = call (load_sym libgtk "gtk_cell_area_stop_editing") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellAreaClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type directiontype_t = GtkDirectionType.t
-    type sizerequestmode_t = GtkSizeRequestMode.t
-    type cellrendererstate_t = GtkCellRendererState.t
-    type 'a cellareacontextclass_t = 'a GtkCellAreaContextClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type direction_type_t = GtkDirectionType.t
+    type size_request_mode_t = GtkSizeRequestMode.t
+    type cell_renderer_state_t = GtkCellRendererState.t
+    type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type orientation_t = GtkOrientation.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

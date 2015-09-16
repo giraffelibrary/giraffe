@@ -1,11 +1,11 @@
 structure GtkTreeModelSort :>
   GTK_TREE_MODEL_SORT
     where type 'a class_t = 'a GtkTreeModelSortClass.t
-    where type 'a treedragsourceclass_t = 'a GtkTreeDragSourceClass.t
-    where type 'a treesortableclass_t = 'a GtkTreeSortableClass.t
-    where type treepathrecord_t = GtkTreePathRecord.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
+    where type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
+    where type tree_path_record_t = GtkTreePathRecord.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     local
       open PolyMLFFI
@@ -35,11 +35,11 @@ structure GtkTreeModelSort :>
       val resetDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_model_sort_reset_default_sort_func") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTreeModelSortClass.t
-    type 'a treedragsourceclass_t = 'a GtkTreeDragSourceClass.t
-    type 'a treesortableclass_t = 'a GtkTreeSortableClass.t
-    type treepathrecord_t = GtkTreePathRecord.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
+    type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
+    type tree_path_record_t = GtkTreePathRecord.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
     fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self

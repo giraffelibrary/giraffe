@@ -1,7 +1,7 @@
 signature GDK_DEVICE_MANAGER_CLASS =
   sig
-    type 'a devicemanager
-    type 'a t = 'a devicemanager GObject.ObjectClass.t
+    type 'a device_manager
+    type 'a t = 'a device_manager GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

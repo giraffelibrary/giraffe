@@ -1,10 +1,10 @@
 structure GtkTextTag :>
   GTK_TEXT_TAG
     where type 'a class_t = 'a GtkTextTagClass.t
-    where type textiterrecord_t = GtkTextIterRecord.t
-    where type textdirection_t = GtkTextDirection.t
+    where type text_iter_record_t = GtkTextIterRecord.t
+    where type text_direction_t = GtkTextDirection.t
     where type justification_t = GtkJustification.t
-    where type wrapmode_t = GtkWrapMode.t =
+    where type wrap_mode_t = GtkWrapMode.t =
   struct
     local
       open PolyMLFFI
@@ -24,10 +24,10 @@ structure GtkTextTag :>
       val setPriority_ = call (load_sym libgtk "gtk_text_tag_set_priority") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTextTagClass.t
-    type textiterrecord_t = GtkTextIterRecord.t
-    type textdirection_t = GtkTextDirection.t
+    type text_iter_record_t = GtkTextIterRecord.t
+    type text_direction_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
-    type wrapmode_t = GtkWrapMode.t
+    type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name

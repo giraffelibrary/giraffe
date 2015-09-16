@@ -1,8 +1,8 @@
 structure GtkCalendar :>
   GTK_CALENDAR
     where type 'a class_t = 'a GtkCalendarClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type calendardisplayoptions_t = GtkCalendarDisplayOptions.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type calendar_display_options_t = GtkCalendarDisplayOptions.t =
   struct
     val getType_ = _import "gtk_calendar_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_calendar_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -55,8 +55,8 @@ structure GtkCalendar :>
     val setDisplayOptions_ = fn x1 & x2 => (_import "gtk_calendar_set_display_options" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkCalendarDisplayOptions.C.val_ -> unit;) (x1, x2)
     val unmarkDay_ = fn x1 & x2 => (_import "gtk_calendar_unmark_day" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkCalendarClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type calendardisplayoptions_t = GtkCalendarDisplayOptions.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type calendar_display_options_t = GtkCalendarDisplayOptions.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

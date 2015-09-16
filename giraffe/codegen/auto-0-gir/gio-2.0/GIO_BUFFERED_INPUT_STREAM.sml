@@ -1,30 +1,30 @@
 signature GIO_BUFFERED_INPUT_STREAM =
   sig
     type 'a class_t
-    type 'a inputstreamclass_t
-    type 'a asyncresultclass_t
-    type 'a cancellableclass_t
+    type 'a input_stream_class_t
+    type 'a async_result_class_t
+    type 'a cancellable_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
-    val new : 'a inputstreamclass_t -> base class_t
+    val new : 'a input_stream_class_t -> base class_t
     val newSized :
-      'a inputstreamclass_t
+      'a input_stream_class_t
        -> LargeInt.int
        -> base class_t
     val fill :
       'a class_t
        -> LargeInt.int
-       -> 'b cancellableclass_t option
+       -> 'b cancellable_class_t option
        -> LargeInt.int
     val fillFinish :
       'a class_t
-       -> 'b asyncresultclass_t
+       -> 'b async_result_class_t
        -> LargeInt.int
     val getAvailable : 'a class_t -> LargeInt.int
     val getBufferSize : 'a class_t -> LargeInt.int
     val readByte :
       'a class_t
-       -> 'b cancellableclass_t option
+       -> 'b cancellable_class_t option
        -> LargeInt.int
     val setBufferSize :
       'a class_t

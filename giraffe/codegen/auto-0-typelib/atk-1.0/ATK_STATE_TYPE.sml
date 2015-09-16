@@ -16,7 +16,7 @@ signature ATK_STATE_TYPE =
     | HORIZONTAL
     | ICONIFIED
     | MODAL
-    | MULTILINE
+    | MULTI_LINE
     | MULTISELECTABLE
     | OPAQUE
     | PRESSED
@@ -25,22 +25,22 @@ signature ATK_STATE_TYPE =
     | SELECTED
     | SENSITIVE
     | SHOWING
-    | SINGLELINE
+    | SINGLE_LINE
     | STALE
     | TRANSIENT
     | VERTICAL
     | VISIBLE
-    | MANAGESDESCENDANTS
+    | MANAGES_DESCENDANTS
     | INDETERMINATE
     | TRUNCATED
     | REQUIRED
-    | INVALIDENTRY
-    | SUPPORTSAUTOCOMPLETION
-    | SELECTABLETEXT
+    | INVALID_ENTRY
+    | SUPPORTS_AUTOCOMPLETION
+    | SELECTABLE_TEXT
     | DEFAULT
     | ANIMATED
     | VISITED
-    | LASTDEFINED
+    | LAST_DEFINED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

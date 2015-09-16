@@ -5,8 +5,8 @@ signature GDK_EVENT_CROSSING_RECORD =
     type t = crossing event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      ENTERNOTIFY
-    | LEAVENOTIFY
+      ENTER_NOTIFY
+    | LEAVE_NOTIFY
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

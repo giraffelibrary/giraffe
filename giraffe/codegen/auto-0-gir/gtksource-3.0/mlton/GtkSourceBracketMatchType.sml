@@ -5,8 +5,8 @@ structure GtkSourceBracketMatchType :>
   struct
     datatype t =
       NONE
-    | OUTOFRANGE
-    | NOTFOUND
+    | OUT_OF_RANGE
+    | NOT_FOUND
     | FOUND
     structure C =
       struct
@@ -16,15 +16,15 @@ structure GtkSourceBracketMatchType :>
         fun withVal f =
           fn
             NONE => f 0
-          | OUTOFRANGE => f 1
-          | NOTFOUND => f 2
+          | OUT_OF_RANGE => f 1
+          | NOT_FOUND => f 2
           | FOUND => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
-          | 1 => OUTOFRANGE
-          | 2 => NOTFOUND
+          | 1 => OUT_OF_RANGE
+          | 2 => NOT_FOUND
           | 3 => FOUND
           | n => raise Value n
       end

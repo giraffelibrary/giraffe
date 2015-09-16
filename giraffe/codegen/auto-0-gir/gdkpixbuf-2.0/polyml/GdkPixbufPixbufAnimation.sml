@@ -1,8 +1,8 @@
 structure GdkPixbufPixbufAnimation :>
   GDK_PIXBUF_PIXBUF_ANIMATION
     where type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    where type 'a pixbufanimationiterclass_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    where type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
+    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
   struct
     local
       open PolyMLFFI
@@ -16,8 +16,8 @@ structure GdkPixbufPixbufAnimation :>
       val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    type 'a pixbufanimationiterclass_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
+    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile filename = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])

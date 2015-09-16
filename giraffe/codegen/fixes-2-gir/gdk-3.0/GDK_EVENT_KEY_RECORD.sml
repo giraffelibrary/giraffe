@@ -3,16 +3,16 @@ signature GDK_EVENT_KEY_RECORD =
     type key
     type 'a event_t
     type t = key event_t
-    type 'a windowclass_t
-    type modifiertype_t
+    type 'a window_class_t
+    type modifier_type_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      KEYPRESS
-    | KEYRELEASE
-    val getWindow : t -> base windowclass_t
+      KEY_PRESS
+    | KEY_RELEASE
+    val getWindow : t -> base window_class_t
     val getSendEvent : t -> bool
     val getTime : t -> LargeInt.int
-    val getState : t -> modifiertype_t
+    val getState : t -> modifier_type_t
     val getKeyval : t -> LargeInt.int
     val getHardwareKeycode : t -> LargeInt.int
     val getGroup : t -> LargeInt.int

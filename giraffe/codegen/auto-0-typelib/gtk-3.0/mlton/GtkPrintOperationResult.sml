@@ -7,7 +7,7 @@ structure GtkPrintOperationResult :>
       ERROR
     | APPLY
     | CANCEL
-    | INPROGRESS
+    | IN_PROGRESS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -18,14 +18,14 @@ structure GtkPrintOperationResult :>
             ERROR => f 0
           | APPLY => f 1
           | CANCEL => f 2
-          | INPROGRESS => f 3
+          | IN_PROGRESS => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => ERROR
           | 1 => APPLY
           | 2 => CANCEL
-          | 3 => INPROGRESS
+          | 3 => IN_PROGRESS
           | n => raise Value n
       end
     val getType_ = _import "gtk_print_operation_result_get_type" : unit -> GObjectType.C.val_;

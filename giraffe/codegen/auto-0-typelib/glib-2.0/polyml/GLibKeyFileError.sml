@@ -2,7 +2,7 @@ structure GLibKeyFileError :>
   sig
     include
       G_LIB_KEY_FILE_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -11,12 +11,12 @@ structure GLibKeyFileError :>
   end =
   struct
     datatype t =
-      UNKNOWNENCODING
+      UNKNOWN_ENCODING
     | PARSE
-    | NOTFOUND
-    | KEYNOTFOUND
-    | GROUPNOTFOUND
-    | INVALIDVALUE
+    | NOT_FOUND
+    | KEY_NOT_FOUND
+    | GROUP_NOT_FOUND
+    | INVALID_VALUE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -24,21 +24,21 @@ structure GLibKeyFileError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            UNKNOWNENCODING => f 0
+            UNKNOWN_ENCODING => f 0
           | PARSE => f 1
-          | NOTFOUND => f 2
-          | KEYNOTFOUND => f 3
-          | GROUPNOTFOUND => f 4
-          | INVALIDVALUE => f 5
+          | NOT_FOUND => f 2
+          | KEY_NOT_FOUND => f 3
+          | GROUP_NOT_FOUND => f 4
+          | INVALID_VALUE => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => UNKNOWNENCODING
+            0 => UNKNOWN_ENCODING
           | 1 => PARSE
-          | 2 => NOTFOUND
-          | 3 => KEYNOTFOUND
-          | 4 => GROUPNOTFOUND
-          | 5 => INVALIDVALUE
+          | 2 => NOT_FOUND
+          | 3 => KEY_NOT_FOUND
+          | 4 => GROUP_NOT_FOUND
+          | 5 => INVALID_VALUE
           | n => raise Value n
       end
     structure PolyML =
@@ -47,7 +47,7 @@ structure GLibKeyFileError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

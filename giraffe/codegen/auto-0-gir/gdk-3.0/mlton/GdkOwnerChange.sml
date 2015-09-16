@@ -4,7 +4,7 @@ structure GdkOwnerChange :>
   end =
   struct
     datatype t =
-      NEWOWNER
+      NEW_OWNER
     | DESTROY
     | CLOSE
     structure C =
@@ -14,13 +14,13 @@ structure GdkOwnerChange :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NEWOWNER => f 0
+            NEW_OWNER => f 0
           | DESTROY => f 1
           | CLOSE => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NEWOWNER
+            0 => NEW_OWNER
           | 1 => DESTROY
           | 2 => CLOSE
           | n => raise Value n
@@ -35,6 +35,6 @@ structure GdkOwnerChange :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = NEWOWNER
+    val null = NEW_OWNER
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

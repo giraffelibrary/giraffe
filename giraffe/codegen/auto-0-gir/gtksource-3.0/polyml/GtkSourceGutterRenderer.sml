@@ -1,8 +1,8 @@
 structure GtkSourceGutterRenderer :>
   GTK_SOURCE_GUTTER_RENDERER
     where type 'a class_t = 'a GtkSourceGutterRendererClass.t
-    where type gutterrendererstate_t = GtkSourceGutterRendererState.t
-    where type gutterrendereralignmentmode_t = GtkSourceGutterRendererAlignmentMode.t =
+    where type gutter_renderer_state_t = GtkSourceGutterRendererState.t
+    where type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t =
   struct
     local
       open PolyMLFFI
@@ -115,8 +115,8 @@ structure GtkSourceGutterRenderer :>
       val setVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceGutterRendererClass.t
-    type gutterrendererstate_t = GtkSourceGutterRendererState.t
-    type gutterrendereralignmentmode_t = GtkSourceGutterRendererAlignmentMode.t
+    type gutter_renderer_state_t = GtkSourceGutterRendererState.t
+    type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self iter area event =

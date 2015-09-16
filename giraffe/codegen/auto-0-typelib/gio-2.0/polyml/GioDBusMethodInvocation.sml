@@ -1,10 +1,10 @@
 structure GioDBusMethodInvocation :>
   GIO_D_BUS_METHOD_INVOCATION
     where type 'a class_t = 'a GioDBusMethodInvocationClass.t
-    where type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    where type 'a dbusmessageclass_t = 'a GioDBusMessageClass.t
-    where type dbusmethodinforecord_t = GioDBusMethodInfoRecord.t
-    where type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t =
+    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    where type 'a d_bus_message_class_t = 'a GioDBusMessageClass.t
+    where type d_bus_method_info_record_t = GioDBusMethodInfoRecord.t
+    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t =
   struct
     local
       open PolyMLFFI
@@ -46,10 +46,10 @@ structure GioDBusMethodInvocation :>
           )
     end
     type 'a class_t = 'a GioDBusMethodInvocationClass.t
-    type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    type 'a dbusmessageclass_t = 'a GioDBusMessageClass.t
-    type dbusmethodinforecord_t = GioDBusMethodInfoRecord.t
-    type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    type 'a d_bus_message_class_t = 'a GioDBusMessageClass.t
+    type d_bus_method_info_record_t = GioDBusMethodInfoRecord.t
+    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self

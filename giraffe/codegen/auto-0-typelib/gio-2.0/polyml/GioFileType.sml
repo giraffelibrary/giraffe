@@ -12,7 +12,7 @@ structure GioFileType :>
       UNKNOWN
     | REGULAR
     | DIRECTORY
-    | SYMBOLICLINK
+    | SYMBOLIC_LINK
     | SPECIAL
     | SHORTCUT
     | MOUNTABLE
@@ -26,7 +26,7 @@ structure GioFileType :>
             UNKNOWN => f 0
           | REGULAR => f 1
           | DIRECTORY => f 2
-          | SYMBOLICLINK => f 3
+          | SYMBOLIC_LINK => f 3
           | SPECIAL => f 4
           | SHORTCUT => f 5
           | MOUNTABLE => f 6
@@ -36,7 +36,7 @@ structure GioFileType :>
             0 => UNKNOWN
           | 1 => REGULAR
           | 2 => DIRECTORY
-          | 3 => SYMBOLICLINK
+          | 3 => SYMBOLIC_LINK
           | 4 => SPECIAL
           | 5 => SHORTCUT
           | 6 => MOUNTABLE

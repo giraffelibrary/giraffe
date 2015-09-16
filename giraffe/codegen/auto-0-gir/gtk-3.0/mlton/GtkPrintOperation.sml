@@ -1,15 +1,15 @@
 structure GtkPrintOperation :>
   GTK_PRINT_OPERATION
     where type 'a class_t = 'a GtkPrintOperationClass.t
-    where type printoperationaction_t = GtkPrintOperationAction.t
-    where type printoperationresult_t = GtkPrintOperationResult.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t
-    where type 'a printoperationpreviewclass_t = 'a GtkPrintOperationPreviewClass.t
-    where type 'a printcontextclass_t = 'a GtkPrintContextClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
-    where type 'a printsettingsclass_t = 'a GtkPrintSettingsClass.t
-    where type printstatus_t = GtkPrintStatus.t
+    where type print_operation_action_t = GtkPrintOperationAction.t
+    where type print_operation_result_t = GtkPrintOperationResult.t
+    where type 'a window_class_t = 'a GtkWindowClass.t
+    where type 'a print_operation_preview_class_t = 'a GtkPrintOperationPreviewClass.t
+    where type 'a print_context_class_t = 'a GtkPrintContextClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a page_setup_class_t = 'a GtkPageSetupClass.t
+    where type 'a print_settings_class_t = 'a GtkPrintSettingsClass.t
+    where type print_status_t = GtkPrintStatus.t
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_print_operation_get_type" : unit -> GObjectType.C.val_;
@@ -105,15 +105,15 @@ structure GtkPrintOperation :>
     val setUnit_ = fn x1 & x2 => (_import "gtk_print_operation_set_unit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkUnit.C.val_ -> unit;) (x1, x2)
     val setUseFullPage_ = fn x1 & x2 => (_import "gtk_print_operation_set_use_full_page" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkPrintOperationClass.t
-    type printoperationaction_t = GtkPrintOperationAction.t
-    type printoperationresult_t = GtkPrintOperationResult.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
-    type 'a printoperationpreviewclass_t = 'a GtkPrintOperationPreviewClass.t
-    type 'a printcontextclass_t = 'a GtkPrintContextClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a pagesetupclass_t = 'a GtkPageSetupClass.t
-    type 'a printsettingsclass_t = 'a GtkPrintSettingsClass.t
-    type printstatus_t = GtkPrintStatus.t
+    type print_operation_action_t = GtkPrintOperationAction.t
+    type print_operation_result_t = GtkPrintOperationResult.t
+    type 'a window_class_t = 'a GtkWindowClass.t
+    type 'a print_operation_preview_class_t = 'a GtkPrintOperationPreviewClass.t
+    type 'a print_context_class_t = 'a GtkPrintContextClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a page_setup_class_t = 'a GtkPageSetupClass.t
+    type 'a print_settings_class_t = 'a GtkPrintSettingsClass.t
+    type print_status_t = GtkPrintStatus.t
     type unit_t = GtkUnit.t
     type t = base class_t
     fun asPrintOperationPreview self = (GObjectObjectClass.C.withPtr ---> GtkPrintOperationPreviewClass.C.fromPtr false) I self

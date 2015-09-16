@@ -12,7 +12,7 @@ structure GdkEventMotionRecord :>
 
 
     datatype event =
-      MOTIONNOTIFY
+      MOTION_NOTIFY
 
 
     structure C = GdkEvent.C

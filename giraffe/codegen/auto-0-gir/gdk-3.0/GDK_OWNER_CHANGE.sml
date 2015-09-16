@@ -1,7 +1,7 @@
 signature GDK_OWNER_CHANGE =
   sig
     datatype t =
-      NEWOWNER
+      NEW_OWNER
     | DESTROY
     | CLOSE
     val null : t

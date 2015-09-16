@@ -1,11 +1,11 @@
 structure PangoFont :>
   PANGO_FONT
     where type 'a class_t = 'a PangoFontClass.t
-    where type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
-    where type 'a fontmapclass_t = 'a PangoFontMapClass.t
-    where type rectanglerecord_t = PangoRectangleRecord.t
-    where type fontmetricsrecord_t = PangoFontMetricsRecord.t
-    where type languagerecord_t = PangoLanguageRecord.t =
+    where type font_description_record_t = PangoFontDescriptionRecord.t
+    where type 'a font_map_class_t = 'a PangoFontMapClass.t
+    where type rectangle_record_t = PangoRectangleRecord.t
+    where type font_metrics_record_t = PangoFontMetricsRecord.t
+    where type language_record_t = PangoLanguageRecord.t =
   struct
     val getType_ = _import "pango_font_get_type" : unit -> GObjectType.C.val_;
     val describe_ = _import "pango_font_describe" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
@@ -33,11 +33,11 @@ structure PangoFont :>
             )
     val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoLanguageRecord.C.p -> PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p;) (x1, x2)
     type 'a class_t = 'a PangoFontClass.t
-    type fontdescriptionrecord_t = PangoFontDescriptionRecord.t
-    type 'a fontmapclass_t = 'a PangoFontMapClass.t
-    type rectanglerecord_t = PangoRectangleRecord.t
-    type fontmetricsrecord_t = PangoFontMetricsRecord.t
-    type languagerecord_t = PangoLanguageRecord.t
+    type font_description_record_t = PangoFontDescriptionRecord.t
+    type 'a font_map_class_t = 'a PangoFontMapClass.t
+    type rectangle_record_t = PangoRectangleRecord.t
+    type font_metrics_record_t = PangoFontMetricsRecord.t
+    type language_record_t = PangoLanguageRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self

@@ -1,7 +1,7 @@
 signature G_LIB_DATE_WEEKDAY =
   sig
     datatype t =
-      BADWEEKDAY
+      BAD_WEEKDAY
     | MONDAY
     | TUESDAY
     | WEDNESDAY

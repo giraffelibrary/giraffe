@@ -6,12 +6,12 @@ signature G_LIB_I_O_FLAGS =
         where type flags = t
     val APPEND : t
     val NONBLOCK : t
-    val ISREADABLE : t
-    val ISWRITEABLE : t
-    val ISSEEKABLE : t
+    val IS_READABLE : t
+    val IS_WRITEABLE : t
+    val IS_SEEKABLE : t
     val MASK : t
-    val GETMASK : t
-    val SETMASK : t
+    val GET_MASK : t
+    val SET_MASK : t
     structure C :
       sig
         type val_

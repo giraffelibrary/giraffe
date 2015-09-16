@@ -1,7 +1,7 @@
 signature GTK_PRINT_SETTINGS_CLASS =
   sig
-    type 'a printsettings
-    type 'a t = 'a printsettings GObject.ObjectClass.t
+    type 'a print_settings
+    type 'a t = 'a print_settings GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

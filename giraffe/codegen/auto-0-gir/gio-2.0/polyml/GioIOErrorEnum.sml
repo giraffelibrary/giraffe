@@ -10,49 +10,49 @@ structure GioIOErrorEnum :>
   struct
     datatype t =
       FAILED
-    | NOTFOUND
+    | NOT_FOUND
     | EXISTS
-    | ISDIRECTORY
-    | NOTDIRECTORY
-    | NOTEMPTY
-    | NOTREGULARFILE
-    | NOTSYMBOLICLINK
-    | NOTMOUNTABLEFILE
-    | FILENAMETOOLONG
-    | INVALIDFILENAME
-    | TOOMANYLINKS
-    | NOSPACE
-    | INVALIDARGUMENT
-    | PERMISSIONDENIED
-    | NOTSUPPORTED
-    | NOTMOUNTED
-    | ALREADYMOUNTED
+    | IS_DIRECTORY
+    | NOT_DIRECTORY
+    | NOT_EMPTY
+    | NOT_REGULAR_FILE
+    | NOT_SYMBOLIC_LINK
+    | NOT_MOUNTABLE_FILE
+    | FILENAME_TOO_LONG
+    | INVALID_FILENAME
+    | TOO_MANY_LINKS
+    | NO_SPACE
+    | INVALID_ARGUMENT
+    | PERMISSION_DENIED
+    | NOT_SUPPORTED
+    | NOT_MOUNTED
+    | ALREADY_MOUNTED
     | CLOSED
     | CANCELLED
     | PENDING
-    | READONLY
-    | CANTCREATEBACKUP
-    | WRONGETAG
-    | TIMEDOUT
-    | WOULDRECURSE
+    | READ_ONLY
+    | CANT_CREATE_BACKUP
+    | WRONG_ETAG
+    | TIMED_OUT
+    | WOULD_RECURSE
     | BUSY
-    | WOULDBLOCK
-    | HOSTNOTFOUND
-    | WOULDMERGE
-    | FAILEDHANDLED
-    | TOOMANYOPENFILES
-    | NOTINITIALIZED
-    | ADDRESSINUSE
-    | PARTIALINPUT
-    | INVALIDDATA
-    | DBUSERROR
-    | HOSTUNREACHABLE
-    | NETWORKUNREACHABLE
-    | CONNECTIONREFUSED
-    | PROXYFAILED
-    | PROXYAUTHFAILED
-    | PROXYNEEDAUTH
-    | PROXYNOTALLOWED
+    | WOULD_BLOCK
+    | HOST_NOT_FOUND
+    | WOULD_MERGE
+    | FAILED_HANDLED
+    | TOO_MANY_OPEN_FILES
+    | NOT_INITIALIZED
+    | ADDRESS_IN_USE
+    | PARTIAL_INPUT
+    | INVALID_DATA
+    | DBUS_ERROR
+    | HOST_UNREACHABLE
+    | NETWORK_UNREACHABLE
+    | CONNECTION_REFUSED
+    | PROXY_FAILED
+    | PROXY_AUTH_FAILED
+    | PROXY_NEED_AUTH
+    | PROXY_NOT_ALLOWED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -61,96 +61,96 @@ structure GioIOErrorEnum :>
         fun withVal f =
           fn
             FAILED => f 0
-          | NOTFOUND => f 1
+          | NOT_FOUND => f 1
           | EXISTS => f 2
-          | ISDIRECTORY => f 3
-          | NOTDIRECTORY => f 4
-          | NOTEMPTY => f 5
-          | NOTREGULARFILE => f 6
-          | NOTSYMBOLICLINK => f 7
-          | NOTMOUNTABLEFILE => f 8
-          | FILENAMETOOLONG => f 9
-          | INVALIDFILENAME => f 10
-          | TOOMANYLINKS => f 11
-          | NOSPACE => f 12
-          | INVALIDARGUMENT => f 13
-          | PERMISSIONDENIED => f 14
-          | NOTSUPPORTED => f 15
-          | NOTMOUNTED => f 16
-          | ALREADYMOUNTED => f 17
+          | IS_DIRECTORY => f 3
+          | NOT_DIRECTORY => f 4
+          | NOT_EMPTY => f 5
+          | NOT_REGULAR_FILE => f 6
+          | NOT_SYMBOLIC_LINK => f 7
+          | NOT_MOUNTABLE_FILE => f 8
+          | FILENAME_TOO_LONG => f 9
+          | INVALID_FILENAME => f 10
+          | TOO_MANY_LINKS => f 11
+          | NO_SPACE => f 12
+          | INVALID_ARGUMENT => f 13
+          | PERMISSION_DENIED => f 14
+          | NOT_SUPPORTED => f 15
+          | NOT_MOUNTED => f 16
+          | ALREADY_MOUNTED => f 17
           | CLOSED => f 18
           | CANCELLED => f 19
           | PENDING => f 20
-          | READONLY => f 21
-          | CANTCREATEBACKUP => f 22
-          | WRONGETAG => f 23
-          | TIMEDOUT => f 24
-          | WOULDRECURSE => f 25
+          | READ_ONLY => f 21
+          | CANT_CREATE_BACKUP => f 22
+          | WRONG_ETAG => f 23
+          | TIMED_OUT => f 24
+          | WOULD_RECURSE => f 25
           | BUSY => f 26
-          | WOULDBLOCK => f 27
-          | HOSTNOTFOUND => f 28
-          | WOULDMERGE => f 29
-          | FAILEDHANDLED => f 30
-          | TOOMANYOPENFILES => f 31
-          | NOTINITIALIZED => f 32
-          | ADDRESSINUSE => f 33
-          | PARTIALINPUT => f 34
-          | INVALIDDATA => f 35
-          | DBUSERROR => f 36
-          | HOSTUNREACHABLE => f 37
-          | NETWORKUNREACHABLE => f 38
-          | CONNECTIONREFUSED => f 39
-          | PROXYFAILED => f 40
-          | PROXYAUTHFAILED => f 41
-          | PROXYNEEDAUTH => f 42
-          | PROXYNOTALLOWED => f 43
+          | WOULD_BLOCK => f 27
+          | HOST_NOT_FOUND => f 28
+          | WOULD_MERGE => f 29
+          | FAILED_HANDLED => f 30
+          | TOO_MANY_OPEN_FILES => f 31
+          | NOT_INITIALIZED => f 32
+          | ADDRESS_IN_USE => f 33
+          | PARTIAL_INPUT => f 34
+          | INVALID_DATA => f 35
+          | DBUS_ERROR => f 36
+          | HOST_UNREACHABLE => f 37
+          | NETWORK_UNREACHABLE => f 38
+          | CONNECTION_REFUSED => f 39
+          | PROXY_FAILED => f 40
+          | PROXY_AUTH_FAILED => f 41
+          | PROXY_NEED_AUTH => f 42
+          | PROXY_NOT_ALLOWED => f 43
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => FAILED
-          | 1 => NOTFOUND
+          | 1 => NOT_FOUND
           | 2 => EXISTS
-          | 3 => ISDIRECTORY
-          | 4 => NOTDIRECTORY
-          | 5 => NOTEMPTY
-          | 6 => NOTREGULARFILE
-          | 7 => NOTSYMBOLICLINK
-          | 8 => NOTMOUNTABLEFILE
-          | 9 => FILENAMETOOLONG
-          | 10 => INVALIDFILENAME
-          | 11 => TOOMANYLINKS
-          | 12 => NOSPACE
-          | 13 => INVALIDARGUMENT
-          | 14 => PERMISSIONDENIED
-          | 15 => NOTSUPPORTED
-          | 16 => NOTMOUNTED
-          | 17 => ALREADYMOUNTED
+          | 3 => IS_DIRECTORY
+          | 4 => NOT_DIRECTORY
+          | 5 => NOT_EMPTY
+          | 6 => NOT_REGULAR_FILE
+          | 7 => NOT_SYMBOLIC_LINK
+          | 8 => NOT_MOUNTABLE_FILE
+          | 9 => FILENAME_TOO_LONG
+          | 10 => INVALID_FILENAME
+          | 11 => TOO_MANY_LINKS
+          | 12 => NO_SPACE
+          | 13 => INVALID_ARGUMENT
+          | 14 => PERMISSION_DENIED
+          | 15 => NOT_SUPPORTED
+          | 16 => NOT_MOUNTED
+          | 17 => ALREADY_MOUNTED
           | 18 => CLOSED
           | 19 => CANCELLED
           | 20 => PENDING
-          | 21 => READONLY
-          | 22 => CANTCREATEBACKUP
-          | 23 => WRONGETAG
-          | 24 => TIMEDOUT
-          | 25 => WOULDRECURSE
+          | 21 => READ_ONLY
+          | 22 => CANT_CREATE_BACKUP
+          | 23 => WRONG_ETAG
+          | 24 => TIMED_OUT
+          | 25 => WOULD_RECURSE
           | 26 => BUSY
-          | 27 => WOULDBLOCK
-          | 28 => HOSTNOTFOUND
-          | 29 => WOULDMERGE
-          | 30 => FAILEDHANDLED
-          | 31 => TOOMANYOPENFILES
-          | 32 => NOTINITIALIZED
-          | 33 => ADDRESSINUSE
-          | 34 => PARTIALINPUT
-          | 35 => INVALIDDATA
-          | 36 => DBUSERROR
-          | 37 => HOSTUNREACHABLE
-          | 38 => NETWORKUNREACHABLE
-          | 39 => CONNECTIONREFUSED
-          | 40 => PROXYFAILED
-          | 41 => PROXYAUTHFAILED
-          | 42 => PROXYNEEDAUTH
-          | 43 => PROXYNOTALLOWED
+          | 27 => WOULD_BLOCK
+          | 28 => HOST_NOT_FOUND
+          | 29 => WOULD_MERGE
+          | 30 => FAILED_HANDLED
+          | 31 => TOO_MANY_OPEN_FILES
+          | 32 => NOT_INITIALIZED
+          | 33 => ADDRESS_IN_USE
+          | 34 => PARTIAL_INPUT
+          | 35 => INVALID_DATA
+          | 36 => DBUS_ERROR
+          | 37 => HOST_UNREACHABLE
+          | 38 => NETWORK_UNREACHABLE
+          | 39 => CONNECTION_REFUSED
+          | 40 => PROXY_FAILED
+          | 41 => PROXY_AUTH_FAILED
+          | 42 => PROXY_NEED_AUTH
+          | 43 => PROXY_NOT_ALLOWED
           | n => raise Value n
       end
     structure PolyML =

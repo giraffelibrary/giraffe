@@ -1,14 +1,14 @@
 signature GTK_PRINT_SETTINGS =
   sig
     type 'a class_t
-    type printduplex_t
-    type numberuplayout_t
-    type pageorientation_t
-    type pageset_t
-    type papersizerecord_t
+    type print_duplex_t
+    type number_up_layout_t
+    type page_orientation_t
+    type page_set_t
+    type paper_size_record_t
     type unit_t
-    type printpages_t
-    type printquality_t
+    type print_pages_t
+    type print_quality_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -38,7 +38,7 @@ signature GTK_PRINT_SETTINGS =
        -> string
        -> real
        -> real
-    val getDuplex : 'a class_t -> printduplex_t
+    val getDuplex : 'a class_t -> print_duplex_t
     val getFinishings : 'a class_t -> string
     val getInt :
       'a class_t
@@ -57,23 +57,23 @@ signature GTK_PRINT_SETTINGS =
     val getMediaType : 'a class_t -> string
     val getNCopies : 'a class_t -> LargeInt.int
     val getNumberUp : 'a class_t -> LargeInt.int
-    val getNumberUpLayout : 'a class_t -> numberuplayout_t
-    val getOrientation : 'a class_t -> pageorientation_t
+    val getNumberUpLayout : 'a class_t -> number_up_layout_t
+    val getOrientation : 'a class_t -> page_orientation_t
     val getOutputBin : 'a class_t -> string
-    val getPageSet : 'a class_t -> pageset_t
+    val getPageSet : 'a class_t -> page_set_t
     val getPaperHeight :
       'a class_t
        -> unit_t
        -> real
-    val getPaperSize : 'a class_t -> papersizerecord_t
+    val getPaperSize : 'a class_t -> paper_size_record_t
     val getPaperWidth :
       'a class_t
        -> unit_t
        -> real
-    val getPrintPages : 'a class_t -> printpages_t
+    val getPrintPages : 'a class_t -> print_pages_t
     val getPrinter : 'a class_t -> string
     val getPrinterLpi : 'a class_t -> real
-    val getQuality : 'a class_t -> printquality_t
+    val getQuality : 'a class_t -> print_quality_t
     val getResolution : 'a class_t -> LargeInt.int
     val getResolutionX : 'a class_t -> LargeInt.int
     val getResolutionY : 'a class_t -> LargeInt.int
@@ -122,7 +122,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setDuplex :
       'a class_t
-       -> printduplex_t
+       -> print_duplex_t
        -> unit
     val setFinishings :
       'a class_t
@@ -153,11 +153,11 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setNumberUpLayout :
       'a class_t
-       -> numberuplayout_t
+       -> number_up_layout_t
        -> unit
     val setOrientation :
       'a class_t
-       -> pageorientation_t
+       -> page_orientation_t
        -> unit
     val setOutputBin :
       'a class_t
@@ -165,7 +165,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPageSet :
       'a class_t
-       -> pageset_t
+       -> page_set_t
        -> unit
     val setPaperHeight :
       'a class_t
@@ -174,7 +174,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPaperSize :
       'a class_t
-       -> papersizerecord_t
+       -> paper_size_record_t
        -> unit
     val setPaperWidth :
       'a class_t
@@ -183,7 +183,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPrintPages :
       'a class_t
-       -> printpages_t
+       -> print_pages_t
        -> unit
     val setPrinter :
       'a class_t
@@ -195,7 +195,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setQuality :
       'a class_t
-       -> printquality_t
+       -> print_quality_t
        -> unit
     val setResolution :
       'a class_t

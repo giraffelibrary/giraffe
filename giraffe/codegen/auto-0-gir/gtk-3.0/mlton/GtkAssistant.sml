@@ -1,9 +1,9 @@
 structure GtkAssistant :>
   GTK_ASSISTANT
     where type 'a class_t = 'a GtkAssistantClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type assistantpagetype_t = GtkAssistantPageType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type assistant_page_type_t = GtkAssistantPageType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_assistant_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_assistant_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -94,9 +94,9 @@ structure GtkAssistant :>
             )
     val updateButtonsState_ = _import "gtk_assistant_update_buttons_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkAssistantClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type assistantpagetype_t = GtkAssistantPageType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type assistant_page_type_t = GtkAssistantPageType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

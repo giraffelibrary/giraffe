@@ -1,8 +1,8 @@
 structure GioUnixConnection :>
   GIO_UNIX_CONNECTION
     where type 'a class_t = 'a GioUnixConnectionClass.t
-    where type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t =
+    where type 'a credentials_class_t = 'a GioCredentialsClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
   struct
     local
       open PolyMLFFI
@@ -43,8 +43,8 @@ structure GioUnixConnection :>
           )
     end
     type 'a class_t = 'a GioUnixConnectionClass.t
-    type 'a credentialsclass_t = 'a GioCredentialsClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type 'a credentials_class_t = 'a GioCredentialsClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun receiveCredentials self cancellable =

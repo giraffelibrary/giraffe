@@ -1,9 +1,9 @@
 structure GtkSizeGroup :>
   GTK_SIZE_GROUP
     where type 'a class_t = 'a GtkSizeGroupClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type sizegroupmode_t = GtkSizeGroupMode.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type size_group_mode_t = GtkSizeGroupMode.t =
   struct
     local
       open PolyMLFFI
@@ -18,9 +18,9 @@ structure GtkSizeGroup :>
       val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GObjectObjectClass.PolyML.PTR &&> GtkSizeGroupMode.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSizeGroupClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type sizegroupmode_t = GtkSizeGroupMode.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type size_group_mode_t = GtkSizeGroupMode.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

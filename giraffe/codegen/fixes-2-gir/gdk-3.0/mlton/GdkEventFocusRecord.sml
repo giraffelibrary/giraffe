@@ -12,7 +12,7 @@ structure GdkEventFocusRecord :>
 
 
     datatype event =
-      FOCUSCHANGE
+      FOCUS_CHANGE
 
 
     structure C = GdkEvent.C

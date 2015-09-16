@@ -3,8 +3,8 @@ structure GioVolumeMonitorClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a volumemonitor = unit
-    type 'a t = 'a volumemonitor GObjectObjectClass.t
+    type 'a volume_monitor = unit
+    type 'a t = 'a volume_monitor GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

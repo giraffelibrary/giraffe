@@ -1,7 +1,7 @@
 signature GTK_ACCEL_GROUP_CLASS =
   sig
-    type 'a accelgroup
-    type 'a t = 'a accelgroup GObject.ObjectClass.t
+    type 'a accel_group
+    type 'a t = 'a accel_group GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

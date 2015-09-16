@@ -1,8 +1,8 @@
 signature GTK_COLOR_BUTTON_CLASS =
   sig
-    type 'a colorbutton
-    type 'a buttonclass_t
-    type 'a t = 'a colorbutton buttonclass_t
+    type 'a color_button
+    type 'a button_class_t
+    type 'a t = 'a color_button button_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

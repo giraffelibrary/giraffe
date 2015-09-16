@@ -1,8 +1,8 @@
 structure AtkHyperlink :>
   ATK_HYPERLINK
     where type 'a class_t = 'a AtkHyperlinkClass.t
-    where type 'a actionclass_t = 'a AtkActionClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t =
+    where type 'a action_class_t = 'a AtkActionClass.t
+    where type 'a object_class_t = 'a AtkObjectClass.t =
   struct
     local
       open PolyMLFFI
@@ -17,8 +17,8 @@ structure AtkHyperlink :>
       val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkHyperlinkClass.t
-    type 'a actionclass_t = 'a AtkActionClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
+    type 'a action_class_t = 'a AtkActionClass.t
+    type 'a object_class_t = 'a AtkObjectClass.t
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

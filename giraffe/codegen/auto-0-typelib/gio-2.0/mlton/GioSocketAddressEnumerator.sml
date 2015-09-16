@@ -1,9 +1,9 @@
 structure GioSocketAddressEnumerator :>
   GIO_SOCKET_ADDRESS_ENUMERATOR
     where type 'a class_t = 'a GioSocketAddressEnumeratorClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_socket_address_enumerator_get_type" : unit -> GObjectType.C.val_;
     val next_ =
@@ -41,9 +41,9 @@ structure GioSocketAddressEnumerator :>
               x3
             )
     type 'a class_t = 'a GioSocketAddressEnumeratorClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a socketaddressclass_t = 'a GioSocketAddressClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun next self cancellable =

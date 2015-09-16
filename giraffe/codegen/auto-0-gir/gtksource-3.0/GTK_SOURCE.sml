@@ -32,102 +32,102 @@ signature GTK_SOURCE =
     structure Buffer :
       GTK_SOURCE_BUFFER
         where type 'a class_t = 'a BufferClass.t
-        where type 'a markclass_t = 'a MarkClass.t
-        where type bracketmatchtype_t = BracketMatchType.t
-        where type 'a languageclass_t = 'a LanguageClass.t
-        where type 'a styleschemeclass_t = 'a StyleSchemeClass.t
-        where type 'a undomanagerclass_t = 'a UndoManagerClass.t
+        where type 'a mark_class_t = 'a MarkClass.t
+        where type bracket_match_type_t = BracketMatchType.t
+        where type 'a language_class_t = 'a LanguageClass.t
+        where type 'a style_scheme_class_t = 'a StyleSchemeClass.t
+        where type 'a undo_manager_class_t = 'a UndoManagerClass.t
     structure Completion :
       GTK_SOURCE_COMPLETION
         where type 'a class_t = 'a CompletionClass.t
-        where type 'a completioninfoclass_t = 'a CompletionInfoClass.t
-        where type 'a completionproviderclass_t = 'a CompletionProviderClass.t
-        where type 'a completioncontextclass_t = 'a CompletionContextClass.t
-        where type 'a viewclass_t = 'a ViewClass.t
+        where type 'a completion_info_class_t = 'a CompletionInfoClass.t
+        where type 'a completion_provider_class_t = 'a CompletionProviderClass.t
+        where type 'a completion_context_class_t = 'a CompletionContextClass.t
+        where type 'a view_class_t = 'a ViewClass.t
     structure CompletionContext :
       GTK_SOURCE_COMPLETION_CONTEXT
         where type 'a class_t = 'a CompletionContextClass.t
-        where type completionactivation_t = CompletionActivation.t
-        where type 'a completionclass_t = 'a CompletionClass.t
+        where type completion_activation_t = CompletionActivation.t
+        where type 'a completion_class_t = 'a CompletionClass.t
     structure CompletionInfo :
       GTK_SOURCE_COMPLETION_INFO
         where type 'a class_t = 'a CompletionInfoClass.t
     structure CompletionItem :
       GTK_SOURCE_COMPLETION_ITEM
         where type 'a class_t = 'a CompletionItemClass.t
-        where type 'a completionproposalclass_t = 'a CompletionProposalClass.t
+        where type 'a completion_proposal_class_t = 'a CompletionProposalClass.t
     structure CompletionProposal :
       GTK_SOURCE_COMPLETION_PROPOSAL
         where type 'a class_t = 'a CompletionProposalClass.t
     structure CompletionProvider :
       GTK_SOURCE_COMPLETION_PROVIDER
         where type 'a class_t = 'a CompletionProviderClass.t
-        where type completionactivation_t = CompletionActivation.t
-        where type 'a completioncontextclass_t = 'a CompletionContextClass.t
-        where type 'a completioninfoclass_t = 'a CompletionInfoClass.t
-        where type 'a completionproposalclass_t = 'a CompletionProposalClass.t
+        where type completion_activation_t = CompletionActivation.t
+        where type 'a completion_context_class_t = 'a CompletionContextClass.t
+        where type 'a completion_info_class_t = 'a CompletionInfoClass.t
+        where type 'a completion_proposal_class_t = 'a CompletionProposalClass.t
     structure CompletionWords :
       GTK_SOURCE_COMPLETION_WORDS
         where type 'a class_t = 'a CompletionWordsClass.t
-        where type 'a completionproviderclass_t = 'a CompletionProviderClass.t
+        where type 'a completion_provider_class_t = 'a CompletionProviderClass.t
     structure Gutter :
       GTK_SOURCE_GUTTER
         where type 'a class_t = 'a GutterClass.t
-        where type 'a gutterrendererclass_t = 'a GutterRendererClass.t
-        where type 'a viewclass_t = 'a ViewClass.t
+        where type 'a gutter_renderer_class_t = 'a GutterRendererClass.t
+        where type 'a view_class_t = 'a ViewClass.t
     structure GutterRenderer :
       GTK_SOURCE_GUTTER_RENDERER
         where type 'a class_t = 'a GutterRendererClass.t
-        where type gutterrendererstate_t = GutterRendererState.t
-        where type gutterrendereralignmentmode_t = GutterRendererAlignmentMode.t
+        where type gutter_renderer_state_t = GutterRendererState.t
+        where type gutter_renderer_alignment_mode_t = GutterRendererAlignmentMode.t
     structure GutterRendererPixbufClass :
       GTK_SOURCE_GUTTER_RENDERER_PIXBUF_CLASS
-        where type 'a gutterrendererclass_t = 'a GutterRendererClass.t
+        where type 'a gutter_renderer_class_t = 'a GutterRendererClass.t
     structure GutterRendererTextClass :
       GTK_SOURCE_GUTTER_RENDERER_TEXT_CLASS
-        where type 'a gutterrendererclass_t = 'a GutterRendererClass.t
+        where type 'a gutter_renderer_class_t = 'a GutterRendererClass.t
     structure Language :
       GTK_SOURCE_LANGUAGE
         where type 'a class_t = 'a LanguageClass.t
     structure LanguageManager :
       GTK_SOURCE_LANGUAGE_MANAGER
         where type 'a class_t = 'a LanguageManagerClass.t
-        where type 'a languageclass_t = 'a LanguageClass.t
+        where type 'a language_class_t = 'a LanguageClass.t
     structure Mark :
       GTK_SOURCE_MARK
         where type 'a class_t = 'a MarkClass.t
     structure MarkAttributes :
       GTK_SOURCE_MARK_ATTRIBUTES
         where type 'a class_t = 'a MarkAttributesClass.t
-        where type 'a markclass_t = 'a MarkClass.t
+        where type 'a mark_class_t = 'a MarkClass.t
     structure PrintCompositor :
       GTK_SOURCE_PRINT_COMPOSITOR
         where type 'a class_t = 'a PrintCompositorClass.t
-        where type 'a viewclass_t = 'a ViewClass.t
-        where type 'a bufferclass_t = 'a BufferClass.t
+        where type 'a view_class_t = 'a ViewClass.t
+        where type 'a buffer_class_t = 'a BufferClass.t
     structure Style :
       GTK_SOURCE_STYLE
         where type 'a class_t = 'a StyleClass.t
     structure StyleScheme :
       GTK_SOURCE_STYLE_SCHEME
         where type 'a class_t = 'a StyleSchemeClass.t
-        where type 'a styleclass_t = 'a StyleClass.t
+        where type 'a style_class_t = 'a StyleClass.t
     structure StyleSchemeManager :
       GTK_SOURCE_STYLE_SCHEME_MANAGER
         where type 'a class_t = 'a StyleSchemeManagerClass.t
-        where type 'a styleschemeclass_t = 'a StyleSchemeClass.t
+        where type 'a style_scheme_class_t = 'a StyleSchemeClass.t
     structure UndoManager :
       GTK_SOURCE_UNDO_MANAGER
         where type 'a class_t = 'a UndoManagerClass.t
     structure View :
       GTK_SOURCE_VIEW
         where type 'a class_t = 'a ViewClass.t
-        where type 'a bufferclass_t = 'a BufferClass.t
-        where type 'a gutterclass_t = 'a GutterClass.t
-        where type 'a markattributesclass_t = 'a MarkAttributesClass.t
-        where type 'a completionclass_t = 'a CompletionClass.t
-        where type drawspacesflags_t = DrawSpacesFlags.t
-        where type smarthomeendtype_t = SmartHomeEndType.t
+        where type 'a buffer_class_t = 'a BufferClass.t
+        where type 'a gutter_class_t = 'a GutterClass.t
+        where type 'a mark_attributes_class_t = 'a MarkAttributesClass.t
+        where type 'a completion_class_t = 'a CompletionClass.t
+        where type draw_spaces_flags_t = DrawSpacesFlags.t
+        where type smart_home_end_type_t = SmartHomeEndType.t
     structure GutterRendererPixbuf :
       GTK_SOURCE_GUTTER_RENDERER_PIXBUF
         where type 'a class_t = 'a GutterRendererPixbufClass.t

@@ -13,12 +13,12 @@ structure GioBusNameOwnerFlags :>
     in
       val NONE = NONE ()
     end
-    val ALLOWREPLACEMENT = 0w1
+    val ALLOW_REPLACEMENT = 0w1
     val REPLACE = 0w2
     val allFlags =
       [
         NONE,
-        ALLOWREPLACEMENT,
+        ALLOW_REPLACEMENT,
         REPLACE
       ]
     structure BitFlags =

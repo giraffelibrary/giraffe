@@ -1,7 +1,7 @@
 signature GIO_TLS_CERTIFICATE_CLASS =
   sig
-    type 'a tlscertificate
-    type 'a t = 'a tlscertificate GObject.ObjectClass.t
+    type 'a tls_certificate
+    type 'a t = 'a tls_certificate GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -5,10 +5,10 @@ signature GDK_EVENT_BUTTON_RECORD =
     type t = button event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      BUTTONPRESS
-    | DOUBLEBUTTONPRESS
-    | TRIPLEBUTTONPRESS
-    | BUTTONRELEASE
+      BUTTON_PRESS
+    | DOUBLE_BUTTON_PRESS
+    | TRIPLE_BUTTON_PRESS
+    | BUTTON_RELEASE
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

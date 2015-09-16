@@ -7,9 +7,9 @@ signature GIO_SETTINGS_BIND_FLAGS =
     val DEFAULT : t
     val GET : t
     val SET : t
-    val NOSENSITIVITY : t
-    val GETNOCHANGES : t
-    val INVERTBOOLEAN : t
+    val NO_SENSITIVITY : t
+    val GET_NO_CHANGES : t
+    val INVERT_BOOLEAN : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

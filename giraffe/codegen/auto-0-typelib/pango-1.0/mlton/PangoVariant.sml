@@ -5,7 +5,7 @@ structure PangoVariant :>
   struct
     datatype t =
       NORMAL
-    | SMALLCAPS
+    | SMALL_CAPS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -14,12 +14,12 @@ structure PangoVariant :>
         fun withVal f =
           fn
             NORMAL => f 0
-          | SMALLCAPS => f 1
+          | SMALL_CAPS => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NORMAL
-          | 1 => SMALLCAPS
+          | 1 => SMALL_CAPS
           | n => raise Value n
       end
     val getType_ = _import "pango_variant_get_type" : unit -> GObjectType.C.val_;

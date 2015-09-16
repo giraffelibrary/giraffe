@@ -1,8 +1,8 @@
 signature GTK_DIRECTION_TYPE =
   sig
     datatype t =
-      TABFORWARD
-    | TABBACKWARD
+      TAB_FORWARD
+    | TAB_BACKWARD
     | UP
     | DOWN
     | LEFT

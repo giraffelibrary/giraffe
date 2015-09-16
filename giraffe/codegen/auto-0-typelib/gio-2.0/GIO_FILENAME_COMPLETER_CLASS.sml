@@ -1,7 +1,7 @@
 signature GIO_FILENAME_COMPLETER_CLASS =
   sig
-    type 'a filenamecompleter
-    type 'a t = 'a filenamecompleter GObject.ObjectClass.t
+    type 'a filename_completer
+    type 'a t = 'a filename_completer GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

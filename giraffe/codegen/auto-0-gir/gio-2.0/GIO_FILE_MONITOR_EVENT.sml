@@ -2,11 +2,11 @@ signature GIO_FILE_MONITOR_EVENT =
   sig
     datatype t =
       CHANGED
-    | CHANGESDONEHINT
+    | CHANGES_DONE_HINT
     | DELETED
     | CREATED
-    | ATTRIBUTECHANGED
-    | PREUNMOUNT
+    | ATTRIBUTE_CHANGED
+    | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
     val null : t

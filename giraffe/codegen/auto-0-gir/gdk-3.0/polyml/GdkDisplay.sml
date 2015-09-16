@@ -1,13 +1,13 @@
 structure GdkDisplay :>
   GDK_DISPLAY
     where type 'a class_t = 'a GdkDisplayClass.t
-    where type 'a deviceclass_t = 'a GdkDeviceClass.t
-    where type 'a applaunchcontextclass_t = 'a GdkAppLaunchContextClass.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type 'a devicemanagerclass_t = 'a GdkDeviceManagerClass.t
-    where type 'a screenclass_t = 'a GdkScreenClass.t
+    where type 'a device_class_t = 'a GdkDeviceClass.t
+    where type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
+    where type 'a screen_class_t = 'a GdkScreenClass.t
     where type 'a event_t = 'a GdkEvent.t
-    where type atomrecord_t = GdkAtomRecord.t =
+    where type atom_record_t = GdkAtomRecord.t =
   struct
     local
       open PolyMLFFI
@@ -55,13 +55,13 @@ structure GdkDisplay :>
       val sync_ = call (load_sym libgdk "gdk_display_sync") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GdkDisplayClass.t
-    type 'a deviceclass_t = 'a GdkDeviceClass.t
-    type 'a applaunchcontextclass_t = 'a GdkAppLaunchContextClass.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type 'a devicemanagerclass_t = 'a GdkDeviceManagerClass.t
-    type 'a screenclass_t = 'a GdkScreenClass.t
+    type 'a device_class_t = 'a GdkDeviceClass.t
+    type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
+    type 'a screen_class_t = 'a GdkScreenClass.t
     type 'a event_t = 'a GdkEvent.t
-    type atomrecord_t = GdkAtomRecord.t
+    type atom_record_t = GdkAtomRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.C.fromPtr false) getDefault_ ()

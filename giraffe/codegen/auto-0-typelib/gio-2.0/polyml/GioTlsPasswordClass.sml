@@ -3,8 +3,8 @@ structure GioTlsPasswordClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a tlspassword = unit
-    type 'a t = 'a tlspassword GObjectObjectClass.t
+    type 'a tls_password = unit
+    type 'a t = 'a tls_password GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

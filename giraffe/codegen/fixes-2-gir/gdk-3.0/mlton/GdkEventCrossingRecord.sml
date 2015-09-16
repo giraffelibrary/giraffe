@@ -12,8 +12,8 @@ structure GdkEventCrossingRecord :>
 
 
     datatype event =
-      ENTERNOTIFY
-    | LEAVENOTIFY
+      ENTER_NOTIFY
+    | LEAVE_NOTIFY
 
 
     structure C = GdkEvent.C

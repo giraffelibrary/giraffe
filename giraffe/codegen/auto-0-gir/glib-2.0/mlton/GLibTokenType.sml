@@ -5,13 +5,13 @@ structure GLibTokenType :>
   struct
     datatype t =
       EOF
-    | LEFTPAREN
-    | RIGHTPAREN
-    | LEFTCURLY
-    | RIGHTCURLY
-    | LEFTBRACE
-    | RIGHTBRACE
-    | EQUALSIGN
+    | LEFT_PAREN
+    | RIGHT_PAREN
+    | LEFT_CURLY
+    | RIGHT_CURLY
+    | LEFT_BRACE
+    | RIGHT_BRACE
+    | EQUAL_SIGN
     | COMMA
     | NONE
     | ERROR
@@ -24,9 +24,9 @@ structure GLibTokenType :>
     | STRING
     | SYMBOL
     | IDENTIFIER
-    | IDENTIFIERNULL
-    | COMMENTSINGLE
-    | COMMENTMULTI
+    | IDENTIFIER_NULL
+    | COMMENT_SINGLE
+    | COMMENT_MULTI
     | LAST
     structure C =
       struct
@@ -36,13 +36,13 @@ structure GLibTokenType :>
         fun withVal f =
           fn
             EOF => f 0
-          | LEFTPAREN => f 40
-          | RIGHTPAREN => f 41
-          | LEFTCURLY => f 123
-          | RIGHTCURLY => f 125
-          | LEFTBRACE => f 91
-          | RIGHTBRACE => f 93
-          | EQUALSIGN => f 61
+          | LEFT_PAREN => f 40
+          | RIGHT_PAREN => f 41
+          | LEFT_CURLY => f 123
+          | RIGHT_CURLY => f 125
+          | LEFT_BRACE => f 91
+          | RIGHT_BRACE => f 93
+          | EQUAL_SIGN => f 61
           | COMMA => f 44
           | NONE => f 256
           | ERROR => f 257
@@ -55,21 +55,21 @@ structure GLibTokenType :>
           | STRING => f 264
           | SYMBOL => f 265
           | IDENTIFIER => f 266
-          | IDENTIFIERNULL => f 267
-          | COMMENTSINGLE => f 268
-          | COMMENTMULTI => f 269
+          | IDENTIFIER_NULL => f 267
+          | COMMENT_SINGLE => f 268
+          | COMMENT_MULTI => f 269
           | LAST => f 270
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => EOF
-          | 40 => LEFTPAREN
-          | 41 => RIGHTPAREN
-          | 123 => LEFTCURLY
-          | 125 => RIGHTCURLY
-          | 91 => LEFTBRACE
-          | 93 => RIGHTBRACE
-          | 61 => EQUALSIGN
+          | 40 => LEFT_PAREN
+          | 41 => RIGHT_PAREN
+          | 123 => LEFT_CURLY
+          | 125 => RIGHT_CURLY
+          | 91 => LEFT_BRACE
+          | 93 => RIGHT_BRACE
+          | 61 => EQUAL_SIGN
           | 44 => COMMA
           | 256 => NONE
           | 257 => ERROR
@@ -82,9 +82,9 @@ structure GLibTokenType :>
           | 264 => STRING
           | 265 => SYMBOL
           | 266 => IDENTIFIER
-          | 267 => IDENTIFIERNULL
-          | 268 => COMMENTSINGLE
-          | 269 => COMMENTMULTI
+          | 267 => IDENTIFIER_NULL
+          | 268 => COMMENT_SINGLE
+          | 269 => COMMENT_MULTI
           | 270 => LAST
           | n => raise Value n
       end

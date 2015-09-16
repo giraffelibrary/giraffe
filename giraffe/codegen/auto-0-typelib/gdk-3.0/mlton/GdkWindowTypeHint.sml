@@ -12,8 +12,8 @@ structure GdkWindowTypeHint :>
     | UTILITY
     | DOCK
     | DESKTOP
-    | DROPDOWNMENU
-    | POPUPMENU
+    | DROPDOWN_MENU
+    | POPUP_MENU
     | TOOLTIP
     | NOTIFICATION
     | COMBO
@@ -33,8 +33,8 @@ structure GdkWindowTypeHint :>
           | UTILITY => f 5
           | DOCK => f 6
           | DESKTOP => f 7
-          | DROPDOWNMENU => f 8
-          | POPUPMENU => f 9
+          | DROPDOWN_MENU => f 8
+          | POPUP_MENU => f 9
           | TOOLTIP => f 10
           | NOTIFICATION => f 11
           | COMBO => f 12
@@ -50,8 +50,8 @@ structure GdkWindowTypeHint :>
           | 5 => UTILITY
           | 6 => DOCK
           | 7 => DESKTOP
-          | 8 => DROPDOWNMENU
-          | 9 => POPUPMENU
+          | 8 => DROPDOWN_MENU
+          | 9 => POPUP_MENU
           | 10 => TOOLTIP
           | 11 => NOTIFICATION
           | 12 => COMBO

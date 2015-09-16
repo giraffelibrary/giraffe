@@ -4,14 +4,14 @@ signature GIO_TLS_CERTIFICATE_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val UNKNOWNCA : t
-    val BADIDENTITY : t
-    val NOTACTIVATED : t
+    val UNKNOWN_CA : t
+    val BAD_IDENTITY : t
+    val NOT_ACTIVATED : t
     val EXPIRED : t
     val REVOKED : t
     val INSECURE : t
-    val GENERICERROR : t
-    val VALIDATEALL : t
+    val GENERIC_ERROR : t
+    val VALIDATE_ALL : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

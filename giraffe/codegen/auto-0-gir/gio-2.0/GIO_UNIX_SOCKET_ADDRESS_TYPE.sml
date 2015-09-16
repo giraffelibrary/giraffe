@@ -5,7 +5,7 @@ signature GIO_UNIX_SOCKET_ADDRESS_TYPE =
     | ANONYMOUS
     | PATH
     | ABSTRACT
-    | ABSTRACTPADDED
+    | ABSTRACT_PADDED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

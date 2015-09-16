@@ -1,7 +1,7 @@
 structure PangoLayoutLine :>
   PANGO_LAYOUT_LINE
     where type record_t = PangoLayoutLineRecord.t
-    where type rectanglerecord_t = PangoRectangleRecord.t =
+    where type rectangle_record_t = PangoRectangleRecord.t =
   struct
     val getType_ = _import "pango_layout_line_get_type" : unit -> GObjectType.C.val_;
     val getExtents_ =
@@ -79,7 +79,7 @@ structure PangoLayoutLine :>
               x4
             )
     type record_t = PangoLayoutLineRecord.t
-    type rectanglerecord_t = PangoRectangleRecord.t
+    type rectangle_record_t = PangoRectangleRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getExtents self =

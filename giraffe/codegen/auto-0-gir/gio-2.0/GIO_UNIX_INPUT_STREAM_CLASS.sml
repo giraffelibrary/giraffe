@@ -1,8 +1,8 @@
 signature GIO_UNIX_INPUT_STREAM_CLASS =
   sig
-    type 'a unixinputstream
-    type 'a inputstreamclass_t
-    type 'a t = 'a unixinputstream inputstreamclass_t
+    type 'a unix_input_stream
+    type 'a input_stream_class_t
+    type 'a t = 'a unix_input_stream input_stream_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

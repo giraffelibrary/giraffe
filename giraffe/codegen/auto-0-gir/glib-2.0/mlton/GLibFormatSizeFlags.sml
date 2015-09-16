@@ -4,13 +4,13 @@ structure GLibFormatSizeFlags :>
   end =
   struct
     val DEFAULT = 0w0
-    val LONGFORMAT = 0w1
-    val IECUNITS = 0w2
+    val LONG_FORMAT = 0w1
+    val IEC_UNITS = 0w2
     val allFlags =
       [
         DEFAULT,
-        LONGFORMAT,
-        IECUNITS
+        LONG_FORMAT,
+        IEC_UNITS
       ]
     structure BitFlags =
       Word32BitFlags (

@@ -1,12 +1,12 @@
 signature VTE_TERMINAL =
   sig
     type 'a class_t
-    type ptyflags_t
-    type writeflags_t
-    type cursorblinkmode_t
-    type cursorshape_t
-    type erasebinding_t
-    type 'a ptyclass_t
+    type pty_flags_t
+    type write_flags_t
+    type cursor_blink_mode_t
+    type cursor_shape_t
+    type erase_binding_t
+    type 'a pty_class_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
     val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
@@ -28,9 +28,9 @@ signature VTE_TERMINAL =
     val getColumnCount : 'a class_t -> LargeInt.int
     val getCurrentDirectoryUri : 'a class_t -> string
     val getCurrentFileUri : 'a class_t -> string
-    val getCursorBlinkMode : 'a class_t -> cursorblinkmode_t
+    val getCursorBlinkMode : 'a class_t -> cursor_blink_mode_t
     val getCursorPosition : 'a class_t -> LargeInt.int * LargeInt.int
-    val getCursorShape : 'a class_t -> cursorshape_t
+    val getCursorShape : 'a class_t -> cursor_shape_t
     val getEncoding : 'a class_t -> string
     val getFont : 'a class_t -> Pango.FontDescriptionRecord.t
     val getFontScale : 'a class_t -> real
@@ -43,7 +43,7 @@ signature VTE_TERMINAL =
     val getIconTitle : 'a class_t -> string
     val getInputEnabled : 'a class_t -> bool
     val getMouseAutohide : 'a class_t -> bool
-    val getPty : 'a class_t -> base ptyclass_t
+    val getPty : 'a class_t -> base pty_class_t
     val getRewrapOnResize : 'a class_t -> bool
     val getRowCount : 'a class_t -> LargeInt.int
     val getWindowTitle : 'a class_t -> string
@@ -80,9 +80,9 @@ signature VTE_TERMINAL =
     val pastePrimary : 'a class_t -> unit
     val ptyNewSync :
       'a class_t
-       -> ptyflags_t
+       -> pty_flags_t
        -> 'b Gio.CancellableClass.t option
-       -> base ptyclass_t
+       -> base pty_class_t
     val reset :
       'a class_t
        -> bool
@@ -112,7 +112,7 @@ signature VTE_TERMINAL =
        -> unit
     val setBackspaceBinding :
       'a class_t
-       -> erasebinding_t
+       -> erase_binding_t
        -> unit
     val setCjkAmbiguousWidth :
       'a class_t
@@ -144,16 +144,16 @@ signature VTE_TERMINAL =
        -> unit
     val setCursorBlinkMode :
       'a class_t
-       -> cursorblinkmode_t
+       -> cursor_blink_mode_t
        -> unit
     val setCursorShape :
       'a class_t
-       -> cursorshape_t
+       -> cursor_shape_t
        -> unit
     val setDefaultColors : 'a class_t -> unit
     val setDeleteBinding :
       'a class_t
-       -> erasebinding_t
+       -> erase_binding_t
        -> unit
     val setEncoding :
       'a class_t
@@ -181,7 +181,7 @@ signature VTE_TERMINAL =
        -> unit
     val setPty :
       'a class_t
-       -> 'b ptyclass_t option
+       -> 'b pty_class_t option
        -> unit
     val setRewrapOnResize :
       'a class_t
@@ -212,7 +212,7 @@ signature VTE_TERMINAL =
     val writeContentsSync :
       'a class_t
        -> 'b Gio.OutputStreamClass.t
-       -> writeflags_t
+       -> write_flags_t
        -> 'c Gio.CancellableClass.t option
        -> bool
     val bellSig : (unit -> unit) -> 'a class_t Signal.signal
@@ -263,20 +263,20 @@ signature VTE_TERMINAL =
     val windowTitleChangedSig : (unit -> unit) -> 'a class_t Signal.signal
     val allowBoldProp : ('a class_t, bool, bool) Property.readwrite
     val audibleBellProp : ('a class_t, bool, bool) Property.readwrite
-    val backspaceBindingProp : ('a class_t, erasebinding_t, erasebinding_t) Property.readwrite
+    val backspaceBindingProp : ('a class_t, erase_binding_t, erase_binding_t) Property.readwrite
     val cjkAmbiguousWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val currentDirectoryUriProp : ('a class_t, string option) Property.readonly
     val currentFileUriProp : ('a class_t, string option) Property.readonly
-    val cursorBlinkModeProp : ('a class_t, cursorblinkmode_t, cursorblinkmode_t) Property.readwrite
-    val cursorShapeProp : ('a class_t, cursorshape_t, cursorshape_t) Property.readwrite
-    val deleteBindingProp : ('a class_t, erasebinding_t, erasebinding_t) Property.readwrite
+    val cursorBlinkModeProp : ('a class_t, cursor_blink_mode_t, cursor_blink_mode_t) Property.readwrite
+    val cursorShapeProp : ('a class_t, cursor_shape_t, cursor_shape_t) Property.readwrite
+    val deleteBindingProp : ('a class_t, erase_binding_t, erase_binding_t) Property.readwrite
     val encodingProp : ('a class_t, string option, string option) Property.readwrite
     val fontDescProp : ('a class_t, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
     val fontScaleProp : ('a class_t, real, real) Property.readwrite
     val iconTitleProp : ('a class_t, string option) Property.readonly
     val inputEnabledProp : ('a class_t, bool, bool) Property.readwrite
     val pointerAutohideProp : ('a class_t, bool, bool) Property.readwrite
-    val ptyProp : ('a class_t, base ptyclass_t option, 'b ptyclass_t option) Property.readwrite
+    val ptyProp : ('a class_t, base pty_class_t option, 'b pty_class_t option) Property.readwrite
     val rewrapOnResizeProp : ('a class_t, bool, bool) Property.readwrite
     val scrollOnKeystrokeProp : ('a class_t, bool, bool) Property.readwrite
     val scrollOnOutputProp : ('a class_t, bool, bool) Property.readwrite

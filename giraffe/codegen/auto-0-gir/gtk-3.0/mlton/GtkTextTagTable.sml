@@ -1,8 +1,8 @@
 structure GtkTextTagTable :>
   GTK_TEXT_TAG_TABLE
     where type 'a class_t = 'a GtkTextTagTableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a texttagclass_t = 'a GtkTextTagClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a text_tag_class_t = 'a GtkTextTagClass.t =
   struct
     val getType_ = _import "gtk_text_tag_table_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_text_tag_table_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -25,8 +25,8 @@ structure GtkTextTagTable :>
             )
     val remove_ = fn x1 & x2 => (_import "gtk_text_tag_table_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTextTagTableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a texttagclass_t = 'a GtkTextTagClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a text_tag_class_t = 'a GtkTextTagClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

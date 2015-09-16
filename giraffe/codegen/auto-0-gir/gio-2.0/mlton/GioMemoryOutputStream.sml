@@ -1,13 +1,13 @@
 structure GioMemoryOutputStream :>
   GIO_MEMORY_OUTPUT_STREAM
     where type 'a class_t = 'a GioMemoryOutputStreamClass.t
-    where type 'a seekableclass_t = 'a GioSeekableClass.t =
+    where type 'a seekable_class_t = 'a GioSeekableClass.t =
   struct
     val getType_ = _import "g_memory_output_stream_get_type" : unit -> GObjectType.C.val_;
     val getDataSize_ = _import "g_memory_output_stream_get_data_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
     val getSize_ = _import "g_memory_output_stream_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
     type 'a class_t = 'a GioMemoryOutputStreamClass.t
-    type 'a seekableclass_t = 'a GioSeekableClass.t
+    type 'a seekable_class_t = 'a GioSeekableClass.t
     type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

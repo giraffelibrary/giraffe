@@ -1,7 +1,7 @@
 signature GTK_TREE_SELECTION_CLASS =
   sig
-    type 'a treeselection
-    type 'a t = 'a treeselection GObject.ObjectClass.t
+    type 'a tree_selection
+    type 'a t = 'a tree_selection GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -10,9 +10,9 @@ structure VteTerminalEraseBinding :>
   struct
     datatype t =
       AUTO
-    | ASCIIBACKSPACE
-    | ASCIIDELETE
-    | DELETESEQUENCE
+    | ASCII_BACKSPACE
+    | ASCII_DELETE
+    | DELETE_SEQUENCE
     | TTY
     structure C =
       struct
@@ -22,17 +22,17 @@ structure VteTerminalEraseBinding :>
         fun withVal f =
           fn
             AUTO => f 0
-          | ASCIIBACKSPACE => f 1
-          | ASCIIDELETE => f 2
-          | DELETESEQUENCE => f 3
+          | ASCII_BACKSPACE => f 1
+          | ASCII_DELETE => f 2
+          | DELETE_SEQUENCE => f 3
           | TTY => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => AUTO
-          | 1 => ASCIIBACKSPACE
-          | 2 => ASCIIDELETE
-          | 3 => DELETESEQUENCE
+          | 1 => ASCII_BACKSPACE
+          | 2 => ASCII_DELETE
+          | 3 => DELETE_SEQUENCE
           | 4 => TTY
           | n => raise Value n
       end

@@ -1,10 +1,10 @@
 structure GioFileInputStream :>
   GIO_FILE_INPUT_STREAM
     where type 'a class_t = 'a GioFileInputStreamClass.t
-    where type 'a seekableclass_t = 'a GioSeekableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a seekable_class_t = 'a GioSeekableClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_file_input_stream_get_type" : unit -> GObjectType.C.val_;
     val queryInfo_ =
@@ -47,10 +47,10 @@ structure GioFileInputStream :>
               x3
             )
     type 'a class_t = 'a GioFileInputStreamClass.t
-    type 'a seekableclass_t = 'a GioSeekableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a seekable_class_t = 'a GioSeekableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

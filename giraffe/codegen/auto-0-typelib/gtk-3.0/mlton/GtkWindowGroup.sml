@@ -1,8 +1,8 @@
 structure GtkWindowGroup :>
   GTK_WINDOW_GROUP
     where type 'a class_t = 'a GtkWindowGroupClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a window_class_t = 'a GtkWindowClass.t =
   struct
     val getType_ = _import "gtk_window_group_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_window_group_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -11,8 +11,8 @@ structure GtkWindowGroup :>
     val getCurrentGrab_ = _import "gtk_window_group_get_current_grab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val removeWindow_ = fn x1 & x2 => (_import "gtk_window_group_remove_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkWindowGroupClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWindowGroupClass.C.fromPtr true) new_ ()

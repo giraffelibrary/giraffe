@@ -3,9 +3,9 @@ structure GtkTreeModelFlags :>
     include GTK_TREE_MODEL_FLAGS
   end =
   struct
-    val ITERSPERSIST = 0w1
-    val LISTONLY = 0w2
-    val allFlags = [ITERSPERSIST, LISTONLY]
+    val ITERS_PERSIST = 0w1
+    val LIST_ONLY = 0w2
+    val allFlags = [ITERS_PERSIST, LIST_ONLY]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

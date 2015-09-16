@@ -9,14 +9,14 @@ structure GioTlsPasswordFlags :>
       val NONE = NONE ()
     end
     val RETRY = 0w2
-    val MANYTRIES = 0w4
-    val FINALTRY = 0w8
+    val MANY_TRIES = 0w4
+    val FINAL_TRY = 0w8
     val allFlags =
       [
         NONE,
         RETRY,
-        MANYTRIES,
-        FINALTRY
+        MANY_TRIES,
+        FINAL_TRY
       ]
     structure BitFlags =
       Word32BitFlags (

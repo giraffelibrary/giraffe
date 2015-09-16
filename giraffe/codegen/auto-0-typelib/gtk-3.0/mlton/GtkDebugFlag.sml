@@ -15,7 +15,7 @@ structure GtkDebugFlag :>
     val ICONTHEME = 0w512
     val PRINTING = 0w1024
     val BUILDER = 0w2048
-    val SIZEREQUEST = 0w4096
+    val SIZE_REQUEST = 0w4096
     val allFlags =
       [
         MISC,
@@ -30,7 +30,7 @@ structure GtkDebugFlag :>
         ICONTHEME,
         PRINTING,
         BUILDER,
-        SIZEREQUEST
+        SIZE_REQUEST
       ]
     structure BitFlags =
       Word32BitFlags (

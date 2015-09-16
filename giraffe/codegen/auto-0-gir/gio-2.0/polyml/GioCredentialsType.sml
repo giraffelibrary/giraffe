@@ -10,9 +10,9 @@ structure GioCredentialsType :>
   struct
     datatype t =
       INVALID
-    | LINUXUCRED
-    | FREEBSDCMSGCRED
-    | OPENBSDSOCKPEERCRED
+    | LINUX_UCRED
+    | FREEBSD_CMSGCRED
+    | OPENBSD_SOCKPEERCRED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -21,16 +21,16 @@ structure GioCredentialsType :>
         fun withVal f =
           fn
             INVALID => f 0
-          | LINUXUCRED => f 1
-          | FREEBSDCMSGCRED => f 2
-          | OPENBSDSOCKPEERCRED => f 3
+          | LINUX_UCRED => f 1
+          | FREEBSD_CMSGCRED => f 2
+          | OPENBSD_SOCKPEERCRED => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INVALID
-          | 1 => LINUXUCRED
-          | 2 => FREEBSDCMSGCRED
-          | 3 => OPENBSDSOCKPEERCRED
+          | 1 => LINUX_UCRED
+          | 2 => FREEBSD_CMSGCRED
+          | 3 => OPENBSD_SOCKPEERCRED
           | n => raise Value n
       end
     structure PolyML =

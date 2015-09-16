@@ -1,7 +1,7 @@
 structure GtkApplication :>
   GTK_APPLICATION
     where type 'a class_t = 'a GtkApplicationClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t =
+    where type 'a window_class_t = 'a GtkWindowClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure GtkApplication :>
       val removeWindow_ = call (load_sym libgtk "gtk_application_remove_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkApplicationClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
     type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -1041,11 +1041,11 @@ type interfaceref = {
 
 fun makeLocalInterfaceOtherId ({name, ty, ...} : interfaceref) : id =
   concat [
-    toLC name,
+    toLCU name,
     case ty of
       SIMPLE => ""
-    | CLASS  => "class"
-    | RECORD => "record"
+    | CLASS  => "_class"
+    | RECORD => "_record"
     | UNION  => "",
     "_t"
   ]
@@ -1106,9 +1106,9 @@ fun makeGlobalIds iRef = prefixGlobalIds iRef [tId]
  *   -----------------------------------+-----------------------------------
  *                             SIMPLE   | 0   <name>_t
  *                           -----------+-----------------------------------
- *                             CLASS    | 1   <name>class_t
+ *                             CLASS    | 1   <name>_class_t
  *     LOCALINTERFACEOTHER   -----------+-----------------------------------
- *                             RECORD   | 0   <name>record_t
+ *                             RECORD   | 0   <name>_record_t
  *                           -----------+-----------------------------------
  *                             UNION    | 1   <name>_t
  *   -----------------------------------+-----------------------------------
@@ -5706,7 +5706,7 @@ fun makeLocalTypeStrSpecQual ({tyVars, tyId, varTys, tyNameLId, ...} : localtype
 
 
 
-fun mkLocalId (_, strName, id) = concat [toLC strName, "_", id]
+fun mkLocalId (_, strName, id) = concat [toLCU strName, "_", id]
 
 fun mkLocalStrModuleLId (strNamespace, strName, id) =
   toList1 [toUCC strNamespace ^ toUCC strName, id]
@@ -6372,7 +6372,7 @@ in
       val () = checkDeprecated objectInfo
 
       val objectName = getName objectInfo
-      val objectNameTypeId = toLC objectName
+      val objectNameTypeId = toLCU objectName
 
       val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
       val parentObjectName = getName parentObjectInfo
@@ -6507,7 +6507,7 @@ in
       val () = checkDeprecated objectInfo
 
       val objectName = getName objectInfo
-      val objectNameTypeId = toLC objectName
+      val objectNameTypeId = toLCU objectName
 
       val parentObjectNamespace = BaseInfo.getNamespace parentObjectInfo
       val parentObjectName = getName parentObjectInfo
@@ -7186,7 +7186,7 @@ in
       val () = checkDeprecated interfaceInfo
 
       val interfaceName = getName interfaceInfo
-      val interfaceNameTypeId = toLC interfaceName
+      val interfaceNameTypeId = toLCU interfaceName
 
       val parentObjectIRef =
         makeInterfaceRootIRef interfaceNamespace (SOME interfaceName)
@@ -7274,7 +7274,7 @@ in
       val () = checkDeprecated interfaceInfo
 
       val interfaceName = getName interfaceInfo
-      val interfaceNameTypeId = toLC interfaceName
+      val interfaceNameTypeId = toLCU interfaceName
 
       val parentObjectIRef as {scope = parentObjectScope, ...} =
         makeInterfaceRootIRef interfaceNamespace (SOME interfaceName)
@@ -8280,7 +8280,7 @@ fun getEnumIntConst valueInfo =
     ConstInt (IntInf.fromLarge n, NONE)
   end
 
-fun getValueNameId valueInfo = toUC (fixFlagsEnumValueName (getName valueInfo))
+fun getValueNameId valueInfo = toUCU (fixFlagsEnumValueName (getName valueInfo))
 
 (*
  *     [

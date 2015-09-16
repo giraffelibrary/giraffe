@@ -2,8 +2,8 @@ signature GTK_EXPANDER_STYLE =
   sig
     datatype t =
       COLLAPSED
-    | SEMICOLLAPSED
-    | SEMIEXPANDED
+    | SEMI_COLLAPSED
+    | SEMI_EXPANDED
     | EXPANDED
     val null : t
     val t : (t, t) GObject.Value.accessor

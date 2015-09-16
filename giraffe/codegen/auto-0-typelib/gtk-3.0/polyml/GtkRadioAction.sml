@@ -1,7 +1,7 @@
 structure GtkRadioAction :>
   GTK_RADIO_ACTION
     where type 'a class_t = 'a GtkRadioActionClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     local
       open PolyMLFFI
@@ -22,7 +22,7 @@ structure GtkRadioAction :>
       val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRadioActionClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

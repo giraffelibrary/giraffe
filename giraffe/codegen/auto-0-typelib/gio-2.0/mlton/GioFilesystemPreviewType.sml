@@ -4,8 +4,8 @@ structure GioFilesystemPreviewType :>
   end =
   struct
     datatype t =
-      IFALWAYS
-    | IFLOCAL
+      IF_ALWAYS
+    | IF_LOCAL
     | NEVER
     structure C =
       struct
@@ -14,14 +14,14 @@ structure GioFilesystemPreviewType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            IFALWAYS => f 0
-          | IFLOCAL => f 1
+            IF_ALWAYS => f 0
+          | IF_LOCAL => f 1
           | NEVER => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => IFALWAYS
-          | 1 => IFLOCAL
+            0 => IF_ALWAYS
+          | 1 => IF_LOCAL
           | 2 => NEVER
           | n => raise Value n
       end
@@ -35,6 +35,6 @@ structure GioFilesystemPreviewType :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = IFALWAYS
+    val null = IF_ALWAYS
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

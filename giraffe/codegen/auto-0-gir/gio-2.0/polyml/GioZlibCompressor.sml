@@ -1,9 +1,9 @@
 structure GioZlibCompressor :>
   GIO_ZLIB_COMPRESSOR
     where type 'a class_t = 'a GioZlibCompressorClass.t
-    where type 'a converterclass_t = 'a GioConverterClass.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type zlibcompressorformat_t = GioZlibCompressorFormat.t =
+    where type 'a converter_class_t = 'a GioConverterClass.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type zlib_compressor_format_t = GioZlibCompressorFormat.t =
   struct
     local
       open PolyMLFFI
@@ -14,9 +14,9 @@ structure GioZlibCompressor :>
       val setFileInfo_ = call (load_sym libgio "g_zlib_compressor_set_file_info") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioZlibCompressorClass.t
-    type 'a converterclass_t = 'a GioConverterClass.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type zlibcompressorformat_t = GioZlibCompressorFormat.t
+    type 'a converter_class_t = 'a GioConverterClass.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class_t
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

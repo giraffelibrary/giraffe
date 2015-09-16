@@ -1,9 +1,9 @@
 structure GtkArrow :>
   GTK_ARROW
     where type 'a class_t = 'a GtkArrowClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type arrowtype_t = GtkArrowType.t
-    where type shadowtype_t = GtkShadowType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type arrow_type_t = GtkArrowType.t
+    where type shadow_type_t = GtkShadowType.t =
   struct
     local
       open PolyMLFFI
@@ -20,9 +20,9 @@ structure GtkArrow :>
           )
     end
     type 'a class_t = 'a GtkArrowClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type arrowtype_t = GtkArrowType.t
-    type shadowtype_t = GtkShadowType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type arrow_type_t = GtkArrowType.t
+    type shadow_type_t = GtkShadowType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

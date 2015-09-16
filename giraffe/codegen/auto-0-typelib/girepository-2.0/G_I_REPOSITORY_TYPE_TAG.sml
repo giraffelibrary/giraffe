@@ -3,18 +3,18 @@ signature G_I_REPOSITORY_TYPE_TAG =
     datatype t =
       VOID
     | BOOLEAN
-    | INT8
-    | UINT8
-    | INT16
-    | UINT16
-    | INT32
-    | UINT32
-    | INT64
-    | UINT64
+    | INT_8
+    | UINT_8
+    | INT_16
+    | UINT_16
+    | INT_32
+    | UINT_32
+    | INT_64
+    | UINT_64
     | FLOAT
     | DOUBLE
     | GTYPE
-    | UTF8
+    | UTF_8
     | FILENAME
     | ARRAY
     | INTERFACE

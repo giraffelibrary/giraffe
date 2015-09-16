@@ -1,7 +1,7 @@
 signature GIO_D_BUS_AUTH_OBSERVER_CLASS =
   sig
-    type 'a dbusauthobserver
-    type 'a t = 'a dbusauthobserver GObject.ObjectClass.t
+    type 'a d_bus_auth_observer
+    type 'a t = 'a d_bus_auth_observer GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

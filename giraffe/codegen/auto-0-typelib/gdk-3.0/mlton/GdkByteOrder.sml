@@ -4,8 +4,8 @@ structure GdkByteOrder :>
   end =
   struct
     datatype t =
-      LSBFIRST
-    | MSBFIRST
+      LSB_FIRST
+    | MSB_FIRST
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -13,13 +13,13 @@ structure GdkByteOrder :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            LSBFIRST => f 0
-          | MSBFIRST => f 1
+            LSB_FIRST => f 0
+          | MSB_FIRST => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => LSBFIRST
-          | 1 => MSBFIRST
+            0 => LSB_FIRST
+          | 1 => MSB_FIRST
           | n => raise Value n
       end
     val getType_ = _import "gdk_byte_order_get_type" : unit -> GObjectType.C.val_;
@@ -32,6 +32,6 @@ structure GdkByteOrder :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = LSBFIRST
+    val null = LSB_FIRST
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

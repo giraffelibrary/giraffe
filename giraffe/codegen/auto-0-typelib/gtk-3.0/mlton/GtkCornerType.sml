@@ -4,10 +4,10 @@ structure GtkCornerType :>
   end =
   struct
     datatype t =
-      TOPLEFT
-    | BOTTOMLEFT
-    | TOPRIGHT
-    | BOTTOMRIGHT
+      TOP_LEFT
+    | BOTTOM_LEFT
+    | TOP_RIGHT
+    | BOTTOM_RIGHT
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -15,17 +15,17 @@ structure GtkCornerType :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            TOPLEFT => f 0
-          | BOTTOMLEFT => f 1
-          | TOPRIGHT => f 2
-          | BOTTOMRIGHT => f 3
+            TOP_LEFT => f 0
+          | BOTTOM_LEFT => f 1
+          | TOP_RIGHT => f 2
+          | BOTTOM_RIGHT => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => TOPLEFT
-          | 1 => BOTTOMLEFT
-          | 2 => TOPRIGHT
-          | 3 => BOTTOMRIGHT
+            0 => TOP_LEFT
+          | 1 => BOTTOM_LEFT
+          | 2 => TOP_RIGHT
+          | 3 => BOTTOM_RIGHT
           | n => raise Value n
       end
     val getType_ = _import "gtk_corner_type_get_type" : unit -> GObjectType.C.val_;
@@ -38,6 +38,6 @@ structure GtkCornerType :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = TOPLEFT
+    val null = TOP_LEFT
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

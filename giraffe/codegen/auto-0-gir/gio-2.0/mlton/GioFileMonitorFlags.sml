@@ -8,13 +8,13 @@ structure GioFileMonitorFlags :>
     in
       val NONE = NONE ()
     end
-    val WATCHMOUNTS = 0w1
-    val SENDMOVED = 0w2
+    val WATCH_MOUNTS = 0w1
+    val SEND_MOVED = 0w2
     val allFlags =
       [
         NONE,
-        WATCHMOUNTS,
-        SENDMOVED
+        WATCH_MOUNTS,
+        SEND_MOVED
       ]
     structure BitFlags =
       Word32BitFlags (

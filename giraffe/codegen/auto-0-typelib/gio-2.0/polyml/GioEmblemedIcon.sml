@@ -1,8 +1,8 @@
 structure GioEmblemedIcon :>
   GIO_EMBLEMED_ICON
     where type 'a class_t = 'a GioEmblemedIconClass.t
-    where type 'a emblemclass_t = 'a GioEmblemClass.t
-    where type 'a iconclass_t = 'a GioIconClass.t =
+    where type 'a emblem_class_t = 'a GioEmblemClass.t
+    where type 'a icon_class_t = 'a GioIconClass.t =
   struct
     local
       open PolyMLFFI
@@ -14,8 +14,8 @@ structure GioEmblemedIcon :>
       val getIcon_ = call (load_sym libgio "g_emblemed_icon_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioEmblemedIconClass.t
-    type 'a emblemclass_t = 'a GioEmblemClass.t
-    type 'a iconclass_t = 'a GioIconClass.t
+    type 'a emblem_class_t = 'a GioEmblemClass.t
+    type 'a icon_class_t = 'a GioIconClass.t
     type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

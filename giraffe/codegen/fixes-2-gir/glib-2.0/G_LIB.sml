@@ -30,28 +30,28 @@ signature G_LIB =
         where type pid_t = Pid.t
     structure IOFunc :
       G_LIB_I_O_FUNC
-        where type iochannelrecord_t = IOChannelRecord.t
-        where type iocondition_t = IOCondition.t
+        where type i_o_channel_record_t = IOChannelRecord.t
+        where type i_o_condition_t = IOCondition.t
     structure ErrorRecord : G_LIB_ERROR_RECORD
     exception Error of exn * ErrorRecord.t
     structure KeyFile :
       G_LIB_KEY_FILE
         where type record_t = KeyFileRecord.t
-        where type keyfileflags_t = KeyFileFlags.t
+        where type key_file_flags_t = KeyFileFlags.t
     structure MatchInfo :
       G_LIB_MATCH_INFO
         where type record_t = MatchInfoRecord.t
-        where type regexrecord_t = RegexRecord.t
+        where type regex_record_t = RegexRecord.t
     structure Regex :
       G_LIB_REGEX
         where type record_t = RegexRecord.t
-        where type matchinforecord_t = MatchInfoRecord.t
-        where type regexmatchflags_t = RegexMatchFlags.t
-        where type regexcompileflags_t = RegexCompileFlags.t
+        where type match_info_record_t = MatchInfoRecord.t
+        where type regex_match_flags_t = RegexMatchFlags.t
+        where type regex_compile_flags_t = RegexCompileFlags.t
     structure Source :
       G_LIB_SOURCE
         where type record_t = SourceRecord.t
-        where type maincontextrecord_t = MainContextRecord.t
+        where type main_context_record_t = MainContextRecord.t
     structure TimeVal :
       G_LIB_TIME_VAL
         where type record_t = TimeValRecord.t
@@ -60,33 +60,33 @@ signature G_LIB =
         where type record_t = ErrorRecord.t
     structure IOChannelError :
       G_LIB_I_O_CHANNEL_ERROR
-        where type errorrecord_handler = ErrorRecord.handler
+        where type error_record_handler = ErrorRecord.handler
     exception IOChannelError of IOChannelError.t
     structure KeyFileError :
       G_LIB_KEY_FILE_ERROR
-        where type errorrecord_handler = ErrorRecord.handler
+        where type error_record_handler = ErrorRecord.handler
     exception KeyFileError of KeyFileError.t
     structure RegexError :
       G_LIB_REGEX_ERROR
-        where type errorrecord_handler = ErrorRecord.handler
+        where type error_record_handler = ErrorRecord.handler
     exception RegexError of RegexError.t
     structure ShellError :
       G_LIB_SHELL_ERROR
-        where type errorrecord_handler = ErrorRecord.handler
+        where type error_record_handler = ErrorRecord.handler
     exception ShellError of ShellError.t
     structure SpawnError :
       G_LIB_SPAWN_ERROR
-        where type errorrecord_handler = ErrorRecord.handler
+        where type error_record_handler = ErrorRecord.handler
     exception SpawnError of SpawnError.t
     structure IOChannel :
       G_LIB_I_O_CHANNEL
         where type record_t = IOChannelRecord.t
-        where type iocondition_t = IOCondition.t
-        where type ioerror_t = IOError.t
-        where type seektype_t = SeekType.t
-        where type ioflags_t = IOFlags.t
-        where type iostatus_t = IOStatus.t
-        where type iochannelerror_t = IOChannelError.t
+        where type i_o_condition_t = IOCondition.t
+        where type i_o_error_t = IOError.t
+        where type seek_type_t = SeekType.t
+        where type i_o_flags_t = IOFlags.t
+        where type i_o_status_t = IOStatus.t
+        where type i_o_channel_error_t = IOChannelError.t
     val KEY_FILE_DESKTOP_GROUP : string
     val KEY_FILE_DESKTOP_KEY_CATEGORIES : string
     val KEY_FILE_DESKTOP_KEY_COMMENT : string

@@ -1,8 +1,8 @@
 signature GTK_SCROLLED_WINDOW_CLASS =
   sig
-    type 'a scrolledwindow
-    type 'a binclass_t
-    type 'a t = 'a scrolledwindow binclass_t
+    type 'a scrolled_window
+    type 'a bin_class_t
+    type 'a t = 'a scrolled_window bin_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

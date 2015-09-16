@@ -1,10 +1,10 @@
 structure GtkAppChooserWidget :>
   GTK_APP_CHOOSER_WIDGET
     where type 'a class_t = 'a GtkAppChooserWidgetClass.t
-    where type 'a appchooserclass_t = 'a GtkAppChooserClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a menuclass_t = 'a GtkMenuClass.t =
+    where type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a menu_class_t = 'a GtkMenuClass.t =
   struct
     local
       open PolyMLFFI
@@ -25,10 +25,10 @@ structure GtkAppChooserWidget :>
       val setShowRecommended_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_recommended") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAppChooserWidgetClass.t
-    type 'a appchooserclass_t = 'a GtkAppChooserClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a menuclass_t = 'a GtkMenuClass.t
+    type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a menu_class_t = 'a GtkMenuClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asAppChooser self = (GObjectObjectClass.C.withPtr ---> GtkAppChooserClass.C.fromPtr false) I self

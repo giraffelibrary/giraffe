@@ -12,9 +12,9 @@ structure GdkCrossingMode :>
       NORMAL
     | GRAB
     | UNGRAB
-    | GTKGRAB
-    | GTKUNGRAB
-    | STATECHANGED
+    | GTK_GRAB
+    | GTK_UNGRAB
+    | STATE_CHANGED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,18 +25,18 @@ structure GdkCrossingMode :>
             NORMAL => f 0
           | GRAB => f 1
           | UNGRAB => f 2
-          | GTKGRAB => f 3
-          | GTKUNGRAB => f 4
-          | STATECHANGED => f 5
+          | GTK_GRAB => f 3
+          | GTK_UNGRAB => f 4
+          | STATE_CHANGED => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NORMAL
           | 1 => GRAB
           | 2 => UNGRAB
-          | 3 => GTKGRAB
-          | 4 => GTKUNGRAB
-          | 5 => STATECHANGED
+          | 3 => GTK_GRAB
+          | 4 => GTK_UNGRAB
+          | 5 => STATE_CHANGED
           | n => raise Value n
       end
     structure PolyML =

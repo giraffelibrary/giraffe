@@ -1,8 +1,8 @@
 signature GTK_CELL_RENDERER_SPIN_CLASS =
   sig
-    type 'a cellrendererspin
-    type 'a cellrenderertextclass_t
-    type 'a t = 'a cellrendererspin cellrenderertextclass_t
+    type 'a cell_renderer_spin
+    type 'a cell_renderer_text_class_t
+    type 'a t = 'a cell_renderer_spin cell_renderer_text_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

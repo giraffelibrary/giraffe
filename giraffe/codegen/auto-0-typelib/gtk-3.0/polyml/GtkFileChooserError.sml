@@ -10,9 +10,9 @@ structure GtkFileChooserError :>
   struct
     datatype t =
       NONEXISTENT
-    | BADFILENAME
-    | ALREADYEXISTS
-    | INCOMPLETEHOSTNAME
+    | BAD_FILENAME
+    | ALREADY_EXISTS
+    | INCOMPLETE_HOSTNAME
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -21,16 +21,16 @@ structure GtkFileChooserError :>
         fun withVal f =
           fn
             NONEXISTENT => f 0
-          | BADFILENAME => f 1
-          | ALREADYEXISTS => f 2
-          | INCOMPLETEHOSTNAME => f 3
+          | BAD_FILENAME => f 1
+          | ALREADY_EXISTS => f 2
+          | INCOMPLETE_HOSTNAME => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONEXISTENT
-          | 1 => BADFILENAME
-          | 2 => ALREADYEXISTS
-          | 3 => INCOMPLETEHOSTNAME
+          | 1 => BAD_FILENAME
+          | 2 => ALREADY_EXISTS
+          | 3 => INCOMPLETE_HOSTNAME
           | n => raise Value n
       end
     structure PolyML =

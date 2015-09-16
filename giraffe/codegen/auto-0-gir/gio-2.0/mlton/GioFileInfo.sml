@@ -1,11 +1,11 @@
 structure GioFileInfo :>
   GIO_FILE_INFO
     where type 'a class_t = 'a GioFileInfoClass.t
-    where type fileattributetype_t = GioFileAttributeType.t
-    where type fileattributematcherrecord_t = GioFileAttributeMatcherRecord.t
-    where type fileattributestatus_t = GioFileAttributeStatus.t
-    where type filetype_t = GioFileType.t
-    where type 'a iconclass_t = 'a GioIconClass.t =
+    where type file_attribute_type_t = GioFileAttributeType.t
+    where type file_attribute_matcher_record_t = GioFileAttributeMatcherRecord.t
+    where type file_attribute_status_t = GioFileAttributeStatus.t
+    where type file_type_t = GioFileType.t
+    where type 'a icon_class_t = 'a GioIconClass.t =
   struct
     val getType_ = _import "g_file_info_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_file_info_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -517,11 +517,11 @@ structure GioFileInfo :>
             )
     val unsetAttributeMask_ = _import "g_file_info_unset_attribute_mask" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GioFileInfoClass.t
-    type fileattributetype_t = GioFileAttributeType.t
-    type fileattributematcherrecord_t = GioFileAttributeMatcherRecord.t
-    type fileattributestatus_t = GioFileAttributeStatus.t
-    type filetype_t = GioFileType.t
-    type 'a iconclass_t = 'a GioIconClass.t
+    type file_attribute_type_t = GioFileAttributeType.t
+    type file_attribute_matcher_record_t = GioFileAttributeMatcherRecord.t
+    type file_attribute_status_t = GioFileAttributeStatus.t
+    type file_type_t = GioFileType.t
+    type 'a icon_class_t = 'a GioIconClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioFileInfoClass.C.fromPtr true) new_ ()

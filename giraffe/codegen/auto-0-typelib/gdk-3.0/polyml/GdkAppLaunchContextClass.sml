@@ -3,8 +3,8 @@ structure GdkAppLaunchContextClass :>
     where type C.notnull = GioAppLaunchContextClass.C.notnull
     where type 'a C.p = 'a GioAppLaunchContextClass.C.p =
   struct
-    type 'a applaunchcontext = unit
-    type 'a t = 'a applaunchcontext GioAppLaunchContextClass.t
+    type 'a app_launch_context = unit
+    type 'a t = 'a app_launch_context GioAppLaunchContextClass.t
     fun toBase obj = obj
     val t = GioAppLaunchContextClass.t
     val tOpt = GioAppLaunchContextClass.tOpt

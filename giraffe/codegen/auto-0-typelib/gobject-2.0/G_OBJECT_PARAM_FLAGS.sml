@@ -7,12 +7,12 @@ signature G_OBJECT_PARAM_FLAGS =
     val READABLE : t
     val WRITABLE : t
     val CONSTRUCT : t
-    val CONSTRUCTONLY : t
-    val LAXVALIDATION : t
-    val STATICNAME : t
+    val CONSTRUCT_ONLY : t
+    val LAX_VALIDATION : t
+    val STATIC_NAME : t
     val PRIVATE : t
-    val STATICNICK : t
-    val STATICBLURB : t
+    val STATIC_NICK : t
+    val STATIC_BLURB : t
     val DEPRECATED : t
     structure C :
       sig

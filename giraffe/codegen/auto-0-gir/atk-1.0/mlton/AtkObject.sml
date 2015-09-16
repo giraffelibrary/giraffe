@@ -2,9 +2,9 @@ structure AtkObject :>
   ATK_OBJECT
     where type 'a class_t = 'a AtkObjectClass.t
     where type state_t = AtkState.t
-    where type 'a relationsetclass_t = 'a AtkRelationSetClass.t
-    where type 'a statesetclass_t = 'a AtkStateSetClass.t
-    where type relationtype_t = AtkRelationType.t
+    where type 'a relation_set_class_t = 'a AtkRelationSetClass.t
+    where type 'a state_set_class_t = 'a AtkStateSetClass.t
+    where type relation_type_t = AtkRelationType.t
     where type role_t = AtkRole.t =
   struct
     val getType_ = _import "atk_object_get_type" : unit -> GObjectType.C.val_;
@@ -103,9 +103,9 @@ structure AtkObject :>
     val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * AtkRole.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a AtkObjectClass.t
     type state_t = AtkState.t
-    type 'a relationsetclass_t = 'a AtkRelationSetClass.t
-    type 'a statesetclass_t = 'a AtkStateSetClass.t
-    type relationtype_t = AtkRelationType.t
+    type 'a relation_set_class_t = 'a AtkRelationSetClass.t
+    type 'a state_set_class_t = 'a AtkStateSetClass.t
+    type relation_type_t = AtkRelationType.t
     type role_t = AtkRole.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_

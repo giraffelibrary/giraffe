@@ -1,8 +1,8 @@
 signature GTK_HANDLE_BOX_CLASS =
   sig
-    type 'a handlebox
-    type 'a binclass_t
-    type 'a t = 'a handlebox binclass_t
+    type 'a handle_box
+    type 'a bin_class_t
+    type 'a t = 'a handle_box bin_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

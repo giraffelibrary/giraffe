@@ -1,7 +1,7 @@
 structure AtkStateSet :>
   ATK_STATE_SET
     where type 'a class_t = 'a AtkStateSetClass.t
-    where type statetype_t = AtkStateType.t =
+    where type state_type_t = AtkStateType.t =
   struct
     local
       open PolyMLFFI
@@ -18,7 +18,7 @@ structure AtkStateSet :>
       val xorSets_ = call (load_sym libatk "atk_state_set_xor_sets") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a AtkStateSetClass.t
-    type statetype_t = AtkStateType.t
+    type state_type_t = AtkStateType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkStateSetClass.C.fromPtr true) new_ ()

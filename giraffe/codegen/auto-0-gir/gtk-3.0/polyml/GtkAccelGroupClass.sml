@@ -3,8 +3,8 @@ structure GtkAccelGroupClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a accelgroup = unit
-    type 'a t = 'a accelgroup GObjectObjectClass.t
+    type 'a accel_group = unit
+    type 'a t = 'a accel_group GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

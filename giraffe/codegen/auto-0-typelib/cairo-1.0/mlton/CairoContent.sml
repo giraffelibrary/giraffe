@@ -6,7 +6,7 @@ structure CairoContent :>
     datatype t =
       COLOR
     | ALPHA
-    | COLORALPHA
+    | COLOR_ALPHA
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -16,13 +16,13 @@ structure CairoContent :>
           fn
             COLOR => f 4096
           | ALPHA => f 8192
-          | COLORALPHA => f 12288
+          | COLOR_ALPHA => f 12288
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             4096 => COLOR
           | 8192 => ALPHA
-          | 12288 => COLORALPHA
+          | 12288 => COLOR_ALPHA
           | n => raise Value n
       end
     val getType_ = _import "cairo_gobject_content_get_type" : unit -> GObjectType.C.val_;

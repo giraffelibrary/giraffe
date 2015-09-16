@@ -8,15 +8,15 @@ structure GioDBusProxyFlags :>
     in
       val NONE = NONE ()
     end
-    val DONOTLOADPROPERTIES = 0w1
-    val DONOTCONNECTSIGNALS = 0w2
-    val DONOTAUTOSTART = 0w4
+    val DO_NOT_LOAD_PROPERTIES = 0w1
+    val DO_NOT_CONNECT_SIGNALS = 0w2
+    val DO_NOT_AUTO_START = 0w4
     val allFlags =
       [
         NONE,
-        DONOTLOADPROPERTIES,
-        DONOTCONNECTSIGNALS,
-        DONOTAUTOSTART
+        DO_NOT_LOAD_PROPERTIES,
+        DO_NOT_CONNECT_SIGNALS,
+        DO_NOT_AUTO_START
       ]
     structure BitFlags =
       Word32BitFlags (

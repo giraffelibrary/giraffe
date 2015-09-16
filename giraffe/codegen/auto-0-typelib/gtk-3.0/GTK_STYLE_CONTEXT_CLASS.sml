@@ -1,7 +1,7 @@
 signature GTK_STYLE_CONTEXT_CLASS =
   sig
-    type 'a stylecontext
-    type 'a t = 'a stylecontext GObject.ObjectClass.t
+    type 'a style_context
+    type 'a t = 'a style_context GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

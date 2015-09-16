@@ -1,8 +1,8 @@
 structure GioInetSocketAddress :>
   GIO_INET_SOCKET_ADDRESS
     where type 'a class_t = 'a GioInetSocketAddressClass.t
-    where type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    where type 'a inetaddressclass_t = 'a GioInetAddressClass.t =
+    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a inet_address_class_t = 'a GioInetAddressClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GioInetSocketAddress :>
       val getPort_ = call (load_sym libgio "g_inet_socket_address_get_port") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
     end
     type 'a class_t = 'a GioInetSocketAddressClass.t
-    type 'a socketconnectableclass_t = 'a GioSocketConnectableClass.t
-    type 'a inetaddressclass_t = 'a GioInetAddressClass.t
+    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a inet_address_class_t = 'a GioInetAddressClass.t
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

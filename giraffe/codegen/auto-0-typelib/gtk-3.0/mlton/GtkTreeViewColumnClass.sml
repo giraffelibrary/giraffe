@@ -3,8 +3,8 @@ structure GtkTreeViewColumnClass :>
     where type C.notnull = GObjectInitiallyUnownedClass.C.notnull
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
-    type 'a treeviewcolumn = unit
-    type 'a t = 'a treeviewcolumn GObjectInitiallyUnownedClass.t
+    type 'a tree_view_column = unit
+    type 'a t = 'a tree_view_column GObjectInitiallyUnownedClass.t
     fun toBase obj = obj
     val t = GObjectInitiallyUnownedClass.t
     val tOpt = GObjectInitiallyUnownedClass.tOpt

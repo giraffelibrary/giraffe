@@ -1,15 +1,15 @@
 structure GioDBusObjectManagerClient :>
   GIO_D_BUS_OBJECT_MANAGER_CLIENT
     where type 'a class_t = 'a GioDBusObjectManagerClientClass.t
-    where type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
-    where type 'a dbusobjectmanagerclass_t = 'a GioDBusObjectManagerClass.t
-    where type 'a initableclass_t = 'a GioInitableClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a dbusproxyclass_t = 'a GioDBusProxyClass.t
-    where type 'a dbusobjectproxyclass_t = 'a GioDBusObjectProxyClass.t
-    where type bustype_t = GioBusType.t
-    where type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    where type dbusobjectmanagerclientflags_t = GioDBusObjectManagerClientFlags.t =
+    where type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
+    where type 'a d_bus_object_manager_class_t = 'a GioDBusObjectManagerClass.t
+    where type 'a initable_class_t = 'a GioInitableClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a d_bus_proxy_class_t = 'a GioDBusProxyClass.t
+    where type 'a d_bus_object_proxy_class_t = 'a GioDBusObjectProxyClass.t
+    where type bus_type_t = GioBusType.t
+    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    where type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t =
   struct
     val getType_ = _import "g_dbus_object_manager_client_get_type" : unit -> GObjectType.C.val_;
     val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
@@ -19,15 +19,15 @@ structure GioDBusObjectManagerClient :>
     val getName_ = _import "g_dbus_object_manager_client_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GioDBusObjectManagerClientClass.t
-    type 'a asyncinitableclass_t = 'a GioAsyncInitableClass.t
-    type 'a dbusobjectmanagerclass_t = 'a GioDBusObjectManagerClass.t
-    type 'a initableclass_t = 'a GioInitableClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a dbusproxyclass_t = 'a GioDBusProxyClass.t
-    type 'a dbusobjectproxyclass_t = 'a GioDBusObjectProxyClass.t
-    type bustype_t = GioBusType.t
-    type 'a dbusconnectionclass_t = 'a GioDBusConnectionClass.t
-    type dbusobjectmanagerclientflags_t = GioDBusObjectManagerClientFlags.t
+    type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
+    type 'a d_bus_object_manager_class_t = 'a GioDBusObjectManagerClass.t
+    type 'a initable_class_t = 'a GioInitableClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a d_bus_proxy_class_t = 'a GioDBusProxyClass.t
+    type 'a d_bus_object_proxy_class_t = 'a GioDBusObjectProxyClass.t
+    type bus_type_t = GioBusType.t
+    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
+    type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t
     type t = base class_t
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self

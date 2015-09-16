@@ -14,12 +14,12 @@ structure GtkSourceCompletionActivation :>
       val NONE = NONE ()
     end
     val INTERACTIVE = 0w1
-    val USERREQUESTED = 0w2
+    val USER_REQUESTED = 0w2
     val allFlags =
       [
         NONE,
         INTERACTIVE,
-        USERREQUESTED
+        USER_REQUESTED
       ]
     structure BitFlags =
       Word32BitFlags (

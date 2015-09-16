@@ -6,13 +6,13 @@ structure GdkEventWindowStateRecord :>
       where type 'a C.p = 'a GdkEvent.C.p
   end =
   struct
-    type windowstate = unit
+    type window_state = unit
     type 'a event_t = 'a GdkEvent.t
-    type t = windowstate event_t
+    type t = window_state event_t
 
 
     datatype event =
-      WINDOWSTATE
+      WINDOW_STATE
 
 
     structure C = GdkEvent.C

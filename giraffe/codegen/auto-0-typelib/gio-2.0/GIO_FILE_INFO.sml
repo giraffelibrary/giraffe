@@ -1,11 +1,11 @@
 signature GIO_FILE_INFO =
   sig
     type 'a class_t
-    type fileattributetype_t
-    type fileattributematcherrecord_t
-    type fileattributestatus_t
-    type filetype_t
-    type 'a iconclass_t
+    type file_attribute_type_t
+    type file_attribute_matcher_record_t
+    type file_attribute_status_t
+    type file_type_t
+    type 'a icon_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -42,7 +42,7 @@ signature GIO_FILE_INFO =
     val getAttributeStatus :
       'a class_t
        -> string
-       -> fileattributestatus_t
+       -> file_attribute_status_t
     val getAttributeString :
       'a class_t
        -> string
@@ -50,7 +50,7 @@ signature GIO_FILE_INFO =
     val getAttributeType :
       'a class_t
        -> string
-       -> fileattributetype_t
+       -> file_attribute_type_t
     val getAttributeUint32 :
       'a class_t
        -> string
@@ -63,8 +63,8 @@ signature GIO_FILE_INFO =
     val getDisplayName : 'a class_t -> string
     val getEditName : 'a class_t -> string
     val getEtag : 'a class_t -> string
-    val getFileType : 'a class_t -> filetype_t
-    val getIcon : 'a class_t -> base iconclass_t
+    val getFileType : 'a class_t -> file_type_t
+    val getIcon : 'a class_t -> base icon_class_t
     val getIsBackup : 'a class_t -> bool
     val getIsHidden : 'a class_t -> bool
     val getIsSymlink : 'a class_t -> bool
@@ -110,7 +110,7 @@ signature GIO_FILE_INFO =
        -> unit
     val setAttributeMask :
       'a class_t
-       -> fileattributematcherrecord_t
+       -> file_attribute_matcher_record_t
        -> unit
     val setAttributeObject :
       'a class_t
@@ -120,7 +120,7 @@ signature GIO_FILE_INFO =
     val setAttributeStatus :
       'a class_t
        -> string
-       -> fileattributestatus_t
+       -> file_attribute_status_t
        -> bool
     val setAttributeString :
       'a class_t
@@ -156,11 +156,11 @@ signature GIO_FILE_INFO =
        -> unit
     val setFileType :
       'a class_t
-       -> filetype_t
+       -> file_type_t
        -> unit
     val setIcon :
       'a class_t
-       -> 'b iconclass_t
+       -> 'b icon_class_t
        -> unit
     val setIsHidden :
       'a class_t

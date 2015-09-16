@@ -1,8 +1,8 @@
 signature GIO_UNIX_F_D_MESSAGE_CLASS =
   sig
-    type 'a unixfdmessage
-    type 'a socketcontrolmessageclass_t
-    type 'a t = 'a unixfdmessage socketcontrolmessageclass_t
+    type 'a unix_f_d_message
+    type 'a socket_control_message_class_t
+    type 'a t = 'a unix_f_d_message socket_control_message_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

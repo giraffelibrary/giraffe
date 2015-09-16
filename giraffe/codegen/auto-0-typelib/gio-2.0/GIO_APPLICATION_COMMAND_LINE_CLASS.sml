@@ -1,7 +1,7 @@
 signature GIO_APPLICATION_COMMAND_LINE_CLASS =
   sig
-    type 'a applicationcommandline
-    type 'a t = 'a applicationcommandline GObject.ObjectClass.t
+    type 'a application_command_line
+    type 'a t = 'a application_command_line GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

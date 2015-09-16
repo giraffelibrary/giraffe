@@ -1,9 +1,9 @@
 structure GioDrive :>
   GIO_DRIVE
     where type 'a class_t = 'a GioDriveClass.t
-    where type 'a iconclass_t = 'a GioIconClass.t
-    where type drivestartstoptype_t = GioDriveStartStopType.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a icon_class_t = 'a GioIconClass.t
+    where type drive_start_stop_type_t = GioDriveStartStopType.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     local
       open PolyMLFFI
@@ -56,9 +56,9 @@ structure GioDrive :>
           )
     end
     type 'a class_t = 'a GioDriveClass.t
-    type 'a iconclass_t = 'a GioIconClass.t
-    type drivestartstoptype_t = GioDriveStartStopType.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a icon_class_t = 'a GioIconClass.t
+    type drive_start_stop_type_t = GioDriveStartStopType.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self

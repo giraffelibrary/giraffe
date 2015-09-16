@@ -10,20 +10,20 @@ signature PROPERTY =
     (*
      * Types of properties with moded access
      *)
-    type ('objectclass, 'a) readonly = {get : 'objectclass -> 'a}
-    type ('objectclass, 'a) writeonly = {set : 'a -> 'objectclass -> unit}
-    type ('objectclass, 'a, 'b) readwrite =
+    type ('object_class, 'a) readonly = {get : 'object_class -> 'a}
+    type ('object_class, 'a) writeonly = {set : 'a -> 'object_class -> unit}
+    type ('object_class, 'a, 'b) readwrite =
       {
-        get : 'objectclass -> 'a,
-        set : 'b -> 'objectclass -> unit
+        get : 'object_class -> 'a,
+        set : 'b -> 'object_class -> unit
       }
 
     (*
      * Declaration of properties with moded access
      *)
     type ('a, 'b) accessor
-    type 'a objectclass_t
+    type 'a object_class_t
 
-    val get : string -> ('a, 'b) accessor -> 'c objectclass_t -> 'a
-    val set : string -> ('a, 'b) accessor -> 'b -> 'c objectclass_t -> unit
+    val get : string -> ('a, 'b) accessor -> 'c object_class_t -> 'a
+    val set : string -> ('a, 'b) accessor -> 'b -> 'c object_class_t -> unit
   end

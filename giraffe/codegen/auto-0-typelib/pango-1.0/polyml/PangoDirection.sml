@@ -11,10 +11,10 @@ structure PangoDirection :>
     datatype t =
       LTR
     | RTL
-    | TTBLTR
-    | TTBRTL
-    | WEAKLTR
-    | WEAKRTL
+    | TTB_LTR
+    | TTB_RTL
+    | WEAK_LTR
+    | WEAK_RTL
     | NEUTRAL
     structure C =
       struct
@@ -25,20 +25,20 @@ structure PangoDirection :>
           fn
             LTR => f 0
           | RTL => f 1
-          | TTBLTR => f 2
-          | TTBRTL => f 3
-          | WEAKLTR => f 4
-          | WEAKRTL => f 5
+          | TTB_LTR => f 2
+          | TTB_RTL => f 3
+          | WEAK_LTR => f 4
+          | WEAK_RTL => f 5
           | NEUTRAL => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => LTR
           | 1 => RTL
-          | 2 => TTBLTR
-          | 3 => TTBRTL
-          | 4 => WEAKLTR
-          | 5 => WEAKRTL
+          | 2 => TTB_LTR
+          | 3 => TTB_RTL
+          | 4 => WEAK_LTR
+          | 5 => WEAK_RTL
           | 6 => NEUTRAL
           | n => raise Value n
       end

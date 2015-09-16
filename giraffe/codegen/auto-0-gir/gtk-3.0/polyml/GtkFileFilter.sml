@@ -1,9 +1,9 @@
 structure GtkFileFilter :>
   GTK_FILE_FILTER
     where type 'a class_t = 'a GtkFileFilterClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type filefilterinforecord_t = GtkFileFilterInfoRecord.t
-    where type filefilterflags_t = GtkFileFilterFlags.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type file_filter_info_record_t = GtkFileFilterInfoRecord.t
+    where type file_filter_flags_t = GtkFileFilterFlags.t =
   struct
     local
       open PolyMLFFI
@@ -19,9 +19,9 @@ structure GtkFileFilter :>
       val setName_ = call (load_sym libgtk "gtk_file_filter_set_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkFileFilterClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type filefilterinforecord_t = GtkFileFilterInfoRecord.t
-    type filefilterflags_t = GtkFileFilterFlags.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type file_filter_info_record_t = GtkFileFilterInfoRecord.t
+    type file_filter_flags_t = GtkFileFilterFlags.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

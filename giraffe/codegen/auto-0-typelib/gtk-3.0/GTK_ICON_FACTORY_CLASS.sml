@@ -1,7 +1,7 @@
 signature GTK_ICON_FACTORY_CLASS =
   sig
-    type 'a iconfactory
-    type 'a t = 'a iconfactory GObject.ObjectClass.t
+    type 'a icon_factory
+    type 'a t = 'a icon_factory GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,10 +1,10 @@
 structure GtkAction :>
   GTK_ACTION
     where type 'a class_t = 'a GtkActionClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    where type 'a actiongroupclass_t = 'a GtkActionGroupClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    where type 'a action_group_class_t = 'a GtkActionGroupClass.t =
   struct
     val getType_ = _import "gtk_action_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -160,10 +160,10 @@ structure GtkAction :>
     val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_action_set_visible_vertical" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val unblockActivate_ = _import "gtk_action_unblock_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkActionClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a accelgroupclass_t = 'a GtkAccelGroupClass.t
-    type 'a actiongroupclass_t = 'a GtkActionGroupClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
+    type 'a action_group_class_t = 'a GtkActionGroupClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

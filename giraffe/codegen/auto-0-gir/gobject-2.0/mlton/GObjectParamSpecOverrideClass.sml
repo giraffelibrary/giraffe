@@ -1,13 +1,13 @@
 structure GObjectParamSpecOverrideClass :>
   G_OBJECT_PARAM_SPEC_OVERRIDE_CLASS
-    where type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
+    where type 'a param_spec_class_t = 'a GObjectParamSpecClass.t
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
     where type C.notnull = GObjectParamSpecClass.C.notnull
     where type 'a C.p = 'a GObjectParamSpecClass.C.p =
   struct
-    type 'a paramspecoverride = unit
-    type 'a paramspecclass_t = 'a GObjectParamSpecClass.t
-    type 'a t = 'a paramspecoverride paramspecclass_t
+    type 'a param_spec_override = unit
+    type 'a param_spec_class_t = 'a GObjectParamSpecClass.t
+    type 'a t = 'a param_spec_override param_spec_class_t
     fun toBase obj = obj
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
     val t = GObjectParamSpecClass.t

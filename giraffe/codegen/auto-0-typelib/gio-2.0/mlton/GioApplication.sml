@@ -1,10 +1,10 @@
 structure GioApplication :>
   GIO_APPLICATION
     where type 'a class_t = 'a GioApplicationClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a applicationcommandlineclass_t = 'a GioApplicationCommandLineClass.t
-    where type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    where type applicationflags_t = GioApplicationFlags.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a application_command_line_class_t = 'a GioApplicationCommandLineClass.t
+    where type 'a action_group_class_t = 'a GioActionGroupClass.t
+    where type application_flags_t = GioApplicationFlags.t =
   struct
     val getType_ = _import "g_application_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -67,10 +67,10 @@ structure GioApplication :>
     val setFlags_ = fn x1 & x2 => (_import "g_application_set_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioApplicationFlags.C.val_ -> unit;) (x1, x2)
     val setInactivityTimeout_ = fn x1 & x2 => (_import "g_application_set_inactivity_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioApplicationClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a applicationcommandlineclass_t = 'a GioApplicationCommandLineClass.t
-    type 'a actiongroupclass_t = 'a GioActionGroupClass.t
-    type applicationflags_t = GioApplicationFlags.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a application_command_line_class_t = 'a GioApplicationCommandLineClass.t
+    type 'a action_group_class_t = 'a GioActionGroupClass.t
+    type application_flags_t = GioApplicationFlags.t
     type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

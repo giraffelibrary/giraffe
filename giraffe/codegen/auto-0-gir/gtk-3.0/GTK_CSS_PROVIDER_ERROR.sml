@@ -6,7 +6,7 @@ signature GTK_CSS_PROVIDER_ERROR =
     | IMPORT
     | NAME
     | DEPRECATED
-    | UNKNOWNVALUE
+    | UNKNOWN_VALUE
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

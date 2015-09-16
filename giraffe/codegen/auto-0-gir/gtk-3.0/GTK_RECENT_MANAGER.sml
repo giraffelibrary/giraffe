@@ -1,8 +1,8 @@
 signature GTK_RECENT_MANAGER =
   sig
     type 'a class_t
-    type recentdatarecord_t
-    type recentinforecord_t
+    type recent_data_record_t
+    type recent_info_record_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -10,7 +10,7 @@ signature GTK_RECENT_MANAGER =
     val addFull :
       'a class_t
        -> string
-       -> recentdatarecord_t
+       -> recent_data_record_t
        -> bool
     val addItem :
       'a class_t
@@ -23,7 +23,7 @@ signature GTK_RECENT_MANAGER =
     val lookupItem :
       'a class_t
        -> string
-       -> recentinforecord_t
+       -> recent_info_record_t
     val moveItem :
       'a class_t
        -> string

@@ -5,7 +5,7 @@ signature GDK_EVENT_FOCUS_RECORD =
     type t = focus event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      FOCUSCHANGE
+      FOCUS_CHANGE
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

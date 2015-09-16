@@ -11,13 +11,13 @@ structure GtkPrintStatus :>
     datatype t =
       INITIAL
     | PREPARING
-    | GENERATINGDATA
-    | SENDINGDATA
+    | GENERATING_DATA
+    | SENDING_DATA
     | PENDING
-    | PENDINGISSUE
+    | PENDING_ISSUE
     | PRINTING
     | FINISHED
-    | FINISHEDABORTED
+    | FINISHED_ABORTED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -27,25 +27,25 @@ structure GtkPrintStatus :>
           fn
             INITIAL => f 0
           | PREPARING => f 1
-          | GENERATINGDATA => f 2
-          | SENDINGDATA => f 3
+          | GENERATING_DATA => f 2
+          | SENDING_DATA => f 3
           | PENDING => f 4
-          | PENDINGISSUE => f 5
+          | PENDING_ISSUE => f 5
           | PRINTING => f 6
           | FINISHED => f 7
-          | FINISHEDABORTED => f 8
+          | FINISHED_ABORTED => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => INITIAL
           | 1 => PREPARING
-          | 2 => GENERATINGDATA
-          | 3 => SENDINGDATA
+          | 2 => GENERATING_DATA
+          | 3 => SENDING_DATA
           | 4 => PENDING
-          | 5 => PENDINGISSUE
+          | 5 => PENDING_ISSUE
           | 6 => PRINTING
           | 7 => FINISHED
-          | 8 => FINISHEDABORTED
+          | 8 => FINISHED_ABORTED
           | n => raise Value n
       end
     structure PolyML =

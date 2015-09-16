@@ -1,7 +1,7 @@
 structure AtkSocket :>
   ATK_SOCKET
     where type 'a class_t = 'a AtkSocketClass.t
-    where type 'a componentclass_t = 'a AtkComponentClass.t =
+    where type 'a component_class_t = 'a AtkComponentClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,7 +12,7 @@ structure AtkSocket :>
       val isOccupied_ = call (load_sym libatk "atk_socket_is_occupied") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a AtkSocketClass.t
-    type 'a componentclass_t = 'a AtkComponentClass.t
+    type 'a component_class_t = 'a AtkComponentClass.t
     type t = base class_t
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

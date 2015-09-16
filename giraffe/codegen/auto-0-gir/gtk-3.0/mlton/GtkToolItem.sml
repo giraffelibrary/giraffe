@@ -1,13 +1,13 @@
 structure GtkToolItem :>
   GTK_TOOL_ITEM
     where type 'a class_t = 'a GtkToolItemClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type reliefstyle_t = GtkReliefStyle.t
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type relief_style_t = GtkReliefStyle.t
     where type orientation_t = GtkOrientation.t
-    where type 'a sizegroupclass_t = 'a GtkSizeGroupClass.t
-    where type toolbarstyle_t = GtkToolbarStyle.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a size_group_class_t = 'a GtkSizeGroupClass.t
+    where type toolbar_style_t = GtkToolbarStyle.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_tool_item_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_tool_item_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -99,13 +99,13 @@ structure GtkToolItem :>
     val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_tool_item_set_visible_vertical" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val toolbarReconfigured_ = _import "gtk_tool_item_toolbar_reconfigured" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkToolItemClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type reliefstyle_t = GtkReliefStyle.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type relief_style_t = GtkReliefStyle.t
     type orientation_t = GtkOrientation.t
-    type 'a sizegroupclass_t = 'a GtkSizeGroupClass.t
-    type toolbarstyle_t = GtkToolbarStyle.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a size_group_class_t = 'a GtkSizeGroupClass.t
+    type toolbar_style_t = GtkToolbarStyle.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

@@ -1,12 +1,12 @@
 structure GtkSourceView :>
   GTK_SOURCE_VIEW
     where type 'a class_t = 'a GtkSourceViewClass.t
-    where type 'a bufferclass_t = 'a GtkSourceBufferClass.t
-    where type 'a gutterclass_t = 'a GtkSourceGutterClass.t
-    where type 'a markattributesclass_t = 'a GtkSourceMarkAttributesClass.t
-    where type 'a completionclass_t = 'a GtkSourceCompletionClass.t
-    where type drawspacesflags_t = GtkSourceDrawSpacesFlags.t
-    where type smarthomeendtype_t = GtkSourceSmartHomeEndType.t =
+    where type 'a buffer_class_t = 'a GtkSourceBufferClass.t
+    where type 'a gutter_class_t = 'a GtkSourceGutterClass.t
+    where type 'a mark_attributes_class_t = 'a GtkSourceMarkAttributesClass.t
+    where type 'a completion_class_t = 'a GtkSourceCompletionClass.t
+    where type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
+    where type smart_home_end_type_t = GtkSourceSmartHomeEndType.t =
   struct
     val getType_ = _import "gtk_source_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -61,12 +61,12 @@ structure GtkSourceView :>
     val setSmartHomeEnd_ = fn x1 & x2 => (_import "gtk_source_view_set_smart_home_end" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkSourceSmartHomeEndType.C.val_ -> unit;) (x1, x2)
     val setTabWidth_ = fn x1 & x2 => (_import "gtk_source_view_set_tab_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkSourceViewClass.t
-    type 'a bufferclass_t = 'a GtkSourceBufferClass.t
-    type 'a gutterclass_t = 'a GtkSourceGutterClass.t
-    type 'a markattributesclass_t = 'a GtkSourceMarkAttributesClass.t
-    type 'a completionclass_t = 'a GtkSourceCompletionClass.t
-    type drawspacesflags_t = GtkSourceDrawSpacesFlags.t
-    type smarthomeendtype_t = GtkSourceSmartHomeEndType.t
+    type 'a buffer_class_t = 'a GtkSourceBufferClass.t
+    type 'a gutter_class_t = 'a GtkSourceGutterClass.t
+    type 'a mark_attributes_class_t = 'a GtkSourceMarkAttributesClass.t
+    type 'a completion_class_t = 'a GtkSourceCompletionClass.t
+    type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
+    type smart_home_end_type_t = GtkSourceSmartHomeEndType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

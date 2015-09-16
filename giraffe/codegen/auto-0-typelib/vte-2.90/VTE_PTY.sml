@@ -1,11 +1,11 @@
 signature VTE_PTY =
   sig
     type 'a class_t
-    type ptyflags_t
+    type pty_flags_t
     type t = base class_t
     val asInitable : 'a class_t -> base Gio.InitableClass.t
     val getType : unit -> GObject.Type.t
-    val new : ptyflags_t -> base class_t
+    val new : pty_flags_t -> base class_t
     val newForeign : LargeInt.int -> base class_t
     val childSetup : 'a class_t -> unit
     val close : 'a class_t -> unit
@@ -25,6 +25,6 @@ signature VTE_PTY =
        -> bool
        -> bool
     val fdProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val flagsProp : ('a class_t, ptyflags_t, ptyflags_t) Property.readwrite
+    val flagsProp : ('a class_t, pty_flags_t, pty_flags_t) Property.readwrite
     val termProp : ('a class_t, string option, string option) Property.readwrite
   end

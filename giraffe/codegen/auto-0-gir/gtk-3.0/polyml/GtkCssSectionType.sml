@@ -11,8 +11,8 @@ structure GtkCssSectionType :>
     datatype t =
       DOCUMENT
     | IMPORT
-    | COLORDEFINITION
-    | BINDINGSET
+    | COLOR_DEFINITION
+    | BINDING_SET
     | RULESET
     | SELECTOR
     | DECLARATION
@@ -26,8 +26,8 @@ structure GtkCssSectionType :>
           fn
             DOCUMENT => f 0
           | IMPORT => f 1
-          | COLORDEFINITION => f 2
-          | BINDINGSET => f 3
+          | COLOR_DEFINITION => f 2
+          | BINDING_SET => f 3
           | RULESET => f 4
           | SELECTOR => f 5
           | DECLARATION => f 6
@@ -37,8 +37,8 @@ structure GtkCssSectionType :>
           fn
             0 => DOCUMENT
           | 1 => IMPORT
-          | 2 => COLORDEFINITION
-          | 3 => BINDINGSET
+          | 2 => COLOR_DEFINITION
+          | 3 => BINDING_SET
           | 4 => RULESET
           | 5 => SELECTOR
           | 6 => DECLARATION

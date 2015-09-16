@@ -9,7 +9,7 @@ structure GLibDateWeekday :>
   end =
   struct
     datatype t =
-      BADWEEKDAY
+      BAD_WEEKDAY
     | MONDAY
     | TUESDAY
     | WEDNESDAY
@@ -24,7 +24,7 @@ structure GLibDateWeekday :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BADWEEKDAY => f 0
+            BAD_WEEKDAY => f 0
           | MONDAY => f 1
           | TUESDAY => f 2
           | WEDNESDAY => f 3
@@ -35,7 +35,7 @@ structure GLibDateWeekday :>
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => BADWEEKDAY
+            0 => BAD_WEEKDAY
           | 1 => MONDAY
           | 2 => TUESDAY
           | 3 => WEDNESDAY
@@ -50,5 +50,5 @@ structure GLibDateWeekday :>
         val VAL = FFI.Enum.PolyML.VAL
         val REF = FFI.Enum.PolyML.REF
       end
-    val null = BADWEEKDAY
+    val null = BAD_WEEKDAY
   end

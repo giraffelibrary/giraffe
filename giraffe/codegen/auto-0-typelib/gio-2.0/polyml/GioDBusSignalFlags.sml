@@ -13,8 +13,8 @@ structure GioDBusSignalFlags :>
     in
       val NONE = NONE ()
     end
-    val NOMATCHRULE = 0w1
-    val allFlags = [NONE, NOMATCHRULE]
+    val NO_MATCH_RULE = 0w1
+    val allFlags = [NONE, NO_MATCH_RULE]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

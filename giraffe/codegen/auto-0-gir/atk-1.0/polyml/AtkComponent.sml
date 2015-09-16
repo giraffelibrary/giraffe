@@ -2,9 +2,9 @@ structure AtkComponent :>
   ATK_COMPONENT
     where type 'a class_t = 'a AtkComponentClass.t
     where type layer_t = AtkLayer.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t
-    where type coordtype_t = AtkCoordType.t
-    where type rectanglerecord_t = AtkRectangleRecord.t =
+    where type 'a object_class_t = 'a AtkObjectClass.t
+    where type coord_type_t = AtkCoordType.t
+    where type rectangle_record_t = AtkRectangleRecord.t =
   struct
     local
       open PolyMLFFI
@@ -64,9 +64,9 @@ structure AtkComponent :>
     end
     type 'a class_t = 'a AtkComponentClass.t
     type layer_t = AtkLayer.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
-    type coordtype_t = AtkCoordType.t
-    type rectanglerecord_t = AtkRectangleRecord.t
+    type 'a object_class_t = 'a AtkObjectClass.t
+    type coord_type_t = AtkCoordType.t
+    type rectangle_record_t = AtkRectangleRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun contains self x y coordType =

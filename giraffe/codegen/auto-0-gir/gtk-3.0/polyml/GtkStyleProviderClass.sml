@@ -3,8 +3,8 @@ structure GtkStyleProviderClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a styleprovider = unit
-    type 'a t = 'a styleprovider GObjectObjectClass.t
+    type 'a style_provider = unit
+    type 'a t = 'a style_provider GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

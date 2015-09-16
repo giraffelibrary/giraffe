@@ -1,10 +1,10 @@
 structure GtkFileChooserWidget :>
   GTK_FILE_CHOOSER_WIDGET
     where type 'a class_t = 'a GtkFileChooserWidgetClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a filechooserclass_t = 'a GtkFileChooserClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type filechooseraction_t = GtkFileChooserAction.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a file_chooser_class_t = 'a GtkFileChooserClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type file_chooser_action_t = GtkFileChooserAction.t =
   struct
     local
       open PolyMLFFI
@@ -13,10 +13,10 @@ structure GtkFileChooserWidget :>
       val new_ = call (load_sym libgtk "gtk_file_chooser_widget_new") (GtkFileChooserAction.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkFileChooserWidgetClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a filechooserclass_t = 'a GtkFileChooserClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type filechooseraction_t = GtkFileChooserAction.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a file_chooser_class_t = 'a GtkFileChooserClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type file_chooser_action_t = GtkFileChooserAction.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

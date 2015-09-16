@@ -5,8 +5,8 @@ signature G_LIB_FORMAT_SIZE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val DEFAULT : t
-    val LONGFORMAT : t
-    val IECUNITS : t
+    val LONG_FORMAT : t
+    val IEC_UNITS : t
     structure C :
       sig
         type val_

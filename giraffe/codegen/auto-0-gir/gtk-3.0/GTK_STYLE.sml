@@ -1,19 +1,19 @@
 signature GTK_STYLE =
   sig
     type 'a class_t
-    type iconsetrecord_t
-    type 'a widgetclass_t
-    type textdirection_t
-    type iconsourcerecord_t
-    type statetype_t
-    type 'a stylecontextclass_t
+    type icon_set_record_t
+    type 'a widget_class_t
+    type text_direction_t
+    type icon_source_record_t
+    type state_type_t
+    type 'a style_context_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val applyDefaultBackground :
       'a class_t
        -> Cairo.ContextRecord.t
        -> 'b Gdk.WindowClass.t
-       -> statetype_t
+       -> state_type_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -29,22 +29,22 @@ signature GTK_STYLE =
     val lookupIconSet :
       'a class_t
        -> string
-       -> iconsetrecord_t
+       -> icon_set_record_t
     val renderIcon :
       'a class_t
-       -> iconsourcerecord_t
-       -> textdirection_t
-       -> statetype_t
+       -> icon_source_record_t
+       -> text_direction_t
+       -> state_type_t
        -> LargeInt.int
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> string option
        -> base GdkPixbuf.PixbufClass.t
     val setBackground :
       'a class_t
        -> 'b Gdk.WindowClass.t
-       -> statetype_t
+       -> state_type_t
        -> unit
     val realizeSig : (unit -> unit) -> 'a class_t Signal.signal
     val unrealizeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val contextProp : ('a class_t, base stylecontextclass_t option, 'b stylecontextclass_t option) Property.readwrite
+    val contextProp : ('a class_t, base style_context_class_t option, 'b style_context_class_t option) Property.readwrite
   end

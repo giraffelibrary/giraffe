@@ -1,11 +1,11 @@
 signature GTK_CALENDAR =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type calendardisplayoptions_t
+    type 'a buildable_class_t
+    type calendar_display_options_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
     val clearMarks : 'a class_t -> unit
@@ -20,7 +20,7 @@ signature GTK_CALENDAR =
        -> bool
     val getDetailHeightRows : 'a class_t -> LargeInt.int
     val getDetailWidthChars : 'a class_t -> LargeInt.int
-    val getDisplayOptions : 'a class_t -> calendardisplayoptions_t
+    val getDisplayOptions : 'a class_t -> calendar_display_options_t
     val markDay :
       'a class_t
        -> LargeInt.int
@@ -44,7 +44,7 @@ signature GTK_CALENDAR =
        -> unit
     val setDisplayOptions :
       'a class_t
-       -> calendardisplayoptions_t
+       -> calendar_display_options_t
        -> unit
     val unmarkDay :
       'a class_t

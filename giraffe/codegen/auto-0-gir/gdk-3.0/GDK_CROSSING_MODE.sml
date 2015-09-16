@@ -4,9 +4,9 @@ signature GDK_CROSSING_MODE =
       NORMAL
     | GRAB
     | UNGRAB
-    | GTKGRAB
-    | GTKUNGRAB
-    | STATECHANGED
+    | GTK_GRAB
+    | GTK_UNGRAB
+    | STATE_CHANGED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

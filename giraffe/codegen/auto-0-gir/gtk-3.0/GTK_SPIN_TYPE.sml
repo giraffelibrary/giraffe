@@ -1,13 +1,13 @@
 signature GTK_SPIN_TYPE =
   sig
     datatype t =
-      STEPFORWARD
-    | STEPBACKWARD
-    | PAGEFORWARD
-    | PAGEBACKWARD
+      STEP_FORWARD
+    | STEP_BACKWARD
+    | PAGE_FORWARD
+    | PAGE_BACKWARD
     | HOME
     | END
-    | USERDEFINED
+    | USER_DEFINED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

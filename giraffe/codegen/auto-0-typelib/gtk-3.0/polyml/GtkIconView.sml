@@ -1,19 +1,19 @@
 structure GtkIconView :>
   GTK_ICON_VIEW
     where type 'a class_t = 'a GtkIconViewClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type iconviewdropposition_t = GtkIconViewDropPosition.t
-    where type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
-    where type 'a tooltipclass_t = 'a GtkTooltipClass.t
-    where type treepathrecord_t = GtkTreePathRecord.t
-    where type movementstep_t = GtkMovementStep.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type icon_view_drop_position_t = GtkIconViewDropPosition.t
+    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
+    where type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    where type tree_path_record_t = GtkTreePathRecord.t
+    where type movement_step_t = GtkMovementStep.t
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
     where type orientation_t = GtkOrientation.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    where type selectionmode_t = GtkSelectionMode.t =
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    where type selection_mode_t = GtkSelectionMode.t =
   struct
     local
       open PolyMLFFI
@@ -183,19 +183,19 @@ structure GtkIconView :>
       val unsetModelDragSource_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_source") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkIconViewClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type 'a scrollableclass_t = 'a GtkScrollableClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type iconviewdropposition_t = GtkIconViewDropPosition.t
-    type 'a cellrendererclass_t = 'a GtkCellRendererClass.t
-    type 'a tooltipclass_t = 'a GtkTooltipClass.t
-    type treepathrecord_t = GtkTreePathRecord.t
-    type movementstep_t = GtkMovementStep.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type 'a scrollable_class_t = 'a GtkScrollableClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type icon_view_drop_position_t = GtkIconViewDropPosition.t
+    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
+    type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    type tree_path_record_t = GtkTreePathRecord.t
+    type movement_step_t = GtkMovementStep.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
     type orientation_t = GtkOrientation.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
-    type selectionmode_t = GtkSelectionMode.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    type selection_mode_t = GtkSelectionMode.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

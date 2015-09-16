@@ -5,8 +5,8 @@ signature GIO_FILE_ATTRIBUTE_INFO_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val COPYWITHFILE : t
-    val COPYWHENMOVED : t
+    val COPY_WITH_FILE : t
+    val COPY_WHEN_MOVED : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

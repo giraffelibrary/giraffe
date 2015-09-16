@@ -1,10 +1,10 @@
 structure GtkMenuShell :>
   GTK_MENU_SHELL
     where type 'a class_t = 'a GtkMenuShellClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type directiontype_t = GtkDirectionType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type menudirectiontype_t = GtkMenuDirectionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type direction_type_t = GtkDirectionType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type menu_direction_type_t = GtkMenuDirectionType.t =
   struct
     val getType_ = _import "gtk_menu_shell_get_type" : unit -> GObjectType.C.val_;
     val activateItem_ =
@@ -53,10 +53,10 @@ structure GtkMenuShell :>
     val selectItem_ = fn x1 & x2 => (_import "gtk_menu_shell_select_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setTakeFocus_ = fn x1 & x2 => (_import "gtk_menu_shell_set_take_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkMenuShellClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type directiontype_t = GtkDirectionType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type menudirectiontype_t = GtkMenuDirectionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type direction_type_t = GtkDirectionType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type menu_direction_type_t = GtkMenuDirectionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

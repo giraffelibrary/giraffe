@@ -1,15 +1,15 @@
 signature GDK_GRAVITY =
   sig
     datatype t =
-      NORTHWEST
+      NORTH_WEST
     | NORTH
-    | NORTHEAST
+    | NORTH_EAST
     | WEST
     | CENTER
     | EAST
-    | SOUTHWEST
+    | SOUTH_WEST
     | SOUTH
-    | SOUTHEAST
+    | SOUTH_EAST
     | STATIC
     val null : t
     val t : (t, t) GObject.Value.accessor

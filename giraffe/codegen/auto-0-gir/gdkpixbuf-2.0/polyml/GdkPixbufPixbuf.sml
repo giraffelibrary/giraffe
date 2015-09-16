@@ -1,8 +1,8 @@
 structure GdkPixbufPixbuf :>
   GDK_PIXBUF_PIXBUF
     where type 'a class_t = 'a GdkPixbufPixbufClass.t
-    where type pixbufrotation_t = GdkPixbufPixbufRotation.t
-    where type interptype_t = GdkPixbufInterpType.t
+    where type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
+    where type interp_type_t = GdkPixbufInterpType.t
     where type colorspace_t = GdkPixbufColorspace.t =
   struct
     local
@@ -196,8 +196,8 @@ structure GdkPixbufPixbuf :>
           )
     end
     type 'a class_t = 'a GdkPixbufPixbufClass.t
-    type pixbufrotation_t = GdkPixbufPixbufRotation.t
-    type interptype_t = GdkPixbufInterpType.t
+    type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
+    type interp_type_t = GdkPixbufInterpType.t
     type colorspace_t = GdkPixbufColorspace.t
     type t = base class_t
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self

@@ -1,7 +1,7 @@
 signature G_LIB_UNICODE_SCRIPT =
   sig
     datatype t =
-      INVALIDCODE
+      INVALID_CODE
     | COMMON
     | INHERITED
     | ARABIC
@@ -32,7 +32,7 @@ signature G_LIB_UNICODE_SCRIPT =
     | MONGOLIAN
     | MYANMAR
     | OGHAM
-    | OLDITALIC
+    | OLD_ITALIC
     | ORIYA
     | RUNIC
     | SINHALA
@@ -42,7 +42,7 @@ signature G_LIB_UNICODE_SCRIPT =
     | THAANA
     | THAI
     | TIBETAN
-    | CANADIANABORIGINAL
+    | CANADIAN_ABORIGINAL
     | YI
     | TAGALOG
     | HANUNOO
@@ -53,48 +53,48 @@ signature G_LIB_UNICODE_SCRIPT =
     | LIMBU
     | OSMANYA
     | SHAVIAN
-    | LINEARB
-    | TAILE
+    | LINEAR_B
+    | TAI_LE
     | UGARITIC
-    | NEWTAILUE
+    | NEW_TAI_LUE
     | BUGINESE
     | GLAGOLITIC
     | TIFINAGH
-    | SYLOTINAGRI
-    | OLDPERSIAN
+    | SYLOTI_NAGRI
+    | OLD_PERSIAN
     | KHAROSHTHI
     | UNKNOWN
     | BALINESE
     | CUNEIFORM
     | PHOENICIAN
-    | PHAGSPA
+    | PHAGS_PA
     | NKO
-    | KAYAHLI
+    | KAYAH_LI
     | LEPCHA
     | REJANG
     | SUNDANESE
     | SAURASHTRA
     | CHAM
-    | OLCHIKI
+    | OL_CHIKI
     | VAI
     | CARIAN
     | LYCIAN
     | LYDIAN
     | AVESTAN
     | BAMUM
-    | EGYPTIANHIEROGLYPHS
-    | IMPERIALARAMAIC
-    | INSCRIPTIONALPAHLAVI
-    | INSCRIPTIONALPARTHIAN
+    | EGYPTIAN_HIEROGLYPHS
+    | IMPERIAL_ARAMAIC
+    | INSCRIPTIONAL_PAHLAVI
+    | INSCRIPTIONAL_PARTHIAN
     | JAVANESE
     | KAITHI
     | LISU
-    | MEETEIMAYEK
-    | OLDSOUTHARABIAN
-    | OLDTURKIC
+    | MEETEI_MAYEK
+    | OLD_SOUTH_ARABIAN
+    | OLD_TURKIC
     | SAMARITAN
-    | TAITHAM
-    | TAIVIET
+    | TAI_THAM
+    | TAI_VIET
     | BATAK
     | BRAHMI
     | MANDAIC

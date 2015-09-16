@@ -4,14 +4,14 @@ signature GDK_PIXBUF_PIXDATA_TYPE =
     include
       BIT_FLAGS
         where type flags = t
-    val COLORTYPERGB : t
-    val COLORTYPERGBA : t
-    val COLORTYPEMASK : t
-    val SAMPLEWIDTH8 : t
-    val SAMPLEWIDTHMASK : t
-    val ENCODINGRAW : t
-    val ENCODINGRLE : t
-    val ENCODINGMASK : t
+    val COLOR_TYPE_RGB : t
+    val COLOR_TYPE_RGBA : t
+    val COLOR_TYPE_MASK : t
+    val SAMPLE_WIDTH_8 : t
+    val SAMPLE_WIDTH_MASK : t
+    val ENCODING_RAW : t
+    val ENCODING_RLE : t
+    val ENCODING_MASK : t
     structure C :
       sig
         type val_

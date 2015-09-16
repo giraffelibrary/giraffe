@@ -4,8 +4,8 @@ signature GTK_WINDOW_POSITION =
       NONE
     | CENTER
     | MOUSE
-    | CENTERALWAYS
-    | CENTERONPARENT
+    | CENTER_ALWAYS
+    | CENTER_ON_PARENT
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

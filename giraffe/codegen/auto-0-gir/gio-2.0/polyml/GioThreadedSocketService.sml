@@ -1,7 +1,7 @@
 structure GioThreadedSocketService :>
   GIO_THREADED_SOCKET_SERVICE
     where type 'a class_t = 'a GioThreadedSocketServiceClass.t
-    where type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t =
+    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t =
   struct
     local
       open PolyMLFFI
@@ -10,7 +10,7 @@ structure GioThreadedSocketService :>
       val new_ = call (load_sym libgio "g_threaded_socket_service_new") (FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioThreadedSocketServiceClass.t
-    type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
+    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new maxThreads = (FFI.Int.C.withVal ---> GioThreadedSocketServiceClass.C.fromPtr true) new_ maxThreads

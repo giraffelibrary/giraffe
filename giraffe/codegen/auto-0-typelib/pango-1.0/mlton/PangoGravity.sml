@@ -2,8 +2,8 @@ structure PangoGravity :>
   sig
     include
       PANGO_GRAVITY
-        where type matrixrecord_t = PangoMatrixRecord.t
-        where type gravityhint_t = PangoGravityHint.t
+        where type matrix_record_t = PangoMatrixRecord.t
+        where type gravity_hint_t = PangoGravityHint.t
         where type script_t = PangoScript.t
   end =
   struct
@@ -85,8 +85,8 @@ structure PangoGravity :>
               x4
             )
     val toRotation_ = _import "pango_gravity_to_rotation" : C.val_ -> FFI.Double.C.val_;
-    type matrixrecord_t = PangoMatrixRecord.t
-    type gravityhint_t = PangoGravityHint.t
+    type matrix_record_t = PangoMatrixRecord.t
+    type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getForMatrix matrix = (PangoMatrixRecord.C.withPtr ---> C.fromVal) getForMatrix_ matrix

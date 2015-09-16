@@ -1,26 +1,26 @@
 structure GdkWindow :>
   GDK_WINDOW
     where type 'a class_t = 'a GdkWindowClass.t
-    where type windowattrrecord_t = GdkWindowAttrRecord.t
-    where type windowedge_t = GdkWindowEdge.t
-    where type modifiertype_t = GdkModifierType.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t
-    where type dragprotocol_t = GdkDragProtocol.t
-    where type 'a screenclass_t = 'a GdkScreenClass.t
-    where type windowstate_t = GdkWindowState.t
-    where type 'a visualclass_t = 'a GdkVisualClass.t
-    where type windowtype_t = GdkWindowType.t
-    where type colorrecord_t = GdkColorRecord.t
-    where type rgbarecord_t = GdkRgbaRecord.t
-    where type wmdecoration_t = GdkWMDecoration.t
-    where type 'a deviceclass_t = 'a GdkDeviceClass.t
-    where type wmfunction_t = GdkWMFunction.t
-    where type windowhints_t = GdkWindowHints.t
-    where type geometryrecord_t = GdkGeometryRecord.t
-    where type eventmask_t = GdkEventMask.t
-    where type inputsource_t = GdkInputSource.t
-    where type windowtypehint_t = GdkWindowTypeHint.t
-    where type 'a cursorclass_t = 'a GdkCursorClass.t =
+    where type window_attr_record_t = GdkWindowAttrRecord.t
+    where type window_edge_t = GdkWindowEdge.t
+    where type modifier_type_t = GdkModifierType.t
+    where type 'a display_class_t = 'a GdkDisplayClass.t
+    where type drag_protocol_t = GdkDragProtocol.t
+    where type 'a screen_class_t = 'a GdkScreenClass.t
+    where type window_state_t = GdkWindowState.t
+    where type 'a visual_class_t = 'a GdkVisualClass.t
+    where type window_type_t = GdkWindowType.t
+    where type color_record_t = GdkColorRecord.t
+    where type rgba_record_t = GdkRgbaRecord.t
+    where type w_m_decoration_t = GdkWMDecoration.t
+    where type 'a device_class_t = 'a GdkDeviceClass.t
+    where type w_m_function_t = GdkWMFunction.t
+    where type window_hints_t = GdkWindowHints.t
+    where type geometry_record_t = GdkGeometryRecord.t
+    where type event_mask_t = GdkEventMask.t
+    where type input_source_t = GdkInputSource.t
+    where type window_type_hint_t = GdkWindowTypeHint.t
+    where type 'a cursor_class_t = 'a GdkCursorClass.t =
   struct
     local
       open PolyMLFFI
@@ -379,26 +379,26 @@ structure GdkWindow :>
       val withdraw_ = call (load_sym libgdk "gdk_window_withdraw") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GdkWindowClass.t
-    type windowattrrecord_t = GdkWindowAttrRecord.t
-    type windowedge_t = GdkWindowEdge.t
-    type modifiertype_t = GdkModifierType.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
-    type dragprotocol_t = GdkDragProtocol.t
-    type 'a screenclass_t = 'a GdkScreenClass.t
-    type windowstate_t = GdkWindowState.t
-    type 'a visualclass_t = 'a GdkVisualClass.t
-    type windowtype_t = GdkWindowType.t
-    type colorrecord_t = GdkColorRecord.t
-    type rgbarecord_t = GdkRgbaRecord.t
-    type wmdecoration_t = GdkWMDecoration.t
-    type 'a deviceclass_t = 'a GdkDeviceClass.t
-    type wmfunction_t = GdkWMFunction.t
-    type windowhints_t = GdkWindowHints.t
-    type geometryrecord_t = GdkGeometryRecord.t
-    type eventmask_t = GdkEventMask.t
-    type inputsource_t = GdkInputSource.t
-    type windowtypehint_t = GdkWindowTypeHint.t
-    type 'a cursorclass_t = 'a GdkCursorClass.t
+    type window_attr_record_t = GdkWindowAttrRecord.t
+    type window_edge_t = GdkWindowEdge.t
+    type modifier_type_t = GdkModifierType.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
+    type drag_protocol_t = GdkDragProtocol.t
+    type 'a screen_class_t = 'a GdkScreenClass.t
+    type window_state_t = GdkWindowState.t
+    type 'a visual_class_t = 'a GdkVisualClass.t
+    type window_type_t = GdkWindowType.t
+    type color_record_t = GdkColorRecord.t
+    type rgba_record_t = GdkRgbaRecord.t
+    type w_m_decoration_t = GdkWMDecoration.t
+    type 'a device_class_t = 'a GdkDeviceClass.t
+    type w_m_function_t = GdkWMFunction.t
+    type window_hints_t = GdkWindowHints.t
+    type geometry_record_t = GdkGeometryRecord.t
+    type event_mask_t = GdkEventMask.t
+    type input_source_t = GdkInputSource.t
+    type window_type_hint_t = GdkWindowTypeHint.t
+    type 'a cursor_class_t = 'a GdkCursorClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent attributes attributesMask =

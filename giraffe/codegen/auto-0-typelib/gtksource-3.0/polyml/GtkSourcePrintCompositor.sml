@@ -1,8 +1,8 @@
 structure GtkSourcePrintCompositor :>
   GTK_SOURCE_PRINT_COMPOSITOR
     where type 'a class_t = 'a GtkSourcePrintCompositorClass.t
-    where type 'a viewclass_t = 'a GtkSourceViewClass.t
-    where type 'a bufferclass_t = 'a GtkSourceBufferClass.t =
+    where type 'a view_class_t = 'a GtkSourceViewClass.t
+    where type 'a buffer_class_t = 'a GtkSourceBufferClass.t =
   struct
     local
       open PolyMLFFI
@@ -100,8 +100,8 @@ structure GtkSourcePrintCompositor :>
       val setWrapMode_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_wrap_mode") (GObjectObjectClass.PolyML.PTR &&> GtkWrapMode.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourcePrintCompositorClass.t
-    type 'a viewclass_t = 'a GtkSourceViewClass.t
-    type 'a bufferclass_t = 'a GtkSourceBufferClass.t
+    type 'a view_class_t = 'a GtkSourceViewClass.t
+    type 'a buffer_class_t = 'a GtkSourceBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new buffer = (GObjectObjectClass.C.withPtr ---> GtkSourcePrintCompositorClass.C.fromPtr true) new_ buffer

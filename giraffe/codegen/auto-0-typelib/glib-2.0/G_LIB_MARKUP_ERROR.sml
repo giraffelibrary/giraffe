@@ -1,16 +1,16 @@
 signature G_LIB_MARKUP_ERROR =
   sig
     datatype t =
-      BADUTF8
+      BAD_UTF_8
     | EMPTY
     | PARSE
-    | UNKNOWNELEMENT
-    | UNKNOWNATTRIBUTE
-    | INVALIDCONTENT
-    | MISSINGATTRIBUTE
+    | UNKNOWN_ELEMENT
+    | UNKNOWN_ATTRIBUTE
+    | INVALID_CONTENT
+    | MISSING_ATTRIBUTE
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

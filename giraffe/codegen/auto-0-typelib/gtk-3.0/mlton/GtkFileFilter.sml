@@ -1,9 +1,9 @@
 structure GtkFileFilter :>
   GTK_FILE_FILTER
     where type 'a class_t = 'a GtkFileFilterClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type filefilterinforecord_t = GtkFileFilterInfoRecord.t
-    where type filefilterflags_t = GtkFileFilterFlags.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type file_filter_info_record_t = GtkFileFilterInfoRecord.t
+    where type file_filter_flags_t = GtkFileFilterFlags.t =
   struct
     val getType_ = _import "gtk_file_filter_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_file_filter_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -57,9 +57,9 @@ structure GtkFileFilter :>
               x3
             )
     type 'a class_t = 'a GtkFileFilterClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type filefilterinforecord_t = GtkFileFilterInfoRecord.t
-    type filefilterflags_t = GtkFileFilterFlags.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type file_filter_info_record_t = GtkFileFilterInfoRecord.t
+    type file_filter_flags_t = GtkFileFilterFlags.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

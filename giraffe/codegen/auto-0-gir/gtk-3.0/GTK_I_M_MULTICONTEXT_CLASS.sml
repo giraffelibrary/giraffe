@@ -1,8 +1,8 @@
 signature GTK_I_M_MULTICONTEXT_CLASS =
   sig
-    type 'a immulticontext
-    type 'a imcontextclass_t
-    type 'a t = 'a immulticontext imcontextclass_t
+    type 'a i_m_multicontext
+    type 'a i_m_context_class_t
+    type 'a t = 'a i_m_multicontext i_m_context_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

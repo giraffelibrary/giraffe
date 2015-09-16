@@ -1,8 +1,8 @@
 structure GtkIconSource :>
   GTK_ICON_SOURCE
     where type record_t = GtkIconSourceRecord.t
-    where type textdirection_t = GtkTextDirection.t
-    where type statetype_t = GtkStateType.t =
+    where type text_direction_t = GtkTextDirection.t
+    where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_icon_source_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_icon_source_new" : unit -> GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p;
@@ -54,8 +54,8 @@ structure GtkIconSource :>
     val setState_ = fn x1 & x2 => (_import "gtk_icon_source_set_state" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * GtkStateType.C.val_ -> unit;) (x1, x2)
     val setStateWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_state_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type record_t = GtkIconSourceRecord.t
-    type textdirection_t = GtkTextDirection.t
-    type statetype_t = GtkStateType.t
+    type text_direction_t = GtkTextDirection.t
+    type state_type_t = GtkStateType.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSourceRecord.C.fromPtr true) new_ ()

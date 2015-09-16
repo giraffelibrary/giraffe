@@ -1,10 +1,10 @@
 structure GtkMenuShell :>
   GTK_MENU_SHELL
     where type 'a class_t = 'a GtkMenuShellClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type directiontype_t = GtkDirectionType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type menudirectiontype_t = GtkMenuDirectionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type direction_type_t = GtkDirectionType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type menu_direction_type_t = GtkMenuDirectionType.t =
   struct
     local
       open PolyMLFFI
@@ -39,10 +39,10 @@ structure GtkMenuShell :>
       val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMenuShellClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type directiontype_t = GtkDirectionType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type menudirectiontype_t = GtkMenuDirectionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type direction_type_t = GtkDirectionType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type menu_direction_type_t = GtkMenuDirectionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

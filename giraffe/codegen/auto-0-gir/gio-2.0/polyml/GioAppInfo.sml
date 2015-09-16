@@ -1,9 +1,9 @@
 structure GioAppInfo :>
   GIO_APP_INFO
     where type 'a class_t = 'a GioAppInfoClass.t
-    where type appinfocreateflags_t = GioAppInfoCreateFlags.t
-    where type 'a applaunchcontextclass_t = 'a GioAppLaunchContextClass.t
-    where type 'a iconclass_t = 'a GioIconClass.t =
+    where type app_info_create_flags_t = GioAppInfoCreateFlags.t
+    where type 'a app_launch_context_class_t = 'a GioAppLaunchContextClass.t
+    where type 'a icon_class_t = 'a GioIconClass.t =
   struct
     local
       open PolyMLFFI
@@ -86,9 +86,9 @@ structure GioAppInfo :>
       val supportsUris_ = call (load_sym libgio "g_app_info_supports_uris") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioAppInfoClass.t
-    type appinfocreateflags_t = GioAppInfoCreateFlags.t
-    type 'a applaunchcontextclass_t = 'a GioAppLaunchContextClass.t
-    type 'a iconclass_t = 'a GioIconClass.t
+    type app_info_create_flags_t = GioAppInfoCreateFlags.t
+    type 'a app_launch_context_class_t = 'a GioAppLaunchContextClass.t
+    type 'a icon_class_t = 'a GioIconClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =

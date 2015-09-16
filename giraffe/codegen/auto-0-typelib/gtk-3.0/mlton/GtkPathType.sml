@@ -5,7 +5,7 @@ structure GtkPathType :>
   struct
     datatype t =
       WIDGET
-    | WIDGETCLASS
+    | WIDGET_CLASS
     | CLASS
     structure C =
       struct
@@ -15,13 +15,13 @@ structure GtkPathType :>
         fun withVal f =
           fn
             WIDGET => f 0
-          | WIDGETCLASS => f 1
+          | WIDGET_CLASS => f 1
           | CLASS => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => WIDGET
-          | 1 => WIDGETCLASS
+          | 1 => WIDGET_CLASS
           | 2 => CLASS
           | n => raise Value n
       end

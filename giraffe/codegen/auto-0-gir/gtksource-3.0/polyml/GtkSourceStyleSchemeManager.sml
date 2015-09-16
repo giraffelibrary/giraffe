@@ -1,7 +1,7 @@
 structure GtkSourceStyleSchemeManager :>
   GTK_SOURCE_STYLE_SCHEME_MANAGER
     where type 'a class_t = 'a GtkSourceStyleSchemeManagerClass.t
-    where type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t =
+    where type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t =
   struct
     local
       open PolyMLFFI
@@ -15,7 +15,7 @@ structure GtkSourceStyleSchemeManager :>
       val prependSearchPath_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_prepend_search_path") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSourceStyleSchemeManagerClass.t
-    type 'a styleschemeclass_t = 'a GtkSourceStyleSchemeClass.t
+    type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr true) new_ ()

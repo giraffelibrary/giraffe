@@ -1,7 +1,7 @@
 signature GIO_ZLIB_DECOMPRESSOR_CLASS =
   sig
-    type 'a zlibdecompressor
-    type 'a t = 'a zlibdecompressor GObject.ObjectClass.t
+    type 'a zlib_decompressor
+    type 'a t = 'a zlib_decompressor GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

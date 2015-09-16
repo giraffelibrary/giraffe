@@ -13,14 +13,14 @@ structure GObjectBindingFlags :>
   struct
     val DEFAULT = 0w0
     val BIDIRECTIONAL = 0w1
-    val SYNCCREATE = 0w2
-    val INVERTBOOLEAN = 0w4
+    val SYNC_CREATE = 0w2
+    val INVERT_BOOLEAN = 0w4
     val allFlags =
       [
         DEFAULT,
         BIDIRECTIONAL,
-        SYNCCREATE,
-        INVERTBOOLEAN
+        SYNC_CREATE,
+        INVERT_BOOLEAN
       ]
     structure BitFlags =
       Word32BitFlags (

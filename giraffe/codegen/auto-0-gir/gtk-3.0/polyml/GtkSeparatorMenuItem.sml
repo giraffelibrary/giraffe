@@ -1,8 +1,8 @@
 structure GtkSeparatorMenuItem :>
   GTK_SEPARATOR_MENU_ITEM
     where type 'a class_t = 'a GtkSeparatorMenuItemClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     local
       open PolyMLFFI
@@ -11,8 +11,8 @@ structure GtkSeparatorMenuItem :>
       val new_ = call (load_sym libgtk "gtk_separator_menu_item_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkSeparatorMenuItemClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

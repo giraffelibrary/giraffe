@@ -1,10 +1,10 @@
 structure GLibMainContext :>
   G_LIB_MAIN_CONTEXT
     where type record_t = GLibMainContextRecord.t
-    where type sourcerecord_t = GLibSourceRecord.t
-    where type pollfdrecord_t = GLibPollFDRecord.t
-    where type mutexrecord_t = GLibMutexRecord.t
-    where type condrecord_t = GLibCondRecord.t =
+    where type source_record_t = GLibSourceRecord.t
+    where type poll_f_d_record_t = GLibPollFDRecord.t
+    where type mutex_record_t = GLibMutexRecord.t
+    where type cond_record_t = GLibCondRecord.t =
   struct
     local
       open PolyMLFFI
@@ -42,10 +42,10 @@ structure GLibMainContext :>
       val getThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (FFI.PolyML.VOID --> GLibMainContextRecord.PolyML.PTR)
     end
     type record_t = GLibMainContextRecord.t
-    type sourcerecord_t = GLibSourceRecord.t
-    type pollfdrecord_t = GLibPollFDRecord.t
-    type mutexrecord_t = GLibMutexRecord.t
-    type condrecord_t = GLibCondRecord.t
+    type source_record_t = GLibSourceRecord.t
+    type poll_f_d_record_t = GLibPollFDRecord.t
+    type mutex_record_t = GLibMutexRecord.t
+    type cond_record_t = GLibCondRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GLibMainContextRecord.C.fromPtr true) new_ ()

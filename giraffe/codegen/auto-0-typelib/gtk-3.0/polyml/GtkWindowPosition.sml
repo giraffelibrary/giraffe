@@ -12,8 +12,8 @@ structure GtkWindowPosition :>
       NONE
     | CENTER
     | MOUSE
-    | CENTERALWAYS
-    | CENTERONPARENT
+    | CENTER_ALWAYS
+    | CENTER_ON_PARENT
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -24,16 +24,16 @@ structure GtkWindowPosition :>
             NONE => f 0
           | CENTER => f 1
           | MOUSE => f 2
-          | CENTERALWAYS => f 3
-          | CENTERONPARENT => f 4
+          | CENTER_ALWAYS => f 3
+          | CENTER_ON_PARENT => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
           | 1 => CENTER
           | 2 => MOUSE
-          | 3 => CENTERALWAYS
-          | 4 => CENTERONPARENT
+          | 3 => CENTER_ALWAYS
+          | 4 => CENTER_ON_PARENT
           | n => raise Value n
       end
     structure PolyML =

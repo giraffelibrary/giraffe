@@ -4,28 +4,28 @@ signature GDK_EVENT_MASK =
     include
       BIT_FLAGS
         where type flags = t
-    val EXPOSUREMASK : t
-    val POINTERMOTIONMASK : t
-    val POINTERMOTIONHINTMASK : t
-    val BUTTONMOTIONMASK : t
-    val BUTTON1MOTIONMASK : t
-    val BUTTON2MOTIONMASK : t
-    val BUTTON3MOTIONMASK : t
-    val BUTTONPRESSMASK : t
-    val BUTTONRELEASEMASK : t
-    val KEYPRESSMASK : t
-    val KEYRELEASEMASK : t
-    val ENTERNOTIFYMASK : t
-    val LEAVENOTIFYMASK : t
-    val FOCUSCHANGEMASK : t
-    val STRUCTUREMASK : t
-    val PROPERTYCHANGEMASK : t
-    val VISIBILITYNOTIFYMASK : t
-    val PROXIMITYINMASK : t
-    val PROXIMITYOUTMASK : t
-    val SUBSTRUCTUREMASK : t
-    val SCROLLMASK : t
-    val ALLEVENTSMASK : t
+    val EXPOSURE_MASK : t
+    val POINTER_MOTION_MASK : t
+    val POINTER_MOTION_HINT_MASK : t
+    val BUTTON_MOTION_MASK : t
+    val BUTTON_1_MOTION_MASK : t
+    val BUTTON_2_MOTION_MASK : t
+    val BUTTON_3_MOTION_MASK : t
+    val BUTTON_PRESS_MASK : t
+    val BUTTON_RELEASE_MASK : t
+    val KEY_PRESS_MASK : t
+    val KEY_RELEASE_MASK : t
+    val ENTER_NOTIFY_MASK : t
+    val LEAVE_NOTIFY_MASK : t
+    val FOCUS_CHANGE_MASK : t
+    val STRUCTURE_MASK : t
+    val PROPERTY_CHANGE_MASK : t
+    val VISIBILITY_NOTIFY_MASK : t
+    val PROXIMITY_IN_MASK : t
+    val PROXIMITY_OUT_MASK : t
+    val SUBSTRUCTURE_MASK : t
+    val SCROLL_MASK : t
+    val ALL_EVENTS_MASK : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

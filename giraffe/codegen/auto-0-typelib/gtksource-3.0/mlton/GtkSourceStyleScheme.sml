@@ -1,7 +1,7 @@
 structure GtkSourceStyleScheme :>
   GTK_SOURCE_STYLE_SCHEME
     where type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a styleclass_t = 'a GtkSourceStyleClass.t =
+    where type 'a style_class_t = 'a GtkSourceStyleClass.t =
   struct
     val getType_ = _import "gtk_source_style_scheme_get_type" : unit -> GObjectType.C.val_;
     val getDescription_ = _import "gtk_source_style_scheme_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -24,7 +24,7 @@ structure GtkSourceStyleScheme :>
               x3
             )
     type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a styleclass_t = 'a GtkSourceStyleClass.t
+    type 'a style_class_t = 'a GtkSourceStyleClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self

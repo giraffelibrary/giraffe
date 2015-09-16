@@ -6,7 +6,7 @@ signature PANGO_CAIRO =
     structure FcFontMap :
       PANGO_CAIRO_FC_FONT_MAP
         where type 'a class_t = 'a FcFontMapClass.t
-        where type 'a fontmapclass_t = 'a FontMapClass.t
+        where type 'a font_map_class_t = 'a FontMapClass.t
     structure Font :
       PANGO_CAIRO_FONT
         where type 'a class_t = 'a FontClass.t

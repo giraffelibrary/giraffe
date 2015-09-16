@@ -1,9 +1,9 @@
 structure GdkVisual :>
   GDK_VISUAL
     where type 'a class_t = 'a GdkVisualClass.t
-    where type byteorder_t = GdkByteOrder.t
-    where type 'a screenclass_t = 'a GdkScreenClass.t
-    where type visualtype_t = GdkVisualType.t =
+    where type byte_order_t = GdkByteOrder.t
+    where type 'a screen_class_t = 'a GdkScreenClass.t
+    where type visual_type_t = GdkVisualType.t =
   struct
     val getType_ = _import "gdk_visual_get_type" : unit -> GObjectType.C.val_;
     val getBest_ = _import "gdk_visual_get_best" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -80,9 +80,9 @@ structure GdkVisual :>
     val getScreen_ = _import "gdk_visual_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getVisualType_ = _import "gdk_visual_get_visual_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkVisualType.C.val_;
     type 'a class_t = 'a GdkVisualClass.t
-    type byteorder_t = GdkByteOrder.t
-    type 'a screenclass_t = 'a GdkScreenClass.t
-    type visualtype_t = GdkVisualType.t
+    type byte_order_t = GdkByteOrder.t
+    type 'a screen_class_t = 'a GdkScreenClass.t
+    type visual_type_t = GdkVisualType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBest () = (I ---> GdkVisualClass.C.fromPtr false) getBest_ ()

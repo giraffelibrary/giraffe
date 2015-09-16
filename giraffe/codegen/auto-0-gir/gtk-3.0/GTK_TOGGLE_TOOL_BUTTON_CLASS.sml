@@ -1,8 +1,8 @@
 signature GTK_TOGGLE_TOOL_BUTTON_CLASS =
   sig
-    type 'a toggletoolbutton
-    type 'a toolbuttonclass_t
-    type 'a t = 'a toggletoolbutton toolbuttonclass_t
+    type 'a toggle_tool_button
+    type 'a tool_button_class_t
+    type 'a t = 'a toggle_tool_button tool_button_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

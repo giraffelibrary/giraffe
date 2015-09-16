@@ -1,11 +1,11 @@
 signature GTK_TEXT_ITER =
   sig
     type record_t
-    type textsearchflags_t
-    type textattributesrecord_t
-    type 'a textbufferclass_t
-    type 'a textchildanchorclass_t
-    type 'a texttagclass_t
+    type text_search_flags_t
+    type text_attributes_record_t
+    type 'a text_buffer_class_t
+    type 'a text_child_anchor_class_t
+    type 'a text_tag_class_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val assign :
@@ -30,7 +30,7 @@ signature GTK_TEXT_ITER =
     val backwardSearch :
       record_t
        -> string
-       -> textsearchflags_t
+       -> text_search_flags_t
        -> record_t option
        -> (record_t * record_t) option
     val backwardSentenceStart : record_t -> bool
@@ -40,7 +40,7 @@ signature GTK_TEXT_ITER =
        -> bool
     val backwardToTagToggle :
       record_t
-       -> 'a texttagclass_t option
+       -> 'a text_tag_class_t option
        -> bool
     val backwardVisibleCursorPosition : record_t -> bool
     val backwardVisibleCursorPositions :
@@ -64,7 +64,7 @@ signature GTK_TEXT_ITER =
        -> bool
     val beginsTag :
       record_t
-       -> 'a texttagclass_t option
+       -> 'a text_tag_class_t option
        -> bool
     val canInsert :
       record_t
@@ -83,7 +83,7 @@ signature GTK_TEXT_ITER =
     val endsSentence : record_t -> bool
     val endsTag :
       record_t
-       -> 'a texttagclass_t option
+       -> 'a text_tag_class_t option
        -> bool
     val endsWord : record_t -> bool
     val equal :
@@ -108,7 +108,7 @@ signature GTK_TEXT_ITER =
     val forwardSearch :
       record_t
        -> string
-       -> textsearchflags_t
+       -> text_search_flags_t
        -> record_t option
        -> (record_t * record_t) option
     val forwardSentenceEnd : record_t -> bool
@@ -120,7 +120,7 @@ signature GTK_TEXT_ITER =
     val forwardToLineEnd : record_t -> bool
     val forwardToTagToggle :
       record_t
-       -> 'a texttagclass_t option
+       -> 'a text_tag_class_t option
        -> bool
     val forwardVisibleCursorPosition : record_t -> bool
     val forwardVisibleCursorPositions :
@@ -142,12 +142,12 @@ signature GTK_TEXT_ITER =
       record_t
        -> LargeInt.int
        -> bool
-    val getAttributes : record_t -> textattributesrecord_t option
-    val getBuffer : record_t -> base textbufferclass_t
+    val getAttributes : record_t -> text_attributes_record_t option
+    val getBuffer : record_t -> base text_buffer_class_t
     val getBytesInLine : record_t -> LargeInt.int
     val getChar : record_t -> char
     val getCharsInLine : record_t -> LargeInt.int
-    val getChildAnchor : record_t -> base textchildanchorclass_t
+    val getChildAnchor : record_t -> base text_child_anchor_class_t
     val getLanguage : record_t -> Pango.LanguageRecord.t
     val getLine : record_t -> LargeInt.int
     val getLineIndex : record_t -> LargeInt.int
@@ -174,7 +174,7 @@ signature GTK_TEXT_ITER =
        -> string
     val hasTag :
       record_t
-       -> 'a texttagclass_t
+       -> 'a text_tag_class_t
        -> bool
     val inRange :
       record_t
@@ -219,6 +219,6 @@ signature GTK_TEXT_ITER =
     val startsWord : record_t -> bool
     val togglesTag :
       record_t
-       -> 'a texttagclass_t option
+       -> 'a text_tag_class_t option
        -> bool
   end

@@ -1,14 +1,14 @@
 structure GtkComboBox :>
   GTK_COMBO_BOX
     where type 'a class_t = 'a GtkComboBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type scrolltype_t = GtkScrollType.t
-    where type sensitivitytype_t = GtkSensitivityType.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type scroll_type_t = GtkScrollType.t
+    where type sensitivity_type_t = GtkSensitivityType.t
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     val getType_ = _import "gtk_combo_box_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_combo_box_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -79,14 +79,14 @@ structure GtkComboBox :>
             )
     val setWrapWidth_ = fn x1 & x2 => (_import "gtk_combo_box_set_wrap_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkComboBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type scrolltype_t = GtkScrollType.t
-    type sensitivitytype_t = GtkSensitivityType.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type scroll_type_t = GtkScrollType.t
+    type sensitivity_type_t = GtkSensitivityType.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

@@ -7,7 +7,7 @@ structure GtkWrapMode :>
       NONE
     | CHAR
     | WORD
-    | WORDCHAR
+    | WORD_CHAR
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -18,14 +18,14 @@ structure GtkWrapMode :>
             NONE => f 0
           | CHAR => f 1
           | WORD => f 2
-          | WORDCHAR => f 3
+          | WORD_CHAR => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
           | 1 => CHAR
           | 2 => WORD
-          | 3 => WORDCHAR
+          | 3 => WORD_CHAR
           | n => raise Value n
       end
     val getType_ = _import "gtk_wrap_mode_get_type" : unit -> GObjectType.C.val_;

@@ -1,9 +1,9 @@
 structure GioVolumeMonitor :>
   GIO_VOLUME_MONITOR
     where type 'a class_t = 'a GioVolumeMonitorClass.t
-    where type 'a driveclass_t = 'a GioDriveClass.t
-    where type 'a mountclass_t = 'a GioMountClass.t
-    where type 'a volumeclass_t = 'a GioVolumeClass.t =
+    where type 'a drive_class_t = 'a GioDriveClass.t
+    where type 'a mount_class_t = 'a GioMountClass.t
+    where type 'a volume_class_t = 'a GioVolumeClass.t =
   struct
     val getType_ = _import "g_volume_monitor_get_type" : unit -> GObjectType.C.val_;
     val get_ = _import "g_volume_monitor_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -38,9 +38,9 @@ structure GioVolumeMonitor :>
               x3
             )
     type 'a class_t = 'a GioVolumeMonitorClass.t
-    type 'a driveclass_t = 'a GioDriveClass.t
-    type 'a mountclass_t = 'a GioMountClass.t
-    type 'a volumeclass_t = 'a GioVolumeClass.t
+    type 'a drive_class_t = 'a GioDriveClass.t
+    type 'a mount_class_t = 'a GioMountClass.t
+    type 'a volume_class_t = 'a GioVolumeClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()

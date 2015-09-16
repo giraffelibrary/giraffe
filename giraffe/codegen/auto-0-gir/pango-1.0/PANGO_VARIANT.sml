@@ -2,7 +2,7 @@ signature PANGO_VARIANT =
   sig
     datatype t =
       NORMAL
-    | SMALLCAPS
+    | SMALL_CAPS
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

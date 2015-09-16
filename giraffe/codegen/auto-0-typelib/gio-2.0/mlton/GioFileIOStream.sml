@@ -1,10 +1,10 @@
 structure GioFileIOStream :>
   GIO_FILE_I_O_STREAM
     where type 'a class_t = 'a GioFileIOStreamClass.t
-    where type 'a seekableclass_t = 'a GioSeekableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a seekable_class_t = 'a GioSeekableClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_file_io_stream_get_type" : unit -> GObjectType.C.val_;
     val getEtag_ = _import "g_file_io_stream_get_etag" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -48,10 +48,10 @@ structure GioFileIOStream :>
               x3
             )
     type 'a class_t = 'a GioFileIOStreamClass.t
-    type 'a seekableclass_t = 'a GioSeekableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a seekable_class_t = 'a GioSeekableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

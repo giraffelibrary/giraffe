@@ -5,7 +5,7 @@ signature G_LIB_HOOK_FLAG_MASK =
       BIT_FLAGS
         where type flags = t
     val ACTIVE : t
-    val INCALL : t
+    val IN_CALL : t
     val MASK : t
     structure C :
       sig

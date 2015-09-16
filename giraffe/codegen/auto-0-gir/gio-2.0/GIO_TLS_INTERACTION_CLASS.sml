@@ -1,7 +1,7 @@
 signature GIO_TLS_INTERACTION_CLASS =
   sig
-    type 'a tlsinteraction
-    type 'a t = 'a tlsinteraction GObject.ObjectClass.t
+    type 'a tls_interaction
+    type 'a t = 'a tls_interaction GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

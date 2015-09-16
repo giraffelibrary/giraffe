@@ -1,8 +1,8 @@
 signature GTK_RECENT_CHOOSER_ERROR =
   sig
     datatype t =
-      NOTFOUND
-    | INVALIDURI
+      NOT_FOUND
+    | INVALID_URI
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

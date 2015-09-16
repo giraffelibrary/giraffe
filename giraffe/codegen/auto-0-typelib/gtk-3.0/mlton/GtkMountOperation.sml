@@ -1,7 +1,7 @@
 structure GtkMountOperation :>
   GTK_MOUNT_OPERATION
     where type 'a class_t = 'a GtkMountOperationClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t =
+    where type 'a window_class_t = 'a GtkWindowClass.t =
   struct
     val getType_ = _import "gtk_mount_operation_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_mount_operation_new" : unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -11,7 +11,7 @@ structure GtkMountOperation :>
     val setParent_ = fn x1 & x2 => (_import "gtk_mount_operation_set_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setScreen_ = fn x1 & x2 => (_import "gtk_mount_operation_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkMountOperationClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent = (GObjectObjectClass.C.withOptPtr ---> GtkMountOperationClass.C.fromPtr true) new_ parent

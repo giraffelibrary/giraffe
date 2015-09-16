@@ -3,13 +3,13 @@ signature GTK_PRINT_STATUS =
     datatype t =
       INITIAL
     | PREPARING
-    | GENERATINGDATA
-    | SENDINGDATA
+    | GENERATING_DATA
+    | SENDING_DATA
     | PENDING
-    | PENDINGISSUE
+    | PENDING_ISSUE
     | PRINTING
     | FINISHED
-    | FINISHEDABORTED
+    | FINISHED_ABORTED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

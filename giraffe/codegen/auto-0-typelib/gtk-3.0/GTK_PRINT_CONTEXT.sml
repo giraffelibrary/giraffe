@@ -1,7 +1,7 @@
 signature GTK_PRINT_CONTEXT =
   sig
     type 'a class_t
-    type 'a pagesetupclass_t
+    type 'a page_setup_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val createPangoContext : 'a class_t -> base Pango.ContextClass.t
@@ -17,7 +17,7 @@ signature GTK_PRINT_CONTEXT =
             * real)
             option
     val getHeight : 'a class_t -> real
-    val getPageSetup : 'a class_t -> base pagesetupclass_t
+    val getPageSetup : 'a class_t -> base page_setup_class_t
     val getPangoFontmap : 'a class_t -> base Pango.FontMapClass.t
     val getWidth : 'a class_t -> real
     val setCairoContext :

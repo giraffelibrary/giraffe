@@ -1,7 +1,7 @@
 signature GTK_TARGET_LIST =
   sig
     type record_t
-    type 'a textbufferclass_t
+    type 'a text_buffer_class_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val add :
@@ -19,7 +19,7 @@ signature GTK_TARGET_LIST =
       record_t
        -> LargeInt.int
        -> bool
-       -> 'a textbufferclass_t
+       -> 'a text_buffer_class_t
        -> unit
     val addTextTargets :
       record_t

@@ -4,14 +4,14 @@ structure GdkWindowEdge :>
   end =
   struct
     datatype t =
-      NORTHWEST
+      NORTH_WEST
     | NORTH
-    | NORTHEAST
+    | NORTH_EAST
     | WEST
     | EAST
-    | SOUTHWEST
+    | SOUTH_WEST
     | SOUTH
-    | SOUTHEAST
+    | SOUTH_EAST
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -19,25 +19,25 @@ structure GdkWindowEdge :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NORTHWEST => f 0
+            NORTH_WEST => f 0
           | NORTH => f 1
-          | NORTHEAST => f 2
+          | NORTH_EAST => f 2
           | WEST => f 3
           | EAST => f 4
-          | SOUTHWEST => f 5
+          | SOUTH_WEST => f 5
           | SOUTH => f 6
-          | SOUTHEAST => f 7
+          | SOUTH_EAST => f 7
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NORTHWEST
+            0 => NORTH_WEST
           | 1 => NORTH
-          | 2 => NORTHEAST
+          | 2 => NORTH_EAST
           | 3 => WEST
           | 4 => EAST
-          | 5 => SOUTHWEST
+          | 5 => SOUTH_WEST
           | 6 => SOUTH
-          | 7 => SOUTHEAST
+          | 7 => SOUTH_EAST
           | n => raise Value n
       end
     val getType_ = _import "gdk_window_edge_get_type" : unit -> GObjectType.C.val_;
@@ -50,6 +50,6 @@ structure GdkWindowEdge :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = NORTHWEST
+    val null = NORTH_WEST
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

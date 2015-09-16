@@ -1,8 +1,8 @@
 structure GtkRadioMenuItem :>
   GTK_RADIO_MENU_ITEM
     where type 'a class_t = 'a GtkRadioMenuItemClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GtkRadioMenuItem :>
       val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkRadioMenuItemClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

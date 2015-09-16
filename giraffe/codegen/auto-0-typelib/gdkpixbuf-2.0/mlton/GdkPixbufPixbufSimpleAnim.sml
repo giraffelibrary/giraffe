@@ -1,7 +1,7 @@
 structure GdkPixbufPixbufSimpleAnim :>
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM
     where type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
-    where type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
   struct
     val getType_ = _import "gdk_pixbuf_simple_anim_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -25,7 +25,7 @@ structure GdkPixbufPixbufSimpleAnim :>
     val getLoop_ = _import "gdk_pixbuf_simple_anim_get_loop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
-    type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =

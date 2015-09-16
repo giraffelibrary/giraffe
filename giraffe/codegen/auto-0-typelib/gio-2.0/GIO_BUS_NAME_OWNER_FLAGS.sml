@@ -5,7 +5,7 @@ signature GIO_BUS_NAME_OWNER_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val ALLOWREPLACEMENT : t
+    val ALLOW_REPLACEMENT : t
     val REPLACE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

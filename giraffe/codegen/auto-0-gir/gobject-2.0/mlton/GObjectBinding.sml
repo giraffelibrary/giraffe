@@ -2,8 +2,8 @@ structure GObjectBinding :>
   G_OBJECT_BINDING
     where type 'a class_t = 'a GObjectBindingClass.t
     where type type_t = GObjectType.t
-    where type bindingflags_t = GObjectBindingFlags.t
-    where type 'a objectclass_t = 'a GObjectObjectClass.t
+    where type binding_flags_t = GObjectBindingFlags.t
+    where type 'a object_class_t = 'a GObjectObjectClass.t
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
@@ -16,8 +16,8 @@ structure GObjectBinding :>
     val getTargetProperty_ = _import "g_binding_get_target_property" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     type 'a class_t = 'a GObjectBindingClass.t
     type type_t = GObjectType.t
-    type bindingflags_t = GObjectBindingFlags.t
-    type 'a objectclass_t = 'a GObjectObjectClass.t
+    type binding_flags_t = GObjectBindingFlags.t
+    type 'a object_class_t = 'a GObjectObjectClass.t
     type t = base class_t
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly

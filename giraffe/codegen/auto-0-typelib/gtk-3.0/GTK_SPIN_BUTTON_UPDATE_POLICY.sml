@@ -2,7 +2,7 @@ signature GTK_SPIN_BUTTON_UPDATE_POLICY =
   sig
     datatype t =
       ALWAYS
-    | IFVALID
+    | IF_VALID
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

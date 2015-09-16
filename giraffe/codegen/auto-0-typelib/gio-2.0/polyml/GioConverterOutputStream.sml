@@ -1,8 +1,8 @@
 structure GioConverterOutputStream :>
   GIO_CONVERTER_OUTPUT_STREAM
     where type 'a class_t = 'a GioConverterOutputStreamClass.t
-    where type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
-    where type 'a converterclass_t = 'a GioConverterClass.t =
+    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t
+    where type 'a converter_class_t = 'a GioConverterClass.t =
   struct
     local
       open PolyMLFFI
@@ -12,8 +12,8 @@ structure GioConverterOutputStream :>
       val getConverter_ = call (load_sym libgio "g_converter_output_stream_get_converter") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioConverterOutputStreamClass.t
-    type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
-    type 'a converterclass_t = 'a GioConverterClass.t
+    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
+    type 'a converter_class_t = 'a GioConverterClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream converter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GioConverterOutputStreamClass.C.fromPtr true) new_ (baseStream & converter)

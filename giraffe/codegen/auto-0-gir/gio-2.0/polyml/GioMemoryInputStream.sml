@@ -1,7 +1,7 @@
 structure GioMemoryInputStream :>
   GIO_MEMORY_INPUT_STREAM
     where type 'a class_t = 'a GioMemoryInputStreamClass.t
-    where type 'a seekableclass_t = 'a GioSeekableClass.t =
+    where type 'a seekable_class_t = 'a GioSeekableClass.t =
   struct
     local
       open PolyMLFFI
@@ -10,7 +10,7 @@ structure GioMemoryInputStream :>
       val new_ = call (load_sym libgio "g_memory_input_stream_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioMemoryInputStreamClass.t
-    type 'a seekableclass_t = 'a GioSeekableClass.t
+    type 'a seekable_class_t = 'a GioSeekableClass.t
     type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

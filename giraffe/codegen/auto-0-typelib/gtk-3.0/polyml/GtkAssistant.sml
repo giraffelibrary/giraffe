@@ -1,9 +1,9 @@
 structure GtkAssistant :>
   GTK_ASSISTANT
     where type 'a class_t = 'a GtkAssistantClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type assistantpagetype_t = GtkAssistantPageType.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type assistant_page_type_t = GtkAssistantPageType.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     local
       open PolyMLFFI
@@ -60,9 +60,9 @@ structure GtkAssistant :>
       val updateButtonsState_ = call (load_sym libgtk "gtk_assistant_update_buttons_state") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkAssistantClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type assistantpagetype_t = GtkAssistantPageType.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type assistant_page_type_t = GtkAssistantPageType.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

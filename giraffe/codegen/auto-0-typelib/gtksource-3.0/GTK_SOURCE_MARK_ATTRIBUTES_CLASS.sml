@@ -1,7 +1,7 @@
 signature GTK_SOURCE_MARK_ATTRIBUTES_CLASS =
   sig
-    type 'a markattributes
-    type 'a t = 'a markattributes GObject.ObjectClass.t
+    type 'a mark_attributes
+    type 'a t = 'a mark_attributes GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

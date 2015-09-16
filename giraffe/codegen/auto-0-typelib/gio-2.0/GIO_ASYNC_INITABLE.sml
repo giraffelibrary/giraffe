@@ -1,15 +1,15 @@
 signature GIO_ASYNC_INITABLE =
   sig
     type 'a class_t
-    type 'a asyncresultclass_t
+    type 'a async_result_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val initFinish :
       'a class_t
-       -> 'b asyncresultclass_t
+       -> 'b async_result_class_t
        -> bool
     val newFinish :
       'a class_t
-       -> 'b asyncresultclass_t
+       -> 'b async_result_class_t
        -> base GObject.ObjectClass.t
   end

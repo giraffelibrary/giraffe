@@ -1,8 +1,8 @@
 structure GtkCellRendererCombo :>
   GTK_CELL_RENDERER_COMBO
     where type 'a class_t = 'a GtkCellRendererComboClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     local
       open PolyMLFFI
@@ -11,8 +11,8 @@ structure GtkCellRendererCombo :>
       val new_ = call (load_sym libgtk "gtk_cell_renderer_combo_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkCellRendererComboClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererComboClass.C.fromPtr false) new_ ()

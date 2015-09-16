@@ -1,8 +1,8 @@
 signature GIO_THREADED_SOCKET_SERVICE_CLASS =
   sig
-    type 'a threadedsocketservice
-    type 'a socketserviceclass_t
-    type 'a t = 'a threadedsocketservice socketserviceclass_t
+    type 'a threaded_socket_service
+    type 'a socket_service_class_t
+    type 'a t = 'a threaded_socket_service socket_service_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

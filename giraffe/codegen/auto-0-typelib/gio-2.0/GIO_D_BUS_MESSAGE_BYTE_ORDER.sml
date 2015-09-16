@@ -1,8 +1,8 @@
 signature GIO_D_BUS_MESSAGE_BYTE_ORDER =
   sig
     datatype t =
-      BIGENDIAN
-    | LITTLEENDIAN
+      BIG_ENDIAN
+    | LITTLE_ENDIAN
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -1,13 +1,13 @@
 structure GtkCellView :>
   GTK_CELL_VIEW
     where type 'a class_t = 'a GtkCellViewClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type treepathrecord_t = GtkTreePathRecord.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    where type 'a cellareacontextclass_t = 'a GtkCellAreaContextClass.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type tree_path_record_t = GtkTreePathRecord.t
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     local
       open PolyMLFFI
@@ -30,13 +30,13 @@ structure GtkCellView :>
       val setModel_ = call (load_sym libgtk "gtk_cell_view_set_model") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellViewClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type treepathrecord_t = GtkTreePathRecord.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    type 'a cellareacontextclass_t = 'a GtkCellAreaContextClass.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type tree_path_record_t = GtkTreePathRecord.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

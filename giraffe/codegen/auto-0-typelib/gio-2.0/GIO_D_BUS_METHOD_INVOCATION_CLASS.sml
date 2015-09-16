@@ -1,7 +1,7 @@
 signature GIO_D_BUS_METHOD_INVOCATION_CLASS =
   sig
-    type 'a dbusmethodinvocation
-    type 'a t = 'a dbusmethodinvocation GObject.ObjectClass.t
+    type 'a d_bus_method_invocation
+    type 'a t = 'a d_bus_method_invocation GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,7 +1,7 @@
 signature GIO_TLS_BACKEND_CLASS =
   sig
-    type 'a tlsbackend
-    type 'a t = 'a tlsbackend GObject.ObjectClass.t
+    type 'a tls_backend
+    type 'a t = 'a tls_backend GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

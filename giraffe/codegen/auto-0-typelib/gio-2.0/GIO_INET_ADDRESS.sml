@@ -1,17 +1,17 @@
 signature GIO_INET_ADDRESS =
   sig
     type 'a class_t
-    type socketfamily_t
+    type socket_family_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
-    val newAny : socketfamily_t -> base class_t
+    val newAny : socket_family_t -> base class_t
     val newFromString : string -> base class_t
-    val newLoopback : socketfamily_t -> base class_t
+    val newLoopback : socket_family_t -> base class_t
     val equal :
       'a class_t
        -> 'b class_t
        -> bool
-    val getFamily : 'a class_t -> socketfamily_t
+    val getFamily : 'a class_t -> socket_family_t
     val getIsAny : 'a class_t -> bool
     val getIsLinkLocal : 'a class_t -> bool
     val getIsLoopback : 'a class_t -> bool
@@ -24,7 +24,7 @@ signature GIO_INET_ADDRESS =
     val getIsSiteLocal : 'a class_t -> bool
     val getNativeSize : 'a class_t -> LargeInt.int
     val toString : 'a class_t -> string
-    val familyProp : ('a class_t, socketfamily_t, socketfamily_t) Property.readwrite
+    val familyProp : ('a class_t, socket_family_t, socket_family_t) Property.readwrite
     val isAnyProp : ('a class_t, bool) Property.readonly
     val isLinkLocalProp : ('a class_t, bool) Property.readonly
     val isLoopbackProp : ('a class_t, bool) Property.readonly

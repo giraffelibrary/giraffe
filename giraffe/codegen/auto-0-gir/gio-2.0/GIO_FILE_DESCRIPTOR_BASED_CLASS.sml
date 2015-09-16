@@ -1,7 +1,7 @@
 signature GIO_FILE_DESCRIPTOR_BASED_CLASS =
   sig
-    type 'a filedescriptorbased
-    type 'a t = 'a filedescriptorbased GObject.ObjectClass.t
+    type 'a file_descriptor_based
+    type 'a t = 'a file_descriptor_based GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

@@ -1,10 +1,10 @@
 structure GtkHandleBox :>
   GTK_HANDLE_BOX
     where type 'a class_t = 'a GtkHandleBoxClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type shadowtype_t = GtkShadowType.t
-    where type positiontype_t = GtkPositionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type shadow_type_t = GtkShadowType.t
+    where type position_type_t = GtkPositionType.t =
   struct
     local
       open PolyMLFFI
@@ -20,10 +20,10 @@ structure GtkHandleBox :>
       val setSnapEdge_ = call (load_sym libgtk "gtk_handle_box_set_snap_edge") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkHandleBoxClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type shadowtype_t = GtkShadowType.t
-    type positiontype_t = GtkPositionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type shadow_type_t = GtkShadowType.t
+    type position_type_t = GtkPositionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

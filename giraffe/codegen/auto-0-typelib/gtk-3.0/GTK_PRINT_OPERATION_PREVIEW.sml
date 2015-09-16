@@ -1,8 +1,8 @@
 signature GTK_PRINT_OPERATION_PREVIEW =
   sig
     type 'a class_t
-    type 'a pagesetupclass_t
-    type 'a printcontextclass_t
+    type 'a page_setup_class_t
+    type 'a print_context_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val endPreview : 'a class_t -> unit
@@ -15,9 +15,9 @@ signature GTK_PRINT_OPERATION_PREVIEW =
        -> LargeInt.int
        -> unit
     val gotPageSizeSig :
-      (base printcontextclass_t
-        -> base pagesetupclass_t
+      (base print_context_class_t
+        -> base page_setup_class_t
         -> unit)
        -> 'a class_t Signal.signal
-    val readySig : (base printcontextclass_t -> unit) -> 'a class_t Signal.signal
+    val readySig : (base print_context_class_t -> unit) -> 'a class_t Signal.signal
   end

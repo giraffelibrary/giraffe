@@ -1,15 +1,15 @@
 signature PANGO_STRETCH =
   sig
     datatype t =
-      ULTRACONDENSED
-    | EXTRACONDENSED
+      ULTRA_CONDENSED
+    | EXTRA_CONDENSED
     | CONDENSED
-    | SEMICONDENSED
+    | SEMI_CONDENSED
     | NORMAL
-    | SEMIEXPANDED
+    | SEMI_EXPANDED
     | EXPANDED
-    | EXTRAEXPANDED
-    | ULTRAEXPANDED
+    | EXTRA_EXPANDED
+    | ULTRA_EXPANDED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

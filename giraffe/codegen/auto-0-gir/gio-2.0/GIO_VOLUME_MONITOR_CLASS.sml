@@ -1,7 +1,7 @@
 signature GIO_VOLUME_MONITOR_CLASS =
   sig
-    type 'a volumemonitor
-    type 'a t = 'a volumemonitor GObject.ObjectClass.t
+    type 'a volume_monitor
+    type 'a t = 'a volume_monitor GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

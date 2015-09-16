@@ -5,11 +5,11 @@ signature G_LIB_OPTION_FLAGS =
       BIT_FLAGS
         where type flags = t
     val HIDDEN : t
-    val INMAIN : t
+    val IN_MAIN : t
     val REVERSE : t
-    val NOARG : t
+    val NO_ARG : t
     val FILENAME : t
-    val OPTIONALARG : t
+    val OPTIONAL_ARG : t
     val NOALIAS : t
     structure C :
       sig

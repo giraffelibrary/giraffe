@@ -4,7 +4,7 @@ signature GTK_PRINT_OPERATION_RESULT =
       ERROR
     | APPLY
     | CANCEL
-    | INPROGRESS
+    | IN_PROGRESS
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

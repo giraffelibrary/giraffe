@@ -1,7 +1,7 @@
 signature GTK_TEXT_CHILD_ANCHOR_CLASS =
   sig
-    type 'a textchildanchor
-    type 'a t = 'a textchildanchor GObject.ObjectClass.t
+    type 'a text_child_anchor
+    type 'a t = 'a text_child_anchor GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

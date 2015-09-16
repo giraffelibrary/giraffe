@@ -1,8 +1,8 @@
 structure GtkIconSource :>
   GTK_ICON_SOURCE
     where type record_t = GtkIconSourceRecord.t
-    where type textdirection_t = GtkTextDirection.t
-    where type statetype_t = GtkStateType.t =
+    where type text_direction_t = GtkTextDirection.t
+    where type state_type_t = GtkStateType.t =
   struct
     local
       open PolyMLFFI
@@ -30,8 +30,8 @@ structure GtkIconSource :>
       val setStateWildcarded_ = call (load_sym libgtk "gtk_icon_source_set_state_wildcarded") (GtkIconSourceRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type record_t = GtkIconSourceRecord.t
-    type textdirection_t = GtkTextDirection.t
-    type statetype_t = GtkStateType.t
+    type text_direction_t = GtkTextDirection.t
+    type state_type_t = GtkStateType.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSourceRecord.C.fromPtr true) new_ ()

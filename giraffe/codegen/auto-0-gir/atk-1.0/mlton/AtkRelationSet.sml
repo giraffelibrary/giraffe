@@ -1,9 +1,9 @@
 structure AtkRelationSet :>
   ATK_RELATION_SET
     where type 'a class_t = 'a AtkRelationSetClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t
-    where type relationtype_t = AtkRelationType.t
-    where type 'a relationclass_t = 'a AtkRelationClass.t =
+    where type 'a object_class_t = 'a AtkObjectClass.t
+    where type relation_type_t = AtkRelationType.t
+    where type 'a relation_class_t = 'a AtkRelationClass.t =
   struct
     val getType_ = _import "atk_relation_set_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_relation_set_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -31,9 +31,9 @@ structure AtkRelationSet :>
     val getRelationByType_ = fn x1 & x2 => (_import "atk_relation_set_get_relation_by_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * AtkRelationType.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val remove_ = fn x1 & x2 => (_import "atk_relation_set_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a AtkRelationSetClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
-    type relationtype_t = AtkRelationType.t
-    type 'a relationclass_t = 'a AtkRelationClass.t
+    type 'a object_class_t = 'a AtkObjectClass.t
+    type relation_type_t = AtkRelationType.t
+    type 'a relation_class_t = 'a AtkRelationClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkRelationSetClass.C.fromPtr true) new_ ()

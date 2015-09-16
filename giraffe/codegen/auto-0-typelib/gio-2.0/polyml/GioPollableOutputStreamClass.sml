@@ -3,8 +3,8 @@ structure GioPollableOutputStreamClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a pollableoutputstream = unit
-    type 'a t = 'a pollableoutputstream GObjectObjectClass.t
+    type 'a pollable_output_stream = unit
+    type 'a t = 'a pollable_output_stream GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -1,13 +1,13 @@
 signature GTK_TOOLTIP =
   sig
     type 'a class_t
-    type 'a widgetclass_t
+    type 'a widget_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val triggerTooltipQuery : 'a Gdk.DisplayClass.t -> unit
     val setCustom :
       'a class_t
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> unit
     val setIcon :
       'a class_t

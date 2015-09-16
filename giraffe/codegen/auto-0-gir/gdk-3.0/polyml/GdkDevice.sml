@@ -1,19 +1,19 @@
 structure GdkDevice :>
   GDK_DEVICE
     where type 'a class_t = 'a GdkDeviceClass.t
-    where type grabstatus_t = GdkGrabStatus.t
-    where type 'a cursorclass_t = 'a GdkCursorClass.t
-    where type eventmask_t = GdkEventMask.t
-    where type grabownership_t = GdkGrabOwnership.t
-    where type 'a windowclass_t = 'a GdkWindowClass.t
-    where type axisuse_t = GdkAxisUse.t
-    where type modifiertype_t = GdkModifierType.t
-    where type 'a screenclass_t = 'a GdkScreenClass.t
-    where type 'a devicemanagerclass_t = 'a GdkDeviceManagerClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t
-    where type inputmode_t = GdkInputMode.t
-    where type inputsource_t = GdkInputSource.t
-    where type devicetype_t = GdkDeviceType.t =
+    where type grab_status_t = GdkGrabStatus.t
+    where type 'a cursor_class_t = 'a GdkCursorClass.t
+    where type event_mask_t = GdkEventMask.t
+    where type grab_ownership_t = GdkGrabOwnership.t
+    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type axis_use_t = GdkAxisUse.t
+    where type modifier_type_t = GdkModifierType.t
+    where type 'a screen_class_t = 'a GdkScreenClass.t
+    where type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
+    where type 'a display_class_t = 'a GdkDisplayClass.t
+    where type input_mode_t = GdkInputMode.t
+    where type input_source_t = GdkInputSource.t
+    where type device_type_t = GdkDeviceType.t =
   struct
     local
       open PolyMLFFI
@@ -106,19 +106,19 @@ structure GdkDevice :>
           )
     end
     type 'a class_t = 'a GdkDeviceClass.t
-    type grabstatus_t = GdkGrabStatus.t
-    type 'a cursorclass_t = 'a GdkCursorClass.t
-    type eventmask_t = GdkEventMask.t
-    type grabownership_t = GdkGrabOwnership.t
-    type 'a windowclass_t = 'a GdkWindowClass.t
-    type axisuse_t = GdkAxisUse.t
-    type modifiertype_t = GdkModifierType.t
-    type 'a screenclass_t = 'a GdkScreenClass.t
-    type 'a devicemanagerclass_t = 'a GdkDeviceManagerClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
-    type inputmode_t = GdkInputMode.t
-    type inputsource_t = GdkInputSource.t
-    type devicetype_t = GdkDeviceType.t
+    type grab_status_t = GdkGrabStatus.t
+    type 'a cursor_class_t = 'a GdkCursorClass.t
+    type event_mask_t = GdkEventMask.t
+    type grab_ownership_t = GdkGrabOwnership.t
+    type 'a window_class_t = 'a GdkWindowClass.t
+    type axis_use_t = GdkAxisUse.t
+    type modifier_type_t = GdkModifierType.t
+    type 'a screen_class_t = 'a GdkScreenClass.t
+    type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
+    type input_mode_t = GdkInputMode.t
+    type input_source_t = GdkInputSource.t
+    type device_type_t = GdkDeviceType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun grabInfoLibgtkOnly display device =

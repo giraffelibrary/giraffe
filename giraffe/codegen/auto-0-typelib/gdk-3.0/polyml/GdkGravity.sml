@@ -9,15 +9,15 @@ structure GdkGravity :>
   end =
   struct
     datatype t =
-      NORTHWEST
+      NORTH_WEST
     | NORTH
-    | NORTHEAST
+    | NORTH_EAST
     | WEST
     | CENTER
     | EAST
-    | SOUTHWEST
+    | SOUTH_WEST
     | SOUTH
-    | SOUTHEAST
+    | SOUTH_EAST
     | STATIC
     structure C =
       struct
@@ -26,28 +26,28 @@ structure GdkGravity :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NORTHWEST => f 1
+            NORTH_WEST => f 1
           | NORTH => f 2
-          | NORTHEAST => f 3
+          | NORTH_EAST => f 3
           | WEST => f 4
           | CENTER => f 5
           | EAST => f 6
-          | SOUTHWEST => f 7
+          | SOUTH_WEST => f 7
           | SOUTH => f 8
-          | SOUTHEAST => f 9
+          | SOUTH_EAST => f 9
           | STATIC => f 10
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            1 => NORTHWEST
+            1 => NORTH_WEST
           | 2 => NORTH
-          | 3 => NORTHEAST
+          | 3 => NORTH_EAST
           | 4 => WEST
           | 5 => CENTER
           | 6 => EAST
-          | 7 => SOUTHWEST
+          | 7 => SOUTH_WEST
           | 8 => SOUTH
-          | 9 => SOUTHEAST
+          | 9 => SOUTH_EAST
           | 10 => STATIC
           | n => raise Value n
       end
@@ -70,6 +70,6 @@ structure GdkGravity :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = NORTHWEST
+    val null = NORTH_WEST
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

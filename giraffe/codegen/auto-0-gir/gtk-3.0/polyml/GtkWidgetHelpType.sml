@@ -10,7 +10,7 @@ structure GtkWidgetHelpType :>
   struct
     datatype t =
       TOOLTIP
-    | WHATSTHIS
+    | WHATS_THIS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -19,12 +19,12 @@ structure GtkWidgetHelpType :>
         fun withVal f =
           fn
             TOOLTIP => f 0
-          | WHATSTHIS => f 1
+          | WHATS_THIS => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => TOOLTIP
-          | 1 => WHATSTHIS
+          | 1 => WHATS_THIS
           | n => raise Value n
       end
     structure PolyML =

@@ -5,8 +5,8 @@ signature GTK_BUTTONS_TYPE =
     | OK
     | CLOSE
     | CANCEL
-    | YESNO
-    | OKCANCEL
+    | YES_NO
+    | OK_CANCEL
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -1,7 +1,7 @@
 structure GtkCellRendererSpinner :>
   GTK_CELL_RENDERER_SPINNER
     where type 'a class_t = 'a GtkCellRendererSpinnerClass.t
-    where type iconsize_t = GtkIconSize.t =
+    where type icon_size_t = GtkIconSize.t =
   struct
     local
       open PolyMLFFI
@@ -10,7 +10,7 @@ structure GtkCellRendererSpinner :>
       val new_ = call (load_sym libgtk "gtk_cell_renderer_spinner_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GtkCellRendererSpinnerClass.t
-    type iconsize_t = GtkIconSize.t
+    type icon_size_t = GtkIconSize.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererSpinnerClass.C.fromPtr false) new_ ()

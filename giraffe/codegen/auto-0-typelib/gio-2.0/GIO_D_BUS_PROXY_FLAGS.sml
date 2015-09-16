@@ -5,9 +5,9 @@ signature GIO_D_BUS_PROXY_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val DONOTLOADPROPERTIES : t
-    val DONOTCONNECTSIGNALS : t
-    val DONOTAUTOSTART : t
+    val DO_NOT_LOAD_PROPERTIES : t
+    val DO_NOT_CONNECT_SIGNALS : t
+    val DO_NOT_AUTO_START : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

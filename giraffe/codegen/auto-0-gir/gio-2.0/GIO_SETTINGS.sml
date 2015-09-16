@@ -1,18 +1,18 @@
 signature GIO_SETTINGS =
   sig
     type 'a class_t
-    type settingsbackendrecord_t
-    type settingsbindflags_t
+    type settings_backend_record_t
+    type settings_bind_flags_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t
     val newWithBackend :
       string
-       -> settingsbackendrecord_t
+       -> settings_backend_record_t
        -> base class_t
     val newWithBackendAndPath :
       string
-       -> settingsbackendrecord_t
+       -> settings_backend_record_t
        -> string
        -> base class_t
     val newWithPath :
@@ -26,7 +26,7 @@ signature GIO_SETTINGS =
        -> string
        -> 'b GObject.ObjectClass.t
        -> string
-       -> settingsbindflags_t
+       -> settings_bind_flags_t
        -> unit
     val bindWritable :
       'a class_t

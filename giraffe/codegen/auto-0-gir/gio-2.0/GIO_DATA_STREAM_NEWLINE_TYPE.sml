@@ -3,7 +3,7 @@ signature GIO_DATA_STREAM_NEWLINE_TYPE =
     datatype t =
       LF
     | CR
-    | CRLF
+    | CR_LF
     | ANY
     val null : t
     val t : (t, t) GObject.Value.accessor

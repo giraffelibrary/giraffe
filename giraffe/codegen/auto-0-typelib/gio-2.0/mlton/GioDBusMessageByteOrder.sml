@@ -4,8 +4,8 @@ structure GioDBusMessageByteOrder :>
   end =
   struct
     datatype t =
-      BIGENDIAN
-    | LITTLEENDIAN
+      BIG_ENDIAN
+    | LITTLE_ENDIAN
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -13,13 +13,13 @@ structure GioDBusMessageByteOrder :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BIGENDIAN => f 66
-          | LITTLEENDIAN => f 108
+            BIG_ENDIAN => f 66
+          | LITTLE_ENDIAN => f 108
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            66 => BIGENDIAN
-          | 108 => LITTLEENDIAN
+            66 => BIG_ENDIAN
+          | 108 => LITTLE_ENDIAN
           | n => raise Value n
       end
     val getType_ = _import "g_dbus_message_byte_order_get_type" : unit -> GObjectType.C.val_;
@@ -32,6 +32,6 @@ structure GioDBusMessageByteOrder :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = BIGENDIAN
+    val null = BIG_ENDIAN
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

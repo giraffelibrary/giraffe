@@ -1,9 +1,9 @@
 structure GtkImage :>
   GTK_IMAGE
     where type 'a class_t = 'a GtkImageClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type iconsetrecord_t = GtkIconSetRecord.t
-    where type imagetype_t = GtkImageType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type icon_set_record_t = GtkIconSetRecord.t
+    where type image_type_t = GtkImageType.t =
   struct
     val getType_ = _import "gtk_image_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_image_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -210,9 +210,9 @@ structure GtkImage :>
             )
     val setPixelSize_ = fn x1 & x2 => (_import "gtk_image_set_pixel_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkImageClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type iconsetrecord_t = GtkIconSetRecord.t
-    type imagetype_t = GtkImageType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type icon_set_record_t = GtkIconSetRecord.t
+    type image_type_t = GtkImageType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

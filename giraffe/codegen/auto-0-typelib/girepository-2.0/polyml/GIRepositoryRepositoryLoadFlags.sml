@@ -8,8 +8,8 @@ structure GIRepositoryRepositoryLoadFlags :>
       end
   end =
   struct
-    val IREPOSITORYLOADFLAGLAZY = 0w1
-    val allFlags = [IREPOSITORYLOADFLAGLAZY]
+    val IREPOSITORY_LOAD_FLAG_LAZY = 0w1
+    val allFlags = [IREPOSITORY_LOAD_FLAG_LAZY]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

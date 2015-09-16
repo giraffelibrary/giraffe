@@ -1,7 +1,7 @@
 structure GioSocketService :>
   GIO_SOCKET_SERVICE
     where type 'a class_t = 'a GioSocketServiceClass.t
-    where type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t =
+    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t =
   struct
     val getType_ = _import "g_socket_service_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_socket_service_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -9,7 +9,7 @@ structure GioSocketService :>
     val start_ = _import "g_socket_service_start" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val stop_ = _import "g_socket_service_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GioSocketServiceClass.t
-    type 'a socketconnectionclass_t = 'a GioSocketConnectionClass.t
+    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketServiceClass.C.fromPtr true) new_ ()

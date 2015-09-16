@@ -1,14 +1,14 @@
 structure GtkPrintSettings :>
   GTK_PRINT_SETTINGS
     where type 'a class_t = 'a GtkPrintSettingsClass.t
-    where type printduplex_t = GtkPrintDuplex.t
-    where type numberuplayout_t = GtkNumberUpLayout.t
-    where type pageorientation_t = GtkPageOrientation.t
-    where type pageset_t = GtkPageSet.t
-    where type papersizerecord_t = GtkPaperSizeRecord.t
+    where type print_duplex_t = GtkPrintDuplex.t
+    where type number_up_layout_t = GtkNumberUpLayout.t
+    where type page_orientation_t = GtkPageOrientation.t
+    where type page_set_t = GtkPageSet.t
+    where type paper_size_record_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t
-    where type printpages_t = GtkPrintPages.t
-    where type printquality_t = GtkPrintQuality.t =
+    where type print_pages_t = GtkPrintPages.t
+    where type print_quality_t = GtkPrintQuality.t =
   struct
     val getType_ = _import "gtk_print_settings_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_print_settings_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -555,14 +555,14 @@ structure GtkPrintSettings :>
               x3
             )
     type 'a class_t = 'a GtkPrintSettingsClass.t
-    type printduplex_t = GtkPrintDuplex.t
-    type numberuplayout_t = GtkNumberUpLayout.t
-    type pageorientation_t = GtkPageOrientation.t
-    type pageset_t = GtkPageSet.t
-    type papersizerecord_t = GtkPaperSizeRecord.t
+    type print_duplex_t = GtkPrintDuplex.t
+    type number_up_layout_t = GtkNumberUpLayout.t
+    type page_orientation_t = GtkPageOrientation.t
+    type page_set_t = GtkPageSet.t
+    type paper_size_record_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
-    type printpages_t = GtkPrintPages.t
-    type printquality_t = GtkPrintQuality.t
+    type print_pages_t = GtkPrintPages.t
+    type print_quality_t = GtkPrintQuality.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.C.fromPtr true) new_ ()

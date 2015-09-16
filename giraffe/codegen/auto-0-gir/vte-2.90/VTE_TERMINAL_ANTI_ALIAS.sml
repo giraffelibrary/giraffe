@@ -1,9 +1,9 @@
 signature VTE_TERMINAL_ANTI_ALIAS =
   sig
     datatype t =
-      USEDEFAULT
-    | FORCEENABLE
-    | FORCEDISABLE
+      USE_DEFAULT
+    | FORCE_ENABLE
+    | FORCE_DISABLE
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -2,9 +2,9 @@ signature GTK_FILE_CHOOSER_ERROR =
   sig
     datatype t =
       NONEXISTENT
-    | BADFILENAME
-    | ALREADYEXISTS
-    | INCOMPLETEHOSTNAME
+    | BAD_FILENAME
+    | ALREADY_EXISTS
+    | INCOMPLETE_HOSTNAME
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

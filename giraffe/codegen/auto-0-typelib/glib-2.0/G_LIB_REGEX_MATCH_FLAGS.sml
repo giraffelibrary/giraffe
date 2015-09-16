@@ -9,10 +9,10 @@ signature G_LIB_REGEX_MATCH_FLAGS =
     val NOTEOL : t
     val NOTEMPTY : t
     val PARTIAL : t
-    val NEWLINECR : t
-    val NEWLINELF : t
-    val NEWLINECRLF : t
-    val NEWLINEANY : t
+    val NEWLINE_CR : t
+    val NEWLINE_LF : t
+    val NEWLINE_CRLF : t
+    val NEWLINE_ANY : t
     structure C :
       sig
         type val_

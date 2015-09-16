@@ -3,11 +3,11 @@ signature G_LIB_NORMALIZE_MODE =
     datatype t =
       DEFAULT
     | NFD
-    | DEFAULTCOMPOSE
+    | DEFAULT_COMPOSE
     | NFC
     | ALL
     | NFKD
-    | ALLCOMPOSE
+    | ALL_COMPOSE
     | NFKC
     val null : t
     structure C :

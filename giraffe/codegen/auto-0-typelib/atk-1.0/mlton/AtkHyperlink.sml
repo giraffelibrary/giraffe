@@ -1,8 +1,8 @@
 structure AtkHyperlink :>
   ATK_HYPERLINK
     where type 'a class_t = 'a AtkHyperlinkClass.t
-    where type 'a actionclass_t = 'a AtkActionClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t =
+    where type 'a action_class_t = 'a AtkActionClass.t
+    where type 'a object_class_t = 'a AtkObjectClass.t =
   struct
     val getType_ = _import "atk_hyperlink_get_type" : unit -> GObjectType.C.val_;
     val getEndIndex_ = _import "atk_hyperlink_get_end_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
@@ -13,8 +13,8 @@ structure AtkHyperlink :>
     val isInline_ = _import "atk_hyperlink_is_inline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val isValid_ = _import "atk_hyperlink_is_valid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a AtkHyperlinkClass.t
-    type 'a actionclass_t = 'a AtkActionClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
+    type 'a action_class_t = 'a AtkActionClass.t
+    type 'a object_class_t = 'a AtkObjectClass.t
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

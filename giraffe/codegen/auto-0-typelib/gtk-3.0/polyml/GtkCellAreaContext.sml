@@ -1,7 +1,7 @@
 structure GtkCellAreaContext :>
   GTK_CELL_AREA_CONTEXT
     where type 'a class_t = 'a GtkCellAreaContextClass.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t =
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t =
   struct
     local
       open PolyMLFFI
@@ -77,7 +77,7 @@ structure GtkCellAreaContext :>
       val reset_ = call (load_sym libgtk "gtk_cell_area_context_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkCellAreaContextClass.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun allocate self width height =

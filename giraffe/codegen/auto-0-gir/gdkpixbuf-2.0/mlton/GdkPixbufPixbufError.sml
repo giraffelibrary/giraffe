@@ -4,11 +4,11 @@ structure GdkPixbufPixbufError :>
   end =
   struct
     datatype t =
-      CORRUPTIMAGE
-    | INSUFFICIENTMEMORY
-    | BADOPTION
-    | UNKNOWNTYPE
-    | UNSUPPORTEDOPERATION
+      CORRUPT_IMAGE
+    | INSUFFICIENT_MEMORY
+    | BAD_OPTION
+    | UNKNOWN_TYPE
+    | UNSUPPORTED_OPERATION
     | FAILED
     structure C =
       struct
@@ -17,20 +17,20 @@ structure GdkPixbufPixbufError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            CORRUPTIMAGE => f 0
-          | INSUFFICIENTMEMORY => f 1
-          | BADOPTION => f 2
-          | UNKNOWNTYPE => f 3
-          | UNSUPPORTEDOPERATION => f 4
+            CORRUPT_IMAGE => f 0
+          | INSUFFICIENT_MEMORY => f 1
+          | BAD_OPTION => f 2
+          | UNKNOWN_TYPE => f 3
+          | UNSUPPORTED_OPERATION => f 4
           | FAILED => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => CORRUPTIMAGE
-          | 1 => INSUFFICIENTMEMORY
-          | 2 => BADOPTION
-          | 3 => UNKNOWNTYPE
-          | 4 => UNSUPPORTEDOPERATION
+            0 => CORRUPT_IMAGE
+          | 1 => INSUFFICIENT_MEMORY
+          | 2 => BAD_OPTION
+          | 3 => UNKNOWN_TYPE
+          | 4 => UNSUPPORTED_OPERATION
           | 5 => FAILED
           | n => raise Value n
       end

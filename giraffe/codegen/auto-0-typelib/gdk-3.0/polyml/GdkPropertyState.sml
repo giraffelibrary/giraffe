@@ -9,7 +9,7 @@ structure GdkPropertyState :>
   end =
   struct
     datatype t =
-      NEWVALUE
+      NEW_VALUE
     | DELETE
     structure C =
       struct
@@ -18,12 +18,12 @@ structure GdkPropertyState :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NEWVALUE => f 0
+            NEW_VALUE => f 0
           | DELETE => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NEWVALUE
+            0 => NEW_VALUE
           | 1 => DELETE
           | n => raise Value n
       end
@@ -46,6 +46,6 @@ structure GdkPropertyState :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = NEWVALUE
+    val null = NEW_VALUE
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

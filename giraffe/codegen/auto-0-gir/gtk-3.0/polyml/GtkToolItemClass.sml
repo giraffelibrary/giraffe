@@ -1,12 +1,12 @@
 structure GtkToolItemClass :>
   GTK_TOOL_ITEM_CLASS
-    where type 'a binclass_t = 'a GtkBinClass.t
+    where type 'a bin_class_t = 'a GtkBinClass.t
     where type C.notnull = GtkBinClass.C.notnull
     where type 'a C.p = 'a GtkBinClass.C.p =
   struct
-    type 'a toolitem = unit
-    type 'a binclass_t = 'a GtkBinClass.t
-    type 'a t = 'a toolitem binclass_t
+    type 'a tool_item = unit
+    type 'a bin_class_t = 'a GtkBinClass.t
+    type 'a t = 'a tool_item bin_class_t
     fun toBase obj = obj
     val t = GtkBinClass.t
     val tOpt = GtkBinClass.tOpt

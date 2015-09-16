@@ -1,8 +1,8 @@
 signature GTK_TEXT_VIEW_CLASS =
   sig
-    type 'a textview
-    type 'a containerclass_t
-    type 'a t = 'a textview containerclass_t
+    type 'a text_view
+    type 'a container_class_t
+    type 'a t = 'a text_view container_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

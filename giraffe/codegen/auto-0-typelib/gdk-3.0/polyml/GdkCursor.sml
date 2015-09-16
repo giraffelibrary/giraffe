@@ -1,8 +1,8 @@
 structure GdkCursor :>
   GDK_CURSOR
     where type 'a class_t = 'a GdkCursorClass.t
-    where type cursortype_t = GdkCursorType.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t =
+    where type cursor_type_t = GdkCursorType.t
+    where type 'a display_class_t = 'a GdkDisplayClass.t =
   struct
     local
       open PolyMLFFI
@@ -25,8 +25,8 @@ structure GdkCursor :>
       val getImage_ = call (load_sym libgdk "gdk_cursor_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GdkCursorClass.t
-    type cursortype_t = GdkCursorType.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
+    type cursor_type_t = GdkCursorType.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType

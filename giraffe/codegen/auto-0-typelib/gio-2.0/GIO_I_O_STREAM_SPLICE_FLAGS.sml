@@ -5,9 +5,9 @@ signature GIO_I_O_STREAM_SPLICE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val CLOSESTREAM1 : t
-    val CLOSESTREAM2 : t
-    val WAITFORBOTH : t
+    val CLOSE_STREAM_1 : t
+    val CLOSE_STREAM_2 : t
+    val WAIT_FOR_BOTH : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

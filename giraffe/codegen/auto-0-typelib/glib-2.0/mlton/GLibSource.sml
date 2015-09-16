@@ -1,7 +1,7 @@
 structure GLibSource :>
   G_LIB_SOURCE
     where type record_t = GLibSourceRecord.t
-    where type maincontextrecord_t = GLibMainContextRecord.t =
+    where type main_context_record_t = GLibMainContextRecord.t =
   struct
     val getType_ = _import "g_source_get_type" : unit -> GObjectType.C.val_;
     val addChildSource_ = fn x1 & x2 => (_import "g_source_add_child_source" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p * GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> unit;) (x1, x2)
@@ -49,7 +49,7 @@ structure GLibSource :>
               x3
             )
     type record_t = GLibSourceRecord.t
-    type maincontextrecord_t = GLibMainContextRecord.t
+    type main_context_record_t = GLibMainContextRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) addChildSource_ (self & childSource)

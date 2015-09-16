@@ -1,8 +1,8 @@
 signature G_OBJECT_PARAM_SPEC_VARIANT_CLASS =
   sig
-    type 'a paramspecvariant
-    type 'a paramspecclass_t
-    type 'a t = 'a paramspecvariant paramspecclass_t
+    type 'a param_spec_variant
+    type 'a param_spec_class_t
+    type 'a t = 'a param_spec_variant param_spec_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

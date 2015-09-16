@@ -1,12 +1,12 @@
 structure GtkEntryCompletion :>
   GTK_ENTRY_COMPLETION
     where type 'a class_t = 'a GtkEntryCompletionClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     local
       open PolyMLFFI
@@ -53,12 +53,12 @@ structure GtkEntryCompletion :>
       val setTextColumn_ = call (load_sym libgtk "gtk_entry_completion_set_text_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkEntryCompletionClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celllayoutclass_t = 'a GtkCellLayoutClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a cellareaclass_t = 'a GtkCellAreaClass.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

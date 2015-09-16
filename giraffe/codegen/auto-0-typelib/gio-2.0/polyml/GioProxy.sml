@@ -1,10 +1,10 @@
 structure GioProxy :>
   GIO_PROXY
     where type 'a class_t = 'a GioProxyClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a proxyaddressclass_t = 'a GioProxyAddressClass.t
-    where type 'a iostreamclass_t = 'a GioIOStreamClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a proxy_address_class_t = 'a GioProxyAddressClass.t
+    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     local
       open PolyMLFFI
@@ -32,10 +32,10 @@ structure GioProxy :>
       val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type 'a class_t = 'a GioProxyClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a proxyaddressclass_t = 'a GioProxyAddressClass.t
-    type 'a iostreamclass_t = 'a GioIOStreamClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a proxy_address_class_t = 'a GioProxyAddressClass.t
+    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefaultForProtocol protocol = (FFI.String.C.withConstPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol

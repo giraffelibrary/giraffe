@@ -1,13 +1,13 @@
 signature GDK_DISPLAY =
   sig
     type 'a class_t
-    type 'a deviceclass_t
-    type 'a applaunchcontextclass_t
-    type 'a windowclass_t
-    type 'a devicemanagerclass_t
-    type 'a screenclass_t
+    type 'a device_class_t
+    type 'a app_launch_context_class_t
+    type 'a window_class_t
+    type 'a device_manager_class_t
+    type 'a screen_class_t
     type 'a event_t
-    type atomrecord_t
+    type atom_record_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class_t
@@ -17,14 +17,14 @@ signature GDK_DISPLAY =
     val close : 'a class_t -> unit
     val deviceIsGrabbed :
       'a class_t
-       -> 'b deviceclass_t
+       -> 'b device_class_t
        -> bool
     val flush : 'a class_t -> unit
-    val getAppLaunchContext : 'a class_t -> base applaunchcontextclass_t
+    val getAppLaunchContext : 'a class_t -> base app_launch_context_class_t
     val getDefaultCursorSize : 'a class_t -> LargeInt.int
-    val getDefaultGroup : 'a class_t -> base windowclass_t
-    val getDefaultScreen : 'a class_t -> base screenclass_t
-    val getDeviceManager : 'a class_t -> base devicemanagerclass_t
+    val getDefaultGroup : 'a class_t -> base window_class_t
+    val getDefaultScreen : 'a class_t -> base screen_class_t
+    val getDeviceManager : 'a class_t -> base device_manager_class_t
     val getEvent : 'a class_t -> base event_t
     val getMaximalCursorSize : 'a class_t -> LargeInt.int * LargeInt.int
     val getNScreens : 'a class_t -> LargeInt.int
@@ -32,7 +32,7 @@ signature GDK_DISPLAY =
     val getScreen :
       'a class_t
        -> LargeInt.int
-       -> base screenclass_t
+       -> base screen_class_t
     val hasPending : 'a class_t -> bool
     val isClosed : 'a class_t -> bool
     val notifyStartupComplete :
@@ -46,7 +46,7 @@ signature GDK_DISPLAY =
        -> unit
     val requestSelectionNotification :
       'a class_t
-       -> atomrecord_t
+       -> atom_record_t
        -> bool
     val setDoubleClickDistance :
       'a class_t

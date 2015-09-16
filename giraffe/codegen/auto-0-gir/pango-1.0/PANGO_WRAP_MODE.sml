@@ -3,7 +3,7 @@ signature PANGO_WRAP_MODE =
     datatype t =
       WORD
     | CHAR
-    | WORDCHAR
+    | WORD_CHAR
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

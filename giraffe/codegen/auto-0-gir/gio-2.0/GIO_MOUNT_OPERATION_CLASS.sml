@@ -1,7 +1,7 @@
 signature GIO_MOUNT_OPERATION_CLASS =
   sig
-    type 'a mountoperation
-    type 'a t = 'a mountoperation GObject.ObjectClass.t
+    type 'a mount_operation
+    type 'a t = 'a mount_operation GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

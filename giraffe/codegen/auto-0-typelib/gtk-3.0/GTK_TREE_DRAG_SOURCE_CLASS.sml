@@ -1,7 +1,7 @@
 signature GTK_TREE_DRAG_SOURCE_CLASS =
   sig
-    type 'a treedragsource
-    type 'a t = 'a treedragsource GObject.ObjectClass.t
+    type 'a tree_drag_source
+    type 'a t = 'a tree_drag_source GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

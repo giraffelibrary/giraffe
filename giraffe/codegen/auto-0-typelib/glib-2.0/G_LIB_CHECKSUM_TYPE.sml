@@ -1,9 +1,9 @@
 signature G_LIB_CHECKSUM_TYPE =
   sig
     datatype t =
-      MD5
-    | SHA1
-    | SHA256
+      MD_5
+    | SHA_1
+    | SHA_256
     val null : t
     structure C :
       sig

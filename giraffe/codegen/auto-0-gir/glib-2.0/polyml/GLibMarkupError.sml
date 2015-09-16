@@ -2,7 +2,7 @@ structure GLibMarkupError :>
   sig
     include
       G_LIB_MARKUP_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -11,13 +11,13 @@ structure GLibMarkupError :>
   end =
   struct
     datatype t =
-      BADUTF8
+      BAD_UTF_8
     | EMPTY
     | PARSE
-    | UNKNOWNELEMENT
-    | UNKNOWNATTRIBUTE
-    | INVALIDCONTENT
-    | MISSINGATTRIBUTE
+    | UNKNOWN_ELEMENT
+    | UNKNOWN_ATTRIBUTE
+    | INVALID_CONTENT
+    | MISSING_ATTRIBUTE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -25,23 +25,23 @@ structure GLibMarkupError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            BADUTF8 => f 0
+            BAD_UTF_8 => f 0
           | EMPTY => f 1
           | PARSE => f 2
-          | UNKNOWNELEMENT => f 3
-          | UNKNOWNATTRIBUTE => f 4
-          | INVALIDCONTENT => f 5
-          | MISSINGATTRIBUTE => f 6
+          | UNKNOWN_ELEMENT => f 3
+          | UNKNOWN_ATTRIBUTE => f 4
+          | INVALID_CONTENT => f 5
+          | MISSING_ATTRIBUTE => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => BADUTF8
+            0 => BAD_UTF_8
           | 1 => EMPTY
           | 2 => PARSE
-          | 3 => UNKNOWNELEMENT
-          | 4 => UNKNOWNATTRIBUTE
-          | 5 => INVALIDCONTENT
-          | 6 => MISSINGATTRIBUTE
+          | 3 => UNKNOWN_ELEMENT
+          | 4 => UNKNOWN_ATTRIBUTE
+          | 5 => INVALID_CONTENT
+          | 6 => MISSING_ATTRIBUTE
           | n => raise Value n
       end
     structure PolyML =
@@ -50,7 +50,7 @@ structure GLibMarkupError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

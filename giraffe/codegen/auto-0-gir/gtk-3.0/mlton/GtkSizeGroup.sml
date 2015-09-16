@@ -1,9 +1,9 @@
 structure GtkSizeGroup :>
   GTK_SIZE_GROUP
     where type 'a class_t = 'a GtkSizeGroupClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type sizegroupmode_t = GtkSizeGroupMode.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type size_group_mode_t = GtkSizeGroupMode.t =
   struct
     val getType_ = _import "gtk_size_group_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_size_group_new" : GtkSizeGroupMode.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -14,9 +14,9 @@ structure GtkSizeGroup :>
     val setIgnoreHidden_ = fn x1 & x2 => (_import "gtk_size_group_set_ignore_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setMode_ = fn x1 & x2 => (_import "gtk_size_group_set_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkSizeGroupMode.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GtkSizeGroupClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type sizegroupmode_t = GtkSizeGroupMode.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type size_group_mode_t = GtkSizeGroupMode.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

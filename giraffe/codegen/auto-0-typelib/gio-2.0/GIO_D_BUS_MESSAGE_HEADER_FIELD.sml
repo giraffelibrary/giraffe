@@ -5,12 +5,12 @@ signature GIO_D_BUS_MESSAGE_HEADER_FIELD =
     | PATH
     | INTERFACE
     | MEMBER
-    | ERRORNAME
-    | REPLYSERIAL
+    | ERROR_NAME
+    | REPLY_SERIAL
     | DESTINATION
     | SENDER
     | SIGNATURE
-    | NUMUNIXFDS
+    | NUM_UNIX_FDS
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

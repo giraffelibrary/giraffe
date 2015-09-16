@@ -1,9 +1,9 @@
 structure GLibRegex :>
   G_LIB_REGEX
     where type record_t = GLibRegexRecord.t
-    where type matchinforecord_t = GLibMatchInfoRecord.t
-    where type regexmatchflags_t = GLibRegexMatchFlags.t
-    where type regexcompileflags_t = GLibRegexCompileFlags.t =
+    where type match_info_record_t = GLibMatchInfoRecord.t
+    where type regex_match_flags_t = GLibRegexMatchFlags.t
+    where type regex_compile_flags_t = GLibRegexCompileFlags.t =
   struct
     val getType_ = _import "g_regex_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -151,9 +151,9 @@ structure GLibRegex :>
               x6
             )
     type record_t = GLibRegexRecord.t
-    type matchinforecord_t = GLibMatchInfoRecord.t
-    type regexmatchflags_t = GLibRegexMatchFlags.t
-    type regexcompileflags_t = GLibRegexCompileFlags.t
+    type match_info_record_t = GLibMatchInfoRecord.t
+    type regex_match_flags_t = GLibRegexMatchFlags.t
+    type regex_compile_flags_t = GLibRegexCompileFlags.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new pattern compileOptions matchOptions =

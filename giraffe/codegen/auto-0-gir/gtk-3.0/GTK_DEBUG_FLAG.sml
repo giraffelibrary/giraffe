@@ -16,7 +16,7 @@ signature GTK_DEBUG_FLAG =
     val ICONTHEME : t
     val PRINTING : t
     val BUILDER : t
-    val SIZEREQUEST : t
+    val SIZE_REQUEST : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

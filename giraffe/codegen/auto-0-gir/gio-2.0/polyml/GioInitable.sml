@@ -1,7 +1,7 @@
 structure GioInitable :>
   GIO_INITABLE
     where type 'a class_t = 'a GioInitableClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t =
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
   struct
     local
       open PolyMLFFI
@@ -17,7 +17,7 @@ structure GioInitable :>
           )
     end
     type 'a class_t = 'a GioInitableClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun init self cancellable =

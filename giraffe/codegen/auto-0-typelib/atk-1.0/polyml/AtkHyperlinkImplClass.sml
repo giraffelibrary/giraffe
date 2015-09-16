@@ -3,8 +3,8 @@ structure AtkHyperlinkImplClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a hyperlinkimpl = unit
-    type 'a t = 'a hyperlinkimpl GObjectObjectClass.t
+    type 'a hyperlink_impl = unit
+    type 'a t = 'a hyperlink_impl GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

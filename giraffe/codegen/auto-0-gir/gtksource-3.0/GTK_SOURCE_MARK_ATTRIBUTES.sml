@@ -1,7 +1,7 @@
 signature GTK_SOURCE_MARK_ATTRIBUTES =
   sig
     type 'a class_t
-    type 'a markclass_t
+    type 'a mark_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -12,11 +12,11 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
     val getStockId : 'a class_t -> string
     val getTooltipMarkup :
       'a class_t
-       -> 'b markclass_t
+       -> 'b mark_class_t
        -> string
     val getTooltipText :
       'a class_t
-       -> 'b markclass_t
+       -> 'b mark_class_t
        -> string
     val renderIcon :
       'a class_t
@@ -43,8 +43,8 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
       'a class_t
        -> string
        -> unit
-    val queryTooltipMarkupSig : (base markclass_t -> string) -> 'a class_t Signal.signal
-    val queryTooltipTextSig : (base markclass_t -> string) -> 'a class_t Signal.signal
+    val queryTooltipMarkupSig : (base mark_class_t -> string) -> 'a class_t Signal.signal
+    val queryTooltipTextSig : (base mark_class_t -> string) -> 'a class_t Signal.signal
     val backgroundProp : ('a class_t, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
     val giconProp : ('a class_t, base Gio.IconClass.t option, 'b Gio.IconClass.t option) Property.readwrite
     val iconNameProp : ('a class_t, string option, string option) Property.readwrite

@@ -1,7 +1,7 @@
 structure GtkCssProvider :>
   GTK_CSS_PROVIDER
     where type 'a class_t = 'a GtkCssProviderClass.t
-    where type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t =
+    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t =
   struct
     local
       open PolyMLFFI
@@ -29,7 +29,7 @@ structure GtkCssProvider :>
       val toString_ = call (load_sym libgtk "gtk_css_provider_to_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GtkCssProviderClass.t
-    type 'a styleproviderclass_t = 'a GtkStyleProviderClass.t
+    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
     type t = base class_t
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

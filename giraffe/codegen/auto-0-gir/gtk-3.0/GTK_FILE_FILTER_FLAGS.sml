@@ -6,8 +6,8 @@ signature GTK_FILE_FILTER_FLAGS =
         where type flags = t
     val FILENAME : t
     val URI : t
-    val DISPLAYNAME : t
-    val MIMETYPE : t
+    val DISPLAY_NAME : t
+    val MIME_TYPE : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

@@ -1,7 +1,7 @@
 signature GIO_SOCKET_CONTROL_MESSAGE_CLASS =
   sig
-    type 'a socketcontrolmessage
-    type 'a t = 'a socketcontrolmessage GObject.ObjectClass.t
+    type 'a socket_control_message
+    type 'a t = 'a socket_control_message GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

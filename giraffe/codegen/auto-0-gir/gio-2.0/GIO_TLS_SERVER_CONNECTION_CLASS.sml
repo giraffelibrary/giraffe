@@ -1,7 +1,7 @@
 signature GIO_TLS_SERVER_CONNECTION_CLASS =
   sig
-    type 'a tlsserverconnection
-    type 'a t = 'a tlsserverconnection GObject.ObjectClass.t
+    type 'a tls_server_connection
+    type 'a t = 'a tls_server_connection GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

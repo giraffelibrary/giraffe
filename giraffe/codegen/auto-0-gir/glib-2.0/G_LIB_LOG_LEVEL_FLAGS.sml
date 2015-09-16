@@ -4,15 +4,15 @@ signature G_LIB_LOG_LEVEL_FLAGS =
     include
       BIT_FLAGS
         where type flags = t
-    val FLAGRECURSION : t
-    val FLAGFATAL : t
-    val LEVELERROR : t
-    val LEVELCRITICAL : t
-    val LEVELWARNING : t
-    val LEVELMESSAGE : t
-    val LEVELINFO : t
-    val LEVELDEBUG : t
-    val LEVELMASK : t
+    val FLAG_RECURSION : t
+    val FLAG_FATAL : t
+    val LEVEL_ERROR : t
+    val LEVEL_CRITICAL : t
+    val LEVEL_WARNING : t
+    val LEVEL_MESSAGE : t
+    val LEVEL_INFO : t
+    val LEVEL_DEBUG : t
+    val LEVEL_MASK : t
     structure C :
       sig
         type val_

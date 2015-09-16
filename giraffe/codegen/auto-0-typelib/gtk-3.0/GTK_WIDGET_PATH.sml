@@ -1,14 +1,14 @@
 signature GTK_WIDGET_PATH =
   sig
     type record_t
-    type 'a widgetclass_t
-    type regionflags_t
+    type 'a widget_class_t
+    type region_flags_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
     val appendForWidget :
       record_t
-       -> 'a widgetclass_t
+       -> 'a widget_class_t
        -> LargeInt.int
     val appendWithSiblings :
       record_t
@@ -25,7 +25,7 @@ signature GTK_WIDGET_PATH =
       record_t
        -> LargeInt.int
        -> string
-       -> regionflags_t
+       -> region_flags_t
        -> unit
     val iterClearClasses :
       record_t
@@ -71,12 +71,12 @@ signature GTK_WIDGET_PATH =
       record_t
        -> LargeInt.int
        -> LargeInt.int
-       -> regionflags_t option
+       -> region_flags_t option
     val iterHasRegion :
       record_t
        -> LargeInt.int
        -> string
-       -> regionflags_t option
+       -> region_flags_t option
     val iterRemoveClass :
       record_t
        -> LargeInt.int

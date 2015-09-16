@@ -5,7 +5,7 @@ signature GDK_EVENT_VISIBILITY_RECORD =
     type t = visibility event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      VISIBILITYNOTIFY
+      VISIBILITY_NOTIFY
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

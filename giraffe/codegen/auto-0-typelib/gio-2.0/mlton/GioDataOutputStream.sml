@@ -1,9 +1,9 @@
 structure GioDataOutputStream :>
   GIO_DATA_OUTPUT_STREAM
     where type 'a class_t = 'a GioDataOutputStreamClass.t
-    where type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type datastreambyteorder_t = GioDataStreamByteOrder.t =
+    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type data_stream_byte_order_t = GioDataStreamByteOrder.t =
   struct
     val getType_ = _import "g_data_output_stream_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_data_output_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -172,9 +172,9 @@ structure GioDataOutputStream :>
             )
     val setByteOrder_ = fn x1 & x2 => (_import "g_data_output_stream_set_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamByteOrder.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioDataOutputStreamClass.t
-    type 'a outputstreamclass_t = 'a GioOutputStreamClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type datastreambyteorder_t = GioDataStreamByteOrder.t
+    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataOutputStreamClass.C.fromPtr true) new_ baseStream

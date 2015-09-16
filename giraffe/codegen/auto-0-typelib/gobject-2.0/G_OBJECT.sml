@@ -35,129 +35,129 @@ signature G_OBJECT =
         where type type_t = Type.t
     structure BindingClass :
       G_OBJECT_BINDING_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure InitiallyUnownedClass :
       G_OBJECT_INITIALLY_UNOWNED_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure Object :
       G_OBJECT_OBJECT
         where type 'a class_t = 'a ObjectClass.t
         where type type_t = Type.t
-        where type valuerecord_t = ValueRecord.t
-        where type closurerecord_t = ClosureRecord.t
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type value_record_t = ValueRecord.t
+        where type closure_record_t = ClosureRecord.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
     structure ParamSpec :
       G_OBJECT_PARAM_SPEC
         where type 'a class_t = 'a ParamSpecClass.t
         where type type_t = Type.t
     structure ParamSpecBooleanClass :
       G_OBJECT_PARAM_SPEC_BOOLEAN_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecBoxedClass :
       G_OBJECT_PARAM_SPEC_BOXED_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecCharClass :
       G_OBJECT_PARAM_SPEC_CHAR_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecDoubleClass :
       G_OBJECT_PARAM_SPEC_DOUBLE_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecEnumClass :
       G_OBJECT_PARAM_SPEC_ENUM_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecFlagsClass :
       G_OBJECT_PARAM_SPEC_FLAGS_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecFloatClass :
       G_OBJECT_PARAM_SPEC_FLOAT_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecGTypeClass :
       G_OBJECT_PARAM_SPEC_G_TYPE_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecIntClass :
       G_OBJECT_PARAM_SPEC_INT_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecInt64Class :
       G_OBJECT_PARAM_SPEC_INT_64_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecLongClass :
       G_OBJECT_PARAM_SPEC_LONG_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecObjectClass :
       G_OBJECT_PARAM_SPEC_OBJECT_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecOverrideClass :
       G_OBJECT_PARAM_SPEC_OVERRIDE_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecParamClass :
       G_OBJECT_PARAM_SPEC_PARAM_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecPointerClass :
       G_OBJECT_PARAM_SPEC_POINTER_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecStringClass :
       G_OBJECT_PARAM_SPEC_STRING_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecUCharClass :
       G_OBJECT_PARAM_SPEC_U_CHAR_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecUIntClass :
       G_OBJECT_PARAM_SPEC_U_INT_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecUInt64Class :
       G_OBJECT_PARAM_SPEC_U_INT_64_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecULongClass :
       G_OBJECT_PARAM_SPEC_U_LONG_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecUnicharClass :
       G_OBJECT_PARAM_SPEC_UNICHAR_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecValueArrayClass :
       G_OBJECT_PARAM_SPEC_VALUE_ARRAY_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure ParamSpecVariantClass :
       G_OBJECT_PARAM_SPEC_VARIANT_CLASS
-        where type 'a paramspecclass_t = 'a ParamSpecClass.t
+        where type 'a param_spec_class_t = 'a ParamSpecClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure TypeModuleClass :
       G_OBJECT_TYPE_MODULE_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure TypePluginClass :
       G_OBJECT_TYPE_PLUGIN_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure Binding :
       G_OBJECT_BINDING
         where type 'a class_t = 'a BindingClass.t
         where type type_t = Type.t
-        where type bindingflags_t = BindingFlags.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type binding_flags_t = BindingFlags.t
+        where type 'a object_class_t = 'a ObjectClass.t
         where type ('object, 'a) property_readonly = ('object, 'a) property_readonly
         where type ('object, 'a) property_writeonly = ('object, 'a) property_writeonly
         where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) property_readwrite
@@ -260,7 +260,7 @@ signature G_OBJECT =
     structure TypeModule :
       G_OBJECT_TYPE_MODULE
         where type 'a class_t = 'a TypeModuleClass.t
-        where type 'a typepluginclass_t = 'a TypePluginClass.t
+        where type 'a type_plugin_class_t = 'a TypePluginClass.t
         where type type_t = Type.t
     structure TypePlugin :
       G_OBJECT_TYPE_PLUGIN

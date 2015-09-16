@@ -11,18 +11,18 @@ structure GtkScrollType :>
     datatype t =
       NONE
     | JUMP
-    | STEPBACKWARD
-    | STEPFORWARD
-    | PAGEBACKWARD
-    | PAGEFORWARD
-    | STEPUP
-    | STEPDOWN
-    | PAGEUP
-    | PAGEDOWN
-    | STEPLEFT
-    | STEPRIGHT
-    | PAGELEFT
-    | PAGERIGHT
+    | STEP_BACKWARD
+    | STEP_FORWARD
+    | PAGE_BACKWARD
+    | PAGE_FORWARD
+    | STEP_UP
+    | STEP_DOWN
+    | PAGE_UP
+    | PAGE_DOWN
+    | STEP_LEFT
+    | STEP_RIGHT
+    | PAGE_LEFT
+    | PAGE_RIGHT
     | START
     | END
     structure C =
@@ -34,18 +34,18 @@ structure GtkScrollType :>
           fn
             NONE => f 0
           | JUMP => f 1
-          | STEPBACKWARD => f 2
-          | STEPFORWARD => f 3
-          | PAGEBACKWARD => f 4
-          | PAGEFORWARD => f 5
-          | STEPUP => f 6
-          | STEPDOWN => f 7
-          | PAGEUP => f 8
-          | PAGEDOWN => f 9
-          | STEPLEFT => f 10
-          | STEPRIGHT => f 11
-          | PAGELEFT => f 12
-          | PAGERIGHT => f 13
+          | STEP_BACKWARD => f 2
+          | STEP_FORWARD => f 3
+          | PAGE_BACKWARD => f 4
+          | PAGE_FORWARD => f 5
+          | STEP_UP => f 6
+          | STEP_DOWN => f 7
+          | PAGE_UP => f 8
+          | PAGE_DOWN => f 9
+          | STEP_LEFT => f 10
+          | STEP_RIGHT => f 11
+          | PAGE_LEFT => f 12
+          | PAGE_RIGHT => f 13
           | START => f 14
           | END => f 15
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
@@ -53,18 +53,18 @@ structure GtkScrollType :>
           fn
             0 => NONE
           | 1 => JUMP
-          | 2 => STEPBACKWARD
-          | 3 => STEPFORWARD
-          | 4 => PAGEBACKWARD
-          | 5 => PAGEFORWARD
-          | 6 => STEPUP
-          | 7 => STEPDOWN
-          | 8 => PAGEUP
-          | 9 => PAGEDOWN
-          | 10 => STEPLEFT
-          | 11 => STEPRIGHT
-          | 12 => PAGELEFT
-          | 13 => PAGERIGHT
+          | 2 => STEP_BACKWARD
+          | 3 => STEP_FORWARD
+          | 4 => PAGE_BACKWARD
+          | 5 => PAGE_FORWARD
+          | 6 => STEP_UP
+          | 7 => STEP_DOWN
+          | 8 => PAGE_UP
+          | 9 => PAGE_DOWN
+          | 10 => STEP_LEFT
+          | 11 => STEP_RIGHT
+          | 12 => PAGE_LEFT
+          | 13 => PAGE_RIGHT
           | 14 => START
           | 15 => END
           | n => raise Value n

@@ -14,7 +14,7 @@ structure GIRepositoryInfoType :>
     | OBJECT
     | INTERFACE
     | CONSTANT
-    | INVALID0
+    | INVALID_0
     | UNION
     | VALUE
     | SIGNAL
@@ -41,7 +41,7 @@ structure GIRepositoryInfoType :>
           | OBJECT => f 7
           | INTERFACE => f 8
           | CONSTANT => f 9
-          | INVALID0 => f 10
+          | INVALID_0 => f 10
           | UNION => f 11
           | VALUE => f 12
           | SIGNAL => f 13
@@ -64,7 +64,7 @@ structure GIRepositoryInfoType :>
           | 7 => OBJECT
           | 8 => INTERFACE
           | 9 => CONSTANT
-          | 10 => INVALID0
+          | 10 => INVALID_0
           | 11 => UNION
           | 12 => VALUE
           | 13 => SIGNAL

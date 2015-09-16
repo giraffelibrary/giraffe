@@ -1,7 +1,7 @@
 signature ATK_RELATION_SET_CLASS =
   sig
-    type 'a relationset
-    type 'a t = 'a relationset GObject.ObjectClass.t
+    type 'a relation_set
+    type 'a t = 'a relation_set GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

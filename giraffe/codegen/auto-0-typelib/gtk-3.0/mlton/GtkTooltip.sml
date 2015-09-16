@@ -1,7 +1,7 @@
 structure GtkTooltip :>
   GTK_TOOLTIP
     where type 'a class_t = 'a GtkTooltipClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_tooltip_get_type" : unit -> GObjectType.C.val_;
     val triggerTooltipQuery_ = _import "gtk_tooltip_trigger_tooltip_query" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -94,7 +94,7 @@ structure GtkTooltip :>
             )
     val setTipArea_ = fn x1 & x2 => (_import "gtk_tooltip_set_tip_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GtkTooltipClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun triggerTooltipQuery display = (GObjectObjectClass.C.withPtr ---> I) triggerTooltipQuery_ display

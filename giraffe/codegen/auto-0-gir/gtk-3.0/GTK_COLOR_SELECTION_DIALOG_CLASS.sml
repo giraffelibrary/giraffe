@@ -1,8 +1,8 @@
 signature GTK_COLOR_SELECTION_DIALOG_CLASS =
   sig
-    type 'a colorselectiondialog
-    type 'a dialogclass_t
-    type 'a t = 'a colorselectiondialog dialogclass_t
+    type 'a color_selection_dialog
+    type 'a dialog_class_t
+    type 'a t = 'a color_selection_dialog dialog_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

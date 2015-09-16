@@ -1,8 +1,8 @@
 signature GTK_IMAGE_MENU_ITEM_CLASS =
   sig
-    type 'a imagemenuitem
-    type 'a menuitemclass_t
-    type 'a t = 'a imagemenuitem menuitemclass_t
+    type 'a image_menu_item
+    type 'a menu_item_class_t
+    type 'a t = 'a image_menu_item menu_item_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

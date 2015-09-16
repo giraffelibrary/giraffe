@@ -1,36 +1,36 @@
 signature GDK_WINDOW =
   sig
     type 'a class_t
-    type windowattrrecord_t
-    type windowedge_t
-    type modifiertype_t
-    type 'a displayclass_t
-    type dragprotocol_t
-    type 'a screenclass_t
-    type windowstate_t
-    type 'a visualclass_t
-    type windowtype_t
-    type rectanglerecord_t
-    type colorrecord_t
-    type rgbarecord_t
-    type wmdecoration_t
-    type 'a deviceclass_t
-    type wmfunction_t
-    type windowhints_t
-    type geometryrecord_t
-    type eventmask_t
-    type inputsource_t
-    type windowtypehint_t
-    type 'a cursorclass_t
+    type window_attr_record_t
+    type window_edge_t
+    type modifier_type_t
+    type 'a display_class_t
+    type drag_protocol_t
+    type 'a screen_class_t
+    type window_state_t
+    type 'a visual_class_t
+    type window_type_t
+    type rectangle_record_t
+    type color_record_t
+    type rgba_record_t
+    type w_m_decoration_t
+    type 'a device_class_t
+    type w_m_function_t
+    type window_hints_t
+    type geometry_record_t
+    type event_mask_t
+    type input_source_t
+    type window_type_hint_t
+    type 'a cursor_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new :
       'a class_t option
-       -> windowattrrecord_t
+       -> window_attr_record_t
        -> LargeInt.int
        -> base class_t
     val constrainSize :
-      geometryrecord_t
+      geometry_record_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -47,7 +47,7 @@ signature GDK_WINDOW =
        -> unit
     val beginPaintRect :
       'a class_t
-       -> rectanglerecord_t
+       -> rectangle_record_t
        -> unit
     val beginPaintRegion :
       'a class_t
@@ -55,7 +55,7 @@ signature GDK_WINDOW =
        -> unit
     val beginResizeDrag :
       'a class_t
-       -> windowedge_t
+       -> window_edge_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -97,32 +97,32 @@ signature GDK_WINDOW =
     val getBackgroundPattern : 'a class_t -> Cairo.PatternRecord.t
     val getClipRegion : 'a class_t -> Cairo.RegionRecord.t
     val getComposited : 'a class_t -> bool
-    val getCursor : 'a class_t -> base cursorclass_t
-    val getDecorations : 'a class_t -> wmdecoration_t option
+    val getCursor : 'a class_t -> base cursor_class_t
+    val getDecorations : 'a class_t -> w_m_decoration_t option
     val getDeviceCursor :
       'a class_t
-       -> 'b deviceclass_t
-       -> base cursorclass_t
+       -> 'b device_class_t
+       -> base cursor_class_t
     val getDeviceEvents :
       'a class_t
-       -> 'b deviceclass_t
-       -> eventmask_t
+       -> 'b device_class_t
+       -> event_mask_t
     val getDevicePosition :
       'a class_t
-       -> 'b deviceclass_t
+       -> 'b device_class_t
        -> base class_t
            * LargeInt.int
            * LargeInt.int
-           * modifiertype_t
-    val getDisplay : 'a class_t -> base displayclass_t
-    val getDragProtocol : 'a class_t -> dragprotocol_t * base class_t
+           * modifier_type_t
+    val getDisplay : 'a class_t -> base display_class_t
+    val getDragProtocol : 'a class_t -> drag_protocol_t * base class_t
     val getEffectiveParent : 'a class_t -> base class_t
     val getEffectiveToplevel : 'a class_t -> base class_t
-    val getEvents : 'a class_t -> eventmask_t
+    val getEvents : 'a class_t -> event_mask_t
     val getFocusOnMap : 'a class_t -> bool
     val getFrameExtents :
       'a class_t
-       -> rectanglerecord_t
+       -> rectangle_record_t
        -> unit
     val getGeometry :
       'a class_t
@@ -146,20 +146,20 @@ signature GDK_WINDOW =
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getRootOrigin : 'a class_t -> LargeInt.int * LargeInt.int
-    val getScreen : 'a class_t -> base screenclass_t
+    val getScreen : 'a class_t -> base screen_class_t
     val getSourceEvents :
       'a class_t
-       -> inputsource_t
-       -> eventmask_t
-    val getState : 'a class_t -> windowstate_t
+       -> input_source_t
+       -> event_mask_t
+    val getState : 'a class_t -> window_state_t
     val getSupportMultidevice : 'a class_t -> bool
     val getToplevel : 'a class_t -> base class_t
-    val getTypeHint : 'a class_t -> windowtypehint_t
+    val getTypeHint : 'a class_t -> window_type_hint_t
     val getUpdateArea : 'a class_t -> Cairo.RegionRecord.t
     val getVisibleRegion : 'a class_t -> Cairo.RegionRecord.t
-    val getVisual : 'a class_t -> base visualclass_t
+    val getVisual : 'a class_t -> base visual_class_t
     val getWidth : 'a class_t -> LargeInt.int
-    val getWindowType : 'a class_t -> windowtype_t
+    val getWindowType : 'a class_t -> window_type_t
     val hasNative : 'a class_t -> bool
     val hide : 'a class_t -> unit
     val iconify : 'a class_t -> unit
@@ -171,7 +171,7 @@ signature GDK_WINDOW =
        -> unit
     val invalidateRect :
       'a class_t
-       -> rectanglerecord_t option
+       -> rectangle_record_t option
        -> bool
        -> unit
     val invalidateRegion :
@@ -239,7 +239,7 @@ signature GDK_WINDOW =
        -> unit
     val setBackground :
       'a class_t
-       -> colorrecord_t
+       -> color_record_t
        -> unit
     val setBackgroundPattern :
       'a class_t
@@ -247,7 +247,7 @@ signature GDK_WINDOW =
        -> unit
     val setBackgroundRgba :
       'a class_t
-       -> rgbarecord_t
+       -> rgba_record_t
        -> unit
     val setChildInputShapes : 'a class_t -> unit
     val setChildShapes : 'a class_t -> unit
@@ -257,25 +257,25 @@ signature GDK_WINDOW =
        -> unit
     val setCursor :
       'a class_t
-       -> 'b cursorclass_t option
+       -> 'b cursor_class_t option
        -> unit
     val setDecorations :
       'a class_t
-       -> wmdecoration_t
+       -> w_m_decoration_t
        -> unit
     val setDeviceCursor :
       'a class_t
-       -> 'b deviceclass_t
-       -> 'c cursorclass_t
+       -> 'b device_class_t
+       -> 'c cursor_class_t
        -> unit
     val setDeviceEvents :
       'a class_t
-       -> 'b deviceclass_t
-       -> eventmask_t
+       -> 'b device_class_t
+       -> event_mask_t
        -> unit
     val setEvents :
       'a class_t
-       -> eventmask_t
+       -> event_mask_t
        -> unit
     val setFocusOnMap :
       'a class_t
@@ -283,12 +283,12 @@ signature GDK_WINDOW =
        -> unit
     val setFunctions :
       'a class_t
-       -> wmfunction_t
+       -> w_m_function_t
        -> unit
     val setGeometryHints :
       'a class_t
-       -> geometryrecord_t
-       -> windowhints_t
+       -> geometry_record_t
+       -> window_hints_t
        -> unit
     val setGroup :
       'a class_t
@@ -332,8 +332,8 @@ signature GDK_WINDOW =
        -> unit
     val setSourceEvents :
       'a class_t
-       -> inputsource_t
-       -> eventmask_t
+       -> input_source_t
+       -> event_mask_t
        -> unit
     val setStartupId :
       'a class_t
@@ -357,7 +357,7 @@ signature GDK_WINDOW =
        -> unit
     val setTypeHint :
       'a class_t
-       -> windowtypehint_t
+       -> window_type_hint_t
        -> unit
     val setUrgencyHint :
       'a class_t
@@ -402,5 +402,5 @@ signature GDK_WINDOW =
         -> real
         -> real * real)
        -> 'a class_t Signal.signal
-    val cursorProp : ('a class_t, base cursorclass_t option, 'b cursorclass_t option) Property.readwrite
+    val cursorProp : ('a class_t, base cursor_class_t option, 'b cursor_class_t option) Property.readwrite
   end

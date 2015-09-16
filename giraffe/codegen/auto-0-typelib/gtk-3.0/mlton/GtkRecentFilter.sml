@@ -1,9 +1,9 @@
 structure GtkRecentFilter :>
   GTK_RECENT_FILTER
     where type 'a class_t = 'a GtkRecentFilterClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type recentfilterinforecord_t = GtkRecentFilterInfoRecord.t
-    where type recentfilterflags_t = GtkRecentFilterFlags.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type recent_filter_info_record_t = GtkRecentFilterInfoRecord.t
+    where type recent_filter_flags_t = GtkRecentFilterFlags.t =
   struct
     val getType_ = _import "gtk_recent_filter_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_recent_filter_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -88,9 +88,9 @@ structure GtkRecentFilter :>
               x3
             )
     type 'a class_t = 'a GtkRecentFilterClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type recentfilterinforecord_t = GtkRecentFilterInfoRecord.t
-    type recentfilterflags_t = GtkRecentFilterFlags.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type recent_filter_info_record_t = GtkRecentFilterInfoRecord.t
+    type recent_filter_flags_t = GtkRecentFilterFlags.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

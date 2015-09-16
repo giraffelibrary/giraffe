@@ -1,9 +1,9 @@
 structure GioMountOperation :>
   GIO_MOUNT_OPERATION
     where type 'a class_t = 'a GioMountOperationClass.t
-    where type askpasswordflags_t = GioAskPasswordFlags.t
-    where type mountoperationresult_t = GioMountOperationResult.t
-    where type passwordsave_t = GioPasswordSave.t =
+    where type ask_password_flags_t = GioAskPasswordFlags.t
+    where type mount_operation_result_t = GioMountOperationResult.t
+    where type password_save_t = GioPasswordSave.t =
   struct
     val getType_ = _import "g_mount_operation_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_mount_operation_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -63,9 +63,9 @@ structure GioMountOperation :>
               x3
             )
     type 'a class_t = 'a GioMountOperationClass.t
-    type askpasswordflags_t = GioAskPasswordFlags.t
-    type mountoperationresult_t = GioMountOperationResult.t
-    type passwordsave_t = GioPasswordSave.t
+    type ask_password_flags_t = GioAskPasswordFlags.t
+    type mount_operation_result_t = GioMountOperationResult.t
+    type password_save_t = GioPasswordSave.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioMountOperationClass.C.fromPtr true) new_ ()

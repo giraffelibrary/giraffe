@@ -5,7 +5,7 @@ signature GIO_D_BUS_CAPABILITY_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val UNIXFDPASSING : t
+    val UNIX_FD_PASSING : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

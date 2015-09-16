@@ -1,14 +1,14 @@
 signature GTK_LABEL =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type movementstep_t
-    type 'a menuclass_t
+    type 'a buildable_class_t
+    type movement_step_t
+    type 'a menu_class_t
     type justification_t
-    type 'a widgetclass_t
+    type 'a widget_class_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
     val new : string -> base class_t
     val newWithMnemonic : string -> base class_t
@@ -24,7 +24,7 @@ signature GTK_LABEL =
     val getLineWrapMode : 'a class_t -> Pango.WrapMode.t
     val getMaxWidthChars : 'a class_t -> LargeInt.int
     val getMnemonicKeyval : 'a class_t -> LargeInt.int
-    val getMnemonicWidget : 'a class_t -> base widgetclass_t
+    val getMnemonicWidget : 'a class_t -> base widget_class_t
     val getSelectable : 'a class_t -> bool
     val getSelectionBounds : 'a class_t -> (LargeInt.int * LargeInt.int) option
     val getSingleLineMode : 'a class_t -> bool
@@ -80,7 +80,7 @@ signature GTK_LABEL =
        -> unit
     val setMnemonicWidget :
       'a class_t
-       -> 'b widgetclass_t option
+       -> 'b widget_class_t option
        -> unit
     val setPattern :
       'a class_t
@@ -122,12 +122,12 @@ signature GTK_LABEL =
     val activateLinkSig : (string -> bool) -> 'a class_t Signal.signal
     val copyClipboardSig : (unit -> unit) -> 'a class_t Signal.signal
     val moveCursorSig :
-      (movementstep_t
+      (movement_step_t
         -> LargeInt.int
         -> bool
         -> unit)
        -> 'a class_t Signal.signal
-    val populatePopupSig : (base menuclass_t -> unit) -> 'a class_t Signal.signal
+    val populatePopupSig : (base menu_class_t -> unit) -> 'a class_t Signal.signal
     val angleProp : ('a class_t, real, real) Property.readwrite
     val attributesProp : ('a class_t, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite
     val cursorPositionProp : ('a class_t, LargeInt.int) Property.readonly
@@ -136,7 +136,7 @@ signature GTK_LABEL =
     val labelProp : ('a class_t, string option, string option) Property.readwrite
     val maxWidthCharsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val mnemonicKeyvalProp : ('a class_t, LargeInt.int) Property.readonly
-    val mnemonicWidgetProp : ('a class_t, base widgetclass_t option, 'b widgetclass_t option) Property.readwrite
+    val mnemonicWidgetProp : ('a class_t, base widget_class_t option, 'b widget_class_t option) Property.readwrite
     val patternProp : ('a class_t, string option) Property.writeonly
     val selectableProp : ('a class_t, bool, bool) Property.readwrite
     val selectionBoundProp : ('a class_t, LargeInt.int) Property.readonly

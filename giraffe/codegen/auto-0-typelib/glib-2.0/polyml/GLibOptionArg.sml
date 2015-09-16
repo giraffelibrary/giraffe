@@ -14,10 +14,10 @@ structure GLibOptionArg :>
     | INT
     | CALLBACK
     | FILENAME
-    | STRINGARRAY
-    | FILENAMEARRAY
+    | STRING_ARRAY
+    | FILENAME_ARRAY
     | DOUBLE
-    | INT64
+    | INT_64
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -30,10 +30,10 @@ structure GLibOptionArg :>
           | INT => f 2
           | CALLBACK => f 3
           | FILENAME => f 4
-          | STRINGARRAY => f 5
-          | FILENAMEARRAY => f 6
+          | STRING_ARRAY => f 5
+          | FILENAME_ARRAY => f 6
           | DOUBLE => f 7
-          | INT64 => f 8
+          | INT_64 => f 8
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -42,10 +42,10 @@ structure GLibOptionArg :>
           | 2 => INT
           | 3 => CALLBACK
           | 4 => FILENAME
-          | 5 => STRINGARRAY
-          | 6 => FILENAMEARRAY
+          | 5 => STRING_ARRAY
+          | 6 => FILENAME_ARRAY
           | 7 => DOUBLE
-          | 8 => INT64
+          | 8 => INT_64
           | n => raise Value n
       end
     structure PolyML =

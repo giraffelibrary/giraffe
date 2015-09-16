@@ -3,8 +3,8 @@ structure GioCharsetConverterClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a charsetconverter = unit
-    type 'a t = 'a charsetconverter GObjectObjectClass.t
+    type 'a charset_converter = unit
+    type 'a t = 'a charset_converter GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

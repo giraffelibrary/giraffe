@@ -1,12 +1,12 @@
 structure GtkScaleButton :>
   GTK_SCALE_BUTTON
     where type 'a class_t = 'a GtkScaleButtonClass.t
-    where type 'a activatableclass_t = 'a GtkActivatableClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type iconsize_t = GtkIconSize.t =
+    where type 'a activatable_class_t = 'a GtkActivatableClass.t
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type icon_size_t = GtkIconSize.t =
   struct
     local
       open PolyMLFFI
@@ -21,12 +21,12 @@ structure GtkScaleButton :>
       val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkScaleButtonClass.t
-    type 'a activatableclass_t = 'a GtkActivatableClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type iconsize_t = GtkIconSize.t
+    type 'a activatable_class_t = 'a GtkActivatableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type icon_size_t = GtkIconSize.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self

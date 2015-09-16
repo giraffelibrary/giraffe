@@ -6,13 +6,13 @@ structure GLibTestLogType :>
     datatype t =
       NONE
     | ERROR
-    | STARTBINARY
-    | LISTCASE
-    | SKIPCASE
-    | STARTCASE
-    | STOPCASE
-    | MINRESULT
-    | MAXRESULT
+    | START_BINARY
+    | LIST_CASE
+    | SKIP_CASE
+    | START_CASE
+    | STOP_CASE
+    | MIN_RESULT
+    | MAX_RESULT
     | MESSAGE
     structure C =
       struct
@@ -23,26 +23,26 @@ structure GLibTestLogType :>
           fn
             NONE => f 0
           | ERROR => f 1
-          | STARTBINARY => f 2
-          | LISTCASE => f 3
-          | SKIPCASE => f 4
-          | STARTCASE => f 5
-          | STOPCASE => f 6
-          | MINRESULT => f 7
-          | MAXRESULT => f 8
+          | START_BINARY => f 2
+          | LIST_CASE => f 3
+          | SKIP_CASE => f 4
+          | START_CASE => f 5
+          | STOP_CASE => f 6
+          | MIN_RESULT => f 7
+          | MAX_RESULT => f 8
           | MESSAGE => f 9
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
           | 1 => ERROR
-          | 2 => STARTBINARY
-          | 3 => LISTCASE
-          | 4 => SKIPCASE
-          | 5 => STARTCASE
-          | 6 => STOPCASE
-          | 7 => MINRESULT
-          | 8 => MAXRESULT
+          | 2 => START_BINARY
+          | 3 => LIST_CASE
+          | 4 => SKIP_CASE
+          | 5 => START_CASE
+          | 6 => STOP_CASE
+          | 7 => MIN_RESULT
+          | 8 => MAX_RESULT
           | 9 => MESSAGE
           | n => raise Value n
       end

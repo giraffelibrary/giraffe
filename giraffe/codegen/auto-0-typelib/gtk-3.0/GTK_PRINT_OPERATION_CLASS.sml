@@ -1,7 +1,7 @@
 signature GTK_PRINT_OPERATION_CLASS =
   sig
-    type 'a printoperation
-    type 'a t = 'a printoperation GObject.ObjectClass.t
+    type 'a print_operation
+    type 'a t = 'a print_operation GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

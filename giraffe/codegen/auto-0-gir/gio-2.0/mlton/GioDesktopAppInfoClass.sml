@@ -3,8 +3,8 @@ structure GioDesktopAppInfoClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a desktopappinfo = unit
-    type 'a t = 'a desktopappinfo GObjectObjectClass.t
+    type 'a desktop_app_info = unit
+    type 'a t = 'a desktop_app_info GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

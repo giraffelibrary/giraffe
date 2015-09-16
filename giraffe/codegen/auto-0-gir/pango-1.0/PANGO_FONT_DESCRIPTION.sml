@@ -6,7 +6,7 @@ signature PANGO_FONT_DESCRIPTION =
     type style_t
     type variant_t
     type weight_t
-    type fontmask_t
+    type font_mask_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val new : unit -> record_t
@@ -23,7 +23,7 @@ signature PANGO_FONT_DESCRIPTION =
        -> bool
     val getFamily : record_t -> string
     val getGravity : record_t -> gravity_t
-    val getSetFields : record_t -> fontmask_t
+    val getSetFields : record_t -> font_mask_t
     val getSize : record_t -> LargeInt.int
     val getSizeIsAbsolute : record_t -> bool
     val getStretch : record_t -> stretch_t
@@ -81,7 +81,7 @@ signature PANGO_FONT_DESCRIPTION =
     val toString : record_t -> string
     val unsetFields :
       record_t
-       -> fontmask_t
+       -> font_mask_t
        -> unit
     val fromString : string -> record_t
   end

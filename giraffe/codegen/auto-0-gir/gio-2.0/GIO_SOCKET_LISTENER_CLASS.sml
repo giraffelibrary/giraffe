@@ -1,7 +1,7 @@
 signature GIO_SOCKET_LISTENER_CLASS =
   sig
-    type 'a socketlistener
-    type 'a t = 'a socketlistener GObject.ObjectClass.t
+    type 'a socket_listener
+    type 'a t = 'a socket_listener GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

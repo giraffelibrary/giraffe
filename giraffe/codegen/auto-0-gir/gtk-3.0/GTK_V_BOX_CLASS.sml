@@ -1,8 +1,8 @@
 signature GTK_V_BOX_CLASS =
   sig
-    type 'a vbox
-    type 'a boxclass_t
-    type 'a t = 'a vbox boxclass_t
+    type 'a v_box
+    type 'a box_class_t
+    type 'a t = 'a v_box box_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

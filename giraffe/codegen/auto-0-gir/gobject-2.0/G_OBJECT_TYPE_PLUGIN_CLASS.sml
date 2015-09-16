@@ -1,8 +1,8 @@
 signature G_OBJECT_TYPE_PLUGIN_CLASS =
   sig
-    type 'a typeplugin
-    type 'a objectclass_t
-    type 'a t = 'a typeplugin objectclass_t
+    type 'a type_plugin
+    type 'a object_class_t
+    type 'a t = 'a type_plugin object_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

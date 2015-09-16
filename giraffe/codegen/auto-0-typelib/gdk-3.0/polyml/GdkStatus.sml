@@ -11,9 +11,9 @@ structure GdkStatus :>
     datatype t =
       OK
     | ERROR
-    | ERRORPARAM
-    | ERRORFILE
-    | ERRORMEM
+    | ERROR_PARAM
+    | ERROR_FILE
+    | ERROR_MEM
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -23,17 +23,17 @@ structure GdkStatus :>
           fn
             OK => f 0
           | ERROR => f ~1
-          | ERRORPARAM => f ~2
-          | ERRORFILE => f ~3
-          | ERRORMEM => f ~4
+          | ERROR_PARAM => f ~2
+          | ERROR_FILE => f ~3
+          | ERROR_MEM => f ~4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => OK
           | ~1 => ERROR
-          | ~2 => ERRORPARAM
-          | ~3 => ERRORFILE
-          | ~4 => ERRORMEM
+          | ~2 => ERROR_PARAM
+          | ~3 => ERROR_FILE
+          | ~4 => ERROR_MEM
           | n => raise Value n
       end
     structure PolyML =

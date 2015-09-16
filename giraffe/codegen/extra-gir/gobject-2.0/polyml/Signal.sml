@@ -7,10 +7,10 @@
 
 structure Signal :>
   SIGNAL
-    where type 'a objectclass_t = 'a GObjectObjectClass.t
+    where type 'a object_class_t = 'a GObjectObjectClass.t
     where type 'a marshaller = 'a GObjectClosure.marshaller =
   struct
-    type 'a objectclass_t = 'a GObjectObjectClass.t
+    type 'a object_class_t = 'a GObjectObjectClass.t
     type 'a marshaller = 'a GObjectClosure.marshaller
 
     local
@@ -54,7 +54,7 @@ structure Signal :>
           );
     end
 
-    type 'objectclass signal = string * GObjectClosureRecord.t
+    type 'object_class signal = string * GObjectClosureRecord.t
 
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)

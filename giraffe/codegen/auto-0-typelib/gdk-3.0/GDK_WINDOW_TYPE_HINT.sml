@@ -9,8 +9,8 @@ signature GDK_WINDOW_TYPE_HINT =
     | UTILITY
     | DOCK
     | DESKTOP
-    | DROPDOWNMENU
-    | POPUPMENU
+    | DROPDOWN_MENU
+    | POPUP_MENU
     | TOOLTIP
     | NOTIFICATION
     | COMBO

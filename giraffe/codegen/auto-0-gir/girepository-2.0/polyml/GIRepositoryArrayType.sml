@@ -11,8 +11,8 @@ structure GIRepositoryArrayType :>
     datatype t =
       C
     | ARRAY
-    | PTRARRAY
-    | BYTEARRAY
+    | PTR_ARRAY
+    | BYTE_ARRAY
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -22,15 +22,15 @@ structure GIRepositoryArrayType :>
           fn
             C => f 0
           | ARRAY => f 1
-          | PTRARRAY => f 2
-          | BYTEARRAY => f 3
+          | PTR_ARRAY => f 2
+          | BYTE_ARRAY => f 3
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => C
           | 1 => ARRAY
-          | 2 => PTRARRAY
-          | 3 => BYTEARRAY
+          | 2 => PTR_ARRAY
+          | 3 => BYTE_ARRAY
           | n => raise Value n
       end
     structure PolyML =

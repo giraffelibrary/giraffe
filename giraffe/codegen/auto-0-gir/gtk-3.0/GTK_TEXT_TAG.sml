@@ -1,10 +1,10 @@
 signature GTK_TEXT_TAG =
   sig
     type 'a class_t
-    type textiterrecord_t
-    type textdirection_t
+    type text_iter_record_t
+    type text_direction_t
     type justification_t
-    type wrapmode_t
+    type wrap_mode_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : string option -> base class_t
@@ -12,7 +12,7 @@ signature GTK_TEXT_TAG =
       'a class_t
        -> 'b GObject.ObjectClass.t
        -> 'c Gdk.Event.t
-       -> textiterrecord_t
+       -> text_iter_record_t
        -> bool
     val getPriority : 'a class_t -> LargeInt.int
     val setPriority :
@@ -22,7 +22,7 @@ signature GTK_TEXT_TAG =
     val eventSig :
       (base GObject.ObjectClass.t
         -> base Gdk.Event.t
-        -> textiterrecord_t
+        -> text_iter_record_t
         -> bool)
        -> 'a class_t Signal.signal
     val accumulativeMarginProp : ('a class_t, bool, bool) Property.readwrite
@@ -32,7 +32,7 @@ signature GTK_TEXT_TAG =
     val backgroundGdkProp : ('a class_t, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val backgroundRgbaProp : ('a class_t, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
     val backgroundSetProp : ('a class_t, bool, bool) Property.readwrite
-    val directionProp : ('a class_t, textdirection_t, textdirection_t) Property.readwrite
+    val directionProp : ('a class_t, text_direction_t, text_direction_t) Property.readwrite
     val editableProp : ('a class_t, bool, bool) Property.readwrite
     val editableSetProp : ('a class_t, bool, bool) Property.readwrite
     val familyProp : ('a class_t, string option, string option) Property.readwrite
@@ -87,6 +87,6 @@ signature GTK_TEXT_TAG =
     val variantSetProp : ('a class_t, bool, bool) Property.readwrite
     val weightProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val weightSetProp : ('a class_t, bool, bool) Property.readwrite
-    val wrapModeProp : ('a class_t, wrapmode_t, wrapmode_t) Property.readwrite
+    val wrapModeProp : ('a class_t, wrap_mode_t, wrap_mode_t) Property.readwrite
     val wrapModeSetProp : ('a class_t, bool, bool) Property.readwrite
   end

@@ -1,7 +1,7 @@
 signature GDK_PROPERTY_STATE =
   sig
     datatype t =
-      NEWVALUE
+      NEW_VALUE
     | DELETE
     val null : t
     val t : (t, t) GObject.Value.accessor

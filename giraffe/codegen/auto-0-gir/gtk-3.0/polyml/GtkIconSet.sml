@@ -1,8 +1,8 @@
 structure GtkIconSet :>
   GTK_ICON_SET
     where type record_t = GtkIconSetRecord.t
-    where type iconsourcerecord_t = GtkIconSourceRecord.t
-    where type 'a stylecontextclass_t = 'a GtkStyleContextClass.t =
+    where type icon_source_record_t = GtkIconSourceRecord.t
+    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
   struct
     local
       open PolyMLFFI
@@ -22,8 +22,8 @@ structure GtkIconSet :>
           )
     end
     type record_t = GtkIconSetRecord.t
-    type iconsourcerecord_t = GtkIconSourceRecord.t
-    type 'a stylecontextclass_t = 'a GtkStyleContextClass.t
+    type icon_source_record_t = GtkIconSourceRecord.t
+    type 'a style_context_class_t = 'a GtkStyleContextClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSetRecord.C.fromPtr true) new_ ()

@@ -1,12 +1,12 @@
 signature GTK_ICON_INFO =
   sig
     type record_t
-    type 'a iconthemeclass_t
-    type 'a stylecontextclass_t
+    type 'a icon_theme_class_t
+    type 'a style_context_class_t
     type t = record_t
     val getType : unit -> GObject.Type.t
     val newForPixbuf :
-      'a iconthemeclass_t
+      'a icon_theme_class_t
        -> 'b GdkPixbuf.PixbufClass.t
        -> record_t
     val copy : record_t -> record_t
@@ -25,7 +25,7 @@ signature GTK_ICON_INFO =
        -> base GdkPixbuf.PixbufClass.t * bool
     val loadSymbolicForContext :
       record_t
-       -> 'a stylecontextclass_t
+       -> 'a style_context_class_t
        -> base GdkPixbuf.PixbufClass.t * bool
     val setRawCoordinates :
       record_t

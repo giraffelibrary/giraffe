@@ -1,8 +1,8 @@
 signature GTK_LINK_BUTTON_CLASS =
   sig
-    type 'a linkbutton
-    type 'a buttonclass_t
-    type 'a t = 'a linkbutton buttonclass_t
+    type 'a link_button
+    type 'a button_class_t
+    type 'a t = 'a link_button button_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

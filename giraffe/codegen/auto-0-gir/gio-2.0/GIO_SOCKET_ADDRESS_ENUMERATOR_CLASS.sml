@@ -1,7 +1,7 @@
 signature GIO_SOCKET_ADDRESS_ENUMERATOR_CLASS =
   sig
-    type 'a socketaddressenumerator
-    type 'a t = 'a socketaddressenumerator GObject.ObjectClass.t
+    type 'a socket_address_enumerator
+    type 'a t = 'a socket_address_enumerator GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

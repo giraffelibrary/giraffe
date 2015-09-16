@@ -2,12 +2,12 @@ signature ATK_TEXT_BOUNDARY =
   sig
     datatype t =
       CHAR
-    | WORDSTART
-    | WORDEND
-    | SENTENCESTART
-    | SENTENCEEND
-    | LINESTART
-    | LINEEND
+    | WORD_START
+    | WORD_END
+    | SENTENCE_START
+    | SENTENCE_END
+    | LINE_START
+    | LINE_END
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

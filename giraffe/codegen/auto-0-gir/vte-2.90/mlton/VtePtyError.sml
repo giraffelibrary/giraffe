@@ -4,8 +4,8 @@ structure VtePtyError :>
   end =
   struct
     datatype t =
-      PTYHELPERFAILED
-    | PTY98FAILED
+      PTY_HELPER_FAILED
+    | PTY_98_FAILED
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -13,13 +13,13 @@ structure VtePtyError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            PTYHELPERFAILED => f 0
-          | PTY98FAILED => f 1
+            PTY_HELPER_FAILED => f 0
+          | PTY_98_FAILED => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => PTYHELPERFAILED
-          | 1 => PTY98FAILED
+            0 => PTY_HELPER_FAILED
+          | 1 => PTY_98_FAILED
           | n => raise Value n
       end
     val getType_ = _import "vte_pty_error_get_type" : unit -> GObjectType.C.val_;

@@ -1,8 +1,8 @@
 signature GTK_INFO_BAR_CLASS =
   sig
-    type 'a infobar
-    type 'a boxclass_t
-    type 'a t = 'a infobar boxclass_t
+    type 'a info_bar
+    type 'a box_class_t
+    type 'a t = 'a info_bar box_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

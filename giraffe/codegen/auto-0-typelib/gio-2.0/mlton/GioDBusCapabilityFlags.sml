@@ -8,8 +8,8 @@ structure GioDBusCapabilityFlags :>
     in
       val NONE = NONE ()
     end
-    val UNIXFDPASSING = 0w1
-    val allFlags = [NONE, UNIXFDPASSING]
+    val UNIX_FD_PASSING = 0w1
+    val allFlags = [NONE, UNIX_FD_PASSING]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

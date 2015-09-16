@@ -1,14 +1,14 @@
 signature GDK_WINDOW_EDGE =
   sig
     datatype t =
-      NORTHWEST
+      NORTH_WEST
     | NORTH
-    | NORTHEAST
+    | NORTH_EAST
     | WEST
     | EAST
-    | SOUTHWEST
+    | SOUTH_WEST
     | SOUTH
-    | SOUTHEAST
+    | SOUTH_EAST
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

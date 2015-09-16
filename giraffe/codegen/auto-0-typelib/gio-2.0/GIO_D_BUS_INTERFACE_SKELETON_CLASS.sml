@@ -1,7 +1,7 @@
 signature GIO_D_BUS_INTERFACE_SKELETON_CLASS =
   sig
-    type 'a dbusinterfaceskeleton
-    type 'a t = 'a dbusinterfaceskeleton GObject.ObjectClass.t
+    type 'a d_bus_interface_skeleton
+    type 'a t = 'a d_bus_interface_skeleton GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

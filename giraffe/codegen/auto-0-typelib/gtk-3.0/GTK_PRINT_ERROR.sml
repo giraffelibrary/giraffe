@@ -2,9 +2,9 @@ signature GTK_PRINT_ERROR =
   sig
     datatype t =
       GENERAL
-    | INTERNALERROR
+    | INTERNAL_ERROR
     | NOMEM
-    | INVALIDFILE
+    | INVALID_FILE
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor

@@ -2,8 +2,8 @@ signature GIO_D_BUS_MESSAGE_TYPE =
   sig
     datatype t =
       INVALID
-    | METHODCALL
-    | METHODRETURN
+    | METHOD_CALL
+    | METHOD_RETURN
     | ERROR
     | SIGNAL
     val null : t

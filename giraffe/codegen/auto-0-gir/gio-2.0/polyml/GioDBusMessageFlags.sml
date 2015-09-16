@@ -13,13 +13,13 @@ structure GioDBusMessageFlags :>
     in
       val NONE = NONE ()
     end
-    val NOREPLYEXPECTED = 0w1
-    val NOAUTOSTART = 0w2
+    val NO_REPLY_EXPECTED = 0w1
+    val NO_AUTO_START = 0w2
     val allFlags =
       [
         NONE,
-        NOREPLYEXPECTED,
-        NOAUTOSTART
+        NO_REPLY_EXPECTED,
+        NO_AUTO_START
       ]
     structure BitFlags =
       Word32BitFlags (

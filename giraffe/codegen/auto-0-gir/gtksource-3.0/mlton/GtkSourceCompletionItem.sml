@@ -1,7 +1,7 @@
 structure GtkSourceCompletionItem :>
   GTK_SOURCE_COMPLETION_ITEM
     where type 'a class_t = 'a GtkSourceCompletionItemClass.t
-    where type 'a completionproposalclass_t = 'a GtkSourceCompletionProposalClass.t =
+    where type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t =
   struct
     val getType_ = _import "gtk_source_completion_item_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -85,7 +85,7 @@ structure GtkSourceCompletionItem :>
               x7
             )
     type 'a class_t = 'a GtkSourceCompletionItemClass.t
-    type 'a completionproposalclass_t = 'a GtkSourceCompletionProposalClass.t
+    type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t
     type t = base class_t
     fun asCompletionProposal self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProposalClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

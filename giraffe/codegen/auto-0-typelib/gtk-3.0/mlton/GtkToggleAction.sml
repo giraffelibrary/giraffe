@@ -1,7 +1,7 @@
 structure GtkToggleAction :>
   GTK_TOGGLE_ACTION
     where type 'a class_t = 'a GtkToggleActionClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     val getType_ = _import "gtk_toggle_action_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -38,7 +38,7 @@ structure GtkToggleAction :>
     val setDrawAsRadio_ = fn x1 & x2 => (_import "gtk_toggle_action_set_draw_as_radio" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val toggled_ = _import "gtk_toggle_action_toggled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkToggleActionClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -6,7 +6,7 @@ structure PangoFontDescription :>
     where type style_t = PangoStyle.t
     where type variant_t = PangoVariant.t
     where type weight_t = PangoWeight.t
-    where type fontmask_t = PangoFontMask.t =
+    where type font_mask_t = PangoFontMask.t =
   struct
     val getType_ = _import "pango_font_description_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "pango_font_description_new" : unit -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
@@ -121,7 +121,7 @@ structure PangoFontDescription :>
     type style_t = PangoStyle.t
     type variant_t = PangoVariant.t
     type weight_t = PangoWeight.t
-    type fontmask_t = PangoFontMask.t
+    type font_mask_t = PangoFontMask.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoFontDescriptionRecord.C.fromPtr true) new_ ()

@@ -1,9 +1,9 @@
 structure GtkTreeModel :>
   GTK_TREE_MODEL
     where type 'a class_t = 'a GtkTreeModelClass.t
-    where type treemodelflags_t = GtkTreeModelFlags.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type treepathrecord_t = GtkTreePathRecord.t =
+    where type tree_model_flags_t = GtkTreeModelFlags.t
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type tree_path_record_t = GtkTreePathRecord.t =
   struct
     local
       open PolyMLFFI
@@ -99,9 +99,9 @@ structure GtkTreeModel :>
       val unrefNode_ = call (load_sym libgtk "gtk_tree_model_unref_node") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTreeModelClass.t
-    type treemodelflags_t = GtkTreeModelFlags.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type treepathrecord_t = GtkTreePathRecord.t
+    type tree_model_flags_t = GtkTreeModelFlags.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type tree_path_record_t = GtkTreePathRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun filterNew self root = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withOptPtr ---> GtkTreeModelClass.C.fromPtr true) filterNew_ (self & root)

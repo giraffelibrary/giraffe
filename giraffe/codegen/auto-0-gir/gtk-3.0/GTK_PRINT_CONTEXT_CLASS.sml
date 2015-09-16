@@ -1,7 +1,7 @@
 signature GTK_PRINT_CONTEXT_CLASS =
   sig
-    type 'a printcontext
-    type 'a t = 'a printcontext GObject.ObjectClass.t
+    type 'a print_context
+    type 'a t = 'a print_context GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

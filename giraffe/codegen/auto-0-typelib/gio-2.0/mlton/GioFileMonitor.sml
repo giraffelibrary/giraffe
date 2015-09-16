@@ -1,8 +1,8 @@
 structure GioFileMonitor :>
   GIO_FILE_MONITOR
     where type 'a class_t = 'a GioFileMonitorClass.t
-    where type filemonitorevent_t = GioFileMonitorEvent.t
-    where type 'a fileclass_t = 'a GioFileClass.t =
+    where type file_monitor_event_t = GioFileMonitorEvent.t
+    where type 'a file_class_t = 'a GioFileClass.t =
   struct
     val getType_ = _import "g_file_monitor_get_type" : unit -> GObjectType.C.val_;
     val cancel_ = _import "g_file_monitor_cancel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -29,8 +29,8 @@ structure GioFileMonitor :>
     val isCancelled_ = _import "g_file_monitor_is_cancelled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setRateLimit_ = fn x1 & x2 => (_import "g_file_monitor_set_rate_limit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class_t = 'a GioFileMonitorClass.t
-    type filemonitorevent_t = GioFileMonitorEvent.t
-    type 'a fileclass_t = 'a GioFileClass.t
+    type file_monitor_event_t = GioFileMonitorEvent.t
+    type 'a file_class_t = 'a GioFileClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun cancel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) cancel_ self

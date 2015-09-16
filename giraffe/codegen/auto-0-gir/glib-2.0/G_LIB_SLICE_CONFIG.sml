@@ -1,12 +1,12 @@
 signature G_LIB_SLICE_CONFIG =
   sig
     datatype t =
-      ALWAYSMALLOC
-    | BYPASSMAGAZINES
-    | WORKINGSETMSECS
-    | COLORINCREMENT
-    | CHUNKSIZES
-    | CONTENTIONCOUNTER
+      ALWAYS_MALLOC
+    | BYPASS_MAGAZINES
+    | WORKING_SET_MSECS
+    | COLOR_INCREMENT
+    | CHUNK_SIZES
+    | CONTENTION_COUNTER
     val null : t
     structure C :
       sig

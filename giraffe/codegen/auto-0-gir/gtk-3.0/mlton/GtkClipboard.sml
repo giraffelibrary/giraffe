@@ -1,8 +1,8 @@
 structure GtkClipboard :>
   GTK_CLIPBOARD
     where type 'a class_t = 'a GtkClipboardClass.t
-    where type selectiondatarecord_t = GtkSelectionDataRecord.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t =
+    where type selection_data_record_t = GtkSelectionDataRecord.t
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
   struct
     val getType_ = _import "gtk_clipboard_get_type" : unit -> GObjectType.C.val_;
     val get_ = _import "gtk_clipboard_get" : GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -40,8 +40,8 @@ structure GtkClipboard :>
     val waitIsTextAvailable_ = _import "gtk_clipboard_wait_is_text_available" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val waitIsUrisAvailable_ = _import "gtk_clipboard_wait_is_uris_available" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     type 'a class_t = 'a GtkClipboardClass.t
-    type selectiondatarecord_t = GtkSelectionDataRecord.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type selection_data_record_t = GtkSelectionDataRecord.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get selection = (GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) get_ selection

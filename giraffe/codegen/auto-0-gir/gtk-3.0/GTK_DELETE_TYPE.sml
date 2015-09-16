@@ -2,11 +2,11 @@ signature GTK_DELETE_TYPE =
   sig
     datatype t =
       CHARS
-    | WORDENDS
+    | WORD_ENDS
     | WORDS
-    | DISPLAYLINES
-    | DISPLAYLINEENDS
-    | PARAGRAPHENDS
+    | DISPLAY_LINES
+    | DISPLAY_LINE_ENDS
+    | PARAGRAPH_ENDS
     | PARAGRAPHS
     | WHITESPACE
     val null : t

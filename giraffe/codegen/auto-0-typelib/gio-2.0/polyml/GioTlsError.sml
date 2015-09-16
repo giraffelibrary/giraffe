@@ -11,10 +11,10 @@ structure GioTlsError :>
     datatype t =
       UNAVAILABLE
     | MISC
-    | BADCERTIFICATE
-    | NOTTLS
+    | BAD_CERTIFICATE
+    | NOT_TLS
     | HANDSHAKE
-    | CERTIFICATEREQUIRED
+    | CERTIFICATE_REQUIRED
     | EOF
     structure C =
       struct
@@ -25,20 +25,20 @@ structure GioTlsError :>
           fn
             UNAVAILABLE => f 0
           | MISC => f 1
-          | BADCERTIFICATE => f 2
-          | NOTTLS => f 3
+          | BAD_CERTIFICATE => f 2
+          | NOT_TLS => f 3
           | HANDSHAKE => f 4
-          | CERTIFICATEREQUIRED => f 5
+          | CERTIFICATE_REQUIRED => f 5
           | EOF => f 6
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => UNAVAILABLE
           | 1 => MISC
-          | 2 => BADCERTIFICATE
-          | 3 => NOTTLS
+          | 2 => BAD_CERTIFICATE
+          | 3 => NOT_TLS
           | 4 => HANDSHAKE
-          | 5 => CERTIFICATEREQUIRED
+          | 5 => CERTIFICATE_REQUIRED
           | 6 => EOF
           | n => raise Value n
       end

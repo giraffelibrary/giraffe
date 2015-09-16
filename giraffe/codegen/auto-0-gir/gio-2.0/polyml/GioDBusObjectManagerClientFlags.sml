@@ -13,8 +13,8 @@ structure GioDBusObjectManagerClientFlags :>
     in
       val NONE = NONE ()
     end
-    val DONOTAUTOSTART = 0w1
-    val allFlags = [NONE, DONOTAUTOSTART]
+    val DO_NOT_AUTO_START = 0w1
+    val allFlags = [NONE, DO_NOT_AUTO_START]
     structure BitFlags =
       Word32BitFlags (
         val allFlags = allFlags

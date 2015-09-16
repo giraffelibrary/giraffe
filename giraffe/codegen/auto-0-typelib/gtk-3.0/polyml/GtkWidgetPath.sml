@@ -1,8 +1,8 @@
 structure GtkWidgetPath :>
   GTK_WIDGET_PATH
     where type record_t = GtkWidgetPathRecord.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type regionflags_t = GtkRegionFlags.t =
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type region_flags_t = GtkRegionFlags.t =
   struct
     local
       open PolyMLFFI
@@ -119,8 +119,8 @@ structure GtkWidgetPath :>
       val toString_ = call (load_sym libgtk "gtk_widget_path_to_string") (GtkWidgetPathRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
     end
     type record_t = GtkWidgetPathRecord.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type regionflags_t = GtkRegionFlags.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type region_flags_t = GtkRegionFlags.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.C.fromPtr true) new_ ()

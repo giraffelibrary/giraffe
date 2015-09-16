@@ -2,14 +2,14 @@ structure PangoRenderer :>
   PANGO_RENDERER
     where type 'a class_t = 'a PangoRendererClass.t
     where type glyph_t = PangoGlyph.t
-    where type glyphitemrecord_t = PangoGlyphItemRecord.t
-    where type glyphstringrecord_t = PangoGlyphStringRecord.t
-    where type 'a fontclass_t = 'a PangoFontClass.t
-    where type 'a layoutclass_t = 'a PangoLayoutClass.t
-    where type layoutlinerecord_t = PangoLayoutLineRecord.t
-    where type colorrecord_t = PangoColorRecord.t
-    where type renderpart_t = PangoRenderPart.t
-    where type matrixrecord_t = PangoMatrixRecord.t =
+    where type glyph_item_record_t = PangoGlyphItemRecord.t
+    where type glyph_string_record_t = PangoGlyphStringRecord.t
+    where type 'a font_class_t = 'a PangoFontClass.t
+    where type 'a layout_class_t = 'a PangoLayoutClass.t
+    where type layout_line_record_t = PangoLayoutLineRecord.t
+    where type color_record_t = PangoColorRecord.t
+    where type render_part_t = PangoRenderPart.t
+    where type matrix_record_t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_renderer_get_type" : unit -> GObjectType.C.val_;
     val activate_ = _import "pango_renderer_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -231,14 +231,14 @@ structure PangoRenderer :>
     val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoMatrixRecord.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a PangoRendererClass.t
     type glyph_t = PangoGlyph.t
-    type glyphitemrecord_t = PangoGlyphItemRecord.t
-    type glyphstringrecord_t = PangoGlyphStringRecord.t
-    type 'a fontclass_t = 'a PangoFontClass.t
-    type 'a layoutclass_t = 'a PangoLayoutClass.t
-    type layoutlinerecord_t = PangoLayoutLineRecord.t
-    type colorrecord_t = PangoColorRecord.t
-    type renderpart_t = PangoRenderPart.t
-    type matrixrecord_t = PangoMatrixRecord.t
+    type glyph_item_record_t = PangoGlyphItemRecord.t
+    type glyph_string_record_t = PangoGlyphStringRecord.t
+    type 'a font_class_t = 'a PangoFontClass.t
+    type 'a layout_class_t = 'a PangoLayoutClass.t
+    type layout_line_record_t = PangoLayoutLineRecord.t
+    type color_record_t = PangoColorRecord.t
+    type render_part_t = PangoRenderPart.t
+    type matrix_record_t = PangoMatrixRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self

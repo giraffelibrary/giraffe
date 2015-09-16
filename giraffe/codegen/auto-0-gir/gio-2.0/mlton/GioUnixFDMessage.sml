@@ -1,7 +1,7 @@
 structure GioUnixFDMessage :>
   GIO_UNIX_F_D_MESSAGE
     where type 'a class_t = 'a GioUnixFDMessageClass.t
-    where type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t =
+    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t =
   struct
     val getType_ = _import "g_unix_fd_message_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_unix_fd_message_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -25,7 +25,7 @@ structure GioUnixFDMessage :>
             )
     val getFdList_ = _import "g_unix_fd_message_get_fd_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GioUnixFDMessageClass.t
-    type 'a unixfdlistclass_t = 'a GioUnixFDListClass.t
+    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDMessageClass.C.fromPtr true) new_ ()

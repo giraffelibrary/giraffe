@@ -13,13 +13,13 @@ structure GioOutputStreamSpliceFlags :>
     in
       val NONE = NONE ()
     end
-    val CLOSESOURCE = 0w1
-    val CLOSETARGET = 0w2
+    val CLOSE_SOURCE = 0w1
+    val CLOSE_TARGET = 0w2
     val allFlags =
       [
         NONE,
-        CLOSESOURCE,
-        CLOSETARGET
+        CLOSE_SOURCE,
+        CLOSE_TARGET
       ]
     structure BitFlags =
       Word32BitFlags (

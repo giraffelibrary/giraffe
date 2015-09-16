@@ -1,10 +1,10 @@
 structure PangoLayoutIter :>
   PANGO_LAYOUT_ITER
     where type record_t = PangoLayoutIterRecord.t
-    where type 'a layoutclass_t = 'a PangoLayoutClass.t
-    where type layoutlinerecord_t = PangoLayoutLineRecord.t
-    where type rectanglerecord_t = PangoRectangleRecord.t
-    where type glyphitemrecord_t = PangoGlyphItemRecord.t =
+    where type 'a layout_class_t = 'a PangoLayoutClass.t
+    where type layout_line_record_t = PangoLayoutLineRecord.t
+    where type rectangle_record_t = PangoRectangleRecord.t
+    where type glyph_item_record_t = PangoGlyphItemRecord.t =
   struct
     val getType_ = _import "pango_layout_iter_get_type" : unit -> GObjectType.C.val_;
     val atLastLine_ = _import "pango_layout_iter_at_last_line" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
@@ -107,10 +107,10 @@ structure PangoLayoutIter :>
     val nextLine_ = _import "pango_layout_iter_next_line" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
     val nextRun_ = _import "pango_layout_iter_next_run" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
     type record_t = PangoLayoutIterRecord.t
-    type 'a layoutclass_t = 'a PangoLayoutClass.t
-    type layoutlinerecord_t = PangoLayoutLineRecord.t
-    type rectanglerecord_t = PangoRectangleRecord.t
-    type glyphitemrecord_t = PangoGlyphItemRecord.t
+    type 'a layout_class_t = 'a PangoLayoutClass.t
+    type layout_line_record_t = PangoLayoutLineRecord.t
+    type rectangle_record_t = PangoRectangleRecord.t
+    type glyph_item_record_t = PangoGlyphItemRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun atLastLine self = (PangoLayoutIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) atLastLine_ self

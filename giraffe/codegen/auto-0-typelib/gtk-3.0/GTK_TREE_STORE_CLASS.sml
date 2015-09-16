@@ -1,7 +1,7 @@
 signature GTK_TREE_STORE_CLASS =
   sig
-    type 'a treestore
-    type 'a t = 'a treestore GObject.ObjectClass.t
+    type 'a tree_store
+    type 'a t = 'a tree_store GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

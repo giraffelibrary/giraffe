@@ -1,10 +1,10 @@
 structure GtkInfoBar :>
   GTK_INFO_BAR
     where type 'a class_t = 'a GtkInfoBarClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a orientableclass_t = 'a GtkOrientableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type messagetype_t = GtkMessageType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a orientable_class_t = 'a GtkOrientableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type message_type_t = GtkMessageType.t =
   struct
     val getType_ = _import "gtk_info_bar_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_info_bar_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -68,10 +68,10 @@ structure GtkInfoBar :>
               x3
             )
     type 'a class_t = 'a GtkInfoBarClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a orientableclass_t = 'a GtkOrientableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type messagetype_t = GtkMessageType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a orientable_class_t = 'a GtkOrientableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type message_type_t = GtkMessageType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

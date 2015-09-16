@@ -1,7 +1,7 @@
 signature GIO_SOCKET_CLIENT_CLASS =
   sig
-    type 'a socketclient
-    type 'a t = 'a socketclient GObject.ObjectClass.t
+    type 'a socket_client
+    type 'a t = 'a socket_client GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

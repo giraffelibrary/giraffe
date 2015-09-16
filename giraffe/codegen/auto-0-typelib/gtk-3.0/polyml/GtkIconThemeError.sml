@@ -9,7 +9,7 @@ structure GtkIconThemeError :>
   end =
   struct
     datatype t =
-      NOTFOUND
+      NOT_FOUND
     | FAILED
     structure C =
       struct
@@ -18,12 +18,12 @@ structure GtkIconThemeError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NOTFOUND => f 0
+            NOT_FOUND => f 0
           | FAILED => f 1
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NOTFOUND
+            0 => NOT_FOUND
           | 1 => FAILED
           | n => raise Value n
       end

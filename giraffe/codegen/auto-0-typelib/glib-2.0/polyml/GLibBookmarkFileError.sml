@@ -2,7 +2,7 @@ structure GLibBookmarkFileError :>
   sig
     include
       G_LIB_BOOKMARK_FILE_ERROR
-        where type errorrecord_handler = GLibErrorRecord.handler
+        where type error_record_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val VAL : C.val_ CInterface.Conversion
@@ -11,14 +11,14 @@ structure GLibBookmarkFileError :>
   end =
   struct
     datatype t =
-      INVALIDURI
-    | INVALIDVALUE
-    | APPNOTREGISTERED
-    | URINOTFOUND
+      INVALID_URI
+    | INVALID_VALUE
+    | APP_NOT_REGISTERED
+    | URI_NOT_FOUND
     | READ
-    | UNKNOWNENCODING
+    | UNKNOWN_ENCODING
     | WRITE
-    | FILENOTFOUND
+    | FILE_NOT_FOUND
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -26,25 +26,25 @@ structure GLibBookmarkFileError :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            INVALIDURI => f 0
-          | INVALIDVALUE => f 1
-          | APPNOTREGISTERED => f 2
-          | URINOTFOUND => f 3
+            INVALID_URI => f 0
+          | INVALID_VALUE => f 1
+          | APP_NOT_REGISTERED => f 2
+          | URI_NOT_FOUND => f 3
           | READ => f 4
-          | UNKNOWNENCODING => f 5
+          | UNKNOWN_ENCODING => f 5
           | WRITE => f 6
-          | FILENOTFOUND => f 7
+          | FILE_NOT_FOUND => f 7
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => INVALIDURI
-          | 1 => INVALIDVALUE
-          | 2 => APPNOTREGISTERED
-          | 3 => URINOTFOUND
+            0 => INVALID_URI
+          | 1 => INVALID_VALUE
+          | 2 => APP_NOT_REGISTERED
+          | 3 => URI_NOT_FOUND
           | 4 => READ
-          | 5 => UNKNOWNENCODING
+          | 5 => UNKNOWN_ENCODING
           | 6 => WRITE
-          | 7 => FILENOTFOUND
+          | 7 => FILE_NOT_FOUND
           | n => raise Value n
       end
     structure PolyML =
@@ -53,7 +53,7 @@ structure GLibBookmarkFileError :>
         val REF = FFI.Enum.PolyML.REF
       end
     exception Error of t
-    type errorrecord_handler = GLibErrorRecord.handler
+    type error_record_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

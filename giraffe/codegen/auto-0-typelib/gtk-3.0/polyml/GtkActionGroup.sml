@@ -1,9 +1,9 @@
 structure GtkActionGroup :>
   GTK_ACTION_GROUP
     where type 'a class_t = 'a GtkActionGroupClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a widgetclass_t = 'a GtkWidgetClass.t
-    where type 'a actionclass_t = 'a GtkActionClass.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a action_class_t = 'a GtkActionClass.t =
   struct
     local
       open PolyMLFFI
@@ -30,9 +30,9 @@ structure GtkActionGroup :>
       val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
     end
     type 'a class_t = 'a GtkActionGroupClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a widgetclass_t = 'a GtkWidgetClass.t
-    type 'a actionclass_t = 'a GtkActionClass.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a action_class_t = 'a GtkActionClass.t
     type t = base class_t
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

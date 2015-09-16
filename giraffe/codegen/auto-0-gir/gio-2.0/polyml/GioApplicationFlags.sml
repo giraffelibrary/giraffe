@@ -8,22 +8,22 @@ structure GioApplicationFlags :>
       end
   end =
   struct
-    val FLAGSNONE = 0w0
-    val ISSERVICE = 0w1
-    val ISLAUNCHER = 0w2
-    val HANDLESOPEN = 0w4
-    val HANDLESCOMMANDLINE = 0w8
-    val SENDENVIRONMENT = 0w16
-    val NONUNIQUE = 0w32
+    val FLAGS_NONE = 0w0
+    val IS_SERVICE = 0w1
+    val IS_LAUNCHER = 0w2
+    val HANDLES_OPEN = 0w4
+    val HANDLES_COMMAND_LINE = 0w8
+    val SEND_ENVIRONMENT = 0w16
+    val NON_UNIQUE = 0w32
     val allFlags =
       [
-        FLAGSNONE,
-        ISSERVICE,
-        ISLAUNCHER,
-        HANDLESOPEN,
-        HANDLESCOMMANDLINE,
-        SENDENVIRONMENT,
-        NONUNIQUE
+        FLAGS_NONE,
+        IS_SERVICE,
+        IS_LAUNCHER,
+        HANDLES_OPEN,
+        HANDLES_COMMAND_LINE,
+        SEND_ENVIRONMENT,
+        NON_UNIQUE
       ]
     structure BitFlags =
       Word32BitFlags (

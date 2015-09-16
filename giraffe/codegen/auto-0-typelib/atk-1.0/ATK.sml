@@ -44,20 +44,20 @@ signature ATK =
         where type 'a class_t = 'a EditableTextClass.t
     structure GObjectAccessibleClass :
       ATK_G_OBJECT_ACCESSIBLE_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure Hyperlink :
       ATK_HYPERLINK
         where type 'a class_t = 'a HyperlinkClass.t
-        where type 'a actionclass_t = 'a ActionClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a action_class_t = 'a ActionClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure HyperlinkImpl :
       ATK_HYPERLINK_IMPL
         where type 'a class_t = 'a HyperlinkImplClass.t
-        where type 'a hyperlinkclass_t = 'a HyperlinkClass.t
+        where type 'a hyperlink_class_t = 'a HyperlinkClass.t
     structure Hypertext :
       ATK_HYPERTEXT
         where type 'a class_t = 'a HypertextClass.t
-        where type 'a hyperlinkclass_t = 'a HyperlinkClass.t
+        where type 'a hyperlink_class_t = 'a HyperlinkClass.t
     structure Image :
       ATK_IMAGE
         where type 'a class_t = 'a ImageClass.t
@@ -69,56 +69,56 @@ signature ATK =
         where type 'a class_t = 'a MiscClass.t
     structure NoOpObjectClass :
       ATK_NO_OP_OBJECT_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure NoOpObjectFactoryClass :
       ATK_NO_OP_OBJECT_FACTORY_CLASS
-        where type 'a objectfactoryclass_t = 'a ObjectFactoryClass.t
+        where type 'a object_factory_class_t = 'a ObjectFactoryClass.t
     structure Object :
       ATK_OBJECT
         where type 'a class_t = 'a ObjectClass.t
-        where type 'a relationsetclass_t = 'a RelationSetClass.t
-        where type 'a statesetclass_t = 'a StateSetClass.t
-        where type relationtype_t = RelationType.t
+        where type 'a relation_set_class_t = 'a RelationSetClass.t
+        where type 'a state_set_class_t = 'a StateSetClass.t
+        where type relation_type_t = RelationType.t
         where type role_t = Role.t
     structure ObjectFactory :
       ATK_OBJECT_FACTORY
         where type 'a class_t = 'a ObjectFactoryClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure PlugClass :
       ATK_PLUG_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure Registry :
       ATK_REGISTRY
         where type 'a class_t = 'a RegistryClass.t
     structure Relation :
       ATK_RELATION
         where type 'a class_t = 'a RelationClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
-        where type relationtype_t = RelationType.t
+        where type 'a object_class_t = 'a ObjectClass.t
+        where type relation_type_t = RelationType.t
     structure RelationSet :
       ATK_RELATION_SET
         where type 'a class_t = 'a RelationSetClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
-        where type relationtype_t = RelationType.t
-        where type 'a relationclass_t = 'a RelationClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
+        where type relation_type_t = RelationType.t
+        where type 'a relation_class_t = 'a RelationClass.t
     structure Selection :
       ATK_SELECTION
         where type 'a class_t = 'a SelectionClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure SocketClass :
       ATK_SOCKET_CLASS
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure StateSet :
       ATK_STATE_SET
         where type 'a class_t = 'a StateSetClass.t
-        where type statetype_t = StateType.t
+        where type state_type_t = StateType.t
     structure StreamableContent :
       ATK_STREAMABLE_CONTENT
         where type 'a class_t = 'a StreamableContentClass.t
     structure Table :
       ATK_TABLE
         where type 'a class_t = 'a TableClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure Util :
       ATK_UTIL
         where type 'a class_t = 'a UtilClass.t
@@ -131,32 +131,32 @@ signature ATK =
     structure GObjectAccessible :
       ATK_G_OBJECT_ACCESSIBLE
         where type 'a class_t = 'a GObjectAccessibleClass.t
-        where type 'a objectclass_t = 'a ObjectClass.t
+        where type 'a object_class_t = 'a ObjectClass.t
     structure NoOpObject :
       ATK_NO_OP_OBJECT
         where type 'a class_t = 'a NoOpObjectClass.t
-        where type 'a actionclass_t = 'a ActionClass.t
-        where type 'a componentclass_t = 'a ComponentClass.t
-        where type 'a documentclass_t = 'a DocumentClass.t
-        where type 'a editabletextclass_t = 'a EditableTextClass.t
-        where type 'a hypertextclass_t = 'a HypertextClass.t
-        where type 'a imageclass_t = 'a ImageClass.t
-        where type 'a selectionclass_t = 'a SelectionClass.t
-        where type 'a tableclass_t = 'a TableClass.t
-        where type 'a textclass_t = 'a TextClass.t
-        where type 'a valueclass_t = 'a ValueClass.t
-        where type 'a windowclass_t = 'a WindowClass.t
+        where type 'a action_class_t = 'a ActionClass.t
+        where type 'a component_class_t = 'a ComponentClass.t
+        where type 'a document_class_t = 'a DocumentClass.t
+        where type 'a editable_text_class_t = 'a EditableTextClass.t
+        where type 'a hypertext_class_t = 'a HypertextClass.t
+        where type 'a image_class_t = 'a ImageClass.t
+        where type 'a selection_class_t = 'a SelectionClass.t
+        where type 'a table_class_t = 'a TableClass.t
+        where type 'a text_class_t = 'a TextClass.t
+        where type 'a value_class_t = 'a ValueClass.t
+        where type 'a window_class_t = 'a WindowClass.t
     structure NoOpObjectFactory :
       ATK_NO_OP_OBJECT_FACTORY
         where type 'a class_t = 'a NoOpObjectFactoryClass.t
     structure Plug :
       ATK_PLUG
         where type 'a class_t = 'a PlugClass.t
-        where type 'a componentclass_t = 'a ComponentClass.t
+        where type 'a component_class_t = 'a ComponentClass.t
     structure Socket :
       ATK_SOCKET
         where type 'a class_t = 'a SocketClass.t
-        where type 'a componentclass_t = 'a ComponentClass.t
+        where type 'a component_class_t = 'a ComponentClass.t
     val focusTrackerNotify : 'a ObjectClass.t -> unit
     val getDefaultRegistry : unit -> base RegistryClass.t
     val getFocusObject : unit -> base ObjectClass.t

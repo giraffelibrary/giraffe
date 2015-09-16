@@ -2,8 +2,8 @@ signature GTK_SOURCE_BRACKET_MATCH_TYPE =
   sig
     datatype t =
       NONE
-    | OUTOFRANGE
-    | NOTFOUND
+    | OUT_OF_RANGE
+    | NOT_FOUND
     | FOUND
     val null : t
     val t : (t, t) GObject.Value.accessor

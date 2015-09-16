@@ -9,9 +9,9 @@ structure GtkSizeRequestMode :>
   end =
   struct
     datatype t =
-      HEIGHTFORWIDTH
-    | WIDTHFORHEIGHT
-    | CONSTANTSIZE
+      HEIGHT_FOR_WIDTH
+    | WIDTH_FOR_HEIGHT
+    | CONSTANT_SIZE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -19,15 +19,15 @@ structure GtkSizeRequestMode :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            HEIGHTFORWIDTH => f 0
-          | WIDTHFORHEIGHT => f 1
-          | CONSTANTSIZE => f 2
+            HEIGHT_FOR_WIDTH => f 0
+          | WIDTH_FOR_HEIGHT => f 1
+          | CONSTANT_SIZE => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => HEIGHTFORWIDTH
-          | 1 => WIDTHFORHEIGHT
-          | 2 => CONSTANTSIZE
+            0 => HEIGHT_FOR_WIDTH
+          | 1 => WIDTH_FOR_HEIGHT
+          | 2 => CONSTANT_SIZE
           | n => raise Value n
       end
     structure PolyML =
@@ -49,6 +49,6 @@ structure GtkSizeRequestMode :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = HEIGHTFORWIDTH
+    val null = HEIGHT_FOR_WIDTH
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

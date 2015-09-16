@@ -1,17 +1,17 @@
 signature G_LIB_BOOKMARK_FILE_ERROR =
   sig
     datatype t =
-      INVALIDURI
-    | INVALIDVALUE
-    | APPNOTREGISTERED
-    | URINOTFOUND
+      INVALID_URI
+    | INVALID_VALUE
+    | APP_NOT_REGISTERED
+    | URI_NOT_FOUND
     | READ
-    | UNKNOWNENCODING
+    | UNKNOWN_ENCODING
     | WRITE
-    | FILENOTFOUND
+    | FILE_NOT_FOUND
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

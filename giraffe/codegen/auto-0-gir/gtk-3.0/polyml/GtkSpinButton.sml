@@ -1,13 +1,13 @@
 structure GtkSpinButton :>
   GTK_SPIN_BUTTON
     where type 'a class_t = 'a GtkSpinButtonClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    where type 'a editableclass_t = 'a GtkEditableClass.t
-    where type spintype_t = GtkSpinType.t
-    where type scrolltype_t = GtkScrollType.t
-    where type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    where type spinbuttonupdatepolicy_t = GtkSpinButtonUpdatePolicy.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    where type 'a editable_class_t = 'a GtkEditableClass.t
+    where type spin_type_t = GtkSpinType.t
+    where type scroll_type_t = GtkScrollType.t
+    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type spin_button_update_policy_t = GtkSpinButtonUpdatePolicy.t =
   struct
     local
       open PolyMLFFI
@@ -96,13 +96,13 @@ structure GtkSpinButton :>
       val update_ = call (load_sym libgtk "gtk_spin_button_update") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkSpinButtonClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a celleditableclass_t = 'a GtkCellEditableClass.t
-    type 'a editableclass_t = 'a GtkEditableClass.t
-    type spintype_t = GtkSpinType.t
-    type scrolltype_t = GtkScrollType.t
-    type 'a adjustmentclass_t = 'a GtkAdjustmentClass.t
-    type spinbuttonupdatepolicy_t = GtkSpinButtonUpdatePolicy.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
+    type 'a editable_class_t = 'a GtkEditableClass.t
+    type spin_type_t = GtkSpinType.t
+    type scroll_type_t = GtkScrollType.t
+    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type spin_button_update_policy_t = GtkSpinButtonUpdatePolicy.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

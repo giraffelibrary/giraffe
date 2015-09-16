@@ -16,37 +16,37 @@ signature GDK_PIXBUF =
     structure Pixbuf :
       GDK_PIXBUF_PIXBUF
         where type 'a class_t = 'a PixbufClass.t
-        where type pixbufrotation_t = PixbufRotation.t
-        where type interptype_t = InterpType.t
+        where type pixbuf_rotation_t = PixbufRotation.t
+        where type interp_type_t = InterpType.t
         where type colorspace_t = Colorspace.t
     structure PixbufAnimation :
       GDK_PIXBUF_PIXBUF_ANIMATION
         where type 'a class_t = 'a PixbufAnimationClass.t
-        where type 'a pixbufanimationiterclass_t = 'a PixbufAnimationIterClass.t
-        where type 'a pixbufclass_t = 'a PixbufClass.t
+        where type 'a pixbuf_animation_iter_class_t = 'a PixbufAnimationIterClass.t
+        where type 'a pixbuf_class_t = 'a PixbufClass.t
     structure PixbufAnimationIter :
       GDK_PIXBUF_PIXBUF_ANIMATION_ITER
         where type 'a class_t = 'a PixbufAnimationIterClass.t
-        where type 'a pixbufclass_t = 'a PixbufClass.t
+        where type 'a pixbuf_class_t = 'a PixbufClass.t
     structure PixbufFormat :
       GDK_PIXBUF_PIXBUF_FORMAT
         where type record_t = PixbufFormatRecord.t
     structure PixbufLoader :
       GDK_PIXBUF_PIXBUF_LOADER
         where type 'a class_t = 'a PixbufLoaderClass.t
-        where type 'a pixbufanimationclass_t = 'a PixbufAnimationClass.t
-        where type pixbufformatrecord_t = PixbufFormatRecord.t
-        where type 'a pixbufclass_t = 'a PixbufClass.t
+        where type 'a pixbuf_animation_class_t = 'a PixbufAnimationClass.t
+        where type pixbuf_format_record_t = PixbufFormatRecord.t
+        where type 'a pixbuf_class_t = 'a PixbufClass.t
     structure PixbufSimpleAnimClass :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_CLASS
-        where type 'a pixbufanimationclass_t = 'a PixbufAnimationClass.t
+        where type 'a pixbuf_animation_class_t = 'a PixbufAnimationClass.t
     structure PixbufSimpleAnimIterClass :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER_CLASS
-        where type 'a pixbufanimationiterclass_t = 'a PixbufAnimationIterClass.t
+        where type 'a pixbuf_animation_iter_class_t = 'a PixbufAnimationIterClass.t
     structure PixbufSimpleAnim :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM
         where type 'a class_t = 'a PixbufSimpleAnimClass.t
-        where type 'a pixbufclass_t = 'a PixbufClass.t
+        where type 'a pixbuf_class_t = 'a PixbufClass.t
     structure PixbufSimpleAnimIter :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER
         where type 'a class_t = 'a PixbufSimpleAnimIterClass.t

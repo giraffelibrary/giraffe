@@ -3,18 +3,18 @@ signature GTK_SCROLL_TYPE =
     datatype t =
       NONE
     | JUMP
-    | STEPBACKWARD
-    | STEPFORWARD
-    | PAGEBACKWARD
-    | PAGEFORWARD
-    | STEPUP
-    | STEPDOWN
-    | PAGEUP
-    | PAGEDOWN
-    | STEPLEFT
-    | STEPRIGHT
-    | PAGELEFT
-    | PAGERIGHT
+    | STEP_BACKWARD
+    | STEP_FORWARD
+    | PAGE_BACKWARD
+    | PAGE_FORWARD
+    | STEP_UP
+    | STEP_DOWN
+    | PAGE_UP
+    | PAGE_DOWN
+    | STEP_LEFT
+    | STEP_RIGHT
+    | PAGE_LEFT
+    | PAGE_RIGHT
     | START
     | END
     val null : t

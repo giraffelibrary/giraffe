@@ -1,8 +1,8 @@
 signature G_OBJECT_INITIALLY_UNOWNED_CLASS =
   sig
-    type 'a initiallyunowned
-    type 'a objectclass_t
-    type 'a t = 'a initiallyunowned objectclass_t
+    type 'a initially_unowned
+    type 'a object_class_t
+    type 'a t = 'a initially_unowned object_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

@@ -1,12 +1,12 @@
 signature GIO_THEMED_ICON =
   sig
     type 'a class_t
-    type 'a iconclass_t
+    type 'a icon_class_t
     type t = base class_t
-    val asIcon : 'a class_t -> base iconclass_t
+    val asIcon : 'a class_t -> base icon_class_t
     val getType : unit -> GObject.Type.t
-    val new : string -> base iconclass_t
-    val newWithDefaultFallbacks : string -> base iconclass_t
+    val new : string -> base icon_class_t
+    val newWithDefaultFallbacks : string -> base icon_class_t
     val appendName :
       'a class_t
        -> string

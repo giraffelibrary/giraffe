@@ -1,8 +1,8 @@
 signature G_OBJECT_PARAM_SPEC_OVERRIDE_CLASS =
   sig
-    type 'a paramspecoverride
-    type 'a paramspecclass_t
-    type 'a t = 'a paramspecoverride paramspecclass_t
+    type 'a param_spec_override
+    type 'a param_spec_class_t
+    type 'a t = 'a param_spec_override param_spec_class_t
     val toBase : 'a t -> base t
     type ('a, 'b) value_accessor
     val t : (base t, 'a t) value_accessor

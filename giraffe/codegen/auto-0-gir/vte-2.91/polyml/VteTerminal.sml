@@ -1,12 +1,12 @@
 structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class_t = 'a VteTerminalClass.t
-    where type ptyflags_t = VtePtyFlags.t
-    where type writeflags_t = VteWriteFlags.t
-    where type cursorblinkmode_t = VteCursorBlinkMode.t
-    where type cursorshape_t = VteCursorShape.t
-    where type erasebinding_t = VteEraseBinding.t
-    where type 'a ptyclass_t = 'a VtePtyClass.t =
+    where type pty_flags_t = VtePtyFlags.t
+    where type write_flags_t = VteWriteFlags.t
+    where type cursor_blink_mode_t = VteCursorBlinkMode.t
+    where type cursor_shape_t = VteCursorShape.t
+    where type erase_binding_t = VteEraseBinding.t
+    where type 'a pty_class_t = 'a VtePtyClass.t =
   struct
     local
       open PolyMLFFI
@@ -191,12 +191,12 @@ structure VteTerminal :>
           )
     end
     type 'a class_t = 'a VteTerminalClass.t
-    type ptyflags_t = VtePtyFlags.t
-    type writeflags_t = VteWriteFlags.t
-    type cursorblinkmode_t = VteCursorBlinkMode.t
-    type cursorshape_t = VteCursorShape.t
-    type erasebinding_t = VteEraseBinding.t
-    type 'a ptyclass_t = 'a VtePtyClass.t
+    type pty_flags_t = VtePtyFlags.t
+    type write_flags_t = VteWriteFlags.t
+    type cursor_blink_mode_t = VteCursorBlinkMode.t
+    type cursor_shape_t = VteCursorShape.t
+    type erase_binding_t = VteEraseBinding.t
+    type 'a pty_class_t = 'a VtePtyClass.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

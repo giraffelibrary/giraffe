@@ -4,9 +4,9 @@ structure VteTerminalAntiAlias :>
   end =
   struct
     datatype t =
-      USEDEFAULT
-    | FORCEENABLE
-    | FORCEDISABLE
+      USE_DEFAULT
+    | FORCE_ENABLE
+    | FORCE_DISABLE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -14,15 +14,15 @@ structure VteTerminalAntiAlias :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            USEDEFAULT => f 0
-          | FORCEENABLE => f 1
-          | FORCEDISABLE => f 2
+            USE_DEFAULT => f 0
+          | FORCE_ENABLE => f 1
+          | FORCE_DISABLE => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => USEDEFAULT
-          | 1 => FORCEENABLE
-          | 2 => FORCEDISABLE
+            0 => USE_DEFAULT
+          | 1 => FORCE_ENABLE
+          | 2 => FORCE_DISABLE
           | n => raise Value n
       end
     val getType_ = _import "vte_terminal_anti_alias_get_type" : unit -> GObjectType.C.val_;
@@ -35,6 +35,6 @@ structure VteTerminalAntiAlias :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = USEDEFAULT
+    val null = USE_DEFAULT
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

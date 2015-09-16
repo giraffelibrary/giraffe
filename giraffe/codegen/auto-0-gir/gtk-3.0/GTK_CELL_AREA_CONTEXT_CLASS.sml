@@ -1,7 +1,7 @@
 signature GTK_CELL_AREA_CONTEXT_CLASS =
   sig
-    type 'a cellareacontext
-    type 'a t = 'a cellareacontext GObject.ObjectClass.t
+    type 'a cell_area_context
+    type 'a t = 'a cell_area_context GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

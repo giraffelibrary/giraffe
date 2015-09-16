@@ -13,13 +13,13 @@ structure GioFileAttributeInfoFlags :>
     in
       val NONE = NONE ()
     end
-    val COPYWITHFILE = 0w1
-    val COPYWHENMOVED = 0w2
+    val COPY_WITH_FILE = 0w1
+    val COPY_WHEN_MOVED = 0w2
     val allFlags =
       [
         NONE,
-        COPYWITHFILE,
-        COPYWHENMOVED
+        COPY_WITH_FILE,
+        COPY_WHEN_MOVED
       ]
     structure BitFlags =
       Word32BitFlags (

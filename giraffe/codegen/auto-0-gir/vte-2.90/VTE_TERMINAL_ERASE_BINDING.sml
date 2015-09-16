@@ -2,9 +2,9 @@ signature VTE_TERMINAL_ERASE_BINDING =
   sig
     datatype t =
       AUTO
-    | ASCIIBACKSPACE
-    | ASCIIDELETE
-    | DELETESEQUENCE
+    | ASCII_BACKSPACE
+    | ASCII_DELETE
+    | DELETE_SEQUENCE
     | TTY
     val null : t
     val t : (t, t) GObject.Value.accessor

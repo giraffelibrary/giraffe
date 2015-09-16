@@ -3,8 +3,8 @@ signature GTK_FILE_CHOOSER_ACTION =
     datatype t =
       OPEN
     | SAVE
-    | SELECTFOLDER
-    | CREATEFOLDER
+    | SELECT_FOLDER
+    | CREATE_FOLDER
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

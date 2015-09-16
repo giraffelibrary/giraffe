@@ -5,7 +5,7 @@ signature GDK_EVENT_PROPERTY_RECORD =
     type t = property event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      PROPERTYNOTIFY
+      PROPERTY_NOTIFY
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

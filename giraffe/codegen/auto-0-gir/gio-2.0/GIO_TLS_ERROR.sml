@@ -3,10 +3,10 @@ signature GIO_TLS_ERROR =
     datatype t =
       UNAVAILABLE
     | MISC
-    | BADCERTIFICATE
-    | NOTTLS
+    | BAD_CERTIFICATE
+    | NOT_TLS
     | HANDSHAKE
-    | CERTIFICATEREQUIRED
+    | CERTIFICATE_REQUIRED
     | EOF
     exception Error of t
     val handler : GLib.ErrorRecord.handler

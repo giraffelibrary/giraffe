@@ -3,8 +3,8 @@ structure GioEmblemedIconClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a emblemedicon = unit
-    type 'a t = 'a emblemedicon GObjectObjectClass.t
+    type 'a emblemed_icon = unit
+    type 'a t = 'a emblemed_icon GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

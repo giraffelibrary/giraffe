@@ -3,7 +3,7 @@ signature ATK_KEY_EVENT_TYPE =
     datatype t =
       PRESS
     | RELEASE
-    | LASTDEFINED
+    | LAST_DEFINED
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -5,8 +5,8 @@ structure GtkFileChooserConfirmation :>
   struct
     datatype t =
       CONFIRM
-    | ACCEPTFILENAME
-    | SELECTAGAIN
+    | ACCEPT_FILENAME
+    | SELECT_AGAIN
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -15,14 +15,14 @@ structure GtkFileChooserConfirmation :>
         fun withVal f =
           fn
             CONFIRM => f 0
-          | ACCEPTFILENAME => f 1
-          | SELECTAGAIN => f 2
+          | ACCEPT_FILENAME => f 1
+          | SELECT_AGAIN => f 2
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => CONFIRM
-          | 1 => ACCEPTFILENAME
-          | 2 => SELECTAGAIN
+          | 1 => ACCEPT_FILENAME
+          | 2 => SELECT_AGAIN
           | n => raise Value n
       end
     val getType_ = _import "gtk_file_chooser_confirmation_get_type" : unit -> GObjectType.C.val_;

@@ -1,15 +1,15 @@
 signature ATK_OBJECT =
   sig
     type 'a class_t
-    type 'a relationsetclass_t
-    type 'a statesetclass_t
-    type relationtype_t
+    type 'a relation_set_class_t
+    type 'a state_set_class_t
+    type relation_type_t
     type role_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val addRelationship :
       'a class_t
-       -> relationtype_t
+       -> relation_type_t
        -> 'b class_t
        -> bool
     val getDescription : 'a class_t -> string
@@ -27,15 +27,15 @@ signature ATK_OBJECT =
       'a class_t
        -> LargeInt.int
        -> base class_t
-    val refRelationSet : 'a class_t -> base relationsetclass_t
-    val refStateSet : 'a class_t -> base statesetclass_t
+    val refRelationSet : 'a class_t -> base relation_set_class_t
+    val refStateSet : 'a class_t -> base state_set_class_t
     val removePropertyChangeHandler :
       'a class_t
        -> LargeInt.int
        -> unit
     val removeRelationship :
       'a class_t
-       -> relationtype_t
+       -> relation_type_t
        -> 'b class_t
        -> bool
     val setDescription :

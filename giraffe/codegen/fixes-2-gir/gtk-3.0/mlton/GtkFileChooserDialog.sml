@@ -1,10 +1,10 @@
 structure GtkFileChooserDialog :>
   GTK_FILE_CHOOSER_DIALOG
     where type 'a class_t = 'a GtkFileChooserDialogClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type 'a filechooserclass_t = 'a GtkFileChooserClass.t
-    where type 'a windowclass_t = 'a GtkWindowClass.t
-    where type filechooseraction_t = GtkFileChooserAction.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a file_chooser_class_t = 'a GtkFileChooserClass.t
+    where type 'a window_class_t = 'a GtkWindowClass.t
+    where type file_chooser_action_t = GtkFileChooserAction.t =
   struct
     val getType_ = _import "gtk_file_chooser_dialog_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -24,10 +24,10 @@ structure GtkFileChooserDialog :>
               x4
             )
     type 'a class_t = 'a GtkFileChooserDialogClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type 'a filechooserclass_t = 'a GtkFileChooserClass.t
-    type 'a windowclass_t = 'a GtkWindowClass.t
-    type filechooseraction_t = GtkFileChooserAction.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a file_chooser_class_t = 'a GtkFileChooserClass.t
+    type 'a window_class_t = 'a GtkWindowClass.t
+    type file_chooser_action_t = GtkFileChooserAction.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

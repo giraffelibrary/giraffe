@@ -7,27 +7,27 @@
 
 signature SIGNAL =
   sig
-    type 'objectclass signal
+    type 'object_class signal
 
     type 'a marshaller
-    type 'a objectclass_t
+    type 'a object_class_t
 
     val signal
       : string
          -> ('a -> 'b) marshaller
-         -> ('a -> 'b) -> 'c objectclass_t signal
+         -> ('a -> 'b) -> 'c object_class_t signal
 
     type signal_id
     val connect :
-      'a objectclass_t
-       -> ('func -> 'a objectclass_t signal)
+      'a object_class_t
+       -> ('func -> 'a object_class_t signal)
        -> 'func
        -> signal_id
     val connectAfter :
-      'a objectclass_t
-       -> ('func -> 'a objectclass_t signal)
+      'a object_class_t
+       -> ('func -> 'a object_class_t signal)
        -> 'func
        -> signal_id
-    val disconnect : 'a objectclass_t -> signal_id -> unit
-    val isConnected : 'a objectclass_t -> signal_id -> bool
+    val disconnect : 'a object_class_t -> signal_id -> unit
+    val isConnected : 'a object_class_t -> signal_id -> bool
   end

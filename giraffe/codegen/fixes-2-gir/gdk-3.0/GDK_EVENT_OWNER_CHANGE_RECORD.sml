@@ -1,11 +1,11 @@
 signature GDK_EVENT_OWNER_CHANGE_RECORD =
   sig
-    type ownerchange
+    type owner_change
     type 'a event_t
-    type t = ownerchange event_t
+    type t = owner_change event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      OWNERCHANGE
+      OWNER_CHANGE
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

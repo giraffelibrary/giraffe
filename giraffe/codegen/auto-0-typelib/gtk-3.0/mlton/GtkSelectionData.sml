@@ -1,7 +1,7 @@
 structure GtkSelectionData :>
   GTK_SELECTION_DATA
     where type record_t = GtkSelectionDataRecord.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t =
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
   struct
     val getType_ = _import "gtk_selection_data_get_type" : unit -> GObjectType.C.val_;
     val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p;
@@ -38,7 +38,7 @@ structure GtkSelectionData :>
     val targetsIncludeText_ = _import "gtk_selection_data_targets_include_text" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Bool.C.val_;
     val targetsIncludeUri_ = _import "gtk_selection_data_targets_include_uri" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.Bool.C.val_;
     type record_t = GtkSelectionDataRecord.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) copy_ self

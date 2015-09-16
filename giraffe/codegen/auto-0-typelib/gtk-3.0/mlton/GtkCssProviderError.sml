@@ -9,7 +9,7 @@ structure GtkCssProviderError :>
     | IMPORT
     | NAME
     | DEPRECATED
-    | UNKNOWNVALUE
+    | UNKNOWN_VALUE
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -22,7 +22,7 @@ structure GtkCssProviderError :>
           | IMPORT => f 2
           | NAME => f 3
           | DEPRECATED => f 4
-          | UNKNOWNVALUE => f 5
+          | UNKNOWN_VALUE => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -31,7 +31,7 @@ structure GtkCssProviderError :>
           | 2 => IMPORT
           | 3 => NAME
           | 4 => DEPRECATED
-          | 5 => UNKNOWNVALUE
+          | 5 => UNKNOWN_VALUE
           | n => raise Value n
       end
     val getType_ = _import "gtk_css_provider_error_get_type" : unit -> GObjectType.C.val_;

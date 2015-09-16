@@ -1,8 +1,8 @@
 signature GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_CLASS =
   sig
-    type 'a pixbufsimpleanim
-    type 'a pixbufanimationclass_t
-    type 'a t = 'a pixbufsimpleanim pixbufanimationclass_t
+    type 'a pixbuf_simple_anim
+    type 'a pixbuf_animation_class_t
+    type 'a t = 'a pixbuf_simple_anim pixbuf_animation_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

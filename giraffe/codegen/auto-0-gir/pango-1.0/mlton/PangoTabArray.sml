@@ -1,7 +1,7 @@
 structure PangoTabArray :>
   PANGO_TAB_ARRAY
     where type record_t = PangoTabArrayRecord.t
-    where type tabalign_t = PangoTabAlign.t =
+    where type tab_align_t = PangoTabAlign.t =
   struct
     val getType_ = _import "pango_tab_array_get_type" : unit -> GObjectType.C.val_;
     val new_ = fn x1 & x2 => (_import "pango_tab_array_new" : FFI.Int.C.val_ * FFI.Bool.C.val_ -> PangoTabArrayRecord.C.notnull PangoTabArrayRecord.C.p;) (x1, x2)
@@ -50,7 +50,7 @@ structure PangoTabArray :>
               x4
             )
     type record_t = PangoTabArrayRecord.t
-    type tabalign_t = PangoTabAlign.t
+    type tab_align_t = PangoTabAlign.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new initialSize positionsInPixels = (FFI.Int.C.withVal &&&> FFI.Bool.C.withVal ---> PangoTabArrayRecord.C.fromPtr true) new_ (initialSize & positionsInPixels)

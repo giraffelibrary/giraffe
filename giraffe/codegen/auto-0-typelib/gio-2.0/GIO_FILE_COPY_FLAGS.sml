@@ -7,10 +7,10 @@ signature GIO_FILE_COPY_FLAGS =
     val NONE : t
     val OVERWRITE : t
     val BACKUP : t
-    val NOFOLLOWSYMLINKS : t
-    val ALLMETADATA : t
-    val NOFALLBACKFORMOVE : t
-    val TARGETDEFAULTPERMS : t
+    val NOFOLLOW_SYMLINKS : t
+    val ALL_METADATA : t
+    val NO_FALLBACK_FOR_MOVE : t
+    val TARGET_DEFAULT_PERMS : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
     structure C :

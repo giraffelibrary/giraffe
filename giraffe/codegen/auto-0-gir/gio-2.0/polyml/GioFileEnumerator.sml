@@ -1,10 +1,10 @@
 structure GioFileEnumerator :>
   GIO_FILE_ENUMERATOR
     where type 'a class_t = 'a GioFileEnumeratorClass.t
-    where type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    where type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    where type 'a cancellableclass_t = 'a GioCancellableClass.t
-    where type 'a fileclass_t = 'a GioFileClass.t =
+    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a file_info_class_t = 'a GioFileInfoClass.t
+    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a file_class_t = 'a GioFileClass.t =
   struct
     local
       open PolyMLFFI
@@ -40,10 +40,10 @@ structure GioFileEnumerator :>
       val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GioFileEnumeratorClass.t
-    type 'a asyncresultclass_t = 'a GioAsyncResultClass.t
-    type 'a fileinfoclass_t = 'a GioFileInfoClass.t
-    type 'a cancellableclass_t = 'a GioCancellableClass.t
-    type 'a fileclass_t = 'a GioFileClass.t
+    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a file_info_class_t = 'a GioFileInfoClass.t
+    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a file_class_t = 'a GioFileClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun close self cancellable =

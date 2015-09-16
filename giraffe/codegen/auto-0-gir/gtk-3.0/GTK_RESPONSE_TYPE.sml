@@ -4,7 +4,7 @@ signature GTK_RESPONSE_TYPE =
       NONE
     | REJECT
     | ACCEPT
-    | DELETEEVENT
+    | DELETE_EVENT
     | OK
     | CANCEL
     | CLOSE

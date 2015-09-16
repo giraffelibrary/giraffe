@@ -1,7 +1,7 @@
 structure GioUnixCredentialsMessage :>
   GIO_UNIX_CREDENTIALS_MESSAGE
     where type 'a class_t = 'a GioUnixCredentialsMessageClass.t
-    where type 'a credentialsclass_t = 'a GioCredentialsClass.t =
+    where type 'a credentials_class_t = 'a GioCredentialsClass.t =
   struct
     val getType_ = _import "g_unix_credentials_message_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_unix_credentials_message_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -9,7 +9,7 @@ structure GioUnixCredentialsMessage :>
     val isSupported_ = _import "g_unix_credentials_message_is_supported" : unit -> FFI.Bool.C.val_;
     val getCredentials_ = _import "g_unix_credentials_message_get_credentials" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GioUnixCredentialsMessageClass.t
-    type 'a credentialsclass_t = 'a GioCredentialsClass.t
+    type 'a credentials_class_t = 'a GioCredentialsClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.C.fromPtr true) new_ ()

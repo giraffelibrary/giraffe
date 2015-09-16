@@ -1,8 +1,8 @@
 signature GTK_COMBO_BOX_TEXT_CLASS =
   sig
-    type 'a comboboxtext
-    type 'a comboboxclass_t
-    type 'a t = 'a comboboxtext comboboxclass_t
+    type 'a combo_box_text
+    type 'a combo_box_class_t
+    type 'a t = 'a combo_box_text combo_box_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

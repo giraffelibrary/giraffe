@@ -1,10 +1,10 @@
 signature G_LIB_THREAD_ERROR =
   sig
     datatype t =
-      THREADERRORAGAIN
+      THREAD_ERROR_AGAIN
     exception Error of t
-    type errorrecord_handler
-    val handler : errorrecord_handler
+    type error_record_handler
+    val handler : error_record_handler
     structure C :
       sig
         type val_

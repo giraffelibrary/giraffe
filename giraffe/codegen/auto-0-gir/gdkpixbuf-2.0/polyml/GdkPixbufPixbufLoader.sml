@@ -1,9 +1,9 @@
 structure GdkPixbufPixbufLoader :>
   GDK_PIXBUF_PIXBUF_LOADER
     where type 'a class_t = 'a GdkPixbufPixbufLoaderClass.t
-    where type 'a pixbufanimationclass_t = 'a GdkPixbufPixbufAnimationClass.t
-    where type pixbufformatrecord_t = GdkPixbufPixbufFormatRecord.t
-    where type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a pixbuf_animation_class_t = 'a GdkPixbufPixbufAnimationClass.t
+    where type pixbuf_format_record_t = GdkPixbufPixbufFormatRecord.t
+    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
   struct
     local
       open PolyMLFFI
@@ -26,9 +26,9 @@ structure GdkPixbufPixbufLoader :>
           )
     end
     type 'a class_t = 'a GdkPixbufPixbufLoaderClass.t
-    type 'a pixbufanimationclass_t = 'a GdkPixbufPixbufAnimationClass.t
-    type pixbufformatrecord_t = GdkPixbufPixbufFormatRecord.t
-    type 'a pixbufclass_t = 'a GdkPixbufPixbufClass.t
+    type 'a pixbuf_animation_class_t = 'a GdkPixbufPixbufAnimationClass.t
+    type pixbuf_format_record_t = GdkPixbufPixbufFormatRecord.t
+    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) new_ ()

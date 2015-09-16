@@ -2,7 +2,7 @@ signature GIO_I_O_MODULE_SCOPE_FLAGS =
   sig
     datatype t =
       NONE
-    | BLOCKDUPLICATES
+    | BLOCK_DUPLICATES
     val null : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t

@@ -9,12 +9,12 @@ structure GtkIconViewDropPosition :>
   end =
   struct
     datatype t =
-      NODROP
-    | DROPINTO
-    | DROPLEFT
-    | DROPRIGHT
-    | DROPABOVE
-    | DROPBELOW
+      NO_DROP
+    | DROP_INTO
+    | DROP_LEFT
+    | DROP_RIGHT
+    | DROP_ABOVE
+    | DROP_BELOW
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -22,21 +22,21 @@ structure GtkIconViewDropPosition :>
         exception Value of FFI.Enum.C.val_
         fun withVal f =
           fn
-            NODROP => f 0
-          | DROPINTO => f 1
-          | DROPLEFT => f 2
-          | DROPRIGHT => f 3
-          | DROPABOVE => f 4
-          | DROPBELOW => f 5
+            NO_DROP => f 0
+          | DROP_INTO => f 1
+          | DROP_LEFT => f 2
+          | DROP_RIGHT => f 3
+          | DROP_ABOVE => f 4
+          | DROP_BELOW => f 5
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
-            0 => NODROP
-          | 1 => DROPINTO
-          | 2 => DROPLEFT
-          | 3 => DROPRIGHT
-          | 4 => DROPABOVE
-          | 5 => DROPBELOW
+            0 => NO_DROP
+          | 1 => DROP_INTO
+          | 2 => DROP_LEFT
+          | 3 => DROP_RIGHT
+          | 4 => DROP_ABOVE
+          | 5 => DROP_BELOW
           | n => raise Value n
       end
     structure PolyML =
@@ -58,6 +58,6 @@ structure GtkIconViewDropPosition :>
           getValue = (I ---> C.fromVal) getValue_,
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
-    val null = NODROP
+    val null = NO_DROP
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

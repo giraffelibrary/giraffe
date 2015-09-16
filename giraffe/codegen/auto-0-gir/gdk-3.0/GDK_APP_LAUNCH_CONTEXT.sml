@@ -1,8 +1,8 @@
 signature GDK_APP_LAUNCH_CONTEXT =
   sig
     type 'a class_t
-    type 'a screenclass_t
-    type 'a displayclass_t
+    type 'a screen_class_t
+    type 'a display_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val setDesktop :
@@ -19,11 +19,11 @@ signature GDK_APP_LAUNCH_CONTEXT =
        -> unit
     val setScreen :
       'a class_t
-       -> 'b screenclass_t
+       -> 'b screen_class_t
        -> unit
     val setTimestamp :
       'a class_t
        -> LargeInt.int
        -> unit
-    val displayProp : ('a class_t, base displayclass_t option, 'b displayclass_t option) Property.readwrite
+    val displayProp : ('a class_t, base display_class_t option, 'b display_class_t option) Property.readwrite
   end

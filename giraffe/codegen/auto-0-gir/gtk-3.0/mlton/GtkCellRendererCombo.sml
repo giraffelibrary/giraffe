@@ -1,14 +1,14 @@
 structure GtkCellRendererCombo :>
   GTK_CELL_RENDERER_COMBO
     where type 'a class_t = 'a GtkCellRendererComboClass.t
-    where type treeiterrecord_t = GtkTreeIterRecord.t
-    where type 'a treemodelclass_t = 'a GtkTreeModelClass.t =
+    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
   struct
     val getType_ = _import "gtk_cell_renderer_combo_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_combo_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GtkCellRendererComboClass.t
-    type treeiterrecord_t = GtkTreeIterRecord.t
-    type 'a treemodelclass_t = 'a GtkTreeModelClass.t
+    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererComboClass.C.fromPtr false) new_ ()

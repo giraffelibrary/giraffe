@@ -1,8 +1,8 @@
 signature GTK_TOOL_ITEM_GROUP_CLASS =
   sig
-    type 'a toolitemgroup
-    type 'a containerclass_t
-    type 'a t = 'a toolitemgroup containerclass_t
+    type 'a tool_item_group
+    type 'a container_class_t
+    type 'a t = 'a tool_item_group container_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

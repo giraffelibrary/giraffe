@@ -6,10 +6,10 @@ signature G_LIB_OPTION_ARG =
     | INT
     | CALLBACK
     | FILENAME
-    | STRINGARRAY
-    | FILENAMEARRAY
+    | STRING_ARRAY
+    | FILENAME_ARRAY
     | DOUBLE
-    | INT64
+    | INT_64
     val null : t
     structure C :
       sig

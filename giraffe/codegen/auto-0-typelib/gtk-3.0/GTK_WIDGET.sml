@@ -1,47 +1,47 @@
 signature GTK_WIDGET =
   sig
     type 'a class_t
-    type 'a buildableclass_t
-    type accelflags_t
+    type 'a buildable_class_t
+    type accel_flags_t
     type orientation_t
-    type targetlistrecord_t
-    type 'a clipboardclass_t
-    type widgetpathrecord_t
-    type requisitionrecord_t
-    type sizerequestmode_t
-    type 'a settingsclass_t
-    type 'a stylecontextclass_t
-    type 'a rcstyleclass_t
-    type 'a accelgroupclass_t
-    type 'a windowclass_t
-    type textdirection_t
-    type dragresult_t
-    type directiontype_t
-    type 'a tooltipclass_t
-    type selectiondatarecord_t
-    type widgethelptype_t
-    type statetype_t
-    type stateflags_t
-    type 'a containerclass_t
-    type 'a styleclass_t
+    type target_list_record_t
+    type 'a clipboard_class_t
+    type widget_path_record_t
+    type requisition_record_t
+    type size_request_mode_t
+    type 'a settings_class_t
+    type 'a style_context_class_t
+    type 'a rc_style_class_t
+    type 'a accel_group_class_t
+    type 'a window_class_t
+    type text_direction_t
+    type drag_result_t
+    type direction_type_t
+    type 'a tooltip_class_t
+    type selection_data_record_t
+    type widget_help_type_t
+    type state_type_t
+    type state_flags_t
+    type 'a container_class_t
+    type 'a style_class_t
     type align_t
     type t = base class_t
     val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildableclass_t
+    val asBuildable : 'a class_t -> base buildable_class_t
     val getType : unit -> GObject.Type.t
-    val getDefaultDirection : unit -> textdirection_t
-    val getDefaultStyle : unit -> base styleclass_t
+    val getDefaultDirection : unit -> text_direction_t
+    val getDefaultStyle : unit -> base style_class_t
     val popCompositeChild : unit -> unit
     val pushCompositeChild : unit -> unit
-    val setDefaultDirection : textdirection_t -> unit
+    val setDefaultDirection : text_direction_t -> unit
     val activate : 'a class_t -> bool
     val addAccelerator :
       'a class_t
        -> string
-       -> 'b accelgroupclass_t
+       -> 'b accel_group_class_t
        -> LargeInt.int
        -> Gdk.ModifierType.t
-       -> accelflags_t
+       -> accel_flags_t
        -> unit
     val addDeviceEvents :
       'a class_t
@@ -62,7 +62,7 @@ signature GTK_WIDGET =
        -> bool
     val childFocus :
       'a class_t
-       -> directiontype_t
+       -> direction_type_t
        -> bool
     val childNotify :
       'a class_t
@@ -93,7 +93,7 @@ signature GTK_WIDGET =
        -> bool
     val dragBegin :
       'a class_t
-       -> targetlistrecord_t
+       -> target_list_record_t
        -> Gdk.DragAction.t
        -> LargeInt.int
        -> 'b Gdk.Event.t
@@ -111,9 +111,9 @@ signature GTK_WIDGET =
     val dragDestFindTarget :
       'a class_t
        -> 'b Gdk.DragContextClass.t
-       -> targetlistrecord_t option
+       -> target_list_record_t option
        -> Gdk.AtomRecord.t
-    val dragDestGetTargetList : 'a class_t -> targetlistrecord_t
+    val dragDestGetTargetList : 'a class_t -> target_list_record_t
     val dragDestGetTrackMotion : 'a class_t -> bool
     val dragDestSetProxy :
       'a class_t
@@ -123,7 +123,7 @@ signature GTK_WIDGET =
        -> unit
     val dragDestSetTargetList :
       'a class_t
-       -> targetlistrecord_t option
+       -> target_list_record_t option
        -> unit
     val dragDestSetTrackMotion :
       'a class_t
@@ -140,7 +140,7 @@ signature GTK_WIDGET =
     val dragSourceAddImageTargets : 'a class_t -> unit
     val dragSourceAddTextTargets : 'a class_t -> unit
     val dragSourceAddUriTargets : 'a class_t -> unit
-    val dragSourceGetTargetList : 'a class_t -> targetlistrecord_t
+    val dragSourceGetTargetList : 'a class_t -> target_list_record_t
     val dragSourceSetIconGicon :
       'a class_t
        -> 'b Gio.IconClass.t
@@ -159,7 +159,7 @@ signature GTK_WIDGET =
        -> unit
     val dragSourceSetTargetList :
       'a class_t
-       -> targetlistrecord_t option
+       -> target_list_record_t option
        -> unit
     val dragSourceUnset : 'a class_t -> unit
     val dragUnhighlight : 'a class_t -> unit
@@ -185,7 +185,7 @@ signature GTK_WIDGET =
     val getClipboard :
       'a class_t
        -> Gdk.AtomRecord.t
-       -> base clipboardclass_t
+       -> base clipboard_class_t
     val getCompositeName : 'a class_t -> string
     val getDeviceEnabled :
       'a class_t
@@ -195,7 +195,7 @@ signature GTK_WIDGET =
       'a class_t
        -> 'b Gdk.DeviceClass.t
        -> Gdk.EventMask.t
-    val getDirection : 'a class_t -> textdirection_t
+    val getDirection : 'a class_t -> text_direction_t
     val getDisplay : 'a class_t -> base Gdk.DisplayClass.t
     val getDoubleBuffered : 'a class_t -> bool
     val getEvents : 'a class_t -> LargeInt.int
@@ -209,20 +209,20 @@ signature GTK_WIDGET =
     val getMarginLeft : 'a class_t -> LargeInt.int
     val getMarginRight : 'a class_t -> LargeInt.int
     val getMarginTop : 'a class_t -> LargeInt.int
-    val getModifierStyle : 'a class_t -> base rcstyleclass_t
+    val getModifierStyle : 'a class_t -> base rc_style_class_t
     val getName : 'a class_t -> string
     val getNoShowAll : 'a class_t -> bool
     val getPangoContext : 'a class_t -> base Pango.ContextClass.t
     val getParent : 'a class_t -> base class_t
     val getParentWindow : 'a class_t -> base Gdk.WindowClass.t
-    val getPath : 'a class_t -> widgetpathrecord_t
+    val getPath : 'a class_t -> widget_path_record_t
     val getPointer : 'a class_t -> LargeInt.int * LargeInt.int
     val getPreferredHeight : 'a class_t -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
       'a class_t
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
-    val getPreferredSize : 'a class_t -> requisitionrecord_t * requisitionrecord_t
+    val getPreferredSize : 'a class_t -> requisition_record_t * requisition_record_t
     val getPreferredWidth : 'a class_t -> LargeInt.int * LargeInt.int
     val getPreferredWidthForHeight :
       'a class_t
@@ -230,19 +230,19 @@ signature GTK_WIDGET =
        -> LargeInt.int * LargeInt.int
     val getRealized : 'a class_t -> bool
     val getReceivesDefault : 'a class_t -> bool
-    val getRequestMode : 'a class_t -> sizerequestmode_t
+    val getRequestMode : 'a class_t -> size_request_mode_t
     val getRootWindow : 'a class_t -> base Gdk.WindowClass.t
     val getScreen : 'a class_t -> base Gdk.ScreenClass.t
     val getSensitive : 'a class_t -> bool
-    val getSettings : 'a class_t -> base settingsclass_t
+    val getSettings : 'a class_t -> base settings_class_t
     val getSizeRequest : 'a class_t -> LargeInt.int * LargeInt.int
-    val getStateFlags : 'a class_t -> stateflags_t
-    val getStyle : 'a class_t -> base styleclass_t
-    val getStyleContext : 'a class_t -> base stylecontextclass_t
+    val getStateFlags : 'a class_t -> state_flags_t
+    val getStyle : 'a class_t -> base style_class_t
+    val getStyleContext : 'a class_t -> base style_context_class_t
     val getSupportMultidevice : 'a class_t -> bool
     val getTooltipMarkup : 'a class_t -> string
     val getTooltipText : 'a class_t -> string
-    val getTooltipWindow : 'a class_t -> base windowclass_t
+    val getTooltipWindow : 'a class_t -> base window_class_t
     val getToplevel : 'a class_t -> base class_t
     val getValign : 'a class_t -> align_t
     val getVexpand : 'a class_t -> bool
@@ -283,7 +283,7 @@ signature GTK_WIDGET =
     val isToplevel : 'a class_t -> bool
     val keynavFailed :
       'a class_t
-       -> directiontype_t
+       -> direction_type_t
        -> bool
     val map : 'a class_t -> unit
     val mnemonicActivate :
@@ -292,17 +292,17 @@ signature GTK_WIDGET =
        -> bool
     val modifyBase :
       'a class_t
-       -> statetype_t
+       -> state_type_t
        -> Gdk.ColorRecord.t option
        -> unit
     val modifyBg :
       'a class_t
-       -> statetype_t
+       -> state_type_t
        -> Gdk.ColorRecord.t option
        -> unit
     val modifyFg :
       'a class_t
-       -> statetype_t
+       -> state_type_t
        -> Gdk.ColorRecord.t option
        -> unit
     val modifyFont :
@@ -311,21 +311,21 @@ signature GTK_WIDGET =
        -> unit
     val modifyStyle :
       'a class_t
-       -> 'b rcstyleclass_t
+       -> 'b rc_style_class_t
        -> unit
     val modifyText :
       'a class_t
-       -> statetype_t
+       -> state_type_t
        -> Gdk.ColorRecord.t option
        -> unit
     val overrideBackgroundColor :
       'a class_t
-       -> stateflags_t
+       -> state_flags_t
        -> Gdk.RgbaRecord.t option
        -> unit
     val overrideColor :
       'a class_t
-       -> stateflags_t
+       -> state_flags_t
        -> Gdk.RgbaRecord.t option
        -> unit
     val overrideCursor :
@@ -369,7 +369,7 @@ signature GTK_WIDGET =
        -> Cairo.RegionRecord.t
     val removeAccelerator :
       'a class_t
-       -> 'b accelgroupclass_t
+       -> 'b accel_group_class_t
        -> LargeInt.int
        -> Gdk.ModifierType.t
        -> bool
@@ -399,7 +399,7 @@ signature GTK_WIDGET =
     val setAccelPath :
       'a class_t
        -> string option
-       -> 'b accelgroupclass_t option
+       -> 'b accel_group_class_t option
        -> unit
     val setAllocation :
       'a class_t
@@ -437,7 +437,7 @@ signature GTK_WIDGET =
        -> unit
     val setDirection :
       'a class_t
-       -> textdirection_t
+       -> text_direction_t
        -> unit
     val setDoubleBuffered :
       'a class_t
@@ -526,12 +526,12 @@ signature GTK_WIDGET =
        -> unit
     val setStateFlags :
       'a class_t
-       -> stateflags_t
+       -> state_flags_t
        -> bool
        -> unit
     val setStyle :
       'a class_t
-       -> 'b styleclass_t option
+       -> 'b style_class_t option
        -> unit
     val setSupportMultidevice :
       'a class_t
@@ -547,7 +547,7 @@ signature GTK_WIDGET =
        -> unit
     val setTooltipWindow :
       'a class_t
-       -> 'b windowclass_t option
+       -> 'b window_class_t option
        -> unit
     val setValign :
       'a class_t
@@ -598,7 +598,7 @@ signature GTK_WIDGET =
     val unrealize : 'a class_t -> unit
     val unsetStateFlags :
       'a class_t
-       -> stateflags_t
+       -> state_flags_t
        -> unit
     val accelClosuresChangedSig : (unit -> unit) -> 'a class_t Signal.signal
     val buttonPressEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class_t Signal.signal
@@ -611,12 +611,12 @@ signature GTK_WIDGET =
     val deleteEventSig : (base Gdk.Event.t -> bool) -> 'a class_t Signal.signal
     val destroySig : (unit -> unit) -> 'a class_t Signal.signal
     val destroyEventSig : (base Gdk.Event.t -> bool) -> 'a class_t Signal.signal
-    val directionChangedSig : (textdirection_t -> unit) -> 'a class_t Signal.signal
+    val directionChangedSig : (text_direction_t -> unit) -> 'a class_t Signal.signal
     val dragBeginSig : (base Gdk.DragContextClass.t -> unit) -> 'a class_t Signal.signal
     val dragDataDeleteSig : (base Gdk.DragContextClass.t -> unit) -> 'a class_t Signal.signal
     val dragDataGetSig :
       (base Gdk.DragContextClass.t
-        -> selectiondatarecord_t
+        -> selection_data_record_t
         -> LargeInt.int
         -> LargeInt.int
         -> unit)
@@ -625,7 +625,7 @@ signature GTK_WIDGET =
       (base Gdk.DragContextClass.t
         -> LargeInt.int
         -> LargeInt.int
-        -> selectiondatarecord_t
+        -> selection_data_record_t
         -> LargeInt.int
         -> LargeInt.int
         -> unit)
@@ -640,7 +640,7 @@ signature GTK_WIDGET =
     val dragEndSig : (base Gdk.DragContextClass.t -> unit) -> 'a class_t Signal.signal
     val dragFailedSig :
       (base Gdk.DragContextClass.t
-        -> dragresult_t
+        -> drag_result_t
         -> bool)
        -> 'a class_t Signal.signal
     val dragLeaveSig :
@@ -659,7 +659,7 @@ signature GTK_WIDGET =
     val enterNotifyEventSig : (Gdk.EventCrossingRecord.t -> bool) -> 'a class_t Signal.signal
     val eventSig : (base Gdk.Event.t -> bool) -> 'a class_t Signal.signal
     val eventAfterSig : (base Gdk.Event.t -> unit) -> 'a class_t Signal.signal
-    val focusSig : (directiontype_t -> bool) -> 'a class_t Signal.signal
+    val focusSig : (direction_type_t -> bool) -> 'a class_t Signal.signal
     val focusInEventSig : (Gdk.EventFocusRecord.t -> bool) -> 'a class_t Signal.signal
     val focusOutEventSig : (Gdk.EventFocusRecord.t -> bool) -> 'a class_t Signal.signal
     val grabBrokenEventSig : (Gdk.EventGrabBrokenRecord.t -> bool) -> 'a class_t Signal.signal
@@ -669,13 +669,13 @@ signature GTK_WIDGET =
     val hierarchyChangedSig : (base class_t option -> unit) -> 'a class_t Signal.signal
     val keyPressEventSig : (Gdk.EventKeyRecord.t -> bool) -> 'a class_t Signal.signal
     val keyReleaseEventSig : (Gdk.EventKeyRecord.t -> bool) -> 'a class_t Signal.signal
-    val keynavFailedSig : (directiontype_t -> bool) -> 'a class_t Signal.signal
+    val keynavFailedSig : (direction_type_t -> bool) -> 'a class_t Signal.signal
     val leaveNotifyEventSig : (Gdk.EventCrossingRecord.t -> bool) -> 'a class_t Signal.signal
     val mapSig : (unit -> unit) -> 'a class_t Signal.signal
     val mapEventSig : (Gdk.EventAnyRecord.t -> bool) -> 'a class_t Signal.signal
     val mnemonicActivateSig : (bool -> bool) -> 'a class_t Signal.signal
     val motionNotifyEventSig : (Gdk.EventMotionRecord.t -> bool) -> 'a class_t Signal.signal
-    val moveFocusSig : (directiontype_t -> unit) -> 'a class_t Signal.signal
+    val moveFocusSig : (direction_type_t -> unit) -> 'a class_t Signal.signal
     val parentSetSig : (base class_t option -> unit) -> 'a class_t Signal.signal
     val popupMenuSig : (unit -> bool) -> 'a class_t Signal.signal
     val propertyNotifyEventSig : (Gdk.EventPropertyRecord.t -> bool) -> 'a class_t Signal.signal
@@ -685,7 +685,7 @@ signature GTK_WIDGET =
       (LargeInt.int
         -> LargeInt.int
         -> bool
-        -> base tooltipclass_t
+        -> base tooltip_class_t
         -> bool)
        -> 'a class_t Signal.signal
     val realizeSig : (unit -> unit) -> 'a class_t Signal.signal
@@ -693,24 +693,24 @@ signature GTK_WIDGET =
     val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class_t Signal.signal
     val selectionClearEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class_t Signal.signal
     val selectionGetSig :
-      (selectiondatarecord_t
+      (selection_data_record_t
         -> LargeInt.int
         -> LargeInt.int
         -> unit)
        -> 'a class_t Signal.signal
     val selectionNotifyEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class_t Signal.signal
     val selectionReceivedSig :
-      (selectiondatarecord_t
+      (selection_data_record_t
         -> LargeInt.int
         -> unit)
        -> 'a class_t Signal.signal
     val selectionRequestEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class_t Signal.signal
     val showSig : (unit -> unit) -> 'a class_t Signal.signal
-    val showHelpSig : (widgethelptype_t -> bool) -> 'a class_t Signal.signal
+    val showHelpSig : (widget_help_type_t -> bool) -> 'a class_t Signal.signal
     val sizeAllocateSig : (Cairo.RectangleIntRecord.t -> unit) -> 'a class_t Signal.signal
-    val stateChangedSig : (statetype_t -> unit) -> 'a class_t Signal.signal
-    val stateFlagsChangedSig : (stateflags_t -> unit) -> 'a class_t Signal.signal
-    val styleSetSig : (base styleclass_t option -> unit) -> 'a class_t Signal.signal
+    val stateChangedSig : (state_type_t -> unit) -> 'a class_t Signal.signal
+    val stateFlagsChangedSig : (state_flags_t -> unit) -> 'a class_t Signal.signal
+    val styleSetSig : (base style_class_t option -> unit) -> 'a class_t Signal.signal
     val styleUpdatedSig : (unit -> unit) -> 'a class_t Signal.signal
     val unmapSig : (unit -> unit) -> 'a class_t Signal.signal
     val unmapEventSig : (Gdk.EventAnyRecord.t -> bool) -> 'a class_t Signal.signal
@@ -739,10 +739,10 @@ signature GTK_WIDGET =
     val marginTopProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
     val nameProp : ('a class_t, string option, string option) Property.readwrite
     val noShowAllProp : ('a class_t, bool, bool) Property.readwrite
-    val parentProp : ('a class_t, base containerclass_t option, 'b containerclass_t option) Property.readwrite
+    val parentProp : ('a class_t, base container_class_t option, 'b container_class_t option) Property.readwrite
     val receivesDefaultProp : ('a class_t, bool, bool) Property.readwrite
     val sensitiveProp : ('a class_t, bool, bool) Property.readwrite
-    val styleProp : ('a class_t, base styleclass_t option, 'b styleclass_t option) Property.readwrite
+    val styleProp : ('a class_t, base style_class_t option, 'b style_class_t option) Property.readwrite
     val tooltipMarkupProp : ('a class_t, string option, string option) Property.readwrite
     val tooltipTextProp : ('a class_t, string option, string option) Property.readwrite
     val valignProp : ('a class_t, align_t, align_t) Property.readwrite

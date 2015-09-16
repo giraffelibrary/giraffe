@@ -3,8 +3,8 @@ structure GtkStyleContextClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a stylecontext = unit
-    type 'a t = 'a stylecontext GObjectObjectClass.t
+    type 'a style_context = unit
+    type 'a t = 'a style_context GObjectObjectClass.t
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -1,7 +1,7 @@
 signature GIO_THEMED_ICON_CLASS =
   sig
-    type 'a themedicon
-    type 'a t = 'a themedicon GObject.ObjectClass.t
+    type 'a themed_icon
+    type 'a t = 'a themed_icon GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

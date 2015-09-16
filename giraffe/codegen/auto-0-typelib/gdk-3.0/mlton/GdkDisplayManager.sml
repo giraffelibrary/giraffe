@@ -1,7 +1,7 @@
 structure GdkDisplayManager :>
   GDK_DISPLAY_MANAGER
     where type 'a class_t = 'a GdkDisplayManagerClass.t
-    where type 'a displayclass_t = 'a GdkDisplayClass.t =
+    where type 'a display_class_t = 'a GdkDisplayClass.t =
   struct
     val getType_ = _import "gdk_display_manager_get_type" : unit -> GObjectType.C.val_;
     val get_ = _import "gdk_display_manager_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -23,7 +23,7 @@ structure GdkDisplayManager :>
             )
     val setDefaultDisplay_ = fn x1 & x2 => (_import "gdk_display_manager_set_default_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     type 'a class_t = 'a GdkDisplayManagerClass.t
-    type 'a displayclass_t = 'a GdkDisplayClass.t
+    type 'a display_class_t = 'a GdkDisplayClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()

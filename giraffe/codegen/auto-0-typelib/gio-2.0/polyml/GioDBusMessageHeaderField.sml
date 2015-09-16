@@ -13,12 +13,12 @@ structure GioDBusMessageHeaderField :>
     | PATH
     | INTERFACE
     | MEMBER
-    | ERRORNAME
-    | REPLYSERIAL
+    | ERROR_NAME
+    | REPLY_SERIAL
     | DESTINATION
     | SENDER
     | SIGNATURE
-    | NUMUNIXFDS
+    | NUM_UNIX_FDS
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -30,12 +30,12 @@ structure GioDBusMessageHeaderField :>
           | PATH => f 1
           | INTERFACE => f 2
           | MEMBER => f 3
-          | ERRORNAME => f 4
-          | REPLYSERIAL => f 5
+          | ERROR_NAME => f 4
+          | REPLY_SERIAL => f 5
           | DESTINATION => f 6
           | SENDER => f 7
           | SIGNATURE => f 8
-          | NUMUNIXFDS => f 9
+          | NUM_UNIX_FDS => f 9
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
@@ -43,12 +43,12 @@ structure GioDBusMessageHeaderField :>
           | 1 => PATH
           | 2 => INTERFACE
           | 3 => MEMBER
-          | 4 => ERRORNAME
-          | 5 => REPLYSERIAL
+          | 4 => ERROR_NAME
+          | 5 => REPLY_SERIAL
           | 6 => DESTINATION
           | 7 => SENDER
           | 8 => SIGNATURE
-          | 9 => NUMUNIXFDS
+          | 9 => NUM_UNIX_FDS
           | n => raise Value n
       end
     structure PolyML =

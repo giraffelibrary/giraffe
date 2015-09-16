@@ -5,8 +5,8 @@ signature GDK_EVENT_PROXIMITY_RECORD =
     type t = proximity event_t
     val t : (t, t) GObjectValue.accessor
     datatype event =
-      PROXIMITYIN
-    | PROXIMITYOUT
+      PROXIMITY_IN
+    | PROXIMITY_OUT
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

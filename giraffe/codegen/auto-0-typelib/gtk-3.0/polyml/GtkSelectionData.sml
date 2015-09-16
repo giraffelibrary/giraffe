@@ -1,7 +1,7 @@
 structure GtkSelectionData :>
   GTK_SELECTION_DATA
     where type record_t = GtkSelectionDataRecord.t
-    where type 'a textbufferclass_t = 'a GtkTextBufferClass.t =
+    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
   struct
     local
       open PolyMLFFI
@@ -31,7 +31,7 @@ structure GtkSelectionData :>
       val targetsIncludeUri_ = call (load_sym libgtk "gtk_selection_data_targets_include_uri") (GtkSelectionDataRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type record_t = GtkSelectionDataRecord.t
-    type 'a textbufferclass_t = 'a GtkTextBufferClass.t
+    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) copy_ self

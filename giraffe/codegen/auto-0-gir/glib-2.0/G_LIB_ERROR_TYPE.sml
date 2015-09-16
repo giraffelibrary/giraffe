@@ -2,13 +2,13 @@ signature G_LIB_ERROR_TYPE =
   sig
     datatype t =
       UNKNOWN
-    | UNEXPEOF
-    | UNEXPEOFINSTRING
-    | UNEXPEOFINCOMMENT
-    | NONDIGITINCONST
-    | DIGITRADIX
-    | FLOATRADIX
-    | FLOATMALFORMED
+    | UNEXP_EOF
+    | UNEXP_EOF_IN_STRING
+    | UNEXP_EOF_IN_COMMENT
+    | NON_DIGIT_IN_CONST
+    | DIGIT_RADIX
+    | FLOAT_RADIX
+    | FLOAT_MALFORMED
     val null : t
     structure C :
       sig

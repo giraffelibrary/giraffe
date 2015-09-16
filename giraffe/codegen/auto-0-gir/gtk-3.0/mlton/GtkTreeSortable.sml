@@ -1,7 +1,7 @@
 structure GtkTreeSortable :>
   GTK_TREE_SORTABLE
     where type 'a class_t = 'a GtkTreeSortableClass.t
-    where type sorttype_t = GtkSortType.t =
+    where type sort_type_t = GtkSortType.t =
   struct
     val getType_ = _import "gtk_tree_sortable_get_type" : unit -> GObjectType.C.val_;
     val getSortColumnId_ =
@@ -41,7 +41,7 @@ structure GtkTreeSortable :>
             )
     val sortColumnChanged_ = _import "gtk_tree_sortable_sort_column_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GtkTreeSortableClass.t
-    type sorttype_t = GtkSortType.t
+    type sort_type_t = GtkSortType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSortColumnId self =

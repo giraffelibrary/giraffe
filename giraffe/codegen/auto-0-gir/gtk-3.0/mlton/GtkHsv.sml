@@ -1,8 +1,8 @@
 structure GtkHsv :>
   GTK_HSV
     where type 'a class_t = 'a GtkHsvClass.t
-    where type 'a buildableclass_t = 'a GtkBuildableClass.t
-    where type directiontype_t = GtkDirectionType.t =
+    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type direction_type_t = GtkDirectionType.t =
   struct
     val getType_ = _import "gtk_hsv_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_hsv_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -108,8 +108,8 @@ structure GtkHsv :>
               x3
             )
     type 'a class_t = 'a GtkHsvClass.t
-    type 'a buildableclass_t = 'a GtkBuildableClass.t
-    type directiontype_t = GtkDirectionType.t
+    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type direction_type_t = GtkDirectionType.t
     type t = base class_t
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

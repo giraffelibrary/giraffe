@@ -7,8 +7,8 @@ structure GtkShadowType :>
       NONE
     | IN
     | OUT
-    | ETCHEDIN
-    | ETCHEDOUT
+    | ETCHED_IN
+    | ETCHED_OUT
     structure C =
       struct
         type val_ = FFI.Enum.C.val_
@@ -19,16 +19,16 @@ structure GtkShadowType :>
             NONE => f 0
           | IN => f 1
           | OUT => f 2
-          | ETCHEDIN => f 3
-          | ETCHEDOUT => f 4
+          | ETCHED_IN => f 3
+          | ETCHED_OUT => f 4
         fun withRefVal f = withVal (FFI.Enum.C.withRef f)
         val fromVal =
           fn
             0 => NONE
           | 1 => IN
           | 2 => OUT
-          | 3 => ETCHEDIN
-          | 4 => ETCHEDOUT
+          | 3 => ETCHED_IN
+          | 4 => ETCHED_OUT
           | n => raise Value n
       end
     val getType_ = _import "gtk_shadow_type_get_type" : unit -> GObjectType.C.val_;

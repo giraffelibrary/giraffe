@@ -1,7 +1,7 @@
 signature GTK_SOURCE_LANGUAGE_MANAGER =
   sig
     type 'a class_t
-    type 'a languageclass_t
+    type 'a language_class_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -9,10 +9,10 @@ signature GTK_SOURCE_LANGUAGE_MANAGER =
     val getLanguage :
       'a class_t
        -> string
-       -> base languageclass_t
+       -> base language_class_t
     val guessLanguage :
       'a class_t
        -> string option
        -> string option
-       -> base languageclass_t
+       -> base language_class_t
   end

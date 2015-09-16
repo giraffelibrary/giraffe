@@ -1,7 +1,7 @@
 structure GioUnixCredentialsMessage :>
   GIO_UNIX_CREDENTIALS_MESSAGE
     where type 'a class_t = 'a GioUnixCredentialsMessageClass.t
-    where type 'a credentialsclass_t = 'a GioCredentialsClass.t =
+    where type 'a credentials_class_t = 'a GioCredentialsClass.t =
   struct
     local
       open PolyMLFFI
@@ -13,7 +13,7 @@ structure GioUnixCredentialsMessage :>
       val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a GioUnixCredentialsMessageClass.t
-    type 'a credentialsclass_t = 'a GioCredentialsClass.t
+    type 'a credentials_class_t = 'a GioCredentialsClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.C.fromPtr true) new_ ()

@@ -1,7 +1,7 @@
 structure AtkGObjectAccessible :>
   ATK_G_OBJECT_ACCESSIBLE
     where type 'a class_t = 'a AtkGObjectAccessibleClass.t
-    where type 'a objectclass_t = 'a AtkObjectClass.t =
+    where type 'a object_class_t = 'a AtkObjectClass.t =
   struct
     local
       open PolyMLFFI
@@ -11,7 +11,7 @@ structure AtkGObjectAccessible :>
       val getObject_ = call (load_sym libatk "atk_gobject_accessible_get_object") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
     end
     type 'a class_t = 'a AtkGObjectAccessibleClass.t
-    type 'a objectclass_t = 'a AtkObjectClass.t
+    type 'a object_class_t = 'a AtkObjectClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forObject obj = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) forObject_ obj

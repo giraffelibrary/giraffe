@@ -1,8 +1,8 @@
 signature GTK_ICON_THEME =
   sig
     type 'a class_t
-    type iconinforecord_t
-    type iconlookupflags_t
+    type icon_info_record_t
+    type icon_lookup_flags_t
     type t = base class_t
     val getType : unit -> GObject.Type.t
     val new : unit -> base class_t
@@ -26,20 +26,20 @@ signature GTK_ICON_THEME =
       'a class_t
        -> string
        -> LargeInt.int
-       -> iconlookupflags_t
+       -> icon_lookup_flags_t
        -> base GdkPixbuf.PixbufClass.t
     val lookupByGicon :
       'a class_t
        -> 'b Gio.IconClass.t
        -> LargeInt.int
-       -> iconlookupflags_t
-       -> iconinforecord_t
+       -> icon_lookup_flags_t
+       -> icon_info_record_t
     val lookupIcon :
       'a class_t
        -> string
        -> LargeInt.int
-       -> iconlookupflags_t
-       -> iconinforecord_t
+       -> icon_lookup_flags_t
+       -> icon_info_record_t
     val prependSearchPath :
       'a class_t
        -> string

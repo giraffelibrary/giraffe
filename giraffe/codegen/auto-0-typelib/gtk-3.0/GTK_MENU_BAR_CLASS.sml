@@ -1,8 +1,8 @@
 signature GTK_MENU_BAR_CLASS =
   sig
-    type 'a menubar
-    type 'a menushellclass_t
-    type 'a t = 'a menubar menushellclass_t
+    type 'a menu_bar
+    type 'a menu_shell_class_t
+    type 'a t = 'a menu_bar menu_shell_class_t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

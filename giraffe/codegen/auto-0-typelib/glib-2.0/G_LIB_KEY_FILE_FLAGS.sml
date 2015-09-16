@@ -5,8 +5,8 @@ signature G_LIB_KEY_FILE_FLAGS =
       BIT_FLAGS
         where type flags = t
     val NONE : t
-    val KEEPCOMMENTS : t
-    val KEEPTRANSLATIONS : t
+    val KEEP_COMMENTS : t
+    val KEEP_TRANSLATIONS : t
     structure C :
       sig
         type val_

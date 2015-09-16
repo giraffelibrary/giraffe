@@ -1,10 +1,10 @@
 structure PangoLayoutIter :>
   PANGO_LAYOUT_ITER
     where type record_t = PangoLayoutIterRecord.t
-    where type 'a layoutclass_t = 'a PangoLayoutClass.t
-    where type layoutlinerecord_t = PangoLayoutLineRecord.t
-    where type rectanglerecord_t = PangoRectangleRecord.t
-    where type glyphitemrecord_t = PangoGlyphItemRecord.t =
+    where type 'a layout_class_t = 'a PangoLayoutClass.t
+    where type layout_line_record_t = PangoLayoutLineRecord.t
+    where type rectangle_record_t = PangoRectangleRecord.t
+    where type glyph_item_record_t = PangoGlyphItemRecord.t =
   struct
     local
       open PolyMLFFI
@@ -66,10 +66,10 @@ structure PangoLayoutIter :>
       val nextRun_ = call (load_sym libpango "pango_layout_iter_next_run") (PangoLayoutIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
     end
     type record_t = PangoLayoutIterRecord.t
-    type 'a layoutclass_t = 'a PangoLayoutClass.t
-    type layoutlinerecord_t = PangoLayoutLineRecord.t
-    type rectanglerecord_t = PangoRectangleRecord.t
-    type glyphitemrecord_t = PangoGlyphItemRecord.t
+    type 'a layout_class_t = 'a PangoLayoutClass.t
+    type layout_line_record_t = PangoLayoutLineRecord.t
+    type rectangle_record_t = PangoRectangleRecord.t
+    type glyph_item_record_t = PangoGlyphItemRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun atLastLine self = (PangoLayoutIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) atLastLine_ self

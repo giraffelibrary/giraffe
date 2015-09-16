@@ -1,7 +1,7 @@
 signature GTK_SOURCE_COMPLETION_ITEM_CLASS =
   sig
-    type 'a completionitem
-    type 'a t = 'a completionitem GObject.ObjectClass.t
+    type 'a completion_item
+    type 'a t = 'a completion_item GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor

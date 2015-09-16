@@ -1,7 +1,7 @@
 signature GTK_SOURCE_PRINT_COMPOSITOR_CLASS =
   sig
-    type 'a printcompositor
-    type 'a t = 'a printcompositor GObject.ObjectClass.t
+    type 'a print_compositor
+    type 'a t = 'a print_compositor GObject.ObjectClass.t
     val toBase : 'a t -> base t
     val t : (base t, 'a t) GObject.Value.accessor
     val tOpt : (base t option, 'a t option) GObject.Value.accessor
