@@ -3,6 +3,13 @@
     Added type abbreviation for object and structure types:
       - for class C, object type C.t = base C.class_t
       - for record R, structure type R.t = R.record_t
+    Changed naming convention for types and constructors to use underscores
+     between words in line with the Basis Library convention.
+    Changed Gdk button event names in line with GTK+ as follows:
+      - TWOBUTTONPRESS   changed to DOUBLE_BUTTON_PRESS
+      - THREEBUTTONPRESS changed to TRIPLE_BUTTON_PRESS
+    Removed experimental type-safe interface to style properties.  Style
+     properties must be accessed via GObject.Value which is not type-safe.
 
 
 1.0.0-alpha.5 (2015-05-29)
