@@ -16,6 +16,7 @@ This INSTALL file covers the following topics:
        1.2  Libraries
        1.3  Tools
   2. Installation
+  3. Additional configuration
 
 
 Full documentation is available in the User Manual at
@@ -244,3 +245,25 @@ PC file.  For example, to specify Poly/ML installed to /opt/polyml/polyml-5.5.2,
 PKG_CONFIG_PATH would be updated as follows:
 
   PKG_CONFIG_PATH=/opt/polyml/polyml-5.5.2/lib/pkgconfig:${PKG_CONFIG_PATH}
+
+
+         ---------------   3.  Additional configuration   ---------------
+
+3.1  OS X using Macports
+
+When running a GTK+ application, the following message may appear:
+
+  Dynamic session lookup supported but failed: launchd did not provide a
+  socket path, verify that org.freedesktop.dbus-session.plist is loaded!
+
+This error occurs because D-Bus is not running.  Enter the following command to
+start the session D-Bus:
+
+  launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+
+The session D-Bus will start automatically after subsequent logins.  To stop
+the session D-Bus, enter the command:
+
+  launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+
+Source: https://trac.macports.org/ticket/44498#comment:6
