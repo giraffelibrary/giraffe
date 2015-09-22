@@ -20,14 +20,17 @@ structure GtkTextAttributesRecord :>
       val new_ =
         call
           (load_sym libgtk "gtk_text_attributes_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val ref_ =
         call
           (load_sym libgtk "gtk_text_attributes_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libgtk "gtk_text_attributes_unref";
+      val unref_ =
+        call
+          (load_sym libgtk "gtk_text_attributes_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure GtkTextAttributesRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

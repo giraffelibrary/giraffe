@@ -22,9 +22,12 @@ structure GtkWidgetPathRecord :>
       val ref_ =
         call
           (load_sym libgtk "gtk_widget_path_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libgtk "gtk_widget_path_unref";
+      val unref_ =
+        call
+          (load_sym libgtk "gtk_widget_path_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -71,7 +74,7 @@ structure GtkWidgetPathRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

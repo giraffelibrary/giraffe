@@ -20,9 +20,12 @@ structure GtkIconInfoRecord :>
       val copy_ =
         call
           (load_sym libgtk "gtk_icon_info_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgtk "gtk_icon_info_free";
+      val free_ =
+        call
+          (load_sym libgtk "gtk_icon_info_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure GtkIconInfoRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

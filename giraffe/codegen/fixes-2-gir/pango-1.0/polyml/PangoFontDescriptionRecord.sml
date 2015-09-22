@@ -20,14 +20,17 @@ structure PangoFontDescriptionRecord :>
       val new_ =
         call
           (load_sym libpango "pango_font_description_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val copy_ =
         call
           (load_sym libpango "pango_font_description_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libpango "pango_font_description_free";
+      val free_ =
+        call
+          (load_sym libpango "pango_font_description_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure PangoFontDescriptionRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

@@ -24,7 +24,10 @@ structure GIRepositoryBaseInfoClass :>
           (load_sym libgirepository "g_base_info_ref")
           (PTR --> PTR);
 
-      val unref_sym = load_sym libgirepository "g_base_info_unref";
+      val unref_ =
+        call
+          (load_sym libgirepository "g_base_info_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -52,7 +55,7 @@ structure GIRepositoryBaseInfoClass :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

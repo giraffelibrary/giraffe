@@ -20,9 +20,12 @@ structure GdkPixbufPixbufFormatRecord :>
       val copy_ =
         call
           (load_sym libgdkpixbuf "gdk_pixbuf_format_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgdkpixbuf "gdk_pixbuf_format_free";
+      val free_ =
+        call
+          (load_sym libgdkpixbuf "gdk_pixbuf_format_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure GdkPixbufPixbufFormatRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

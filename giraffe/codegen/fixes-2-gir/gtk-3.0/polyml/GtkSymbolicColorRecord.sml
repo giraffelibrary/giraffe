@@ -22,9 +22,12 @@ structure GtkSymbolicColorRecord :>
       val ref_ =
         call
           (load_sym libgtk "gtk_symbolic_color_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libgtk "gtk_symbolic_color_unref";
+      val unref_ =
+        call
+          (load_sym libgtk "gtk_symbolic_color_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -71,7 +74,7 @@ structure GtkSymbolicColorRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

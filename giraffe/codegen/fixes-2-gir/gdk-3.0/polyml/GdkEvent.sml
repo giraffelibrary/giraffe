@@ -20,9 +20,12 @@ structure GdkEvent :>
       val copy_ =
         call
           (load_sym libgdk "gdk_event_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgdk "gdk_event_free";
+      val free_ =
+        call
+          (load_sym libgdk "gdk_event_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -50,7 +53,7 @@ structure GdkEvent :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

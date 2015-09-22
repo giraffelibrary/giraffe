@@ -41,7 +41,7 @@ structure GObjectParamSpecClass :>
         fun withRefPtr f = withPtr (withRef f)
 
         fun withRefOptPtr f = withOptPtr (withRef f)
-	
+
 
         fun fromPtr transfer ptr =
           let

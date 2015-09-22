@@ -20,9 +20,12 @@ structure PangoTabArrayRecord :>
       val copy_ =
         call
           (load_sym libpango "pango_tab_array_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libpango "pango_tab_array_free";
+      val free_ =
+        call
+          (load_sym libpango "pango_tab_array_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure PangoTabArrayRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

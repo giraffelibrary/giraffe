@@ -22,9 +22,12 @@ structure PangoAttrListRecord :>
       val ref_ =
         call
           (load_sym libpango "pango_attr_list_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libpango "pango_attr_list_unref";
+      val unref_ =
+        call
+          (load_sym libpango "pango_attr_list_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -71,7 +74,7 @@ structure PangoAttrListRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

@@ -20,9 +20,12 @@ structure CairoRegionRecord :>
       val ref_ =
         call
           (load_sym libcairo "cairo_region_reference")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libcairo "cairo_region_destroy";
+      val unref_ =
+        call
+          (load_sym libcairo "cairo_region_destroy")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure CairoRegionRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

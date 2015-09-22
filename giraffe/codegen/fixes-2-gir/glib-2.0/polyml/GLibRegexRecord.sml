@@ -20,9 +20,12 @@ structure GLibRegexRecord :>
       val ref_ =
         call
           (load_sym libglib "g_regex_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libglib "g_regex_unref";
+      val unref_ =
+        call
+          (load_sym libglib "g_regex_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure GLibRegexRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

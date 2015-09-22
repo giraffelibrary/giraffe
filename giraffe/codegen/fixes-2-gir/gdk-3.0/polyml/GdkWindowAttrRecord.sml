@@ -14,18 +14,19 @@ structure GdkWindowAttrRecord :>
     val PTR = CPointer.PolyML.POINTER : notnull p CInterface.Conversion
     val OPTPTR = CPointer.PolyML.POINTER : unit p CInterface.Conversion
 
-
     local
       open PolyMLFFI
     in
       val copy_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_window_attr_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgiraffegdk "giraffe_gdk_window_attr_free";
+      val free_ =
+        call
+          (load_sym libgiraffegdk "giraffe_gdk_window_attr_free")
+          (PTR --> FFI.PolyML.VOID)
     end
-
 
     type t = notnull p Finalizable.t
 
@@ -51,7 +52,7 @@ structure GdkWindowAttrRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

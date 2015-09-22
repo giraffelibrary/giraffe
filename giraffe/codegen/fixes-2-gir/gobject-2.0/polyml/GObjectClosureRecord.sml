@@ -30,12 +30,12 @@ structure GObjectClosureRecord :>
       val ref_ =
         call
           (load_sym libgobject "g_closure_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
       val sink_ =
         call
           (load_sym libgobject "g_closure_sink")
-          (PTR --> FFI.PolyML.VOID);
+          (PTR --> FFI.PolyML.VOID)
 
       val refSink_ =
         if GiraffeDebug.isEnabled
@@ -46,10 +46,16 @@ structure GObjectClosureRecord :>
         else
           fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
 
-      val unref_sym =
+      val unref_ =
         if GiraffeDebug.isEnabled
-        then load_sym libgiraffegobject "giraffe_debug_g_closure_unref"
-        else load_sym libgobject "g_closure_unref";
+        then
+          call
+            (load_sym libgiraffegobject "giraffe_debug_g_closure_unref")
+            (PTR --> FFI.PolyML.VOID)
+        else
+          call
+            (load_sym libgobject "g_closure_unref")
+            (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -76,7 +82,7 @@ structure GObjectClosureRecord :>
                 else refSink_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

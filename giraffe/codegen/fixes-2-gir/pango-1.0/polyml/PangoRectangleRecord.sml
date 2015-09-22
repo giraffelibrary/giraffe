@@ -20,14 +20,17 @@ structure PangoRectangleRecord :>
       val new_ =
         call
           (load_sym libgiraffepango "giraffe_pango_rectangle_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val copy_ =
         call
           (load_sym libgiraffepango "giraffe_pango_rectangle_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgiraffepango "giraffe_pango_rectangle_free";
+      val free_ =
+        call
+          (load_sym libgiraffepango "giraffe_pango_rectangle_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure PangoRectangleRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

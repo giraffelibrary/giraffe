@@ -20,14 +20,17 @@ structure GLibKeyFileRecord :>
       val new_ =
         call
           (load_sym libglib "g_key_file_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val ref_ =
         call
           (load_sym libglib "g_key_file_ref")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libglib "g_key_file_unref";
+      val unref_ =
+        call
+          (load_sym libglib "g_key_file_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure GLibKeyFileRecord :>
                 else ref_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

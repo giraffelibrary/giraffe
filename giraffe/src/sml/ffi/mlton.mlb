@@ -16,12 +16,13 @@ in
   mlton/CallbackTable.sml
   mlton/Callback.sml
   HighLevelFFI.sml
+  FINALIZABLE.sml
   POINTER.sml
   C_ARRAY.sml
   FILE_DESC.sml
+  mlton/Finalizable.sml
   mlton/CString.sml
   mlton/CPointer.sml
-  mlton/Finalizable.sml
   mlton/GCharVec.sml
   mlton/GCharVecVec.sml
   mlton/F_F_I_SCALAR.sml

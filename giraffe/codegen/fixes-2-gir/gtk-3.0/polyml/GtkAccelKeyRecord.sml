@@ -20,14 +20,17 @@ structure GtkAccelKeyRecord :>
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val copy_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgiraffegtk "giraffe_gtk_accel_key_free";
+      val free_ =
+        call
+          (load_sym libgiraffegtk "giraffe_gtk_accel_key_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure GtkAccelKeyRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

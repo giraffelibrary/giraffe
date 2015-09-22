@@ -8,11 +8,12 @@
 use "polyml/POLY_M_L_F_F_I.sml";
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
+use "FINALIZABLE.sml";
 use "POINTER.sml";
 use "C_ARRAY.sml";
 use "FILE_DESC";
-use "polyml/CPointer.sml";
 use "polyml/Finalizable.sml";
+use "polyml/CPointer.sml";
 
 val libc = PolyMLFFI.load_lib ""
 val libglib = PolyMLFFI.load_lib ""

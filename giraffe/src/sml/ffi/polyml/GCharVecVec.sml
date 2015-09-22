@@ -108,7 +108,7 @@ structure GCharVecVec :>
           let
             val arr = Finalizable.new p
           in
-            Finalizable.addFinalizer (arr, g_strfreev_sym);
+            Finalizable.addFinalizer (arr, free_);
             arr
           end
 

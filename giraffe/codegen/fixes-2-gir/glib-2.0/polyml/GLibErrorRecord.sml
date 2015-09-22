@@ -22,9 +22,12 @@ structure GLibErrorRecord :>
       val copy_ =
         call
           (load_sym libglib "g_error_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libglib "g_error_free";
+      val free_ =
+        call
+          (load_sym libglib "g_error_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -80,7 +83,7 @@ structure GLibErrorRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

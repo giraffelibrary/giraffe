@@ -14,23 +14,24 @@ structure GdkGeometryRecord :>
     val PTR = CPointer.PolyML.POINTER : notnull p CInterface.Conversion
     val OPTPTR = CPointer.PolyML.POINTER : unit p CInterface.Conversion
 
-
     local
       open PolyMLFFI
     in
       val new_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_geometry_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val copy_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_geometry_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgiraffegdk "giraffe_gdk_geometry_free";
+      val free_ =
+        call
+          (load_sym libgiraffegdk "giraffe_gdk_geometry_free")
+          (PTR --> FFI.PolyML.VOID)
     end
-
 
     type t = notnull p Finalizable.t
 
@@ -63,7 +64,7 @@ structure GdkGeometryRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

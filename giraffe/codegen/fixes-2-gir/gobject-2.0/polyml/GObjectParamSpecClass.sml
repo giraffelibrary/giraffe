@@ -23,9 +23,12 @@ structure GObjectParamSpecClass :>
       val refSink_ =
         call
           (load_sym libgobject "g_param_spec_ref_sink")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val unref_sym = load_sym libgobject "g_param_spec_unref";
+      val unref_ =
+        call
+          (load_sym libgobject "g_param_spec_unref")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -73,7 +76,7 @@ structure GObjectParamSpecClass :>
                 else refSink_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 

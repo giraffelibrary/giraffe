@@ -20,14 +20,17 @@ structure CairoFontOptionsRecord :>
       val new_ =
         call
           (load_sym libcairo "cairo_font_options_create")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.VOID --> PTR)
 
       val copy_ =
         call
           (load_sym libcairo "cairo_font_options_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libcairo "cairo_font_options_destroy";
+      val free_ =
+        call
+          (load_sym libcairo "cairo_font_options_destroy")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -61,7 +64,7 @@ structure CairoFontOptionsRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

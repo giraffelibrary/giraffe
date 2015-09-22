@@ -20,9 +20,12 @@ structure PangoAttributeRecord :>
       val copy_ =
         call
           (load_sym libpango "pango_attribute_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libpango "pango_attribute_destroy";
+      val free_ =
+        call
+          (load_sym libpango "pango_attribute_destroy")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -49,7 +52,7 @@ structure PangoAttributeRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

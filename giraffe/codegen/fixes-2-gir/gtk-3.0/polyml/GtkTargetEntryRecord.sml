@@ -22,9 +22,12 @@ structure GtkTargetEntryRecord :>
       val copy_ =
         call
           (load_sym libgtk "gtk_target_entry_copy")
-          (PTR --> PTR);
+          (PTR --> PTR)
 
-      val free_sym = load_sym libgtk "gtk_target_entry_free";
+      val free_ =
+        call
+          (load_sym libgtk "gtk_target_entry_free")
+          (PTR --> FFI.PolyML.VOID)
     end
 
     type t = notnull p Finalizable.t
@@ -71,7 +74,7 @@ structure GtkTargetEntryRecord :>
                 else copy_ ptr
               )
           in
-            Finalizable.addFinalizer (object, free_sym);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

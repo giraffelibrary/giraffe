@@ -82,7 +82,7 @@ structure GCharVec :>
           let
             val t = Finalizable.new p
           in
-            Finalizable.addFinalizer (t, g_free_sym);
+            Finalizable.addFinalizer (t, free_);
             t
           end
 

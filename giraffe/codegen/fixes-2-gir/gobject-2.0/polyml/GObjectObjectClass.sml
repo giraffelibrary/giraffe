@@ -52,12 +52,18 @@ structure GObjectObjectClass :>
         else
           call
             (load_sym libgobject "g_object_ref_sink")
-            (PTR --> PTR);
+            (PTR --> PTR)
 
-      val unref_sym =
+      val unref_ =
         if GiraffeDebug.isEnabled
-        then load_sym libgiraffegobject "giraffe_debug_g_object_unref"
-        else load_sym libgobject "g_object_unref";
+        then
+          call
+            (load_sym libgiraffegobject "giraffe_debug_g_object_unref")
+            (PTR --> FFI.PolyML.VOID)
+        else
+          call
+            (load_sym libgobject "g_object_unref")
+            (PTR --> FFI.PolyML.VOID)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -105,7 +111,7 @@ structure GObjectObjectClass :>
                 else refSink_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_sym);
+            Finalizable.addFinalizer (object, unref_);
             object
           end
 
