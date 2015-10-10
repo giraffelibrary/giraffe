@@ -1,11 +1,278 @@
+This directory contains the Giraffe code generator and supporting files.
+
+This document contains the following sections:
+
+  1  Directory contents
+  2  Working directory initialization
+  3  Code generation
+  4  Manual code
+
+
+1  Directory contents
+
+In the repository, the "codegen" directory contains the following:
+
+  README            - this file
+  codegen           - script to perform code generation operations
+  src/              - code generator source code
+  version/          - package version of GIR/TYPELIB files for code generation
+  giversion/        - GI version of GIR/TYPELIB files for code generation
+  auto-0-gir/       - code that is generated from GIR files
+  auto-0-typelib/   - code that is generated from TYPELIB files
+  fixes-1-gir/      - code that is fixed to work around incorrect GI data
+  fixes-2-gir/      - code that is fixed to work around Giraffe limitations
+  extra-gir/        - code that is not generated
+
+The following are not included in the repository but must be added to the
+"codegen" directory in a working directory, as described in section 2 below,
+before code generation can be performed:
+
+  src/
+    xml/            - XML parser (fxp from Tom 7 sml-lib)
+  girepository/     - GIR/TYPELIB files indexed by package and GI version
+
+The following are created in the working directory as a result of code
+generation:
+
+  sml-gir/          - final version of generated code
 
 
 
-auto-2
+2  Working directory initialization
 
-Current hand-coded modules are due to the following reasons:
+Before code can be generated, the "codegen" directory requires the following
+external dependencies to be added:
 
-  - Root CLASS/Class modules for OBJECT
-  - RECORD/Record modules for STRUCT
-  - GDK event hierarchy (for GdkEvent UNION)
+ 1. the XML parser
+ 2. the GIR or TYPELIB files that provide the GObject Introspection data
 
+
+2.1  XML parser
+
+Under "codegen/src", the directory "xml" should contain the source code for the
+simplified interface to fxp from Tom 7.  This is available at the following
+locations:
+
+  http://sourceforge.net/p/tom7misc/svn/HEAD/tree/trunk/sml-lib/files/xml/
+  https://github.com/robsimmons/sml-lib/tree/master/files/xml/
+
+
+2.2  GObject Introspection data
+
+Under "codegen", the directory "girepository" provides the GIR and TYPELIB files
+used for code generation.  The files are organized in a tree with the following
+structure:
+
+  girepository/
+    <namespace>-<version>/
+      <pkg-version>/
+        gir-1.0/
+          <gi-version>/
+            <Namespace>-<Version>.gir
+        girepository-1.0/
+          <gi-version>/
+            <platform>/
+              <Namespace>-<Version>.typelib
+
+<pkg-version> is the version of the package that the GIR/TYPELIB file was
+generated for.  Code generation takes the package version from the file
+"version/<namespace>-<version>/version".
+
+<gi-version> is the version of GObject Introspection that was used to generate
+the GIR/TYPELIB file.  Code generation takes the GI version from the file
+"giversion/<namespace>-<version>/giversion".
+
+For example, we may have the following hierarchy from the GTK+ package:
+
+  girepository/
+    gtk-3.0/
+      3.2.4/
+        gir-1.0/
+          1.30.0/Gtk-3.0.gir
+          1.32.1/Gtk-3.0.gir
+        girepository-1.0/
+          1.30.0/
+            x86_64/Gtk-3.0.typelib
+            i686/Gtk-3.0.typelib
+          1.32.1/x86_64/Gtk-3.0.typelib
+      3.14.6/...
+    gdk-3.0/...
+
+
+
+3  Code generation
+
+Code generation requires Poly/ML 5.5.2 and common GNU utilities.
+
+
+3.1  Overview
+
+SML code is produced in stages:
+
+ 1. Generate code from GIR files
+ 2. Add non-generated files and, where required, fix generated code
+ 3. Copy final code to the main source tree to be included in the release
+
+The output of stage 1 can be checked against code generated from TYPELIB files
+to add confidence that the GIR files have been interpreted correctly, for
+example, that correct default values have been assumed.  The code is checked in
+stages:
+
+ 4. Generate code from TYPELIB files
+ 5. Convert code generated from GIR files to use platform-specific types
+ 6. Compare code from stages 4 and 5
+
+The following diagram shows the data dependencies of these stages:
+
+
+   Code from GIR files   :     Optional check against code from TYPELIB files
+                         :
+      .-----------.      :                                 .--------------.
+      | GIR files |      :                                 | TYPELIB file |
+      `-----------'      :                                 `--------------'
+            | 1          :                                        | 4
+            v            :                                        v
+       .----------.      :  5   .-------------------.     .--------------.
+       | SML code |------:----->| Platform-specific |     |   SML code   |
+       | from GIR |      :      | SML code from GIR |     | from TYPELIB |
+       `----------'      :      `-------------------'     `--------------'
+            | 2          :                |                       |
+            v            :                `----------. .----------'
+    .----------------.   :                            | 6
+    | fixed SML code |   :                            v
+    `----------------'   :                     .-------------.
+            | 3          :                     | GIR/TYPELIB |
+            v            :                     | differences |
+      .------------.     :                     `-------------'
+      | SML source |     :
+      |  release   |     :
+      `------------'     :
+
+
+3.2  Commands
+
+The codegen script is used to invoke code generation.  At present, it performs
+stages 1, 2, 3 and 4 described above.
+
+To see a list of commands, enter
+
+  ./codegen help
+
+Commands that produce code write to a temporary directory under "/tmp".  A
+corresponding "update-..." command copies the code from the temporary directory
+to the working directory.  The update commands do not overwrite any existing
+code in the working directory and, if existing code is different, it will invoke
+a merge tool, if defined by the environment variable MERGE, to allow differences
+to be reviewed.  This approach is taken to compare easily differences introduced
+in the generated code against the original code in the working directory.
+
+
+3.3  Using GIR files
+
+Giraffe Library is generated from GIR files to produce that the library code is
+portable across all platforms.  Although GIR files include some platform-
+specific data, such data is not (or should not be) used.
+
+Stage 1
+
+In a working directory, library code is generated in the directory "auto-0-gir"
+by the following commands:
+
+  ./codegen gir
+  ./codegen update-gir
+
+Stage 2
+
+Fixes are applied to the code in the directory "sml-gir" by the commands
+
+  ./codegen fixed
+  ./codegen update-fixed
+
+Stage 3
+
+The code in "sml-gir" is copied into the source release directory by the command
+
+  ./codegen update-source
+
+The code in "sml-gir" is removed from the source release directory by the
+command
+
+  ./codegen remove-source
+
+
+3.4  Check using TYPELIB files
+
+Although it is possible to generate code from TYPELIB files, they are designed
+for dynamic (run-time) introspection and, for efficiency, are platform-specific.
+Consequently, TYPELIB files do not have sufficient information to generate
+portable SML code.  In particular, types are resolved for the platform, for
+example, glong is
+  - gint32 in the TYPELIB for a 32 bit platform and is
+  - gint64 in the TYPELIB for a 64 bit platform.
+Also, in TYPELIB files, alias types are resolved to the underlying type, which
+reduces traceability to the API documentation.
+
+At present, code is generated from TYPELIB files only for the purpose of
+comparison with code generated from GIR files, to add confidence that the
+SML GIRepository interface to GIR files is giving correct information.
+
+Stage 4
+
+The SML bindings to the GIRepository C library require SML bindings for the
+GLib and GObject namespaces.  Therefore, before stage 4 is performed, stages 1
+to 3 must be performed and the commands
+  ./configure ...
+and
+  make
+run in order to build Giraffe C interface libraries in the working directory.
+
+Then, in the working directory, library code is generated in the directory
+"auto-0-typelib" by the following commands:
+
+  ./codegen typelib
+  ./codegen update-typelib
+
+Stage 5
+
+There is no codegen command to perform stage 5.  The script
+"gir2typelib/convert" should be run from a directory containing a copy of the
+code generated from GIR files that is to be converted.
+
+Stage 6
+
+There is no codegen command to perform stage 6.  This should be performed
+manually using the Diff program (or equivalent) to compare "auto-0-typelib"
+from stage 4 with the converted code from stage 5.
+
+
+
+4  Manual code
+
+In the "codegen" directory, the following directories contain hand-written code
+or generated code that has been fixed by hand:
+
+  fixes-1-gir/      - code that is fixed to work around incorrect GI data
+  fixes-2-gir/      - code that is fixed to work around Giraffe limitations
+  extra-gir/        - code that is not generated
+
+"fixes-1-gir" should no longer be used.  Instead, "src/overrides.sml" should be
+updated to override the incorrect GIR data.  At present, not all data can be
+overridden so "src/GIRepository.sml" may need to be modified to introduce a new
+override.
+
+"fixes-2-gir" is used for various reasons.  At present, the main reasons are to:
+  - provide modules for a root class of a hierarchy (generated as empty files);
+  - provide modules for record types (generated as empty files);
+  - provide modules for callback types (not generated);
+  - introduce abstractions in fundamental GObject modules such as GObject.Type
+     and GObject.Closure;
+  - provide modules for GDK event record types that capture event hierarchy
+     indicated by the GdkEvent union type;
+  - add Gtk.init and any other function that uses array types;
+  - ignore parts of namespaces, e.g. Gio.
+
+"extra-gir" provides source code that is not generated.  At present, this
+includes:
+  - special GObject modules: Signal, Property and ClosureMarshal;
+  - a module to classify, i.e. downcast, a GdkEvent record;
+  - other modules that introduce abstractions.
