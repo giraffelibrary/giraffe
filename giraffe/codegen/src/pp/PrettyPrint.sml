@@ -889,9 +889,28 @@ structure PrettyPrint :>
       fmtAndList "exception" fmtExnSpec1 hLast
 
 
+    (* sharingspec *)
+
+    fun fmtSharingSpec hLast (isTy, (x1, (x2, xs))) : v =
+      let
+        val h = H.seq [H.str "sharing", sp1]
+        val h0 = if isTy then H.seq [h, H.str "type", sp1] else h
+
+        fun fmtRest hLast lid = H.seq [sp1, H.str "=", sp1, fmtLid lid, hLast]
+        val h1 = fmtLid x1
+        val hs = fmtSeq (H.empty, hLast) fmtRest (x2 :: xs)
+
+        val n = 2
+      in
+        if length hs + 1 <= n
+        then V.line (H.seq (h0 :: h1 :: hs))
+        else V.concat (H.seq [h0, h1] :: hs)
+      end
+
+
     (* qual *)
 
-    fun fmtQual1 kw hLast eq : v =
+    fun fmtQual1 kw hLast eq : v =	
       toV (
         join (sp1, indent) (H (H.str kw), fmtXEqTy "type" fmtTyLName hLast eq)
       )
@@ -917,7 +936,7 @@ structure PrettyPrint :>
       | SpecDatatypeEq eqDatatypeSpec  => fmtEqDatatypeSpec hLast eqDatatypeSpec
       | SpecExn exnSpec                => fmtExnSpec hLast exnSpec
       | SpecStruct structSpec          => fmtStructSpec hLast structSpec
-      | SpecSharing (isTy, lid, lids1) => raise Fail "SpecSharing"
+      | SpecSharing sharingSpec        => fmtSharingSpec hLast sharingSpec
       | SpecInclList ids1              => fmtInclListSpec hLast ids1
       | SpecIncl qsig                  => fmtInclSpec hLast qsig
 

@@ -230,6 +230,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
     type datatypespec = datatypedec
     type eqdatatypespec = eqdatatypedec
     type exnspec = (id * ty option) list1
+    type sharingspec = bool * (lid * lid list1)
 
 
     (* `qual` represents QUAL .
@@ -279,7 +280,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
     | SpecDatatypeEq of eqdatatypespec
     | SpecExn of exnspec
     | SpecStruct of structspec
-    | SpecSharing of bool * lid * lid list1
+    | SpecSharing of sharingspec
     | SpecInclList of id list1
     | SpecIncl of qsig
 
