@@ -377,7 +377,7 @@ fun makeSignalStrDec
              *     if L = 0
              *)
             val revInParamNamePats1 =
-              getList1 (map mkIdPat revInParamNames, mkConstPat ConstUnit)
+              getList1 (map mkIdVarPat revInParamNames, mkConstPat ConstUnit)
             val funPat = foldl1 mkAPat revInParamNamePats1
 
             (* Construct expression
@@ -395,7 +395,7 @@ fun makeSignalStrDec
             val funAppExp = foldl mkRevAppExp fExp inParamNameExps
 
             val funExp =
-              case revMap mkIdPat revOutParamNames of
+              case revMap mkIdVarPat revOutParamNames of
                 []                      => funAppExp
               | op :: outParamNamePats1 =>
                   let
@@ -439,7 +439,7 @@ fun makeSignalStrDec
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (signalNameId, toList1 [APatId fId]),
+                FunHeadPrefix (NameId signalNameId, toList1 [mkIdVarAPat fId]),
                 NONE,
                 functionExp
               )
@@ -803,7 +803,7 @@ fun makePropertyStrDec
       let
         val xId : id = "x"
         val propertyNameExp = ExpConst (ConstString propertyName)
-        val pat = PatA (APatId xId)
+        val pat = mkIdVarPat xId
         val exp =
           ExpApp (
             ExpApp (

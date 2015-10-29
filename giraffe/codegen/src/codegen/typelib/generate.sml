@@ -189,7 +189,7 @@ local
     let
       val libId = getSharedLibraryId repo vers namespace
       val libFile = ""
-      val pat = PatA (APatId libId)
+      val pat = mkIdVarPat libId
       val exp =
         ExpApp (
           mkLIdLNameExp [PolyMLFFIId, loadLibId],

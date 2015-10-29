@@ -1531,7 +1531,7 @@ in
             fromFunScalar scalarParInfo,
             (parName, isRetCondInit)
           )
-          val l = APatId parName
+          val l = mkIdVarAPat parName
           val (ks', ls') =
             case dir of
               OUT _ => (makeK true :: ks,  ls)
@@ -1564,7 +1564,7 @@ in
             fromFunUtf8 (dir = INOUT, utf8ParInfo),
             (parName, isRetCondInit)
           )
-          val l = APatId parName
+          val l = mkIdVarAPat parName
           val (ks', ls') =
             case dir of
               OUT _ => (makeK true :: ks,  ls)
@@ -1597,7 +1597,7 @@ in
             fromFunInterface (dir = INOUT, interfaceParInfo),
             (parName, isRetCondInit)
           )
-          val l = APatId parName
+          val l = mkIdVarAPat parName
           val (ks', ls') =
             case dir of
               OUT _ => (makeK true :: ks,  ls)
@@ -1695,7 +1695,7 @@ fun argValErr (_ : lid list) =
 
 
 val retValId : id = "retVal"
-val retValPat : pat = PatA (APatId retValId)
+val retValPat : pat = mkIdVarPat retValId
 val retValExp : exp = mkIdLNameExp retValId
 
 val retVal =
@@ -1775,7 +1775,7 @@ fun makeFunctionStrDecHighLevel
                   prefixInterfaceStrId rootIRef ["C", withPtrId]
                 )
               val argVal = mkIdLNameExp selfId
-              val inParamAPat = APatId selfId
+              val inParamAPat = mkIdVarAPat selfId
             in
               ([(withFun, argVal)], [inParamAPat])
             end
@@ -1906,7 +1906,7 @@ fun makeFunctionStrDecHighLevel
         []     => functionCoreExp
       | _ :: _ =>
           let
-            fun getNamePat (id, _) = PatA (APatId id)
+            fun getNamePat (id, _) = mkIdVarPat id
             fun getNameExp (id, _) = mkIdLNameExp id
             fun getCondNameExp (id, isCond) =
               if isCond then SOME (mkIdLNameExp id) else NONE
@@ -1957,7 +1957,7 @@ fun makeFunctionStrDecHighLevel
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (functionNameId, inParamNames1),
+                FunHeadPrefix (NameId functionNameId, inParamNames1),
                 NONE,
                 functionExp
               )
@@ -2482,7 +2482,7 @@ local
           val id = "x" ^ Int.toString n
           val exps' = mkIdLNameExp id :: exps
           val tys' = ty :: tys
-          val pats' = PatA (APatId id) :: pats
+          val pats' = mkIdVarPat id :: pats
         in
           ((exps', tys', n + 1), pats')
         end

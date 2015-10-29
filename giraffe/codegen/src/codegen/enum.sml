@@ -15,7 +15,7 @@ val valueId : id = "Value"
  *)
 fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.t) : datatypedec =
   let
-    fun mkDatatypeClause valueInfo = (getValueNameId valueInfo, NONE)
+    fun mkDatatypeClause valueInfo = (NameId (getValueNameId valueInfo), NONE)
   in
     (
       toList1 [
@@ -52,7 +52,7 @@ local
   val tTy : ty = mkIdTy tId
 *)
   val errorExnSpec = mkExnSpec (exnErrorId, SOME tTy)
-  val errorExnStrDec = StrDecDec (mkTyExnDec (exnErrorId, SOME tTy))
+  val errorExnStrDec = StrDecDec (mkTyExnDec (NameId exnErrorId, SOME tTy))
   val handlerTyStrDec = makeLocalTypeStrDec handlerLocalType
 in
   (*
@@ -287,7 +287,7 @@ local
         EnumInfo.getNValues
         EnumInfo.getValue
         fromValMatchClause
-        (enumInfo, [(PatA (APatId nId), raiseValueNExp)])
+        (enumInfo, [(mkIdVarPat nId, raiseValueNExp)])
     ) handle
         Empty => infoError "no values"
 
@@ -319,14 +319,14 @@ local
     mkCStructStrDec [
       StrDecDec (mkTypeDec (valTyName, enumValTy)),
       StrDecDec (mkTypeDec (refTyName, enumRefTy)),
-      StrDecDec (mkTyExnDec (valueId, SOME enumValTy)),
+      StrDecDec (mkTyExnDec (NameId valueId, SOME enumValTy)),
       StrDecDec (
         DecFun (
           [],
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (withValId, toList1 [APatId fId]),
+                FunHeadPrefix (NameId withValId, toList1 [mkIdVarAPat fId]),
                 NONE,
                 ExpFn (withValMatchExp enumInfo)
               )
@@ -340,7 +340,7 @@ local
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (withRefValId, toList1 [APatId fId]),
+                FunHeadPrefix (NameId withRefValId, toList1 [mkIdVarAPat fId]),
                 NONE,
                 ExpApp (
                   mkIdLNameExp withValId,
@@ -414,7 +414,7 @@ local
    *)
   fun exnModule strId : module =
     let
-      val dec = mkEqExnDec (strId, toList1 [strId, exnErrorId])
+      val dec = mkEqExnDec (NameId strId, LNameId (toList1 [strId, exnErrorId]))
     in
       ModuleDecStr (StrDecDec dec)
     end
@@ -576,11 +576,8 @@ in
             let
               val strDec =
                 StrDecDec (
-                  DecExn (
-                    toList1 [
-                      (enumStrNameId, ExnDecTypeEq (toList1 [enumStrId]))
-                    ]
-                  )
+                  mkEqExnDec
+                    (NameId enumStrNameId, LNameId (toList1 [enumStrId]))
                 )
             in
               strDec :: enumStrDecs'1

@@ -394,7 +394,7 @@ structure PrettyPrint :>
     fun fmtAPat hLast : apat -> t =
       fn
         APatU                 => H (H.seq [H.str "_", hLast])
-      | APatId id             => H (fmtHLast fmtId hLast id)
+      | APatVar name          => H (fmtHLast fmtName hLast name)
       | APatConst const       => H (fmtHLast fmtConst hLast const)
       | APatParen (pat, pats) => fmtTuple fmtPat hLast (pat :: pats)
       | APatList pats         => fmtList fmtPat hLast pats
@@ -418,7 +418,7 @@ structure PrettyPrint :>
       | PatPrefix (lid, pat)      => fmtPrefixPat hLast (lid, pat)
       | PatInfix (pat1, id, pat2) => fmtInfixPat hLast (pat1, id, pat2)
       | PatTy (pat, ty)           => fmtTyPat hLast (pat, ty)
-      | PatAs (id, pat)           => fmtXSymY "as" (fmtId, fmtPat) hLast (id, pat)
+      | PatVarAs (name, pat)      => fmtXSymY "as" (fmtName, fmtPat) hLast (name, pat)
 
     and fmtInfixPat hLast (pat1, id, pat2) =
       fmtInfixList id fmtPat hLast (pat1, unfoldInfixPat id pat2)
@@ -475,8 +475,8 @@ structure PrettyPrint :>
 
     (* datatypebinds *)
 
-    val fmtDatatypeClauses : h -> (id * ty option) list1 -> v =
-      fmtOptClauses "of" (fn hLast => H o fmtHLast fmtId hLast, fmtTy)
+    val fmtDatatypeClauses : h -> (name * ty option) list1 -> v =
+      fmtOptClauses "of" (fn hLast => H o fmtHLast fmtName hLast, fmtTy)
 
     fun fmtDatatypeBind1 kw hLast (tyName, clauses1) : v =
       V.seq [
@@ -492,17 +492,17 @@ structure PrettyPrint :>
 
     fun fmtFunHead hLast : funhead -> t =
       fn
-        FunHeadPrefix (id, apats1) =>
+        FunHeadPrefix (name, apats1) =>
           let
-            val hId = H.str id
+            val hName = fmtName name
             val ts = fmtSeq (H.empty, hLast) fmtAPat (op :: apats1)
           in
             case fromList ts of
-              HList hs => H (H.seqWith sp1 I (hId :: hs))
-            | VList vs => V (V.seq [V.line hId, indent (V.seq vs)])
+              HList hs => H (H.seqWith sp1 I (hName :: hs))
+            | VList vs => V (V.seq [V.line hName, indent (V.seq vs)])
           end
-      | FunHeadInfixPar            => raise Fail "FunHeadInfixPar"
-      | FunHeadInfix               => raise Fail "FunHeadInfix"
+      | FunHeadInfixPar              => raise Fail "FunHeadInfixPar"
+      | FunHeadInfix                 => raise Fail "FunHeadInfix"
 
     fun fmtFunHeadOptTy hLast (funHead, optTy) : t =
       case optTy of
@@ -547,22 +547,22 @@ structure PrettyPrint :>
 
     (* exndec *)
 
-    fun fmtExnDecTypeOf kw hLast : id * ty option -> v =
+    fun fmtExnDecTypeOf kw hLast : name * ty option -> v =
       fn
-        (id, NONE)    => V.line (H.seq [H.str kw, sp1, fmtId id, hLast])
-      | (id, SOME ty) =>
-          toV (fmtKwXSymY (kw, "of") (fmtId, fmtTy) hLast (id, ty))
+        (name, NONE)    => V.line (H.seq [H.str kw, sp1, fmtName name, hLast])
+      | (name, SOME ty) =>
+          toV (fmtKwXSymY (kw, "of") (fmtName, fmtTy) hLast (name, ty))
 
-    fun fmtExnDec1 kw hLast : id * exndectype -> v =
+    fun fmtExnDec1 kw hLast : name * exndectype -> v =
       fn
-        (id, ExnDecTypeOf optTy) => fmtExnDecTypeOf kw hLast (id, optTy)
-      | (id, ExnDecTypeEq lid)   =>
+        (name, ExnDecTypeOf optTy) => fmtExnDecTypeOf kw hLast (name, optTy)
+      | (name, ExnDecTypeEq lname) =>
           V.line (
             H.seq [
               H.str kw, sp1,
-              fmtId id, sp1,
+              fmtName name, sp1,
               H.str "=", sp1,
-              fmtLid lid, hLast
+              fmtLName lname, hLast
             ]
           )
 
@@ -882,7 +882,8 @@ structure PrettyPrint :>
 
     (* exnspec *)
 
-    val fmtExnSpec1 = fmtExnDecTypeOf
+    fun fmtExnSpec1 kw hLast (id, optTy) =
+      fmtExnDecTypeOf kw hLast (NameId id, optTy)
 
     fun fmtExnSpec hLast : exnspec -> v =
       fmtAndList "exception" fmtExnSpec1 hLast

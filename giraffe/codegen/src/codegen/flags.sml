@@ -236,7 +236,7 @@ local
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (withValId, toList1 [APatId fId]),
+                FunHeadPrefix (NameId withValId, toList1 [mkIdVarAPat fId]),
                 NONE,
                 mkIdLNameExp fId
               )
@@ -250,7 +250,7 @@ local
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (withRefValId, toList1 [APatId fId]),
+                FunHeadPrefix (NameId withRefValId, toList1 [mkIdVarAPat fId]),
                 NONE,
                 ExpApp (
                   mkIdLNameExp withValId,
@@ -272,7 +272,7 @@ local
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (fromValId, toList1 [APatId wId]),
+                FunHeadPrefix (NameId fromValId, toList1 [mkIdVarAPat wId]),
                 NONE,
                 mkIdLNameExp wId
               )

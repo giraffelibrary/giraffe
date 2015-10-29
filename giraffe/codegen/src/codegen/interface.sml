@@ -115,7 +115,7 @@ local
       toList1 [
         toList1 [
           (
-            FunHeadPrefix (toBaseId, toList1 [APatId objId]),
+            FunHeadPrefix (NameId toBaseId, toList1 [mkIdVarAPat objId]),
             NONE,
             mkIdLNameExp objId
           )

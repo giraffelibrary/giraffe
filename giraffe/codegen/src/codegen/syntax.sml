@@ -118,8 +118,8 @@ in
 end
 
 fun mkTypeDec (tyname, ty) = DecType (toList1 [(tyname, ty)])
-fun mkTyExnDec (id, optTy) : dec = DecExn (toList1 [(id, ExnDecTypeOf optTy)])
-fun mkEqExnDec (id, lid) : dec = DecExn (toList1 [(id, ExnDecTypeEq lid)])
+fun mkTyExnDec (name, optTy) : dec = DecExn (toList1 [(name, ExnDecTypeOf optTy)])
+fun mkEqExnDec (name, lname) : dec = DecExn (toList1 [(name, ExnDecTypeEq lname)])
 (* See below for `mkIdValDec` that works around constructor names. *)
 
 
@@ -127,7 +127,9 @@ fun mkLIdLNameExp lid : exp = ExpLName (LNameId (toList1 lid))
 fun mkIdLNameExp id : exp = mkLIdLNameExp [id]
 fun mkOpLNameExp infixOp : exp = ExpLName (LNameOp infixOp)
 
-fun mkIdPat id : pat = PatA (APatId id)
+fun mkIdVarAPat id : apat = APatVar (NameId id)
+
+fun mkIdVarPat id : pat = PatA (mkIdVarAPat id)
 fun mkConstPat const : pat = PatA (APatConst const)
 
 fun mkParenPat p = PatA (APatParen (toList1 [p]))
@@ -279,7 +281,7 @@ val constructorNames = ref [] : string list ref
 
 fun mkIdValDec (id, exp) : dec =
   let
-    fun mkValDec exp = DecVal (toList1 [([], false, PatA (APatId id), exp)])
+    fun mkValDec exp = DecVal (toList1 [([], false, mkIdVarPat id, exp)])
   in
     if List.exists (fn x => x = id) (!constructorNames)
     then
@@ -290,7 +292,7 @@ fun mkIdValDec (id, exp) : dec =
           DecFun (
             [],
             toList1 [
-              toList1 [(FunHeadPrefix (id, toList1 [unitPat]), NONE, exp)]
+              toList1 [(FunHeadPrefix (NameId id, toList1 [unitPat]), NONE, exp)]
             ]
           )
         val funExp = mkIdLNameExp id

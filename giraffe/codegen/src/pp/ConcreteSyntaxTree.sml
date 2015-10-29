@@ -65,7 +65,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
 
     datatype apat =
       APatU                       (* underscore *)
-    | APatId of id                (* bound identifier *)
+    | APatVar of name             (* variable *)
     | APatConst of const          (* literal value or constructor *)
     | APatParen of pat list1      (* parenthesized or tuple pattern *)
     | APatList of pat list        (* list pattern *)
@@ -88,7 +88,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
     | PatPrefix of lid * pat      (* prefix constructor *)
     | PatInfix of pat * id * pat  (* infix constructor *)
     | PatTy of pat * ty           (* typed pattern *)
-    | PatAs of id * pat           (* identifier as pattern *)
+    | PatVarAs of name * pat      (* variable as pattern *)
 
 
 
@@ -113,7 +113,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
      *)
 
     type typebinds = (tyname * ty) list1
-    type datatypebinds = (tyname * (id * ty option) list1) list1
+    type datatypebinds = (tyname * (name * ty option) list1) list1
 
 
     (* `funbind` represents FBIND extended
@@ -122,7 +122,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
      *)
 
     datatype funhead =
-      FunHeadPrefix of id * apat list1
+      FunHeadPrefix of name * apat list1
     | FunHeadInfixPar  (* infix functions not yet supported *)
     | FunHeadInfix     (* infix functions not yet supported *)
 
@@ -141,8 +141,8 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
 
     datatype exndectype =
       ExnDecTypeOf of ty option
-    | ExnDecTypeEq of lid
-    type exndec = (id * exndectype) list1
+    | ExnDecTypeEq of lname
+    type exndec = (name * exndectype) list1
 
     datatype dec =
       DecVal of valdec

@@ -123,7 +123,8 @@ fun makeInterfaceConvStrDec
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (interfaceConvId, toList1 [APatId selfId]),
+                FunHeadPrefix
+                  (NameId interfaceConvId, toList1 [mkIdVarAPat selfId]),
                 NONE,
                 functionExp
               )
