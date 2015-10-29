@@ -19,10 +19,10 @@ fun makeSignalSpec
     val signalName = getName signalInfo
     val signalNameId = mkSignalNameId signalName
     val signalNamespace = BaseInfo.getNamespace signalInfo
-    val signalFlags = SignalInfo.getFlags signalInfo
 
     (* Ignore deprecated signals - is this needed?  Does above check suffice? *)
     (* requires glib >= 2.32
+    val signalFlags = SignalInfo.getFlags signalInfo
     val () =
       if GSignalFlags.anySet (signalFlags, GSignalFlags.DEPRECATED)
       then
@@ -36,11 +36,11 @@ fun makeSignalSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName) signalName)
+        (getParInfo true repo signalNamespace (SOME containerName))
         (signalInfo, [])
 
     val retInfo =
-      getRetInfo true repo signalNamespace (SOME containerName) signalName
+      getRetInfo true repo signalNamespace (SOME containerName)
         signalInfo
 
     val tyVarIdx'0 = 0
@@ -264,12 +264,12 @@ fun makeSignalStrDec
     val signalName = getName signalInfo
     val signalNameId = mkSignalNameId signalName
     val signalNamespace = BaseInfo.getNamespace signalInfo
-    val signalFlags = SignalInfo.getFlags signalInfo
 
     (* Ignore deprecated signals.  The above check does not appear to
      * suffice, for example, GtkButton::pressed.
      *)
     (* Requires glib >= 2.32, exclude for now.
+    val signalFlags = SignalInfo.getFlags signalInfo
     val () =
       if GSignalFlags.anySet (signalFlags, GSignalFlags.DEPRECATED)
       then
@@ -285,11 +285,11 @@ fun makeSignalStrDec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName) signalName)
+        (getParInfo true repo signalNamespace (SOME containerName))
         (signalInfo, [])
 
     val retInfo =
-      getRetInfo true repo signalNamespace (SOME containerName) signalName
+      getRetInfo true repo signalNamespace (SOME containerName)
         signalInfo
 
     val revLs'1 = []
@@ -489,7 +489,7 @@ datatype paraminfo =
 | PIINTERFACE of mode * interfaceinfo
 
 
-fun getParamInfo repo (containerIRef : interfaceref) propertyInfo =
+fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
   let
     val ownershipTransfer = PropertyInfo.getOwnershipTransfer propertyInfo
 

@@ -46,7 +46,7 @@ local
   val specs'1 = [structCSpec]
 in
   fun makeObjectDerivedClassSig
-    (repo             : 'a RepositoryClass.t)
+    (_                : 'a RepositoryClass.t)
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.t)
     (objectInfo       : 'c ObjectInfoClass.t)
@@ -181,7 +181,7 @@ local
     )
 in
   fun makeObjectDerivedClassStr
-    (repo             : 'a RepositoryClass.t)
+    (_                : 'a RepositoryClass.t)
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.t)
     (objectInfo       : 'c ObjectInfoClass.t)

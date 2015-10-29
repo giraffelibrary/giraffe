@@ -524,7 +524,6 @@ and arrayTypeBaseData containerData elemDicts typelib (arrayType, param) =
   let
     val tag = GIRepositoryTypeTag.ARRAY
     val interface = NONE
-    val tagIsPointer = SOME true
 
     val params = [#2 (lookupTypeBaseData containerData elemDicts typelib param)]
 
@@ -696,7 +695,6 @@ and makeParameter
     val scope = withDefault GIRepositoryScopeType.INVALID makeScopeType scope
     val closure = Option.map makeValueInt closure
     val destroy = Option.map makeValueInt destroy
-    val isOut = direction = GIRepositoryDirection.OUT
     val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val argData =
       {
@@ -808,7 +806,7 @@ and makeFunction
   con
   baseData  (* self reference *)
   typelib
-  ({elem, name, config, callable, cIdentifier, throws} : function) =
+  ({elem, name, config = _, callable, cIdentifier, throws} : function) =
   let
     val flags'0 =
       let
@@ -882,7 +880,7 @@ and makeVFunc
   (
     {
       name,
-      config,
+      config = _,
       callable,
       throws,
       invoker = _,
@@ -1794,7 +1792,7 @@ fun initNamespaceElem typelib =
           | FUNCTION _ => dict  (* does not represent a type *)
           | _          => 
               case data of
-                SOME (base as Info.BASE (ref {name = SOME name, ...})) =>
+                SOME (Info.BASE (ref {name = SOME name, ...})) =>
                   let
                     val tag = makeTag name
 
@@ -1847,7 +1845,7 @@ fun initNamespaceElem typelib =
                   in
                     dict'
                   end
-              | _                                                      => dict
+              | _                                              => dict
       in
         ({elem = elem, data = data}, dict')
       end

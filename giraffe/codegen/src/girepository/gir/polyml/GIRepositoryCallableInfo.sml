@@ -44,6 +44,7 @@ structure GIRepositoryCallableInfo :>
       let
         val _ & {returnValue, ...} & _ = (fromBase o fromCallable) I info
         val _ = returnValue
+        val _ = name
       in
         NONE
       end

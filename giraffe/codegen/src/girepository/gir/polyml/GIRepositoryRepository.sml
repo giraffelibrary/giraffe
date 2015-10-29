@@ -75,14 +75,6 @@ structure GIRepositoryRepository :>
       #namespace (! (lookupTypelib repository versions name))
 
 
-    fun errMsg name version oldVersion =
-      String.concat [
-        "Attempting to load namespace '", name,
-        "', version '", version, "', but version '", oldVersion,
-        "' is already loaded"
-      ]
-
-
     fun getDefault () =
       GIRepositoryRepositoryClass.Obj.pack
         (ref {path = ListDict.empty, loaded = ListDict.empty} & ())
@@ -223,7 +215,7 @@ structure GIRepositoryRepository :>
 
         fun errorCycle _ = raise Cycle
 
-        fun addInclude path (incl as {name, version}, dict) =
+        fun addInclude path ({name, version}, dict) =
           let
             val path'1 = ListDict.insert I errorCycle ((name, version), path)
 

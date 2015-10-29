@@ -143,7 +143,7 @@ fun makeAliasSig
 (* Structure *)
 
 fun makeAliasStr
-  (repo           : 'a RepositoryClass.t)
+  (_              : 'a RepositoryClass.t)
   (aliasNamespace : string)
   (aliasInfo      : 'a AliasInfoClass.t)
   (errs'0         : infoerrorhier list)

@@ -456,7 +456,7 @@ fun makeObjectIRef namespace optName : interfaceref =
 val makeInterfaceRootIRef = makeObjectIRef
 
 fun getRootObjectIRef
-  repo
+  _
   namespace
   optName
   (objectInfo, objectIRef : interfaceref) =

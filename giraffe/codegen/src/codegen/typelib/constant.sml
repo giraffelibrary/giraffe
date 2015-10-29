@@ -24,7 +24,6 @@ fun makeConstantSpec
     fun notSupported s = infoError ("constant type " ^ s ^ " not supported")
 
     val boolRefTy = ([], toList1 ["bool"])
-    val charRefTy = ([], toList1 ["char"])
     val largeIntRefTy = ([], toList1 ["LargeInt", "int"])
     val realRefTy = ([], toList1 ["real"])
     val stringRefTy = ([], toList1 ["string"])

@@ -388,7 +388,7 @@ datatype retinfo =
  * rather than using the c:type attribute, which is not present for signals.
  *)
 
-fun getParInfo usePtrDefault repo functionNamespace optContainerName functionName argInfo =
+fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
   let
     val direction = ArgInfo.getDirection argInfo
     val mayBeNull = ArgInfo.mayBeNull argInfo
@@ -621,7 +621,7 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName functionNam
   end
 
 
-fun getRetInfo usePtrDefault repo functionNamespace optContainerName functionName callableInfo =
+fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInfo =
   let
     val mayReturnNull = CallableInfo.mayReturnNull callableInfo
 
@@ -986,11 +986,11 @@ fun makeFunctionSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
     (* For a method function, add an initial argument type for the interface
@@ -1536,11 +1536,11 @@ fun makeFunctionStrDecHighLevel
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
     (* For a method function, add an initial argument for the interface
@@ -2053,11 +2053,11 @@ fun makeFunctionStrDecLowLevelPolyML
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
@@ -2609,11 +2609,11 @@ fun makeFunctionStrDecLowLevelMLton
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionName)
+        (getParInfo false repo functionNamespace optContainerName)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName functionName
+      getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo

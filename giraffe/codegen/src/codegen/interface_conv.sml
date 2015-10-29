@@ -8,7 +8,7 @@ fun mkInterfaceConvId interfaceName = "as" ^ toUCC interfaceName
 (* Specification *)
 
 fun makeInterfaceConvSpec
-  repo
+  _
   (containerIRef as {namespace = containerNamespace, ...} : interfaceref)
   (interfaceInfo, (iRefs, errs))
   : spec * (interfaceref list * infoerrorhier list) =
@@ -55,7 +55,7 @@ fun makeInterfaceConvSpec
 (* Declaration *)
 
 fun makeInterfaceConvStrDec
-  repo
+  _
   rootObjectIRef
   ({namespace = containerNamespace, ...} : interfaceref)
   (interfaceInfo, (iRefs, errs))
