@@ -39,8 +39,8 @@ help :
 ################################################################################
 # Build
 
-INFILES := $(wildcard *.in)
-OUTFILES := $(INFILES:.in=)
+IN_FILES := $(wildcard *.in)
+OUT_FILES := $(IN_FILES:.in=)
 
 SEDCMD := \
 sed -n -e " \
@@ -48,17 +48,17 @@ s/@GIRAFFE_VERSION@/$(VERSION)/g ; \
 p \
 "
 
-$(OUTFILES) : % : %.in
+$(OUT_FILES) : % : %.in
 	@cat $< | $(SEDCMD) > $@
 
-build : $(OUTFILES)
+build : $(OUT_FILES)
 
 
 
 ################################################################################
 # Archive
 
-RELEASEFILES := \
+RELEASE_FILES := \
 	CHANGES \
 	configure \
 	COPYING \
@@ -71,11 +71,16 @@ RELEASEFILES := \
 	src/polyml/*.[hc] \
 	src/sml
 
-giraffe-$(VERSION).tar.gz : $(OUTFILES)
+EXCLUDED_RELEASE_FILES := \
+	src/polyml/giraffe-girepository* \
+	src/sml/girepository-2.0
+
+giraffe-$(VERSION).tar.gz : $(OUT_FILES)
 	tar -czf giraffe-$(VERSION).tar.gz \
 	  --owner=root --group=root \
 	  --transform="s|^.*$$|giraffe-$(VERSION)/&|" \
-	  $(RELEASEFILES)
+	  $(EXCLUDED_RELEASE_FILES:%=--exclude=%) \
+	  $(RELEASE_FILES)
 
 archive : build giraffe-$(VERSION).tar.gz
 
@@ -86,5 +91,5 @@ archive : build giraffe-$(VERSION).tar.gz
 
 
 clean :
-	rm -f $(OUTFILES)
+	rm -f $(OUT_FILES)
 	rm -f giraffe-$(VERSION).tar.gz
