@@ -404,7 +404,21 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     ),
   gen outDir repo ("GModule", "2.0") ([], [], []),
   gen outDir repo ("Gio", "2.0") ([], [], []),
-  gen outDir repo ("GIRepository", "2.0") ([], [], []),
+  gen outDir repo ("GIRepository", "2.0")
+    (
+      [],
+      [
+        makeSig "G_I_REPOSITORY_BASE_INFO_RECORD" []
+      ],
+      [
+        makeStr
+          ("GIRepository", "BaseInfoRecord", "G_I_REPOSITORY_BASE_INFO_RECORD")
+          [],
+        makeStr
+          ("GIRepository", "TypelibRecord", "G_I_REPOSITORY_TYPELIB_RECORD")
+          []
+      ]
+    ),
   gen outDir repo ("Atk", "1.0") ([], [], []),
   gen outDir repo ("GdkPixbuf", "2.0") ([], [], []),
   gen outDir repo ("Pango", "1.0") ([], [], []),

@@ -6,6 +6,7 @@ local
   ../glib-2.0/mlton.mlb
   ../gobject-2.0/mlton.mlb
 in
+  G_I_REPOSITORY_BASE_INFO_RECORD.sml
   G_I_REPOSITORY_ARRAY_TYPE.sml
   G_I_REPOSITORY_DIRECTION.sml
   G_I_REPOSITORY_FIELD_INFO_FLAGS.sml
@@ -21,6 +22,8 @@ in
   G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml
   G_I_REPOSITORY_NVOKE_ERROR.sml
   G_I_REPOSITORY.sml
+  mlton/GIRepositoryBaseInfoRecord.sml
+  mlton/GIRepositoryTypelibRecord.sml
   mlton/GIRepositoryArrayType.sml
   mlton/GIRepositoryDirection.sml
   mlton/GIRepositoryFieldInfoFlags.sml
@@ -34,5 +37,6 @@ in
   mlton/GIRepositoryTypeTag.sml
   mlton/GIRepositoryVFuncInfoFlags.sml
   mlton/GIRepositoryNvokeError.sml
+  mlton/GIRepositoryRepository.sml
   mlton/GIRepository.sml
 end

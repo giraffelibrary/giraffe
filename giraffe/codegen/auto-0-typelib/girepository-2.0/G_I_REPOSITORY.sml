@@ -1,5 +1,7 @@
 signature G_I_REPOSITORY =
   sig
+    structure BaseInfoRecord : G_I_REPOSITORY_BASE_INFO_RECORD
+    structure TypelibRecord : G_I_REPOSITORY_TYPELIB_RECORD
     structure ArrayType : G_I_REPOSITORY_ARRAY_TYPE
     structure Direction : G_I_REPOSITORY_DIRECTION
     structure FieldInfoFlags : G_I_REPOSITORY_FIELD_INFO_FLAGS
@@ -14,6 +16,12 @@ signature G_I_REPOSITORY =
     structure VFuncInfoFlags : G_I_REPOSITORY_V_FUNC_INFO_FLAGS
     structure NvokeError : G_I_REPOSITORY_NVOKE_ERROR
     exception NvokeError of NvokeError.t
+    structure Repository :
+      G_I_REPOSITORY_REPOSITORY
+        where type 'a class_t = 'a RepositoryClass.t
+        where type base_info_record_t = BaseInfoRecord.t
+        where type typelib_record_t = TypelibRecord.t
+        where type repository_load_flags_t = RepositoryLoadFlags.t
     val argInfoGetClosure : BaseInfoRecord.t -> LargeInt.int
     val argInfoGetDestroy : BaseInfoRecord.t -> LargeInt.int
     val argInfoGetDirection : BaseInfoRecord.t -> Direction.t

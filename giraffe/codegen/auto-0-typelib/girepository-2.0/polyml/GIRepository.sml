@@ -159,6 +159,8 @@ structure GIRepository : G_I_REPOSITORY =
       val vfuncInfoGetOffset_ = call (load_sym libgirepository "g_vfunc_info_get_offset") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val vfuncInfoGetSignal_ = call (load_sym libgirepository "g_vfunc_info_get_signal") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
     end
+    structure BaseInfoRecord = GIRepositoryBaseInfoRecord
+    structure TypelibRecord = GIRepositoryTypelibRecord
     structure ArrayType = GIRepositoryArrayType
     structure Direction = GIRepositoryDirection
     structure FieldInfoFlags = GIRepositoryFieldInfoFlags
@@ -173,6 +175,7 @@ structure GIRepository : G_I_REPOSITORY =
     structure VFuncInfoFlags = GIRepositoryVFuncInfoFlags
     structure NvokeError = GIRepositoryNvokeError
     exception NvokeError = GIRepositoryNvokeError
+    structure Repository = GIRepositoryRepository
     fun argInfoGetClosure info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) argInfoGetClosure_ info
     fun argInfoGetDestroy info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) argInfoGetDestroy_ info
     fun argInfoGetDirection info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryDirection.C.fromVal) argInfoGetDirection_ info

@@ -1,5 +1,7 @@
 signature G_I_REPOSITORY =
   sig
+    structure BaseInfoRecord : G_I_REPOSITORY_BASE_INFO_RECORD
+    structure TypelibRecord : G_I_REPOSITORY_TYPELIB_RECORD
     structure ArrayType : G_I_REPOSITORY_ARRAY_TYPE
     structure Direction : G_I_REPOSITORY_DIRECTION
     structure FieldInfoFlags : G_I_REPOSITORY_FIELD_INFO_FLAGS
@@ -14,6 +16,30 @@ signature G_I_REPOSITORY =
     structure VFuncInfoFlags : G_I_REPOSITORY_V_FUNC_INFO_FLAGS
     structure NvokeError : G_I_REPOSITORY_NVOKE_ERROR
     exception NvokeError of NvokeError.t
+    structure ArgInfoRecord : G_I_REPOSITORY_ARG_INFO_RECORD
+    structure CallableInfoRecord : G_I_REPOSITORY_CALLABLE_INFO_RECORD
+    structure CallbackInfoRecord : G_I_REPOSITORY_CALLBACK_INFO_RECORD
+    structure ConstantInfoRecord : G_I_REPOSITORY_CONSTANT_INFO_RECORD
+    structure EnumInfoRecord : G_I_REPOSITORY_ENUM_INFO_RECORD
+    structure FieldInfoRecord : G_I_REPOSITORY_FIELD_INFO_RECORD
+    structure FunctionInfoRecord : G_I_REPOSITORY_FUNCTION_INFO_RECORD
+    structure InterfaceInfoRecord : G_I_REPOSITORY_INTERFACE_INFO_RECORD
+    structure ObjectInfoRecord : G_I_REPOSITORY_OBJECT_INFO_RECORD
+    structure PropertyInfoRecord : G_I_REPOSITORY_PROPERTY_INFO_RECORD
+    structure RegisteredTypeInfoRecord : G_I_REPOSITORY_REGISTERED_TYPE_INFO_RECORD
+    structure SignalInfoRecord : G_I_REPOSITORY_SIGNAL_INFO_RECORD
+    structure StructInfoRecord : G_I_REPOSITORY_STRUCT_INFO_RECORD
+    structure TypeInfoRecord : G_I_REPOSITORY_TYPE_INFO_RECORD
+    structure UnionInfoRecord : G_I_REPOSITORY_UNION_INFO_RECORD
+    structure VFuncInfoRecord : G_I_REPOSITORY_V_FUNC_INFO_RECORD
+    structure ValueInfoRecord : G_I_REPOSITORY_VALUE_INFO_RECORD
+    structure Repository :
+      G_I_REPOSITORY_REPOSITORY
+        where type 'a class_t = 'a RepositoryClass.t
+        where type enum_info_record_t = EnumInfoRecord.t
+        where type base_info_record_t = BaseInfoRecord.t
+        where type typelib_record_t = TypelibRecord.t
+        where type repository_load_flags_t = RepositoryLoadFlags.t
     val argInfoGetClosure : ArgInfoRecord.t -> LargeInt.int
     val argInfoGetDestroy : ArgInfoRecord.t -> LargeInt.int
     val argInfoGetDirection : ArgInfoRecord.t -> Direction.t
