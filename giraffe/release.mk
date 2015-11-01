@@ -8,8 +8,13 @@
 
 
 ifndef VERSION
-
 $(error environment variable VERSION not set)
+endif
+
+
+TAR=$(shell which gnutar 2> /dev/null || which gtar 2> /dev/null || which tar 2> /dev/null)
+ifeq ("$(TAR)","")
+$(error cannot find tar program)
 endif
 
 
@@ -76,7 +81,7 @@ EXCLUDED_RELEASE_FILES := \
 	src/sml/girepository-2.0
 
 giraffe-$(VERSION).tar.gz : $(OUT_FILES)
-	tar -czf giraffe-$(VERSION).tar.gz \
+	$(TAR) -czf giraffe-$(VERSION).tar.gz \
 	  --owner=root --group=root \
 	  --transform="s|^.*$$|giraffe-$(VERSION)/&|" \
 	  $(EXCLUDED_RELEASE_FILES:%=--exclude=%) \
