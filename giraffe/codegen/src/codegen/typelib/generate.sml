@@ -127,8 +127,8 @@ fun mkProgramFile isPolyML (id, isPortable) =
 
 fun mkMLBBasDec (root, dir, base) =
   OS.Path.joinDirFile {
-    dir  = root,
-    file = OS.Path.joinDirFile {dir  = dir, file = mkFile base mlb}
+    dir  = OS.Path.joinDirFile {dir = root, file = dir},
+    file = mkFile base mlb
   }
 
 val mltonBasDecs = [
@@ -145,7 +145,7 @@ fun mkNamespaceBasDec namespaceDep =
     val dir = String.map Char.toLower namespaceDep
     val baseMLton = targetString MLton
   in
-    mkMLBBasDec ("..", dir, baseMLton)
+    mkMLBBasDec (OS.Path.parentArc, dir, baseMLton)
   end
 
 
@@ -218,9 +218,9 @@ end
 
 fun writeFile dir file v =
   let
-    val file = OS.Path.joinDirFile {dir = dir, file = file}
+    val dirFile = OS.Path.concat (dir, file)
 
-    val ostream = TextIO.openOut file
+    val ostream = TextIO.openOut dirFile
     val writer = (
       fn () => TextIO.output1 (ostream, #"\n"),
       fn s => TextIO.output (ostream, s)

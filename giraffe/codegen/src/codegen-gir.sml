@@ -62,7 +62,7 @@ fun firstLine file =
 
 local
   infix //
-  fun dir // file = OS.Path.joinDirFile {dir = dir, file = file}
+  val op // = OS.Path.concat
 
   fun isNL c = c = #"\r" orelse c = #"\n"
   val dropNL = Substring.string o Substring.dropr isNL o Substring.full
