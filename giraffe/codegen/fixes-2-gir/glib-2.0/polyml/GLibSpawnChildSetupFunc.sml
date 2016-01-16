@@ -12,10 +12,13 @@ structure GLibSpawnChildSetupFunc :>
 
     structure C =
       struct
-        type callback = unit -> unit
-
-        val withCallback = I
-
+        type callback = (unit -> unit) PolyMLFFI.closure
+        local
+          open PolyMLFFI
+        in
+          val makeClosure = closure (FFI.PolyML.VOID --> FFI.PolyML.VOID)
+        end
+        fun withCallback f callback = f (makeClosure callback)
         fun withOptCallback f optCallback =
           withCallback f (
             case optCallback of
@@ -26,6 +29,6 @@ structure GLibSpawnChildSetupFunc :>
 
     structure PolyML =
       struct
-        val CALLBACK = CInterface.FUNCTION1 FFI.PolyML.VOID FFI.PolyML.VOID
+        val CALLBACK = PolyMLFFI.cFunction
       end
   end

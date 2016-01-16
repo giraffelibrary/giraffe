@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,7 +15,7 @@ structure GObjectValueRecord :>
         val OPTPTR : unit C.p PolyMLFFI.conversion
         structure Array :
           sig
-            val PTR : C.notnull C.Array.p PolyMLFFI.conversion
+            val PTR : C.notnull C.Array.array_p PolyMLFFI.conversion
           end
       end
   end =
@@ -42,6 +42,11 @@ structure GObjectValueRecord :>
         call
           (load_sym libgiraffegobject "giraffe_g_value_free")
           (PTR --> FFI.PolyML.VOID)
+
+      val size_ =
+        call
+          (load_sym libgiraffegobject "giraffe_g_value_size")
+          (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
     end
 
     type t = notnull p Finalizable.t
@@ -82,9 +87,17 @@ structure GObjectValueRecord :>
         fun fromOptPtr transfer optptr =
           Option.map (fromPtr transfer) (Pointer.toOpt optptr)
 
+        (* `size_` must be called at run-time because we cannot refer to
+         * library names for portability.  Therefore `size` is a ref that is
+         * initialized at start-up *)
+        val size = ref 0w0
+        fun initSize () = size := Word.fromLargeInt (FFI.UInt.C.fromVal (size_ ()))
+        val () = PolyML.onEntry initSize
+
         structure Array =
           struct
-            type 'a p = 'a p
+            type 'a array_p = 'a p
+            fun sub p w = Pointer.add (p, w * ! size)
           end
       end
 

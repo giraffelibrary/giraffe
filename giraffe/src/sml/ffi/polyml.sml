@@ -1,15 +1,16 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-use "polyml/POLY_M_L_F_F_I.sml";
+use "polyml/POLYML_F_F_I.sml";
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
 use "FINALIZABLE.sml";
 use "POINTER.sml";
+use "polyml/POINTER.sml";
 use "C_ARRAY.sml";
 use "FILE_DESC";
 use "polyml/Finalizable.sml";

@@ -150,10 +150,10 @@ giraffe_g_is_value (GValue *value)
   return G_IS_VALUE (value);
 }
 
-GValue *
-giraffe_g_value_nth (GValue *args, guint p)
+guint
+giraffe_g_value_size ()
 {
-  return (&args[p]);
+  return sizeof (GValue);
 }
 
 void

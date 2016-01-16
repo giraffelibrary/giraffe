@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -68,7 +68,7 @@ structure GCharVec :>
         val free_ = _import "g_free" : notnull p -> unit;
         val len_ = _import "strlen" : notnull p -> int;
         val sub_ : notnull p * int -> char =
-          Byte.byteToChar o Pointer.MLton.getWord8
+          Byte.byteToChar o Pointer.getWord8
 
         val len = len_
         fun sub p i = sub_ (p, i)
@@ -110,6 +110,14 @@ structure GCharVec :>
         fun copyNewPtr (p : notnull out_p) : t =
           copyPtr p before free_ p
 
+        fun copyPtrToTabulated
+          (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
+          tabulate (len p, sub p)
+
+        fun copyNewPtrToTabulated
+          (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
+          copyPtrToTabulated tabulate p before free_ p
+
         (* For `copyToVector p`, conversion via a `cstring`, rather than
          * directly to a `string`, is deliberate.  This should ensure that
          * the SML string representation is null-terminated internally
@@ -120,14 +128,6 @@ structure GCharVec :>
 
         fun copyNewPtrToVector (p : notnull out_p) : vector =
           copyPtrToVector p before free_ p
-
-        fun copyPtrToTabulated
-          (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
-          tabulate (len p, sub p)
-
-        fun copyNewPtrToTabulated
-          (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
-          copyPtrToTabulated tabulate p before free_ p
 
 
         fun fromOptPtr (p : 'a out_p) : t option =
@@ -144,13 +144,6 @@ structure GCharVec :>
           Option.map copyNewPtr (Pointer.toOpt p)
           (* No finalizer added for null pointer. *)
 
-        fun copyOptPtrToVector (p : 'a out_p) : vector option =
-          Option.map copyPtrToVector (Pointer.toOpt p)
-
-        fun copyNewOptPtrToVector (p : 'a out_p) : vector option =
-          Option.map copyNewPtrToVector (Pointer.toOpt p)
-          (* No finalizer added for null pointer. *)
-
         fun copyOptPtrToTabulated
           (tabulate : 'b tabulator) (p : 'a out_p) : 'b option =
           Option.map (copyPtrToTabulated tabulate) (Pointer.toOpt p)
@@ -159,6 +152,16 @@ structure GCharVec :>
           (tabulate : 'b tabulator) (p : 'a out_p) : 'b option =
           Option.map (copyNewPtrToTabulated tabulate) (Pointer.toOpt p)
           (* No finalizer added for null pointer. *)
+
+        fun copyOptPtrToVector (p : 'a out_p) : vector option =
+          Option.map copyPtrToVector (Pointer.toOpt p)
+
+        fun copyNewOptPtrToVector (p : 'a out_p) : vector option =
+          Option.map copyNewPtrToVector (Pointer.toOpt p)
+          (* No finalizer added for null pointer. *)
+
+
+        fun fromVector v = dupSMLValue_ (CString.fromString v)
 
 
         (**
@@ -212,14 +215,7 @@ structure GCharVec :>
           fun withPointer f p = f (fromPointer p)
 
           fun withDupPointer f p =
-            p & f (fromPointer p)
-              handle
-                e => (
-                  (* free new pointer `p` if `f (fromPointer p)`
-                   * raises an exception *)
-                  Option.app free_ (Pointer.toOpt p);
-                  raise e
-                )
+            p & withPointer f p handle e => (Pointer.appOpt free_ p; raise e)
         in
           fun withPtr _ = raise Fail "mutable arguments are not supported"
 
@@ -301,18 +297,11 @@ structure GCharVec :>
             let val y = f x in ! (Pointer.MLton.unsafeRefConv e) & y end
             (* must evaluate `f x` before `! (...)` *)
 
-          fun withPointer f p =
-            let val q & y = f (fromPointer p) in q & y end
+          fun withRefPointer f p =
+            apply f (fromPointer p)
 
-          fun withDupPointer f p =
-            let val q & y = f (fromPointer p) in q & y end
-              handle
-                e => (
-                  (* free new pointer `p` if `f (fromPointer p)`
-                   * raises an exception *)
-                  Option.app free_ (Pointer.toOpt p);
-                  raise e
-                )
+          fun withRefDupPointer f p =
+            withRefPointer f p handle e => (Pointer.appOpt free_ p; raise e)
         in
           fun withNullRef f () = f null
 
@@ -322,14 +311,13 @@ structure GCharVec :>
           fun withRefConstPtr f =
             fn
               SMLString s => apply f (fromSMLValue s)
-            | CString str => Finalizable.withValue (str, withPointer (apply f))
+            | CString str => Finalizable.withValue (str, withRefPointer f)
 
           fun withRefDupPtr f =
             fn
-              SMLString s => withDupPointer (apply f) (dupSMLValue_ s)
+              SMLString s => withRefDupPointer f (dupSMLValue_ s)
             | CString str =>
-                Finalizable.withValue
-                  (str, withDupPointer (apply f) o dupPointer_)
+                Finalizable.withValue (str, withRefDupPointer f o dupPointer_)
 
 
           fun withRefOptPtr _ = raise Fail "mutable arguments are not supported"
@@ -338,16 +326,15 @@ structure GCharVec :>
             fn
               SOME (SMLString s) => apply f (fromSMLValue s)
             | SOME (CString str) =>
-                Finalizable.withValue (str, withPointer (apply f))
-            | NONE               => withPointer (apply f) Pointer.null
+                Finalizable.withValue (str, withRefPointer f)
+            | NONE               => withRefPointer f Pointer.null
 
           fun withRefDupOptPtr f =
             fn
-              SOME (SMLString s) => withDupPointer (apply f) (dupSMLValue_ s)
+              SOME (SMLString s) => withRefDupPointer f (dupSMLValue_ s)
             | SOME (CString str) =>
-                Finalizable.withValue
-                  (str, withDupPointer (apply f) o dupPointer_)
-            | NONE               => withDupPointer (apply f) Pointer.null
+                Finalizable.withValue (str, withRefDupPointer f o dupPointer_)
+            | NONE               => withRefDupPointer f Pointer.null
         end
       end
 

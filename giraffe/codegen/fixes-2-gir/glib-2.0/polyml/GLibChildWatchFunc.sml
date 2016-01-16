@@ -15,19 +15,24 @@ structure GLibChildWatchFunc :>
 
     structure C =
       struct
-        type callback = GLibPid.C.val_ * FFI.Int32.C.val_ -> unit
-        fun withCallback f cf =
+        type callback = ((GLibPid.C.val_, FFI.Int32.C.val_) pair -> unit) PolyMLFFI.closure
+        local
+          open PolyMLFFI
+        in
+          val makeClosure =
+            closure (GLibPid.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+        end
+        fun withCallback f callback =
           f (
-            fn (pid : GLibPid.C.val_, status : FFI.Int32.C.val_) =>
-              cf (GLibPid.C.fromVal pid, FFI.Int32.C.fromVal status)
+            makeClosure (
+              fn (pid : GLibPid.C.val_) & (status : FFI.Int32.C.val_) =>
+                callback (GLibPid.C.fromVal pid, FFI.Int32.C.fromVal status)
+            )
           )
       end
 
     structure PolyML =
       struct
-        val CALLBACK =
-          CInterface.FUNCTION2
-            (GLibPid.PolyML.VAL, FFI.Int32.PolyML.VAL)
-            FFI.PolyML.VOID
+        val CALLBACK = PolyMLFFI.cFunction
       end
   end

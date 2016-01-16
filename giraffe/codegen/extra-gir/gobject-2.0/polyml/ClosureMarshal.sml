@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,21 +18,24 @@ structure ClosureMarshal :>
   struct
     type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
 
-    type state =
-      GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-       * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p
-       * FFI.UInt32.C.val_
-    type callback = state -> unit
+    type state = (
+      GObjectValueRecord.C.notnull GObjectValueRecord.C.p,
+      (
+        GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.array_p,
+        FFI.UInt32.C.val_
+      ) pair
+    ) pair
+    type c_callback = state -> unit
 
     type 'a get = state -> 'a
     type 'a set = state -> 'a -> unit
     type 'a ret = state -> 'a -> unit
 
-    fun get n a (_, vs, _) = GObjectValue.C.Array.get a vs n
-    fun set n a (_, vs, _) = GObjectValue.C.Array.set a vs n
-    fun ret a (v, _, _) = GObjectValue.C.set a v
+    fun get n a (_ & vs & _) = GObjectValue.C.Array.get a vs n
+    fun set n a (_ & vs & _) = GObjectValue.C.Array.set a vs n
+    fun ret a (v & _ & _) = GObjectValue.C.set a v
 
-    type 'a marshaller = 'a -> callback
+    type 'a marshaller = 'a -> c_callback
 
     fun (f &&&> g) state = f state & g state
     fun (f ---> g) h state = g state (h (f state))
@@ -40,7 +43,7 @@ structure ClosureMarshal :>
 
     fun void _ = ()
 
-    fun ret_void (v, _, _) () =
+    fun ret_void (v & _ & _) () =
       if not (GObjectValue.C.isValue v)
       then ()
       else raise Fail "GIRAFFE internal error: ret_void used \
@@ -51,17 +54,25 @@ structure ClosureMarshal :>
 
     structure C =
       struct
-        type callback = callback
+        type callback = c_callback PolyMLFFI.closure
+
+        local
+          open PolyMLFFI
+        in
+          val makeClosure : c_callback -> c_callback closure =
+            closure
+              (GObjectValueRecord.PolyML.PTR
+                &&> GObjectValueRecord.PolyML.Array.PTR
+                &&> FFI.UInt32.PolyML.VAL
+                --> FFI.PolyML.VOID)
+        end
 
         fun withCallback f (marshaller, callback) =
-          f (check (marshaller callback))
+          f (makeClosure (check (marshaller callback)))
       end
 
     structure PolyML =
       struct
-        val CALLBACK : callback PolyMLFFI.conversion =
-          CInterface.FUNCTION3
-            (GObjectValueRecord.PolyML.PTR, GObjectValueRecord.PolyML.Array.PTR, FFI.UInt32.PolyML.VAL)
-            FFI.PolyML.VOID
+        val CALLBACK : C.callback PolyMLFFI.conversion = PolyMLFFI.cFunction
       end
   end

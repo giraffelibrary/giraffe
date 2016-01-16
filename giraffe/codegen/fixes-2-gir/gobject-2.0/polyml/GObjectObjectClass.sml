@@ -13,20 +13,27 @@ structure GObjectObjectClass :>
   end =
   struct
     type notnull = CPointer.notnull
+
     type 'a p = 'a CPointer.t
     val PTR = CPointer.PolyML.POINTER : notnull p PolyMLFFI.conversion
     val OPTPTR = CPointer.PolyML.POINTER : unit p PolyMLFFI.conversion
+
+    type ('a, 'b) r = CPointer.PolyML.ref_
+    val REF = CPointer.PolyML.cRef : ('a, 'b) r PolyMLFFI.conversion
 
     fun initDebugFlags () =
       if GiraffeDebug.isEnabled
       then
         let
-          open CInterface
+          open PolyMLFFI
           val debugClosureSym = load_sym libgiraffegobject "giraffe_debug_closure"
           val debugRefCountSym = load_sym libgiraffegobject "giraffe_debug_ref_count"
+          fun set sym conv x =
+            ignore (#store (breakConversion conv) x (symbolAsAddress sym))
+          fun setBool sym x = FFI.Bool.C.withVal (set sym FFI.Bool.PolyML.VAL) x
         in
-          setGlobal debugClosureSym CInterface.BOOL (GiraffeDebug.getClosure ());
-          setGlobal debugRefCountSym CInterface.BOOL (GiraffeDebug.getRefCount ())
+          setBool debugClosureSym (GiraffeDebug.getClosure ());
+          setBool debugRefCountSym (GiraffeDebug.getRefCount ())
         end
       else ()
     val () = PolyML.onEntry initDebugFlags
@@ -83,23 +90,11 @@ structure GObjectObjectClass :>
           | NONE     => f Pointer.null
 
 
-        type ('a, 'b) r = unit p
+        type ('a, 'b) r = ('a, 'b) r
 
-        fun withRef f x =
-          let
-            open CPointer
-            open PolyML
+        fun withRefPtr f = withPtr (Pointer.PolyML.withRef f)
 
-            val v = toVol x
-            val a = toOptNull (addressFromVol v)
-            val r = f a
-          in
-            fromVol v & r
-          end
-
-        fun withRefPtr f = withPtr (withRef f)
-
-        fun withRefOptPtr f = withOptPtr (withRef f)
+        fun withRefOptPtr f = withOptPtr (Pointer.PolyML.withRef f)
 
 
         fun fromPtr transfer ptr =
@@ -123,8 +118,8 @@ structure GObjectObjectClass :>
       struct
         val PTR = PTR
         val OPTPTR = OPTPTR
-        val OUTREF = OPTPTR
-        val INOUTREF = OPTPTR
+        val OUTREF = REF
+        val INOUTREF = REF
       end
 
     local

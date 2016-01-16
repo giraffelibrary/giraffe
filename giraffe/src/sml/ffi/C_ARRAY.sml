@@ -200,14 +200,14 @@ signature C_ARRAY =
         structure OutPointer : POINTER where type notnull = notnull
         type 'a out_p = 'a OutPointer.t
 
+        type 'a tabulator = int * (int -> elem) -> 'a
+
         val fromPtr               : notnull out_p -> t
         val fromNewPtr            : notnull out_p -> t
         val copyPtr               : notnull out_p -> t
         val copyNewPtr            : notnull out_p -> t
         val copyPtrToVector       : notnull out_p -> vector
         val copyNewPtrToVector    : notnull out_p -> vector
-
-        type 'a tabulator = int * (int -> elem) -> 'a
         val copyPtrToTabulated    : 'a tabulator -> notnull out_p -> 'a
         val copyNewPtrToTabulated : 'a tabulator -> notnull out_p -> 'a
 
@@ -219,6 +219,8 @@ signature C_ARRAY =
         val copyNewOptPtrToVector    : 'a out_p -> vector option
         val copyOptPtrToTabulated    : 'a tabulator -> 'b out_p -> 'a option
         val copyNewOptPtrToTabulated : 'a tabulator -> 'b out_p -> 'a option
+
+        val fromVector : vector -> notnull out_p
 
         (**
          * Value parameters

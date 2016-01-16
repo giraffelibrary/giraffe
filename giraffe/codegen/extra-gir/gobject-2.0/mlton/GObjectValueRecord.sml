@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,6 +18,8 @@ structure GObjectValueRecord :>
     val copy_ = _import "giraffe_g_value_copy" : notnull p -> notnull p;
 
     val free_ = _import "giraffe_g_value_free" : notnull p -> unit;
+
+    val size_ = _import "giraffe_g_value_size" : unit -> FFI.UInt.C.val_;
 
     type t = notnull p Finalizable.t
 
@@ -57,9 +59,12 @@ structure GObjectValueRecord :>
         fun fromOptPtr transfer optptr =
           Option.map (fromPtr transfer) (Pointer.toOpt optptr)
 
+        val size = Word.fromLargeInt (FFI.UInt.C.fromVal (size_ ()))
+
         structure Array =
           struct
-            type 'a p = 'a p
+            type 'a array_p = 'a p
+            fun sub p w = Pointer.add (p, w * size)
           end
       end
   end

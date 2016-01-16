@@ -18,30 +18,42 @@ structure GLibIOFunc :>
 
     structure C =
       struct
-        type callback =
-          GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-           * GLibIOCondition.C.val_
+        type callback = (
+          (
+            GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p,
+            GLibIOCondition.C.val_
+          ) pair
            -> FFI.Bool.C.val_
-        fun withCallback f cf =
+        ) PolyMLFFI.closure
+        local
+          open PolyMLFFI
+        in
+          val makeClosure =
+            closure (
+              GLibIOChannelRecord.PolyML.PTR
+               &&> GLibIOCondition.PolyML.VAL
+               --> FFI.Bool.PolyML.VAL
+            )
+        end
+        fun withCallback f callback =
           f (
-            fn (
-              source : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p,
-              condition : GLibIOCondition.C.val_
-            ) =>
-              FFI.Bool.C.withVal I (
-                cf (
-                  GLibIOChannelRecord.C.fromPtr false source,
-                  GLibIOCondition.C.fromVal condition
+            makeClosure (
+              fn
+                (source : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p)
+                 & (condition : GLibIOCondition.C.val_)
+              =>
+                FFI.Bool.C.withVal I (
+                  callback (
+                    GLibIOChannelRecord.C.fromPtr false source,
+                    GLibIOCondition.C.fromVal condition
+                  )
                 )
-              )
+            )
           )
       end
 
     structure PolyML =
       struct
-        val CALLBACK =
-          CInterface.FUNCTION2
-            (GLibIOChannelRecord.PolyML.PTR, GLibIOCondition.PolyML.VAL)
-            FFI.Bool.PolyML.VAL
+        val CALLBACK = PolyMLFFI.cFunction
       end
   end

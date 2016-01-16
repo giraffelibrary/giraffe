@@ -12,12 +12,18 @@ structure GLibSourceFunc :>
 
     structure C =
       struct
-        type callback = unit -> FFI.Bool.C.val_
-        fun withCallback f cf = f (fn () => FFI.Bool.C.withVal I (cf ()))
+        type callback = (unit -> FFI.Bool.C.val_) PolyMLFFI.closure
+        local
+          open PolyMLFFI
+        in
+          val makeClosure = closure (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
+        end
+        fun withCallback f callback =
+          f (makeClosure (fn () => FFI.Bool.C.withVal I (callback ())))
       end
 
     structure PolyML =
       struct
-        val CALLBACK = CInterface.FUNCTION1 FFI.PolyML.VOID FFI.Bool.PolyML.VAL
+        val CALLBACK = PolyMLFFI.cFunction
       end
   end

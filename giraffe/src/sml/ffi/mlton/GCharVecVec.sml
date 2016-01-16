@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -127,12 +127,6 @@ structure GCharVecVec :>
         fun copyNewPtr (p : notnull out_p) : t =
           copyPtr p before free_ p
 
-        fun copyPtrToVector (p : notnull out_p) : vector =
-          toSMLValue Vector.tabulate p
-
-        fun copyNewPtrToVector (p : notnull out_p) : vector =
-          copyPtrToVector p before free_ p
-
         fun copyPtrToTabulated
           (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
           toSMLValue tabulate p
@@ -140,6 +134,12 @@ structure GCharVecVec :>
         fun copyNewPtrToTabulated
           (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
           copyPtrToTabulated tabulate p before free_ p
+
+        fun copyPtrToVector (p : notnull out_p) : vector =
+          copyPtrToTabulated Vector.tabulate p
+
+        fun copyNewPtrToVector (p : notnull out_p) : vector =
+          copyPtrToVector p before free_ p
 
 
         fun fromOptPtr (p : 'a out_p) : t option =
@@ -157,12 +157,6 @@ structure GCharVecVec :>
         fun copyNewOptPtr (p : 'a out_p) : t option =
           Option.map copyNewPtr (Pointer.toOpt p)
 
-        fun copyOptPtrToVector (p : 'a out_p) : vector option =
-          Option.map copyPtrToVector (Pointer.toOpt p)
-
-        fun copyNewOptPtrToVector (p : 'a out_p) : vector option =
-          Option.map copyNewPtrToVector (Pointer.toOpt p)
-
         fun copyOptPtrToTabulated
           (tabulate : 'b tabulator) (p : 'a out_p) : 'b option =
           Option.map (copyPtrToTabulated tabulate) (Pointer.toOpt p)
@@ -170,6 +164,18 @@ structure GCharVecVec :>
         fun copyNewOptPtrToTabulated
           (tabulate : 'b tabulator) (p : 'a out_p) : 'b option =
           Option.map (copyNewPtrToTabulated tabulate) (Pointer.toOpt p)
+
+        fun copyOptPtrToVector (p : 'a out_p) : vector option =
+          Option.map copyPtrToVector (Pointer.toOpt p)
+
+        fun copyNewOptPtrToVector (p : 'a out_p) : vector option =
+          Option.map copyNewPtrToVector (Pointer.toOpt p)
+
+
+        fun fromVector v =
+          case makeSMLArray v of
+            SMLArray x => dupSMLValue_ x
+          | CArray t   => Finalizable.withValue (t, dupPointer_)
 
 
         (**
@@ -234,14 +240,7 @@ structure GCharVecVec :>
           fun withPointer f p = f (fromPointer p)
 
           fun withDupPointer f p =
-            p & f (fromPointer p)
-              handle
-                e => (
-                  (* free new pointer `p` if `f (fromPointer p)`
-                   * raises an exception *)
-                  Option.app free_ (Pointer.toOpt p);
-                  raise e
-                )
+            p & withPointer f p handle e => (Pointer.appOpt free_ p; raise e)
         in
           fun withPtr _ = raise Fail "mutable arguments are not supported"
 
@@ -333,17 +332,10 @@ structure GCharVecVec :>
             let val y = f x in ! (Pointer.MLton.unsafeRefConv e) & y end
             (* must evaluate `f x` before `! (...)` *)
 
-          fun withPointer f p =
-            let val q & y = f (fromPointer p) in q & y end
+          fun withRefPointer f p = f (fromPointer p)
 
-          fun withDupPointer f p =
-            let val q & y = f (fromPointer p) in q & y end
-              handle
-                e => (
-                  (* free new pointer `p` if `f p` raises an exception *)
-                  Option.app free_ (Pointer.toOpt p);
-                  raise e
-                )
+          fun withRefDupPointer f p =
+            withRefPointer f p handle e => (Pointer.appOpt free_ p; raise e)
         in
           fun withNullRef f () = f null
 
@@ -353,14 +345,14 @@ structure GCharVecVec :>
           fun withRefConstPtr f =
             fn
               SMLArray x => apply f (fromSMLValue x)
-            | CArray arr => Finalizable.withValue (arr, withPointer (apply f))
+            | CArray arr => Finalizable.withValue (arr, withRefPointer (apply f))
 
           fun withRefDupPtr f =
             fn
-              SMLArray x => withDupPointer (apply f) (dupSMLValue_ x)
+              SMLArray x => withRefDupPointer (apply f) (dupSMLValue_ x)
             | CArray arr =>
                 Finalizable.withValue
-                  (arr, withDupPointer (apply f) o dupPointer_)
+                  (arr, withRefDupPointer (apply f) o dupPointer_)
 
 
           fun withRefOptPtr _ = raise Fail "mutable arguments are not supported"
@@ -369,16 +361,16 @@ structure GCharVecVec :>
             fn
               SOME (SMLArray x) => apply f (fromSMLValue x)
             | SOME (CArray arr) =>
-                Finalizable.withValue (arr, withPointer (apply f))
-            | NONE              => withPointer (apply f) Pointer.null
+                Finalizable.withValue (arr, withRefPointer (apply f))
+            | NONE              => withRefPointer (apply f) Pointer.null
 
           fun withRefDupOptPtr f =
             fn
-              SOME (SMLArray x) => withDupPointer (apply f) (dupSMLValue_ x)
+              SOME (SMLArray x) => withRefDupPointer (apply f) (dupSMLValue_ x)
             | SOME (CArray arr) =>
                 Finalizable.withValue
-                  (arr, withDupPointer (apply f) o dupPointer_)
-            | NONE              => withDupPointer (apply f) Pointer.null
+                  (arr, withRefDupPointer (apply f) o dupPointer_)
+            | NONE              => withRefDupPointer (apply f) Pointer.null
         end
       end
 

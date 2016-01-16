@@ -45,9 +45,9 @@ signature G_OBJECT_VALUE =
 
         structure Array :
           sig
-            type 'a p
-            val get : ('a, 'b) accessor -> notnull p -> Word32.word -> 'a
-            val set : ('a, 'b) accessor -> notnull p -> Word32.word -> 'b -> unit
+            type 'a array_p
+            val get : ('a, 'b) accessor -> notnull array_p -> word -> 'a
+            val set : ('a, 'b) accessor -> notnull array_p -> word -> 'b -> unit
           end
 
         val set : ('a, 'b) accessor -> notnull p -> 'b -> unit

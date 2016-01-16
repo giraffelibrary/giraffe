@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -76,9 +76,33 @@ signature POINTER =
     val fromOpt : 'a t option -> unit t
 
     (**
+     * `mapOpt f p` and `appOpt f p` apply the function `f` on a non-null
+     * pointer to any pointer `p`.  `f` is applied only in the case that `p`
+     * is not null.  `mapOpt` cannot be defined in terms of other functions
+     * in this signature.
+     *)
+    val mapOpt : (notnull t -> notnull t) -> 'a t -> 'a t
+    val appOpt : (notnull t -> unit) -> 'a t -> unit
+
+    (**
      * `add (p, w)` returns the pointer `w` bytes after the pointer `p`.
      * `sub (p, w)` returns the pointer `w` bytes before the pointer `p`.
      *)
-    val add : 'a t * word -> unit t
-    val sub : 'a t * word -> unit t
+    val add : 'a t * word -> 'a t
+    val sub : 'a t * word -> 'a t
+
+    (**
+     * `get<X> (p, n)` gets the <X> offset `n * sizeX` bytes from `p`.
+     * `set<X> (p, n, v)` sets the <X> offset `n * sizeX` bytes from `p` to `v`.
+     * `sizeX` is the number of bytes stored for <X>.
+     *)
+    val getPointer : notnull t * int -> 'a t
+    val getWord8   : notnull t * int -> Word8.word
+    val setPointer : notnull t * int * 'a t       -> unit
+    val setWord8   : notnull t * int * Word8.word -> unit
+
+    (**
+     * `size` is the number of bytes required to store a pointer.
+     *)
+    val size : word
   end

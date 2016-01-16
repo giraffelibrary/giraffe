@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,179 +10,53 @@ structure FFI :> F_F_I =
 
     structure PolyML =
       struct
+        open PolyMLFFI
 
-        val VOID = CInterface.VOID
+        val VOID = cVoid
+
+        val cRef = cPointer : Memory.Pointer.t conversion
 
 
+        (**
+         * Flags
+         *)
         local
-          fun fromChar c = Char.ord c
-          fun toChar x = Char.chr x handle Chr => raise Size
+          val {load, store, ctype} = breakConversion cUint32
         in
-          val UINT8 =
-            CInterface.mapConversion (fromChar, toChar) CInterface.CHAR
+          val cFlags =
+            makeConversion {
+              load  = Word32.fromInt o load,
+              store = store o Word32.toInt,
+              ctype = ctype
+            }
         end
 
+        structure Flags =
+          struct
+            val VAL = cFlags
+            val REF = cRef
+          end
 
+
+        (**
+         * Enum
+         *)
         local
-          val m = IntInf.pow (2, 8)
-          val half_m = m div 2
-
-          fun fromChar c =
-            let
-              val x = Char.ord c
-            in
-              (* Assume x in range of unsigned char. *)
-              if half_m <= x
-              then x - m
-              else x
-            end
-
-          fun toChar x =
-            Char.chr (
-              (*
-               * Ensure result outside range of (signed) char if and only
-               * if x is outside the range of unsigned char by swapping
-               * regions [~m/2, 0) and [m/2, m).
-               *)
-              if half_m <= x andalso x < m
-              then x - m
-              else if ~ half_m <= x andalso x < 0
-              then x + m
-              else x
-            ) handle
-                Chr => raise Size
+          val {load, store, ctype} = breakConversion cUint32
         in
-          val INT8 =
-            CInterface.mapConversion (fromChar, toChar) CInterface.CHAR
+          val cEnum =
+            makeConversion {
+              load  = Int32.fromInt o load,
+              store = store o Int32.toInt,
+              ctype = ctype
+            }
         end
 
-
-        local
-          val m =
-            case PolyML.architecture () of
-              "X86_64" => IntInf.pow (2, 16)
-            | "I386"   => IntInf.pow (2, 16)
-            | _        => raise Fail "unknown architecture"
-          val half_m = m div 2
-
-          fun fromShort x =
-            (* Assume x in range of (signed) long int. *)
-            if x < 0
-            then x + m
-            else x
-
-          fun toShort x =
-            (*
-             * Ensure result outside range of (signed) long int if and only
-             * if x is outside the range of unsigned long int by swapping
-             * regions [~m/2, 0) and [m/2, m).
-             *)
-            if half_m <= x andalso x < m
-            then x - m
-            else if ~ half_m <= x andalso x < 0
-            then x + m
-            else x
-        in
-          val USHORT =
-            CInterface.mapConversion (fromShort, toShort) CInterface.SHORT
-        end
-
-
-        local
-          val m =
-            case PolyML.architecture () of
-              "X86_64" => IntInf.pow (2, 64)
-            | "I386"   => IntInf.pow (2, 32)
-            | _        => raise Fail "unknown architecture"
-          val half_m = m div 2
-
-          fun fromLong x =
-            (* Assume x in range of (signed) long int. *)
-            if x < 0
-            then x + m
-            else x
-
-          fun toLong x =
-            (*
-             * Ensure result outside range of (signed) long int if and only
-             * if x is outside the range of unsigned long int by swapping
-             * regions [~m/2, 0) and [m/2, m).
-             *)
-            if half_m <= x andalso x < m
-            then x - m
-            else if ~ half_m <= x andalso x < 0
-            then x + m
-            else x
-        in
-          val ULONG =
-            CInterface.mapConversion (fromLong, toLong) CInterface.LONG
-        end
-
-
-        val INT16 =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.SHORT
-          | "I386"   => CInterface.SHORT
-          | _        => raise Fail "unknown architecture"
-
-
-        val UINT16 =
-          case PolyML.architecture () of
-            "X86_64" => USHORT
-          | "I386"   => USHORT
-          | _        => raise Fail "unknown architecture"
-
-
-        val INT32 =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.INT
-          | "I386"   => CInterface.INT
-          | _        => raise Fail "unknown architecture"
-
-
-        val UINT32 =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.UINT
-          | "I386"   => CInterface.UINT
-          | _        => raise Fail "unknown architecture"
-
-
-        fun fail msg _ = raise Fail msg
-        fun FAIL msg =
-          CInterface.mkConversion (fail msg) (fail msg) CInterface.voidStar
-
-        val INT64 =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.LONG
-          | "I386"   => FAIL "unsupported architecture: I386"
-          | _        => raise Fail "unknown architecture"
-
-
-        val UINT64 =
-          case PolyML.architecture () of
-            "X86_64" => ULONG
-          | "I386"   => FAIL "unsupported architecture: I386"
-          | _        => raise Fail "unknown architecture"
-
-
-        val SIZE = ULONG
-
-
-        val SSIZE = CInterface.LONG
-
-
-        val ENUM =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.mapConversion (Int32.fromInt, Int32.toInt) CInterface.INT
-          | "I386"   => CInterface.mapConversion (Int32.fromInt, Int32.toInt) CInterface.INT
-          | _        => raise Fail "unknown architecture"
-
-
-        val FLAGS =
-          case PolyML.architecture () of
-            "X86_64" => CInterface.mapConversion (Word32.fromLargeInt, Word32.toLargeInt) CInterface.UINT
-          | "I386"   => CInterface.mapConversion (Word32.fromLargeInt, Word32.toLargeInt) CInterface.UINT
-          | _        => raise Fail "unknown architecture"
+        structure Enum =
+          struct
+            val VAL = cEnum
+            val REF = cRef
+          end
 
 
         (**
@@ -190,12 +64,9 @@ structure FFI :> F_F_I =
          *)
         structure OptPointer =
           struct
-            val VAL = CPointer.PolyML.POINTER : unit CPointer.t CInterface.Conversion
-            val REF = CPointer.PolyML.POINTER : unit CPointer.t CInterface.Conversion
+            val VAL = CPointer.PolyML.cVal : unit CPointer.t conversion
+            val REF = cRef
           end
-
-
-        val REF = CPointer.PolyML.POINTER : unit CPointer.t CInterface.Conversion
 
 
         (**
@@ -203,8 +74,8 @@ structure FFI :> F_F_I =
          *)
         structure Char =
           struct
-            val VAL = CInterface.CHAR
-            val REF = REF
+            val VAL = cChar
+            val REF = cRef
           end
 
 
@@ -213,8 +84,8 @@ structure FFI :> F_F_I =
          *)
         structure Short =
           struct
-            val VAL = CInterface.SHORT : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cShort
+            val REF = cRef
           end
 
 
@@ -223,8 +94,8 @@ structure FFI :> F_F_I =
          *)
         structure UShort =
           struct
-            val VAL = USHORT : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cUshort
+            val REF = cRef
           end
 
 
@@ -233,8 +104,8 @@ structure FFI :> F_F_I =
          *)
         structure Int =
           struct
-            val VAL = CInterface.INT : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cInt
+            val REF = cRef
           end
 
 
@@ -243,8 +114,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt =
           struct
-            val VAL = CInterface.UINT : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cUint
+            val REF = cRef
           end
 
 
@@ -253,8 +124,8 @@ structure FFI :> F_F_I =
          *)
         structure Long =
           struct
-            val VAL = CInterface.LONG : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cLong
+            val REF = cRef
           end
 
 
@@ -263,38 +134,31 @@ structure FFI :> F_F_I =
          *)
         structure ULong =
           struct
-            val VAL = ULONG : LargeInt.int CInterface.Conversion
-            val REF = REF
-          end
-
-
-        (**
-         * Flags
-         *)
-        structure Flags =
-          struct
-            val VAL = FLAGS
-            val REF = REF
-          end
-
-
-        (**
-         * Enum
-         *)
-        structure Enum =
-          struct
-            val VAL = ENUM
-            val REF = REF
+            val VAL = cUlong
+            val REF = cRef
           end
 
 
         (**
          * Bool
          *)
+        local
+          val {load, store, ctype} = breakConversion cInt
+          fun fromInt n = n <> 0
+          val toInt = fn true => 1 | false => 0
+        in
+          val cBool =
+            makeConversion {
+              load  = fromInt o load,
+              store = store o toInt,
+              ctype = ctype
+            }
+        end
+
         structure Bool =
           struct
-            val VAL = CInterface.BOOL
-            val REF = REF
+            val VAL = cBool
+            val REF = cRef
           end
 
 
@@ -303,8 +167,8 @@ structure FFI :> F_F_I =
          *)
         structure Int8 =
           struct
-            val VAL = INT8
-            val REF = REF
+            val VAL = cInt8
+            val REF = cRef
           end
 
 
@@ -313,8 +177,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt8 =
           struct
-            val VAL = UINT8
-            val REF = REF
+            val VAL = cUint8
+            val REF = cRef
           end
 
 
@@ -323,8 +187,8 @@ structure FFI :> F_F_I =
          *)
         structure Int16 =
           struct
-            val VAL = INT16 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cInt16
+            val REF = cRef
           end
 
 
@@ -333,8 +197,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt16 =
           struct
-            val VAL = UINT16 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cUint16
+            val REF = cRef
           end
 
 
@@ -343,8 +207,8 @@ structure FFI :> F_F_I =
          *)
         structure Int32 =
           struct
-            val VAL = INT32 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cInt32
+            val REF = cRef
           end
 
 
@@ -353,8 +217,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt32 =
           struct
-            val VAL = UINT32 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cUint32
+            val REF = cRef
           end
 
 
@@ -363,8 +227,8 @@ structure FFI :> F_F_I =
          *)
         structure Int64 =
           struct
-            val VAL = INT64 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cInt64
+            val REF = cRef
           end
 
 
@@ -373,8 +237,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt64 =
           struct
-            val VAL = UINT64 : LargeInt.int CInterface.Conversion
-            val REF = REF
+            val VAL = cUint64
+            val REF = cRef
           end
 
 
@@ -395,8 +259,8 @@ structure FFI :> F_F_I =
          *)
         structure Float =
           struct
-            val VAL = CInterface.FLOAT
-            val REF = REF
+            val VAL = cFloat
+            val REF = cRef
           end
 
 
@@ -405,8 +269,8 @@ structure FFI :> F_F_I =
          *)
         structure Double =
           struct
-            val VAL = CInterface.DOUBLE
-            val REF = REF
+            val VAL = cDouble
+            val REF = cRef
           end
 
 
@@ -419,9 +283,9 @@ structure FFI :> F_F_I =
               open GCharVec.C
             in
               type notnull = notnull
-              type 'a in_p = 'a in_p CInterface.Conversion
-              type 'a out_p = 'a out_p CInterface.Conversion
-              type ('a, 'b) r = ('a, 'b) r CInterface.Conversion 
+              type 'a in_p = 'a in_p conversion
+              type 'a out_p = 'a out_p conversion
+              type ('a, 'b) r = ('a, 'b) r conversion 
 
               val INPTR = GCharVec.PolyML.INPTR : notnull in_p
               val INOPTPTR = GCharVec.PolyML.INPTR : unit in_p
@@ -443,9 +307,9 @@ structure FFI :> F_F_I =
               open GCharVecVec.C
             in
               type notnull = notnull
-              type 'a in_p = 'a in_p CInterface.Conversion
-              type 'a out_p = 'a out_p CInterface.Conversion
-              type ('a, 'b) r = ('a, 'b) r CInterface.Conversion 
+              type 'a in_p = 'a in_p conversion
+              type 'a out_p = 'a out_p conversion
+              type ('a, 'b) r = ('a, 'b) r conversion 
 
               val INPTR = GCharVecVec.PolyML.INPTR : notnull in_p
               val INOPTPTR = GCharVecVec.PolyML.INPTR : unit in_p
@@ -466,20 +330,24 @@ structure FFI :> F_F_I =
 
         fun withRef conv f x =
           let
-            val (fromC, toC, _) = CInterface.breakConversion conv
-            open CPointer
-            open PolyML
-
-            val v = toC x
-            val a = toOptNull (addressFromVol v)
-            val r = f a
+            val {load, store, ctype} = PolyMLFFI.breakConversion conv
+            val mem = PolyMLFFI.Memory.malloc (#size ctype)
+            val freeMem = store x mem
+            fun freeAll () = (freeMem (); PolyMLFFI.Memory.free mem)
           in
-            fromC v & r
+            let
+              val y = f mem
+              val p' = load mem
+              val () = freeAll ()
+            in
+              p' & y
+            end
+              handle e => (freeAll (); raise e)
           end
 
-        type ref_ = unit CPointer.t
+        type ref_ = PolyMLFFI.Memory.Pointer.t
 
-        fun withNullRef f () = f CPointer.null
+     (* fun withNullRef f () = f PolyMLFFI.Memory.Pointer.null *)
 
 
         (**

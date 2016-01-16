@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -21,8 +21,8 @@ signature CLOSURE_MARSHAL =
     val ---> : 'a get * 'b ret -> ('a -> 'b) marshaller
 
 
-    val get : Word32.word -> ('a, 'b) accessor -> 'a get
-    val set : Word32.word -> ('a, 'b) accessor -> 'b set
+    val get : word -> ('a, 'b) accessor -> 'a get
+    val set : word -> ('a, 'b) accessor -> 'b set
     val ret : ('a, 'b) accessor -> 'b ret
 
     val void : unit get

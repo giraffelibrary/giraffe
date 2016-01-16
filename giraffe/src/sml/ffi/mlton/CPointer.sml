@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -61,8 +61,6 @@ structure CPointer :>
      *)
     structure MLton :
       sig
-        val getWord8 : notnull t * int -> Word8.word
-
         val getPointer : notnull t * int -> MLton.Pointer.t
         val fromPointer : MLton.Pointer.t -> notnull t
         val fromOptPointer : MLton.Pointer.t -> unit t
@@ -84,9 +82,18 @@ structure CPointer :>
 
     fun toOpt p = SOME (toNotNull p) handle Null => NONE
     val fromOpt = fn NONE => null | SOME x => x
+    fun mapOpt f = fromOpt o Option.map f o toOpt
+    fun appOpt f = Option.app f o toOpt
 
     val add = MLton.Pointer.add
     val sub = MLton.Pointer.sub
+
+    val getPointer = MLton.Pointer.getPointer
+    val getWord8 = MLton.Pointer.getWord8
+    val setPointer = MLton.Pointer.setPointer
+    val setWord8 = MLton.Pointer.setWord8
+
+    val size = MLton.Pointer.sizeofPointer
 
     structure MLton = 
       struct

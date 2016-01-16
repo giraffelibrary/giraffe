@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,7 +11,7 @@ structure GObjectValue :>
     where type type_t = GObjectType.t
     where type C.notnull = GObjectValueRecord.C.notnull
     where type 'a C.p = 'a GObjectValueRecord.C.p
-    where type 'a C.Array.p = 'a GObjectValueRecord.C.Array.p =
+    where type 'a C.Array.array_p = 'a GObjectValueRecord.C.Array.array_p =
   struct
     val init_ =
       fn x1 & x2 =>
@@ -75,13 +75,6 @@ structure GObjectValue :>
       (GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) isValue_ value
 
 
-    val nth_ =
-      fn x1 & x2 =>
-        (_import "giraffe_g_value_nth" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.p * Word32.word
-            -> GObjectValueRecord.C.notnull GObjectValueRecord.C.p;)
-        (x1, x2)
-
     val isValue_ =
       _import "giraffe_g_is_value" :
         GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> FFI.Bool.C.val_;
@@ -99,11 +92,11 @@ structure GObjectValue :>
 
         structure Array =
           struct
-            type 'a p = 'a GObjectValueRecord.C.Array.p
+            open GObjectValueRecord.C.Array
             fun get ({getValue, ...} : ('a, 'b) accessor) ptr i =
-              getValue (nth_ (ptr & i))
+              getValue (sub ptr i)
             fun set ({setValue, ...} : ('a, 'b) accessor) ptr i x =
-              setValue (nth_ (ptr & i) & x)
+              setValue (sub ptr i & x)
           end
 
         fun set ({setValue, ...} : ('a, 'b) accessor) ptr x = setValue (ptr & x)

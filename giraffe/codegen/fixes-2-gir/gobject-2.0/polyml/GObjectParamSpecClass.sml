@@ -17,6 +17,9 @@ structure GObjectParamSpecClass :>
     val PTR = CPointer.PolyML.POINTER : notnull p PolyMLFFI.conversion
     val OPTPTR = CPointer.PolyML.POINTER : unit p PolyMLFFI.conversion
 
+    type ('a, 'b) r = CPointer.PolyML.ref_
+    val REF = CPointer.PolyML.cRef : ('a, 'b) r PolyMLFFI.conversion
+
     local
       open PolyMLFFI
     in
@@ -48,23 +51,11 @@ structure GObjectParamSpecClass :>
           | NONE     => f Pointer.null
 
 
-        type ('a, 'b) r = unit p
+        type ('a, 'b) r = ('a, 'b) r
 
-        fun withRef f x =
-          let
-            open CPointer
-            open PolyML
+        fun withRefPtr f = withPtr (Pointer.PolyML.withRef f)
 
-            val v = toVol x
-            val a = toOptNull (addressFromVol v)
-            val r = f a
-          in
-            fromVol v & r
-          end
-
-        fun withRefPtr f = withPtr (withRef f)
-
-        fun withRefOptPtr f = withOptPtr (withRef f)
+        fun withRefOptPtr f = withOptPtr (Pointer.PolyML.withRef f)
 
 
         fun fromPtr transfer ptr =
@@ -88,8 +79,8 @@ structure GObjectParamSpecClass :>
       struct
         val PTR = PTR
         val OPTPTR = OPTPTR
-        val OUTREF = OPTPTR
-        val INOUTREF = OPTPTR
+        val OUTREF = REF
+        val INOUTREF = REF
       end
 
     local
