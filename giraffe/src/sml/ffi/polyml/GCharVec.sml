@@ -14,9 +14,9 @@ structure GCharVec :>
 
     structure PolyML :
       sig
-        val OUTPTR : 'a C.out_p CInterface.Conversion
-        val INPTR : 'a C.in_p CInterface.Conversion
-        val INOUTREF : ('a, 'b) C.r CInterface.Conversion
+        val OUTPTR : 'a C.out_p PolyMLFFI.conversion
+        val INPTR : 'a C.in_p PolyMLFFI.conversion
+        val INOUTREF : ('a, 'b) C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -286,8 +286,8 @@ structure GCharVec :>
 
     structure PolyML =
       struct
-        val OUTPTR : 'a C.out_p CInterface.Conversion = C.Pointer.PolyML.POINTER
-        val INPTR : 'a C.in_p CInterface.Conversion = C.Pointer.PolyML.POINTER
-        val INOUTREF : ('a, 'b) C.r CInterface.Conversion = C.Pointer.PolyML.POINTER
+        val OUTPTR : 'a C.out_p PolyMLFFI.conversion = C.Pointer.PolyML.POINTER
+        val INPTR : 'a C.in_p PolyMLFFI.conversion = C.Pointer.PolyML.POINTER
+        val INOUTREF : ('a, 'b) C.r PolyMLFFI.conversion = C.Pointer.PolyML.POINTER
       end
   end

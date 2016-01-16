@@ -9,8 +9,8 @@ structure GdkEventKeyRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p CInterface.Conversion
-        val OPTPTR : unit C.p CInterface.Conversion
+        val PTR : C.notnull C.p PolyMLFFI.conversion
+        val OPTPTR : unit C.p PolyMLFFI.conversion
       end
   end =
   struct

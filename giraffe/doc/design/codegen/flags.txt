@@ -136,8 +136,8 @@ structure <EnumNamespace><EnumName> :>
 
     structure PolyML :                          -.
       sig                                        |
-        val VAL : C.val_ CInterface.Conversion   | Poly/ML only
-        val REF : C.ref_ CInterface.Conversion   |
+        val VAL : C.val_ PolyMLFFI.conversion    | Poly/ML only
+        val REF : C.ref_ PolyMLFFI.conversion    |
       end                                       -'
   end =
   struct

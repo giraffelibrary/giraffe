@@ -41,14 +41,14 @@ structure CPointer :>
         val addressFromVol : CInterface.vol -> notnull t
         val derefToVol : notnull t -> CInterface.vol
 
-        val derefOffset : 'a CInterface.Conversion -> notnull t -> int -> 'a
+        val derefOffset : 'a PolyMLFFI.conversion -> notnull t -> int -> 'a
 
         (**
          * Support where a `vol` is a pointer.
          *)
         val toVol : 'a t -> CInterface.vol
         val fromVol : CInterface.vol -> 'a t
-        val POINTER : 'a t CInterface.Conversion
+        val POINTER : 'a t PolyMLFFI.conversion
 
         val assign : CInterface.vol -> 'a t -> unit
 

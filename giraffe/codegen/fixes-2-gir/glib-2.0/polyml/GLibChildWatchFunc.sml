@@ -6,7 +6,7 @@ structure GLibChildWatchFunc :>
 
     structure PolyML :
       sig
-        val CALLBACK : C.callback CInterface.Conversion
+        val CALLBACK : C.callback PolyMLFFI.conversion
       end
   end =
   struct

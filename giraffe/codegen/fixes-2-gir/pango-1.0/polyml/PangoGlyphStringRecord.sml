@@ -4,15 +4,15 @@ structure PangoGlyphStringRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p CInterface.Conversion
-        val OPTPTR : unit C.p CInterface.Conversion
+        val PTR : C.notnull C.p PolyMLFFI.conversion
+        val OPTPTR : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.t
-    val PTR = CPointer.PolyML.POINTER : notnull p CInterface.Conversion
-    val OPTPTR = CPointer.PolyML.POINTER : unit p CInterface.Conversion
+    val PTR = CPointer.PolyML.POINTER : notnull p PolyMLFFI.conversion
+    val OPTPTR = CPointer.PolyML.POINTER : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI

@@ -456,7 +456,7 @@ val VOIDConvExp = mkLIdLNameExp [FFIId, PolyMLId, VOIDId]
 val cValTy : ty = TyRef ([], toList1 [CId, valId])
 val cRefTy : ty = TyRef ([], toList1 [CId, refId])
 
-fun mkCInterfaceConvTy ty = TyRef ([ty], toList1 ["CInterface", "Conversion"])
+fun mkConversionTy ty = TyRef ([ty], toList1 ["PolyMLFFI", "conversion"])
 
 
 

@@ -3,8 +3,8 @@ structure GdkPixbufPixdataType :>
     include GDK_PIXBUF_PIXDATA_TYPE
     structure PolyML :
       sig
-        val VAL : C.val_ CInterface.Conversion
-        val REF : C.ref_ CInterface.Conversion
+        val VAL : C.val_ PolyMLFFI.conversion
+        val REF : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct

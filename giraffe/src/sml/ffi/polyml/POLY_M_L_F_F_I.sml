@@ -7,11 +7,11 @@
 
 signature POLY_M_L_F_F_I =
   sig
-    type 'a conv = 'a CInterface.Conversion
+    type 'a conversion = 'a CInterface.Conversion
 
     type ('a, 'b) func
-    val &&> : 'a conv * ('b, 'c) func -> (('a, 'b) pair, 'c) func
-    val --> : 'a conv * 'b conv -> ('a, 'b) func
+    val &&> : 'a conversion * ('b, 'c) func -> (('a, 'b) pair, 'c) func
+    val --> : 'a conversion * 'b conversion -> ('a, 'b) func
 
     type dylib = CInterface.dylib
     type sym = CInterface.sym

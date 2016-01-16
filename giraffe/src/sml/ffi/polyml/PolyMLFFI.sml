@@ -11,7 +11,7 @@ structure PolyMLFFI :> POLY_M_L_F_F_I =
   struct
     open CInterface
 
-    type 'a conv = 'a Conversion
+    type 'a conversion = 'a Conversion
     type ('a, 'b) func =
       'a -> unit -> (Ctype, vol) Union.directedArg list * 'b Conversion
 
