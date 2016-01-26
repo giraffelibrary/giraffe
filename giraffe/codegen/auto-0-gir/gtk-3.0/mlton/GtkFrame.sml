@@ -6,7 +6,7 @@ structure GtkFrame :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_frame_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_frame_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getLabel_ = _import "gtk_frame_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getLabelAlign_ =
       fn
@@ -33,8 +33,8 @@ structure GtkFrame :>
           (
             _import "mlton_gtk_frame_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -14,8 +14,8 @@ structure GtkRecentFilter :>
           (
             _import "mlton_gtk_recent_filter_add_application" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -29,8 +29,8 @@ structure GtkRecentFilter :>
           (
             _import "mlton_gtk_recent_filter_add_group" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -44,8 +44,8 @@ structure GtkRecentFilter :>
           (
             _import "mlton_gtk_recent_filter_add_mime_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -59,8 +59,8 @@ structure GtkRecentFilter :>
           (
             _import "mlton_gtk_recent_filter_add_pattern" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -78,8 +78,8 @@ structure GtkRecentFilter :>
           (
             _import "mlton_gtk_recent_filter_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

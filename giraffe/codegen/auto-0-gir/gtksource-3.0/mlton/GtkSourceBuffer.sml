@@ -19,8 +19,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_backward_iter_to_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -41,10 +41,10 @@ structure GtkSourceBuffer :>
           (
             _import "mlton_gtk_source_buffer_create_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -83,8 +83,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_forward_iter_to_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -108,8 +108,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_backward_to_context_class_toggle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -127,8 +127,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_forward_to_context_class_toggle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -146,8 +146,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_has_context_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -168,8 +168,8 @@ structure GtkSourceBuffer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

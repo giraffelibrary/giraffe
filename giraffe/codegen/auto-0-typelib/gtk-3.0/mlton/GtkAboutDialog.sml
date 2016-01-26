@@ -24,8 +24,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_comments" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -39,8 +39,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_copyright" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -54,8 +54,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_license" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -71,8 +71,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_logo_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -86,8 +86,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_program_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -101,8 +101,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_translator_credits" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -116,8 +116,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_version" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -131,8 +131,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_website" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -146,8 +146,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_website_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

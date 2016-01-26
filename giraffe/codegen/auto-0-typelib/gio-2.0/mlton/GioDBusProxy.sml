@@ -31,12 +31,12 @@ structure GioDBusProxy :>
               GioBusType.C.val_
                * GioDBusProxyFlags.C.val_
                * unit GioDBusInterfaceInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -69,12 +69,12 @@ structure GioDBusProxy :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GioDBusProxyFlags.C.val_
                * unit GioDBusInterfaceInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -121,8 +121,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_call_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
                * FFI.Int32.C.val_
@@ -174,8 +174,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_call_with_unix_fd_list_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
                * FFI.Int32.C.val_
@@ -203,8 +203,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_get_cached_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -228,8 +228,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_set_cached_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                -> unit;
           )

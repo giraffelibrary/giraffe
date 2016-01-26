@@ -197,8 +197,8 @@ signature C_ARRAY =
          * vector data structure to be constructed directly rather than going
          * via a vector.
          *)
-        structure OutPointer : POINTER where type notnull = notnull
-        type 'a out_p = 'a OutPointer.t
+        structure OutPointer : C_POINTER where type notnull = notnull
+        type 'a out_p = 'a OutPointer.p
 
         type 'a tabulator = int * (int -> elem) -> 'a
 

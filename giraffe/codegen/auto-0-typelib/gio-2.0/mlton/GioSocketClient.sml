@@ -19,8 +19,8 @@ structure GioSocketClient :>
           (
             _import "mlton_g_socket_client_add_application_proxy" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -75,8 +75,8 @@ structure GioSocketClient :>
           (
             _import "mlton_g_socket_client_connect_to_host" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt16.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -117,10 +117,10 @@ structure GioSocketClient :>
           (
             _import "mlton_g_socket_client_connect_to_service" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -161,8 +161,8 @@ structure GioSocketClient :>
           (
             _import "mlton_g_socket_client_connect_to_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt16.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r

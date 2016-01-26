@@ -12,8 +12,8 @@ structure GtkSourceGutterRendererText :>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -31,8 +31,8 @@ structure GtkSourceGutterRendererText :>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )

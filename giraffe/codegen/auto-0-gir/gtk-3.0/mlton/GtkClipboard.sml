@@ -19,8 +19,8 @@ structure GtkClipboard :>
           (
             _import "mlton_gtk_clipboard_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )

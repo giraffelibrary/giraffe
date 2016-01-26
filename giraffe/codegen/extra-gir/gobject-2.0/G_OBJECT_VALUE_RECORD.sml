@@ -35,7 +35,7 @@ signature G_OBJECT_VALUE_RECORD =
         structure Array :
           sig
             type 'a array_p
-            val sub : 'a array_p -> word -> 'a p
+            val sub : notnull array_p -> word -> notnull p
           end
       end
   end

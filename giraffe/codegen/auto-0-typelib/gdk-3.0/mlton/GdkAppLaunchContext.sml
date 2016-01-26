@@ -13,8 +13,8 @@ structure GdkAppLaunchContext :>
           (
             _import "mlton_gdk_app_launch_context_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

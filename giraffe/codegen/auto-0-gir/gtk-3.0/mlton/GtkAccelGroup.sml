@@ -60,8 +60,8 @@ structure GtkAccelGroup :>
           (
             _import "mlton_gtk_accel_group_connect_by_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
                -> unit;
           )

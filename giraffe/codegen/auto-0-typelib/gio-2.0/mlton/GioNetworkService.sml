@@ -11,12 +11,12 @@ structure GioNetworkService :>
          & (x5, x6) =>
           (
             _import "mlton_g_network_service_new" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -37,8 +37,8 @@ structure GioNetworkService :>
           (
             _import "mlton_g_network_service_set_scheme" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

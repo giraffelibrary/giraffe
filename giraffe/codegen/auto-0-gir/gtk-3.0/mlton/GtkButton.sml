@@ -9,9 +9,9 @@ structure GtkButton :>
   struct
     val getType_ = _import "gtk_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromStock_ = _import "mlton_gtk_button_new_from_stock" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithLabel_ = _import "mlton_gtk_button_new_with_label" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_button_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromStock_ = _import "mlton_gtk_button_new_from_stock" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithLabel_ = _import "mlton_gtk_button_new_with_label" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_button_new_with_mnemonic" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val clicked_ = _import "gtk_button_clicked" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getAlignment_ =
       fn
@@ -64,8 +64,8 @@ structure GtkButton :>
           (
             _import "mlton_gtk_button_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

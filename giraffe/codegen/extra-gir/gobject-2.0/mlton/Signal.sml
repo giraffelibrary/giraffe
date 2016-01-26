@@ -18,7 +18,8 @@ structure Signal :>
         (
           _import "mlton_g_signal_connect_closure" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * cstring * unit CPointer.t  (* FFI.String.C.notnull FFI.String.inp *)
+             * GCharVec.MLton.p1
+             * GCharVec.C.notnull GCharVec.MLton.p2
              * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
              * FFI.Bool.C.val_
              -> FFI.ULong.C.val_;

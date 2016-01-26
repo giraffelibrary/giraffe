@@ -23,11 +23,11 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_double_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -47,11 +47,11 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_long_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Long.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -70,8 +70,8 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_property_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkSettingsValueRecord.C.notnull GtkSettingsValueRecord.C.p
                -> unit;
           )
@@ -90,12 +90,12 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_string_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -22,8 +22,8 @@ structure GioMountOperation :>
           (
             _import "mlton_g_mount_operation_set_domain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -37,8 +37,8 @@ structure GioMountOperation :>
           (
             _import "mlton_g_mount_operation_set_password" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -53,8 +53,8 @@ structure GioMountOperation :>
           (
             _import "mlton_g_mount_operation_set_username" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

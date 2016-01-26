@@ -32,8 +32,8 @@ structure GtkEntryCompletion :>
             _import "mlton_gtk_entry_completion_insert_action_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -51,8 +51,8 @@ structure GtkEntryCompletion :>
             _import "mlton_gtk_entry_completion_insert_action_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -22,8 +22,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_callable_info_get_return_attribute" :
               GIRepositoryCallableInfoRecord.C.notnull GIRepositoryCallableInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -42,10 +42,10 @@ structure GIRepository : G_I_REPOSITORY =
             _import "mlton_g_callable_info_iterate_return_attributes" :
               GIRepositoryCallableInfoRecord.C.notnull GIRepositoryCallableInfoRecord.C.p
                * GIRepositoryAttributeIterRecord.C.notnull GIRepositoryAttributeIterRecord.C.p
-               * cstring
-               * unit CPointer.t ref
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                -> FFI.Bool.C.val_;
           )
             (
@@ -118,8 +118,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_interface_info_find_method" :
               GIRepositoryInterfaceInfoRecord.C.notnull GIRepositoryInterfaceInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryFunctionInfoRecord.C.notnull GIRepositoryFunctionInfoRecord.C.p;
           )
             (
@@ -133,8 +133,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_interface_info_find_vfunc" :
               GIRepositoryInterfaceInfoRecord.C.notnull GIRepositoryInterfaceInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryVFuncInfoRecord.C.notnull GIRepositoryVFuncInfoRecord.C.p;
           )
             (
@@ -162,8 +162,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_method" :
               GIRepositoryObjectInfoRecord.C.notnull GIRepositoryObjectInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryFunctionInfoRecord.C.notnull GIRepositoryFunctionInfoRecord.C.p;
           )
             (
@@ -179,8 +179,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_method_using_interfaces" :
               GIRepositoryObjectInfoRecord.C.notnull GIRepositoryObjectInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, GIRepositoryObjectInfoRecord.C.notnull) GIRepositoryObjectInfoRecord.C.r
                -> GIRepositoryFunctionInfoRecord.C.notnull GIRepositoryFunctionInfoRecord.C.p;
           )
@@ -196,8 +196,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_vfunc" :
               GIRepositoryObjectInfoRecord.C.notnull GIRepositoryObjectInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryVFuncInfoRecord.C.notnull GIRepositoryVFuncInfoRecord.C.p;
           )
             (
@@ -243,8 +243,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_struct_info_find_method" :
               GIRepositoryStructInfoRecord.C.notnull GIRepositoryStructInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryFunctionInfoRecord.C.notnull GIRepositoryFunctionInfoRecord.C.p;
           )
             (
@@ -275,8 +275,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_union_info_find_method" :
               GIRepositoryUnionInfoRecord.C.notnull GIRepositoryUnionInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryFunctionInfoRecord.C.notnull GIRepositoryFunctionInfoRecord.C.p;
           )
             (

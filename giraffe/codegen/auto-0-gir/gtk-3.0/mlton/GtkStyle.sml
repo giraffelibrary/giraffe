@@ -52,8 +52,8 @@ structure GtkStyle :>
           (
             _import "mlton_gtk_style_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GdkColorRecord.C.notnull GdkColorRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -69,8 +69,8 @@ structure GtkStyle :>
           (
             _import "mlton_gtk_style_lookup_icon_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (
@@ -95,8 +95,8 @@ structure GtkStyle :>
                * GtkStateType.C.val_
                * FFI.Int.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

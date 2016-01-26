@@ -5,14 +5,14 @@ structure GioSettings :>
     where type settings_bind_flags_t = GioSettingsBindFlags.t =
   struct
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_settings_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_settings_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithBackend_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_settings_new_with_backend" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioSettingsBackendRecord.C.notnull GioSettingsBackendRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -28,11 +28,11 @@ structure GioSettings :>
          & (x4, x5) =>
           (
             _import "mlton_g_settings_new_with_backend_and_path" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioSettingsBackendRecord.C.notnull GioSettingsBackendRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -47,10 +47,10 @@ structure GioSettings :>
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_settings_new_with_path" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -71,11 +71,11 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_bind" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioSettingsBindFlags.C.val_
                -> unit;
           )
@@ -98,11 +98,11 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_bind_writable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -122,8 +122,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -137,8 +137,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -152,8 +152,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -167,8 +167,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_enum" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -182,8 +182,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_flags" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt32.C.val_;
           )
             (
@@ -198,8 +198,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -213,8 +213,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_range" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -228,8 +228,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -243,8 +243,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_uint" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt32.C.val_;
           )
             (
@@ -258,8 +258,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -273,8 +273,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_is_writable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -290,8 +290,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_range_check" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -307,8 +307,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_reset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -325,8 +325,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -344,8 +344,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -363,8 +363,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_enum" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -382,8 +382,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_flags" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -401,8 +401,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -420,10 +420,10 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -441,8 +441,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_uint" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -460,8 +460,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> FFI.Bool.C.val_;
           )

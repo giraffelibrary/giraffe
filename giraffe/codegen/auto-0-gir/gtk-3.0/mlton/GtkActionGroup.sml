@@ -6,7 +6,7 @@ structure GtkActionGroup :>
     where type 'a action_class_t = 'a GtkActionClass.t =
   struct
     val getType_ = _import "gtk_action_group_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_action_group_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_action_group_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val addAction_ = fn x1 & x2 => (_import "gtk_action_group_add_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val addActionWithAccel_ =
       fn
@@ -17,8 +17,8 @@ structure GtkActionGroup :>
             _import "mlton_gtk_action_group_add_action_with_accel" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -33,8 +33,8 @@ structure GtkActionGroup :>
           (
             _import "mlton_gtk_action_group_get_action" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -53,8 +53,8 @@ structure GtkActionGroup :>
           (
             _import "mlton_gtk_action_group_set_translation_domain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -69,8 +69,8 @@ structure GtkActionGroup :>
           (
             _import "mlton_gtk_action_group_translate_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (

@@ -12,14 +12,14 @@ structure GtkToggleAction :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_toggle_action_new" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

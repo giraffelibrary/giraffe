@@ -12,8 +12,8 @@ structure GdkPixbufPixbufLoader :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_mime_type" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -27,8 +27,8 @@ structure GdkPixbufPixbufLoader :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_type" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

@@ -12,8 +12,8 @@ structure PangoGlyphItem :>
           (
             _import "mlton_pango_glyph_item_split" :
               PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p;
           )

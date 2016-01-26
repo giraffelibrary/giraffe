@@ -1,4 +1,4 @@
-(* Copyright (C) 2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -9,7 +9,7 @@ signature F_F_I =
   sig
     structure Flags : F_F_I_FLAGS_ENUM where type t = Word32.word
     structure Enum : F_F_I_FLAGS_ENUM where type t = Int32.int
-    structure OptPointer : F_F_I_SCALAR where type t = unit CPointer.t
+    structure OptPointer : F_F_I_SCALAR where type t = unit CPointer.p
     structure Char : F_F_I_SCALAR where type t = char
     structure Short : F_F_I_SCALAR where type t = LargeInt.int
     structure UShort : F_F_I_SCALAR where type t = LargeInt.int
@@ -33,15 +33,19 @@ signature F_F_I =
     structure String :
       F_F_I_ARRAY
         where type t = string
-        where type 'a C.in_p = cstring * unit CPointer.t
-        where type ('a, 'b) C.r = cstring * unit CPointer.t ref
+        where type 'a C.in_p = GCharVec.MLton.p1 * 'a GCharVec.MLton.p2
+        where type ('a, 'b) C.r = GCharVec.MLton.r1 * ('a, 'b) GCharVec.MLton.r2
     structure StringVector :
       F_F_I_ARRAY
         where type t = string list
         where
           type 'a C.in_p =
-            cstring vector * unit GCharVec.C.out_p array * unit CPointer.t
+            GCharVecVec.MLton.p1
+             * GCharVecVec.MLton.p2
+             * 'a GCharVecVec.MLton.p3
         where
           type ('a, 'b) C.r =
-            cstring vector * unit GCharVec.C.out_p array * unit CPointer.t ref
+            GCharVecVec.MLton.r1
+             * GCharVecVec.MLton.r2
+             * ('a, 'b) GCharVecVec.MLton.r3
   end

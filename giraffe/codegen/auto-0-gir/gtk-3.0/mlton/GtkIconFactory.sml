@@ -6,7 +6,7 @@ structure GtkIconFactory :>
   struct
     val getType_ = _import "gtk_icon_factory_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_icon_factory_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : cstring * unit CPointer.t -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
+    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
     val add_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure GtkIconFactory :>
           (
             _import "mlton_gtk_icon_factory_add" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p
                -> unit;
           )
@@ -33,8 +33,8 @@ structure GtkIconFactory :>
           (
             _import "mlton_gtk_icon_factory_lookup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (

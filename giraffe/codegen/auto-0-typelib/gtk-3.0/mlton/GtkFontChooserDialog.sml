@@ -11,8 +11,8 @@ structure GtkFontChooserDialog :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_font_chooser_dialog_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

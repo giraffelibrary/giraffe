@@ -5,10 +5,10 @@ structure GModule : G_MODULE =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_module_build_path" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (

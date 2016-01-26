@@ -64,7 +64,7 @@ structure FFI :> F_F_I =
          *)
         structure OptPointer =
           struct
-            val VAL = CPointer.PolyML.cVal : unit CPointer.t conversion
+            val VAL = CPointer.PolyML.cOptVal : unit CPointer.p conversion
             val REF = cRef
           end
 
@@ -287,13 +287,13 @@ structure FFI :> F_F_I =
               type 'a out_p = 'a out_p conversion
               type ('a, 'b) r = ('a, 'b) r conversion 
 
-              val INPTR = GCharVec.PolyML.INPTR : notnull in_p
-              val INOPTPTR = GCharVec.PolyML.INPTR : unit in_p
-              val OUTREF = GCharVec.PolyML.INOUTREF : (unit, notnull) r
-              val OUTOPTREF = GCharVec.PolyML.INOUTREF : (unit, unit) r
-              val INOUTREF = GCharVec.PolyML.INOUTREF : (notnull, notnull) r
-              val RETPTR = GCharVec.PolyML.OUTPTR : notnull out_p
-              val RETOPTPTR = GCharVec.PolyML.OUTPTR : unit out_p
+              val INPTR = GCharVec.PolyML.cInPtr : notnull in_p
+              val INOPTPTR = GCharVec.PolyML.cOptInPtr : unit in_p
+              val OUTREF = GCharVec.PolyML.cRefOut : (unit, notnull) r
+              val OUTOPTREF = GCharVec.PolyML.cRef : (unit, unit) r
+              val INOUTREF = GCharVec.PolyML.cRefInOut: (notnull, notnull) r
+              val RETPTR = GCharVec.PolyML.cOutPtr : notnull out_p
+              val RETOPTPTR = GCharVec.PolyML.cOptOutPtr : unit out_p
             end
           end
 
@@ -311,13 +311,13 @@ structure FFI :> F_F_I =
               type 'a out_p = 'a out_p conversion
               type ('a, 'b) r = ('a, 'b) r conversion 
 
-              val INPTR = GCharVecVec.PolyML.INPTR : notnull in_p
-              val INOPTPTR = GCharVecVec.PolyML.INPTR : unit in_p
-              val OUTREF = GCharVecVec.PolyML.INOUTREF : (unit, notnull) r
-              val OUTOPTREF = GCharVecVec.PolyML.INOUTREF : (unit, unit) r
-              val INOUTREF = GCharVecVec.PolyML.INOUTREF : (notnull, notnull) r
-              val RETPTR = GCharVecVec.PolyML.OUTPTR : notnull out_p
-              val RETOPTPTR = GCharVecVec.PolyML.OUTPTR : unit out_p
+              val INPTR = GCharVecVec.PolyML.cInPtr : notnull in_p
+              val INOPTPTR = GCharVecVec.PolyML.cOptInPtr : unit in_p
+              val OUTREF = GCharVecVec.PolyML.cRefOut : (unit, notnull) r
+              val OUTOPTREF = GCharVecVec.PolyML.cRef : (unit, unit) r
+              val INOUTREF = GCharVecVec.PolyML.cRefInOut : (notnull, notnull) r
+              val RETPTR = GCharVecVec.PolyML.cOutPtr : notnull out_p
+              val RETOPTPTR = GCharVecVec.PolyML.cOptOutPtr : unit out_p
             end
           end
       end
@@ -347,8 +347,6 @@ structure FFI :> F_F_I =
 
         type ref_ = PolyMLFFI.Memory.Pointer.t
 
-     (* fun withNullRef f () = f PolyMLFFI.Memory.Pointer.null *)
-
 
         (**
          * Flags
@@ -377,7 +375,7 @@ structure FFI :> F_F_I =
          *)
         structure OptPointer =
           struct
-            type val_ = unit CPointer.t
+            type val_ = unit CPointer.p
             type ref_ = ref_
             val withVal = I
             fun withRefVal f = withVal (withRef PolyML.OptPointer.VAL f)
@@ -773,7 +771,7 @@ structure FFI :> F_F_I =
      *)
     structure OptPointer =
       struct
-        type t = unit CPointer.t
+        type t = unit CPointer.p
         val null = CPointer.null
         structure C = C.OptPointer
         structure PolyML = PolyML.OptPointer

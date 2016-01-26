@@ -58,8 +58,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_apply_tag_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -103,8 +103,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_create_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -177,8 +177,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_delete_mark_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -359,8 +359,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_get_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -440,8 +440,8 @@ structure GtkTextBuffer :>
             _import "mlton_gtk_text_buffer_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -460,8 +460,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_insert_at_cursor" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -499,8 +499,8 @@ structure GtkTextBuffer :>
             _import "mlton_gtk_text_buffer_insert_interactive" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -522,8 +522,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_insert_interactive_at_cursor" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -620,8 +620,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_move_mark_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
           )
@@ -658,8 +658,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_register_deserialize_tagset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
           )
             (
@@ -673,8 +673,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_register_serialize_tagset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
           )
             (
@@ -729,8 +729,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_remove_tag_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -768,8 +768,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )

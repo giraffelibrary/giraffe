@@ -9,8 +9,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_action_added" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -26,8 +26,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_action_enabled_changed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -43,8 +43,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_action_removed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -60,8 +60,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_action_state_changed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> unit;
           )
@@ -79,8 +79,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_activate_action" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                -> unit;
           )
@@ -98,8 +98,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_change_action_state" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> unit;
           )
@@ -115,8 +115,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_get_action_enabled" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -130,8 +130,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_get_action_parameter_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
           )
             (
@@ -145,8 +145,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_get_action_state" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -160,8 +160,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_get_action_state_hint" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -175,8 +175,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_get_action_state_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
           )
             (
@@ -190,8 +190,8 @@ structure GioActionGroup :>
           (
             _import "mlton_g_action_group_has_action" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

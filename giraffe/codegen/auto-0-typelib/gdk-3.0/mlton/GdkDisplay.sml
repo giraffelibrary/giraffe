@@ -11,7 +11,7 @@ structure GdkDisplay :>
   struct
     val getType_ = _import "gdk_display_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "gdk_display_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val open_ = _import "mlton_gdk_display_open" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val open_ = _import "mlton_gdk_display_open" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val openDefaultLibgtkOnly_ = _import "gdk_display_open_default_libgtk_only" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val beep_ = _import "gdk_display_beep" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val close_ = _import "gdk_display_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -51,8 +51,8 @@ structure GdkDisplay :>
           (
             _import "mlton_gdk_display_notify_startup_complete" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

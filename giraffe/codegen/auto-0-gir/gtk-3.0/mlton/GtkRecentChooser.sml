@@ -29,8 +29,8 @@ structure GtkRecentChooser :>
           (
             _import "mlton_gtk_recent_chooser_select_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -48,8 +48,8 @@ structure GtkRecentChooser :>
           (
             _import "mlton_gtk_recent_chooser_set_current_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -75,8 +75,8 @@ structure GtkRecentChooser :>
           (
             _import "mlton_gtk_recent_chooser_unselect_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -32,8 +32,8 @@ structure GtkIMContext :>
           (
             _import "mlton_gtk_im_context_get_preedit_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * (unit, PangoAttrListRecord.C.notnull) PangoAttrListRecord.C.r
                * FFI.Int.C.ref_
                -> unit;
@@ -57,8 +57,8 @@ structure GtkIMContext :>
           (
             _import "mlton_gtk_im_context_set_surrounding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;

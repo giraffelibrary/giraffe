@@ -11,8 +11,8 @@ structure GtkAccelMap :>
          & x4 =>
           (
             _import "mlton_gtk_accel_map_add_entry" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                -> unit;
@@ -23,7 +23,7 @@ structure GtkAccelMap :>
               x3,
               x4
             )
-    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : cstring * unit CPointer.t -> unit;
+    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val changeEntry_ =
       fn
         (x1, x2)
@@ -32,8 +32,8 @@ structure GtkAccelMap :>
          & x5 =>
           (
             _import "mlton_gtk_accel_map_change_entry" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt.C.val_
                * GdkModifierType.C.val_
                * FFI.Bool.C.val_
@@ -47,16 +47,16 @@ structure GtkAccelMap :>
               x5
             )
     val get_ = _import "gtk_accel_map_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val load_ = _import "mlton_gtk_accel_map_load" : cstring * unit CPointer.t -> unit;
+    val load_ = _import "mlton_gtk_accel_map_load" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int.C.val_ -> unit;
-    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : cstring * unit CPointer.t -> unit;
+    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val lookupEntry_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_accel_map_lookup_entry" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkAccelKeyRecord.C.notnull GtkAccelKeyRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -65,9 +65,9 @@ structure GtkAccelMap :>
               x2,
               x3
             )
-    val save_ = _import "mlton_gtk_accel_map_save" : cstring * unit CPointer.t -> unit;
+    val save_ = _import "mlton_gtk_accel_map_save" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int.C.val_ -> unit;
-    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : cstring * unit CPointer.t -> unit;
+    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
     type accel_key_record_t = GtkAccelKeyRecord.t
     type t = base class_t

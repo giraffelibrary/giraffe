@@ -8,10 +8,10 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_app_info_create_from_commandline" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GioAppInfoCreateFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -29,8 +29,8 @@ structure Gio : GIO =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_app_info_get_default_for_type" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -39,7 +39,7 @@ structure Gio : GIO =
               x2,
               x3
             )
-    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val appInfoLaunchDefaultForUri_ =
       fn
         (x1, x2)
@@ -47,8 +47,8 @@ structure Gio : GIO =
          & x4 =>
           (
             _import "mlton_g_app_info_launch_default_for_uri" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -59,7 +59,7 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val appInfoResetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : cstring * unit CPointer.t -> unit;
+    val appInfoResetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val busGetFinish_ = fn x1 & x2 => (_import "g_bus_get_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val busGetSync_ =
       fn
@@ -88,8 +88,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_bus_own_name_on_connection_with_closures" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioBusNameOwnerFlags.C.val_
                * unit GObjectClosureRecord.C.p
                * unit GObjectClosureRecord.C.p
@@ -114,8 +114,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_bus_own_name_with_closures" :
               GioBusType.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioBusNameOwnerFlags.C.val_
                * unit GObjectClosureRecord.C.p
                * unit GObjectClosureRecord.C.p
@@ -143,8 +143,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_bus_watch_name_on_connection_with_closures" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioBusNameWatcherFlags.C.val_
                * unit GObjectClosureRecord.C.p
                * unit GObjectClosureRecord.C.p
@@ -168,8 +168,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_bus_watch_name_with_closures" :
               GioBusType.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioBusNameWatcherFlags.C.val_
                * unit GObjectClosureRecord.C.p
                * unit GObjectClosureRecord.C.p
@@ -183,16 +183,16 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeCanBeExecutable_ = _import "mlton_g_content_type_can_be_executable" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val contentTypeCanBeExecutable_ = _import "mlton_g_content_type_can_be_executable" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val contentTypeEquals_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_content_type_equals" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -201,19 +201,19 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_content_type_is_a" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -222,7 +222,7 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val contentTypeIsUnknown_ = _import "mlton_g_content_type_is_unknown" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val contentTypeIsUnknown_ = _import "mlton_g_content_type_is_unknown" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val dbusAddressGetForBusSync_ =
       fn
         x1
@@ -248,8 +248,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_dbus_address_get_stream_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -267,10 +267,10 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_dbus_address_get_stream_sync" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -289,8 +289,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_dbus_annotation_info_lookup" :
               GioDBusAnnotationInfoRecord.C.notnull GioDBusAnnotationInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -302,18 +302,18 @@ structure Gio : GIO =
     val dbusGenerateGuid_ = _import "g_dbus_generate_guid" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val dbusGvalueToGvariant_ = fn x1 & x2 => (_import "g_dbus_gvalue_to_gvariant" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;) (x1, x2)
     val dbusGvariantToGvalue_ = fn x1 & x2 => (_import "g_dbus_gvariant_to_gvalue" : GLibVariantRecord.C.notnull GLibVariantRecord.C.p * GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> unit;) (x1, x2)
-    val dbusIsAddress_ = _import "mlton_g_dbus_is_address" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val dbusIsGuid_ = _import "mlton_g_dbus_is_guid" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val dbusIsInterfaceName_ = _import "mlton_g_dbus_is_interface_name" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val dbusIsMemberName_ = _import "mlton_g_dbus_is_member_name" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val dbusIsName_ = _import "mlton_g_dbus_is_name" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val dbusIsAddress_ = _import "mlton_g_dbus_is_address" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val dbusIsGuid_ = _import "mlton_g_dbus_is_guid" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val dbusIsInterfaceName_ = _import "mlton_g_dbus_is_interface_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val dbusIsMemberName_ = _import "mlton_g_dbus_is_member_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val dbusIsName_ = _import "mlton_g_dbus_is_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val dbusIsSupportedAddress_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_dbus_is_supported_address" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -322,18 +322,18 @@ structure Gio : GIO =
               x2,
               x3
             )
-    val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileParseName_ = _import "mlton_g_file_parse_name" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val fileParseName_ = _import "mlton_g_file_parse_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val iconNewForString_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_icon_new_for_string" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -344,16 +344,16 @@ structure Gio : GIO =
             )
     val ioErrorFromErrno_ = _import "g_io_error_from_errno" : FFI.Int.C.val_ -> GioIOErrorEnum.C.val_;
     val ioErrorQuark_ = _import "g_io_error_quark" : unit -> GLibQuark.C.val_;
-    val ioExtensionPointLookup_ = _import "mlton_g_io_extension_point_lookup" : cstring * unit CPointer.t -> GioIOExtensionPointRecord.C.notnull GioIOExtensionPointRecord.C.p;
-    val ioExtensionPointRegister_ = _import "mlton_g_io_extension_point_register" : cstring * unit CPointer.t -> GioIOExtensionPointRecord.C.notnull GioIOExtensionPointRecord.C.p;
-    val ioModulesScanAllInDirectory_ = _import "mlton_g_io_modules_scan_all_in_directory" : cstring * unit CPointer.t -> unit;
+    val ioExtensionPointLookup_ = _import "mlton_g_io_extension_point_lookup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GioIOExtensionPointRecord.C.notnull GioIOExtensionPointRecord.C.p;
+    val ioExtensionPointRegister_ = _import "mlton_g_io_extension_point_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GioIOExtensionPointRecord.C.notnull GioIOExtensionPointRecord.C.p;
+    val ioModulesScanAllInDirectory_ = _import "mlton_g_io_modules_scan_all_in_directory" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val ioModulesScanAllInDirectoryWithScope_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_io_modules_scan_all_in_directory_with_scope" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioIOModuleScopeRecord.C.notnull GioIOModuleScopeRecord.C.p
                -> unit;
           )
@@ -363,7 +363,7 @@ structure Gio : GIO =
               x3
             )
     val ioSchedulerCancelAllJobs_ = _import "g_io_scheduler_cancel_all_jobs" : unit -> unit;
-    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val proxyResolverGetDefault_ = _import "g_proxy_resolver_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val resolverErrorQuark_ = _import "g_resolver_error_quark" : unit -> GLibQuark.C.val_;
     val tlsBackendGetDefault_ = _import "g_tls_backend_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -390,8 +390,8 @@ structure Gio : GIO =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_tls_file_database_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -417,7 +417,7 @@ structure Gio : GIO =
               x2,
               x3
             )
-    val unixIsMountPathSystemInternal_ = _import "mlton_g_unix_is_mount_path_system_internal" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val unixIsMountPathSystemInternal_ = _import "mlton_g_unix_is_mount_path_system_internal" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val unixMountCompare_ = fn x1 & x2 => (_import "g_unix_mount_compare" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p * GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
     val unixMountFree_ = _import "g_unix_mount_free" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> unit;
     val unixMountGetDevicePath_ = _import "g_unix_mount_get_device_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;

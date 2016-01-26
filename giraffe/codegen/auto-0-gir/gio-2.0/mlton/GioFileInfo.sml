@@ -18,8 +18,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_as_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -33,8 +33,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -48,8 +48,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_byte_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -63,8 +63,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_int32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -78,8 +78,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_int64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int64.C.val_;
           )
             (
@@ -93,8 +93,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_object" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -108,8 +108,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_status" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GioFileAttributeStatus.C.val_;
           )
             (
@@ -123,8 +123,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -138,8 +138,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GioFileAttributeType.C.val_;
           )
             (
@@ -153,8 +153,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_uint32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt32.C.val_;
           )
             (
@@ -168,8 +168,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_get_attribute_uint64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt64.C.val_;
           )
             (
@@ -197,8 +197,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_has_attribute" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -212,8 +212,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_has_namespace" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -227,8 +227,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_remove_attribute" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -244,8 +244,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -263,10 +263,10 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_byte_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -284,8 +284,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_int32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -303,8 +303,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_int64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> unit;
           )
@@ -323,8 +323,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_object" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -342,8 +342,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_status" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioFileAttributeStatus.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -361,10 +361,10 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -382,10 +382,10 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_stringv" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -403,8 +403,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_uint32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> unit;
           )
@@ -422,8 +422,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_attribute_uint64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> unit;
           )
@@ -439,8 +439,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_content_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -454,8 +454,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_display_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -469,8 +469,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_edit_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -489,8 +489,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -506,8 +506,8 @@ structure GioFileInfo :>
           (
             _import "mlton_g_file_info_set_symlink_target" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

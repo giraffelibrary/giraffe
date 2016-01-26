@@ -50,7 +50,7 @@ structure GtkIconSize :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALID
-    val fromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int.C.val_;
+    val fromName_ = _import "mlton_gtk_icon_size_from_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int.C.val_;
     val getName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val lookup_ =
       fn
@@ -96,8 +96,8 @@ structure GtkIconSize :>
          & x4 =>
           (
             _import "mlton_gtk_icon_size_register" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> FFI.Int.C.val_;
@@ -113,8 +113,8 @@ structure GtkIconSize :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_icon_size_register_alias" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )

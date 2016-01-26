@@ -5,7 +5,7 @@ structure GtkAccelLabel :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_accel_label_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_accel_label_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_accel_label_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAccelWidget_ = _import "gtk_accel_label_get_accel_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAccelWidth_ = _import "gtk_accel_label_get_accel_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
     val refetch_ = _import "gtk_accel_label_refetch" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;

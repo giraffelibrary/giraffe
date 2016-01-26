@@ -23,8 +23,8 @@ structure GioTlsDatabase :>
           (
             _import "mlton_g_tls_database_lookup_certificate_for_handle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * GioTlsDatabaseLookupFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -114,8 +114,8 @@ structure GioTlsDatabase :>
             _import "mlton_g_tls_database_verify_chain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * GioTlsDatabaseVerifyFlags.C.val_

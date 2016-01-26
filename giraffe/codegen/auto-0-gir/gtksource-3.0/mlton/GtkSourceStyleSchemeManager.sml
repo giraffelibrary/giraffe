@@ -12,8 +12,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_append_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -28,8 +28,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_get_scheme" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -43,8 +43,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_prepend_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

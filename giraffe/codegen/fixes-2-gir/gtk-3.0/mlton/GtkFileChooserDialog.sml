@@ -12,7 +12,7 @@ structure GtkFileChooserDialog :>
         (x1, x2) & x3 & x4 =>
           (
             _import "giraffe_gtk_file_chooser_dialog_new" :
-              cstring * unit CPointer.t
+              GCharVec.MLton.p1 * unit GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * GtkFileChooserAction.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;

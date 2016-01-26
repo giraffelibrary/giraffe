@@ -23,12 +23,12 @@ structure GtkUIManager :>
             _import "mlton_gtk_ui_manager_add_ui" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GtkUIManagerItemType.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -53,8 +53,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt.C.val_;
           )
@@ -73,8 +73,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.SSize.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt.C.val_;
@@ -94,8 +94,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_get_action" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -111,8 +111,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_get_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

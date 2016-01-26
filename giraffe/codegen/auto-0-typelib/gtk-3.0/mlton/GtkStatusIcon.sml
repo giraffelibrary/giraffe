@@ -8,11 +8,11 @@ structure GtkStatusIcon :>
   struct
     val getType_ = _import "gtk_status_icon_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_status_icon_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromFile_ = _import "mlton_gtk_status_icon_new_from_file" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromFile_ = _import "mlton_gtk_status_icon_new_from_file" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromGicon_ = _import "gtk_status_icon_new_from_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromIconName_ = _import "mlton_gtk_status_icon_new_from_icon_name" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromIconName_ = _import "mlton_gtk_status_icon_new_from_icon_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromPixbuf_ = _import "gtk_status_icon_new_from_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromStock_ = _import "mlton_gtk_status_icon_new_from_stock" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromStock_ = _import "mlton_gtk_status_icon_new_from_stock" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val positionMenu_ =
       fn
         x1
@@ -76,8 +76,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -92,8 +92,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -108,8 +108,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -124,8 +124,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -140,8 +140,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -155,8 +155,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -170,8 +170,8 @@ structure GtkStatusIcon :>
           (
             _import "mlton_gtk_status_icon_set_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

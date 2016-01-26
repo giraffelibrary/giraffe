@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,12 +17,18 @@ in
   mlton/Callback.sml
   HighLevelFFI.sml
   FINALIZABLE.sml
-  POINTER.sml
+  mlton/C_TYPE.sml
+  C_POINTER.sml
+  mlton/C_POINTER.sml
+  C_TYPED_POINTER.sml
   C_ARRAY.sml
   FILE_DESC.sml
   mlton/Finalizable.sml
   mlton/CString.sml
+  mlton/GCharCType.sml
   mlton/CPointer.sml
+  CTypedPointer.sml
+  CPointer.sml
   mlton/GCharVec.sml
   mlton/GCharVecVec.sml
   mlton/F_F_I_SCALAR.sml

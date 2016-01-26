@@ -7,7 +7,7 @@ structure GtkAppChooserWidget :>
     where type 'a menu_class_t = 'a GtkMenuClass.t =
   struct
     val getType_ = _import "gtk_app_chooser_widget_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_app_chooser_widget_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_app_chooser_widget_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -20,8 +20,8 @@ structure GtkAppChooserWidget :>
           (
             _import "mlton_gtk_app_chooser_widget_set_default_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

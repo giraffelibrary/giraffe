@@ -115,8 +115,8 @@ structure AtkTable :>
             _import "mlton_atk_table_set_column_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -151,8 +151,8 @@ structure AtkTable :>
             _import "mlton_atk_table_set_row_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

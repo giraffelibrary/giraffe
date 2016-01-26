@@ -26,8 +26,8 @@ structure GtkTextIter :>
           (
             _import "mlton_gtk_text_iter_backward_search" :
               GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextSearchFlags.C.val_
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
@@ -81,8 +81,8 @@ structure GtkTextIter :>
           (
             _import "mlton_gtk_text_iter_forward_search" :
               GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkTextSearchFlags.C.val_
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p

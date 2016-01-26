@@ -8,8 +8,8 @@ structure GdkAtom :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_atom_intern" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
           )
@@ -18,7 +18,7 @@ structure GdkAtom :>
               x2,
               x3
             )
-    val internStaticString_ = _import "mlton_gdk_atom_intern_static_string" : cstring * unit CPointer.t -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
+    val internStaticString_ = _import "mlton_gdk_atom_intern_static_string" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     type record_t = GdkAtomRecord.t
     type t = record_t
     fun name self = (GdkAtomRecord.C.withPtr ---> FFI.String.C.fromPtr true) name_ self

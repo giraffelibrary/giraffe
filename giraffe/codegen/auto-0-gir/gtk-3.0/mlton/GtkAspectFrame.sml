@@ -13,8 +13,8 @@ structure GtkAspectFrame :>
          & x6 =>
           (
             _import "mlton_gtk_aspect_frame_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Float.C.val_

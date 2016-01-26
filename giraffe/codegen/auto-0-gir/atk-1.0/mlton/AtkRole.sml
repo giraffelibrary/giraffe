@@ -333,10 +333,10 @@ structure AtkRole :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALID
-    val forName_ = _import "mlton_atk_role_for_name" : cstring * unit CPointer.t -> C.val_;
+    val forName_ = _import "mlton_atk_role_for_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
     val getLocalizedName_ = _import "atk_role_get_localized_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val getName_ = _import "atk_role_get_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val register_ = _import "mlton_atk_role_register" : cstring * unit CPointer.t -> C.val_;
+    val register_ = _import "mlton_atk_role_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
     fun getLocalizedName role = (C.withVal ---> FFI.String.C.fromPtr false) getLocalizedName_ role

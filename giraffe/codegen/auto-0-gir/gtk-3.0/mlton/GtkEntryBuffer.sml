@@ -8,8 +8,8 @@ structure GtkEntryBuffer :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_entry_buffer_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -62,8 +62,8 @@ structure GtkEntryBuffer :>
             _import "mlton_gtk_entry_buffer_emit_inserted_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt.C.val_
                -> unit;
           )
@@ -88,8 +88,8 @@ structure GtkEntryBuffer :>
             _import "mlton_gtk_entry_buffer_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> FFI.UInt.C.val_;
           )
@@ -109,8 +109,8 @@ structure GtkEntryBuffer :>
           (
             _import "mlton_gtk_entry_buffer_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )

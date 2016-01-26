@@ -11,8 +11,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_create_app_info" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -35,10 +35,10 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_get_application_info" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * FFI.UInt32.C.ref_
                * FFI.Int64.C.ref_
                -> FFI.Bool.C.val_;
@@ -69,8 +69,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_has_application" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -84,8 +84,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_has_group" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

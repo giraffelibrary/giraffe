@@ -42,10 +42,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_filename_from_uri" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -63,10 +63,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_filename_to_uri" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -106,11 +106,11 @@ structure GLib : G_LIB =
          & (x4, x5) =>
           (
             _import "mlton_g_log_default_handler" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibLogLevelFlags.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -125,8 +125,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_log_remove_handler" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt.C.val_
                -> unit;
           )
@@ -141,8 +141,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_log_set_fatal_mask" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibLogLevelFlags.C.val_
                -> GLibLogLevelFlags.C.val_;
           )
@@ -163,10 +163,10 @@ structure GLib : G_LIB =
          & x6 =>
           (
             _import "mlton_g_regex_match_simple" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                -> FFI.Bool.C.val_;
@@ -187,9 +187,11 @@ structure GLib : G_LIB =
          & x7 =>
           (
             _import "mlton_g_shell_parse_argv" :
-              cstring * unit CPointer.t  (* GCharVec.C.in_p *)
+              GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2  (* GCharVec.C.in_p *)
               * FFI.OptPointer.C.val_
-              * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t ref  (* GCharVecVec.C.inout_r *)
+              * GCharVecVec.MLton.r1
+              * GCharVecVec.MLton.r2
+              * (unit, GCharVecVec.C.notnull) GCharVecVec.MLton.r3
               * (unit, unit) GLibErrorRecord.C.r
               -> bool;
           )
@@ -202,14 +204,14 @@ structure GLib : G_LIB =
               x6,
               x7
             )
-    val shellQuote_ = _import "mlton_g_shell_quote" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val shellQuote_ = _import "mlton_g_shell_quote" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val shellUnquote_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_shell_unquote" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -233,9 +235,13 @@ structure GLib : G_LIB =
          & x15 =>
           (
             _import "giraffe_g_spawn_async_with_pipes" :
-              cstring * unit CPointer.t  (* GCharVec.C.in_p *)
-               * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t  (* GCharVecVec.C.in_p *)
-               * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t  (* GCharVecVec.C.in_p *)
+              GCharVec.MLton.p1 * unit GCharVec.MLton.p2
+               * GCharVecVec.MLton.p1
+               * GCharVecVec.MLton.p2
+               * GCharVecVec.C.notnull GCharVecVec.MLton.p3
+               * GCharVecVec.MLton.p1
+               * GCharVecVec.MLton.p2
+               * unit GCharVecVec.MLton.p3
                * GLibSpawnFlags.C.val_
                * GLibSpawnChildSetupFunc.C.callback
                * GLibPid.C.ref_
@@ -268,8 +274,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_spawn_command_line_async" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -319,10 +325,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_uri_escape_string" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -333,7 +339,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val uriUnescapeSegment_ =
       fn
         (x1, x2)
@@ -341,12 +347,12 @@ structure GLib : G_LIB =
          & (x5, x6) =>
           (
             _import "mlton_g_uri_unescape_segment" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -362,10 +368,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_uri_unescape_string" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (

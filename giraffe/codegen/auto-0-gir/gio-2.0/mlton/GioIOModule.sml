@@ -3,7 +3,7 @@ structure GioIOModule :>
     where type 'a class_t = 'a GioIOModuleClass.t =
   struct
     val getType_ = _import "g_io_module_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_io_module_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_io_module_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val load_ = _import "g_io_module_load" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unload_ = _import "g_io_module_unload" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     type 'a class_t = 'a GioIOModuleClass.t

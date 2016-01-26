@@ -23,8 +23,8 @@ structure GtkToolItem :>
           (
             _import "mlton_gtk_tool_item_get_proxy_menu_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -53,8 +53,8 @@ structure GtkToolItem :>
           (
             _import "mlton_gtk_tool_item_set_proxy_menu_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -70,8 +70,8 @@ structure GtkToolItem :>
           (
             _import "mlton_gtk_tool_item_set_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -85,8 +85,8 @@ structure GtkToolItem :>
           (
             _import "mlton_gtk_tool_item_set_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

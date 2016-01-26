@@ -55,8 +55,8 @@ structure VtePty :>
           (
             _import "mlton_vte_pty_set_term" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

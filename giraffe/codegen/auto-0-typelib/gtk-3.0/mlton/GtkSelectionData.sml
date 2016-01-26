@@ -22,8 +22,8 @@ structure GtkSelectionData :>
           (
             _import "mlton_gtk_selection_data_set_text" :
               GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.Bool.C.val_;
           )

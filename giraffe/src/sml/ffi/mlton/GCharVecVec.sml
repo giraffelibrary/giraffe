@@ -7,28 +7,24 @@
 
 structure GCharVecVec :>
   sig
+    structure MLton :
+      sig
+        type p1 and p2 and 'a p3
+        type r1 and r2 and ('a, 'b) r3
+      end
+
     include
       C_ARRAY
         where type elem = string
         where type vector = string Vector.vector
 
-    structure MLton :
-      sig
-        val fromPointer : MLton.Pointer.t -> C.notnull C.out_p
-        val fromOptPointer : MLton.Pointer.t -> unit C.out_p
-      end
-  end
-    (* It is necessary to expose the following type representations because
-     * the tuple elements must occur as individual elements in the tuple
-     * argument of the imported C function. *)
-    where
-      type 'a C.in_p = cstring vector * unit GCharVec.C.out_p array * unit CPointer.t
-    where
-      type ('a, 'b) C.r =
-        cstring vector * unit GCharVec.C.out_p array * unit CPointer.t ref =
+        (* It is necessary to expose the following type representations because
+         * the tuple elements must occur as individual elements in the tuple
+         * argument of the imported C function. *)
+        where type 'a C.in_p = MLton.p1 * MLton.p2 * 'a MLton.p3
+        where type ('a, 'b) C.r = MLton.r1 * MLton.r2 * ('a, 'b) MLton.r3
+  end =
   struct
-    structure Finalizable = MLton.Finalizable
-
     (**
      * For `SMLArray (v, a)`, `v` is a vector of `cstring` values, i.e.
      * null-terminated SML string values.  It is not possible to create an
@@ -61,9 +57,11 @@ structure GCharVecVec :>
      *     must free them because, in C, there would be no reference to the
      *     removed strings that allows them to be freed at a later point.
      *)
+    structure ElemType = GCharVec.C.OutPointer.OptNullType
+    structure Pointer = CTypedPointer (ElemType)
     datatype t =
       SMLArray of cstring vector * unit GCharVec.C.out_p array
-    | CArray   of CPointer.notnull CPointer.t Finalizable.t
+    | CArray   of Pointer.t Finalizable.t
 
 
     fun makeSMLArray (v : string Vector.vector) : t =
@@ -77,8 +75,7 @@ structure GCharVecVec :>
 
     structure C =
       struct
-        structure Pointer = CPointer
-        type 'a p = 'a Pointer.t
+        type 'a p = 'a Pointer.p
         type notnull = Pointer.notnull
 
         val dupSMLValue_ =
@@ -87,11 +84,13 @@ structure GCharVecVec :>
         val dupPointer_ = _import "g_strdupv" : notnull p -> notnull p;
         val free_ = _import "g_strfreev" : notnull p -> unit;
         val len_ = _import "g_strv_length" : notnull p -> int;
-        val sub_ : notnull p * int -> GCharVec.C.notnull GCharVec.C.out_p =
-          GCharVec.MLton.fromPointer o Pointer.MLton.getPointer
 
+        val free = free_
         val len = len_
-        fun sub p i = sub_ (p, i)
+        fun sub p i =
+          GCharVec.C.OutPointer.toNotNull (Pointer.get (p, i))
+            handle GCharVec.C.OutPointer.Null => raise Subscript
+        (* For `sub p i` we must ensure `0 <= i andalso i < len p` *)
 
         type 'a tabulator = int * (int -> elem) -> 'a
 
@@ -108,7 +107,7 @@ structure GCharVecVec :>
          *)
 
         structure OutPointer = Pointer
-        type 'a out_p = 'a OutPointer.t
+        type 'a out_p = 'a OutPointer.p
 
         fun fromPtr (p : notnull out_p) : t =
           CArray (Finalizable.new p)
@@ -117,7 +116,7 @@ structure GCharVecVec :>
           let
             val arr = Finalizable.new p
           in
-            Finalizable.addFinalizer (arr, free_);
+            Finalizable.addFinalizer (arr, free);
             CArray arr
           end
 
@@ -125,7 +124,7 @@ structure GCharVecVec :>
           makeSMLArray (toSMLValue Vector.tabulate p)
 
         fun copyNewPtr (p : notnull out_p) : t =
-          copyPtr p before free_ p
+          copyPtr p before free p
 
         fun copyPtrToTabulated
           (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
@@ -133,13 +132,13 @@ structure GCharVecVec :>
 
         fun copyNewPtrToTabulated
           (tabulate : 'a tabulator) (p : notnull out_p) : 'a =
-          copyPtrToTabulated tabulate p before free_ p
+          copyPtrToTabulated tabulate p before free p
 
         fun copyPtrToVector (p : notnull out_p) : vector =
           copyPtrToTabulated Vector.tabulate p
 
         fun copyNewPtrToVector (p : notnull out_p) : vector =
-          copyPtrToVector p before free_ p
+          copyPtrToVector p before free p
 
 
         fun fromOptPtr (p : 'a out_p) : t option =
@@ -240,7 +239,7 @@ structure GCharVecVec :>
           fun withPointer f p = f (fromPointer p)
 
           fun withDupPointer f p =
-            p & withPointer f p handle e => (Pointer.appOpt free_ p; raise e)
+            p & withPointer f p handle e => (Pointer.appOpt free p; raise e)
         in
           fun withPtr _ = raise Fail "mutable arguments are not supported"
 
@@ -309,35 +308,39 @@ structure GCharVecVec :>
          * construct the SML-side values for sml_vec, sml_arr and c_arr_ptr.
          *)
         type ('a, 'b) r =
-          cstring Vector.vector * unit GCharVec.C.out_p array * unit p ref
+          cstring Vector.vector * unit GCharVec.C.out_p array * (unit, 'b) Pointer.r
+
+        fun toRef x = Pointer.MLton.toRef x
+        fun fromRef x = Pointer.MLton.fromRef x
 
         local
-          val null : ('a, 'b) r =
-                 (toCStringVector [], toArray [nullElem],    ref nonNull)
+          (* `null` needs to be a function to work around the value restriction *)
+          fun null () : ('a, 'b) r =
+                 (toCStringVector [], toArray [nullElem],    toRef nonNull)
 
           fun fromPointer (p : 'a p) : ('b, 'c) r =
             if Pointer.isNull p
             then (toCStringVector [], toArray [nullElem,
-                                               nonNullElem], ref nonNull)
+                                               nonNullElem], toRef nonNull)
             else (toCStringVector [], toArray [nullElem,
                                                nullElem,
-                                               nonNullElem], ref (Pointer.toOptNull p))
+                                               nonNullElem], toRef (Pointer.toOptNull p))
 
           fun fromSMLValue
             (v : cstring Vector.vector, a : unit GCharVec.C.out_p array) :
               ('a, 'b) r =
-                 (v,                  a,                     ref Pointer.null)
+                 (v,                  a,                     toRef Pointer.null)
 
           fun apply f (x as (_, _, e)) =
-            let val y = f x in ! (Pointer.MLton.unsafeRefConv e) & y end
-            (* must evaluate `f x` before `! (...)` *)
+            let val y = f x in fromRef e & y end
+            (* must evaluate `f x` before `fromRef e` *)
 
           fun withRefPointer f p = f (fromPointer p)
 
           fun withRefDupPointer f p =
-            withRefPointer f p handle e => (Pointer.appOpt free_ p; raise e)
+            withRefPointer f p handle e => (Pointer.appOpt free p; raise e)
         in
-          fun withNullRef f () = f null
+          fun withNullRef f () = f (null ())
 
 
           fun withRefPtr _ = raise Fail "mutable arguments are not supported"
@@ -406,7 +409,12 @@ structure GCharVecVec :>
 
     structure MLton =
       struct
-        val fromPointer = C.Pointer.MLton.fromPointer
-        val fromOptPointer = C.Pointer.MLton.fromOptPointer
+        type p1 = cstring Vector.vector
+        type p2 = unit GCharVec.C.out_p array
+        type 'a p3 = unit Pointer.p
+
+        type r1 = cstring Vector.vector
+        type r2 = unit GCharVec.C.out_p array
+        type ('a, 'b) r3 = (unit, 'b) Pointer.r
       end
   end

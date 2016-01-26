@@ -15,8 +15,8 @@ structure GtkSourceGutterRendererPixbuf :>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -31,8 +31,8 @@ structure GtkSourceGutterRendererPixbuf :>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_stock_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -14,10 +14,10 @@ structure GioAppInfo :>
          & x6 =>
           (
             _import "mlton_g_app_info_create_from_commandline" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GioAppInfoCreateFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -35,8 +35,8 @@ structure GioAppInfo :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_app_info_get_default_for_type" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -45,7 +45,7 @@ structure GioAppInfo :>
               x2,
               x3
             )
-    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val launchDefaultForUri_ =
       fn
         (x1, x2)
@@ -53,8 +53,8 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_launch_default_for_uri" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -65,7 +65,7 @@ structure GioAppInfo :>
               x3,
               x4
             )
-    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : cstring * unit CPointer.t -> unit;
+    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val addSupportsType_ =
       fn
         x1
@@ -74,8 +74,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_add_supports_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -105,8 +105,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_remove_supports_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -124,8 +124,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_default_for_extension" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -143,8 +143,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_default_for_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -162,8 +162,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_last_used_for_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )

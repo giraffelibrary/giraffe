@@ -20,8 +20,8 @@ structure GtkContainer :>
             _import "mlton_gtk_container_child_get_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -41,8 +41,8 @@ structure GtkContainer :>
             _import "mlton_gtk_container_child_notify" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -61,8 +61,8 @@ structure GtkContainer :>
             _import "mlton_gtk_container_child_set_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )

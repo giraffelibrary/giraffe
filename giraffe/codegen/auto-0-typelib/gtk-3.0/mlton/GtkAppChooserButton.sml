@@ -7,7 +7,7 @@ structure GtkAppChooserButton :>
     where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t =
   struct
     val getType_ = _import "gtk_app_chooser_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_app_chooser_button_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_app_chooser_button_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val appendCustomItem_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure GtkAppChooserButton :>
           (
             _import "mlton_gtk_app_chooser_button_append_custom_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
           )
@@ -42,8 +42,8 @@ structure GtkAppChooserButton :>
           (
             _import "mlton_gtk_app_chooser_button_set_active_custom_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -57,8 +57,8 @@ structure GtkAppChooserButton :>
           (
             _import "mlton_gtk_app_chooser_button_set_heading" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -43,8 +43,8 @@ structure GtkComboBox :>
           (
             _import "mlton_gtk_combo_box_set_active_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -68,8 +68,8 @@ structure GtkComboBox :>
           (
             _import "mlton_gtk_combo_box_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -6,7 +6,7 @@ structure GioDBusObjectSkeleton :>
     where type 'a d_bus_interface_skeleton_class_t = 'a GioDBusInterfaceSkeletonClass.t =
   struct
     val getType_ = _import "g_dbus_object_skeleton_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_dbus_object_skeleton_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_dbus_object_skeleton_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val addInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_add_interface" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val flush_ = _import "g_dbus_object_skeleton_flush" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val removeInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_remove_interface" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
@@ -16,8 +16,8 @@ structure GioDBusObjectSkeleton :>
           (
             _import "mlton_g_dbus_object_skeleton_remove_interface_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -31,8 +31,8 @@ structure GioDBusObjectSkeleton :>
           (
             _import "mlton_g_dbus_object_skeleton_set_object_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

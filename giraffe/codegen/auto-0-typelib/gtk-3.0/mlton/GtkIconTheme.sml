@@ -13,8 +13,8 @@ structure GtkIconTheme :>
          & x4 =>
           (
             _import "mlton_gtk_icon_theme_add_builtin_icon" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                -> unit;
@@ -33,8 +33,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_append_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -49,8 +49,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_has_icon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -68,8 +68,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_load_icon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -112,8 +112,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_lookup_icon" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
@@ -131,8 +131,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_prepend_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -147,8 +147,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_set_custom_theme" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

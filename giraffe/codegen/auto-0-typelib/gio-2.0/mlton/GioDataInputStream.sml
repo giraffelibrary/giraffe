@@ -180,8 +180,8 @@ structure GioDataInputStream :>
           (
             _import "mlton_g_data_input_stream_read_until" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -226,8 +226,8 @@ structure GioDataInputStream :>
           (
             _import "mlton_g_data_input_stream_read_upto" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p

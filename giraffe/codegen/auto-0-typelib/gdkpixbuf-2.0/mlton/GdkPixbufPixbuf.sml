@@ -34,8 +34,8 @@ structure GdkPixbufPixbuf :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -53,8 +53,8 @@ structure GdkPixbufPixbuf :>
          & x6 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file_at_scale" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Bool.C.val_
@@ -77,8 +77,8 @@ structure GdkPixbufPixbuf :>
          & x5 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file_at_size" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -135,8 +135,8 @@ structure GdkPixbufPixbuf :>
               x6
             )
     val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_new_from_stream_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val gettext_ = _import "mlton_gdk_pixbuf_gettext" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val gettext_ = _import "mlton_gdk_pixbuf_gettext" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val saveToStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_save_to_stream_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val addAlpha_ =
       fn
@@ -343,8 +343,8 @@ structure GdkPixbufPixbuf :>
           (
             _import "mlton_gdk_pixbuf_get_option" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (

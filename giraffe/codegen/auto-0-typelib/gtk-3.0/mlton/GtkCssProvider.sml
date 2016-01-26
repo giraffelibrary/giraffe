@@ -11,10 +11,10 @@ structure GtkCssProvider :>
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_css_provider_get_named" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -48,8 +48,8 @@ structure GtkCssProvider :>
           (
             _import "mlton_gtk_css_provider_load_from_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )

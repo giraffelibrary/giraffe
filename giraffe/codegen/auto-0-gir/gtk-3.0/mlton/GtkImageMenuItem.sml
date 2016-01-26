@@ -13,8 +13,8 @@ structure GtkImageMenuItem :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_menu_item_new_from_stock" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -23,8 +23,8 @@ structure GtkImageMenuItem :>
               x2,
               x3
             )
-    val newWithLabel_ = _import "mlton_gtk_image_menu_item_new_with_label" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_image_menu_item_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithLabel_ = _import "mlton_gtk_image_menu_item_new_with_label" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_image_menu_item_new_with_mnemonic" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAlwaysShowImage_ = _import "gtk_image_menu_item_get_always_show_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getImage_ = _import "gtk_image_menu_item_get_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getUseStock_ = _import "gtk_image_menu_item_get_use_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;

@@ -11,8 +11,8 @@ structure GObjectTypeModule :>
           (
             _import "mlton_g_type_module_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -13,8 +13,8 @@ structure GtkIMMulticontext :>
           (
             _import "mlton_gtk_im_multicontext_set_context_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

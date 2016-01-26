@@ -199,13 +199,13 @@ local
     val set_string_ =
       fn x1 & (x2, x3) =>
         (_import "mlton_g_value_set_string" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * cstring * unit CPointer.t -> unit;)
+           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;)
         (x1, x2, x3)
 
     val set_string_opt_ =
       fn x1 & (x2, x3) =>
         (_import "mlton_g_value_set_string" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * cstring * unit CPointer.t -> unit;)
+           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> unit;)
         (x1, x2, x3)
 in
   val boolean : (bool, bool) GObjectValue.accessor =

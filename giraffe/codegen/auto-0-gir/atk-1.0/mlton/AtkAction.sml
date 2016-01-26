@@ -18,8 +18,8 @@ structure AtkAction :>
             _import "mlton_atk_action_set_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

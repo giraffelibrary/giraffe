@@ -10,8 +10,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_new" :
               GioTlsPasswordFlags.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,8 +28,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_set_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -44,8 +44,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_set_warning" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

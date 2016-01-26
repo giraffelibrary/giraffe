@@ -13,8 +13,8 @@ structure GioApplicationCommandLine :>
           (
             _import "mlton_g_application_command_line_getenv" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (

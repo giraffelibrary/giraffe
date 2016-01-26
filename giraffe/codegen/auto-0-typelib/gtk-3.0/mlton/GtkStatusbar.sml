@@ -13,8 +13,8 @@ structure GtkStatusbar :>
           (
             _import "mlton_gtk_statusbar_get_context_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt32.C.val_;
           )
             (
@@ -33,8 +33,8 @@ structure GtkStatusbar :>
             _import "mlton_gtk_statusbar_push" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt32.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.UInt32.C.val_;
           )
             (

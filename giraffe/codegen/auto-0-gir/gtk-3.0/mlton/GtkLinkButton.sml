@@ -5,16 +5,16 @@ structure GtkLinkButton :>
     where type 'a buildable_class_t = 'a GtkBuildableClass.t =
   struct
     val getType_ = _import "gtk_link_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_link_button_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_link_button_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithLabel_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_link_button_new_with_label" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -31,8 +31,8 @@ structure GtkLinkButton :>
           (
             _import "mlton_gtk_link_button_set_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -11,8 +11,8 @@ structure GIRepositoryRepository :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_irepository_dump" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -22,7 +22,7 @@ structure GIRepositoryRepository :>
               x3
             )
     val getDefault_ = _import "g_irepository_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : cstring * unit CPointer.t -> unit;
+    val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;) (x1, x2)
     val findByName_ =
       fn
@@ -32,10 +32,10 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_find_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -51,8 +51,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_c_prefix" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -68,8 +68,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_info" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
@@ -85,8 +85,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_n_infos" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -100,8 +100,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_shared_library" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -115,8 +115,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_typelib_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -130,8 +130,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_get_version" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -147,10 +147,10 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_is_registered" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -190,10 +190,10 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_require" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GIRepositoryRepositoryLoadFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GIRepositoryTypelibRecord.C.notnull GIRepositoryTypelibRecord.C.p;
@@ -218,12 +218,12 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_require_private" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GIRepositoryRepositoryLoadFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GIRepositoryTypelibRecord.C.notnull GIRepositoryTypelibRecord.C.p;

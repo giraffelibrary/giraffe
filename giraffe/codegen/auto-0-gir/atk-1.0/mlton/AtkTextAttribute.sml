@@ -114,10 +114,10 @@ structure AtkTextAttribute :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALID
-    val forName_ = _import "mlton_atk_text_attribute_for_name" : cstring * unit CPointer.t -> C.val_;
+    val forName_ = _import "mlton_atk_text_attribute_for_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
     val getName_ = _import "atk_text_attribute_get_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : C.val_ * FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val register_ = _import "mlton_atk_text_attribute_register" : cstring * unit CPointer.t -> C.val_;
+    val register_ = _import "mlton_atk_text_attribute_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
     fun getName attr = (C.withVal ---> FFI.String.C.fromPtr false) getName_ attr

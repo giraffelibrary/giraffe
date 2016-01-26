@@ -81,8 +81,8 @@ structure PangoCairo : PANGO_CAIRO =
           (
             _import "mlton_pango_cairo_show_glyph_item" :
               CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
                -> unit;
           )

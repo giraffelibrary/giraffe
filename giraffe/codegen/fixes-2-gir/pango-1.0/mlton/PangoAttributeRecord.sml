@@ -4,7 +4,7 @@ structure PangoAttributeRecord :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
+    type 'a p = 'a CPointer.p
 
     val copy_ = _import "pango_attribute_copy" : notnull p -> notnull p;
 
@@ -18,12 +18,12 @@ structure PangoAttributeRecord :>
         type notnull = notnull
         type 'a p = 'a p
 
-        fun withPtr f x = Finalizable.withValue (x, f)
+        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
 
         fun withOptPtr f =
           fn
-            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
-          | NONE     => f Pointer.null
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
+          | NONE     => Pointer.withOptVal f NONE
 
         fun fromPtr transfer ptr =
           let
@@ -39,6 +39,6 @@ structure PangoAttributeRecord :>
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
   end

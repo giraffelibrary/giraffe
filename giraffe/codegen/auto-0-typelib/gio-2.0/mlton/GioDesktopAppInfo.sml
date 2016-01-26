@@ -4,10 +4,10 @@ structure GioDesktopAppInfo :>
     where type 'a app_info_class_t = 'a GioAppInfoClass.t =
   struct
     val getType_ = _import "g_desktop_app_info_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_desktop_app_info_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromFilename_ = _import "mlton_g_desktop_app_info_new_from_filename" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_desktop_app_info_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromFilename_ = _import "mlton_g_desktop_app_info_new_from_filename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromKeyfile_ = _import "g_desktop_app_info_new_from_keyfile" : GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val setDesktopEnv_ = _import "mlton_g_desktop_app_info_set_desktop_env" : cstring * unit CPointer.t -> unit;
+    val setDesktopEnv_ = _import "mlton_g_desktop_app_info_set_desktop_env" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val getCategories_ = _import "g_desktop_app_info_get_categories" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getFilename_ = _import "g_desktop_app_info_get_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getGenericName_ = _import "g_desktop_app_info_get_generic_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -19,8 +19,8 @@ structure GioDesktopAppInfo :>
           (
             _import "mlton_g_desktop_app_info_get_show_in" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

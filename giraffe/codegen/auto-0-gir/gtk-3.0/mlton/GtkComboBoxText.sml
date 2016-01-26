@@ -16,10 +16,10 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_append" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -35,8 +35,8 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_append_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -55,10 +55,10 @@ structure GtkComboBoxText :>
             _import "mlton_gtk_combo_box_text_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -78,8 +78,8 @@ structure GtkComboBoxText :>
             _import "mlton_gtk_combo_box_text_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -96,10 +96,10 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_prepend" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -115,8 +115,8 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_prepend_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

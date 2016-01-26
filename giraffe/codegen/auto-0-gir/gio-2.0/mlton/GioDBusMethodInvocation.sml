@@ -23,10 +23,10 @@ structure GioDBusMethodInvocation :>
           (
             _import "mlton_g_dbus_method_invocation_return_dbus_error" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -47,8 +47,8 @@ structure GioDBusMethodInvocation :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibQuark.C.val_
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -12,9 +12,9 @@ structure GtkCellView :>
     val getType_ = _import "gtk_cell_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithContext_ = fn x1 & x2 => (_import "gtk_cell_view_new_with_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithPixbuf_ = _import "gtk_cell_view_new_with_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDisplayedRow_ = _import "gtk_cell_view_get_displayed_row" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;
     val getDrawSensitive_ = _import "gtk_cell_view_get_draw_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getFitModel_ = _import "gtk_cell_view_get_fit_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;

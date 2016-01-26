@@ -10,8 +10,8 @@ structure GdkPixbufPixbufAnimation :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_animation_new_from_file" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

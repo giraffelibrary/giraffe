@@ -9,8 +9,8 @@ structure GtkApplication :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_application_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioApplicationFlags.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

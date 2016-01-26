@@ -27,8 +27,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_accelerator_parse" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.ref_
                * GdkModifierType.C.ref_
                -> unit;
@@ -149,8 +149,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_drag_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -191,8 +191,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_drag_set_icon_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -266,7 +266,7 @@ structure Gtk : GTK =
     val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> FFI.UInt32.C.val_;
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> FFI.UInt32.C.val_;
     val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
+    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int32.C.val_;
     val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val iconSizeLookup_ =
       fn
@@ -312,8 +312,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_icon_size_register" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> FFI.Int32.C.val_;
@@ -329,8 +329,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_icon_size_register_alias" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -368,8 +368,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GtkArrowType.C.val_
                * FFI.Bool.C.val_
                * FFI.Int32.C.val_
@@ -412,8 +412,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -455,8 +455,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -501,8 +501,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -541,8 +541,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -578,8 +578,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * GtkExpanderStyle.C.val_
@@ -616,8 +616,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -658,8 +658,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -696,8 +696,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -736,8 +736,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -775,8 +775,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -811,8 +811,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * FFI.Bool.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
@@ -849,8 +849,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -888,8 +888,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GdkWindowEdge.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -929,8 +929,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -972,8 +972,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -1019,8 +1019,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -1060,8 +1060,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -1101,8 +1101,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -1138,8 +1138,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -1176,7 +1176,7 @@ structure Gtk : GTK =
               x3
             )
     val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> unit;) (x1, x2)
-    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : cstring * unit CPointer.t -> unit;
+    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val rcGetStyle_ = _import "gtk_rc_get_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val recentChooserErrorQuark_ = _import "gtk_recent_chooser_error_quark" : unit -> FFI.UInt32.C.val_;
     val recentManagerErrorQuark_ = _import "gtk_recent_manager_error_quark" : unit -> FFI.UInt32.C.val_;
@@ -1711,8 +1711,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_show_uri" :
               unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -1729,8 +1729,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_stock_lookup" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkStockItemRecord.C.notnull GtkStockItemRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -1744,10 +1744,10 @@ structure Gtk : GTK =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_test_create_simple_window" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -1762,8 +1762,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_test_find_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -1798,8 +1798,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_test_text_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -11,8 +11,8 @@ structure AtkSocket :>
           (
             _import "mlton_atk_socket_embed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

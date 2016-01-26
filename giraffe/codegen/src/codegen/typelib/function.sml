@@ -2319,34 +2319,72 @@ HVTextTree.V.app (fn () => print "\n", print) (HVTextTree.toV (PrettyPrint.fmtEx
 
 local
   (*
-   * <A>.val_
-   * <A>.ref_
+   * Value types:
+   *   <A>.val_
+   *   <A>.ref_
    *
-   * <opt> <A>.p
-   * (<inopt>, <outopt>) <A>.r
+   * Pointer types:
+   *   <opt> <A>.p
+   *   (<inopt>, <outopt>) <A>.r
    *
-   * <opt> <A>.in_p
-   * <opt> <A>.out_p
-   * (<inopt>, <outopt>) <A>.inout_r
+   * Array types:
+   *   <opt> <A>.in_p
+   *   <opt> <A>.out_p
+   *   (<inopt>, <outopt>) <A>.r
    *)
   datatype spec =
     VAL
   | PTR of {optIsRet : bool option, isOpt : bool}
   | REF of {isInOpt : bool, isOutOpt : bool} option
 
-  (* `cstring * unit CPointer.t ref` *)
-  val utf8PtrTy =
-    mkProdTy0 [
-      mkIdTy "cstring",
-      TyRef ([unitTy], toList1 ["CPointer", "t"])
-    ]
+  local
+    val structId = "GCharVec"
+    val mltonId = "MLton"
+    fun mkOptTy isOpt = if isOpt then unitTy else mkNotnullTy [structId, CId]
+  in
+    (* `GCharVec.MLton.p1 * <opt> GCharVec.MLton.p2`
+     *
+     *   where <opt> is
+     *     unit
+     *       if `isOpt`
+     *
+     *     GCharVec.C.notnull
+     *       otherwise
+     *)
+    fun utf8PtrTy isOpt =
+      mkProdTy0 [
+        TyRef ([], toList1 [structId, mltonId, "p1"]),
+        TyRef ([mkOptTy isOpt], toList1 [structId, mltonId, "p2"])
+      ]
 
-  (* `cstring * unit CPointer.t ref` *)
-  val utf8RefTy =
-    mkProdTy0 [
-      mkIdTy "cstring",
-      TyRef ([TyRef ([unitTy], toList1 ["CPointer", "t"])], toList1 ["ref"])
-    ]
+    (* `GCharVec.MLton.r1 * (<inopt>, <outopt>) GCharVec.MLton.r2`
+     *
+     *   where <inopt> is
+     *     unit
+     *       if `isInOpt`
+     *
+     *     GCharVec.C.notnull
+     *       otherwise
+     *
+     *   where <outopt> is
+     *     unit
+     *       if `isOutOpt`
+     *
+     *     GCharVec.C.notnull
+     *       otherwise
+     *)
+    fun utf8RefTy isInOpt isOutOpt =
+      mkProdTy0 [
+        TyRef ([], toList1 [structId, mltonId, "r1"]),
+        TyRef (
+          [
+            mkOptTy isInOpt,
+            mkOptTy isOutOpt
+          ],
+          toList1 [structId, mltonId, "r2"]
+        )
+      ]
+  end
 
   fun typeTy isUtf8 prefixIds spec =
     let
@@ -2356,7 +2394,7 @@ local
         | PTR {optIsRet, isOpt}          =>
             if isUtf8
             then
-              utf8PtrTy
+              utf8PtrTy isOpt
             else
               let
                 val inRetStr =
@@ -2372,7 +2410,7 @@ local
         | REF (SOME {isInOpt, isOutOpt}) =>
             if isUtf8
             then
-              utf8RefTy
+              utf8RefTy isInOpt isOutOpt
             else
               let
                 val tys'0 = []

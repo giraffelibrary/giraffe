@@ -61,8 +61,8 @@ structure AtkEditableText :>
           (
             _import "mlton_atk_editable_text_set_text_contents" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

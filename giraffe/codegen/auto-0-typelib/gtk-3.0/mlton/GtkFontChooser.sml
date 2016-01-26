@@ -16,8 +16,8 @@ structure GtkFontChooser :>
           (
             _import "mlton_gtk_font_chooser_set_font" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -32,8 +32,8 @@ structure GtkFontChooser :>
           (
             _import "mlton_gtk_font_chooser_set_preview_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

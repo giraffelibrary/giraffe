@@ -54,8 +54,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_custom_tab_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -72,8 +72,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_export_filename" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -88,8 +88,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_job_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

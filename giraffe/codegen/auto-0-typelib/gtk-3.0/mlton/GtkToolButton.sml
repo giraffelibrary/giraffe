@@ -12,8 +12,8 @@ structure GtkToolButton :>
           (
             _import "mlton_gtk_tool_button_new" :
               unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -21,7 +21,7 @@ structure GtkToolButton :>
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_tool_button_new_from_stock" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromStock_ = _import "mlton_gtk_tool_button_new_from_stock" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getIconName_ = _import "gtk_tool_button_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getIconWidget_ = _import "gtk_tool_button_get_icon_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getLabel_ = _import "gtk_tool_button_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -34,8 +34,8 @@ structure GtkToolButton :>
           (
             _import "mlton_gtk_tool_button_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -50,8 +50,8 @@ structure GtkToolButton :>
           (
             _import "mlton_gtk_tool_button_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -66,8 +66,8 @@ structure GtkToolButton :>
           (
             _import "mlton_gtk_tool_button_set_stock_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

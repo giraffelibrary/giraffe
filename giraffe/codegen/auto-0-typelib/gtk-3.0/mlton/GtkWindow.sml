@@ -19,8 +19,8 @@ structure GtkWindow :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_window_set_default_icon_from_file" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -29,7 +29,7 @@ structure GtkWindow :>
               x2,
               x3
             )
-    val setDefaultIconName_ = _import "mlton_gtk_window_set_default_icon_name" : cstring * unit CPointer.t -> unit;
+    val setDefaultIconName_ = _import "mlton_gtk_window_set_default_icon_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val activateDefault_ = _import "gtk_window_activate_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val activateFocus_ = _import "gtk_window_activate_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val activateKey_ = fn x1 & x2 => (_import "gtk_window_activate_key" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
@@ -227,8 +227,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_parse_geometry" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -368,8 +368,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_icon_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -385,8 +385,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -408,8 +408,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_role" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -426,8 +426,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_startup_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -441,8 +441,8 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -461,10 +461,10 @@ structure GtkWindow :>
           (
             _import "mlton_gtk_window_set_wmclass" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

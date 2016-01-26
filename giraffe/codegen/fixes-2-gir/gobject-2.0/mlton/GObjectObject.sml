@@ -19,8 +19,8 @@ structure GObjectObject :>
           (
             _import "mlton_g_object_get_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -38,8 +38,8 @@ structure GObjectObject :>
           (
             _import "mlton_g_object_notify" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -58,8 +58,8 @@ structure GObjectObject :>
           (
             _import "mlton_g_object_set_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )

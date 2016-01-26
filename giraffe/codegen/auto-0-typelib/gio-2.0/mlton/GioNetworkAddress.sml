@@ -9,8 +9,8 @@ structure GioNetworkAddress :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_network_address_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt16.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -26,8 +26,8 @@ structure GioNetworkAddress :>
          & x4 =>
           (
             _import "mlton_g_network_address_parse" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt16.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -45,8 +45,8 @@ structure GioNetworkAddress :>
          & x4 =>
           (
             _import "mlton_g_network_address_parse_uri" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt16.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;

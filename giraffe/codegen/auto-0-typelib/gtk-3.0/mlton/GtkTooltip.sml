@@ -32,8 +32,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_icon_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -51,8 +51,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_icon_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -68,8 +68,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -83,8 +83,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

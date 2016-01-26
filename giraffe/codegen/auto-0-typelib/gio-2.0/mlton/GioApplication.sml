@@ -12,8 +12,8 @@ structure GioApplication :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_application_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioApplicationFlags.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -22,7 +22,7 @@ structure GioApplication :>
               x2,
               x3
             )
-    val idIsValid_ = _import "mlton_g_application_id_is_valid" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val idIsValid_ = _import "mlton_g_application_id_is_valid" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val activate_ = _import "g_application_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getApplicationId_ = _import "g_application_get_application_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getFlags_ = _import "g_application_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioApplicationFlags.C.val_;
@@ -55,8 +55,8 @@ structure GioApplication :>
           (
             _import "mlton_g_application_set_application_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

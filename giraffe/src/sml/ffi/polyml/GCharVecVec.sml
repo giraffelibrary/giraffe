@@ -14,9 +14,16 @@ structure GCharVecVec :>
 
     structure PolyML :
       sig
-        val OUTPTR : 'a C.out_p PolyMLFFI.conversion
-        val INPTR : 'a C.in_p PolyMLFFI.conversion
-        val INOUTREF : ('a, 'b) C.r PolyMLFFI.conversion
+        val cOutPtr    : C.notnull C.out_p PolyMLFFI.conversion
+        val cOptOutPtr : unit      C.out_p PolyMLFFI.conversion
+
+        val cInPtr    : C.notnull C.in_p PolyMLFFI.conversion
+        val cOptInPtr : unit      C.in_p PolyMLFFI.conversion
+
+        val cRef      : ('a,        unit) C.r PolyMLFFI.conversion
+        val cRefIn    : (C.notnull, unit) C.r PolyMLFFI.conversion
+        val cRefOut   : ('a,        'b)   C.r PolyMLFFI.conversion
+        val cRefInOut : (C.notnull, 'a)   C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -31,43 +38,40 @@ structure GCharVecVec :>
      * string vector on the C heap can be avoided by using the same `t`
      * value.
      *)
-    type t = GCharVec.C.OutPointer.notnull GCharVec.C.OutPointer.t Finalizable.t
+    structure ElemType = GCharVec.C.OutPointer.OptNullType
+    structure Pointer = CTypedPointer (ElemType)
+    type t = Pointer.t Finalizable.t
 
     type vector = string Vector.vector
     type elem = string
 
     structure C =
       struct
-        structure Pointer = GCharVec.C.OutPointer
-        type 'a p = 'a Pointer.t
+        type 'a p = 'a Pointer.p
         type notnull = Pointer.notnull
 
         local
           open PolyMLFFI
-          open Pointer
-          open PolyML
+          val cPtr = Pointer.PolyML.cVal
         in
           val g_malloc_sym = getSymbol libglib "g_malloc"
           val g_strdupv_sym = getSymbol libglib "g_strdupv"
           val g_strfreev_sym = getSymbol libglib "g_strfreev"
           val g_strv_length_sym = getSymbol libglib "g_strv_length"
 
-          val malloc_ : int -> notnull t = call g_malloc_sym (cUlong --> cVal)
-          val dup_ : notnull t -> notnull t =
-            fn p => call g_strdupv_sym (cVal --> cVal) p
-          val free_ : notnull t -> unit = call g_strfreev_sym (cVal --> cVoid)
-          val len_ : notnull t -> int = call g_strv_length_sym (cVal --> cInt)
-          val sub_ : notnull t * int -> GCharVec.C.notnull GCharVec.C.out_p =
-            getPointer
-
-          val size_ = Word.toInt size
+          val malloc_ = call g_malloc_sym (cUlong --> cPtr)
+          val dup_ = call g_strdupv_sym (cPtr --> cPtr)
+          val free_ = call g_strfreev_sym (cPtr --> cVoid)
+          val len_ = call g_strv_length_sym (cPtr --> cInt)
         end
 
-        fun new n = malloc_ (n * size_)
+        fun new n = malloc_ (n * Word.toInt ElemType.size)
         val free = free_
         val dup = dup_
         val len = len_
-        fun sub p i = sub_ (p, i)
+        fun sub p i =
+          GCharVec.C.OutPointer.toNotNull (Pointer.get (p, i))
+            handle GCharVec.C.OutPointer.Null => raise Subscript
         (* For `sub p i` we must ensure `0 <= i andalso i < len p` *)
 
         type 'a tabulator = int * (int -> elem) -> 'a
@@ -81,9 +85,10 @@ structure GCharVecVec :>
          *)
 
         structure OutPointer = Pointer
-        type 'a out_p = 'a OutPointer.t
+        type 'a out_p = 'a OutPointer.p
 
-        fun fromPtr (p : notnull out_p) : t = Finalizable.new p
+        fun fromPtr (p : notnull out_p) : t =
+          Finalizable.new p
 
         fun fromNewPtr (p : notnull out_p) : t =
           let
@@ -149,9 +154,14 @@ structure GCharVecVec :>
           let
             val n = Vector.length v
             val p = new (n + 1)
-            fun set (i, v) = GCharVec.C.OutPointer.setPointer (p, i, GCharVec.C.fromVector v)
+            fun set (i, v) =
+              Pointer.set (
+                p,
+                i,
+                GCharVec.C.OutPointer.toOptNull (GCharVec.C.fromVector v)
+              )
             val () = Vector.appi set v
-            val () = GCharVec.C.OutPointer.setPointer (p, n, GCharVec.C.OutPointer.null)
+            val () = Pointer.set (p, n, GCharVec.C.OutPointer.null)
           in
             p
           end
@@ -160,83 +170,83 @@ structure GCharVecVec :>
         (**
          * Value parameters
          *)
-        type 'a in_p = unit p
+        type 'a in_p = 'a Pointer.p
 
         local
-          val fromPointer : 'a p -> 'b in_p = Pointer.toOptNull
+          fun withPointer f = Pointer.withVal f
 
-          fun withPointer f p = f (fromPointer p)
+          fun withOptPointer f = Pointer.withOptVal f
 
           fun withDupPointer f p =
-            p & withPointer f p handle e => (Pointer.appOpt free p; raise e)
+            p & withPointer f p handle e => (free p; raise e)
+
+          fun withDupOptPointer f pOpt =
+            Pointer.fromOpt pOpt & withOptPointer f pOpt
+              handle e => (Option.app free pOpt; raise e)
         in
           fun withPtr f t = Finalizable.withValue (t, withPointer f)
 
           val withConstPtr = withPtr
 
-          fun withDupPtr f t =
-            Finalizable.withValue (t, withDupPointer f o dup)
+          fun withDupPtr f t = Finalizable.withValue (t, withDupPointer f o dup)
 
 
           fun withOptPtr f =
             fn
-              SOME t => Finalizable.withValue (t, withPointer f)
-            | NONE   => withPointer f Pointer.null
+              SOME t => Finalizable.withValue (t, withOptPointer f o SOME)
+            | NONE   => withOptPointer f NONE
 
           val withConstOptPtr = withOptPtr
 
-          (* `withDupOptPtr` handles null pointer explicitly to avoid
-           * call to `dup` with a null pointer. *)
           fun withDupOptPtr f =
             fn
-              SOME t =>
-                Finalizable.withValue
-                  (t, withDupPointer f o Pointer.toOptNull o dup)
-            | NONE   => withDupPointer f Pointer.null
+              SOME t => Finalizable.withValue (t, withDupOptPointer f o SOME o dup)
+            | NONE   => withDupOptPointer f NONE
         end
 
 
         (**
          * Reference parameters
          *)
-        type ('a, 'b) r = Pointer.PolyML.ref_
+        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         local
-          val null = Pointer.PolyML.nullRef
+          fun withRefPointer f    = Pointer.withRefVal f
 
-          fun withRefPointer f p = Pointer.PolyML.withRef f p
+          fun withRefOptPointer f = Pointer.withRefOptVal f
 
           fun withRefDupPointer f p =
-            withRefPointer f p handle e => (Pointer.appOpt free p; raise e)
+            withRefPointer f p handle e => (free p; raise e)
+
+          fun withRefDupOptPointer f pOpt =
+            withRefOptPointer f pOpt
+              handle e => (Option.app free pOpt; raise e)
         in
-          fun withNullRef f () = f null
+          fun withNullRef f = Pointer.withNullRef f
 
 
           fun withRefPtr f t = Finalizable.withValue (t, withRefPointer f)
 
           val withRefConstPtr = withRefPtr
 
-          fun withRefDupPtr f t =
-            Finalizable.withValue (t, withRefDupPointer f o dup)
+          fun withRefDupPtr f t = Finalizable.withValue (t, withRefDupPointer f o dup)
 
 
           fun withRefOptPtr f =
             fn
-              SOME t => Finalizable.withValue (t, withRefPointer f)
-            | NONE   => withRefPointer f Pointer.null
+              SOME t => Finalizable.withValue (t, withRefOptPointer f o SOME)
+            | NONE   => withRefOptPointer f NONE
 
           val withRefConstOptPtr = withRefOptPtr
 
-          (* `withRefDupOptPtr` handles null pointer explicitly to avoid
-           * call to `dup` with a null pointer. *)
           fun withRefDupOptPtr f =
             fn
               SOME t =>
-                Finalizable.withValue
-                  (t, withRefDupPointer f o dup)
-            | NONE   => withRefDupPointer f Pointer.null
+                Finalizable.withValue (t, withRefDupOptPointer f o SOME o dup)
+            | NONE   => withRefDupOptPointer f NONE
         end
       end
+
 
     fun fromVector v = C.fromNewPtr (C.fromVector v)
 
@@ -251,18 +261,22 @@ structure GCharVecVec :>
       in
         fn i =>
           if 0 <= i andalso i < len
-          then
-            GCharVec.C.copyPtrToVector (sub i)
-            (* For `sub i` we have `0 <= i andalso i < length t` by the guard. *)
-          else
-            raise Subscript
+          then GCharVec.C.copyPtrToVector (sub i)
+          else raise Subscript
       end
 
 
     structure PolyML =
       struct
-        val OUTPTR : 'a C.out_p PolyMLFFI.conversion = C.Pointer.PolyML.cVal
-        val INPTR : 'a C.in_p PolyMLFFI.conversion = C.Pointer.PolyML.cVal
-        val INOUTREF : ('a, 'b) C.r PolyMLFFI.conversion = C.Pointer.PolyML.cRef
+        val cOutPtr    : C.notnull C.out_p PolyMLFFI.conversion = Pointer.PolyML.cVal
+        val cOptOutPtr : unit      C.out_p PolyMLFFI.conversion = Pointer.PolyML.cOptVal
+
+        val cInPtr    : C.notnull C.in_p PolyMLFFI.conversion = Pointer.PolyML.cVal
+        val cOptInPtr : unit      C.in_p PolyMLFFI.conversion = Pointer.PolyML.cOptVal
+
+        val cRef      : ('a,        unit) C.r PolyMLFFI.conversion = Pointer.PolyML.cRef
+        val cRefIn    : (C.notnull, unit) C.r PolyMLFFI.conversion = Pointer.PolyML.cRefIn
+        val cRefOut   : ('a,        'b)   C.r PolyMLFFI.conversion = Pointer.PolyML.cRefOut
+        val cRefInOut : (C.notnull, 'a)   C.r PolyMLFFI.conversion = Pointer.PolyML.cRefInOut
       end
   end

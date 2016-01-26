@@ -4,7 +4,7 @@ structure GdkEvent :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
+    type 'a p = 'a CPointer.p
 
     val copy_ = _import "gdk_event_copy" : notnull p -> notnull p;
 
@@ -17,14 +17,14 @@ structure GdkEvent :>
       struct
         structure Pointer = CPointer
         type notnull = Pointer.notnull
-        type 'a p = 'a Pointer.t
+        type 'a p = 'a Pointer.p
 
-        fun withPtr f x = Finalizable.withValue (x, f)
+        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
 
         fun withOptPtr f =
           fn
-            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
-          | NONE     => f Pointer.null
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
+          | NONE     => Pointer.withOptVal f NONE
 
         fun fromPtr transfer ptr =
           let
@@ -40,7 +40,7 @@ structure GdkEvent :>
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
 
     val getType_ =

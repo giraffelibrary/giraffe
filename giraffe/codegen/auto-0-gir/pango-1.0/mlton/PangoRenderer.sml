@@ -70,8 +70,8 @@ structure PangoRenderer :>
           (
             _import "mlton_pango_renderer_draw_glyph_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_

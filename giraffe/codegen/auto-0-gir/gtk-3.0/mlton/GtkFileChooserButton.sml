@@ -13,8 +13,8 @@ structure GtkFileChooserButton :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_file_chooser_button_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkFileChooserAction.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -34,8 +34,8 @@ structure GtkFileChooserButton :>
           (
             _import "mlton_gtk_file_chooser_button_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

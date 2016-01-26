@@ -20,8 +20,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> unit;
           )
@@ -39,8 +39,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> unit;
           )
@@ -58,8 +58,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child_binary" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> unit;
           )
@@ -156,8 +156,8 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_match_set_cursor_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -236,8 +236,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_background_image_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -271,8 +271,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_emulation" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -286,8 +286,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_encoding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -302,8 +302,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_font_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -342,8 +342,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_word_chars" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

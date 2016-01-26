@@ -9,8 +9,8 @@ structure GtkTextMark :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_text_mark_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

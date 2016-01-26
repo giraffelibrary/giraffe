@@ -20,8 +20,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.SSize.C.val_
                -> unit;
           )
@@ -154,8 +154,8 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_match_set_cursor_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -280,8 +280,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_encoding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -324,9 +324,14 @@ structure VteTerminal :>
           _import "giraffe_vte_terminal_spawn_sync" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
              * VtePtyFlags.C.val_
-             * cstring * unit CPointer.t  (* unit FFI.String.C.in_p *)
-             * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t  (* FFI.StringVector.C.notnull FFI.StringVector.C.in_p *)
-             * cstring vector * unit GCharVec.C.out_p array * unit CPointer.t  (* unit FFI.StringVector.C.in_p *)
+             * GCharVec.MLton.p1
+             * unit GCharVec.MLton.p2
+             * GCharVecVec.MLton.p1
+             * GCharVecVec.MLton.p2
+             * GCharVecVec.C.notnull GCharVecVec.MLton.p3
+             * GCharVecVec.MLton.p1
+             * GCharVecVec.MLton.p2
+             * unit GCharVecVec.MLton.p3
              * GLibSpawnFlags.C.val_
              * GLibSpawnChildSetupFunc.C.callback
              * GLibPid.C.ref_

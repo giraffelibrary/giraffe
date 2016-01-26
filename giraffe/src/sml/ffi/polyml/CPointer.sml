@@ -5,19 +5,21 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-structure CPointer :> POINTER =
+structure CPointer =
   struct
     open PolyMLFFI
 
-    type 'a t = Memory.Pointer.t
+    type 'a p = Memory.Pointer.t
+    type notnull = unit
+    type t = notnull p
+
     fun eq (p, q) = p = q
     val null = Memory.Pointer.null
     fun isNull p = p = null
     exception Null
 
-    type notnull = unit
     fun toNotNull p = if isNull p then raise Null else p
-
+    fun fromNotNull p = p
     fun toOptNull p = p
 
     fun toOpt p = SOME (toNotNull p) handle Null => NONE
@@ -25,54 +27,56 @@ structure CPointer :> POINTER =
     fun mapOpt f = fromOpt o Option.map f o toOpt
     fun appOpt f = Option.app f o toOpt
 
+    val fromVal = I
+    val fromOptVal = toOpt
+
+    val withVal = I
+    fun withOptVal f = withVal f o fromOpt
+
+    type ('a, 'b) r = Memory.Pointer.t
+
+    fun withNullRef f () = f Memory.Pointer.null
+    fun withRef f p =
+      let
+        val mem = Memory.malloc Memory.Pointer.size
+        val () = Memory.setPointer (mem, 0w0, p)
+        fun freeMem () = Memory.free mem
+      in
+        let
+          val ret = f mem
+          val p' = Memory.getPointer (mem, 0w0)
+          val () = freeMem ()
+        in
+          p' & ret
+        end
+          handle e => (freeMem (); raise e)
+      end
+    fun withRefVal f = withVal (withRef f)
+    fun withRefOptVal f = withOptVal (withRef f)
+
     val add = Memory.Pointer.add
     val sub = Memory.Pointer.sub
 
-    fun getPointer (p, n) = Memory.getPointer (p, Word.fromInt n)
-    fun getWord8 (p, n) = Memory.getWord8 (p, Word.fromInt n)
-    fun setPointer (p, n, v) = Memory.setPointer (p, Word.fromInt n, v)
-    fun setWord8 (p, n, v) = Memory.setWord8 (p, Word.fromInt n, v)
-
-    val size = Memory.Pointer.size
+    structure Type =
+      struct
+        type t = Memory.Pointer.t
+        val size = Memory.Pointer.size
+        fun get (p, n) = Memory.getPointer (p, Word.fromInt n)
+        fun set (p, n, e) = Memory.setPointer (p, Word.fromInt n, e)
+      end
+    structure NotNullType = Type
+    structure OptNullType = Type
 
     structure PolyML =
       struct
         val toSysWord = Memory.Pointer.toSysWord
 
         val cVal = cPointer
-        val POINTER = cPointer
+        val cOptVal = cPointer
 
-        type ref_ = Memory.Pointer.t
-        (* In the MLton implementation, a reference to pointer `p` (i.e.
-         * the address of `p`) is passed via the FFI as `ref p`.  Any
-         * change to the referenced value by the C function will be present
-         * in the ref variable after the call, and extracted using `!`.
-         * Importantly, `p` is not changed: it is not a mutable value.
-         *
-         * With Poly/ML, a reference to pointer `p` is passed via the FFI
-         * by copying `p` into mutable memory created with `new` that
-         * can be destructively updated by the C function.  After the
-         * C function returns, the updated pointer is read from the mutable
-         * memory, which is freed. *)
-        local
-        in
-          fun withRef f x =
-            let
-              val mem = Memory.malloc size
-              val () = Memory.setPointer (mem, 0w0, x)
-              fun freeMem () = Memory.free mem
-            in
-              let
-                val y = f mem
-                val p' = Memory.getPointer (mem, 0w0)
-                val () = freeMem ()
-              in
-                p' & y
-              end
-                handle e => (freeMem (); raise e)
-            end
-        end
-        val nullRef = Memory.Pointer.null
         val cRef = cPointer
+        val cRefIn = cPointer
+        val cRefOut = cPointer
+        val cRefInOut = cPointer
       end
   end

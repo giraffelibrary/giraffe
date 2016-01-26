@@ -24,8 +24,8 @@ structure GtkIconSource :>
           (
             _import "mlton_gtk_icon_source_set_filename" :
               GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -39,8 +39,8 @@ structure GtkIconSource :>
           (
             _import "mlton_gtk_icon_source_set_icon_name" :
               GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

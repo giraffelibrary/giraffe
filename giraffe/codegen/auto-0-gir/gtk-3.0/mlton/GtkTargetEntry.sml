@@ -10,8 +10,8 @@ structure GtkTargetEntry :>
          & x4 =>
           (
             _import "mlton_gtk_target_entry_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p;

@@ -12,8 +12,8 @@ structure GtkRadioToolButton :>
           (
             _import "mlton_gtk_radio_tool_button_new_with_stock_from_widget" :
               unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

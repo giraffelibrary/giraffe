@@ -35,8 +35,8 @@ structure GtkMessageDialog :>
           (
             _import "mlton_gtk_message_dialog_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -24,8 +24,8 @@ structure GtkProgressBar :>
           (
             _import "mlton_gtk_progress_bar_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

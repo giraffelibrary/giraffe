@@ -27,8 +27,8 @@ structure GioDBusConnection :>
          & x6 =>
           (
             _import "mlton_g_dbus_connection_new_for_address_sync" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioDBusConnectionFlags.C.val_
                * unit GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
@@ -54,8 +54,8 @@ structure GioDBusConnection :>
           (
             _import "mlton_g_dbus_connection_new_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * GioDBusConnectionFlags.C.val_
                * unit GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
@@ -104,14 +104,14 @@ structure GioDBusConnection :>
           (
             _import "mlton_g_dbus_connection_call_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                * unit GLibVariantTypeRecord.C.p
                * GioDBusCallFlags.C.val_
@@ -175,14 +175,14 @@ structure GioDBusConnection :>
           (
             _import "mlton_g_dbus_connection_call_with_unix_fd_list_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                * unit GLibVariantTypeRecord.C.p
                * GioDBusCallFlags.C.val_
@@ -258,14 +258,14 @@ structure GioDBusConnection :>
           (
             _import "mlton_g_dbus_connection_emit_signal" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GLibVariantRecord.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;

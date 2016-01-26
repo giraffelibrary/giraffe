@@ -10,8 +10,8 @@ structure PangoColor :>
           (
             _import "mlton_pango_color_parse" :
               PangoColorRecord.C.notnull PangoColorRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

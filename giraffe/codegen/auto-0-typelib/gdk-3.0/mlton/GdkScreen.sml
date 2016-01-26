@@ -68,8 +68,8 @@ structure GdkScreen :>
           (
             _import "mlton_gdk_screen_get_setting" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> FFI.Bool.C.val_;
           )

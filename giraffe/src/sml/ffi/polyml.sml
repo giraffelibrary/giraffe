@@ -9,12 +9,17 @@ use "polyml/POLYML_F_F_I.sml";
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
 use "FINALIZABLE.sml";
-use "POINTER.sml";
-use "polyml/POINTER.sml";
+use "polyml/C_TYPE.sml";
+use "C_POINTER.sml";
+use "polyml/C_POINTER.sml";
+use "C_TYPED_POINTER.sml";
 use "C_ARRAY.sml";
 use "FILE_DESC";
 use "polyml/Finalizable.sml";
+use "polyml/GCharCType";
 use "polyml/CPointer.sml";
+use "CTypedPointer.sml";
+use "CPointer";
 
 val libc = PolyMLFFI.load_lib ""
 val libglib = PolyMLFFI.load_lib ""

@@ -40,8 +40,8 @@ structure GtkScale :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Double.C.val_
                * GtkPositionType.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

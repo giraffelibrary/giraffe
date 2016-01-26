@@ -17,8 +17,8 @@ structure GioLoadableIcon :>
             _import "mlton_g_loadable_icon_load" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -41,8 +41,8 @@ structure GioLoadableIcon :>
             _import "mlton_g_loadable_icon_load_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )

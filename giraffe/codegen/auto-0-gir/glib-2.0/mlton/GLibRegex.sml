@@ -14,8 +14,8 @@ structure GLibRegex :>
          & x5 =>
           (
             _import "mlton_g_regex_new" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -39,8 +39,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_get_string_number" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int.C.val_;
           )
             (
@@ -57,8 +57,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_match" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexMatchFlags.C.val_
                * (unit, GLibMatchInfoRecord.C.notnull) GLibMatchInfoRecord.C.r
                -> FFI.Bool.C.val_;
@@ -79,8 +79,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_match_all" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexMatchFlags.C.val_
                * (unit, GLibMatchInfoRecord.C.notnull) GLibMatchInfoRecord.C.r
                -> FFI.Bool.C.val_;
@@ -99,8 +99,8 @@ structure GLibRegex :>
          & x4 =>
           (
             _import "mlton_g_regex_check_replacement" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -116,8 +116,8 @@ structure GLibRegex :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_regex_escape_nul" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -134,10 +134,10 @@ structure GLibRegex :>
          & x6 =>
           (
             _import "mlton_g_regex_match_simple" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                -> FFI.Bool.C.val_;

@@ -5,7 +5,7 @@ structure GtkColorSelectionDialog :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_color_selection_dialog_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_color_selection_dialog_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_color_selection_dialog_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getColorSelection_ = _import "gtk_color_selection_dialog_get_color_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     type 'a class_t = 'a GtkColorSelectionDialogClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

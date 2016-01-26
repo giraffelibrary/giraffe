@@ -12,8 +12,8 @@ structure GtkPageSetup :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_page_setup_new_from_file" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -30,8 +30,8 @@ structure GtkPageSetup :>
           (
             _import "mlton_gtk_page_setup_new_from_key_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -60,8 +60,8 @@ structure GtkPageSetup :>
           (
             _import "mlton_gtk_page_setup_load_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -81,8 +81,8 @@ structure GtkPageSetup :>
             _import "mlton_gtk_page_setup_load_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -172,8 +172,8 @@ structure GtkPageSetup :>
           (
             _import "mlton_gtk_page_setup_to_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -192,8 +192,8 @@ structure GtkPageSetup :>
             _import "mlton_gtk_page_setup_to_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

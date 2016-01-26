@@ -41,8 +41,8 @@ structure GtkSourceView :>
           (
             _import "mlton_gtk_source_view_set_mark_attributes" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
                -> unit;

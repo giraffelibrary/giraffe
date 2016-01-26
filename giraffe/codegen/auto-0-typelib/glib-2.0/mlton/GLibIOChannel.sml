@@ -16,10 +16,10 @@ structure GLibIOChannel :>
          & x5 =>
           (
             _import "mlton_g_io_channel_new_file" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p;
           )
@@ -88,8 +88,8 @@ structure GLibIOChannel :>
           (
             _import "mlton_g_io_channel_set_encoding" :
               GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibIOStatus.C.val_;
           )
@@ -124,8 +124,8 @@ structure GLibIOChannel :>
           (
             _import "mlton_g_io_channel_set_line_term" :
               GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )

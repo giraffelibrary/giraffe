@@ -69,8 +69,8 @@ structure GtkMenu :>
           (
             _import "mlton_gtk_menu_set_accel_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -89,8 +89,8 @@ structure GtkMenu :>
           (
             _import "mlton_gtk_menu_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

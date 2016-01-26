@@ -7,7 +7,7 @@ structure GtkFontButton :>
   struct
     val getType_ = _import "gtk_font_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_font_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFontName_ = _import "gtk_font_button_get_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getShowSize_ = _import "gtk_font_button_get_show_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getShowStyle_ = _import "gtk_font_button_get_show_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -20,8 +20,8 @@ structure GtkFontButton :>
           (
             _import "mlton_gtk_font_button_set_font_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -37,8 +37,8 @@ structure GtkFontButton :>
           (
             _import "mlton_gtk_font_button_set_title" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

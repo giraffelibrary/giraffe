@@ -172,8 +172,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -208,8 +208,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -244,8 +244,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -263,8 +263,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -283,8 +283,8 @@ structure GtkEntry :>
           (
             _import "mlton_gtk_entry_set_placeholder_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -300,8 +300,8 @@ structure GtkEntry :>
           (
             _import "mlton_gtk_entry_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

@@ -5,8 +5,8 @@ structure GtkExpander :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_expander_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_expander_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_expander_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getExpanded_ = _import "gtk_expander_get_expanded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getLabel_ = _import "gtk_expander_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val getLabelFill_ = _import "gtk_expander_get_label_fill" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -22,8 +22,8 @@ structure GtkExpander :>
           (
             _import "mlton_gtk_expander_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

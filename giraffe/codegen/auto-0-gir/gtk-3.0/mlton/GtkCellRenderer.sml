@@ -24,8 +24,8 @@ structure GtkCellRenderer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
@@ -335,8 +335,8 @@ structure GtkCellRenderer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_

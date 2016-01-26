@@ -18,8 +18,8 @@ structure GtkNumerableIcon :>
           (
             _import "mlton_gtk_numerable_icon_set_background_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -34,8 +34,8 @@ structure GtkNumerableIcon :>
           (
             _import "mlton_gtk_numerable_icon_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

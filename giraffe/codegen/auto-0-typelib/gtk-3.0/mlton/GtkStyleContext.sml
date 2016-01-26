@@ -38,8 +38,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_add_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -72,8 +72,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_add_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkRegionFlags.C.val_
                -> unit;
           )
@@ -199,8 +199,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_get_style_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -216,8 +216,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_has_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -233,8 +233,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_has_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -253,8 +253,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -270,8 +270,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_lookup_icon_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (
@@ -286,8 +286,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_remove_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -302,8 +302,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_remove_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

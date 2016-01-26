@@ -17,8 +17,8 @@ structure GtkPrintSettings :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_print_settings_new_from_file" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -35,8 +35,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_new_from_key_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -53,8 +53,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -68,8 +68,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_bool" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -86,8 +86,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -103,8 +103,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_double_with_default" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                -> FFI.Double.C.val_;
           )
@@ -122,8 +122,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int.C.val_;
           )
             (
@@ -139,8 +139,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_int_with_default" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> FFI.Int.C.val_;
           )
@@ -158,8 +158,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_length" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkUnit.C.val_
                -> FFI.Double.C.val_;
           )
@@ -195,8 +195,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_has_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -212,8 +212,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_load_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -233,8 +233,8 @@ structure GtkPrintSettings :>
             _import "mlton_gtk_print_settings_load_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -253,10 +253,10 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -274,8 +274,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_bool" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -292,8 +292,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_default_source" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -307,8 +307,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_dither" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -324,8 +324,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                -> unit;
           )
@@ -342,8 +342,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_finishings" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -359,8 +359,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -379,8 +379,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_length" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                * GtkUnit.C.val_
                -> unit;
@@ -398,8 +398,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_media_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -417,8 +417,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_output_bin" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -469,8 +469,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_printer" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -509,8 +509,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_to_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -529,8 +529,8 @@ structure GtkPrintSettings :>
             _import "mlton_gtk_print_settings_to_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -545,8 +545,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_unset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

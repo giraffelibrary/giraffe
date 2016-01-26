@@ -8,15 +8,15 @@ structure GtkImage :>
     val getType_ = _import "gtk_image_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_image_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromAnimation_ = _import "gtk_image_new_from_animation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newFromGicon_ = fn x1 & x2 => (_import "gtk_image_new_from_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val newFromIconName_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_new_from_icon_name" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -32,8 +32,8 @@ structure GtkImage :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_new_from_stock" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -69,8 +69,8 @@ structure GtkImage :>
           (
             _import "mlton_gtk_image_get_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * FFI.Int32.C.ref_
                -> unit;
           )
@@ -107,8 +107,8 @@ structure GtkImage :>
           (
             _import "mlton_gtk_image_get_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * FFI.Int32.C.ref_
                -> unit;
           )
@@ -126,8 +126,8 @@ structure GtkImage :>
           (
             _import "mlton_gtk_image_set_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -160,8 +160,8 @@ structure GtkImage :>
           (
             _import "mlton_gtk_image_set_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -197,8 +197,8 @@ structure GtkImage :>
           (
             _import "mlton_gtk_image_set_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )

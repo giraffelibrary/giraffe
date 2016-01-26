@@ -10,7 +10,7 @@ structure GtkThemingEngine :>
     where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_theming_engine_get_type" : unit -> GObjectType.C.val_;
-    val load_ = _import "mlton_gtk_theming_engine_load" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val load_ = _import "mlton_gtk_theming_engine_load" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getBackgroundColor_ =
       fn
         x1
@@ -127,8 +127,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_get_style_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -144,8 +144,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_has_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -161,8 +161,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_has_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -180,8 +180,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
                -> FFI.Bool.C.val_;
           )

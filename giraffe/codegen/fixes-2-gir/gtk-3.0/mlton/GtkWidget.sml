@@ -45,8 +45,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_add_accelerator" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
                * GdkModifierType.C.val_
@@ -89,8 +89,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_child_notify" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -108,10 +108,10 @@ structure GtkWidget :>
             _import "mlton_gtk_widget_class_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.ref_
-               * cstring
-               * unit CPointer.t ref
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                -> unit;
           )
             (
@@ -130,8 +130,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_create_pango_layout" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -267,8 +267,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_drag_source_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -283,8 +283,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_drag_source_set_icon_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -649,8 +649,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_override_symbolic_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GdkRgbaRecord.C.p
                -> unit;
           )
@@ -670,10 +670,10 @@ structure GtkWidget :>
             _import "mlton_gtk_widget_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.ref_
-               * cstring
-               * unit CPointer.t ref
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                -> unit;
           )
             (
@@ -743,8 +743,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_render_icon_pixbuf" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -767,8 +767,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_accel_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                -> unit;
           )
@@ -789,8 +789,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_composite_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -851,8 +851,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -909,8 +909,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -924,8 +924,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -952,8 +952,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_style_get_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )

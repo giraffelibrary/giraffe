@@ -20,10 +20,10 @@ structure GioFile :>
     where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_file_get_type" : unit -> GObjectType.C.val_;
-    val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newForPath_ = _import "mlton_g_file_new_for_path" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newForUri_ = _import "mlton_g_file_new_for_uri" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val parseName_ = _import "mlton_g_file_parse_name" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newForPath_ = _import "mlton_g_file_new_for_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newForUri_ = _import "mlton_g_file_new_for_uri" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val parseName_ = _import "mlton_g_file_parse_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val appendTo_ =
       fn
         x1
@@ -220,8 +220,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_enumerate_children" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -294,8 +294,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_get_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -311,8 +311,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_get_child_for_display_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -336,8 +336,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_has_uri_scheme" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -390,8 +390,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_make_symbolic_link" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -592,8 +592,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_query_filesystem_info" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -632,8 +632,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_query_info" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -743,8 +743,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_replace" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Bool.C.val_
                * GioFileCreateFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -770,8 +770,8 @@ structure GioFile :>
             _import "mlton_g_file_replace_contents_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -810,8 +810,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_replace_readwrite" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * FFI.Bool.C.val_
                * GioFileCreateFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -850,8 +850,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_resolve_relative_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -870,10 +870,10 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_byte_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -900,8 +900,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_int32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -928,8 +928,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_int64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -956,10 +956,10 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -986,8 +986,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_uint32" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -1014,8 +1014,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_attribute_uint64" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                * GioFileQueryInfoFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -1083,8 +1083,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_set_display_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;

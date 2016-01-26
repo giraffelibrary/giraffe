@@ -12,8 +12,8 @@ structure GtkRadioMenuItem :>
           (
             _import "mlton_gtk_radio_menu_item_new_with_label_from_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -27,8 +27,8 @@ structure GtkRadioMenuItem :>
           (
             _import "mlton_gtk_radio_menu_item_new_with_mnemonic_from_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

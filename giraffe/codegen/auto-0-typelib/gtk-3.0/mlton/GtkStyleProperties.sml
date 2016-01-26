@@ -14,8 +14,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
           )
             (
@@ -31,8 +31,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_map_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
                -> unit;
           )
@@ -68,8 +68,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_set_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkStateFlags.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
@@ -89,8 +89,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_unset_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkStateFlags.C.val_
                -> unit;
           )

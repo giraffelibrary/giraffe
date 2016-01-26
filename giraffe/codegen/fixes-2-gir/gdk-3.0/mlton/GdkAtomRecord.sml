@@ -4,7 +4,7 @@ structure GdkAtomRecord :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
+    type 'a p = 'a CPointer.p
 
     type t = notnull p
 

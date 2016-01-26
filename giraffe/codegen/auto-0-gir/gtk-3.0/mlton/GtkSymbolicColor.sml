@@ -23,7 +23,7 @@ structure GtkSymbolicColor :>
               x2,
               x3
             )
-    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : cstring * unit CPointer.t -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
+    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
     val newShade_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_shade" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p * FFI.Double.C.val_ -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;) (x1, x2)
     val resolve_ =
       fn

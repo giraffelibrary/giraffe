@@ -13,8 +13,8 @@ structure GtkMenuToolButton :>
           (
             _import "mlton_gtk_menu_tool_button_new" :
               unit GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -22,7 +22,7 @@ structure GtkMenuToolButton :>
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getMenu_ = _import "gtk_menu_tool_button_get_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val setArrowTooltipMarkup_ =
       fn
@@ -30,8 +30,8 @@ structure GtkMenuToolButton :>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -45,8 +45,8 @@ structure GtkMenuToolButton :>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

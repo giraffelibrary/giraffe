@@ -8,7 +8,7 @@ structure GtkToolItemGroup :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_tool_item_group_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_tool_item_group_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_tool_item_group_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCollapsed_ = _import "gtk_tool_item_group_get_collapsed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getDropItem_ =
       fn
@@ -77,8 +77,8 @@ structure GtkToolItemGroup :>
           (
             _import "mlton_gtk_tool_item_group_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

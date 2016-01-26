@@ -183,8 +183,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -204,8 +204,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_markup_with_accel" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Char.C.val_
                * FFI.Char.C.ref_
@@ -230,8 +230,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )

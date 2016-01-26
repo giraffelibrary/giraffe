@@ -81,8 +81,8 @@ structure PangoFontDescription :>
           (
             _import "mlton_pango_font_description_set_family" :
               PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -96,8 +96,8 @@ structure PangoFontDescription :>
           (
             _import "mlton_pango_font_description_set_family_static" :
               PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -114,7 +114,7 @@ structure PangoFontDescription :>
     val toFilename_ = _import "pango_font_description_to_filename" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val toString_ = _import "pango_font_description_to_string" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
     val unsetFields_ = fn x1 & x2 => (_import "pango_font_description_unset_fields" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoFontMask.C.val_ -> unit;) (x1, x2)
-    val fromString_ = _import "mlton_pango_font_description_from_string" : cstring * unit CPointer.t -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
+    val fromString_ = _import "mlton_pango_font_description_from_string" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     type record_t = PangoFontDescriptionRecord.t
     type gravity_t = PangoGravity.t
     type stretch_t = PangoStretch.t

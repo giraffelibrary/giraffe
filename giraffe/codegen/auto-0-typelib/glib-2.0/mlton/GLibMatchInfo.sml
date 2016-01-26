@@ -12,8 +12,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_expand_references" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -30,8 +30,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_fetch_named" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -48,8 +48,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_fetch_named_pos" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.ref_
                * FFI.Int32.C.ref_
                -> FFI.Bool.C.val_;

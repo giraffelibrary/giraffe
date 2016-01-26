@@ -48,8 +48,8 @@ structure GtkSourcePrintCompositor :>
           (
             _import "mlton_gtk_source_print_compositor_set_body_font_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -80,8 +80,8 @@ structure GtkSourcePrintCompositor :>
           (
             _import "mlton_gtk_source_print_compositor_set_footer_font_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -100,12 +100,12 @@ structure GtkSourcePrintCompositor :>
             _import "mlton_gtk_source_print_compositor_set_footer_format" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Bool.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -124,8 +124,8 @@ structure GtkSourcePrintCompositor :>
           (
             _import "mlton_gtk_source_print_compositor_set_header_font_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -144,12 +144,12 @@ structure GtkSourcePrintCompositor :>
             _import "mlton_gtk_source_print_compositor_set_header_format" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Bool.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -186,8 +186,8 @@ structure GtkSourcePrintCompositor :>
           (
             _import "mlton_gtk_source_print_compositor_set_line_numbers_font_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (

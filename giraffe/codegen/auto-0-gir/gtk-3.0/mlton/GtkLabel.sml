@@ -8,8 +8,8 @@ structure GtkLabel :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_label_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_label_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_label_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_label_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_label_new_with_mnemonic" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAngle_ = _import "gtk_label_get_angle" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getAttributes_ = _import "gtk_label_get_attributes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p;
     val getCurrentUri_ = _import "gtk_label_get_current_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -90,8 +90,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -107,8 +107,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -122,8 +122,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_markup_with_mnemonic" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -139,8 +139,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_pattern" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -156,8 +156,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -171,8 +171,8 @@ structure GtkLabel :>
           (
             _import "mlton_gtk_label_set_text_with_mnemonic" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

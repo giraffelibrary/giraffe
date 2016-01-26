@@ -8,8 +8,8 @@ structure GtkMenuItem :>
   struct
     val getType_ = _import "gtk_menu_item_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_menu_item_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithLabel_ = _import "mlton_gtk_menu_item_new_with_label" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithLabel_ = _import "mlton_gtk_menu_item_new_with_label" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val activate_ = _import "gtk_menu_item_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val deselect_ = _import "gtk_menu_item_deselect" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -24,8 +24,8 @@ structure GtkMenuItem :>
           (
             _import "mlton_gtk_menu_item_set_accel_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -39,8 +39,8 @@ structure GtkMenuItem :>
           (
             _import "mlton_gtk_menu_item_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

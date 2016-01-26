@@ -5,8 +5,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_access" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.Int32.C.val_;
           )
@@ -23,8 +23,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_ascii_dtostr" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Double.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -43,11 +43,11 @@ structure GLib : G_LIB =
          & x6 =>
           (
             _import "mlton_g_ascii_formatd" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -64,10 +64,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_ascii_strcasecmp" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -81,8 +81,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_ascii_strdown" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -98,10 +98,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_ascii_strncasecmp" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.Int32.C.val_;
           )
@@ -117,10 +117,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_ascii_strtod" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -136,10 +136,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_ascii_strtoll" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> FFI.Int64.C.val_;
           )
@@ -157,10 +157,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_ascii_strtoull" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> FFI.UInt64.C.val_;
           )
@@ -176,8 +176,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_ascii_strup" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -198,15 +198,15 @@ structure GLib : G_LIB =
          & (x8, x9) =>
           (
             _import "mlton_g_assert_warning" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -229,15 +229,15 @@ structure GLib : G_LIB =
          & (x8, x9) =>
           (
             _import "mlton_g_assertion_message" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -263,21 +263,21 @@ structure GLib : G_LIB =
          & (x14, x15) =>
           (
             _import "mlton_g_assertion_message_cmpstr" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -306,15 +306,15 @@ structure GLib : G_LIB =
          & (x8, x9) =>
           (
             _import "mlton_g_assertion_message_expr" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -328,13 +328,13 @@ structure GLib : G_LIB =
               x8,
               x9
             )
-    val basename_ = _import "mlton_g_basename" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val basename_ = _import "mlton_g_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val bitNthLsf_ = fn x1 & x2 => (_import "g_bit_nth_lsf" : FFI.UInt64.C.val_ * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val bitNthMsf_ = fn x1 & x2 => (_import "g_bit_nth_msf" : FFI.UInt64.C.val_ * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val bitStorage_ = _import "g_bit_storage" : FFI.UInt64.C.val_ -> FFI.UInt32.C.val_;
     val blowChunks_ = _import "g_blow_chunks" : unit -> unit;
     val bookmarkFileErrorQuark_ = _import "g_bookmark_file_error_quark" : unit -> FFI.UInt32.C.val_;
-    val chdir_ = _import "mlton_g_chdir" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
+    val chdir_ = _import "mlton_g_chdir" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int32.C.val_;
     val checkVersion_ =
       fn
         x1
@@ -363,8 +363,8 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_compute_checksum_for_string" :
               GLibChecksumType.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -385,13 +385,13 @@ structure GLib : G_LIB =
          & x10 =>
           (
             _import "mlton_g_convert" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.ref_
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
@@ -427,11 +427,11 @@ structure GLib : G_LIB =
          & x6 =>
           (
             _import "mlton_g_date_strftime" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibDateRecord.C.notnull GLibDateRecord.C.p
                -> FFI.UInt64.C.val_;
           )
@@ -472,10 +472,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_dcgettext" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -491,10 +491,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_dgettext" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -508,8 +508,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_dir_make_tmp" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -526,12 +526,12 @@ structure GLib : G_LIB =
          & x7 =>
           (
             _import "mlton_g_dngettext" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -551,10 +551,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_dpgettext" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -572,12 +572,12 @@ structure GLib : G_LIB =
          & (x5, x6) =>
           (
             _import "mlton_g_dpgettext2" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -598,10 +598,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_file_open_tmp" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t ref
+              GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int32.C.val_;
           )
@@ -617,8 +617,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_file_read_link" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -632,8 +632,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_file_test" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibFileTest.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -642,8 +642,8 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val filenameDisplayBasename_ = _import "mlton_g_filename_display_basename" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val filenameDisplayName_ = _import "mlton_g_filename_display_name" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val filenameDisplayBasename_ = _import "mlton_g_filename_display_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val filenameDisplayName_ = _import "mlton_g_filename_display_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val filenameFromUri_ =
       fn
         (x1, x2)
@@ -651,10 +651,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_filename_from_uri" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -672,10 +672,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_filename_to_uri" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -686,15 +686,15 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val findProgramInPath_ = _import "mlton_g_find_program_in_path" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val findProgramInPath_ = _import "mlton_g_find_program_in_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val formatSize_ = _import "g_format_size" : FFI.UInt64.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val formatSizeForDisplay_ = _import "g_format_size_for_display" : FFI.Int64.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val formatSizeFull_ = fn x1 & x2 => (_import "g_format_size_full" : FFI.UInt64.C.val_ * GLibFormatSizeFlags.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
     val getApplicationName_ = _import "g_get_application_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getCharset_ = _import "mlton_g_get_charset" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val getCharset_ = _import "mlton_g_get_charset" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val getCurrentDir_ = _import "g_get_current_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val getCurrentTime_ = _import "g_get_current_time" : GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p -> unit;
-    val getFilenameCharsets_ = _import "mlton_g_get_filename_charsets" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val getFilenameCharsets_ = _import "mlton_g_get_filename_charsets" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val getHomeDir_ = _import "g_get_home_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val getHostName_ = _import "g_get_host_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val getMonotonicTime_ = _import "g_get_monotonic_time" : unit -> FFI.Int64.C.val_;
@@ -708,7 +708,7 @@ structure GLib : G_LIB =
     val getUserName_ = _import "g_get_user_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val getUserRuntimeDir_ = _import "g_get_user_runtime_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
     val getUserSpecialDir_ = _import "g_get_user_special_dir" : GLibUserDirectory.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getenv_ = _import "mlton_g_getenv" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getenv_ = _import "mlton_g_getenv" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val hookDestroy_ = fn x1 & x2 => (_import "g_hook_destroy" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * FFI.UInt64.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val hookDestroyLink_ = fn x1 & x2 => (_import "g_hook_destroy_link" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
     val hookFree_ = fn x1 & x2 => (_import "g_hook_free" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
@@ -731,14 +731,14 @@ structure GLib : G_LIB =
             )
     val hookPrepend_ = fn x1 & x2 => (_import "g_hook_prepend" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
     val hookUnref_ = fn x1 & x2 => (_import "g_hook_unref" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
-    val hostnameIsAsciiEncoded_ = _import "mlton_g_hostname_is_ascii_encoded" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val hostnameIsIpAddress_ = _import "mlton_g_hostname_is_ip_address" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val hostnameIsNonAscii_ = _import "mlton_g_hostname_is_non_ascii" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val hostnameIsAsciiEncoded_ = _import "mlton_g_hostname_is_ascii_encoded" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val hostnameIsIpAddress_ = _import "mlton_g_hostname_is_ip_address" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val hostnameIsNonAscii_ = _import "mlton_g_hostname_is_non_ascii" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val idleSourceNew_ = _import "g_idle_source_new" : unit -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val internStaticString_ = _import "mlton_g_intern_static_string" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val internString_ = _import "mlton_g_intern_string" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val internStaticString_ = _import "mlton_g_intern_static_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val internString_ = _import "mlton_g_intern_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val ioChannelErrorFromErrno_ = _import "g_io_channel_error_from_errno" : FFI.Int32.C.val_ -> GLibIOChannelError.C.val_;
     val ioChannelErrorQuark_ = _import "g_io_channel_error_quark" : unit -> FFI.UInt32.C.val_;
     val ioCreateWatch_ = fn x1 & x2 => (_import "g_io_create_watch" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * GLibIOCondition.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
@@ -749,8 +749,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_log_remove_handler" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> unit;
           )
@@ -765,8 +765,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_log_set_fatal_mask" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibLogLevelFlags.C.val_
                -> GLibLogLevelFlags.C.val_;
           )
@@ -785,8 +785,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_markup_escape_text" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -804,8 +804,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_mkdir_with_parents" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.Int32.C.val_;
           )
@@ -814,14 +814,14 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val mkdtemp_ = _import "mlton_g_mkdtemp" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val mkdtemp_ = _import "mlton_g_mkdtemp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val mkdtempFull_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_mkdtemp_full" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -830,7 +830,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val mkstemp_ = _import "mlton_g_mkstemp" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
+    val mkstemp_ = _import "mlton_g_mkstemp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int32.C.val_;
     val mkstempFull_ =
       fn
         (x1, x2)
@@ -838,8 +838,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_mkstemp_full" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> FFI.Int32.C.val_;
@@ -851,13 +851,13 @@ structure GLib : G_LIB =
               x4
             )
     val nodePopAllocator_ = _import "g_node_pop_allocator" : unit -> unit;
-    val onErrorQuery_ = _import "mlton_g_on_error_query" : cstring * unit CPointer.t -> unit;
-    val onErrorStackTrace_ = _import "mlton_g_on_error_stack_trace" : cstring * unit CPointer.t -> unit;
+    val onErrorQuery_ = _import "mlton_g_on_error_query" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val onErrorStackTrace_ = _import "mlton_g_on_error_stack_trace" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val optionErrorQuark_ = _import "g_option_error_quark" : unit -> FFI.UInt32.C.val_;
-    val pathGetBasename_ = _import "mlton_g_path_get_basename" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val pathGetDirname_ = _import "mlton_g_path_get_dirname" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val pathIsAbsolute_ = _import "mlton_g_path_is_absolute" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val pathSkipRoot_ = _import "mlton_g_path_skip_root" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val pathGetBasename_ = _import "mlton_g_path_get_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val pathGetDirname_ = _import "mlton_g_path_get_dirname" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val pathIsAbsolute_ = _import "mlton_g_path_is_absolute" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val pathSkipRoot_ = _import "mlton_g_path_skip_root" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val patternMatch_ =
       fn
         x1
@@ -868,10 +868,10 @@ structure GLib : G_LIB =
             _import "mlton_g_pattern_match" :
               GLibPatternSpecRecord.C.notnull GLibPatternSpecRecord.C.p
                * FFI.UInt32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -887,10 +887,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_pattern_match_simple" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -905,8 +905,8 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_pattern_match_string" :
               GLibPatternSpecRecord.C.notnull GLibPatternSpecRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -931,10 +931,10 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val quarkFromStaticString_ = _import "mlton_g_quark_from_static_string" : cstring * unit CPointer.t -> FFI.UInt32.C.val_;
-    val quarkFromString_ = _import "mlton_g_quark_from_string" : cstring * unit CPointer.t -> FFI.UInt32.C.val_;
+    val quarkFromStaticString_ = _import "mlton_g_quark_from_static_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
+    val quarkFromString_ = _import "mlton_g_quark_from_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
     val quarkToString_ = _import "g_quark_to_string" : FFI.UInt32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val quarkTryString_ = _import "mlton_g_quark_try_string" : cstring * unit CPointer.t -> FFI.UInt32.C.val_;
+    val quarkTryString_ = _import "mlton_g_quark_try_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
     val randomDouble_ = _import "g_random_double" : unit -> FFI.Double.C.val_;
     val randomDoubleRange_ = fn x1 & x2 => (_import "g_random_double_range" : FFI.Double.C.val_ * FFI.Double.C.val_ -> FFI.Double.C.val_;) (x1, x2)
     val randomInt_ = _import "g_random_int" : unit -> FFI.UInt32.C.val_;
@@ -947,8 +947,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_regex_check_replacement" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -965,8 +965,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_regex_escape_nul" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -983,10 +983,10 @@ structure GLib : G_LIB =
          & x6 =>
           (
             _import "mlton_g_regex_match_simple" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                -> FFI.Bool.C.val_;
@@ -1007,12 +1007,12 @@ structure GLib : G_LIB =
          & (x5, x6) =>
           (
             _import "mlton_g_return_if_fail_warning" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -1023,7 +1023,7 @@ structure GLib : G_LIB =
               x5,
               x6
             )
-    val rmdir_ = _import "mlton_g_rmdir" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
+    val rmdir_ = _import "mlton_g_rmdir" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int32.C.val_;
     val sequenceMove_ = fn x1 & x2 => (_import "g_sequence_move" : GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p * GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p -> unit;) (x1, x2)
     val sequenceMoveRange_ =
       fn
@@ -1045,8 +1045,8 @@ structure GLib : G_LIB =
     val sequenceRemove_ = _import "g_sequence_remove" : GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p -> unit;
     val sequenceRemoveRange_ = fn x1 & x2 => (_import "g_sequence_remove_range" : GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p * GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p -> unit;) (x1, x2)
     val sequenceSwap_ = fn x1 & x2 => (_import "g_sequence_swap" : GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p * GLibSequenceIterRecord.C.notnull GLibSequenceIterRecord.C.p -> unit;) (x1, x2)
-    val setApplicationName_ = _import "mlton_g_set_application_name" : cstring * unit CPointer.t -> unit;
-    val setPrgname_ = _import "mlton_g_set_prgname" : cstring * unit CPointer.t -> unit;
+    val setApplicationName_ = _import "mlton_g_set_application_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val setPrgname_ = _import "mlton_g_set_prgname" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val setenv_ =
       fn
         (x1, x2)
@@ -1054,10 +1054,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_setenv" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -1069,14 +1069,14 @@ structure GLib : G_LIB =
               x5
             )
     val shellErrorQuark_ = _import "g_shell_error_quark" : unit -> FFI.UInt32.C.val_;
-    val shellQuote_ = _import "mlton_g_shell_quote" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val shellQuote_ = _import "mlton_g_shell_quote" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val shellUnquote_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_shell_unquote" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1094,8 +1094,8 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_source_set_name_by_id" :
               FFI.UInt32.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -1110,8 +1110,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_spawn_command_line_async" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -1126,10 +1126,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_stpcpy" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1143,10 +1143,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_str_has_prefix" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -1160,10 +1160,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_str_has_suffix" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -1179,10 +1179,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_strcanon" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt8.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1198,10 +1198,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strcasecmp" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -1210,17 +1210,17 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strchomp_ = _import "mlton_g_strchomp" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strchug_ = _import "mlton_g_strchug" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strchomp_ = _import "mlton_g_strchomp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strchug_ = _import "mlton_g_strchug" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val strcmp0_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strcmp0" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -1229,7 +1229,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strcompress_ = _import "mlton_g_strcompress" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strcompress_ = _import "mlton_g_strcompress" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val strdelimit_ =
       fn
         (x1, x2)
@@ -1237,10 +1237,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_strdelimit" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt8.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1251,18 +1251,18 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val strdown_ = _import "mlton_g_strdown" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strdup_ = _import "mlton_g_strdup" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strdown_ = _import "mlton_g_strdown" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strdup_ = _import "mlton_g_strdup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val strerror_ = _import "g_strerror" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val strescape_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strescape" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1271,15 +1271,15 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strfreev_ = _import "mlton_g_strfreev" : cstring * unit CPointer.t -> unit;
-    val stringNew_ = _import "mlton_g_string_new" : cstring * unit CPointer.t -> GLibStringRecord.C.notnull GLibStringRecord.C.p;
+    val strfreev_ = _import "mlton_g_strfreev" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val stringNew_ = _import "mlton_g_string_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GLibStringRecord.C.notnull GLibStringRecord.C.p;
     val stringNewLen_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_string_new_len" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> GLibStringRecord.C.notnull GLibStringRecord.C.p;
           )
@@ -1294,10 +1294,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strip_context" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1311,10 +1311,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strjoinv" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1330,10 +1330,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_strlcat" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.UInt64.C.val_;
           )
@@ -1351,10 +1351,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_strlcpy" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.UInt64.C.val_;
           )
@@ -1372,10 +1372,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_strncasecmp" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt32.C.val_
                -> FFI.Int32.C.val_;
           )
@@ -1391,8 +1391,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_strndup" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1402,16 +1402,16 @@ structure GLib : G_LIB =
               x3
             )
     val strnfill_ = fn x1 & x2 => (_import "g_strnfill" : FFI.UInt64.C.val_ * FFI.UInt8.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val strreverse_ = _import "mlton_g_strreverse" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strreverse_ = _import "mlton_g_strreverse" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val strrstr_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strrstr" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1427,11 +1427,11 @@ structure GLib : G_LIB =
          & (x4, x5) =>
           (
             _import "mlton_g_strrstr_len" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1449,11 +1449,11 @@ structure GLib : G_LIB =
          & (x4, x5) =>
           (
             _import "mlton_g_strstr_len" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1468,10 +1468,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_strtod" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -1480,10 +1480,10 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strup_ = _import "mlton_g_strup" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strvLength_ = _import "mlton_g_strv_length" : cstring * unit CPointer.t -> FFI.UInt32.C.val_;
-    val testBug_ = _import "mlton_g_test_bug" : cstring * unit CPointer.t -> unit;
-    val testBugBase_ = _import "mlton_g_test_bug_base" : cstring * unit CPointer.t -> unit;
+    val strup_ = _import "mlton_g_strup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strvLength_ = _import "mlton_g_strv_length" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
+    val testBug_ = _import "mlton_g_test_bug" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val testBugBase_ = _import "mlton_g_test_bug_base" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val testFail_ = _import "g_test_fail" : unit -> unit;
     val testLogTypeName_ = _import "g_test_log_type_name" : GLibTestLogType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
     val testRandDouble_ = _import "g_test_rand_double" : unit -> FFI.Double.C.val_;
@@ -1505,16 +1505,16 @@ structure GLib : G_LIB =
          & (x9, x10) =>
           (
             _import "mlton_g_test_trap_assertions" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -1547,8 +1547,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_time_val_from_iso8601" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -1587,8 +1587,8 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_unichar_to_utf8" :
               FFI.Char.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -1604,8 +1604,8 @@ structure GLib : G_LIB =
     val unicharXdigitValue_ = _import "g_unichar_xdigit_value" : FFI.Char.C.val_ -> FFI.Int32.C.val_;
     val unicodeScriptFromIso15924_ = _import "g_unicode_script_from_iso15924" : FFI.UInt32.C.val_ -> GLibUnicodeScript.C.val_;
     val unicodeScriptToIso15924_ = _import "g_unicode_script_to_iso15924" : GLibUnicodeScript.C.val_ -> FFI.UInt32.C.val_;
-    val unlink_ = _import "mlton_g_unlink" : cstring * unit CPointer.t -> FFI.Int32.C.val_;
-    val unsetenv_ = _import "mlton_g_unsetenv" : cstring * unit CPointer.t -> unit;
+    val unlink_ = _import "mlton_g_unlink" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int32.C.val_;
+    val unsetenv_ = _import "mlton_g_unsetenv" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val uriEscapeString_ =
       fn
         (x1, x2)
@@ -1613,10 +1613,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_uri_escape_string" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1627,7 +1627,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val uriUnescapeSegment_ =
       fn
         (x1, x2)
@@ -1635,12 +1635,12 @@ structure GLib : G_LIB =
          & (x5, x6) =>
           (
             _import "mlton_g_uri_unescape_segment" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1656,10 +1656,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_uri_unescape_string" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1674,8 +1674,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_casefold" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1689,10 +1689,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_utf8_collate" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -1706,8 +1706,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_collate_key" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1721,8 +1721,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_collate_key_for_filename" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1736,10 +1736,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_utf8_find_next_char" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1753,10 +1753,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_utf8_find_prev_char" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
             (
@@ -1765,14 +1765,14 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val utf8GetChar_ = _import "mlton_g_utf8_get_char" : cstring * unit CPointer.t -> FFI.Char.C.val_;
+    val utf8GetChar_ = _import "mlton_g_utf8_get_char" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Char.C.val_;
     val utf8GetCharValidated_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_get_char_validated" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.Char.C.val_;
           )
@@ -1788,8 +1788,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_utf8_normalize" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * GLibNormalizeMode.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -1805,8 +1805,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_offset_to_pointer" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1820,10 +1820,10 @@ structure GLib : G_LIB =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_utf8_pointer_to_offset" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Int64.C.val_;
           )
             (
@@ -1832,7 +1832,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val utf8PrevChar_ = _import "mlton_g_utf8_prev_char" : cstring * unit CPointer.t -> FFI.String.C.notnull FFI.String.C.out_p;
+    val utf8PrevChar_ = _import "mlton_g_utf8_prev_char" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
     val utf8Strchr_ =
       fn
         (x1, x2)
@@ -1840,8 +1840,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_utf8_strchr" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Char.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -1857,8 +1857,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_strdown" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1872,8 +1872,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_strlen" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.Int64.C.val_;
           )
@@ -1889,10 +1889,10 @@ structure GLib : G_LIB =
          & x5 =>
           (
             _import "mlton_g_utf8_strncpy" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1910,8 +1910,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_utf8_strrchr" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Char.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -1927,8 +1927,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_strreverse" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1942,8 +1942,8 @@ structure GLib : G_LIB =
         (x1, x2) & x3 =>
           (
             _import "mlton_g_utf8_strup" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
           )
@@ -1959,8 +1959,8 @@ structure GLib : G_LIB =
          & x4 =>
           (
             _import "mlton_g_utf8_substring" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Int64.C.val_
                -> FFI.String.C.notnull FFI.String.C.out_p;
@@ -1978,11 +1978,11 @@ structure GLib : G_LIB =
          & (x4, x5) =>
           (
             _import "mlton_g_utf8_validate" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               * cstring
-               * unit CPointer.t ref
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                -> FFI.Bool.C.val_;
           )
             (
@@ -1993,8 +1993,8 @@ structure GLib : G_LIB =
               x5
             )
     val variantGetType_ = _import "g_variant_get_type" : GLibVariantRecord.C.notnull GLibVariantRecord.C.p -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
-    val variantIsObjectPath_ = _import "mlton_g_variant_is_object_path" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
-    val variantIsSignature_ = _import "mlton_g_variant_is_signature" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val variantIsObjectPath_ = _import "mlton_g_variant_is_object_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val variantIsSignature_ = _import "mlton_g_variant_is_signature" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val variantParse_ =
       fn
         x1
@@ -2005,12 +2005,12 @@ structure GLib : G_LIB =
           (
             _import "mlton_g_variant_parse" :
               GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
@@ -2025,8 +2025,8 @@ structure GLib : G_LIB =
               x8
             )
     val variantParserGetErrorQuark_ = _import "g_variant_parser_get_error_quark" : unit -> FFI.UInt32.C.val_;
-    val variantTypeChecked_ = _import "mlton_g_variant_type_checked_" : cstring * unit CPointer.t -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
-    val variantTypeStringIsValid_ = _import "mlton_g_variant_type_string_is_valid" : cstring * unit CPointer.t -> FFI.Bool.C.val_;
+    val variantTypeChecked_ = _import "mlton_g_variant_type_checked_" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
+    val variantTypeStringIsValid_ = _import "mlton_g_variant_type_string_is_valid" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val variantTypeStringScan_ =
       fn
         (x1, x2)
@@ -2034,12 +2034,12 @@ structure GLib : G_LIB =
          & (x5, x6) =>
           (
             _import "mlton_g_variant_type_string_scan" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t ref
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
+               * GCharVec.MLton.r1
+               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
                -> FFI.Bool.C.val_;
           )
             (
@@ -2059,15 +2059,15 @@ structure GLib : G_LIB =
          & (x8, x9) =>
           (
             _import "mlton_g_warn_message" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

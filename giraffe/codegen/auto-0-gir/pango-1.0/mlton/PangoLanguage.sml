@@ -12,8 +12,8 @@ structure PangoLanguage :>
           (
             _import "mlton_pango_language_matches" :
               PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -22,7 +22,7 @@ structure PangoLanguage :>
               x3
             )
     val toString_ = _import "pango_language_to_string" : PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val fromString_ = _import "mlton_pango_language_from_string" : cstring * unit CPointer.t -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
+    val fromString_ = _import "mlton_pango_language_from_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     val getDefault_ = _import "pango_language_get_default" : unit -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     type record_t = PangoLanguageRecord.t
     type script_t = PangoScript.t

@@ -34,8 +34,8 @@ structure GtkAppChooserDialog :>
             _import "mlton_gtk_app_chooser_dialog_new_for_content_type" :
               unit GObjectObjectClass.C.p
                * GtkDialogFlags.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -52,8 +52,8 @@ structure GtkAppChooserDialog :>
           (
             _import "mlton_gtk_app_chooser_dialog_set_heading" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

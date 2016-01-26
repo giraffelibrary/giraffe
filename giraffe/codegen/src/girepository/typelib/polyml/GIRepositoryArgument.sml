@@ -11,9 +11,10 @@ structure GIRepositoryArgument :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
-    val PTR = CPointer.PolyML.POINTER : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.POINTER : unit p PolyMLFFI.conversion
+    type 'a p = 'a CPointer.p
+
+    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI

@@ -12,8 +12,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_add_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
           )
@@ -32,8 +32,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_add_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
@@ -51,8 +51,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_get_object" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -67,8 +67,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_set_translation_domain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -87,8 +87,8 @@ structure GtkBuilder :>
             _import "mlton_gtk_builder_value_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;

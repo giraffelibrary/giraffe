@@ -15,8 +15,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_add_full" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GtkRecentDataRecord.C.notnull GtkRecentDataRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -32,8 +32,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_add_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -47,8 +47,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_has_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -64,8 +64,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_lookup_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p;
           )
@@ -84,10 +84,10 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_move_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -108,8 +108,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_remove_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )

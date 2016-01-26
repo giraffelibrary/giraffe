@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,19 +11,15 @@ structure FFI :> F_F_I =
     structure C =
       struct
 
-        val withVal = I
+     (* val withVal = I *)
 
         fun withRef f x =
           let
             val a = ref x
             val r = f a
           in
-            !a & r
+            ! a & r
           end
-
-        type ref_ = unit CPointer.t
-
-        fun withNullRef f () = f CPointer.null
 
 
         (**
@@ -31,11 +27,11 @@ structure FFI :> F_F_I =
          *)
         structure OptPointer =
           struct
-            type val_ = unit CPointer.t
+            type val_ = unit CPointer.p
             type ref_ = val_ ref
             val withVal = I
             val withRefVal
-              : (ref_ -> 'a) -> unit CPointer.t -> (unit CPointer.t, 'a) pair =
+              : (ref_ -> 'a) -> unit CPointer.p -> (unit CPointer.p, 'a) pair =
               withRef
             val fromVal = I
           end
@@ -449,7 +445,7 @@ structure FFI :> F_F_I =
      *)
     structure OptPointer =
       struct
-        type t = unit CPointer.t
+        type t = unit CPointer.p
         val null = CPointer.null
         structure C = C.OptPointer
       end

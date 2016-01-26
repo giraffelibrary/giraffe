@@ -9,8 +9,8 @@ structure GLibTimeVal :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_time_val_from_iso8601" :
-              cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p
                -> FFI.Bool.C.val_;
           )

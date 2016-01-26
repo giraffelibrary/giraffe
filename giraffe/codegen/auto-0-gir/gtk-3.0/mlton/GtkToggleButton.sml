@@ -6,8 +6,8 @@ structure GtkToggleButton :>
   struct
     val getType_ = _import "gtk_toggle_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_toggle_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithLabel_ = _import "mlton_gtk_toggle_button_new_with_label" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_toggle_button_new_with_mnemonic" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithLabel_ = _import "mlton_gtk_toggle_button_new_with_label" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_toggle_button_new_with_mnemonic" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getActive_ = _import "gtk_toggle_button_get_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getInconsistent_ = _import "gtk_toggle_button_get_inconsistent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getMode_ = _import "gtk_toggle_button_get_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;

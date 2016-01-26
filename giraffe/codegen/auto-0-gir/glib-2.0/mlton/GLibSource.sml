@@ -22,8 +22,8 @@ structure GLibSource :>
           (
             _import "mlton_g_source_set_name" :
               GLibSourceRecord.C.notnull GLibSourceRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (
@@ -39,8 +39,8 @@ structure GLibSource :>
           (
             _import "mlton_g_source_set_name_by_id" :
               FFI.UInt.C.val_
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

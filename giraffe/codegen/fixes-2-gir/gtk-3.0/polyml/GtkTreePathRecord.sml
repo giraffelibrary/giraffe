@@ -12,13 +12,13 @@ structure GtkTreePathRecord :>
   end =
   struct
     type notnull = CPointer.notnull
+    type 'a p = 'a CPointer.p
+    type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    type 'a p = 'a CPointer.t
-    val PTR = CPointer.PolyML.POINTER : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.POINTER : unit p PolyMLFFI.conversion
-
-    type ('a, 'b) r = CPointer.PolyML.ref_
-    val REF = CPointer.PolyML.cRef : ('a, 'b) r PolyMLFFI.conversion
+    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val OUTREF = CPointer.PolyML.cRefOut : (unit, notnull) r PolyMLFFI.conversion
+    val INOUTREF = CPointer.PolyML.cRefInOut : (notnull, notnull) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -46,13 +46,14 @@ structure GtkTreePathRecord :>
         structure Pointer = CPointer
         type notnull = notnull
         type 'a p = 'a p
+        type ('a, 'b) r = ('a, 'b) r
 
-        fun withPtr f x = Finalizable.withValue (x, f)
+        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
 
         fun withOptPtr f =
           fn
-            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
-          | NONE     => f Pointer.null
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
+          | NONE     => Pointer.withOptVal f NONE
 
         fun withNewPtr f () =
           let
@@ -61,13 +62,12 @@ structure GtkTreePathRecord :>
             ptr & f ptr
           end
 
+        fun withRefPtr f ptr = Finalizable.withValue (ptr, Pointer.withRefVal f)
 
-        type ('a, 'b) r = ('a, 'b) r
-
-        fun withRefPtr f = withPtr (Pointer.PolyML.withRef f)
-
-        fun withRefOptPtr f = withOptPtr (Pointer.PolyML.withRef f)
-
+        fun withRefOptPtr f =
+          fn
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withRefOptVal f o SOME)
+          | NONE     => Pointer.withRefOptVal f NONE
 
         fun fromPtr transfer ptr =
           let
@@ -83,15 +83,15 @@ structure GtkTreePathRecord :>
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
 
     structure PolyML =
       struct
         val PTR = PTR
         val OPTPTR = OPTPTR
-        val OUTREF = REF
-        val INOUTREF = REF
+        val OUTREF = OUTREF
+        val INOUTREF = INOUTREF
       end
 
     local

@@ -13,8 +13,8 @@ structure GioVolumeMonitor :>
           (
             _import "mlton_g_volume_monitor_get_mount_for_uuid" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,8 +28,8 @@ structure GioVolumeMonitor :>
           (
             _import "mlton_g_volume_monitor_get_volume_for_uuid" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (

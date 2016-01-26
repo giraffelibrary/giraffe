@@ -4,7 +4,7 @@ structure GtkStockItemRecord :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
+    type 'a p = 'a CPointer.p
 
     val new_ = _import "giraffe_gtk_stock_item_new" : unit -> notnull p;
 
@@ -20,12 +20,12 @@ structure GtkStockItemRecord :>
         type notnull = notnull
         type 'a p = 'a p
 
-        fun withPtr f x = Finalizable.withValue (x, f)
+        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
 
         fun withOptPtr f =
           fn
-            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
-          | NONE     => f Pointer.null
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
+          | NONE     => Pointer.withOptVal f NONE
 
         fun withNewPtr f () =
           let
@@ -48,6 +48,6 @@ structure GtkStockItemRecord :>
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
   end

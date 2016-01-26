@@ -6,7 +6,7 @@ structure GioDBusObjectManagerServer :>
     where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t =
   struct
     val getType_ = _import "g_dbus_object_manager_server_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_dbus_object_manager_server_new" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_dbus_object_manager_server_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val export_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val exportUniquely_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export_uniquely" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val getConnection_ = _import "g_dbus_object_manager_server_get_connection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -17,8 +17,8 @@ structure GioDBusObjectManagerServer :>
           (
             _import "mlton_g_dbus_object_manager_server_unexport" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (

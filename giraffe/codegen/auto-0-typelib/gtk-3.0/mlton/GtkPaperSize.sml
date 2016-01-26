@@ -4,7 +4,7 @@ structure GtkPaperSize :>
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_paper_size_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_paper_size_new" : cstring * unit CPointer.t -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
+    val new_ = _import "mlton_gtk_paper_size_new" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
     val newCustom_ =
       fn
         (x1, x2)
@@ -14,10 +14,10 @@ structure GtkPaperSize :>
          & x7 =>
           (
             _import "mlton_gtk_paper_size_new_custom" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * GtkUnit.C.val_
@@ -40,8 +40,8 @@ structure GtkPaperSize :>
           (
             _import "mlton_gtk_paper_size_new_from_key_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
           )
@@ -59,10 +59,10 @@ structure GtkPaperSize :>
          & x6 =>
           (
             _import "mlton_gtk_paper_size_new_from_ppd" :
-              cstring
-               * unit CPointer.t
-               * cstring
-               * unit CPointer.t
+              GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
@@ -116,8 +116,8 @@ structure GtkPaperSize :>
             _import "mlton_gtk_paper_size_to_key_file" :
               GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * cstring
-               * unit CPointer.t
+               * GCharVec.MLton.p1
+               * GCharVec.C.notnull GCharVec.MLton.p2
                -> unit;
           )
             (

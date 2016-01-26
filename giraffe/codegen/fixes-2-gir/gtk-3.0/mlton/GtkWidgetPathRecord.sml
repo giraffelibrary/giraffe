@@ -4,7 +4,8 @@ structure GtkWidgetPathRecord :>
   end =
   struct
     type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.t
+    type 'a p = 'a CPointer.p
+    type ('a, 'b) r = ('a, 'b) CPointer.r
 
     val ref_ = _import "gtk_widget_path_ref" : notnull p -> notnull p;
 
@@ -17,29 +18,21 @@ structure GtkWidgetPathRecord :>
         structure Pointer = CPointer
         type notnull = notnull
         type 'a p = 'a p
+        type ('a, 'b) r = ('a, 'b) r
 
-        fun withPtr f x = Finalizable.withValue (x, f)
+        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
 
         fun withOptPtr f =
           fn
-            SOME ptr => withPtr (f o Pointer.toOptNull) ptr
-          | NONE     => f Pointer.null
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
+          | NONE     => Pointer.withOptVal f NONE
 
+        fun withRefPtr f ptr = Finalizable.withValue (ptr, Pointer.withRefVal f)
 
-        type ('a, 'b) r = unit p ref
-
-        fun withRef f x =
-          let
-            val a = ref (Pointer.toOptNull x)
-            val r = f a
-          in
-            ! (Pointer.MLton.unsafeRefConv a) & r
-          end
-
-        fun withRefPtr f = withPtr (withRef f)
-
-        fun withRefOptPtr f = withOptPtr (withRef f)
-
+        fun withRefOptPtr f =
+          fn
+            SOME ptr => Finalizable.withValue (ptr, Pointer.withRefOptVal f o SOME)
+          | NONE     => Pointer.withRefOptVal f NONE
 
         fun fromPtr transfer ptr =
           let
@@ -55,7 +48,7 @@ structure GtkWidgetPathRecord :>
           end
 
         fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.toOpt optptr)
+          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
 
     val getType_ =

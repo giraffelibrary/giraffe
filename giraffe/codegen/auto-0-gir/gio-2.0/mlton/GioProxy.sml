@@ -7,7 +7,7 @@ structure GioProxy :>
     where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
   struct
     val getType_ = _import "g_proxy_get_type" : unit -> GObjectType.C.val_;
-    val getDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : cstring * unit CPointer.t -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val connect_ =
       fn
         x1
