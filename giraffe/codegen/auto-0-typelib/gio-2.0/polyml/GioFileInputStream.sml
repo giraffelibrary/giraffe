@@ -14,7 +14,7 @@ structure GioFileInputStream :>
         call (load_sym libgio "g_file_input_stream_query_info")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -39,7 +39,7 @@ structure GioFileInputStream :>
     fun queryInfo self attributes cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileInfoClass.C.fromPtr true

@@ -21,7 +21,7 @@ structure GtkIMContext :>
         call (load_sym libgtk "gtk_im_context_get_preedit_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.OUTREF
+             &&> Utf8.PolyML.OUTREF
              &&> PangoAttrListRecord.PolyML.OUTREF
              &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
@@ -33,7 +33,7 @@ structure GtkIMContext :>
         call (load_sym libgtk "gtk_im_context_set_surrounding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -67,10 +67,10 @@ structure GtkIMContext :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> FFI.Int.C.withRefVal
-             ---> FFI.String.C.fromPtr true
+             ---> Utf8.C.fromPtr true
                    && PangoAttrListRecord.C.fromPtr true
                    && FFI.Int.C.fromVal
                    && I
@@ -95,7 +95,7 @@ structure GtkIMContext :>
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I

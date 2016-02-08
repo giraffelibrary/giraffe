@@ -18,8 +18,8 @@ structure Gtk : GTK =
               x3
             )
     val acceleratorGetDefaultModMask_ = _import "gtk_accelerator_get_default_mod_mask" : unit -> GdkModifierType.C.val_;
-    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : FFI.UInt.C.val_ * GdkModifierType.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val acceleratorParse_ =
       fn
         (x1, x2)
@@ -71,7 +71,7 @@ structure Gtk : GTK =
               FFI.UInt.C.val_
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -267,7 +267,7 @@ structure Gtk : GTK =
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> FFI.UInt.C.val_;
     val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int.C.val_;
-    val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val iconSizeLookup_ =
       fn
         x1
@@ -1165,7 +1165,7 @@ structure Gtk : GTK =
               x8,
               x9
             )
-    val paperSizeGetDefault_ = _import "gtk_paper_size_get_default" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val paperSizeGetDefault_ = _import "gtk_paper_size_get_default" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val printErrorQuark_ = _import "gtk_print_error_quark" : unit -> GLibQuark.C.val_;
     val printRunPageSetupDialog_ =
       fn
@@ -1800,7 +1800,7 @@ structure Gtk : GTK =
               x2,
               x3
             )
-    val testTextGet_ = _import "gtk_test_text_get" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val testTextGet_ = _import "gtk_test_text_get" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val testTextSet_ =
       fn
         x1 & (x2, x3) =>
@@ -2652,15 +2652,15 @@ structure Gtk : GTK =
            & accelMods
         )
     fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.C.fromVal) acceleratorGetDefaultModMask_ ()
-    fun acceleratorGetLabel acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
-    fun acceleratorName acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.String.C.fromPtr true) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetLabel acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> Utf8.C.fromPtr true) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorName acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> Utf8.C.fromPtr true) acceleratorName_ (acceleratorKey & acceleratorMods)
     fun acceleratorParse accelerator =
       let
         val acceleratorKey
          & acceleratorMods
          & () =
           (
-            FFI.String.C.withConstPtr
+            Utf8.C.withConstPtr
              &&&> FFI.UInt.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
              ---> FFI.UInt.C.fromVal
@@ -2699,7 +2699,7 @@ structure Gtk : GTK =
         FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         checkVersion_
         (
@@ -2758,7 +2758,7 @@ structure Gtk : GTK =
     fun dragSetIconName context iconName hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -2788,7 +2788,7 @@ structure Gtk : GTK =
     fun dragSetIconStock context stockId hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -2855,8 +2855,8 @@ structure Gtk : GTK =
     fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
     fun grabGetCurrent () = (I ---> GtkWidgetClass.C.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
-    fun iconSizeGetName size = (FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) iconSizeGetName_ size
+    fun iconSizeFromName name = (Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
+    fun iconSizeGetName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) iconSizeGetName_ size
     fun iconSizeLookup size =
       let
         val width
@@ -2905,7 +2905,7 @@ structure Gtk : GTK =
       end
     fun iconSizeRegister name width height =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -2916,14 +2916,14 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconSizeRegisterAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
     fun iconThemeErrorQuark () = (I ---> GLibQuark.C.fromVal) iconThemeErrorQuark_ ()
     fun init argv =
       let
         val _ & argv & _ =
           (FFI.Int.C.withRefVal
-            &&&> FFI.StringVector.C.withRefDupPtr
-            ---> I && FFI.StringVector.C.fromPtr true && I)
+            &&&> Utf8Vector.C.withRefDupPtr
+            ---> I && Utf8Vector.C.fromPtr true && I)
             init_
             (LargeInt.fromInt (length argv) & argv)
       in
@@ -2943,7 +2943,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GtkArrowType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2974,7 +2974,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3001,7 +3001,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3034,7 +3034,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3061,7 +3061,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3087,7 +3087,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GtkExpanderStyle.C.withVal
@@ -3111,7 +3111,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3140,7 +3140,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3166,7 +3166,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3192,7 +3192,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3220,7 +3220,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3244,7 +3244,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
@@ -3269,7 +3269,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3295,7 +3295,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GdkWindowEdge.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3323,7 +3323,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3350,7 +3350,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3383,7 +3383,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3411,7 +3411,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3439,7 +3439,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3465,7 +3465,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3482,7 +3482,7 @@ structure Gtk : GTK =
            & y2
            & x
         )
-    fun paperSizeGetDefault () = (I ---> FFI.String.C.fromPtr false) paperSizeGetDefault_ ()
+    fun paperSizeGetDefault () = (I ---> Utf8.C.fromPtr false) paperSizeGetDefault_ ()
     fun printErrorQuark () = (I ---> GLibQuark.C.fromVal) printErrorQuark_ ()
     fun printRunPageSetupDialog parent pageSetup settings =
       (
@@ -3498,7 +3498,7 @@ structure Gtk : GTK =
            & settings
         )
     fun propagateEvent widget event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) propagateEvent_ (widget & event)
-    fun rcAddDefaultFile filename = (FFI.String.C.withConstPtr ---> I) rcAddDefaultFile_ filename
+    fun rcAddDefaultFile filename = (Utf8.C.withConstPtr ---> I) rcAddDefaultFile_ filename
     fun rcGetStyle widget = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) rcGetStyle_ widget
     fun recentChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) recentChooserErrorQuark_ ()
     fun recentManagerErrorQuark () = (I ---> GLibQuark.C.fromVal) recentManagerErrorQuark_ ()
@@ -3904,7 +3904,7 @@ structure Gtk : GTK =
     fun showUri screen uri timestamp =
       (
         GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -3918,12 +3918,12 @@ structure Gtk : GTK =
         )
     fun stockLookup stockId =
       let
-        val item & retVal = (FFI.String.C.withConstPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
+        val item & retVal = (Utf8.C.withConstPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
       end
-    fun testCreateSimpleWindow windowTitle dialogText = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) testSliderGetValue_ widget
     fun testSliderSetPerc widget percentage = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) testSliderSetPerc_ (widget & percentage)
@@ -3940,8 +3940,8 @@ structure Gtk : GTK =
            & button
            & upwards
         )
-    fun testTextGet widget = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) testTextGet_ widget
-    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) testTextSet_ (widget & string)
+    fun testTextGet widget = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) testTextGet_ widget
+    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) testTextSet_ (widget & string)
     fun testWidgetClick widget button modifiers =
       (
         GObjectObjectClass.C.withPtr

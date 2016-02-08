@@ -11,7 +11,7 @@ structure GtkTextTagTable :>
       val new_ = call (load_sym libgtk "gtk_text_tag_table_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
       val add_ = call (load_sym libgtk "gtk_text_tag_table_add") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getSize_ = call (load_sym libgtk "gtk_text_tag_table_get_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val lookup_ = call (load_sym libgtk "gtk_text_tag_table_lookup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val lookup_ = call (load_sym libgtk "gtk_text_tag_table_lookup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val remove_ = call (load_sym libgtk "gtk_text_tag_table_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTextTagTableClass.t
@@ -23,7 +23,7 @@ structure GtkTextTagTable :>
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()
     fun add self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & tag)
     fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
-    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
+    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
     fun remove self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal

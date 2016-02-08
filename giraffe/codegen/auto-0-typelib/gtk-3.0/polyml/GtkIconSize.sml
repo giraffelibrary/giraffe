@@ -67,8 +67,8 @@ structure GtkIconSize :>
     local
       open PolyMLFFI
     in
-      val fromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (FFI.String.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
-      val getName_ = call (load_sym libgtk "gtk_icon_size_get_name") (FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val fromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
+      val getName_ = call (load_sym libgtk "gtk_icon_size_get_name") (FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
       val lookup_ =
         call (load_sym libgtk "gtk_icon_size_lookup")
           (
@@ -89,17 +89,17 @@ structure GtkIconSize :>
       val register_ =
         call (load_sym libgtk "gtk_icon_size_register")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.Int32.PolyML.VAL
              &&> FFI.Int32.PolyML.VAL
              --> FFI.Int32.PolyML.VAL
           )
-      val registerAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (FFI.String.PolyML.INPTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val registerAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.INPTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a settings_class_t = 'a GtkSettingsClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun fromName name = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) fromName_ name
-    fun getName size = (FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getName_ size
+    fun fromName name = (Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) fromName_ name
+    fun getName size = (FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getName_ size
     fun lookup size =
       let
         val width
@@ -148,7 +148,7 @@ structure GtkIconSize :>
       end
     fun register name width height =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> FFI.Int32.C.fromVal
@@ -159,5 +159,5 @@ structure GtkIconSize :>
            & width
            & height
         )
-    fun registerAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> I) registerAlias_ (alias & target)
+    fun registerAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> I) registerAlias_ (alias & target)
   end

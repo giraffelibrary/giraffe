@@ -14,7 +14,7 @@ structure GioLoadableIcon :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int32.PolyML.VAL
-             &&> FFI.String.PolyML.OUTREF
+             &&> Utf8.PolyML.OUTREF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -24,7 +24,7 @@ structure GioLoadableIcon :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -41,10 +41,10 @@ structure GioLoadableIcon :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.Int32.C.withVal
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.String.C.fromPtr true && GioInputStreamClass.C.fromPtr true
+             ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
           )
             load_
             (
@@ -61,7 +61,7 @@ structure GioLoadableIcon :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioInputStreamClass.C.fromPtr true
       )

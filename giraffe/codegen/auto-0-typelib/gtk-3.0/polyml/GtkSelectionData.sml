@@ -15,13 +15,13 @@ structure GtkSelectionData :>
       val getPixbuf_ = call (load_sym libgtk "gtk_selection_data_get_pixbuf") (GtkSelectionDataRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSelection_ = call (load_sym libgtk "gtk_selection_data_get_selection") (GtkSelectionDataRecord.PolyML.PTR --> GdkAtomRecord.PolyML.PTR)
       val getTarget_ = call (load_sym libgtk "gtk_selection_data_get_target") (GtkSelectionDataRecord.PolyML.PTR --> GdkAtomRecord.PolyML.PTR)
-      val getText_ = call (load_sym libgtk "gtk_selection_data_get_text") (GtkSelectionDataRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getText_ = call (load_sym libgtk "gtk_selection_data_get_text") (GtkSelectionDataRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val setPixbuf_ = call (load_sym libgtk "gtk_selection_data_set_pixbuf") (GtkSelectionDataRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setText_ =
         call (load_sym libgtk "gtk_selection_data_set_text")
           (
             GtkSelectionDataRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int32.PolyML.VAL
              --> FFI.Bool.PolyML.VAL
           )
@@ -42,12 +42,12 @@ structure GtkSelectionData :>
     fun getPixbuf self = (GtkSelectionDataRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) getPixbuf_ self
     fun getSelection self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getSelection_ self
     fun getTarget self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getTarget_ self
-    fun getText self = (GtkSelectionDataRecord.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GtkSelectionDataRecord.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun setPixbuf self pixbuf = (GtkSelectionDataRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) setPixbuf_ (self & pixbuf)
     fun setText self str len =
       (
         GtkSelectionDataRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
       )

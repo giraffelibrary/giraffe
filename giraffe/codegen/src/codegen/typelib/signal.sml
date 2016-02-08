@@ -709,7 +709,7 @@ fun makePropertySpec
         PISCALAR (mode, {ty})                  =>
           (mkTy mode false (scalarTyRef ty, tyVarIdx'1), iRefs)
       | PIUTF8 (mode, {isOpt})                 =>
-          (mkTy mode isOpt (stringTyRef, tyVarIdx'1), iRefs)
+          (mkTy mode isOpt (utf8TyRef, tyVarIdx'1), iRefs)
       | PIINTERFACE (mode, {iRef, isOpt, ...}) =>
           let
             val {scope, ...} = iRef

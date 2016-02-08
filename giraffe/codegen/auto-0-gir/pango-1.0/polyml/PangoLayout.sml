@@ -78,7 +78,7 @@ structure PangoLayout :>
           )
       val getSpacing_ = call (load_sym libpango "pango_layout_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getTabs_ = call (load_sym libpango "pango_layout_get_tabs") (GObjectObjectClass.PolyML.PTR --> PangoTabArrayRecord.PolyML.PTR)
-      val getText_ = call (load_sym libpango "pango_layout_get_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getText_ = call (load_sym libpango "pango_layout_get_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getUnknownGlyphsCount_ = call (load_sym libpango "pango_layout_get_unknown_glyphs_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getWidth_ = call (load_sym libpango "pango_layout_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getWrap_ = call (load_sym libpango "pango_layout_get_wrap") (GObjectObjectClass.PolyML.PTR --> PangoWrapMode.PolyML.VAL)
@@ -113,7 +113,7 @@ structure PangoLayout :>
         call (load_sym libpango "pango_layout_set_markup")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -121,7 +121,7 @@ structure PangoLayout :>
         call (load_sym libpango "pango_layout_set_markup_with_accel")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Char.PolyML.VAL
              &&> FFI.Char.PolyML.REF
@@ -134,7 +134,7 @@ structure PangoLayout :>
         call (load_sym libpango "pango_layout_set_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -297,7 +297,7 @@ structure PangoLayout :>
       end
     fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
     fun getTabs self = (GObjectObjectClass.C.withPtr ---> PangoTabArrayRecord.C.fromPtr true) getTabs_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun getUnknownGlyphsCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getUnknownGlyphsCount_ self
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun getWrap self = (GObjectObjectClass.C.withPtr ---> PangoWrapMode.C.fromVal) getWrap_ self
@@ -357,7 +357,7 @@ structure PangoLayout :>
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -372,7 +372,7 @@ structure PangoLayout :>
         val accelChar & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> FFI.Char.C.withRefVal
@@ -395,7 +395,7 @@ structure PangoLayout :>
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

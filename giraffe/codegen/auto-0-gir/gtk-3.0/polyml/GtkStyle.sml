@@ -32,11 +32,11 @@ structure GtkStyle :>
         call (load_sym libgtk "gtk_style_lookup_color")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GdkColorRecord.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
+      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
       val renderIcon_ =
         call (load_sym libgtk "gtk_style_render_icon")
           (
@@ -46,7 +46,7 @@ structure GtkStyle :>
              &&> GtkStateType.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val setBackground_ =
@@ -98,7 +98,7 @@ structure GtkStyle :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GdkColorRecord.C.withNewPtr
              ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -111,7 +111,7 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
         GObjectObjectClass.C.withPtr
@@ -120,7 +120,7 @@ structure GtkStyle :>
          &&&> GtkStateType.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIcon_

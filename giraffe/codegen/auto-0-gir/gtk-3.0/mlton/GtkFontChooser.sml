@@ -3,12 +3,12 @@ structure GtkFontChooser :>
     where type 'a class_t = 'a GtkFontChooserClass.t =
   struct
     val getType_ = _import "gtk_font_chooser_get_type" : unit -> GObjectType.C.val_;
-    val getFont_ = _import "gtk_font_chooser_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getFont_ = _import "gtk_font_chooser_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFontDesc_ = _import "gtk_font_chooser_get_font_desc" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     val getFontFace_ = _import "gtk_font_chooser_get_font_face" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFontFamily_ = _import "gtk_font_chooser_get_font_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getShowPreviewEntry_ = _import "gtk_font_chooser_get_show_preview_entry" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setFont_ =
       fn
@@ -45,16 +45,16 @@ structure GtkFontChooser :>
     type 'a class_t = 'a GtkFontChooserClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getFont self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getFont_ self
+    fun getFont self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getFont_ self
     fun getFontDesc self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) getFontDesc_ self
     fun getFontFace self = (GObjectObjectClass.C.withPtr ---> PangoFontFaceClass.C.fromPtr false) getFontFace_ self
     fun getFontFamily self = (GObjectObjectClass.C.withPtr ---> PangoFontFamilyClass.C.fromPtr false) getFontFamily_ self
     fun getFontSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFontSize_ self
-    fun getPreviewText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getPreviewText_ self
+    fun getPreviewText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getPreviewText_ self
     fun getShowPreviewEntry self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowPreviewEntry_ self
-    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFont_ (self & fontname)
+    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFont_ (self & fontname)
     fun setFontDesc self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withPtr ---> I) setFontDesc_ (self & fontDesc)
-    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPreviewText_ (self & text)
+    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPreviewText_ (self & text)
     fun setShowPreviewEntry self showPreviewEntry = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowPreviewEntry_ (self & showPreviewEntry)
     local
       open ClosureMarshal Signal

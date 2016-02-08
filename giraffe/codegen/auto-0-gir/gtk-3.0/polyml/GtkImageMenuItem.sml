@@ -11,9 +11,9 @@ structure GtkImageMenuItem :>
     in
       val getType_ = call (load_sym libgtk "gtk_image_menu_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_image_menu_item_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_image_menu_item_new_from_stock") (FFI.String.PolyML.INPTR &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_image_menu_item_new_with_label") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_image_menu_item_new_with_mnemonic") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromStock_ = call (load_sym libgtk "gtk_image_menu_item_new_from_stock") (Utf8.PolyML.INPTR &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithLabel_ = call (load_sym libgtk "gtk_image_menu_item_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_image_menu_item_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_get_always_show_image") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getImage_ = call (load_sym libgtk "gtk_image_menu_item_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getUseStock_ = call (load_sym libgtk "gtk_image_menu_item_get_use_stock") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -33,9 +33,9 @@ structure GtkImageMenuItem :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkImageMenuItemClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId accelGroup = (FFI.String.C.withConstPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkImageMenuItemClass.C.fromPtr false) newFromStock_ (stockId & accelGroup)
-    fun newWithLabel label = (FFI.String.C.withConstPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (FFI.String.C.withConstPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithMnemonic_ label
+    fun newFromStock stockId accelGroup = (Utf8.C.withConstPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkImageMenuItemClass.C.fromPtr false) newFromStock_ (stockId & accelGroup)
+    fun newWithLabel label = (Utf8.C.withConstPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.C.withConstPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithMnemonic_ label
     fun getAlwaysShowImage self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAlwaysShowImage_ self
     fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
     fun getUseStock self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseStock_ self

@@ -41,7 +41,7 @@ structure GioDBusObjectManager :>
               x2,
               x3
             )
-    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class_t = 'a GioDBusObjectManagerClass.t
     type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
     type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
@@ -50,8 +50,8 @@ structure GioDBusObjectManager :>
     fun getInterface self objectPath interfaceName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> GioDBusInterfaceClass.C.fromPtr true
       )
         getInterface_
@@ -60,8 +60,8 @@ structure GioDBusObjectManager :>
            & objectPath
            & interfaceName
         )
-    fun getObject self objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioDBusObjectClass.C.fromPtr true) getObject_ (self & objectPath)
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
+    fun getObject self objectPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioDBusObjectClass.C.fromPtr true) getObject_ (self & objectPath)
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
     local
       open ClosureMarshal Signal
     in

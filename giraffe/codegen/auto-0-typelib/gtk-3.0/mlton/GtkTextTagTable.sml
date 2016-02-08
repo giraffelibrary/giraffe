@@ -33,7 +33,7 @@ structure GtkTextTagTable :>
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()
     fun add self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & tag)
     fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
-    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
+    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
     fun remove self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal

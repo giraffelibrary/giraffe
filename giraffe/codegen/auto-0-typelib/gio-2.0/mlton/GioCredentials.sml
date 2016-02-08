@@ -39,7 +39,7 @@ structure GioCredentials :>
               x2,
               x3
             )
-    val toString_ = _import "g_credentials_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "g_credentials_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class_t = 'a GioCredentialsClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -71,5 +71,5 @@ structure GioCredentials :>
            & uid
            & []
         )
-    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

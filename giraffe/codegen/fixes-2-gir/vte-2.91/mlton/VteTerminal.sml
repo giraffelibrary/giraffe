@@ -37,8 +37,8 @@ structure VteTerminal :>
     val getCharWidth_ = _import "vte_terminal_get_char_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
     val getCjkAmbiguousWidth_ = _import "vte_terminal_get_cjk_ambiguous_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getColumnCount_ = _import "vte_terminal_get_column_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getCurrentDirectoryUri_ = _import "vte_terminal_get_current_directory_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getCurrentFileUri_ = _import "vte_terminal_get_current_file_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCurrentDirectoryUri_ = _import "vte_terminal_get_current_directory_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getCurrentFileUri_ = _import "vte_terminal_get_current_file_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteCursorBlinkMode.C.val_;
     val getCursorPosition_ =
       fn
@@ -58,7 +58,7 @@ structure VteTerminal :>
               x3
             )
     val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteCursorShape.C.val_;
-    val getEncoding_ = _import "vte_terminal_get_encoding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getEncoding_ = _import "vte_terminal_get_encoding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFont_ = _import "vte_terminal_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     val getFontScale_ = _import "vte_terminal_get_font_scale" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getGeometryHints_ =
@@ -82,13 +82,13 @@ structure VteTerminal :>
               x4
             )
     val getHasSelection_ = _import "vte_terminal_get_has_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getIconTitle_ = _import "vte_terminal_get_icon_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getIconTitle_ = _import "vte_terminal_get_icon_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getInputEnabled_ = _import "vte_terminal_get_input_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPty_ = _import "vte_terminal_get_pty" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getRewrapOnResize_ = _import "vte_terminal_get_rewrap_on_resize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getRowCount_ = _import "vte_terminal_get_row_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getWindowTitle_ = _import "vte_terminal_get_window_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getWindowTitle_ = _import "vte_terminal_get_window_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val matchAddGregex_ =
       fn
         x1
@@ -118,7 +118,7 @@ structure VteTerminal :>
                * FFI.Long.C.val_
                * FFI.Long.C.val_
                * FFI.Int.C.ref_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -136,7 +136,7 @@ structure VteTerminal :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * FFI.Int.C.ref_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -399,7 +399,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.SSize.C.withVal
          ---> I
       )
@@ -415,8 +415,8 @@ structure VteTerminal :>
     fun getCharWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getCharWidth_ self
     fun getCjkAmbiguousWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getCjkAmbiguousWidth_ self
     fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getColumnCount_ self
-    fun getCurrentDirectoryUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCurrentDirectoryUri_ self
-    fun getCurrentFileUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCurrentFileUri_ self
+    fun getCurrentDirectoryUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentDirectoryUri_ self
+    fun getCurrentFileUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentFileUri_ self
     fun getCursorBlinkMode self = (GObjectObjectClass.C.withPtr ---> VteCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
     fun getCursorPosition self =
       let
@@ -441,7 +441,7 @@ structure VteTerminal :>
         (column, row)
       end
     fun getCursorShape self = (GObjectObjectClass.C.withPtr ---> VteCursorShape.C.fromVal) getCursorShape_ self
-    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEncoding_ self
+    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
     fun getFont self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ self
     fun getFontScale self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getFontScale_ self
     fun getGeometryHints self minRows minColumns =
@@ -465,13 +465,13 @@ structure VteTerminal :>
         hints
       end
     fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconTitle_ self
+    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconTitle_ self
     fun getInputEnabled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInputEnabled_ self
     fun getMouseAutohide self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
     fun getPty self = (GObjectObjectClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPty_ self
     fun getRewrapOnResize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getRowCount_ self
-    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getWindowTitle_ self
+    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWindowTitle_ self
     fun matchAddGregex self regex flags =
       (
         GObjectObjectClass.C.withPtr
@@ -493,7 +493,7 @@ structure VteTerminal :>
              &&&> FFI.Long.C.withVal
              &&&> FFI.Long.C.withVal
              &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Int.C.fromVal && Utf8.C.fromPtr true
           )
             matchCheck_
             (
@@ -512,7 +512,7 @@ structure VteTerminal :>
             GObjectObjectClass.C.withPtr
              &&&> GdkEvent.C.withPtr
              &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Int.C.fromVal && Utf8.C.fromPtr true
           )
             matchCheckEvent_
             (
@@ -529,7 +529,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         matchSetCursorName_
@@ -630,7 +630,7 @@ structure VteTerminal :>
     fun setEncoding self codeset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -671,9 +671,9 @@ structure VteTerminal :>
           (
             GObjectObjectClass.C.withPtr
              &&&> VtePtyFlags.C.withVal
-             &&&> FFI.String.C.withConstOptPtr
-             &&&> FFI.StringVector.C.withConstPtr
-             &&&> FFI.StringVector.C.withConstOptPtr
+             &&&> Utf8.C.withConstOptPtr
+             &&&> Utf8Vector.C.withConstPtr
+             &&&> Utf8Vector.C.withConstOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibSpawnChildSetupFunc.C.withOptCallback
              &&&> GLibPid.C.withRefVal

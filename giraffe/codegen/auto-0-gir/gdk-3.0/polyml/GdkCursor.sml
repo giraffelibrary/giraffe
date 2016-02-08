@@ -10,7 +10,7 @@ structure GdkCursor :>
       val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GObjectObjectClass.PolyML.PTR &&> GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newFromPixbuf_ =
         call (load_sym libgdk "gdk_cursor_new_from_pixbuf")
           (
@@ -31,7 +31,7 @@ structure GdkCursor :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
     fun newForDisplay display cursorType = (GObjectObjectClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
+    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
     fun newFromPixbuf display pixbuf x y =
       (
         GObjectObjectClass.C.withPtr

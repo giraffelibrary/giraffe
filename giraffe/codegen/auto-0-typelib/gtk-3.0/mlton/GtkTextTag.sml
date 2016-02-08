@@ -37,7 +37,7 @@ structure GtkTextTag :>
     type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    fun new name = (Utf8.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
         GObjectObjectClass.C.withPtr

@@ -18,9 +18,9 @@ structure GtkUIManager :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> GtkUIManagerItemType.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -29,7 +29,7 @@ structure GtkUIManager :>
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_file")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt32.PolyML.VAL
           )
@@ -37,17 +37,17 @@ structure GtkUIManager :>
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int64.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt32.PolyML.VAL
           )
       val ensureUpdate_ = call (load_sym libgtk "gtk_ui_manager_ensure_update") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getAccelGroup_ = call (load_sym libgtk "gtk_ui_manager_get_accel_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_get_add_tearoffs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val insertActionGroup_ =
         call (load_sym libgtk "gtk_ui_manager_insert_action_group")
           (
@@ -76,9 +76,9 @@ structure GtkUIManager :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GtkUIManagerItemType.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -96,7 +96,7 @@ structure GtkUIManager :>
     fun addUiFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -109,7 +109,7 @@ structure GtkUIManager :>
     fun addUiFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
@@ -123,10 +123,10 @@ structure GtkUIManager :>
         )
     fun ensureUpdate self = (GObjectObjectClass.C.withPtr ---> I) ensureUpdate_ self
     fun getAccelGroup self = (GObjectObjectClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
+    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
     fun getAddTearoffs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAddTearoffs_ self
-    fun getUi self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUi_ self
-    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
+    fun getUi self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getUi_ self
+    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
     fun insertActionGroup self actionGroup pos =
       (
         GObjectObjectClass.C.withPtr

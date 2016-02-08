@@ -11,19 +11,19 @@ structure GioDBusMethodInvocation :>
     in
       val getType_ = call (load_sym libgio "g_dbus_method_invocation_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val getConnection_ = call (load_sym libgio "g_dbus_method_invocation_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getInterfaceName_ = call (load_sym libgio "g_dbus_method_invocation_get_interface_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getInterfaceName_ = call (load_sym libgio "g_dbus_method_invocation_get_interface_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getMessage_ = call (load_sym libgio "g_dbus_method_invocation_get_message") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getMethodInfo_ = call (load_sym libgio "g_dbus_method_invocation_get_method_info") (GObjectObjectClass.PolyML.PTR --> GioDBusMethodInfoRecord.PolyML.PTR)
-      val getMethodName_ = call (load_sym libgio "g_dbus_method_invocation_get_method_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_method_invocation_get_object_path") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getMethodName_ = call (load_sym libgio "g_dbus_method_invocation_get_method_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_method_invocation_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getParameters_ = call (load_sym libgio "g_dbus_method_invocation_get_parameters") (GObjectObjectClass.PolyML.PTR --> GLibVariantRecord.PolyML.PTR)
-      val getSender_ = call (load_sym libgio "g_dbus_method_invocation_get_sender") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getSender_ = call (load_sym libgio "g_dbus_method_invocation_get_sender") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val returnDbusError_ =
         call (load_sym libgio "g_dbus_method_invocation_return_dbus_error")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val returnErrorLiteral_ =
@@ -32,7 +32,7 @@ structure GioDBusMethodInvocation :>
             GObjectObjectClass.PolyML.PTR
              &&> GLibQuark.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val returnValue_ = call (load_sym libgio "g_dbus_method_invocation_return_value") (GObjectObjectClass.PolyML.PTR &&> GLibVariantRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
@@ -53,18 +53,18 @@ structure GioDBusMethodInvocation :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getInterfaceName_ self
+    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getInterfaceName_ self
     fun getMessage self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr false) getMessage_ self
     fun getMethodInfo self = (GObjectObjectClass.C.withPtr ---> GioDBusMethodInfoRecord.C.fromPtr false) getMethodInfo_ self
-    fun getMethodName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getMethodName_ self
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
+    fun getMethodName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getMethodName_ self
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
     fun getParameters self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr false) getParameters_ self
-    fun getSender self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getSender_ self
+    fun getSender self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getSender_ self
     fun returnDbusError self errorName errorMessage =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         returnDbusError_
@@ -78,7 +78,7 @@ structure GioDBusMethodInvocation :>
         GObjectObjectClass.C.withPtr
          &&&> GLibQuark.C.withVal
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         returnErrorLiteral_

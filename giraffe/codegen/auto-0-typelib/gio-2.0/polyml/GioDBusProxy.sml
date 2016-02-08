@@ -25,9 +25,9 @@ structure GioDBusProxy :>
             GioBusType.PolyML.VAL
              &&> GioDBusProxyFlags.PolyML.VAL
              &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -38,9 +38,9 @@ structure GioDBusProxy :>
             GObjectObjectClass.PolyML.PTR
              &&> GioDBusProxyFlags.PolyML.VAL
              &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -57,7 +57,7 @@ structure GioDBusProxy :>
         call (load_sym libgio "g_dbus_proxy_call_sync")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
              &&> FFI.Int32.PolyML.VAL
@@ -78,7 +78,7 @@ structure GioDBusProxy :>
         call (load_sym libgio "g_dbus_proxy_call_with_unix_fd_list_sync")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibVariantRecord.PolyML.OPTPTR
              &&> GioDBusCallFlags.PolyML.VAL
              &&> FFI.Int32.PolyML.VAL
@@ -88,20 +88,20 @@ structure GioDBusProxy :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibVariantRecord.PolyML.PTR
           )
-      val getCachedProperty_ = call (load_sym libgio "g_dbus_proxy_get_cached_property") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
+      val getCachedProperty_ = call (load_sym libgio "g_dbus_proxy_get_cached_property") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
       val getConnection_ = call (load_sym libgio "g_dbus_proxy_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_get_default_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getFlags_ = call (load_sym libgio "g_dbus_proxy_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusProxyFlags.PolyML.VAL)
       val getInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_get_interface_info") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceInfoRecord.PolyML.PTR)
-      val getInterfaceName_ = call (load_sym libgio "g_dbus_proxy_get_interface_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getName_ = call (load_sym libgio "g_dbus_proxy_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getNameOwner_ = call (load_sym libgio "g_dbus_proxy_get_name_owner") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_proxy_get_object_path") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getInterfaceName_ = call (load_sym libgio "g_dbus_proxy_get_interface_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getName_ = call (load_sym libgio "g_dbus_proxy_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getNameOwner_ = call (load_sym libgio "g_dbus_proxy_get_name_owner") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_proxy_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val setCachedProperty_ =
         call (load_sym libgio "g_dbus_proxy_set_cached_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibVariantRecord.PolyML.OPTPTR
              --> FFI.PolyML.VOID
           )
@@ -132,9 +132,9 @@ structure GioDBusProxy :>
         GioBusType.C.withVal
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -155,9 +155,9 @@ structure GioDBusProxy :>
         GObjectObjectClass.C.withPtr
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -189,7 +189,7 @@ structure GioDBusProxy :>
     fun callSync self methodName parameters flags timeoutMsec cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -232,7 +232,7 @@ structure GioDBusProxy :>
         val outFdList & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
              &&&> FFI.Int32.C.withVal
@@ -257,19 +257,19 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
+    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusProxyFlags.C.fromVal) getFlags_ self
     fun getInterfaceInfo self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr true) getInterfaceInfo_ self
-    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getInterfaceName_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
-    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getNameOwner_ self
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
+    fun getInterfaceName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getInterfaceName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getNameOwner_ self
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
     fun setCachedProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
       )

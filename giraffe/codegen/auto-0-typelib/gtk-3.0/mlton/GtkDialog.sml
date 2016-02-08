@@ -90,7 +90,7 @@ structure GtkDialog :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )

@@ -98,9 +98,9 @@ structure GIRepositoryTypeTag :>
       val toString_ =
         call
           (load_sym libgirepository "g_type_tag_to_string")
-          (FFI.Enum.PolyML.VAL --> FFI.String.PolyML.RETPTR);
+          (FFI.Enum.PolyML.VAL --> Utf8.PolyML.RETPTR);
     end
     val toString =
       fn typ =>
-        (C.withVal ---> FFI.String.C.fromPtr false) toString_ typ
+        (C.withVal ---> Utf8.C.fromPtr false) toString_ typ
   end

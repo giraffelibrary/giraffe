@@ -27,12 +27,12 @@ structure GObjectType :>
       val name_ =
         call
           (load_sym libgiraffegobject "giraffe_g_type_name")
-          (FFI.Size.PolyML.VAL --> FFI.String.PolyML.RETPTR);
+          (FFI.Size.PolyML.VAL --> Utf8.PolyML.RETPTR);
 
       val fromName_ =
         call
           (load_sym libgobject "g_type_from_name")
-          (FFI.String.PolyML.INPTR --> FFI.Size.PolyML.VAL);
+          (Utf8.PolyML.INPTR --> FFI.Size.PolyML.VAL);
 
       val boolean_ =
         call
@@ -100,11 +100,11 @@ structure GObjectType :>
 
     val name =
       fn gtype =>
-        (C.withVal ---> FFI.String.C.fromPtr false) name_ gtype
+        (C.withVal ---> Utf8.C.fromPtr false) name_ gtype
 
     val fromName =
       fn name =>
-        (FFI.String.C.withConstPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
+        (Utf8.C.withConstPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
           fromName_
           name
 

@@ -77,7 +77,7 @@ structure GtkEntryBuffer :>
     val getBytes_ = _import "gtk_entry_buffer_get_bytes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Size.C.val_;
     val getLength_ = _import "gtk_entry_buffer_get_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt.C.val_;
     val getMaxLength_ = _import "gtk_entry_buffer_get_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getText_ = _import "gtk_entry_buffer_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getText_ = _import "gtk_entry_buffer_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val insertText_ =
       fn
         x1
@@ -123,7 +123,7 @@ structure GtkEntryBuffer :>
     type 'a class_t = 'a GtkEntryBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new initialChars nInitialChars = (FFI.String.C.withConstOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
+    fun new initialChars nInitialChars = (Utf8.C.withConstOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =
       (
         GObjectObjectClass.C.withPtr
@@ -154,7 +154,7 @@ structure GtkEntryBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt.C.withVal
          ---> I
       )
@@ -168,12 +168,12 @@ structure GtkEntryBuffer :>
     fun getBytes self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getBytes_ self
     fun getLength self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getLength_ self
     fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxLength_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun insertText self position chars nChars =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.UInt.C.fromVal
       )
@@ -188,7 +188,7 @@ structure GtkEntryBuffer :>
     fun setText self chars nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

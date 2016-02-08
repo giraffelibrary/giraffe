@@ -201,10 +201,10 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -233,7 +233,7 @@ structure Gio : GIO =
               GioBusType.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -291,7 +291,7 @@ structure Gio : GIO =
               GioDBusAnnotationInfoRecord.C.notnull GioDBusAnnotationInfoRecord.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -299,7 +299,7 @@ structure Gio : GIO =
               x3
             )
     val dbusErrorQuark_ = _import "g_dbus_error_quark" : unit -> FFI.UInt32.C.val_;
-    val dbusGenerateGuid_ = _import "g_dbus_generate_guid" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val dbusGenerateGuid_ = _import "g_dbus_generate_guid" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val dbusGvalueToGvariant_ = fn x1 & x2 => (_import "g_dbus_gvalue_to_gvariant" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;) (x1, x2)
     val dbusGvariantToGvalue_ = fn x1 & x2 => (_import "g_dbus_gvariant_to_gvalue" : GLibVariantRecord.C.notnull GLibVariantRecord.C.p * GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> unit;) (x1, x2)
     val dbusIsAddress_ = _import "mlton_g_dbus_is_address" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
@@ -420,12 +420,12 @@ structure Gio : GIO =
     val unixIsMountPathSystemInternal_ = _import "mlton_g_unix_is_mount_path_system_internal" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val unixMountCompare_ = fn x1 & x2 => (_import "g_unix_mount_compare" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p * GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Int32.C.val_;) (x1, x2)
     val unixMountFree_ = _import "g_unix_mount_free" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> unit;
-    val unixMountGetDevicePath_ = _import "g_unix_mount_get_device_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val unixMountGetFsType_ = _import "g_unix_mount_get_fs_type" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val unixMountGetMountPath_ = _import "g_unix_mount_get_mount_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val unixMountGetDevicePath_ = _import "g_unix_mount_get_device_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val unixMountGetFsType_ = _import "g_unix_mount_get_fs_type" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val unixMountGetMountPath_ = _import "g_unix_mount_get_mount_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unixMountGuessCanEject_ = _import "g_unix_mount_guess_can_eject" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
     val unixMountGuessIcon_ = _import "g_unix_mount_guess_icon" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val unixMountGuessName_ = _import "g_unix_mount_guess_name" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val unixMountGuessName_ = _import "g_unix_mount_guess_name" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unixMountGuessShouldDisplay_ = _import "g_unix_mount_guess_should_display" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
     val unixMountIsReadonly_ = _import "g_unix_mount_is_readonly" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
     val unixMountIsSystemInternal_ = _import "g_unix_mount_is_system_internal" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
@@ -810,8 +810,8 @@ structure Gio : GIO =
     val VOLUME_MONITOR_EXTENSION_POINT_NAME = "gio-volume-monitor"
     fun appInfoCreateFromCommandline commandline applicationName flags =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
@@ -823,11 +823,11 @@ structure Gio : GIO =
            & flags
            & []
         )
-    fun appInfoGetDefaultForType contentType mustSupportUris = (FFI.String.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) appInfoGetDefaultForType_ (contentType & mustSupportUris)
-    fun appInfoGetDefaultForUriScheme uriScheme = (FFI.String.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) appInfoGetDefaultForUriScheme_ uriScheme
+    fun appInfoGetDefaultForType contentType mustSupportUris = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) appInfoGetDefaultForType_ (contentType & mustSupportUris)
+    fun appInfoGetDefaultForUriScheme uriScheme = (Utf8.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) appInfoGetDefaultForUriScheme_ uriScheme
     fun appInfoLaunchDefaultForUri uri launchContext =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -838,7 +838,7 @@ structure Gio : GIO =
            & launchContext
            & []
         )
-    fun appInfoResetTypeAssociations contentType = (FFI.String.C.withConstPtr ---> I) appInfoResetTypeAssociations_ contentType
+    fun appInfoResetTypeAssociations contentType = (Utf8.C.withConstPtr ---> I) appInfoResetTypeAssociations_ contentType
     fun busGetFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusConnectionClass.C.fromPtr true) busGetFinish_ (res & [])
     fun busGetSync busType cancellable =
       (
@@ -856,7 +856,7 @@ structure Gio : GIO =
     fun busOwnNameOnConnection connection name flags nameAcquiredClosure nameLostClosure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioBusNameOwnerFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -873,7 +873,7 @@ structure Gio : GIO =
     fun busOwnName busType name flags busAcquiredClosure nameAcquiredClosure nameLostClosure =
       (
         GioBusType.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioBusNameOwnerFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -894,7 +894,7 @@ structure Gio : GIO =
     fun busWatchNameOnConnection connection name flags nameAppearedClosure nameVanishedClosure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioBusNameWatcherFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -911,7 +911,7 @@ structure Gio : GIO =
     fun busWatchName busType name flags nameAppearedClosure nameVanishedClosure =
       (
         GioBusType.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioBusNameWatcherFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -925,20 +925,20 @@ structure Gio : GIO =
            & nameAppearedClosure
            & nameVanishedClosure
         )
-    fun contentTypeCanBeExecutable type' = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeCanBeExecutable_ type'
-    fun contentTypeEquals type1 type2 = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeEquals_ (type1 & type2)
-    fun contentTypeFromMimeType mimeType = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) contentTypeFromMimeType_ mimeType
-    fun contentTypeGetDescription type' = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) contentTypeGetDescription_ type'
-    fun contentTypeGetIcon type' = (FFI.String.C.withConstPtr ---> GioIconClass.C.fromPtr true) contentTypeGetIcon_ type'
-    fun contentTypeGetMimeType type' = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) contentTypeGetMimeType_ type'
-    fun contentTypeIsA type' supertype = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeIsA_ (type' & supertype)
-    fun contentTypeIsUnknown type' = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeIsUnknown_ type'
+    fun contentTypeCanBeExecutable type' = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeCanBeExecutable_ type'
+    fun contentTypeEquals type1 type2 = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeEquals_ (type1 & type2)
+    fun contentTypeFromMimeType mimeType = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) contentTypeFromMimeType_ mimeType
+    fun contentTypeGetDescription type' = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) contentTypeGetDescription_ type'
+    fun contentTypeGetIcon type' = (Utf8.C.withConstPtr ---> GioIconClass.C.fromPtr true) contentTypeGetIcon_ type'
+    fun contentTypeGetMimeType type' = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) contentTypeGetMimeType_ type'
+    fun contentTypeIsA type' supertype = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeIsA_ (type' & supertype)
+    fun contentTypeIsUnknown type' = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) contentTypeIsUnknown_ type'
     fun dbusAddressGetForBusSync busType cancellable =
       (
         GioBusType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         dbusAddressGetForBusSync_
         (
@@ -949,7 +949,7 @@ structure Gio : GIO =
     fun dbusAddressGetStreamFinish res outGuid =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
@@ -961,8 +961,8 @@ structure Gio : GIO =
         )
     fun dbusAddressGetStreamSync address outGuid cancellable =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioIOStreamClass.C.fromPtr true
@@ -974,31 +974,31 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun dbusAnnotationInfoLookup annotations name = (GioDBusAnnotationInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup annotations name = (GioDBusAnnotationInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) dbusAnnotationInfoLookup_ (annotations & name)
     fun dbusErrorQuark () = (I ---> FFI.UInt32.C.fromVal) dbusErrorQuark_ ()
-    fun dbusGenerateGuid () = (I ---> FFI.String.C.fromPtr true) dbusGenerateGuid_ ()
+    fun dbusGenerateGuid () = (I ---> Utf8.C.fromPtr true) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant gvalue type' = (GObjectValueRecord.C.withPtr &&&> GLibVariantTypeRecord.C.withPtr ---> GLibVariantRecord.C.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
     fun dbusGvariantToGvalue value outGvalue = (GLibVariantRecord.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) dbusGvariantToGvalue_ (value & outGvalue)
-    fun dbusIsAddress string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsAddress_ string
-    fun dbusIsGuid string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsGuid_ string
-    fun dbusIsInterfaceName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsInterfaceName_ string
-    fun dbusIsMemberName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsMemberName_ string
-    fun dbusIsName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsName_ string
-    fun dbusIsSupportedAddress string = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dbusIsSupportedAddress_ (string & [])
-    fun dbusIsUniqueName string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsUniqueName_ string
-    fun fileNewForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForCommandlineArg_ arg
-    fun fileNewForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForPath_ path
-    fun fileNewForUri uri = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForUri_ uri
-    fun fileParseName parseName = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileParseName_ parseName
-    fun iconNewForString str = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioIconClass.C.fromPtr true) iconNewForString_ (str & [])
+    fun dbusIsAddress string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsAddress_ string
+    fun dbusIsGuid string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsGuid_ string
+    fun dbusIsInterfaceName string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsInterfaceName_ string
+    fun dbusIsMemberName string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsMemberName_ string
+    fun dbusIsName string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsName_ string
+    fun dbusIsSupportedAddress string = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dbusIsSupportedAddress_ (string & [])
+    fun dbusIsUniqueName string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) dbusIsUniqueName_ string
+    fun fileNewForCommandlineArg arg = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForCommandlineArg_ arg
+    fun fileNewForPath path = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForPath_ path
+    fun fileNewForUri uri = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileNewForUri_ uri
+    fun fileParseName parseName = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) fileParseName_ parseName
+    fun iconNewForString str = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioIconClass.C.fromPtr true) iconNewForString_ (str & [])
     fun ioErrorFromErrno errNo = (FFI.Int32.C.withVal ---> GioIOErrorEnum.C.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> FFI.UInt32.C.fromVal) ioErrorQuark_ ()
-    fun ioExtensionPointLookup name = (FFI.String.C.withConstPtr ---> GioIOExtensionPointRecord.C.fromPtr false) ioExtensionPointLookup_ name
-    fun ioExtensionPointRegister name = (FFI.String.C.withConstPtr ---> GioIOExtensionPointRecord.C.fromPtr false) ioExtensionPointRegister_ name
-    fun ioModulesScanAllInDirectory dirname = (FFI.String.C.withConstPtr ---> I) ioModulesScanAllInDirectory_ dirname
-    fun ioModulesScanAllInDirectoryWithScope dirname scope = (FFI.String.C.withConstPtr &&&> GioIOModuleScopeRecord.C.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
+    fun ioExtensionPointLookup name = (Utf8.C.withConstPtr ---> GioIOExtensionPointRecord.C.fromPtr false) ioExtensionPointLookup_ name
+    fun ioExtensionPointRegister name = (Utf8.C.withConstPtr ---> GioIOExtensionPointRecord.C.fromPtr false) ioExtensionPointRegister_ name
+    fun ioModulesScanAllInDirectory dirname = (Utf8.C.withConstPtr ---> I) ioModulesScanAllInDirectory_ dirname
+    fun ioModulesScanAllInDirectoryWithScope dirname scope = (Utf8.C.withConstPtr &&&> GioIOModuleScopeRecord.C.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
-    fun proxyGetDefaultForProtocol protocol = (FFI.String.C.withConstPtr ---> GioProxyClass.C.fromPtr true) proxyGetDefaultForProtocol_ protocol
+    fun proxyGetDefaultForProtocol protocol = (Utf8.C.withConstPtr ---> GioProxyClass.C.fromPtr true) proxyGetDefaultForProtocol_ protocol
     fun proxyResolverGetDefault () = (I ---> GioProxyResolverClass.C.fromPtr false) proxyResolverGetDefault_ ()
     fun resolverErrorQuark () = (I ---> FFI.UInt32.C.fromVal) resolverErrorQuark_ ()
     fun tlsBackendGetDefault () = (I ---> GioTlsBackendClass.C.fromPtr false) tlsBackendGetDefault_ ()
@@ -1016,7 +1016,7 @@ structure Gio : GIO =
            & []
         )
     fun tlsErrorQuark () = (I ---> FFI.UInt32.C.fromVal) tlsErrorQuark_ ()
-    fun tlsFileDatabaseNew anchors = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) tlsFileDatabaseNew_ (anchors & [])
+    fun tlsFileDatabaseNew anchors = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) tlsFileDatabaseNew_ (anchors & [])
     fun tlsServerConnectionNew baseIoStream certificate =
       (
         GObjectObjectClass.C.withPtr
@@ -1030,15 +1030,15 @@ structure Gio : GIO =
            & certificate
            & []
         )
-    fun unixIsMountPathSystemInternal mountPath = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) unixIsMountPathSystemInternal_ mountPath
+    fun unixIsMountPathSystemInternal mountPath = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) unixIsMountPathSystemInternal_ mountPath
     fun unixMountCompare mount1 mount2 = (GioUnixMountEntryRecord.C.withPtr &&&> GioUnixMountEntryRecord.C.withPtr ---> FFI.Int32.C.fromVal) unixMountCompare_ (mount1 & mount2)
     fun unixMountFree mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> I) unixMountFree_ mountEntry
-    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.String.C.fromPtr false) unixMountGetDevicePath_ mountEntry
-    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.String.C.fromPtr false) unixMountGetFsType_ mountEntry
-    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.String.C.fromPtr false) unixMountGetMountPath_ mountEntry
+    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> Utf8.C.fromPtr false) unixMountGetDevicePath_ mountEntry
+    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> Utf8.C.fromPtr false) unixMountGetFsType_ mountEntry
+    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> Utf8.C.fromPtr false) unixMountGetMountPath_ mountEntry
     fun unixMountGuessCanEject mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.Bool.C.fromVal) unixMountGuessCanEject_ mountEntry
     fun unixMountGuessIcon mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> GioIconClass.C.fromPtr true) unixMountGuessIcon_ mountEntry
-    fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.String.C.fromPtr true) unixMountGuessName_ mountEntry
+    fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> Utf8.C.fromPtr true) unixMountGuessName_ mountEntry
     fun unixMountGuessShouldDisplay mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.Bool.C.fromVal) unixMountGuessShouldDisplay_ mountEntry
     fun unixMountIsReadonly mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.Bool.C.fromVal) unixMountIsReadonly_ mountEntry
     fun unixMountIsSystemInternal mountEntry = (GioUnixMountEntryRecord.C.withPtr ---> FFI.Bool.C.fromVal) unixMountIsSystemInternal_ mountEntry

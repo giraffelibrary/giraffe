@@ -7,15 +7,15 @@ structure GioDBusObject :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_object_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getInterface_ = call (load_sym libgio "g_dbus_object_get_interface") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_object_get_object_path") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getInterface_ = call (load_sym libgio "g_dbus_object_get_interface") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_object_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioDBusObjectClass.t
     type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getInterface self interfaceName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioDBusInterfaceClass.C.fromPtr true) getInterface_ (self & interfaceName)
-    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getObjectPath_ self
+    fun getInterface self interfaceName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioDBusInterfaceClass.C.fromPtr true) getInterface_ (self & interfaceName)
+    fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
     local
       open ClosureMarshal Signal
     in

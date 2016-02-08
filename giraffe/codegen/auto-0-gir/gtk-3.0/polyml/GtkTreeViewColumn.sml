@@ -22,7 +22,7 @@ structure GtkTreeViewColumn :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -75,7 +75,7 @@ structure GtkTreeViewColumn :>
       val getSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_indicator") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_order") (GObjectObjectClass.PolyML.PTR --> GtkSortType.PolyML.VAL)
       val getSpacing_ = call (load_sym libgtk "gtk_tree_view_column_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_tree_view_column_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTitle_ = call (load_sym libgtk "gtk_tree_view_column_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getTreeView_ = call (load_sym libgtk "gtk_tree_view_column_get_tree_view") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getVisible_ = call (load_sym libgtk "gtk_tree_view_column_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getWidget_ = call (load_sym libgtk "gtk_tree_view_column_get_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
@@ -111,7 +111,7 @@ structure GtkTreeViewColumn :>
       val setSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_indicator") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_order") (GObjectObjectClass.PolyML.PTR &&> GtkSortType.PolyML.VAL --> FFI.PolyML.VOID)
       val setSpacing_ = call (load_sym libgtk "gtk_tree_view_column_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_tree_view_column_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTitle_ = call (load_sym libgtk "gtk_tree_view_column_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setVisible_ = call (load_sym libgtk "gtk_tree_view_column_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setWidget_ = call (load_sym libgtk "gtk_tree_view_column_set_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
     end
@@ -135,7 +135,7 @@ structure GtkTreeViewColumn :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -243,7 +243,7 @@ structure GtkTreeViewColumn :>
     fun getSortIndicator self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSortIndicator_ self
     fun getSortOrder self = (GObjectObjectClass.C.withPtr ---> GtkSortType.C.fromVal) getSortOrder_ self
     fun getSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
     fun getTreeView self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getTreeView_ self
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
@@ -289,7 +289,7 @@ structure GtkTreeViewColumn :>
     fun setSortIndicator self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSortIndicator_ (self & setting)
     fun setSortOrder self order = (GObjectObjectClass.C.withPtr &&&> GtkSortType.C.withVal ---> I) setSortOrder_ (self & order)
     fun setSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     fun setWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setWidget_ (self & widget)
     local

@@ -8,7 +8,7 @@ structure AtkTable :>
     val addRowSelection_ = fn x1 & x2 => (_import "atk_table_add_row_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val getCaption_ = _import "atk_table_get_caption" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getColumnAtIndex_ = fn x1 & x2 => (_import "atk_table_get_column_at_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.Int.C.val_;) (x1, x2)
-    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getColumnExtentAt_ =
       fn
         x1
@@ -47,7 +47,7 @@ structure AtkTable :>
     val getNColumns_ = _import "atk_table_get_n_columns" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getNRows_ = _import "atk_table_get_n_rows" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getRowAtIndex_ = fn x1 & x2 => (_import "atk_table_get_row_at_index" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.Int.C.val_;) (x1, x2)
-    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getRowExtentAt_ =
       fn
         x1
@@ -187,7 +187,7 @@ structure AtkTable :>
     fun addRowSelection self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)
     fun getCaption self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getCaption_ self
     fun getColumnAtIndex self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getColumnAtIndex_ (self & index)
-    fun getColumnDescription self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) getColumnDescription_ (self & column)
+    fun getColumnDescription self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getColumnDescription_ (self & column)
     fun getColumnExtentAt self row column =
       (
         GObjectObjectClass.C.withPtr
@@ -218,7 +218,7 @@ structure AtkTable :>
     fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNColumns_ self
     fun getNRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNRows_ self
     fun getRowAtIndex self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getRowAtIndex_ (self & index)
-    fun getRowDescription self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) getRowDescription_ (self & row)
+    fun getRowDescription self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getRowDescription_ (self & row)
     fun getRowExtentAt self row column =
       (
         GObjectObjectClass.C.withPtr
@@ -269,7 +269,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setColumnDescription_
@@ -295,7 +295,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setRowDescription_

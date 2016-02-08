@@ -13,7 +13,7 @@ structure GtkEntryCompletion :>
     val newWithArea_ = _import "gtk_entry_completion_new_with_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val complete_ = _import "gtk_entry_completion_complete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val deleteAction_ = fn x1 & x2 => (_import "gtk_entry_completion_delete_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getEntry_ = _import "gtk_entry_completion_get_entry" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getInlineCompletion_ = _import "gtk_entry_completion_get_inline_completion" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getInlineSelection_ = _import "gtk_entry_completion_get_inline_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -85,7 +85,7 @@ structure GtkEntryCompletion :>
     fun newWithArea area = (GObjectObjectClass.C.withPtr ---> GtkEntryCompletionClass.C.fromPtr true) newWithArea_ area
     fun complete self = (GObjectObjectClass.C.withPtr ---> I) complete_ self
     fun deleteAction self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) deleteAction_ (self & index)
-    fun getCompletionPrefix self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCompletionPrefix_ self
+    fun getCompletionPrefix self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCompletionPrefix_ self
     fun getEntry self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getEntry_ self
     fun getInlineCompletion self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInlineCompletion_ self
     fun getInlineSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInlineSelection_ self
@@ -99,7 +99,7 @@ structure GtkEntryCompletion :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         insertActionMarkup_
@@ -112,7 +112,7 @@ structure GtkEntryCompletion :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         insertActionText_

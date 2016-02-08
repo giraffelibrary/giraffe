@@ -21,7 +21,7 @@ structure GtkDialog :>
         call (load_sym libgtk "gtk_dialog_add_button")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -65,7 +65,7 @@ structure GtkDialog :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )

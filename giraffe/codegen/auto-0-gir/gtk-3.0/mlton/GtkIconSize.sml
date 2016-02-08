@@ -51,7 +51,7 @@ structure GtkIconSize :>
         }
     val null = INVALID
     val fromName_ = _import "mlton_gtk_icon_size_from_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int.C.val_;
-    val getName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val lookup_ =
       fn
         x1
@@ -125,8 +125,8 @@ structure GtkIconSize :>
             )
     type 'a settings_class_t = 'a GtkSettingsClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun fromName name = (FFI.String.C.withConstPtr ---> FFI.Int.C.fromVal) fromName_ name
-    fun getName size = (FFI.Int.C.withVal ---> FFI.String.C.fromPtr false) getName_ size
+    fun fromName name = (Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) fromName_ name
+    fun getName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getName_ size
     fun lookup size =
       let
         val width
@@ -175,7 +175,7 @@ structure GtkIconSize :>
       end
     fun register name width height =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -186,5 +186,5 @@ structure GtkIconSize :>
            & width
            & height
         )
-    fun registerAlias alias target = (FFI.String.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) registerAlias_ (alias & target)
+    fun registerAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) registerAlias_ (alias & target)
   end

@@ -22,11 +22,11 @@ structure GtkToolButton :>
               x3
             )
     val newFromStock_ = _import "mlton_gtk_tool_button_new_from_stock" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIconName_ = _import "gtk_tool_button_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getIconName_ = _import "gtk_tool_button_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getIconWidget_ = _import "gtk_tool_button_get_icon_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getLabel_ = _import "gtk_tool_button_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getLabel_ = _import "gtk_tool_button_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getLabelWidget_ = _import "gtk_tool_button_get_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getStockId_ = _import "gtk_tool_button_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getStockId_ = _import "gtk_tool_button_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getUseUnderline_ = _import "gtk_tool_button_get_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setIconName_ =
       fn
@@ -85,19 +85,19 @@ structure GtkToolButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> FFI.String.C.withConstOptPtr ---> GtkToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
-    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkToolButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
+    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withConstOptPtr ---> GtkToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
+    fun newFromStock stockId = (Utf8.C.withConstPtr ---> GtkToolButtonClass.C.fromPtr false) newFromStock_ stockId
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconName_ self
     fun getIconWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getIconWidget_ self
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
+    fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getStockId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStockId_ self
+    fun getStockId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getStockId_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
     fun setIconWidget self iconWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setIconWidget_ (self & iconWidget)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setStockId_ (self & stockId)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setStockId_ (self & stockId)
     fun setUseUnderline self useUnderline = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & useUnderline)
     local
       open ClosureMarshal Signal

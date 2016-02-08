@@ -33,7 +33,7 @@ structure GtkEditable :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -125,7 +125,7 @@ structure GtkEditable :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getChars_
         (
@@ -162,7 +162,7 @@ structure GtkEditable :>
         val position & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withRefVal
              ---> FFI.Int32.C.fromVal && I

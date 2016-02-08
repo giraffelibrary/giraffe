@@ -12,9 +12,9 @@ structure GtkButton :>
     in
       val getType_ = call (load_sym libgtk "gtk_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_button_new_from_stock") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_button_new_with_label") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_button_new_with_mnemonic") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromStock_ = call (load_sym libgtk "gtk_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithLabel_ = call (load_sym libgtk "gtk_button_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_button_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val clicked_ = call (load_sym libgtk "gtk_button_clicked") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getAlignment_ =
         call (load_sym libgtk "gtk_button_get_alignment")
@@ -28,7 +28,7 @@ structure GtkButton :>
       val getFocusOnClick_ = call (load_sym libgtk "gtk_button_get_focus_on_click") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getImage_ = call (load_sym libgtk "gtk_button_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getImagePosition_ = call (load_sym libgtk "gtk_button_get_image_position") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_button_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getLabel_ = call (load_sym libgtk "gtk_button_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getRelief_ = call (load_sym libgtk "gtk_button_get_relief") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
       val getUseStock_ = call (load_sym libgtk "gtk_button_get_use_stock") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getUseUnderline_ = call (load_sym libgtk "gtk_button_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -43,7 +43,7 @@ structure GtkButton :>
       val setFocusOnClick_ = call (load_sym libgtk "gtk_button_set_focus_on_click") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setImage_ = call (load_sym libgtk "gtk_button_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setImagePosition_ = call (load_sym libgtk "gtk_button_set_image_position") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_button_set_label") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setLabel_ = call (load_sym libgtk "gtk_button_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setRelief_ = call (load_sym libgtk "gtk_button_set_relief") (GObjectObjectClass.PolyML.PTR &&> GtkReliefStyle.PolyML.VAL --> FFI.PolyML.VOID)
       val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -60,9 +60,9 @@ structure GtkButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkButtonClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun newWithLabel label = (FFI.String.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (FFI.String.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newWithMnemonic_ label
+    fun newFromStock stockId = (Utf8.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newFromStock_ stockId
+    fun newWithLabel label = (Utf8.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.C.withConstPtr ---> GtkButtonClass.C.fromPtr false) newWithMnemonic_ label
     fun clicked self = (GObjectObjectClass.C.withPtr ---> I) clicked_ self
     fun getAlignment self =
       let
@@ -90,7 +90,7 @@ structure GtkButton :>
     fun getFocusOnClick self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnClick_ self
     fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
     fun getImagePosition self = (GObjectObjectClass.C.withPtr ---> GtkPositionType.C.fromVal) getImagePosition_ self
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
+    fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getRelief self = (GObjectObjectClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getRelief_ self
     fun getUseStock self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseStock_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
@@ -110,7 +110,7 @@ structure GtkButton :>
     fun setFocusOnClick self focusOnClick = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
     fun setImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setImage_ (self & image)
     fun setImagePosition self position = (GObjectObjectClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setImagePosition_ (self & position)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setLabel_ (self & label)
     fun setRelief self newstyle = (GObjectObjectClass.C.withPtr &&&> GtkReliefStyle.C.withVal ---> I) setRelief_ (self & newstyle)
     fun setUseStock self useStock = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseStock_ (self & useStock)
     fun setUseUnderline self useUnderline = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & useUnderline)

@@ -17,12 +17,12 @@ structure GIRepositoryObjectInfo :>
       val getTypeName_ =
         call
           (load_sym libgirepository "g_object_info_get_type_name")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getTypeInit_ =
         call
           (load_sym libgirepository "g_object_info_get_type_init")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getAbstract_ =
         call
@@ -91,7 +91,7 @@ structure GIRepositoryObjectInfo :>
         call
           (load_sym libgirepository "g_object_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getNSignals_ =
@@ -139,28 +139,28 @@ structure GIRepositoryObjectInfo :>
         call
           (load_sym libgirepository "g_object_info_find_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getUnrefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_unref_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getRefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_ref_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getSetValueFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_set_value_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getGetValueFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_get_value_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
     end
 
 
@@ -178,13 +178,13 @@ structure GIRepositoryObjectInfo :>
 
     val getTypeName =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getTypeName_
           info
 
     val getTypeInit =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getTypeInit_
           info
 
@@ -256,7 +256,7 @@ structure GIRepositoryObjectInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
+           &&&> Utf8.C.withConstPtr
            ---> GIRepositoryFunctionInfoClass.C.fromPtr true
         )
           findMethod_
@@ -311,7 +311,7 @@ structure GIRepositoryObjectInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
+           &&&> Utf8.C.withConstPtr
            ---> GIRepositoryVFuncInfoClass.C.fromPtr true
         )
           findVfunc_
@@ -319,25 +319,25 @@ structure GIRepositoryObjectInfo :>
 
     val getUnrefFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getUnrefFunction_
           info
 
     val getRefFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getRefFunction_
           info
 
     val getSetValueFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getSetValueFunction_
           info
 
     val getGetValueFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getGetValueFunction_
           info
   end

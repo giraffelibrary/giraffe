@@ -81,7 +81,7 @@ structure AtkText :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -171,7 +171,7 @@ structure AtkText :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getText_
         (

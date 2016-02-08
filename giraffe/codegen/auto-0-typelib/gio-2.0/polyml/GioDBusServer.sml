@@ -14,17 +14,17 @@ structure GioDBusServer :>
       val newSync_ =
         call (load_sym libgio "g_dbus_server_new_sync")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> GioDBusServerFlags.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getFlags_ = call (load_sym libgio "g_dbus_server_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusServerFlags.PolyML.VAL)
-      val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val start_ = call (load_sym libgio "g_dbus_server_start") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val stop_ = call (load_sym libgio "g_dbus_server_stop") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -40,9 +40,9 @@ structure GioDBusServer :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GioDBusServerFlags.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -57,9 +57,9 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getClientAddress_ self
+    fun getClientAddress self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getClientAddress_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusServerFlags.C.fromVal) getFlags_ self
-    fun getGuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getGuid_ self
+    fun getGuid self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
     fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
     fun start self = (GObjectObjectClass.C.withPtr ---> I) start_ self
     fun stop self = (GObjectObjectClass.C.withPtr ---> I) stop_ self

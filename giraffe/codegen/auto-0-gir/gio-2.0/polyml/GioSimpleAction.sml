@@ -7,11 +7,11 @@ structure GioSimpleAction :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_simple_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_simple_action_new") (FFI.String.PolyML.INPTR &&> GLibVariantTypeRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgio "g_simple_action_new") (Utf8.PolyML.INPTR &&> GLibVariantTypeRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
       val newStateful_ =
         call (load_sym libgio "g_simple_action_new_stateful")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> GLibVariantTypeRecord.PolyML.OPTPTR
              &&> GLibVariantRecord.PolyML.PTR
              --> GObjectObjectClass.PolyML.PTR
@@ -24,10 +24,10 @@ structure GioSimpleAction :>
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name parameterType = (FFI.String.C.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
+    fun new name parameterType = (Utf8.C.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
     fun newStateful name parameterType state =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> GioSimpleActionClass.C.fromPtr true

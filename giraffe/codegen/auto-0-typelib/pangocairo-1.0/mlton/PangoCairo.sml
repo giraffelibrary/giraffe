@@ -179,7 +179,7 @@ structure PangoCairo : PANGO_CAIRO =
     fun showGlyphItem cr text glyphItem =
       (
         CairoContextRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          ---> I
       )

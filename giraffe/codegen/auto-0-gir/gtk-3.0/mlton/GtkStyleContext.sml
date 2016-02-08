@@ -384,7 +384,7 @@ structure GtkStyleContext :>
         )
     fun removeProviderForScreen screen provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProviderForScreen_ (screen & provider)
     fun resetWidgets screen = (GObjectObjectClass.C.withPtr ---> I) resetWidgets_ screen
-    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addClass_ (self & className)
+    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addClass_ (self & className)
     fun addProvider self provider priority =
       (
         GObjectObjectClass.C.withPtr
@@ -401,7 +401,7 @@ structure GtkStyleContext :>
     fun addRegion self regionName flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -528,7 +528,7 @@ structure GtkStyleContext :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -538,13 +538,13 @@ structure GtkStyleContext :>
            & propertyName
            & value
         )
-    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
+    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
     fun hasRegion self regionName =
       let
         val flagsReturn & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -563,7 +563,7 @@ structure GtkStyleContext :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -576,11 +576,11 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
-    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeClass_ (self & className)
+    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
-    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeRegion_ (self & regionName)
+    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeRegion_ (self & regionName)
     fun restore self = (GObjectObjectClass.C.withPtr ---> I) restore_ self
     fun save self = (GObjectObjectClass.C.withPtr ---> I) save_ self
     fun scrollAnimations self window dx dy =

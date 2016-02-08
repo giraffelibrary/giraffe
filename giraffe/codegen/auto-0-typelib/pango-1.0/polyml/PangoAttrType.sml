@@ -113,10 +113,10 @@ structure PangoAttrType :>
     local
       open PolyMLFFI
     in
-      val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val register_ = call (load_sym libpango "pango_attr_type_register") (FFI.String.PolyML.INPTR --> PolyML.VAL)
+      val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val register_ = call (load_sym libpango "pango_attr_type_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getName type' = (C.withVal ---> FFI.String.C.fromPtr false) getName_ type'
-    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
+    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
+    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
   end

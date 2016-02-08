@@ -9,8 +9,8 @@ structure GtkIconSource :>
     val copy_ = _import "gtk_icon_source_copy" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p;
     val getDirection_ = _import "gtk_icon_source_get_direction" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> GtkTextDirection.C.val_;
     val getDirectionWildcarded_ = _import "gtk_icon_source_get_direction_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Bool.C.val_;
-    val getFilename_ = _import "gtk_icon_source_get_filename" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getIconName_ = _import "gtk_icon_source_get_icon_name" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getFilename_ = _import "gtk_icon_source_get_filename" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getIconName_ = _import "gtk_icon_source_get_icon_name" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getPixbuf_ = _import "gtk_icon_source_get_pixbuf" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSize_ = _import "gtk_icon_source_get_size" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Int.C.val_;
     val getSizeWildcarded_ = _import "gtk_icon_source_get_size_wildcarded" : GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> FFI.Bool.C.val_;
@@ -62,8 +62,8 @@ structure GtkIconSource :>
     fun copy self = (GtkIconSourceRecord.C.withPtr ---> GtkIconSourceRecord.C.fromPtr true) copy_ self
     fun getDirection self = (GtkIconSourceRecord.C.withPtr ---> GtkTextDirection.C.fromVal) getDirection_ self
     fun getDirectionWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getDirectionWildcarded_ self
-    fun getFilename self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getFilename_ self
-    fun getIconName self = (GtkIconSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
+    fun getFilename self = (GtkIconSourceRecord.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
+    fun getIconName self = (GtkIconSourceRecord.C.withPtr ---> Utf8.C.fromPtr false) getIconName_ self
     fun getPixbuf self = (GtkIconSourceRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
     fun getSize self = (GtkIconSourceRecord.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
     fun getSizeWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getSizeWildcarded_ self
@@ -71,8 +71,8 @@ structure GtkIconSource :>
     fun getStateWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getStateWildcarded_ self
     fun setDirection self direction = (GtkIconSourceRecord.C.withPtr &&&> GtkTextDirection.C.withVal ---> I) setDirection_ (self & direction)
     fun setDirectionWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDirectionWildcarded_ (self & setting)
-    fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFilename_ (self & filename)
-    fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
+    fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFilename_ (self & filename)
+    fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GtkIconSourceRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
     fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
     fun setSizeWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSizeWildcarded_ (self & setting)

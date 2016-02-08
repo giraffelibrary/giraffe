@@ -17,7 +17,7 @@ structure GioResolver :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val lookupByAddressFinish_ =
         call (load_sym libgio "g_resolver_lookup_by_address_finish")
@@ -25,7 +25,7 @@ structure GioResolver :>
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -42,7 +42,7 @@ structure GioResolver :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         lookupByAddress_
         (
@@ -56,7 +56,7 @@ structure GioResolver :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         lookupByAddressFinish_
         (

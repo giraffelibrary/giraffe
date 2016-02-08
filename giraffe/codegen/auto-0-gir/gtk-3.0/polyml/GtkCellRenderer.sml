@@ -19,7 +19,7 @@ structure GtkCellRenderer :>
             GObjectObjectClass.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GdkRectangleRecord.PolyML.PTR
              &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
@@ -161,7 +161,7 @@ structure GtkCellRenderer :>
             GObjectObjectClass.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GdkRectangleRecord.PolyML.PTR
              &&> GdkRectangleRecord.PolyML.PTR
              &&> GtkCellRendererState.PolyML.VAL
@@ -184,7 +184,7 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
@@ -494,7 +494,7 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal

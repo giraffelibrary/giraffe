@@ -18,7 +18,7 @@ structure GtkSourceBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> FFI.Bool.PolyML.VAL
           )
       val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_buffer_begin_not_undoable_action") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -28,8 +28,8 @@ structure GtkSourceBuffer :>
         call (load_sym libgtksourceview "gtk_source_buffer_create_source_mark")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
              &&> GtkTextIterRecord.PolyML.PTR
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -47,7 +47,7 @@ structure GtkSourceBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> FFI.Bool.PolyML.VAL
           )
       val getHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_get_highlight_matching_brackets") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -61,7 +61,7 @@ structure GtkSourceBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.Bool.PolyML.VAL
           )
       val iterForwardToContextClassToggle_ =
@@ -69,7 +69,7 @@ structure GtkSourceBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.Bool.PolyML.VAL
           )
       val iterHasContextClass_ =
@@ -77,7 +77,7 @@ structure GtkSourceBuffer :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.Bool.PolyML.VAL
           )
       val redo_ = call (load_sym libgtksourceview "gtk_source_buffer_redo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -87,7 +87,7 @@ structure GtkSourceBuffer :>
             GObjectObjectClass.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
              &&> GtkTextIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> FFI.PolyML.VOID
           )
       val setHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_matching_brackets") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -112,7 +112,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> FFI.Bool.C.fromVal
       )
         backwardIterToSourceMark_
@@ -127,8 +127,8 @@ structure GtkSourceBuffer :>
     fun createSourceMark self name category where' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> GtkSourceMarkClass.C.fromPtr false
       )
@@ -157,7 +157,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> FFI.Bool.C.fromVal
       )
         forwardIterToSourceMark_
@@ -176,7 +176,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterBackwardToContextClassToggle_
@@ -189,7 +189,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterForwardToContextClassToggle_
@@ -202,7 +202,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasContextClass_
@@ -217,7 +217,7 @@ structure GtkSourceBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         removeSourceMarks_

@@ -48,12 +48,12 @@ structure GtkSourceLanguageManager :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr false) getDefault_ ()
-    fun getLanguage self id = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkSourceLanguageClass.C.fromPtr false) getLanguage_ (self & id)
+    fun getLanguage self id = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSourceLanguageClass.C.fromPtr false) getLanguage_ (self & id)
     fun guessLanguage self filename contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkSourceLanguageClass.C.fromPtr false
       )
         guessLanguage_

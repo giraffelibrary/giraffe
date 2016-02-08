@@ -9,12 +9,12 @@ structure GIRepositoryBaseInfo :>
       val getName_ =
         call
           (load_sym libgirepository "g_base_info_get_name")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getNamespace_ =
         call
           (load_sym libgirepository "g_base_info_get_namespace")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val isDeprecated_ =
         call
@@ -25,8 +25,8 @@ structure GIRepositoryBaseInfo :>
         call
           (load_sym libgirepository "g_base_info_get_attribute")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.String.PolyML.RETOPTPTR);
+            &&> Utf8.PolyML.INPTR
+            --> Utf8.PolyML.RETOPTPTR);
 
       val getContainer_ =
         call
@@ -53,12 +53,12 @@ structure GIRepositoryBaseInfo :>
 
     val getName =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromOptPtr false)
           getName_ info
 
     val getNamespace =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getNamespace_
           info
 
@@ -71,8 +71,8 @@ structure GIRepositoryBaseInfo :>
     val getAttribute =
       fn info => fn name =>
         (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> FFI.String.C.withConstPtr
-          ---> FFI.String.C.fromOptPtr false)
+          &&&> Utf8.C.withConstPtr
+          ---> Utf8.C.fromOptPtr false)
           getAttribute_
           (info & name)
 

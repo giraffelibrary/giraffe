@@ -14,12 +14,12 @@ structure GioTlsDatabase :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_tls_database_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val lookupCertificateForHandle_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_for_handle")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GioTlsDatabaseLookupFlags.PolyML.VAL
              &&> GObjectObjectClass.PolyML.OPTPTR
@@ -58,7 +58,7 @@ structure GioTlsDatabase :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GioTlsDatabaseVerifyFlags.PolyML.VAL
@@ -86,11 +86,11 @@ structure GioTlsDatabase :>
     type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) createCertificateHandle_ (self & certificate)
+    fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -155,7 +155,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal

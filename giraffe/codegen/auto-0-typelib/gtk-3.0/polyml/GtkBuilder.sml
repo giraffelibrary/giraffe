@@ -11,7 +11,7 @@ structure GtkBuilder :>
         call (load_sym libgtk "gtk_builder_add_from_file")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt32.PolyML.VAL
           )
@@ -19,20 +19,20 @@ structure GtkBuilder :>
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.UInt64.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt32.PolyML.VAL
           )
-      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val valueFromString_ =
         call (load_sym libgtk "gtk_builder_value_from_string")
           (
             GObjectObjectClass.PolyML.PTR
              &&> GObjectParamSpecClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -45,7 +45,7 @@ structure GtkBuilder :>
     fun addFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -58,7 +58,7 @@ structure GtkBuilder :>
     fun addFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
@@ -70,16 +70,16 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GObjectValueRecord.C.withNewPtr
              &&&> GLibErrorRecord.C.handleError
              ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal

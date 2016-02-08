@@ -20,7 +20,7 @@ structure GtkToolItem :>
       val getIconSize_ = call (load_sym libgtk "gtk_tool_item_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getIsImportant_ = call (load_sym libgtk "gtk_tool_item_get_is_important") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getOrientation_ = call (load_sym libgtk "gtk_tool_item_get_orientation") (GObjectObjectClass.PolyML.PTR --> GtkOrientation.PolyML.VAL)
-      val getProxyMenuItem_ = call (load_sym libgtk "gtk_tool_item_get_proxy_menu_item") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getProxyMenuItem_ = call (load_sym libgtk "gtk_tool_item_get_proxy_menu_item") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getReliefStyle_ = call (load_sym libgtk "gtk_tool_item_get_relief_style") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
       val getTextAlignment_ = call (load_sym libgtk "gtk_tool_item_get_text_alignment") (GObjectObjectClass.PolyML.PTR --> FFI.Float.PolyML.VAL)
       val getTextOrientation_ = call (load_sym libgtk "gtk_tool_item_get_text_orientation") (GObjectObjectClass.PolyML.PTR --> GtkOrientation.PolyML.VAL)
@@ -38,12 +38,12 @@ structure GtkToolItem :>
         call (load_sym libgtk "gtk_tool_item_set_proxy_menu_item")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val setTooltipMarkup_ = call (load_sym libgtk "gtk_tool_item_set_tooltip_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTooltipText_ = call (load_sym libgtk "gtk_tool_item_set_tooltip_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTooltipMarkup_ = call (load_sym libgtk "gtk_tool_item_set_tooltip_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTooltipText_ = call (load_sym libgtk "gtk_tool_item_set_tooltip_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setUseDragWindow_ = call (load_sym libgtk "gtk_tool_item_set_use_drag_window") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setVisibleHorizontal_ = call (load_sym libgtk "gtk_tool_item_set_visible_horizontal") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setVisibleVertical_ = call (load_sym libgtk "gtk_tool_item_set_visible_vertical") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -69,7 +69,7 @@ structure GtkToolItem :>
     fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
     fun getIsImportant self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsImportant_ self
     fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
-    fun getProxyMenuItem self menuItemId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getProxyMenuItem_ (self & menuItemId)
+    fun getProxyMenuItem self menuItemId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getProxyMenuItem_ (self & menuItemId)
     fun getReliefStyle self = (GObjectObjectClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getReliefStyle_ self
     fun getTextAlignment self = (GObjectObjectClass.C.withPtr ---> FFI.Float.C.fromVal) getTextAlignment_ self
     fun getTextOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getTextOrientation_ self
@@ -86,7 +86,7 @@ structure GtkToolItem :>
     fun setProxyMenuItem self menuItemId menuItem =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -96,8 +96,8 @@ structure GtkToolItem :>
            & menuItemId
            & menuItem
         )
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltipText_ (self & text)
     fun setUseDragWindow self useDragWindow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseDragWindow_ (self & useDragWindow)
     fun setVisibleHorizontal self visibleHorizontal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
     fun setVisibleVertical self visibleVertical = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleVertical_ (self & visibleVertical)

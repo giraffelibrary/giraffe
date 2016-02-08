@@ -91,7 +91,7 @@ structure GioDataInputStream :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -111,7 +111,7 @@ structure GioDataInputStream :>
                * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -185,7 +185,7 @@ structure GioDataInputStream :>
                * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -207,7 +207,7 @@ structure GioDataInputStream :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -232,7 +232,7 @@ structure GioDataInputStream :>
                * FFI.UInt64.C.ref_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -255,7 +255,7 @@ structure GioDataInputStream :>
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -336,7 +336,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineFinishUtf8_
             (
@@ -356,7 +356,7 @@ structure GioDataInputStream :>
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineUtf8_
             (
@@ -412,11 +412,11 @@ structure GioDataInputStream :>
         val length & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntil_
             (
@@ -437,7 +437,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntilFinish_
             (
@@ -454,12 +454,12 @@ structure GioDataInputStream :>
         val length & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.Int64.C.withVal
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUpto_
             (
@@ -481,7 +481,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUptoFinish_
             (

@@ -319,7 +319,7 @@ in
 end
 
 
-val stringTyRef : int * lid = (0, toList1 ["string"])
+val utf8TyRef : int * lid = (0, toList1 ["string"])
 
 
 type scalarinfo =
@@ -895,7 +895,7 @@ fun addSpecParInfo
     case parInfo of
       PIVOID                                => acc
     | PISCALAR (dir, {ty, ...})             => (addTy dir false (scalarTyRef ty), iRefs)
-    | PIUTF8 (dir, {isOpt, ...})            => (addTy dir isOpt stringTyRef, iRefs)
+    | PIUTF8 (dir, {isOpt, ...})            => (addTy dir isOpt utf8TyRef, iRefs)
     | PIINTERFACE (dir, {iRef, isOpt, ...}) => addIRefTy dir isOpt iRef iRefs
   end
 
@@ -934,7 +934,7 @@ fun addSpecRetInfo
     case retInfo of
       RIVOID                       => ((unitTy, tyVarIdx), iRefs)
     | RISCALAR {ty, ...}           => (mkTy false (scalarTyRef ty), iRefs)
-    | RIUTF8 {isOpt, ...}          => (mkTy isOpt stringTyRef, iRefs)
+    | RIUTF8 {isOpt, ...}          => (mkTy isOpt utf8TyRef, iRefs)
     | RIINTERFACE {
         name,
         iRef,
@@ -1179,7 +1179,7 @@ local
 
   fun withFunUtf8 (dir, {isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", CId]
+      val prefixIds = [utf8StrId, CId]
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
@@ -1257,7 +1257,7 @@ local
 
   fun fromFunUtf8 (_, {ownXfer, isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", CId]
+      val prefixIds = [utf8StrId, CId]
     in
       fromFunExp prefixIds {
         isOpt      = isOpt,
@@ -1864,7 +1864,7 @@ local
 
   fun parUtf8Conv (dir, {isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", PolyMLId]
+      val prefixIds = [utf8StrId, PolyMLId]
     in
       convExp prefixIds (
         if dir <> IN
@@ -1883,7 +1883,7 @@ local
 
   fun retUtf8Conv ({isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", PolyMLId]
+      val prefixIds = [utf8StrId, PolyMLId]
     in
       convExp prefixIds (
         PTR {
@@ -2453,7 +2453,7 @@ local
 
   fun parUtf8Type (dir, {isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", CId]
+      val prefixIds = [utf8StrId, CId]
     in
       typeTy true prefixIds (
         if dir <> IN
@@ -2474,7 +2474,7 @@ local
 
   fun retUtf8Type ({isOpt, ...} : utf8info) =
     let
-      val prefixIds = [FFIId, "String", CId]
+      val prefixIds = [utf8StrId, CId]
     in
       typeTy false prefixIds (
         PTR {

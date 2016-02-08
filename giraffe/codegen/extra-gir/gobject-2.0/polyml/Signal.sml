@@ -29,7 +29,7 @@ structure Signal :>
           )
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectClosureRecord.PolyML.PTR
              &&> FFI.Bool.PolyML.VAL
              --> FFI.ULong.PolyML.VAL
@@ -64,7 +64,7 @@ structure Signal :>
     fun signalConnectClosure instance detailedSignal closure after =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectClosureRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I

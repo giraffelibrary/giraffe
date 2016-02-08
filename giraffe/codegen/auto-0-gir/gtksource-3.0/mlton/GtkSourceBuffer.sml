@@ -200,7 +200,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> FFI.Bool.C.fromVal
       )
         backwardIterToSourceMark_
@@ -215,8 +215,8 @@ structure GtkSourceBuffer :>
     fun createSourceMark self name category where' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> GtkSourceMarkClass.C.fromPtr false
       )
@@ -245,7 +245,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> FFI.Bool.C.fromVal
       )
         forwardIterToSourceMark_
@@ -264,7 +264,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterBackwardToContextClassToggle_
@@ -277,7 +277,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterForwardToContextClassToggle_
@@ -290,7 +290,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasContextClass_
@@ -305,7 +305,7 @@ structure GtkSourceBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         removeSourceMarks_

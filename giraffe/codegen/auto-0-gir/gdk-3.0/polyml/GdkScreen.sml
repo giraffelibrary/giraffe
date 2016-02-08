@@ -38,7 +38,7 @@ structure GdkScreen :>
              --> FFI.PolyML.VOID
           )
       val getMonitorHeightMm_ = call (load_sym libgdk "gdk_screen_get_monitor_height_mm") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Int.PolyML.VAL)
-      val getMonitorPlugName_ = call (load_sym libgdk "gdk_screen_get_monitor_plug_name") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val getMonitorPlugName_ = call (load_sym libgdk "gdk_screen_get_monitor_plug_name") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> Utf8.PolyML.RETPTR)
       val getMonitorWidthMm_ = call (load_sym libgdk "gdk_screen_get_monitor_width_mm") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Int.PolyML.VAL)
       val getNMonitors_ = call (load_sym libgdk "gdk_screen_get_n_monitors") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getNumber_ = call (load_sym libgdk "gdk_screen_get_number") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
@@ -50,7 +50,7 @@ structure GdkScreen :>
         call (load_sym libgdk "gdk_screen_get_setting")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
@@ -58,7 +58,7 @@ structure GdkScreen :>
       val getWidth_ = call (load_sym libgdk "gdk_screen_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getWidthMm_ = call (load_sym libgdk "gdk_screen_get_width_mm") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val isComposited_ = call (load_sym libgdk "gdk_screen_is_composited") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val makeDisplayName_ = call (load_sym libgdk "gdk_screen_make_display_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val makeDisplayName_ = call (load_sym libgdk "gdk_screen_make_display_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val setFontOptions_ = call (load_sym libgdk "gdk_screen_set_font_options") (GObjectObjectClass.PolyML.PTR &&> CairoFontOptionsRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setResolution_ = call (load_sym libgdk "gdk_screen_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
     end
@@ -112,7 +112,7 @@ structure GdkScreen :>
         dest
       end
     fun getMonitorHeightMm self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getMonitorHeightMm_ (self & monitorNum)
-    fun getMonitorPlugName self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.String.C.fromPtr true) getMonitorPlugName_ (self & monitorNum)
+    fun getMonitorPlugName self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) getMonitorPlugName_ (self & monitorNum)
     fun getMonitorWidthMm self monitorNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getMonitorWidthMm_ (self & monitorNum)
     fun getNMonitors self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNMonitors_ self
     fun getNumber self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNumber_ self
@@ -123,7 +123,7 @@ structure GdkScreen :>
     fun getSetting self name value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -137,7 +137,7 @@ structure GdkScreen :>
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun getWidthMm self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthMm_ self
     fun isComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isComposited_ self
-    fun makeDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) makeDisplayName_ self
+    fun makeDisplayName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) makeDisplayName_ self
     fun setFontOptions self options = (GObjectObjectClass.C.withPtr &&&> CairoFontOptionsRecord.C.withOptPtr ---> I) setFontOptions_ (self & options)
     fun setResolution self dpi = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setResolution_ (self & dpi)
     local

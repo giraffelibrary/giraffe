@@ -47,7 +47,7 @@ structure AtkText :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
       val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
@@ -122,7 +122,7 @@ structure AtkText :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getText_
         (

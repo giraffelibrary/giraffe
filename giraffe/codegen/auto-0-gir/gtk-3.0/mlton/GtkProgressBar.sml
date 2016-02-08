@@ -11,7 +11,7 @@ structure GtkProgressBar :>
     val getInverted_ = _import "gtk_progress_bar_get_inverted" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPulseStep_ = _import "gtk_progress_bar_get_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getShowText_ = _import "gtk_progress_bar_get_show_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getText_ = _import "gtk_progress_bar_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getText_ = _import "gtk_progress_bar_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val pulse_ = _import "gtk_progress_bar_pulse" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setEllipsize_ = fn x1 & x2 => (_import "gtk_progress_bar_set_ellipsize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoEllipsizeMode.C.val_ -> unit;) (x1, x2)
     val setFraction_ = fn x1 & x2 => (_import "gtk_progress_bar_set_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
@@ -47,14 +47,14 @@ structure GtkProgressBar :>
     fun getInverted self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInverted_ self
     fun getPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPulseStep_ self
     fun getShowText self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowText_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun pulse self = (GObjectObjectClass.C.withPtr ---> I) pulse_ self
     fun setEllipsize self mode = (GObjectObjectClass.C.withPtr &&&> PangoEllipsizeMode.C.withVal ---> I) setEllipsize_ (self & mode)
     fun setFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setFraction_ (self & fraction)
     fun setInverted self inverted = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInverted_ (self & inverted)
     fun setPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPulseStep_ (self & fraction)
     fun setShowText self showText = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowText_ (self & showText)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
     local
       open Property
     in

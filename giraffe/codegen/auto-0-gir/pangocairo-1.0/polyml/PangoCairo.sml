@@ -45,7 +45,7 @@ structure PangoCairo : PANGO_CAIRO =
         call (load_sym libpangocairo "pango_cairo_show_glyph_item")
           (
             CairoContextRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> PangoGlyphItemRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -128,7 +128,7 @@ structure PangoCairo : PANGO_CAIRO =
     fun showGlyphItem cr text glyphItem =
       (
         CairoContextRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          ---> I
       )

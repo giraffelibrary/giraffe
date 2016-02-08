@@ -47,12 +47,12 @@ structure GioDBusObjectSkeleton :>
     type t = base class_t
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new objectPath = (FFI.String.C.withConstPtr ---> GioDBusObjectSkeletonClass.C.fromPtr true) new_ objectPath
+    fun new objectPath = (Utf8.C.withConstPtr ---> GioDBusObjectSkeletonClass.C.fromPtr true) new_ objectPath
     fun addInterface self interface = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addInterface_ (self & interface)
     fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
     fun removeInterface self interface = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeInterface_ (self & interface)
-    fun removeInterfaceByName self interfaceName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeInterfaceByName_ (self & interfaceName)
-    fun setObjectPath self objectPath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setObjectPath_ (self & objectPath)
+    fun removeInterfaceByName self interfaceName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeInterfaceByName_ (self & interfaceName)
+    fun setObjectPath self objectPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setObjectPath_ (self & objectPath)
     local
       open ClosureMarshal Signal
     in

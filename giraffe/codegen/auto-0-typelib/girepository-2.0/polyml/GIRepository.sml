@@ -19,15 +19,15 @@ structure GIRepository : G_I_REPOSITORY =
       val callableInfoGetArg_ = call (load_sym libgirepository "g_callable_info_get_arg") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val callableInfoGetCallerOwns_ = call (load_sym libgirepository "g_callable_info_get_caller_owns") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL)
       val callableInfoGetNArgs_ = call (load_sym libgirepository "g_callable_info_get_n_args") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val callableInfoGetReturnAttribute_ = call (load_sym libgirepository "g_callable_info_get_return_attribute") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
+      val callableInfoGetReturnAttribute_ = call (load_sym libgirepository "g_callable_info_get_return_attribute") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
       val callableInfoGetReturnType_ = call (load_sym libgirepository "g_callable_info_get_return_type") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val callableInfoIterateReturnAttributes_ =
         call (load_sym libgirepository "g_callable_info_iterate_return_attributes")
           (
             GIRepositoryBaseInfoRecord.PolyML.PTR
              &&> GIRepositoryAttributeIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.OUTREF
-             &&> FFI.String.PolyML.OUTREF
+             &&> Utf8.PolyML.OUTREF
+             &&> Utf8.PolyML.OUTREF
              --> FFI.Bool.PolyML.VAL
           )
       val callableInfoLoadArg_ =
@@ -42,7 +42,7 @@ structure GIRepository : G_I_REPOSITORY =
       val callableInfoMayReturnNull_ = call (load_sym libgirepository "g_callable_info_may_return_null") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val callableInfoSkipReturn_ = call (load_sym libgirepository "g_callable_info_skip_return") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val constantInfoGetType_ = call (load_sym libgirepository "g_constant_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val enumInfoGetErrorDomain_ = call (load_sym libgirepository "g_enum_info_get_error_domain") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val enumInfoGetErrorDomain_ = call (load_sym libgirepository "g_enum_info_get_error_domain") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val enumInfoGetMethod_ = call (load_sym libgirepository "g_enum_info_get_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val enumInfoGetNMethods_ = call (load_sym libgirepository "g_enum_info_get_n_methods") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val enumInfoGetNValues_ = call (load_sym libgirepository "g_enum_info_get_n_values") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
@@ -54,7 +54,7 @@ structure GIRepository : G_I_REPOSITORY =
       val fieldInfoGetType_ = call (load_sym libgirepository "g_field_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val functionInfoGetFlags_ = call (load_sym libgirepository "g_function_info_get_flags") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryFunctionInfoFlags.PolyML.VAL)
       val functionInfoGetProperty_ = call (load_sym libgirepository "g_function_info_get_property") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val functionInfoGetSymbol_ = call (load_sym libgirepository "g_function_info_get_symbol") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val functionInfoGetSymbol_ = call (load_sym libgirepository "g_function_info_get_symbol") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val functionInfoGetVfunc_ = call (load_sym libgirepository "g_function_info_get_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val infoNew_ =
         call (load_sym libgirepository "g_info_new")
@@ -65,9 +65,9 @@ structure GIRepository : G_I_REPOSITORY =
              &&> FFI.UInt32.PolyML.VAL
              --> GIRepositoryBaseInfoRecord.PolyML.PTR
           )
-      val infoTypeToString_ = call (load_sym libgirepository "g_info_type_to_string") (GIRepositoryInfoType.PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val interfaceInfoFindMethod_ = call (load_sym libgirepository "g_interface_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val interfaceInfoFindVfunc_ = call (load_sym libgirepository "g_interface_info_find_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val infoTypeToString_ = call (load_sym libgirepository "g_info_type_to_string") (GIRepositoryInfoType.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val interfaceInfoFindMethod_ = call (load_sym libgirepository "g_interface_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val interfaceInfoFindVfunc_ = call (load_sym libgirepository "g_interface_info_find_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val interfaceInfoGetConstant_ = call (load_sym libgirepository "g_interface_info_get_constant") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val interfaceInfoGetIfaceStruct_ = call (load_sym libgirepository "g_interface_info_get_iface_struct") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val interfaceInfoGetMethod_ = call (load_sym libgirepository "g_interface_info_get_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
@@ -82,22 +82,22 @@ structure GIRepository : G_I_REPOSITORY =
       val interfaceInfoGetSignal_ = call (load_sym libgirepository "g_interface_info_get_signal") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val interfaceInfoGetVfunc_ = call (load_sym libgirepository "g_interface_info_get_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val invokeErrorQuark_ = call (load_sym libgirepository "g_invoke_error_quark") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val objectInfoFindMethod_ = call (load_sym libgirepository "g_object_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val objectInfoFindMethod_ = call (load_sym libgirepository "g_object_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoFindMethodUsingInterfaces_ =
         call (load_sym libgirepository "g_object_info_find_method_using_interfaces")
           (
             GIRepositoryBaseInfoRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GIRepositoryBaseInfoRecord.PolyML.OUTREF
              --> GIRepositoryBaseInfoRecord.PolyML.PTR
           )
-      val objectInfoFindVfunc_ = call (load_sym libgirepository "g_object_info_find_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val objectInfoFindVfunc_ = call (load_sym libgirepository "g_object_info_find_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetAbstract_ = call (load_sym libgirepository "g_object_info_get_abstract") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val objectInfoGetClassStruct_ = call (load_sym libgirepository "g_object_info_get_class_struct") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetConstant_ = call (load_sym libgirepository "g_object_info_get_constant") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetField_ = call (load_sym libgirepository "g_object_info_get_field") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetFundamental_ = call (load_sym libgirepository "g_object_info_get_fundamental") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val objectInfoGetGetValueFunction_ = call (load_sym libgirepository "g_object_info_get_get_value_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val objectInfoGetGetValueFunction_ = call (load_sym libgirepository "g_object_info_get_get_value_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val objectInfoGetInterface_ = call (load_sym libgirepository "g_object_info_get_interface") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetMethod_ = call (load_sym libgirepository "g_object_info_get_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetNConstants_ = call (load_sym libgirepository "g_object_info_get_n_constants") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
@@ -109,22 +109,22 @@ structure GIRepository : G_I_REPOSITORY =
       val objectInfoGetNVfuncs_ = call (load_sym libgirepository "g_object_info_get_n_vfuncs") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val objectInfoGetParent_ = call (load_sym libgirepository "g_object_info_get_parent") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val objectInfoGetProperty_ = call (load_sym libgirepository "g_object_info_get_property") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val objectInfoGetRefFunction_ = call (load_sym libgirepository "g_object_info_get_ref_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val objectInfoGetSetValueFunction_ = call (load_sym libgirepository "g_object_info_get_set_value_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val objectInfoGetRefFunction_ = call (load_sym libgirepository "g_object_info_get_ref_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val objectInfoGetSetValueFunction_ = call (load_sym libgirepository "g_object_info_get_set_value_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val objectInfoGetSignal_ = call (load_sym libgirepository "g_object_info_get_signal") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val objectInfoGetTypeInit_ = call (load_sym libgirepository "g_object_info_get_type_init") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val objectInfoGetTypeName_ = call (load_sym libgirepository "g_object_info_get_type_name") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val objectInfoGetUnrefFunction_ = call (load_sym libgirepository "g_object_info_get_unref_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val objectInfoGetTypeInit_ = call (load_sym libgirepository "g_object_info_get_type_init") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val objectInfoGetTypeName_ = call (load_sym libgirepository "g_object_info_get_type_name") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val objectInfoGetUnrefFunction_ = call (load_sym libgirepository "g_object_info_get_unref_function") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val objectInfoGetVfunc_ = call (load_sym libgirepository "g_object_info_get_vfunc") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val propertyInfoGetFlags_ = call (load_sym libgirepository "g_property_info_get_flags") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GObjectParamFlags.PolyML.VAL)
       val propertyInfoGetOwnershipTransfer_ = call (load_sym libgirepository "g_property_info_get_ownership_transfer") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL)
       val propertyInfoGetType_ = call (load_sym libgirepository "g_property_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
-      val registeredTypeInfoGetTypeInit_ = call (load_sym libgirepository "g_registered_type_info_get_type_init") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val registeredTypeInfoGetTypeName_ = call (load_sym libgirepository "g_registered_type_info_get_type_name") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val registeredTypeInfoGetTypeInit_ = call (load_sym libgirepository "g_registered_type_info_get_type_init") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val registeredTypeInfoGetTypeName_ = call (load_sym libgirepository "g_registered_type_info_get_type_name") (GIRepositoryBaseInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val signalInfoGetClassClosure_ = call (load_sym libgirepository "g_signal_info_get_class_closure") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val signalInfoGetFlags_ = call (load_sym libgirepository "g_signal_info_get_flags") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GObjectSignalFlags.PolyML.VAL)
       val signalInfoTrueStopsEmit_ = call (load_sym libgirepository "g_signal_info_true_stops_emit") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val structInfoFindMethod_ = call (load_sym libgirepository "g_struct_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val structInfoFindMethod_ = call (load_sym libgirepository "g_struct_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val structInfoGetAlignment_ = call (load_sym libgirepository "g_struct_info_get_alignment") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
       val structInfoGetField_ = call (load_sym libgirepository "g_struct_info_get_field") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val structInfoGetMethod_ = call (load_sym libgirepository "g_struct_info_get_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
@@ -141,8 +141,8 @@ structure GIRepository : G_I_REPOSITORY =
       val typeInfoGetTag_ = call (load_sym libgirepository "g_type_info_get_tag") (GIRepositoryBaseInfoRecord.PolyML.PTR --> GIRepositoryTypeTag.PolyML.VAL)
       val typeInfoIsPointer_ = call (load_sym libgirepository "g_type_info_is_pointer") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val typeInfoIsZeroTerminated_ = call (load_sym libgirepository "g_type_info_is_zero_terminated") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val typeTagToString_ = call (load_sym libgirepository "g_type_tag_to_string") (GIRepositoryTypeTag.PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val unionInfoFindMethod_ = call (load_sym libgirepository "g_union_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val typeTagToString_ = call (load_sym libgirepository "g_type_tag_to_string") (GIRepositoryTypeTag.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val unionInfoFindMethod_ = call (load_sym libgirepository "g_union_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val unionInfoGetAlignment_ = call (load_sym libgirepository "g_union_info_get_alignment") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
       val unionInfoGetDiscriminator_ = call (load_sym libgirepository "g_union_info_get_discriminator") (GIRepositoryBaseInfoRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
       val unionInfoGetDiscriminatorOffset_ = call (load_sym libgirepository "g_union_info_get_discriminator_offset") (GIRepositoryBaseInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
@@ -197,7 +197,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetArg info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) callableInfoGetArg_ (info & n)
     fun callableInfoGetCallerOwns info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryTransfer.C.fromVal) callableInfoGetCallerOwns_ info
     fun callableInfoGetNArgs info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) callableInfoGetNArgs_ info
-    fun callableInfoGetReturnAttribute info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
+    fun callableInfoGetReturnAttribute info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
     fun callableInfoGetReturnType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIterateReturnAttributes info iterator =
       let
@@ -207,10 +207,10 @@ structure GIRepository : G_I_REPOSITORY =
           (
             GIRepositoryBaseInfoRecord.C.withPtr
              &&&> GIRepositoryAttributeIterRecord.C.withPtr
-             &&&> FFI.String.C.withRefConstOptPtr
-             &&&> FFI.String.C.withRefConstOptPtr
-             ---> FFI.String.C.fromPtr false
-                   && FFI.String.C.fromPtr false
+             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
+             ---> Utf8.C.fromPtr false
+                   && Utf8.C.fromPtr false
                    && FFI.Bool.C.fromVal
           )
             callableInfoIterateReturnAttributes_
@@ -250,7 +250,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoMayReturnNull info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) callableInfoMayReturnNull_ info
     fun callableInfoSkipReturn info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) callableInfoSkipReturn_ info
     fun constantInfoGetType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) constantInfoGetType_ info
-    fun enumInfoGetErrorDomain info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) enumInfoGetErrorDomain_ info
+    fun enumInfoGetErrorDomain info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) enumInfoGetErrorDomain_ info
     fun enumInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) enumInfoGetMethod_ (info & n)
     fun enumInfoGetNMethods info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) enumInfoGetNMethods_ info
     fun enumInfoGetNValues info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) enumInfoGetNValues_ info
@@ -262,7 +262,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun fieldInfoGetType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) fieldInfoGetType_ info
     fun functionInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryFunctionInfoFlags.C.fromVal) functionInfoGetFlags_ info
     fun functionInfoGetProperty info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) functionInfoGetProperty_ info
-    fun functionInfoGetSymbol info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) functionInfoGetSymbol_ info
+    fun functionInfoGetSymbol info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) functionInfoGetSymbol_ info
     fun functionInfoGetVfunc info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) functionInfoGetVfunc_ info
     fun infoNew type' container typelib offset =
       (
@@ -279,9 +279,9 @@ structure GIRepository : G_I_REPOSITORY =
            & typelib
            & offset
         )
-    fun infoTypeToString type' = (GIRepositoryInfoType.C.withVal ---> FFI.String.C.fromPtr false) infoTypeToString_ type'
-    fun interfaceInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
-    fun interfaceInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
+    fun infoTypeToString type' = (GIRepositoryInfoType.C.withVal ---> Utf8.C.fromPtr false) infoTypeToString_ type'
+    fun interfaceInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
+    fun interfaceInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
     fun interfaceInfoGetConstant info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetConstant_ (info & n)
     fun interfaceInfoGetIfaceStruct info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetIfaceStruct_ info
     fun interfaceInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetMethod_ (info & n)
@@ -296,13 +296,13 @@ structure GIRepository : G_I_REPOSITORY =
     fun interfaceInfoGetSignal info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetSignal_ (info & n)
     fun interfaceInfoGetVfunc info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetVfunc_ (info & n)
     fun invokeErrorQuark () = (I ---> FFI.UInt32.C.fromVal) invokeErrorQuark_ ()
-    fun objectInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
+    fun objectInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
     fun objectInfoFindMethodUsingInterfaces info name =
       let
         val implementor & retVal =
           (
             GIRepositoryBaseInfoRecord.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GIRepositoryBaseInfoRecord.C.withRefOptPtr
              ---> GIRepositoryBaseInfoRecord.C.fromPtr true && GIRepositoryBaseInfoRecord.C.fromPtr true
           )
@@ -315,13 +315,13 @@ structure GIRepository : G_I_REPOSITORY =
       in
         (retVal, implementor)
       end
-    fun objectInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
+    fun objectInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
     fun objectInfoGetAbstract info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) objectInfoGetAbstract_ info
     fun objectInfoGetClassStruct info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetClassStruct_ info
     fun objectInfoGetConstant info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetConstant_ (info & n)
     fun objectInfoGetField info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetField_ (info & n)
     fun objectInfoGetFundamental info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) objectInfoGetFundamental_ info
-    fun objectInfoGetGetValueFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetGetValueFunction_ info
+    fun objectInfoGetGetValueFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetGetValueFunction_ info
     fun objectInfoGetInterface info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetInterface_ (info & n)
     fun objectInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetMethod_ (info & n)
     fun objectInfoGetNConstants info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) objectInfoGetNConstants_ info
@@ -333,22 +333,22 @@ structure GIRepository : G_I_REPOSITORY =
     fun objectInfoGetNVfuncs info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) objectInfoGetNVfuncs_ info
     fun objectInfoGetParent info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetParent_ info
     fun objectInfoGetProperty info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetProperty_ (info & n)
-    fun objectInfoGetRefFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetRefFunction_ info
-    fun objectInfoGetSetValueFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetSetValueFunction_ info
+    fun objectInfoGetRefFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetRefFunction_ info
+    fun objectInfoGetSetValueFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetSetValueFunction_ info
     fun objectInfoGetSignal info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetSignal_ (info & n)
-    fun objectInfoGetTypeInit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetTypeInit_ info
-    fun objectInfoGetTypeName info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetTypeName_ info
-    fun objectInfoGetUnrefFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) objectInfoGetUnrefFunction_ info
+    fun objectInfoGetTypeInit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetTypeInit_ info
+    fun objectInfoGetTypeName info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetTypeName_ info
+    fun objectInfoGetUnrefFunction info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) objectInfoGetUnrefFunction_ info
     fun objectInfoGetVfunc info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetVfunc_ (info & n)
     fun propertyInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GObjectParamFlags.C.fromVal) propertyInfoGetFlags_ info
     fun propertyInfoGetOwnershipTransfer info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryTransfer.C.fromVal) propertyInfoGetOwnershipTransfer_ info
     fun propertyInfoGetType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) propertyInfoGetType_ info
-    fun registeredTypeInfoGetTypeInit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) registeredTypeInfoGetTypeInit_ info
-    fun registeredTypeInfoGetTypeName info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) registeredTypeInfoGetTypeName_ info
+    fun registeredTypeInfoGetTypeInit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) registeredTypeInfoGetTypeInit_ info
+    fun registeredTypeInfoGetTypeName info = (GIRepositoryBaseInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) registeredTypeInfoGetTypeName_ info
     fun signalInfoGetClassClosure info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) signalInfoGetClassClosure_ info
     fun signalInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GObjectSignalFlags.C.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) signalInfoTrueStopsEmit_ info
-    fun structInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
+    fun structInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
     fun structInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.C.fromVal) structInfoGetAlignment_ info
     fun structInfoGetField info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetField_ (info & n)
     fun structInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetMethod_ (info & n)
@@ -365,8 +365,8 @@ structure GIRepository : G_I_REPOSITORY =
     fun typeInfoGetTag info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryTypeTag.C.fromVal) typeInfoGetTag_ info
     fun typeInfoIsPointer info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsPointer_ info
     fun typeInfoIsZeroTerminated info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsZeroTerminated_ info
-    fun typeTagToString type' = (GIRepositoryTypeTag.C.withVal ---> FFI.String.C.fromPtr false) typeTagToString_ type'
-    fun unionInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
+    fun typeTagToString type' = (GIRepositoryTypeTag.C.withVal ---> Utf8.C.fromPtr false) typeTagToString_ type'
+    fun unionInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
     fun unionInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.C.fromVal) unionInfoGetAlignment_ info
     fun unionInfoGetDiscriminator info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoGetDiscriminator_ (info & n)
     fun unionInfoGetDiscriminatorOffset info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) unionInfoGetDiscriminatorOffset_ info

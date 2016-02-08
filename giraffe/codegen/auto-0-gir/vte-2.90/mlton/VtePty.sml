@@ -130,7 +130,7 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
         GObjectObjectClass.C.withPtr

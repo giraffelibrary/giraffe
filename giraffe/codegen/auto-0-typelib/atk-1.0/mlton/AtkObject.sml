@@ -24,10 +24,10 @@ structure AtkObject :>
               x2,
               x3
             )
-    val getDescription_ = _import "atk_object_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDescription_ = _import "atk_object_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getIndexInParent_ = _import "atk_object_get_index_in_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getName_ = _import "atk_object_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "atk_object_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getParent_ = _import "atk_object_get_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getRole_ = _import "atk_object_get_role" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkRole.C.val_;
     val notifyStateChange_ =
@@ -120,10 +120,10 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self
+    fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
     fun getIndexInParent self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIndexInParent_ self
     fun getNAccessibleChildren self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAccessibleChildren_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getParent self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getParent_ self
     fun getRole self = (GObjectObjectClass.C.withPtr ---> AtkRole.C.fromVal) getRole_ self
     fun notifyStateChange self state value =
@@ -156,8 +156,8 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setDescription_ (self & description)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDescription_ (self & description)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setRole self role = (GObjectObjectClass.C.withPtr &&&> AtkRole.C.withVal ---> I) setRole_ (self & role)
     local

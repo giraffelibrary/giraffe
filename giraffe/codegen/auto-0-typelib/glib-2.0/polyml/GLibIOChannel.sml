@@ -15,8 +15,8 @@ structure GLibIOChannel :>
       val newFile_ =
         call (load_sym libglib "g_io_channel_new_file")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibIOChannelRecord.PolyML.PTR
           )
@@ -27,7 +27,7 @@ structure GLibIOChannel :>
       val getBufferSize_ = call (load_sym libglib "g_io_channel_get_buffer_size") (GLibIOChannelRecord.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
       val getBuffered_ = call (load_sym libglib "g_io_channel_get_buffered") (GLibIOChannelRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getCloseOnUnref_ = call (load_sym libglib "g_io_channel_get_close_on_unref") (GLibIOChannelRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getEncoding_ = call (load_sym libglib "g_io_channel_get_encoding") (GLibIOChannelRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getEncoding_ = call (load_sym libglib "g_io_channel_get_encoding") (GLibIOChannelRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getFlags_ = call (load_sym libglib "g_io_channel_get_flags") (GLibIOChannelRecord.PolyML.PTR --> GLibIOFlags.PolyML.VAL)
       val init_ = call (load_sym libglib "g_io_channel_init") (GLibIOChannelRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val seek_ =
@@ -54,7 +54,7 @@ structure GLibIOChannel :>
         call (load_sym libglib "g_io_channel_set_encoding")
           (
             GLibIOChannelRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GLibIOStatus.PolyML.VAL
           )
@@ -70,7 +70,7 @@ structure GLibIOChannel :>
         call (load_sym libglib "g_io_channel_set_line_term")
           (
             GLibIOChannelRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int32.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -104,8 +104,8 @@ structure GLibIOChannel :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOChannelRecord.C.fromPtr true
       )
@@ -122,7 +122,7 @@ structure GLibIOChannel :>
     fun getBufferSize self = (GLibIOChannelRecord.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
     fun getBuffered self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.C.fromVal) getBuffered_ self
     fun getCloseOnUnref self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.C.fromVal) getCloseOnUnref_ self
-    fun getEncoding self = (GLibIOChannelRecord.C.withPtr ---> FFI.String.C.fromPtr false) getEncoding_ self
+    fun getEncoding self = (GLibIOChannelRecord.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
     fun getFlags self = (GLibIOChannelRecord.C.withPtr ---> GLibIOFlags.C.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.C.withPtr ---> I) init_ self
     fun seek self offset type' =
@@ -159,7 +159,7 @@ structure GLibIOChannel :>
     fun setEncoding self encoding =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOStatus.C.fromVal
       )
@@ -185,7 +185,7 @@ structure GLibIOChannel :>
     fun setLineTerm self lineTerm length =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )

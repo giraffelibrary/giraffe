@@ -90,13 +90,13 @@ structure GioAppInfo :>
     val delete_ = _import "g_app_info_delete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val dup_ = _import "g_app_info_dup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val equal_ = fn x1 & x2 => (_import "g_app_info_equal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getCommandline_ = _import "g_app_info_get_commandline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getDescription_ = _import "g_app_info_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getDisplayName_ = _import "g_app_info_get_display_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getExecutable_ = _import "g_app_info_get_executable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCommandline_ = _import "g_app_info_get_commandline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDescription_ = _import "g_app_info_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDisplayName_ = _import "g_app_info_get_display_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getExecutable_ = _import "g_app_info_get_executable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getIcon_ = _import "g_app_info_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getId_ = _import "g_app_info_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getName_ = _import "g_app_info_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getId_ = _import "g_app_info_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getName_ = _import "g_app_info_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val removeSupportsType_ =
       fn
         x1
@@ -184,8 +184,8 @@ structure GioAppInfo :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
@@ -197,11 +197,11 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType contentType mustSupportUris = (FFI.String.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
-    fun getDefaultForUriScheme uriScheme = (FFI.String.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
+    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForUriScheme uriScheme = (Utf8.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
     fun launchDefaultForUri uri launchContext =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -212,11 +212,11 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
-    fun resetTypeAssociations contentType = (FFI.String.C.withConstPtr ---> I) resetTypeAssociations_ contentType
+    fun resetTypeAssociations contentType = (Utf8.C.withConstPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -231,17 +231,17 @@ structure GioAppInfo :>
     fun delete self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) delete_ self
     fun dup self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) dup_ self
     fun equal self appinfo2 = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & appinfo2)
-    fun getCommandline self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCommandline_ self
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self
-    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDisplayName_ self
-    fun getExecutable self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getExecutable_ self
+    fun getCommandline self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCommandline_ self
+    fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
+    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDisplayName_ self
+    fun getExecutable self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getExecutable_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
-    fun getId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getId_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun removeSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -254,7 +254,7 @@ structure GioAppInfo :>
     fun setAsDefaultForExtension self extension =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -267,7 +267,7 @@ structure GioAppInfo :>
     fun setAsDefaultForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -280,7 +280,7 @@ structure GioAppInfo :>
     fun setAsLastUsedForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

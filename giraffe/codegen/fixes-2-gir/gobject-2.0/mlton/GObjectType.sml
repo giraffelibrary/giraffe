@@ -12,9 +12,9 @@ structure GObjectType :>
   struct
     val isValueType_ = _import "giraffe_g_type_is_value_type" : FFI.Size.C.val_ -> FFI.Bool.C.val_;
 
-    val name_ = _import "giraffe_g_type_name" : FFI.Size.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val name_ = _import "giraffe_g_type_name" : FFI.Size.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
 
-    val fromName_ = _import "g_type_from_name" : FFI.String.C.notnull FFI.String.C.in_p -> FFI.Size.C.val_;
+    val fromName_ = _import "g_type_from_name" : Utf8.C.notnull Utf8.C.in_p -> FFI.Size.C.val_;
 
     val boolean_ = _import "giraffe_g_boolean_get_type" : unit -> FFI.Size.C.val_;
 
@@ -48,11 +48,11 @@ structure GObjectType :>
 
     val name =
       fn gtype =>
-        (C.withVal ---> FFI.String.C.fromPtr false) name_ gtype
+        (C.withVal ---> Utf8.C.fromPtr false) name_ gtype
 
     val fromName =
       fn name =>
-        (FFI.String.C.withConstPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
+        (Utf8.C.withConstPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
           fromName_
           name
 

@@ -9,7 +9,7 @@ structure GtkToggleToolButton :>
     in
       val getType_ = call (load_sym libgtk "gtk_toggle_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
@@ -22,7 +22,7 @@ structure GtkToggleToolButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkToggleToolButtonClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId = (FFI.String.C.withConstPtr ---> GtkToggleToolButtonClass.C.fromPtr false) newFromStock_ stockId
+    fun newFromStock stockId = (Utf8.C.withConstPtr ---> GtkToggleToolButtonClass.C.fromPtr false) newFromStock_ stockId
     fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
     fun setActive self isActive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
     local

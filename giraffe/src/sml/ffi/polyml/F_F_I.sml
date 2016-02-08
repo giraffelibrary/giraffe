@@ -34,6 +34,4 @@ signature F_F_I =
     structure SSize : F_F_I_SCALAR where type t = LargeInt.int
     structure Float : F_F_I_SCALAR where type t = real
     structure Double : F_F_I_SCALAR where type t = real
-    structure String : F_F_I_ARRAY where type t = string
-    structure StringVector : F_F_I_ARRAY where type t = string list
   end

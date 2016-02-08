@@ -309,7 +309,7 @@ structure GtkWidget :>
     val getCanFocus_ = _import "gtk_widget_get_can_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getChildVisible_ = _import "gtk_widget_get_child_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getClipboard_ = fn x1 & x2 => (_import "gtk_widget_get_clipboard" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getCompositeName_ = _import "gtk_widget_get_composite_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCompositeName_ = _import "gtk_widget_get_composite_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getDeviceEnabled_ = fn x1 & x2 => (_import "gtk_widget_get_device_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getDeviceEvents_ = fn x1 & x2 => (_import "gtk_widget_get_device_events" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkEventMask.C.val_;) (x1, x2)
     val getDirection_ = _import "gtk_widget_get_direction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTextDirection.C.val_;
@@ -327,7 +327,7 @@ structure GtkWidget :>
     val getMarginRight_ = _import "gtk_widget_get_margin_right" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getMarginTop_ = _import "gtk_widget_get_margin_top" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getModifierStyle_ = _import "gtk_widget_get_modifier_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getName_ = _import "gtk_widget_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gtk_widget_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getNoShowAll_ = _import "gtk_widget_get_no_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPangoContext_ = _import "gtk_widget_get_pango_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getParent_ = _import "gtk_widget_get_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -469,8 +469,8 @@ structure GtkWidget :>
     val getStyle_ = _import "gtk_widget_get_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getStyleContext_ = _import "gtk_widget_get_style_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSupportMultidevice_ = _import "gtk_widget_get_support_multidevice" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getTooltipWindow_ = _import "gtk_widget_get_tooltip_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getToplevel_ = _import "gtk_widget_get_toplevel" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getValign_ = _import "gtk_widget_get_valign" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkAlign.C.val_;
@@ -1034,7 +1034,7 @@ structure GtkWidget :>
     fun addAccelerator self accelSignal accelGroup accelKey accelMods accelFlags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
@@ -1067,7 +1067,7 @@ structure GtkWidget :>
     fun addMnemonicLabel self label = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addMnemonicLabel_ (self & label)
     fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) canActivateAccel_ (self & signalId)
     fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) childFocus_ (self & direction)
-    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) childNotify_ (self & childProperty)
+    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) childNotify_ (self & childProperty)
     fun classPath self =
       let
         val pathLength
@@ -1077,11 +1077,11 @@ structure GtkWidget :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
-             &&&> FFI.String.C.withRefConstOptPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              ---> FFI.UInt.C.fromVal
-                   && FFI.String.C.fromPtr true
-                   && FFI.String.C.fromPtr true
+                   && Utf8.C.fromPtr true
+                   && Utf8.C.fromPtr true
                    && I
           )
             classPath_
@@ -1100,7 +1100,7 @@ structure GtkWidget :>
       end
     fun computeExpand self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> FFI.Bool.C.fromVal) computeExpand_ (self & orientation)
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
+    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
     fun destroy self = (GObjectObjectClass.C.withPtr ---> I) destroy_ self
 (*
     fun destroyed self widgetPointer =
@@ -1202,9 +1202,9 @@ structure GtkWidget :>
     fun dragSourceAddUriTargets self = (GObjectObjectClass.C.withPtr ---> I) dragSourceAddUriTargets_ self
     fun dragSourceGetTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) dragSourceGetTargetList_ self
     fun dragSourceSetIconGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconGicon_ (self & icon)
-    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) dragSourceSetIconName_ (self & iconName)
+    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) dragSourceSetIconName_ (self & iconName)
     fun dragSourceSetIconPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
-    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) dragSourceSetIconStock_ (self & stockId)
+    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) dragSourceSetIconStock_ (self & stockId)
     fun dragSourceSetTargetList self targetList = (GObjectObjectClass.C.withPtr &&&> GtkTargetListRecord.C.withOptPtr ---> I) dragSourceSetTargetList_ (self & targetList)
     fun dragSourceUnset self = (GObjectObjectClass.C.withPtr ---> I) dragSourceUnset_ self
     fun dragUnhighlight self = (GObjectObjectClass.C.withPtr ---> I) dragUnhighlight_ self
@@ -1227,7 +1227,7 @@ structure GtkWidget :>
     fun getCanFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanFocus_ self
     fun getChildVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildVisible_ self
     fun getClipboard self selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) getClipboard_ (self & selection)
-    fun getCompositeName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getCompositeName_ self
+    fun getCompositeName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getCompositeName_ self
     fun getDeviceEnabled self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDeviceEnabled_ (self & device)
     fun getDeviceEvents self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GdkEventMask.C.fromVal) getDeviceEvents_ (self & device)
     fun getDirection self = (GObjectObjectClass.C.withPtr ---> GtkTextDirection.C.fromVal) getDirection_ self
@@ -1245,7 +1245,7 @@ structure GtkWidget :>
     fun getMarginRight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMarginRight_ self
     fun getMarginTop self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMarginTop_ self
     fun getModifierStyle self = (GObjectObjectClass.C.withPtr ---> GtkRcStyleClass.C.fromPtr false) getModifierStyle_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getNoShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getNoShowAll_ self
     fun getPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr false) getPangoContext_ self
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getParent_ self
@@ -1420,8 +1420,8 @@ structure GtkWidget :>
     fun getStyle self = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) getStyle_ self
     fun getStyleContext self = (GObjectObjectClass.C.withPtr ---> GtkStyleContextClass.C.fromPtr false) getStyleContext_ self
     fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportMultidevice_ self
-    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipMarkup_ self
-    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getTooltipText_ self
+    fun getTooltipMarkup self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getTooltipMarkup_ self
+    fun getTooltipText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getTooltipText_ self
     fun getTooltipWindow self = (GObjectObjectClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getTooltipWindow_ self
     fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getToplevel_ self
     fun getValign self = (GObjectObjectClass.C.withPtr ---> GtkAlign.C.fromVal) getValign_ self
@@ -1563,7 +1563,7 @@ structure GtkWidget :>
     fun overrideSymbolicColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GdkRgbaRecord.C.withOptPtr
          ---> I
       )
@@ -1582,11 +1582,11 @@ structure GtkWidget :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
-             &&&> FFI.String.C.withRefConstOptPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              ---> FFI.UInt.C.fromVal
-                   && FFI.String.C.fromPtr true
-                   && FFI.String.C.fromPtr true
+                   && Utf8.C.fromPtr true
+                   && Utf8.C.fromPtr true
                    && I
           )
             path_
@@ -1646,7 +1646,7 @@ structure GtkWidget :>
     fun renderIconPixbuf self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
@@ -1664,7 +1664,7 @@ structure GtkWidget :>
     fun setAccelPath self accelPath accelGroup =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          ---> I
       )
@@ -1679,7 +1679,7 @@ structure GtkWidget :>
     fun setCanDefault self canDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanDefault_ (self & canDefault)
     fun setCanFocus self canFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanFocus_ (self & canFocus)
     fun setChildVisible self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setChildVisible_ (self & isVisible)
-    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setCompositeName_ (self & name)
+    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setCompositeName_ (self & name)
     fun setDeviceEnabled self device enabled =
       (
         GObjectObjectClass.C.withPtr
@@ -1719,7 +1719,7 @@ structure GtkWidget :>
     fun setMarginLeft self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginLeft_ (self & margin)
     fun setMarginRight self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginRight_ (self & margin)
     fun setMarginTop self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginTop_ (self & margin)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
     fun setNoShowAll self noShowAll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setNoShowAll_ (self & noShowAll)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setParentWindow self parentWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParentWindow_ (self & parentWindow)
@@ -1755,8 +1755,8 @@ structure GtkWidget :>
         )
     fun setStyle self style = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setStyle_ (self & style)
     fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltipText_ (self & text)
     fun setTooltipWindow self customWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setTooltipWindow_ (self & customWindow)
     fun setValign self align = (GObjectObjectClass.C.withPtr &&&> GtkAlign.C.withVal ---> I) setValign_ (self & align)
     fun setVexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVexpand_ (self & expand)
@@ -1771,7 +1771,7 @@ structure GtkWidget :>
     fun styleGetProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

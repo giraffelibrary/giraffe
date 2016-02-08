@@ -40,7 +40,7 @@ structure PangoRenderer :>
         call (load_sym libpango "pango_renderer_draw_glyph_item")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> PangoGlyphItemRecord.PolyML.PTR
              &&> FFI.Int32.PolyML.VAL
              &&> FFI.Int32.PolyML.VAL
@@ -163,7 +163,7 @@ structure PangoRenderer :>
     fun drawGlyphItem self text glyphItem x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal

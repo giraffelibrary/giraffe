@@ -22,7 +22,7 @@ structure GtkTooltip :>
         call (load_sym libgtk "gtk_tooltip_set_icon_from_icon_name")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -30,12 +30,12 @@ structure GtkTooltip :>
         call (load_sym libgtk "gtk_tooltip_set_icon_from_stock")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val setMarkup_ = call (load_sym libgtk "gtk_tooltip_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setText_ = call (load_sym libgtk "gtk_tooltip_set_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setMarkup_ = call (load_sym libgtk "gtk_tooltip_set_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setText_ = call (load_sym libgtk "gtk_tooltip_set_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setTipArea_ = call (load_sym libgtk "gtk_tooltip_set_tip_area") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkTooltipClass.t
@@ -61,7 +61,7 @@ structure GtkTooltip :>
     fun setIconFromIconName self iconName size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -74,7 +74,7 @@ structure GtkTooltip :>
     fun setIconFromStock self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -84,7 +84,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
     fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

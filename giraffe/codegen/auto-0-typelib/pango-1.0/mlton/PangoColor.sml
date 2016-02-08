@@ -19,11 +19,11 @@ structure PangoColor :>
               x2,
               x3
             )
-    val toString_ = _import "pango_color_to_string" : PangoColorRecord.C.notnull PangoColorRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "pango_color_to_string" : PangoColorRecord.C.notnull PangoColorRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type record_t = PangoColorRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoColorRecord.C.withPtr ---> PangoColorRecord.C.fromPtr true) copy_ self
-    fun parse self spec = (PangoColorRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
-    fun toString self = (PangoColorRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
+    fun toString self = (PangoColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

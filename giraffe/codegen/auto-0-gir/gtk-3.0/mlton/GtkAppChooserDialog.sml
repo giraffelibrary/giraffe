@@ -44,7 +44,7 @@ structure GtkAppChooserDialog :>
               x3,
               x4
             )
-    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getWidget_ = _import "gtk_app_chooser_dialog_get_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val setHeading_ =
       fn
@@ -89,7 +89,7 @@ structure GtkAppChooserDialog :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> GtkDialogFlags.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> GtkAppChooserDialogClass.C.fromPtr false
       )
         newForContentType_
@@ -98,9 +98,9 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getHeading_ self
+    fun getHeading self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setHeading_ (self & heading)
     local
       open Property
     in

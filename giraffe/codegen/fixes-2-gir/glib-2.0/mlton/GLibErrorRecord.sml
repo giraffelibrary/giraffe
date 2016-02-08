@@ -78,7 +78,7 @@ structure GLibErrorRecord :>
 
     val getMessage_ =
       _import "giraffe_get_g_error_message" :
-        notnull p -> FFI.String.C.notnull FFI.String.C.out_p;
+        notnull p -> Utf8.C.notnull Utf8.C.out_p;
 
     type quark_t = GLibQuark.t
 
@@ -94,7 +94,7 @@ structure GLibErrorRecord :>
 
     val message =
       {
-        get = fn self => (C.withPtr ---> FFI.String.C.fromPtr false) getMessage_ self
+        get = fn self => (C.withPtr ---> Utf8.C.fromPtr false) getMessage_ self
       }
 
     fun makeHandler (domainName, fromVal, domainExn) =

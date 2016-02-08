@@ -9,9 +9,9 @@ structure GtkIconInfo :>
     val copy_ = _import "gtk_icon_info_copy" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
     val getBaseSize_ = _import "gtk_icon_info_get_base_size" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> FFI.Int32.C.val_;
     val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getEmbeddedRect_ = fn x1 & x2 => (_import "gtk_icon_info_get_embedded_rect" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getFilename_ = _import "gtk_icon_info_get_filename" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getFilename_ = _import "gtk_icon_info_get_filename" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val loadIcon_ = fn x1 & x2 => (_import "gtk_icon_info_load_icon" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val loadSymbolic_ =
       fn
@@ -72,14 +72,14 @@ structure GtkIconInfo :>
     fun copy self = (GtkIconInfoRecord.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) copy_ self
     fun getBaseSize self = (GtkIconInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) getBaseSize_ self
     fun getBuiltinPixbuf self = (GtkIconInfoRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getBuiltinPixbuf_ self
-    fun getDisplayName self = (GtkIconInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) getDisplayName_ self
+    fun getDisplayName self = (GtkIconInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) getDisplayName_ self
     fun getEmbeddedRect self =
       let
         val rectangle & retVal = (GtkIconInfoRecord.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal) getEmbeddedRect_ (self & ())
       in
         if retVal then SOME rectangle else NONE
       end
-    fun getFilename self = (GtkIconInfoRecord.C.withPtr ---> FFI.String.C.fromPtr false) getFilename_ self
+    fun getFilename self = (GtkIconInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
     fun loadIcon self = (GtkIconInfoRecord.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) loadIcon_ (self & [])
     fun loadSymbolic self fg successColor warningColor errorColor =
       let

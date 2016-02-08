@@ -113,5 +113,5 @@ structure AtkEditableText :>
            & endPos
         )
     fun pasteText self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) pasteText_ (self & position)
-    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTextContents_ (self & string)
+    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTextContents_ (self & string)
   end

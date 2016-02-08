@@ -8,7 +8,7 @@ structure GioInetAddress :>
     in
       val getType_ = call (load_sym libgio "g_inet_address_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val newAny_ = call (load_sym libgio "g_inet_address_new_any") (GioSocketFamily.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromString_ = call (load_sym libgio "g_inet_address_new_from_string") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newFromString_ = call (load_sym libgio "g_inet_address_new_from_string") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val newLoopback_ = call (load_sym libgio "g_inet_address_new_loopback") (GioSocketFamily.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
       val equal_ = call (load_sym libgio "g_inet_address_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getFamily_ = call (load_sym libgio "g_inet_address_get_family") (GObjectObjectClass.PolyML.PTR --> GioSocketFamily.PolyML.VAL)
@@ -23,14 +23,14 @@ structure GioInetAddress :>
       val getIsMulticast_ = call (load_sym libgio "g_inet_address_get_is_multicast") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIsSiteLocal_ = call (load_sym libgio "g_inet_address_get_is_site_local") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getNativeSize_ = call (load_sym libgio "g_inet_address_get_native_size") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
-      val toString_ = call (load_sym libgio "g_inet_address_to_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val toString_ = call (load_sym libgio "g_inet_address_to_string") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioInetAddressClass.t
     type socket_family_t = GioSocketFamily.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
-    fun newFromString string = (FFI.String.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
+    fun newFromString string = (Utf8.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
     fun newLoopback family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newLoopback_ family
     fun equal self otherAddress = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & otherAddress)
     fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
@@ -45,7 +45,7 @@ structure GioInetAddress :>
     fun getIsMulticast self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsMulticast_ self
     fun getIsSiteLocal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsSiteLocal_ self
     fun getNativeSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getNativeSize_ self
-    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
     local
       open Property
     in

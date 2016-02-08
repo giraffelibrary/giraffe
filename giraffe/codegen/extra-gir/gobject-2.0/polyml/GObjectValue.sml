@@ -186,12 +186,12 @@ local
     val get_string_ =
       call
         (load_sym libgobject "g_value_get_string")
-        (GET FFI.String.PolyML.RETPTR);
+        (GET Utf8.PolyML.RETPTR);
 
     val get_string_opt_ =
       call
         (load_sym libgobject "g_value_get_string")
-        (GET FFI.String.PolyML.RETOPTPTR);
+        (GET Utf8.PolyML.RETOPTPTR);
 
 
     fun SET conv = GObjectValueRecord.PolyML.PTR &&> conv --> FFI.PolyML.VOID
@@ -249,12 +249,12 @@ local
     val set_string_ =
       call
         (load_sym libgobject "g_value_set_string")
-        (SET FFI.String.PolyML.INPTR);
+        (SET Utf8.PolyML.INPTR);
 
     val set_string_opt_ =
       call
         (load_sym libgobject "g_value_set_string")
-        (SET FFI.String.PolyML.INOPTPTR);
+        (SET Utf8.PolyML.INOPTPTR);
   end
 in
   val boolean : (bool, bool) GObjectValue.accessor =
@@ -334,14 +334,14 @@ in
   val string : (string, string) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> FFI.String.C.fromPtr false) get_string_,
-      setValue = (I &&&> FFI.String.C.withConstPtr ---> I) set_string_
+      getValue = (I ---> Utf8.C.fromPtr false) get_string_,
+      setValue = (I &&&> Utf8.C.withConstPtr ---> I) set_string_
     }
 
   val stringOpt : (string option, string option) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> FFI.String.C.fromOptPtr false) get_string_opt_,
-      setValue = (I &&&> FFI.String.C.withConstOptPtr ---> I) set_string_opt_
+      getValue = (I ---> Utf8.C.fromOptPtr false) get_string_opt_,
+      setValue = (I &&&> Utf8.C.withConstOptPtr ---> I) set_string_opt_
     }
 end

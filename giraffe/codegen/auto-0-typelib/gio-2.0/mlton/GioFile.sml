@@ -287,7 +287,7 @@ structure GioFile :>
               x2,
               x3
             )
-    val getBasename_ = _import "g_file_get_basename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getBasename_ = _import "g_file_get_basename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getChild_ =
       fn
         x1 & (x2, x3) =>
@@ -323,11 +323,11 @@ structure GioFile :>
               x4
             )
     val getParent_ = _import "g_file_get_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getParseName_ = _import "g_file_get_parse_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getPath_ = _import "g_file_get_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val getUri_ = _import "g_file_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUriScheme_ = _import "g_file_get_uri_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getParseName_ = _import "g_file_get_parse_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getPath_ = _import "g_file_get_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getUri_ = _import "g_file_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getUriScheme_ = _import "g_file_get_uri_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val hasPrefix_ = fn x1 & x2 => (_import "g_file_has_prefix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val hasUriScheme_ =
@@ -1202,10 +1202,10 @@ structure GioFile :>
     type 'a async_result_class_t = 'a GioAsyncResultClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newForCommandlineArg arg = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
-    fun newForPath path = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
-    fun newForUri uri = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
-    fun parseName parseName = (FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) parseName_ parseName
+    fun newForCommandlineArg arg = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
+    fun newForPath path = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
+    fun newForUri uri = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
+    fun parseName parseName = (Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) parseName_ parseName
     fun appendTo self flags cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -1350,7 +1350,7 @@ structure GioFile :>
     fun enumerateChildren self attributes flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1404,12 +1404,12 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getBasename_ self
-    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) getChild_ (self & name)
+    fun getBasename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getBasename_ self
+    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileClass.C.fromPtr true
       )
@@ -1420,14 +1420,14 @@ structure GioFile :>
            & []
         )
     fun getParent self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr true) getParent_ self
-    fun getParseName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getParseName_ self
-    fun getPath self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getPath_ self
-    fun getRelativePath self descendant = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getRelativePath_ (self & descendant)
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUri_ self
-    fun getUriScheme self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getUriScheme_ self
+    fun getParseName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getParseName_ self
+    fun getPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getPath_ self
+    fun getRelativePath self descendant = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getRelativePath_ (self & descendant)
+    fun getUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getUri_ self
+    fun getUriScheme self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getUriScheme_ self
     fun hasParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasParent_ (self & parent)
     fun hasPrefix self prefix = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPrefix_ (self & prefix)
-    fun hasUriScheme self uriScheme = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasUriScheme_ (self & uriScheme)
+    fun hasUriScheme self uriScheme = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasUriScheme_ (self & uriScheme)
     fun iconNew self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) iconNew_ self
     fun isNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isNative_ self
     fun makeDirectory self cancellable =
@@ -1459,7 +1459,7 @@ structure GioFile :>
     fun makeSymbolicLink self symlinkValue cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -1611,7 +1611,7 @@ structure GioFile :>
     fun queryFilesystemInfo self attributes cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileInfoClass.C.fromPtr true
@@ -1639,7 +1639,7 @@ structure GioFile :>
     fun queryInfo self attributes flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1721,7 +1721,7 @@ structure GioFile :>
     fun replace self etag makeBackup flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1743,9 +1743,9 @@ structure GioFile :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.String.C.fromPtr true && FFI.Bool.C.fromVal
+             ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal
           )
             replaceContentsFinish_
             (
@@ -1773,7 +1773,7 @@ structure GioFile :>
     fun replaceReadwrite self etag makeBackup flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1802,12 +1802,12 @@ structure GioFile :>
            & res
            & []
         )
-    fun resolveRelativePath self relativePath = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
+    fun resolveRelativePath self relativePath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
     fun setAttributeByteString self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1825,7 +1825,7 @@ structure GioFile :>
     fun setAttributeInt32 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1844,7 +1844,7 @@ structure GioFile :>
     fun setAttributeInt64 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1863,8 +1863,8 @@ structure GioFile :>
     fun setAttributeString self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -1882,7 +1882,7 @@ structure GioFile :>
     fun setAttributeUint32 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1901,7 +1901,7 @@ structure GioFile :>
     fun setAttributeUint64 self attribute value flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -1957,7 +1957,7 @@ structure GioFile :>
     fun setDisplayName self displayName cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileClass.C.fromPtr true

@@ -98,7 +98,7 @@ structure GtkSourceView :>
     fun setMarkAttributes self category attributes priority =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I

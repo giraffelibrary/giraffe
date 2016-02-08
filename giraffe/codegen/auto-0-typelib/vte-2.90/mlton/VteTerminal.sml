@@ -77,18 +77,18 @@ structure VteTerminal :>
     val getColumnCount_ = _import "vte_terminal_get_column_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int64.C.val_;
     val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteTerminalCursorBlinkMode.C.val_;
     val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteTerminalCursorShape.C.val_;
-    val getDefaultEmulation_ = _import "vte_terminal_get_default_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getEmulation_ = _import "vte_terminal_get_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getEncoding_ = _import "vte_terminal_get_encoding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDefaultEmulation_ = _import "vte_terminal_get_default_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getEmulation_ = _import "vte_terminal_get_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getEncoding_ = _import "vte_terminal_get_encoding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFont_ = _import "vte_terminal_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     val getHasSelection_ = _import "vte_terminal_get_has_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getIconTitle_ = _import "vte_terminal_get_icon_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getIconTitle_ = _import "vte_terminal_get_icon_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPtyObject_ = _import "vte_terminal_get_pty_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getRowCount_ = _import "vte_terminal_get_row_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int64.C.val_;
-    val getStatusLine_ = _import "vte_terminal_get_status_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getStatusLine_ = _import "vte_terminal_get_status_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getVisibleBell_ = _import "vte_terminal_get_visible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getWindowTitle_ = _import "vte_terminal_get_window_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getWindowTitle_ = _import "vte_terminal_get_window_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val imAppendMenuitems_ = fn x1 & x2 => (_import "vte_terminal_im_append_menuitems" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val isWordChar_ = fn x1 & x2 => (_import "vte_terminal_is_word_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Char.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val matchAddGregex_ =
@@ -120,7 +120,7 @@ structure VteTerminal :>
                * FFI.Int64.C.val_
                * FFI.Int64.C.val_
                * FFI.Int32.C.ref_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -393,7 +393,7 @@ structure VteTerminal :>
     fun feed self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -406,7 +406,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -419,7 +419,7 @@ structure VteTerminal :>
     fun feedChildBinary self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -437,18 +437,18 @@ structure VteTerminal :>
     fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getColumnCount_ self
     fun getCursorBlinkMode self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
     fun getCursorShape self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorShape.C.fromVal) getCursorShape_ self
-    fun getDefaultEmulation self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDefaultEmulation_ self
-    fun getEmulation self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEmulation_ self
-    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEncoding_ self
+    fun getDefaultEmulation self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultEmulation_ self
+    fun getEmulation self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEmulation_ self
+    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
     fun getFont self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ self
     fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconTitle_ self
+    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconTitle_ self
     fun getMouseAutohide self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
     fun getPtyObject self = (GObjectObjectClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPtyObject_ self
     fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getRowCount_ self
-    fun getStatusLine self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getStatusLine_ self
+    fun getStatusLine self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getStatusLine_ self
     fun getVisibleBell self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleBell_ self
-    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getWindowTitle_ self
+    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWindowTitle_ self
     fun imAppendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) imAppendMenuitems_ (self & menushell)
     fun isWordChar self c = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) isWordChar_ (self & c)
     fun matchAddGregex self regex flags =
@@ -472,7 +472,7 @@ structure VteTerminal :>
              &&&> FFI.Int64.C.withVal
              &&&> FFI.Int64.C.withVal
              &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Int32.C.fromVal && Utf8.C.fromPtr true
           )
             matchCheck_
             (
@@ -503,7 +503,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         matchSetCursorName_
@@ -564,7 +564,7 @@ structure VteTerminal :>
     fun setAllowBold self allowBold = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowBold_ (self & allowBold)
     fun setAudibleBell self isAudible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAudibleBell_ (self & isAudible)
     fun setBackgroundImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setBackgroundImageFile_ (self & path)
+    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setBackgroundImageFile_ (self & path)
     fun setBackgroundSaturation self saturation = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setBackgroundSaturation_ (self & saturation)
     fun setBackgroundTintColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundTintColor_ (self & color)
     fun setBackgroundTransparent self transparent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setBackgroundTransparent_ (self & transparent)
@@ -585,10 +585,10 @@ structure VteTerminal :>
     fun setCursorShape self shape = (GObjectObjectClass.C.withPtr &&&> VteTerminalCursorShape.C.withVal ---> I) setCursorShape_ (self & shape)
     fun setDefaultColors self = (GObjectObjectClass.C.withPtr ---> I) setDefaultColors_ self
     fun setDeleteBinding self binding = (GObjectObjectClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setDeleteBinding_ (self & binding)
-    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setEmulation_ (self & emulation)
-    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setEncoding_ (self & codeset)
+    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEmulation_ (self & emulation)
+    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEncoding_ (self & codeset)
     fun setFont self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
-    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setFontFromString_ (self & name)
+    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMouseAutohide_ (self & setting)
     fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
@@ -610,7 +610,7 @@ structure VteTerminal :>
            & rows
         )
     fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
-    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setWordChars_ (self & spec)
+    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setWordChars_ (self & spec)
     fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (

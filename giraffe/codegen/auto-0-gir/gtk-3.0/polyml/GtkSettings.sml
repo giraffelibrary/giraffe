@@ -21,25 +21,25 @@ structure GtkSettings :>
         call (load_sym libgtk "gtk_settings_set_double_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Double.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setLongProperty_ =
         call (load_sym libgtk "gtk_settings_set_long_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Long.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setPropertyValue_ =
         call (load_sym libgtk "gtk_settings_set_property_value")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GtkSettingsValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -47,9 +47,9 @@ structure GtkSettings :>
         call (load_sym libgtk "gtk_settings_set_string_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
     end
@@ -71,9 +71,9 @@ structure GtkSettings :>
     fun setDoubleProperty self name vDouble origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Double.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setDoubleProperty_
@@ -86,9 +86,9 @@ structure GtkSettings :>
     fun setLongProperty self name vLong origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Long.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setLongProperty_
@@ -101,7 +101,7 @@ structure GtkSettings :>
     fun setPropertyValue self name svalue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkSettingsValueRecord.C.withPtr
          ---> I
       )
@@ -114,9 +114,9 @@ structure GtkSettings :>
     fun setStringProperty self name vString origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setStringProperty_

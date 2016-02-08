@@ -21,7 +21,7 @@ structure GdkRgba :>
               x2,
               x3
             )
-    val toString_ = _import "gdk_rgba_to_string" : GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "gdk_rgba_to_string" : GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type record_t = GdkRgbaRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -30,9 +30,9 @@ structure GdkRgba :>
     fun hash self = (GdkRgbaRecord.C.withPtr ---> FFI.UInt.C.fromVal) hash_ self
     fun parse spec =
       let
-        val rgba & retVal = (GdkRgbaRecord.C.withNewPtr &&&> FFI.String.C.withConstPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (() & spec)
+        val rgba & retVal = (GdkRgbaRecord.C.withNewPtr &&&> Utf8.C.withConstPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (() & spec)
       in
         if retVal then SOME rgba else NONE
       end
-    fun toString self = (GdkRgbaRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GdkRgbaRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

@@ -42,11 +42,11 @@ structure GioProxyAddress :>
               x10,
               x11
             )
-    val getDestinationHostname_ = _import "g_proxy_address_get_destination_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getDestinationHostname_ = _import "g_proxy_address_get_destination_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getDestinationPort_ = _import "g_proxy_address_get_destination_port" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.C.val_;
-    val getPassword_ = _import "g_proxy_address_get_password" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getProtocol_ = _import "g_proxy_address_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUsername_ = _import "g_proxy_address_get_username" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPassword_ = _import "g_proxy_address_get_password" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getProtocol_ = _import "g_proxy_address_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getUsername_ = _import "g_proxy_address_get_username" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class_t = 'a GioProxyAddressClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type 'a inet_address_class_t = 'a GioInetAddressClass.t
@@ -57,11 +57,11 @@ structure GioProxyAddress :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GioProxyAddressClass.C.fromPtr true
       )
         new_
@@ -74,11 +74,11 @@ structure GioProxyAddress :>
            & username
            & password
         )
-    fun getDestinationHostname self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDestinationHostname_ self
+    fun getDestinationHostname self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDestinationHostname_ self
     fun getDestinationPort self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.C.fromVal) getDestinationPort_ self
-    fun getPassword self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPassword_ self
-    fun getProtocol self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getProtocol_ self
-    fun getUsername self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getUsername_ self
+    fun getPassword self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getPassword_ self
+    fun getProtocol self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getProtocol_ self
+    fun getUsername self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getUsername_ self
     local
       open Property
     in

@@ -30,7 +30,7 @@ structure VtePty :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val setTerm_ = call (load_sym libvte "vte_pty_set_term") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setTerm_ = call (load_sym libvte "vte_pty_set_term") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setUtf8_ =
         call (load_sym libvte "vte_pty_set_utf8")
           (
@@ -89,7 +89,7 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
         GObjectObjectClass.C.withPtr

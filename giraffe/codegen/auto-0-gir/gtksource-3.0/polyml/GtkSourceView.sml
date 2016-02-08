@@ -39,7 +39,7 @@ structure GtkSourceView :>
         call (load_sym libgtksourceview "gtk_source_view_set_mark_attributes")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -89,7 +89,7 @@ structure GtkSourceView :>
     fun setMarkAttributes self category attributes priority =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I

@@ -580,7 +580,7 @@ where
             the same as not handing over ownership (assuming that
             ownershipTransfer applies in both directions).
 
-      A is FFI.String
+      A is Utf8.C
 
       Opt is defined as follows:
 
@@ -893,7 +893,7 @@ where
             the same as not handing over ownership (assuming that
             ownershipTransfer applies in both directions).
 
-      A is FFI.String
+      A is Utf8.C
 
       OutOpt cannot be determined because GIR does not capture
       sufficient information.  For now, it is defined as follows:
@@ -1139,7 +1139,7 @@ where
   retFromUtf8Fun
     is as follows:
 
-      FFI.String.<fromFun>
+      Utf8.C.<fromFun>
 
         where
 
@@ -1563,7 +1563,7 @@ where
           INOUT           | <A>.IN<INOPT>OUT<OUTOPT>REF
         ------------------+---------------------------
 
-      A is FFI.PolyML.String
+      A is Utf8.PolyML
 
       OPT is defined as follows:
 
@@ -1860,7 +1860,7 @@ where
 
       retUtf8Conv is <A>.RET<RETOPT>PTR
 
-      A is FFI.PolyML.String
+      A is Utf8.PolyML
 
       RETOPT is defined as follows:
 
@@ -2162,7 +2162,7 @@ where
           INOUT           | (<inopt>, <outopt>) <A>.r
         ------------------+---------------------------
 
-      A is FFI.String
+      A is Utf8.C
 
       opt is defined as follows:
 
@@ -2460,7 +2460,7 @@ where
 
       retUtf8Type is <A>.ret<retopt>ptr
 
-      A is FFI.String
+      A is Utf8.C
 
       retopt is defined as follows:
 

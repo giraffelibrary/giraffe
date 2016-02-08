@@ -27,7 +27,7 @@ structure GtkScale :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Double.PolyML.VAL
              &&> GtkPositionType.PolyML.VAL
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> FFI.PolyML.VOID
           )
       val clearMarks_ = call (load_sym libgtk "gtk_scale_clear_marks") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -79,7 +79,7 @@ structure GtkScale :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> GtkPositionType.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         addMark_

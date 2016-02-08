@@ -19,11 +19,11 @@ structure GdkPixbufPixbuf :>
              &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
-      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file") (FFI.String.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
       val newFromFileAtScale_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_scale")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Bool.PolyML.VAL
@@ -33,7 +33,7 @@ structure GdkPixbufPixbuf :>
       val newFromFileAtSize_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_size")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -59,8 +59,8 @@ structure GdkPixbufPixbuf :>
              --> GObjectObjectClass.PolyML.PTR
           )
       val newFromStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newFromXpmData_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_xpm_data") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val gettext_ = call (load_sym libgdkpixbuf "gdk_pixbuf_gettext") (FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
+      val newFromXpmData_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_xpm_data") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val gettext_ = call (load_sym libgdkpixbuf "gdk_pixbuf_gettext") (Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
       val saveToStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_save_to_stream_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
       val addAlpha_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_add_alpha")
@@ -146,7 +146,7 @@ structure GdkPixbufPixbuf :>
       val getHasAlpha_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_has_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getNChannels_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_n_channels") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getOption_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_option") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
+      val getOption_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_option") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
       val getRowstride_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_rowstride") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val newSubpixbuf_ =
@@ -219,10 +219,10 @@ structure GdkPixbufPixbuf :>
            & width
            & height
         )
-    fun newFromFile filename = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
+    fun newFromFile filename = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
     fun newFromFileAtScale filename width height preserveAspectRatio =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -239,7 +239,7 @@ structure GdkPixbufPixbuf :>
         )
     fun newFromFileAtSize filename width height =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -285,8 +285,8 @@ structure GdkPixbufPixbuf :>
            & []
         )
     fun newFromStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (FFI.String.C.withConstPtr ---> GdkPixbufPixbufClass.C.fromPtr true) newFromXpmData_ data
-    fun gettext msgid = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) gettext_ msgid
+    fun newFromXpmData data = (Utf8.C.withConstPtr ---> GdkPixbufPixbufClass.C.fromPtr true) newFromXpmData_ data
+    fun gettext msgid = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) gettext_ msgid
     fun saveToStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) saveToStreamFinish_ (asyncResult & [])
     fun addAlpha self substituteColor r g b =
       (
@@ -432,7 +432,7 @@ structure GdkPixbufPixbuf :>
     fun getHasAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasAlpha_ self
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
     fun getNChannels self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNChannels_ self
-    fun getOption self key = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getOption_ (self & key)
+    fun getOption self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getOption_ (self & key)
     fun getRowstride self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getRowstride_ self
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun newSubpixbuf self srcX srcY width height =

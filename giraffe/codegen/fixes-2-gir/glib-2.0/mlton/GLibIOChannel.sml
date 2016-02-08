@@ -37,7 +37,7 @@ structure GLibIOChannel :>
     val getBufferSize_ = _import "g_io_channel_get_buffer_size" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Size.C.val_;
     val getBuffered_ = _import "g_io_channel_get_buffered" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Bool.C.val_;
     val getCloseOnUnref_ = _import "g_io_channel_get_close_on_unref" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.Bool.C.val_;
-    val getEncoding_ = _import "g_io_channel_get_encoding" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getEncoding_ = _import "g_io_channel_get_encoding" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFlags_ = _import "g_io_channel_get_flags" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> GLibIOFlags.C.val_;
     val init_ = _import "g_io_channel_init" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p -> unit;
     val seek_ =
@@ -182,8 +182,8 @@ structure GLibIOChannel :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOChannelRecord.C.fromPtr true
       )
@@ -200,7 +200,7 @@ structure GLibIOChannel :>
     fun getBufferSize self = (GLibIOChannelRecord.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
     fun getBuffered self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.C.fromVal) getBuffered_ self
     fun getCloseOnUnref self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.C.fromVal) getCloseOnUnref_ self
-    fun getEncoding self = (GLibIOChannelRecord.C.withPtr ---> FFI.String.C.fromPtr false) getEncoding_ self
+    fun getEncoding self = (GLibIOChannelRecord.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
     fun getFlags self = (GLibIOChannelRecord.C.withPtr ---> GLibIOFlags.C.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.C.withPtr ---> I) init_ self
     fun seek self offset type' =
@@ -237,7 +237,7 @@ structure GLibIOChannel :>
     fun setEncoding self encoding =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOStatus.C.fromVal
       )
@@ -263,7 +263,7 @@ structure GLibIOChannel :>
     fun setLineTerm self lineTerm length =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

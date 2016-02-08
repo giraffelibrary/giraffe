@@ -9,8 +9,8 @@ structure GtkToggleButton :>
     in
       val getType_ = call (load_sym libgtk "gtk_toggle_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_toggle_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_toggle_button_new_with_label") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_toggle_button_new_with_mnemonic") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithLabel_ = call (load_sym libgtk "gtk_toggle_button_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_toggle_button_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getActive_ = call (load_sym libgtk "gtk_toggle_button_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getInconsistent_ = call (load_sym libgtk "gtk_toggle_button_get_inconsistent") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getMode_ = call (load_sym libgtk "gtk_toggle_button_get_mode") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -28,8 +28,8 @@ structure GtkToggleButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkToggleButtonClass.C.fromPtr false) new_ ()
-    fun newWithLabel label = (FFI.String.C.withConstPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (FFI.String.C.withConstPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.C.withConstPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.C.withConstPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithMnemonic_ label
     fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
     fun getInconsistent self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInconsistent_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMode_ self

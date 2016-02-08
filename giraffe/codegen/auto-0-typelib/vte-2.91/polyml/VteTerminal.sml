@@ -19,7 +19,7 @@ structure VteTerminal :>
         call (load_sym libvte "vte_terminal_feed_child")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int64.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -29,8 +29,8 @@ structure VteTerminal :>
       val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
       val getCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_get_cjk_ambiguous_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getCurrentDirectoryUri_ = call (load_sym libvte "vte_terminal_get_current_directory_uri") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getCurrentFileUri_ = call (load_sym libvte "vte_terminal_get_current_file_uri") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getCurrentDirectoryUri_ = call (load_sym libvte "vte_terminal_get_current_directory_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getCurrentFileUri_ = call (load_sym libvte "vte_terminal_get_current_file_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getCursorBlinkMode_ = call (load_sym libvte "vte_terminal_get_cursor_blink_mode") (GObjectObjectClass.PolyML.PTR --> VteCursorBlinkMode.PolyML.VAL)
       val getCursorPosition_ =
         call (load_sym libvte "vte_terminal_get_cursor_position")
@@ -41,7 +41,7 @@ structure VteTerminal :>
              --> FFI.PolyML.VOID
           )
       val getCursorShape_ = call (load_sym libvte "vte_terminal_get_cursor_shape") (GObjectObjectClass.PolyML.PTR --> VteCursorShape.PolyML.VAL)
-      val getEncoding_ = call (load_sym libvte "vte_terminal_get_encoding") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getEncoding_ = call (load_sym libvte "vte_terminal_get_encoding") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getFont_ = call (load_sym libvte "vte_terminal_get_font") (GObjectObjectClass.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
       val getFontScale_ = call (load_sym libvte "vte_terminal_get_font_scale") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
       val getGeometryHints_ =
@@ -54,13 +54,13 @@ structure VteTerminal :>
              --> FFI.PolyML.VOID
           )
       val getHasSelection_ = call (load_sym libvte "vte_terminal_get_has_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getInputEnabled_ = call (load_sym libvte "vte_terminal_get_input_enabled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getMouseAutohide_ = call (load_sym libvte "vte_terminal_get_mouse_autohide") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getPty_ = call (load_sym libvte "vte_terminal_get_pty") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getRewrapOnResize_ = call (load_sym libvte "vte_terminal_get_rewrap_on_resize") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val matchAddGregex_ =
         call (load_sym libvte "vte_terminal_match_add_gregex")
           (
@@ -76,7 +76,7 @@ structure VteTerminal :>
              &&> FFI.Int64.PolyML.VAL
              &&> FFI.Int64.PolyML.VAL
              &&> FFI.Int32.PolyML.REF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val matchCheckEvent_ =
         call (load_sym libvte "vte_terminal_match_check_event")
@@ -84,7 +84,7 @@ structure VteTerminal :>
             GObjectObjectClass.PolyML.PTR
              &&> GdkEvent.PolyML.PTR
              &&> FFI.Int32.PolyML.REF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
       val matchRemoveAll_ = call (load_sym libvte "vte_terminal_match_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -93,7 +93,7 @@ structure VteTerminal :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int32.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val matchSetCursorType_ =
@@ -155,7 +155,7 @@ structure VteTerminal :>
         call (load_sym libvte "vte_terminal_set_encoding")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -208,7 +208,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -224,8 +224,8 @@ structure VteTerminal :>
     fun getCharWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getCharWidth_ self
     fun getCjkAmbiguousWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCjkAmbiguousWidth_ self
     fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getColumnCount_ self
-    fun getCurrentDirectoryUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCurrentDirectoryUri_ self
-    fun getCurrentFileUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCurrentFileUri_ self
+    fun getCurrentDirectoryUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentDirectoryUri_ self
+    fun getCurrentFileUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentFileUri_ self
     fun getCursorBlinkMode self = (GObjectObjectClass.C.withPtr ---> VteCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
     fun getCursorPosition self =
       let
@@ -250,7 +250,7 @@ structure VteTerminal :>
         (column, row)
       end
     fun getCursorShape self = (GObjectObjectClass.C.withPtr ---> VteCursorShape.C.fromVal) getCursorShape_ self
-    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getEncoding_ self
+    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
     fun getFont self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ self
     fun getFontScale self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getFontScale_ self
     fun getGeometryHints self minRows minColumns =
@@ -274,13 +274,13 @@ structure VteTerminal :>
         hints
       end
     fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconTitle_ self
+    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconTitle_ self
     fun getInputEnabled self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getInputEnabled_ self
     fun getMouseAutohide self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
     fun getPty self = (GObjectObjectClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPty_ self
     fun getRewrapOnResize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getRowCount_ self
-    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getWindowTitle_ self
+    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWindowTitle_ self
     fun matchAddGregex self regex flags =
       (
         GObjectObjectClass.C.withPtr
@@ -302,7 +302,7 @@ structure VteTerminal :>
              &&&> FFI.Int64.C.withVal
              &&&> FFI.Int64.C.withVal
              &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Int32.C.fromVal && Utf8.C.fromPtr true
           )
             matchCheck_
             (
@@ -321,7 +321,7 @@ structure VteTerminal :>
             GObjectObjectClass.C.withPtr
              &&&> GdkEvent.C.withPtr
              &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.Int32.C.fromVal && Utf8.C.fromPtr true
           )
             matchCheckEvent_
             (
@@ -338,7 +338,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         matchSetCursorName_
@@ -426,7 +426,7 @@ structure VteTerminal :>
     fun setEncoding self codeset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

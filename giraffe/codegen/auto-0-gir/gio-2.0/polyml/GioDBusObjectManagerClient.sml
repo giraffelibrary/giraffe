@@ -19,8 +19,8 @@ structure GioDBusObjectManagerClient :>
       val newForBusFinish_ = call (load_sym libgio "g_dbus_object_manager_client_new_for_bus_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
       val getConnection_ = call (load_sym libgio "g_dbus_object_manager_client_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getFlags_ = call (load_sym libgio "g_dbus_object_manager_client_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusObjectManagerClientFlags.PolyML.VAL)
-      val getName_ = call (load_sym libgio "g_dbus_object_manager_client_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getNameOwner_ = call (load_sym libgio "g_dbus_object_manager_client_get_name_owner") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getName_ = call (load_sym libgio "g_dbus_object_manager_client_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getNameOwner_ = call (load_sym libgio "g_dbus_object_manager_client_get_name_owner") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioDBusObjectManagerClientClass.t
     type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
@@ -41,8 +41,8 @@ structure GioDBusObjectManagerClient :>
     fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newForBusFinish_ (res & [])
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClientFlags.C.fromVal) getFlags_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
-    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getNameOwner_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getNameOwner_ self
     local
       open ClosureMarshal Signal
     in

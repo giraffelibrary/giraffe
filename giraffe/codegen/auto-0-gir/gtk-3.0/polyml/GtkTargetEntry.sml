@@ -9,7 +9,7 @@ structure GtkTargetEntry :>
       val new_ =
         call (load_sym libgtk "gtk_target_entry_new")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.UInt.PolyML.VAL
              &&> FFI.UInt.PolyML.VAL
              --> GtkTargetEntryRecord.PolyML.PTR
@@ -21,7 +21,7 @@ structure GtkTargetEntry :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> GtkTargetEntryRecord.C.fromPtr true

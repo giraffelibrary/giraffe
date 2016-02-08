@@ -22,7 +22,7 @@ structure GtkSourceCompletionProvider :>
       val getIcon_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getInfoWidget_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_info_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getInteractiveDelay_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_interactive_delay") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getName_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getPriority_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_priority") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getStartIter_ =
         call (load_sym libgtksourceview "gtk_source_completion_provider_get_start_iter")
@@ -68,7 +68,7 @@ structure GtkSourceCompletionProvider :>
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getIcon_ self
     fun getInfoWidget self proposal = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getInfoWidget_ (self & proposal)
     fun getInteractiveDelay self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getInteractiveDelay_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getName_ self
     fun getPriority self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getPriority_ self
     fun getStartIter self context proposal iter =
       (

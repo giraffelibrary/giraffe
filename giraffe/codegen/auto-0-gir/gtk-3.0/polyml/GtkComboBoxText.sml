@@ -15,19 +15,19 @@ structure GtkComboBoxText :>
         call (load_sym libgtk "gtk_combo_box_text_append")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
-      val appendText_ = call (load_sym libgtk "gtk_combo_box_text_append_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val getActiveText_ = call (load_sym libgtk "gtk_combo_box_text_get_active_text") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val appendText_ = call (load_sym libgtk "gtk_combo_box_text_append_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getActiveText_ = call (load_sym libgtk "gtk_combo_box_text_get_active_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val insert_ =
         call (load_sym libgtk "gtk_combo_box_text_insert")
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int.PolyML.VAL
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val insertText_ =
@@ -35,18 +35,18 @@ structure GtkComboBoxText :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val prepend_ =
         call (load_sym libgtk "gtk_combo_box_text_prepend")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
-      val prependText_ = call (load_sym libgtk "gtk_combo_box_text_prepend_text") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val prependText_ = call (load_sym libgtk "gtk_combo_box_text_prepend_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val remove_ = call (load_sym libgtk "gtk_combo_box_text_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
       val removeAll_ = call (load_sym libgtk "gtk_combo_box_text_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
     end
@@ -65,8 +65,8 @@ structure GtkComboBoxText :>
     fun append self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         append_
@@ -75,14 +75,14 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) appendText_ (self & text)
-    fun getActiveText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getActiveText_ self
+    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) appendText_ (self & text)
+    fun getActiveText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getActiveText_ self
     fun insert self position id text =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         insert_
@@ -96,7 +96,7 @@ structure GtkComboBoxText :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         insertText_
@@ -108,8 +108,8 @@ structure GtkComboBoxText :>
     fun prepend self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         prepend_
@@ -118,7 +118,7 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) prependText_ (self & text)
+    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) prependText_ (self & text)
     fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) remove_ (self & position)
     fun removeAll self = (GObjectObjectClass.C.withPtr ---> I) removeAll_ self
   end

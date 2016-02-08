@@ -57,7 +57,7 @@ structure GIRepositoryUnionInfo :>
         call
           (load_sym libgirepository "g_union_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getSize_ =
@@ -131,7 +131,7 @@ structure GIRepositoryUnionInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
+           &&&> Utf8.C.withConstPtr
            ---> GIRepositoryFunctionInfoClass.C.fromPtr true
         )
           findMethod_

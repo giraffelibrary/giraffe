@@ -8,10 +8,10 @@ structure GtkFontButton :>
     val getType_ = _import "gtk_font_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_font_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFontName_ = _import "gtk_font_button_get_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getFontName_ = _import "gtk_font_button_get_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getShowSize_ = _import "gtk_font_button_get_show_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getShowStyle_ = _import "gtk_font_button_get_show_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getTitle_ = _import "gtk_font_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTitle_ = _import "gtk_font_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getUseFont_ = _import "gtk_font_button_get_use_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getUseSize_ = _import "gtk_font_button_get_use_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setFontName_ =
@@ -59,17 +59,17 @@ structure GtkFontButton :>
     fun asFontChooser self = (GObjectObjectClass.C.withPtr ---> GtkFontChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkFontButtonClass.C.fromPtr false) new_ ()
-    fun newWithFont fontname = (FFI.String.C.withConstPtr ---> GtkFontButtonClass.C.fromPtr false) newWithFont_ fontname
-    fun getFontName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getFontName_ self
+    fun newWithFont fontname = (Utf8.C.withConstPtr ---> GtkFontButtonClass.C.fromPtr false) newWithFont_ fontname
+    fun getFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFontName_ self
     fun getShowSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowSize_ self
     fun getShowStyle self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowStyle_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
     fun getUseFont self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFont_ self
     fun getUseSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseSize_ self
-    fun setFontName self fontname = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) setFontName_ (self & fontname)
+    fun setFontName self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setFontName_ (self & fontname)
     fun setShowSize self showSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowSize_ (self & showSize)
     fun setShowStyle self showStyle = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowStyle_ (self & showStyle)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setUseFont self useFont = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFont_ (self & useFont)
     fun setUseSize self useSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseSize_ (self & useSize)
     local

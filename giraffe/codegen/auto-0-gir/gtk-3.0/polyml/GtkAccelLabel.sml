@@ -8,7 +8,7 @@ structure GtkAccelLabel :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_accel_label_new") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgtk "gtk_accel_label_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val getAccelWidget_ = call (load_sym libgtk "gtk_accel_label_get_accel_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
       val refetch_ = call (load_sym libgtk "gtk_accel_label_refetch") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -22,7 +22,7 @@ structure GtkAccelLabel :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new string = (FFI.String.C.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
+    fun new string = (Utf8.C.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
     fun getAccelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAccelWidget_ self
     fun getAccelWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getAccelWidth_ self
     fun refetch self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) refetch_ self

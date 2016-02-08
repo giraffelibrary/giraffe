@@ -10,10 +10,10 @@ structure GtkRadioAction :>
       val new_ =
         call (load_sym libgtk "gtk_radio_action_new")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> FFI.Int.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -28,10 +28,10 @@ structure GtkRadioAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> FFI.Int.C.withVal
          ---> GtkRadioActionClass.C.fromPtr true
       )

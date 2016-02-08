@@ -59,7 +59,7 @@ structure GtkCssProvider :>
               x3,
               x4
             )
-    val toString_ = _import "gtk_css_provider_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "gtk_css_provider_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class_t = 'a GtkCssProviderClass.t
     type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
     type t = base class_t
@@ -67,7 +67,7 @@ structure GtkCssProvider :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.C.fromPtr false) getDefault_ ()
-    fun getNamed name variant = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
+    fun getNamed name variant = (Utf8.C.withConstPtr &&&> Utf8.C.withConstOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
     fun loadFromFile self file =
       (
         GObjectObjectClass.C.withPtr
@@ -84,7 +84,7 @@ structure GtkCssProvider :>
     fun loadFromPath self path =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -94,5 +94,5 @@ structure GtkCssProvider :>
            & path
            & []
         )
-    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

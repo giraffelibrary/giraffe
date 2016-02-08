@@ -10,8 +10,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_boolean")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -19,17 +19,17 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_comment")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val getDouble_ =
         call (load_sym libglib "g_key_file_get_double")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Double.PolyML.VAL
           )
@@ -37,8 +37,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_int64")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Int64.PolyML.VAL
           )
@@ -46,8 +46,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_integer")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Int.PolyML.VAL
           )
@@ -55,28 +55,28 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_locale_string")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
-      val getStartGroup_ = call (load_sym libglib "g_key_file_get_start_group") (GLibKeyFileRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getStartGroup_ = call (load_sym libglib "g_key_file_get_start_group") (GLibKeyFileRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getString_ =
         call (load_sym libglib "g_key_file_get_string")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val getUint64_ =
         call (load_sym libglib "g_key_file_get_uint64")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.UInt64.PolyML.VAL
           )
@@ -84,17 +84,17 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_get_value")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
-      val hasGroup_ = call (load_sym libglib "g_key_file_has_group") (GLibKeyFileRecord.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val hasGroup_ = call (load_sym libglib "g_key_file_has_group") (GLibKeyFileRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val loadFromData_ =
         call (load_sym libglib "g_key_file_load_from_data")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Size.PolyML.VAL
              &&> GLibKeyFileFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
@@ -104,8 +104,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_load_from_data_dirs")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibKeyFileFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -114,9 +114,9 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_load_from_dirs")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibKeyFileFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -125,7 +125,7 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_load_from_file")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibKeyFileFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
@@ -134,8 +134,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_remove_comment")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -143,7 +143,7 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_remove_group")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -151,8 +151,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_remove_key")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -160,8 +160,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_boolean")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Bool.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -169,8 +169,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_boolean_list")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Bool.PolyML.VAL
              &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -179,9 +179,9 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_comment")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -189,8 +189,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_double")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Double.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -198,8 +198,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_double_list")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Double.PolyML.VAL
              &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -208,8 +208,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_int64")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int64.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -217,8 +217,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_integer")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -226,8 +226,8 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_integer_list")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
@@ -237,20 +237,20 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_locale_string")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setLocaleStringList_ =
         call (load_sym libglib "g_key_file_set_locale_string_list")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Size.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -258,17 +258,17 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_string")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setUint64_ =
         call (load_sym libglib "g_key_file_set_uint64")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.UInt64.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -276,9 +276,9 @@ structure GLibKeyFile :>
         call (load_sym libglib "g_key_file_set_value")
           (
             GLibKeyFileRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
     end
@@ -288,8 +288,8 @@ structure GLibKeyFile :>
     fun getBoolean self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -303,10 +303,10 @@ structure GLibKeyFile :>
     fun getComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getComment_
         (
@@ -318,8 +318,8 @@ structure GLibKeyFile :>
     fun getDouble self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Double.C.fromVal
       )
@@ -333,8 +333,8 @@ structure GLibKeyFile :>
     fun getInt64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -348,8 +348,8 @@ structure GLibKeyFile :>
     fun getInteger self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int.C.fromVal
       )
@@ -363,11 +363,11 @@ structure GLibKeyFile :>
     fun getLocaleString self groupName key locale =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getLocaleString_
         (
@@ -377,14 +377,14 @@ structure GLibKeyFile :>
            & locale
            & []
         )
-    fun getStartGroup self = (GLibKeyFileRecord.C.withPtr ---> FFI.String.C.fromPtr true) getStartGroup_ self
+    fun getStartGroup self = (GLibKeyFileRecord.C.withPtr ---> Utf8.C.fromPtr true) getStartGroup_ self
     fun getString self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getString_
         (
@@ -396,8 +396,8 @@ structure GLibKeyFile :>
     fun getUint64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt64.C.fromVal
       )
@@ -411,10 +411,10 @@ structure GLibKeyFile :>
     fun getValue self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getValue_
         (
@@ -423,11 +423,11 @@ structure GLibKeyFile :>
            & key
            & []
         )
-    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
+    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
     fun loadFromData self data length flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Size.C.withVal
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -444,8 +444,8 @@ structure GLibKeyFile :>
     fun loadFromDataDirs self file fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -461,9 +461,9 @@ structure GLibKeyFile :>
     fun loadFromDirs self file searchDirs fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -480,7 +480,7 @@ structure GLibKeyFile :>
     fun loadFromFile self file flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -495,8 +495,8 @@ structure GLibKeyFile :>
     fun removeComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -510,7 +510,7 @@ structure GLibKeyFile :>
     fun removeGroup self groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -523,8 +523,8 @@ structure GLibKeyFile :>
     fun removeKey self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -538,8 +538,8 @@ structure GLibKeyFile :>
     fun setBoolean self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -553,8 +553,8 @@ structure GLibKeyFile :>
     fun setBooleanList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Size.C.withVal
          ---> I
@@ -570,9 +570,9 @@ structure GLibKeyFile :>
     fun setComment self groupName key comment =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -587,8 +587,8 @@ structure GLibKeyFile :>
     fun setDouble self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Double.C.withVal
          ---> I
       )
@@ -602,8 +602,8 @@ structure GLibKeyFile :>
     fun setDoubleList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Size.C.withVal
          ---> I
@@ -619,8 +619,8 @@ structure GLibKeyFile :>
     fun setInt64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -634,8 +634,8 @@ structure GLibKeyFile :>
     fun setInteger self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -649,8 +649,8 @@ structure GLibKeyFile :>
     fun setIntegerList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Size.C.withVal
          ---> I
@@ -667,10 +667,10 @@ structure GLibKeyFile :>
     fun setLocaleString self groupName key locale string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setLocaleString_
@@ -684,10 +684,10 @@ structure GLibKeyFile :>
     fun setLocaleStringList self groupName key locale list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Size.C.withVal
          ---> I
       )
@@ -703,9 +703,9 @@ structure GLibKeyFile :>
     fun setString self groupName key string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setString_
@@ -718,8 +718,8 @@ structure GLibKeyFile :>
     fun setUint64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          ---> I
       )
@@ -733,9 +733,9 @@ structure GLibKeyFile :>
     fun setValue self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setValue_

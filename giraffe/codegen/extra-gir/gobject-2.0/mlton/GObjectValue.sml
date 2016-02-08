@@ -139,9 +139,9 @@ local
 
     val get_char_ = _import "g_value_get_char" : FFI.Char.C.val_ get;
 
-    val get_string_ = _import "g_value_get_string" : FFI.String.C.notnull FFI.String.C.out_p get;
+    val get_string_ = _import "g_value_get_string" : Utf8.C.notnull Utf8.C.out_p get;
 
-    val get_string_opt_ = _import "g_value_get_string" : unit FFI.String.C.out_p get;
+    val get_string_opt_ = _import "g_value_get_string" : unit Utf8.C.out_p get;
 
 
     type 'a set = GObjectValueRecord.C.notnull GObjectValueRecord.C.p * 'a -> unit
@@ -285,14 +285,14 @@ in
   val string : (string, string) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> FFI.String.C.fromPtr false) get_string_,
-      setValue = (I &&&> FFI.String.C.withConstPtr ---> I) set_string_
+      getValue = (I ---> Utf8.C.fromPtr false) get_string_,
+      setValue = (I &&&> Utf8.C.withConstPtr ---> I) set_string_
     }
 
   val stringOpt : (string option, string option) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> FFI.String.C.fromOptPtr false) get_string_opt_,
-      setValue = (I &&&> FFI.String.C.withConstOptPtr ---> I) set_string_opt_
+      getValue = (I ---> Utf8.C.fromOptPtr false) get_string_opt_,
+      setValue = (I &&&> Utf8.C.withConstOptPtr ---> I) set_string_opt_
     }
 end

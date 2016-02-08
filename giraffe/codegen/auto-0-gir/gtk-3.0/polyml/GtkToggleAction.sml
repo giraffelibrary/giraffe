@@ -10,10 +10,10 @@ structure GtkToggleAction :>
       val new_ =
         call (load_sym libgtk "gtk_toggle_action_new")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -29,10 +29,10 @@ structure GtkToggleAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkToggleActionClass.C.fromPtr true
       )
         new_

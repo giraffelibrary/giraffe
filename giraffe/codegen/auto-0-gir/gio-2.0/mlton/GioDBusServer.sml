@@ -38,9 +38,9 @@ structure GioDBusServer :>
               x7,
               x8
             )
-    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFlags_ = _import "g_dbus_server_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusServerFlags.C.val_;
-    val getGuid_ = _import "g_dbus_server_get_guid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getGuid_ = _import "g_dbus_server_get_guid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val isActive_ = _import "g_dbus_server_is_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val start_ = _import "g_dbus_server_start" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val stop_ = _import "g_dbus_server_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -55,9 +55,9 @@ structure GioDBusServer :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GioDBusServerFlags.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -72,9 +72,9 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getClientAddress_ self
+    fun getClientAddress self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getClientAddress_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusServerFlags.C.fromVal) getFlags_ self
-    fun getGuid self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getGuid_ self
+    fun getGuid self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
     fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
     fun start self = (GObjectObjectClass.C.withPtr ---> I) start_ self
     fun stop self = (GObjectObjectClass.C.withPtr ---> I) stop_ self

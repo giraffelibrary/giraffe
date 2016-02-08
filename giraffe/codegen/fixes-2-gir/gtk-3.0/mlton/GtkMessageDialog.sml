@@ -73,7 +73,7 @@ structure GtkMessageDialog :>
     fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
     fun setImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setMarkup_ (self & str)
+    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setMarkup_ (self & str)
     local
       open Property
     in

@@ -350,14 +350,14 @@ structure AtkRole :>
     local
       open PolyMLFFI
     in
-      val forName_ = call (load_sym libatk "atk_role_for_name") (FFI.String.PolyML.INPTR --> PolyML.VAL)
-      val getLocalizedName_ = call (load_sym libatk "atk_role_get_localized_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val getName_ = call (load_sym libatk "atk_role_get_name") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
-      val register_ = call (load_sym libatk "atk_role_register") (FFI.String.PolyML.INPTR --> PolyML.VAL)
+      val forName_ = call (load_sym libatk "atk_role_for_name") (Utf8.PolyML.INPTR --> PolyML.VAL)
+      val getLocalizedName_ = call (load_sym libatk "atk_role_get_localized_name") (PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val getName_ = call (load_sym libatk "atk_role_get_name") (PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val register_ = call (load_sym libatk "atk_role_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
-    fun getLocalizedName role = (C.withVal ---> FFI.String.C.fromPtr false) getLocalizedName_ role
-    fun getName role = (C.withVal ---> FFI.String.C.fromPtr false) getName_ role
-    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getLocalizedName role = (C.withVal ---> Utf8.C.fromPtr false) getLocalizedName_ role
+    fun getName role = (C.withVal ---> Utf8.C.fromPtr false) getName_ role
+    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
   end

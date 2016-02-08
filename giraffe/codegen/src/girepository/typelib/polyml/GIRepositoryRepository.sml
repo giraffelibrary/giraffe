@@ -16,7 +16,7 @@ structure GIRepositoryRepository :>
       val prependSearchPath_ =
         call
           (load_sym libgirepository "g_irepository_prepend_search_path")
-          (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+          (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
 
       val loadTypelib_ =
         call
@@ -25,14 +25,14 @@ structure GIRepositoryRepository :>
             &&> GIRepositoryTypelibType.PolyML.PTR
             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
             &&> GLibErrorRecord.PolyML.OUTOPTREF
-            --> FFI.String.PolyML.RETPTR)
+            --> Utf8.PolyML.RETPTR)
 
       val require_ =
         call
           (load_sym libgirepository "g_irepository_require")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
             &&> GLibErrorRecord.PolyML.OUTOPTREF
             --> GIRepositoryTypelibType.PolyML.PTR)
@@ -41,21 +41,21 @@ structure GIRepositoryRepository :>
         call
           (load_sym libgirepository "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.StringVector.PolyML.RETOPTPTR)
+            &&> Utf8.PolyML.INPTR
+            --> Utf8Vector.PolyML.RETOPTPTR)
 
       val getNInfos_ =
         call
           (load_sym libgirepository "g_irepository_get_n_infos")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> FFI.Int32.PolyML.VAL)
 
       val getInfo_ =
         call
           (load_sym libgirepository "g_irepository_get_info")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             &&> FFI.Int32.PolyML.VAL
             --> GIRepositoryBaseInfoClass.PolyML.PTR)
 
@@ -63,22 +63,22 @@ structure GIRepositoryRepository :>
         call
           (load_sym libgirepository "g_irepository_get_shared_library")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.String.PolyML.RETOPTPTR)
+            &&> Utf8.PolyML.INPTR
+            --> Utf8.PolyML.RETOPTPTR)
 
       val getVersion_ =
         call
           (load_sym libgirepository "g_irepository_get_version")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.String.PolyML.RETOPTPTR)
+            &&> Utf8.PolyML.INPTR
+            --> Utf8.PolyML.RETOPTPTR)
 
       val getCPrefix_ =
         call
           (load_sym libgirepository "g_irepository_get_c_prefix")
           (GObjectObjectClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.String.PolyML.RETPTR)
+            &&> Utf8.PolyML.INPTR
+            --> Utf8.PolyML.RETPTR)
     end
 
 
@@ -108,19 +108,19 @@ structure GIRepositoryRepository :>
          &&&> GIRepositoryTypelibType.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         loadTypelib_
         (repository & typelib & flags & [])
 
     fun prependSearchPath directory =
-      (FFI.String.C.withConstPtr ---> I) prependSearchPath_ directory
+      (Utf8.C.withConstPtr ---> I) prependSearchPath_ directory
 
     fun require1 repository namespace_ version flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GIRepositoryTypelibType.C.fromPtr false
@@ -131,8 +131,8 @@ structure GIRepositoryRepository :>
     fun getDependencies1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.StringVector.C.fromOptPtr true
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8Vector.C.fromOptPtr true
       )
         getDependencies_
         (repository & namespace_)
@@ -140,7 +140,7 @@ structure GIRepositoryRepository :>
     fun getNInfos1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Int32.C.fromVal
       )
         getNInfos_
@@ -149,7 +149,7 @@ structure GIRepositoryRepository :>
     fun getInfo1 repository namespace_ index =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> GIRepositoryBaseInfoClass.C.fromPtr true
       )
@@ -159,8 +159,8 @@ structure GIRepositoryRepository :>
     fun getSharedLibrary1 repository namespace =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromOptPtr false
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromOptPtr false
       )
         getSharedLibrary_
         (repository & namespace)
@@ -168,8 +168,8 @@ structure GIRepositoryRepository :>
     fun getVersion1 repository namespace =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromOptPtr false
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromOptPtr false
       )
         getVersion_
         (repository & namespace)
@@ -177,8 +177,8 @@ structure GIRepositoryRepository :>
     fun getCPrefix1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromOptPtr false
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromOptPtr false
       )
         getCPrefix_
         (repository & namespace_)

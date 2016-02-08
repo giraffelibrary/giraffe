@@ -13,7 +13,7 @@ structure GtkMessageDialog :>
       val getImage_ = call (load_sym libgtk "gtk_message_dialog_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getMessageArea_ = call (load_sym libgtk "gtk_message_dialog_get_message_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val setImage_ = call (load_sym libgtk "gtk_message_dialog_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkMessageDialogClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t
@@ -27,7 +27,7 @@ structure GtkMessageDialog :>
     fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
     fun setImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setMarkup_ (self & str)
+    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setMarkup_ (self & str)
     local
       open Property
     in

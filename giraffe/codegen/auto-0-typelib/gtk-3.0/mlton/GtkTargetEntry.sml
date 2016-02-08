@@ -28,7 +28,7 @@ structure GtkTargetEntry :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> GtkTargetEntryRecord.C.fromPtr true

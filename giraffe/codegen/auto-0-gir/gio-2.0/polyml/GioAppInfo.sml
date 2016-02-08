@@ -12,28 +12,28 @@ structure GioAppInfo :>
       val createFromCommandline_ =
         call (load_sym libgio "g_app_info_create_from_commandline")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> GioAppInfoCreateFlags.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
-      val getDefaultForType_ = call (load_sym libgio "g_app_info_get_default_for_type") (FFI.String.PolyML.INPTR &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultForUriScheme_ = call (load_sym libgio "g_app_info_get_default_for_uri_scheme") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getDefaultForType_ = call (load_sym libgio "g_app_info_get_default_for_type") (Utf8.PolyML.INPTR &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getDefaultForUriScheme_ = call (load_sym libgio "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
       val launchDefaultForUri_ =
         call (load_sym libgio "g_app_info_launch_default_for_uri")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val addSupportsType_ =
         call (load_sym libgio "g_app_info_add_supports_type")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -42,18 +42,18 @@ structure GioAppInfo :>
       val delete_ = call (load_sym libgio "g_app_info_delete") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val dup_ = call (load_sym libgio "g_app_info_dup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val equal_ = call (load_sym libgio "g_app_info_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCommandline_ = call (load_sym libgio "g_app_info_get_commandline") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getDescription_ = call (load_sym libgio "g_app_info_get_description") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getDisplayName_ = call (load_sym libgio "g_app_info_get_display_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getExecutable_ = call (load_sym libgio "g_app_info_get_executable") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getCommandline_ = call (load_sym libgio "g_app_info_get_commandline") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getDescription_ = call (load_sym libgio "g_app_info_get_description") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getDisplayName_ = call (load_sym libgio "g_app_info_get_display_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getExecutable_ = call (load_sym libgio "g_app_info_get_executable") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getIcon_ = call (load_sym libgio "g_app_info_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getId_ = call (load_sym libgio "g_app_info_get_id") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
-      val getName_ = call (load_sym libgio "g_app_info_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getId_ = call (load_sym libgio "g_app_info_get_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getName_ = call (load_sym libgio "g_app_info_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val removeSupportsType_ =
         call (load_sym libgio "g_app_info_remove_supports_type")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -61,7 +61,7 @@ structure GioAppInfo :>
         call (load_sym libgio "g_app_info_set_as_default_for_extension")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -69,7 +69,7 @@ structure GioAppInfo :>
         call (load_sym libgio "g_app_info_set_as_default_for_type")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -77,7 +77,7 @@ structure GioAppInfo :>
         call (load_sym libgio "g_app_info_set_as_last_used_for_type")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -93,8 +93,8 @@ structure GioAppInfo :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
@@ -106,11 +106,11 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType contentType mustSupportUris = (FFI.String.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
-    fun getDefaultForUriScheme uriScheme = (FFI.String.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
+    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForUriScheme uriScheme = (Utf8.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
     fun launchDefaultForUri uri launchContext =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -121,11 +121,11 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
-    fun resetTypeAssociations contentType = (FFI.String.C.withConstPtr ---> I) resetTypeAssociations_ contentType
+    fun resetTypeAssociations contentType = (Utf8.C.withConstPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -140,17 +140,17 @@ structure GioAppInfo :>
     fun delete self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) delete_ self
     fun dup self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) dup_ self
     fun equal self appinfo2 = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & appinfo2)
-    fun getCommandline self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCommandline_ self
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDescription_ self
-    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getDisplayName_ self
-    fun getExecutable self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getExecutable_ self
+    fun getCommandline self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCommandline_ self
+    fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
+    fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDisplayName_ self
+    fun getExecutable self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getExecutable_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
-    fun getId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getId_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun removeSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -163,7 +163,7 @@ structure GioAppInfo :>
     fun setAsDefaultForExtension self extension =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -176,7 +176,7 @@ structure GioAppInfo :>
     fun setAsDefaultForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -189,7 +189,7 @@ structure GioAppInfo :>
     fun setAsLastUsedForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

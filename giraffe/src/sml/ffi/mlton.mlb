@@ -35,6 +35,10 @@ in
   mlton/F_F_I_ARRAY.sml
   mlton/F_F_I_FLAGS_ENUM.sml
   mlton/F_F_I.sml
+  mlton/UTF8.sml
+  mlton/UTF8_VECTOR.sml
   mlton/FFI.sml
+  mlton/Utf8.sml
+  mlton/Utf8Vector.sml
   mlton/FileDesc.sml
 end

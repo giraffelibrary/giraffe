@@ -41,7 +41,7 @@ structure GdkDisplay :>
               x3
             )
     val getNScreens_ = _import "gdk_display_get_n_screens" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getName_ = _import "gdk_display_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gdk_display_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getScreen_ = fn x1 & x2 => (_import "gdk_display_get_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val hasPending_ = _import "gdk_display_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val isClosed_ = _import "gdk_display_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -84,7 +84,7 @@ structure GdkDisplay :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.C.fromPtr false) getDefault_ ()
-    fun open' displayName = (FFI.String.C.withConstPtr ---> GdkDisplayClass.C.fromPtr false) open_ displayName
+    fun open' displayName = (Utf8.C.withConstPtr ---> GdkDisplayClass.C.fromPtr false) open_ displayName
     fun openDefaultLibgtkOnly () = (I ---> GdkDisplayClass.C.fromPtr false) openDefaultLibgtkOnly_ ()
     fun beep self = (GObjectObjectClass.C.withPtr ---> I) beep_ self
     fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
@@ -119,11 +119,11 @@ structure GdkDisplay :>
         (width, height)
       end
     fun getNScreens self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNScreens_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getScreen self screenNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GdkScreenClass.C.fromPtr false) getScreen_ (self & screenNum)
     fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
     fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun notifyStartupComplete self startupId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) notifyStartupComplete_ (self & startupId)
+    fun notifyStartupComplete self startupId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) notifyStartupComplete_ (self & startupId)
     fun peekEvent self = (GObjectObjectClass.C.withPtr ---> GdkEvent.C.fromPtr true) peekEvent_ self
     fun putEvent self event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) putEvent_ (self & event)
     fun requestSelectionNotification self selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.C.fromVal) requestSelectionNotification_ (self & selection)

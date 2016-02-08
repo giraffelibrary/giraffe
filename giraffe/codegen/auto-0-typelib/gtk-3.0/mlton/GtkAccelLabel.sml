@@ -18,7 +18,7 @@ structure GtkAccelLabel :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new string = (FFI.String.C.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
+    fun new string = (Utf8.C.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
     fun getAccelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAccelWidget_ self
     fun getAccelWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getAccelWidth_ self
     fun refetch self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) refetch_ self

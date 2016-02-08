@@ -8,10 +8,10 @@ structure GtkExpander :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_expander_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_expander_new") (FFI.String.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_expander_new_with_mnemonic") (FFI.String.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgtk "gtk_expander_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_expander_new_with_mnemonic") (Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
       val getExpanded_ = call (load_sym libgtk "gtk_expander_get_expanded") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_expander_get_label") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getLabel_ = call (load_sym libgtk "gtk_expander_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getLabelFill_ = call (load_sym libgtk "gtk_expander_get_label_fill") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getLabelWidget_ = call (load_sym libgtk "gtk_expander_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getResizeToplevel_ = call (load_sym libgtk "gtk_expander_get_resize_toplevel") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -19,7 +19,7 @@ structure GtkExpander :>
       val getUseMarkup_ = call (load_sym libgtk "gtk_expander_get_use_markup") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getUseUnderline_ = call (load_sym libgtk "gtk_expander_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setExpanded_ = call (load_sym libgtk "gtk_expander_set_expanded") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_expander_set_label") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setLabel_ = call (load_sym libgtk "gtk_expander_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setLabelFill_ = call (load_sym libgtk "gtk_expander_set_label_fill") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setLabelWidget_ = call (load_sym libgtk "gtk_expander_set_label_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setResizeToplevel_ = call (load_sym libgtk "gtk_expander_set_resize_toplevel") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -34,10 +34,10 @@ structure GtkExpander :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (FFI.String.C.withConstPtr ---> GtkExpanderClass.C.fromPtr false) new_ label
-    fun newWithMnemonic label = (FFI.String.C.withConstOptPtr ---> GtkExpanderClass.C.fromPtr false) newWithMnemonic_ label
+    fun new label = (Utf8.C.withConstPtr ---> GtkExpanderClass.C.fromPtr false) new_ label
+    fun newWithMnemonic label = (Utf8.C.withConstOptPtr ---> GtkExpanderClass.C.fromPtr false) newWithMnemonic_ label
     fun getExpanded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpanded_ self
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getLabel_ self
+    fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelFill self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLabelFill_ self
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
     fun getResizeToplevel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getResizeToplevel_ self
@@ -45,7 +45,7 @@ structure GtkExpander :>
     fun getUseMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
     fun setExpanded self expanded = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExpanded_ (self & expanded)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
     fun setLabelFill self labelFill = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLabelFill_ (self & labelFill)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
     fun setResizeToplevel self resizeToplevel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizeToplevel_ (self & resizeToplevel)

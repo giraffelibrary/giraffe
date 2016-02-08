@@ -272,54 +272,6 @@ structure FFI :> F_F_I =
             val VAL = cDouble
             val REF = cRef
           end
-
-
-        (**
-         * String
-         *)
-        structure String =
-          struct
-            local
-              open GCharVec.C
-            in
-              type notnull = notnull
-              type 'a in_p = 'a in_p conversion
-              type 'a out_p = 'a out_p conversion
-              type ('a, 'b) r = ('a, 'b) r conversion 
-
-              val INPTR = GCharVec.PolyML.cInPtr : notnull in_p
-              val INOPTPTR = GCharVec.PolyML.cOptInPtr : unit in_p
-              val OUTREF = GCharVec.PolyML.cRefOut : (unit, notnull) r
-              val OUTOPTREF = GCharVec.PolyML.cRef : (unit, unit) r
-              val INOUTREF = GCharVec.PolyML.cRefInOut: (notnull, notnull) r
-              val RETPTR = GCharVec.PolyML.cOutPtr : notnull out_p
-              val RETOPTPTR = GCharVec.PolyML.cOptOutPtr : unit out_p
-            end
-          end
-
-
-        (**
-         * String vector (to/from SML list)
-         *)
-        structure StringVector =
-          struct
-            local
-              open GCharVecVec.C
-            in
-              type notnull = notnull
-              type 'a in_p = 'a in_p conversion
-              type 'a out_p = 'a out_p conversion
-              type ('a, 'b) r = ('a, 'b) r conversion 
-
-              val INPTR = GCharVecVec.PolyML.cInPtr : notnull in_p
-              val INOPTPTR = GCharVecVec.PolyML.cOptInPtr : unit in_p
-              val OUTREF = GCharVecVec.PolyML.cRefOut : (unit, notnull) r
-              val OUTOPTREF = GCharVecVec.PolyML.cRef : (unit, unit) r
-              val INOUTREF = GCharVecVec.PolyML.cRefInOut : (notnull, notnull) r
-              val RETPTR = GCharVecVec.PolyML.cOutPtr : notnull out_p
-              val RETOPTPTR = GCharVecVec.PolyML.cOptOutPtr : unit out_p
-            end
-          end
       end
 
 
@@ -627,120 +579,6 @@ structure FFI :> F_F_I =
             fun withRefVal f = withVal (withRef PolyML.Double.VAL f)
             val fromVal = I
           end
-
-
-        (**
-         * String
-         *)
-        structure String =
-          struct
-            local
-              open GCharVec.C
-            in
-              type notnull = notnull
-              type 'a in_p = 'a in_p
-              type 'a out_p = 'a out_p
-              type ('a, 'b) r = ('a, 'b) r
-            end
-
-
-            val withNullRef = GCharVec.C.withNullRef
-
-
-            val withConstPtr =
-              fn f => GCharVec.C.withConstPtr f o GCharVec.fromVector
-
-            val withConstOptPtr =
-              fn f => GCharVec.C.withConstOptPtr f o Option.map GCharVec.fromVector
-
-
-            val withRefConstPtr =
-              fn f => GCharVec.C.withRefConstPtr f o GCharVec.fromVector
-
-            val withRefConstOptPtr =
-              fn f => GCharVec.C.withRefConstOptPtr f o Option.map GCharVec.fromVector
-
-
-            val withRefDupPtr =
-              fn f => GCharVec.C.withRefDupPtr f o GCharVec.fromVector
-
-            val withRefDupOptPtr =
-              fn f => GCharVec.C.withRefDupOptPtr f o Option.map GCharVec.fromVector
-
-
-            fun fromPtr transfer =
-              if transfer
-              then GCharVec.C.copyNewPtrToVector o GCharVec.C.OutPointer.toNotNull
-              else GCharVec.C.copyPtrToVector o GCharVec.C.OutPointer.toNotNull
-
-            fun fromOptPtr transfer =
-              if transfer
-              then GCharVec.C.copyNewOptPtrToVector
-              else GCharVec.C.copyOptPtrToVector
-          end
-
-
-        (**
-         * String vector (to/from SML list)
-         *)
-        structure StringVector =
-          struct
-            local
-              open GCharVecVec.C
-            in
-              type notnull = notnull
-              type 'a in_p = 'a in_p
-              type 'a out_p = 'a out_p
-              type ('a, 'b) r = ('a, 'b) r
-            end
-
-            val fromList = GCharVecVec.fromVector o Vector.fromList
-
-
-            val withNullRef = GCharVecVec.C.withNullRef
-
-
-            val withConstPtr = fn f => GCharVecVec.C.withConstPtr f o fromList
-
-            val withConstOptPtr =
-              fn f => GCharVecVec.C.withConstOptPtr f o Option.map fromList
-
-
-            val withRefConstPtr =
-              fn f => GCharVecVec.C.withRefConstPtr f o fromList
-
-            val withRefConstOptPtr =
-              fn f => GCharVecVec.C.withRefConstOptPtr f o Option.map fromList
-
-
-            val withRefDupPtr =
-              fn f => GCharVecVec.C.withRefDupPtr f o fromList
-
-            val withRefDupOptPtr =
-              fn f => GCharVecVec.C.withRefDupOptPtr f o Option.map fromList
-
-
-            fun fromPtr transfer =
-              let
-                val from =
-                  if transfer
-                  then GCharVecVec.C.copyNewPtrToTabulated
-                  else GCharVecVec.C.copyPtrToTabulated
-              in
-                from List.tabulate o GCharVecVec.C.OutPointer.toNotNull
-              end
-
-
-            fun fromOptPtr transfer =
-              let
-                val from =
-                  if transfer
-                  then GCharVecVec.C.copyNewOptPtrToTabulated
-                  else GCharVecVec.C.copyOptPtrToTabulated
-              in
-                from List.tabulate
-              end
-          end
       end
 
 
@@ -1015,28 +853,6 @@ structure FFI :> F_F_I =
         val null = 0.0
         structure C = C.Double
         structure PolyML = PolyML.Double
-      end
-
-
-    (**
-     * String
-     *)
-    structure String =
-      struct
-        type t = string
-        structure C = C.String
-        structure PolyML = PolyML.String
-      end
-
-
-    (**
-     * String vector (to/from SML list)
-     *)
-    structure StringVector =
-      struct
-        type t = string list
-        structure C = C.StringVector
-        structure PolyML = PolyML.StringVector
       end
 
   end

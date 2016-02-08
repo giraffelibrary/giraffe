@@ -53,7 +53,7 @@ structure GIRepositoryRepository :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -102,7 +102,7 @@ structure GIRepositoryRepository :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -117,7 +117,7 @@ structure GIRepositoryRepository :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -132,7 +132,7 @@ structure GIRepositoryRepository :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -172,7 +172,7 @@ structure GIRepositoryRepository :>
                * GIRepositoryTypelibRecord.C.notnull GIRepositoryTypelibRecord.C.p
                * GIRepositoryRepositoryLoadFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -245,15 +245,15 @@ structure GIRepositoryRepository :>
     type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun dump arg = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
+    fun dump arg = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
-    fun prependSearchPath directory = (FFI.String.C.withConstPtr ---> I) prependSearchPath_ directory
+    fun prependSearchPath directory = (Utf8.C.withConstPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self namespace name =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
       )
         findByName_
@@ -262,11 +262,11 @@ structure GIRepositoryRepository :>
            & namespace
            & name
         )
-    fun getCPrefix self namespace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getCPrefix_ (self & namespace)
+    fun getCPrefix self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getCPrefix_ (self & namespace)
     fun getInfo self namespace index =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
       )
@@ -276,15 +276,15 @@ structure GIRepositoryRepository :>
            & namespace
            & index
         )
-    fun getNInfos self namespace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) getNInfos_ (self & namespace)
-    fun getSharedLibrary self namespace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getSharedLibrary_ (self & namespace)
-    fun getTypelibPath self namespace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getTypelibPath_ (self & namespace)
-    fun getVersion self namespace = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getVersion_ (self & namespace)
+    fun getNInfos self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) getNInfos_ (self & namespace)
+    fun getSharedLibrary self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getSharedLibrary_ (self & namespace)
+    fun getTypelibPath self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getTypelibPath_ (self & namespace)
+    fun getVersion self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getVersion_ (self & namespace)
     fun isRegistered self namespace version =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> FFI.Bool.C.fromVal
       )
         isRegistered_
@@ -299,7 +299,7 @@ structure GIRepositoryRepository :>
          &&&> GIRepositoryTypelibRecord.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         loadTypelib_
         (
@@ -311,8 +311,8 @@ structure GIRepositoryRepository :>
     fun require self namespace version flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GIRepositoryTypelibRecord.C.fromPtr false
@@ -328,9 +328,9 @@ structure GIRepositoryRepository :>
     fun requirePrivate self typelibDir namespace version flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GIRepositoryTypelibRecord.C.fromPtr false

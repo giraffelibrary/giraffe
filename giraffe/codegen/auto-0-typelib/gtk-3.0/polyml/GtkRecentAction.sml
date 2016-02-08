@@ -12,19 +12,19 @@ structure GtkRecentAction :>
       val new_ =
         call (load_sym libgtk "gtk_recent_action_new")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val newForManager_ =
         call (load_sym libgtk "gtk_recent_action_new_for_manager")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -41,10 +41,10 @@ structure GtkRecentAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )
         new_
@@ -56,10 +56,10 @@ structure GtkRecentAction :>
         )
     fun newForManager name label tooltip stockId manager =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )

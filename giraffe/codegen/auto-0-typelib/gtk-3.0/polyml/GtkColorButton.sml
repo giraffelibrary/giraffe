@@ -14,12 +14,12 @@ structure GtkColorButton :>
       val getAlpha_ = call (load_sym libgtk "gtk_color_button_get_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
       val getColor_ = call (load_sym libgtk "gtk_color_button_get_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val getRgba_ = call (load_sym libgtk "gtk_color_button_get_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getTitle_ = call (load_sym libgtk "gtk_color_button_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTitle_ = call (load_sym libgtk "gtk_color_button_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getUseAlpha_ = call (load_sym libgtk "gtk_color_button_get_use_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val setAlpha_ = call (load_sym libgtk "gtk_color_button_set_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt16.PolyML.VAL --> FFI.PolyML.VOID)
       val setColor_ = call (load_sym libgtk "gtk_color_button_set_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
       val setRgba_ = call (load_sym libgtk "gtk_color_button_set_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_color_button_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTitle_ = call (load_sym libgtk "gtk_color_button_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setUseAlpha_ = call (load_sym libgtk "gtk_color_button_set_use_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkColorButtonClass.t
@@ -46,12 +46,12 @@ structure GtkColorButton :>
       in
         rgba
       end
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
     fun getUseAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseAlpha_ self
     fun setAlpha self alpha = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setAlpha_ (self & alpha)
     fun setColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColor_ (self & color)
     fun setRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setRgba_ (self & rgba)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setUseAlpha self useAlpha = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseAlpha_ (self & useAlpha)
     local
       open ClosureMarshal Signal

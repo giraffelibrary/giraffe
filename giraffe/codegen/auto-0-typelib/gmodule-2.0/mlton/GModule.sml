@@ -9,7 +9,7 @@ structure GModule : G_MODULE =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -17,10 +17,10 @@ structure GModule : G_MODULE =
               x3,
               x4
             )
-    val moduleError_ = _import "g_module_error" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val moduleError_ = _import "g_module_error" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val moduleSupported_ = _import "g_module_supported" : unit -> FFI.Bool.C.val_;
     structure ModuleFlags = GModuleModuleFlags
-    fun moduleBuildPath directory moduleName = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) moduleBuildPath_ (directory & moduleName)
-    fun moduleError () = (I ---> FFI.String.C.fromPtr false) moduleError_ ()
+    fun moduleBuildPath directory moduleName = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) moduleBuildPath_ (directory & moduleName)
+    fun moduleError () = (I ---> Utf8.C.fromPtr false) moduleError_ ()
     fun moduleSupported () = (I ---> FFI.Bool.C.fromVal) moduleSupported_ ()
   end

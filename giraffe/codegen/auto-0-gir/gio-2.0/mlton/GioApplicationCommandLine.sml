@@ -3,7 +3,7 @@ structure GioApplicationCommandLine :>
     where type 'a class_t = 'a GioApplicationCommandLineClass.t =
   struct
     val getType_ = _import "g_application_command_line_get_type" : unit -> GObjectType.C.val_;
-    val getCwd_ = _import "g_application_command_line_get_cwd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCwd_ = _import "g_application_command_line_get_cwd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getExitStatus_ = _import "g_application_command_line_get_exit_status" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getIsRemote_ = _import "g_application_command_line_get_is_remote" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getPlatformData_ = _import "g_application_command_line_get_platform_data" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
@@ -15,7 +15,7 @@ structure GioApplicationCommandLine :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -26,11 +26,11 @@ structure GioApplicationCommandLine :>
     type 'a class_t = 'a GioApplicationCommandLineClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getCwd self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getCwd_ self
+    fun getCwd self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCwd_ self
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getExitStatus_ self
     fun getIsRemote self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRemote_ self
     fun getPlatformData self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getPlatformData_ self
-    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getenv_ (self & name)
+    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getenv_ (self & name)
     fun setExitStatus self exitStatus = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
       open Property

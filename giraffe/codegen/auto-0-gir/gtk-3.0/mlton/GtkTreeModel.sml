@@ -47,7 +47,7 @@ structure GtkTreeModel :>
             )
     val getNColumns_ = _import "gtk_tree_model_get_n_columns" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val getPath_ = fn x1 & x2 => (_import "gtk_tree_model_get_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;) (x1, x2)
-    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getValue_ =
       fn
         x1
@@ -219,7 +219,7 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIterFromString_
@@ -233,7 +233,7 @@ structure GtkTreeModel :>
       end
     fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNColumns_ self
     fun getPath self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getPath_ (self & iter)
-    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getStringFromIter_ (self & iter)
+    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getStringFromIter_ (self & iter)
     fun getValue self iter column =
       let
         val value & () =

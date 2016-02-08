@@ -23,8 +23,8 @@ structure GioDrive :>
              --> FFI.Bool.PolyML.VAL
           )
       val getIcon_ = call (load_sym libgio "g_drive_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIdentifier_ = call (load_sym libgio "g_drive_get_identifier") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.String.PolyML.RETPTR)
-      val getName_ = call (load_sym libgio "g_drive_get_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getIdentifier_ = call (load_sym libgio "g_drive_get_identifier") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getName_ = call (load_sym libgio "g_drive_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getStartStopType_ = call (load_sym libgio "g_drive_get_start_stop_type") (GObjectObjectClass.PolyML.PTR --> GioDriveStartStopType.PolyML.VAL)
       val hasMedia_ = call (load_sym libgio "g_drive_has_media") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val hasVolumes_ = call (load_sym libgio "g_drive_has_volumes") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -80,8 +80,8 @@ structure GioDrive :>
            & []
         )
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) getIcon_ self
-    fun getIdentifier self kind = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) getIdentifier_ (self & kind)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getName_ self
+    fun getIdentifier self kind = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) getIdentifier_ (self & kind)
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getName_ self
     fun getStartStopType self = (GObjectObjectClass.C.withPtr ---> GioDriveStartStopType.C.fromVal) getStartStopType_ self
     fun hasMedia self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasMedia_ self
     fun hasVolumes self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasVolumes_ self

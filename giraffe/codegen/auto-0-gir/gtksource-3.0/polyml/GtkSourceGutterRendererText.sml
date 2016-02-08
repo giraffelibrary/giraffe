@@ -11,7 +11,7 @@ structure GtkSourceGutterRendererText :>
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_markup")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -19,7 +19,7 @@ structure GtkSourceGutterRendererText :>
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -31,7 +31,7 @@ structure GtkSourceGutterRendererText :>
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -44,7 +44,7 @@ structure GtkSourceGutterRendererText :>
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

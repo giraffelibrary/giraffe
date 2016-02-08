@@ -25,12 +25,12 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.Bool.PolyML.VAL
           )
       val getNColumns_ = call (load_sym libgtk "gtk_tree_model_get_n_columns") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getPath_ = call (load_sym libgtk "gtk_tree_model_get_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
-      val getStringFromIter_ = call (load_sym libgtk "gtk_tree_model_get_string_from_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getStringFromIter_ = call (load_sym libgtk "gtk_tree_model_get_string_from_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getValue_ =
         call (load_sym libgtk "gtk_tree_model_get_value")
           (
@@ -136,7 +136,7 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIterFromString_
@@ -150,7 +150,7 @@ structure GtkTreeModel :>
       end
     fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNColumns_ self
     fun getPath self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getPath_ (self & iter)
-    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getStringFromIter_ (self & iter)
+    fun getStringFromIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getStringFromIter_ (self & iter)
     fun getValue self iter column =
       let
         val value & () =

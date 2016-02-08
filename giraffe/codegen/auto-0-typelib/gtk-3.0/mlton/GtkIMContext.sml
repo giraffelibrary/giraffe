@@ -98,10 +98,10 @@ structure GtkIMContext :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
-             ---> FFI.String.C.fromPtr true
+             ---> Utf8.C.fromPtr true
                    && PangoAttrListRecord.C.fromPtr true
                    && FFI.Int32.C.fromVal
                    && I
@@ -126,7 +126,7 @@ structure GtkIMContext :>
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

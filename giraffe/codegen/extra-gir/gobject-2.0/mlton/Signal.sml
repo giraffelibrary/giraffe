@@ -56,7 +56,7 @@ structure Signal :>
     fun signalConnectClosure instance detailedSignal closure after =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectClosureRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I

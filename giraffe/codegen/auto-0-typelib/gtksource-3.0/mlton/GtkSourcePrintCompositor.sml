@@ -24,14 +24,14 @@ structure GtkSourcePrintCompositor :>
               x2,
               x3
             )
-    val getBodyFontName_ = _import "gtk_source_print_compositor_get_body_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getBodyFontName_ = _import "gtk_source_print_compositor_get_body_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getBottomMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_bottom_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
     val getBuffer_ = _import "gtk_source_print_compositor_get_buffer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFooterFontName_ = _import "gtk_source_print_compositor_get_footer_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getHeaderFontName_ = _import "gtk_source_print_compositor_get_header_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getFooterFontName_ = _import "gtk_source_print_compositor_get_footer_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getHeaderFontName_ = _import "gtk_source_print_compositor_get_header_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getHighlightSyntax_ = _import "gtk_source_print_compositor_get_highlight_syntax" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getLeftMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_left_margin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getLineNumbersFontName_ = _import "gtk_source_print_compositor_get_line_numbers_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getLineNumbersFontName_ = _import "gtk_source_print_compositor_get_line_numbers_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getNPages_ = _import "gtk_source_print_compositor_get_n_pages" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getPaginationProgress_ = _import "gtk_source_print_compositor_get_pagination_progress" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getPrintFooter_ = _import "gtk_source_print_compositor_get_print_footer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -254,14 +254,14 @@ structure GtkSourcePrintCompositor :>
            & context
            & pageNr
         )
-    fun getBodyFontName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getBodyFontName_ self
+    fun getBodyFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getBodyFontName_ self
     fun getBottomMargin self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getBottomMargin_ (self & unit)
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr false) getBuffer_ self
-    fun getFooterFontName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getFooterFontName_ self
-    fun getHeaderFontName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getHeaderFontName_ self
+    fun getFooterFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getFooterFontName_ self
+    fun getHeaderFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getHeaderFontName_ self
     fun getHighlightSyntax self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightSyntax_ self
     fun getLeftMargin self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getLeftMargin_ (self & unit)
-    fun getLineNumbersFontName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getLineNumbersFontName_ self
+    fun getLineNumbersFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getLineNumbersFontName_ self
     fun getNPages self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPages_ self
     fun getPaginationProgress self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPaginationProgress_ self
     fun getPrintFooter self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getPrintFooter_ self
@@ -272,7 +272,7 @@ structure GtkSourcePrintCompositor :>
     fun getTopMargin self unit = (GObjectObjectClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getTopMargin_ (self & unit)
     fun getWrapMode self = (GObjectObjectClass.C.withPtr ---> GtkWrapMode.C.fromVal) getWrapMode_ self
     fun paginate self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) paginate_ (self & context)
-    fun setBodyFontName self fontName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setBodyFontName_ (self & fontName)
+    fun setBodyFontName self fontName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setBodyFontName_ (self & fontName)
     fun setBottomMargin self margin unit =
       (
         GObjectObjectClass.C.withPtr
@@ -286,14 +286,14 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setFooterFontName self fontName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setFooterFontName_ (self & fontName)
+    fun setFooterFontName self fontName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setFooterFontName_ (self & fontName)
     fun setFooterFormat self separator left center right =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setFooterFormat_
@@ -304,14 +304,14 @@ structure GtkSourcePrintCompositor :>
            & center
            & right
         )
-    fun setHeaderFontName self fontName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setHeaderFontName_ (self & fontName)
+    fun setHeaderFontName self fontName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setHeaderFontName_ (self & fontName)
     fun setHeaderFormat self separator left center right =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setHeaderFormat_
@@ -336,7 +336,7 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setLineNumbersFontName self fontName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setLineNumbersFontName_ (self & fontName)
+    fun setLineNumbersFontName self fontName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLineNumbersFontName_ (self & fontName)
     fun setPrintFooter self print = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPrintFooter_ (self & print)
     fun setPrintHeader self print = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPrintHeader_ (self & print)
     fun setPrintLineNumbers self interval = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setPrintLineNumbers_ (self & interval)

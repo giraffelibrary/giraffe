@@ -42,7 +42,7 @@ structure GtkSymbolicColor :>
               x2,
               x3
             )
-    val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type record_t = GtkSymbolicColorRecord.t
     type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
     type t = record_t
@@ -62,7 +62,7 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (FFI.String.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
+    fun newName name = (Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
     fun newShade color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let
@@ -82,5 +82,5 @@ structure GtkSymbolicColor :>
       in
         if retVal then SOME resolvedColor else NONE
       end
-    fun toString self = (GtkSymbolicColorRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GtkSymbolicColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

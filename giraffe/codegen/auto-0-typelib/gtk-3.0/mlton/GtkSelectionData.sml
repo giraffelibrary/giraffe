@@ -12,7 +12,7 @@ structure GtkSelectionData :>
     val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSelection_ = _import "gtk_selection_data_get_selection" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val getTarget_ = _import "gtk_selection_data_get_target" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
-    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val setPixbuf_ = fn x1 & x2 => (_import "gtk_selection_data_set_pixbuf" : GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val setText_ =
       fn
@@ -49,12 +49,12 @@ structure GtkSelectionData :>
     fun getPixbuf self = (GtkSelectionDataRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) getPixbuf_ self
     fun getSelection self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getSelection_ self
     fun getTarget self = (GtkSelectionDataRecord.C.withPtr ---> GdkAtomRecord.C.fromPtr false) getTarget_ self
-    fun getText self = (GtkSelectionDataRecord.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GtkSelectionDataRecord.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun setPixbuf self pixbuf = (GtkSelectionDataRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) setPixbuf_ (self & pixbuf)
     fun setText self str len =
       (
         GtkSelectionDataRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
       )

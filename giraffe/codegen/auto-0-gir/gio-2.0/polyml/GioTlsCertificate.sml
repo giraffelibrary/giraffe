@@ -8,19 +8,19 @@ structure GioTlsCertificate :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_tls_certificate_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (FFI.String.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
       val newFromFiles_ =
         call (load_sym libgio "g_tls_certificate_new_from_files")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
       val newFromPem_ =
         call (load_sym libgio "g_tls_certificate_new_from_pem")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.SSize.PolyML.VAL
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -40,11 +40,11 @@ structure GioTlsCertificate :>
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    fun newFromFile file = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -56,7 +56,7 @@ structure GioTlsCertificate :>
         )
     fun newFromPem data length =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.SSize.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true

@@ -11,7 +11,7 @@ structure GIRepositoryFunctionInfo :>
       val getSymbol_ =
         call
           (load_sym libgirepository "g_function_info_get_symbol")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
 
       val getFlags_ =
         call
@@ -38,7 +38,7 @@ structure GIRepositoryFunctionInfo :>
 
     val getSymbol =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
           getSymbol_
           info
 

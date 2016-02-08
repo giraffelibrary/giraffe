@@ -10,7 +10,7 @@ structure GtkAspectFrame :>
       val new_ =
         call (load_sym libgtk "gtk_aspect_frame_new")
           (
-            FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
              &&> FFI.Float.PolyML.VAL
              &&> FFI.Float.PolyML.VAL
              &&> FFI.Float.PolyML.VAL
@@ -36,7 +36,7 @@ structure GtkAspectFrame :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal

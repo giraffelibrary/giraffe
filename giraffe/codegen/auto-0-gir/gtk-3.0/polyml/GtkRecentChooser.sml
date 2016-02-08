@@ -12,7 +12,7 @@ structure GtkRecentChooser :>
       val getType_ = call (load_sym libgtk "gtk_recent_chooser_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val addFilter_ = call (load_sym libgtk "gtk_recent_chooser_add_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val getCurrentItem_ = call (load_sym libgtk "gtk_recent_chooser_get_current_item") (GObjectObjectClass.PolyML.PTR --> GtkRecentInfoRecord.PolyML.PTR)
-      val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getFilter_ = call (load_sym libgtk "gtk_recent_chooser_get_filter") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -28,7 +28,7 @@ structure GtkRecentChooser :>
         call (load_sym libgtk "gtk_recent_chooser_select_uri")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -36,7 +36,7 @@ structure GtkRecentChooser :>
         call (load_sym libgtk "gtk_recent_chooser_set_current_uri")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
@@ -50,7 +50,7 @@ structure GtkRecentChooser :>
       val setShowTips_ = call (load_sym libgtk "gtk_recent_chooser_set_show_tips") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setSortType_ = call (load_sym libgtk "gtk_recent_chooser_set_sort_type") (GObjectObjectClass.PolyML.PTR &&> GtkRecentSortType.PolyML.VAL --> FFI.PolyML.VOID)
       val unselectAll_ = call (load_sym libgtk "gtk_recent_chooser_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkRecentChooserClass.t
     type recent_info_record_t = GtkRecentInfoRecord.t
@@ -61,7 +61,7 @@ structure GtkRecentChooser :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)
     fun getCurrentItem self = (GObjectObjectClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self
-    fun getCurrentUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getCurrentUri_ self
+    fun getCurrentUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getCurrentUri_ self
     fun getFilter self = (GObjectObjectClass.C.withPtr ---> GtkRecentFilterClass.C.fromPtr false) getFilter_ self
     fun getLimit self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLimit_ self
     fun getLocalOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocalOnly_ self
@@ -76,7 +76,7 @@ structure GtkRecentChooser :>
     fun selectUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -89,7 +89,7 @@ structure GtkRecentChooser :>
     fun setCurrentUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -109,7 +109,7 @@ structure GtkRecentChooser :>
     fun setShowTips self showTips = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowTips_ (self & showTips)
     fun setSortType self sortType = (GObjectObjectClass.C.withPtr &&&> GtkRecentSortType.C.withVal ---> I) setSortType_ (self & sortType)
     fun unselectAll self = (GObjectObjectClass.C.withPtr ---> I) unselectAll_ self
-    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) unselectUri_ (self & uri)
+    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

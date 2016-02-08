@@ -14,11 +14,11 @@ structure GtkWindow :>
     in
       val getType_ = call (load_sym libgtk "gtk_window_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_window_new") (GtkWindowType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultIconName_ = call (load_sym libgtk "gtk_window_get_default_icon_name") (FFI.PolyML.VOID --> FFI.String.PolyML.RETPTR)
+      val getDefaultIconName_ = call (load_sym libgtk "gtk_window_get_default_icon_name") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
       val setAutoStartupNotification_ = call (load_sym libgtk "gtk_window_set_auto_startup_notification") (FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setDefaultIcon_ = call (load_sym libgtk "gtk_window_set_default_icon") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDefaultIconFromFile_ = call (load_sym libgtk "gtk_window_set_default_icon_from_file") (FFI.String.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val setDefaultIconName_ = call (load_sym libgtk "gtk_window_set_default_icon_name") (FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setDefaultIconFromFile_ = call (load_sym libgtk "gtk_window_set_default_icon_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val setDefaultIconName_ = call (load_sym libgtk "gtk_window_set_default_icon_name") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val activateDefault_ = call (load_sym libgtk "gtk_window_activate_default") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val activateFocus_ = call (load_sym libgtk "gtk_window_activate_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val activateKey_ = call (load_sym libgtk "gtk_window_activate_key") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -75,7 +75,7 @@ structure GtkWindow :>
       val getGroup_ = call (load_sym libgtk "gtk_window_get_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getHasResizeGrip_ = call (load_sym libgtk "gtk_window_get_has_resize_grip") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getIcon_ = call (load_sym libgtk "gtk_window_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIconName_ = call (load_sym libgtk "gtk_window_get_icon_name") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getIconName_ = call (load_sym libgtk "gtk_window_get_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getMnemonicModifier_ = call (load_sym libgtk "gtk_window_get_mnemonic_modifier") (GObjectObjectClass.PolyML.PTR --> GdkModifierType.PolyML.VAL)
       val getMnemonicsVisible_ = call (load_sym libgtk "gtk_window_get_mnemonics_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getModal_ = call (load_sym libgtk "gtk_window_get_modal") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -90,7 +90,7 @@ structure GtkWindow :>
           )
       val getResizable_ = call (load_sym libgtk "gtk_window_get_resizable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GObjectObjectClass.PolyML.PTR &&> GdkRectangleRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getScreen_ = call (load_sym libgtk "gtk_window_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getSize_ =
         call (load_sym libgtk "gtk_window_get_size")
@@ -102,7 +102,7 @@ structure GtkWindow :>
           )
       val getSkipPagerHint_ = call (load_sym libgtk "gtk_window_get_skip_pager_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_get_skip_taskbar_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_window_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTitle_ = call (load_sym libgtk "gtk_window_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getTransientFor_ = call (load_sym libgtk "gtk_window_get_transient_for") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getTypeHint_ = call (load_sym libgtk "gtk_window_get_type_hint") (GObjectObjectClass.PolyML.PTR --> GdkWindowTypeHint.PolyML.VAL)
       val getUrgencyHint_ = call (load_sym libgtk "gtk_window_get_urgency_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -128,7 +128,7 @@ structure GtkWindow :>
              &&> FFI.Int.PolyML.VAL
              --> FFI.PolyML.VOID
           )
-      val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val present_ = call (load_sym libgtk "gtk_window_present") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
       val propagateKeyEvent_ = call (load_sym libgtk "gtk_window_propagate_key_event") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
@@ -201,11 +201,11 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_set_icon_from_file")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val setIconName_ = call (load_sym libgtk "gtk_window_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val setIconName_ = call (load_sym libgtk "gtk_window_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
       val setKeepAbove_ = call (load_sym libgtk "gtk_window_set_keep_above") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setKeepBelow_ = call (load_sym libgtk "gtk_window_set_keep_below") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setMnemonicModifier_ = call (load_sym libgtk "gtk_window_set_mnemonic_modifier") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.VAL --> FFI.PolyML.VOID)
@@ -214,12 +214,12 @@ structure GtkWindow :>
       val setOpacity_ = call (load_sym libgtk "gtk_window_set_opacity") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
       val setPosition_ = call (load_sym libgtk "gtk_window_set_position") (GObjectObjectClass.PolyML.PTR &&> GtkWindowPosition.PolyML.VAL --> FFI.PolyML.VOID)
       val setResizable_ = call (load_sym libgtk "gtk_window_set_resizable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setRole_ = call (load_sym libgtk "gtk_window_set_role") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setRole_ = call (load_sym libgtk "gtk_window_set_role") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setScreen_ = call (load_sym libgtk "gtk_window_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setSkipPagerHint_ = call (load_sym libgtk "gtk_window_set_skip_pager_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_set_skip_taskbar_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStartupId_ = call (load_sym libgtk "gtk_window_set_startup_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_window_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setStartupId_ = call (load_sym libgtk "gtk_window_set_startup_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTitle_ = call (load_sym libgtk "gtk_window_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setTransientFor_ = call (load_sym libgtk "gtk_window_set_transient_for") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setTypeHint_ = call (load_sym libgtk "gtk_window_set_type_hint") (GObjectObjectClass.PolyML.PTR &&> GdkWindowTypeHint.PolyML.VAL --> FFI.PolyML.VOID)
       val setUrgencyHint_ = call (load_sym libgtk "gtk_window_set_urgency_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
@@ -227,8 +227,8 @@ structure GtkWindow :>
         call (load_sym libgtk "gtk_window_set_wmclass")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val stick_ = call (load_sym libgtk "gtk_window_stick") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
@@ -249,11 +249,11 @@ structure GtkWindow :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new type' = (GtkWindowType.C.withVal ---> GtkWindowClass.C.fromPtr false) new_ type'
-    fun getDefaultIconName () = (I ---> FFI.String.C.fromPtr false) getDefaultIconName_ ()
+    fun getDefaultIconName () = (I ---> Utf8.C.fromPtr false) getDefaultIconName_ ()
     fun setAutoStartupNotification setting = (FFI.Bool.C.withVal ---> I) setAutoStartupNotification_ setting
     fun setDefaultIcon icon = (GObjectObjectClass.C.withPtr ---> I) setDefaultIcon_ icon
-    fun setDefaultIconFromFile filename = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setDefaultIconFromFile_ (filename & [])
-    fun setDefaultIconName name = (FFI.String.C.withConstPtr ---> I) setDefaultIconName_ name
+    fun setDefaultIconFromFile filename = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setDefaultIconFromFile_ (filename & [])
+    fun setDefaultIconName name = (Utf8.C.withConstPtr ---> I) setDefaultIconName_ name
     fun activateDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) activateDefault_ self
     fun activateFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) activateFocus_ self
     fun activateKey self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) activateKey_ (self & event)
@@ -344,7 +344,7 @@ structure GtkWindow :>
     fun getGroup self = (GObjectObjectClass.C.withPtr ---> GtkWindowGroupClass.C.fromPtr false) getGroup_ self
     fun getHasResizeGrip self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasResizeGrip_ self
     fun getIcon self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getIcon_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getIconName_ self
+    fun getIconName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconName_ self
     fun getMnemonicModifier self = (GObjectObjectClass.C.withPtr ---> GdkModifierType.C.fromVal) getMnemonicModifier_ self
     fun getMnemonicsVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMnemonicsVisible_ self
     fun getModal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getModal_ self
@@ -378,7 +378,7 @@ structure GtkWindow :>
       in
         if retVal then SOME rect else NONE
       end
-    fun getRole self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getRole_ self
+    fun getRole self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getRole_ self
     fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
     fun getSize self =
       let
@@ -404,7 +404,7 @@ structure GtkWindow :>
       end
     fun getSkipPagerHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSkipPagerHint_ self
     fun getSkipTaskbarHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSkipTaskbarHint_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
     fun getTransientFor self = (GObjectObjectClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getTransientFor_ self
     fun getTypeHint self = (GObjectObjectClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
     fun getUrgencyHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUrgencyHint_ self
@@ -440,7 +440,7 @@ structure GtkWindow :>
            & x
            & y
         )
-    fun parseGeometry self geometry = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) parseGeometry_ (self & geometry)
+    fun parseGeometry self geometry = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) parseGeometry_ (self & geometry)
     fun present self = (GObjectObjectClass.C.withPtr ---> I) present_ self
     fun presentWithTime self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) presentWithTime_ (self & timestamp)
     fun propagateKeyEvent self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) propagateKeyEvent_ (self & event)
@@ -543,7 +543,7 @@ structure GtkWindow :>
     fun setIconFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -553,7 +553,7 @@ structure GtkWindow :>
            & filename
            & []
         )
-    fun setIconName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> I) setIconName_ (self & name)
+    fun setIconName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setIconName_ (self & name)
     fun setKeepAbove self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepAbove_ (self & setting)
     fun setKeepBelow self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepBelow_ (self & setting)
     fun setMnemonicModifier self modifier = (GObjectObjectClass.C.withPtr &&&> GdkModifierType.C.withVal ---> I) setMnemonicModifier_ (self & modifier)
@@ -562,20 +562,20 @@ structure GtkWindow :>
     fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setOpacity_ (self & opacity)
     fun setPosition self position = (GObjectObjectClass.C.withPtr &&&> GtkWindowPosition.C.withVal ---> I) setPosition_ (self & position)
     fun setResizable self resizable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizable_ (self & resizable)
-    fun setRole self role = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setRole_ (self & role)
+    fun setRole self role = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setRole_ (self & role)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
     fun setSkipPagerHint self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipPagerHint_ (self & setting)
     fun setSkipTaskbarHint self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipTaskbarHint_ (self & setting)
-    fun setStartupId self startupId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setStartupId_ (self & startupId)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setStartupId self startupId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setStartupId_ (self & startupId)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setTransientFor self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setTransientFor_ (self & parent)
     fun setTypeHint self hint = (GObjectObjectClass.C.withPtr &&&> GdkWindowTypeHint.C.withVal ---> I) setTypeHint_ (self & hint)
     fun setUrgencyHint self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUrgencyHint_ (self & setting)
     fun setWmclass self wmclassName wmclassClass =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setWmclass_

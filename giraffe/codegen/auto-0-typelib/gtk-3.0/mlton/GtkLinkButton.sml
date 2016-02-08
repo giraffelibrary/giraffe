@@ -23,7 +23,7 @@ structure GtkLinkButton :>
               x3,
               x4
             )
-    val getUri_ = _import "gtk_link_button_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getUri_ = _import "gtk_link_button_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getVisited_ = _import "gtk_link_button_get_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setUri_ =
       fn
@@ -49,11 +49,11 @@ structure GtkLinkButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new uri = (FFI.String.C.withConstPtr ---> GtkLinkButtonClass.C.fromPtr false) new_ uri
-    fun newWithLabel uri label = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstOptPtr ---> GtkLinkButtonClass.C.fromPtr false) newWithLabel_ (uri & label)
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getUri_ self
+    fun new uri = (Utf8.C.withConstPtr ---> GtkLinkButtonClass.C.fromPtr false) new_ uri
+    fun newWithLabel uri label = (Utf8.C.withConstPtr &&&> Utf8.C.withConstOptPtr ---> GtkLinkButtonClass.C.fromPtr false) newWithLabel_ (uri & label)
+    fun getUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getUri_ self
     fun getVisited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisited_ self
-    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setUri_ (self & uri)
+    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setUri_ (self & uri)
     fun setVisited self visited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisited_ (self & visited)
     local
       open ClosureMarshal Signal

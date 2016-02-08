@@ -11,8 +11,8 @@ structure GioCharsetConverter :>
       val new_ =
         call (load_sym libgio "g_charset_converter_new")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -29,8 +29,8 @@ structure GioCharsetConverter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new toCharset fromCharset =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioCharsetConverterClass.C.fromPtr true
       )

@@ -24,7 +24,7 @@ structure GioCredentials :>
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> FFI.Bool.PolyML.VAL
           )
-      val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
     end
     type 'a class_t = 'a GioCredentialsClass.t
     type t = base class_t
@@ -57,5 +57,5 @@ structure GioCredentials :>
            & uid
            & []
         )
-    fun toString self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

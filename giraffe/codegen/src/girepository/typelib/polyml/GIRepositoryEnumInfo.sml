@@ -40,7 +40,7 @@ structure GIRepositoryEnumInfo :>
       val getErrorDomain_ =
         call
           (load_sym libgirepository "g_enum_info_get_error_domain")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.String.PolyML.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR);
     end
 
 
@@ -84,7 +84,7 @@ structure GIRepositoryEnumInfo :>
 
     val getErrorDomain =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.String.C.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromOptPtr false)
           getErrorDomain_
           info
   end

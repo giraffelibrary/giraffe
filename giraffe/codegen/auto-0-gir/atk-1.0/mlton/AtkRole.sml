@@ -334,12 +334,12 @@ structure AtkRole :>
         }
     val null = INVALID
     val forName_ = _import "mlton_atk_role_for_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
-    val getLocalizedName_ = _import "atk_role_get_localized_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getName_ = _import "atk_role_get_name" : C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getLocalizedName_ = _import "atk_role_get_localized_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
+    val getName_ = _import "atk_role_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val register_ = _import "mlton_atk_role_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (FFI.String.C.withConstPtr ---> C.fromVal) forName_ name
-    fun getLocalizedName role = (C.withVal ---> FFI.String.C.fromPtr false) getLocalizedName_ role
-    fun getName role = (C.withVal ---> FFI.String.C.fromPtr false) getName_ role
-    fun register name = (FFI.String.C.withConstPtr ---> C.fromVal) register_ name
+    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun getLocalizedName role = (C.withVal ---> Utf8.C.fromPtr false) getLocalizedName_ role
+    fun getName role = (C.withVal ---> Utf8.C.fromPtr false) getName_ role
+    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
   end

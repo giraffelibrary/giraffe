@@ -70,7 +70,7 @@ structure GtkRecentFilter :>
             )
     val addPixbufFormats_ = _import "gtk_recent_filter_add_pixbuf_formats" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val filter_ = fn x1 & x2 => (_import "gtk_recent_filter_filter" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkRecentFilterInfoRecord.C.notnull GtkRecentFilterInfoRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getName_ = _import "gtk_recent_filter_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gtk_recent_filter_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getNeeded_ = _import "gtk_recent_filter_get_needed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkRecentFilterFlags.C.val_;
     val setName_ =
       fn
@@ -96,13 +96,13 @@ structure GtkRecentFilter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentFilterClass.C.fromPtr false) new_ ()
     fun addAge self days = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) addAge_ (self & days)
-    fun addApplication self application = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addApplication_ (self & application)
-    fun addGroup self group = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addGroup_ (self & group)
-    fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addMimeType_ (self & mimeType)
-    fun addPattern self pattern = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addPattern_ (self & pattern)
+    fun addApplication self application = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addApplication_ (self & application)
+    fun addGroup self group = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addGroup_ (self & group)
+    fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addMimeType_ (self & mimeType)
+    fun addPattern self pattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GObjectObjectClass.C.withPtr ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GObjectObjectClass.C.withPtr &&&> GtkRecentFilterInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getNeeded self = (GObjectObjectClass.C.withPtr ---> GtkRecentFilterFlags.C.fromVal) getNeeded_ self
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
   end

@@ -10,7 +10,7 @@ structure GtkTextTag :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_text_tag_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_text_tag_new") (FFI.String.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val new_ = call (load_sym libgtk "gtk_text_tag_new") (Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
       val event_ =
         call (load_sym libgtk "gtk_text_tag_event")
           (
@@ -30,7 +30,7 @@ structure GtkTextTag :>
     type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (FFI.String.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    fun new name = (Utf8.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
         GObjectObjectClass.C.withPtr

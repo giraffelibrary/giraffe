@@ -123,12 +123,12 @@ structure GtkTextIter :>
     val getLineOffset_ = _import "gtk_text_iter_get_line_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int32.C.val_;
     val getOffset_ = _import "gtk_text_iter_get_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int32.C.val_;
     val getPixbuf_ = _import "gtk_text_iter_get_pixbuf" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val getText_ = fn x1 & x2 => (_import "gtk_text_iter_get_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getText_ = fn x1 & x2 => (_import "gtk_text_iter_get_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getVisibleLineIndex_ = _import "gtk_text_iter_get_visible_line_index" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int32.C.val_;
     val getVisibleLineOffset_ = _import "gtk_text_iter_get_visible_line_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int32.C.val_;
-    val getVisibleSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val getVisibleText_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getVisibleSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getVisibleText_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val hasTag_ = fn x1 & x2 => (_import "gtk_text_iter_has_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val inRange_ =
       fn
@@ -185,7 +185,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr
@@ -240,7 +240,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr
@@ -291,12 +291,12 @@ structure GtkTextIter :>
     fun getLineOffset self = (GtkTextIterRecord.C.withPtr ---> FFI.Int32.C.fromVal) getLineOffset_ self
     fun getOffset self = (GtkTextIterRecord.C.withPtr ---> FFI.Int32.C.fromVal) getOffset_ self
     fun getPixbuf self = (GtkTextIterRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getSlice self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getSlice_ (self & end')
-    fun getText self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getText_ (self & end')
+    fun getSlice self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getSlice_ (self & end')
+    fun getText self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getText_ (self & end')
     fun getVisibleLineIndex self = (GtkTextIterRecord.C.withPtr ---> FFI.Int32.C.fromVal) getVisibleLineIndex_ self
     fun getVisibleLineOffset self = (GtkTextIterRecord.C.withPtr ---> FFI.Int32.C.fromVal) getVisibleLineOffset_ self
-    fun getVisibleSlice self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getVisibleSlice_ (self & end')
-    fun getVisibleText self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.String.C.fromPtr true) getVisibleText_ (self & end')
+    fun getVisibleSlice self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getVisibleSlice_ (self & end')
+    fun getVisibleText self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getVisibleText_ (self & end')
     fun hasTag self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasTag_ (self & tag)
     fun inRange self start end' =
       (

@@ -27,8 +27,8 @@ structure GIRepositoryCallableInfo :>
         call
           (load_sym libgirepository "g_callable_info_get_return_attribute")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
-            --> FFI.String.PolyML.RETPTR);
+            &&> Utf8.PolyML.INPTR
+            --> Utf8.PolyML.RETPTR);
 
       val getNArgs_ =
         call
@@ -69,8 +69,8 @@ structure GIRepositoryCallableInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
-           ---> FFI.String.C.fromOptPtr false
+           &&&> Utf8.C.withConstPtr
+           ---> Utf8.C.fromOptPtr false
         )
           getReturnAttribute_
           (info & name)

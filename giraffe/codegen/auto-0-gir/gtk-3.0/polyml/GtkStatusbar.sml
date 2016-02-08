@@ -10,7 +10,7 @@ structure GtkStatusbar :>
     in
       val getType_ = call (load_sym libgtk "gtk_statusbar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
       val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.UInt.PolyML.VAL)
+      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.UInt.PolyML.VAL)
       val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
       val push_ =
@@ -18,7 +18,7 @@ structure GtkStatusbar :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.UInt.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.UInt.PolyML.VAL
           )
       val remove_ =
@@ -41,14 +41,14 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
+    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
     fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.UInt.C.fromVal
       )
         push_

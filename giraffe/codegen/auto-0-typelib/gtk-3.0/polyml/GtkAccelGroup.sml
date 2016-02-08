@@ -33,7 +33,7 @@ structure GtkAccelGroup :>
         call (load_sym libgtk "gtk_accel_group_connect_by_path")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectClosureRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
@@ -94,7 +94,7 @@ structure GtkAccelGroup :>
     fun connectByPath self accelPath closure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectClosureRecord.C.withPtr
          ---> I
       )

@@ -23,7 +23,7 @@ structure GtkEditable :>
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.VAL
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val getEditable_ = call (load_sym libgtk "gtk_editable_get_editable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getPosition_ = call (load_sym libgtk "gtk_editable_get_position") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
@@ -39,7 +39,7 @@ structure GtkEditable :>
         call (load_sym libgtk "gtk_editable_insert_text")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int.PolyML.VAL
              &&> FFI.Int.PolyML.REF
              --> FFI.PolyML.VOID
@@ -80,7 +80,7 @@ structure GtkEditable :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         getChars_
         (
@@ -117,7 +117,7 @@ structure GtkEditable :>
         val position & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal && I

@@ -11,7 +11,7 @@ structure AtkTable :>
       val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
       val getCaption_ = call (load_sym libatk "atk_table_get_caption") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
       val getColumnExtentAt_ =
         call (load_sym libatk "atk_table_get_column_extent_at")
           (
@@ -32,7 +32,7 @@ structure AtkTable :>
       val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
       val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
       val getRowExtentAt_ =
         call (load_sym libatk "atk_table_get_row_extent_at")
           (
@@ -69,7 +69,7 @@ structure AtkTable :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int32.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setColumnHeader_ =
@@ -85,7 +85,7 @@ structure AtkTable :>
           (
             GObjectObjectClass.PolyML.PTR
              &&> FFI.Int32.PolyML.VAL
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              --> FFI.PolyML.VOID
           )
       val setRowHeader_ =
@@ -106,7 +106,7 @@ structure AtkTable :>
     fun addRowSelection self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)
     fun getCaption self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getCaption_ self
     fun getColumnAtIndex self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) getColumnAtIndex_ (self & index)
-    fun getColumnDescription self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getColumnDescription_ (self & column)
+    fun getColumnDescription self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getColumnDescription_ (self & column)
     fun getColumnExtentAt self row column =
       (
         GObjectObjectClass.C.withPtr
@@ -137,7 +137,7 @@ structure AtkTable :>
     fun getNColumns self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNColumns_ self
     fun getNRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNRows_ self
     fun getRowAtIndex self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) getRowAtIndex_ (self & index)
-    fun getRowDescription self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) getRowDescription_ (self & row)
+    fun getRowDescription self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getRowDescription_ (self & row)
     fun getRowExtentAt self row column =
       (
         GObjectObjectClass.C.withPtr
@@ -188,7 +188,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setColumnDescription_
@@ -214,7 +214,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setRowDescription_

@@ -21,7 +21,7 @@ structure GtkComboBox :>
       val newWithModel_ = call (load_sym libgtk "gtk_combo_box_new_with_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val newWithModelAndEntry_ = call (load_sym libgtk "gtk_combo_box_new_with_model_and_entry") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getActive_ = call (load_sym libgtk "gtk_combo_box_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getActiveId_ = call (load_sym libgtk "gtk_combo_box_get_active_id") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getActiveId_ = call (load_sym libgtk "gtk_combo_box_get_active_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getActiveIter_ = call (load_sym libgtk "gtk_combo_box_get_active_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getAddTearoffs_ = call (load_sym libgtk "gtk_combo_box_get_add_tearoffs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getButtonSensitivity_ = call (load_sym libgtk "gtk_combo_box_get_button_sensitivity") (GObjectObjectClass.PolyML.PTR --> GtkSensitivityType.PolyML.VAL)
@@ -34,13 +34,13 @@ structure GtkComboBox :>
       val getPopupAccessible_ = call (load_sym libgtk "gtk_combo_box_get_popup_accessible") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
       val getPopupFixedWidth_ = call (load_sym libgtk "gtk_combo_box_get_popup_fixed_width") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
       val getRowSpanColumn_ = call (load_sym libgtk "gtk_combo_box_get_row_span_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_combo_box_get_title") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getTitle_ = call (load_sym libgtk "gtk_combo_box_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val getWrapWidth_ = call (load_sym libgtk "gtk_combo_box_get_wrap_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
       val popdown_ = call (load_sym libgtk "gtk_combo_box_popdown") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val popup_ = call (load_sym libgtk "gtk_combo_box_popup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val popupForDevice_ = call (load_sym libgtk "gtk_combo_box_popup_for_device") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val setActive_ = call (load_sym libgtk "gtk_combo_box_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setActiveId_ = call (load_sym libgtk "gtk_combo_box_set_active_id") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INOPTPTR --> FFI.Bool.PolyML.VAL)
+      val setActiveId_ = call (load_sym libgtk "gtk_combo_box_set_active_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.Bool.PolyML.VAL)
       val setActiveIter_ = call (load_sym libgtk "gtk_combo_box_set_active_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setAddTearoffs_ = call (load_sym libgtk "gtk_combo_box_set_add_tearoffs") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setButtonSensitivity_ = call (load_sym libgtk "gtk_combo_box_set_button_sensitivity") (GObjectObjectClass.PolyML.PTR &&> GtkSensitivityType.PolyML.VAL --> FFI.PolyML.VOID)
@@ -51,7 +51,7 @@ structure GtkComboBox :>
       val setModel_ = call (load_sym libgtk "gtk_combo_box_set_model") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
       val setPopupFixedWidth_ = call (load_sym libgtk "gtk_combo_box_set_popup_fixed_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
       val setRowSpanColumn_ = call (load_sym libgtk "gtk_combo_box_set_row_span_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_combo_box_set_title") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setTitle_ = call (load_sym libgtk "gtk_combo_box_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val setWrapWidth_ = call (load_sym libgtk "gtk_combo_box_set_wrap_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
     end
     type 'a class_t = 'a GtkComboBoxClass.t
@@ -76,7 +76,7 @@ structure GtkComboBox :>
     fun newWithModel model = (GObjectObjectClass.C.withPtr ---> GtkComboBoxClass.C.fromPtr false) newWithModel_ model
     fun newWithModelAndEntry model = (GObjectObjectClass.C.withPtr ---> GtkComboBoxClass.C.fromPtr false) newWithModelAndEntry_ model
     fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getActive_ self
-    fun getActiveId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getActiveId_ self
+    fun getActiveId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getActiveId_ self
     fun getActiveIter self =
       let
         val iter & retVal = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withNewPtr ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal) getActiveIter_ (self & ())
@@ -94,13 +94,13 @@ structure GtkComboBox :>
     fun getPopupAccessible self = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getPopupAccessible_ self
     fun getPopupFixedWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getPopupFixedWidth_ self
     fun getRowSpanColumn self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getRowSpanColumn_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getTitle_ self
+    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
     fun getWrapWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWrapWidth_ self
     fun popdown self = (GObjectObjectClass.C.withPtr ---> I) popdown_ self
     fun popup self = (GObjectObjectClass.C.withPtr ---> I) popup_ self
     fun popupForDevice self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) popupForDevice_ (self & device)
     fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setActive_ (self & index)
-    fun setActiveId self activeId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstOptPtr ---> FFI.Bool.C.fromVal) setActiveId_ (self & activeId)
+    fun setActiveId self activeId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> FFI.Bool.C.fromVal) setActiveId_ (self & activeId)
     fun setActiveIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withOptPtr ---> I) setActiveIter_ (self & iter)
     fun setAddTearoffs self addTearoffs = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
     fun setButtonSensitivity self sensitivity = (GObjectObjectClass.C.withPtr &&&> GtkSensitivityType.C.withVal ---> I) setButtonSensitivity_ (self & sensitivity)
@@ -111,7 +111,7 @@ structure GtkComboBox :>
     fun setModel self model = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setModel_ (self & model)
     fun setPopupFixedWidth self fixed = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPopupFixedWidth_ (self & fixed)
     fun setRowSpanColumn self rowSpan = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRowSpanColumn_ (self & rowSpan)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
     fun setWrapWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWrapWidth_ (self & width)
     local
       open ClosureMarshal Signal

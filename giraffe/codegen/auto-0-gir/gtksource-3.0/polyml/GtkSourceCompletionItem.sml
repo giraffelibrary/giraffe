@@ -10,28 +10,28 @@ structure GtkSourceCompletionItem :>
       val new_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val newFromStock_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_from_stock")
           (
-            FFI.String.PolyML.INOPTPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INOPTPTR
+            Utf8.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
       val newWithMarkup_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_with_markup")
           (
-            FFI.String.PolyML.INPTR
-             &&> FFI.String.PolyML.INPTR
+            Utf8.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.String.PolyML.INOPTPTR
+             &&> Utf8.PolyML.INOPTPTR
              --> GObjectObjectClass.PolyML.PTR
           )
     end
@@ -42,10 +42,10 @@ structure GtkSourceCompletionItem :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label text icon info =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         new_
@@ -57,10 +57,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newFromStock label text stock info =
       (
-        FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newFromStock_
@@ -72,10 +72,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newWithMarkup markup text icon info =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newWithMarkup_

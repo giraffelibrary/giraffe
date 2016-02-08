@@ -87,7 +87,7 @@ structure GIRepositoryArgument :>
       val from_string_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_string")
-          (PTR --> FFI.String.PolyML.RETPTR);
+          (PTR --> Utf8.PolyML.RETPTR);
     end
 
     fun fromReal x =
@@ -169,10 +169,10 @@ structure GIRepositoryArgument :>
             | GIRepositoryTypeTag.FLOAT    => FLOAT   (fromReal (FFI.Float.C.fromVal (from_float_ ptr)))
             | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (fromReal (FFI.Double.C.fromVal (from_double_ ptr)))
             | GIRepositoryTypeTag.UTF8     => UTF8 (
-                FFI.String.C.fromPtr true (from_string_ ptr)
+                Utf8.C.fromPtr true (from_string_ ptr)
               )
             | GIRepositoryTypeTag.FILENAME => FILENAME (
-                FFI.String.C.fromPtr true (from_string_ ptr)
+                Utf8.C.fromPtr true (from_string_ ptr)
               )
             | GIRepositoryTypeTag.VOID      => VOID
             | GIRepositoryTypeTag.GTYPE     => GTYPE

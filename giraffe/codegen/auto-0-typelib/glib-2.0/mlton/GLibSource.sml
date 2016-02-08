@@ -10,7 +10,7 @@ structure GLibSource :>
     val getCanRecurse_ = _import "g_source_get_can_recurse" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.Bool.C.val_;
     val getContext_ = _import "g_source_get_context" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val getId_ = _import "g_source_get_id" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.UInt32.C.val_;
-    val getName_ = _import "g_source_get_name" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "g_source_get_name" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getPriority_ = _import "g_source_get_priority" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.Int32.C.val_;
     val getTime_ = _import "g_source_get_time" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.Int64.C.val_;
     val isDestroyed_ = _import "g_source_is_destroyed" : GLibSourceRecord.C.notnull GLibSourceRecord.C.p -> FFI.Bool.C.val_;
@@ -58,14 +58,14 @@ structure GLibSource :>
     fun getCanRecurse self = (GLibSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getCanRecurse_ self
     fun getContext self = (GLibSourceRecord.C.withPtr ---> GLibMainContextRecord.C.fromPtr false) getContext_ self
     fun getId self = (GLibSourceRecord.C.withPtr ---> FFI.UInt32.C.fromVal) getId_ self
-    fun getName self = (GLibSourceRecord.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GLibSourceRecord.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getPriority self = (GLibSourceRecord.C.withPtr ---> FFI.Int32.C.fromVal) getPriority_ self
     fun getTime self = (GLibSourceRecord.C.withPtr ---> FFI.Int64.C.fromVal) getTime_ self
     fun isDestroyed self = (GLibSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) isDestroyed_ self
     fun removeChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) removeChildSource_ (self & childSource)
     fun setCanRecurse self canRecurse = (GLibSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanRecurse_ (self & canRecurse)
-    fun setName self name = (GLibSourceRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GLibSourceRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
     fun setPriority self priority = (GLibSourceRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPriority_ (self & priority)
     fun remove tag = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) remove_ tag
-    fun setNameById tag name = (FFI.UInt32.C.withVal &&&> FFI.String.C.withConstPtr ---> I) setNameById_ (tag & name)
+    fun setNameById tag name = (FFI.UInt32.C.withVal &&&> Utf8.C.withConstPtr ---> I) setNameById_ (tag & name)
   end

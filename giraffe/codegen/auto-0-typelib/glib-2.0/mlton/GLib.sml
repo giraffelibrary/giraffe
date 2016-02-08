@@ -27,7 +27,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Double.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -49,7 +49,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Double.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -84,7 +84,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -179,7 +179,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -328,7 +328,7 @@ structure GLib : G_LIB =
               x8,
               x9
             )
-    val basename_ = _import "mlton_g_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val basename_ = _import "mlton_g_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val bitNthLsf_ = fn x1 & x2 => (_import "g_bit_nth_lsf" : FFI.UInt64.C.val_ * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val bitNthMsf_ = fn x1 & x2 => (_import "g_bit_nth_msf" : FFI.UInt64.C.val_ * FFI.Int32.C.val_ -> FFI.Int32.C.val_;) (x1, x2)
     val bitStorage_ = _import "g_bit_storage" : FFI.UInt64.C.val_ -> FFI.UInt32.C.val_;
@@ -345,7 +345,7 @@ structure GLib : G_LIB =
               FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -366,7 +366,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -395,7 +395,7 @@ structure GLib : G_LIB =
                * FFI.UInt64.C.ref_
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -477,7 +477,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -495,7 +495,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -511,7 +511,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -533,7 +533,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -556,7 +556,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -578,7 +578,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -620,7 +620,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -642,8 +642,8 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val filenameDisplayBasename_ = _import "mlton_g_filename_display_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val filenameDisplayName_ = _import "mlton_g_filename_display_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val filenameDisplayBasename_ = _import "mlton_g_filename_display_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val filenameDisplayName_ = _import "mlton_g_filename_display_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val filenameFromUri_ =
       fn
         (x1, x2)
@@ -656,7 +656,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -677,7 +677,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * unit GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -686,29 +686,29 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val findProgramInPath_ = _import "mlton_g_find_program_in_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val formatSize_ = _import "g_format_size" : FFI.UInt64.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val formatSizeForDisplay_ = _import "g_format_size_for_display" : FFI.Int64.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val formatSizeFull_ = fn x1 & x2 => (_import "g_format_size_full" : FFI.UInt64.C.val_ * GLibFormatSizeFlags.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val getApplicationName_ = _import "g_get_application_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val findProgramInPath_ = _import "mlton_g_find_program_in_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val formatSize_ = _import "g_format_size" : FFI.UInt64.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
+    val formatSizeForDisplay_ = _import "g_format_size_for_display" : FFI.Int64.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
+    val formatSizeFull_ = fn x1 & x2 => (_import "g_format_size_full" : FFI.UInt64.C.val_ * GLibFormatSizeFlags.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getApplicationName_ = _import "g_get_application_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getCharset_ = _import "mlton_g_get_charset" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
-    val getCurrentDir_ = _import "g_get_current_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getCurrentDir_ = _import "g_get_current_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getCurrentTime_ = _import "g_get_current_time" : GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p -> unit;
     val getFilenameCharsets_ = _import "mlton_g_get_filename_charsets" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
-    val getHomeDir_ = _import "g_get_home_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getHostName_ = _import "g_get_host_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getHomeDir_ = _import "g_get_home_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getHostName_ = _import "g_get_host_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getMonotonicTime_ = _import "g_get_monotonic_time" : unit -> FFI.Int64.C.val_;
-    val getPrgname_ = _import "g_get_prgname" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getRealName_ = _import "g_get_real_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPrgname_ = _import "g_get_prgname" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getRealName_ = _import "g_get_real_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getRealTime_ = _import "g_get_real_time" : unit -> FFI.Int64.C.val_;
-    val getTmpDir_ = _import "g_get_tmp_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserCacheDir_ = _import "g_get_user_cache_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserConfigDir_ = _import "g_get_user_config_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserDataDir_ = _import "g_get_user_data_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserName_ = _import "g_get_user_name" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserRuntimeDir_ = _import "g_get_user_runtime_dir" : unit -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getUserSpecialDir_ = _import "g_get_user_special_dir" : GLibUserDirectory.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getenv_ = _import "mlton_g_getenv" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getTmpDir_ = _import "g_get_tmp_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserCacheDir_ = _import "g_get_user_cache_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserConfigDir_ = _import "g_get_user_config_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserDataDir_ = _import "g_get_user_data_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserName_ = _import "g_get_user_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserRuntimeDir_ = _import "g_get_user_runtime_dir" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getUserSpecialDir_ = _import "g_get_user_special_dir" : GLibUserDirectory.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
+    val getenv_ = _import "mlton_g_getenv" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val hookDestroy_ = fn x1 & x2 => (_import "g_hook_destroy" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * FFI.UInt64.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val hookDestroyLink_ = fn x1 & x2 => (_import "g_hook_destroy_link" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
     val hookFree_ = fn x1 & x2 => (_import "g_hook_free" : GLibHookListRecord.C.notnull GLibHookListRecord.C.p * GLibHookRecord.C.notnull GLibHookRecord.C.p -> unit;) (x1, x2)
@@ -734,11 +734,11 @@ structure GLib : G_LIB =
     val hostnameIsAsciiEncoded_ = _import "mlton_g_hostname_is_ascii_encoded" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val hostnameIsIpAddress_ = _import "mlton_g_hostname_is_ip_address" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
     val hostnameIsNonAscii_ = _import "mlton_g_hostname_is_non_ascii" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
-    val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val idleSourceNew_ = _import "g_idle_source_new" : unit -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;
-    val internStaticString_ = _import "mlton_g_intern_static_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val internString_ = _import "mlton_g_intern_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val internStaticString_ = _import "mlton_g_intern_static_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val internString_ = _import "mlton_g_intern_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val ioChannelErrorFromErrno_ = _import "g_io_channel_error_from_errno" : FFI.Int32.C.val_ -> GLibIOChannelError.C.val_;
     val ioChannelErrorQuark_ = _import "g_io_channel_error_quark" : unit -> FFI.UInt32.C.val_;
     val ioCreateWatch_ = fn x1 & x2 => (_import "g_io_create_watch" : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p * GLibIOCondition.C.val_ -> GLibSourceRecord.C.notnull GLibSourceRecord.C.p;) (x1, x2)
@@ -788,7 +788,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -814,7 +814,7 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val mkdtemp_ = _import "mlton_g_mkdtemp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val mkdtemp_ = _import "mlton_g_mkdtemp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val mkdtempFull_ =
       fn
         (x1, x2) & x3 =>
@@ -823,7 +823,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -854,10 +854,10 @@ structure GLib : G_LIB =
     val onErrorQuery_ = _import "mlton_g_on_error_query" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val onErrorStackTrace_ = _import "mlton_g_on_error_stack_trace" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val optionErrorQuark_ = _import "g_option_error_quark" : unit -> FFI.UInt32.C.val_;
-    val pathGetBasename_ = _import "mlton_g_path_get_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val pathGetDirname_ = _import "mlton_g_path_get_dirname" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val pathGetBasename_ = _import "mlton_g_path_get_basename" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val pathGetDirname_ = _import "mlton_g_path_get_dirname" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val pathIsAbsolute_ = _import "mlton_g_path_is_absolute" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
-    val pathSkipRoot_ = _import "mlton_g_path_skip_root" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val pathSkipRoot_ = _import "mlton_g_path_skip_root" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val patternMatch_ =
       fn
         x1
@@ -933,7 +933,7 @@ structure GLib : G_LIB =
             )
     val quarkFromStaticString_ = _import "mlton_g_quark_from_static_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
     val quarkFromString_ = _import "mlton_g_quark_from_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
-    val quarkToString_ = _import "g_quark_to_string" : FFI.UInt32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val quarkToString_ = _import "g_quark_to_string" : FFI.UInt32.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val quarkTryString_ = _import "mlton_g_quark_try_string" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
     val randomDouble_ = _import "g_random_double" : unit -> FFI.Double.C.val_;
     val randomDoubleRange_ = fn x1 & x2 => (_import "g_random_double_range" : FFI.Double.C.val_ * FFI.Double.C.val_ -> FFI.Double.C.val_;) (x1, x2)
@@ -968,7 +968,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int32.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1069,7 +1069,7 @@ structure GLib : G_LIB =
               x5
             )
     val shellErrorQuark_ = _import "g_shell_error_quark" : unit -> FFI.UInt32.C.val_;
-    val shellQuote_ = _import "mlton_g_shell_quote" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val shellQuote_ = _import "mlton_g_shell_quote" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val shellUnquote_ =
       fn
         (x1, x2) & x3 =>
@@ -1078,7 +1078,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1130,7 +1130,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1184,7 +1184,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt8.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1210,8 +1210,8 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strchomp_ = _import "mlton_g_strchomp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strchug_ = _import "mlton_g_strchug" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strchomp_ = _import "mlton_g_strchomp" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val strchug_ = _import "mlton_g_strchug" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val strcmp0_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -1229,7 +1229,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strcompress_ = _import "mlton_g_strcompress" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strcompress_ = _import "mlton_g_strcompress" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val strdelimit_ =
       fn
         (x1, x2)
@@ -1242,7 +1242,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt8.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1251,9 +1251,9 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val strdown_ = _import "mlton_g_strdown" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strdup_ = _import "mlton_g_strdup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
-    val strerror_ = _import "g_strerror" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strdown_ = _import "mlton_g_strdown" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val strdup_ = _import "mlton_g_strdup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val strerror_ = _import "g_strerror" : FFI.Int32.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val strescape_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -1263,7 +1263,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1298,7 +1298,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1315,7 +1315,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1394,15 +1394,15 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val strnfill_ = fn x1 & x2 => (_import "g_strnfill" : FFI.UInt64.C.val_ * FFI.UInt8.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val strreverse_ = _import "mlton_g_strreverse" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strnfill_ = fn x1 & x2 => (_import "g_strnfill" : FFI.UInt64.C.val_ * FFI.UInt8.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val strreverse_ = _import "mlton_g_strreverse" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val strrstr_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -1412,7 +1412,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1432,7 +1432,7 @@ structure GLib : G_LIB =
                * FFI.Int64.C.val_
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1441,7 +1441,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val strsignal_ = _import "g_strsignal" : FFI.Int32.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strsignal_ = _import "g_strsignal" : FFI.Int32.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val strstrLen_ =
       fn
         (x1, x2)
@@ -1454,7 +1454,7 @@ structure GLib : G_LIB =
                * FFI.Int64.C.val_
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1480,12 +1480,12 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val strup_ = _import "mlton_g_strup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val strup_ = _import "mlton_g_strup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val strvLength_ = _import "mlton_g_strv_length" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.UInt32.C.val_;
     val testBug_ = _import "mlton_g_test_bug" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val testBugBase_ = _import "mlton_g_test_bug_base" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
     val testFail_ = _import "g_test_fail" : unit -> unit;
-    val testLogTypeName_ = _import "g_test_log_type_name" : GLibTestLogType.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;
+    val testLogTypeName_ = _import "g_test_log_type_name" : GLibTestLogType.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val testRandDouble_ = _import "g_test_rand_double" : unit -> FFI.Double.C.val_;
     val testRandDoubleRange_ = fn x1 & x2 => (_import "g_test_rand_double_range" : FFI.Double.C.val_ * FFI.Double.C.val_ -> FFI.Double.C.val_;) (x1, x2)
     val testRandInt_ = _import "g_test_rand_int" : unit -> FFI.Int32.C.val_;
@@ -1618,7 +1618,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Bool.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1627,7 +1627,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val uriParseScheme_ = _import "mlton_g_uri_parse_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val uriUnescapeSegment_ =
       fn
         (x1, x2)
@@ -1641,7 +1641,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1660,7 +1660,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1677,7 +1677,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1709,7 +1709,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1724,7 +1724,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1740,7 +1740,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1757,7 +1757,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1792,7 +1792,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * GLibNormalizeMode.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1808,7 +1808,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1832,7 +1832,7 @@ structure GLib : G_LIB =
               x3,
               x4
             )
-    val utf8PrevChar_ = _import "mlton_g_utf8_prev_char" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.String.C.notnull FFI.String.C.out_p;
+    val utf8PrevChar_ = _import "mlton_g_utf8_prev_char" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val utf8Strchr_ =
       fn
         (x1, x2)
@@ -1844,7 +1844,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Char.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1860,7 +1860,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1894,7 +1894,7 @@ structure GLib : G_LIB =
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.UInt64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1914,7 +1914,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Char.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1930,7 +1930,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1945,7 +1945,7 @@ structure GLib : G_LIB =
               GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -1963,7 +1963,7 @@ structure GLib : G_LIB =
                * GCharVec.C.notnull GCharVec.MLton.p2
                * FFI.Int64.C.val_
                * FFI.Int64.C.val_
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -2273,14 +2273,14 @@ structure GLib : G_LIB =
     val USEC_PER_SEC = 1000000
     val VA_COPY_AS_ARRAY = 1
     val WIN32_MSG_HANDLE = 19981206
-    fun access filename mode = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) access_ (filename & mode)
+    fun access filename mode = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) access_ (filename & mode)
     fun asciiDigitValue c = (FFI.UInt8.C.withVal ---> FFI.Int32.C.fromVal) asciiDigitValue_ c
     fun asciiDtostr buffer bufLen d =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Double.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         asciiDtostr_
         (
@@ -2290,11 +2290,11 @@ structure GLib : G_LIB =
         )
     fun asciiFormatd buffer bufLen format d =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Double.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         asciiFormatd_
         (
@@ -2303,12 +2303,12 @@ structure GLib : G_LIB =
            & format
            & d
         )
-    fun asciiStrcasecmp s1 s2 = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) asciiStrcasecmp_ (s1 & s2)
-    fun asciiStrdown str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) asciiStrdown_ (str & len)
+    fun asciiStrcasecmp s1 s2 = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) asciiStrcasecmp_ (s1 & s2)
+    fun asciiStrdown str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) asciiStrdown_ (str & len)
     fun asciiStrncasecmp s1 s2 n =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          ---> FFI.Int32.C.fromVal
       )
@@ -2318,11 +2318,11 @@ structure GLib : G_LIB =
            & s2
            & n
         )
-    fun asciiStrtod nptr endptr = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Double.C.fromVal) asciiStrtod_ (nptr & endptr)
+    fun asciiStrtod nptr endptr = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Double.C.fromVal) asciiStrtod_ (nptr & endptr)
     fun asciiStrtoll nptr endptr base =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          ---> FFI.Int64.C.fromVal
       )
@@ -2334,8 +2334,8 @@ structure GLib : G_LIB =
         )
     fun asciiStrtoull nptr endptr base =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          ---> FFI.UInt64.C.fromVal
       )
@@ -2345,17 +2345,17 @@ structure GLib : G_LIB =
            & endptr
            & base
         )
-    fun asciiStrup str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) asciiStrup_ (str & len)
+    fun asciiStrup str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) asciiStrup_ (str & len)
     fun asciiTolower c = (FFI.UInt8.C.withVal ---> FFI.UInt8.C.fromVal) asciiTolower_ c
     fun asciiToupper c = (FFI.UInt8.C.withVal ---> FFI.UInt8.C.fromVal) asciiToupper_ c
     fun asciiXdigitValue c = (FFI.UInt8.C.withVal ---> FFI.Int32.C.fromVal) asciiXdigitValue_ c
     fun assertWarning logDomain file line prettyFunction expression =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         assertWarning_
@@ -2368,11 +2368,11 @@ structure GLib : G_LIB =
         )
     fun assertionMessage domain file line func message =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         assertionMessage_
@@ -2385,14 +2385,14 @@ structure GLib : G_LIB =
         )
     fun assertionMessageCmpstr domain file line func expr arg1 cmp arg2 =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         assertionMessageCmpstr_
@@ -2408,11 +2408,11 @@ structure GLib : G_LIB =
         )
     fun assertionMessageExpr domain file line func expr =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         assertionMessageExpr_
@@ -2423,19 +2423,19 @@ structure GLib : G_LIB =
            & func
            & expr
         )
-    fun basename fileName = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) basename_ fileName
+    fun basename fileName = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) basename_ fileName
     fun bitNthLsf mask nthBit = (FFI.UInt64.C.withVal &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) bitNthLsf_ (mask & nthBit)
     fun bitNthMsf mask nthBit = (FFI.UInt64.C.withVal &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) bitNthMsf_ (mask & nthBit)
     fun bitStorage number = (FFI.UInt64.C.withVal ---> FFI.UInt32.C.fromVal) bitStorage_ number
     fun blowChunks () = (I ---> I) blowChunks_ ()
     fun bookmarkFileErrorQuark () = (I ---> FFI.UInt32.C.fromVal) bookmarkFileErrorQuark_ ()
-    fun chdir path = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) chdir_ path
+    fun chdir path = (Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) chdir_ path
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
         FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         checkVersion_
         (
@@ -2449,9 +2449,9 @@ structure GLib : G_LIB =
     fun computeChecksumForString checksumType str length =
       (
         GLibChecksumType.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         computeChecksumForString_
         (
@@ -2465,16 +2465,16 @@ structure GLib : G_LIB =
          & bytesWritten
          & retVal =
           (
-            FFI.String.C.withConstPtr
+            Utf8.C.withConstPtr
              &&&> FFI.Int64.C.withVal
-             &&&> FFI.String.C.withConstPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
              ---> FFI.UInt64.C.fromVal
                    && FFI.UInt64.C.fromVal
-                   && FFI.String.C.fromPtr true
+                   && Utf8.C.fromPtr true
           )
             convert_
             (
@@ -2505,9 +2505,9 @@ structure GLib : G_LIB =
     fun dateIsLeapYear year = (FFI.UInt16.C.withVal ---> FFI.Bool.C.fromVal) dateIsLeapYear_ year
     fun dateStrftime s slen format date =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibDateRecord.C.withPtr
          ---> FFI.UInt64.C.fromVal
       )
@@ -2538,10 +2538,10 @@ structure GLib : G_LIB =
     fun dateValidYear year = (FFI.UInt16.C.withVal ---> FFI.Bool.C.fromVal) dateValidYear_ year
     fun dcgettext domain msgid category =
       (
-        FFI.String.C.withConstOptPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         dcgettext_
         (
@@ -2549,15 +2549,15 @@ structure GLib : G_LIB =
            & msgid
            & category
         )
-    fun dgettext domain msgid = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) dgettext_ (domain & msgid)
-    fun dirMakeTmp tmpl = (FFI.String.C.withConstOptPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.C.fromPtr true) dirMakeTmp_ (tmpl & [])
+    fun dgettext domain msgid = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) dgettext_ (domain & msgid)
+    fun dirMakeTmp tmpl = (Utf8.C.withConstOptPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) dirMakeTmp_ (tmpl & [])
     fun dngettext domain msgid msgidPlural n =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         dngettext_
         (
@@ -2568,10 +2568,10 @@ structure GLib : G_LIB =
         )
     fun dpgettext domain msgctxtid msgidoffset =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
-         ---> FFI.String.C.fromPtr false
+         ---> Utf8.C.fromPtr false
       )
         dpgettext_
         (
@@ -2581,10 +2581,10 @@ structure GLib : G_LIB =
         )
     fun dpgettext2 domain context msgid =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromPtr false
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromPtr false
       )
         dpgettext2_
         (
@@ -2599,10 +2599,10 @@ structure GLib : G_LIB =
       let
         val nameUsed & retVal =
           (
-            FFI.String.C.withConstOptPtr
-             &&&> FFI.String.C.withRefConstOptPtr
+            Utf8.C.withConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.String.C.fromPtr true && FFI.Int32.C.fromVal
+             ---> Utf8.C.fromPtr true && FFI.Int32.C.fromVal
           )
             fileOpenTmp_
             (
@@ -2613,16 +2613,16 @@ structure GLib : G_LIB =
       in
         (retVal, nameUsed)
       end
-    fun fileReadLink filename = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.C.fromPtr true) fileReadLink_ (filename & [])
-    fun fileTest filename test = (FFI.String.C.withConstPtr &&&> GLibFileTest.C.withVal ---> FFI.Bool.C.fromVal) fileTest_ (filename & test)
-    fun filenameDisplayBasename filename = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) filenameDisplayBasename_ filename
-    fun filenameDisplayName filename = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) filenameDisplayName_ filename
+    fun fileReadLink filename = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) fileReadLink_ (filename & [])
+    fun fileTest filename test = (Utf8.C.withConstPtr &&&> GLibFileTest.C.withVal ---> FFI.Bool.C.fromVal) fileTest_ (filename & test)
+    fun filenameDisplayBasename filename = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) filenameDisplayBasename_ filename
+    fun filenameDisplayName filename = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) filenameDisplayName_ filename
     fun filenameFromUri uri hostname =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         filenameFromUri_
         (
@@ -2632,10 +2632,10 @@ structure GLib : G_LIB =
         )
     fun filenameToUri filename hostname =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstOptPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstOptPtr
          &&&> GLibErrorRecord.C.handleError
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         filenameToUri_
         (
@@ -2643,29 +2643,29 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun findProgramInPath program = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) findProgramInPath_ program
-    fun formatSize size = (FFI.UInt64.C.withVal ---> FFI.String.C.fromPtr true) formatSize_ size
-    fun formatSizeForDisplay size = (FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) formatSizeForDisplay_ size
-    fun formatSizeFull size flags = (FFI.UInt64.C.withVal &&&> GLibFormatSizeFlags.C.withVal ---> FFI.String.C.fromPtr true) formatSizeFull_ (size & flags)
-    fun getApplicationName () = (I ---> FFI.String.C.fromPtr false) getApplicationName_ ()
-    fun getCharset charset = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getCharset_ charset
-    fun getCurrentDir () = (I ---> FFI.String.C.fromPtr true) getCurrentDir_ ()
+    fun findProgramInPath program = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) findProgramInPath_ program
+    fun formatSize size = (FFI.UInt64.C.withVal ---> Utf8.C.fromPtr true) formatSize_ size
+    fun formatSizeForDisplay size = (FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) formatSizeForDisplay_ size
+    fun formatSizeFull size flags = (FFI.UInt64.C.withVal &&&> GLibFormatSizeFlags.C.withVal ---> Utf8.C.fromPtr true) formatSizeFull_ (size & flags)
+    fun getApplicationName () = (I ---> Utf8.C.fromPtr false) getApplicationName_ ()
+    fun getCharset charset = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getCharset_ charset
+    fun getCurrentDir () = (I ---> Utf8.C.fromPtr true) getCurrentDir_ ()
     fun getCurrentTime result = (GLibTimeValRecord.C.withPtr ---> I) getCurrentTime_ result
-    fun getFilenameCharsets charsets = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) getFilenameCharsets_ charsets
-    fun getHomeDir () = (I ---> FFI.String.C.fromPtr false) getHomeDir_ ()
-    fun getHostName () = (I ---> FFI.String.C.fromPtr false) getHostName_ ()
+    fun getFilenameCharsets charsets = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getFilenameCharsets_ charsets
+    fun getHomeDir () = (I ---> Utf8.C.fromPtr false) getHomeDir_ ()
+    fun getHostName () = (I ---> Utf8.C.fromPtr false) getHostName_ ()
     fun getMonotonicTime () = (I ---> FFI.Int64.C.fromVal) getMonotonicTime_ ()
-    fun getPrgname () = (I ---> FFI.String.C.fromPtr true) getPrgname_ ()
-    fun getRealName () = (I ---> FFI.String.C.fromPtr false) getRealName_ ()
+    fun getPrgname () = (I ---> Utf8.C.fromPtr true) getPrgname_ ()
+    fun getRealName () = (I ---> Utf8.C.fromPtr false) getRealName_ ()
     fun getRealTime () = (I ---> FFI.Int64.C.fromVal) getRealTime_ ()
-    fun getTmpDir () = (I ---> FFI.String.C.fromPtr false) getTmpDir_ ()
-    fun getUserCacheDir () = (I ---> FFI.String.C.fromPtr false) getUserCacheDir_ ()
-    fun getUserConfigDir () = (I ---> FFI.String.C.fromPtr false) getUserConfigDir_ ()
-    fun getUserDataDir () = (I ---> FFI.String.C.fromPtr false) getUserDataDir_ ()
-    fun getUserName () = (I ---> FFI.String.C.fromPtr false) getUserName_ ()
-    fun getUserRuntimeDir () = (I ---> FFI.String.C.fromPtr false) getUserRuntimeDir_ ()
-    fun getUserSpecialDir directory = (GLibUserDirectory.C.withVal ---> FFI.String.C.fromPtr false) getUserSpecialDir_ directory
-    fun getenv variable = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getenv_ variable
+    fun getTmpDir () = (I ---> Utf8.C.fromPtr false) getTmpDir_ ()
+    fun getUserCacheDir () = (I ---> Utf8.C.fromPtr false) getUserCacheDir_ ()
+    fun getUserConfigDir () = (I ---> Utf8.C.fromPtr false) getUserConfigDir_ ()
+    fun getUserDataDir () = (I ---> Utf8.C.fromPtr false) getUserDataDir_ ()
+    fun getUserName () = (I ---> Utf8.C.fromPtr false) getUserName_ ()
+    fun getUserRuntimeDir () = (I ---> Utf8.C.fromPtr false) getUserRuntimeDir_ ()
+    fun getUserSpecialDir directory = (GLibUserDirectory.C.withVal ---> Utf8.C.fromPtr false) getUserSpecialDir_ directory
+    fun getenv variable = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getenv_ variable
     fun hookDestroy hookList hookId = (GLibHookListRecord.C.withPtr &&&> FFI.UInt64.C.withVal ---> FFI.Bool.C.fromVal) hookDestroy_ (hookList & hookId)
     fun hookDestroyLink hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookDestroyLink_ (hookList & hook)
     fun hookFree hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookFree_ (hookList & hook)
@@ -2684,39 +2684,39 @@ structure GLib : G_LIB =
         )
     fun hookPrepend hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookPrepend_ (hookList & hook)
     fun hookUnref hookList hook = (GLibHookListRecord.C.withPtr &&&> GLibHookRecord.C.withPtr ---> I) hookUnref_ (hookList & hook)
-    fun hostnameIsAsciiEncoded hostname = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsAsciiEncoded_ hostname
-    fun hostnameIsIpAddress hostname = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsIpAddress_ hostname
-    fun hostnameIsNonAscii hostname = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsNonAscii_ hostname
-    fun hostnameToAscii hostname = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) hostnameToAscii_ hostname
-    fun hostnameToUnicode hostname = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) hostnameToUnicode_ hostname
+    fun hostnameIsAsciiEncoded hostname = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsAsciiEncoded_ hostname
+    fun hostnameIsIpAddress hostname = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsIpAddress_ hostname
+    fun hostnameIsNonAscii hostname = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hostnameIsNonAscii_ hostname
+    fun hostnameToAscii hostname = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) hostnameToAscii_ hostname
+    fun hostnameToUnicode hostname = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) hostnameToUnicode_ hostname
     fun idleSourceNew () = (I ---> GLibSourceRecord.C.fromPtr true) idleSourceNew_ ()
-    fun internStaticString string = (FFI.String.C.withConstOptPtr ---> FFI.String.C.fromPtr false) internStaticString_ string
-    fun internString string = (FFI.String.C.withConstOptPtr ---> FFI.String.C.fromPtr false) internString_ string
+    fun internStaticString string = (Utf8.C.withConstOptPtr ---> Utf8.C.fromPtr false) internStaticString_ string
+    fun internString string = (Utf8.C.withConstOptPtr ---> Utf8.C.fromPtr false) internString_ string
     fun ioChannelErrorFromErrno en = (FFI.Int32.C.withVal ---> GLibIOChannelError.C.fromVal) ioChannelErrorFromErrno_ en
     fun ioChannelErrorQuark () = (I ---> FFI.UInt32.C.fromVal) ioChannelErrorQuark_ ()
     fun ioCreateWatch channel condition = (GLibIOChannelRecord.C.withPtr &&&> GLibIOCondition.C.withVal ---> GLibSourceRecord.C.fromPtr true) ioCreateWatch_ (channel & condition)
     fun keyFileErrorQuark () = (I ---> FFI.UInt32.C.fromVal) keyFileErrorQuark_ ()
     fun listPopAllocator () = (I ---> I) listPopAllocator_ ()
-    fun logRemoveHandler logDomain handlerId = (FFI.String.C.withConstPtr &&&> FFI.UInt32.C.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler logDomain handlerId = (Utf8.C.withConstPtr &&&> FFI.UInt32.C.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask logDomain fatalMask = (FFI.String.C.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
+    fun logSetFatalMask logDomain fatalMask = (Utf8.C.withConstPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
     fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.C.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> FFI.Int32.C.fromVal) mainDepth_ ()
     fun markupErrorQuark () = (I ---> FFI.UInt32.C.fromVal) markupErrorQuark_ ()
-    fun markupEscapeText text length = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) markupEscapeText_ (text & length)
+    fun markupEscapeText text length = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) markupEscapeText_ (text & length)
     fun memChunkInfo () = (I ---> I) memChunkInfo_ ()
     fun memIsSystemMalloc () = (I ---> FFI.Bool.C.fromVal) memIsSystemMalloc_ ()
     fun memProfile () = (I ---> I) memProfile_ ()
     fun memSetVtable vtable = (GLibMemVTableRecord.C.withPtr ---> I) memSetVtable_ vtable
-    fun mkdirWithParents pathname mode = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) mkdirWithParents_ (pathname & mode)
-    fun mkdtemp tmpl = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) mkdtemp_ tmpl
-    fun mkdtempFull tmpl mode = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr true) mkdtempFull_ (tmpl & mode)
-    fun mkstemp tmpl = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) mkstemp_ tmpl
+    fun mkdirWithParents pathname mode = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) mkdirWithParents_ (pathname & mode)
+    fun mkdtemp tmpl = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) mkdtemp_ tmpl
+    fun mkdtempFull tmpl mode = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr true) mkdtempFull_ (tmpl & mode)
+    fun mkstemp tmpl = (Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) mkstemp_ tmpl
     fun mkstempFull tmpl flags mode =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> FFI.Int32.C.fromVal
@@ -2728,19 +2728,19 @@ structure GLib : G_LIB =
            & mode
         )
     fun nodePopAllocator () = (I ---> I) nodePopAllocator_ ()
-    fun onErrorQuery prgName = (FFI.String.C.withConstPtr ---> I) onErrorQuery_ prgName
-    fun onErrorStackTrace prgName = (FFI.String.C.withConstPtr ---> I) onErrorStackTrace_ prgName
+    fun onErrorQuery prgName = (Utf8.C.withConstPtr ---> I) onErrorQuery_ prgName
+    fun onErrorStackTrace prgName = (Utf8.C.withConstPtr ---> I) onErrorStackTrace_ prgName
     fun optionErrorQuark () = (I ---> FFI.UInt32.C.fromVal) optionErrorQuark_ ()
-    fun pathGetBasename fileName = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) pathGetBasename_ fileName
-    fun pathGetDirname fileName = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) pathGetDirname_ fileName
-    fun pathIsAbsolute fileName = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) pathIsAbsolute_ fileName
-    fun pathSkipRoot fileName = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) pathSkipRoot_ fileName
+    fun pathGetBasename fileName = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) pathGetBasename_ fileName
+    fun pathGetDirname fileName = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) pathGetDirname_ fileName
+    fun pathIsAbsolute fileName = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) pathIsAbsolute_ fileName
+    fun pathSkipRoot fileName = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) pathSkipRoot_ fileName
     fun patternMatch pspec stringLength string stringReversed =
       (
         GLibPatternSpecRecord.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> FFI.Bool.C.fromVal
       )
         patternMatch_
@@ -2750,8 +2750,8 @@ structure GLib : G_LIB =
            & string
            & stringReversed
         )
-    fun patternMatchSimple pattern string = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchSimple_ (pattern & string)
-    fun patternMatchString pspec string = (GLibPatternSpecRecord.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchString_ (pspec & string)
+    fun patternMatchSimple pattern string = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchSimple_ (pattern & string)
+    fun patternMatchString pspec string = (GLibPatternSpecRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) patternMatchString_ (pspec & string)
     fun poll fds nfds timeout =
       (
         GLibPollFDRecord.C.withPtr
@@ -2765,10 +2765,10 @@ structure GLib : G_LIB =
            & nfds
            & timeout
         )
-    fun quarkFromStaticString string = (FFI.String.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkFromStaticString_ string
-    fun quarkFromString string = (FFI.String.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkFromString_ string
-    fun quarkToString quark = (FFI.UInt32.C.withVal ---> FFI.String.C.fromPtr false) quarkToString_ quark
-    fun quarkTryString string = (FFI.String.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkTryString_ string
+    fun quarkFromStaticString string = (Utf8.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkFromStaticString_ string
+    fun quarkFromString string = (Utf8.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkFromString_ string
+    fun quarkToString quark = (FFI.UInt32.C.withVal ---> Utf8.C.fromPtr false) quarkToString_ quark
+    fun quarkTryString string = (Utf8.C.withConstOptPtr ---> FFI.UInt32.C.fromVal) quarkTryString_ string
     fun randomDouble () = (I ---> FFI.Double.C.fromVal) randomDouble_ ()
     fun randomDoubleRange begin end' = (FFI.Double.C.withVal &&&> FFI.Double.C.withVal ---> FFI.Double.C.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> FFI.UInt32.C.fromVal) randomInt_ ()
@@ -2778,7 +2778,7 @@ structure GLib : G_LIB =
       let
         val hasReferences & retVal =
           (
-            FFI.String.C.withConstPtr
+            Utf8.C.withConstPtr
              &&&> FFI.Bool.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
              ---> FFI.Bool.C.fromVal && FFI.Bool.C.fromVal
@@ -2793,11 +2793,11 @@ structure GLib : G_LIB =
         if retVal then SOME hasReferences else NONE
       end
     fun regexErrorQuark () = (I ---> FFI.UInt32.C.fromVal) regexErrorQuark_ ()
-    fun regexEscapeNul string length = (FFI.String.C.withConstPtr &&&> FFI.Int32.C.withVal ---> FFI.String.C.fromPtr true) regexEscapeNul_ (string & length)
+    fun regexEscapeNul string length = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr true) regexEscapeNul_ (string & length)
     fun regexMatchSimple pattern string compileOptions matchOptions =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -2812,9 +2812,9 @@ structure GLib : G_LIB =
     fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
     fun returnIfFailWarning logDomain prettyFunction expression =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         returnIfFailWarning_
@@ -2823,7 +2823,7 @@ structure GLib : G_LIB =
            & prettyFunction
            & expression
         )
-    fun rmdir filename = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) rmdir_ filename
+    fun rmdir filename = (Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) rmdir_ filename
     fun sequenceMove src dest = (GLibSequenceIterRecord.C.withPtr &&&> GLibSequenceIterRecord.C.withPtr ---> I) sequenceMove_ (src & dest)
     fun sequenceMoveRange dest begin end' =
       (
@@ -2841,12 +2841,12 @@ structure GLib : G_LIB =
     fun sequenceRemove iter = (GLibSequenceIterRecord.C.withPtr ---> I) sequenceRemove_ iter
     fun sequenceRemoveRange begin end' = (GLibSequenceIterRecord.C.withPtr &&&> GLibSequenceIterRecord.C.withPtr ---> I) sequenceRemoveRange_ (begin & end')
     fun sequenceSwap a b = (GLibSequenceIterRecord.C.withPtr &&&> GLibSequenceIterRecord.C.withPtr ---> I) sequenceSwap_ (a & b)
-    fun setApplicationName applicationName = (FFI.String.C.withConstPtr ---> I) setApplicationName_ applicationName
-    fun setPrgname prgname = (FFI.String.C.withConstPtr ---> I) setPrgname_ prgname
+    fun setApplicationName applicationName = (Utf8.C.withConstPtr ---> I) setApplicationName_ applicationName
+    fun setPrgname prgname = (Utf8.C.withConstPtr ---> I) setPrgname_ prgname
     fun setenv variable value overwrite =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -2857,25 +2857,25 @@ structure GLib : G_LIB =
            & overwrite
         )
     fun shellErrorQuark () = (I ---> FFI.UInt32.C.fromVal) shellErrorQuark_ ()
-    fun shellQuote unquotedString = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.String.C.fromPtr true) shellUnquote_ (quotedString & [])
+    fun shellQuote unquotedString = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) shellQuote_ unquotedString
+    fun shellUnquote quotedString = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.C.withVal ---> FFI.Int64.C.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig ckey value = (GLibSliceConfig.C.withVal &&&> FFI.Int64.C.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun sourceRemove tag = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) sourceRemove_ tag
-    fun sourceSetNameById tag name = (FFI.UInt32.C.withVal &&&> FFI.String.C.withConstPtr ---> I) sourceSetNameById_ (tag & name)
+    fun sourceSetNameById tag name = (FFI.UInt32.C.withVal &&&> Utf8.C.withConstPtr ---> I) sourceSetNameById_ (tag & name)
     fun spacedPrimesClosest num = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) spacedPrimesClosest_ num
     fun spawnClosePid pid = (FFI.Int32.C.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (FFI.String.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun spawnErrorQuark () = (I ---> FFI.UInt32.C.fromVal) spawnErrorQuark_ ()
-    fun stpcpy dest src = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) stpcpy_ (dest & src)
-    fun strHasPrefix str prefix = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasPrefix_ (str & prefix)
-    fun strHasSuffix str suffix = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasSuffix_ (str & suffix)
+    fun stpcpy dest src = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) stpcpy_ (dest & src)
+    fun strHasPrefix str prefix = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasPrefix_ (str & prefix)
+    fun strHasSuffix str suffix = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) strHasSuffix_ (str & suffix)
     fun strcanon string validChars substitutor =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt8.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         strcanon_
         (
@@ -2883,17 +2883,17 @@ structure GLib : G_LIB =
            & validChars
            & substitutor
         )
-    fun strcasecmp s1 s2 = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) strcasecmp_ (s1 & s2)
-    fun strchomp string = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strchomp_ string
-    fun strchug string = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strchug_ string
-    fun strcmp0 str1 str2 = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) strcmp0_ (str1 & str2)
-    fun strcompress source = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strcompress_ source
+    fun strcasecmp s1 s2 = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) strcasecmp_ (s1 & s2)
+    fun strchomp string = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strchomp_ string
+    fun strchug string = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strchug_ string
+    fun strcmp0 str1 str2 = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) strcmp0_ (str1 & str2)
+    fun strcompress source = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strcompress_ source
     fun strdelimit string delimiters newDelimiter =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt8.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         strdelimit_
         (
@@ -2901,20 +2901,20 @@ structure GLib : G_LIB =
            & delimiters
            & newDelimiter
         )
-    fun strdown string = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strdown_ string
-    fun strdup str = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strdup_ str
-    fun strerror errnum = (FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) strerror_ errnum
-    fun strescape source exceptions = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strescape_ (source & exceptions)
-    fun strfreev strArray = (FFI.String.C.withConstPtr ---> I) strfreev_ strArray
-    fun stringNew init = (FFI.String.C.withConstPtr ---> GLibStringRecord.C.fromPtr true) stringNew_ init
-    fun stringNewLen init len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> GLibStringRecord.C.fromPtr true) stringNewLen_ (init & len)
+    fun strdown string = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strdown_ string
+    fun strdup str = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strdup_ str
+    fun strerror errnum = (FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) strerror_ errnum
+    fun strescape source exceptions = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strescape_ (source & exceptions)
+    fun strfreev strArray = (Utf8.C.withConstPtr ---> I) strfreev_ strArray
+    fun stringNew init = (Utf8.C.withConstPtr ---> GLibStringRecord.C.fromPtr true) stringNew_ init
+    fun stringNewLen init len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> GLibStringRecord.C.fromPtr true) stringNewLen_ (init & len)
     fun stringSizedNew dflSize = (FFI.UInt64.C.withVal ---> GLibStringRecord.C.fromPtr true) stringSizedNew_ dflSize
-    fun stripContext msgid msgval = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) stripContext_ (msgid & msgval)
-    fun strjoinv separator strArray = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strjoinv_ (separator & strArray)
+    fun stripContext msgid msgval = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) stripContext_ (msgid & msgval)
+    fun strjoinv separator strArray = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strjoinv_ (separator & strArray)
     fun strlcat dest src destSize =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          ---> FFI.UInt64.C.fromVal
       )
@@ -2926,8 +2926,8 @@ structure GLib : G_LIB =
         )
     fun strlcpy dest src destSize =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
          ---> FFI.UInt64.C.fromVal
       )
@@ -2939,8 +2939,8 @@ structure GLib : G_LIB =
         )
     fun strncasecmp s1 s2 n =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt32.C.withVal
          ---> FFI.Int32.C.fromVal
       )
@@ -2950,16 +2950,16 @@ structure GLib : G_LIB =
            & s2
            & n
         )
-    fun strndup str n = (FFI.String.C.withConstPtr &&&> FFI.UInt64.C.withVal ---> FFI.String.C.fromPtr true) strndup_ (str & n)
-    fun strnfill length fillChar = (FFI.UInt64.C.withVal &&&> FFI.UInt8.C.withVal ---> FFI.String.C.fromPtr true) strnfill_ (length & fillChar)
-    fun strreverse string = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strreverse_ string
-    fun strrstr haystack needle = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strrstr_ (haystack & needle)
+    fun strndup str n = (Utf8.C.withConstPtr &&&> FFI.UInt64.C.withVal ---> Utf8.C.fromPtr true) strndup_ (str & n)
+    fun strnfill length fillChar = (FFI.UInt64.C.withVal &&&> FFI.UInt8.C.withVal ---> Utf8.C.fromPtr true) strnfill_ (length & fillChar)
+    fun strreverse string = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strreverse_ string
+    fun strrstr haystack needle = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strrstr_ (haystack & needle)
     fun strrstrLen haystack haystackLen needle =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromPtr true
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromPtr true
       )
         strrstrLen_
         (
@@ -2967,13 +2967,13 @@ structure GLib : G_LIB =
            & haystackLen
            & needle
         )
-    fun strsignal signum = (FFI.Int32.C.withVal ---> FFI.String.C.fromPtr false) strsignal_ signum
+    fun strsignal signum = (FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) strsignal_ signum
     fun strstrLen haystack haystackLen needle =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromPtr true
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromPtr true
       )
         strstrLen_
         (
@@ -2981,13 +2981,13 @@ structure GLib : G_LIB =
            & haystackLen
            & needle
         )
-    fun strtod nptr endptr = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Double.C.fromVal) strtod_ (nptr & endptr)
-    fun strup string = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) strup_ string
-    fun strvLength strArray = (FFI.String.C.withConstPtr ---> FFI.UInt32.C.fromVal) strvLength_ strArray
-    fun testBug bugUriSnippet = (FFI.String.C.withConstPtr ---> I) testBug_ bugUriSnippet
-    fun testBugBase uriPattern = (FFI.String.C.withConstPtr ---> I) testBugBase_ uriPattern
+    fun strtod nptr endptr = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Double.C.fromVal) strtod_ (nptr & endptr)
+    fun strup string = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) strup_ string
+    fun strvLength strArray = (Utf8.C.withConstPtr ---> FFI.UInt32.C.fromVal) strvLength_ strArray
+    fun testBug bugUriSnippet = (Utf8.C.withConstPtr ---> I) testBug_ bugUriSnippet
+    fun testBugBase uriPattern = (Utf8.C.withConstPtr ---> I) testBugBase_ uriPattern
     fun testFail () = (I ---> I) testFail_ ()
-    fun testLogTypeName logType = (GLibTestLogType.C.withVal ---> FFI.String.C.fromPtr false) testLogTypeName_ logType
+    fun testLogTypeName logType = (GLibTestLogType.C.withVal ---> Utf8.C.fromPtr false) testLogTypeName_ logType
     fun testRandDouble () = (I ---> FFI.Double.C.fromVal) testRandDouble_ ()
     fun testRandDoubleRange rangeStart rangeEnd = (FFI.Double.C.withVal &&&> FFI.Double.C.withVal ---> FFI.Double.C.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
     fun testRandInt () = (I ---> FFI.Int32.C.fromVal) testRandInt_ ()
@@ -2999,12 +2999,12 @@ structure GLib : G_LIB =
     fun testTimerStart () = (I ---> I) testTimerStart_ ()
     fun testTrapAssertions domain file line func assertionFlags pattern =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         testTrapAssertions_
@@ -3029,7 +3029,7 @@ structure GLib : G_LIB =
     fun threadPoolSetMaxIdleTime interval = (FFI.UInt32.C.withVal ---> I) threadPoolSetMaxIdleTime_ interval
     fun threadPoolSetMaxUnusedThreads maxThreads = (FFI.Int32.C.withVal ---> I) threadPoolSetMaxUnusedThreads_ maxThreads
     fun threadPoolStopUnusedThreads () = (I ---> I) threadPoolStopUnusedThreads_ ()
-    fun timeValFromIso8601 isoDate time = (FFI.String.C.withConstPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) timeValFromIso8601_ (isoDate & time)
+    fun timeValFromIso8601 isoDate time = (Utf8.C.withConstPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) timeValFromIso8601_ (isoDate & time)
     fun timeoutSourceNew interval = (FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (FFI.UInt32.C.withVal ---> GLibSourceRecord.C.fromPtr true) timeoutSourceNewSeconds_ interval
     fun trashStackHeight stackP = (GLibTrashStackRecord.C.withPtr ---> FFI.UInt32.C.fromVal) trashStackHeight_ stackP
@@ -3054,7 +3054,7 @@ structure GLib : G_LIB =
     fun unicharIswideCjk c = (FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) unicharIswideCjk_ c
     fun unicharIsxdigit c = (FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) unicharIsxdigit_ c
     fun unicharIszerowidth c = (FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) unicharIszerowidth_ c
-    fun unicharToUtf8 c outbuf = (FFI.Char.C.withVal &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) unicharToUtf8_ (c & outbuf)
+    fun unicharToUtf8 c outbuf = (FFI.Char.C.withVal &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) unicharToUtf8_ (c & outbuf)
     fun unicharTolower c = (FFI.Char.C.withVal ---> FFI.Char.C.fromVal) unicharTolower_ c
     fun unicharTotitle c = (FFI.Char.C.withVal ---> FFI.Char.C.fromVal) unicharTotitle_ c
     fun unicharToupper c = (FFI.Char.C.withVal ---> FFI.Char.C.fromVal) unicharToupper_ c
@@ -3063,14 +3063,14 @@ structure GLib : G_LIB =
     fun unicharXdigitValue c = (FFI.Char.C.withVal ---> FFI.Int32.C.fromVal) unicharXdigitValue_ c
     fun unicodeScriptFromIso15924 iso15924 = (FFI.UInt32.C.withVal ---> GLibUnicodeScript.C.fromVal) unicodeScriptFromIso15924_ iso15924
     fun unicodeScriptToIso15924 script = (GLibUnicodeScript.C.withVal ---> FFI.UInt32.C.fromVal) unicodeScriptToIso15924_ script
-    fun unlink filename = (FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) unlink_ filename
-    fun unsetenv variable = (FFI.String.C.withConstPtr ---> I) unsetenv_ variable
+    fun unlink filename = (Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) unlink_ filename
+    fun unsetenv variable = (Utf8.C.withConstPtr ---> I) unsetenv_ variable
     fun uriEscapeString unescaped reservedCharsAllowed allowUtf8 =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Bool.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         uriEscapeString_
         (
@@ -3078,13 +3078,13 @@ structure GLib : G_LIB =
            & reservedCharsAllowed
            & allowUtf8
         )
-    fun uriParseScheme uri = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) uriParseScheme_ uri
+    fun uriParseScheme uri = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) uriParseScheme_ uri
     fun uriUnescapeSegment escapedString escapedStringEnd illegalCharacters =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         ---> FFI.String.C.fromPtr true
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         ---> Utf8.C.fromPtr true
       )
         uriUnescapeSegment_
         (
@@ -3092,22 +3092,22 @@ structure GLib : G_LIB =
            & escapedStringEnd
            & illegalCharacters
         )
-    fun uriUnescapeString escapedString illegalCharacters = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) uriUnescapeString_ (escapedString & illegalCharacters)
+    fun uriUnescapeString escapedString illegalCharacters = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (FFI.UInt64.C.withVal ---> I) usleep_ microseconds
-    fun utf8Casefold str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8Casefold_ (str & len)
-    fun utf8Collate str1 str2 = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int32.C.fromVal) utf8Collate_ (str1 & str2)
-    fun utf8CollateKey str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8CollateKey_ (str & len)
-    fun utf8CollateKeyForFilename str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8CollateKeyForFilename_ (str & len)
-    fun utf8FindNextChar p end' = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) utf8FindNextChar_ (p & end')
-    fun utf8FindPrevChar str p = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) utf8FindPrevChar_ (str & p)
-    fun utf8GetChar p = (FFI.String.C.withConstPtr ---> FFI.Char.C.fromVal) utf8GetChar_ p
-    fun utf8GetCharValidated p maxLen = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.Char.C.fromVal) utf8GetCharValidated_ (p & maxLen)
+    fun utf8Casefold str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8Casefold_ (str & len)
+    fun utf8Collate str1 str2 = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) utf8Collate_ (str1 & str2)
+    fun utf8CollateKey str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8CollateKey_ (str & len)
+    fun utf8CollateKeyForFilename str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8CollateKeyForFilename_ (str & len)
+    fun utf8FindNextChar p end' = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) utf8FindNextChar_ (p & end')
+    fun utf8FindPrevChar str p = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) utf8FindPrevChar_ (str & p)
+    fun utf8GetChar p = (Utf8.C.withConstPtr ---> FFI.Char.C.fromVal) utf8GetChar_ p
+    fun utf8GetCharValidated p maxLen = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.Char.C.fromVal) utf8GetCharValidated_ (p & maxLen)
     fun utf8Normalize str len mode =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> GLibNormalizeMode.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         utf8Normalize_
         (
@@ -3115,15 +3115,15 @@ structure GLib : G_LIB =
            & len
            & mode
         )
-    fun utf8OffsetToPointer str offset = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8OffsetToPointer_ (str & offset)
-    fun utf8PointerToOffset str pos = (FFI.String.C.withConstPtr &&&> FFI.String.C.withConstPtr ---> FFI.Int64.C.fromVal) utf8PointerToOffset_ (str & pos)
-    fun utf8PrevChar p = (FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr true) utf8PrevChar_ p
+    fun utf8OffsetToPointer str offset = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8OffsetToPointer_ (str & offset)
+    fun utf8PointerToOffset str pos = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> FFI.Int64.C.fromVal) utf8PointerToOffset_ (str & pos)
+    fun utf8PrevChar p = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) utf8PrevChar_ p
     fun utf8Strchr p len c =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> FFI.Char.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         utf8Strchr_
         (
@@ -3131,14 +3131,14 @@ structure GLib : G_LIB =
            & len
            & c
         )
-    fun utf8Strdown str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8Strdown_ (str & len)
-    fun utf8Strlen p max = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.Int64.C.fromVal) utf8Strlen_ (p & max)
+    fun utf8Strdown str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8Strdown_ (str & len)
+    fun utf8Strlen p max = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.Int64.C.fromVal) utf8Strlen_ (p & max)
     fun utf8Strncpy dest src n =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.UInt64.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         utf8Strncpy_
         (
@@ -3148,10 +3148,10 @@ structure GLib : G_LIB =
         )
     fun utf8Strrchr p len c =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> FFI.Char.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         utf8Strrchr_
         (
@@ -3159,14 +3159,14 @@ structure GLib : G_LIB =
            & len
            & c
         )
-    fun utf8Strreverse str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8Strreverse_ (str & len)
-    fun utf8Strup str len = (FFI.String.C.withConstPtr &&&> FFI.Int64.C.withVal ---> FFI.String.C.fromPtr true) utf8Strup_ (str & len)
+    fun utf8Strreverse str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8Strreverse_ (str & len)
+    fun utf8Strup str len = (Utf8.C.withConstPtr &&&> FFI.Int64.C.withVal ---> Utf8.C.fromPtr true) utf8Strup_ (str & len)
     fun utf8Substring str startPos endPos =
       (
-        FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
          &&&> FFI.Int64.C.withVal
          &&&> FFI.Int64.C.withVal
-         ---> FFI.String.C.fromPtr true
+         ---> Utf8.C.fromPtr true
       )
         utf8Substring_
         (
@@ -3178,10 +3178,10 @@ structure GLib : G_LIB =
       let
         val end' & retVal =
           (
-            FFI.String.C.withConstPtr
+            Utf8.C.withConstPtr
              &&&> FFI.Int64.C.withVal
-             &&&> FFI.String.C.withRefConstOptPtr
-             ---> FFI.String.C.fromPtr true && FFI.Bool.C.fromVal
+             &&&> Utf8.C.withRefConstOptPtr
+             ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal
           )
             utf8Validate_
             (
@@ -3193,14 +3193,14 @@ structure GLib : G_LIB =
         if retVal then SOME end' else NONE
       end
     fun variantGetType value = (GLibVariantRecord.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr false) variantGetType_ value
-    fun variantIsObjectPath string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) variantIsObjectPath_ string
-    fun variantIsSignature string = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) variantIsSignature_ string
+    fun variantIsObjectPath string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) variantIsObjectPath_ string
+    fun variantIsSignature string = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) variantIsSignature_ string
     fun variantParse type' text limit endptr =
       (
         GLibVariantTypeRecord.C.withPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
@@ -3213,16 +3213,16 @@ structure GLib : G_LIB =
            & []
         )
     fun variantParserGetErrorQuark () = (I ---> FFI.UInt32.C.fromVal) variantParserGetErrorQuark_ ()
-    fun variantTypeChecked unknown = (FFI.String.C.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr false) variantTypeChecked_ unknown
-    fun variantTypeStringIsValid typeString = (FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) variantTypeStringIsValid_ typeString
+    fun variantTypeChecked unknown = (Utf8.C.withConstPtr ---> GLibVariantTypeRecord.C.fromPtr false) variantTypeChecked_ unknown
+    fun variantTypeStringIsValid typeString = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) variantTypeStringIsValid_ typeString
     fun variantTypeStringScan string limit =
       let
         val endptr & retVal =
           (
-            FFI.String.C.withConstPtr
-             &&&> FFI.String.C.withConstOptPtr
-             &&&> FFI.String.C.withRefConstOptPtr
-             ---> FFI.String.C.fromPtr true && FFI.Bool.C.fromVal
+            Utf8.C.withConstPtr
+             &&&> Utf8.C.withConstOptPtr
+             &&&> Utf8.C.withRefConstOptPtr
+             ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal
           )
             variantTypeStringScan_
             (
@@ -3235,11 +3235,11 @@ structure GLib : G_LIB =
       end
     fun warnMessage domain file line func warnexpr =
       (
-        FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+        Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
-         &&&> FFI.String.C.withConstPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         warnMessage_

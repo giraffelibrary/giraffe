@@ -14,10 +14,10 @@ structure GLibQuark :>
     local
       open PolyMLFFI
     in
-      val fromString_ = call (load_sym libglib "g_quark_from_string") (FFI.String.PolyML.INPTR --> PolyML.VAL)
-      val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.VAL --> FFI.String.PolyML.RETPTR)
+      val fromString_ = call (load_sym libglib "g_quark_from_string") (Utf8.PolyML.INPTR --> PolyML.VAL)
+      val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.VAL --> Utf8.PolyML.RETPTR)
     end
 
-    fun fromString string = (FFI.String.C.withConstPtr ---> C.fromVal) fromString_ string
-    fun toString quark = (C.withVal ---> FFI.String.C.fromPtr false) toString_ quark
+    fun fromString string = (Utf8.C.withConstPtr ---> C.fromVal) fromString_ string
+    fun toString quark = (C.withVal ---> Utf8.C.fromPtr false) toString_ quark
   end

@@ -17,7 +17,7 @@ structure GtkSymbolicColor :>
              &&> FFI.Double.PolyML.VAL
              --> GtkSymbolicColorRecord.PolyML.PTR
           )
-      val newName_ = call (load_sym libgtk "gtk_symbolic_color_new_name") (FFI.String.PolyML.INPTR --> GtkSymbolicColorRecord.PolyML.PTR)
+      val newName_ = call (load_sym libgtk "gtk_symbolic_color_new_name") (Utf8.PolyML.INPTR --> GtkSymbolicColorRecord.PolyML.PTR)
       val newShade_ = call (load_sym libgtk "gtk_symbolic_color_new_shade") (GtkSymbolicColorRecord.PolyML.PTR &&> FFI.Double.PolyML.VAL --> GtkSymbolicColorRecord.PolyML.PTR)
       val resolve_ =
         call (load_sym libgtk "gtk_symbolic_color_resolve")
@@ -27,7 +27,7 @@ structure GtkSymbolicColor :>
              &&> GdkRgbaRecord.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
-      val toString_ = call (load_sym libgtk "gtk_symbolic_color_to_string") (GtkSymbolicColorRecord.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val toString_ = call (load_sym libgtk "gtk_symbolic_color_to_string") (GtkSymbolicColorRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
     end
     type record_t = GtkSymbolicColorRecord.t
     type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
@@ -48,7 +48,7 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (FFI.String.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
+    fun newName name = (Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
     fun newShade color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let
@@ -68,5 +68,5 @@ structure GtkSymbolicColor :>
       in
         if retVal then SOME resolvedColor else NONE
       end
-    fun toString self = (GtkSymbolicColorRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GtkSymbolicColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

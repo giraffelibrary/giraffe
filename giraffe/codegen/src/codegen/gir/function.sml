@@ -400,7 +400,7 @@ in
 end
 
 
-val stringTyRef : int * lid = (0, toList1 ["string"])
+val utf8TyRef : int * lid = (0, toList1 ["string"])
 
 
 type scalarinfo =
@@ -1047,7 +1047,7 @@ fun addSpecParInfo
       )
     | PIUTF8 (dir, {isOpt, optIRef, ...})   => (
         case optIRef of
-          NONE      => (addTy dir isOpt stringTyRef, iRefs)
+          NONE      => (addTy dir isOpt utf8TyRef, iRefs)
         | SOME iRef => addIRefTy dir isOpt iRef iRefs
       )
     | PIINTERFACE (dir, {iRef, isOpt, ...}) => addIRefTy dir isOpt iRef iRefs
@@ -1094,7 +1094,7 @@ fun addSpecRetInfo
       )
     | RIUTF8 {isOpt, optIRef, ...} => (
         case optIRef of
-          NONE      => (mkTy isOpt stringTyRef, iRefs)
+          NONE      => (mkTy isOpt utf8TyRef, iRefs)
         | SOME iRef => mkIRefTy isOpt iRef iRefs
       )
     | RIINTERFACE {
@@ -1346,8 +1346,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [utf8StrId, CId]
+        | SOME iRef => prefixInterfaceStrId iRef [CId]
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
@@ -1430,8 +1430,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [utf8StrId, CId]
+        | SOME iRef => prefixInterfaceStrId iRef [CId]
     in
       fromFunExp prefixIds {
         isOpt      = isOpt,
@@ -2090,7 +2090,7 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", PolyMLId]
+          NONE      => [utf8StrId, PolyMLId]
         | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
     in
       convExp prefixIds (
@@ -2112,7 +2112,7 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", PolyMLId]
+          NONE      => [utf8StrId, PolyMLId]
         | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
     in
       convExp prefixIds (
@@ -2691,7 +2691,7 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", CId]
+          NONE      => [utf8StrId, CId]
         | SOME iRef => prefixInterfaceStrId iRef ["C"]
     in
       typeTy true prefixIds (
@@ -2715,7 +2715,7 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, "String", CId]
+          NONE      => [utf8StrId, CId]
         | SOME iRef => prefixInterfaceStrId iRef ["C"]
     in
       typeTy false prefixIds (

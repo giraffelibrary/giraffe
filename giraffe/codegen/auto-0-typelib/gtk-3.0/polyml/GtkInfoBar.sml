@@ -23,7 +23,7 @@ structure GtkInfoBar :>
         call (load_sym libgtk "gtk_info_bar_add_button")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int32.PolyML.VAL
              --> GObjectObjectClass.PolyML.PTR
           )
@@ -69,7 +69,7 @@ structure GtkInfoBar :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> FFI.Int32.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )

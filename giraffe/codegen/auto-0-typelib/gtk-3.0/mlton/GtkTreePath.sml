@@ -16,14 +16,14 @@ structure GtkTreePath :>
     val next_ = _import "gtk_tree_path_next" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;
     val prependIndex_ = fn x1 & x2 => (_import "gtk_tree_path_prepend_index" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val prev_ = _import "gtk_tree_path_prev" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;
-    val toString_ = _import "gtk_tree_path_to_string" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val toString_ = _import "gtk_tree_path_to_string" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val up_ = _import "gtk_tree_path_up" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;
     type record_t = GtkTreePathRecord.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.C.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.C.fromPtr true) newFirst_ ()
-    fun newFromString path = (FFI.String.C.withConstPtr ---> GtkTreePathRecord.C.fromPtr true) newFromString_ path
+    fun newFromString path = (Utf8.C.withConstPtr ---> GtkTreePathRecord.C.fromPtr true) newFromString_ path
     fun appendIndex self index = (GtkTreePathRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) appendIndex_ (self & index)
     fun compare self b = (GtkTreePathRecord.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Int32.C.fromVal) compare_ (self & b)
     fun copy self = (GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) copy_ self
@@ -34,6 +34,6 @@ structure GtkTreePath :>
     fun next self = (GtkTreePathRecord.C.withPtr ---> I) next_ self
     fun prependIndex self index = (GtkTreePathRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) prependIndex_ (self & index)
     fun prev self = (GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) prev_ self
-    fun toString self = (GtkTreePathRecord.C.withPtr ---> FFI.String.C.fromPtr true) toString_ self
+    fun toString self = (GtkTreePathRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
     fun up self = (GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) up_ self
   end

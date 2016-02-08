@@ -62,13 +62,13 @@ structure GtkEntry :>
               x3
             )
     val getIconGicon_ = fn x1 & x2 => (_import "gtk_entry_get_icon_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getIconPixbuf_ = fn x1 & x2 => (_import "gtk_entry_get_icon_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getIconSensitive_ = fn x1 & x2 => (_import "gtk_entry_get_icon_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getIconStorageType_ = fn x1 & x2 => (_import "gtk_entry_get_icon_storage_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> GtkImageType.C.val_;) (x1, x2)
-    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
-    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkEntryIconPosition.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getInnerBorder_ = _import "gtk_entry_get_inner_border" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkBorderRecord.C.notnull GtkBorderRecord.C.p;
     val getInvisibleChar_ = _import "gtk_entry_get_invisible_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Char.C.val_;
     val getLayout_ = _import "gtk_entry_get_layout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -91,10 +91,10 @@ structure GtkEntry :>
             )
     val getMaxLength_ = _import "gtk_entry_get_max_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getOverwriteMode_ = _import "gtk_entry_get_overwrite_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getProgressFraction_ = _import "gtk_entry_get_progress_fraction" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getText_ = _import "gtk_entry_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getText_ = _import "gtk_entry_get_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getTextArea_ = fn x1 & x2 => (_import "gtk_entry_get_text_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
     val getTextLength_ = _import "gtk_entry_get_text_length" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.C.val_;
     val getVisibility_ = _import "gtk_entry_get_visibility" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -376,13 +376,13 @@ structure GtkEntry :>
            & y
         )
     fun getIconGicon self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GioIconClass.C.fromPtr false) getIconGicon_ (self & iconPos)
-    fun getIconName self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr false) getIconName_ (self & iconPos)
+    fun getIconName self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> Utf8.C.fromPtr false) getIconName_ (self & iconPos)
     fun getIconPixbuf self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GdkPixbufPixbufClass.C.fromPtr false) getIconPixbuf_ (self & iconPos)
     fun getIconSensitive self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.Bool.C.fromVal) getIconSensitive_ (self & iconPos)
-    fun getIconStock self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr false) getIconStock_ (self & iconPos)
+    fun getIconStock self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> Utf8.C.fromPtr false) getIconStock_ (self & iconPos)
     fun getIconStorageType self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> GtkImageType.C.fromVal) getIconStorageType_ (self & iconPos)
-    fun getIconTooltipMarkup self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr true) getIconTooltipMarkup_ (self & iconPos)
-    fun getIconTooltipText self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> FFI.String.C.fromPtr true) getIconTooltipText_ (self & iconPos)
+    fun getIconTooltipMarkup self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> Utf8.C.fromPtr true) getIconTooltipMarkup_ (self & iconPos)
+    fun getIconTooltipText self iconPos = (GObjectObjectClass.C.withPtr &&&> GtkEntryIconPosition.C.withVal ---> Utf8.C.fromPtr true) getIconTooltipText_ (self & iconPos)
     fun getInnerBorder self = (GObjectObjectClass.C.withPtr ---> GtkBorderRecord.C.fromPtr false) getInnerBorder_ self
     fun getInvisibleChar self = (GObjectObjectClass.C.withPtr ---> FFI.Char.C.fromVal) getInvisibleChar_ self
     fun getLayout self = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
@@ -410,10 +410,10 @@ structure GtkEntry :>
       end
     fun getMaxLength self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxLength_ self
     fun getOverwriteMode self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOverwriteMode_ self
-    fun getPlaceholderText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPlaceholderText_ self
+    fun getPlaceholderText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getPlaceholderText_ self
     fun getProgressFraction self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getProgressFraction_ self
     fun getProgressPulseStep self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getProgressPulseStep_ self
-    fun getText self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getText_ self
+    fun getText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
     fun getTextArea self =
       let
         val textArea & () = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && I) getTextArea_ (self & ())
@@ -478,7 +478,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setIconFromIconName_
@@ -504,7 +504,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setIconFromStock_
@@ -530,7 +530,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setIconTooltipMarkup_
@@ -543,7 +543,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> FFI.String.C.withConstOptPtr
+         &&&> Utf8.C.withConstOptPtr
          ---> I
       )
         setIconTooltipText_
@@ -556,10 +556,10 @@ structure GtkEntry :>
     fun setInvisibleChar self ch = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> I) setInvisibleChar_ (self & ch)
     fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxLength_ (self & max)
     fun setOverwriteMode self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverwriteMode_ (self & overwrite)
-    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setPlaceholderText_ (self & text)
+    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPlaceholderText_ (self & text)
     fun setProgressFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressFraction_ (self & fraction)
     fun setProgressPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressPulseStep_ (self & fraction)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) setText_ (self & text)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setText_ (self & text)
     fun setVisibility self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibility_ (self & visible)
     fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setWidthChars_ (self & nChars)
     fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) textIndexToLayoutIndex_ (self & textIndex)

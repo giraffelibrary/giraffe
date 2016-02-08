@@ -109,11 +109,11 @@ structure GtkStyleProperties :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
     fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkSymbolicColorRecord.C.withPtr
          ---> I
       )
@@ -139,7 +139,7 @@ structure GtkStyleProperties :>
     fun setProperty self property state value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkStateFlags.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
@@ -154,7 +154,7 @@ structure GtkStyleProperties :>
     fun unsetProperty self property state =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkStateFlags.C.withVal
          ---> I
       )

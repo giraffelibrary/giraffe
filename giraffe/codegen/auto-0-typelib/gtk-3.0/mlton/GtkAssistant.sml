@@ -14,7 +14,7 @@ structure GtkAssistant :>
     val getNPages_ = _import "gtk_assistant_get_n_pages" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;) (x1, x2)
+    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getPageType_ = fn x1 & x2 => (_import "gtk_assistant_get_page_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkAssistantPageType.C.val_;) (x1, x2)
     val insertPage_ =
       fn
@@ -109,7 +109,7 @@ structure GtkAssistant :>
     fun getNPages self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPages_ self
     fun getNthPage self pageNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) getNthPage_ (self & pageNum)
     fun getPageComplete self page = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getPageComplete_ (self & page)
-    fun getPageTitle self page = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getPageTitle_ (self & page)
+    fun getPageTitle self page = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getPageTitle_ (self & page)
     fun getPageType self page = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkAssistantPageType.C.fromVal) getPageType_ (self & page)
     fun insertPage self page position =
       (
@@ -147,7 +147,7 @@ structure GtkAssistant :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          ---> I
       )
         setPageTitle_

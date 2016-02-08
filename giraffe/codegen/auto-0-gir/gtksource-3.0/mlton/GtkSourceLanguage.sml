@@ -4,7 +4,7 @@ structure GtkSourceLanguage :>
   struct
     val getType_ = _import "gtk_source_language_get_type" : unit -> GObjectType.C.val_;
     val getHidden_ = _import "gtk_source_language_get_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getId_ = _import "gtk_source_language_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getId_ = _import "gtk_source_language_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getMetadata_ =
       fn
         x1 & (x2, x3) =>
@@ -13,15 +13,15 @@ structure GtkSourceLanguage :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getName_ = _import "gtk_source_language_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
-    val getSection_ = _import "gtk_source_language_get_section" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gtk_source_language_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getSection_ = _import "gtk_source_language_get_section" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getStyleName_ =
       fn
         x1 & (x2, x3) =>
@@ -30,7 +30,7 @@ structure GtkSourceLanguage :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GCharVec.MLton.p1
                * GCharVec.C.notnull GCharVec.MLton.p2
-               -> FFI.String.C.notnull FFI.String.C.out_p;
+               -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
               x1,
@@ -41,11 +41,11 @@ structure GtkSourceLanguage :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHidden_ self
-    fun getId self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getId_ self
-    fun getMetadata self name = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getMetadata_ (self & name)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
-    fun getSection self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getSection_ self
-    fun getStyleName self styleId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.String.C.fromPtr false) getStyleName_ (self & styleId)
+    fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
+    fun getMetadata self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getMetadata_ (self & name)
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getSection self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getSection_ self
+    fun getStyleName self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getStyleName_ (self & styleId)
     local
       open Property
     in

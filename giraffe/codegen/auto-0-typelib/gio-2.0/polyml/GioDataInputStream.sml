@@ -53,7 +53,7 @@ structure GioDataInputStream :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.UInt64.PolyML.REF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val readLineUtf8_ =
         call (load_sym libgio "g_data_input_stream_read_line_utf8")
@@ -62,7 +62,7 @@ structure GioDataInputStream :>
              &&> FFI.UInt64.PolyML.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val readUint16_ =
         call (load_sym libgio "g_data_input_stream_read_uint16")
@@ -92,11 +92,11 @@ structure GioDataInputStream :>
         call (load_sym libgio "g_data_input_stream_read_until")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.UInt64.PolyML.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val readUntilFinish_ =
         call (load_sym libgio "g_data_input_stream_read_until_finish")
@@ -105,18 +105,18 @@ structure GioDataInputStream :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.UInt64.PolyML.REF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val readUpto_ =
         call (load_sym libgio "g_data_input_stream_read_upto")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> FFI.Int64.PolyML.VAL
              &&> FFI.UInt64.PolyML.REF
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val readUptoFinish_ =
         call (load_sym libgio "g_data_input_stream_read_upto_finish")
@@ -125,7 +125,7 @@ structure GioDataInputStream :>
              &&> GObjectObjectClass.PolyML.PTR
              &&> FFI.UInt64.PolyML.REF
              &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.String.PolyML.RETPTR
+             --> Utf8.PolyML.RETPTR
           )
       val setByteOrder_ = call (load_sym libgio "g_data_input_stream_set_byte_order") (GObjectObjectClass.PolyML.PTR &&> GioDataStreamByteOrder.PolyML.VAL --> FFI.PolyML.VOID)
       val setNewlineType_ = call (load_sym libgio "g_data_input_stream_set_newline_type") (GObjectObjectClass.PolyML.PTR &&> GioDataStreamNewlineType.PolyML.VAL --> FFI.PolyML.VOID)
@@ -201,7 +201,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineFinishUtf8_
             (
@@ -221,7 +221,7 @@ structure GioDataInputStream :>
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineUtf8_
             (
@@ -277,11 +277,11 @@ structure GioDataInputStream :>
         val length & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntil_
             (
@@ -302,7 +302,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntilFinish_
             (
@@ -319,12 +319,12 @@ structure GioDataInputStream :>
         val length & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> FFI.Int64.C.withVal
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUpto_
             (
@@ -346,7 +346,7 @@ structure GioDataInputStream :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
-             ---> FFI.UInt64.C.fromVal && FFI.String.C.fromPtr true
+             ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUptoFinish_
             (

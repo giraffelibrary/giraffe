@@ -27,6 +27,6 @@ structure AtkSocket :>
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkSocketClass.C.fromPtr true) new_ ()
-    fun embed self plugId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) embed_ (self & plugId)
+    fun embed self plugId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) embed_ (self & plugId)
     fun isOccupied self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isOccupied_ self
   end

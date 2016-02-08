@@ -64,7 +64,7 @@ structure GdkDevice :>
     val getMode_ = _import "gdk_device_get_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkInputMode.C.val_;
     val getNAxes_ = _import "gdk_device_get_n_axes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
     val getNKeys_ = _import "gdk_device_get_n_keys" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getName_ = _import "gdk_device_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.String.C.notnull FFI.String.C.out_p;
+    val getName_ = _import "gdk_device_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getPosition_ =
       fn
         x1
@@ -263,7 +263,7 @@ structure GdkDevice :>
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GdkInputMode.C.fromVal) getMode_ self
     fun getNAxes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAxes_ self
     fun getNKeys self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNKeys_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr false) getName_ self
+    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getPosition self =
       let
         val screen

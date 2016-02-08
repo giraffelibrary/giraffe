@@ -53,7 +53,7 @@ structure GIRepositoryInterfaceInfo :>
         call
           (load_sym libgirepository "g_interface_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
 
       val getNSignals_ =
@@ -101,7 +101,7 @@ structure GIRepositoryInterfaceInfo :>
         call
           (load_sym libgirepository "g_interface_info_find_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.String.PolyML.INPTR
+            &&> Utf8.PolyML.INPTR
             --> GIRepositoryBaseInfoClass.PolyML.PTR);
     end
 
@@ -159,7 +159,7 @@ structure GIRepositoryInterfaceInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
+           &&&> Utf8.C.withConstPtr
            ---> GIRepositoryFunctionInfoClass.C.fromPtr true
         )
           findMethod_
@@ -214,7 +214,7 @@ structure GIRepositoryInterfaceInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.String.C.withConstPtr
+           &&&> Utf8.C.withConstPtr
            ---> GIRepositoryVFuncInfoClass.C.fromPtr true
         )
           findVfunc_

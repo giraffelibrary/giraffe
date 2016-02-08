@@ -26,7 +26,7 @@ structure GtkStyleContext :>
           )
       val removeProviderForScreen_ = call (load_sym libgtk "gtk_style_context_remove_provider_for_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val resetWidgets_ = call (load_sym libgtk "gtk_style_context_reset_widgets") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val addClass_ = call (load_sym libgtk "gtk_style_context_add_class") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val addClass_ = call (load_sym libgtk "gtk_style_context_add_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val addProvider_ =
         call (load_sym libgtk "gtk_style_context_add_provider")
           (
@@ -39,7 +39,7 @@ structure GtkStyleContext :>
         call (load_sym libgtk "gtk_style_context_add_region")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GtkRegionFlags.PolyML.VAL
              --> FFI.PolyML.VOID
           )
@@ -101,16 +101,16 @@ structure GtkStyleContext :>
         call (load_sym libgtk "gtk_style_context_get_style_property")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectValueRecord.PolyML.PTR
              --> FFI.PolyML.VOID
           )
-      val hasClass_ = call (load_sym libgtk "gtk_style_context_has_class") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val hasClass_ = call (load_sym libgtk "gtk_style_context_has_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
       val hasRegion_ =
         call (load_sym libgtk "gtk_style_context_has_region")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GtkRegionFlags.PolyML.REF
              --> FFI.Bool.PolyML.VAL
           )
@@ -119,15 +119,15 @@ structure GtkStyleContext :>
         call (load_sym libgtk "gtk_style_context_lookup_color")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GdkRgbaRecord.PolyML.PTR
              --> FFI.Bool.PolyML.VAL
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_context_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
+      val lookupIconSet_ = call (load_sym libgtk "gtk_style_context_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
       val popAnimatableRegion_ = call (load_sym libgtk "gtk_style_context_pop_animatable_region") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeClass_ = call (load_sym libgtk "gtk_style_context_remove_class") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val removeClass_ = call (load_sym libgtk "gtk_style_context_remove_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val removeProvider_ = call (load_sym libgtk "gtk_style_context_remove_provider") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeRegion_ = call (load_sym libgtk "gtk_style_context_remove_region") (GObjectObjectClass.PolyML.PTR &&> FFI.String.PolyML.INPTR --> FFI.PolyML.VOID)
+      val removeRegion_ = call (load_sym libgtk "gtk_style_context_remove_region") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
       val restore_ = call (load_sym libgtk "gtk_style_context_restore") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val save_ = call (load_sym libgtk "gtk_style_context_save") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
       val scrollAnimations_ =
@@ -182,7 +182,7 @@ structure GtkStyleContext :>
         )
     fun removeProviderForScreen screen provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProviderForScreen_ (screen & provider)
     fun resetWidgets screen = (GObjectObjectClass.C.withPtr ---> I) resetWidgets_ screen
-    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) addClass_ (self & className)
+    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addClass_ (self & className)
     fun addProvider self provider priority =
       (
         GObjectObjectClass.C.withPtr
@@ -199,7 +199,7 @@ structure GtkStyleContext :>
     fun addRegion self regionName flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -326,7 +326,7 @@ structure GtkStyleContext :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -336,13 +336,13 @@ structure GtkStyleContext :>
            & propertyName
            & value
         )
-    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
+    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
     fun hasRegion self regionName =
       let
         val flagsReturn & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -361,7 +361,7 @@ structure GtkStyleContext :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> FFI.String.C.withConstPtr
+             &&&> Utf8.C.withConstPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -374,11 +374,11 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
-    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeClass_ (self & className)
+    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
-    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> FFI.String.C.withConstPtr ---> I) removeRegion_ (self & regionName)
+    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeRegion_ (self & regionName)
     fun restore self = (GObjectObjectClass.C.withPtr ---> I) restore_ self
     fun save self = (GObjectObjectClass.C.withPtr ---> I) save_ self
     fun scrollAnimations self window dx dy =

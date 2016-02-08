@@ -10,12 +10,12 @@ structure GioFileOutputStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getEtag_ = call (load_sym libgio "g_file_output_stream_get_etag") (GObjectObjectClass.PolyML.PTR --> FFI.String.PolyML.RETPTR)
+      val getEtag_ = call (load_sym libgio "g_file_output_stream_get_etag") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
       val queryInfo_ =
         call (load_sym libgio "g_file_output_stream_query_info")
           (
             GObjectObjectClass.PolyML.PTR
-             &&> FFI.String.PolyML.INPTR
+             &&> Utf8.PolyML.INPTR
              &&> GObjectObjectClass.PolyML.OPTPTR
              &&> GLibErrorRecord.PolyML.OUTOPTREF
              --> GObjectObjectClass.PolyML.PTR
@@ -37,11 +37,11 @@ structure GioFileOutputStream :>
     type t = base class_t
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getEtag self = (GObjectObjectClass.C.withPtr ---> FFI.String.C.fromPtr true) getEtag_ self
+    fun getEtag self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getEtag_ self
     fun queryInfo self attributes cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> FFI.String.C.withConstPtr
+         &&&> Utf8.C.withConstPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioFileInfoClass.C.fromPtr true
