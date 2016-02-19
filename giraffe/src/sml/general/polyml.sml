@@ -7,7 +7,7 @@
 
 use "Pair.sml";
 use "Combinators.sml";
-use "Functions.sml";
+use "Fn.sml";
 use "Word32BitFlags.sml";
 use "GIRAFFE_LOG.sml";
 use "GIRAFFE_DEBUG.sml";

@@ -468,7 +468,7 @@ fun getRootObjectIRef
          * so not the same interface module.  Consequently, `scope` is never
          * `LOCALINTERFACESELF`.
          *)
-        val rootInfo = iterate ObjectInfo.getParent info
+        val rootInfo = Fn.iterate ObjectInfo.getParent info
         val rootObjectName = getName rootInfo
         val rootObjectNamespace = BaseInfo.getNamespace rootInfo
         val rootObjectScope =
