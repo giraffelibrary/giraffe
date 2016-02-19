@@ -12,8 +12,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_add_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
           )
@@ -32,8 +32,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_add_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
@@ -51,8 +51,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_get_object" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -67,8 +67,8 @@ structure GtkBuilder :>
           (
             _import "mlton_gtk_builder_set_translation_domain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -87,8 +87,8 @@ structure GtkBuilder :>
             _import "mlton_gtk_builder_value_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -108,7 +108,7 @@ structure GtkBuilder :>
     fun addFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -121,7 +121,7 @@ structure GtkBuilder :>
     fun addFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
@@ -133,16 +133,16 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr
              &&&> GLibErrorRecord.C.handleError
              ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal

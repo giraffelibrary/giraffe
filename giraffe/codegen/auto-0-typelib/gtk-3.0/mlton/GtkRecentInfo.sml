@@ -11,8 +11,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_create_app_info" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -35,10 +35,10 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_get_application_info" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * FFI.UInt32.C.ref_
                * FFI.Int64.C.ref_
                -> FFI.Bool.C.val_;
@@ -69,8 +69,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_has_application" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -84,8 +84,8 @@ structure GtkRecentInfo :>
           (
             _import "mlton_gtk_recent_info_has_group" :
               GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -102,7 +102,7 @@ structure GtkRecentInfo :>
     fun createAppInfo self appName =
       (
         GtkRecentInfoRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
       )
@@ -123,8 +123,8 @@ structure GtkRecentInfo :>
          & retVal =
           (
             GtkRecentInfoRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withPtr
+             &&&> Utf8.C.withRefOptPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.Int64.C.withRefVal
              ---> Utf8.C.fromPtr false
@@ -162,8 +162,8 @@ structure GtkRecentInfo :>
     fun getUri self = (GtkRecentInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) getUri_ self
     fun getUriDisplay self = (GtkRecentInfoRecord.C.withPtr ---> Utf8.C.fromPtr true) getUriDisplay_ self
     fun getVisited self = (GtkRecentInfoRecord.C.withPtr ---> FFI.Int64.C.fromVal) getVisited_ self
-    fun hasApplication self appName = (GtkRecentInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasApplication_ (self & appName)
-    fun hasGroup self groupName = (GtkRecentInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
+    fun hasApplication self appName = (GtkRecentInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasApplication_ (self & appName)
+    fun hasGroup self groupName = (GtkRecentInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
     fun isLocal self = (GtkRecentInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) isLocal_ self
     fun lastApplication self = (GtkRecentInfoRecord.C.withPtr ---> Utf8.C.fromPtr true) lastApplication_ self
     fun match self infoB = (GtkRecentInfoRecord.C.withPtr &&&> GtkRecentInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) match_ (self & infoB)

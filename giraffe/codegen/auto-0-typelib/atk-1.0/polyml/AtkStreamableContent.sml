@@ -16,6 +16,6 @@ structure AtkStreamableContent :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getMimeType self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getMimeType_ (self & i)
     fun getNMimeTypes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMimeTypes_ self
-    fun getStream self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibIOChannelRecord.C.fromPtr true) getStream_ (self & mimeType)
-    fun getUri self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getUri_ (self & mimeType)
+    fun getStream self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibIOChannelRecord.C.fromPtr true) getStream_ (self & mimeType)
+    fun getUri self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getUri_ (self & mimeType)
   end

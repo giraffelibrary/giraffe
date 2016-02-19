@@ -10,8 +10,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_new" :
               GioTlsPasswordFlags.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,8 +28,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_set_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -44,8 +44,8 @@ structure GioTlsPassword :>
           (
             _import "mlton_g_tls_password_set_warning" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -57,13 +57,13 @@ structure GioTlsPassword :>
     type tls_password_flags_t = GioTlsPasswordFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> Utf8.C.withConstPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
+    fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> Utf8.C.withPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsPasswordFlags.C.fromVal) getFlags_ self
     fun getWarning self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWarning_ self
-    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDescription_ (self & description)
+    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDescription_ (self & description)
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsPasswordFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun setWarning self warning = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setWarning_ (self & warning)
+    fun setWarning self warning = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWarning_ (self & warning)
     local
       open Property
     in

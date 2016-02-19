@@ -38,8 +38,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_add_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -72,8 +72,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_add_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRegionFlags.C.val_
                -> unit;
           )
@@ -199,8 +199,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_get_style_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -216,8 +216,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_has_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -233,8 +233,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_has_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -253,8 +253,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -270,8 +270,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_lookup_icon_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (
@@ -286,8 +286,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_remove_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -302,8 +302,8 @@ structure GtkStyleContext :>
           (
             _import "mlton_gtk_style_context_remove_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -384,7 +384,7 @@ structure GtkStyleContext :>
         )
     fun removeProviderForScreen screen provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProviderForScreen_ (screen & provider)
     fun resetWidgets screen = (GObjectObjectClass.C.withPtr ---> I) resetWidgets_ screen
-    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addClass_ (self & className)
+    fun addClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addClass_ (self & className)
     fun addProvider self provider priority =
       (
         GObjectObjectClass.C.withPtr
@@ -401,7 +401,7 @@ structure GtkStyleContext :>
     fun addRegion self regionName flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -528,7 +528,7 @@ structure GtkStyleContext :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -538,13 +538,13 @@ structure GtkStyleContext :>
            & propertyName
            & value
         )
-    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
+    fun hasClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & className)
     fun hasRegion self regionName =
       let
         val flagsReturn & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -563,7 +563,7 @@ structure GtkStyleContext :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -576,11 +576,11 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun popAnimatableRegion self = (GObjectObjectClass.C.withPtr ---> I) popAnimatableRegion_ self
-    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeClass_ (self & className)
+    fun removeClass self className = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeProvider_ (self & provider)
-    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeRegion_ (self & regionName)
+    fun removeRegion self regionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) removeRegion_ (self & regionName)
     fun restore self = (GObjectObjectClass.C.withPtr ---> I) restore_ self
     fun save self = (GObjectObjectClass.C.withPtr ---> I) save_ self
     fun scrollAnimations self window dx dy =

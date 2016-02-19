@@ -8,8 +8,8 @@ structure GtkEntryBuffer :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_entry_buffer_new" :
-              GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -62,8 +62,8 @@ structure GtkEntryBuffer :>
             _import "mlton_gtk_entry_buffer_emit_inserted_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt.C.val_
                -> unit;
           )
@@ -88,8 +88,8 @@ structure GtkEntryBuffer :>
             _import "mlton_gtk_entry_buffer_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> FFI.UInt.C.val_;
           )
@@ -109,8 +109,8 @@ structure GtkEntryBuffer :>
           (
             _import "mlton_gtk_entry_buffer_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -123,7 +123,7 @@ structure GtkEntryBuffer :>
     type 'a class_t = 'a GtkEntryBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new initialChars nInitialChars = (Utf8.C.withConstOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
+    fun new initialChars nInitialChars = (Utf8.C.withOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =
       (
         GObjectObjectClass.C.withPtr
@@ -154,7 +154,7 @@ structure GtkEntryBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt.C.withVal
          ---> I
       )
@@ -173,7 +173,7 @@ structure GtkEntryBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.UInt.C.fromVal
       )
@@ -188,7 +188,7 @@ structure GtkEntryBuffer :>
     fun setText self chars nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

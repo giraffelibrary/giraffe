@@ -16,8 +16,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_add_shortcut_folder" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -35,8 +35,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_add_shortcut_folder_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -75,8 +75,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_remove_shortcut_folder" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -94,8 +94,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_remove_shortcut_folder_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -129,8 +129,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_select_filename" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -144,8 +144,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_select_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -161,8 +161,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_set_current_folder" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -193,8 +193,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_set_current_folder_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -208,8 +208,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_set_current_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -242,8 +242,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_set_filename" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -263,8 +263,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_set_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -281,8 +281,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_unselect_filename" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -296,8 +296,8 @@ structure GtkFileChooser :>
           (
             _import "mlton_gtk_file_chooser_unselect_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -316,7 +316,7 @@ structure GtkFileChooser :>
     fun addShortcutFolder self folder =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -329,7 +329,7 @@ structure GtkFileChooser :>
     fun addShortcutFolderUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -363,7 +363,7 @@ structure GtkFileChooser :>
     fun removeShortcutFolder self folder =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -376,7 +376,7 @@ structure GtkFileChooser :>
     fun removeShortcutFolderUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -400,11 +400,11 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun selectFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) selectFilename_ (self & filename)
-    fun selectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) selectUri_ (self & uri)
+    fun selectFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) selectFilename_ (self & filename)
+    fun selectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) selectUri_ (self & uri)
     fun setAction self action = (GObjectObjectClass.C.withPtr &&&> GtkFileChooserAction.C.withVal ---> I) setAction_ (self & action)
     fun setCreateFolders self createFolders = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCreateFolders_ (self & createFolders)
-    fun setCurrentFolder self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setCurrentFolder_ (self & filename)
+    fun setCurrentFolder self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setCurrentFolder_ (self & filename)
     fun setCurrentFolderFile self file =
       (
         GObjectObjectClass.C.withPtr
@@ -418,8 +418,8 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setCurrentFolderUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setCurrentFolderUri_ (self & uri)
-    fun setCurrentName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setCurrentName_ (self & name)
+    fun setCurrentFolderUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setCurrentFolderUri_ (self & uri)
+    fun setCurrentName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setCurrentName_ (self & name)
     fun setDoOverwriteConfirmation self doOverwriteConfirmation = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDoOverwriteConfirmation_ (self & doOverwriteConfirmation)
     fun setExtraWidget self extraWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setExtraWidget_ (self & extraWidget)
     fun setFile self file =
@@ -435,19 +435,19 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setFilename_ (self & filename)
+    fun setFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setFilename_ (self & filename)
     fun setFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFilter_ (self & filter)
     fun setLocalOnly self localOnly = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setPreviewWidget self previewWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPreviewWidget_ (self & previewWidget)
     fun setPreviewWidgetActive self active = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPreviewWidgetActive_ (self & active)
     fun setSelectMultiple self selectMultiple = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
     fun setShowHidden self showHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowHidden_ (self & showHidden)
-    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setUri_ (self & uri)
+    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setUri_ (self & uri)
     fun setUsePreviewLabel self useLabel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUsePreviewLabel_ (self & useLabel)
     fun unselectAll self = (GObjectObjectClass.C.withPtr ---> I) unselectAll_ self
     fun unselectFile self file = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) unselectFile_ (self & file)
-    fun unselectFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) unselectFilename_ (self & filename)
-    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) unselectUri_ (self & uri)
+    fun unselectFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) unselectFilename_ (self & filename)
+    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

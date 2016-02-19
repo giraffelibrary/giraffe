@@ -2600,8 +2600,8 @@ structure Gdk : GDK =
     val MAX_TIMECOORD_AXES = 128
     val PARENT_RELATIVE = 1
     val PRIORITY_REDRAW = 20
-    fun atomIntern atomName onlyIfExists = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GdkAtomRecord.C.fromPtr false) atomIntern_ (atomName & onlyIfExists)
-    fun atomInternStaticString atomName = (Utf8.C.withConstPtr ---> GdkAtomRecord.C.fromPtr false) atomInternStaticString_ atomName
+    fun atomIntern atomName onlyIfExists = (Utf8.C.withPtr &&&> FFI.Bool.C.withVal ---> GdkAtomRecord.C.fromPtr false) atomIntern_ (atomName & onlyIfExists)
+    fun atomInternStaticString atomName = (Utf8.C.withPtr ---> GdkAtomRecord.C.fromPtr false) atomInternStaticString_ atomName
     fun beep () = (I ---> I) beep_ ()
     fun cairoCreate window = (GObjectObjectClass.C.withPtr ---> CairoContextRecord.C.fromPtr true) cairoCreate_ window
     fun cairoGetClipRectangle cr =
@@ -2647,7 +2647,7 @@ structure Gdk : GDK =
         )
     fun colorParse spec =
       let
-        val color & retVal = (Utf8.C.withConstPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal) colorParse_ (spec & ())
+        val color & retVal = (Utf8.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal) colorParse_ (spec & ())
       in
         if retVal then SOME color else NONE
       end
@@ -2783,7 +2783,7 @@ structure Gdk : GDK =
       in
         (lower, upper)
       end
-    fun keyvalFromName keyvalName = (Utf8.C.withConstPtr ---> FFI.UInt32.C.fromVal) keyvalFromName_ keyvalName
+    fun keyvalFromName keyvalName = (Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) keyvalFromName_ keyvalName
     fun keyvalIsLower keyval = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsLower_ keyval
     fun keyvalIsUpper keyval = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) keyvalIsUpper_ keyval
     fun keyvalName keyval = (FFI.UInt32.C.withVal ---> Utf8.C.fromPtr false) keyvalName_ keyval
@@ -2791,7 +2791,7 @@ structure Gdk : GDK =
     fun keyvalToUnicode keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUnicode_ keyval
     fun keyvalToUpper keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
-    fun notifyStartupCompleteWithId startupId = (Utf8.C.withConstPtr ---> I) notifyStartupCompleteWithId_ startupId
+    fun notifyStartupCompleteWithId startupId = (Utf8.C.withPtr ---> I) notifyStartupCompleteWithId_ startupId
     fun offscreenWindowGetEmbedder window = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) offscreenWindowGetEmbedder_ window
     fun offscreenWindowGetSurface window = (GObjectObjectClass.C.withPtr ---> CairoSurfaceRecord.C.fromPtr false) offscreenWindowGetSurface_ window
     fun offscreenWindowSetEmbedder window embedder = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
@@ -2955,9 +2955,9 @@ structure Gdk : GDK =
            & time
         )
     fun setDoubleClickTime msec = (FFI.UInt32.C.withVal ---> I) setDoubleClickTime_ msec
-    fun setProgramClass programClass = (Utf8.C.withConstPtr ---> I) setProgramClass_ programClass
+    fun setProgramClass programClass = (Utf8.C.withPtr ---> I) setProgramClass_ programClass
     fun setShowEvents showEvents = (FFI.Bool.C.withVal ---> I) setShowEvents_ showEvents
-    fun settingGet name value = (Utf8.C.withConstPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) settingGet_ (name & value)
+    fun settingGet name value = (Utf8.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) settingGet_ (name & value)
     fun synthesizeWindowState window unsetFlags setFlags =
       (
         GObjectObjectClass.C.withPtr
@@ -3014,5 +3014,5 @@ structure Gdk : GDK =
     fun threadsInit () = (I ---> I) threadsInit_ ()
     fun threadsLeave () = (I ---> I) threadsLeave_ ()
     fun unicodeToKeyval wc = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) unicodeToKeyval_ wc
-    fun utf8ToStringTarget str = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) utf8ToStringTarget_ str
+    fun utf8ToStringTarget str = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) utf8ToStringTarget_ str
   end

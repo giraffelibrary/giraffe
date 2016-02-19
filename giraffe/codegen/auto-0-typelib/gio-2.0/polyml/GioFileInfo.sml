@@ -150,17 +150,17 @@ structure GioFileInfo :>
     fun clearStatus self = (GObjectObjectClass.C.withPtr ---> I) clearStatus_ self
     fun copyInto self destInfo = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) copyInto_ (self & destInfo)
     fun dup self = (GObjectObjectClass.C.withPtr ---> GioFileInfoClass.C.fromPtr true) dup_ self
-    fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) getAttributeAsString_ (self & attribute)
-    fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getAttributeBoolean_ (self & attribute)
-    fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getAttributeByteString_ (self & attribute)
-    fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) getAttributeInt32_ (self & attribute)
-    fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int64.C.fromVal) getAttributeInt64_ (self & attribute)
-    fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
-    fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
-    fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getAttributeString_ (self & attribute)
-    fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
-    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt32.C.fromVal) getAttributeUint32_ (self & attribute)
-    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt64.C.fromVal) getAttributeUint64_ (self & attribute)
+    fun getAttributeAsString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) getAttributeAsString_ (self & attribute)
+    fun getAttributeBoolean self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getAttributeBoolean_ (self & attribute)
+    fun getAttributeByteString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeByteString_ (self & attribute)
+    fun getAttributeInt32 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int32.C.fromVal) getAttributeInt32_ (self & attribute)
+    fun getAttributeInt64 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int64.C.fromVal) getAttributeInt64_ (self & attribute)
+    fun getAttributeObject self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getAttributeObject_ (self & attribute)
+    fun getAttributeStatus self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileAttributeStatus.C.fromVal) getAttributeStatus_ (self & attribute)
+    fun getAttributeString self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeString_ (self & attribute)
+    fun getAttributeType self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileAttributeType.C.fromVal) getAttributeType_ (self & attribute)
+    fun getAttributeUint32 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) getAttributeUint32_ (self & attribute)
+    fun getAttributeUint64 self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt64.C.fromVal) getAttributeUint64_ (self & attribute)
     fun getContentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getContentType_ self
     fun getDisplayName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDisplayName_ self
     fun getEditName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEditName_ self
@@ -175,13 +175,13 @@ structure GioFileInfo :>
     fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int64.C.fromVal) getSize_ self
     fun getSortOrder self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getSortOrder_ self
     fun getSymlinkTarget self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getSymlinkTarget_ self
-    fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasAttribute_ (self & attribute)
-    fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasNamespace_ (self & nameSpace)
-    fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) removeAttribute_ (self & attribute)
+    fun hasAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasAttribute_ (self & attribute)
+    fun hasNamespace self nameSpace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasNamespace_ (self & nameSpace)
+    fun removeAttribute self attribute = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) removeAttribute_ (self & attribute)
     fun setAttributeBoolean self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -194,8 +194,8 @@ structure GioFileInfo :>
     fun setAttributeByteString self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setAttributeByteString_
@@ -207,7 +207,7 @@ structure GioFileInfo :>
     fun setAttributeInt32 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -220,7 +220,7 @@ structure GioFileInfo :>
     fun setAttributeInt64 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -234,7 +234,7 @@ structure GioFileInfo :>
     fun setAttributeObject self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -247,7 +247,7 @@ structure GioFileInfo :>
     fun setAttributeStatus self attribute status =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GioFileAttributeStatus.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -260,8 +260,8 @@ structure GioFileInfo :>
     fun setAttributeString self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setAttributeString_
@@ -273,8 +273,8 @@ structure GioFileInfo :>
     fun setAttributeStringv self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setAttributeStringv_
@@ -286,7 +286,7 @@ structure GioFileInfo :>
     fun setAttributeUint32 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          ---> I
       )
@@ -299,7 +299,7 @@ structure GioFileInfo :>
     fun setAttributeUint64 self attribute attrValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          ---> I
       )
@@ -309,17 +309,17 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setContentType self contentType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setContentType_ (self & contentType)
-    fun setDisplayName self displayName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDisplayName_ (self & displayName)
-    fun setEditName self editName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setEditName_ (self & editName)
+    fun setContentType self contentType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setContentType_ (self & contentType)
+    fun setDisplayName self displayName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDisplayName_ (self & displayName)
+    fun setEditName self editName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setEditName_ (self & editName)
     fun setFileType self type' = (GObjectObjectClass.C.withPtr &&&> GioFileType.C.withVal ---> I) setFileType_ (self & type')
     fun setIcon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setIcon_ (self & icon)
     fun setIsHidden self isHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsHidden_ (self & isHidden)
     fun setIsSymlink self isSymlink = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsSymlink_ (self & isSymlink)
     fun setModificationTime self mtime = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> I) setModificationTime_ (self & mtime)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int64.C.withVal ---> I) setSize_ (self & size)
     fun setSortOrder self sortOrder = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSortOrder_ (self & sortOrder)
-    fun setSymlinkTarget self symlinkTarget = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
+    fun setSymlinkTarget self symlinkTarget = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
     fun unsetAttributeMask self = (GObjectObjectClass.C.withPtr ---> I) unsetAttributeMask_ self
   end

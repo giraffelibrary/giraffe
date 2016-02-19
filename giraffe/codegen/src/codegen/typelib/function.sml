@@ -1135,17 +1135,16 @@ fun getTypeSpec typeIRef =
  *)
 
 local
-  fun withFunExp prefixIds {isRef, isDup, isNew, isCon, isOpt, isPtr} =
+  fun withFunExp prefixIds {isRef, isDup, isNew, isOpt, isPtr} =
     let
       val refStr = if isRef then "Ref" else ""
       val dupStr = if isDup then "Dup" else ""
       val newStr = if isNew then "New" else ""
-      val conStr = if isCon then "Const" else ""
       val optStr = if isOpt then "Opt" else ""
       val ptrStr = if isPtr then "Ptr" else "Val"
 
       val withFunId =
-        concat ["with", refStr, dupStr, newStr, conStr, optStr, ptrStr]
+        concat ["with", refStr, dupStr, newStr, optStr, ptrStr]
     in
       mkLIdLNameExp (prefixIds @ [withFunId])
     end
@@ -1171,7 +1170,6 @@ local
         isRef = dir <> IN,
         isDup = false,
         isNew = false,
-        isCon = false,
         isOpt = false,
         isPtr = false
       }
@@ -1185,7 +1183,6 @@ local
         isRef = dir <> IN,
         isDup = false,
         isNew = false,
-        isCon = true,
         isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
         isPtr = true
       }
@@ -1232,7 +1229,6 @@ local
           case dir of
             OUT isCallerAllocates => isCallerAllocates
           | _                     => false,
-        isCon = false,
         isOpt =
           case dir of
             IN    => isOpt
@@ -2338,17 +2334,17 @@ local
   | REF of {isInOpt : bool, isOutOpt : bool} option
 
   local
-    val structId = "GCharVec"
+    val structId = utf8StrId
     val mltonId = "MLton"
     fun mkOptTy isOpt = if isOpt then unitTy else mkNotnullTy [structId, CId]
   in
-    (* `GCharVec.MLton.p1 * <opt> GCharVec.MLton.p2`
+    (* `Utf8.MLton.p1 * <opt> Utf8.MLton.p2`
      *
      *   where <opt> is
      *     unit
      *       if `isOpt`
      *
-     *     GCharVec.C.notnull
+     *     Utf8.C.notnull
      *       otherwise
      *)
     fun utf8PtrTy isOpt =
@@ -2357,20 +2353,20 @@ local
         TyRef ([mkOptTy isOpt], toList1 [structId, mltonId, "p2"])
       ]
 
-    (* `GCharVec.MLton.r1 * (<inopt>, <outopt>) GCharVec.MLton.r2`
+    (* `Utf8.MLton.r1 * (<inopt>, <outopt>) Utf8.MLton.r2`
      *
      *   where <inopt> is
      *     unit
      *       if `isInOpt`
      *
-     *     GCharVec.C.notnull
+     *     Utf8.C.notnull
      *       otherwise
      *
      *   where <outopt> is
      *     unit
      *       if `isOutOpt`
      *
-     *     GCharVec.C.notnull
+     *     Utf8.C.notnull
      *       otherwise
      *)
     fun utf8RefTy isInOpt isOutOpt =

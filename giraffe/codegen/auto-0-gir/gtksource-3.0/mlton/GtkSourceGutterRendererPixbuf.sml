@@ -15,8 +15,8 @@ structure GtkSourceGutterRendererPixbuf :>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -31,8 +31,8 @@ structure GtkSourceGutterRendererPixbuf :>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_stock_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -49,9 +49,9 @@ structure GtkSourceGutterRendererPixbuf :>
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
     fun getStockId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getStockId_ self
     fun setGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setStockId_ (self & stockId)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStockId_ (self & stockId)
     local
       open Property
     in

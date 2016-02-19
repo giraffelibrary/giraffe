@@ -9,8 +9,8 @@ structure GtkSourceCompletionWords :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_source_completion_words_new" :
-              GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -26,7 +26,7 @@ structure GtkSourceCompletionWords :>
     type t = base class_t
     fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name icon = (Utf8.C.withConstOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)
+    fun new name icon = (Utf8.C.withOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)
     fun register self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) register_ (self & buffer)
     fun unregister self buffer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) unregister_ (self & buffer)
     local

@@ -34,8 +34,8 @@ structure GdkPixbufPixbuf :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -53,8 +53,8 @@ structure GdkPixbufPixbuf :>
          & x6 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file_at_scale" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Bool.C.val_
@@ -77,8 +77,8 @@ structure GdkPixbufPixbuf :>
          & x5 =>
           (
             _import "mlton_gdk_pixbuf_new_from_file_at_size" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -135,8 +135,8 @@ structure GdkPixbufPixbuf :>
               x6
             )
     val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_new_from_stream_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val gettext_ = _import "mlton_gdk_pixbuf_gettext" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
+    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val gettext_ = _import "mlton_gdk_pixbuf_gettext" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val saveToStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_save_to_stream_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val addAlpha_ =
       fn
@@ -343,8 +343,8 @@ structure GdkPixbufPixbuf :>
           (
             _import "mlton_gdk_pixbuf_get_option" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -483,10 +483,10 @@ structure GdkPixbufPixbuf :>
            & width
            & height
         )
-    fun newFromFile filename = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
+    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
     fun newFromFileAtScale filename width height preserveAspectRatio =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -503,7 +503,7 @@ structure GdkPixbufPixbuf :>
         )
     fun newFromFileAtSize filename width height =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -549,8 +549,8 @@ structure GdkPixbufPixbuf :>
            & []
         )
     fun newFromStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (Utf8.C.withConstPtr ---> GdkPixbufPixbufClass.C.fromPtr true) newFromXpmData_ data
-    fun gettext msgid = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) gettext_ msgid
+    fun newFromXpmData data = (Utf8.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) newFromXpmData_ data
+    fun gettext msgid = (Utf8.C.withPtr ---> Utf8.C.fromPtr false) gettext_ msgid
     fun saveToStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) saveToStreamFinish_ (asyncResult & [])
     fun addAlpha self substituteColor r g b =
       (
@@ -696,7 +696,7 @@ structure GdkPixbufPixbuf :>
     fun getHasAlpha self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasAlpha_ self
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
     fun getNChannels self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNChannels_ self
-    fun getOption self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getOption_ (self & key)
+    fun getOption self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getOption_ (self & key)
     fun getRowstride self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getRowstride_ self
     fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
     fun newSubpixbuf self srcX srcY width height =

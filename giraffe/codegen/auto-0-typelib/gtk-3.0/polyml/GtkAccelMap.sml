@@ -40,7 +40,7 @@ structure GtkAccelMap :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
@@ -51,10 +51,10 @@ structure GtkAccelMap :>
            & accelKey
            & accelMods
         )
-    fun addFilter filterPattern = (Utf8.C.withConstPtr ---> I) addFilter_ filterPattern
+    fun addFilter filterPattern = (Utf8.C.withPtr ---> I) addFilter_ filterPattern
     fun changeEntry accelPath accelKey accelMods replace =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -68,18 +68,18 @@ structure GtkAccelMap :>
            & replace
         )
     fun get () = (I ---> GtkAccelMapClass.C.fromPtr false) get_ ()
-    fun load fileName = (Utf8.C.withConstPtr ---> I) load_ fileName
+    fun load fileName = (Utf8.C.withPtr ---> I) load_ fileName
     fun loadFd fd = (FFI.Int32.C.withVal ---> I) loadFd_ fd
-    fun lockPath accelPath = (Utf8.C.withConstPtr ---> I) lockPath_ accelPath
+    fun lockPath accelPath = (Utf8.C.withPtr ---> I) lockPath_ accelPath
     fun lookupEntry accelPath =
       let
-        val key & retVal = (Utf8.C.withConstPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.C.fromVal) lookupEntry_ (accelPath & ())
+        val key & retVal = (Utf8.C.withPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.C.fromVal) lookupEntry_ (accelPath & ())
       in
         if retVal then SOME key else NONE
       end
-    fun save fileName = (Utf8.C.withConstPtr ---> I) save_ fileName
+    fun save fileName = (Utf8.C.withPtr ---> I) save_ fileName
     fun saveFd fd = (FFI.Int32.C.withVal ---> I) saveFd_ fd
-    fun unlockPath accelPath = (Utf8.C.withConstPtr ---> I) unlockPath_ accelPath
+    fun unlockPath accelPath = (Utf8.C.withPtr ---> I) unlockPath_ accelPath
     local
       open ClosureMarshal Signal
     in

@@ -11,8 +11,8 @@ structure GObjectTypeModule :>
           (
             _import "mlton_g_type_module_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,7 +28,7 @@ structure GObjectTypeModule :>
     type t = base class_t
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun unuse self = (GObjectObjectClass.C.withPtr ---> I) unuse_ self
     fun use self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) use_ self
   end

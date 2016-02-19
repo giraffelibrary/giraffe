@@ -18,7 +18,7 @@ structure GdkDisplayManager :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()
     fun getDefaultDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDefaultDisplay_ self
-    fun openDisplay self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
+    fun openDisplay self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
     fun setDefaultDisplay self display = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setDefaultDisplay_ (self & display)
     local
       open ClosureMarshal Signal

@@ -81,8 +81,8 @@ structure PangoFontDescription :>
           (
             _import "mlton_pango_font_description_set_family" :
               PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -96,8 +96,8 @@ structure PangoFontDescription :>
           (
             _import "mlton_pango_font_description_set_family_static" :
               PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -114,7 +114,7 @@ structure PangoFontDescription :>
     val toFilename_ = _import "pango_font_description_to_filename" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val toString_ = _import "pango_font_description_to_string" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unsetFields_ = fn x1 & x2 => (_import "pango_font_description_unset_fields" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoFontMask.C.val_ -> unit;) (x1, x2)
-    val fromString_ = _import "mlton_pango_font_description_from_string" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
+    val fromString_ = _import "mlton_pango_font_description_from_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
     type record_t = PangoFontDescriptionRecord.t
     type gravity_t = PangoGravity.t
     type stretch_t = PangoStretch.t
@@ -178,8 +178,8 @@ structure PangoFontDescription :>
            & replaceExisting
         )
     fun setAbsoluteSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Double.C.withVal ---> I) setAbsoluteSize_ (self & size)
-    fun setFamily self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFamily_ (self & family)
-    fun setFamilyStatic self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFamilyStatic_ (self & family)
+    fun setFamily self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setFamily_ (self & family)
+    fun setFamilyStatic self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setFamilyStatic_ (self & family)
     fun setGravity self gravity = (PangoFontDescriptionRecord.C.withPtr &&&> PangoGravity.C.withVal ---> I) setGravity_ (self & gravity)
     fun setSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
     fun setStretch self stretch = (PangoFontDescriptionRecord.C.withPtr &&&> PangoStretch.C.withVal ---> I) setStretch_ (self & stretch)
@@ -189,5 +189,5 @@ structure PangoFontDescription :>
     fun toFilename self = (PangoFontDescriptionRecord.C.withPtr ---> Utf8.C.fromPtr true) toFilename_ self
     fun toString self = (PangoFontDescriptionRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
     fun unsetFields self toUnset = (PangoFontDescriptionRecord.C.withPtr &&&> PangoFontMask.C.withVal ---> I) unsetFields_ (self & toUnset)
-    fun fromString str = (Utf8.C.withConstPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fromString_ str
+    fun fromString str = (Utf8.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fromString_ str
   end

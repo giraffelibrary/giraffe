@@ -27,8 +27,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_accelerator_parse" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt.C.ref_
                * GdkModifierType.C.ref_
                -> unit;
@@ -149,8 +149,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_drag_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -191,8 +191,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_drag_set_icon_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -266,7 +266,7 @@ structure Gtk : GTK =
     val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> FFI.UInt.C.val_;
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> FFI.UInt.C.val_;
     val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Int.C.val_;
+    val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> FFI.Int.C.val_;
     val iconSizeGetName_ = _import "gtk_icon_size_get_name" : FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val iconSizeLookup_ =
       fn
@@ -312,8 +312,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_icon_size_register" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> FFI.Int.C.val_;
@@ -329,8 +329,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_icon_size_register_alias" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -341,14 +341,13 @@ structure Gtk : GTK =
             )
     val iconThemeErrorQuark_ = _import "gtk_icon_theme_error_quark" : unit -> GLibQuark.C.val_;
     val init_ =
-      fn x1 & (x2, x3, x4) =>
+      fn x1 & (x2, x3) =>
         (_import "mlton_gtk_init"
           : FFI.Int.C.ref_
-              * GCharVecVec.MLton.r1
-              * GCharVecVec.MLton.r2
-              * (GCharVecVec.C.notnull, GCharVecVec.C.notnull) GCharVecVec.MLton.r3
+              * Utf8CVectorN.MLton.r1
+              * (Utf8CVectorN.C.notnull, Utf8CVectorN.C.notnull) Utf8CVectorN.MLton.r2
              -> unit;)
-        (x1, x2, x3, x4)
+        (x1, x2, x3)
     val keySnooperRemove_ = _import "gtk_key_snooper_remove" : FFI.UInt.C.val_ -> unit;
     val main_ = _import "gtk_main" : unit -> unit;
     val mainDoEvent_ = _import "gtk_main_do_event" : GdkEvent.C.notnull GdkEvent.C.p -> unit;
@@ -377,8 +376,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * GtkArrowType.C.val_
                * FFI.Bool.C.val_
                * FFI.Int.C.val_
@@ -421,8 +420,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -464,8 +463,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -510,8 +509,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -550,8 +549,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -587,8 +586,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * GtkExpanderStyle.C.val_
@@ -625,8 +624,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -667,8 +666,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -705,8 +704,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -745,8 +744,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -784,8 +783,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -820,8 +819,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * FFI.Bool.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
@@ -858,8 +857,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -897,8 +896,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * GdkWindowEdge.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -938,8 +937,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -981,8 +980,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -1028,8 +1027,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -1069,8 +1068,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.UInt.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -1110,8 +1109,8 @@ structure Gtk : GTK =
                * GtkStateType.C.val_
                * GtkShadowType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -1147,8 +1146,8 @@ structure Gtk : GTK =
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GtkStateType.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -1185,7 +1184,7 @@ structure Gtk : GTK =
               x3
             )
     val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEvent.C.notnull GdkEvent.C.p -> unit;) (x1, x2)
-    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val rcGetStyle_ = _import "gtk_rc_get_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val recentChooserErrorQuark_ = _import "gtk_recent_chooser_error_quark" : unit -> GLibQuark.C.val_;
     val recentManagerErrorQuark_ = _import "gtk_recent_manager_error_quark" : unit -> GLibQuark.C.val_;
@@ -1720,8 +1719,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_show_uri" :
               unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt32.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -1738,8 +1737,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_stock_lookup" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkStockItemRecord.C.notnull GtkStockItemRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -1753,10 +1752,10 @@ structure Gtk : GTK =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_test_create_simple_window" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -1771,8 +1770,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_test_find_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -1807,8 +1806,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_test_text_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -2660,7 +2659,7 @@ structure Gtk : GTK =
          & acceleratorMods
          & () =
           (
-            Utf8.C.withConstPtr
+            Utf8.C.withPtr
              &&&> FFI.UInt.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
              ---> FFI.UInt.C.fromVal
@@ -2758,7 +2757,7 @@ structure Gtk : GTK =
     fun dragSetIconName context iconName hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -2788,7 +2787,7 @@ structure Gtk : GTK =
     fun dragSetIconStock context stockId hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -2855,7 +2854,7 @@ structure Gtk : GTK =
     fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
     fun grabGetCurrent () = (I ---> GtkWidgetClass.C.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
+    fun iconSizeFromName name = (Utf8.C.withPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
     fun iconSizeGetName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) iconSizeGetName_ size
     fun iconSizeLookup size =
       let
@@ -2905,7 +2904,7 @@ structure Gtk : GTK =
       end
     fun iconSizeRegister name width height =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -2916,18 +2915,21 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconSizeRegisterAlias alias target = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
     fun iconThemeErrorQuark () = (I ---> GLibQuark.C.fromVal) iconThemeErrorQuark_ ()
     fun init argv =
       let
-        val _ & argv & _ =
-          (FFI.Int.C.withRefVal
-            &&&> Utf8Vector.C.withRefDupPtr
-            ---> I && Utf8Vector.C.fromPtr true && I)
+        val argc = LargeInt.fromInt (List.length argv)
+        val argc & argv & () =
+          (
+            FFI.Int.C.withRefVal
+             &&&> Utf8CVectorN.C.withRefDupPtr
+             ---> FFI.Int.C.fromVal && Utf8CVectorN.C.fromPtr true && I
+          )
             init_
-            (LargeInt.fromInt (length argv) & argv)
+            (argc & argv)
       in
-        argv
+        argv (LargeInt.toInt argc)
       end
     fun keySnooperRemove snooperHandlerId = (FFI.UInt.C.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
@@ -2943,7 +2945,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GtkArrowType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2974,7 +2976,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3001,7 +3003,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3034,7 +3036,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3061,7 +3063,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3087,7 +3089,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GtkExpanderStyle.C.withVal
@@ -3111,7 +3113,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3140,7 +3142,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3166,7 +3168,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3192,7 +3194,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3220,7 +3222,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3244,7 +3246,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
@@ -3269,7 +3271,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3295,7 +3297,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GdkWindowEdge.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3323,7 +3325,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3350,7 +3352,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3383,7 +3385,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3411,7 +3413,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3439,7 +3441,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3465,7 +3467,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -3498,7 +3500,7 @@ structure Gtk : GTK =
            & settings
         )
     fun propagateEvent widget event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) propagateEvent_ (widget & event)
-    fun rcAddDefaultFile filename = (Utf8.C.withConstPtr ---> I) rcAddDefaultFile_ filename
+    fun rcAddDefaultFile filename = (Utf8.C.withPtr ---> I) rcAddDefaultFile_ filename
     fun rcGetStyle widget = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) rcGetStyle_ widget
     fun recentChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) recentChooserErrorQuark_ ()
     fun recentManagerErrorQuark () = (I ---> GLibQuark.C.fromVal) recentManagerErrorQuark_ ()
@@ -3904,7 +3906,7 @@ structure Gtk : GTK =
     fun showUri screen uri timestamp =
       (
         GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -3918,12 +3920,12 @@ structure Gtk : GTK =
         )
     fun stockLookup stockId =
       let
-        val item & retVal = (Utf8.C.withConstPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
+        val item & retVal = (Utf8.C.withPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
       end
-    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) testSliderGetValue_ widget
     fun testSliderSetPerc widget percentage = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) testSliderSetPerc_ (widget & percentage)
@@ -3941,7 +3943,7 @@ structure Gtk : GTK =
            & upwards
         )
     fun testTextGet widget = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) testTextGet_ widget
-    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) testTextSet_ (widget & string)
+    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) testTextSet_ (widget & string)
     fun testWidgetClick widget button modifiers =
       (
         GObjectObjectClass.C.withPtr

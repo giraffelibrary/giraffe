@@ -24,8 +24,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_comments" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -39,8 +39,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_copyright" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -54,8 +54,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_license" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -71,8 +71,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_logo_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -86,8 +86,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_program_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -101,8 +101,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_translator_credits" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -116,8 +116,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_version" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -131,8 +131,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_website" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -146,8 +146,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_website_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -176,17 +176,17 @@ structure GtkAboutDialog :>
     fun getWebsite self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWebsite_ self
     fun getWebsiteLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWebsiteLabel_ self
     fun getWrapLicense self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getWrapLicense_ self
-    fun setComments self comments = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setComments_ (self & comments)
-    fun setCopyright self copyright = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setCopyright_ (self & copyright)
-    fun setLicense self license = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLicense_ (self & license)
+    fun setComments self comments = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setComments_ (self & comments)
+    fun setCopyright self copyright = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setCopyright_ (self & copyright)
+    fun setLicense self license = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLicense_ (self & license)
     fun setLicenseType self licenseType = (GObjectObjectClass.C.withPtr &&&> GtkLicense.C.withVal ---> I) setLicenseType_ (self & licenseType)
     fun setLogo self logo = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLogo_ (self & logo)
-    fun setLogoIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLogoIconName_ (self & iconName)
-    fun setProgramName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setProgramName_ (self & name)
-    fun setTranslatorCredits self translatorCredits = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTranslatorCredits_ (self & translatorCredits)
-    fun setVersion self version = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setVersion_ (self & version)
-    fun setWebsite self website = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setWebsite_ (self & website)
-    fun setWebsiteLabel self websiteLabel = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setWebsiteLabel_ (self & websiteLabel)
+    fun setLogoIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLogoIconName_ (self & iconName)
+    fun setProgramName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setProgramName_ (self & name)
+    fun setTranslatorCredits self translatorCredits = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslatorCredits_ (self & translatorCredits)
+    fun setVersion self version = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setVersion_ (self & version)
+    fun setWebsite self website = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setWebsite_ (self & website)
+    fun setWebsiteLabel self websiteLabel = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWebsiteLabel_ (self & websiteLabel)
     fun setWrapLicense self wrapLicense = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setWrapLicense_ (self & wrapLicense)
     local
       open ClosureMarshal Signal

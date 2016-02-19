@@ -54,8 +54,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_custom_tab_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -72,8 +72,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_export_filename" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -88,8 +88,8 @@ structure GtkPrintOperation :>
           (
             _import "mlton_gtk_print_operation_set_job_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -148,13 +148,13 @@ structure GtkPrintOperation :>
         )
     fun setAllowAsync self allowAsync = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowAsync_ (self & allowAsync)
     fun setCurrentPage self currentPage = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentPage_ (self & currentPage)
-    fun setCustomTabLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setCustomTabLabel_ (self & label)
+    fun setCustomTabLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setCustomTabLabel_ (self & label)
     fun setDefaultPageSetup self defaultPageSetup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
     fun setDeferDrawing self = (GObjectObjectClass.C.withPtr ---> I) setDeferDrawing_ self
     fun setEmbedPageSetup self embed = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEmbedPageSetup_ (self & embed)
-    fun setExportFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setExportFilename_ (self & filename)
+    fun setExportFilename self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setExportFilename_ (self & filename)
     fun setHasSelection self hasSelection = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasSelection_ (self & hasSelection)
-    fun setJobName self jobName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setJobName_ (self & jobName)
+    fun setJobName self jobName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setJobName_ (self & jobName)
     fun setNPages self nPages = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setNPages_ (self & nPages)
     fun setPrintSettings self printSettings = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPrintSettings_ (self & printSettings)
     fun setShowProgress self showProgress = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowProgress_ (self & showProgress)

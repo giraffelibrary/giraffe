@@ -11,8 +11,8 @@ structure AtkImage :>
           (
             _import "mlton_atk_image_set_image_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -25,5 +25,5 @@ structure AtkImage :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getImageDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageDescription_ self
     fun getImageLocale self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageLocale_ self
-    fun setImageDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setImageDescription_ (self & description)
+    fun setImageDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setImageDescription_ (self & description)
   end

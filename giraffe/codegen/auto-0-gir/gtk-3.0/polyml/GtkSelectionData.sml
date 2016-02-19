@@ -47,7 +47,7 @@ structure GtkSelectionData :>
     fun setText self str len =
       (
         GtkSelectionDataRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )

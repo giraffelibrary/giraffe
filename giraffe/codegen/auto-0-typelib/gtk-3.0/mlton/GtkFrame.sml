@@ -6,7 +6,7 @@ structure GtkFrame :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_frame_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_frame_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getLabel_ = _import "gtk_frame_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getLabelAlign_ =
       fn
@@ -33,8 +33,8 @@ structure GtkFrame :>
           (
             _import "mlton_gtk_frame_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -69,7 +69,7 @@ structure GtkFrame :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withConstPtr ---> GtkFrameClass.C.fromPtr false) new_ label
+    fun new label = (Utf8.C.withPtr ---> GtkFrameClass.C.fromPtr false) new_ label
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelAlign self =
       let
@@ -95,7 +95,7 @@ structure GtkFrame :>
       end
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
     fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
     fun setLabelAlign self xalign yalign =
       (
         GObjectObjectClass.C.withPtr

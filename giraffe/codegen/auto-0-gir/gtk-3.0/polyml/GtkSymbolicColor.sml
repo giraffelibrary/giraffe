@@ -48,7 +48,7 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
+    fun newName name = (Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
     fun newShade color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let

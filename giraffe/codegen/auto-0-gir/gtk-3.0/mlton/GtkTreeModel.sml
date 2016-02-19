@@ -35,8 +35,8 @@ structure GtkTreeModel :>
             _import "mlton_gtk_tree_model_get_iter_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -219,7 +219,7 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIterFromString_

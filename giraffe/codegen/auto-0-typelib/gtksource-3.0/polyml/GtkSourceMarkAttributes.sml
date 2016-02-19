@@ -61,9 +61,9 @@ structure GtkSourceMarkAttributes :>
         )
     fun setBackground self background = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackground_ (self & background)
     fun setGicon self gicon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & gicon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setStockId_ (self & stockId)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStockId_ (self & stockId)
     local
       open ClosureMarshal Signal
     in

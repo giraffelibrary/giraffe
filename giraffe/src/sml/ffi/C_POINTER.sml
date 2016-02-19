@@ -37,7 +37,7 @@ signature C_POINTER =
      *
      * The type `t` is an abbreviation for a non-null pointer.
      *)
-    type notnull
+    eqtype notnull
     type t = notnull p
 
     (**

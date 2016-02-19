@@ -13,14 +13,14 @@ structure GtkRadioAction :>
          & x9 =>
           (
             _import "mlton_gtk_radio_action_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -45,10 +45,10 @@ structure GtkRadioAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int32.C.withVal
          ---> GtkRadioActionClass.C.fromPtr true
       )

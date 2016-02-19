@@ -79,7 +79,7 @@ structure GtkScale :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> GtkPositionType.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         addMark_

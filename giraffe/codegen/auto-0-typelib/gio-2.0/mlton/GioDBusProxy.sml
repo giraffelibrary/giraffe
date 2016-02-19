@@ -31,12 +31,12 @@ structure GioDBusProxy :>
               GioBusType.C.val_
                * GioDBusProxyFlags.C.val_
                * unit GioDBusInterfaceInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -69,12 +69,12 @@ structure GioDBusProxy :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GioDBusProxyFlags.C.val_
                * unit GioDBusInterfaceInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -121,8 +121,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_call_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
                * FFI.Int32.C.val_
@@ -174,8 +174,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_call_with_unix_fd_list_sync" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantRecord.C.p
                * GioDBusCallFlags.C.val_
                * FFI.Int32.C.val_
@@ -203,8 +203,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_get_cached_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -228,8 +228,8 @@ structure GioDBusProxy :>
           (
             _import "mlton_g_dbus_proxy_set_cached_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantRecord.C.p
                -> unit;
           )
@@ -265,9 +265,9 @@ structure GioDBusProxy :>
         GioBusType.C.withVal
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -288,9 +288,9 @@ structure GioDBusProxy :>
         GObjectObjectClass.C.withPtr
          &&&> GioDBusProxyFlags.C.withVal
          &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioDBusProxyClass.C.fromPtr true
@@ -322,7 +322,7 @@ structure GioDBusProxy :>
     fun callSync self methodName parameters flags timeoutMsec cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -365,7 +365,7 @@ structure GioDBusProxy :>
         val outFdList & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
              &&&> FFI.Int32.C.withVal
@@ -390,7 +390,7 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
+    fun getCachedProperty self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getDefaultTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusProxyFlags.C.fromVal) getFlags_ self
@@ -402,7 +402,7 @@ structure GioDBusProxy :>
     fun setCachedProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
       )

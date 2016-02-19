@@ -44,7 +44,7 @@ structure GtkProgressBar :>
     fun setInverted self inverted = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInverted_ (self & inverted)
     fun setPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPulseStep_ (self & fraction)
     fun setShowText self showText = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowText_ (self & showText)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setText_ (self & text)
     local
       open Property
     in

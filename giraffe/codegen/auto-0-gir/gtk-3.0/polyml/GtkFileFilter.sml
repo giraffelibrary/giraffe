@@ -26,11 +26,11 @@ structure GtkFileFilter :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkFileFilterClass.C.fromPtr false) new_ ()
-    fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addMimeType_ (self & mimeType)
-    fun addPattern self pattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addPattern_ (self & pattern)
+    fun addMimeType self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addMimeType_ (self & mimeType)
+    fun addPattern self pattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GObjectObjectClass.C.withPtr ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GObjectObjectClass.C.withPtr &&&> GtkFileFilterInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) filter_ (self & filterInfo)
     fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getNeeded self = (GObjectObjectClass.C.withPtr ---> GtkFileFilterFlags.C.fromVal) getNeeded_ self
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setName_ (self & name)
   end

@@ -70,8 +70,8 @@ structure PangoRenderer :>
           (
             _import "mlton_pango_renderer_draw_glyph_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -280,7 +280,7 @@ structure PangoRenderer :>
     fun drawGlyphItem self text glyphItem x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal

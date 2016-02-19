@@ -94,7 +94,7 @@ structure GtkAccelGroup :>
     fun connectByPath self accelPath closure =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectClosureRecord.C.withPtr
          ---> I
       )

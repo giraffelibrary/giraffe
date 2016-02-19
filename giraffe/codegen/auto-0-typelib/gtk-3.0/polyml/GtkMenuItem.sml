@@ -39,8 +39,8 @@ structure GtkMenuItem :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkMenuItemClass.C.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.C.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.C.withConstPtr ---> GtkMenuItemClass.C.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.C.withPtr ---> GtkMenuItemClass.C.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.C.withPtr ---> GtkMenuItemClass.C.fromPtr false) newWithMnemonic_ label
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun deselect self = (GObjectObjectClass.C.withPtr ---> I) deselect_ self
     fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getAccelPath_ self
@@ -49,8 +49,8 @@ structure GtkMenuItem :>
     fun getSubmenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getSubmenu_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
     fun select self = (GObjectObjectClass.C.withPtr ---> I) select_ self
-    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
     fun setReserveIndicator self reserve = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReserveIndicator_ (self & reserve)
     fun setSubmenu self submenu = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setSubmenu_ (self & submenu)
     fun setUseUnderline self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & setting)

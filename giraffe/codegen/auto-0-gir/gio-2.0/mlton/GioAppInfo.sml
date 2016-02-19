@@ -14,10 +14,10 @@ structure GioAppInfo :>
          & x6 =>
           (
             _import "mlton_g_app_info_create_from_commandline" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * GioAppInfoCreateFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -35,8 +35,8 @@ structure GioAppInfo :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_app_info_get_default_for_type" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -45,7 +45,7 @@ structure GioAppInfo :>
               x2,
               x3
             )
-    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val launchDefaultForUri_ =
       fn
         (x1, x2)
@@ -53,8 +53,8 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_launch_default_for_uri" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -65,7 +65,7 @@ structure GioAppInfo :>
               x3,
               x4
             )
-    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val addSupportsType_ =
       fn
         x1
@@ -74,8 +74,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_add_supports_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -105,8 +105,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_remove_supports_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -124,8 +124,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_default_for_extension" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -143,8 +143,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_default_for_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -162,8 +162,8 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_set_as_last_used_for_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -184,8 +184,8 @@ structure GioAppInfo :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
@@ -197,11 +197,11 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
-    fun getDefaultForUriScheme uriScheme = (Utf8.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
+    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForUriScheme uriScheme = (Utf8.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
     fun launchDefaultForUri uri launchContext =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -212,11 +212,11 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
-    fun resetTypeAssociations contentType = (Utf8.C.withConstPtr ---> I) resetTypeAssociations_ contentType
+    fun resetTypeAssociations contentType = (Utf8.C.withPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -241,7 +241,7 @@ structure GioAppInfo :>
     fun removeSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -254,7 +254,7 @@ structure GioAppInfo :>
     fun setAsDefaultForExtension self extension =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -267,7 +267,7 @@ structure GioAppInfo :>
     fun setAsDefaultForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -280,7 +280,7 @@ structure GioAppInfo :>
     fun setAsLastUsedForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

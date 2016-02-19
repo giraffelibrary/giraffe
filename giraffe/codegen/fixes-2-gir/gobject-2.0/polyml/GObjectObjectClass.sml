@@ -18,8 +18,8 @@ structure GObjectObjectClass :>
 
     val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
     val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val OUTREF = CPointer.PolyML.cRefOut : (unit, notnull) r PolyMLFFI.conversion
-    val INOUTREF = CPointer.PolyML.cRefInOut : (notnull, notnull) r PolyMLFFI.conversion
+    val OUTREF = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
+    val INOUTREF = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
 
     fun initDebugFlags () =
       if GiraffeDebug.isEnabled

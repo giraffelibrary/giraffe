@@ -63,8 +63,8 @@ structure GioDBusMethodInvocation :>
     fun returnDbusError self errorName errorMessage =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         returnDbusError_
@@ -78,7 +78,7 @@ structure GioDBusMethodInvocation :>
         GObjectObjectClass.C.withPtr
          &&&> GLibQuark.C.withVal
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         returnErrorLiteral_

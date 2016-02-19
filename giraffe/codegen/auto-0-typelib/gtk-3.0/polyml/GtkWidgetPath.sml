@@ -143,7 +143,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterAddClass_
@@ -156,7 +156,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -176,7 +176,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasClass_
@@ -189,7 +189,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasName_
@@ -250,7 +250,7 @@ structure GtkWidgetPath :>
           (
             GtkWidgetPathRecord.C.withPtr
              &&&> FFI.Int32.C.withVal
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -268,7 +268,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterRemoveClass_
@@ -281,7 +281,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterRemoveRegion_
@@ -294,7 +294,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterSetName_

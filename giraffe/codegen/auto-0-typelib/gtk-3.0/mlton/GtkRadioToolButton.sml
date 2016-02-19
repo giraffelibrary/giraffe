@@ -12,8 +12,8 @@ structure GtkRadioToolButton :>
           (
             _import "mlton_gtk_radio_tool_button_new_with_stock_from_widget" :
               unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -30,7 +30,7 @@ structure GtkRadioToolButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromWidget group = (GObjectObjectClass.C.withOptPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newFromWidget_ group
-    fun newWithStockFromWidget group stockId = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withConstPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newWithStockFromWidget_ (group & stockId)
+    fun newWithStockFromWidget group stockId = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withPtr ---> GtkRadioToolButtonClass.C.fromPtr false) newWithStockFromWidget_ (group & stockId)
     local
       open Property
     in

@@ -14,8 +14,8 @@ structure GtkTextTagTable :>
           (
             _import "mlton_gtk_text_tag_table_lookup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -33,7 +33,7 @@ structure GtkTextTagTable :>
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()
     fun add self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & tag)
     fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
-    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
+    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
     fun remove self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal

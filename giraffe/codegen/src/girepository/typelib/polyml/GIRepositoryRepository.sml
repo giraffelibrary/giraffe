@@ -42,7 +42,7 @@ structure GIRepositoryRepository :>
           (load_sym libgirepository "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.PTR
             &&> Utf8.PolyML.INPTR
-            --> Utf8Vector.PolyML.RETOPTPTR)
+            --> Utf8CVector.PolyML.RETOPTPTR)
 
       val getNInfos_ =
         call
@@ -114,13 +114,13 @@ structure GIRepositoryRepository :>
         (repository & typelib & flags & [])
 
     fun prependSearchPath directory =
-      (Utf8.C.withConstPtr ---> I) prependSearchPath_ directory
+      (Utf8.C.withPtr ---> I) prependSearchPath_ directory
 
     fun require1 repository namespace_ version flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GIRepositoryTypelibType.C.fromPtr false
@@ -131,8 +131,8 @@ structure GIRepositoryRepository :>
     fun getDependencies1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         ---> Utf8Vector.C.fromOptPtr true
+         &&&> Utf8.C.withPtr
+         ---> Utf8CVector.C.fromOptPtr true
       )
         getDependencies_
         (repository & namespace_)
@@ -140,7 +140,7 @@ structure GIRepositoryRepository :>
     fun getNInfos1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Int32.C.fromVal
       )
         getNInfos_
@@ -149,7 +149,7 @@ structure GIRepositoryRepository :>
     fun getInfo1 repository namespace_ index =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> GIRepositoryBaseInfoClass.C.fromPtr true
       )
@@ -159,7 +159,7 @@ structure GIRepositoryRepository :>
     fun getSharedLibrary1 repository namespace =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> Utf8.C.fromOptPtr false
       )
         getSharedLibrary_
@@ -168,7 +168,7 @@ structure GIRepositoryRepository :>
     fun getVersion1 repository namespace =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> Utf8.C.fromOptPtr false
       )
         getVersion_
@@ -177,7 +177,7 @@ structure GIRepositoryRepository :>
     fun getCPrefix1 repository namespace_ =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> Utf8.C.fromOptPtr false
       )
         getCPrefix_

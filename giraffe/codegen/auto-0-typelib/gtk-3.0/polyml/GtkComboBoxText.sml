@@ -65,8 +65,8 @@ structure GtkComboBoxText :>
     fun append self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         append_
@@ -75,14 +75,14 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) appendText_ (self & text)
+    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendText_ (self & text)
     fun getActiveText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getActiveText_ self
     fun insert self position id text =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         insert_
@@ -96,7 +96,7 @@ structure GtkComboBoxText :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         insertText_
@@ -108,8 +108,8 @@ structure GtkComboBoxText :>
     fun prepend self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         prepend_
@@ -118,7 +118,7 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) prependText_ (self & text)
+    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependText_ (self & text)
     fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) remove_ (self & position)
     fun removeAll self = (GObjectObjectClass.C.withPtr ---> I) removeAll_ self
   end

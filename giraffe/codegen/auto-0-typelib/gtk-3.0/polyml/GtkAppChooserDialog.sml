@@ -59,7 +59,7 @@ structure GtkAppChooserDialog :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> GtkDialogFlags.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> GtkAppChooserDialogClass.C.fromPtr false
       )
         newForContentType_
@@ -70,7 +70,7 @@ structure GtkAppChooserDialog :>
         )
     fun getHeading self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
     local
       open Property
     in

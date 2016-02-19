@@ -12,8 +12,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_append_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,8 +28,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_get_scheme" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -43,8 +43,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_prepend_search_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -58,8 +58,8 @@ structure GtkSourceStyleSchemeManager :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr false) getDefault_ ()
-    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) appendSearchPath_ (self & path)
+    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendSearchPath_ (self & path)
     fun forceRescan self = (GObjectObjectClass.C.withPtr ---> I) forceRescan_ self
-    fun getScheme self schemeId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getScheme_ (self & schemeId)
-    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) prependSearchPath_ (self & path)
+    fun getScheme self schemeId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getScheme_ (self & schemeId)
+    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependSearchPath_ (self & path)
   end

@@ -23,11 +23,11 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_double_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -47,11 +47,11 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_long_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -70,8 +70,8 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_property_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkSettingsValueRecord.C.notnull GtkSettingsValueRecord.C.p
                -> unit;
           )
@@ -90,12 +90,12 @@ structure GtkSettings :>
           (
             _import "mlton_gtk_settings_set_string_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -125,9 +125,9 @@ structure GtkSettings :>
     fun setDoubleProperty self name vDouble origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setDoubleProperty_
@@ -140,9 +140,9 @@ structure GtkSettings :>
     fun setLongProperty self name vLong origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int64.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setLongProperty_
@@ -155,7 +155,7 @@ structure GtkSettings :>
     fun setPropertyValue self name svalue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkSettingsValueRecord.C.withPtr
          ---> I
       )
@@ -168,9 +168,9 @@ structure GtkSettings :>
     fun setStringProperty self name vString origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setStringProperty_

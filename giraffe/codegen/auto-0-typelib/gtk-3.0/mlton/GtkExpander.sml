@@ -5,8 +5,8 @@ structure GtkExpander :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_expander_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_expander_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_expander_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getExpanded_ = _import "gtk_expander_get_expanded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getLabel_ = _import "gtk_expander_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getLabelFill_ = _import "gtk_expander_get_label_fill" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -22,8 +22,8 @@ structure GtkExpander :>
           (
             _import "mlton_gtk_expander_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -44,8 +44,8 @@ structure GtkExpander :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withConstPtr ---> GtkExpanderClass.C.fromPtr false) new_ label
-    fun newWithMnemonic label = (Utf8.C.withConstOptPtr ---> GtkExpanderClass.C.fromPtr false) newWithMnemonic_ label
+    fun new label = (Utf8.C.withPtr ---> GtkExpanderClass.C.fromPtr false) new_ label
+    fun newWithMnemonic label = (Utf8.C.withOptPtr ---> GtkExpanderClass.C.fromPtr false) newWithMnemonic_ label
     fun getExpanded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpanded_ self
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelFill self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLabelFill_ self
@@ -55,7 +55,7 @@ structure GtkExpander :>
     fun getUseMarkup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
     fun setExpanded self expanded = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExpanded_ (self & expanded)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
     fun setLabelFill self labelFill = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLabelFill_ (self & labelFill)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
     fun setResizeToplevel self resizeToplevel = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizeToplevel_ (self & resizeToplevel)

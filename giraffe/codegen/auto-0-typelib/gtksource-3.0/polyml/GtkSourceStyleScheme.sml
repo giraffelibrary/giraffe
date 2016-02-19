@@ -21,7 +21,7 @@ structure GtkSourceStyleScheme :>
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
     fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
     fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getStyle self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
+    fun getStyle self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
     local
       open Property
     in

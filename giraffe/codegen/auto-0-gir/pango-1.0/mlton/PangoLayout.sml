@@ -183,8 +183,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -204,8 +204,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_markup_with_accel" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                * FFI.Char.C.val_
                * FFI.Char.C.ref_
@@ -230,8 +230,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -472,7 +472,7 @@ structure PangoLayout :>
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -487,7 +487,7 @@ structure PangoLayout :>
         val accelChar & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> FFI.Char.C.withRefVal
@@ -510,7 +510,7 @@ structure PangoLayout :>
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

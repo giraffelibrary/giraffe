@@ -40,8 +40,8 @@ structure GLibSource :>
     fun isDestroyed self = (GLibSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) isDestroyed_ self
     fun removeChildSource self childSource = (GLibSourceRecord.C.withPtr &&&> GLibSourceRecord.C.withPtr ---> I) removeChildSource_ (self & childSource)
     fun setCanRecurse self canRecurse = (GLibSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanRecurse_ (self & canRecurse)
-    fun setName self name = (GLibSourceRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GLibSourceRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun setPriority self priority = (GLibSourceRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPriority_ (self & priority)
     fun remove tag = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) remove_ tag
-    fun setNameById tag name = (FFI.UInt32.C.withVal &&&> Utf8.C.withConstPtr ---> I) setNameById_ (tag & name)
+    fun setNameById tag name = (FFI.UInt32.C.withVal &&&> Utf8.C.withPtr ---> I) setNameById_ (tag & name)
   end

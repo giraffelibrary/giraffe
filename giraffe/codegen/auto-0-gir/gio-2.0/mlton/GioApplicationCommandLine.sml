@@ -13,8 +13,8 @@ structure GioApplicationCommandLine :>
           (
             _import "mlton_g_application_command_line_getenv" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -30,7 +30,7 @@ structure GioApplicationCommandLine :>
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getExitStatus_ self
     fun getIsRemote self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRemote_ self
     fun getPlatformData self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getPlatformData_ self
-    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getenv_ (self & name)
+    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getenv_ (self & name)
     fun setExitStatus self exitStatus = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
       open Property

@@ -27,7 +27,7 @@ structure GtkTreePath :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.C.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.C.fromPtr true) newFirst_ ()
-    fun newFromString path = (Utf8.C.withConstPtr ---> GtkTreePathRecord.C.fromPtr true) newFromString_ path
+    fun newFromString path = (Utf8.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) newFromString_ path
     fun appendIndex self index = (GtkTreePathRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) appendIndex_ (self & index)
     fun compare self b = (GtkTreePathRecord.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Int.C.fromVal) compare_ (self & b)
     fun copy self = (GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) copy_ self

@@ -10,8 +10,8 @@ structure GioAppLaunchContext :>
           (
             _import "mlton_g_app_launch_context_launch_failed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -23,5 +23,5 @@ structure GioAppLaunchContext :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioAppLaunchContextClass.C.fromPtr true) new_ ()
-    fun launchFailed self startupNotifyId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) launchFailed_ (self & startupNotifyId)
+    fun launchFailed self startupNotifyId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) launchFailed_ (self & startupNotifyId)
   end

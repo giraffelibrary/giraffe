@@ -191,8 +191,8 @@ structure GtkNotebook :>
           (
             _import "mlton_gtk_notebook_set_group_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -226,8 +226,8 @@ structure GtkNotebook :>
             _import "mlton_gtk_notebook_set_menu_label_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -282,8 +282,8 @@ structure GtkNotebook :>
             _import "mlton_gtk_notebook_set_tab_label_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -460,7 +460,7 @@ structure GtkNotebook :>
            & packType
         )
     fun setCurrentPage self pageNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCurrentPage_ (self & pageNum)
-    fun setGroupName self groupName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setGroupName_ (self & groupName)
+    fun setGroupName self groupName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setGroupName_ (self & groupName)
     fun setMenuLabel self child menuLabel =
       (
         GObjectObjectClass.C.withPtr
@@ -478,7 +478,7 @@ structure GtkNotebook :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setMenuLabelText_
@@ -520,7 +520,7 @@ structure GtkNotebook :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setTabLabelText_

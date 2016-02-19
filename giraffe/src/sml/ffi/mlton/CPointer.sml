@@ -29,10 +29,10 @@ structure CPointer =
     fun mapOpt f = fromOpt o Option.map f o toOpt
     fun appOpt f = Option.app f o toOpt
 
-    val fromVal = I
+    val fromVal = Fn.id
     val fromOptVal = toOpt
 
-    val withVal = I
+    val withVal = Fn.id
     fun withOptVal f = withVal f o fromOpt
 
     type ('a, 'b) r = MLton.Pointer.t ref
@@ -55,9 +55,16 @@ structure CPointer =
     structure Type =
       struct
         type t = MLton.Pointer.t
+        val null = MLton.Pointer.null
         val size = MLton.Pointer.sizeofPointer
+        type p = MLton.Pointer.t
         val get = MLton.Pointer.getPointer
         val set = MLton.Pointer.setPointer
+
+        val malloc_ = _import "g_malloc" : C_Size.t -> t;
+        val free_ = _import "g_free" : t -> unit;
+        fun malloc n = malloc_ (C_Size.fromInt n)
+        val free = free_
       end
     structure NotNullType = Type
     structure OptNullType = Type

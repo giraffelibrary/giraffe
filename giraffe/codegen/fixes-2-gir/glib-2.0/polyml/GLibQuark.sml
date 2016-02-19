@@ -18,6 +18,6 @@ structure GLibQuark :>
       val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.VAL --> Utf8.PolyML.RETPTR)
     end
 
-    fun fromString string = (Utf8.C.withConstPtr ---> C.fromVal) fromString_ string
+    fun fromString string = (Utf8.C.withPtr ---> C.fromVal) fromString_ string
     fun toString quark = (C.withVal ---> Utf8.C.fromPtr false) toString_ quark
   end

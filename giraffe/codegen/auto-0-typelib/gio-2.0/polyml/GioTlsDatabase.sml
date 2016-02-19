@@ -90,7 +90,7 @@ structure GioTlsDatabase :>
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -155,7 +155,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal

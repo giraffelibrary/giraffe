@@ -12,8 +12,8 @@ structure GioApplication :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_application_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GioApplicationFlags.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -22,7 +22,7 @@ structure GioApplication :>
               x2,
               x3
             )
-    val idIsValid_ = _import "mlton_g_application_id_is_valid" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> FFI.Bool.C.val_;
+    val idIsValid_ = _import "mlton_g_application_id_is_valid" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> FFI.Bool.C.val_;
     val activate_ = _import "g_application_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val getApplicationId_ = _import "g_application_get_application_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getFlags_ = _import "g_application_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioApplicationFlags.C.val_;
@@ -55,8 +55,8 @@ structure GioApplication :>
           (
             _import "mlton_g_application_set_application_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -74,8 +74,8 @@ structure GioApplication :>
     type t = base class_t
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new applicationId flags = (Utf8.C.withConstPtr &&&> GioApplicationFlags.C.withVal ---> GioApplicationClass.C.fromPtr true) new_ (applicationId & flags)
-    fun idIsValid applicationId = (Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) idIsValid_ applicationId
+    fun new applicationId flags = (Utf8.C.withPtr &&&> GioApplicationFlags.C.withVal ---> GioApplicationClass.C.fromPtr true) new_ (applicationId & flags)
+    fun idIsValid applicationId = (Utf8.C.withPtr ---> FFI.Bool.C.fromVal) idIsValid_ applicationId
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun getApplicationId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getApplicationId_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioApplicationFlags.C.fromVal) getFlags_ self
@@ -98,7 +98,7 @@ structure GioApplication :>
         )
     fun release self = (GObjectObjectClass.C.withPtr ---> I) release_ self
     fun setActionGroup self actionGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setActionGroup_ (self & actionGroup)
-    fun setApplicationId self applicationId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setApplicationId_ (self & applicationId)
+    fun setApplicationId self applicationId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setApplicationId_ (self & applicationId)
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioApplicationFlags.C.withVal ---> I) setFlags_ (self & flags)
     fun setInactivityTimeout self inactivityTimeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
     local

@@ -5,7 +5,7 @@ structure GtkAccelLabel :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_accel_label_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_accel_label_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_accel_label_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAccelWidget_ = _import "gtk_accel_label_get_accel_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getAccelWidth_ = _import "gtk_accel_label_get_accel_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
     val refetch_ = _import "gtk_accel_label_refetch" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -18,7 +18,7 @@ structure GtkAccelLabel :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new string = (Utf8.C.withConstPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
+    fun new string = (Utf8.C.withPtr ---> GtkAccelLabelClass.C.fromPtr false) new_ string
     fun getAccelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAccelWidget_ self
     fun getAccelWidth self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getAccelWidth_ self
     fun refetch self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) refetch_ self

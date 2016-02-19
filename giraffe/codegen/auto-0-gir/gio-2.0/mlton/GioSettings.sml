@@ -5,14 +5,14 @@ structure GioSettings :>
     where type settings_bind_flags_t = GioSettingsBindFlags.t =
   struct
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_g_settings_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_g_settings_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithBackend_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_settings_new_with_backend" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GioSettingsBackendRecord.C.notnull GioSettingsBackendRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -28,11 +28,11 @@ structure GioSettings :>
          & (x4, x5) =>
           (
             _import "mlton_g_settings_new_with_backend_and_path" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GioSettingsBackendRecord.C.notnull GioSettingsBackendRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -47,10 +47,10 @@ structure GioSettings :>
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_settings_new_with_path" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -71,11 +71,11 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_bind" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GioSettingsBindFlags.C.val_
                -> unit;
           )
@@ -98,11 +98,11 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_bind_writable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -122,8 +122,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -137,8 +137,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -152,8 +152,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -167,8 +167,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_enum" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Int.C.val_;
           )
             (
@@ -182,8 +182,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_flags" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.UInt.C.val_;
           )
             (
@@ -198,8 +198,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Int.C.val_;
           )
             (
@@ -213,8 +213,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_range" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -228,8 +228,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -243,8 +243,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_uint" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.UInt.C.val_;
           )
             (
@@ -258,8 +258,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_get_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
           )
             (
@@ -273,8 +273,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_is_writable" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -290,8 +290,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_range_check" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -307,8 +307,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_reset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -325,8 +325,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_boolean" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -344,8 +344,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -363,8 +363,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_enum" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -382,8 +382,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_flags" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -401,8 +401,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -420,10 +420,10 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -441,8 +441,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_uint" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -460,8 +460,8 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_set_value" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -476,13 +476,13 @@ structure GioSettings :>
     type settings_bind_flags_t = GioSettingsBindFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new schema = (Utf8.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) new_ schema
-    fun newWithBackend schema backend = (Utf8.C.withConstPtr &&&> GioSettingsBackendRecord.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithBackend_ (schema & backend)
+    fun new schema = (Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) new_ schema
+    fun newWithBackend schema backend = (Utf8.C.withPtr &&&> GioSettingsBackendRecord.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithBackend_ (schema & backend)
     fun newWithBackendAndPath schema backend path =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GioSettingsBackendRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> GioSettingsClass.C.fromPtr true
       )
         newWithBackendAndPath_
@@ -491,15 +491,15 @@ structure GioSettings :>
            & backend
            & path
         )
-    fun newWithPath schema path = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) newWithPath_ (schema & path)
+    fun newWithPath schema path = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithPath_ (schema & path)
     fun sync () = (I ---> I) sync_ ()
     fun apply self = (GObjectObjectClass.C.withPtr ---> I) apply_ self
     fun bind self key object property flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GioSettingsBindFlags.C.withVal
          ---> I
       )
@@ -514,9 +514,9 @@ structure GioSettings :>
     fun bindWritable self key object property inverted =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -529,22 +529,22 @@ structure GioSettings :>
            & inverted
         )
     fun delay self = (GObjectObjectClass.C.withPtr ---> I) delay_ self
-    fun getBoolean self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getBoolean_ (self & key)
-    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioSettingsClass.C.fromPtr true) getChild_ (self & name)
-    fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Double.C.fromVal) getDouble_ (self & key)
-    fun getEnum self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) getEnum_ (self & key)
-    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt.C.fromVal) getFlags_ (self & key)
+    fun getBoolean self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getBoolean_ (self & key)
+    fun getChild self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) getChild_ (self & name)
+    fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Double.C.fromVal) getDouble_ (self & key)
+    fun getEnum self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getEnum_ (self & key)
+    fun getFlags self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt.C.fromVal) getFlags_ (self & key)
     fun getHasUnapplied self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasUnapplied_ self
-    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) getInt_ (self & key)
-    fun getRange self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getRange_ (self & key)
-    fun getString self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) getString_ (self & key)
-    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt.C.fromVal) getUint_ (self & key)
-    fun getValue self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibVariantRecord.C.fromPtr true) getValue_ (self & key)
-    fun isWritable self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) isWritable_ (self & name)
+    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getInt_ (self & key)
+    fun getRange self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getRange_ (self & key)
+    fun getString self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) getString_ (self & key)
+    fun getUint self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt.C.fromVal) getUint_ (self & key)
+    fun getValue self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getValue_ (self & key)
+    fun isWritable self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) isWritable_ (self & name)
     fun rangeCheck self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -554,12 +554,12 @@ structure GioSettings :>
            & key
            & value
         )
-    fun reset self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) reset_ (self & key)
+    fun reset self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) reset_ (self & key)
     fun revert self = (GObjectObjectClass.C.withPtr ---> I) revert_ self
     fun setBoolean self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -572,7 +572,7 @@ structure GioSettings :>
     fun setDouble self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -585,7 +585,7 @@ structure GioSettings :>
     fun setEnum self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -598,7 +598,7 @@ structure GioSettings :>
     fun setFlags self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -611,7 +611,7 @@ structure GioSettings :>
     fun setInt self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -624,8 +624,8 @@ structure GioSettings :>
     fun setString self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         setString_
@@ -637,7 +637,7 @@ structure GioSettings :>
     fun setUint self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -650,7 +650,7 @@ structure GioSettings :>
     fun setValue self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
       )

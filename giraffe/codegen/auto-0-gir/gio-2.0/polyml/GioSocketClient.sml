@@ -118,7 +118,7 @@ structure GioSocketClient :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()
-    fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) addApplicationProxy_ (self & protocol)
+    fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addApplicationProxy_ (self & protocol)
     fun connect self connectable cancellable =
       (
         GObjectObjectClass.C.withPtr
@@ -150,7 +150,7 @@ structure GioSocketClient :>
     fun connectToHost self hostAndPort defaultPort cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
@@ -180,8 +180,8 @@ structure GioSocketClient :>
     fun connectToService self domain service cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
@@ -210,7 +210,7 @@ structure GioSocketClient :>
     fun connectToUri self uri defaultPort cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError

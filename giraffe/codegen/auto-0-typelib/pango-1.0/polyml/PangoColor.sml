@@ -14,6 +14,6 @@ structure PangoColor :>
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoColorRecord.C.withPtr ---> PangoColorRecord.C.fromPtr true) copy_ self
-    fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
+    fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
     fun toString self = (PangoColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

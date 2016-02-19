@@ -52,8 +52,8 @@ structure GtkStyle :>
           (
             _import "mlton_gtk_style_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GdkColorRecord.C.notnull GdkColorRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -69,8 +69,8 @@ structure GtkStyle :>
           (
             _import "mlton_gtk_style_lookup_icon_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (
@@ -95,8 +95,8 @@ structure GtkStyle :>
                * GtkStateType.C.val_
                * FFI.Int32.C.val_
                * unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -166,7 +166,7 @@ structure GtkStyle :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GdkColorRecord.C.withNewPtr
              ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -179,7 +179,7 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
         GObjectObjectClass.C.withPtr
@@ -188,7 +188,7 @@ structure GtkStyle :>
          &&&> GtkStateType.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         renderIcon_

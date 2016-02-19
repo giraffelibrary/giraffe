@@ -115,8 +115,8 @@ structure AtkTable :>
             _import "mlton_atk_table_set_column_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -151,8 +151,8 @@ structure AtkTable :>
             _import "mlton_atk_table_set_row_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -269,7 +269,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setColumnDescription_
@@ -295,7 +295,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setRowDescription_

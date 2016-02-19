@@ -9,8 +9,8 @@ structure GioNetworkAddress :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_network_address_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -26,8 +26,8 @@ structure GioNetworkAddress :>
          & x4 =>
           (
             _import "mlton_g_network_address_parse" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -45,8 +45,8 @@ structure GioNetworkAddress :>
          & x4 =>
           (
             _import "mlton_g_network_address_parse_uri" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -65,10 +65,10 @@ structure GioNetworkAddress :>
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hostname port = (Utf8.C.withConstPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
+    fun new hostname port = (Utf8.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
     fun parse hostAndPort defaultPort =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
@@ -81,7 +81,7 @@ structure GioNetworkAddress :>
         )
     fun parseUri uri defaultPort =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true

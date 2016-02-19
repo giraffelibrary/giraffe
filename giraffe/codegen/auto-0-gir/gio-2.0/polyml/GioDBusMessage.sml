@@ -95,10 +95,10 @@ structure GioDBusMessage :>
     fun new () = (I ---> GioDBusMessageClass.C.fromPtr true) new_ ()
     fun newMethodCall name path interface method =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> GioDBusMessageClass.C.fromPtr true
       )
         newMethodCall_
@@ -110,9 +110,9 @@ structure GioDBusMessage :>
         )
     fun newSignal path interface signal =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> GioDBusMessageClass.C.fromPtr true
       )
         newSignal_
@@ -144,8 +144,8 @@ structure GioDBusMessage :>
     fun newMethodErrorLiteral self errorName errorMessage =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> GioDBusMessageClass.C.fromPtr true
       )
         newMethodErrorLiteral_
@@ -158,8 +158,8 @@ structure GioDBusMessage :>
     fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> Utf8.C.fromPtr true) print_ (self & indent)
     fun setBody self body = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setBody_ (self & body)
     fun setByteOrder self byteOrder = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageByteOrder.C.withVal ---> I) setByteOrder_ (self & byteOrder)
-    fun setDestination self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDestination_ (self & value)
-    fun setErrorName self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setErrorName_ (self & value)
+    fun setDestination self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDestination_ (self & value)
+    fun setErrorName self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setErrorName_ (self & value)
     fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageFlags.C.withVal ---> I) setFlags_ (self & flags)
     fun setHeader self headerField value =
       (
@@ -174,15 +174,15 @@ structure GioDBusMessage :>
            & headerField
            & value
         )
-    fun setInterface self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setInterface_ (self & value)
-    fun setMember self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setMember_ (self & value)
+    fun setInterface self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setInterface_ (self & value)
+    fun setMember self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMember_ (self & value)
     fun setMessageType self type' = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageType.C.withVal ---> I) setMessageType_ (self & type')
     fun setNumUnixFds self value = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setNumUnixFds_ (self & value)
-    fun setPath self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPath_ (self & value)
+    fun setPath self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPath_ (self & value)
     fun setReplySerial self value = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setReplySerial_ (self & value)
-    fun setSender self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setSender_ (self & value)
+    fun setSender self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSender_ (self & value)
     fun setSerial self serial = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setSerial_ (self & serial)
-    fun setSignature self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setSignature_ (self & value)
+    fun setSignature self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSignature_ (self & value)
     fun setUnixFdList self fdList = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUnixFdList_ (self & fdList)
     fun toGerror self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) toGerror_ (self & [])
     local

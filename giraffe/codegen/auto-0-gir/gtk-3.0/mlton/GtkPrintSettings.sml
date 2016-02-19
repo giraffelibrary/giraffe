@@ -17,8 +17,8 @@ structure GtkPrintSettings :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_print_settings_new_from_file" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -35,8 +35,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_new_from_key_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -53,8 +53,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -68,8 +68,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_bool" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -86,8 +86,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Double.C.val_;
           )
             (
@@ -103,8 +103,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_double_with_default" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                -> FFI.Double.C.val_;
           )
@@ -122,8 +122,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Int.C.val_;
           )
             (
@@ -139,8 +139,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_int_with_default" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> FFI.Int.C.val_;
           )
@@ -158,8 +158,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_get_length" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkUnit.C.val_
                -> FFI.Double.C.val_;
           )
@@ -195,8 +195,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_has_key" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -212,8 +212,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_load_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -233,8 +233,8 @@ structure GtkPrintSettings :>
             _import "mlton_gtk_print_settings_load_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -253,10 +253,10 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -274,8 +274,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_bool" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -292,8 +292,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_default_source" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -307,8 +307,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_dither" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -324,8 +324,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_double" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                -> unit;
           )
@@ -342,8 +342,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_finishings" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -359,8 +359,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_int" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -379,8 +379,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_length" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                * GtkUnit.C.val_
                -> unit;
@@ -398,8 +398,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_media_type" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -417,8 +417,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_output_bin" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -469,8 +469,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_printer" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -509,8 +509,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_to_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -529,8 +529,8 @@ structure GtkPrintSettings :>
             _import "mlton_gtk_print_settings_to_key_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -545,8 +545,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_unset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -566,11 +566,11 @@ structure GtkPrintSettings :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.C.fromPtr true) new_ ()
-    fun newFromFile fileName = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GtkPrintSettingsClass.C.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GtkPrintSettingsClass.C.fromPtr true) newFromFile_ (fileName & [])
     fun newFromKeyFile keyFile groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GtkPrintSettingsClass.C.fromPtr true
       )
@@ -581,16 +581,16 @@ structure GtkPrintSettings :>
            & []
         )
     fun copy self = (GObjectObjectClass.C.withPtr ---> GtkPrintSettingsClass.C.fromPtr true) copy_ self
-    fun get self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) get_ (self & key)
-    fun getBool self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getBool_ (self & key)
+    fun get self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) get_ (self & key)
+    fun getBool self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getBool_ (self & key)
     fun getCollate self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCollate_ self
     fun getDefaultSource self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultSource_ self
     fun getDither self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDither_ self
-    fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Double.C.fromVal) getDouble_ (self & key)
+    fun getDouble self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Double.C.fromVal) getDouble_ (self & key)
     fun getDoubleWithDefault self key def =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          ---> FFI.Double.C.fromVal
       )
@@ -602,11 +602,11 @@ structure GtkPrintSettings :>
         )
     fun getDuplex self = (GObjectObjectClass.C.withPtr ---> GtkPrintDuplex.C.fromVal) getDuplex_ self
     fun getFinishings self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFinishings_ self
-    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) getInt_ (self & key)
+    fun getInt self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getInt_ (self & key)
     fun getIntWithDefault self key def =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
       )
@@ -619,7 +619,7 @@ structure GtkPrintSettings :>
     fun getLength self key unit =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkUnit.C.withVal
          ---> FFI.Double.C.fromVal
       )
@@ -649,11 +649,11 @@ structure GtkPrintSettings :>
     fun getReverse self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getReverse_ self
     fun getScale self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getScale_ self
     fun getUseColor self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseColor_ self
-    fun hasKey self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasKey_ (self & key)
+    fun hasKey self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasKey_ (self & key)
     fun loadFile self fileName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -667,7 +667,7 @@ structure GtkPrintSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -681,8 +681,8 @@ structure GtkPrintSettings :>
     fun set self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         set_
@@ -694,7 +694,7 @@ structure GtkPrintSettings :>
     fun setBool self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -705,12 +705,12 @@ structure GtkPrintSettings :>
            & value
         )
     fun setCollate self collate = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCollate_ (self & collate)
-    fun setDefaultSource self defaultSource = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDefaultSource_ (self & defaultSource)
-    fun setDither self dither = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDither_ (self & dither)
+    fun setDefaultSource self defaultSource = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDefaultSource_ (self & defaultSource)
+    fun setDither self dither = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDither_ (self & dither)
     fun setDouble self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          ---> I
       )
@@ -721,11 +721,11 @@ structure GtkPrintSettings :>
            & value
         )
     fun setDuplex self duplex = (GObjectObjectClass.C.withPtr &&&> GtkPrintDuplex.C.withVal ---> I) setDuplex_ (self & duplex)
-    fun setFinishings self finishings = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFinishings_ (self & finishings)
+    fun setFinishings self finishings = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFinishings_ (self & finishings)
     fun setInt self key value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -738,7 +738,7 @@ structure GtkPrintSettings :>
     fun setLength self key value unit =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> GtkUnit.C.withVal
          ---> I
@@ -750,12 +750,12 @@ structure GtkPrintSettings :>
            & value
            & unit
         )
-    fun setMediaType self mediaType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setMediaType_ (self & mediaType)
+    fun setMediaType self mediaType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMediaType_ (self & mediaType)
     fun setNCopies self numCopies = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setNCopies_ (self & numCopies)
     fun setNumberUp self numberUp = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setNumberUp_ (self & numberUp)
     fun setNumberUpLayout self numberUpLayout = (GObjectObjectClass.C.withPtr &&&> GtkNumberUpLayout.C.withVal ---> I) setNumberUpLayout_ (self & numberUpLayout)
     fun setOrientation self orientation = (GObjectObjectClass.C.withPtr &&&> GtkPageOrientation.C.withVal ---> I) setOrientation_ (self & orientation)
-    fun setOutputBin self outputBin = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setOutputBin_ (self & outputBin)
+    fun setOutputBin self outputBin = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setOutputBin_ (self & outputBin)
     fun setPageSet self pageSet = (GObjectObjectClass.C.withPtr &&&> GtkPageSet.C.withVal ---> I) setPageSet_ (self & pageSet)
     fun setPaperHeight self height unit =
       (
@@ -785,7 +785,7 @@ structure GtkPrintSettings :>
            & unit
         )
     fun setPrintPages self pages = (GObjectObjectClass.C.withPtr &&&> GtkPrintPages.C.withVal ---> I) setPrintPages_ (self & pages)
-    fun setPrinter self printer = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPrinter_ (self & printer)
+    fun setPrinter self printer = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPrinter_ (self & printer)
     fun setPrinterLpi self lpi = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPrinterLpi_ (self & lpi)
     fun setQuality self quality = (GObjectObjectClass.C.withPtr &&&> GtkPrintQuality.C.withVal ---> I) setQuality_ (self & quality)
     fun setResolution self resolution = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setResolution_ (self & resolution)
@@ -808,7 +808,7 @@ structure GtkPrintSettings :>
     fun toFile self fileName =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -822,7 +822,7 @@ structure GtkPrintSettings :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         toKeyFile_
@@ -831,5 +831,5 @@ structure GtkPrintSettings :>
            & keyFile
            & groupName
         )
-    fun unset self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) unset_ (self & key)
+    fun unset self key = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) unset_ (self & key)
   end

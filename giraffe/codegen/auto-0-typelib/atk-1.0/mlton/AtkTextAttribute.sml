@@ -114,13 +114,13 @@ structure AtkTextAttribute :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = INVALID
-    val forName_ = _import "mlton_atk_text_attribute_for_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
+    val forName_ = _import "mlton_atk_text_attribute_for_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
     val getName_ = _import "atk_text_attribute_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
     val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : C.val_ * FFI.Int32.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val register_ = _import "mlton_atk_text_attribute_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
+    val register_ = _import "mlton_atk_text_attribute_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
     fun getName attr = (C.withVal ---> Utf8.C.fromPtr false) getName_ attr
     fun getValue attr index = (C.withVal &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getValue_ (attr & index)
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

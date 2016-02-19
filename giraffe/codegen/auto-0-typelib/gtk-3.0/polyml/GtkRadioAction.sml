@@ -28,10 +28,10 @@ structure GtkRadioAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int32.C.withVal
          ---> GtkRadioActionClass.C.fromPtr true
       )

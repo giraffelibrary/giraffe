@@ -12,8 +12,8 @@ structure GdkRgba :>
           (
             _import "mlton_gdk_rgba_parse" :
               GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -28,6 +28,6 @@ structure GdkRgba :>
     fun copy self = (GdkRgbaRecord.C.withPtr ---> GdkRgbaRecord.C.fromPtr true) copy_ self
     fun equal self p2 = (GdkRgbaRecord.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & p2)
     fun hash self = (GdkRgbaRecord.C.withPtr ---> FFI.UInt.C.fromVal) hash_ self
-    fun parse self spec = (GdkRgbaRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
+    fun parse self spec = (GdkRgbaRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
     fun toString self = (GdkRgbaRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

@@ -54,7 +54,7 @@ structure GtkBuildable :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         addChild_
@@ -68,7 +68,7 @@ structure GtkBuildable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> GObjectObjectClass.C.fromPtr true
       )
         constructChild_
@@ -81,7 +81,7 @@ structure GtkBuildable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> GObjectObjectClass.C.fromPtr false
       )
         getInternalChild_
@@ -96,7 +96,7 @@ structure GtkBuildable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -107,5 +107,5 @@ structure GtkBuildable :>
            & name
            & value
         )
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
   end

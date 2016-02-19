@@ -15,14 +15,14 @@ structure GtkAction :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_action_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -67,8 +67,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_accel_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -84,8 +84,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -100,8 +100,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -116,8 +116,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_short_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -131,8 +131,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_stock_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -146,8 +146,8 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_set_tooltip" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -169,10 +169,10 @@ structure GtkAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GtkActionClass.C.fromPtr true
       )
         new_
@@ -208,16 +208,16 @@ structure GtkAction :>
     fun isSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isSensitive_ self
     fun isVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
     fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setAccelPath_ (self & accelPath)
     fun setAlwaysShowImage self alwaysShow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
     fun setGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setIconName_ (self & iconName)
+    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setIconName_ (self & iconName)
     fun setIsImportant self isImportant = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsImportant_ (self & isImportant)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
     fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setShortLabel self shortLabel = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setShortLabel_ (self & shortLabel)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setStockId_ (self & stockId)
-    fun setTooltip self tooltip = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltip_ (self & tooltip)
+    fun setShortLabel self shortLabel = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setShortLabel_ (self & shortLabel)
+    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStockId_ (self & stockId)
+    fun setTooltip self tooltip = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTooltip_ (self & tooltip)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     fun setVisibleHorizontal self visibleHorizontal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
     fun setVisibleVertical self visibleVertical = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleVertical_ (self & visibleVertical)

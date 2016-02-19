@@ -22,8 +22,8 @@ structure GtkSelectionData :>
           (
             _import "mlton_gtk_selection_data_set_text" :
               GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -54,7 +54,7 @@ structure GtkSelectionData :>
     fun setText self str len =
       (
         GtkSelectionDataRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> FFI.Bool.C.fromVal
       )

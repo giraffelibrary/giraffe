@@ -69,7 +69,7 @@ structure GtkInfoBar :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )

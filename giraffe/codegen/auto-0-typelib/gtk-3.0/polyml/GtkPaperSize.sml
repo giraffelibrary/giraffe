@@ -70,11 +70,11 @@ structure GtkPaperSize :>
     type unit_t = GtkUnit.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (Utf8.C.withConstOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
+    fun new name = (Utf8.C.withOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
     fun newCustom name displayName width height unit =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> GtkUnit.C.withVal
@@ -91,7 +91,7 @@ structure GtkPaperSize :>
     fun newFromKeyFile keyFile groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GtkPaperSizeRecord.C.fromPtr true
       )
@@ -103,8 +103,8 @@ structure GtkPaperSize :>
         )
     fun newFromPpd ppdName ppdDisplayName width height =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> GtkPaperSizeRecord.C.fromPtr true
@@ -147,7 +147,7 @@ structure GtkPaperSize :>
       (
         GtkPaperSizeRecord.C.withPtr
          &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         toKeyFile_

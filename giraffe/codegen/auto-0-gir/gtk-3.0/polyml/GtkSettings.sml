@@ -71,9 +71,9 @@ structure GtkSettings :>
     fun setDoubleProperty self name vDouble origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setDoubleProperty_
@@ -86,9 +86,9 @@ structure GtkSettings :>
     fun setLongProperty self name vLong origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setLongProperty_
@@ -101,7 +101,7 @@ structure GtkSettings :>
     fun setPropertyValue self name svalue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkSettingsValueRecord.C.withPtr
          ---> I
       )
@@ -114,9 +114,9 @@ structure GtkSettings :>
     fun setStringProperty self name vString origin =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setStringProperty_

@@ -13,8 +13,8 @@ structure GtkStatusbar :>
           (
             _import "mlton_gtk_statusbar_get_context_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.UInt.C.val_;
           )
             (
@@ -33,8 +33,8 @@ structure GtkStatusbar :>
             _import "mlton_gtk_statusbar_push" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.UInt.C.val_;
           )
             (
@@ -71,14 +71,14 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
+    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
     fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
     fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.UInt.C.fromVal
       )
         push_

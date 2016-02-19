@@ -14,8 +14,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
           )
             (
@@ -31,8 +31,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_map_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
                -> unit;
           )
@@ -68,8 +68,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_set_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkStateFlags.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
@@ -89,8 +89,8 @@ structure GtkStyleProperties :>
           (
             _import "mlton_gtk_style_properties_unset_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkStateFlags.C.val_
                -> unit;
           )
@@ -109,11 +109,11 @@ structure GtkStyleProperties :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
     fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkSymbolicColorRecord.C.withPtr
          ---> I
       )
@@ -139,7 +139,7 @@ structure GtkStyleProperties :>
     fun setProperty self property state value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          &&&> GObjectValueRecord.C.withPtr
          ---> I
@@ -154,7 +154,7 @@ structure GtkStyleProperties :>
     fun unsetProperty self property state =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          ---> I
       )

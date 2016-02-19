@@ -19,5 +19,5 @@ structure GtkIMMulticontext :>
     fun new () = (I ---> GtkIMMulticontextClass.C.fromPtr true) new_ ()
     fun appendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) appendMenuitems_ (self & menushell)
     fun getContextId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getContextId_ self
-    fun setContextId self contextId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setContextId_ (self & contextId)
+    fun setContextId self contextId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setContextId_ (self & contextId)
   end

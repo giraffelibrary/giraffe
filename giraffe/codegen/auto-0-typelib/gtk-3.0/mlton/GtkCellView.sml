@@ -12,9 +12,9 @@ structure GtkCellView :>
     val getType_ = _import "gtk_cell_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithContext_ = fn x1 & x2 => (_import "gtk_cell_view_new_with_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newWithPixbuf_ = _import "gtk_cell_view_new_with_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDisplayedRow_ = _import "gtk_cell_view_get_displayed_row" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;
     val getDrawSensitive_ = _import "gtk_cell_view_get_draw_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getFitModel_ = _import "gtk_cell_view_get_fit_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -41,9 +41,9 @@ structure GtkCellView :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellViewClass.C.fromPtr false) new_ ()
     fun newWithContext area context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithContext_ (area & context)
-    fun newWithMarkup markup = (Utf8.C.withConstPtr ---> GtkCellViewClass.C.fromPtr false) newWithMarkup_ markup
+    fun newWithMarkup markup = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithMarkup_ markup
     fun newWithPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithPixbuf_ pixbuf
-    fun newWithText text = (Utf8.C.withConstPtr ---> GtkCellViewClass.C.fromPtr false) newWithText_ text
+    fun newWithText text = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithText_ text
     fun getDisplayedRow self = (GObjectObjectClass.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getDisplayedRow_ self
     fun getDrawSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDrawSensitive_ self
     fun getFitModel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFitModel_ self

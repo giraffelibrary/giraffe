@@ -19,8 +19,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_backward_iter_to_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -41,10 +41,10 @@ structure GtkSourceBuffer :>
           (
             _import "mlton_gtk_source_buffer_create_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -83,8 +83,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_forward_iter_to_source_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -108,8 +108,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_backward_to_context_class_toggle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -127,8 +127,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_forward_to_context_class_toggle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -146,8 +146,8 @@ structure GtkSourceBuffer :>
             _import "mlton_gtk_source_buffer_iter_has_context_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -168,8 +168,8 @@ structure GtkSourceBuffer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -200,7 +200,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
       )
         backwardIterToSourceMark_
@@ -215,8 +215,8 @@ structure GtkSourceBuffer :>
     fun createSourceMark self name category where' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> GtkSourceMarkClass.C.fromPtr false
       )
@@ -245,7 +245,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
       )
         forwardIterToSourceMark_
@@ -264,7 +264,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterBackwardToContextClassToggle_
@@ -277,7 +277,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterForwardToContextClassToggle_
@@ -290,7 +290,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasContextClass_
@@ -305,7 +305,7 @@ structure GtkSourceBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         removeSourceMarks_

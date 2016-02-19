@@ -103,7 +103,7 @@ structure AtkRelationType :>
       val register_ = call (load_sym libatk "atk_relation_type_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
     fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

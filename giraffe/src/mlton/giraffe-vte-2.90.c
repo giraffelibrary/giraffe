@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,8 +11,8 @@
 
 #include <vte/vte.h>
 
-#include "mlton/gcharptrffi.h"
-#include "mlton/gcharptrptrffi.h"
+#include "mlton/cvector.h"
+#include "mlton/cvectorvector.h"
 
 
 /* VteTerminal */
@@ -31,27 +31,27 @@ giraffe_vte_terminal_set_colors (VteTerminal *terminal,
 
 void
 mlton_vte_terminal_set_font_from_string (VteTerminal *terminal,
-                                         SML_GCHARPTR_VAL(name))
+                                         SML_CVECTOR_VAL(gchar, name))
 {
   vte_terminal_set_font_from_string (terminal,
-                                     GET_SML_GCHARPTR_VAL(name));
+                                     GET_SML_CVECTOR_VAL(gchar, name));
 }
 
 gboolean
 giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
                                         VtePtyFlags pty_flags,
-                                        SML_GCHARPTR_VAL(working_directory),
-                                        SML_GCHARPTRPTR_VAL(argv),
-                                        SML_GCHARPTRPTR_VAL(envp),
+                                        SML_CVECTOR_VAL(gchar, working_directory),
+                                        SML_CVECTORVECTOR_VAL(gchar, argv),
+                                        SML_CVECTORVECTOR_VAL(gchar, envp),
                                         GSpawnFlags flags,
                                         GPid *child_pid,
                                         GError **error)
 {
   return vte_terminal_fork_command_full (terminal,
                                          pty_flags,
-                                         GET_SML_GCHARPTR_VAL(working_directory),
-                                         GET_SML_GCHARPTRPTR_VAL(argv),
-                                         GET_SML_GCHARPTRPTR_VAL(envp),
+                                         GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                         GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                         GET_SML_CVECTORVECTOR_VAL(gchar, envp),
                                          flags,
                                          NULL,
                                          NULL,
@@ -79,9 +79,9 @@ giraffe_spawn_child_setup_dispatch (gpointer data)
 gboolean
 giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
                                         VtePtyFlags pty_flags,
-                                        SML_GCHARPTR_VAL(working_directory),
-                                        SML_GCHARPTRPTR_VAL(argv),
-                                        SML_GCHARPTRPTR_VAL(envp),
+                                        SML_CVECTOR_VAL(gchar, working_directory),
+                                        SML_CVECTORVECTOR_VAL(gchar, argv),
+                                        SML_CVECTORVECTOR_VAL(gchar, envp),
                                         GSpawnFlags flags,
                                         guint callback_id,
                                         GPid *child_pid,
@@ -89,9 +89,9 @@ giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
 {
   return vte_terminal_fork_command_full (terminal,
                                          pty_flags,
-                                         GET_SML_GCHARPTR_VAL(working_directory),
-                                         GET_SML_GCHARPTRPTR_VAL(argv),
-                                         GET_SML_GCHARPTRPTR_VAL(envp),
+                                         GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                         GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                         GET_SML_CVECTORVECTOR_VAL(gchar, envp),
                                          flags,
                                          giraffe_spawn_child_setup_dispatch,
                                          GUINT_TO_POINTER(callback_id),

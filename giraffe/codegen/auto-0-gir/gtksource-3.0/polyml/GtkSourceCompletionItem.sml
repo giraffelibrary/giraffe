@@ -42,10 +42,10 @@ structure GtkSourceCompletionItem :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label text icon info =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         new_
@@ -57,10 +57,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newFromStock label text stock info =
       (
-        Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newFromStock_
@@ -72,10 +72,10 @@ structure GtkSourceCompletionItem :>
         )
     fun newWithMarkup markup text icon info =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
         newWithMarkup_

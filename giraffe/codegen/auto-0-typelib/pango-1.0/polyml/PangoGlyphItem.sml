@@ -23,7 +23,7 @@ structure PangoGlyphItem :>
     fun split self text splitIndex =
       (
         PangoGlyphItemRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> PangoGlyphItemRecord.C.fromPtr true
       )

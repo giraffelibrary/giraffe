@@ -203,7 +203,7 @@ structure GioDBusConnection :>
     fun newForAddressFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusConnectionClass.C.fromPtr true) newForAddressFinish_ (res & [])
     fun newForAddressSync address flags observer cancellable =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GioDBusConnectionFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
@@ -221,7 +221,7 @@ structure GioDBusConnection :>
     fun newSync stream guid flags observer cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GioDBusConnectionFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
@@ -253,10 +253,10 @@ structure GioDBusConnection :>
     fun callSync self busName objectPath interfaceName methodName parameters replyType flags timeoutMsec cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
@@ -304,10 +304,10 @@ structure GioDBusConnection :>
         val outFdList & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
-             &&&> Utf8.C.withConstPtr
-             &&&> Utf8.C.withConstPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
+             &&&> Utf8.C.withPtr
+             &&&> Utf8.C.withPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibVariantRecord.C.withOptPtr
              &&&> GLibVariantTypeRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
@@ -366,10 +366,10 @@ structure GioDBusConnection :>
     fun emitSignal self destinationBusName objectPath interfaceName signalName parameters =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal

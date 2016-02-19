@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,8 +11,8 @@
 
 #include <glib.h>
 
-#include "mlton/gcharptrffi.h"
-#include "mlton/gcharptrptrffi.h"
+#include "mlton/cvector.h"
+#include "mlton/cvectorvector.h"
 #include "mlton/giraffe-sml-glib-2.0.h"
 #include "mlton/giraffe-glib-2.0.h"
 
@@ -20,22 +20,22 @@
 /* GQuark */
 
 GQuark
-mlton_g_quark_from_string (SML_GCHARPTR_VAL(string))
+mlton_g_quark_from_string (SML_CVECTOR_VAL(gchar, string))
 {
-  return g_quark_from_string (GET_SML_GCHARPTR_VAL(string));
+  return g_quark_from_string (GET_SML_CVECTOR_VAL(gchar, string));
 }
 
 
 /* GLog */
 
 void
-mlton_g_log_default_handler (SML_GCHARPTR_VAL(log_domain),
+mlton_g_log_default_handler (SML_CVECTOR_VAL(gchar, log_domain),
                              GLogLevelFlags log_level,
-                             SML_GCHARPTR_VAL(message))
+                             SML_CVECTOR_VAL(gchar, message))
 {
-  g_log_default_handler (GET_SML_GCHARPTR_VAL(log_domain),
+  g_log_default_handler (GET_SML_CVECTOR_VAL(gchar, log_domain),
                          log_level,
-                         GET_SML_GCHARPTR_VAL(message),
+                         GET_SML_CVECTOR_VAL(gchar, message),
                          NULL);
 }
 
@@ -364,35 +364,35 @@ giraffe_g_source_add_poll (GSource *source, gint fd, gint events)
 }
 
 gboolean
-mlton_g_shell_parse_argv (SML_GCHARPTR_VAL(command_line),
+mlton_g_shell_parse_argv (SML_CVECTOR_VAL(gchar, command_line),
                           gint *argcp,
-                          SML_GCHARPTRPTR_REF(argvp),
+                          SML_CVECTORVECTOR_REF(gchar, argvp),
                           GError **error)
 {
-  return g_shell_parse_argv (GET_SML_GCHARPTR_VAL(command_line),
+  return g_shell_parse_argv (GET_SML_CVECTOR_VAL(gchar, command_line),
                              argcp,
-                             GET_SML_GCHARPTRPTR_REF(argvp),
+                             GET_SML_CVECTORVECTOR_REF(gchar, argvp),
                              error);
 }
 
 gchar *
-mlton_g_shell_quote (SML_GCHARPTR_VAL(unquoted_string))
+mlton_g_shell_quote (SML_CVECTOR_VAL(gchar, unquoted_string))
 {
-  return g_shell_quote (GET_SML_GCHARPTR_VAL(unquoted_string));
+  return g_shell_quote (GET_SML_CVECTOR_VAL(gchar, unquoted_string));
 }
 
 gchar *
-mlton_g_shell_unquote (SML_GCHARPTR_VAL(quoted_string),
+mlton_g_shell_unquote (SML_CVECTOR_VAL(gchar, quoted_string),
                        GError **error)
 {
-  return g_shell_unquote (GET_SML_GCHARPTR_VAL(quoted_string),
+  return g_shell_unquote (GET_SML_CVECTOR_VAL(gchar, quoted_string),
                           error);
 }
 
 gboolean
-giraffe_g_spawn_async_with_pipes (SML_GCHARPTR_VAL(working_directory),
-                                  SML_GCHARPTRPTR_VAL(argv),
-                                  SML_GCHARPTRPTR_VAL(envp),
+giraffe_g_spawn_async_with_pipes (SML_CVECTOR_VAL(gchar, working_directory),
+                                  SML_CVECTORVECTOR_VAL(gchar, argv),
+                                  SML_CVECTORVECTOR_VAL(gchar, envp),
                                   gint flags,
                                   guint callback_id,
                                   GPid *child_pid,
@@ -401,9 +401,9 @@ giraffe_g_spawn_async_with_pipes (SML_GCHARPTR_VAL(working_directory),
                                   gint *standard_error,
                                   GError **error)
 {
-  return g_spawn_async_with_pipes (GET_SML_GCHARPTR_VAL(working_directory),
-                                   GET_SML_GCHARPTRPTR_VAL(argv),
-                                   GET_SML_GCHARPTRPTR_VAL(envp),
+  return g_spawn_async_with_pipes (GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                   GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                   GET_SML_CVECTORVECTOR_VAL(gchar, envp),
                                    flags,
                                    giraffe_spawn_child_setup_dispatch,
                                    GUINT_TO_POINTER(callback_id),

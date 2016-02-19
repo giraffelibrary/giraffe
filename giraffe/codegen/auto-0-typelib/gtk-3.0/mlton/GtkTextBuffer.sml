@@ -58,8 +58,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_apply_tag_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -103,8 +103,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_create_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -177,8 +177,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_delete_mark_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -359,8 +359,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_get_mark" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -440,8 +440,8 @@ structure GtkTextBuffer :>
             _import "mlton_gtk_text_buffer_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -460,8 +460,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_insert_at_cursor" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -499,8 +499,8 @@ structure GtkTextBuffer :>
             _import "mlton_gtk_text_buffer_insert_interactive" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -522,8 +522,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_insert_interactive_at_cursor" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Bool.C.val_
                -> FFI.Bool.C.val_;
@@ -620,8 +620,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_move_mark_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
           )
@@ -658,8 +658,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_register_deserialize_tagset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
           )
             (
@@ -673,8 +673,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_register_serialize_tagset" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
           )
             (
@@ -729,8 +729,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_remove_tag_by_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -768,8 +768,8 @@ structure GtkTextBuffer :>
           (
             _import "mlton_gtk_text_buffer_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -824,7 +824,7 @@ structure GtkTextBuffer :>
     fun applyTagByName self name start end' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
@@ -857,7 +857,7 @@ structure GtkTextBuffer :>
     fun createMark self markName where' leftGravity =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> GtkTextMarkClass.C.fromPtr false
@@ -911,7 +911,7 @@ structure GtkTextBuffer :>
            & defaultEditable
         )
     fun deleteMark self mark = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) deleteMark_ (self & mark)
-    fun deleteMarkByName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) deleteMarkByName_ (self & name)
+    fun deleteMarkByName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) deleteMarkByName_ (self & name)
     fun deleteSelection self interactive defaultEditable =
       (
         GObjectObjectClass.C.withPtr
@@ -1085,7 +1085,7 @@ structure GtkTextBuffer :>
         iter
       end
     fun getLineCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getLineCount_ self
-    fun getMark self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkTextMarkClass.C.fromPtr false) getMark_ (self & name)
+    fun getMark self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkTextMarkClass.C.fromPtr false) getMark_ (self & name)
     fun getModified self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getModified_ self
     fun getPasteTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) getPasteTargetList_ self
     fun getSelectionBound self = (GObjectObjectClass.C.withPtr ---> GtkTextMarkClass.C.fromPtr false) getSelectionBound_ self
@@ -1152,7 +1152,7 @@ structure GtkTextBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -1166,7 +1166,7 @@ structure GtkTextBuffer :>
     fun insertAtCursor self text len =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -1193,7 +1193,7 @@ structure GtkTextBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -1209,7 +1209,7 @@ structure GtkTextBuffer :>
     fun insertInteractiveAtCursor self text len defaultEditable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -1282,7 +1282,7 @@ structure GtkTextBuffer :>
     fun moveMarkByName self name where' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
       )
@@ -1308,8 +1308,8 @@ structure GtkTextBuffer :>
            & defaultEditable
         )
     fun placeCursor self where' = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) placeCursor_ (self & where')
-    fun registerDeserializeTagset self tagsetName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> GdkAtomRecord.C.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
-    fun registerSerializeTagset self tagsetName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> GdkAtomRecord.C.fromPtr false) registerSerializeTagset_ (self & tagsetName)
+    fun registerDeserializeTagset self tagsetName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> GdkAtomRecord.C.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
+    fun registerSerializeTagset self tagsetName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> GdkAtomRecord.C.fromPtr false) registerSerializeTagset_ (self & tagsetName)
     fun removeAllTags self start end' =
       (
         GObjectObjectClass.C.withPtr
@@ -1342,7 +1342,7 @@ structure GtkTextBuffer :>
     fun removeTagByName self name start end' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
@@ -1371,7 +1371,7 @@ structure GtkTextBuffer :>
     fun setText self text len =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )

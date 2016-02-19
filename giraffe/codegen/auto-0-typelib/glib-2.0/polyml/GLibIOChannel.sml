@@ -104,8 +104,8 @@ structure GLibIOChannel :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOChannelRecord.C.fromPtr true
       )
@@ -159,7 +159,7 @@ structure GLibIOChannel :>
     fun setEncoding self encoding =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOStatus.C.fromVal
       )
@@ -185,7 +185,7 @@ structure GLibIOChannel :>
     fun setLineTerm self lineTerm length =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )

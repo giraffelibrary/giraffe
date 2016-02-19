@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,17 +11,17 @@
 
 #include <gdk/gdk.h>
 
-#include "mlton/gcharptrffi.h"
-#include "mlton/gcharptrptrffi.h"
+#include "mlton/cvector.h"
+#include "mlton/cvectorvector.h"
 
 
 /* GdkAtom */
 
 GdkAtom
-mlton_gdk_atom_intern (SML_GCHARPTR_VAL(atom_name),
+mlton_gdk_atom_intern (SML_CVECTOR_VAL(gchar, atom_name),
                        gboolean only_if_exists)
 {
-  return gdk_atom_intern (GET_SML_GCHARPTR_VAL(atom_name),
+  return gdk_atom_intern (GET_SML_CVECTOR_VAL(gchar, atom_name),
                           only_if_exists);
 }
 
@@ -86,10 +86,10 @@ giraffe_gdk_color_new (void)
 }
 
 gboolean
-mlton_gdk_color_parse (SML_GCHARPTR_VAL(spec),
+mlton_gdk_color_parse (SML_CVECTOR_VAL(gchar, spec),
                        GdkColor *color)
 {
-  return gdk_color_parse (GET_SML_GCHARPTR_VAL(spec),
+  return gdk_color_parse (GET_SML_CVECTOR_VAL(gchar, spec),
                           color);
 }
 
@@ -104,10 +104,10 @@ giraffe_gdk_rgba_new (void)
 
 gboolean
 mlton_gdk_rgba_parse (GdkRGBA *rgba,
-                      SML_GCHARPTR_VAL(spec))
+                      SML_CVECTOR_VAL(gchar, spec))
 {
   return gdk_rgba_parse (rgba,
-                         GET_SML_GCHARPTR_VAL(spec));
+                         GET_SML_CVECTOR_VAL(gchar, spec));
 }
 
 

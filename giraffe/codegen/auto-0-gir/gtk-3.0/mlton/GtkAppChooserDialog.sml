@@ -34,8 +34,8 @@ structure GtkAppChooserDialog :>
             _import "mlton_gtk_app_chooser_dialog_new_for_content_type" :
               unit GObjectObjectClass.C.p
                * GtkDialogFlags.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -52,8 +52,8 @@ structure GtkAppChooserDialog :>
           (
             _import "mlton_gtk_app_chooser_dialog_set_heading" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -89,7 +89,7 @@ structure GtkAppChooserDialog :>
       (
         GObjectObjectClass.C.withOptPtr
          &&&> GtkDialogFlags.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> GtkAppChooserDialogClass.C.fromPtr false
       )
         newForContentType_
@@ -100,7 +100,7 @@ structure GtkAppChooserDialog :>
         )
     fun getHeading self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
     fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
     local
       open Property
     in

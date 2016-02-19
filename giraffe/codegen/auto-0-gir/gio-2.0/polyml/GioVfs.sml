@@ -20,8 +20,8 @@ structure GioVfs :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioVfsClass.C.fromPtr false) getDefault_ ()
     fun getLocal () = (I ---> GioVfsClass.C.fromPtr false) getLocal_ ()
-    fun getFileForPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) getFileForPath_ (self & path)
-    fun getFileForUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) getFileForUri_ (self & uri)
+    fun getFileForPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForPath_ (self & path)
+    fun getFileForUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForUri_ (self & uri)
     fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
-    fun parseName self parseName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioFileClass.C.fromPtr true) parseName_ (self & parseName)
+    fun parseName self parseName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) parseName_ (self & parseName)
   end

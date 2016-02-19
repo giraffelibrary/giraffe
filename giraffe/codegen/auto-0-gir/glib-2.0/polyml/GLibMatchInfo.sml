@@ -49,7 +49,7 @@ structure GLibMatchInfo :>
     fun expandReferences self stringToExpand =
       (
         GLibMatchInfoRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -60,7 +60,7 @@ structure GLibMatchInfo :>
            & []
         )
     fun fetch self matchNum = (GLibMatchInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) fetch_ (self & matchNum)
-    fun fetchNamed self name = (GLibMatchInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) fetchNamed_ (self & name)
+    fun fetchNamed self name = (GLibMatchInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
         val startPos
@@ -68,7 +68,7 @@ structure GLibMatchInfo :>
          & retVal =
           (
             GLibMatchInfoRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal

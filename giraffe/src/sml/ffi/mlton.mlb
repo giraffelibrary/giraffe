@@ -17,28 +17,43 @@ in
   mlton/Callback.sml
   HighLevelFFI.sml
   FINALIZABLE.sml
+  C_TYPE.sml
   mlton/C_TYPE.sml
   C_POINTER.sml
   mlton/C_POINTER.sml
   C_TYPED_POINTER.sml
   C_ARRAY.sml
+  mlton/C_ARRAY.sml
+  C_ARRAY_TYPE.sml
+  mlton/C_ARRAY_TYPE.sml
   FILE_DESC.sml
   mlton/Finalizable.sml
-  mlton/CString.sml
-  mlton/GCharCType.sml
   mlton/CPointer.sml
   CTypedPointer.sml
   CPointer.sml
-  mlton/GCharVec.sml
-  mlton/GCharVecVec.sml
+  mlton/CVector.sml
+  mlton/CVectorN.sml
+  mlton/CVectorType.sml
+  mlton/CVectorVectorType.sml
+  mlton/CVectorVectorNType.sml
+  mlton/GCharCType.sml
+  GCharCVectorType.sml
+  GCharCVectorVectorType.sml
+  GCharCVectorVectorNType.sml
+  GCharCVector.sml
+  GCharCVectorVector.sml
+  GCharCVectorVectorN.sml
   mlton/F_F_I_SCALAR.sml
   mlton/F_F_I_ARRAY.sml
+  mlton/FFIArray.sml
   mlton/F_F_I_FLAGS_ENUM.sml
   mlton/F_F_I.sml
-  mlton/UTF8.sml
-  mlton/UTF8_VECTOR.sml
   mlton/FFI.sml
-  mlton/Utf8.sml
-  mlton/Utf8Vector.sml
+  UTF8.sml
+  UTF8_C_VECTOR.sml
+  UTF8_C_VECTOR_N.sml
+  Utf8.sml
+  Utf8CVector.sml
+  Utf8CVectorN.sml
   mlton/FileDesc.sml
 end

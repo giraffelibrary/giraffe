@@ -146,7 +146,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr
@@ -201,7 +201,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr

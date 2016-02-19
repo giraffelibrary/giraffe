@@ -31,8 +31,8 @@ structure GtkDialog :>
           (
             _import "mlton_gtk_dialog_add_button" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -90,7 +90,7 @@ structure GtkDialog :>
     fun addButton self buttonText responseId =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> GtkWidgetClass.C.fromPtr false
       )

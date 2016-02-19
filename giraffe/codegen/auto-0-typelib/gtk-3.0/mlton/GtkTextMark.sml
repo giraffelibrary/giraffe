@@ -9,8 +9,8 @@ structure GtkTextMark :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_text_mark_new" :
-              GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -29,7 +29,7 @@ structure GtkTextMark :>
     type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name leftGravity = (Utf8.C.withConstOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)
+    fun new name leftGravity = (Utf8.C.withOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkTextBufferClass.C.fromPtr false) getBuffer_ self
     fun getDeleted self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDeleted_ self
     fun getLeftGravity self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLeftGravity_ self

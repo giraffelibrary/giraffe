@@ -41,12 +41,12 @@ structure GtkAppChooserButton :>
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (Utf8.C.withConstPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
+    fun new contentType = (Utf8.C.withPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
     fun appendCustomItem self name label icon =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          ---> I
       )
@@ -61,8 +61,8 @@ structure GtkAppChooserButton :>
     fun getHeading self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
     fun getShowDefaultItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefaultItem_ self
     fun getShowDialogItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDialogItem_ self
-    fun setActiveCustomItem self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setActiveCustomItem_ (self & name)
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setHeading_ (self & heading)
+    fun setActiveCustomItem self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setActiveCustomItem_ (self & name)
+    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
     fun setShowDefaultItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefaultItem_ (self & setting)
     fun setShowDialogItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDialogItem_ (self & setting)
     local

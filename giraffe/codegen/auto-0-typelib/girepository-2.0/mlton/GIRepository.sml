@@ -22,8 +22,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_callable_info_get_return_attribute" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -42,10 +42,10 @@ structure GIRepository : G_I_REPOSITORY =
             _import "mlton_g_callable_info_iterate_return_attributes" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
                * GIRepositoryAttributeIterRecord.C.notnull GIRepositoryAttributeIterRecord.C.p
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                -> FFI.Bool.C.val_;
           )
             (
@@ -118,8 +118,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_interface_info_find_method" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -133,8 +133,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_interface_info_find_vfunc" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -162,8 +162,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_method" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -179,8 +179,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_method_using_interfaces" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, GIRepositoryBaseInfoRecord.C.notnull) GIRepositoryBaseInfoRecord.C.r
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
@@ -196,8 +196,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_object_info_find_vfunc" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -243,8 +243,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_struct_info_find_method" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -275,8 +275,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             _import "mlton_g_union_info_find_method" :
               GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GIRepositoryBaseInfoRecord.C.notnull GIRepositoryBaseInfoRecord.C.p;
           )
             (
@@ -337,7 +337,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetArg info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) callableInfoGetArg_ (info & n)
     fun callableInfoGetCallerOwns info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryTransfer.C.fromVal) callableInfoGetCallerOwns_ info
     fun callableInfoGetNArgs info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) callableInfoGetNArgs_ info
-    fun callableInfoGetReturnAttribute info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
+    fun callableInfoGetReturnAttribute info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
     fun callableInfoGetReturnType info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIterateReturnAttributes info iterator =
       let
@@ -347,8 +347,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             GIRepositoryBaseInfoRecord.C.withPtr
              &&&> GIRepositoryAttributeIterRecord.C.withPtr
-             &&&> Utf8.C.withRefConstOptPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
+             &&&> Utf8.C.withRefOptPtr
              ---> Utf8.C.fromPtr false
                    && Utf8.C.fromPtr false
                    && FFI.Bool.C.fromVal
@@ -420,8 +420,8 @@ structure GIRepository : G_I_REPOSITORY =
            & offset
         )
     fun infoTypeToString type' = (GIRepositoryInfoType.C.withVal ---> Utf8.C.fromPtr false) infoTypeToString_ type'
-    fun interfaceInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
-    fun interfaceInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
+    fun interfaceInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
+    fun interfaceInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
     fun interfaceInfoGetConstant info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetConstant_ (info & n)
     fun interfaceInfoGetIfaceStruct info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetIfaceStruct_ info
     fun interfaceInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetMethod_ (info & n)
@@ -436,13 +436,13 @@ structure GIRepository : G_I_REPOSITORY =
     fun interfaceInfoGetSignal info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetSignal_ (info & n)
     fun interfaceInfoGetVfunc info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) interfaceInfoGetVfunc_ (info & n)
     fun invokeErrorQuark () = (I ---> FFI.UInt32.C.fromVal) invokeErrorQuark_ ()
-    fun objectInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
+    fun objectInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
     fun objectInfoFindMethodUsingInterfaces info name =
       let
         val implementor & retVal =
           (
             GIRepositoryBaseInfoRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GIRepositoryBaseInfoRecord.C.withRefOptPtr
              ---> GIRepositoryBaseInfoRecord.C.fromPtr true && GIRepositoryBaseInfoRecord.C.fromPtr true
           )
@@ -455,7 +455,7 @@ structure GIRepository : G_I_REPOSITORY =
       in
         (retVal, implementor)
       end
-    fun objectInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
+    fun objectInfoFindVfunc info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
     fun objectInfoGetAbstract info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) objectInfoGetAbstract_ info
     fun objectInfoGetClassStruct info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetClassStruct_ info
     fun objectInfoGetConstant info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) objectInfoGetConstant_ (info & n)
@@ -488,7 +488,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun signalInfoGetClassClosure info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) signalInfoGetClassClosure_ info
     fun signalInfoGetFlags info = (GIRepositoryBaseInfoRecord.C.withPtr ---> GObjectSignalFlags.C.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) signalInfoTrueStopsEmit_ info
-    fun structInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
+    fun structInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
     fun structInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.C.fromVal) structInfoGetAlignment_ info
     fun structInfoGetField info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetField_ (info & n)
     fun structInfoGetMethod info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) structInfoGetMethod_ (info & n)
@@ -506,7 +506,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun typeInfoIsPointer info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsPointer_ info
     fun typeInfoIsZeroTerminated info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsZeroTerminated_ info
     fun typeTagToString type' = (GIRepositoryTypeTag.C.withVal ---> Utf8.C.fromPtr false) typeTagToString_ type'
-    fun unionInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
+    fun unionInfoFindMethod info name = (GIRepositoryBaseInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
     fun unionInfoGetAlignment info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.UInt64.C.fromVal) unionInfoGetAlignment_ info
     fun unionInfoGetDiscriminator info n = (GIRepositoryBaseInfoRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryBaseInfoRecord.C.fromPtr true) unionInfoGetDiscriminator_ (info & n)
     fun unionInfoGetDiscriminatorOffset info = (GIRepositoryBaseInfoRecord.C.withPtr ---> FFI.Int32.C.fromVal) unionInfoGetDiscriminatorOffset_ info

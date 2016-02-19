@@ -15,5 +15,5 @@ structure AtkImage :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getImageDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageDescription_ self
     fun getImageLocale self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageLocale_ self
-    fun setImageDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) setImageDescription_ (self & description)
+    fun setImageDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setImageDescription_ (self & description)
   end

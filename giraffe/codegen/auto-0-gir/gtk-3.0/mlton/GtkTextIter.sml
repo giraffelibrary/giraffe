@@ -26,8 +26,8 @@ structure GtkTextIter :>
           (
             _import "mlton_gtk_text_iter_backward_search" :
               GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextSearchFlags.C.val_
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
@@ -81,8 +81,8 @@ structure GtkTextIter :>
           (
             _import "mlton_gtk_text_iter_forward_search" :
               GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextSearchFlags.C.val_
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
@@ -185,7 +185,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr
@@ -240,7 +240,7 @@ structure GtkTextIter :>
          & retVal =
           (
             GtkTextIterRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkTextSearchFlags.C.withVal
              &&&> GtkTextIterRecord.C.withNewPtr
              &&&> GtkTextIterRecord.C.withNewPtr

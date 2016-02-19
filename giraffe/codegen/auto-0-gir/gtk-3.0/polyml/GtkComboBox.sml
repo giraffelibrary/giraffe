@@ -100,7 +100,7 @@ structure GtkComboBox :>
     fun popup self = (GObjectObjectClass.C.withPtr ---> I) popup_ self
     fun popupForDevice self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) popupForDevice_ (self & device)
     fun setActive self index = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setActive_ (self & index)
-    fun setActiveId self activeId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> FFI.Bool.C.fromVal) setActiveId_ (self & activeId)
+    fun setActiveId self activeId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> FFI.Bool.C.fromVal) setActiveId_ (self & activeId)
     fun setActiveIter self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withOptPtr ---> I) setActiveIter_ (self & iter)
     fun setAddTearoffs self addTearoffs = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
     fun setButtonSensitivity self sensitivity = (GObjectObjectClass.C.withPtr &&&> GtkSensitivityType.C.withVal ---> I) setButtonSensitivity_ (self & sensitivity)
@@ -111,7 +111,7 @@ structure GtkComboBox :>
     fun setModel self model = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setModel_ (self & model)
     fun setPopupFixedWidth self fixed = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPopupFixedWidth_ (self & fixed)
     fun setRowSpanColumn self rowSpan = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRowSpanColumn_ (self & rowSpan)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
     fun setWrapWidth self width = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWrapWidth_ (self & width)
     local
       open ClosureMarshal Signal

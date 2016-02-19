@@ -9,8 +9,8 @@ structure GioSimpleAction :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_simple_action_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantTypeRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -26,8 +26,8 @@ structure GioSimpleAction :>
          & x4 =>
           (
             _import "mlton_g_simple_action_new_stateful" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantTypeRecord.C.p
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -45,10 +45,10 @@ structure GioSimpleAction :>
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name parameterType = (Utf8.C.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
+    fun new name parameterType = (Utf8.C.withPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
     fun newStateful name parameterType state =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> GioSimpleActionClass.C.fromPtr true

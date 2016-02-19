@@ -4,7 +4,7 @@ structure GtkPaperSize :>
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_paper_size_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_paper_size_new" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
+    val new_ = _import "mlton_gtk_paper_size_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
     val newCustom_ =
       fn
         (x1, x2)
@@ -14,10 +14,10 @@ structure GtkPaperSize :>
          & x7 =>
           (
             _import "mlton_gtk_paper_size_new_custom" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * GtkUnit.C.val_
@@ -40,8 +40,8 @@ structure GtkPaperSize :>
           (
             _import "mlton_gtk_paper_size_new_from_key_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
           )
@@ -59,10 +59,10 @@ structure GtkPaperSize :>
          & x6 =>
           (
             _import "mlton_gtk_paper_size_new_from_ppd" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
@@ -116,8 +116,8 @@ structure GtkPaperSize :>
             _import "mlton_gtk_paper_size_to_key_file" :
               GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p
                * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -131,11 +131,11 @@ structure GtkPaperSize :>
     type unit_t = GtkUnit.t
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (Utf8.C.withConstOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
+    fun new name = (Utf8.C.withOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
     fun newCustom name displayName width height unit =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> GtkUnit.C.withVal
@@ -152,7 +152,7 @@ structure GtkPaperSize :>
     fun newFromKeyFile keyFile groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GtkPaperSizeRecord.C.fromPtr true
       )
@@ -164,8 +164,8 @@ structure GtkPaperSize :>
         )
     fun newFromPpd ppdName ppdDisplayName width height =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> GtkPaperSizeRecord.C.fromPtr true
@@ -208,7 +208,7 @@ structure GtkPaperSize :>
       (
         GtkPaperSizeRecord.C.withPtr
          &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         toKeyFile_

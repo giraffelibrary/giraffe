@@ -18,15 +18,15 @@ structure GioProxyAddress :>
             _import "mlton_g_proxy_address_new" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt16.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -57,11 +57,11 @@ structure GioProxyAddress :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GioProxyAddressClass.C.fromPtr true
       )
         new_

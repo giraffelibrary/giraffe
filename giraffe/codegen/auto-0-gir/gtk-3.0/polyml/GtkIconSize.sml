@@ -98,7 +98,7 @@ structure GtkIconSize :>
     end
     type 'a settings_class_t = 'a GtkSettingsClass.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun fromName name = (Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) fromName_ name
+    fun fromName name = (Utf8.C.withPtr ---> FFI.Int.C.fromVal) fromName_ name
     fun getName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getName_ size
     fun lookup size =
       let
@@ -148,7 +148,7 @@ structure GtkIconSize :>
       end
     fun register name width height =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -159,5 +159,5 @@ structure GtkIconSize :>
            & width
            & height
         )
-    fun registerAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) registerAlias_ (alias & target)
+    fun registerAlias alias target = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> I) registerAlias_ (alias & target)
   end

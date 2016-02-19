@@ -20,8 +20,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.SSize.C.val_
                -> unit;
           )
@@ -154,8 +154,8 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_match_set_cursor_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -280,8 +280,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_encoding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -319,19 +319,17 @@ structure VteTerminal :>
               x3
             )
     val spawnSync_ =
-      fn x1 & x2 & (x3, x4) & (x5, x6, x7) & (x8, x9, x10) & x11 & x12 & x13 & x14 & x15 =>
+      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 & x12 & x13 =>
         (
           _import "giraffe_vte_terminal_spawn_sync" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
              * VtePtyFlags.C.val_
-             * GCharVec.MLton.p1
-             * unit GCharVec.MLton.p2
-             * GCharVecVec.MLton.p1
-             * GCharVecVec.MLton.p2
-             * GCharVecVec.C.notnull GCharVecVec.MLton.p3
-             * GCharVecVec.MLton.p1
-             * GCharVecVec.MLton.p2
-             * unit GCharVecVec.MLton.p3
+             * Utf8.MLton.p1
+             * unit Utf8.MLton.p2
+             * Utf8CVector.MLton.p1
+             * Utf8CVector.C.notnull Utf8CVector.MLton.p2
+             * Utf8CVector.MLton.p1
+             * unit Utf8CVector.MLton.p2
              * GLibSpawnFlags.C.val_
              * GLibSpawnChildSetupFunc.C.callback
              * GLibPid.C.ref_
@@ -352,9 +350,7 @@ structure VteTerminal :>
             x10,
             x11,
             x12,
-            x13,
-            x14,
-            x15
+            x13
           )
     val unselectAll_ = _import "vte_terminal_unselect_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibPid.C.val_ -> unit;) (x1, x2)
@@ -399,7 +395,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.SSize.C.withVal
          ---> I
       )
@@ -529,7 +525,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         matchSetCursorName_
@@ -630,7 +626,7 @@ structure VteTerminal :>
     fun setEncoding self codeset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -671,9 +667,9 @@ structure VteTerminal :>
           (
             GObjectObjectClass.C.withPtr
              &&&> VtePtyFlags.C.withVal
-             &&&> Utf8.C.withConstOptPtr
-             &&&> Utf8Vector.C.withConstPtr
-             &&&> Utf8Vector.C.withConstOptPtr
+             &&&> Utf8.C.withOptPtr
+             &&&> Utf8CVector.C.withPtr
+             &&&> Utf8CVector.C.withOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibSpawnChildSetupFunc.C.withOptCallback
              &&&> GLibPid.C.withRefVal

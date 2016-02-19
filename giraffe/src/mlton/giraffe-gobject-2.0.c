@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -19,8 +19,8 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 
-#include "mlton/gcharptrffi.h"
-#include "mlton/gcharptrptrffi.h"
+#include "mlton/cvector.h"
+#include "mlton/cvectorvector.h"
 #include "mlton/giraffe-sml-gobject-2.0.h"
 
 
@@ -157,9 +157,9 @@ giraffe_g_value_size ()
 }
 
 void
-mlton_g_value_set_string (GValue *value, SML_GCHARPTR_VAL(v_string))
+mlton_g_value_set_string (GValue *value, SML_CVECTOR_VAL(gchar, v_string))
 {
-  g_value_set_string (value, GET_SML_GCHARPTR_VAL(v_string));
+  g_value_set_string (value, GET_SML_CVECTOR_VAL(gchar, v_string));
 }
 
 
@@ -206,18 +206,18 @@ giraffe_debug_g_object_unref (gpointer object)
 
 void
 mlton_g_object_get_property (GObject *object,
-                             SML_GCHARPTR_VAL(property_name),
+                             SML_CVECTOR_VAL(gchar, property_name),
                              GValue *value)
 {
-  g_object_get_property (object, GET_SML_GCHARPTR_VAL(property_name), value);
+  g_object_get_property (object, GET_SML_CVECTOR_VAL(gchar, property_name), value);
 }
 
 void
 mlton_g_object_set_property (GObject *object,
-                             SML_GCHARPTR_VAL(property_name),
+                             SML_CVECTOR_VAL(gchar, property_name),
                              const GValue *value)
 {
-  g_object_set_property (object, GET_SML_GCHARPTR_VAL(property_name), value);
+  g_object_set_property (object, GET_SML_CVECTOR_VAL(gchar, property_name), value);
 }
 
 
@@ -336,7 +336,7 @@ giraffe_g_closure_new (guint callback_id)
 
 gulong
 mlton_g_signal_connect_closure (gpointer instance,
-                                SML_GCHARPTR_VAL(detailed_signal),
+                                SML_CVECTOR_VAL(gchar, detailed_signal),
                                 GClosure *closure,
                                 gboolean after)
 {
@@ -346,14 +346,14 @@ mlton_g_signal_connect_closure (gpointer instance,
     printf ("connect%s closure %p \"%s\" instance %p (type %s)\n",
             after ? "-after" : "",
             closure,
-            GET_SML_GCHARPTR_VAL(detailed_signal),
+            GET_SML_CVECTOR_VAL(gchar, detailed_signal),
             instance,
             G_OBJECT_TYPE_NAME(instance));
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
   return g_signal_connect_closure (instance,
-                                   GET_SML_GCHARPTR_VAL(detailed_signal),
+                                   GET_SML_CVECTOR_VAL(gchar, detailed_signal),
                                    closure,
                                    after);
 }

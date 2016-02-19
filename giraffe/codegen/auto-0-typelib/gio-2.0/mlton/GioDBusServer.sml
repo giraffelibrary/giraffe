@@ -18,11 +18,11 @@ structure GioDBusServer :>
          & x8 =>
           (
             _import "mlton_g_dbus_server_new_sync" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GioDBusServerFlags.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -55,9 +55,9 @@ structure GioDBusServer :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GioDBusServerFlags.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError

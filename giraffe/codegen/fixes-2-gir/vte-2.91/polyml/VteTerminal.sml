@@ -192,8 +192,8 @@ structure VteTerminal :>
             GObjectObjectClass.PolyML.PTR
              &&> VtePtyFlags.PolyML.VAL
              &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8Vector.PolyML.INPTR
-             &&> Utf8Vector.PolyML.INOPTPTR
+             &&> Utf8CVector.PolyML.INPTR
+             &&> Utf8CVector.PolyML.INOPTPTR
              &&> GLibSpawnFlags.PolyML.VAL
              &&> GLibSpawnChildSetupFunc.PolyML.CALLBACK
              &&> GLibPid.PolyML.REF
@@ -232,7 +232,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.SSize.C.withVal
          ---> I
       )
@@ -362,7 +362,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         matchSetCursorName_
@@ -463,7 +463,7 @@ structure VteTerminal :>
     fun setEncoding self codeset =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -504,9 +504,9 @@ structure VteTerminal :>
           (
             GObjectObjectClass.C.withPtr
              &&&> VtePtyFlags.C.withVal
-             &&&> Utf8.C.withConstOptPtr
-             &&&> Utf8Vector.C.withConstPtr
-             &&&> Utf8Vector.C.withConstOptPtr
+             &&&> Utf8.C.withOptPtr
+             &&&> Utf8CVector.C.withPtr
+             &&&> Utf8CVector.C.withOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibSpawnChildSetupFunc.C.withOptCallback
              &&&> GLibPid.C.withRefVal

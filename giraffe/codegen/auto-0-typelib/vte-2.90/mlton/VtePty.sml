@@ -55,8 +55,8 @@ structure VtePty :>
           (
             _import "mlton_vte_pty_set_term" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -130,7 +130,7 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
         GObjectObjectClass.C.withPtr

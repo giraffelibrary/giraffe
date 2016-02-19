@@ -117,7 +117,7 @@ structure GtkEditable :>
         val position & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withRefVal
              ---> FFI.Int32.C.fromVal && I

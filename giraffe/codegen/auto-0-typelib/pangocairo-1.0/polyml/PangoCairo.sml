@@ -128,7 +128,7 @@ structure PangoCairo : PANGO_CAIRO =
     fun showGlyphItem cr text glyphItem =
       (
         CairoContextRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          ---> I
       )

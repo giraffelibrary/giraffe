@@ -81,8 +81,8 @@ structure PangoCairo : PANGO_CAIRO =
           (
             _import "mlton_pango_cairo_show_glyph_item" :
               CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
                -> unit;
           )
@@ -179,7 +179,7 @@ structure PangoCairo : PANGO_CAIRO =
     fun showGlyphItem cr text glyphItem =
       (
         CairoContextRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          ---> I
       )

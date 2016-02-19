@@ -12,7 +12,7 @@ structure GtkFileChooserDialog :>
         (x1, x2) & x3 & x4 =>
           (
             _import "giraffe_gtk_file_chooser_dialog_new" :
-              GCharVec.MLton.p1 * unit GCharVec.MLton.p2
+              Utf8.MLton.p1 * unit Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * GtkFileChooserAction.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -35,7 +35,7 @@ structure GtkFileChooserDialog :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new title parent action =
       (
-        Utf8.C.withConstOptPtr
+        Utf8.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GtkFileChooserAction.C.withVal
          ---> GtkFileChooserDialogClass.C.fromPtr false

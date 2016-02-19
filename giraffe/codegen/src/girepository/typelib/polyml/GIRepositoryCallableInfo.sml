@@ -69,7 +69,7 @@ structure GIRepositoryCallableInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> Utf8.C.withConstPtr
+           &&&> Utf8.C.withPtr
            ---> Utf8.C.fromOptPtr false
         )
           getReturnAttribute_

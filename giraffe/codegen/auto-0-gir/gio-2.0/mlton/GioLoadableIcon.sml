@@ -17,8 +17,8 @@ structure GioLoadableIcon :>
             _import "mlton_g_loadable_icon_load" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -41,8 +41,8 @@ structure GioLoadableIcon :>
             _import "mlton_g_loadable_icon_load_finish" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -65,7 +65,7 @@ structure GioLoadableIcon :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.Int.C.withVal
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
              ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
@@ -85,7 +85,7 @@ structure GioLoadableIcon :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioInputStreamClass.C.fromPtr true
       )

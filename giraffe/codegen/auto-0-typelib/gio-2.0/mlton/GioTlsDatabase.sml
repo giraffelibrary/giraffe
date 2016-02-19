@@ -23,8 +23,8 @@ structure GioTlsDatabase :>
           (
             _import "mlton_g_tls_database_lookup_certificate_for_handle" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * GioTlsDatabaseLookupFlags.C.val_
                * unit GObjectObjectClass.C.p
@@ -114,8 +114,8 @@ structure GioTlsDatabase :>
             _import "mlton_g_tls_database_verify_chain" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                * unit GObjectObjectClass.C.p
                * GioTlsDatabaseVerifyFlags.C.val_
@@ -166,7 +166,7 @@ structure GioTlsDatabase :>
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
@@ -231,7 +231,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal

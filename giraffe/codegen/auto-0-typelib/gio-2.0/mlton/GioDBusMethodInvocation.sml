@@ -23,10 +23,10 @@ structure GioDBusMethodInvocation :>
           (
             _import "mlton_g_dbus_method_invocation_return_dbus_error" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -47,8 +47,8 @@ structure GioDBusMethodInvocation :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt32.C.val_
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -94,8 +94,8 @@ structure GioDBusMethodInvocation :>
     fun returnDbusError self errorName errorMessage =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         returnDbusError_
@@ -109,7 +109,7 @@ structure GioDBusMethodInvocation :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         returnErrorLiteral_

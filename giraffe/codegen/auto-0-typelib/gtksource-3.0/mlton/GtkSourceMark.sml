@@ -8,10 +8,10 @@ structure GtkSourceMark :>
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_source_mark_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -27,8 +27,8 @@ structure GtkSourceMark :>
           (
             _import "mlton_gtk_source_mark_next" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -42,8 +42,8 @@ structure GtkSourceMark :>
           (
             _import "mlton_gtk_source_mark_prev" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -54,10 +54,10 @@ structure GtkSourceMark :>
     type 'a class_t = 'a GtkSourceMarkClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name category = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> GtkSourceMarkClass.C.fromPtr true) new_ (name & category)
+    fun new name category = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceMarkClass.C.fromPtr true) new_ (name & category)
     fun getCategory self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCategory_ self
-    fun next self category = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> GtkSourceMarkClass.C.fromPtr false) next_ (self & category)
-    fun prev self category = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSourceMarkClass.C.fromPtr false) prev_ (self & category)
+    fun next self category = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> GtkSourceMarkClass.C.fromPtr false) next_ (self & category)
+    fun prev self category = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceMarkClass.C.fromPtr false) prev_ (self & category)
     local
       open Property
     in

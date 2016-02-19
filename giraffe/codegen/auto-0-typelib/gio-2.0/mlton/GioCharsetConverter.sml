@@ -12,10 +12,10 @@ structure GioCharsetConverter :>
          & x5 =>
           (
             _import "mlton_g_charset_converter_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -38,8 +38,8 @@ structure GioCharsetConverter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new toCharset fromCharset =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioCharsetConverterClass.C.fromPtr true
       )

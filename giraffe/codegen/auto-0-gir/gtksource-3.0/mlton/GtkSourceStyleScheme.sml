@@ -14,8 +14,8 @@ structure GtkSourceStyleScheme :>
           (
             _import "mlton_gtk_source_style_scheme_get_style" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -31,7 +31,7 @@ structure GtkSourceStyleScheme :>
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
     fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
     fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getStyle self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
+    fun getStyle self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
     local
       open Property
     in

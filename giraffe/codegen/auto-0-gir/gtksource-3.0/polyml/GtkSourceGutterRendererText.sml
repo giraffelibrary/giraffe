@@ -31,7 +31,7 @@ structure GtkSourceGutterRendererText :>
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -44,7 +44,7 @@ structure GtkSourceGutterRendererText :>
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

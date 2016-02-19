@@ -20,8 +20,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
                -> unit;
           )
@@ -39,8 +39,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
                -> unit;
           )
@@ -58,8 +58,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child_binary" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
                -> unit;
           )
@@ -70,19 +70,17 @@ structure VteTerminal :>
               x4
             )
     val forkCommandFull_ =
-      fn x1 & x2 & (x3, x4) & (x5, x6, x7) & (x8, x9, x10) & x11 & x12 & x13 =>
+      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 =>
         (
           _import "giraffe_vte_terminal_fork_command_full" :
             GObjectObjectClass.C.notnull GObjectObjectClass.C.p
              * VtePtyFlags.C.val_
-             * GCharVec.MLton.p1
-             * unit GCharVec.MLton.p2
-             * GCharVecVec.MLton.p1
-             * GCharVecVec.MLton.p2
-             * GCharVecVec.C.notnull GCharVecVec.MLton.p3
-             * GCharVecVec.MLton.p1
-             * GCharVecVec.MLton.p2
-             * unit GCharVecVec.MLton.p3
+             * Utf8.MLton.p1
+             * unit Utf8.MLton.p2
+             * Utf8CVector.MLton.p1
+             * Utf8CVector.C.notnull Utf8CVector.MLton.p2
+             * Utf8CVector.MLton.p1
+             * unit Utf8CVector.MLton.p2
              * GLibSpawnFlags.C.val_
              * GLibPid.C.ref_
              * (unit, unit) GLibErrorRecord.C.r
@@ -99,9 +97,7 @@ structure VteTerminal :>
             x8,
             x9,
             x10,
-            x11,
-            x12,
-            x13
+            x11
           )
     val getAllowBold_ = _import "vte_terminal_get_allow_bold" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getAudibleBell_ = _import "vte_terminal_get_audible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -190,8 +186,8 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_match_set_cursor_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -270,8 +266,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_background_image_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -320,8 +316,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_emulation" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -335,8 +331,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_encoding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -351,8 +347,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_font_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -391,8 +387,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_set_word_chars" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -442,7 +438,7 @@ structure VteTerminal :>
     fun feed self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -455,7 +451,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -468,7 +464,7 @@ structure VteTerminal :>
     fun feedChildBinary self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -484,9 +480,9 @@ structure VteTerminal :>
           (
             GObjectObjectClass.C.withPtr
              &&&> VtePtyFlags.C.withVal
-             &&&> Utf8.C.withConstOptPtr
-             &&&> Utf8Vector.C.withConstPtr
-             &&&> Utf8Vector.C.withConstOptPtr
+             &&&> Utf8.C.withOptPtr
+             &&&> Utf8CVector.C.withPtr
+             &&&> Utf8CVector.C.withOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibPid.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
@@ -581,7 +577,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         matchSetCursorName_
@@ -642,7 +638,7 @@ structure VteTerminal :>
     fun setAllowBold self allowBold = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowBold_ (self & allowBold)
     fun setAudibleBell self isAudible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAudibleBell_ (self & isAudible)
     fun setBackgroundImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setBackgroundImageFile_ (self & path)
+    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setBackgroundImageFile_ (self & path)
     fun setBackgroundSaturation self saturation = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setBackgroundSaturation_ (self & saturation)
     fun setBackgroundTintColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundTintColor_ (self & color)
     fun setBackgroundTransparent self transparent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setBackgroundTransparent_ (self & transparent)
@@ -676,10 +672,10 @@ structure VteTerminal :>
     fun setCursorShape self shape = (GObjectObjectClass.C.withPtr &&&> VteTerminalCursorShape.C.withVal ---> I) setCursorShape_ (self & shape)
     fun setDefaultColors self = (GObjectObjectClass.C.withPtr ---> I) setDefaultColors_ self
     fun setDeleteBinding self binding = (GObjectObjectClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setDeleteBinding_ (self & binding)
-    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEmulation_ (self & emulation)
-    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEncoding_ (self & codeset)
+    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEmulation_ (self & emulation)
+    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEncoding_ (self & codeset)
     fun setFont self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
-    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFontFromString_ (self & name)
+    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMouseAutohide_ (self & setting)
     fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
@@ -701,7 +697,7 @@ structure VteTerminal :>
            & rows
         )
     fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
-    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setWordChars_ (self & spec)
+    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWordChars_ (self & spec)
     fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (

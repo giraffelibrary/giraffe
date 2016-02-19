@@ -123,7 +123,7 @@ structure GdkScreen :>
     fun getSetting self name value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
       )

@@ -69,7 +69,7 @@ structure GLibRegex :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new pattern compileOptions matchOptions =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -87,13 +87,13 @@ structure GLibRegex :>
     fun getMatchFlags self = (GLibRegexRecord.C.withPtr ---> GLibRegexMatchFlags.C.fromVal) getMatchFlags_ self
     fun getMaxBackref self = (GLibRegexRecord.C.withPtr ---> FFI.Int.C.fromVal) getMaxBackref_ self
     fun getPattern self = (GLibRegexRecord.C.withPtr ---> Utf8.C.fromPtr false) getPattern_ self
-    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) getStringNumber_ (self & name)
+    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getStringNumber_ (self & name)
     fun match self string matchOptions =
       let
         val matchInfo & retVal =
           (
             GLibRegexRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibRegexMatchFlags.C.withVal
              &&&> GLibMatchInfoRecord.C.withRefOptPtr
              ---> GLibMatchInfoRecord.C.fromPtr true && FFI.Bool.C.fromVal
@@ -113,7 +113,7 @@ structure GLibRegex :>
         val matchInfo & retVal =
           (
             GLibRegexRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibRegexMatchFlags.C.withVal
              &&&> GLibMatchInfoRecord.C.withRefOptPtr
              ---> GLibMatchInfoRecord.C.fromPtr true && FFI.Bool.C.fromVal
@@ -132,7 +132,7 @@ structure GLibRegex :>
       let
         val hasReferences & retVal =
           (
-            Utf8.C.withConstPtr
+            Utf8.C.withPtr
              &&&> FFI.Bool.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
              ---> FFI.Bool.C.fromVal && FFI.Bool.C.fromVal
@@ -146,11 +146,11 @@ structure GLibRegex :>
       in
         if retVal then SOME hasReferences else NONE
       end
-    fun escapeNul string length = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) escapeNul_ (string & length)
+    fun escapeNul string length = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) escapeNul_ (string & length)
     fun matchSimple pattern string compileOptions matchOptions =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
          ---> FFI.Bool.C.fromVal

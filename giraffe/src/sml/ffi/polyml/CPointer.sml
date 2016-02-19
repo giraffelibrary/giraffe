@@ -27,10 +27,10 @@ structure CPointer =
     fun mapOpt f = fromOpt o Option.map f o toOpt
     fun appOpt f = Option.app f o toOpt
 
-    val fromVal = I
+    val fromVal = Fn.id
     val fromOptVal = toOpt
 
-    val withVal = I
+    val withVal = Fn.id
     fun withOptVal f = withVal f o fromOpt
 
     type ('a, 'b) r = Memory.Pointer.t
@@ -60,9 +60,20 @@ structure CPointer =
     structure Type =
       struct
         type t = Memory.Pointer.t
+        val null = Memory.Pointer.null
         val size = Memory.Pointer.size
+        type p = Memory.Pointer.t
         fun get (p, n) = Memory.getPointer (p, Word.fromInt n)
         fun set (p, n, e) = Memory.setPointer (p, Word.fromInt n, e)
+
+        local
+          open PolyMLFFI
+        in
+          val g_malloc_sym = getSymbol libglib "g_malloc"
+          val g_free_sym = getSymbol libglib "g_free"
+          val malloc = call g_malloc_sym (cUlong --> cPointer)
+          val free = call g_free_sym (cPointer --> cVoid)
+        end
       end
     structure NotNullType = Type
     structure OptNullType = Type
@@ -74,9 +85,9 @@ structure CPointer =
         val cVal = cPointer
         val cOptVal = cPointer
 
+        val cOptOutRef = cPointer
+        val cInOptOutRef = cPointer
         val cRef = cPointer
-        val cRefIn = cPointer
-        val cRefOut = cPointer
-        val cRefInOut = cPointer
+        val cInRef = cPointer
       end
   end

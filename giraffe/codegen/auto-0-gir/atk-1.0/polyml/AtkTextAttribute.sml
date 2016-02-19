@@ -137,8 +137,8 @@ structure AtkTextAttribute :>
       val register_ = call (load_sym libatk "atk_text_attribute_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
     fun getName attr = (C.withVal ---> Utf8.C.fromPtr false) getName_ attr
     fun getValue attr index = (C.withVal &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getValue_ (attr & index)
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

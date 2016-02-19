@@ -12,10 +12,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_boolean" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -36,10 +36,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_comment" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -60,10 +60,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_double" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Double.C.val_;
           )
@@ -84,10 +84,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_int64" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.C.val_;
           )
@@ -108,10 +108,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_integer" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int32.C.val_;
           )
@@ -133,12 +133,12 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_locale_string" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -162,10 +162,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_string" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -186,10 +186,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_uint64" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt64.C.val_;
           )
@@ -210,10 +210,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_get_value" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -231,8 +231,8 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_has_group" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -250,8 +250,8 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_load_from_data" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt64.C.val_
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -275,10 +275,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_load_from_data_dirs" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -303,12 +303,12 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_load_from_dirs" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -333,8 +333,8 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_load_from_file" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibKeyFileFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -355,10 +355,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_remove_comment" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -378,8 +378,8 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_remove_group" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -398,10 +398,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_remove_key" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -422,10 +422,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_boolean" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -447,10 +447,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_boolean_list" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
                * FFI.UInt64.C.val_
                -> unit;
@@ -474,12 +474,12 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_comment" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -502,10 +502,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_double" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                -> unit;
           )
@@ -527,10 +527,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_double_list" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Double.C.val_
                * FFI.UInt64.C.val_
                -> unit;
@@ -553,10 +553,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_int64" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
                -> unit;
           )
@@ -577,10 +577,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_integer" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -602,10 +602,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_integer_list" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * FFI.UInt64.C.val_
                -> unit;
@@ -630,14 +630,14 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_locale_string" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -662,14 +662,14 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_locale_string_list" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt64.C.val_
                -> unit;
           )
@@ -694,12 +694,12 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_string" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -720,10 +720,10 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_uint64" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt64.C.val_
                -> unit;
           )
@@ -744,12 +744,12 @@ structure GLibKeyFile :>
           (
             _import "mlton_g_key_file_set_value" :
               GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -767,8 +767,8 @@ structure GLibKeyFile :>
     fun getBoolean self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -782,8 +782,8 @@ structure GLibKeyFile :>
     fun getComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -797,8 +797,8 @@ structure GLibKeyFile :>
     fun getDouble self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Double.C.fromVal
       )
@@ -812,8 +812,8 @@ structure GLibKeyFile :>
     fun getInt64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -827,8 +827,8 @@ structure GLibKeyFile :>
     fun getInteger self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Int32.C.fromVal
       )
@@ -842,9 +842,9 @@ structure GLibKeyFile :>
     fun getLocaleString self groupName key locale =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -860,8 +860,8 @@ structure GLibKeyFile :>
     fun getString self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -875,8 +875,8 @@ structure GLibKeyFile :>
     fun getUint64 self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt64.C.fromVal
       )
@@ -890,8 +890,8 @@ structure GLibKeyFile :>
     fun getValue self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -902,11 +902,11 @@ structure GLibKeyFile :>
            & key
            & []
         )
-    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
+    fun hasGroup self groupName = (GLibKeyFileRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasGroup_ (self & groupName)
     fun loadFromData self data length flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -923,8 +923,8 @@ structure GLibKeyFile :>
     fun loadFromDataDirs self file fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -940,9 +940,9 @@ structure GLibKeyFile :>
     fun loadFromDirs self file searchDirs fullPath flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -959,7 +959,7 @@ structure GLibKeyFile :>
     fun loadFromFile self file flags =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -974,8 +974,8 @@ structure GLibKeyFile :>
     fun removeComment self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -989,7 +989,7 @@ structure GLibKeyFile :>
     fun removeGroup self groupName =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -1002,8 +1002,8 @@ structure GLibKeyFile :>
     fun removeKey self groupName key =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -1017,8 +1017,8 @@ structure GLibKeyFile :>
     fun setBoolean self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -1032,8 +1032,8 @@ structure GLibKeyFile :>
     fun setBooleanList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.UInt64.C.withVal
          ---> I
@@ -1049,9 +1049,9 @@ structure GLibKeyFile :>
     fun setComment self groupName key comment =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -1066,8 +1066,8 @@ structure GLibKeyFile :>
     fun setDouble self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          ---> I
       )
@@ -1081,8 +1081,8 @@ structure GLibKeyFile :>
     fun setDoubleList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.UInt64.C.withVal
          ---> I
@@ -1098,8 +1098,8 @@ structure GLibKeyFile :>
     fun setInt64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int64.C.withVal
          ---> I
       )
@@ -1113,8 +1113,8 @@ structure GLibKeyFile :>
     fun setInteger self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -1128,8 +1128,8 @@ structure GLibKeyFile :>
     fun setIntegerList self groupName key list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.UInt64.C.withVal
          ---> I
@@ -1146,10 +1146,10 @@ structure GLibKeyFile :>
     fun setLocaleString self groupName key locale string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setLocaleString_
@@ -1163,10 +1163,10 @@ structure GLibKeyFile :>
     fun setLocaleStringList self groupName key locale list length =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          ---> I
       )
@@ -1182,9 +1182,9 @@ structure GLibKeyFile :>
     fun setString self groupName key string =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setString_
@@ -1197,8 +1197,8 @@ structure GLibKeyFile :>
     fun setUint64 self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          ---> I
       )
@@ -1212,9 +1212,9 @@ structure GLibKeyFile :>
     fun setValue self groupName key value =
       (
         GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setValue_

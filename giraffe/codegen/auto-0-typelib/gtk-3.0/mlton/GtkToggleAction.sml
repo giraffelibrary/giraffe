@@ -12,14 +12,14 @@ structure GtkToggleAction :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_toggle_action_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -44,10 +44,10 @@ structure GtkToggleAction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GtkToggleActionClass.C.fromPtr true
       )
         new_

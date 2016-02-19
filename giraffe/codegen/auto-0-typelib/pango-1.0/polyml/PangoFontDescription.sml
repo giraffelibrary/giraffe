@@ -127,8 +127,8 @@ structure PangoFontDescription :>
            & replaceExisting
         )
     fun setAbsoluteSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Double.C.withVal ---> I) setAbsoluteSize_ (self & size)
-    fun setFamily self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFamily_ (self & family)
-    fun setFamilyStatic self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFamilyStatic_ (self & family)
+    fun setFamily self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setFamily_ (self & family)
+    fun setFamilyStatic self family = (PangoFontDescriptionRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setFamilyStatic_ (self & family)
     fun setGravity self gravity = (PangoFontDescriptionRecord.C.withPtr &&&> PangoGravity.C.withVal ---> I) setGravity_ (self & gravity)
     fun setSize self size = (PangoFontDescriptionRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
     fun setStretch self stretch = (PangoFontDescriptionRecord.C.withPtr &&&> PangoStretch.C.withVal ---> I) setStretch_ (self & stretch)
@@ -138,5 +138,5 @@ structure PangoFontDescription :>
     fun toFilename self = (PangoFontDescriptionRecord.C.withPtr ---> Utf8.C.fromPtr true) toFilename_ self
     fun toString self = (PangoFontDescriptionRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
     fun unsetFields self toUnset = (PangoFontDescriptionRecord.C.withPtr &&&> PangoFontMask.C.withVal ---> I) unsetFields_ (self & toUnset)
-    fun fromString str = (Utf8.C.withConstPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fromString_ str
+    fun fromString str = (Utf8.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fromString_ str
   end

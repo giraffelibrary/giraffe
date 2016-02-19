@@ -13,8 +13,8 @@ structure GtkAspectFrame :>
          & x6 =>
           (
             _import "mlton_gtk_aspect_frame_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Float.C.val_
@@ -60,7 +60,7 @@ structure GtkAspectFrame :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal

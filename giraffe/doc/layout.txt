@@ -13,9 +13,8 @@ Source release directory layout
 
   src/                      - source code
     mlton/                    - C interface support for MLton
-      gcharptrffi.h             - interface functions for GCharVec FFI
-      gcharptrptrffi.h          - interface functions for GCharVecVec FFI
-      gcharvecveclib.c          - internal functions for GCharVecVec FFI
+      cvector.h                 - interface functions for C array FFI
+      cvectorvector.h           - interface functions for C array FFI
       giraffe-sml-<namespace>-<version>.h
                                 - SML interface exported by MLton
       giraffe-<namespace>-<version>.h
@@ -52,7 +51,6 @@ Installation directory layout
 
   lib/                      - libraries for target platform
     mlton/                    - interface (static) libraries for MLton
-      libgcharvecveclib.a
       libgiraffe-<namespace>-<version>.a
 
     polyml/                   - interface (shared) libraries for Poly/ML
@@ -81,6 +79,6 @@ Installation directory layout
 
   include/
     mlton/
-      gcharptrffi.h             - copy of src/mlton/gcharptrffi.h
-      gcharptrptrffi.h          - copy of src/mlton/gcharptrptrffi.h
+      cvector.h                 - copy of src/mlton/cvector.h
+      cvectorvector.h           - copy of src/mlton/cvectorvector.h
 

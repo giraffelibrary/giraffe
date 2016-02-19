@@ -61,8 +61,8 @@ structure AtkEditableText :>
           (
             _import "mlton_atk_editable_text_set_text_contents" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -113,5 +113,5 @@ structure AtkEditableText :>
            & endPos
         )
     fun pasteText self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) pasteText_ (self & position)
-    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTextContents_ (self & string)
+    fun setTextContents self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTextContents_ (self & string)
   end

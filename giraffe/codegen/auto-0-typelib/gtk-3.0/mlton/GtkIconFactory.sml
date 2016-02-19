@@ -6,7 +6,7 @@ structure GtkIconFactory :>
   struct
     val getType_ = _import "gtk_icon_factory_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_icon_factory_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
+    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
     val add_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure GtkIconFactory :>
           (
             _import "mlton_gtk_icon_factory_add" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p
                -> unit;
           )
@@ -33,8 +33,8 @@ structure GtkIconFactory :>
           (
             _import "mlton_gtk_icon_factory_lookup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
           )
             (
@@ -50,11 +50,11 @@ structure GtkIconFactory :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconFactoryClass.C.fromPtr true) new_ ()
-    fun lookupDefault stockId = (Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookupDefault_ stockId
+    fun lookupDefault stockId = (Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupDefault_ stockId
     fun add self stockId iconSet =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkIconSetRecord.C.withPtr
          ---> I
       )
@@ -65,6 +65,6 @@ structure GtkIconFactory :>
            & iconSet
         )
     fun addDefault self = (GObjectObjectClass.C.withPtr ---> I) addDefault_ self
-    fun lookup self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkIconSetRecord.C.fromPtr false) lookup_ (self & stockId)
+    fun lookup self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookup_ (self & stockId)
     fun removeDefault self = (GObjectObjectClass.C.withPtr ---> I) removeDefault_ self
   end

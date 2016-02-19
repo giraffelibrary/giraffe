@@ -36,7 +36,7 @@ structure GtkAspectFrame :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal

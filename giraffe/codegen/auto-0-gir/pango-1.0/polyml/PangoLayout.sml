@@ -357,7 +357,7 @@ structure PangoLayout :>
     fun setMarkup self markup length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -372,7 +372,7 @@ structure PangoLayout :>
         val accelChar & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> FFI.Char.C.withRefVal
@@ -395,7 +395,7 @@ structure PangoLayout :>
     fun setText self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

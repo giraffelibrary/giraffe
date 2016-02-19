@@ -1,6 +1,6 @@
 # Giraffe Library Makefile
 #
-# Copyright (C) 2015 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015-2016 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -62,26 +62,23 @@ CFLAGS := -DGIRAFFE_DEBUG -fPIC -ggdb -std=c99 -Wall -Wno-deprecated-declaration
 
 #   - MLton
 
-src/mlton/gcharvecveclib.o : src/mlton/gcharvecveclib.c
-	$(CC) $(CFLAGS) -c -o $@ `pkg-config --cflags glib-2.0` $<
-
 MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
-$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/gcharptrffi.h src/mlton/gcharptrptrffi.h
+$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/cvector.h src/mlton/cvectorvector.h
 	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
 
 MLTON_AR_FLAGS := rcs
 
-$(MLTON_LIB_FILES) src/mlton/libgcharvecveclib.a : src/mlton/lib%.a : src/mlton/%.o
+$(MLTON_LIB_FILES) : src/mlton/lib%.a : src/mlton/%.o
 	$(AR) $(MLTON_AR_FLAGS) $@ $<
 
 
 .PHONY : mlton
 
 ifdef MLTON_VERSION
-mlton : src/mlton/libgcharvecveclib.a $(MLTON_LIB_FILES)
+mlton : $(MLTON_LIB_FILES)
 else
 mlton :
 endif
@@ -128,14 +125,13 @@ install-mlton :
 	install -d "$(LIBDIR)"
 	install -d "$(LIBDIR)/mlton"
 	install -c -p -m 644 \
-	 src/mlton/libgcharvecveclib.a \
 	 $(MLTON_LIB_FILES) \
 	 "$(LIBDIR)/mlton"
 	install -d "$(INCLUDEDIR)"
 	install -d "$(INCLUDEDIR)/mlton"
 	install -c -p -m 644 \
-	 src/mlton/gcharptrffi.h \
-	 src/mlton/gcharptrptrffi.h \
+	 src/mlton/cvector.h \
+	 src/mlton/cvectorvector.h \
 	 "$(INCLUDEDIR)/mlton"
 else
 install-mlton :
@@ -182,12 +178,10 @@ install : install-mlton install-polyml install-sml
 .PHONY : clean distclean
 
 clean :
-	rm -f src/mlton/gcharvecveclib.o
 	rm -f $(MLTON_OBJ_FILES)
 	rm -f $(POLYML_OBJ_FILES)
 
 distclean : clean
-	rm -f src/mlton/libgcharvecveclib.a
 	rm -f $(MLTON_LIB_FILES)
 	rm -f $(POLYML_LIB_FILES)
 	rm -f config.mk

@@ -256,7 +256,7 @@ structure GIRepositoryObjectInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> Utf8.C.withConstPtr
+           &&&> Utf8.C.withPtr
            ---> GIRepositoryFunctionInfoClass.C.fromPtr true
         )
           findMethod_
@@ -311,7 +311,7 @@ structure GIRepositoryObjectInfo :>
       fn info => fn name =>
         (
           GIRepositoryBaseInfoClass.C.withPtr
-           &&&> Utf8.C.withConstPtr
+           &&&> Utf8.C.withPtr
            ---> GIRepositoryVFuncInfoClass.C.fromPtr true
         )
           findVfunc_

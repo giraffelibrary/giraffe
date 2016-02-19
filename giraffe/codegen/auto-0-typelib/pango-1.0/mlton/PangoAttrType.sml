@@ -97,8 +97,8 @@ structure PangoAttrType :>
         }
     val null = INVALID
     val getName_ = _import "pango_attr_type_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val register_ = _import "mlton_pango_attr_type_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
+    val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

@@ -40,9 +40,9 @@ structure GioDBusServer :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GioDBusServerFlags.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError

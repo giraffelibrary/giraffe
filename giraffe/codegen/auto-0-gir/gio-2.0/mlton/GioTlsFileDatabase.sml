@@ -9,8 +9,8 @@ structure GioTlsFileDatabase :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_tls_file_database_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -23,7 +23,7 @@ structure GioTlsFileDatabase :>
     type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new anchors = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
+    fun new anchors = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
     local
       open Property
     in

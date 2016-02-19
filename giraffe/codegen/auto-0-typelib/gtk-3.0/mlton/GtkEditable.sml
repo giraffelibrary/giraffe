@@ -68,8 +68,8 @@ structure GtkEditable :>
           (
             _import "mlton_gtk_editable_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.ref_
                -> unit;
@@ -162,7 +162,7 @@ structure GtkEditable :>
         val position & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withRefVal
              ---> FFI.Int32.C.fromVal && I

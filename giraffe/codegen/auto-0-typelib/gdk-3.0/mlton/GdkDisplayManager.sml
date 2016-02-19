@@ -12,8 +12,8 @@ structure GdkDisplayManager :>
           (
             _import "mlton_gdk_display_manager_open_display" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,7 +28,7 @@ structure GdkDisplayManager :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()
     fun getDefaultDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDefaultDisplay_ self
-    fun openDisplay self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
+    fun openDisplay self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
     fun setDefaultDisplay self display = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setDefaultDisplay_ (self & display)
     local
       open ClosureMarshal Signal

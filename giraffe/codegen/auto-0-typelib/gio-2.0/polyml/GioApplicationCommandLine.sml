@@ -20,7 +20,7 @@ structure GioApplicationCommandLine :>
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getExitStatus_ self
     fun getIsRemote self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRemote_ self
     fun getPlatformData self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getPlatformData_ self
-    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getenv_ (self & name)
+    fun getenv self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getenv_ (self & name)
     fun setExitStatus self exitStatus = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
       open Property

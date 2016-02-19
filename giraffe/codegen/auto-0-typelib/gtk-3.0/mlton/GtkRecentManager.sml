@@ -15,8 +15,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_add_full" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRecentDataRecord.C.notnull GtkRecentDataRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -32,8 +32,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_add_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -47,8 +47,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_has_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -64,8 +64,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_lookup_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p;
           )
@@ -84,10 +84,10 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_move_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -108,8 +108,8 @@ structure GtkRecentManager :>
           (
             _import "mlton_gtk_recent_manager_remove_item" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -129,7 +129,7 @@ structure GtkRecentManager :>
     fun addFull self uri recentData =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkRecentDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
@@ -139,12 +139,12 @@ structure GtkRecentManager :>
            & uri
            & recentData
         )
-    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
-    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
+    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
+    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GtkRecentInfoRecord.C.fromPtr true
       )
@@ -157,8 +157,8 @@ structure GtkRecentManager :>
     fun moveItem self uri newUri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -173,7 +173,7 @@ structure GtkRecentManager :>
     fun removeItem self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

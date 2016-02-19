@@ -13,8 +13,8 @@ structure GioSimpleActionGroup :>
           (
             _import "mlton_g_simple_action_group_lookup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -28,8 +28,8 @@ structure GioSimpleActionGroup :>
           (
             _import "mlton_g_simple_action_group_remove" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -45,6 +45,6 @@ structure GioSimpleActionGroup :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSimpleActionGroupClass.C.fromPtr true) new_ ()
     fun insert self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) insert_ (self & action)
-    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
-    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) remove_ (self & actionName)
+    fun lookup self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioActionClass.C.fromPtr false) lookup_ (self & actionName)
+    fun remove self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) remove_ (self & actionName)
   end

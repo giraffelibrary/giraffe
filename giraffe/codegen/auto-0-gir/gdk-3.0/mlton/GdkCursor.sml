@@ -13,8 +13,8 @@ structure GdkCursor :>
           (
             _import "mlton_gdk_cursor_new_from_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -52,7 +52,7 @@ structure GdkCursor :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
     fun newForDisplay display cursorType = (GObjectObjectClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
+    fun newFromName display name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
     fun newFromPixbuf display pixbuf x y =
       (
         GObjectObjectClass.C.withPtr

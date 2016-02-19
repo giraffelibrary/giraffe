@@ -5,7 +5,7 @@ structure GioInetAddress :>
   struct
     val getType_ = _import "g_inet_address_get_type" : unit -> GObjectType.C.val_;
     val newAny_ = _import "g_inet_address_new_any" : GioSocketFamily.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromString_ = _import "mlton_g_inet_address_new_from_string" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromString_ = _import "mlton_g_inet_address_new_from_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val newLoopback_ = _import "g_inet_address_new_loopback" : GioSocketFamily.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val equal_ = fn x1 & x2 => (_import "g_inet_address_equal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getFamily_ = _import "g_inet_address_get_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketFamily.C.val_;
@@ -26,7 +26,7 @@ structure GioInetAddress :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
-    fun newFromString string = (Utf8.C.withConstPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
+    fun newFromString string = (Utf8.C.withPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string
     fun newLoopback family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newLoopback_ family
     fun equal self otherAddress = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & otherAddress)
     fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self

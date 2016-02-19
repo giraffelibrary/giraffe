@@ -11,8 +11,8 @@ structure AtkSocket :>
           (
             _import "mlton_atk_socket_embed" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -27,6 +27,6 @@ structure AtkSocket :>
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkSocketClass.C.fromPtr true) new_ ()
-    fun embed self plugId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) embed_ (self & plugId)
+    fun embed self plugId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) embed_ (self & plugId)
     fun isOccupied self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isOccupied_ self
   end

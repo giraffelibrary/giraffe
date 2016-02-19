@@ -36,11 +36,11 @@ structure GioProxyAddress :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> GioProxyAddressClass.C.fromPtr true
       )
         new_

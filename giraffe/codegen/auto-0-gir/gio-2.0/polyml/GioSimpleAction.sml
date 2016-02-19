@@ -24,10 +24,10 @@ structure GioSimpleAction :>
     type t = base class_t
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name parameterType = (Utf8.C.withConstPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
+    fun new name parameterType = (Utf8.C.withPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)
     fun newStateful name parameterType state =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> GioSimpleActionClass.C.fromPtr true

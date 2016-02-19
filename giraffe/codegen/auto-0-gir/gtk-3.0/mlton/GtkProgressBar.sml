@@ -24,8 +24,8 @@ structure GtkProgressBar :>
           (
             _import "mlton_gtk_progress_bar_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -54,7 +54,7 @@ structure GtkProgressBar :>
     fun setInverted self inverted = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInverted_ (self & inverted)
     fun setPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPulseStep_ (self & fraction)
     fun setShowText self showText = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowText_ (self & showText)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setText_ (self & text)
     local
       open Property
     in

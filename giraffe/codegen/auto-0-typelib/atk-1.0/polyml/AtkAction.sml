@@ -34,7 +34,7 @@ structure AtkAction :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         setDescription_

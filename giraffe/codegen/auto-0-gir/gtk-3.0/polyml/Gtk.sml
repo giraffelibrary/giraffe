@@ -1550,7 +1550,7 @@ structure Gtk : GTK =
          & acceleratorMods
          & () =
           (
-            Utf8.C.withConstPtr
+            Utf8.C.withPtr
              &&&> FFI.UInt.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
              ---> FFI.UInt.C.fromVal
@@ -1648,7 +1648,7 @@ structure Gtk : GTK =
     fun dragSetIconName context iconName hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -1678,7 +1678,7 @@ structure Gtk : GTK =
     fun dragSetIconStock context stockId hotX hotY =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -1745,7 +1745,7 @@ structure Gtk : GTK =
     fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
     fun grabGetCurrent () = (I ---> GtkWidgetClass.C.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (Utf8.C.withConstPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
+    fun iconSizeFromName name = (Utf8.C.withPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
     fun iconSizeGetName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) iconSizeGetName_ size
     fun iconSizeLookup size =
       let
@@ -1795,7 +1795,7 @@ structure Gtk : GTK =
       end
     fun iconSizeRegister name width height =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -1806,7 +1806,7 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconSizeRegisterAlias alias target = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
     fun iconThemeErrorQuark () = (I ---> GLibQuark.C.fromVal) iconThemeErrorQuark_ ()
     fun keySnooperRemove snooperHandlerId = (FFI.UInt.C.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
@@ -1822,7 +1822,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GtkArrowType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1853,7 +1853,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1880,7 +1880,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1913,7 +1913,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1940,7 +1940,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1966,7 +1966,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GtkExpanderStyle.C.withVal
@@ -1990,7 +1990,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2019,7 +2019,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2045,7 +2045,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2071,7 +2071,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2099,7 +2099,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2123,7 +2123,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withPtr
@@ -2148,7 +2148,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2174,7 +2174,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GdkWindowEdge.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2202,7 +2202,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2229,7 +2229,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2262,7 +2262,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2290,7 +2290,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2318,7 +2318,7 @@ structure Gtk : GTK =
          &&&> GtkStateType.C.withVal
          &&&> GtkShadowType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2344,7 +2344,7 @@ structure Gtk : GTK =
          &&&> CairoContextRecord.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -2377,7 +2377,7 @@ structure Gtk : GTK =
            & settings
         )
     fun propagateEvent widget event = (GObjectObjectClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) propagateEvent_ (widget & event)
-    fun rcAddDefaultFile filename = (Utf8.C.withConstPtr ---> I) rcAddDefaultFile_ filename
+    fun rcAddDefaultFile filename = (Utf8.C.withPtr ---> I) rcAddDefaultFile_ filename
     fun rcGetStyle widget = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) rcGetStyle_ widget
     fun recentChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) recentChooserErrorQuark_ ()
     fun recentManagerErrorQuark () = (I ---> GLibQuark.C.fromVal) recentManagerErrorQuark_ ()
@@ -2783,7 +2783,7 @@ structure Gtk : GTK =
     fun showUri screen uri timestamp =
       (
         GObjectObjectClass.C.withOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -2797,12 +2797,12 @@ structure Gtk : GTK =
         )
     fun stockLookup stockId =
       let
-        val item & retVal = (Utf8.C.withConstPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
+        val item & retVal = (Utf8.C.withPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
       end
-    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel widget labelPattern = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) testSliderGetValue_ widget
     fun testSliderSetPerc widget percentage = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) testSliderSetPerc_ (widget & percentage)
@@ -2820,7 +2820,7 @@ structure Gtk : GTK =
            & upwards
         )
     fun testTextGet widget = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) testTextGet_ widget
-    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) testTextSet_ (widget & string)
+    fun testTextSet widget string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) testTextSet_ (widget & string)
     fun testWidgetClick widget button modifiers =
       (
         GObjectObjectClass.C.withPtr

@@ -28,9 +28,9 @@ structure GioNetworkService :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new service protocol domain =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> GioSocketConnectableClass.C.fromPtr true
       )
         new_
@@ -43,7 +43,7 @@ structure GioNetworkService :>
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getProtocol_ self
     fun getScheme self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getScheme_ self
     fun getService self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getService_ self
-    fun setScheme self scheme = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setScheme_ (self & scheme)
+    fun setScheme self scheme = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setScheme_ (self & scheme)
     local
       open Property
     in

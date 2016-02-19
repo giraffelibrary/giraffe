@@ -40,10 +40,10 @@ structure GioMountOperation :>
     fun reply self result = (GObjectObjectClass.C.withPtr &&&> GioMountOperationResult.C.withVal ---> I) reply_ (self & result)
     fun setAnonymous self anonymous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAnonymous_ (self & anonymous)
     fun setChoice self choice = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setChoice_ (self & choice)
-    fun setDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDomain_ (self & domain)
-    fun setPassword self password = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPassword_ (self & password)
+    fun setDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDomain_ (self & domain)
+    fun setPassword self password = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPassword_ (self & password)
     fun setPasswordSave self save = (GObjectObjectClass.C.withPtr &&&> GioPasswordSave.C.withVal ---> I) setPasswordSave_ (self & save)
-    fun setUsername self username = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setUsername_ (self & username)
+    fun setUsername self username = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setUsername_ (self & username)
     local
       open ClosureMarshal Signal
     in

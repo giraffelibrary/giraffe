@@ -75,8 +75,8 @@ structure AtkObject :>
           (
             _import "mlton_atk_object_set_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -90,8 +90,8 @@ structure AtkObject :>
           (
             _import "mlton_atk_object_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -158,8 +158,8 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDescription_ (self & description)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDescription_ (self & description)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setRole self role = (GObjectObjectClass.C.withPtr &&&> AtkRole.C.withVal ---> I) setRole_ (self & role)
     local

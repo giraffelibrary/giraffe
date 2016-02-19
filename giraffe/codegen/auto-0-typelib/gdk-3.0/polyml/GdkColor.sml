@@ -21,7 +21,7 @@ structure GdkColor :>
     fun toString self = (GdkColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
     fun parse spec =
       let
-        val color & retVal = (Utf8.C.withConstPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (spec & ())
+        val color & retVal = (Utf8.C.withPtr &&&> GdkColorRecord.C.withNewPtr ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (spec & ())
       in
         if retVal then SOME color else NONE
       end

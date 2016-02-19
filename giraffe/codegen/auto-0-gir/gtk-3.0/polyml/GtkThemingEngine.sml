@@ -112,7 +112,7 @@ structure GtkThemingEngine :>
     type state_type_t = GtkStateType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun load name = (Utf8.C.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
+    fun load name = (Utf8.C.withPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -230,7 +230,7 @@ structure GtkThemingEngine :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -240,13 +240,13 @@ structure GtkThemingEngine :>
            & propertyName
            & value
         )
-    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
+    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let
         val flags & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -264,7 +264,7 @@ structure GtkThemingEngine :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )

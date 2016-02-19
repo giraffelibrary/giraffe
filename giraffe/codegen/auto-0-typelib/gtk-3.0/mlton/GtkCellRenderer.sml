@@ -24,8 +24,8 @@ structure GtkCellRenderer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * GtkCellRendererState.C.val_
@@ -335,8 +335,8 @@ structure GtkCellRenderer :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p
                * GtkCellRendererState.C.val_
@@ -368,7 +368,7 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
@@ -678,7 +678,7 @@ structure GtkCellRenderer :>
         GObjectObjectClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> CairoRectangleIntRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal

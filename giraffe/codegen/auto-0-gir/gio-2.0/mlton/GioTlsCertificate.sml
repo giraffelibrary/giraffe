@@ -10,8 +10,8 @@ structure GioTlsCertificate :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_tls_certificate_new_from_file" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -27,10 +27,10 @@ structure GioTlsCertificate :>
          & x5 =>
           (
             _import "mlton_g_tls_certificate_new_from_files" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -48,8 +48,8 @@ structure GioTlsCertificate :>
          & x4 =>
           (
             _import "mlton_g_tls_certificate_new_from_pem" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.SSize.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -83,11 +83,11 @@ structure GioTlsCertificate :>
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (Utf8.C.withConstPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -99,7 +99,7 @@ structure GioTlsCertificate :>
         )
     fun newFromPem data length =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.SSize.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioTlsCertificateClass.C.fromPtr true

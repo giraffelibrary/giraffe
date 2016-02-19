@@ -55,7 +55,7 @@ structure GObjectObject :>
     fun getProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -67,14 +67,14 @@ structure GObjectObject :>
         )
 (*
     fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFloating_ self
-    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) notify_ (self & propertyName)
+    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.C.withPtr ---> I) runDispose_ self
 *)
     fun setProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

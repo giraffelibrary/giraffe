@@ -21,14 +21,14 @@ structure AtkDocument :>
     type 'a class_t = 'a AtkDocumentClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
+    fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
     fun getDocumentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self
     fun getLocale self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLocale_ self
     fun setAttributeValue self attributeName attributeValue =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         setAttributeValue_

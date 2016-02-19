@@ -112,7 +112,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
       )
         backwardIterToSourceMark_
@@ -127,8 +127,8 @@ structure GtkSourceBuffer :>
     fun createSourceMark self name category where' =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> GtkSourceMarkClass.C.fromPtr false
       )
@@ -157,7 +157,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
       )
         forwardIterToSourceMark_
@@ -176,7 +176,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterBackwardToContextClassToggle_
@@ -189,7 +189,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterForwardToContextClassToggle_
@@ -202,7 +202,7 @@ structure GtkSourceBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasContextClass_
@@ -217,7 +217,7 @@ structure GtkSourceBuffer :>
         GObjectObjectClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         removeSourceMarks_

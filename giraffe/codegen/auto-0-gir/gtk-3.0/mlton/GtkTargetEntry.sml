@@ -10,8 +10,8 @@ structure GtkTargetEntry :>
          & x4 =>
           (
             _import "mlton_gtk_target_entry_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p;
@@ -28,7 +28,7 @@ structure GtkTargetEntry :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> GtkTargetEntryRecord.C.fromPtr true

@@ -7,7 +7,7 @@ structure GtkAppChooserWidget :>
     where type 'a menu_class_t = 'a GtkMenuClass.t =
   struct
     val getType_ = _import "gtk_app_chooser_widget_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_app_chooser_widget_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_app_chooser_widget_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -20,8 +20,8 @@ structure GtkAppChooserWidget :>
           (
             _import "mlton_gtk_app_chooser_widget_set_default_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -45,14 +45,14 @@ structure GtkAppChooserWidget :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (Utf8.C.withConstPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
+    fun new contentType = (Utf8.C.withPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
     fun getDefaultText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultText_ self
     fun getShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowAll_ self
     fun getShowDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefault_ self
     fun getShowFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowFallback_ self
     fun getShowOther self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowOther_ self
     fun getShowRecommended self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowRecommended_ self
-    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDefaultText_ (self & text)
+    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDefaultText_ (self & text)
     fun setShowAll self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowAll_ (self & setting)
     fun setShowDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefault_ (self & setting)
     fun setShowFallback self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowFallback_ (self & setting)

@@ -7,7 +7,7 @@ structure GtkTextTag :>
     where type wrap_mode_t = GtkWrapMode.t =
   struct
     val getType_ = _import "gtk_text_tag_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_text_tag_new" : GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_text_tag_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val event_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure GtkTextTag :>
     type wrap_mode_t = GtkWrapMode.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (Utf8.C.withConstOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    fun new name = (Utf8.C.withOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
         GObjectObjectClass.C.withPtr

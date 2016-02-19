@@ -18,8 +18,8 @@ structure GtkNumerableIcon :>
           (
             _import "mlton_gtk_numerable_icon_set_background_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -34,8 +34,8 @@ structure GtkNumerableIcon :>
           (
             _import "mlton_gtk_numerable_icon_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -57,9 +57,9 @@ structure GtkNumerableIcon :>
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getStyleContext self = (GObjectObjectClass.C.withPtr ---> GtkStyleContextClass.C.fromPtr false) getStyleContext_ self
     fun setBackgroundGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundGicon_ (self & icon)
-    fun setBackgroundIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setBackgroundIconName_ (self & iconName)
+    fun setBackgroundIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setBackgroundIconName_ (self & iconName)
     fun setCount self count = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCount_ (self & count)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
     fun setStyleContext self style = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setStyleContext_ (self & style)
     local
       open Property

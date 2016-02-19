@@ -28,9 +28,9 @@ structure GtkFontChooser :>
     fun getFontSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFontSize_ self
     fun getPreviewText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getPreviewText_ self
     fun getShowPreviewEntry self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowPreviewEntry_ self
-    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFont_ (self & fontname)
+    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFont_ (self & fontname)
     fun setFontDesc self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withPtr ---> I) setFontDesc_ (self & fontDesc)
-    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPreviewText_ (self & text)
+    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPreviewText_ (self & text)
     fun setShowPreviewEntry self showPreviewEntry = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowPreviewEntry_ (self & showPreviewEntry)
     local
       open ClosureMarshal Signal

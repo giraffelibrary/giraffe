@@ -5,4 +5,7 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-signature UTF8_VECTOR = F_F_I_ARRAY where type t = string list
+structure GCharCVectorType =
+  CVectorType
+   (structure CType = GCharCType
+    structure Vector = CharVector)

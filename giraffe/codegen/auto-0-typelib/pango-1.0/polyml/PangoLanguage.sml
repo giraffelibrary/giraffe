@@ -20,8 +20,8 @@ structure PangoLanguage :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.C.withPtr ---> Utf8.C.fromPtr false) getSampleString_ self
     fun includesScript self script = (PangoLanguageRecord.C.withPtr &&&> PangoScript.C.withVal ---> FFI.Bool.C.fromVal) includesScript_ (self & script)
-    fun matches self rangeList = (PangoLanguageRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) matches_ (self & rangeList)
+    fun matches self rangeList = (PangoLanguageRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) matches_ (self & rangeList)
     fun toString self = (PangoLanguageRecord.C.withPtr ---> Utf8.C.fromPtr false) toString_ self
-    fun fromString language = (Utf8.C.withConstOptPtr ---> PangoLanguageRecord.C.fromPtr true) fromString_ language
+    fun fromString language = (Utf8.C.withOptPtr ---> PangoLanguageRecord.C.fromPtr true) fromString_ language
     fun getDefault () = (I ---> PangoLanguageRecord.C.fromPtr true) getDefault_ ()
   end

@@ -16,10 +16,10 @@ structure GLibIOChannel :>
          & x5 =>
           (
             _import "mlton_g_io_channel_new_file" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p;
           )
@@ -88,8 +88,8 @@ structure GLibIOChannel :>
           (
             _import "mlton_g_io_channel_set_encoding" :
               GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> GLibIOStatus.C.val_;
           )
@@ -124,8 +124,8 @@ structure GLibIOChannel :>
           (
             _import "mlton_g_io_channel_set_line_term" :
               GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -182,8 +182,8 @@ structure GLibIOChannel :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOChannelRecord.C.fromPtr true
       )
@@ -237,7 +237,7 @@ structure GLibIOChannel :>
     fun setEncoding self encoding =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GLibIOStatus.C.fromVal
       )
@@ -263,7 +263,7 @@ structure GLibIOChannel :>
     fun setLineTerm self lineTerm length =
       (
         GLibIOChannelRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

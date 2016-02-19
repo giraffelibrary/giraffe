@@ -5,8 +5,4 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-signature UTF8 =
-  F_F_I_ARRAY
-    where type t = string
-    where type 'a C.in_p = GCharVec.MLton.p1 * 'a GCharVec.MLton.p2
-    where type ('a, 'b) C.r = GCharVec.MLton.r1 * ('a, 'b) GCharVec.MLton.r2
+structure GCharCVector = CVector (GCharCVectorType)

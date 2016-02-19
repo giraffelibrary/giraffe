@@ -76,7 +76,7 @@ structure GtkRecentChooser :>
     fun selectUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -89,7 +89,7 @@ structure GtkRecentChooser :>
     fun setCurrentUri self uri =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -109,7 +109,7 @@ structure GtkRecentChooser :>
     fun setShowTips self showTips = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowTips_ (self & showTips)
     fun setSortType self sortType = (GObjectObjectClass.C.withPtr &&&> GtkRecentSortType.C.withVal ---> I) setSortType_ (self & sortType)
     fun unselectAll self = (GObjectObjectClass.C.withPtr ---> I) unselectAll_ self
-    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) unselectUri_ (self & uri)
+    fun unselectUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

@@ -34,8 +34,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_add_class" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -54,8 +54,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_add_region" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRegionFlags.C.val_
                -> unit;
           )
@@ -80,8 +80,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_has_class" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -99,8 +99,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_has_name" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -173,8 +173,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_has_region" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -194,8 +194,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_remove_class" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -213,8 +213,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_remove_region" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -232,8 +232,8 @@ structure GtkWidgetPath :>
             _import "mlton_gtk_widget_path_iter_set_name" :
               GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -269,7 +269,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterAddClass_
@@ -282,7 +282,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GtkRegionFlags.C.withVal
          ---> I
       )
@@ -302,7 +302,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasClass_
@@ -315,7 +315,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         iterHasName_
@@ -376,7 +376,7 @@ structure GtkWidgetPath :>
           (
             GtkWidgetPathRecord.C.withPtr
              &&&> FFI.Int32.C.withVal
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -394,7 +394,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterRemoveClass_
@@ -407,7 +407,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterRemoveRegion_
@@ -420,7 +420,7 @@ structure GtkWidgetPath :>
       (
         GtkWidgetPathRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         iterSetName_

@@ -19,4 +19,7 @@ functor CTypedPointer (CType : C_TYPE) :> C_TYPED_POINTER where type e = CType.t
 
     val set = CType.set
     val get = CType.get
+
+    fun new n = CType.malloc (n * Word.toInt CType.size)
+    val free = CType.free
   end

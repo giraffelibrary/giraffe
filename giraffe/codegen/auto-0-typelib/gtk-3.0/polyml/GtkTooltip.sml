@@ -61,7 +61,7 @@ structure GtkTooltip :>
     fun setIconFromIconName self iconName size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -74,7 +74,7 @@ structure GtkTooltip :>
     fun setIconFromStock self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -84,7 +84,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setText_ (self & text)
     fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

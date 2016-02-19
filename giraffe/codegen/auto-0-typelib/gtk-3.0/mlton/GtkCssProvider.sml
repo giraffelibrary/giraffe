@@ -11,10 +11,10 @@ structure GtkCssProvider :>
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_css_provider_get_named" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -48,8 +48,8 @@ structure GtkCssProvider :>
           (
             _import "mlton_gtk_css_provider_load_from_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -67,7 +67,7 @@ structure GtkCssProvider :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.C.fromPtr false) getDefault_ ()
-    fun getNamed name variant = (Utf8.C.withConstPtr &&&> Utf8.C.withConstOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
+    fun getNamed name variant = (Utf8.C.withPtr &&&> Utf8.C.withOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
     fun loadFromFile self file =
       (
         GObjectObjectClass.C.withPtr
@@ -84,7 +84,7 @@ structure GtkCssProvider :>
     fun loadFromPath self path =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

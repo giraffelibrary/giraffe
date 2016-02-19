@@ -33,10 +33,10 @@ structure GioNetworkAddress :>
     type t = base class_t
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hostname port = (Utf8.C.withConstPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
+    fun new hostname port = (Utf8.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
     fun parse hostAndPort defaultPort =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
@@ -49,7 +49,7 @@ structure GioNetworkAddress :>
         )
     fun parseUri uri defaultPort =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioSocketConnectableClass.C.fromPtr true

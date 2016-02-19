@@ -45,8 +45,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_add_accelerator" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.val_
                * GdkModifierType.C.val_
@@ -89,8 +89,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_child_notify" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -108,10 +108,10 @@ structure GtkWidget :>
             _import "mlton_gtk_widget_class_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.ref_
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                -> unit;
           )
             (
@@ -130,8 +130,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_create_pango_layout" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -265,8 +265,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_drag_source_set_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -281,8 +281,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_drag_source_set_icon_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -647,8 +647,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_override_symbolic_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * unit GdkRgbaRecord.C.p
                -> unit;
           )
@@ -668,10 +668,10 @@ structure GtkWidget :>
             _import "mlton_gtk_widget_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt.C.ref_
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                -> unit;
           )
             (
@@ -741,8 +741,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_render_icon_pixbuf" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
@@ -765,8 +765,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_accel_path" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * unit GObjectObjectClass.C.p
                -> unit;
           )
@@ -787,8 +787,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_composite_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -849,8 +849,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -907,8 +907,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -922,8 +922,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_set_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -950,8 +950,8 @@ structure GtkWidget :>
           (
             _import "mlton_gtk_widget_style_get_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -1032,7 +1032,7 @@ structure GtkWidget :>
     fun addAccelerator self accelSignal accelGroup accelKey accelMods accelFlags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
@@ -1065,7 +1065,7 @@ structure GtkWidget :>
     fun addMnemonicLabel self label = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addMnemonicLabel_ (self & label)
     fun canActivateAccel self signalId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) canActivateAccel_ (self & signalId)
     fun childFocus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) childFocus_ (self & direction)
-    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) childNotify_ (self & childProperty)
+    fun childNotify self childProperty = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) childNotify_ (self & childProperty)
     fun classPath self =
       let
         val pathLength
@@ -1075,8 +1075,8 @@ structure GtkWidget :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
-             &&&> Utf8.C.withRefConstOptPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
+             &&&> Utf8.C.withRefOptPtr
              ---> FFI.UInt.C.fromVal
                    && Utf8.C.fromPtr true
                    && Utf8.C.fromPtr true
@@ -1098,7 +1098,7 @@ structure GtkWidget :>
       end
     fun computeExpand self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> FFI.Bool.C.fromVal) computeExpand_ (self & orientation)
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
+    fun createPangoLayout self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ (self & text)
     fun destroy self = (GObjectObjectClass.C.withPtr ---> I) destroy_ self
     fun destroyed self widgetPointer =
       let
@@ -1198,9 +1198,9 @@ structure GtkWidget :>
     fun dragSourceAddUriTargets self = (GObjectObjectClass.C.withPtr ---> I) dragSourceAddUriTargets_ self
     fun dragSourceGetTargetList self = (GObjectObjectClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) dragSourceGetTargetList_ self
     fun dragSourceSetIconGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconGicon_ (self & icon)
-    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) dragSourceSetIconName_ (self & iconName)
+    fun dragSourceSetIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) dragSourceSetIconName_ (self & iconName)
     fun dragSourceSetIconPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
-    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) dragSourceSetIconStock_ (self & stockId)
+    fun dragSourceSetIconStock self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) dragSourceSetIconStock_ (self & stockId)
     fun dragSourceSetTargetList self targetList = (GObjectObjectClass.C.withPtr &&&> GtkTargetListRecord.C.withOptPtr ---> I) dragSourceSetTargetList_ (self & targetList)
     fun dragSourceUnset self = (GObjectObjectClass.C.withPtr ---> I) dragSourceUnset_ self
     fun dragUnhighlight self = (GObjectObjectClass.C.withPtr ---> I) dragUnhighlight_ self
@@ -1559,7 +1559,7 @@ structure GtkWidget :>
     fun overrideSymbolicColor self name color =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GdkRgbaRecord.C.withOptPtr
          ---> I
       )
@@ -1578,8 +1578,8 @@ structure GtkWidget :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
-             &&&> Utf8.C.withRefConstOptPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
+             &&&> Utf8.C.withRefOptPtr
              ---> FFI.UInt.C.fromVal
                    && Utf8.C.fromPtr true
                    && Utf8.C.fromPtr true
@@ -1642,7 +1642,7 @@ structure GtkWidget :>
     fun renderIconPixbuf self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
@@ -1660,7 +1660,7 @@ structure GtkWidget :>
     fun setAccelPath self accelPath accelGroup =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
          ---> I
       )
@@ -1675,7 +1675,7 @@ structure GtkWidget :>
     fun setCanDefault self canDefault = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanDefault_ (self & canDefault)
     fun setCanFocus self canFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCanFocus_ (self & canFocus)
     fun setChildVisible self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setChildVisible_ (self & isVisible)
-    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setCompositeName_ (self & name)
+    fun setCompositeName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setCompositeName_ (self & name)
     fun setDeviceEnabled self device enabled =
       (
         GObjectObjectClass.C.withPtr
@@ -1715,7 +1715,7 @@ structure GtkWidget :>
     fun setMarginLeft self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginLeft_ (self & margin)
     fun setMarginRight self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginRight_ (self & margin)
     fun setMarginTop self margin = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarginTop_ (self & margin)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun setNoShowAll self noShowAll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setNoShowAll_ (self & noShowAll)
     fun setParent self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParent_ (self & parent)
     fun setParentWindow self parentWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setParentWindow_ (self & parentWindow)
@@ -1751,8 +1751,8 @@ structure GtkWidget :>
         )
     fun setStyle self style = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setStyle_ (self & style)
     fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTooltipText_ (self & text)
     fun setTooltipWindow self customWindow = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setTooltipWindow_ (self & customWindow)
     fun setValign self align = (GObjectObjectClass.C.withPtr &&&> GtkAlign.C.withVal ---> I) setValign_ (self & align)
     fun setVexpand self expand = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVexpand_ (self & expand)
@@ -1767,7 +1767,7 @@ structure GtkWidget :>
     fun styleGetProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )

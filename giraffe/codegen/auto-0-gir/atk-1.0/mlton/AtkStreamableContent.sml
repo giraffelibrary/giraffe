@@ -11,8 +11,8 @@ structure AtkStreamableContent :>
           (
             _import "mlton_atk_streamable_content_get_stream" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p;
           )
             (
@@ -26,8 +26,8 @@ structure AtkStreamableContent :>
           (
             _import "mlton_atk_streamable_content_get_uri" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -40,6 +40,6 @@ structure AtkStreamableContent :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getMimeType self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getMimeType_ (self & i)
     fun getNMimeTypes self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNMimeTypes_ self
-    fun getStream self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GLibIOChannelRecord.C.fromPtr true) getStream_ (self & mimeType)
-    fun getUri self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) getUri_ (self & mimeType)
+    fun getStream self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibIOChannelRecord.C.fromPtr true) getStream_ (self & mimeType)
+    fun getUri self mimeType = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getUri_ (self & mimeType)
   end

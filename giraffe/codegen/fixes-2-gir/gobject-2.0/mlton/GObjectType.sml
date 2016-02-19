@@ -52,7 +52,7 @@ structure GObjectType :>
 
     val fromName =
       fn name =>
-        (Utf8.C.withConstPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
+        (Utf8.C.withPtr ---> (fn 0 => NONE | n => SOME n) o FFI.Size.C.fromVal)
           fromName_
           name
 

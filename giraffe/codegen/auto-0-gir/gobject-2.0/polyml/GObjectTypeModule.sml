@@ -18,7 +18,7 @@ structure GObjectTypeModule :>
     type t = base class_t
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun unuse self = (GObjectObjectClass.C.withPtr ---> I) unuse_ self
     fun use self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) use_ self
   end

@@ -29,8 +29,8 @@ structure GioCharsetConverter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new toCharset fromCharset =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioCharsetConverterClass.C.fromPtr true
       )

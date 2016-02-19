@@ -12,8 +12,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_expand_references" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -30,8 +30,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_fetch_named" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
           )
             (
@@ -48,8 +48,8 @@ structure GLibMatchInfo :>
           (
             _import "mlton_g_match_info_fetch_named_pos" :
               GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
                -> FFI.Bool.C.val_;
@@ -94,7 +94,7 @@ structure GLibMatchInfo :>
     fun expandReferences self stringToExpand =
       (
         GLibMatchInfoRecord.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -105,7 +105,7 @@ structure GLibMatchInfo :>
            & []
         )
     fun fetch self matchNum = (GLibMatchInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) fetch_ (self & matchNum)
-    fun fetchNamed self name = (GLibMatchInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) fetchNamed_ (self & name)
+    fun fetchNamed self name = (GLibMatchInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
         val startPos
@@ -113,7 +113,7 @@ structure GLibMatchInfo :>
          & retVal =
           (
             GLibMatchInfoRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal

@@ -32,8 +32,8 @@ structure GtkIMContext :>
           (
             _import "mlton_gtk_im_context_get_preedit_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.r1
-               * (unit, GCharVec.C.notnull) GCharVec.MLton.r2
+               * Utf8.MLton.r1
+               * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * (unit, PangoAttrListRecord.C.notnull) PangoAttrListRecord.C.r
                * FFI.Int32.C.ref_
                -> unit;
@@ -57,8 +57,8 @@ structure GtkIMContext :>
           (
             _import "mlton_gtk_im_context_set_surrounding" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -98,7 +98,7 @@ structure GtkIMContext :>
          & () =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
              ---> Utf8.C.fromPtr true
@@ -126,7 +126,7 @@ structure GtkIMContext :>
     fun setSurrounding self text len cursorIndex =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

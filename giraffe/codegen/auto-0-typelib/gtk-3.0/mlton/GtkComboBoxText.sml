@@ -16,10 +16,10 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_append" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -35,8 +35,8 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_append_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -55,10 +55,10 @@ structure GtkComboBoxText :>
             _import "mlton_gtk_combo_box_text_insert" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -78,8 +78,8 @@ structure GtkComboBoxText :>
             _import "mlton_gtk_combo_box_text_insert_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -96,10 +96,10 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_prepend" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -115,8 +115,8 @@ structure GtkComboBoxText :>
           (
             _import "mlton_gtk_combo_box_text_prepend_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -141,8 +141,8 @@ structure GtkComboBoxText :>
     fun append self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         append_
@@ -151,14 +151,14 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) appendText_ (self & text)
+    fun appendText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendText_ (self & text)
     fun getActiveText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getActiveText_ self
     fun insert self position id text =
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         insert_
@@ -172,7 +172,7 @@ structure GtkComboBoxText :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         insertText_
@@ -184,8 +184,8 @@ structure GtkComboBoxText :>
     fun prepend self id text =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withOptPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         prepend_
@@ -194,7 +194,7 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) prependText_ (self & text)
+    fun prependText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependText_ (self & text)
     fun remove self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) remove_ (self & position)
     fun removeAll self = (GObjectObjectClass.C.withPtr ---> I) removeAll_ self
   end

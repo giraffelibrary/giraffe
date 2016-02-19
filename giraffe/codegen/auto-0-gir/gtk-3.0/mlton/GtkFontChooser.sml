@@ -16,8 +16,8 @@ structure GtkFontChooser :>
           (
             _import "mlton_gtk_font_chooser_set_font" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -32,8 +32,8 @@ structure GtkFontChooser :>
           (
             _import "mlton_gtk_font_chooser_set_preview_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -52,9 +52,9 @@ structure GtkFontChooser :>
     fun getFontSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFontSize_ self
     fun getPreviewText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getPreviewText_ self
     fun getShowPreviewEntry self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowPreviewEntry_ self
-    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFont_ (self & fontname)
+    fun setFont self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFont_ (self & fontname)
     fun setFontDesc self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withPtr ---> I) setFontDesc_ (self & fontDesc)
-    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPreviewText_ (self & text)
+    fun setPreviewText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPreviewText_ (self & text)
     fun setShowPreviewEntry self showPreviewEntry = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowPreviewEntry_ (self & showPreviewEntry)
     local
       open ClosureMarshal Signal

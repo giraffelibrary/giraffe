@@ -188,7 +188,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setColumnDescription_
@@ -214,7 +214,7 @@ structure AtkTable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         setRowDescription_

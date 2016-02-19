@@ -8,7 +8,7 @@ structure GtkToolItemGroup :>
     where type 'a widget_class_t = 'a GtkWidgetClass.t =
   struct
     val getType_ = _import "gtk_tool_item_group_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_tool_item_group_new" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_tool_item_group_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getCollapsed_ = _import "gtk_tool_item_group_get_collapsed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val getDropItem_ =
       fn
@@ -77,8 +77,8 @@ structure GtkToolItemGroup :>
           (
             _import "mlton_gtk_tool_item_group_set_label" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -98,7 +98,7 @@ structure GtkToolItemGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asToolShell self = (GObjectObjectClass.C.withPtr ---> GtkToolShellClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withConstPtr ---> GtkToolItemGroupClass.C.fromPtr false) new_ label
+    fun new label = (Utf8.C.withPtr ---> GtkToolItemGroupClass.C.fromPtr false) new_ label
     fun getCollapsed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCollapsed_ self
     fun getDropItem self x y =
       (
@@ -149,7 +149,7 @@ structure GtkToolItemGroup :>
            & item
            & position
         )
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLabelWidget_ (self & labelWidget)
     local
       open Property

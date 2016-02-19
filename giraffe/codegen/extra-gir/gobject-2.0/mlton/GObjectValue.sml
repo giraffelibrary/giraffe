@@ -199,13 +199,13 @@ local
     val set_string_ =
       fn x1 & (x2, x3) =>
         (_import "mlton_g_value_set_string" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;)
+           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;)
         (x1, x2, x3)
 
     val set_string_opt_ =
       fn x1 & (x2, x3) =>
         (_import "mlton_g_value_set_string" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * GCharVec.MLton.p1 * unit GCharVec.MLton.p2 -> unit;)
+           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * Utf8.MLton.p1 * unit Utf8.MLton.p2 -> unit;)
         (x1, x2, x3)
 in
   val boolean : (bool, bool) GObjectValue.accessor =
@@ -286,13 +286,13 @@ in
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
       getValue = (I ---> Utf8.C.fromPtr false) get_string_,
-      setValue = (I &&&> Utf8.C.withConstPtr ---> I) set_string_
+      setValue = (I &&&> Utf8.C.withPtr ---> I) set_string_
     }
 
   val stringOpt : (string option, string option) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
       getValue = (I ---> Utf8.C.fromOptPtr false) get_string_opt_,
-      setValue = (I &&&> Utf8.C.withConstOptPtr ---> I) set_string_opt_
+      setValue = (I &&&> Utf8.C.withOptPtr ---> I) set_string_opt_
     }
 end

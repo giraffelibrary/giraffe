@@ -23,7 +23,7 @@ structure GtkSymbolicColor :>
               x2,
               x3
             )
-    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
+    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
     val newShade_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_shade" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p * FFI.Double.C.val_ -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;) (x1, x2)
     val resolve_ =
       fn
@@ -62,7 +62,7 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (Utf8.C.withConstPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
+    fun newName name = (Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
     fun newShade color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let

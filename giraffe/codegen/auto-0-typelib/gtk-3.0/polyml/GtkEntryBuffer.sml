@@ -58,7 +58,7 @@ structure GtkEntryBuffer :>
     type 'a class_t = 'a GtkEntryBufferClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new initialChars nInitialChars = (Utf8.C.withConstOptPtr &&&> FFI.Int32.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
+    fun new initialChars nInitialChars = (Utf8.C.withOptPtr &&&> FFI.Int32.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =
       (
         GObjectObjectClass.C.withPtr
@@ -89,7 +89,7 @@ structure GtkEntryBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          ---> I
       )
@@ -108,7 +108,7 @@ structure GtkEntryBuffer :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> FFI.UInt32.C.fromVal
       )
@@ -123,7 +123,7 @@ structure GtkEntryBuffer :>
     fun setText self chars nChars =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )

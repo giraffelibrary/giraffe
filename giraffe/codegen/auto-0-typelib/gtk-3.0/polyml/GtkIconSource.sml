@@ -47,8 +47,8 @@ structure GtkIconSource :>
     fun getStateWildcarded self = (GtkIconSourceRecord.C.withPtr ---> FFI.Bool.C.fromVal) getStateWildcarded_ self
     fun setDirection self direction = (GtkIconSourceRecord.C.withPtr &&&> GtkTextDirection.C.withVal ---> I) setDirection_ (self & direction)
     fun setDirectionWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDirectionWildcarded_ (self & setting)
-    fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFilename_ (self & filename)
-    fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setIconName_ (self & iconName)
+    fun setFilename self filename = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withPtr ---> I) setFilename_ (self & filename)
+    fun setIconName self iconName = (GtkIconSourceRecord.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setIconName_ (self & iconName)
     fun setPixbuf self pixbuf = (GtkIconSourceRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setPixbuf_ (self & pixbuf)
     fun setSize self size = (GtkIconSourceRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSize_ (self & size)
     fun setSizeWildcarded self setting = (GtkIconSourceRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSizeWildcarded_ (self & setting)

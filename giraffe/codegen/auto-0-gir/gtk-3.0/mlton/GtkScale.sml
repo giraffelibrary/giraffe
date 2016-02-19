@@ -40,8 +40,8 @@ structure GtkScale :>
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Double.C.val_
                * GtkPositionType.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -108,7 +108,7 @@ structure GtkScale :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> GtkPositionType.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         addMark_

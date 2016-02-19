@@ -172,8 +172,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -208,8 +208,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -244,8 +244,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_tooltip_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -263,8 +263,8 @@ structure GtkEntry :>
             _import "mlton_gtk_entry_set_icon_tooltip_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * GtkEntryIconPosition.C.val_
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -283,8 +283,8 @@ structure GtkEntry :>
           (
             _import "mlton_gtk_entry_set_placeholder_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -300,8 +300,8 @@ structure GtkEntry :>
           (
             _import "mlton_gtk_entry_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -478,7 +478,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         setIconFromIconName_
@@ -504,7 +504,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         setIconFromStock_
@@ -530,7 +530,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         setIconTooltipMarkup_
@@ -543,7 +543,7 @@ structure GtkEntry :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GtkEntryIconPosition.C.withVal
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          ---> I
       )
         setIconTooltipText_
@@ -556,10 +556,10 @@ structure GtkEntry :>
     fun setInvisibleChar self ch = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> I) setInvisibleChar_ (self & ch)
     fun setMaxLength self max = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxLength_ (self & max)
     fun setOverwriteMode self overwrite = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverwriteMode_ (self & overwrite)
-    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setPlaceholderText_ (self & text)
+    fun setPlaceholderText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPlaceholderText_ (self & text)
     fun setProgressFraction self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressFraction_ (self & fraction)
     fun setProgressPulseStep self fraction = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setProgressPulseStep_ (self & fraction)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setText_ (self & text)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setText_ (self & text)
     fun setVisibility self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibility_ (self & visible)
     fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
     fun textIndexToLayoutIndex self textIndex = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) textIndexToLayoutIndex_ (self & textIndex)

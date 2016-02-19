@@ -63,7 +63,7 @@ structure GtkIconTheme :>
     fun new () = (I ---> GtkIconThemeClass.C.fromPtr true) new_ ()
     fun addBuiltinIcon iconName size pixbuf =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withPtr
          ---> I
@@ -76,13 +76,13 @@ structure GtkIconTheme :>
         )
     fun getDefault () = (I ---> GtkIconThemeClass.C.fromPtr false) getDefault_ ()
     fun getForScreen screen = (GObjectObjectClass.C.withPtr ---> GtkIconThemeClass.C.fromPtr false) getForScreen_ screen
-    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) appendSearchPath_ (self & path)
+    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendSearchPath_ (self & path)
     fun getExampleIconName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getExampleIconName_ self
-    fun hasIcon self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasIcon_ (self & iconName)
+    fun hasIcon self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasIcon_ (self & iconName)
     fun loadIcon self iconName size flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -114,7 +114,7 @@ structure GtkIconTheme :>
     fun lookupIcon self iconName size flags =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
@@ -126,9 +126,9 @@ structure GtkIconTheme :>
            & size
            & flags
         )
-    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) prependSearchPath_ (self & path)
+    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependSearchPath_ (self & path)
     fun rescanIfNeeded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) rescanIfNeeded_ self
-    fun setCustomTheme self themeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setCustomTheme_ (self & themeName)
+    fun setCustomTheme self themeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setCustomTheme_ (self & themeName)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
     local
       open ClosureMarshal Signal

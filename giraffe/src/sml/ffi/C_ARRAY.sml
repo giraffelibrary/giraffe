@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -6,8 +6,8 @@
  *)
 
 (**
- * The signature C_ARRAY defines higher-level FFI support for null-terminated
- * C arrays such as character arrays, i.e. C strings, or arrays of C strings.
+ * The signature C_ARRAY specifies higher-level FFI support for C arrays
+ * such as character arrays, i.e. C strings, or arrays of C strings.
  *
  * Overview
  *
@@ -64,22 +64,14 @@
  * Mutability
  *
  * Each structure that implements this siganture can choose whether type `t`
- * is mutable.  If type `t` is not mutable, then the functions `withPtr` and
- * `withRefPtr` are pointless because they cannot be used.  In such
- * implementations, stubs should be provided for `withPtr` and `withRefPtr`
- * that raise the exception `Fail "mutable arguments are not supported"`.
- *
- * If type `t` is mutable, whether its mutability is exposed to applications
- * is a separate question and is determined by the choice of wrapper
- * functions: using `withPtr` to wrap a C function parameter that is modified
- * will expose mutability whereas using `withDupPtr` to wrap it will hide
- * mutability.
- *
- * If mutability is to be hidden, the wrapper function `withPtr` should
- * never be used: either the parameter is not modified, in which case
- * `withConstPtr` is used or the parameter is modified, in which case
- * `withDupPtr` is used.  Similarly `withRefPtr` should never be used: either
- * `withRefConstPtr` or `withRefDupPtr` should be used.
+ * is mutable.  If type `t` is mutable, whether its mutability is exposed to
+ * applications is a separate matter and is determined by the choice of
+ * wrapper functions: using `withPtr` or `withRefPtr` to wrap a parameter
+ * that is modified will expose mutability whereas using `withDupPtr` or
+ * `withRefDupPtr` to wrap it will hide mutability.  If type `t` is not
+ * mutable, then the functions `withPtr` and `withRefPtr` should be used only
+ * for a parameter that is not modified: `withDupPtr` and `withRefDupPtr`
+ * must be used to create a copy for parameters that are modified.
  *
  * Implementation notes
  *
@@ -147,7 +139,7 @@ signature C_ARRAY =
      *)
     structure C :
       sig
-        type notnull
+        eqtype notnull
 
         (**
          * Return values
@@ -178,9 +170,31 @@ signature C_ARRAY =
          *   The implementation of type `'a out_p` is not necessarily just a
          *   pointer because an implementation may need to pass multiple
          *   arguments that are transformed by C side interface code.
+         *)
+        structure OutPointer : C_POINTER where type notnull = notnull
+        type 'a out_p = 'a OutPointer.p
+
+        (* The pointer returned by a function may not, on its own, be enough
+         * to read the array, in particular, the C array may not contain any
+         * information about its size.  For example, a C string may not be
+         * null-terminated.
          *
+         * The type `'a from_p` is the function type that returns the array
+         * representation 'a from the pointer type `'a out_p`.  For example,
+         * an implementation that requires the size of the array would
+         * define
          *
-         * A C array returned by a C function is wrapped according to
+         *   'a from_p = int -> 'a
+         *
+         * Alternatively, if the array size can be determined from just the
+         * pointer, an implementation would define
+         *
+         *   'a from_p = 'a
+         *
+         *)
+        type 'a from_p
+
+        (* A C array returned by a C function is wrapped according to
          *   - whether the caller must free the C array;
          *   - the persistence of the C array.
          *
@@ -190,37 +204,24 @@ signature C_ARRAY =
          * the C array will be in memory for as long as necessary.  In these
          * cases, `from[Opt]Ptr` and `fromNew[Opt]Ptr`, respectively,
          * should be used.  In other cases, keeping a reference to the
-         * C array may be unreliable so `copy[New][Opt]Ptr[To...]` should
+         * C array may be unreliable so `copy[New][Opt]Ptr[...]` should
          * be used to take a copy immediately.
          *
-         * `copy[...]ToTabulated` functions are provided to allow a non-
-         * vector data structure to be constructed directly rather than going
-         * via a vector.
+         * `copy[Opt]PtrWithTabulator` functions are provided to allow a non-
+         * vector data structure to be constructed directly rather than
+         * going via a vector.
          *)
-        structure OutPointer : C_POINTER where type notnull = notnull
-        type 'a out_p = 'a OutPointer.p
-
         type 'a tabulator = int * (int -> elem) -> 'a
 
-        val fromPtr               : notnull out_p -> t
-        val fromNewPtr            : notnull out_p -> t
-        val copyPtr               : notnull out_p -> t
-        val copyNewPtr            : notnull out_p -> t
-        val copyPtrToVector       : notnull out_p -> vector
-        val copyNewPtrToVector    : notnull out_p -> vector
-        val copyPtrToTabulated    : 'a tabulator -> notnull out_p -> 'a
-        val copyNewPtrToTabulated : 'a tabulator -> notnull out_p -> 'a
+        val fromPtr              : int -> notnull out_p -> t from_p
+        val copyPtr              : int -> notnull out_p -> t from_p
+        val copyPtrToVector      : int -> notnull out_p -> vector from_p
+        val copyPtrWithTabulator : 'a tabulator -> int -> notnull out_p -> 'a from_p
 
-        val fromOptPtr               : 'a out_p -> t option
-        val fromNewOptPtr            : 'a out_p -> t option
-        val copyOptPtr               : 'a out_p -> t option
-        val copyNewOptPtr            : 'a out_p -> t option
-        val copyOptPtrToVector       : 'a out_p -> vector option
-        val copyNewOptPtrToVector    : 'a out_p -> vector option
-        val copyOptPtrToTabulated    : 'a tabulator -> 'b out_p -> 'a option
-        val copyNewOptPtrToTabulated : 'a tabulator -> 'b out_p -> 'a option
-
-        val fromVector : vector -> notnull out_p
+        val fromOptPtr              : int -> 'a out_p -> t option from_p
+        val copyOptPtr              : int -> 'a out_p -> t option from_p
+        val copyOptPtrToVector      : int -> 'a out_p -> vector option from_p
+        val copyOptPtrWithTabulator : 'a tabulator -> int -> 'b out_p -> 'a option from_p
 
         (**
          * Value parameters
@@ -239,22 +240,16 @@ signature C_ARRAY =
          *   pointer because an implementation may need to pass multiple
          *   arguments that are transformed by C side interface code.
          *
-         * `withPtr f cArr` ...
+         * `withPtr f arr` ...
          *
          *
-         * `withConstPtr f cArr` ...
+         * `withDupPtr depth f arr` ...
          *
          *
-         * `withDupPtr f cArr` ...
+         * `withOptPtr f optArr` ...
          *
          *
-         * `withOptPtr f cArr` ...
-         *
-         *
-         * `withConstOptPtr f cArr` ...
-         *
-         *
-         * `withDupOptPtr f cArr` ...
+         * `withDupOptPtr depth f optArr` ...
          *
          *   The C function `f` must return an allocated array whose
          *   ownership, i.e. responsibility for freeing, is transferred.
@@ -266,13 +261,11 @@ signature C_ARRAY =
          *)
         type 'a in_p
 
-        val withPtr      : ('a in_p -> 'r) -> t -> 'r
-        val withConstPtr : ('a in_p -> 'r) -> t -> 'r
-        val withDupPtr   : ('a in_p -> 'r) -> t -> (notnull out_p, 'r) pair
+        val withPtr    : ('a in_p -> 'r) -> t -> 'r
+        val withDupPtr : int -> ('a in_p -> 'r) -> t -> (notnull out_p, 'r) pair
 
-        val withOptPtr      : (unit in_p -> 'r) -> t option -> 'r
-        val withConstOptPtr : (unit in_p -> 'r) -> t option -> 'r
-        val withDupOptPtr   : (unit in_p -> 'r) -> t option -> (unit out_p, 'r) pair
+        val withOptPtr    : (unit in_p -> 'r) -> t option -> 'r
+        val withDupOptPtr : int -> (unit in_p -> 'r) -> t option -> (unit out_p, 'r) pair
 
         (**
          * Reference parameters
@@ -298,45 +291,33 @@ signature C_ARRAY =
          * `withNullRef f ()` ...
          *
          *
-         * `withRefPtr f cArr` ...
+         * `withRefPtr f arr` ...
          *
          *
-         * `withRefConstPtr f cArr` ...
+         * `withRefDupPtr depth f arr` ...
          *
          *
-         * `withRefDupPtr f cArr` ...
+         * `withRefOptPtr f optArr` ...
          *
          *
-         * `withRefOptPtr f cArr` ...
-         *
-         *
-         * `withRefConstOptPtr f cArr` ...
-         *
-         *
-         * `withRefDupOptPtr f cArr` ...
-         *
-         *   The C function `f` must return an allocated array whose
-         *   ownership, i.e. responsibility for freeing, is transferred.
+         * `withRefDupOptPtr depth f optArr` ...
          *
          *
          * Considerations
          *
-         * For `withRefPtr f cArr` or `withRefConstPtr f cArr` with
-         * result `(p, _)`, when `f` does not update the reference, `p` is a
-         * pointer to `cArr`.  In such cases, `p` should be ignored.  For
-         * some implementations, `p` may even be an unreliable pointer, for
-         * example, a pointer into the SML heap.
+         * For `withRefPtr f cArr` with result `(p, _)`, when `f` does not
+         * update the reference, `p` is a pointer to `cArr`.  In such cases,
+         * `p` should be ignored.  For some implementations, `p` may even be
+         * an unreliable pointer, for example, a pointer into the SML heap.
          *)
         type ('a, 'b) r
 
         val withNullRef : (('a, 'b) r -> 'r) -> unit -> 'r
 
-        val withRefPtr      : (('a, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
-        val withRefConstPtr : (('a, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
-        val withRefDupPtr   : (('a, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
+        val withRefPtr    : (('a, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
+        val withRefDupPtr : int -> (('a, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
 
-        val withRefOptPtr      : ((unit, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
-        val withRefConstOptPtr : ((unit, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
-        val withRefDupOptPtr   : ((unit, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
+        val withRefOptPtr    : ((unit, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
+        val withRefDupOptPtr : int -> ((unit, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
       end
   end

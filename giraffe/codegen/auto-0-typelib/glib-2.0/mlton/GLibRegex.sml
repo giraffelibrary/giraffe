@@ -14,8 +14,8 @@ structure GLibRegex :>
          & x5 =>
           (
             _import "mlton_g_regex_new" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -39,8 +39,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_get_string_number" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Int32.C.val_;
           )
             (
@@ -57,8 +57,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_match" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibRegexMatchFlags.C.val_
                * (unit, GLibMatchInfoRecord.C.notnull) GLibMatchInfoRecord.C.r
                -> FFI.Bool.C.val_;
@@ -79,8 +79,8 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_match_all" :
               GLibRegexRecord.C.notnull GLibRegexRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibRegexMatchFlags.C.val_
                * (unit, GLibMatchInfoRecord.C.notnull) GLibMatchInfoRecord.C.r
                -> FFI.Bool.C.val_;
@@ -99,8 +99,8 @@ structure GLibRegex :>
          & x4 =>
           (
             _import "mlton_g_regex_check_replacement" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -116,8 +116,8 @@ structure GLibRegex :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_regex_escape_nul" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -134,10 +134,10 @@ structure GLibRegex :>
          & x6 =>
           (
             _import "mlton_g_regex_match_simple" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibRegexCompileFlags.C.val_
                * GLibRegexMatchFlags.C.val_
                -> FFI.Bool.C.val_;
@@ -158,7 +158,7 @@ structure GLibRegex :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new pattern compileOptions matchOptions =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
@@ -176,13 +176,13 @@ structure GLibRegex :>
     fun getMatchFlags self = (GLibRegexRecord.C.withPtr ---> GLibRegexMatchFlags.C.fromVal) getMatchFlags_ self
     fun getMaxBackref self = (GLibRegexRecord.C.withPtr ---> FFI.Int32.C.fromVal) getMaxBackref_ self
     fun getPattern self = (GLibRegexRecord.C.withPtr ---> Utf8.C.fromPtr false) getPattern_ self
-    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Int32.C.fromVal) getStringNumber_ (self & name)
+    fun getStringNumber self name = (GLibRegexRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int32.C.fromVal) getStringNumber_ (self & name)
     fun match self string matchOptions =
       let
         val matchInfo & retVal =
           (
             GLibRegexRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibRegexMatchFlags.C.withVal
              &&&> GLibMatchInfoRecord.C.withRefOptPtr
              ---> GLibMatchInfoRecord.C.fromPtr true && FFI.Bool.C.fromVal
@@ -202,7 +202,7 @@ structure GLibRegex :>
         val matchInfo & retVal =
           (
             GLibRegexRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GLibRegexMatchFlags.C.withVal
              &&&> GLibMatchInfoRecord.C.withRefOptPtr
              ---> GLibMatchInfoRecord.C.fromPtr true && FFI.Bool.C.fromVal
@@ -221,7 +221,7 @@ structure GLibRegex :>
       let
         val hasReferences & retVal =
           (
-            Utf8.C.withConstPtr
+            Utf8.C.withPtr
              &&&> FFI.Bool.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
              ---> FFI.Bool.C.fromVal && FFI.Bool.C.fromVal
@@ -235,11 +235,11 @@ structure GLibRegex :>
       in
         if retVal then SOME hasReferences else NONE
       end
-    fun escapeNul string length = (Utf8.C.withConstPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr true) escapeNul_ (string & length)
+    fun escapeNul string length = (Utf8.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr true) escapeNul_ (string & length)
     fun matchSimple pattern string compileOptions matchOptions =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
          ---> FFI.Bool.C.fromVal

@@ -20,9 +20,9 @@ signature C_POINTER =
         val cVal    : notnull p PolyMLFFI.conversion
         val cOptVal : unit    p PolyMLFFI.conversion
 
-        val cRef       : ('a,      unit) r PolyMLFFI.conversion
-        val cRefIn     : (notnull, unit) r PolyMLFFI.conversion
-        val cRefOut    : ('a,      'b)   r PolyMLFFI.conversion
-        val cRefInOut  : (notnull, 'a)   r PolyMLFFI.conversion
+        val cOptOutRef   : ('a,      unit) r PolyMLFFI.conversion
+        val cInOptOutRef : (notnull, unit) r PolyMLFFI.conversion
+        val cRef         : ('a,      'b)   r PolyMLFFI.conversion
+        val cInRef       : (notnull, 'a)   r PolyMLFFI.conversion
       end
   end

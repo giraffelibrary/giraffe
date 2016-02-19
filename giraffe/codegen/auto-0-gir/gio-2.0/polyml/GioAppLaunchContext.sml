@@ -13,5 +13,5 @@ structure GioAppLaunchContext :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioAppLaunchContextClass.C.fromPtr true) new_ ()
-    fun launchFailed self startupNotifyId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) launchFailed_ (self & startupNotifyId)
+    fun launchFailed self startupNotifyId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) launchFailed_ (self & startupNotifyId)
   end

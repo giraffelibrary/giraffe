@@ -8,7 +8,7 @@ structure GModule : G_MODULE =
       val moduleSupported_ = call (load_sym libgmodule "g_module_supported") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
     end
     structure ModuleFlags = GModuleModuleFlags
-    fun moduleBuildPath directory moduleName = (Utf8.C.withConstPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) moduleBuildPath_ (directory & moduleName)
+    fun moduleBuildPath directory moduleName = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) moduleBuildPath_ (directory & moduleName)
     fun moduleError () = (I ---> Utf8.C.fromPtr false) moduleError_ ()
     fun moduleSupported () = (I ---> FFI.Bool.C.fromVal) moduleSupported_ ()
   end

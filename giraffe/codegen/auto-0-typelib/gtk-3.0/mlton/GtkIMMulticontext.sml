@@ -13,8 +13,8 @@ structure GtkIMMulticontext :>
           (
             _import "mlton_gtk_im_multicontext_set_context_id" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -29,5 +29,5 @@ structure GtkIMMulticontext :>
     fun new () = (I ---> GtkIMMulticontextClass.C.fromPtr true) new_ ()
     fun appendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) appendMenuitems_ (self & menushell)
     fun getContextId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getContextId_ self
-    fun setContextId self contextId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setContextId_ (self & contextId)
+    fun setContextId self contextId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setContextId_ (self & contextId)
   end

@@ -20,7 +20,7 @@ structure GdkRgba :>
     fun hash self = (GdkRgbaRecord.C.withPtr ---> FFI.UInt.C.fromVal) hash_ self
     fun parse spec =
       let
-        val rgba & retVal = (GdkRgbaRecord.C.withNewPtr &&&> Utf8.C.withConstPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (() & spec)
+        val rgba & retVal = (GdkRgbaRecord.C.withNewPtr &&&> Utf8.C.withPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) parse_ (() & spec)
       in
         if retVal then SOME rgba else NONE
       end

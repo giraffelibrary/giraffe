@@ -11,8 +11,8 @@ structure GtkAccelMap :>
          & x4 =>
           (
             _import "mlton_gtk_accel_map_add_entry" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
                -> unit;
@@ -23,7 +23,7 @@ structure GtkAccelMap :>
               x3,
               x4
             )
-    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val changeEntry_ =
       fn
         (x1, x2)
@@ -32,8 +32,8 @@ structure GtkAccelMap :>
          & x5 =>
           (
             _import "mlton_gtk_accel_map_change_entry" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt32.C.val_
                * GdkModifierType.C.val_
                * FFI.Bool.C.val_
@@ -47,16 +47,16 @@ structure GtkAccelMap :>
               x5
             )
     val get_ = _import "gtk_accel_map_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val load_ = _import "mlton_gtk_accel_map_load" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val load_ = _import "mlton_gtk_accel_map_load" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int32.C.val_ -> unit;
-    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val lookupEntry_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_accel_map_lookup_entry" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkAccelKeyRecord.C.notnull GtkAccelKeyRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -65,16 +65,16 @@ structure GtkAccelMap :>
               x2,
               x3
             )
-    val save_ = _import "mlton_gtk_accel_map_save" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val save_ = _import "mlton_gtk_accel_map_save" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val saveFd_ = _import "gtk_accel_map_save_fd" : FFI.Int32.C.val_ -> unit;
-    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> unit;
+    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     type 'a class_t = 'a GtkAccelMapClass.t
     type accel_key_record_t = GtkAccelKeyRecord.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addEntry accelPath accelKey accelMods =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          ---> I
@@ -85,10 +85,10 @@ structure GtkAccelMap :>
            & accelKey
            & accelMods
         )
-    fun addFilter filterPattern = (Utf8.C.withConstPtr ---> I) addFilter_ filterPattern
+    fun addFilter filterPattern = (Utf8.C.withPtr ---> I) addFilter_ filterPattern
     fun changeEntry accelPath accelKey accelMods replace =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GdkModifierType.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -102,18 +102,18 @@ structure GtkAccelMap :>
            & replace
         )
     fun get () = (I ---> GtkAccelMapClass.C.fromPtr false) get_ ()
-    fun load fileName = (Utf8.C.withConstPtr ---> I) load_ fileName
+    fun load fileName = (Utf8.C.withPtr ---> I) load_ fileName
     fun loadFd fd = (FFI.Int32.C.withVal ---> I) loadFd_ fd
-    fun lockPath accelPath = (Utf8.C.withConstPtr ---> I) lockPath_ accelPath
+    fun lockPath accelPath = (Utf8.C.withPtr ---> I) lockPath_ accelPath
     fun lookupEntry accelPath =
       let
-        val key & retVal = (Utf8.C.withConstPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.C.fromVal) lookupEntry_ (accelPath & ())
+        val key & retVal = (Utf8.C.withPtr &&&> GtkAccelKeyRecord.C.withNewPtr ---> GtkAccelKeyRecord.C.fromPtr true && FFI.Bool.C.fromVal) lookupEntry_ (accelPath & ())
       in
         if retVal then SOME key else NONE
       end
-    fun save fileName = (Utf8.C.withConstPtr ---> I) save_ fileName
+    fun save fileName = (Utf8.C.withPtr ---> I) save_ fileName
     fun saveFd fd = (FFI.Int32.C.withVal ---> I) saveFd_ fd
-    fun unlockPath accelPath = (Utf8.C.withConstPtr ---> I) unlockPath_ accelPath
+    fun unlockPath accelPath = (Utf8.C.withPtr ---> I) unlockPath_ accelPath
     local
       open ClosureMarshal Signal
     in

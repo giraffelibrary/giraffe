@@ -61,7 +61,7 @@ structure GtkToolItemGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asToolShell self = (GObjectObjectClass.C.withPtr ---> GtkToolShellClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withConstPtr ---> GtkToolItemGroupClass.C.fromPtr false) new_ label
+    fun new label = (Utf8.C.withPtr ---> GtkToolItemGroupClass.C.fromPtr false) new_ label
     fun getCollapsed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCollapsed_ self
     fun getDropItem self x y =
       (
@@ -112,7 +112,7 @@ structure GtkToolItemGroup :>
            & item
            & position
         )
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
     fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLabelWidget_ (self & labelWidget)
     local
       open Property

@@ -214,7 +214,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetArg info n = (GIRepositoryCallableInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryArgInfoRecord.C.fromPtr true) callableInfoGetArg_ (info & n)
     fun callableInfoGetCallerOwns info = (GIRepositoryCallableInfoRecord.C.withPtr ---> GIRepositoryTransfer.C.fromVal) callableInfoGetCallerOwns_ info
     fun callableInfoGetNArgs info = (GIRepositoryCallableInfoRecord.C.withPtr ---> FFI.Int.C.fromVal) callableInfoGetNArgs_ info
-    fun callableInfoGetReturnAttribute info name = (GIRepositoryCallableInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> Utf8.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
+    fun callableInfoGetReturnAttribute info name = (GIRepositoryCallableInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) callableInfoGetReturnAttribute_ (info & name)
     fun callableInfoGetReturnType info = (GIRepositoryCallableInfoRecord.C.withPtr ---> GIRepositoryTypeInfoRecord.C.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIterateReturnAttributes info iterator =
       let
@@ -224,8 +224,8 @@ structure GIRepository : G_I_REPOSITORY =
           (
             GIRepositoryCallableInfoRecord.C.withPtr
              &&&> GIRepositoryAttributeIterRecord.C.withPtr
-             &&&> Utf8.C.withRefConstOptPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
+             &&&> Utf8.C.withRefOptPtr
              ---> Utf8.C.fromPtr false
                    && Utf8.C.fromPtr false
                    && FFI.Bool.C.fromVal
@@ -297,8 +297,8 @@ structure GIRepository : G_I_REPOSITORY =
            & offset
         )
     fun infoTypeToString type' = (GIRepositoryInfoType.C.withVal ---> Utf8.C.fromPtr false) infoTypeToString_ type'
-    fun interfaceInfoFindMethod info name = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
-    fun interfaceInfoFindVfunc info name = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
+    fun interfaceInfoFindMethod info name = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) interfaceInfoFindMethod_ (info & name)
+    fun interfaceInfoFindVfunc info name = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) interfaceInfoFindVfunc_ (info & name)
     fun interfaceInfoGetConstant info n = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryConstantInfoRecord.C.fromPtr true) interfaceInfoGetConstant_ (info & n)
     fun interfaceInfoGetIfaceStruct info = (GIRepositoryInterfaceInfoRecord.C.withPtr ---> GIRepositoryStructInfoRecord.C.fromPtr true) interfaceInfoGetIfaceStruct_ info
     fun interfaceInfoGetMethod info n = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) interfaceInfoGetMethod_ (info & n)
@@ -313,13 +313,13 @@ structure GIRepository : G_I_REPOSITORY =
     fun interfaceInfoGetSignal info n = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositorySignalInfoRecord.C.fromPtr true) interfaceInfoGetSignal_ (info & n)
     fun interfaceInfoGetVfunc info n = (GIRepositoryInterfaceInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) interfaceInfoGetVfunc_ (info & n)
     fun invokeErrorQuark () = (I ---> GLibQuark.C.fromVal) invokeErrorQuark_ ()
-    fun objectInfoFindMethod info name = (GIRepositoryObjectInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
+    fun objectInfoFindMethod info name = (GIRepositoryObjectInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) objectInfoFindMethod_ (info & name)
     fun objectInfoFindMethodUsingInterfaces info name =
       let
         val implementor & retVal =
           (
             GIRepositoryObjectInfoRecord.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GIRepositoryObjectInfoRecord.C.withRefOptPtr
              ---> GIRepositoryObjectInfoRecord.C.fromPtr true && GIRepositoryFunctionInfoRecord.C.fromPtr true
           )
@@ -332,7 +332,7 @@ structure GIRepository : G_I_REPOSITORY =
       in
         (retVal, implementor)
       end
-    fun objectInfoFindVfunc info name = (GIRepositoryObjectInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
+    fun objectInfoFindVfunc info name = (GIRepositoryObjectInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) objectInfoFindVfunc_ (info & name)
     fun objectInfoGetAbstract info = (GIRepositoryObjectInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) objectInfoGetAbstract_ info
     fun objectInfoGetClassStruct info = (GIRepositoryObjectInfoRecord.C.withPtr ---> GIRepositoryStructInfoRecord.C.fromPtr true) objectInfoGetClassStruct_ info
     fun objectInfoGetConstant info n = (GIRepositoryObjectInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryConstantInfoRecord.C.fromPtr true) objectInfoGetConstant_ (info & n)
@@ -365,7 +365,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun signalInfoGetClassClosure info = (GIRepositorySignalInfoRecord.C.withPtr ---> GIRepositoryVFuncInfoRecord.C.fromPtr true) signalInfoGetClassClosure_ info
     fun signalInfoGetFlags info = (GIRepositorySignalInfoRecord.C.withPtr ---> GObjectSignalFlags.C.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositorySignalInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) signalInfoTrueStopsEmit_ info
-    fun structInfoFindMethod info name = (GIRepositoryStructInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
+    fun structInfoFindMethod info name = (GIRepositoryStructInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) structInfoFindMethod_ (info & name)
     fun structInfoGetAlignment info = (GIRepositoryStructInfoRecord.C.withPtr ---> FFI.Size.C.fromVal) structInfoGetAlignment_ info
     fun structInfoGetField info n = (GIRepositoryStructInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryFieldInfoRecord.C.fromPtr true) structInfoGetField_ (info & n)
     fun structInfoGetMethod info n = (GIRepositoryStructInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) structInfoGetMethod_ (info & n)
@@ -383,7 +383,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun typeInfoIsPointer info = (GIRepositoryTypeInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsPointer_ info
     fun typeInfoIsZeroTerminated info = (GIRepositoryTypeInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) typeInfoIsZeroTerminated_ info
     fun typeTagToString type' = (GIRepositoryTypeTag.C.withVal ---> Utf8.C.fromPtr false) typeTagToString_ type'
-    fun unionInfoFindMethod info name = (GIRepositoryUnionInfoRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
+    fun unionInfoFindMethod info name = (GIRepositoryUnionInfoRecord.C.withPtr &&&> Utf8.C.withPtr ---> GIRepositoryFunctionInfoRecord.C.fromPtr true) unionInfoFindMethod_ (info & name)
     fun unionInfoGetAlignment info = (GIRepositoryUnionInfoRecord.C.withPtr ---> FFI.Size.C.fromVal) unionInfoGetAlignment_ info
     fun unionInfoGetDiscriminator info n = (GIRepositoryUnionInfoRecord.C.withPtr &&&> FFI.Int.C.withVal ---> GIRepositoryConstantInfoRecord.C.fromPtr true) unionInfoGetDiscriminator_ (info & n)
     fun unionInfoGetDiscriminatorOffset info = (GIRepositoryUnionInfoRecord.C.withPtr ---> FFI.Int.C.fromVal) unionInfoGetDiscriminatorOffset_ info

@@ -35,7 +35,7 @@ structure GtkCssProvider :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.C.fromPtr false) getDefault_ ()
-    fun getNamed name variant = (Utf8.C.withConstPtr &&&> Utf8.C.withConstOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
+    fun getNamed name variant = (Utf8.C.withPtr &&&> Utf8.C.withOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
     fun loadFromFile self file =
       (
         GObjectObjectClass.C.withPtr
@@ -52,7 +52,7 @@ structure GtkCssProvider :>
     fun loadFromPath self path =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

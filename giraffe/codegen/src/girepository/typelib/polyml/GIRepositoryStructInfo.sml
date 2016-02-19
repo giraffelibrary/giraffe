@@ -86,7 +86,7 @@ structure GIRepositoryStructInfo :>
     val findMethod =
       fn info => fn name =>
         (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> Utf8.C.withConstPtr
+          &&&> Utf8.C.withPtr
           ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
         findMethod_
         (info & name)

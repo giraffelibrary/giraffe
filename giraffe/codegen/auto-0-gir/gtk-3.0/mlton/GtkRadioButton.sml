@@ -12,8 +12,8 @@ structure GtkRadioButton :>
           (
             _import "mlton_gtk_radio_button_new_with_label_from_widget" :
               unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -27,8 +27,8 @@ structure GtkRadioButton :>
           (
             _import "mlton_gtk_radio_button_new_with_mnemonic_from_widget" :
               unit GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -46,8 +46,8 @@ structure GtkRadioButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromWidget radioGroupMember = (GObjectObjectClass.C.withOptPtr ---> GtkRadioButtonClass.C.fromPtr false) newFromWidget_ radioGroupMember
-    fun newWithLabelFromWidget radioGroupMember label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withConstPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label)
-    fun newWithMnemonicFromWidget radioGroupMember label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withConstPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label)
+    fun newWithLabelFromWidget radioGroupMember label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label)
+    fun newWithMnemonicFromWidget radioGroupMember label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label)
     fun joinGroup self groupSource = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
     local
       open ClosureMarshal Signal

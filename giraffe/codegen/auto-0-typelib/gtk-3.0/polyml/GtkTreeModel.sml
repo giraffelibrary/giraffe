@@ -136,7 +136,7 @@ structure GtkTreeModel :>
           (
             GObjectObjectClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             getIterFromString_

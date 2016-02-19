@@ -18,8 +18,8 @@ structure AtkAction :>
             _import "mlton_atk_action_set_description" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.Int32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -41,7 +41,7 @@ structure AtkAction :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         setDescription_

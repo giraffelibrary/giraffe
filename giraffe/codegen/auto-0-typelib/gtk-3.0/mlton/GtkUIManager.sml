@@ -23,12 +23,12 @@ structure GtkUIManager :>
             _import "mlton_gtk_ui_manager_add_ui" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
                * FFI.UInt32.C.val_
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * GtkUIManagerItemType.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -53,8 +53,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_file" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
           )
@@ -73,8 +73,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_string" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
@@ -94,8 +94,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_get_action" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -111,8 +111,8 @@ structure GtkUIManager :>
           (
             _import "mlton_gtk_ui_manager_get_widget" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
           )
             (
@@ -156,9 +156,9 @@ structure GtkUIManager :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GtkUIManagerItemType.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -176,7 +176,7 @@ structure GtkUIManager :>
     fun addUiFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -189,7 +189,7 @@ structure GtkUIManager :>
     fun addUiFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
@@ -203,10 +203,10 @@ structure GtkUIManager :>
         )
     fun ensureUpdate self = (GObjectObjectClass.C.withPtr ---> I) ensureUpdate_ self
     fun getAccelGroup self = (GObjectObjectClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
+    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
     fun getAddTearoffs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAddTearoffs_ self
     fun getUi self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getUi_ self
-    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
+    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
     fun insertActionGroup self actionGroup pos =
       (
         GObjectObjectClass.C.withPtr

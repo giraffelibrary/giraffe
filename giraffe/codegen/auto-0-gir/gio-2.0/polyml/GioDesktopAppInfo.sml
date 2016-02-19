@@ -23,16 +23,16 @@ structure GioDesktopAppInfo :>
     type t = base class_t
     fun asAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new desktopId = (Utf8.C.withConstPtr ---> GioDesktopAppInfoClass.C.fromPtr true) new_ desktopId
-    fun newFromFilename filename = (Utf8.C.withConstPtr ---> GioDesktopAppInfoClass.C.fromPtr true) newFromFilename_ filename
+    fun new desktopId = (Utf8.C.withPtr ---> GioDesktopAppInfoClass.C.fromPtr true) new_ desktopId
+    fun newFromFilename filename = (Utf8.C.withPtr ---> GioDesktopAppInfoClass.C.fromPtr true) newFromFilename_ filename
     fun newFromKeyfile keyFile = (GLibKeyFileRecord.C.withPtr ---> GioDesktopAppInfoClass.C.fromPtr true) newFromKeyfile_ keyFile
-    fun setDesktopEnv desktopEnv = (Utf8.C.withConstPtr ---> I) setDesktopEnv_ desktopEnv
+    fun setDesktopEnv desktopEnv = (Utf8.C.withPtr ---> I) setDesktopEnv_ desktopEnv
     fun getCategories self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCategories_ self
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
     fun getGenericName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getGenericName_ self
     fun getIsHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsHidden_ self
     fun getNodisplay self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getNodisplay_ self
-    fun getShowIn self desktopEnv = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) getShowIn_ (self & desktopEnv)
+    fun getShowIn self desktopEnv = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getShowIn_ (self & desktopEnv)
     local
       open Property
     in

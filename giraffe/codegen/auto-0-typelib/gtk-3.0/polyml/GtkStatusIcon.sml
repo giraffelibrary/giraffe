@@ -70,11 +70,11 @@ structure GtkStatusIcon :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()
-    fun newFromFile filename = (Utf8.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
+    fun newFromFile filename = (Utf8.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename
     fun newFromGicon icon = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromGicon_ icon
-    fun newFromIconName iconName = (Utf8.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
+    fun newFromIconName iconName = (Utf8.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromPixbuf_ pixbuf
-    fun newFromStock stockId = (Utf8.C.withConstPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
+    fun newFromStock stockId = (Utf8.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromStock_ stockId
     fun positionMenu menu userData =
       let
         val x
@@ -155,17 +155,17 @@ structure GtkStatusIcon :>
     fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
     fun getX11WindowId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getX11WindowId_ self
     fun isEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isEmbedded_ self
-    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFromFile_ (self & filename)
+    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromGicon_ (self & icon)
-    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFromIconName_ (self & iconName)
+    fun setFromIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFromIconName_ (self & iconName)
     fun setFromPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
-    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFromStock_ (self & stockId)
+    fun setFromStock self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFromStock_ (self & stockId)
     fun setHasTooltip self hasTooltip = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setName_ (self & name)
+    fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
     fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTitle_ (self & title)
-    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setTooltipText_ (self & text)
+    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
+    fun setTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTooltipText_ (self & text)
     fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal

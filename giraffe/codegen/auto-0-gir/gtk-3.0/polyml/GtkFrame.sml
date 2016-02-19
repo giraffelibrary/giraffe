@@ -41,7 +41,7 @@ structure GtkFrame :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withConstPtr ---> GtkFrameClass.C.fromPtr false) new_ label
+    fun new label = (Utf8.C.withPtr ---> GtkFrameClass.C.fromPtr false) new_ label
     fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelAlign self =
       let
@@ -67,7 +67,7 @@ structure GtkFrame :>
       end
     fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
     fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setLabel_ (self & label)
+    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
     fun setLabelAlign self xalign yalign =
       (
         GObjectObjectClass.C.withPtr

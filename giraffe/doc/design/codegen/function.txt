@@ -554,19 +554,19 @@ where
 
           dire... ownershipTra... | withUtf8Fun
         ==========================+===============================================
-                  NOTHING         | <A>.withConst<Opt>Ptr
+                  NOTHING         | <A>.with<Opt>Ptr
                 ------------------+-----------------------------------------------
           IN      EVERYTHING      | <raise Error everythingForIn>  (see note 1)
                 ------------------+-----------------------------------------------
                   CONTAINER       | <raise Error containerForUtf8>
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefConstOptPtr
+                  NOTHING         | <A>.withRefOptPtr
                 ------------------+-----------------------------------------------
-          OUT     EVERYTHING      | <A>.withRefConstOptPtr
+          OUT     EVERYTHING      | <A>.withRefOptPtr
                 ------------------+-----------------------------------------------
                   CONTAINER       | <raise Error containerForUtf8>
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefConst<InOpt>Ptr
+                  NOTHING         | <A>.withRef<InOpt>Ptr
                 ------------------+-----------------------------------------------
           INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
                 ------------------+-----------------------------------------------

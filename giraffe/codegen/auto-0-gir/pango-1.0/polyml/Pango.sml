@@ -134,11 +134,11 @@ structure Pango : PANGO =
     val UNKNOWN_GLYPH_HEIGHT = 14
     val UNKNOWN_GLYPH_WIDTH = 10
     fun attrTypeGetName type' = (PangoAttrType.C.withVal ---> Utf8.C.fromPtr false) attrTypeGetName_ type'
-    fun attrTypeRegister name = (Utf8.C.withConstPtr ---> PangoAttrType.C.fromVal) attrTypeRegister_ name
+    fun attrTypeRegister name = (Utf8.C.withPtr ---> PangoAttrType.C.fromVal) attrTypeRegister_ name
     fun bidiTypeForUnichar ch = (FFI.Char.C.withVal ---> PangoBidiType.C.fromVal) bidiTypeForUnichar_ ch
     fun extentsToPixels inclusive nearest = (PangoRectangleRecord.C.withOptPtr &&&> PangoRectangleRecord.C.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
-    fun findBaseDir text length = (Utf8.C.withConstPtr &&&> FFI.Int.C.withVal ---> PangoDirection.C.fromVal) findBaseDir_ (text & length)
-    fun fontDescriptionFromString str = (Utf8.C.withConstPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fontDescriptionFromString_ str
+    fun findBaseDir text length = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> PangoDirection.C.fromVal) findBaseDir_ (text & length)
+    fun fontDescriptionFromString str = (Utf8.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fontDescriptionFromString_ str
     fun gravityGetForMatrix matrix = (PangoMatrixRecord.C.withPtr ---> PangoGravity.C.fromVal) gravityGetForMatrix_ matrix
     fun gravityGetForScript script baseGravity hint =
       (
@@ -170,7 +170,7 @@ structure Pango : PANGO =
         )
     fun gravityToRotation gravity = (PangoGravity.C.withVal ---> FFI.Double.C.fromVal) gravityToRotation_ gravity
     fun isZeroWidth ch = (FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) isZeroWidth_ ch
-    fun languageFromString language = (Utf8.C.withConstOptPtr ---> PangoLanguageRecord.C.fromPtr true) languageFromString_ language
+    fun languageFromString language = (Utf8.C.withOptPtr ---> PangoLanguageRecord.C.fromPtr true) languageFromString_ language
     fun languageGetDefault () = (I ---> PangoLanguageRecord.C.fromPtr true) languageGetDefault_ ()
     fun parseMarkup markupText length accelMarker =
       let
@@ -179,11 +179,11 @@ structure Pango : PANGO =
          & accelChar
          & retVal =
           (
-            Utf8.C.withConstPtr
+            Utf8.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Char.C.withVal
              &&&> PangoAttrListRecord.C.withRefOptPtr
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
              &&&> FFI.Char.C.withRefVal
              &&&> GLibErrorRecord.C.handleError
              ---> PangoAttrListRecord.C.fromPtr true
@@ -232,11 +232,11 @@ structure Pango : PANGO =
     fun scriptGetSampleLanguage script = (PangoScript.C.withVal ---> PangoLanguageRecord.C.fromPtr true) scriptGetSampleLanguage_ script
     fun skipSpace pos =
       let
-        val pos & retVal = (Utf8.C.withRefConstPtr ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal) skipSpace_ pos
+        val pos & retVal = (Utf8.C.withRefPtr ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal) skipSpace_ pos
       in
         (retVal, pos)
       end
-    fun trimString str = (Utf8.C.withConstPtr ---> Utf8.C.fromPtr true) trimString_ str
+    fun trimString str = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) trimString_ str
     fun unicharDirection ch = (FFI.Char.C.withVal ---> PangoDirection.C.fromVal) unicharDirection_ ch
     fun unitsFromDouble d = (FFI.Double.C.withVal ---> FFI.Int.C.fromVal) unitsFromDouble_ d
     fun unitsToDouble i = (FFI.Int.C.withVal ---> FFI.Double.C.fromVal) unitsToDouble_ i

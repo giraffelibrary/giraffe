@@ -45,9 +45,9 @@ structure GtkCellView :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellViewClass.C.fromPtr false) new_ ()
     fun newWithContext area context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithContext_ (area & context)
-    fun newWithMarkup markup = (Utf8.C.withConstPtr ---> GtkCellViewClass.C.fromPtr false) newWithMarkup_ markup
+    fun newWithMarkup markup = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithMarkup_ markup
     fun newWithPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithPixbuf_ pixbuf
-    fun newWithText text = (Utf8.C.withConstPtr ---> GtkCellViewClass.C.fromPtr false) newWithText_ text
+    fun newWithText text = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithText_ text
     fun getDisplayedRow self = (GObjectObjectClass.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getDisplayedRow_ self
     fun getDrawSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDrawSensitive_ self
     fun getFitModel self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFitModel_ self

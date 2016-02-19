@@ -9,8 +9,8 @@ structure GLibTimeVal :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_time_val_from_iso8601" :
-              GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+              Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GLibTimeValRecord.C.notnull GLibTimeValRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -23,5 +23,5 @@ structure GLibTimeVal :>
     type t = record_t
     fun add self microseconds = (GLibTimeValRecord.C.withPtr &&&> FFI.Long.C.withVal ---> I) add_ (self & microseconds)
     fun toIso8601 self = (GLibTimeValRecord.C.withPtr ---> Utf8.C.fromPtr true) toIso8601_ self
-    fun fromIso8601 isoDate time = (Utf8.C.withConstPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) fromIso8601_ (isoDate & time)
+    fun fromIso8601 isoDate time = (Utf8.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) fromIso8601_ (isoDate & time)
   end

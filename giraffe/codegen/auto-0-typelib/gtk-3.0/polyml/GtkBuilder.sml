@@ -45,7 +45,7 @@ structure GtkBuilder :>
     fun addFromFile self filename =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -58,7 +58,7 @@ structure GtkBuilder :>
     fun addFromString self buffer length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.UInt32.C.fromVal
@@ -70,16 +70,16 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
             GObjectObjectClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr
              &&&> GLibErrorRecord.C.handleError
              ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal

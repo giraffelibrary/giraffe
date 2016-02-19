@@ -41,7 +41,7 @@ structure GioLoadableIcon :>
           (
             GObjectObjectClass.C.withPtr
              &&&> FFI.Int.C.withVal
-             &&&> Utf8.C.withRefConstOptPtr
+             &&&> Utf8.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GLibErrorRecord.C.handleError
              ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
@@ -61,7 +61,7 @@ structure GioLoadableIcon :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> GioInputStreamClass.C.fromPtr true
       )

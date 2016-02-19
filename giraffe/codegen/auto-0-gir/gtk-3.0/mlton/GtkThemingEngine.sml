@@ -10,7 +10,7 @@ structure GtkThemingEngine :>
     where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_theming_engine_get_type" : unit -> GObjectType.C.val_;
-    val load_ = _import "mlton_gtk_theming_engine_load" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val load_ = _import "mlton_gtk_theming_engine_load" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getBackgroundColor_ =
       fn
         x1
@@ -127,8 +127,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_get_style_property" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
                -> unit;
           )
@@ -144,8 +144,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_has_class" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -161,8 +161,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_has_region" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GtkRegionFlags.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -180,8 +180,8 @@ structure GtkThemingEngine :>
           (
             _import "mlton_gtk_theming_engine_lookup_color" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -218,7 +218,7 @@ structure GtkThemingEngine :>
     type state_type_t = GtkStateType.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun load name = (Utf8.C.withConstPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
+    fun load name = (Utf8.C.withPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -336,7 +336,7 @@ structure GtkThemingEngine :>
     fun getStyleProperty self propertyName value =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
       )
@@ -346,13 +346,13 @@ structure GtkThemingEngine :>
            & propertyName
            & value
         )
-    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
+    fun hasClass self styleClass = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let
         val flags & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GtkRegionFlags.C.withRefVal
              ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
           )
@@ -370,7 +370,7 @@ structure GtkThemingEngine :>
         val color & retVal =
           (
             GObjectObjectClass.C.withPtr
-             &&&> Utf8.C.withConstPtr
+             &&&> Utf8.C.withPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )

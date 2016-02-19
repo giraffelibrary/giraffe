@@ -118,5 +118,5 @@ structure PangoAttrType :>
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

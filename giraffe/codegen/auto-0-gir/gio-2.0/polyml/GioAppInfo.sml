@@ -93,8 +93,8 @@ structure GioAppInfo :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (
-        Utf8.C.withConstPtr
-         &&&> Utf8.C.withConstOptPtr
+        Utf8.C.withPtr
+         &&&> Utf8.C.withOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
          &&&> GLibErrorRecord.C.handleError
          ---> GioAppInfoClass.C.fromPtr true
@@ -106,11 +106,11 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withConstPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
-    fun getDefaultForUriScheme uriScheme = (Utf8.C.withConstPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
+    fun getDefaultForType contentType mustSupportUris = (Utf8.C.withPtr &&&> FFI.Bool.C.withVal ---> GioAppInfoClass.C.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForUriScheme uriScheme = (Utf8.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getDefaultForUriScheme_ uriScheme
     fun launchDefaultForUri uri launchContext =
       (
-        Utf8.C.withConstPtr
+        Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
@@ -121,11 +121,11 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
-    fun resetTypeAssociations contentType = (Utf8.C.withConstPtr ---> I) resetTypeAssociations_ contentType
+    fun resetTypeAssociations contentType = (Utf8.C.withPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -150,7 +150,7 @@ structure GioAppInfo :>
     fun removeSupportsType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -163,7 +163,7 @@ structure GioAppInfo :>
     fun setAsDefaultForExtension self extension =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -176,7 +176,7 @@ structure GioAppInfo :>
     fun setAsDefaultForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -189,7 +189,7 @@ structure GioAppInfo :>
     fun setAsLastUsedForType self contentType =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.C.handleError
          ---> FFI.Bool.C.fromVal
       )

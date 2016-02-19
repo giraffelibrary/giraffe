@@ -10,8 +10,8 @@ structure PangoColor :>
           (
             _import "mlton_pango_color_parse" :
               PangoColorRecord.C.notnull PangoColorRecord.C.p
-               * GCharVec.MLton.p1
-               * GCharVec.C.notnull GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
           )
             (
@@ -24,6 +24,6 @@ structure PangoColor :>
     type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoColorRecord.C.withPtr ---> PangoColorRecord.C.fromPtr true) copy_ self
-    fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withConstPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
+    fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)
     fun toString self = (PangoColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

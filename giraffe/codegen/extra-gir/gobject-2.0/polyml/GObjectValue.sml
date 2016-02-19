@@ -335,13 +335,13 @@ in
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
       getValue = (I ---> Utf8.C.fromPtr false) get_string_,
-      setValue = (I &&&> Utf8.C.withConstPtr ---> I) set_string_
+      setValue = (I &&&> Utf8.C.withPtr ---> I) set_string_
     }
 
   val stringOpt : (string option, string option) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
       getValue = (I ---> Utf8.C.fromOptPtr false) get_string_opt_,
-      setValue = (I &&&> Utf8.C.withConstOptPtr ---> I) set_string_opt_
+      setValue = (I &&&> Utf8.C.withOptPtr ---> I) set_string_opt_
     }
 end

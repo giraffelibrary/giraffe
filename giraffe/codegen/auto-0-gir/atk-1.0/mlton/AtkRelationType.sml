@@ -81,11 +81,11 @@ structure AtkRelationType :>
           setValue = (I &&&> C.withVal ---> I) setValue_
         }
     val null = NULL
-    val forName_ = _import "mlton_atk_relation_type_for_name" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
+    val forName_ = _import "mlton_atk_relation_type_for_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
     val getName_ = _import "atk_relation_type_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val register_ = _import "mlton_atk_relation_type_register" : GCharVec.MLton.p1 * GCharVec.C.notnull GCharVec.MLton.p2 -> C.val_;
+    val register_ = _import "mlton_atk_relation_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
     fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

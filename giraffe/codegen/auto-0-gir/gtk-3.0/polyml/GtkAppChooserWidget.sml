@@ -35,14 +35,14 @@ structure GtkAppChooserWidget :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (Utf8.C.withConstPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
+    fun new contentType = (Utf8.C.withPtr ---> GtkAppChooserWidgetClass.C.fromPtr false) new_ contentType
     fun getDefaultText self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultText_ self
     fun getShowAll self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowAll_ self
     fun getShowDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefault_ self
     fun getShowFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowFallback_ self
     fun getShowOther self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowOther_ self
     fun getShowRecommended self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowRecommended_ self
-    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setDefaultText_ (self & text)
+    fun setDefaultText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDefaultText_ (self & text)
     fun setShowAll self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowAll_ (self & setting)
     fun setShowDefault self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefault_ (self & setting)
     fun setShowFallback self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowFallback_ (self & setting)

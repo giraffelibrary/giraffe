@@ -356,8 +356,8 @@ structure AtkRole :>
       val register_ = call (load_sym libatk "atk_role_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withConstPtr ---> C.fromVal) forName_ name
+    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
     fun getLocalizedName role = (C.withVal ---> Utf8.C.fromPtr false) getLocalizedName_ role
     fun getName role = (C.withVal ---> Utf8.C.fromPtr false) getName_ role
-    fun register name = (Utf8.C.withConstPtr ---> C.fromVal) register_ name
+    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
   end

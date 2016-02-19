@@ -32,8 +32,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_icon_from_icon_name" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -51,8 +51,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_icon_from_stock" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                * FFI.Int.C.val_
                -> unit;
           )
@@ -68,8 +68,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_markup" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -83,8 +83,8 @@ structure GtkTooltip :>
           (
             _import "mlton_gtk_tooltip_set_text" :
               GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GCharVec.MLton.p1
-               * unit GCharVec.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -116,7 +116,7 @@ structure GtkTooltip :>
     fun setIconFromIconName self iconName size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -129,7 +129,7 @@ structure GtkTooltip :>
     fun setIconFromStock self stockId size =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -139,7 +139,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setText_ (self & text)
+    fun setMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setText_ (self & text)
     fun setTipArea self rect = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) setTipArea_ (self & rect)
   end

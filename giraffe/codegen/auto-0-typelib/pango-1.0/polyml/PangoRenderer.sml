@@ -163,7 +163,7 @@ structure PangoRenderer :>
     fun drawGlyphItem self text glyphItem x y =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstOptPtr
+         &&&> Utf8.C.withOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal

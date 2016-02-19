@@ -205,7 +205,7 @@ structure VteTerminal :>
     fun feed self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -218,7 +218,7 @@ structure VteTerminal :>
     fun feedChild self text length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -231,7 +231,7 @@ structure VteTerminal :>
     fun feedChildBinary self data length =
       (
         GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
       )
@@ -315,7 +315,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withConstPtr
+         &&&> Utf8.C.withPtr
          ---> I
       )
         matchSetCursorName_
@@ -376,7 +376,7 @@ structure VteTerminal :>
     fun setAllowBold self allowBold = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowBold_ (self & allowBold)
     fun setAudibleBell self isAudible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAudibleBell_ (self & isAudible)
     fun setBackgroundImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setBackgroundImageFile_ (self & path)
+    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setBackgroundImageFile_ (self & path)
     fun setBackgroundSaturation self saturation = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setBackgroundSaturation_ (self & saturation)
     fun setBackgroundTintColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundTintColor_ (self & color)
     fun setBackgroundTransparent self transparent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setBackgroundTransparent_ (self & transparent)
@@ -397,10 +397,10 @@ structure VteTerminal :>
     fun setCursorShape self shape = (GObjectObjectClass.C.withPtr &&&> VteTerminalCursorShape.C.withVal ---> I) setCursorShape_ (self & shape)
     fun setDefaultColors self = (GObjectObjectClass.C.withPtr ---> I) setDefaultColors_ self
     fun setDeleteBinding self binding = (GObjectObjectClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setDeleteBinding_ (self & binding)
-    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEmulation_ (self & emulation)
-    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstOptPtr ---> I) setEncoding_ (self & codeset)
+    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEmulation_ (self & emulation)
+    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEncoding_ (self & codeset)
     fun setFont self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
-    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setFontFromString_ (self & name)
+    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMouseAutohide_ (self & setting)
     fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
@@ -422,7 +422,7 @@ structure VteTerminal :>
            & rows
         )
     fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
-    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withConstPtr ---> I) setWordChars_ (self & spec)
+    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWordChars_ (self & spec)
     fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (
