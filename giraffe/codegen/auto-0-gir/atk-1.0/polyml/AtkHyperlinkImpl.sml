@@ -6,8 +6,8 @@ structure AtkHyperlinkImpl :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_hyperlink_impl_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getHyperlink_ = call (load_sym libatk "atk_hyperlink_impl_get_hyperlink") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libatk "atk_hyperlink_impl_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getHyperlink_ = call (load_sym libatk "atk_hyperlink_impl_get_hyperlink") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a AtkHyperlinkImplClass.t
     type 'a hyperlink_class_t = 'a AtkHyperlinkClass.t

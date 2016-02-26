@@ -6,11 +6,11 @@ structure GdkPixbufPixbufAnimationIter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val advance_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_advance") (GObjectObjectClass.PolyML.PTR &&> GLibTimeValRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getDelayTime_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_delay_time") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getPixbuf_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val onCurrentlyLoadingFrame_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_on_currently_loading_frame") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val advance_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_advance") (GObjectObjectClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDelayTime_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_delay_time") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getPixbuf_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_get_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val onCurrentlyLoadingFrame_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_iter_on_currently_loading_frame") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GdkPixbufPixbufAnimationIterClass.t
     type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t

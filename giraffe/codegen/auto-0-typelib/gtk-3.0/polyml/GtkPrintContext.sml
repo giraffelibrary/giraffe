@@ -6,34 +6,34 @@ structure GtkPrintContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_print_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val createPangoContext_ = call (load_sym libgtk "gtk_print_context_create_pango_context") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val createPangoLayout_ = call (load_sym libgtk "gtk_print_context_create_pango_layout") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getCairoContext_ = call (load_sym libgtk "gtk_print_context_get_cairo_context") (GObjectObjectClass.PolyML.PTR --> CairoContextRecord.PolyML.PTR)
-      val getDpiX_ = call (load_sym libgtk "gtk_print_context_get_dpi_x") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getDpiY_ = call (load_sym libgtk "gtk_print_context_get_dpi_y") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_print_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val createPangoContext_ = call (load_sym libgtk "gtk_print_context_create_pango_context") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val createPangoLayout_ = call (load_sym libgtk "gtk_print_context_create_pango_layout") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCairoContext_ = call (load_sym libgtk "gtk_print_context_get_cairo_context") (GObjectObjectClass.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
+      val getDpiX_ = call (load_sym libgtk "gtk_print_context_get_dpi_x") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getDpiY_ = call (load_sym libgtk "gtk_print_context_get_dpi_y") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
       val getHardMargins_ =
         call (load_sym libgtk "gtk_print_context_get_hard_margins")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getHeight_ = call (load_sym libgtk "gtk_print_context_get_height") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getPageSetup_ = call (load_sym libgtk "gtk_print_context_get_page_setup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPangoFontmap_ = call (load_sym libgtk "gtk_print_context_get_pango_fontmap") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getWidth_ = call (load_sym libgtk "gtk_print_context_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getHeight_ = call (load_sym libgtk "gtk_print_context_get_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getPageSetup_ = call (load_sym libgtk "gtk_print_context_get_page_setup") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPangoFontmap_ = call (load_sym libgtk "gtk_print_context_get_pango_fontmap") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getWidth_ = call (load_sym libgtk "gtk_print_context_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
       val setCairoContext_ =
         call (load_sym libgtk "gtk_print_context_set_cairo_context")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkPrintContextClass.t

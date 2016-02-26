@@ -5,8 +5,8 @@ structure GioConverter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_converter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val reset_ = call (load_sym libgio "g_converter_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_converter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val reset_ = call (load_sym libgio "g_converter_reset") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioConverterClass.t
     type t = base class_t

@@ -10,58 +10,58 @@ structure GtkContainer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_container_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val add_ = call (load_sym libgtk "gtk_container_add") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val checkResize_ = call (load_sym libgtk "gtk_container_check_resize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_container_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val add_ = call (load_sym libgtk "gtk_container_add") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val checkResize_ = call (load_sym libgtk "gtk_container_check_resize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val childGetProperty_ =
         call (load_sym libgtk "gtk_container_child_get_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val childNotify_ =
         call (load_sym libgtk "gtk_container_child_notify")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val childSetProperty_ =
         call (load_sym libgtk "gtk_container_child_set_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val getFocusChild_ = call (load_sym libgtk "gtk_container_get_focus_child") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
-      val getFocusHadjustment_ = call (load_sym libgtk "gtk_container_get_focus_hadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFocusVadjustment_ = call (load_sym libgtk "gtk_container_get_focus_vadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPathForChild_ = call (load_sym libgtk "gtk_container_get_path_for_child") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GtkWidgetPathRecord.PolyML.PTR)
-      val getResizeMode_ = call (load_sym libgtk "gtk_container_get_resize_mode") (GObjectObjectClass.PolyML.PTR --> GtkResizeMode.PolyML.VAL)
+      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getFocusChild_ = call (load_sym libgtk "gtk_container_get_focus_child") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cOptPtr)
+      val getFocusHadjustment_ = call (load_sym libgtk "gtk_container_get_focus_hadjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFocusVadjustment_ = call (load_sym libgtk "gtk_container_get_focus_vadjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPathForChild_ = call (load_sym libgtk "gtk_container_get_path_for_child") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val getResizeMode_ = call (load_sym libgtk "gtk_container_get_resize_mode") (GObjectObjectClass.PolyML.cPtr --> GtkResizeMode.PolyML.cVal)
       val propagateDraw_ =
         call (load_sym libgtk "gtk_container_propagate_draw")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val remove_ = call (load_sym libgtk "gtk_container_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val resizeChildren_ = call (load_sym libgtk "gtk_container_resize_children") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFocusChild_ = call (load_sym libgtk "gtk_container_set_focus_child") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setFocusHadjustment_ = call (load_sym libgtk "gtk_container_set_focus_hadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setFocusVadjustment_ = call (load_sym libgtk "gtk_container_set_focus_vadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setReallocateRedraws_ = call (load_sym libgtk "gtk_container_set_reallocate_redraws") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setResizeMode_ = call (load_sym libgtk "gtk_container_set_resize_mode") (GObjectObjectClass.PolyML.PTR &&> GtkResizeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val unsetFocusChain_ = call (load_sym libgtk "gtk_container_unset_focus_chain") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val remove_ = call (load_sym libgtk "gtk_container_remove") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val resizeChildren_ = call (load_sym libgtk "gtk_container_resize_children") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFocusChild_ = call (load_sym libgtk "gtk_container_set_focus_child") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setFocusHadjustment_ = call (load_sym libgtk "gtk_container_set_focus_hadjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setFocusVadjustment_ = call (load_sym libgtk "gtk_container_set_focus_vadjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setReallocateRedraws_ = call (load_sym libgtk "gtk_container_set_reallocate_redraws") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setResizeMode_ = call (load_sym libgtk "gtk_container_set_resize_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkResizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unsetFocusChain_ = call (load_sym libgtk "gtk_container_unset_focus_chain") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkContainerClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

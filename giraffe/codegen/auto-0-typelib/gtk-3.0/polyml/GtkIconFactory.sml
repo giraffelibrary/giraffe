@@ -7,20 +7,20 @@ structure GtkIconFactory :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_factory_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_icon_factory_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val lookupDefault_ = call (load_sym libgtk "gtk_icon_factory_lookup_default") (Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_icon_factory_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_icon_factory_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val lookupDefault_ = call (load_sym libgtk "gtk_icon_factory_lookup_default") (Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val add_ =
         call (load_sym libgtk "gtk_icon_factory_add")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkIconSetRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkIconSetRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val addDefault_ = call (load_sym libgtk "gtk_icon_factory_add_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val lookup_ = call (load_sym libgtk "gtk_icon_factory_lookup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
-      val removeDefault_ = call (load_sym libgtk "gtk_icon_factory_remove_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val addDefault_ = call (load_sym libgtk "gtk_icon_factory_add_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val lookup_ = call (load_sym libgtk "gtk_icon_factory_lookup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val removeDefault_ = call (load_sym libgtk "gtk_icon_factory_remove_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkIconFactoryClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

@@ -8,14 +8,14 @@ structure GioTlsServerConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_server_connection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_tls_server_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_tls_server_connection_new")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GioTlsServerConnectionClass.t

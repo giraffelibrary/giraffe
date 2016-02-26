@@ -7,12 +7,12 @@ structure GdkAppLaunchContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_app_launch_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val setDesktop_ = call (load_sym libgdk "gdk_app_launch_context_set_desktop") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setIcon_ = call (load_sym libgdk "gdk_app_launch_context_set_icon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setIconName_ = call (load_sym libgdk "gdk_app_launch_context_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setScreen_ = call (load_sym libgdk "gdk_app_launch_context_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTimestamp_ = call (load_sym libgdk "gdk_app_launch_context_set_timestamp") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgdk "gdk_app_launch_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val setDesktop_ = call (load_sym libgdk "gdk_app_launch_context_set_desktop") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setIcon_ = call (load_sym libgdk "gdk_app_launch_context_set_icon") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setIconName_ = call (load_sym libgdk "gdk_app_launch_context_set_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setScreen_ = call (load_sym libgdk "gdk_app_launch_context_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setTimestamp_ = call (load_sym libgdk "gdk_app_launch_context_set_timestamp") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GdkAppLaunchContextClass.t
     type 'a screen_class_t = 'a GdkScreenClass.t

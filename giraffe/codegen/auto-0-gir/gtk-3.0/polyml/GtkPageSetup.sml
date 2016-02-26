@@ -8,95 +8,95 @@ structure GtkPageSetup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_page_setup_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_page_setup_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromFile_ = call (load_sym libgtk "gtk_page_setup_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_page_setup_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_page_setup_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newFromFile_ = call (load_sym libgtk "gtk_page_setup_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val newFromKeyFile_ =
         call (load_sym libgtk "gtk_page_setup_new_from_key_file")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgtk "gtk_page_setup_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBottomMargin_ = call (load_sym libgtk "gtk_page_setup_get_bottom_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getLeftMargin_ = call (load_sym libgtk "gtk_page_setup_get_left_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getOrientation_ = call (load_sym libgtk "gtk_page_setup_get_orientation") (GObjectObjectClass.PolyML.PTR --> GtkPageOrientation.PolyML.VAL)
-      val getPageHeight_ = call (load_sym libgtk "gtk_page_setup_get_page_height") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getPageWidth_ = call (load_sym libgtk "gtk_page_setup_get_page_width") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getPaperHeight_ = call (load_sym libgtk "gtk_page_setup_get_paper_height") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getPaperSize_ = call (load_sym libgtk "gtk_page_setup_get_paper_size") (GObjectObjectClass.PolyML.PTR --> GtkPaperSizeRecord.PolyML.PTR)
-      val getPaperWidth_ = call (load_sym libgtk "gtk_page_setup_get_paper_width") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getRightMargin_ = call (load_sym libgtk "gtk_page_setup_get_right_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getTopMargin_ = call (load_sym libgtk "gtk_page_setup_get_top_margin") (GObjectObjectClass.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
+      val copy_ = call (load_sym libgtk "gtk_page_setup_copy") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBottomMargin_ = call (load_sym libgtk "gtk_page_setup_get_bottom_margin") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getLeftMargin_ = call (load_sym libgtk "gtk_page_setup_get_left_margin") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getOrientation_ = call (load_sym libgtk "gtk_page_setup_get_orientation") (GObjectObjectClass.PolyML.cPtr --> GtkPageOrientation.PolyML.cVal)
+      val getPageHeight_ = call (load_sym libgtk "gtk_page_setup_get_page_height") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getPageWidth_ = call (load_sym libgtk "gtk_page_setup_get_page_width") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getPaperHeight_ = call (load_sym libgtk "gtk_page_setup_get_paper_height") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getPaperSize_ = call (load_sym libgtk "gtk_page_setup_get_paper_size") (GObjectObjectClass.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
+      val getPaperWidth_ = call (load_sym libgtk "gtk_page_setup_get_paper_width") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getRightMargin_ = call (load_sym libgtk "gtk_page_setup_get_right_margin") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getTopMargin_ = call (load_sym libgtk "gtk_page_setup_get_top_margin") (GObjectObjectClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
       val loadFile_ =
         call (load_sym libgtk "gtk_page_setup_load_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val loadKeyFile_ =
         call (load_sym libgtk "gtk_page_setup_load_key_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setBottomMargin_ =
         call (load_sym libgtk "gtk_page_setup_set_bottom_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setLeftMargin_ =
         call (load_sym libgtk "gtk_page_setup_set_left_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setOrientation_ = call (load_sym libgtk "gtk_page_setup_set_orientation") (GObjectObjectClass.PolyML.PTR &&> GtkPageOrientation.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPaperSize_ = call (load_sym libgtk "gtk_page_setup_set_paper_size") (GObjectObjectClass.PolyML.PTR &&> GtkPaperSizeRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setPaperSizeAndDefaultMargins_ = call (load_sym libgtk "gtk_page_setup_set_paper_size_and_default_margins") (GObjectObjectClass.PolyML.PTR &&> GtkPaperSizeRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val setOrientation_ = call (load_sym libgtk "gtk_page_setup_set_orientation") (GObjectObjectClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPaperSize_ = call (load_sym libgtk "gtk_page_setup_set_paper_size") (GObjectObjectClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setPaperSizeAndDefaultMargins_ = call (load_sym libgtk "gtk_page_setup_set_paper_size_and_default_margins") (GObjectObjectClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setRightMargin_ =
         call (load_sym libgtk "gtk_page_setup_set_right_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setTopMargin_ =
         call (load_sym libgtk "gtk_page_setup_set_top_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val toFile_ =
         call (load_sym libgtk "gtk_page_setup_to_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val toKeyFile_ =
         call (load_sym libgtk "gtk_page_setup_to_key_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkPageSetupClass.t

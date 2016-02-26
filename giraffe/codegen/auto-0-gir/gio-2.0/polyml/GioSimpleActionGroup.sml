@@ -7,11 +7,11 @@ structure GioSimpleActionGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_simple_action_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_simple_action_group_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val insert_ = call (load_sym libgio "g_simple_action_group_insert") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val lookup_ = call (load_sym libgio "g_simple_action_group_lookup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val remove_ = call (load_sym libgio "g_simple_action_group_remove") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_simple_action_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_simple_action_group_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val insert_ = call (load_sym libgio "g_simple_action_group_insert") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val lookup_ = call (load_sym libgio "g_simple_action_group_lookup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val remove_ = call (load_sym libgio "g_simple_action_group_remove") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioSimpleActionGroupClass.t
     type 'a action_group_class_t = 'a GioActionGroupClass.t

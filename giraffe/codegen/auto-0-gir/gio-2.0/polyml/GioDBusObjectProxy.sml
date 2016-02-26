@@ -7,9 +7,9 @@ structure GioDBusObjectProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_proxy_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_dbus_object_proxy_new") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getConnection_ = call (load_sym libgio "g_dbus_object_proxy_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_dbus_object_proxy_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_dbus_object_proxy_new") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getConnection_ = call (load_sym libgio "g_dbus_object_proxy_get_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioDBusObjectProxyClass.t
     type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t

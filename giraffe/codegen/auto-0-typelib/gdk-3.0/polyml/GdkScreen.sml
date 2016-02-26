@@ -8,58 +8,58 @@ structure GdkScreen :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_screen_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefault_ = call (load_sym libgdk "gdk_screen_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val height_ = call (load_sym libgdk "gdk_screen_height") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val heightMm_ = call (load_sym libgdk "gdk_screen_height_mm") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val width_ = call (load_sym libgdk "gdk_screen_width") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val widthMm_ = call (load_sym libgdk "gdk_screen_width_mm") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val getActiveWindow_ = call (load_sym libgdk "gdk_screen_get_active_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDisplay_ = call (load_sym libgdk "gdk_screen_get_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFontOptions_ = call (load_sym libgdk "gdk_screen_get_font_options") (GObjectObjectClass.PolyML.PTR --> CairoFontOptionsRecord.PolyML.PTR)
-      val getHeight_ = call (load_sym libgdk "gdk_screen_get_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getHeightMm_ = call (load_sym libgdk "gdk_screen_get_height_mm") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getType_ = call (load_sym libgdk "gdk_screen_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgdk "gdk_screen_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val height_ = call (load_sym libgdk "gdk_screen_height") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
+      val heightMm_ = call (load_sym libgdk "gdk_screen_height_mm") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
+      val width_ = call (load_sym libgdk "gdk_screen_width") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
+      val widthMm_ = call (load_sym libgdk "gdk_screen_width_mm") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
+      val getActiveWindow_ = call (load_sym libgdk "gdk_screen_get_active_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDisplay_ = call (load_sym libgdk "gdk_screen_get_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFontOptions_ = call (load_sym libgdk "gdk_screen_get_font_options") (GObjectObjectClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
+      val getHeight_ = call (load_sym libgdk "gdk_screen_get_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getHeightMm_ = call (load_sym libgdk "gdk_screen_get_height_mm") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getMonitorAtPoint_ =
         call (load_sym libgdk "gdk_screen_get_monitor_at_point")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
-      val getMonitorAtWindow_ = call (load_sym libgdk "gdk_screen_get_monitor_at_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getMonitorAtWindow_ = call (load_sym libgdk "gdk_screen_get_monitor_at_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getMonitorGeometry_ =
         call (load_sym libgdk "gdk_screen_get_monitor_geometry")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getMonitorHeightMm_ = call (load_sym libgdk "gdk_screen_get_monitor_height_mm") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getMonitorPlugName_ = call (load_sym libgdk "gdk_screen_get_monitor_plug_name") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getMonitorWidthMm_ = call (load_sym libgdk "gdk_screen_get_monitor_width_mm") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getNMonitors_ = call (load_sym libgdk "gdk_screen_get_n_monitors") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getNumber_ = call (load_sym libgdk "gdk_screen_get_number") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getPrimaryMonitor_ = call (load_sym libgdk "gdk_screen_get_primary_monitor") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getResolution_ = call (load_sym libgdk "gdk_screen_get_resolution") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getRgbaVisual_ = call (load_sym libgdk "gdk_screen_get_rgba_visual") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getRootWindow_ = call (load_sym libgdk "gdk_screen_get_root_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getMonitorHeightMm_ = call (load_sym libgdk "gdk_screen_get_monitor_height_mm") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
+      val getMonitorPlugName_ = call (load_sym libgdk "gdk_screen_get_monitor_plug_name") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getMonitorWidthMm_ = call (load_sym libgdk "gdk_screen_get_monitor_width_mm") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
+      val getNMonitors_ = call (load_sym libgdk "gdk_screen_get_n_monitors") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getNumber_ = call (load_sym libgdk "gdk_screen_get_number") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getPrimaryMonitor_ = call (load_sym libgdk "gdk_screen_get_primary_monitor") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getResolution_ = call (load_sym libgdk "gdk_screen_get_resolution") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getRgbaVisual_ = call (load_sym libgdk "gdk_screen_get_rgba_visual") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getRootWindow_ = call (load_sym libgdk "gdk_screen_get_root_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getSetting_ =
         call (load_sym libgdk "gdk_screen_get_setting")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val getSystemVisual_ = call (load_sym libgdk "gdk_screen_get_system_visual") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getWidth_ = call (load_sym libgdk "gdk_screen_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getWidthMm_ = call (load_sym libgdk "gdk_screen_get_width_mm") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val isComposited_ = call (load_sym libgdk "gdk_screen_is_composited") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val makeDisplayName_ = call (load_sym libgdk "gdk_screen_make_display_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val setFontOptions_ = call (load_sym libgdk "gdk_screen_set_font_options") (GObjectObjectClass.PolyML.PTR &&> CairoFontOptionsRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setResolution_ = call (load_sym libgdk "gdk_screen_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
+      val getSystemVisual_ = call (load_sym libgdk "gdk_screen_get_system_visual") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getWidth_ = call (load_sym libgdk "gdk_screen_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getWidthMm_ = call (load_sym libgdk "gdk_screen_get_width_mm") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val isComposited_ = call (load_sym libgdk "gdk_screen_is_composited") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val makeDisplayName_ = call (load_sym libgdk "gdk_screen_make_display_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setFontOptions_ = call (load_sym libgdk "gdk_screen_set_font_options") (GObjectObjectClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setResolution_ = call (load_sym libgdk "gdk_screen_set_resolution") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GdkScreenClass.t
     type 'a display_class_t = 'a GdkDisplayClass.t

@@ -9,13 +9,13 @@ structure GtkMenuToolButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_menu_tool_button_new") (GObjectObjectClass.PolyML.OPTPTR &&> Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_menu_tool_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getMenu_ = call (load_sym libgtk "gtk_menu_tool_button_get_menu") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setArrowTooltipMarkup_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setArrowTooltipText_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setMenu_ = call (load_sym libgtk "gtk_menu_tool_button_set_menu") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_menu_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_menu_tool_button_new") (GObjectObjectClass.PolyML.cOptPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_menu_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getMenu_ = call (load_sym libgtk "gtk_menu_tool_button_get_menu") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setArrowTooltipMarkup_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_markup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setArrowTooltipText_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMenu_ = call (load_sym libgtk "gtk_menu_tool_button_set_menu") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkMenuToolButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

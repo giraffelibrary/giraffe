@@ -10,62 +10,62 @@ structure GtkBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_box_new") (GtkOrientation.PolyML.VAL &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getHomogeneous_ = call (load_sym libgtk "gtk_box_get_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSpacing_ = call (load_sym libgtk "gtk_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_box_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_box_new") (GtkOrientation.PolyML.cVal &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getHomogeneous_ = call (load_sym libgtk "gtk_box_get_homogeneous") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSpacing_ = call (load_sym libgtk "gtk_box_get_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_box_pack_end")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_box_pack_start")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val queryChildPacking_ =
         call (load_sym libgtk "gtk_box_query_child_packing")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.REF
-             &&> FFI.Bool.PolyML.REF
-             &&> FFI.UInt.PolyML.REF
-             &&> GtkPackType.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cRef
+             &&> FFI.Bool.PolyML.cRef
+             &&> FFI.UInt.PolyML.cRef
+             &&> GtkPackType.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val reorderChild_ =
         call (load_sym libgtk "gtk_box_reorder_child")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setChildPacking_ =
         call (load_sym libgtk "gtk_box_set_child_packing")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             &&> GtkPackType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             &&> GtkPackType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setHomogeneous_ = call (load_sym libgtk "gtk_box_set_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setHomogeneous_ = call (load_sym libgtk "gtk_box_set_homogeneous") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkBoxClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

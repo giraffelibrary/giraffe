@@ -12,162 +12,162 @@ structure GtkCellRenderer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_renderer_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_cell_renderer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val activate_ =
         call (load_sym libgtk "gtk_cell_renderer_activate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkEvent.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> GtkCellRendererState.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GtkCellRendererState.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val getAlignedArea_ =
         call (load_sym libgtk "gtk_cell_renderer_get_aligned_area")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkCellRendererState.PolyML.VAL
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkCellRendererState.PolyML.cVal
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getAlignment_ =
         call (load_sym libgtk "gtk_cell_renderer_get_alignment")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.REF
-             &&> FFI.Float.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cRef
+             &&> FFI.Float.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getFixedSize_ =
         call (load_sym libgtk "gtk_cell_renderer_get_fixed_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_get_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getPreferredHeight_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_height")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getPreferredHeightForWidth_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_height_for_width")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getPreferredSize_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkRequisitionRecord.PolyML.PTR
-             &&> GtkRequisitionRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkRequisitionRecord.PolyML.cPtr
+             &&> GtkRequisitionRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getPreferredWidth_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_width")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getPreferredWidthForHeight_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_width_for_height")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getRequestMode_ = call (load_sym libgtk "gtk_cell_renderer_get_request_mode") (GObjectObjectClass.PolyML.PTR --> GtkSizeRequestMode.PolyML.VAL)
-      val getSensitive_ = call (load_sym libgtk "gtk_cell_renderer_get_sensitive") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getRequestMode_ = call (load_sym libgtk "gtk_cell_renderer_get_request_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
+      val getSensitive_ = call (load_sym libgtk "gtk_cell_renderer_get_sensitive") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getState_ =
         call (load_sym libgtk "gtk_cell_renderer_get_state")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkCellRendererState.PolyML.VAL
-             --> GtkStateFlags.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkCellRendererState.PolyML.cVal
+             --> GtkStateFlags.PolyML.cVal
           )
-      val getVisible_ = call (load_sym libgtk "gtk_cell_renderer_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isActivatable_ = call (load_sym libgtk "gtk_cell_renderer_is_activatable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getVisible_ = call (load_sym libgtk "gtk_cell_renderer_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isActivatable_ = call (load_sym libgtk "gtk_cell_renderer_is_activatable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val render_ =
         call (load_sym libgtk "gtk_cell_renderer_render")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> GtkCellRendererState.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GtkCellRendererState.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setAlignment_ =
         call (load_sym libgtk "gtk_cell_renderer_set_alignment")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setFixedSize_ =
         call (load_sym libgtk "gtk_cell_renderer_set_fixed_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_set_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setSensitive_ = call (load_sym libgtk "gtk_cell_renderer_set_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setVisible_ = call (load_sym libgtk "gtk_cell_renderer_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSensitive_ = call (load_sym libgtk "gtk_cell_renderer_set_sensitive") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_cell_renderer_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val startEditing_ =
         call (load_sym libgtk "gtk_cell_renderer_start_editing")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkEvent.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.PTR
-             &&> GtkCellRendererState.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GtkCellRendererState.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val stopEditing_ = call (load_sym libgtk "gtk_cell_renderer_stop_editing") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val stopEditing_ = call (load_sym libgtk "gtk_cell_renderer_stop_editing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCellRendererClass.t
     type requisition_record_t = GtkRequisitionRecord.t

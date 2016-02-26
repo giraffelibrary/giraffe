@@ -3,8 +3,8 @@ structure GLibSliceConfig :>
     include G_LIB_SLICE_CONFIG
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -41,8 +41,8 @@ structure GLibSliceConfig :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     val null = ALWAYS_MALLOC
   end

@@ -8,22 +8,22 @@ structure GioSocketAddressEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_address_enumerator_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_socket_address_enumerator_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val next_ =
         call (load_sym libgio "g_socket_address_enumerator_next")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val nextFinish_ =
         call (load_sym libgio "g_socket_address_enumerator_next_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GioSocketAddressEnumeratorClass.t

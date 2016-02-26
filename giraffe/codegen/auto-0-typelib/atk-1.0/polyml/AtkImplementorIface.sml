@@ -5,7 +5,7 @@ structure AtkImplementorIface :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_implementor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_implementor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a AtkImplementorIfaceClass.t
     type t = base class_t

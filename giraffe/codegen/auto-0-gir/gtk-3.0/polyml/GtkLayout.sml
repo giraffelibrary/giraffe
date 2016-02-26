@@ -9,42 +9,42 @@ structure GtkLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_layout_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_layout_new") (GObjectObjectClass.PolyML.OPTPTR &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val getBinWindow_ = call (load_sym libgtk "gtk_layout_get_bin_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_layout_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_layout_new") (GObjectObjectClass.PolyML.cOptPtr &&> GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBinWindow_ = call (load_sym libgtk "gtk_layout_get_bin_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getSize_ =
         call (load_sym libgtk "gtk_layout_get_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.REF
-             &&> FFI.UInt.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cRef
+             &&> FFI.UInt.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val move_ =
         call (load_sym libgtk "gtk_layout_move")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val put_ =
         call (load_sym libgtk "gtk_layout_put")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setSize_ =
         call (load_sym libgtk "gtk_layout_set_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkLayoutClass.t

@@ -16,19 +16,19 @@ structure Property :>
       val getProperty_ =
         call (load_sym libgobject "g_object_get_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
 
       val setProperty_ =
         call (load_sym libgobject "g_object_set_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
     end
 

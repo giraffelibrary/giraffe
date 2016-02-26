@@ -4,16 +4,16 @@ structure GIRepositoryBaseInfoClass :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -23,12 +23,12 @@ structure GIRepositoryBaseInfoClass :>
       val ref_ =
         call
           (load_sym libgirepository "g_base_info_ref")
-          (PTR --> PTR);
+          (cPtr --> cPtr);
 
       val unref_ =
         call
           (load_sym libgirepository "g_base_info_unref")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -66,7 +66,7 @@ structure GIRepositoryBaseInfoClass :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
   end

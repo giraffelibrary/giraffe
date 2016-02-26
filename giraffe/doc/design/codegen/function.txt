@@ -164,10 +164,7 @@ where
       allow-none-in and allow-none-out.
 
       For now, for out and in-out parameters, we do not distinguish
-      optionally-null and non-null values.  The conversions OUTPTR and
-      INOUTPTR do not have their phantom type constrained.  (We still
-      need to know this missing information for the high-level interface
-      to determine whether to use an optional type.)
+      optionally-null and non-null values.  We assume non-null values.
 
 
   selfType
@@ -566,7 +563,7 @@ where
                 ------------------+-----------------------------------------------
                   CONTAINER       | <raise Error containerForUtf8>
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<InOpt>Ptr
+                  NOTHING         | <A>.withRef<Opt>Ptr
                 ------------------+-----------------------------------------------
           INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
                 ------------------+-----------------------------------------------
@@ -591,13 +588,19 @@ where
           true            | Opt
         ------------------+-------------------
 
-      InOpt cannot be determined because GIR does not capture
-      sufficient information.  For now, it is defined as follows:
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
 
-          | InOpt
-        ==+===================
-          | <empty>
-        --+-------------------
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  We assume non-null values.
 
 
   withInterfaceFun
@@ -638,7 +641,7 @@ where
                         ------------------+-----------------------------------
                           CONTAINER       | <raise Error containerForInterface>
             ------------------------------+-----------------------------------
-                          NOTHING         | <A>.withRefDup<InOpt>Ptr  (see note 3)
+                          NOTHING         | <A>.withRefDup<Opt>Ptr  (see note 3)
                         ------------------+-----------------------------------
               INOUT       EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
                         ------------------+-----------------------------------
@@ -656,6 +659,13 @@ where
                 before the call and this is transferred after the call.
                 See note for corresponding function <fromObjectFun>.
 
+          A is <RootObjectNamespace><RootObjectName>Class.C
+
+            rootObjectInfo = getRoot argObjectInfo
+            RootObjectName = GIBaseInfo.getName rootObjectInfo
+            RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
+            RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+
           Opt is defined as follows:
 
               mayBeNull       | Opt
@@ -665,20 +675,19 @@ where
               true            | Opt
             ------------------+-------------------
 
-          A is <RootObjectNamespace><RootObjectName>Class.C
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
 
-            rootObjectInfo = getRoot argObjectInfo
-            RootObjectName = GIBaseInfo.getName rootObjectInfo
-            RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-            RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
-
-          InOpt cannot be determined because GIR does not capture
-          sufficient information.  For now, it is defined as follows:
-
-              | InOpt
-            ==+===================
-              | <empty>
-            --+-------------------
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  We assume non-null values.
 
 
       <raise Error>  # for now
@@ -728,7 +737,7 @@ where
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.withRefDup<InOpt>Ptr  (see note 3)
+                                      NOTHING         | <A>.withRefDup<Opt>Ptr  (see note 3)
                                     ------------------+-----------------------------------
                           true        EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
                                     ------------------+-----------------------------------
@@ -746,15 +755,6 @@ where
                 before the call and this is transferred after the call.
                 See note for corresponding function <fromStructFun>.
 
-          Opt is defined as follows:
-
-              mayBeNull       | Opt
-            ==================+===================
-              false           | <empty>
-            ------------------+-------------------
-              true            | Opt
-            ------------------+-------------------
-
           A is defined as follows:
 
             <InterfaceNamespace><InterfaceName>.C
@@ -767,13 +767,28 @@ where
             C
               otherwise
 
-          InOpt cannot be determined because GIR does not capture
-          sufficient information.  For now, it is defined as follows:
+          Opt is defined as follows:
 
-              | InOpt
-            ==+===================
-              | <empty>
-            --+-------------------
+              mayBeNull       | Opt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
+
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
+
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -870,18 +885,18 @@ where
     is as follows:
 
         direction         = GIArgInfo.getDirection argInfo
-        mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+        mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
         ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
 
           dire... ownershipTra... | fromUtf8Fun
         ==========================+===============================================
-                  NOTHING         | <A>.from<OutOpt>Ptr false
+                  NOTHING         | <A>.from<Opt>Ptr false
                 ------------------+-----------------------------------------------
-          OUT     EVERYTHING      | <A>.from<OutOpt>Ptr true
+          OUT     EVERYTHING      | <A>.from<Opt>Ptr true
                 ------------------+-----------------------------------------------
                   CONTAINER       | <raise Error containerForUtf8>
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.from<OutOpt>Ptr false
+                  NOTHING         | <A>.from<Opt>Ptr false
                 ------------------+-----------------------------------------------
           INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
                 ------------------+-----------------------------------------------
@@ -895,10 +910,10 @@ where
 
       A is Utf8.C
 
-      OutOpt cannot be determined because GIR does not capture
+      Opt cannot be determined because GIR does not capture
       sufficient information.  For now, it is defined as follows:
 
-          | OutOpt
+          | Opt
         ==+===================
           | <empty>
         --+-------------------
@@ -925,18 +940,18 @@ where
           fromObjectFun is defined as follows:
 
             direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
             ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
 
               direction   ownershipTra... | fromObjectFun
             ==============================+===================================
-                          NOTHING         | <A>.from<OutOpt>Ptr false
+                          NOTHING         | <A>.from<Opt>Ptr false
                         ------------------+-----------------------------------
-              OUT         EVERYTHING      | <A>.from<OutOpt>Ptr true
+              OUT         EVERYTHING      | <A>.from<Opt>Ptr true
                         ------------------+-----------------------------------
                           CONTAINER       | <raise Error containerForInterface>
             ------------------------------+-----------------------------------
-                          NOTHING         | <A>.from<OutOpt>Ptr true  (see note 2)
+                          NOTHING         | <A>.from<Opt>Ptr true  (see note 2)
                         ------------------+-----------------------------------
               INOUT       EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
                         ------------------+-----------------------------------
@@ -963,10 +978,10 @@ where
           InterfaceNamespace = GIBaseInfo.getNamespace argObjectInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          OutOpt cannot be determined because GIR does not capture
+          Opt cannot be determined because GIR does not capture
           sufficient information.  For now, it is defined as follows:
 
-              | OutOpt
+              | Opt
             ==+===================
               | <empty>
             --+-------------------
@@ -982,7 +997,7 @@ where
           fromStructFun is defined as follows:
 
             direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see OutOpt below)
+            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
             ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
 
             isPointer         = GITypeInfo.isPointer argTypeInfo
@@ -995,9 +1010,9 @@ where
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               OUT       ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.from<OutOpt>Ptr false  (see note 2)
+                                      NOTHING         | <A>.from<Opt>Ptr false  (see note 2)
                                     ------------------+-----------------------------------
-                          true        EVERYTHING      | <A>.from<OutOpt>Ptr true
+                          true        EVERYTHING      | <A>.from<Opt>Ptr true
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
             ------------------------------------------+-----------------------------------
@@ -1007,7 +1022,7 @@ where
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.from<OutOpt>Ptr true  (see note 3)
+                                      NOTHING         | <A>.from<Opt>Ptr true  (see note 3)
                                     ------------------+-----------------------------------
                           true        EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
                                     ------------------+-----------------------------------
@@ -1047,10 +1062,10 @@ where
             C
               otherwise
 
-          OutOpt cannot be determined because GIR does not capture
+          Opt cannot be determined because GIR does not capture
           sufficient information.  For now, it is defined as follows:
 
-              | OutOpt
+              | Opt
             ==+===================
               | <empty>
             --+-------------------
@@ -1472,7 +1487,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
   val <functionName>_ =
     call
       (load_sym lib<functionnamespace> "<function_symbol>")
-      (FFI.PolyML.VOID --> <retConv>);
+      (FFI.PolyML.cVoid --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)
              and not anySet (FunctionFlags, THROWS)
@@ -1497,7 +1512,7 @@ where
 
 
   paramConvErr
-    is GError.PolyML.OUTPTR
+    is GError.PolyML.cOutPtr
 
 
   paramConv[j]
@@ -1541,11 +1556,11 @@ where
 
           direction       | parScalarConv(A)
         ==================+===========================
-          IN              | <A>.VAL
+          IN              | <A>.cVal
         ------------------+---------------------------
-          OUT             | <A>.REF
+          OUT             | <A>.cRef
         ------------------+---------------------------
-          INOUT           | <A>.REF
+          INOUT           | <A>.cRef
         ------------------+---------------------------
 
 
@@ -1556,33 +1571,25 @@ where
 
           direction       | parUtf8Conv
         ==================+===========================
-          IN              | <A>.<OPT>PTR
+          IN              | <A>.c<Opt>Ptr
         ------------------+---------------------------
-          OUT             | <A>.OUT<OUTOPT>REF
+          OUT             | <A>.cOut<Opt>Ref
         ------------------+---------------------------
-          INOUT           | <A>.IN<INOPT>OUT<OUTOPT>REF
+          INOUT           | <A>.cInOut<Opt>Ref
         ------------------+---------------------------
 
       A is Utf8.PolyML
 
-      OPT is defined as follows:
+      Opt is defined as follows:
 
         mayBeNull = GIArgInfo.mayBeNull argInfo
 
-          mayBeNull       | OPT
+          mayBeNull       | Opt
         ==================+===================
           false           | <empty>
         ------------------+-------------------
-          true            | OPT
+          true            | Opt
         ------------------+-------------------
-
-      INOPT and OUTOPT cannot be determined because GIR does not capture
-      sufficient information.  For now, they are defined as follows:
-
-          | INOPT           OUTOPT
-        ==+===================================
-          | <empty>         <empty>
-        --+-----------------------------------
 
           Note: currently for OUT and INOUT parameters, mayBeNull indicates
             whether a null reference argument is allowed, rather than a non-null
@@ -1596,10 +1603,7 @@ where
             allow-none-in and allow-none-out.
 
             For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  The conversions OUTREF and
-            INOUTREF are used.  (We also need to know this missing information
-            for the high-level interface to determine whether to use an optional
-            type.)
+            optionally-null and non-null values.  We assume non-null values.
 
 
   parInterfaceConv
@@ -1626,11 +1630,11 @@ where
 
               direction       | parInterfaceObjectConv
             ==================+===========================
-              IN              | <A>.<OPT>PTR
+              IN              | <A>.c<Opt>Ptr
             ------------------+---------------------------
-              OUT             | <A>.OUT<OUTOPT>REF
+              OUT             | <A>.cOut<Opt>Ref
             ------------------+---------------------------
-              INOUT           | <A>.IN<INOPT>OUT<OUTOPT>REF
+              INOUT           | <A>.cInOut<Opt>Ref
             ------------------+---------------------------
 
           A is <RootObjectNamespace><RootObjectName>Class.PolyML
@@ -1640,24 +1644,16 @@ where
           RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
           RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
 
-          OPT is defined as follows:
+          Opt is defined as follows:
 
             mayBeNull = GIArgInfo.mayBeNull argInfo
 
-              mayBeNull       | OPT
+              mayBeNull       | Opt
             ==================+===================
               false           | <empty>
             ------------------+-------------------
-              true            | OPT
+              true            | Opt
             ------------------+-------------------
-
-          INOPT and OUTOPT cannot be determined because GIR does not capture
-          sufficient information.  For now, they are defined as follows:
-
-              | INOPT           OUTOPT
-            ==+===================================
-              | <empty>         <empty>
-            --+-----------------------------------
 
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
                 whether a null reference argument is allowed, rather than a non-null
@@ -1671,10 +1667,7 @@ where
                 allow-none-in and allow-none-out.
 
                 For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  The conversions OUTREF and
-                INOUTREF are used.  (We also need to know this missing information
-                for the high-level interface to determine whether to use an optional
-                type.)
+                optionally-null and non-null values.  We assume non-null values.
 
 
       <raise Error>  # for now
@@ -1694,15 +1687,15 @@ where
             ====================================================
                               false           <raise Error nonPtrForInStruct>
               IN            ------------------------------------
-                              true            <A>.<OPT>PTR
+                              true            <A>.c<Opt>Ptr
             ----------------------------------------------------
-                              false           <A>.PTR
+                              false           <A>.cPtr
               OUT           ------------------------------------
-                              true            <A>.OUT<OUTOPT>REF
+                              true            <A>.cOut<Opt>Ref
             ----------------------------------------------------
-                              false           <A>.PTR
+                              false           <A>.cPtr
               INOUT         ------------------------------------
-                              true            <A>.IN<INOPT>OUT<OUTOPT>REF
+                              true            <A>.cInOut<Opt>Ref
             ----------------------------------------------------
 
           A is defined as follows:
@@ -1717,24 +1710,16 @@ where
           InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          OPT is defined as follows:
+          Opt is defined as follows:
 
             mayBeNull = GIArgInfo.mayBeNull argInfo
 
-              mayBeNull       | OPT
+              mayBeNull       | Opt
             ==================+===================
               false           | <empty>
             ------------------+-------------------
-              true            | OPT
+              true            | Opt
             ------------------+-------------------
-
-          INOPT and OUTOPT cannot be determined because GIR does not capture
-          sufficient information.  For now, they are defined as follows:
-
-              | INOPT           OUTOPT
-            ==+===================================
-              | <empty>         <empty>
-            --+-----------------------------------
 
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
                 whether a null reference argument is allowed, rather than a non-null
@@ -1748,10 +1733,7 @@ where
                 allow-none-in and allow-none-out.
 
                 For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  The conversions OUTREF and
-                INOUTREF are used.  (We also need to know this missing information
-                for the high-level interface to determine whether to use an optional
-                type.)
+                optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -1780,11 +1762,11 @@ where
 
               direction       | parInterfaceFlagsEnumConv
             ==================+===========================
-              IN              | <A>.VAL
+              IN              | <A>.cVal
             ------------------+---------------------------
-              OUT             | <A>.REF
+              OUT             | <A>.cRef
             ------------------+---------------------------
-              INOUT           | <A>.REF
+              INOUT           | <A>.cRef
             ------------------+---------------------------
 
           A is defined as follows:
@@ -1829,7 +1811,7 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        VOID      --->    FFI.PolyML.VOID
+        VOID      --->    FFI.PolyML.cVoid
         BOOLEAN   --->    <retScalarConv(FFI.PolyML.Bool)>
         INT8      --->    <retScalarConv(FFI.PolyML.Int8)>
         UINT8     --->    <retScalarConv(FFI.PolyML.Word8)>
@@ -1851,26 +1833,26 @@ where
 
           | retScalarConv(A)
         ==+===========================
-          | <A>.VAL
+          | <A>.cVal
         --+---------------------------
 
 
   retUtf8Conv
     is defined as follows:
 
-      retUtf8Conv is <A>.RET<RETOPT>PTR
+      retUtf8Conv is <A>.cOut<Opt>Ptr
 
       A is Utf8.PolyML
 
-      RETOPT is defined as follows:
+      Opt is defined as follows:
 
         mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-          mayReturnNull   | RETOPT
+          mayReturnNull   | Opt
         ==================+===================
           false           | <empty>
         ------------------+-------------------
-          true            | OPT
+          true            | Opt
         ------------------+-------------------
 
 
@@ -1892,7 +1874,7 @@ where
               true            | <>
             ------------------+-----------------------------------
 
-          retInterfaceObjectConv is <A>.<RETOPT>PTR
+          retInterfaceObjectConv is <A>.c<Opt>Ptr
 
           A is <RootObjectNamespace><RootObjectName>Class.PolyML
 
@@ -1901,15 +1883,15 @@ where
           RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
           RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
 
-          RETOPT is defined as follows:
+          Opt is defined as follows:
 
             mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-              mayReturnNull   | RETOPT
+              mayReturnNull   | Opt
             ==================+===================
               false           | <empty>
             ------------------+-------------------
-              true            | OPT
+              true            | Opt
             ------------------+-------------------
 
 
@@ -1928,7 +1910,7 @@ where
             ==================+===================================
               false           | <raise Error nonPtrForRetStruct>
             ------------------+-----------------------------------
-              true            | <A>.<RETOPT>PTR
+              true            | <A>.c<Opt>Ptr
             ------------------+-----------------------------------
 
           A is defined as follows:
@@ -1943,15 +1925,15 @@ where
           InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          RETOPT is defined as follows:
+          Opt is defined as follows:
 
             mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-              mayReturnNull   | RETOPT
+              mayReturnNull   | Opt
             ==================+===================
               false           | <empty>
             ------------------+-------------------
-              true            | OPT
+              true            | Opt
             ------------------+-------------------
 
         It is necessary to handle the case when `isPointer` is false explicitly.
@@ -1975,7 +1957,7 @@ where
               true            | <raise Error ptrForFlagsEnum>
             ------------------+-----------------------------------
 
-          retInterfaceFlagsEnumConv is <A>.VAL
+          retInterfaceFlagsEnumConv is <A>.cVal
 
           A is defined as follows:
 
@@ -2155,11 +2137,11 @@ where
 
           direction       | parUtf8Type
         ==================+===========================
-          IN              | <opt> <A>.inp
+          IN              | <opt> <A>.in_p
         ------------------+---------------------------
-          OUT             | (unit, <outopt>) <A>.r
+          OUT             | (unit, <opt>) <A>.r
         ------------------+---------------------------
-          INOUT           | (<inopt>, <outopt>) <A>.r
+          INOUT           | (<opt>, <opt>) <A>.r
         ------------------+---------------------------
 
       A is Utf8.C
@@ -2175,14 +2157,6 @@ where
           true            | unit
         ------------------+-------------------
 
-      inopt and outopt cannot be determined because GIR does not capture
-      sufficient information.  For now, they are defined as follows:
-
-          | inopt           outopt
-        ==+===================================
-          | <A>.notnull     <A>.notnull
-        --+-----------------------------------
-
           Note: currently for OUT and INOUT parameters, mayBeNull indicates
             whether a null reference argument is allowed, rather than a non-null
             reference to null.   This allows the parameter to be optional thus
@@ -2195,10 +2169,7 @@ where
             allow-none-in and allow-none-out.
 
             For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  The types outref and
-            inoutref are used.  (We also need to know this missing information
-            for the high-level interface to determine whether to use an optional
-            type.)
+            optionally-null and non-null values.  We assume non-null values.
 
 
   parInterfaceType
@@ -2227,9 +2198,9 @@ where
             ==================+===========================
               IN              | <opt> <A>.p
             ------------------+---------------------------
-              OUT             | (unit, <outopt>) <A>.r
+              OUT             | (unit, <opt>) <A>.r
             ------------------+---------------------------
-              INOUT           | (<inopt>, <outopt>) <A>.r
+              INOUT           | (<opt>, <opt>) <A>.r
             ------------------+---------------------------
 
           A is <RootObjectNamespace><RootObjectName>Class.C
@@ -2250,14 +2221,6 @@ where
               true            | unit
             ------------------+-------------------
 
-          inopt and outopt cannot be determined because GIR does not capture
-          sufficient information.  For now, they are defined as follows:
-
-              | inopt           outopt
-            ==+===================================
-              | <A>.notnull     <A>.notnull
-            --+-----------------------------------
-
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
                 whether a null reference argument is allowed, rather than a non-null
                 reference to null.   This allows the parameter to be optional thus
@@ -2270,10 +2233,7 @@ where
                 allow-none-in and allow-none-out.
 
                 For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  The types outref and
-                inoutref are used.  (We also need to know this missing information
-                for the high-level interface to determine whether to use an optional
-                type.)
+                optionally-null and non-null values.  We assume non-null values.
 
 
       <raise Error>  # for now
@@ -2297,11 +2257,11 @@ where
             ----------------------------------------------------
                               false           <A>.notnull <A>.p
               OUT           ------------------------------------
-                              true            (unit, <outopt>) <A>.r
+                              true            (unit, <opt>) <A>.r
             ----------------------------------------------------
                               false           <A>.notnull <A>.p
               INOUT         ------------------------------------
-                              true            (<inopt>, <outopt>) <A>.r
+                              true            (<opt>, <opt>) <A>.r
             ----------------------------------------------------
 
           A is defined as follows:
@@ -2327,14 +2287,6 @@ where
               true            | unit
             ------------------+-------------------
 
-          inopt and outopt cannot be determined because GIR does not capture
-          sufficient information.  For now, they are defined as follows:
-
-              | inopt           outopt
-            ==+===================================
-              | <A>.notnull     <A>.notnull
-            --+-----------------------------------
-
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
                 whether a null reference argument is allowed, rather than a non-null
                 reference to null.   This allows the parameter to be optional thus
@@ -2347,10 +2299,7 @@ where
                 allow-none-in and allow-none-out.
 
                 For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  The types outref and
-                inoutref are used.  (We also need to know this missing information
-                for the high-level interface to determine whether to use an optional
-                type.)
+                optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -2412,7 +2361,6 @@ where
         otherwise.
 
 
-
   retType
     is the SML type for the return value of the function, defined
     according to the GIR type tag as follows:
@@ -2458,19 +2406,19 @@ where
   retUtf8Type
     is defined as follows:
 
-      retUtf8Type is <A>.ret<retopt>ptr
+      retUtf8Type is <opt> <A>.out_p
 
       A is Utf8.C
 
-      retopt is defined as follows:
+      opt is defined as follows:
 
         mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-          mayReturnNull   | retopt
+          mayReturnNull   | opt
         ==================+===================
-          false           | <empty>
+          false           | <A>.notnull
         ------------------+-------------------
-          true            | opt
+          true            | unit
         ------------------+-------------------
 
 
@@ -2492,7 +2440,7 @@ where
               true            | <>
             ------------------+-----------------------------------
 
-          retInterfaceObjectType is <A>.<retopt>ptr
+          retInterfaceObjectType is <opt> <A>.out_p
 
           A is <RootObjectNamespace><RootObjectName>Class.C
 
@@ -2501,15 +2449,15 @@ where
           RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
           RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
 
-          retopt is defined as follows:
+          opt is defined as follows:
 
             mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-              mayReturnNull   | retopt
+              mayReturnNull   | opt
             ==================+===================
-              false           | <empty>
+              false           | <A>.notnull
             ------------------+-------------------
-              true            | opt
+              true            | unit
             ------------------+-------------------
 
 
@@ -2528,7 +2476,7 @@ where
             ==================+===================================
               false           | <raise Error nonPtrForRetStruct>
             ------------------+-----------------------------------
-              true            | <A>.<retopt>ptr
+              true            | <opt> <A>.out_p
             ------------------+-----------------------------------
 
           A is defined as follows:
@@ -2543,15 +2491,15 @@ where
           InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          retopt is defined as follows:
+          opt is defined as follows:
 
             mayReturnNull = GICallableInfo.mayReturnNull functionInfo
 
-              mayReturnNull   | retopt
+              mayReturnNull   | opt
             ==================+===================
-              false           | <empty>
+              false           | <A>.notnull
             ------------------+-------------------
-              true            | opt
+              true            | unit
             ------------------+-------------------
 
         It is necessary to handle the case when `isPointer` is false explicitly.

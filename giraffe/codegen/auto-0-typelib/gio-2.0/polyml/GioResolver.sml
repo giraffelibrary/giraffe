@@ -8,26 +8,26 @@ structure GioResolver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_resolver_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefault_ = call (load_sym libgio "g_resolver_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_resolver_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgio "g_resolver_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val lookupByAddress_ =
         call (load_sym libgio "g_resolver_lookup_by_address")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
       val lookupByAddressFinish_ =
         call (load_sym libgio "g_resolver_lookup_by_address_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioResolverClass.t
     type 'a cancellable_class_t = 'a GioCancellableClass.t

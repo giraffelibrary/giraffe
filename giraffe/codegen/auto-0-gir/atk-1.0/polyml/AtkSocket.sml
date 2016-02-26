@@ -6,10 +6,10 @@ structure AtkSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_socket_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libatk "atk_socket_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val embed_ = call (load_sym libatk "atk_socket_embed") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val isOccupied_ = call (load_sym libatk "atk_socket_is_occupied") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libatk "atk_socket_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val embed_ = call (load_sym libatk "atk_socket_embed") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val isOccupied_ = call (load_sym libatk "atk_socket_is_occupied") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a AtkSocketClass.t
     type 'a component_class_t = 'a AtkComponentClass.t

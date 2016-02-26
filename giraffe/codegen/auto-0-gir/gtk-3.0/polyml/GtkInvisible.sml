@@ -6,11 +6,11 @@ structure GtkInvisible :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_invisible_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_invisible_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newForScreen_ = call (load_sym libgtk "gtk_invisible_new_for_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getScreen_ = call (load_sym libgtk "gtk_invisible_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setScreen_ = call (load_sym libgtk "gtk_invisible_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_invisible_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_invisible_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newForScreen_ = call (load_sym libgtk "gtk_invisible_new_for_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getScreen_ = call (load_sym libgtk "gtk_invisible_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setScreen_ = call (load_sym libgtk "gtk_invisible_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkInvisibleClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

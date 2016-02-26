@@ -8,21 +8,21 @@ structure GtkFontButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_font_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_font_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithFont_ = call (load_sym libgtk "gtk_font_button_new_with_font") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getFontName_ = call (load_sym libgtk "gtk_font_button_get_font_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getShowSize_ = call (load_sym libgtk "gtk_font_button_get_show_size") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowStyle_ = call (load_sym libgtk "gtk_font_button_get_show_style") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_font_button_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getUseFont_ = call (load_sym libgtk "gtk_font_button_get_use_font") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUseSize_ = call (load_sym libgtk "gtk_font_button_get_use_size") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setFontName_ = call (load_sym libgtk "gtk_font_button_set_font_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val setShowSize_ = call (load_sym libgtk "gtk_font_button_set_show_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowStyle_ = call (load_sym libgtk "gtk_font_button_set_show_style") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_font_button_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setUseFont_ = call (load_sym libgtk "gtk_font_button_set_use_font") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseSize_ = call (load_sym libgtk "gtk_font_button_set_use_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_font_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_font_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithFont_ = call (load_sym libgtk "gtk_font_button_new_with_font") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFontName_ = call (load_sym libgtk "gtk_font_button_get_font_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getShowSize_ = call (load_sym libgtk "gtk_font_button_get_show_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowStyle_ = call (load_sym libgtk "gtk_font_button_get_show_style") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getTitle_ = call (load_sym libgtk "gtk_font_button_get_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUseFont_ = call (load_sym libgtk "gtk_font_button_get_use_font") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseSize_ = call (load_sym libgtk "gtk_font_button_get_use_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setFontName_ = call (load_sym libgtk "gtk_font_button_set_font_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val setShowSize_ = call (load_sym libgtk "gtk_font_button_set_show_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowStyle_ = call (load_sym libgtk "gtk_font_button_set_show_style") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_font_button_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setUseFont_ = call (load_sym libgtk "gtk_font_button_set_use_font") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUseSize_ = call (load_sym libgtk "gtk_font_button_set_use_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkFontButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

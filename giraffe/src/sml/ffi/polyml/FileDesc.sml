@@ -11,8 +11,8 @@ structure FileDesc :>
 
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -34,7 +34,7 @@ structure FileDesc :>
 
     structure PolyML =
       struct
-        val VAL = FFI.Int.PolyML.VAL
-        val REF = FFI.Int.PolyML.REF
+        val cVal = FFI.Int.PolyML.cVal
+        val cRef = FFI.Int.PolyML.cRef
       end
   end

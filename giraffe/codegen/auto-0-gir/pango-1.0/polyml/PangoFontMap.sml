@@ -10,24 +10,24 @@ structure PangoFontMap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_map_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val createContext_ = call (load_sym libpango "pango_font_map_create_context") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libpango "pango_font_map_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val createContext_ = call (load_sym libpango "pango_font_map_create_context") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val loadFont_ =
         call (load_sym libpango "pango_font_map_load_font")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> PangoFontDescriptionRecord.PolyML.PTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoFontDescriptionRecord.PolyML.cPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val loadFontset_ =
         call (load_sym libpango "pango_font_map_load_fontset")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> PangoFontDescriptionRecord.PolyML.PTR
-             &&> PangoLanguageRecord.PolyML.PTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoFontDescriptionRecord.PolyML.cPtr
+             &&> PangoLanguageRecord.PolyML.cPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a PangoFontMapClass.t

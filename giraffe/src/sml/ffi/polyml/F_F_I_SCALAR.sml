@@ -11,7 +11,7 @@ signature F_F_I_SCALAR =
 
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end

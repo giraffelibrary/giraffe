@@ -5,13 +5,13 @@ structure GtkSourceLanguage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_language_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getHidden_ = call (load_sym libgtksourceview "gtk_source_language_get_hidden") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getId_ = call (load_sym libgtksourceview "gtk_source_language_get_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getMetadata_ = call (load_sym libgtksourceview "gtk_source_language_get_metadata") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_language_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getSection_ = call (load_sym libgtksourceview "gtk_source_language_get_section") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getStyleName_ = call (load_sym libgtksourceview "gtk_source_language_get_style_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_language_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getHidden_ = call (load_sym libgtksourceview "gtk_source_language_get_hidden") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getId_ = call (load_sym libgtksourceview "gtk_source_language_get_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMetadata_ = call (load_sym libgtksourceview "gtk_source_language_get_metadata") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (load_sym libgtksourceview "gtk_source_language_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSection_ = call (load_sym libgtksourceview "gtk_source_language_get_section") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyleName_ = call (load_sym libgtksourceview "gtk_source_language_get_style_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GtkSourceLanguageClass.t
     type t = base class_t

@@ -5,10 +5,12 @@ structure GObjectObjectClass :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
-        val OUTREF : (unit, C.notnull) C.r PolyMLFFI.conversion
-        val INOUTREF : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
+        val cOutRef : (unit, C.notnull) C.r PolyMLFFI.conversion
+        val cOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
+        val cInOutRef : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cInOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -16,10 +18,12 @@ structure GObjectObjectClass :>
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val OUTREF = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
-    val INOUTREF = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cOutRef = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
+    val cOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
+    val cInOutRef = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
 
     fun initDebugFlags () =
       if GiraffeDebug.isEnabled
@@ -30,7 +34,7 @@ structure GObjectObjectClass :>
           val debugRefCountSym = load_sym libgiraffegobject "giraffe_debug_ref_count"
           fun set sym conv x =
             ignore (#store (breakConversion conv) x (symbolAsAddress sym))
-          fun setBool sym x = FFI.Bool.C.withVal (set sym FFI.Bool.PolyML.VAL) x
+          fun setBool sym x = FFI.Bool.C.withVal (set sym FFI.Bool.PolyML.cVal) x
         in
           setBool debugClosureSym (GiraffeDebug.getClosure ());
           setBool debugRefCountSym (GiraffeDebug.getRefCount ())
@@ -46,7 +50,7 @@ structure GObjectObjectClass :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_object_take")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
         else
           ignore
 
@@ -55,22 +59,22 @@ structure GObjectObjectClass :>
         then 
           call
             (load_sym libgiraffegobject "giraffe_debug_g_object_ref_sink")
-            (PTR --> PTR)
+            (cPtr --> cPtr)
         else
           call
             (load_sym libgobject "g_object_ref_sink")
-            (PTR --> PTR)
+            (cPtr --> cPtr)
 
       val unref_ =
         if GiraffeDebug.isEnabled
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_g_object_unref")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
         else
           call
             (load_sym libgobject "g_object_unref")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
     end
 
     type 'a t = notnull p Finalizable.t
@@ -116,10 +120,12 @@ structure GObjectObjectClass :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
-        val OUTREF = OUTREF
-        val INOUTREF = INOUTREF
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
+        val cOutRef = cOutRef
+        val cOutOptRef = cOutOptRef
+        val cInOutRef = cInOutRef
+        val cInOutOptRef = cInOutOptRef
       end
 
     local
@@ -128,27 +134,27 @@ structure GObjectObjectClass :>
       val getType_ =
         call
           (load_sym libgobject "g_object_get_type")
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);
+          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
           (load_sym libgobject "g_value_get_object")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.PTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
           (load_sym libgobject "g_value_get_object")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.OPTPTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_object")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.PTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> FFI.PolyML.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_object")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.OPTPTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

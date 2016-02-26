@@ -9,69 +9,69 @@ structure GioOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val clearPending_ = call (load_sym libgio "g_output_stream_clear_pending") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val clearPending_ = call (load_sym libgio "g_output_stream_clear_pending") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val close_ =
         call (load_sym libgio "g_output_stream_close")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val closeFinish_ =
         call (load_sym libgio "g_output_stream_close_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val flush_ =
         call (load_sym libgio "g_output_stream_flush")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val flushFinish_ =
         call (load_sym libgio "g_output_stream_flush_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
       val splice_ =
         call (load_sym libgio "g_output_stream_splice")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GioOutputStreamSpliceFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GioOutputStreamSpliceFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
       val spliceFinish_ =
         call (load_sym libgio "g_output_stream_splice_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
       val writeFinish_ =
         call (load_sym libgio "g_output_stream_write_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioOutputStreamClass.t

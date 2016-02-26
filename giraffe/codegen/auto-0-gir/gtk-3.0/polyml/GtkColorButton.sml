@@ -7,20 +7,20 @@ structure GtkColorButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_color_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_color_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithColor_ = call (load_sym libgtk "gtk_color_button_new_with_color") (GdkColorRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithRgba_ = call (load_sym libgtk "gtk_color_button_new_with_rgba") (GdkRgbaRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAlpha_ = call (load_sym libgtk "gtk_color_button_get_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
-      val getColor_ = call (load_sym libgtk "gtk_color_button_get_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getRgba_ = call (load_sym libgtk "gtk_color_button_get_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getTitle_ = call (load_sym libgtk "gtk_color_button_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getUseAlpha_ = call (load_sym libgtk "gtk_color_button_get_use_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setAlpha_ = call (load_sym libgtk "gtk_color_button_set_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt16.PolyML.VAL --> FFI.PolyML.VOID)
-      val setColor_ = call (load_sym libgtk "gtk_color_button_set_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setRgba_ = call (load_sym libgtk "gtk_color_button_set_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_color_button_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setUseAlpha_ = call (load_sym libgtk "gtk_color_button_set_use_alpha") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_color_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_color_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithColor_ = call (load_sym libgtk "gtk_color_button_new_with_color") (GdkColorRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithRgba_ = call (load_sym libgtk "gtk_color_button_new_with_rgba") (GdkRgbaRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAlpha_ = call (load_sym libgtk "gtk_color_button_get_alpha") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getColor_ = call (load_sym libgtk "gtk_color_button_get_color") (GObjectObjectClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getRgba_ = call (load_sym libgtk "gtk_color_button_get_rgba") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getTitle_ = call (load_sym libgtk "gtk_color_button_get_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUseAlpha_ = call (load_sym libgtk "gtk_color_button_get_use_alpha") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setAlpha_ = call (load_sym libgtk "gtk_color_button_set_alpha") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt16.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setColor_ = call (load_sym libgtk "gtk_color_button_set_color") (GObjectObjectClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setRgba_ = call (load_sym libgtk "gtk_color_button_set_rgba") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_color_button_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setUseAlpha_ = call (load_sym libgtk "gtk_color_button_set_use_alpha") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkColorButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

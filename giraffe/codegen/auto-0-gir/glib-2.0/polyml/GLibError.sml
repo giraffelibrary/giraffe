@@ -6,14 +6,14 @@ structure GLibError :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_error_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "g_error_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val matches_ =
         call (load_sym libglib "g_error_matches")
           (
-            GLibErrorRecord.PolyML.PTR
-             &&> GLibQuark.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GLibErrorRecord.PolyML.cPtr
+             &&> GLibQuark.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type record_t = GLibErrorRecord.t

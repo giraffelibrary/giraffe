@@ -3,8 +3,8 @@ structure PangoAttrType :>
     include PANGO_ATTR_TYPE
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -92,15 +92,15 @@ structure PangoAttrType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_attr_type_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.PTR --> PolyML.VAL)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libpango "pango_attr_type_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -113,8 +113,8 @@ structure PangoAttrType :>
     local
       open PolyMLFFI
     in
-      val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val register_ = call (load_sym libpango "pango_attr_type_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
+      val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val register_ = call (load_sym libpango "pango_attr_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'

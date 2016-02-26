@@ -5,56 +5,56 @@ structure GtkEditable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_editable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val copyClipboard_ = call (load_sym libgtk "gtk_editable_copy_clipboard") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val cutClipboard_ = call (load_sym libgtk "gtk_editable_cut_clipboard") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val deleteSelection_ = call (load_sym libgtk "gtk_editable_delete_selection") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_editable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val copyClipboard_ = call (load_sym libgtk "gtk_editable_copy_clipboard") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val cutClipboard_ = call (load_sym libgtk "gtk_editable_cut_clipboard") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val deleteSelection_ = call (load_sym libgtk "gtk_editable_delete_selection") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val deleteText_ =
         call (load_sym libgtk "gtk_editable_delete_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val getChars_ =
         call (load_sym libgtk "gtk_editable_get_chars")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
           )
-      val getEditable_ = call (load_sym libgtk "gtk_editable_get_editable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getPosition_ = call (load_sym libgtk "gtk_editable_get_position") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getEditable_ = call (load_sym libgtk "gtk_editable_get_editable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getPosition_ = call (load_sym libgtk "gtk_editable_get_position") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getSelectionBounds_ =
         call (load_sym libgtk "gtk_editable_get_selection_bounds")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val insertText_ =
         call (load_sym libgtk "gtk_editable_insert_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val pasteClipboard_ = call (load_sym libgtk "gtk_editable_paste_clipboard") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val pasteClipboard_ = call (load_sym libgtk "gtk_editable_paste_clipboard") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val selectRegion_ =
         call (load_sym libgtk "gtk_editable_select_region")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setEditable_ = call (load_sym libgtk "gtk_editable_set_editable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPosition_ = call (load_sym libgtk "gtk_editable_set_position") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setEditable_ = call (load_sym libgtk "gtk_editable_set_editable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPosition_ = call (load_sym libgtk "gtk_editable_set_position") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkEditableClass.t
     type t = base class_t

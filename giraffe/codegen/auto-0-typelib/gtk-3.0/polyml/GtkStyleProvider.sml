@@ -9,18 +9,18 @@ structure GtkStyleProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_provider_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getIconFactory_ = call (load_sym libgtk "gtk_style_provider_get_icon_factory") (GObjectObjectClass.PolyML.PTR &&> GtkWidgetPathRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getStyle_ = call (load_sym libgtk "gtk_style_provider_get_style") (GObjectObjectClass.PolyML.PTR &&> GtkWidgetPathRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_style_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getIconFactory_ = call (load_sym libgtk "gtk_style_provider_get_icon_factory") (GObjectObjectClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getStyle_ = call (load_sym libgtk "gtk_style_provider_get_style") (GObjectObjectClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getStyleProperty_ =
         call (load_sym libgtk "gtk_style_provider_get_style_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkWidgetPathRecord.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GObjectParamSpecClass.PolyML.PTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkWidgetPathRecord.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GObjectParamSpecClass.PolyML.cPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GtkStyleProviderClass.t

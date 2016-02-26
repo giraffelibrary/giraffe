@@ -10,26 +10,26 @@ structure GtkAppChooserDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_app_chooser_dialog_new")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> GtkDialogFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> GtkDialogFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newForContentType_ =
         call (load_sym libgtk "gtk_app_chooser_dialog_new_for_content_type")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> GtkDialogFlags.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> GtkDialogFlags.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_heading") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getWidget_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_set_heading") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_heading") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getWidget_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_set_heading") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAppChooserDialogClass.t
     type 'a app_chooser_class_t = 'a GtkAppChooserClass.t

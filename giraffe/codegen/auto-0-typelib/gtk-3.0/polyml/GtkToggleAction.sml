@@ -6,21 +6,21 @@ structure GtkToggleAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_toggle_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_toggle_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_toggle_action_new")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_get_draw_as_radio") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_action_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val toggled_ = call (load_sym libgtk "gtk_toggle_action_toggled") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_get_draw_as_radio") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_action_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val toggled_ = call (load_sym libgtk "gtk_toggle_action_toggled") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToggleActionClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

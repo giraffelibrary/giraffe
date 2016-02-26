@@ -7,8 +7,8 @@ structure GtkTearoffMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tearoff_menu_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tearoff_menu_item_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_tearoff_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tearoff_menu_item_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkTearoffMenuItemClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

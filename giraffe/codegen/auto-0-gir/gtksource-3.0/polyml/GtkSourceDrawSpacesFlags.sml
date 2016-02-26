@@ -3,8 +3,8 @@ structure GtkSourceDrawSpacesFlags :>
     include GTK_SOURCE_DRAW_SPACES_FLAGS
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -43,15 +43,15 @@ structure GtkSourceDrawSpacesFlags :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Flags.PolyML.VAL
-        val REF = FFI.Flags.PolyML.REF
+        val cVal = FFI.Flags.PolyML.cVal
+        val cRef = FFI.Flags.PolyML.cRef
       end
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_draw_spaces_flags_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getValue_ = call (load_sym libgobject "g_value_get_flags") (GObjectValueRecord.PolyML.PTR --> PolyML.VAL)
-      val setValue_ = call (load_sym libgobject "g_value_set_flags") (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_draw_spaces_flags_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (load_sym libgobject "g_value_get_flags") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (load_sym libgobject "g_value_set_flags") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

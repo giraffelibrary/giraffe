@@ -10,24 +10,24 @@ structure GioDBusServer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_server_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_dbus_server_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val newSync_ =
         call (load_sym libgio "g_dbus_server_new_sync")
           (
-            Utf8.PolyML.INPTR
-             &&> GioDBusServerFlags.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> GioDBusServerFlags.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getFlags_ = call (load_sym libgio "g_dbus_server_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusServerFlags.PolyML.VAL)
-      val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val start_ = call (load_sym libgio "g_dbus_server_start") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val stop_ = call (load_sym libgio "g_dbus_server_stop") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFlags_ = call (load_sym libgio "g_dbus_server_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioDBusServerFlags.PolyML.cVal)
+      val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val start_ = call (load_sym libgio "g_dbus_server_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val stop_ = call (load_sym libgio "g_dbus_server_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDBusServerClass.t
     type 'a initable_class_t = 'a GioInitableClass.t

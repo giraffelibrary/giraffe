@@ -8,28 +8,28 @@ structure GdkKeymap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_keymap_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefault_ = call (load_sym libgdk "gdk_keymap_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getForDisplay_ = call (load_sym libgdk "gdk_keymap_get_for_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val addVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_add_virtual_modifiers") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.REF --> FFI.PolyML.VOID)
-      val getCapsLockState_ = call (load_sym libgdk "gdk_keymap_get_caps_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getDirection_ = call (load_sym libgdk "gdk_keymap_get_direction") (GObjectObjectClass.PolyML.PTR --> PangoDirection.PolyML.VAL)
-      val getNumLockState_ = call (load_sym libgdk "gdk_keymap_get_num_lock_state") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val haveBidiLayouts_ = call (load_sym libgdk "gdk_keymap_have_bidi_layouts") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val lookupKey_ = call (load_sym libgdk "gdk_keymap_lookup_key") (GObjectObjectClass.PolyML.PTR &&> GdkKeymapKeyRecord.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val mapVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_map_virtual_modifiers") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.REF --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgdk "gdk_keymap_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgdk "gdk_keymap_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getForDisplay_ = call (load_sym libgdk "gdk_keymap_get_for_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val addVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_add_virtual_modifiers") (GObjectObjectClass.PolyML.cPtr &&> GdkModifierType.PolyML.cRef --> FFI.PolyML.cVoid)
+      val getCapsLockState_ = call (load_sym libgdk "gdk_keymap_get_caps_lock_state") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDirection_ = call (load_sym libgdk "gdk_keymap_get_direction") (GObjectObjectClass.PolyML.cPtr --> PangoDirection.PolyML.cVal)
+      val getNumLockState_ = call (load_sym libgdk "gdk_keymap_get_num_lock_state") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val haveBidiLayouts_ = call (load_sym libgdk "gdk_keymap_have_bidi_layouts") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val lookupKey_ = call (load_sym libgdk "gdk_keymap_lookup_key") (GObjectObjectClass.PolyML.cPtr &&> GdkKeymapKeyRecord.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val mapVirtualModifiers_ = call (load_sym libgdk "gdk_keymap_map_virtual_modifiers") (GObjectObjectClass.PolyML.cPtr &&> GdkModifierType.PolyML.cRef --> FFI.Bool.PolyML.cVal)
       val translateKeyboardState_ =
         call (load_sym libgdk "gdk_keymap_translate_keyboard_state")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GdkModifierType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> GdkModifierType.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> GdkModifierType.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GdkKeymapClass.t

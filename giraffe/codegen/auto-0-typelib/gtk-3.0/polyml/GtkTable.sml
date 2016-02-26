@@ -8,81 +8,81 @@ structure GtkTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_table_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_table_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_table_new")
           (
-            FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val attach_ =
         call (load_sym libgtk "gtk_table_attach")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GtkAttachOptions.PolyML.VAL
-             &&> GtkAttachOptions.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GtkAttachOptions.PolyML.cVal
+             &&> GtkAttachOptions.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val attachDefaults_ =
         call (load_sym libgtk "gtk_table_attach_defaults")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getColSpacing_ = call (load_sym libgtk "gtk_table_get_col_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.UInt32.PolyML.VAL)
-      val getDefaultColSpacing_ = call (load_sym libgtk "gtk_table_get_default_col_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val getDefaultRowSpacing_ = call (load_sym libgtk "gtk_table_get_default_row_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val getHomogeneous_ = call (load_sym libgtk "gtk_table_get_homogeneous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRowSpacing_ = call (load_sym libgtk "gtk_table_get_row_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.UInt32.PolyML.VAL)
+      val getColSpacing_ = call (load_sym libgtk "gtk_table_get_col_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.UInt32.PolyML.cVal)
+      val getDefaultColSpacing_ = call (load_sym libgtk "gtk_table_get_default_col_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getDefaultRowSpacing_ = call (load_sym libgtk "gtk_table_get_default_row_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getHomogeneous_ = call (load_sym libgtk "gtk_table_get_homogeneous") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRowSpacing_ = call (load_sym libgtk "gtk_table_get_row_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.UInt32.PolyML.cVal)
       val getSize_ =
         call (load_sym libgtk "gtk_table_get_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.UInt32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.UInt32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val resize_ =
         call (load_sym libgtk "gtk_table_resize")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setColSpacing_ =
         call (load_sym libgtk "gtk_table_set_col_spacing")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setColSpacings_ = call (load_sym libgtk "gtk_table_set_col_spacings") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setHomogeneous_ = call (load_sym libgtk "gtk_table_set_homogeneous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setColSpacings_ = call (load_sym libgtk "gtk_table_set_col_spacings") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHomogeneous_ = call (load_sym libgtk "gtk_table_set_homogeneous") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setRowSpacing_ =
         call (load_sym libgtk "gtk_table_set_row_spacing")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setRowSpacings_ = call (load_sym libgtk "gtk_table_set_row_spacings") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRowSpacings_ = call (load_sym libgtk "gtk_table_set_row_spacings") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTableClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

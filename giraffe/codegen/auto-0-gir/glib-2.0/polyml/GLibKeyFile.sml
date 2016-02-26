@@ -9,277 +9,277 @@ structure GLibKeyFile :>
       val getBoolean_ =
         call (load_sym libglib "g_key_file_get_boolean")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val getComment_ =
         call (load_sym libglib "g_key_file_get_comment")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
       val getDouble_ =
         call (load_sym libglib "g_key_file_get_double")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Double.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Double.PolyML.cVal
           )
       val getInt64_ =
         call (load_sym libglib "g_key_file_get_int64")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
       val getInteger_ =
         call (load_sym libglib "g_key_file_get_integer")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int.PolyML.cVal
           )
       val getLocaleString_ =
         call (load_sym libglib "g_key_file_get_locale_string")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val getStartGroup_ = call (load_sym libglib "g_key_file_get_start_group") (GLibKeyFileRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getStartGroup_ = call (load_sym libglib "g_key_file_get_start_group") (GLibKeyFileRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getString_ =
         call (load_sym libglib "g_key_file_get_string")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
       val getUint64_ =
         call (load_sym libglib "g_key_file_get_uint64")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt64.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.UInt64.PolyML.cVal
           )
       val getValue_ =
         call (load_sym libglib "g_key_file_get_value")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val hasGroup_ = call (load_sym libglib "g_key_file_has_group") (GLibKeyFileRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val hasGroup_ = call (load_sym libglib "g_key_file_has_group") (GLibKeyFileRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val loadFromData_ =
         call (load_sym libglib "g_key_file_load_from_data")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Size.PolyML.VAL
-             &&> GLibKeyFileFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Size.PolyML.cVal
+             &&> GLibKeyFileFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val loadFromDataDirs_ =
         call (load_sym libglib "g_key_file_load_from_data_dirs")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibKeyFileFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibKeyFileFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val loadFromDirs_ =
         call (load_sym libglib "g_key_file_load_from_dirs")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibKeyFileFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibKeyFileFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val loadFromFile_ =
         call (load_sym libglib "g_key_file_load_from_file")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibKeyFileFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibKeyFileFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val removeComment_ =
         call (load_sym libglib "g_key_file_remove_comment")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val removeGroup_ =
         call (load_sym libglib "g_key_file_remove_group")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val removeKey_ =
         call (load_sym libglib "g_key_file_remove_key")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setBoolean_ =
         call (load_sym libglib "g_key_file_set_boolean")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setBooleanList_ =
         call (load_sym libglib "g_key_file_set_boolean_list")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Size.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Size.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setComment_ =
         call (load_sym libglib "g_key_file_set_comment")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setDouble_ =
         call (load_sym libglib "g_key_file_set_double")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setDoubleList_ =
         call (load_sym libglib "g_key_file_set_double_list")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Size.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Size.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setInt64_ =
         call (load_sym libglib "g_key_file_set_int64")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int64.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setInteger_ =
         call (load_sym libglib "g_key_file_set_integer")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setIntegerList_ =
         call (load_sym libglib "g_key_file_set_integer_list")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Size.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Size.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setListSeparator_ = call (load_sym libglib "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.PTR &&> FFI.Char.PolyML.VAL --> FFI.PolyML.VOID)
+      val setListSeparator_ = call (load_sym libglib "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.cPtr &&> FFI.Char.PolyML.cVal --> FFI.PolyML.cVoid)
       val setLocaleString_ =
         call (load_sym libglib "g_key_file_set_locale_string")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setLocaleStringList_ =
         call (load_sym libglib "g_key_file_set_locale_string_list")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Size.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Size.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setString_ =
         call (load_sym libglib "g_key_file_set_string")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setUint64_ =
         call (load_sym libglib "g_key_file_set_uint64")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt64.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setValue_ =
         call (load_sym libglib "g_key_file_set_value")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
     end
     type record_t = GLibKeyFileRecord.t

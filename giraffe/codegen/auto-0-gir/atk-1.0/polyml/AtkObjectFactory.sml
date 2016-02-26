@@ -6,9 +6,9 @@ structure AtkObjectFactory :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_object_factory_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val createAccessible_ = call (load_sym libatk "atk_object_factory_create_accessible") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val invalidate_ = call (load_sym libatk "atk_object_factory_invalidate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libatk "atk_object_factory_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val createAccessible_ = call (load_sym libatk "atk_object_factory_create_accessible") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val invalidate_ = call (load_sym libatk "atk_object_factory_invalidate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a AtkObjectFactoryClass.t
     type 'a object_class_t = 'a AtkObjectClass.t

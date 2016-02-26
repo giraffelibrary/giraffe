@@ -7,9 +7,9 @@ structure GioTcpWrapperConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tcp_wrapper_connection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_tcp_wrapper_connection_new") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBaseIoStream_ = call (load_sym libgio "g_tcp_wrapper_connection_get_base_io_stream") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_tcp_wrapper_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_tcp_wrapper_connection_new") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBaseIoStream_ = call (load_sym libgio "g_tcp_wrapper_connection_get_base_io_stream") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioTcpWrapperConnectionClass.t
     type 'a socket_class_t = 'a GioSocketClass.t

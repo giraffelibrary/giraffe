@@ -6,20 +6,20 @@ structure GioNetworkService :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_network_service_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_network_service_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_network_service_new")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getDomain_ = call (load_sym libgio "g_network_service_get_domain") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getProtocol_ = call (load_sym libgio "g_network_service_get_protocol") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getScheme_ = call (load_sym libgio "g_network_service_get_scheme") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getService_ = call (load_sym libgio "g_network_service_get_service") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val setScheme_ = call (load_sym libgio "g_network_service_set_scheme") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getDomain_ = call (load_sym libgio "g_network_service_get_domain") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getProtocol_ = call (load_sym libgio "g_network_service_get_protocol") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getScheme_ = call (load_sym libgio "g_network_service_get_scheme") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getService_ = call (load_sym libgio "g_network_service_get_service") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setScheme_ = call (load_sym libgio "g_network_service_set_scheme") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioNetworkServiceClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t

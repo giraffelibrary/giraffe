@@ -9,17 +9,17 @@ structure GIRepositorySignalInfo :>
       val getFlags_ =
         call
           (load_sym libgirepository "g_signal_info_get_flags")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GObjectSignalFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GObjectSignalFlags.PolyML.cVal);
 
       val getClassClosure_ =
         call
           (load_sym libgirepository "g_signal_info_get_class_closure")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val trueStopsEmit_ =
         call
           (load_sym libgirepository "g_signal_info_true_stops_emit")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
     end
 
 

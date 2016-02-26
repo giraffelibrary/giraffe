@@ -6,7 +6,7 @@ structure GObjectParamSpecVariant :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "intern") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "intern") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a GObjectParamSpecVariantClass.t
     type type_t = GObjectType.t

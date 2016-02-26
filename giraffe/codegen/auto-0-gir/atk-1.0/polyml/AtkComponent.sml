@@ -9,57 +9,57 @@ structure AtkComponent :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_component_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_component_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val contains_ =
         call (load_sym libatk "atk_component_contains")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val getAlpha_ = call (load_sym libatk "atk_component_get_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getLayer_ = call (load_sym libatk "atk_component_get_layer") (GObjectObjectClass.PolyML.PTR --> AtkLayer.PolyML.VAL)
-      val getMdiZorder_ = call (load_sym libatk "atk_component_get_mdi_zorder") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val grabFocus_ = call (load_sym libatk "atk_component_grab_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getAlpha_ = call (load_sym libatk "atk_component_get_alpha") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getLayer_ = call (load_sym libatk "atk_component_get_layer") (GObjectObjectClass.PolyML.cPtr --> AtkLayer.PolyML.cVal)
+      val getMdiZorder_ = call (load_sym libatk "atk_component_get_mdi_zorder") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val grabFocus_ = call (load_sym libatk "atk_component_grab_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val refAccessibleAtPoint_ =
         call (load_sym libatk "atk_component_ref_accessible_at_point")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val setExtents_ =
         call (load_sym libatk "atk_component_set_extents")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setPosition_ =
         call (load_sym libatk "atk_component_set_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setSize_ =
         call (load_sym libatk "atk_component_set_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a AtkComponentClass.t

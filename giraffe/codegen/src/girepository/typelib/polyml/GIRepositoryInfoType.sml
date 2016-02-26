@@ -24,7 +24,7 @@ structure GIRepositoryInfoType :>
       val getType_ =
         call
           (load_sym libgirepository "g_base_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
     end
 
 

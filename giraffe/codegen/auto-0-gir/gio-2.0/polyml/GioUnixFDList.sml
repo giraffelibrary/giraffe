@@ -5,25 +5,25 @@ structure GioUnixFDList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_fd_list_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_unix_fd_list_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_unix_fd_list_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_unix_fd_list_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val append_ =
         call (load_sym libgio "g_unix_fd_list_append")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int.PolyML.cVal
           )
       val get_ =
         call (load_sym libgio "g_unix_fd_list_get")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int.PolyML.cVal
           )
-      val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
     end
     type 'a class_t = 'a GioUnixFDListClass.t
     type t = base class_t

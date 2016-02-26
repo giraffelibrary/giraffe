@@ -12,94 +12,94 @@ structure GtkThemingEngine :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_theming_engine_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val load_ = call (load_sym libgtk "gtk_theming_engine_load") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_theming_engine_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val load_ = call (load_sym libgtk "gtk_theming_engine_load") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getBackgroundColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_background_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getBorder_ =
         call (load_sym libgtk "gtk_theming_engine_get_border")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getBorderColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_border_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getDirection_ = call (load_sym libgtk "gtk_theming_engine_get_direction") (GObjectObjectClass.PolyML.PTR --> GtkTextDirection.PolyML.VAL)
-      val getFont_ = call (load_sym libgtk "gtk_theming_engine_get_font") (GObjectObjectClass.PolyML.PTR &&> GtkStateFlags.PolyML.VAL --> PangoFontDescriptionRecord.PolyML.PTR)
-      val getJunctionSides_ = call (load_sym libgtk "gtk_theming_engine_get_junction_sides") (GObjectObjectClass.PolyML.PTR --> GtkJunctionSides.PolyML.VAL)
+      val getDirection_ = call (load_sym libgtk "gtk_theming_engine_get_direction") (GObjectObjectClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
+      val getFont_ = call (load_sym libgtk "gtk_theming_engine_get_font") (GObjectObjectClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getJunctionSides_ = call (load_sym libgtk "gtk_theming_engine_get_junction_sides") (GObjectObjectClass.PolyML.cPtr --> GtkJunctionSides.PolyML.cVal)
       val getMargin_ =
         call (load_sym libgtk "gtk_theming_engine_get_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_theming_engine_get_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getPath_ = call (load_sym libgtk "gtk_theming_engine_get_path") (GObjectObjectClass.PolyML.PTR --> GtkWidgetPathRecord.PolyML.PTR)
-      val getScreen_ = call (load_sym libgtk "gtk_theming_engine_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getState_ = call (load_sym libgtk "gtk_theming_engine_get_state") (GObjectObjectClass.PolyML.PTR --> GtkStateFlags.PolyML.VAL)
+      val getPath_ = call (load_sym libgtk "gtk_theming_engine_get_path") (GObjectObjectClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val getScreen_ = call (load_sym libgtk "gtk_theming_engine_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getState_ = call (load_sym libgtk "gtk_theming_engine_get_state") (GObjectObjectClass.PolyML.cPtr --> GtkStateFlags.PolyML.cVal)
       val getStyleProperty_ =
         call (load_sym libgtk "gtk_theming_engine_get_style_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val hasClass_ = call (load_sym libgtk "gtk_theming_engine_has_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val hasClass_ = call (load_sym libgtk "gtk_theming_engine_has_class") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val hasRegion_ =
         call (load_sym libgtk "gtk_theming_engine_has_region")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkRegionFlags.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkRegionFlags.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val lookupColor_ =
         call (load_sym libgtk "gtk_theming_engine_lookup_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
       val stateIsRunning_ =
         call (load_sym libgtk "gtk_theming_engine_state_is_running")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Double.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GtkThemingEngineClass.t

@@ -6,51 +6,51 @@ structure VtePty :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libvte "vte_pty_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libvte "vte_pty_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val newForeignSync_ =
         call (load_sym libvte "vte_pty_new_foreign_sync")
           (
-            FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newSync_ =
         call (load_sym libvte "vte_pty_new_sync")
           (
-            VtePtyFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            VtePtyFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val close_ = call (load_sym libvte "vte_pty_close") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val close_ = call (load_sym libvte "vte_pty_close") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getSize_ =
         call (load_sym libvte "vte_pty_get_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setSize_ =
         call (load_sym libvte "vte_pty_set_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setUtf8_ =
         call (load_sym libvte "vte_pty_set_utf8")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a VtePtyClass.t

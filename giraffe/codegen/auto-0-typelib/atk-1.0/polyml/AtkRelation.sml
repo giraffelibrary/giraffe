@@ -7,18 +7,18 @@ structure AtkRelation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_relation_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_relation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libatk "atk_relation_new")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> AtkRelationType.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> AtkRelationType.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (GObjectObjectClass.PolyML.PTR --> AtkRelationType.PolyML.VAL)
-      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (GObjectObjectClass.PolyML.cPtr --> AtkRelationType.PolyML.cVal)
+      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a AtkRelationClass.t
     type 'a object_class_t = 'a AtkObjectClass.t

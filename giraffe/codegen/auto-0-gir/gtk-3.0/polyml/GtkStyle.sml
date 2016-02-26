@@ -11,51 +11,51 @@ structure GtkStyle :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_style_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val applyDefaultBackground_ =
         call (load_sym libgtk "gtk_style_apply_default_background")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val copy_ = call (load_sym libgtk "gtk_style_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val detach_ = call (load_sym libgtk "gtk_style_detach") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val copy_ = call (load_sym libgtk "gtk_style_copy") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val detach_ = call (load_sym libgtk "gtk_style_detach") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val lookupColor_ =
         call (load_sym libgtk "gtk_style_lookup_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GdkColorRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GdkColorRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
+      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val renderIcon_ =
         call (load_sym libgtk "gtk_style_render_icon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkIconSourceRecord.PolyML.PTR
-             &&> GtkTextDirection.PolyML.VAL
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkIconSourceRecord.PolyML.cPtr
+             &&> GtkTextDirection.PolyML.cVal
+             &&> GtkStateType.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val setBackground_ =
         call (load_sym libgtk "gtk_style_set_background")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkStyleClass.t

@@ -10,24 +10,24 @@ structure GioDBusInterfaceSkeleton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_interface_skeleton_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_dbus_interface_skeleton_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val export_ =
         call (load_sym libgio "g_dbus_interface_skeleton_export")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val flush_ = call (load_sym libgio "g_dbus_interface_skeleton_flush") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getConnection_ = call (load_sym libgio "g_dbus_interface_skeleton_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFlags_ = call (load_sym libgio "g_dbus_interface_skeleton_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceSkeletonFlags.PolyML.VAL)
-      val getInfo_ = call (load_sym libgio "g_dbus_interface_skeleton_get_info") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceInfoRecord.PolyML.PTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_interface_skeleton_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getProperties_ = call (load_sym libgio "g_dbus_interface_skeleton_get_properties") (GObjectObjectClass.PolyML.PTR --> GLibVariantRecord.PolyML.PTR)
-      val setFlags_ = call (load_sym libgio "g_dbus_interface_skeleton_set_flags") (GObjectObjectClass.PolyML.PTR &&> GioDBusInterfaceSkeletonFlags.PolyML.VAL --> FFI.PolyML.VOID)
-      val unexport_ = call (load_sym libgio "g_dbus_interface_skeleton_unexport") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val flush_ = call (load_sym libgio "g_dbus_interface_skeleton_flush") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getConnection_ = call (load_sym libgio "g_dbus_interface_skeleton_get_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFlags_ = call (load_sym libgio "g_dbus_interface_skeleton_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioDBusInterfaceSkeletonFlags.PolyML.cVal)
+      val getInfo_ = call (load_sym libgio "g_dbus_interface_skeleton_get_info") (GObjectObjectClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_interface_skeleton_get_object_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getProperties_ = call (load_sym libgio "g_dbus_interface_skeleton_get_properties") (GObjectObjectClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val setFlags_ = call (load_sym libgio "g_dbus_interface_skeleton_set_flags") (GObjectObjectClass.PolyML.cPtr &&> GioDBusInterfaceSkeletonFlags.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unexport_ = call (load_sym libgio "g_dbus_interface_skeleton_unexport") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDBusInterfaceSkeletonClass.t
     type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t

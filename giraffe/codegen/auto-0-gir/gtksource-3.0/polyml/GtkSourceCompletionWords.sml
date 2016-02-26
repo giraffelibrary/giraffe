@@ -6,10 +6,10 @@ structure GtkSourceCompletionWords :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_words_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_completion_words_new") (Utf8.PolyML.INOPTPTR &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val register_ = call (load_sym libgtksourceview "gtk_source_completion_words_register") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unregister_ = call (load_sym libgtksourceview "gtk_source_completion_words_unregister") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_words_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_completion_words_new") (Utf8.PolyML.cInOptPtr &&> GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val register_ = call (load_sym libgtksourceview "gtk_source_completion_words_register") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unregister_ = call (load_sym libgtksourceview "gtk_source_completion_words_unregister") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSourceCompletionWordsClass.t
     type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t

@@ -7,10 +7,10 @@ structure GObjectTypeModule :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_type_module_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val setName_ = call (load_sym libgobject "g_type_module_set_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val unuse_ = call (load_sym libgobject "g_type_module_unuse") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val use_ = call (load_sym libgobject "g_type_module_use") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "g_type_module_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val setName_ = call (load_sym libgobject "g_type_module_set_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val unuse_ = call (load_sym libgobject "g_type_module_unuse") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val use_ = call (load_sym libgobject "g_type_module_use") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GObjectTypeModuleClass.t
     type 'a type_plugin_class_t = 'a GObjectTypePluginClass.t

@@ -8,26 +8,26 @@ structure GtkActionGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_action_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_action_group_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val addAction_ = call (load_sym libgtk "gtk_action_group_add_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_action_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_action_group_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val addAction_ = call (load_sym libgtk "gtk_action_group_add_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val addActionWithAccel_ =
         call (load_sym libgtk "gtk_action_group_add_action_with_accel")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> FFI.PolyML.cVoid
           )
-      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val removeAction_ = call (load_sym libgtk "gtk_action_group_remove_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeAction_ = call (load_sym libgtk "gtk_action_group_remove_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GtkActionGroupClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

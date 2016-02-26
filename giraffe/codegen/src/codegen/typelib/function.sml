@@ -1765,6 +1765,15 @@ val getTypeStrDecHighLevel =
 
 
 
+(* Low-level - common *)
+
+datatype low_level_spec =
+  VAL
+| PTR of {optIsRet : bool option, isOpt : bool}
+| REF of {isInOut : bool, isOpt : bool} option
+
+
+
 (* Low-level - Poly/ML *)
 
 (* `callPolyMLFFIExp libId functionSymbol (parConvs, retConv)` constructs
@@ -1793,47 +1802,51 @@ fun callPolyMLFFIExp libId functionSymbol (parConvs, retConv) =
 
 
 local
-  datatype conv =
-    VAL
-  | PTR of {optIsRet : bool option, isOpt : bool}
-  | REF of {optInIsOpt : bool option, optOutIsOpt : bool option}
-
-  fun convExp prefixIds conv =
+  (*
+   * Value conversions:
+   *   <A>.cVal
+   *   <A>.cRef
+   *
+   * Pointer conversions:
+   *   <A>.c<Opt>Ptr
+   *   <A>.cOut<Opt>Ref
+   *   <A>.cInOut<Opt>Ref
+   *
+   * Array types:
+   *   <A>.cIn<Opt>Ptr
+   *   <A>.cOut<Opt>Ptr
+   *   <A>.cOut<Opt>Ref
+   *   <A>.cInOut<Opt>Ref
+   *)
+  fun convExp prefixIds spec =
     let
       val convId =
-        case conv of
-          VAL                           => "VAL"
-        | PTR {optIsRet, isOpt}         =>
+        case spec of
+          VAL                         => "cVal"
+        | PTR {optIsRet, isOpt}       =>
             let
-              val inRetStr =
+              val inOutStr =
                case optIsRet of
                   NONE       => ""
-                | SOME false => "IN"
-                | SOME true  => "RET"
-              val optStr = if isOpt then "OPT" else ""
+                | SOME false => "In"
+                | SOME true  => "Out"
+              val optStr = if isOpt then "Opt" else ""
             in
-              concat [inRetStr, optStr, "PTR"]
+              concat ["c", inOutStr, optStr, "Ptr"]
             end
-        | REF {optInIsOpt, optOutIsOpt} =>
+        | REF NONE                    => "cRef"
+        | REF (SOME {isInOut, isOpt}) =>
             let
-              val inStr =
-                case optInIsOpt of
-                  NONE       => ""
-                | SOME false => "IN"
-                | SOME true  => "INOPT"
-              val outStr =
-                case optOutIsOpt of
-                  NONE       => ""
-                | SOME false => "OUT"
-                | SOME true  => "OUTOPT"
+              val inOutStr = if isInOut then "InOut" else "Out"
+              val optStr = if isOpt then "Opt" else ""
             in
-              concat [inStr, outStr, "REF"]
+              concat ["c", inOutStr, optStr, "Ref"]
             end
     in
       mkLIdLNameExp (prefixIds @ [convId])
     end
 
-  val retVoidConv = VOIDConvExp
+  val retVoidConv = cVoidConv
 
   fun parScalarConv (dir, {ty, ...} : scalarinfo) =
     let
@@ -1842,10 +1855,7 @@ local
       convExp prefixIds (
         if dir <> IN
         then
-          REF {
-            optInIsOpt  = NONE,
-            optOutIsOpt = NONE
-          }
+          REF NONE
         else
           VAL
       )
@@ -1865,10 +1875,12 @@ local
       convExp prefixIds (
         if dir <> IN
         then
-          REF {
-            optInIsOpt  = if dir = INOUT then SOME false else NONE,
-            optOutIsOpt = SOME false
-          }
+          REF (
+            SOME {
+              isInOut = dir = INOUT,
+              isOpt   = false
+            }
+          )
         else
           PTR {
             optIsRet = SOME false,
@@ -1916,10 +1928,12 @@ local
       convExp prefixIds (
         if dir <> IN andalso isSome ptrOwnXfer
         then
-          REF {
-            optInIsOpt  = if dir = INOUT then SOME false else NONE,
-            optOutIsOpt = SOME false
-          }
+          REF (
+            SOME {
+              isInOut = dir = INOUT,
+              isOpt   = false
+            }
+          )
         else if
           case infoType of
             FLAGS _ => true
@@ -1928,7 +1942,7 @@ local
         then
           if dir <> IN
           then
-            REF {optInIsOpt = NONE, optOutIsOpt = NONE}
+            REF NONE
           else
             VAL
         else
@@ -1980,6 +1994,8 @@ local
       )
     end
 in
+  val makeConv = convExp
+
   fun addParInfo (parInfo, acc) =
     case parInfo of
       PIVOID => acc
@@ -2009,14 +2025,26 @@ in
     | RIUTF8 utf8RetInfo           => retUtf8Conv utf8RetInfo
     | RIINTERFACE interfaceRetInfo => retInterfaceConv interfaceRetInfo
 
+  fun parSelfConv rootIRef =
+    convExp
+      (prefixInterfaceStrId rootIRef [PolyMLId])
+      (
+        PTR {
+          optIsRet = NONE,
+          isOpt    = false
+        }
+      )
+
   fun parErrConv namespace optName =
     convExp
       (prefixInterfaceStrId (makeErrorIRef namespace optName) [PolyMLId])
       (
-        REF {
-          optInIsOpt  = NONE,
-          optOutIsOpt = SOME true
-        }
+        REF (
+          SOME {
+            isInOut = false,
+            isOpt   = true
+          }
+        )
       )
 end
 
@@ -2065,8 +2093,7 @@ fun makeFunctionStrDecLowLevelPolyML
            (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optRootIRef of
-          SOME rootIRef =>
-            [mkLIdLNameExp (prefixInterfaceStrId rootIRef [PolyMLId, PTRId])]
+          SOME rootIRef => [parSelfConv rootIRef]
         | NONE          =>
             infoError "function outside interface has method flag set"
       else
@@ -2109,10 +2136,10 @@ fun makeFunctionStrDecLowLevelPolyML
      *   <paramConvErr>
      *     if J = 0 and anySet (FunctionFlags, THROWS)
      *
-     *   FFI.PolyML.VOID
+     *   FFI.PolyML.cVoid
      *     if J = 0 and not anySet (FunctionFlags, THROWS)
      *)
-    val revParConvs1 : exp list1 = getList1 (revParConvs'3, VOIDConvExp)
+    val revParConvs1 : exp list1 = getList1 (revParConvs'3, cVoidConv)
 
     val parConvs = foldl1 mkAARExp revParConvs1
 
@@ -2138,12 +2165,12 @@ fun makeFunctionStrDecLowLevelPolyML
  *     val getType_ =
  *       call
  *         (load_sym <libId> "<getTypeSymbol>")
- *         (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);
+ *         (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
  *)
 fun getTypeStrDecLowLevelPolyML libId getTypeSymbol =
   let
-    val parConvs = mkLIdLNameExp [FFIId, PolyMLId, VOIDId]
-    val retConv = mkLIdLNameExp ["GObjectType", PolyMLId, VALId]
+    val parConvs = cVoidConv
+    val retConv = makeConv ["GObjectType", PolyMLId] VAL
   in
     StrDecDec (
       mkIdValDec (
@@ -2328,11 +2355,6 @@ local
    *   <opt> <A>.out_p
    *   (<inopt>, <outopt>) <A>.r
    *)
-  datatype spec =
-    VAL
-  | PTR of {optIsRet : bool option, isOpt : bool}
-  | REF of {isInOpt : bool, isOutOpt : bool} option
-
   local
     val structId = utf8StrId
     val mltonId = "MLton"
@@ -2357,25 +2379,25 @@ local
      *
      *   where <inopt> is
      *     unit
-     *       if `isInOpt`
+     *       if `isOpt orelse not isInOut`
      *
      *     Utf8.C.notnull
      *       otherwise
      *
      *   where <outopt> is
      *     unit
-     *       if `isOutOpt`
+     *       if `isOpt`
      *
      *     Utf8.C.notnull
      *       otherwise
      *)
-    fun utf8RefTy isInOpt isOutOpt =
+    fun utf8RefTy isInOut isOpt =
       mkProdTy0 [
         TyRef ([], toList1 [structId, mltonId, "r1"]),
         TyRef (
           [
-            mkOptTy isInOpt,
-            mkOptTy isOutOpt
+            mkOptTy (isOpt orelse not isInOut),
+            mkOptTy isOpt
           ],
           toList1 [structId, mltonId, "r2"]
         )
@@ -2386,29 +2408,32 @@ local
     let
       val ty =
         case spec of
-          VAL                            => mkLIdTy (prefixIds @ ["val_"])
-        | PTR {optIsRet, isOpt}          =>
+          VAL                         => mkLIdTy (prefixIds @ ["val_"])
+        | PTR {optIsRet, isOpt}       =>
             if isUtf8
             then
               utf8PtrTy isOpt
             else
               let
-                val inRetStr =
+                val inOutStr =
                   case optIsRet of
                     NONE       => ""
                   | SOME false => "in_"
                   | SOME true  => "out_"
                 val ty = if isOpt then unitTy else mkNotnullTy prefixIds
               in
-                TyRef ([ty], toList1 (prefixIds @ [concat [inRetStr, "p"]]))
+                TyRef ([ty], toList1 (prefixIds @ [concat [inOutStr, "p"]]))
               end
-        | REF NONE                       => mkLIdTy (prefixIds @ ["ref_"])
-        | REF (SOME {isInOpt, isOutOpt}) =>
+        | REF NONE                    => mkLIdTy (prefixIds @ ["ref_"])
+        | REF (SOME {isInOut, isOpt}) =>
             if isUtf8
             then
-              utf8RefTy isInOpt isOutOpt
+              utf8RefTy isInOut isOpt  (* !!!! needed? !!!! *)
             else
               let
+                val isInOpt = isOpt orelse not isInOut
+                val isOutOpt = isOpt
+
                 val tys'0 = []
                 val tys'1 =
                   case isOutOpt of
@@ -2456,8 +2481,8 @@ local
         then
           REF (
             SOME {
-              isInOpt  = dir <> INOUT,
-              isOutOpt = false
+              isInOut = dir = INOUT,
+              isOpt   = false
             }
           )
         else
@@ -2509,8 +2534,8 @@ local
         then
           REF (
             SOME {
-              isInOpt  = dir <> INOUT,
-              isOutOpt = false
+              isInOut = dir = INOUT,
+              isOpt   = false
             }
           )
         else if
@@ -2572,6 +2597,8 @@ local
       )
     end
 in
+  val makeLowLevelTy = typeTy
+
   fun addParInfo (parInfo, acc) =
     case parInfo of
       PIVOID                              => acc
@@ -2601,6 +2628,17 @@ in
     | RIUTF8 utf8RetInfo           => retUtf8Type utf8RetInfo
     | RIINTERFACE interfaceRetInfo => retInterfaceType interfaceRetInfo
 
+  fun parSelfType rootIRef =
+    typeTy
+      false
+      (prefixInterfaceStrId rootIRef [CId])
+      (
+        PTR {
+          optIsRet = NONE,
+          isOpt    = false
+        }
+      )
+
   fun parErrType namespace optName =
     typeTy
       false
@@ -2608,8 +2646,8 @@ in
       (
         REF (
           SOME {
-            isInOpt  = true,
-            isOutOpt = true
+            isInOut = false,
+            isOpt   = true
           }
         )
       )
@@ -2659,8 +2697,7 @@ fun makeFunctionStrDecLowLevelMLton
            (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
         case optRootIRef of
-          SOME rootIRef =>
-            [mkPtrTy false (prefixInterfaceStrId rootIRef [CId])]
+          SOME rootIRef => [parSelfType rootIRef]
         | NONE          =>
             infoError "function outside interface has method flag set"
       else

@@ -8,82 +8,82 @@ structure GioDataOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_data_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_data_output_stream_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getByteOrder_ = call (load_sym libgio "g_data_output_stream_get_byte_order") (GObjectObjectClass.PolyML.PTR --> GioDataStreamByteOrder.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_data_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_data_output_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getByteOrder_ = call (load_sym libgio "g_data_output_stream_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
       val putByte_ =
         call (load_sym libgio "g_data_output_stream_put_byte")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt8.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt8.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putInt16_ =
         call (load_sym libgio "g_data_output_stream_put_int16")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int16.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int16.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putInt32_ =
         call (load_sym libgio "g_data_output_stream_put_int32")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putInt64_ =
         call (load_sym libgio "g_data_output_stream_put_int64")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putString_ =
         call (load_sym libgio "g_data_output_stream_put_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putUint16_ =
         call (load_sym libgio "g_data_output_stream_put_uint16")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt16.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt16.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putUint32_ =
         call (load_sym libgio "g_data_output_stream_put_uint32")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val putUint64_ =
         call (load_sym libgio "g_data_output_stream_put_uint64")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt64.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GObjectObjectClass.PolyML.PTR &&> GioDataStreamByteOrder.PolyML.VAL --> FFI.PolyML.VOID)
+      val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GObjectObjectClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDataOutputStreamClass.t
     type 'a output_stream_class_t = 'a GioOutputStreamClass.t

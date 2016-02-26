@@ -6,19 +6,19 @@ structure GtkNumerableIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_numerable_icon_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_numerable_icon_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_new_with_style_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_get_background_gicon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_get_background_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getCount_ = call (load_sym libgtk "gtk_numerable_icon_get_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_numerable_icon_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_get_style_context") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_set_background_gicon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_set_background_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setCount_ = call (load_sym libgtk "gtk_numerable_icon_set_count") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_numerable_icon_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_set_style_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_numerable_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_numerable_icon_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_new_with_style_context") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_get_background_gicon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_get_background_icon_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCount_ = call (load_sym libgtk "gtk_numerable_icon_get_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getLabel_ = call (load_sym libgtk "gtk_numerable_icon_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_get_style_context") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setBackgroundGicon_ = call (load_sym libgtk "gtk_numerable_icon_set_background_gicon") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setBackgroundIconName_ = call (load_sym libgtk "gtk_numerable_icon_set_background_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setCount_ = call (load_sym libgtk "gtk_numerable_icon_set_count") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_numerable_icon_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setStyleContext_ = call (load_sym libgtk "gtk_numerable_icon_set_style_context") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkNumerableIconClass.t
     type 'a style_context_class_t = 'a GtkStyleContextClass.t

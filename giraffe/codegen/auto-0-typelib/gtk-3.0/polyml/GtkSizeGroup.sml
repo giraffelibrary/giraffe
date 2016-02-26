@@ -8,14 +8,14 @@ structure GtkSizeGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_size_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_size_group_new") (GtkSizeGroupMode.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_get_ignore_hidden") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getMode_ = call (load_sym libgtk "gtk_size_group_get_mode") (GObjectObjectClass.PolyML.PTR --> GtkSizeGroupMode.PolyML.VAL)
-      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GObjectObjectClass.PolyML.PTR &&> GtkSizeGroupMode.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_size_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_size_group_new") (GtkSizeGroupMode.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_get_ignore_hidden") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMode_ = call (load_sym libgtk "gtk_size_group_get_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSizeGroupMode.PolyML.cVal)
+      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSizeGroupClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

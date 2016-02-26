@@ -3,8 +3,8 @@ structure GLibUnicodeType :>
     include G_LIB_UNICODE_TYPE
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -113,8 +113,8 @@ structure GLibUnicodeType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     val null = CONTROL
   end

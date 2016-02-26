@@ -9,41 +9,41 @@ structure GIRepositoryBaseInfo :>
       val getName_ =
         call
           (load_sym libgirepository "g_base_info_get_name")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getNamespace_ =
         call
           (load_sym libgirepository "g_base_info_get_namespace")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val isDeprecated_ =
         call
           (load_sym libgirepository "g_base_info_is_deprecated")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getAttribute_ =
         call
           (load_sym libgirepository "g_base_info_get_attribute")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> Utf8.PolyML.INPTR
-            --> Utf8.PolyML.RETOPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> Utf8.PolyML.cInPtr
+            --> Utf8.PolyML.cOutOptPtr);
 
       val getContainer_ =
         call
           (load_sym libgirepository "g_base_info_get_container")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getTypelib_ =
         call
           (load_sym libgirepository "g_base_info_get_typelib")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTypelibType.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTypelibType.PolyML.cPtr);
 
       val equal_ =
         call
           (load_sym libgirepository "g_base_info_equal")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> GIRepositoryBaseInfoClass.PolyML.PTR
-            --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> GIRepositoryBaseInfoClass.PolyML.cPtr
+            --> FFI.Bool.PolyML.cVal);
     end
 
 

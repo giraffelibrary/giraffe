@@ -6,10 +6,10 @@ structure PangoFontFace :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_face_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val describe_ = call (load_sym libpango "pango_font_face_describe") (GObjectObjectClass.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val getFaceName_ = call (load_sym libpango "pango_font_face_get_face_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libpango "pango_font_face_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val describe_ = call (load_sym libpango "pango_font_face_describe") (GObjectObjectClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFaceName_ = call (load_sym libpango "pango_font_face_get_face_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a PangoFontFaceClass.t
     type font_description_record_t = PangoFontDescriptionRecord.t

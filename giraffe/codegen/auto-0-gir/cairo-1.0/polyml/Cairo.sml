@@ -3,7 +3,7 @@ structure Cairo : CAIRO =
     local
       open PolyMLFFI
     in
-      val imageSurfaceCreate_ = call (load_sym libcairogobject "cairo_image_surface_create") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
+      val imageSurfaceCreate_ = call (load_sym libcairogobject "cairo_image_surface_create") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
     end
     structure ContextRecord = CairoContextRecord
     structure SurfaceRecord = CairoSurfaceRecord

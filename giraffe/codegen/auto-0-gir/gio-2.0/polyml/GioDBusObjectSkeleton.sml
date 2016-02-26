@@ -8,13 +8,13 @@ structure GioDBusObjectSkeleton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_skeleton_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_dbus_object_skeleton_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val addInterface_ = call (load_sym libgio "g_dbus_object_skeleton_add_interface") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val flush_ = call (load_sym libgio "g_dbus_object_skeleton_flush") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeInterface_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeInterfaceByName_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface_by_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setObjectPath_ = call (load_sym libgio "g_dbus_object_skeleton_set_object_path") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_dbus_object_skeleton_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_dbus_object_skeleton_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val addInterface_ = call (load_sym libgio "g_dbus_object_skeleton_add_interface") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val flush_ = call (load_sym libgio "g_dbus_object_skeleton_flush") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeInterface_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeInterfaceByName_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface_by_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setObjectPath_ = call (load_sym libgio "g_dbus_object_skeleton_set_object_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDBusObjectSkeletonClass.t
     type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t

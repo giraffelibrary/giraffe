@@ -61,10 +61,10 @@ structure ClosureMarshal :>
         in
           val makeClosure : c_callback -> c_callback closure =
             closure
-              (GObjectValueRecord.PolyML.PTR
-                &&> GObjectValueRecord.PolyML.Array.PTR
-                &&> FFI.UInt32.PolyML.VAL
-                --> FFI.PolyML.VOID)
+              (GObjectValueRecord.PolyML.cPtr
+                &&> GObjectValueRecord.PolyML.Array.cPtr
+                &&> FFI.UInt32.PolyML.cVal
+                --> FFI.PolyML.cVoid)
         end
 
         fun withCallback f (marshaller, callback) =

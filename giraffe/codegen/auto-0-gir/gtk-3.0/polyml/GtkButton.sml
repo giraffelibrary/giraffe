@@ -10,43 +10,43 @@ structure GtkButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_button_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_button_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val clicked_ = call (load_sym libgtk "gtk_button_clicked") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabel_ = call (load_sym libgtk "gtk_button_new_with_label") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val clicked_ = call (load_sym libgtk "gtk_button_clicked") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val getAlignment_ =
         call (load_sym libgtk "gtk_button_get_alignment")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.REF
-             &&> FFI.Float.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cRef
+             &&> FFI.Float.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getEventWindow_ = call (load_sym libgtk "gtk_button_get_event_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFocusOnClick_ = call (load_sym libgtk "gtk_button_get_focus_on_click") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getImage_ = call (load_sym libgtk "gtk_button_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getImagePosition_ = call (load_sym libgtk "gtk_button_get_image_position") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_button_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getRelief_ = call (load_sym libgtk "gtk_button_get_relief") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
-      val getUseStock_ = call (load_sym libgtk "gtk_button_get_use_stock") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUseUnderline_ = call (load_sym libgtk "gtk_button_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getEventWindow_ = call (load_sym libgtk "gtk_button_get_event_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFocusOnClick_ = call (load_sym libgtk "gtk_button_get_focus_on_click") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getImage_ = call (load_sym libgtk "gtk_button_get_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getImagePosition_ = call (load_sym libgtk "gtk_button_get_image_position") (GObjectObjectClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
+      val getLabel_ = call (load_sym libgtk "gtk_button_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getRelief_ = call (load_sym libgtk "gtk_button_get_relief") (GObjectObjectClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
+      val getUseStock_ = call (load_sym libgtk "gtk_button_get_use_stock") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseUnderline_ = call (load_sym libgtk "gtk_button_get_use_underline") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setAlignment_ =
         call (load_sym libgtk "gtk_button_set_alignment")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setFocusOnClick_ = call (load_sym libgtk "gtk_button_set_focus_on_click") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setImage_ = call (load_sym libgtk "gtk_button_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setImagePosition_ = call (load_sym libgtk "gtk_button_set_image_position") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_button_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setRelief_ = call (load_sym libgtk "gtk_button_set_relief") (GObjectObjectClass.PolyML.PTR &&> GtkReliefStyle.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setFocusOnClick_ = call (load_sym libgtk "gtk_button_set_focus_on_click") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setImage_ = call (load_sym libgtk "gtk_button_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setImagePosition_ = call (load_sym libgtk "gtk_button_set_image_position") (GObjectObjectClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_button_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setRelief_ = call (load_sym libgtk "gtk_button_set_relief") (GObjectObjectClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

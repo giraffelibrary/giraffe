@@ -7,15 +7,15 @@ structure GioDBusAuthObserver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_auth_observer_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_dbus_auth_observer_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_dbus_auth_observer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_dbus_auth_observer_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val authorizeAuthenticatedPeer_ =
         call (load_sym libgio "g_dbus_auth_observer_authorize_authenticated_peer")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioDBusAuthObserverClass.t

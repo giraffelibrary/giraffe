@@ -4,10 +4,12 @@ structure PangoAttrListRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
-        val OUTREF : (unit, C.notnull) C.r PolyMLFFI.conversion
-        val INOUTREF : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
+        val cOutRef : (unit, C.notnull) C.r PolyMLFFI.conversion
+        val cOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
+        val cInOutRef : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cInOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -15,10 +17,12 @@ structure PangoAttrListRecord :>
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val OUTREF = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
-    val INOUTREF = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cOutRef = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
+    val cOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
+    val cInOutRef = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -26,12 +30,12 @@ structure PangoAttrListRecord :>
       val ref_ =
         call
           (load_sym libpango "pango_attr_list_ref")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val unref_ =
         call
           (load_sym libpango "pango_attr_list_unref")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -76,10 +80,12 @@ structure PangoAttrListRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
-        val OUTREF = OUTREF
-        val INOUTREF = INOUTREF
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
+        val cOutRef = cOutRef
+        val cOutOptRef = cOutOptRef
+        val cInOutRef = cInOutRef
+        val cInOutOptRef = cInOutOptRef
       end
 
     local
@@ -88,27 +94,27 @@ structure PangoAttrListRecord :>
       val getType_ =
         call
           (load_sym libpango "pango_attr_list_get_type")
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);
+          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.PTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.OPTPTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.PTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> FFI.PolyML.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.OPTPTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
     end
 
     val t =

@@ -8,57 +8,57 @@ structure AtkText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_text_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val freeRanges_ = call (load_sym libatk "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libatk "atk_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val freeRanges_ = call (load_sym libatk "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val addSelection_ =
         call (load_sym libatk "atk_text_add_selection")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val getCaretOffset_ = call (load_sym libatk "atk_text_get_caret_offset") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getCharacterAtOffset_ = call (load_sym libatk "atk_text_get_character_at_offset") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Char.PolyML.VAL)
-      val getCharacterCount_ = call (load_sym libatk "atk_text_get_character_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getNSelections_ = call (load_sym libatk "atk_text_get_n_selections") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getCaretOffset_ = call (load_sym libatk "atk_text_get_caret_offset") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getCharacterAtOffset_ = call (load_sym libatk "atk_text_get_character_at_offset") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Char.PolyML.cVal)
+      val getCharacterCount_ = call (load_sym libatk "atk_text_get_character_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getNSelections_ = call (load_sym libatk "atk_text_get_n_selections") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getOffsetAtPoint_ =
         call (load_sym libatk "atk_text_get_offset_at_point")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
       val getRangeExtents_ =
         call (load_sym libatk "atk_text_get_range_extents")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> AtkCoordType.PolyML.VAL
-             &&> AtkTextRectangleRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> AtkCoordType.PolyML.cVal
+             &&> AtkTextRectangleRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getText_ =
         call (load_sym libatk "atk_text_get_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
           )
-      val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val setSelection_ =
         call (load_sym libatk "atk_text_set_selection")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a AtkTextClass.t

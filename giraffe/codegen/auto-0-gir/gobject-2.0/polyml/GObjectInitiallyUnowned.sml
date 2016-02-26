@@ -6,7 +6,7 @@ structure GObjectInitiallyUnowned :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_initially_unowned_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "g_initially_unowned_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a GObjectInitiallyUnownedClass.t
     type type_t = GObjectType.t

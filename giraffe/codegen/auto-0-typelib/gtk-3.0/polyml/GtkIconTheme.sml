@@ -7,53 +7,53 @@ structure GtkIconTheme :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_theme_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_icon_theme_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_icon_theme_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_icon_theme_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addBuiltinIcon_ =
         call (load_sym libgtk "gtk_icon_theme_add_builtin_icon")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getDefault_ = call (load_sym libgtk "gtk_icon_theme_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getForScreen_ = call (load_sym libgtk "gtk_icon_theme_get_for_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val appendSearchPath_ = call (load_sym libgtk "gtk_icon_theme_append_search_path") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val getExampleIconName_ = call (load_sym libgtk "gtk_icon_theme_get_example_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val hasIcon_ = call (load_sym libgtk "gtk_icon_theme_has_icon") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val getDefault_ = call (load_sym libgtk "gtk_icon_theme_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getForScreen_ = call (load_sym libgtk "gtk_icon_theme_get_for_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val appendSearchPath_ = call (load_sym libgtk "gtk_icon_theme_append_search_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val getExampleIconName_ = call (load_sym libgtk "gtk_icon_theme_get_example_icon_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val hasIcon_ = call (load_sym libgtk "gtk_icon_theme_has_icon") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val loadIcon_ =
         call (load_sym libgtk "gtk_icon_theme_load_icon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GtkIconLookupFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GtkIconLookupFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val lookupByGicon_ =
         call (load_sym libgtk "gtk_icon_theme_lookup_by_gicon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GtkIconLookupFlags.PolyML.VAL
-             --> GtkIconInfoRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GtkIconLookupFlags.PolyML.cVal
+             --> GtkIconInfoRecord.PolyML.cPtr
           )
       val lookupIcon_ =
         call (load_sym libgtk "gtk_icon_theme_lookup_icon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GtkIconLookupFlags.PolyML.VAL
-             --> GtkIconInfoRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GtkIconLookupFlags.PolyML.cVal
+             --> GtkIconInfoRecord.PolyML.cPtr
           )
-      val prependSearchPath_ = call (load_sym libgtk "gtk_icon_theme_prepend_search_path") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val rescanIfNeeded_ = call (load_sym libgtk "gtk_icon_theme_rescan_if_needed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setCustomTheme_ = call (load_sym libgtk "gtk_icon_theme_set_custom_theme") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setScreen_ = call (load_sym libgtk "gtk_icon_theme_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val prependSearchPath_ = call (load_sym libgtk "gtk_icon_theme_prepend_search_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val rescanIfNeeded_ = call (load_sym libgtk "gtk_icon_theme_rescan_if_needed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setCustomTheme_ = call (load_sym libgtk "gtk_icon_theme_set_custom_theme") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_icon_theme_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkIconThemeClass.t
     type icon_info_record_t = GtkIconInfoRecord.t

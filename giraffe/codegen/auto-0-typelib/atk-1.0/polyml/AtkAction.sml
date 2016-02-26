@@ -5,20 +5,20 @@ structure AtkAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val doAction_ = call (load_sym libatk "atk_action_do_action") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val getDescription_ = call (load_sym libatk "atk_action_get_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getLocalizedName_ = call (load_sym libatk "atk_action_get_localized_name") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getNActions_ = call (load_sym libatk "atk_action_get_n_actions") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getName_ = call (load_sym libatk "atk_action_get_name") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libatk "atk_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val doAction_ = call (load_sym libatk "atk_action_do_action") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val getDescription_ = call (load_sym libatk "atk_action_get_description") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getLocalizedName_ = call (load_sym libatk "atk_action_get_localized_name") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNActions_ = call (load_sym libatk "atk_action_get_n_actions") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getName_ = call (load_sym libatk "atk_action_get_name") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val setDescription_ =
         call (load_sym libatk "atk_action_set_description")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a AtkActionClass.t

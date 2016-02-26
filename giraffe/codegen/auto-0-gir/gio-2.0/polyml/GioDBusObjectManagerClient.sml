@@ -14,13 +14,13 @@ structure GioDBusObjectManagerClient :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_manager_client_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFinish_ = call (load_sym libgio "g_dbus_object_manager_client_new_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newForBusFinish_ = call (load_sym libgio "g_dbus_object_manager_client_new_for_bus_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val getConnection_ = call (load_sym libgio "g_dbus_object_manager_client_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFlags_ = call (load_sym libgio "g_dbus_object_manager_client_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusObjectManagerClientFlags.PolyML.VAL)
-      val getName_ = call (load_sym libgio "g_dbus_object_manager_client_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getNameOwner_ = call (load_sym libgio "g_dbus_object_manager_client_get_name_owner") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgio "g_dbus_object_manager_client_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFinish_ = call (load_sym libgio "g_dbus_object_manager_client_new_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newForBusFinish_ = call (load_sym libgio "g_dbus_object_manager_client_new_for_bus_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val getConnection_ = call (load_sym libgio "g_dbus_object_manager_client_get_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFlags_ = call (load_sym libgio "g_dbus_object_manager_client_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioDBusObjectManagerClientFlags.PolyML.cVal)
+      val getName_ = call (load_sym libgio "g_dbus_object_manager_client_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getNameOwner_ = call (load_sym libgio "g_dbus_object_manager_client_get_name_owner") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GioDBusObjectManagerClientClass.t
     type 'a async_initable_class_t = 'a GioAsyncInitableClass.t

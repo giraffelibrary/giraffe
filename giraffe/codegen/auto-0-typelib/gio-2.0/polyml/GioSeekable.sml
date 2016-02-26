@@ -6,28 +6,28 @@ structure GioSeekable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_seekable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val canSeek_ = call (load_sym libgio "g_seekable_can_seek") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val canTruncate_ = call (load_sym libgio "g_seekable_can_truncate") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_seekable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val canSeek_ = call (load_sym libgio "g_seekable_can_seek") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canTruncate_ = call (load_sym libgio "g_seekable_can_truncate") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val seek_ =
         call (load_sym libgio "g_seekable_seek")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> GLibSeekType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> GLibSeekType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val tell_ = call (load_sym libgio "g_seekable_tell") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
+      val tell_ = call (load_sym libgio "g_seekable_tell") (GObjectObjectClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
       val truncate_ =
         call (load_sym libgio "g_seekable_truncate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioSeekableClass.t

@@ -8,57 +8,57 @@ structure GLibRegex :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_regex_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "g_regex_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libglib "g_regex_new")
           (
-            Utf8.PolyML.INPTR
-             &&> GLibRegexCompileFlags.PolyML.VAL
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibRegexRecord.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> GLibRegexCompileFlags.PolyML.cVal
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibRegexRecord.PolyML.cPtr
           )
-      val getCaptureCount_ = call (load_sym libglib "g_regex_get_capture_count") (GLibRegexRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getCompileFlags_ = call (load_sym libglib "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.PTR --> GLibRegexCompileFlags.PolyML.VAL)
-      val getMatchFlags_ = call (load_sym libglib "g_regex_get_match_flags") (GLibRegexRecord.PolyML.PTR --> GLibRegexMatchFlags.PolyML.VAL)
-      val getMaxBackref_ = call (load_sym libglib "g_regex_get_max_backref") (GLibRegexRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getPattern_ = call (load_sym libglib "g_regex_get_pattern") (GLibRegexRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getStringNumber_ = call (load_sym libglib "g_regex_get_string_number") (GLibRegexRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
+      val getCaptureCount_ = call (load_sym libglib "g_regex_get_capture_count") (GLibRegexRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getCompileFlags_ = call (load_sym libglib "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexCompileFlags.PolyML.cVal)
+      val getMatchFlags_ = call (load_sym libglib "g_regex_get_match_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexMatchFlags.PolyML.cVal)
+      val getMaxBackref_ = call (load_sym libglib "g_regex_get_max_backref") (GLibRegexRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getPattern_ = call (load_sym libglib "g_regex_get_pattern") (GLibRegexRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStringNumber_ = call (load_sym libglib "g_regex_get_string_number") (GLibRegexRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
       val match_ =
         call (load_sym libglib "g_regex_match")
           (
-            GLibRegexRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             &&> GLibMatchInfoRecord.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibRegexRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             &&> GLibMatchInfoRecord.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
       val matchAll_ =
         call (load_sym libglib "g_regex_match_all")
           (
-            GLibRegexRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             &&> GLibMatchInfoRecord.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GLibRegexRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             &&> GLibMatchInfoRecord.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
       val checkReplacement_ =
         call (load_sym libglib "g_regex_check_replacement")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val escapeNul_ = call (load_sym libglib "g_regex_escape_nul") (Utf8.PolyML.INPTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val escapeNul_ = call (load_sym libglib "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val matchSimple_ =
         call (load_sym libglib "g_regex_match_simple")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibRegexCompileFlags.PolyML.VAL
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexCompileFlags.PolyML.cVal
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type record_t = GLibRegexRecord.t

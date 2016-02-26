@@ -6,33 +6,33 @@ structure GtkSourceCompletionItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newFromStock_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_from_stock")
           (
-            Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newWithMarkup_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_with_markup")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GtkSourceCompletionItemClass.t

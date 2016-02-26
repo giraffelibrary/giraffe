@@ -7,12 +7,12 @@ structure GioUnixSocketAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_socket_address_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_unix_socket_address_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val abstractNamesSupported_ = call (load_sym libgio "g_unix_socket_address_abstract_names_supported") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val getAddressType_ = call (load_sym libgio "g_unix_socket_address_get_address_type") (GObjectObjectClass.PolyML.PTR --> GioUnixSocketAddressType.PolyML.VAL)
-      val getPath_ = call (load_sym libgio "g_unix_socket_address_get_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.PTR --> FFI.Size.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_unix_socket_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_unix_socket_address_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val abstractNamesSupported_ = call (load_sym libgio "g_unix_socket_address_abstract_names_supported") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+      val getAddressType_ = call (load_sym libgio "g_unix_socket_address_get_address_type") (GObjectObjectClass.PolyML.cPtr --> GioUnixSocketAddressType.PolyML.cVal)
+      val getPath_ = call (load_sym libgio "g_unix_socket_address_get_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
     end
     type 'a class_t = 'a GioUnixSocketAddressClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t

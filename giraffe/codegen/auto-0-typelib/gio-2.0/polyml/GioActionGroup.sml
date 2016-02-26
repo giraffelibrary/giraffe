@@ -5,47 +5,47 @@ structure GioActionGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_action_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val actionAdded_ = call (load_sym libgio "g_action_group_action_added") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_action_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val actionAdded_ = call (load_sym libgio "g_action_group_action_added") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val actionEnabledChanged_ =
         call (load_sym libgio "g_action_group_action_enabled_changed")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val actionRemoved_ = call (load_sym libgio "g_action_group_action_removed") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val actionRemoved_ = call (load_sym libgio "g_action_group_action_removed") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val actionStateChanged_ =
         call (load_sym libgio "g_action_group_action_state_changed")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val activateAction_ =
         call (load_sym libgio "g_action_group_activate_action")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             --> FFI.PolyML.cVoid
           )
       val changeActionState_ =
         call (load_sym libgio "g_action_group_change_action_state")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getActionEnabled_ = call (load_sym libgio "g_action_group_get_action_enabled") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val getActionParameterType_ = call (load_sym libgio "g_action_group_get_action_parameter_type") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantTypeRecord.PolyML.PTR)
-      val getActionState_ = call (load_sym libgio "g_action_group_get_action_state") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
-      val getActionStateHint_ = call (load_sym libgio "g_action_group_get_action_state_hint") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
-      val getActionStateType_ = call (load_sym libgio "g_action_group_get_action_state_type") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantTypeRecord.PolyML.PTR)
-      val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val getActionEnabled_ = call (load_sym libgio "g_action_group_get_action_enabled") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val getActionParameterType_ = call (load_sym libgio "g_action_group_get_action_parameter_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val getActionState_ = call (load_sym libgio "g_action_group_get_action_state") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getActionStateHint_ = call (load_sym libgio "g_action_group_get_action_state_hint") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getActionStateType_ = call (load_sym libgio "g_action_group_get_action_state_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioActionGroupClass.t
     type t = base class_t

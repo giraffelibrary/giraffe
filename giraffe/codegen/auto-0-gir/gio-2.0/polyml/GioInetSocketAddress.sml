@@ -7,10 +7,10 @@ structure GioInetSocketAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_inet_socket_address_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_inet_socket_address_new") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt16.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getAddress_ = call (load_sym libgio "g_inet_socket_address_get_address") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPort_ = call (load_sym libgio "g_inet_socket_address_get_port") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_inet_socket_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_inet_socket_address_new") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt16.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getAddress_ = call (load_sym libgio "g_inet_socket_address_get_address") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPort_ = call (load_sym libgio "g_inet_socket_address_get_port") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
     end
     type 'a class_t = 'a GioInetSocketAddressClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t

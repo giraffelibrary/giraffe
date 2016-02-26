@@ -9,27 +9,27 @@ structure GioProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_proxy_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val connect_ =
         call (load_sym libgio "g_proxy_connect")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val connectFinish_ =
         call (load_sym libgio "g_proxy_connect_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioProxyClass.t
     type 'a cancellable_class_t = 'a GioCancellableClass.t

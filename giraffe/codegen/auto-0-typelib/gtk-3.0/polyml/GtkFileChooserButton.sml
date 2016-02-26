@@ -10,15 +10,15 @@ structure GtkFileChooserButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_file_chooser_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_file_chooser_button_new") (Utf8.PolyML.INPTR &&> GtkFileChooserAction.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newWithDialog_ = call (load_sym libgtk "gtk_file_chooser_button_new_with_dialog") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFocusOnClick_ = call (load_sym libgtk "gtk_file_chooser_button_get_focus_on_click") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_file_chooser_button_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getWidthChars_ = call (load_sym libgtk "gtk_file_chooser_button_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val setFocusOnClick_ = call (load_sym libgtk "gtk_file_chooser_button_set_focus_on_click") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_file_chooser_button_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setWidthChars_ = call (load_sym libgtk "gtk_file_chooser_button_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_file_chooser_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_file_chooser_button_new") (Utf8.PolyML.cInPtr &&> GtkFileChooserAction.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newWithDialog_ = call (load_sym libgtk "gtk_file_chooser_button_new_with_dialog") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFocusOnClick_ = call (load_sym libgtk "gtk_file_chooser_button_get_focus_on_click") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getTitle_ = call (load_sym libgtk "gtk_file_chooser_button_get_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getWidthChars_ = call (load_sym libgtk "gtk_file_chooser_button_get_width_chars") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val setFocusOnClick_ = call (load_sym libgtk "gtk_file_chooser_button_set_focus_on_click") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_file_chooser_button_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setWidthChars_ = call (load_sym libgtk "gtk_file_chooser_button_set_width_chars") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkFileChooserButtonClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

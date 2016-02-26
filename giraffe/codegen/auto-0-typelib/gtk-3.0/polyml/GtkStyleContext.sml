@@ -14,144 +14,144 @@ structure GtkStyleContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_style_context_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_style_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_style_context_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addProviderForScreen_ =
         call (load_sym libgtk "gtk_style_context_add_provider_for_screen")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val removeProviderForScreen_ = call (load_sym libgtk "gtk_style_context_remove_provider_for_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val resetWidgets_ = call (load_sym libgtk "gtk_style_context_reset_widgets") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val addClass_ = call (load_sym libgtk "gtk_style_context_add_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val removeProviderForScreen_ = call (load_sym libgtk "gtk_style_context_remove_provider_for_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val resetWidgets_ = call (load_sym libgtk "gtk_style_context_reset_widgets") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addClass_ = call (load_sym libgtk "gtk_style_context_add_class") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val addProvider_ =
         call (load_sym libgtk "gtk_style_context_add_provider")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val addRegion_ =
         call (load_sym libgtk "gtk_style_context_add_region")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkRegionFlags.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkRegionFlags.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val getBackgroundColor_ =
         call (load_sym libgtk "gtk_style_context_get_background_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getBorder_ =
         call (load_sym libgtk "gtk_style_context_get_border")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getBorderColor_ =
         call (load_sym libgtk "gtk_style_context_get_border_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getColor_ =
         call (load_sym libgtk "gtk_style_context_get_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getDirection_ = call (load_sym libgtk "gtk_style_context_get_direction") (GObjectObjectClass.PolyML.PTR --> GtkTextDirection.PolyML.VAL)
-      val getFont_ = call (load_sym libgtk "gtk_style_context_get_font") (GObjectObjectClass.PolyML.PTR &&> GtkStateFlags.PolyML.VAL --> PangoFontDescriptionRecord.PolyML.PTR)
-      val getJunctionSides_ = call (load_sym libgtk "gtk_style_context_get_junction_sides") (GObjectObjectClass.PolyML.PTR --> GtkJunctionSides.PolyML.VAL)
+      val getDirection_ = call (load_sym libgtk "gtk_style_context_get_direction") (GObjectObjectClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
+      val getFont_ = call (load_sym libgtk "gtk_style_context_get_font") (GObjectObjectClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getJunctionSides_ = call (load_sym libgtk "gtk_style_context_get_junction_sides") (GObjectObjectClass.PolyML.cPtr --> GtkJunctionSides.PolyML.cVal)
       val getMargin_ =
         call (load_sym libgtk "gtk_style_context_get_margin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_style_context_get_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GtkBorderRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GtkBorderRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getPath_ = call (load_sym libgtk "gtk_style_context_get_path") (GObjectObjectClass.PolyML.PTR --> GtkWidgetPathRecord.PolyML.PTR)
-      val getScreen_ = call (load_sym libgtk "gtk_style_context_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getState_ = call (load_sym libgtk "gtk_style_context_get_state") (GObjectObjectClass.PolyML.PTR --> GtkStateFlags.PolyML.VAL)
+      val getPath_ = call (load_sym libgtk "gtk_style_context_get_path") (GObjectObjectClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val getScreen_ = call (load_sym libgtk "gtk_style_context_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getState_ = call (load_sym libgtk "gtk_style_context_get_state") (GObjectObjectClass.PolyML.cPtr --> GtkStateFlags.PolyML.cVal)
       val getStyleProperty_ =
         call (load_sym libgtk "gtk_style_context_get_style_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val hasClass_ = call (load_sym libgtk "gtk_style_context_has_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val hasClass_ = call (load_sym libgtk "gtk_style_context_has_class") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val hasRegion_ =
         call (load_sym libgtk "gtk_style_context_has_region")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkRegionFlags.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkRegionFlags.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val invalidate_ = call (load_sym libgtk "gtk_style_context_invalidate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val invalidate_ = call (load_sym libgtk "gtk_style_context_invalidate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val lookupColor_ =
         call (load_sym libgtk "gtk_style_context_lookup_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GdkRgbaRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GdkRgbaRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_context_lookup_icon_set") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkIconSetRecord.PolyML.PTR)
-      val popAnimatableRegion_ = call (load_sym libgtk "gtk_style_context_pop_animatable_region") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeClass_ = call (load_sym libgtk "gtk_style_context_remove_class") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val removeProvider_ = call (load_sym libgtk "gtk_style_context_remove_provider") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeRegion_ = call (load_sym libgtk "gtk_style_context_remove_region") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val restore_ = call (load_sym libgtk "gtk_style_context_restore") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val save_ = call (load_sym libgtk "gtk_style_context_save") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val lookupIconSet_ = call (load_sym libgtk "gtk_style_context_lookup_icon_set") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val popAnimatableRegion_ = call (load_sym libgtk "gtk_style_context_pop_animatable_region") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeClass_ = call (load_sym libgtk "gtk_style_context_remove_class") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val removeProvider_ = call (load_sym libgtk "gtk_style_context_remove_provider") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeRegion_ = call (load_sym libgtk "gtk_style_context_remove_region") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val restore_ = call (load_sym libgtk "gtk_style_context_restore") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val save_ = call (load_sym libgtk "gtk_style_context_save") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val scrollAnimations_ =
         call (load_sym libgtk "gtk_style_context_scroll_animations")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setBackground_ = call (load_sym libgtk "gtk_style_context_set_background") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDirection_ = call (load_sym libgtk "gtk_style_context_set_direction") (GObjectObjectClass.PolyML.PTR &&> GtkTextDirection.PolyML.VAL --> FFI.PolyML.VOID)
-      val setJunctionSides_ = call (load_sym libgtk "gtk_style_context_set_junction_sides") (GObjectObjectClass.PolyML.PTR &&> GtkJunctionSides.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPath_ = call (load_sym libgtk "gtk_style_context_set_path") (GObjectObjectClass.PolyML.PTR &&> GtkWidgetPathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setScreen_ = call (load_sym libgtk "gtk_style_context_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setState_ = call (load_sym libgtk "gtk_style_context_set_state") (GObjectObjectClass.PolyML.PTR &&> GtkStateFlags.PolyML.VAL --> FFI.PolyML.VOID)
+      val setBackground_ = call (load_sym libgtk "gtk_style_context_set_background") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDirection_ = call (load_sym libgtk "gtk_style_context_set_direction") (GObjectObjectClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setJunctionSides_ = call (load_sym libgtk "gtk_style_context_set_junction_sides") (GObjectObjectClass.PolyML.cPtr &&> GtkJunctionSides.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPath_ = call (load_sym libgtk "gtk_style_context_set_path") (GObjectObjectClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_style_context_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setState_ = call (load_sym libgtk "gtk_style_context_set_state") (GObjectObjectClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> FFI.PolyML.cVoid)
       val stateIsRunning_ =
         call (load_sym libgtk "gtk_style_context_state_is_running")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Double.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GtkStyleContextClass.t

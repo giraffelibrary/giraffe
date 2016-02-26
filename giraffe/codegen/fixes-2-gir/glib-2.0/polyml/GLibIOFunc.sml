@@ -30,9 +30,9 @@ structure GLibIOFunc :>
         in
           val makeClosure =
             closure (
-              GLibIOChannelRecord.PolyML.PTR
-               &&> GLibIOCondition.PolyML.VAL
-               --> FFI.Bool.PolyML.VAL
+              GLibIOChannelRecord.PolyML.cPtr
+               &&> GLibIOCondition.PolyML.cVal
+               --> FFI.Bool.PolyML.cVal
             )
         end
         fun withCallback f callback =

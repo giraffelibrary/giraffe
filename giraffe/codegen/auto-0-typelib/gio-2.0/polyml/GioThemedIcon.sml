@@ -6,11 +6,11 @@ structure GioThemedIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_themed_icon_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_themed_icon_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithDefaultFallbacks_ = call (load_sym libgio "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_themed_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_themed_icon_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithDefaultFallbacks_ = call (load_sym libgio "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioThemedIconClass.t
     type 'a icon_class_t = 'a GioIconClass.t

@@ -7,32 +7,32 @@ structure GioTlsCertificate :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_certificate_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_tls_certificate_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val newFromFiles_ =
         call (load_sym libgio "g_tls_certificate_new_from_files")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newFromPem_ =
         call (load_sym libgio "g_tls_certificate_new_from_pem")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getIssuer_ = call (load_sym libgio "g_tls_certificate_get_issuer") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getIssuer_ = call (load_sym libgio "g_tls_certificate_get_issuer") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val verify_ =
         call (load_sym libgio "g_tls_certificate_verify")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             --> GioTlsCertificateFlags.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             --> GioTlsCertificateFlags.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioTlsCertificateClass.t

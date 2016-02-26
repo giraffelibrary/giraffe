@@ -5,9 +5,9 @@ structure GioPollableOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_pollable_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val canPoll_ = call (load_sym libgio "g_pollable_output_stream_can_poll") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isWritable_ = call (load_sym libgio "g_pollable_output_stream_is_writable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_pollable_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val canPoll_ = call (load_sym libgio "g_pollable_output_stream_can_poll") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isWritable_ = call (load_sym libgio "g_pollable_output_stream_is_writable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioPollableOutputStreamClass.t
     type t = base class_t

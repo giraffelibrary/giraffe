@@ -367,22 +367,22 @@ local
   (*
    *     structure PolyML =                          -.
    *       struct                                     |
-   *         val VAL = FFI.Enum.PolyML.VAL            | Poly/ML only
-   *         val REF = FFI.Enum.PolyML.REF            |
+   *         val cVal = FFI.Enum.PolyML.cVal          | Poly/ML only
+   *         val cRef = FFI.Enum.PolyML.cRef          |
    *       end                                       -'
    *)
   val structPolyMLStrDec =
     mkPolyMLStructStrDec [
       StrDecDec (
         mkIdValDec (
-          VALId,
-          mkLIdLNameExp [FFIId, EnumId, PolyMLId, VALId]
+          cValId,
+          mkLIdLNameExp [FFIId, EnumId, PolyMLId, cValId]
         )
       ),
       StrDecDec (
         mkIdValDec (
-          REFId,
-          mkLIdLNameExp [FFIId, EnumId, PolyMLId, REFId]
+          cRefId,
+          mkLIdLNameExp [FFIId, EnumId, PolyMLId, cRefId]
         )
       )
     ]

@@ -9,37 +9,37 @@ structure GtkInfoBar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_info_bar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_info_bar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_info_bar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_info_bar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addActionWidget_ =
         call (load_sym libgtk "gtk_info_bar_add_action_widget")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val addButton_ =
         call (load_sym libgtk "gtk_info_bar_add_button")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getActionArea_ = call (load_sym libgtk "gtk_info_bar_get_action_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getContentArea_ = call (load_sym libgtk "gtk_info_bar_get_content_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getMessageType_ = call (load_sym libgtk "gtk_info_bar_get_message_type") (GObjectObjectClass.PolyML.PTR --> GtkMessageType.PolyML.VAL)
-      val response_ = call (load_sym libgtk "gtk_info_bar_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_info_bar_set_default_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMessageType_ = call (load_sym libgtk "gtk_info_bar_set_message_type") (GObjectObjectClass.PolyML.PTR &&> GtkMessageType.PolyML.VAL --> FFI.PolyML.VOID)
+      val getActionArea_ = call (load_sym libgtk "gtk_info_bar_get_action_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getContentArea_ = call (load_sym libgtk "gtk_info_bar_get_content_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getMessageType_ = call (load_sym libgtk "gtk_info_bar_get_message_type") (GObjectObjectClass.PolyML.cPtr --> GtkMessageType.PolyML.cVal)
+      val response_ = call (load_sym libgtk "gtk_info_bar_response") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDefaultResponse_ = call (load_sym libgtk "gtk_info_bar_set_default_response") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMessageType_ = call (load_sym libgtk "gtk_info_bar_set_message_type") (GObjectObjectClass.PolyML.cPtr &&> GtkMessageType.PolyML.cVal --> FFI.PolyML.cVoid)
       val setResponseSensitive_ =
         call (load_sym libgtk "gtk_info_bar_set_response_sensitive")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkInfoBarClass.t

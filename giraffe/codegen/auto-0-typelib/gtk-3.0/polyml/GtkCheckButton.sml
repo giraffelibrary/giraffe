@@ -7,10 +7,10 @@ structure GtkCheckButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_check_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_check_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_check_button_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_check_button_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_check_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_check_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabel_ = call (load_sym libgtk "gtk_check_button_new_with_label") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_check_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkCheckButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

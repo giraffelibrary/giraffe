@@ -4,10 +4,12 @@ structure GLibIOChannelRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
-        val OUTREF : (unit, C.notnull) C.r PolyMLFFI.conversion
-        val INOUTREF : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
+        val cOutRef : (unit, C.notnull) C.r PolyMLFFI.conversion
+        val cOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
+        val cInOutRef : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cInOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -15,10 +17,12 @@ structure GLibIOChannelRecord :>
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val OUTREF = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
-    val INOUTREF = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cOutRef = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
+    val cOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
+    val cInOutRef = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
+    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -26,12 +30,12 @@ structure GLibIOChannelRecord :>
       val ref_ =
         call
           (load_sym libglib "g_io_channel_ref")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val unref_ =
         call
           (load_sym libglib "g_io_channel_unref")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -76,9 +80,11 @@ structure GLibIOChannelRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
-        val OUTREF = OUTREF
-        val INOUTREF = INOUTREF
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
+        val cOutRef = cOutRef
+        val cOutOptRef = cOutOptRef
+        val cInOutRef = cInOutRef
+        val cInOutOptRef = cInOutOptRef
       end
   end

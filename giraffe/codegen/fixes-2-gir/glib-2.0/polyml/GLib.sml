@@ -6,139 +6,139 @@ structure GLib : G_LIB =
       val checkVersion_ =
         call (load_sym libglib "glib_check_version")
           (
-            FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> Utf8.PolyML.RETPTR
+            FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
           )
       val childWatchAdd_ =
         call (load_sym libgiraffeglib "giraffe_g_child_watch_add")
           (
-            FFI.Int.PolyML.VAL
-             &&> GLibPid.PolyML.VAL
+            FFI.Int.PolyML.cVal
+             &&> GLibPid.PolyML.cVal
              &&> GLibChildWatchFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.VAL
+             --> FFI.UInt.PolyML.cVal
           )
-      val childWatchSourceNew_ = call (load_sym libgiraffeglib "giraffe_g_child_watch_source_new") (GLibPid.PolyML.VAL &&> GLibChildWatchFunc.PolyML.CALLBACK --> GLibSourceRecord.PolyML.PTR)
+      val childWatchSourceNew_ = call (load_sym libgiraffeglib "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.CALLBACK --> GLibSourceRecord.PolyML.cPtr)
       val filenameFromUri_ =
         call (load_sym libglib "g_filename_from_uri")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
       val filenameToUri_ =
         call (load_sym libglib "g_filename_to_uri")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (FFI.Int.PolyML.VAL &&> GLibSourceFunc.PolyML.CALLBACK --> FFI.UInt.PolyML.VAL)
+      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (FFI.Int.PolyML.cVal &&> GLibSourceFunc.PolyML.CALLBACK --> FFI.UInt.PolyML.cVal)
       val ioAddWatch_ =
         call
           (load_sym libgiraffeglib "giraffe_g_io_add_watch")
           (
-            GLibIOChannelRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> GLibIOCondition.PolyML.VAL
+            GLibIOChannelRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> GLibIOCondition.PolyML.cVal
              &&> GLibIOFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.VAL
+             --> FFI.UInt.PolyML.cVal
           )
-      val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.PTR &&> GLibIOCondition.PolyML.VAL --> GLibSourceRecord.PolyML.PTR)
+      val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val logDefaultHandler_ =
         call (load_sym libglib "g_log_default_handler")
           (
-            Utf8.PolyML.INPTR
-             &&> GLibLogLevelFlags.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            Utf8.PolyML.cInPtr
+             &&> GLibLogLevelFlags.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
-      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.INPTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
-      val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
-      val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (Utf8.PolyML.INPTR &&> GLibLogLevelFlags.PolyML.VAL --> GLibLogLevelFlags.PolyML.VAL)
-      val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (FFI.PolyML.VOID --> GLibMainContextRecord.PolyML.PTR)
-      val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (FFI.PolyML.VOID --> GLibMainContextRecord.PolyML.PTR)
-      val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (FFI.PolyML.VOID --> GLibSourceRecord.PolyML.PTR)
-      val mainDepth_ = call (load_sym libglib "g_main_depth") (FFI.PolyML.VOID --> FFI.Int.PolyML.VAL)
+      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
+      val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
+      val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (FFI.PolyML.cVoid --> GLibSourceRecord.PolyML.cPtr)
+      val mainDepth_ = call (load_sym libglib "g_main_depth") (FFI.PolyML.cVoid --> FFI.Int.PolyML.cVal)
       val regexMatchSimple_ =
         call (load_sym libglib "g_regex_match_simple")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibRegexCompileFlags.PolyML.VAL
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexCompileFlags.PolyML.cVal
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val shellParseArgv_ =
         call
           (load_sym libglib "g_shell_parse_argv")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.OptPointer.PolyML.VAL
-             &&> Utf8CVector.PolyML.OUTREF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> FFI.OptPointer.PolyML.cVal
+             &&> Utf8CVector.PolyML.cOutRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val shellQuote_ = call (load_sym libglib "g_shell_quote") (Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> Utf8.PolyML.RETPTR)
-      val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.UInt.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val shellQuote_ = call (load_sym libglib "g_shell_quote") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
+      val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val spawnAsyncWithPipes_ =
         call
           (load_sym libgiraffeglib "giraffe_g_spawn_async_with_pipes")
           (
-            Utf8.PolyML.INOPTPTR
-             &&> Utf8CVector.PolyML.INPTR
-             &&> Utf8CVector.PolyML.INOPTPTR
-             &&> GLibSpawnFlags.PolyML.VAL
+            Utf8.PolyML.cInOptPtr
+             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CVector.PolyML.cInOptPtr
+             &&> GLibSpawnFlags.PolyML.cVal
              &&> GLibSpawnChildSetupFunc.PolyML.CALLBACK
-             &&> GLibPid.PolyML.REF
-             &&> FileDesc.PolyML.REF
-             &&> FileDesc.PolyML.REF
-             &&> FileDesc.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+             &&> GLibPid.PolyML.cRef
+             &&> FileDesc.PolyML.cRef
+             &&> FileDesc.PolyML.cRef
+             &&> FileDesc.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GLibPid.PolyML.VAL --> FFI.PolyML.VOID)
-      val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GLibPid.PolyML.cVal --> FFI.PolyML.cVoid)
+      val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
       val timeoutAdd_ =
         call
           (load_sym libgiraffeglib "giraffe_g_timeout_add")
           (
-            FFI.Int.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
+            FFI.Int.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.VAL
+             --> FFI.UInt.PolyML.cVal
           )
       val timeoutAddSeconds_ =
         call
           (load_sym libgiraffeglib "giraffe_g_timeout_add_seconds")
           (
-            FFI.Int.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
+            FFI.Int.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.VAL
+             --> FFI.UInt.PolyML.cVal
           )
       val uriEscapeString_ =
         call (load_sym libglib "g_uri_escape_string")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> Utf8.PolyML.RETPTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
           )
-      val uriParseScheme_ = call (load_sym libglib "g_uri_parse_scheme") (Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val uriParseScheme_ = call (load_sym libglib "g_uri_parse_scheme") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val uriUnescapeSegment_ =
         call (load_sym libglib "g_uri_unescape_segment")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> Utf8.PolyML.RETPTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> Utf8.PolyML.cOutPtr
           )
-      val uriUnescapeString_ = call (load_sym libglib "g_uri_unescape_string") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val uriUnescapeString_ = call (load_sym libglib "g_uri_unescape_string") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     structure SourceFunc = GLibSourceFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc

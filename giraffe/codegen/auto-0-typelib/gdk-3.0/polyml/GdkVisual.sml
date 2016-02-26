@@ -8,47 +8,47 @@ structure GdkVisual :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_visual_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getBest_ = call (load_sym libgdk "gdk_visual_get_best") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getBestDepth_ = call (load_sym libgdk "gdk_visual_get_best_depth") (FFI.PolyML.VOID --> FFI.Int32.PolyML.VAL)
-      val getBestType_ = call (load_sym libgdk "gdk_visual_get_best_type") (FFI.PolyML.VOID --> GdkVisualType.PolyML.VAL)
-      val getBestWithBoth_ = call (load_sym libgdk "gdk_visual_get_best_with_both") (FFI.Int32.PolyML.VAL &&> GdkVisualType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getBestWithDepth_ = call (load_sym libgdk "gdk_visual_get_best_with_depth") (FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getBestWithType_ = call (load_sym libgdk "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getSystem_ = call (load_sym libgdk "gdk_visual_get_system") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getBitsPerRgb_ = call (load_sym libgdk "gdk_visual_get_bits_per_rgb") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getType_ = call (load_sym libgdk "gdk_visual_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getBest_ = call (load_sym libgdk "gdk_visual_get_best") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getBestDepth_ = call (load_sym libgdk "gdk_visual_get_best_depth") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
+      val getBestType_ = call (load_sym libgdk "gdk_visual_get_best_type") (FFI.PolyML.cVoid --> GdkVisualType.PolyML.cVal)
+      val getBestWithBoth_ = call (load_sym libgdk "gdk_visual_get_best_with_both") (FFI.Int32.PolyML.cVal &&> GdkVisualType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getBestWithDepth_ = call (load_sym libgdk "gdk_visual_get_best_with_depth") (FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getBestWithType_ = call (load_sym libgdk "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getSystem_ = call (load_sym libgdk "gdk_visual_get_system") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getBitsPerRgb_ = call (load_sym libgdk "gdk_visual_get_bits_per_rgb") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getBluePixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_blue_pixel_details")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getByteOrder_ = call (load_sym libgdk "gdk_visual_get_byte_order") (GObjectObjectClass.PolyML.PTR --> GdkByteOrder.PolyML.VAL)
-      val getColormapSize_ = call (load_sym libgdk "gdk_visual_get_colormap_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getDepth_ = call (load_sym libgdk "gdk_visual_get_depth") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val getByteOrder_ = call (load_sym libgdk "gdk_visual_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GdkByteOrder.PolyML.cVal)
+      val getColormapSize_ = call (load_sym libgdk "gdk_visual_get_colormap_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getDepth_ = call (load_sym libgdk "gdk_visual_get_depth") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getGreenPixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_green_pixel_details")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getRedPixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_red_pixel_details")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GObjectObjectClass.PolyML.PTR --> GdkVisualType.PolyML.VAL)
+      val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GObjectObjectClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
     end
     type 'a class_t = 'a GdkVisualClass.t
     type byte_order_t = GdkByteOrder.t

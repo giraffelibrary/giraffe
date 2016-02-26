@@ -5,8 +5,8 @@ structure PangoCairoFont :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpangocairo "pango_cairo_font_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getScaledFont_ = call (load_sym libpangocairo "pango_cairo_font_get_scaled_font") (GObjectObjectClass.PolyML.PTR --> CairoScaledFontRecord.PolyML.PTR)
+      val getType_ = call (load_sym libpangocairo "pango_cairo_font_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getScaledFont_ = call (load_sym libpangocairo "pango_cairo_font_get_scaled_font") (GObjectObjectClass.PolyML.cPtr --> CairoScaledFontRecord.PolyML.cPtr)
     end
     type 'a class_t = 'a PangoCairoFontClass.t
     type t = base class_t

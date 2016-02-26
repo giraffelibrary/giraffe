@@ -8,95 +8,95 @@ structure GtkTreeModel :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_model_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val filterNew_ = call (load_sym libgtk "gtk_tree_model_filter_new") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val getFlags_ = call (load_sym libgtk "gtk_tree_model_get_flags") (GObjectObjectClass.PolyML.PTR --> GtkTreeModelFlags.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tree_model_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val filterNew_ = call (load_sym libgtk "gtk_tree_model_filter_new") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFlags_ = call (load_sym libgtk "gtk_tree_model_get_flags") (GObjectObjectClass.PolyML.cPtr --> GtkTreeModelFlags.PolyML.cVal)
       val getIter_ =
         call (load_sym libgtk "gtk_tree_model_get_iter")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val getIterFirst_ = call (load_sym libgtk "gtk_tree_model_get_iter_first") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getIterFirst_ = call (load_sym libgtk "gtk_tree_model_get_iter_first") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getIterFromString_ =
         call (load_sym libgtk "gtk_tree_model_get_iter_from_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val getNColumns_ = call (load_sym libgtk "gtk_tree_model_get_n_columns") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getPath_ = call (load_sym libgtk "gtk_tree_model_get_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
-      val getStringFromIter_ = call (load_sym libgtk "gtk_tree_model_get_string_from_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getNColumns_ = call (load_sym libgtk "gtk_tree_model_get_n_columns") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getPath_ = call (load_sym libgtk "gtk_tree_model_get_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val getStringFromIter_ = call (load_sym libgtk "gtk_tree_model_get_string_from_iter") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getValue_ =
         call (load_sym libgtk "gtk_tree_model_get_value")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val iterChildren_ =
         call (load_sym libgtk "gtk_tree_model_iter_children")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.OPTPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cOptPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val iterHasChild_ = call (load_sym libgtk "gtk_tree_model_iter_has_child") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val iterNChildren_ = call (load_sym libgtk "gtk_tree_model_iter_n_children") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.OPTPTR --> FFI.Int.PolyML.VAL)
-      val iterNext_ = call (load_sym libgtk "gtk_tree_model_iter_next") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val iterHasChild_ = call (load_sym libgtk "gtk_tree_model_iter_has_child") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val iterNChildren_ = call (load_sym libgtk "gtk_tree_model_iter_n_children") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cOptPtr --> FFI.Int.PolyML.cVal)
+      val iterNext_ = call (load_sym libgtk "gtk_tree_model_iter_next") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val iterNthChild_ =
         call (load_sym libgtk "gtk_tree_model_iter_nth_child")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.OPTPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cOptPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val iterParent_ =
         call (load_sym libgtk "gtk_tree_model_iter_parent")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val iterPrevious_ = call (load_sym libgtk "gtk_tree_model_iter_previous") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val refNode_ = call (load_sym libgtk "gtk_tree_model_ref_node") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val iterPrevious_ = call (load_sym libgtk "gtk_tree_model_iter_previous") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val refNode_ = call (load_sym libgtk "gtk_tree_model_ref_node") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val rowChanged_ =
         call (load_sym libgtk "gtk_tree_model_row_changed")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val rowDeleted_ = call (load_sym libgtk "gtk_tree_model_row_deleted") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val rowDeleted_ = call (load_sym libgtk "gtk_tree_model_row_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val rowHasChildToggled_ =
         call (load_sym libgtk "gtk_tree_model_row_has_child_toggled")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val rowInserted_ =
         call (load_sym libgtk "gtk_tree_model_row_inserted")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val sortNewWithModel_ = call (load_sym libgtk "gtk_tree_model_sort_new_with_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val unrefNode_ = call (load_sym libgtk "gtk_tree_model_unref_node") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val sortNewWithModel_ = call (load_sym libgtk "gtk_tree_model_sort_new_with_model") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val unrefNode_ = call (load_sym libgtk "gtk_tree_model_unref_node") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTreeModelClass.t
     type tree_model_flags_t = GtkTreeModelFlags.t

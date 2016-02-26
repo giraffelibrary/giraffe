@@ -149,8 +149,8 @@ structure <EnumNamespace><EnumName> :>
 
     structure PolyML :                          -.
       sig                                        |
-        val VAL : C.val_ PolyMLFFI.conversion    | Poly/ML only
-        val REF : C.ref_ PolyMLFFI.conversion    |
+        val cVal : C.val_ PolyMLFFI.conversion   | Poly/ML only
+        val cRef : C.ref_ PolyMLFFI.conversion   |
       end                                       -'
   end =
   struct
@@ -183,8 +183,8 @@ structure <EnumNamespace><EnumName> :>
 
     structure PolyML =                          -.
       struct                                     |
-        val VAL = FFI.PolyML.Int32.VAL           | Poly/ML only
-        val REF = FFI.PolyML.Int32.REF           |
+        val cVal = FFI.PolyML.Int32.cVal         | Poly/ML only
+        val cRef = FFI.PolyML.Int32.cRef         |
       end                                       -'
 
 
@@ -196,17 +196,17 @@ structure <EnumNamespace><EnumName> :>
       val getType_ =                                                       |               |
         call                                                               |               |
           (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")            | Poly/ML only  |
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);                    |               |
+          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);                  |               |
                                                                            |               |
       val getValue_ =                                                      |               |
         call                                                               |               |
           (load_sym libgobject "g_value_get_enum")                         |               |
-          (GObjectValueRecord.PolyML.PTR --> PolyML.VAL);                  |               |
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal);                |               |
                                                                            |               |
       val setValue_ =                                                      |               |
         call                                                               |               |
           (load_sym libgobject "g_value_set_enum")                         |               |
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID);              |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid);           |
     end                                                                    |               | optGetTypeSymbol
                                                                           -'               |  is SOME getTypeSymbol
                                                                           -.               |
@@ -240,35 +240,24 @@ structure <EnumNamespace><EnumName> :>
                                                                      -'
 
     (* Low-Level Functions *)
-
-    local                                                                                 -.
+                                                                                          -.
+    local                                                                                  |
       open PolyMLFFI                                                                       |
     in                                                                                     |
-                                                              -.                           |
-      val getType_ =                                           |                           |
-        call                                                   | optGetTypeSymbol          |
-          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")|  is SOME getTypeSymbol    |
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);        |                           |
-                                                              -'                           | Poly/ML only
-                                                                                           |
       <LowLevelFunction[1]>                                                                |
-                                                                                           |
+                                                                                           | Poly/ML only
       ...                                                                                  |
                                                                                            |
       <LowLevelFunction[M]>                                                                |
-    end                                                                                   -'
-
-                                                              -.                          -.
-    val getType_ =                                             | optGetTypeSymbol          |
-      _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;  |  is SOME getTypeSymbol    |
-                                                              -'                           |
-                                                                                           | MLton only
+    end                                                                                    |
+                                                                                          -'
+                                                                                          -.
     <LowLevelFunction[1]>                                                                  |
                                                                                            |
-    ...                                                                                    |
+    ...                                                                                    | MLton only
                                                                                            |
-    <LowLevelFunction[M]>                                                                 -'
-
+    <LowLevelFunction[M]>                                                                  |
+                                                                                          -'
 
     (* Types *)
 

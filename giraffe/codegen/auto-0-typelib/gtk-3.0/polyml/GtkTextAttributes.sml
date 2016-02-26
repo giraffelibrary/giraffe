@@ -5,10 +5,10 @@ structure GtkTextAttributes :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_attributes_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_text_attributes_new") (FFI.PolyML.VOID --> GtkTextAttributesRecord.PolyML.PTR)
-      val copy_ = call (load_sym libgtk "gtk_text_attributes_copy") (GtkTextAttributesRecord.PolyML.PTR --> GtkTextAttributesRecord.PolyML.PTR)
-      val copyValues_ = call (load_sym libgtk "gtk_text_attributes_copy_values") (GtkTextAttributesRecord.PolyML.PTR &&> GtkTextAttributesRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_text_attributes_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_text_attributes_new") (FFI.PolyML.cVoid --> GtkTextAttributesRecord.PolyML.cPtr)
+      val copy_ = call (load_sym libgtk "gtk_text_attributes_copy") (GtkTextAttributesRecord.PolyML.cPtr --> GtkTextAttributesRecord.PolyML.cPtr)
+      val copyValues_ = call (load_sym libgtk "gtk_text_attributes_copy_values") (GtkTextAttributesRecord.PolyML.cPtr &&> GtkTextAttributesRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type record_t = GtkTextAttributesRecord.t
     type t = record_t

@@ -5,53 +5,53 @@ structure GtkAdjustment :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_adjustment_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_adjustment_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_adjustment_new")
           (
-            FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val changed_ = call (load_sym libgtk "gtk_adjustment_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val changed_ = call (load_sym libgtk "gtk_adjustment_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val clampPage_ =
         call (load_sym libgtk "gtk_adjustment_clamp_page")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val configure_ =
         call (load_sym libgtk "gtk_adjustment_configure")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getLower_ = call (load_sym libgtk "gtk_adjustment_get_lower") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getMinimumIncrement_ = call (load_sym libgtk "gtk_adjustment_get_minimum_increment") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getPageIncrement_ = call (load_sym libgtk "gtk_adjustment_get_page_increment") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getPageSize_ = call (load_sym libgtk "gtk_adjustment_get_page_size") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getStepIncrement_ = call (load_sym libgtk "gtk_adjustment_get_step_increment") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getUpper_ = call (load_sym libgtk "gtk_adjustment_get_upper") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getValue_ = call (load_sym libgtk "gtk_adjustment_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val setLower_ = call (load_sym libgtk "gtk_adjustment_set_lower") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPageIncrement_ = call (load_sym libgtk "gtk_adjustment_set_page_increment") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPageSize_ = call (load_sym libgtk "gtk_adjustment_set_page_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStepIncrement_ = call (load_sym libgtk "gtk_adjustment_set_step_increment") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUpper_ = call (load_sym libgtk "gtk_adjustment_set_upper") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setValue_ = call (load_sym libgtk "gtk_adjustment_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val valueChanged_ = call (load_sym libgtk "gtk_adjustment_value_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getLower_ = call (load_sym libgtk "gtk_adjustment_get_lower") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getMinimumIncrement_ = call (load_sym libgtk "gtk_adjustment_get_minimum_increment") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getPageIncrement_ = call (load_sym libgtk "gtk_adjustment_get_page_increment") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getPageSize_ = call (load_sym libgtk "gtk_adjustment_get_page_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getStepIncrement_ = call (load_sym libgtk "gtk_adjustment_get_step_increment") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getUpper_ = call (load_sym libgtk "gtk_adjustment_get_upper") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getValue_ = call (load_sym libgtk "gtk_adjustment_get_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val setLower_ = call (load_sym libgtk "gtk_adjustment_set_lower") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPageIncrement_ = call (load_sym libgtk "gtk_adjustment_set_page_increment") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPageSize_ = call (load_sym libgtk "gtk_adjustment_set_page_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStepIncrement_ = call (load_sym libgtk "gtk_adjustment_set_step_increment") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUpper_ = call (load_sym libgtk "gtk_adjustment_set_upper") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_adjustment_set_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val valueChanged_ = call (load_sym libgtk "gtk_adjustment_value_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAdjustmentClass.t
     type t = base class_t

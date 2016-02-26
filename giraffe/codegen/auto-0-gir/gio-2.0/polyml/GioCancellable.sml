@@ -5,19 +5,19 @@ structure GioCancellable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_cancellable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_cancellable_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getCurrent_ = call (load_sym libgio "g_cancellable_get_current") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val cancel_ = call (load_sym libgio "g_cancellable_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val disconnect_ = call (load_sym libgio "g_cancellable_disconnect") (GObjectObjectClass.PolyML.PTR &&> FFI.ULong.PolyML.VAL --> FFI.PolyML.VOID)
-      val getFd_ = call (load_sym libgio "g_cancellable_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val isCancelled_ = call (load_sym libgio "g_cancellable_is_cancelled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val makePollfd_ = call (load_sym libgio "g_cancellable_make_pollfd") (GObjectObjectClass.PolyML.PTR &&> GLibPollFDRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val popCurrent_ = call (load_sym libgio "g_cancellable_pop_current") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val pushCurrent_ = call (load_sym libgio "g_cancellable_push_current") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val releaseFd_ = call (load_sym libgio "g_cancellable_release_fd") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val reset_ = call (load_sym libgio "g_cancellable_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setErrorIfCancelled_ = call (load_sym libgio "g_cancellable_set_error_if_cancelled") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_cancellable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_cancellable_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getCurrent_ = call (load_sym libgio "g_cancellable_get_current") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val cancel_ = call (load_sym libgio "g_cancellable_cancel") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val disconnect_ = call (load_sym libgio "g_cancellable_disconnect") (GObjectObjectClass.PolyML.cPtr &&> FFI.ULong.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getFd_ = call (load_sym libgio "g_cancellable_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val isCancelled_ = call (load_sym libgio "g_cancellable_is_cancelled") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val makePollfd_ = call (load_sym libgio "g_cancellable_make_pollfd") (GObjectObjectClass.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val popCurrent_ = call (load_sym libgio "g_cancellable_pop_current") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val pushCurrent_ = call (load_sym libgio "g_cancellable_push_current") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val releaseFd_ = call (load_sym libgio "g_cancellable_release_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val reset_ = call (load_sym libgio "g_cancellable_reset") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setErrorIfCancelled_ = call (load_sym libgio "g_cancellable_set_error_if_cancelled") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioCancellableClass.t
     type t = base class_t

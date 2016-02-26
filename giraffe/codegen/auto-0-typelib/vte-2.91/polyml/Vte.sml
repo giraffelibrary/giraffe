@@ -3,10 +3,10 @@ structure Vte : VTE =
     local
       open PolyMLFFI
     in
-      val getMajorVersion_ = call (load_sym libvte "vte_get_major_version") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val getMicroVersion_ = call (load_sym libvte "vte_get_micro_version") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val getMinorVersion_ = call (load_sym libvte "vte_get_minor_version") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
+      val getMajorVersion_ = call (load_sym libvte "vte_get_major_version") (FFI.PolyML.cVoid --> FFI.UInt32.PolyML.cVal)
+      val getMicroVersion_ = call (load_sym libvte "vte_get_micro_version") (FFI.PolyML.cVoid --> FFI.UInt32.PolyML.cVal)
+      val getMinorVersion_ = call (load_sym libvte "vte_get_minor_version") (FFI.PolyML.cVoid --> FFI.UInt32.PolyML.cVal)
+      val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
     end
     structure CursorBlinkMode = VteCursorBlinkMode
     structure CursorShape = VteCursorShape

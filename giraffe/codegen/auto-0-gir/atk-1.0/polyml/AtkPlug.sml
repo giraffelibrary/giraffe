@@ -6,9 +6,9 @@ structure AtkPlug :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_plug_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libatk "atk_plug_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getId_ = call (load_sym libatk "atk_plug_get_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libatk "atk_plug_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libatk "atk_plug_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getId_ = call (load_sym libatk "atk_plug_get_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a AtkPlugClass.t
     type 'a component_class_t = 'a AtkComponentClass.t

@@ -5,14 +5,14 @@ structure GtkCellRendererToggle :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_cell_renderer_toggle_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getActivatable_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_activatable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getActive_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRadio_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_radio") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setActivatable_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_activatable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setActive_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setRadio_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_radio") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_renderer_toggle_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getActivatable_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_activatable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getActive_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRadio_ = call (load_sym libgtk "gtk_cell_renderer_toggle_get_radio") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActivatable_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_activatable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setActive_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRadio_ = call (load_sym libgtk "gtk_cell_renderer_toggle_set_radio") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCellRendererToggleClass.t
     type t = base class_t

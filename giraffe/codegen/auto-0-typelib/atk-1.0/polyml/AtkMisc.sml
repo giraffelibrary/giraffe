@@ -5,10 +5,10 @@ structure AtkMisc :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_misc_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getInstance_ = call (load_sym libatk "atk_misc_get_instance") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val threadsEnter_ = call (load_sym libatk "atk_misc_threads_enter") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val threadsLeave_ = call (load_sym libatk "atk_misc_threads_leave") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libatk "atk_misc_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getInstance_ = call (load_sym libatk "atk_misc_get_instance") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val threadsEnter_ = call (load_sym libatk "atk_misc_threads_enter") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val threadsLeave_ = call (load_sym libatk "atk_misc_threads_leave") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a AtkMiscClass.t
     type t = base class_t

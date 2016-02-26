@@ -4,16 +4,16 @@ structure GtkStockItemRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -21,17 +21,17 @@ structure GtkStockItemRecord :>
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_stock_item_new")
-          (FFI.PolyML.VOID --> PTR)
+          (FFI.PolyML.cVoid --> cPtr)
 
       val copy_ =
         call
           (load_sym libgiraffegtk "gtk_stock_item_copy")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val free_ =
         call
           (load_sym libgiraffegtk "gtk_stock_item_free")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -75,7 +75,7 @@ structure GtkStockItemRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
   end

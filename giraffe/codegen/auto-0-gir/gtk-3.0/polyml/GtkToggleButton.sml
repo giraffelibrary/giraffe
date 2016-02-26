@@ -7,17 +7,17 @@ structure GtkToggleButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_toggle_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_toggle_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_toggle_button_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_toggle_button_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getActive_ = call (load_sym libgtk "gtk_toggle_button_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getInconsistent_ = call (load_sym libgtk "gtk_toggle_button_get_inconsistent") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getMode_ = call (load_sym libgtk "gtk_toggle_button_get_mode") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_button_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInconsistent_ = call (load_sym libgtk "gtk_toggle_button_set_inconsistent") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMode_ = call (load_sym libgtk "gtk_toggle_button_set_mode") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val toggled_ = call (load_sym libgtk "gtk_toggle_button_toggled") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_toggle_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_toggle_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabel_ = call (load_sym libgtk "gtk_toggle_button_new_with_label") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_toggle_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_button_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getInconsistent_ = call (load_sym libgtk "gtk_toggle_button_get_inconsistent") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMode_ = call (load_sym libgtk "gtk_toggle_button_get_mode") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_button_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setInconsistent_ = call (load_sym libgtk "gtk_toggle_button_set_inconsistent") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMode_ = call (load_sym libgtk "gtk_toggle_button_set_mode") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val toggled_ = call (load_sym libgtk "gtk_toggle_button_toggled") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToggleButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

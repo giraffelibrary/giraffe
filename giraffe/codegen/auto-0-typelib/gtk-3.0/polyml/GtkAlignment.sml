@@ -6,45 +6,45 @@ structure GtkAlignment :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_alignment_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_alignment_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_alignment_new")
           (
-            FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_alignment_get_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.UInt32.PolyML.REF
-             &&> FFI.UInt32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.UInt32.PolyML.cRef
+             &&> FFI.UInt32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val set_ =
         call (load_sym libgtk "gtk_alignment_set")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setPadding_ =
         call (load_sym libgtk "gtk_alignment_set_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkAlignmentClass.t

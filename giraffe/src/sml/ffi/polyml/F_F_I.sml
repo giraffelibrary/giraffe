@@ -9,7 +9,7 @@ signature F_F_I =
   sig
     structure PolyML :
       sig
-        val VOID : unit PolyMLFFI.conversion
+        val cVoid : unit PolyMLFFI.conversion
       end
     structure Flags : F_F_I_FLAGS_ENUM where type t = Word32.word
     structure Enum : F_F_I_FLAGS_ENUM where type t = Int32.int

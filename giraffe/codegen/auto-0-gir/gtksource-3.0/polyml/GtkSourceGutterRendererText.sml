@@ -5,23 +5,23 @@ structure GtkSourceGutterRendererText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val setMarkup_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_markup")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setText_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkSourceGutterRendererTextClass.t

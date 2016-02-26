@@ -6,7 +6,7 @@ structure GioProxyAddressEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_address_enumerator_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_proxy_address_enumerator_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a GioProxyAddressEnumeratorClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t

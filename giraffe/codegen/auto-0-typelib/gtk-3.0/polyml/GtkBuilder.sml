@@ -5,37 +5,37 @@ structure GtkBuilder :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_builder_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_builder_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_builder_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_builder_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addFromFile_ =
         call (load_sym libgtk "gtk_builder_add_from_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.UInt32.PolyML.cVal
           )
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt64.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.UInt32.PolyML.cVal
           )
-      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
       val valueFromString_ =
         call (load_sym libgtk "gtk_builder_value_from_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectParamSpecClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectValueRecord.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectParamSpecClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GtkBuilderClass.t

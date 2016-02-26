@@ -10,33 +10,33 @@ structure GioVolume :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_volume_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val canEject_ = call (load_sym libgio "g_volume_can_eject") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val canMount_ = call (load_sym libgio "g_volume_can_mount") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_volume_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val canEject_ = call (load_sym libgio "g_volume_can_eject") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canMount_ = call (load_sym libgio "g_volume_can_mount") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val ejectWithOperationFinish_ =
         call (load_sym libgio "g_volume_eject_with_operation_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getActivationRoot_ = call (load_sym libgio "g_volume_get_activation_root") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDrive_ = call (load_sym libgio "g_volume_get_drive") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIcon_ = call (load_sym libgio "g_volume_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIdentifier_ = call (load_sym libgio "g_volume_get_identifier") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getMount_ = call (load_sym libgio "g_volume_get_mount") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getName_ = call (load_sym libgio "g_volume_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getUuid_ = call (load_sym libgio "g_volume_get_uuid") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getActivationRoot_ = call (load_sym libgio "g_volume_get_activation_root") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDrive_ = call (load_sym libgio "g_volume_get_drive") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIcon_ = call (load_sym libgio "g_volume_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIdentifier_ = call (load_sym libgio "g_volume_get_identifier") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getMount_ = call (load_sym libgio "g_volume_get_mount") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getName_ = call (load_sym libgio "g_volume_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUuid_ = call (load_sym libgio "g_volume_get_uuid") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val mountFinish_ =
         call (load_sym libgio "g_volume_mount_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val shouldAutomount_ = call (load_sym libgio "g_volume_should_automount") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val shouldAutomount_ = call (load_sym libgio "g_volume_should_automount") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioVolumeClass.t
     type 'a file_class_t = 'a GioFileClass.t

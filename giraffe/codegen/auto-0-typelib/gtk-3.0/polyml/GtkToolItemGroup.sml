@@ -10,45 +10,45 @@ structure GtkToolItemGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_item_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tool_item_group_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_get_collapsed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tool_item_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tool_item_group_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_get_collapsed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getDropItem_ =
         call (load_sym libgtk "gtk_tool_item_group_get_drop_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_get_ellipsize") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
-      val getHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_get_header_relief") (GObjectObjectClass.PolyML.PTR --> GtkReliefStyle.PolyML.VAL)
-      val getItemPosition_ = call (load_sym libgtk "gtk_tool_item_group_get_item_position") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_tool_item_group_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_get_ellipsize") (GObjectObjectClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
+      val getHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_get_header_relief") (GObjectObjectClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
+      val getItemPosition_ = call (load_sym libgtk "gtk_tool_item_group_get_item_position") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getLabel_ = call (load_sym libgtk "gtk_tool_item_group_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_get_label_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getNItems_ = call (load_sym libgtk "gtk_tool_item_group_get_n_items") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getNthItem_ = call (load_sym libgtk "gtk_tool_item_group_get_nth_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
       val insert_ =
         call (load_sym libgtk "gtk_tool_item_group_insert")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_set_collapsed") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_set_ellipsize") (GObjectObjectClass.PolyML.PTR &&> PangoEllipsizeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_set_header_relief") (GObjectObjectClass.PolyML.PTR &&> GtkReliefStyle.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_set_collapsed") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_set_ellipsize") (GObjectObjectClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_set_header_relief") (GObjectObjectClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> FFI.PolyML.cVoid)
       val setItemPosition_ =
         call (load_sym libgtk "gtk_tool_item_group_set_item_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToolItemGroupClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

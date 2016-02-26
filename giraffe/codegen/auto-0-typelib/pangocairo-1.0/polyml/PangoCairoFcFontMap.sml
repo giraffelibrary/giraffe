@@ -6,7 +6,7 @@ structure PangoCairoFcFontMap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpangocairo "pango_cairo_fc_font_map_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libpangocairo "pango_cairo_fc_font_map_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a PangoCairoFcFontMapClass.t
     type 'a font_map_class_t = 'a PangoCairoFontMapClass.t

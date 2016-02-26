@@ -7,21 +7,21 @@ structure GtkProgressBar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_progress_bar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_progress_bar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getEllipsize_ = call (load_sym libgtk "gtk_progress_bar_get_ellipsize") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
-      val getFraction_ = call (load_sym libgtk "gtk_progress_bar_get_fraction") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getInverted_ = call (load_sym libgtk "gtk_progress_bar_get_inverted") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getPulseStep_ = call (load_sym libgtk "gtk_progress_bar_get_pulse_step") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getShowText_ = call (load_sym libgtk "gtk_progress_bar_get_show_text") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getText_ = call (load_sym libgtk "gtk_progress_bar_get_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val pulse_ = call (load_sym libgtk "gtk_progress_bar_pulse") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setEllipsize_ = call (load_sym libgtk "gtk_progress_bar_set_ellipsize") (GObjectObjectClass.PolyML.PTR &&> PangoEllipsizeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFraction_ = call (load_sym libgtk "gtk_progress_bar_set_fraction") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInverted_ = call (load_sym libgtk "gtk_progress_bar_set_inverted") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPulseStep_ = call (load_sym libgtk "gtk_progress_bar_set_pulse_step") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowText_ = call (load_sym libgtk "gtk_progress_bar_set_show_text") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setText_ = call (load_sym libgtk "gtk_progress_bar_set_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_progress_bar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_progress_bar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getEllipsize_ = call (load_sym libgtk "gtk_progress_bar_get_ellipsize") (GObjectObjectClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
+      val getFraction_ = call (load_sym libgtk "gtk_progress_bar_get_fraction") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getInverted_ = call (load_sym libgtk "gtk_progress_bar_get_inverted") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getPulseStep_ = call (load_sym libgtk "gtk_progress_bar_get_pulse_step") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getShowText_ = call (load_sym libgtk "gtk_progress_bar_get_show_text") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getText_ = call (load_sym libgtk "gtk_progress_bar_get_text") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val pulse_ = call (load_sym libgtk "gtk_progress_bar_pulse") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setEllipsize_ = call (load_sym libgtk "gtk_progress_bar_set_ellipsize") (GObjectObjectClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFraction_ = call (load_sym libgtk "gtk_progress_bar_set_fraction") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setInverted_ = call (load_sym libgtk "gtk_progress_bar_set_inverted") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPulseStep_ = call (load_sym libgtk "gtk_progress_bar_set_pulse_step") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowText_ = call (load_sym libgtk "gtk_progress_bar_set_show_text") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setText_ = call (load_sym libgtk "gtk_progress_bar_set_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkProgressBarClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

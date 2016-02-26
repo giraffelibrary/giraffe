@@ -8,42 +8,42 @@ structure GtkStyleProperties :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_properties_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_style_properties_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val clear_ = call (load_sym libgtk "gtk_style_properties_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val lookupColor_ = call (load_sym libgtk "gtk_style_properties_lookup_color") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GtkSymbolicColorRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_style_properties_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_style_properties_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val clear_ = call (load_sym libgtk "gtk_style_properties_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val lookupColor_ = call (load_sym libgtk "gtk_style_properties_lookup_color") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val mapColor_ =
         call (load_sym libgtk "gtk_style_properties_map_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkSymbolicColorRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkSymbolicColorRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val merge_ =
         call (load_sym libgtk "gtk_style_properties_merge")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setProperty_ =
         call (load_sym libgtk "gtk_style_properties_set_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkStateFlags.PolyML.VAL
-             &&> GObjectValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkStateFlags.PolyML.cVal
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val unsetProperty_ =
         call (load_sym libgtk "gtk_style_properties_unset_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkStateFlags.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkStateFlags.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkStylePropertiesClass.t

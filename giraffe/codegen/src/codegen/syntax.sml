@@ -362,11 +362,6 @@ val notnullTy : ty = mkIdTy notnullId
 fun mkNotnullTy prefixIds = TyRef ([], toList1 (prefixIds @ [notnullId]))
 fun ptrTyName (tyVar : tyvar) : tyname = ([tyVar], ptrId)
 fun ptrTy (varTy : ty) : ty = TyRef ([varTy], ptrLId)
-fun mkPtrTy isOpt prefixIds =
-  TyRef (
-    [if isOpt then unitTy else mkNotnullTy prefixIds],
-    toList1 (prefixIds @ [ptrId])
-  )
 val withPtrId : id = "withPtr"
 val withOptPtrId : id = "withOptPtr"
 val fromPtrId : id = "fromPtr"
@@ -444,20 +439,17 @@ val loadSymId : id = "load_sym"
 val loadLibId : id = "load_lib"
 
 val PolyMLId : id = "PolyML"
-val VALId : id = "VAL"
-val PTRId : id = "PTR"
-val REFId : id = "REF"
-val OPTPTRId : id = "OPTPTR"
+val cValId : id = "cVal"
+val cRefId : id = "cRef"
+val cVoidId : id = "cVoid"
 
-val VOIDId : id = "VOID"
-
-val VOIDConvExp = mkLIdLNameExp [FFIId, PolyMLId, VOIDId]
+val cVoidConv = mkLIdLNameExp [FFIId, PolyMLId, cVoidId]
 
 
 val cValTy : ty = TyRef ([], toList1 [CId, valId])
 val cRefTy : ty = TyRef ([], toList1 [CId, refId])
 
-fun mkConversionTy ty = TyRef ([ty], toList1 ["PolyMLFFI", "conversion"])
+fun mkConversionTy ty = TyRef ([ty], toList1 [PolyMLFFIId, "conversion"])
 
 
 

@@ -18,168 +18,168 @@ structure GioDBusConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_connection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFinish_ = call (load_sym libgio "g_dbus_connection_new_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newForAddressFinish_ = call (load_sym libgio "g_dbus_connection_new_for_address_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_dbus_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFinish_ = call (load_sym libgio "g_dbus_connection_new_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newForAddressFinish_ = call (load_sym libgio "g_dbus_connection_new_for_address_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val newForAddressSync_ =
         call (load_sym libgio "g_dbus_connection_new_for_address_sync")
           (
-            Utf8.PolyML.INPTR
-             &&> GioDBusConnectionFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> GioDBusConnectionFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newSync_ =
         call (load_sym libgio "g_dbus_connection_new_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GioDBusConnectionFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GioDBusConnectionFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val callFinish_ =
         call (load_sym libgio "g_dbus_connection_call_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callSync_ =
         call (load_sym libgio "g_dbus_connection_call_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             &&> GLibVariantTypeRecord.PolyML.OPTPTR
-             &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GLibVariantTypeRecord.PolyML.cOptPtr
+             &&> GioDBusCallFlags.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListFinish_ =
         call (load_sym libgio "g_dbus_connection_call_with_unix_fd_list_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListSync_ =
         call (load_sym libgio "g_dbus_connection_call_with_unix_fd_list_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             &&> GLibVariantTypeRecord.PolyML.OPTPTR
-             &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GLibVariantTypeRecord.PolyML.cOptPtr
+             &&> GioDBusCallFlags.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val closeFinish_ =
         call (load_sym libgio "g_dbus_connection_close_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val closeSync_ =
         call (load_sym libgio "g_dbus_connection_close_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val emitSignal_ =
         call (load_sym libgio "g_dbus_connection_emit_signal")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val flushFinish_ =
         call (load_sym libgio "g_dbus_connection_flush_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val flushSync_ =
         call (load_sym libgio "g_dbus_connection_flush_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getCapabilities_ = call (load_sym libgio "g_dbus_connection_get_capabilities") (GObjectObjectClass.PolyML.PTR --> GioDBusCapabilityFlags.PolyML.VAL)
-      val getExitOnClose_ = call (load_sym libgio "g_dbus_connection_get_exit_on_close") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getGuid_ = call (load_sym libgio "g_dbus_connection_get_guid") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPeerCredentials_ = call (load_sym libgio "g_dbus_connection_get_peer_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getStream_ = call (load_sym libgio "g_dbus_connection_get_stream") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getUniqueName_ = call (load_sym libgio "g_dbus_connection_get_unique_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isClosed_ = call (load_sym libgio "g_dbus_connection_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val getCapabilities_ = call (load_sym libgio "g_dbus_connection_get_capabilities") (GObjectObjectClass.PolyML.cPtr --> GioDBusCapabilityFlags.PolyML.cVal)
+      val getExitOnClose_ = call (load_sym libgio "g_dbus_connection_get_exit_on_close") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getGuid_ = call (load_sym libgio "g_dbus_connection_get_guid") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPeerCredentials_ = call (load_sym libgio "g_dbus_connection_get_peer_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getStream_ = call (load_sym libgio "g_dbus_connection_get_stream") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getUniqueName_ = call (load_sym libgio "g_dbus_connection_get_unique_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isClosed_ = call (load_sym libgio "g_dbus_connection_is_closed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
       val sendMessage_ =
         call (load_sym libgio "g_dbus_connection_send_message")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GioDBusSendMessageFlags.PolyML.VAL
-             &&> FFI.UInt32.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GioDBusSendMessageFlags.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val sendMessageWithReplyFinish_ =
         call (load_sym libgio "g_dbus_connection_send_message_with_reply_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val sendMessageWithReplySync_ =
         call (load_sym libgio "g_dbus_connection_send_message_with_reply_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GioDBusSendMessageFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.REF
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GioDBusSendMessageFlags.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cRef
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val setExitOnClose_ = call (load_sym libgio "g_dbus_connection_set_exit_on_close") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val startMessageProcessing_ = call (load_sym libgio "g_dbus_connection_start_message_processing") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val setExitOnClose_ = call (load_sym libgio "g_dbus_connection_set_exit_on_close") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val startMessageProcessing_ = call (load_sym libgio "g_dbus_connection_start_message_processing") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioDBusConnectionClass.t
     type 'a async_initable_class_t = 'a GioAsyncInitableClass.t

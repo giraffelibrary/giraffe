@@ -7,9 +7,9 @@ structure GtkLockButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_lock_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_lock_button_new") (GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val setPermission_ = call (load_sym libgtk "gtk_lock_button_set_permission") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_lock_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_lock_button_new") (GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setPermission_ = call (load_sym libgtk "gtk_lock_button_set_permission") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkLockButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

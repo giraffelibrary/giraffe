@@ -7,11 +7,11 @@ structure GtkToggleToolButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_toggle_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_toggle_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToggleToolButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

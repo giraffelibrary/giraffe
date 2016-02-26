@@ -3,8 +3,8 @@ structure AtkTextAttribute :>
     include ATK_TEXT_ATTRIBUTE
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -110,15 +110,15 @@ structure AtkTextAttribute :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_text_attribute_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.PTR --> PolyML.VAL)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libatk "atk_text_attribute_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -131,10 +131,10 @@ structure AtkTextAttribute :>
     local
       open PolyMLFFI
     in
-      val forName_ = call (load_sym libatk "atk_text_attribute_for_name") (Utf8.PolyML.INPTR --> PolyML.VAL)
-      val getName_ = call (load_sym libatk "atk_text_attribute_get_name") (PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.VAL &&> FFI.Int.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val register_ = call (load_sym libatk "atk_text_attribute_register") (Utf8.PolyML.INPTR --> PolyML.VAL)
+      val forName_ = call (load_sym libatk "atk_text_attribute_for_name") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val getName_ = call (load_sym libatk "atk_text_attribute_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getValue_ = call (load_sym libatk "atk_text_attribute_get_value") (PolyML.cVal &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val register_ = call (load_sym libatk "atk_text_attribute_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name

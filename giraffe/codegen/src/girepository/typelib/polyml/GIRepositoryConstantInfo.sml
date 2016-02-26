@@ -10,14 +10,14 @@ structure GIRepositoryConstantInfo :>
       val getType_ =
         call
           (load_sym libgirepository "g_constant_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getValue_ =
         call
           (load_sym libgirepository "g_constant_info_get_value")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> GIRepositoryArgument.PolyML.PTR
-            --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> GIRepositoryArgument.PolyML.cPtr
+            --> FFI.Int32.PolyML.cVal);
     end
 
 

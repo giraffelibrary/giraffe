@@ -6,21 +6,21 @@ structure GtkPlug :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_plug_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_plug_new") (FFI.UInt64.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newForDisplay_ = call (load_sym libgtk "gtk_plug_new_for_display") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_plug_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_plug_new") (FFI.UInt64.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newForDisplay_ = call (load_sym libgtk "gtk_plug_new_for_display") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
       val constructForDisplay_ =
         call (load_sym libgtk "gtk_plug_construct_for_display")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt64.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt64.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getEmbedded_ = call (load_sym libgtk "gtk_plug_get_embedded") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getId_ = call (load_sym libgtk "gtk_plug_get_id") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
-      val getSocketWindow_ = call (load_sym libgtk "gtk_plug_get_socket_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getEmbedded_ = call (load_sym libgtk "gtk_plug_get_embedded") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getId_ = call (load_sym libgtk "gtk_plug_get_id") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val getSocketWindow_ = call (load_sym libgtk "gtk_plug_get_socket_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkPlugClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

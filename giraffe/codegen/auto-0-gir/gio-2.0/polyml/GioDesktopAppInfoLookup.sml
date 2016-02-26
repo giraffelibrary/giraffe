@@ -5,7 +5,7 @@ structure GioDesktopAppInfoLookup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_desktop_app_info_lookup_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_desktop_app_info_lookup_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a GioDesktopAppInfoLookupClass.t
     type t = base class_t

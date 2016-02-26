@@ -3,64 +3,64 @@ structure PangoCairo : PANGO_CAIRO =
     local
       open PolyMLFFI
     in
-      val contextGetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_get_font_options") (GObjectObjectClass.PolyML.PTR --> CairoFontOptionsRecord.PolyML.PTR)
-      val contextGetResolution_ = call (load_sym libpangocairo "pango_cairo_context_get_resolution") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val contextSetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_set_font_options") (GObjectObjectClass.PolyML.PTR &&> CairoFontOptionsRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val contextSetResolution_ = call (load_sym libpangocairo "pango_cairo_context_set_resolution") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val createContext_ = call (load_sym libpangocairo "pango_cairo_create_context") (CairoContextRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val createLayout_ = call (load_sym libpangocairo "pango_cairo_create_layout") (CairoContextRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val contextGetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_get_font_options") (GObjectObjectClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
+      val contextGetResolution_ = call (load_sym libpangocairo "pango_cairo_context_get_resolution") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val contextSetFontOptions_ = call (load_sym libpangocairo "pango_cairo_context_set_font_options") (GObjectObjectClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val contextSetResolution_ = call (load_sym libpangocairo "pango_cairo_context_set_resolution") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val createContext_ = call (load_sym libpangocairo "pango_cairo_create_context") (CairoContextRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val createLayout_ = call (load_sym libpangocairo "pango_cairo_create_layout") (CairoContextRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val errorUnderlinePath_ =
         call (load_sym libpangocairo "pango_cairo_error_underline_path")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val fontMapGetDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val fontMapNew_ = call (load_sym libpangocairo "pango_cairo_font_map_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val fontMapGetDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val fontMapNew_ = call (load_sym libpangocairo "pango_cairo_font_map_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val glyphStringPath_ =
         call (load_sym libpangocairo "pango_cairo_glyph_string_path")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> PangoGlyphStringRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoGlyphStringRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val layoutLinePath_ = call (load_sym libpangocairo "pango_cairo_layout_line_path") (CairoContextRecord.PolyML.PTR &&> PangoLayoutLineRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val layoutPath_ = call (load_sym libpangocairo "pango_cairo_layout_path") (CairoContextRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val layoutLinePath_ = call (load_sym libpangocairo "pango_cairo_layout_line_path") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val layoutPath_ = call (load_sym libpangocairo "pango_cairo_layout_path") (CairoContextRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val showErrorUnderline_ =
         call (load_sym libpangocairo "pango_cairo_show_error_underline")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val showGlyphItem_ =
         call (load_sym libpangocairo "pango_cairo_show_glyph_item")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> PangoGlyphItemRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> PangoGlyphItemRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val showGlyphString_ =
         call (load_sym libpangocairo "pango_cairo_show_glyph_string")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> PangoGlyphStringRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoGlyphStringRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val showLayout_ = call (load_sym libpangocairo "pango_cairo_show_layout") (CairoContextRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val showLayoutLine_ = call (load_sym libpangocairo "pango_cairo_show_layout_line") (CairoContextRecord.PolyML.PTR &&> PangoLayoutLineRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val updateContext_ = call (load_sym libpangocairo "pango_cairo_update_context") (CairoContextRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val updateLayout_ = call (load_sym libpangocairo "pango_cairo_update_layout") (CairoContextRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val showLayout_ = call (load_sym libpangocairo "pango_cairo_show_layout") (CairoContextRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val showLayoutLine_ = call (load_sym libpangocairo "pango_cairo_show_layout_line") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val updateContext_ = call (load_sym libpangocairo "pango_cairo_update_context") (CairoContextRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val updateLayout_ = call (load_sym libpangocairo "pango_cairo_update_layout") (CairoContextRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     structure FcFontMapClass = PangoCairoFcFontMapClass
     structure FontClass = PangoCairoFontClass

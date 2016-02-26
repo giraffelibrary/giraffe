@@ -12,8 +12,6 @@ structure FFI :> F_F_I =
       struct
         open PolyMLFFI
 
-        val VOID = cVoid
-
         val cRef = cPointer : Memory.Pointer.t conversion
 
 
@@ -33,8 +31,8 @@ structure FFI :> F_F_I =
 
         structure Flags =
           struct
-            val VAL = cFlags
-            val REF = cRef
+            val cVal = cFlags
+            val cRef = cRef
           end
 
 
@@ -54,8 +52,8 @@ structure FFI :> F_F_I =
 
         structure Enum =
           struct
-            val VAL = cEnum
-            val REF = cRef
+            val cVal = cEnum
+            val cRef = cRef
           end
 
 
@@ -64,8 +62,8 @@ structure FFI :> F_F_I =
          *)
         structure OptPointer =
           struct
-            val VAL = CPointer.PolyML.cOptVal : unit CPointer.p conversion
-            val REF = cRef
+            val cVal = CPointer.PolyML.cOptVal : unit CPointer.p conversion
+            val cRef = cRef
           end
 
 
@@ -74,8 +72,8 @@ structure FFI :> F_F_I =
          *)
         structure Char =
           struct
-            val VAL = cChar
-            val REF = cRef
+            val cVal = cChar
+            val cRef = cRef
           end
 
 
@@ -84,8 +82,8 @@ structure FFI :> F_F_I =
          *)
         structure Short =
           struct
-            val VAL = cShort
-            val REF = cRef
+            val cVal = cShort
+            val cRef = cRef
           end
 
 
@@ -94,8 +92,8 @@ structure FFI :> F_F_I =
          *)
         structure UShort =
           struct
-            val VAL = cUshort
-            val REF = cRef
+            val cVal = cUshort
+            val cRef = cRef
           end
 
 
@@ -104,8 +102,8 @@ structure FFI :> F_F_I =
          *)
         structure Int =
           struct
-            val VAL = cInt
-            val REF = cRef
+            val cVal = cInt
+            val cRef = cRef
           end
 
 
@@ -114,8 +112,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt =
           struct
-            val VAL = cUint
-            val REF = cRef
+            val cVal = cUint
+            val cRef = cRef
           end
 
 
@@ -124,8 +122,8 @@ structure FFI :> F_F_I =
          *)
         structure Long =
           struct
-            val VAL = cLong
-            val REF = cRef
+            val cVal = cLong
+            val cRef = cRef
           end
 
 
@@ -134,8 +132,8 @@ structure FFI :> F_F_I =
          *)
         structure ULong =
           struct
-            val VAL = cUlong
-            val REF = cRef
+            val cVal = cUlong
+            val cRef = cRef
           end
 
 
@@ -157,8 +155,8 @@ structure FFI :> F_F_I =
 
         structure Bool =
           struct
-            val VAL = cBool
-            val REF = cRef
+            val cVal = cBool
+            val cRef = cRef
           end
 
 
@@ -167,8 +165,8 @@ structure FFI :> F_F_I =
          *)
         structure Int8 =
           struct
-            val VAL = cInt8
-            val REF = cRef
+            val cVal = cInt8
+            val cRef = cRef
           end
 
 
@@ -177,8 +175,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt8 =
           struct
-            val VAL = cUint8
-            val REF = cRef
+            val cVal = cUint8
+            val cRef = cRef
           end
 
 
@@ -187,8 +185,8 @@ structure FFI :> F_F_I =
          *)
         structure Int16 =
           struct
-            val VAL = cInt16
-            val REF = cRef
+            val cVal = cInt16
+            val cRef = cRef
           end
 
 
@@ -197,8 +195,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt16 =
           struct
-            val VAL = cUint16
-            val REF = cRef
+            val cVal = cUint16
+            val cRef = cRef
           end
 
 
@@ -207,8 +205,8 @@ structure FFI :> F_F_I =
          *)
         structure Int32 =
           struct
-            val VAL = cInt32
-            val REF = cRef
+            val cVal = cInt32
+            val cRef = cRef
           end
 
 
@@ -217,8 +215,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt32 =
           struct
-            val VAL = cUint32
-            val REF = cRef
+            val cVal = cUint32
+            val cRef = cRef
           end
 
 
@@ -227,8 +225,8 @@ structure FFI :> F_F_I =
          *)
         structure Int64 =
           struct
-            val VAL = cInt64
-            val REF = cRef
+            val cVal = cInt64
+            val cRef = cRef
           end
 
 
@@ -237,8 +235,8 @@ structure FFI :> F_F_I =
          *)
         structure UInt64 =
           struct
-            val VAL = cUint64
-            val REF = cRef
+            val cVal = cUint64
+            val cRef = cRef
           end
 
 
@@ -259,8 +257,8 @@ structure FFI :> F_F_I =
          *)
         structure Float =
           struct
-            val VAL = cFloat
-            val REF = cRef
+            val cVal = cFloat
+            val cRef = cRef
           end
 
 
@@ -269,8 +267,8 @@ structure FFI :> F_F_I =
          *)
         structure Double =
           struct
-            val VAL = cDouble
-            val REF = cRef
+            val cVal = cDouble
+            val cRef = cRef
           end
       end
 
@@ -307,7 +305,7 @@ structure FFI :> F_F_I =
           struct
             type val_ = Word32.word
             type ref_ = ref_
-            val withRef = fn f => withRef PolyML.Flags.VAL f
+            val withRef = fn f => withRef PolyML.Flags.cVal f
           end
 
 
@@ -318,7 +316,7 @@ structure FFI :> F_F_I =
           struct
             type val_ = Int32.int
             type ref_ = ref_
-            val withRef = fn f => withRef PolyML.Enum.VAL f
+            val withRef = fn f => withRef PolyML.Enum.cVal f
           end
 
 
@@ -330,7 +328,7 @@ structure FFI :> F_F_I =
             type val_ = unit CPointer.p
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.OptPointer.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.OptPointer.cVal f)
             val fromVal = I
           end
 
@@ -343,7 +341,7 @@ structure FFI :> F_F_I =
             type val_ = Char.char
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Char.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Char.cVal f)
             val fromVal = I
           end
 
@@ -356,7 +354,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Short.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Short.cVal f)
             val fromVal = I
           end
 
@@ -369,7 +367,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UShort.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UShort.cVal f)
             val fromVal = I
           end
 
@@ -382,7 +380,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Int.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Int.cVal f)
             val fromVal = I
           end
 
@@ -395,7 +393,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UInt.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UInt.cVal f)
             val fromVal = I
           end
 
@@ -408,7 +406,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Long.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Long.cVal f)
             val fromVal = I
           end
 
@@ -421,7 +419,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.ULong.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.ULong.cVal f)
             val fromVal = I
           end
 
@@ -434,7 +432,7 @@ structure FFI :> F_F_I =
             type val_ = Bool.bool
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Bool.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Bool.cVal f)
             val fromVal = I
           end
 
@@ -447,7 +445,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Int8.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Int8.cVal f)
             val fromVal = I
           end
 
@@ -460,7 +458,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UInt8.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UInt8.cVal f)
             val fromVal = I
           end
 
@@ -473,7 +471,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Int16.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Int16.cVal f)
             val fromVal = I
           end
 
@@ -486,7 +484,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UInt16.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UInt16.cVal f)
             val fromVal = I
           end
 
@@ -499,7 +497,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Int32.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Int32.cVal f)
             val fromVal = I
           end
 
@@ -512,7 +510,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UInt32.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UInt32.cVal f)
             val fromVal = I
           end
 
@@ -525,7 +523,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Int64.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Int64.cVal f)
             val fromVal = I
           end
 
@@ -538,7 +536,7 @@ structure FFI :> F_F_I =
             type val_ = LargeInt.int
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.UInt64.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.UInt64.cVal f)
             val fromVal = I
           end
 
@@ -563,7 +561,7 @@ structure FFI :> F_F_I =
             type val_ = real
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Float.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Float.cVal f)
             val fromVal = I
           end
 
@@ -576,7 +574,7 @@ structure FFI :> F_F_I =
             type val_ = real
             type ref_ = ref_
             val withVal = I
-            fun withRefVal f = withVal (withRef PolyML.Double.VAL f)
+            fun withRefVal f = withVal (withRef PolyML.Double.cVal f)
             val fromVal = I
           end
       end

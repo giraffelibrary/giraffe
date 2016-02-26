@@ -6,12 +6,12 @@ structure GtkSourceStyleScheme :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDescription_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_description") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getFilename_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_filename") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getId_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getStyle_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_style") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDescription_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_description") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFilename_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_filename") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getId_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyle_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_style") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkSourceStyleSchemeClass.t
     type 'a style_class_t = 'a GtkSourceStyleClass.t

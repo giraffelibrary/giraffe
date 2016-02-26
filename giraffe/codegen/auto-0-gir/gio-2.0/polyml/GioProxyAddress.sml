@@ -7,24 +7,24 @@ structure GioProxyAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_address_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_proxy_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_proxy_address_new")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt16.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt16.PolyML.VAL
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt16.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt16.PolyML.cVal
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getDestinationHostname_ = call (load_sym libgio "g_proxy_address_get_destination_hostname") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getDestinationPort_ = call (load_sym libgio "g_proxy_address_get_destination_port") (GObjectObjectClass.PolyML.PTR --> FFI.UInt16.PolyML.VAL)
-      val getPassword_ = call (load_sym libgio "g_proxy_address_get_password") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getProtocol_ = call (load_sym libgio "g_proxy_address_get_protocol") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getUsername_ = call (load_sym libgio "g_proxy_address_get_username") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getDestinationHostname_ = call (load_sym libgio "g_proxy_address_get_destination_hostname") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDestinationPort_ = call (load_sym libgio "g_proxy_address_get_destination_port") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getPassword_ = call (load_sym libgio "g_proxy_address_get_password") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getProtocol_ = call (load_sym libgio "g_proxy_address_get_protocol") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUsername_ = call (load_sym libgio "g_proxy_address_get_username") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GioProxyAddressClass.t
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t

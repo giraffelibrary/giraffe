@@ -6,9 +6,9 @@ structure GtkTreeDragSource :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_drag_source_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val dragDataDelete_ = call (load_sym libgtk "gtk_tree_drag_source_drag_data_delete") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val rowDraggable_ = call (load_sym libgtk "gtk_tree_drag_source_row_draggable") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tree_drag_source_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val dragDataDelete_ = call (load_sym libgtk "gtk_tree_drag_source_drag_data_delete") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val rowDraggable_ = call (load_sym libgtk "gtk_tree_drag_source_row_draggable") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GtkTreeDragSourceClass.t
     type tree_path_record_t = GtkTreePathRecord.t

@@ -8,69 +8,69 @@ structure GIRepositoryRepository :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgirepository "g_irepository_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val dump_ = call (load_sym libgirepository "g_irepository_dump") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> GIRepositoryBaseInfoRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgirepository "g_irepository_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val dump_ = call (load_sym libgirepository "g_irepository_dump") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val findByName_ =
         call (load_sym libgirepository "g_irepository_find_by_name")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> GIRepositoryBaseInfoRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
-      val getCPrefix_ = call (load_sym libgirepository "g_irepository_get_c_prefix") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getCPrefix_ = call (load_sym libgirepository "g_irepository_get_c_prefix") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getInfo_ =
         call (load_sym libgirepository "g_irepository_get_info")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> GIRepositoryBaseInfoRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
-      val getNInfos_ = call (load_sym libgirepository "g_irepository_get_n_infos") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
-      val getSharedLibrary_ = call (load_sym libgirepository "g_irepository_get_shared_library") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getTypelibPath_ = call (load_sym libgirepository "g_irepository_get_typelib_path") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getVersion_ = call (load_sym libgirepository "g_irepository_get_version") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getNInfos_ = call (load_sym libgirepository "g_irepository_get_n_infos") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
+      val getSharedLibrary_ = call (load_sym libgirepository "g_irepository_get_shared_library") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getTypelibPath_ = call (load_sym libgirepository "g_irepository_get_typelib_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getVersion_ = call (load_sym libgirepository "g_irepository_get_version") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val isRegistered_ =
         call (load_sym libgirepository "g_irepository_is_registered")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> FFI.Bool.PolyML.cVal
           )
       val loadTypelib_ =
         call (load_sym libgirepository "g_irepository_load_typelib")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GIRepositoryTypelibRecord.PolyML.PTR
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GIRepositoryTypelibRecord.PolyML.cPtr
+             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
       val require_ =
         call (load_sym libgirepository "g_irepository_require")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GIRepositoryTypelibRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GIRepositoryTypelibRecord.PolyML.cPtr
           )
       val requirePrivate_ =
         call (load_sym libgirepository "g_irepository_require_private")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GIRepositoryTypelibRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GIRepositoryTypelibRecord.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GIRepositoryRepositoryClass.t

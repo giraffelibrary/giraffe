@@ -4,8 +4,8 @@ structure GLibQuark :>
 
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -14,8 +14,8 @@ structure GLibQuark :>
     local
       open PolyMLFFI
     in
-      val fromString_ = call (load_sym libglib "g_quark_from_string") (Utf8.PolyML.INPTR --> PolyML.VAL)
-      val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val fromString_ = call (load_sym libglib "g_quark_from_string") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
     end
 
     fun fromString string = (Utf8.C.withPtr ---> C.fromVal) fromString_ string

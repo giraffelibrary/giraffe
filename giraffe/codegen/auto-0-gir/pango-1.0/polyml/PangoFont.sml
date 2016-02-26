@@ -11,20 +11,20 @@ structure PangoFont :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val describe_ = call (load_sym libpango "pango_font_describe") (GObjectObjectClass.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val describeWithAbsoluteSize_ = call (load_sym libpango "pango_font_describe_with_absolute_size") (GObjectObjectClass.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val getFontMap_ = call (load_sym libpango "pango_font_get_font_map") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libpango "pango_font_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val describe_ = call (load_sym libpango "pango_font_describe") (GObjectObjectClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val describeWithAbsoluteSize_ = call (load_sym libpango "pango_font_describe_with_absolute_size") (GObjectObjectClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFontMap_ = call (load_sym libpango "pango_font_get_font_map") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getGlyphExtents_ =
         call (load_sym libpango "pango_font_get_glyph_extents")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> PangoGlyph.PolyML.VAL
-             &&> PangoRectangleRecord.PolyML.PTR
-             &&> PangoRectangleRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> PangoGlyph.PolyML.cVal
+             &&> PangoRectangleRecord.PolyML.cPtr
+             &&> PangoRectangleRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val getMetrics_ = call (load_sym libpango "pango_font_get_metrics") (GObjectObjectClass.PolyML.PTR &&> PangoLanguageRecord.PolyML.OPTPTR --> PangoFontMetricsRecord.PolyML.PTR)
+      val getMetrics_ = call (load_sym libpango "pango_font_get_metrics") (GObjectObjectClass.PolyML.cPtr &&> PangoLanguageRecord.PolyML.cOptPtr --> PangoFontMetricsRecord.PolyML.cPtr)
     end
     type 'a class_t = 'a PangoFontClass.t
     type font_description_record_t = PangoFontDescriptionRecord.t

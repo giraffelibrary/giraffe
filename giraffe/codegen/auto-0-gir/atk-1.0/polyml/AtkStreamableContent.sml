@@ -5,11 +5,11 @@ structure AtkStreamableContent :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_streamable_content_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getMimeType_ = call (load_sym libatk "atk_streamable_content_get_mime_type") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val getNMimeTypes_ = call (load_sym libatk "atk_streamable_content_get_n_mime_types") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getStream_ = call (load_sym libatk "atk_streamable_content_get_stream") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibIOChannelRecord.PolyML.PTR)
-      val getUri_ = call (load_sym libatk "atk_streamable_content_get_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libatk "atk_streamable_content_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getMimeType_ = call (load_sym libatk "atk_streamable_content_get_mime_type") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNMimeTypes_ = call (load_sym libatk "atk_streamable_content_get_n_mime_types") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getStream_ = call (load_sym libatk "atk_streamable_content_get_stream") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibIOChannelRecord.PolyML.cPtr)
+      val getUri_ = call (load_sym libatk "atk_streamable_content_get_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a AtkStreamableContentClass.t
     type t = base class_t

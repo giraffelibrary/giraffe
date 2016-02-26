@@ -6,29 +6,29 @@ structure PangoTabArray :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_tab_array_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libpango "pango_tab_array_new") (FFI.Int.PolyML.VAL &&> FFI.Bool.PolyML.VAL --> PangoTabArrayRecord.PolyML.PTR)
-      val copy_ = call (load_sym libpango "pango_tab_array_copy") (PangoTabArrayRecord.PolyML.PTR --> PangoTabArrayRecord.PolyML.PTR)
-      val getPositionsInPixels_ = call (load_sym libpango "pango_tab_array_get_positions_in_pixels") (PangoTabArrayRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSize_ = call (load_sym libpango "pango_tab_array_get_size") (PangoTabArrayRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getType_ = call (load_sym libpango "pango_tab_array_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libpango "pango_tab_array_new") (FFI.Int.PolyML.cVal &&> FFI.Bool.PolyML.cVal --> PangoTabArrayRecord.PolyML.cPtr)
+      val copy_ = call (load_sym libpango "pango_tab_array_copy") (PangoTabArrayRecord.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
+      val getPositionsInPixels_ = call (load_sym libpango "pango_tab_array_get_positions_in_pixels") (PangoTabArrayRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSize_ = call (load_sym libpango "pango_tab_array_get_size") (PangoTabArrayRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getTab_ =
         call (load_sym libpango "pango_tab_array_get_tab")
           (
-            PangoTabArrayRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> PangoTabAlign.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            PangoTabArrayRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> PangoTabAlign.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val resize_ = call (load_sym libpango "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val resize_ = call (load_sym libpango "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTab_ =
         call (load_sym libpango "pango_tab_array_set_tab")
           (
-            PangoTabArrayRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> PangoTabAlign.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            PangoTabArrayRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> PangoTabAlign.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type record_t = PangoTabArrayRecord.t

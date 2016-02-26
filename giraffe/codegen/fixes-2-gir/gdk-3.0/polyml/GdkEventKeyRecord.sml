@@ -9,8 +9,8 @@ structure GdkEventKeyRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
@@ -34,42 +34,42 @@ structure GdkEventKeyRecord :>
       val getWindow_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_window")
-          (PolyML.PTR --> GObjectObjectClass.PolyML.PTR);
+          (PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr);
 
       val getSendEvent_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_send_event")
-          (PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getTime_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_time")
-          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
+          (PolyML.cPtr --> FFI.UInt32.PolyML.cVal);
 
       val getState_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_state")
-          (PolyML.PTR --> GdkModifierType.PolyML.VAL);
+          (PolyML.cPtr --> GdkModifierType.PolyML.cVal);
 
       val getKeyval_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_keyval")
-          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
+          (PolyML.cPtr --> FFI.UInt32.PolyML.cVal);
 
       val getHardwareKeycode_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_hardware_keycode")
-          (PolyML.PTR --> FFI.UInt32.PolyML.VAL);
+          (PolyML.cPtr --> FFI.UInt32.PolyML.cVal);
 
       val getGroup_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_group")
-          (PolyML.PTR --> FFI.UInt8.PolyML.VAL);
+          (PolyML.cPtr --> FFI.UInt8.PolyML.cVal);
 
       val getIsModifier_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_event_key_get_is_modifier")
-          (PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (PolyML.cPtr --> FFI.Bool.PolyML.cVal);
     end
 
 

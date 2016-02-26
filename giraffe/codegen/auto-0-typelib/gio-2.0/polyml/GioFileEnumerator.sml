@@ -9,35 +9,35 @@ structure GioFileEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_enumerator_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_file_enumerator_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val close_ =
         call (load_sym libgio "g_file_enumerator_close")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val closeFinish_ =
         call (load_sym libgio "g_file_enumerator_close_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getContainer_ = call (load_sym libgio "g_file_enumerator_get_container") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val hasPending_ = call (load_sym libgio "g_file_enumerator_has_pending") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isClosed_ = call (load_sym libgio "g_file_enumerator_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getContainer_ = call (load_sym libgio "g_file_enumerator_get_container") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val hasPending_ = call (load_sym libgio "g_file_enumerator_has_pending") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isClosed_ = call (load_sym libgio "g_file_enumerator_is_closed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val nextFile_ =
         call (load_sym libgio "g_file_enumerator_next_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioFileEnumeratorClass.t
     type 'a async_result_class_t = 'a GioAsyncResultClass.t

@@ -5,22 +5,22 @@ structure GtkTreePath :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_path_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tree_path_new") (FFI.PolyML.VOID --> GtkTreePathRecord.PolyML.PTR)
-      val newFirst_ = call (load_sym libgtk "gtk_tree_path_new_first") (FFI.PolyML.VOID --> GtkTreePathRecord.PolyML.PTR)
-      val newFromString_ = call (load_sym libgtk "gtk_tree_path_new_from_string") (Utf8.PolyML.INPTR --> GtkTreePathRecord.PolyML.PTR)
-      val appendIndex_ = call (load_sym libgtk "gtk_tree_path_append_index") (GtkTreePathRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val compare_ = call (load_sym libgtk "gtk_tree_path_compare") (GtkTreePathRecord.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val copy_ = call (load_sym libgtk "gtk_tree_path_copy") (GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
-      val down_ = call (load_sym libgtk "gtk_tree_path_down") (GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getDepth_ = call (load_sym libgtk "gtk_tree_path_get_depth") (GtkTreePathRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val isAncestor_ = call (load_sym libgtk "gtk_tree_path_is_ancestor") (GtkTreePathRecord.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isDescendant_ = call (load_sym libgtk "gtk_tree_path_is_descendant") (GtkTreePathRecord.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val next_ = call (load_sym libgtk "gtk_tree_path_next") (GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val prependIndex_ = call (load_sym libgtk "gtk_tree_path_prepend_index") (GtkTreePathRecord.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val prev_ = call (load_sym libgtk "gtk_tree_path_prev") (GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val toString_ = call (load_sym libgtk "gtk_tree_path_to_string") (GtkTreePathRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val up_ = call (load_sym libgtk "gtk_tree_path_up") (GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tree_path_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tree_path_new") (FFI.PolyML.cVoid --> GtkTreePathRecord.PolyML.cPtr)
+      val newFirst_ = call (load_sym libgtk "gtk_tree_path_new_first") (FFI.PolyML.cVoid --> GtkTreePathRecord.PolyML.cPtr)
+      val newFromString_ = call (load_sym libgtk "gtk_tree_path_new_from_string") (Utf8.PolyML.cInPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val appendIndex_ = call (load_sym libgtk "gtk_tree_path_append_index") (GtkTreePathRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val compare_ = call (load_sym libgtk "gtk_tree_path_compare") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val copy_ = call (load_sym libgtk "gtk_tree_path_copy") (GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val down_ = call (load_sym libgtk "gtk_tree_path_down") (GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getDepth_ = call (load_sym libgtk "gtk_tree_path_get_depth") (GtkTreePathRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val isAncestor_ = call (load_sym libgtk "gtk_tree_path_is_ancestor") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isDescendant_ = call (load_sym libgtk "gtk_tree_path_is_descendant") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val next_ = call (load_sym libgtk "gtk_tree_path_next") (GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val prependIndex_ = call (load_sym libgtk "gtk_tree_path_prepend_index") (GtkTreePathRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val prev_ = call (load_sym libgtk "gtk_tree_path_prev") (GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val toString_ = call (load_sym libgtk "gtk_tree_path_to_string") (GtkTreePathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val up_ = call (load_sym libgtk "gtk_tree_path_up") (GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type record_t = GtkTreePathRecord.t
     type t = record_t

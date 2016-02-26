@@ -6,11 +6,11 @@ structure GioUnixCredentialsMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_credentials_message_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_unix_credentials_message_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithCredentials_ = call (load_sym libgio "g_unix_credentials_message_new_with_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isSupported_ = call (load_sym libgio "g_unix_credentials_message_is_supported") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_unix_credentials_message_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_unix_credentials_message_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithCredentials_ = call (load_sym libgio "g_unix_credentials_message_new_with_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val isSupported_ = call (load_sym libgio "g_unix_credentials_message_is_supported") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+      val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioUnixCredentialsMessageClass.t
     type 'a credentials_class_t = 'a GioCredentialsClass.t

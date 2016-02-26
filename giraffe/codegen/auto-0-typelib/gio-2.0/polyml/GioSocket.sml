@@ -13,116 +13,116 @@ structure GioSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_socket_new")
           (
-            GioSocketFamily.PolyML.VAL
-             &&> GioSocketType.PolyML.VAL
-             &&> GioSocketProtocol.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GioSocketFamily.PolyML.cVal
+             &&> GioSocketType.PolyML.cVal
+             &&> GioSocketProtocol.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val newFromFd_ = call (load_sym libgio "g_socket_new_from_fd") (FFI.Int32.PolyML.VAL &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val newFromFd_ = call (load_sym libgio "g_socket_new_from_fd") (FFI.Int32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val accept_ =
         call (load_sym libgio "g_socket_accept")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val bind_ =
         call (load_sym libgio "g_socket_bind")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val checkConnectResult_ = call (load_sym libgio "g_socket_check_connect_result") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val close_ = call (load_sym libgio "g_socket_close") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val conditionCheck_ = call (load_sym libgio "g_socket_condition_check") (GObjectObjectClass.PolyML.PTR &&> GLibIOCondition.PolyML.VAL --> GLibIOCondition.PolyML.VAL)
+      val checkConnectResult_ = call (load_sym libgio "g_socket_check_connect_result") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val close_ = call (load_sym libgio "g_socket_close") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val conditionCheck_ = call (load_sym libgio "g_socket_condition_check") (GObjectObjectClass.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibIOCondition.PolyML.cVal)
       val conditionWait_ =
         call (load_sym libgio "g_socket_condition_wait")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GLibIOCondition.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibIOCondition.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val connect_ =
         call (load_sym libgio "g_socket_connect")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val connectionFactoryCreateConnection_ = call (load_sym libgio "g_socket_connection_factory_create_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBlocking_ = call (load_sym libgio "g_socket_get_blocking") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCredentials_ = call (load_sym libgio "g_socket_get_credentials") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val getFamily_ = call (load_sym libgio "g_socket_get_family") (GObjectObjectClass.PolyML.PTR --> GioSocketFamily.PolyML.VAL)
-      val getFd_ = call (load_sym libgio "g_socket_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getKeepalive_ = call (load_sym libgio "g_socket_get_keepalive") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getListenBacklog_ = call (load_sym libgio "g_socket_get_listen_backlog") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getLocalAddress_ = call (load_sym libgio "g_socket_get_local_address") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val getProtocol_ = call (load_sym libgio "g_socket_get_protocol") (GObjectObjectClass.PolyML.PTR --> GioSocketProtocol.PolyML.VAL)
-      val getRemoteAddress_ = call (load_sym libgio "g_socket_get_remote_address") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val getSocketType_ = call (load_sym libgio "g_socket_get_socket_type") (GObjectObjectClass.PolyML.PTR --> GioSocketType.PolyML.VAL)
-      val getTimeout_ = call (load_sym libgio "g_socket_get_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val isClosed_ = call (load_sym libgio "g_socket_is_closed") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isConnected_ = call (load_sym libgio "g_socket_is_connected") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val listen_ = call (load_sym libgio "g_socket_listen") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val connectionFactoryCreateConnection_ = call (load_sym libgio "g_socket_connection_factory_create_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBlocking_ = call (load_sym libgio "g_socket_get_blocking") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCredentials_ = call (load_sym libgio "g_socket_get_credentials") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val getFamily_ = call (load_sym libgio "g_socket_get_family") (GObjectObjectClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
+      val getFd_ = call (load_sym libgio "g_socket_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getKeepalive_ = call (load_sym libgio "g_socket_get_keepalive") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getListenBacklog_ = call (load_sym libgio "g_socket_get_listen_backlog") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getLocalAddress_ = call (load_sym libgio "g_socket_get_local_address") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val getProtocol_ = call (load_sym libgio "g_socket_get_protocol") (GObjectObjectClass.PolyML.cPtr --> GioSocketProtocol.PolyML.cVal)
+      val getRemoteAddress_ = call (load_sym libgio "g_socket_get_remote_address") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val getSocketType_ = call (load_sym libgio "g_socket_get_socket_type") (GObjectObjectClass.PolyML.cPtr --> GioSocketType.PolyML.cVal)
+      val getTimeout_ = call (load_sym libgio "g_socket_get_timeout") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val isClosed_ = call (load_sym libgio "g_socket_is_closed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isConnected_ = call (load_sym libgio "g_socket_is_connected") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val listen_ = call (load_sym libgio "g_socket_listen") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
       val receive_ =
         call (load_sym libgio "g_socket_receive")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt64.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
       val receiveFrom_ =
         call (load_sym libgio "g_socket_receive_from")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt64.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
       val receiveWithBlocking_ =
         call (load_sym libgio "g_socket_receive_with_blocking")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt64.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int64.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt64.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int64.PolyML.cVal
           )
-      val setBlocking_ = call (load_sym libgio "g_socket_set_blocking") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setKeepalive_ = call (load_sym libgio "g_socket_set_keepalive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setListenBacklog_ = call (load_sym libgio "g_socket_set_listen_backlog") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTimeout_ = call (load_sym libgio "g_socket_set_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
+      val setBlocking_ = call (load_sym libgio "g_socket_set_blocking") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setKeepalive_ = call (load_sym libgio "g_socket_set_keepalive") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setListenBacklog_ = call (load_sym libgio "g_socket_set_listen_backlog") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTimeout_ = call (load_sym libgio "g_socket_set_timeout") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
       val shutdown_ =
         call (load_sym libgio "g_socket_shutdown")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val speaksIpv4_ = call (load_sym libgio "g_socket_speaks_ipv4") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val speaksIpv4_ = call (load_sym libgio "g_socket_speaks_ipv4") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioSocketClass.t
     type 'a initable_class_t = 'a GioInitableClass.t

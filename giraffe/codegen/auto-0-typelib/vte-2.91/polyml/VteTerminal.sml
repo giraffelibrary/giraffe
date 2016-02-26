@@ -11,183 +11,183 @@ structure VteTerminal :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libvte "vte_terminal_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libvte "vte_terminal_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val copyClipboard_ = call (load_sym libvte "vte_terminal_copy_clipboard") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val copyPrimary_ = call (load_sym libvte "vte_terminal_copy_primary") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libvte "vte_terminal_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libvte "vte_terminal_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val copyClipboard_ = call (load_sym libvte "vte_terminal_copy_clipboard") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val copyPrimary_ = call (load_sym libvte "vte_terminal_copy_primary") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val feedChild_ =
         call (load_sym libvte "vte_terminal_feed_child")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int64.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getAllowBold_ = call (load_sym libvte "vte_terminal_get_allow_bold") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getAudibleBell_ = call (load_sym libvte "vte_terminal_get_audible_bell") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCharHeight_ = call (load_sym libvte "vte_terminal_get_char_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_get_cjk_ambiguous_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getCurrentDirectoryUri_ = call (load_sym libvte "vte_terminal_get_current_directory_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getCurrentFileUri_ = call (load_sym libvte "vte_terminal_get_current_file_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getCursorBlinkMode_ = call (load_sym libvte "vte_terminal_get_cursor_blink_mode") (GObjectObjectClass.PolyML.PTR --> VteCursorBlinkMode.PolyML.VAL)
+      val getAllowBold_ = call (load_sym libvte "vte_terminal_get_allow_bold") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getAudibleBell_ = call (load_sym libvte "vte_terminal_get_audible_bell") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCharHeight_ = call (load_sym libvte "vte_terminal_get_char_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
+      val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
+      val getCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_get_cjk_ambiguous_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
+      val getCurrentDirectoryUri_ = call (load_sym libvte "vte_terminal_get_current_directory_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCurrentFileUri_ = call (load_sym libvte "vte_terminal_get_current_file_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCursorBlinkMode_ = call (load_sym libvte "vte_terminal_get_cursor_blink_mode") (GObjectObjectClass.PolyML.cPtr --> VteCursorBlinkMode.PolyML.cVal)
       val getCursorPosition_ =
         call (load_sym libvte "vte_terminal_get_cursor_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.REF
-             &&> FFI.Int64.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cRef
+             &&> FFI.Int64.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getCursorShape_ = call (load_sym libvte "vte_terminal_get_cursor_shape") (GObjectObjectClass.PolyML.PTR --> VteCursorShape.PolyML.VAL)
-      val getEncoding_ = call (load_sym libvte "vte_terminal_get_encoding") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getFont_ = call (load_sym libvte "vte_terminal_get_font") (GObjectObjectClass.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val getFontScale_ = call (load_sym libvte "vte_terminal_get_font_scale") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getCursorShape_ = call (load_sym libvte "vte_terminal_get_cursor_shape") (GObjectObjectClass.PolyML.cPtr --> VteCursorShape.PolyML.cVal)
+      val getEncoding_ = call (load_sym libvte "vte_terminal_get_encoding") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFont_ = call (load_sym libvte "vte_terminal_get_font") (GObjectObjectClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFontScale_ = call (load_sym libvte "vte_terminal_get_font_scale") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
       val getGeometryHints_ =
         call (load_sym libvte "vte_terminal_get_geometry_hints")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkGeometryRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkGeometryRecord.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getHasSelection_ = call (load_sym libvte "vte_terminal_get_has_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getInputEnabled_ = call (load_sym libvte "vte_terminal_get_input_enabled") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getMouseAutohide_ = call (load_sym libvte "vte_terminal_get_mouse_autohide") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getPty_ = call (load_sym libvte "vte_terminal_get_pty") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getRewrapOnResize_ = call (load_sym libvte "vte_terminal_get_rewrap_on_resize") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int64.PolyML.VAL)
-      val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getHasSelection_ = call (load_sym libvte "vte_terminal_get_has_selection") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getInputEnabled_ = call (load_sym libvte "vte_terminal_get_input_enabled") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMouseAutohide_ = call (load_sym libvte "vte_terminal_get_mouse_autohide") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getPty_ = call (load_sym libvte "vte_terminal_get_pty") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getRewrapOnResize_ = call (load_sym libvte "vte_terminal_get_rewrap_on_resize") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
+      val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val matchAddGregex_ =
         call (load_sym libvte "vte_terminal_match_add_gregex")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GLibRegexRecord.PolyML.PTR
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibRegexRecord.PolyML.cPtr
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
       val matchCheck_ =
         call (load_sym libvte "vte_terminal_match_check")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> FFI.Int64.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             --> Utf8.PolyML.cOutPtr
           )
       val matchCheckEvent_ =
         call (load_sym libvte "vte_terminal_match_check_event")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkEvent.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             --> Utf8.PolyML.RETPTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val matchRemoveAll_ = call (load_sym libvte "vte_terminal_match_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val matchRemoveAll_ = call (load_sym libvte "vte_terminal_match_remove_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val matchSetCursorName_ =
         call (load_sym libvte "vte_terminal_match_set_cursor_name")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val matchSetCursorType_ =
         call (load_sym libvte "vte_terminal_match_set_cursor_type")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GdkCursorType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GdkCursorType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val pasteClipboard_ = call (load_sym libvte "vte_terminal_paste_clipboard") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val pastePrimary_ = call (load_sym libvte "vte_terminal_paste_primary") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val pasteClipboard_ = call (load_sym libvte "vte_terminal_paste_clipboard") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val pastePrimary_ = call (load_sym libvte "vte_terminal_paste_primary") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val ptyNewSync_ =
         call (load_sym libvte "vte_terminal_pty_new_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> VtePtyFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> VtePtyFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val reset_ =
         call (load_sym libvte "vte_terminal_reset")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val searchFindNext_ = call (load_sym libvte "vte_terminal_search_find_next") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val searchFindPrevious_ = call (load_sym libvte "vte_terminal_search_find_previous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val searchGetGregex_ = call (load_sym libvte "vte_terminal_search_get_gregex") (GObjectObjectClass.PolyML.PTR --> GLibRegexRecord.PolyML.PTR)
-      val searchGetWrapAround_ = call (load_sym libvte "vte_terminal_search_get_wrap_around") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val searchFindNext_ = call (load_sym libvte "vte_terminal_search_find_next") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val searchFindPrevious_ = call (load_sym libvte "vte_terminal_search_find_previous") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val searchGetGregex_ = call (load_sym libvte "vte_terminal_search_get_gregex") (GObjectObjectClass.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
+      val searchGetWrapAround_ = call (load_sym libvte "vte_terminal_search_get_wrap_around") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val searchSetGregex_ =
         call (load_sym libvte "vte_terminal_search_set_gregex")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GLibRegexRecord.PolyML.OPTPTR
-             &&> GLibRegexMatchFlags.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibRegexRecord.PolyML.cOptPtr
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val searchSetWrapAround_ = call (load_sym libvte "vte_terminal_search_set_wrap_around") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val selectAll_ = call (load_sym libvte "vte_terminal_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setAllowBold_ = call (load_sym libvte "vte_terminal_set_allow_bold") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setAudibleBell_ = call (load_sym libvte "vte_terminal_set_audible_bell") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setBackspaceBinding_ = call (load_sym libvte "vte_terminal_set_backspace_binding") (GObjectObjectClass.PolyML.PTR &&> VteEraseBinding.PolyML.VAL --> FFI.PolyML.VOID)
-      val setCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_set_cjk_ambiguous_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setColorBackground_ = call (load_sym libvte "vte_terminal_set_color_background") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setColorBold_ = call (load_sym libvte "vte_terminal_set_color_bold") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setColorCursor_ = call (load_sym libvte "vte_terminal_set_color_cursor") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setColorForeground_ = call (load_sym libvte "vte_terminal_set_color_foreground") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setColorHighlight_ = call (load_sym libvte "vte_terminal_set_color_highlight") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setColorHighlightForeground_ = call (load_sym libvte "vte_terminal_set_color_highlight_foreground") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setCursorBlinkMode_ = call (load_sym libvte "vte_terminal_set_cursor_blink_mode") (GObjectObjectClass.PolyML.PTR &&> VteCursorBlinkMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setCursorShape_ = call (load_sym libvte "vte_terminal_set_cursor_shape") (GObjectObjectClass.PolyML.PTR &&> VteCursorShape.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDefaultColors_ = call (load_sym libvte "vte_terminal_set_default_colors") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDeleteBinding_ = call (load_sym libvte "vte_terminal_set_delete_binding") (GObjectObjectClass.PolyML.PTR &&> VteEraseBinding.PolyML.VAL --> FFI.PolyML.VOID)
+      val searchSetWrapAround_ = call (load_sym libvte "vte_terminal_search_set_wrap_around") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val selectAll_ = call (load_sym libvte "vte_terminal_select_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAllowBold_ = call (load_sym libvte "vte_terminal_set_allow_bold") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAudibleBell_ = call (load_sym libvte "vte_terminal_set_audible_bell") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBackspaceBinding_ = call (load_sym libvte "vte_terminal_set_backspace_binding") (GObjectObjectClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_set_cjk_ambiguous_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setColorBackground_ = call (load_sym libvte "vte_terminal_set_color_background") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setColorBold_ = call (load_sym libvte "vte_terminal_set_color_bold") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setColorCursor_ = call (load_sym libvte "vte_terminal_set_color_cursor") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setColorForeground_ = call (load_sym libvte "vte_terminal_set_color_foreground") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setColorHighlight_ = call (load_sym libvte "vte_terminal_set_color_highlight") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setColorHighlightForeground_ = call (load_sym libvte "vte_terminal_set_color_highlight_foreground") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setCursorBlinkMode_ = call (load_sym libvte "vte_terminal_set_cursor_blink_mode") (GObjectObjectClass.PolyML.cPtr &&> VteCursorBlinkMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCursorShape_ = call (load_sym libvte "vte_terminal_set_cursor_shape") (GObjectObjectClass.PolyML.cPtr &&> VteCursorShape.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDefaultColors_ = call (load_sym libvte "vte_terminal_set_default_colors") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDeleteBinding_ = call (load_sym libvte "vte_terminal_set_delete_binding") (GObjectObjectClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> FFI.PolyML.cVoid)
       val setEncoding_ =
         call (load_sym libvte "vte_terminal_set_encoding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setFont_ = call (load_sym libvte "vte_terminal_set_font") (GObjectObjectClass.PolyML.PTR &&> PangoFontDescriptionRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setFontScale_ = call (load_sym libvte "vte_terminal_set_font_scale") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setGeometryHintsForWindow_ = call (load_sym libvte "vte_terminal_set_geometry_hints_for_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setInputEnabled_ = call (load_sym libvte "vte_terminal_set_input_enabled") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMouseAutohide_ = call (load_sym libvte "vte_terminal_set_mouse_autohide") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPty_ = call (load_sym libvte "vte_terminal_set_pty") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setRewrapOnResize_ = call (load_sym libvte "vte_terminal_set_rewrap_on_resize") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setScrollOnKeystroke_ = call (load_sym libvte "vte_terminal_set_scroll_on_keystroke") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setScrollOnOutput_ = call (load_sym libvte "vte_terminal_set_scroll_on_output") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setScrollbackLines_ = call (load_sym libvte "vte_terminal_set_scrollback_lines") (GObjectObjectClass.PolyML.PTR &&> FFI.Int64.PolyML.VAL --> FFI.PolyML.VOID)
+      val setFont_ = call (load_sym libvte "vte_terminal_set_font") (GObjectObjectClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setFontScale_ = call (load_sym libvte "vte_terminal_set_font_scale") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setGeometryHintsForWindow_ = call (load_sym libvte "vte_terminal_set_geometry_hints_for_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setInputEnabled_ = call (load_sym libvte "vte_terminal_set_input_enabled") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMouseAutohide_ = call (load_sym libvte "vte_terminal_set_mouse_autohide") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPty_ = call (load_sym libvte "vte_terminal_set_pty") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setRewrapOnResize_ = call (load_sym libvte "vte_terminal_set_rewrap_on_resize") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setScrollOnKeystroke_ = call (load_sym libvte "vte_terminal_set_scroll_on_keystroke") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setScrollOnOutput_ = call (load_sym libvte "vte_terminal_set_scroll_on_output") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setScrollbackLines_ = call (load_sym libvte "vte_terminal_set_scrollback_lines") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int64.PolyML.cVal --> FFI.PolyML.cVoid)
       val setSize_ =
         call (load_sym libvte "vte_terminal_set_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> FFI.Int64.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> FFI.Int64.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val unselectAll_ = call (load_sym libvte "vte_terminal_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val watchChild_ = call (load_sym libvte "vte_terminal_watch_child") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val unselectAll_ = call (load_sym libvte "vte_terminal_unselect_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val watchChild_ = call (load_sym libvte "vte_terminal_watch_child") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
       val writeContentsSync_ =
         call (load_sym libvte "vte_terminal_write_contents_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> VteWriteFlags.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> VteWriteFlags.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a VteTerminalClass.t

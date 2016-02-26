@@ -7,38 +7,38 @@ structure GtkDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_dialog_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_dialog_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_dialog_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addActionWidget_ =
         call (load_sym libgtk "gtk_dialog_add_action_widget")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val addButton_ =
         call (load_sym libgtk "gtk_dialog_add_button")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getActionArea_ = call (load_sym libgtk "gtk_dialog_get_action_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getContentArea_ = call (load_sym libgtk "gtk_dialog_get_content_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val response_ = call (load_sym libgtk "gtk_dialog_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val run_ = call (load_sym libgtk "gtk_dialog_run") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+      val getActionArea_ = call (load_sym libgtk "gtk_dialog_get_action_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getContentArea_ = call (load_sym libgtk "gtk_dialog_get_content_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val response_ = call (load_sym libgtk "gtk_dialog_response") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val run_ = call (load_sym libgtk "gtk_dialog_run") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
       val setResponseSensitive_ =
         call (load_sym libgtk "gtk_dialog_set_response_sensitive")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkDialogClass.t

@@ -7,41 +7,41 @@ structure GtkSourceGutter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val getRendererAtPos_ =
         call (load_sym libgtksourceview "gtk_source_gutter_get_renderer_at_pos")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getWindow_ = call (load_sym libgtksourceview "gtk_source_gutter_get_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getWindow_ = call (load_sym libgtksourceview "gtk_source_gutter_get_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val insert_ =
         call (load_sym libgtksourceview "gtk_source_gutter_insert")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_queue_draw") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val remove_ = call (load_sym libgtksourceview "gtk_source_gutter_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_queue_draw") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val remove_ = call (load_sym libgtksourceview "gtk_source_gutter_remove") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val reorder_ =
         call (load_sym libgtksourceview "gtk_source_gutter_reorder")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setPadding_ =
         call (load_sym libgtksourceview "gtk_source_gutter_set_padding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkSourceGutterClass.t

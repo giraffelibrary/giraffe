@@ -17,71 +17,71 @@ structure GtkToolPalette :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_palette_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tool_palette_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getDragTargetGroup_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_group") (FFI.PolyML.VOID --> GtkTargetEntryRecord.PolyML.PTR)
-      val getDragTargetItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_item") (FFI.PolyML.VOID --> GtkTargetEntryRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_tool_palette_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tool_palette_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDragTargetGroup_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_group") (FFI.PolyML.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
+      val getDragTargetItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_item") (FFI.PolyML.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
       val addDragDest_ =
         call (load_sym libgtk "gtk_tool_palette_add_drag_dest")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkDestDefaults.PolyML.VAL
-             &&> GtkToolPaletteDragTargets.PolyML.VAL
-             &&> GdkDragAction.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkDestDefaults.PolyML.cVal
+             &&> GtkToolPaletteDragTargets.PolyML.cVal
+             &&> GdkDragAction.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getDragItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_item") (GObjectObjectClass.PolyML.PTR &&> GtkSelectionDataRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getDragItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_item") (GObjectObjectClass.PolyML.cPtr &&> GtkSelectionDataRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getDropGroup_ =
         call (load_sym libgtk "gtk_tool_palette_get_drop_group")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val getDropItem_ =
         call (load_sym libgtk "gtk_tool_palette_get_drop_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getExclusive_ = call (load_sym libgtk "gtk_tool_palette_get_exclusive") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getExpand_ = call (load_sym libgtk "gtk_tool_palette_get_expand") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getGroupPosition_ = call (load_sym libgtk "gtk_tool_palette_get_group_position") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getIconSize_ = call (load_sym libgtk "gtk_tool_palette_get_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getStyle_ = call (load_sym libgtk "gtk_tool_palette_get_style") (GObjectObjectClass.PolyML.PTR --> GtkToolbarStyle.PolyML.VAL)
-      val setDragSource_ = call (load_sym libgtk "gtk_tool_palette_set_drag_source") (GObjectObjectClass.PolyML.PTR &&> GtkToolPaletteDragTargets.PolyML.VAL --> FFI.PolyML.VOID)
+      val getExclusive_ = call (load_sym libgtk "gtk_tool_palette_get_exclusive") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getExpand_ = call (load_sym libgtk "gtk_tool_palette_get_expand") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getGroupPosition_ = call (load_sym libgtk "gtk_tool_palette_get_group_position") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getIconSize_ = call (load_sym libgtk "gtk_tool_palette_get_icon_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getStyle_ = call (load_sym libgtk "gtk_tool_palette_get_style") (GObjectObjectClass.PolyML.cPtr --> GtkToolbarStyle.PolyML.cVal)
+      val setDragSource_ = call (load_sym libgtk "gtk_tool_palette_set_drag_source") (GObjectObjectClass.PolyML.cPtr &&> GtkToolPaletteDragTargets.PolyML.cVal --> FFI.PolyML.cVoid)
       val setExclusive_ =
         call (load_sym libgtk "gtk_tool_palette_set_exclusive")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setExpand_ =
         call (load_sym libgtk "gtk_tool_palette_set_expand")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setGroupPosition_ =
         call (load_sym libgtk "gtk_tool_palette_set_group_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStyle_ = call (load_sym libgtk "gtk_tool_palette_set_style") (GObjectObjectClass.PolyML.PTR &&> GtkToolbarStyle.PolyML.VAL --> FFI.PolyML.VOID)
-      val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStyle_ = call (load_sym libgtk "gtk_tool_palette_set_style") (GObjectObjectClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToolPaletteClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

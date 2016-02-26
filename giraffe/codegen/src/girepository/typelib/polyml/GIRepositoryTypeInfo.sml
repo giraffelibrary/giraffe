@@ -11,44 +11,44 @@ structure GIRepositoryTypeInfo :>
       val isPointer_ =
         call
           (load_sym libgirepository "g_type_info_is_pointer")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getTag_ =
         call
           (load_sym libgirepository "g_type_info_get_tag")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTypeTag.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTypeTag.PolyML.cVal);
 
       val getParamType_ =
         call
           (load_sym libgirepository "g_type_info_get_param_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getInterface_ =
         call
           (load_sym libgirepository "g_type_info_get_interface")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getArrayLength_ =
         call
           (load_sym libgirepository "g_type_info_get_array_length")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getArrayFixedSize_ =
         call
           (load_sym libgirepository "g_type_info_get_array_fixed_size")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val isZeroTerminated_ =
         call
           (load_sym libgirepository "g_type_info_is_zero_terminated")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getArrayType_ =
         call
           (load_sym libgirepository "g_type_info_get_array_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryArrayType.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryArrayType.PolyML.cVal);
     end
 
 

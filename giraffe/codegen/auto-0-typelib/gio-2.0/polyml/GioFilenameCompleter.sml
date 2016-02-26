@@ -5,10 +5,10 @@ structure GioFilenameCompleter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_filename_completer_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_filename_completer_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getCompletionSuffix_ = call (load_sym libgio "g_filename_completer_get_completion_suffix") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val setDirsOnly_ = call (load_sym libgio "g_filename_completer_set_dirs_only") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_filename_completer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_filename_completer_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getCompletionSuffix_ = call (load_sym libgio "g_filename_completer_get_completion_suffix") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val setDirsOnly_ = call (load_sym libgio "g_filename_completer_set_dirs_only") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioFilenameCompleterClass.t
     type t = base class_t

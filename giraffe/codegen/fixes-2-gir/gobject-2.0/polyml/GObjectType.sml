@@ -11,8 +11,8 @@ structure GObjectType :>
 
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -22,72 +22,72 @@ structure GObjectType :>
       val isValueType_ =
         call
           (load_sym libgiraffegobject "giraffe_g_type_is_value_type")
-          (FFI.Size.PolyML.VAL --> FFI.Bool.PolyML.VAL);
+          (FFI.Size.PolyML.cVal --> FFI.Bool.PolyML.cVal);
 
       val name_ =
         call
           (load_sym libgiraffegobject "giraffe_g_type_name")
-          (FFI.Size.PolyML.VAL --> Utf8.PolyML.RETPTR);
+          (FFI.Size.PolyML.cVal --> Utf8.PolyML.cOutPtr);
 
       val fromName_ =
         call
           (load_sym libgobject "g_type_from_name")
-          (Utf8.PolyML.INPTR --> FFI.Size.PolyML.VAL);
+          (Utf8.PolyML.cInPtr --> FFI.Size.PolyML.cVal);
 
       val boolean_ =
         call
           (load_sym libgiraffegobject "giraffe_g_boolean_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val int_ =
         call
           (load_sym libgiraffegobject "giraffe_g_int_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val uint_ =
         call
           (load_sym libgiraffegobject "giraffe_g_uint_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val long_ =
         call
           (load_sym libgiraffegobject "giraffe_g_long_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val ulong_ =
         call
           (load_sym libgiraffegobject "giraffe_g_ulong_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val int64_ =
         call
           (load_sym libgiraffegobject "giraffe_g_int64_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val uint64_ =
         call
           (load_sym libgiraffegobject "giraffe_g_uint64_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val float_ =
         call
           (load_sym libgiraffegobject "giraffe_g_float_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val double_ =
         call
           (load_sym libgiraffegobject "giraffe_g_double_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val char_ =
         call
           (load_sym libgiraffegobject "giraffe_g_char_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
 
       val string_ =
         call
           (load_sym libgiraffegobject "giraffe_g_string_get_type")
-          (FFI.PolyML.VOID --> FFI.Size.PolyML.VAL);
+          (FFI.PolyML.cVoid --> FFI.Size.PolyML.cVal);
     end
 
 

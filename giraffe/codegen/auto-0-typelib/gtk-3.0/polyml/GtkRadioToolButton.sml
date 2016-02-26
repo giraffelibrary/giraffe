@@ -7,9 +7,9 @@ structure GtkRadioToolButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_radio_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_from_widget") (GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithStockFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_with_stock_from_widget") (GObjectObjectClass.PolyML.OPTPTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_radio_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_from_widget") (GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithStockFromWidget_ = call (load_sym libgtk "gtk_radio_tool_button_new_with_stock_from_widget") (GObjectObjectClass.PolyML.cOptPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkRadioToolButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

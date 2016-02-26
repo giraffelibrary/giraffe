@@ -12,88 +12,88 @@ structure GtkSpinButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_spin_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_spin_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_spin_button_new")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newWithRange_ =
         call (load_sym libgtk "gtk_spin_button_new_with_range")
           (
-            FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val configure_ =
         call (load_sym libgtk "gtk_spin_button_configure")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val getAdjustment_ = call (load_sym libgtk "gtk_spin_button_get_adjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
+      val getAdjustment_ = call (load_sym libgtk "gtk_spin_button_get_adjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
       val getIncrements_ =
         call (load_sym libgtk "gtk_spin_button_get_increments")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getNumeric_ = call (load_sym libgtk "gtk_spin_button_get_numeric") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getNumeric_ = call (load_sym libgtk "gtk_spin_button_get_numeric") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getRange_ =
         call (load_sym libgtk "gtk_spin_button_get_range")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_get_snap_to_ticks") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_get_update_policy") (GObjectObjectClass.PolyML.PTR --> GtkSpinButtonUpdatePolicy.PolyML.VAL)
-      val getValue_ = call (load_sym libgtk "gtk_spin_button_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getValueAsInt_ = call (load_sym libgtk "gtk_spin_button_get_value_as_int") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getWrap_ = call (load_sym libgtk "gtk_spin_button_get_wrap") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setAdjustment_ = call (load_sym libgtk "gtk_spin_button_set_adjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val getSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_get_snap_to_ticks") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_get_update_policy") (GObjectObjectClass.PolyML.cPtr --> GtkSpinButtonUpdatePolicy.PolyML.cVal)
+      val getValue_ = call (load_sym libgtk "gtk_spin_button_get_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getValueAsInt_ = call (load_sym libgtk "gtk_spin_button_get_value_as_int") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getWrap_ = call (load_sym libgtk "gtk_spin_button_get_wrap") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setAdjustment_ = call (load_sym libgtk "gtk_spin_button_set_adjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val setIncrements_ =
         call (load_sym libgtk "gtk_spin_button_set_increments")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setNumeric_ = call (load_sym libgtk "gtk_spin_button_set_numeric") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setNumeric_ = call (load_sym libgtk "gtk_spin_button_set_numeric") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setRange_ =
         call (load_sym libgtk "gtk_spin_button_set_range")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_set_snap_to_ticks") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_set_update_policy") (GObjectObjectClass.PolyML.PTR &&> GtkSpinButtonUpdatePolicy.PolyML.VAL --> FFI.PolyML.VOID)
-      val setValue_ = call (load_sym libgtk "gtk_spin_button_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWrap_ = call (load_sym libgtk "gtk_spin_button_set_wrap") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_set_snap_to_ticks") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_set_update_policy") (GObjectObjectClass.PolyML.cPtr &&> GtkSpinButtonUpdatePolicy.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_spin_button_set_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setWrap_ = call (load_sym libgtk "gtk_spin_button_set_wrap") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val spin_ =
         call (load_sym libgtk "gtk_spin_button_spin")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkSpinType.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkSpinType.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val update_ = call (load_sym libgtk "gtk_spin_button_update") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val update_ = call (load_sym libgtk "gtk_spin_button_update") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSpinButtonClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

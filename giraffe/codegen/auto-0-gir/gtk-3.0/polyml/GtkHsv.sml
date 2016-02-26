@@ -7,53 +7,53 @@ structure GtkHsv :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_hsv_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_hsv_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val toRgb_ =
         call (load_sym libgtk "gtk_hsv_to_rgb")
           (
-            FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.PolyML.VOID
+            FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getColor_ =
         call (load_sym libgtk "gtk_hsv_get_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getMetrics_ =
         call (load_sym libgtk "gtk_hsv_get_metrics")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setColor_ =
         call (load_sym libgtk "gtk_hsv_set_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setMetrics_ =
         call (load_sym libgtk "gtk_hsv_set_metrics")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkHsvClass.t

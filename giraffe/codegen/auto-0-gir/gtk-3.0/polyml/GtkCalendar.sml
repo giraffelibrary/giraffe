@@ -7,36 +7,36 @@ structure GtkCalendar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_calendar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_calendar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val clearMarks_ = call (load_sym libgtk "gtk_calendar_clear_marks") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_calendar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_calendar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val clearMarks_ = call (load_sym libgtk "gtk_calendar_clear_marks") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val getDate_ =
         call (load_sym libgtk "gtk_calendar_get_date")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.REF
-             &&> FFI.UInt.PolyML.REF
-             &&> FFI.UInt.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cRef
+             &&> FFI.UInt.PolyML.cRef
+             &&> FFI.UInt.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getDayIsMarked_ = call (load_sym libgtk "gtk_calendar_get_day_is_marked") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val getDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_get_detail_height_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_get_detail_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getDisplayOptions_ = call (load_sym libgtk "gtk_calendar_get_display_options") (GObjectObjectClass.PolyML.PTR --> GtkCalendarDisplayOptions.PolyML.VAL)
-      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
-      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val getDayIsMarked_ = call (load_sym libgtk "gtk_calendar_get_day_is_marked") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val getDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_get_detail_height_rows") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_get_detail_width_chars") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getDisplayOptions_ = call (load_sym libgtk "gtk_calendar_get_display_options") (GObjectObjectClass.PolyML.cPtr --> GtkCalendarDisplayOptions.PolyML.cVal)
+      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val selectMonth_ =
         call (load_sym libgtk "gtk_calendar_select_month")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GObjectObjectClass.PolyML.PTR &&> GtkCalendarDisplayOptions.PolyML.VAL --> FFI.PolyML.VOID)
-      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GObjectObjectClass.PolyML.cPtr &&> GtkCalendarDisplayOptions.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCalendarClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

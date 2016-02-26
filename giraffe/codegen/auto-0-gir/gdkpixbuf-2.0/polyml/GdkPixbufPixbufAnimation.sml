@@ -7,13 +7,13 @@ structure GdkPixbufPixbufAnimation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getIter_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_iter") (GObjectObjectClass.PolyML.PTR &&> GLibTimeValRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_static_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getIter_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_iter") (GObjectObjectClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_static_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
     type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t

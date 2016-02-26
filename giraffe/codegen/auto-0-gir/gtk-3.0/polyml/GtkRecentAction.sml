@@ -8,28 +8,28 @@ structure GtkRecentAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_recent_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_recent_action_new")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newForManager_ =
         call (load_sym libgtk "gtk_recent_action_new_for_manager")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkRecentActionClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

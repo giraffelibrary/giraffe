@@ -5,17 +5,17 @@ structure AtkDocument :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_document_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getAttributeValue_ = call (load_sym libatk "atk_document_get_attribute_value") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getDocumentType_ = call (load_sym libatk "atk_document_get_document_type") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getLocale_ = call (load_sym libatk "atk_document_get_locale") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libatk "atk_document_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getAttributeValue_ = call (load_sym libatk "atk_document_get_attribute_value") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getDocumentType_ = call (load_sym libatk "atk_document_get_document_type") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLocale_ = call (load_sym libatk "atk_document_get_locale") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val setAttributeValue_ =
         call (load_sym libatk "atk_document_set_attribute_value")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a AtkDocumentClass.t

@@ -6,10 +6,10 @@ structure GtkSpinner :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_spinner_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_spinner_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val start_ = call (load_sym libgtk "gtk_spinner_start") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val stop_ = call (load_sym libgtk "gtk_spinner_stop") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_spinner_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_spinner_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val start_ = call (load_sym libgtk "gtk_spinner_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val stop_ = call (load_sym libgtk "gtk_spinner_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSpinnerClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

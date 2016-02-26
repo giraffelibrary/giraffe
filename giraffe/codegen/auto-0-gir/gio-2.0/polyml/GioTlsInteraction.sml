@@ -9,32 +9,32 @@ structure GioTlsInteraction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_interaction_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_tls_interaction_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val askPassword_ =
         call (load_sym libgio "g_tls_interaction_ask_password")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GioTlsInteractionResult.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GioTlsInteractionResult.PolyML.cVal
           )
       val askPasswordFinish_ =
         call (load_sym libgio "g_tls_interaction_ask_password_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GioTlsInteractionResult.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GioTlsInteractionResult.PolyML.cVal
           )
       val invokeAskPassword_ =
         call (load_sym libgio "g_tls_interaction_invoke_ask_password")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GioTlsInteractionResult.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GioTlsInteractionResult.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioTlsInteractionClass.t

@@ -76,12 +76,12 @@ fun addFlagsEnumMethodStrDecsHighLevel repo enumIRef =
 (*
  *     structure PolyML :                          -.
  *       sig                                        |
- *         val VAL : C.val_ PolyMLFFI.conversion    | Poly/ML only
- *         val REF : C.ref_ PolyMLFFI.conversion    |
+ *         val cVal : C.val_ PolyMLFFI.conversion   | Poly/ML only
+ *         val cRef : C.ref_ PolyMLFFI.conversion   |
  *       end                                       -'
  *)
 val structPolyMLSpec =
   mkPolyMLStructSpec [
-    SpecVal (toList1 [(VALId, mkConversionTy cValTy)]),
-    SpecVal (toList1 [(REFId, mkConversionTy cRefTy)])
+    SpecVal (toList1 [(cValId, mkConversionTy cValTy)]),
+    SpecVal (toList1 [(cRefId, mkConversionTy cRefTy)])
   ]

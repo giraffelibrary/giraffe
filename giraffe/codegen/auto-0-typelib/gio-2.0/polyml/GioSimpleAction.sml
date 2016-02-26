@@ -6,18 +6,18 @@ structure GioSimpleAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_simple_action_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_simple_action_new") (Utf8.PolyML.INPTR &&> GLibVariantTypeRecord.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_simple_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_simple_action_new") (Utf8.PolyML.cInPtr &&> GLibVariantTypeRecord.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
       val newStateful_ =
         call (load_sym libgio "g_simple_action_new_stateful")
           (
-            Utf8.PolyML.INPTR
-             &&> GLibVariantTypeRecord.PolyML.OPTPTR
-             &&> GLibVariantRecord.PolyML.PTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> GLibVariantTypeRecord.PolyML.cOptPtr
+             &&> GLibVariantRecord.PolyML.cPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val setEnabled_ = call (load_sym libgio "g_simple_action_set_enabled") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setState_ = call (load_sym libgio "g_simple_action_set_state") (GObjectObjectClass.PolyML.PTR &&> GLibVariantRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val setEnabled_ = call (load_sym libgio "g_simple_action_set_enabled") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setState_ = call (load_sym libgio "g_simple_action_set_state") (GObjectObjectClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioSimpleActionClass.t
     type 'a action_class_t = 'a GioActionClass.t

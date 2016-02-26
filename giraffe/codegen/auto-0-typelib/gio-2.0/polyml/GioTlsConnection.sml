@@ -13,43 +13,43 @@ structure GioTlsConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_connection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_tls_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val emitAcceptCertificate_ =
         call (load_sym libgio "g_tls_connection_emit_accept_certificate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GioTlsCertificateFlags.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GioTlsCertificateFlags.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val getCertificate_ = call (load_sym libgio "g_tls_connection_get_certificate") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDatabase_ = call (load_sym libgio "g_tls_connection_get_database") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getInteraction_ = call (load_sym libgio "g_tls_connection_get_interaction") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPeerCertificate_ = call (load_sym libgio "g_tls_connection_get_peer_certificate") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPeerCertificateErrors_ = call (load_sym libgio "g_tls_connection_get_peer_certificate_errors") (GObjectObjectClass.PolyML.PTR --> GioTlsCertificateFlags.PolyML.VAL)
-      val getRehandshakeMode_ = call (load_sym libgio "g_tls_connection_get_rehandshake_mode") (GObjectObjectClass.PolyML.PTR --> GioTlsRehandshakeMode.PolyML.VAL)
-      val getRequireCloseNotify_ = call (load_sym libgio "g_tls_connection_get_require_close_notify") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getCertificate_ = call (load_sym libgio "g_tls_connection_get_certificate") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDatabase_ = call (load_sym libgio "g_tls_connection_get_database") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getInteraction_ = call (load_sym libgio "g_tls_connection_get_interaction") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPeerCertificate_ = call (load_sym libgio "g_tls_connection_get_peer_certificate") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPeerCertificateErrors_ = call (load_sym libgio "g_tls_connection_get_peer_certificate_errors") (GObjectObjectClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
+      val getRehandshakeMode_ = call (load_sym libgio "g_tls_connection_get_rehandshake_mode") (GObjectObjectClass.PolyML.cPtr --> GioTlsRehandshakeMode.PolyML.cVal)
+      val getRequireCloseNotify_ = call (load_sym libgio "g_tls_connection_get_require_close_notify") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val handshake_ =
         call (load_sym libgio "g_tls_connection_handshake")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val handshakeFinish_ =
         call (load_sym libgio "g_tls_connection_handshake_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setCertificate_ = call (load_sym libgio "g_tls_connection_set_certificate") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDatabase_ = call (load_sym libgio "g_tls_connection_set_database") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setInteraction_ = call (load_sym libgio "g_tls_connection_set_interaction") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setRehandshakeMode_ = call (load_sym libgio "g_tls_connection_set_rehandshake_mode") (GObjectObjectClass.PolyML.PTR &&> GioTlsRehandshakeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setRequireCloseNotify_ = call (load_sym libgio "g_tls_connection_set_require_close_notify") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setCertificate_ = call (load_sym libgio "g_tls_connection_set_certificate") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDatabase_ = call (load_sym libgio "g_tls_connection_set_database") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setInteraction_ = call (load_sym libgio "g_tls_connection_set_interaction") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setRehandshakeMode_ = call (load_sym libgio "g_tls_connection_set_rehandshake_mode") (GObjectObjectClass.PolyML.cPtr &&> GioTlsRehandshakeMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRequireCloseNotify_ = call (load_sym libgio "g_tls_connection_set_require_close_notify") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioTlsConnectionClass.t
     type 'a cancellable_class_t = 'a GioCancellableClass.t

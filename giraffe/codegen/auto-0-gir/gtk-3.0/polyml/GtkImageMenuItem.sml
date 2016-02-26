@@ -9,18 +9,18 @@ structure GtkImageMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_image_menu_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_image_menu_item_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_image_menu_item_new_from_stock") (Utf8.PolyML.INPTR &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_image_menu_item_new_with_label") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_image_menu_item_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_get_always_show_image") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getImage_ = call (load_sym libgtk "gtk_image_menu_item_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getUseStock_ = call (load_sym libgtk "gtk_image_menu_item_get_use_stock") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setAccelGroup_ = call (load_sym libgtk "gtk_image_menu_item_set_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_set_always_show_image") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setImage_ = call (load_sym libgtk "gtk_image_menu_item_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setUseStock_ = call (load_sym libgtk "gtk_image_menu_item_set_use_stock") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_image_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_image_menu_item_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_image_menu_item_new_from_stock") (Utf8.PolyML.cInPtr &&> GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabel_ = call (load_sym libgtk "gtk_image_menu_item_new_with_label") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_image_menu_item_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_get_always_show_image") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getImage_ = call (load_sym libgtk "gtk_image_menu_item_get_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getUseStock_ = call (load_sym libgtk "gtk_image_menu_item_get_use_stock") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setAccelGroup_ = call (load_sym libgtk "gtk_image_menu_item_set_accel_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_set_always_show_image") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setImage_ = call (load_sym libgtk "gtk_image_menu_item_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setUseStock_ = call (load_sym libgtk "gtk_image_menu_item_set_use_stock") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkImageMenuItemClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

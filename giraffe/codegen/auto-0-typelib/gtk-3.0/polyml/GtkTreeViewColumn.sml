@@ -14,106 +14,106 @@ structure GtkTreeViewColumn :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_view_column_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tree_view_column_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithArea_ = call (load_sym libgtk "gtk_tree_view_column_new_with_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_tree_view_column_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tree_view_column_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithArea_ = call (load_sym libgtk "gtk_tree_view_column_new_with_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val addAttribute_ =
         call (load_sym libgtk "gtk_tree_view_column_add_attribute")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val cellGetPosition_ =
         call (load_sym libgtk "gtk_tree_view_column_cell_get_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val cellGetSize_ =
         call (load_sym libgtk "gtk_tree_view_column_cell_get_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoRectangleIntRecord.PolyML.OPTPTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cOptPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val cellIsVisible_ = call (load_sym libgtk "gtk_tree_view_column_cell_is_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val cellIsVisible_ = call (load_sym libgtk "gtk_tree_view_column_cell_is_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val cellSetCellData_ =
         call (load_sym libgtk "gtk_tree_view_column_cell_set_cell_data")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val clear_ = call (load_sym libgtk "gtk_tree_view_column_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val clearAttributes_ = call (load_sym libgtk "gtk_tree_view_column_clear_attributes") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val clicked_ = call (load_sym libgtk "gtk_tree_view_column_clicked") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val focusCell_ = call (load_sym libgtk "gtk_tree_view_column_focus_cell") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getAlignment_ = call (load_sym libgtk "gtk_tree_view_column_get_alignment") (GObjectObjectClass.PolyML.PTR --> FFI.Float.PolyML.VAL)
-      val getButton_ = call (load_sym libgtk "gtk_tree_view_column_get_button") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getClickable_ = call (load_sym libgtk "gtk_tree_view_column_get_clickable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getExpand_ = call (load_sym libgtk "gtk_tree_view_column_get_expand") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_fixed_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_max_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_min_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getReorderable_ = call (load_sym libgtk "gtk_tree_view_column_get_reorderable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getResizable_ = call (load_sym libgtk "gtk_tree_view_column_get_resizable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSizing_ = call (load_sym libgtk "gtk_tree_view_column_get_sizing") (GObjectObjectClass.PolyML.PTR --> GtkTreeViewColumnSizing.PolyML.VAL)
-      val getSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_column_id") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_indicator") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_order") (GObjectObjectClass.PolyML.PTR --> GtkSortType.PolyML.VAL)
-      val getSpacing_ = call (load_sym libgtk "gtk_tree_view_column_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_tree_view_column_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getTreeView_ = call (load_sym libgtk "gtk_tree_view_column_get_tree_view") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getVisible_ = call (load_sym libgtk "gtk_tree_view_column_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getWidget_ = call (load_sym libgtk "gtk_tree_view_column_get_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getXOffset_ = call (load_sym libgtk "gtk_tree_view_column_get_x_offset") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val clear_ = call (load_sym libgtk "gtk_tree_view_column_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clearAttributes_ = call (load_sym libgtk "gtk_tree_view_column_clear_attributes") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clicked_ = call (load_sym libgtk "gtk_tree_view_column_clicked") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val focusCell_ = call (load_sym libgtk "gtk_tree_view_column_focus_cell") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAlignment_ = call (load_sym libgtk "gtk_tree_view_column_get_alignment") (GObjectObjectClass.PolyML.cPtr --> FFI.Float.PolyML.cVal)
+      val getButton_ = call (load_sym libgtk "gtk_tree_view_column_get_button") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getClickable_ = call (load_sym libgtk "gtk_tree_view_column_get_clickable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getExpand_ = call (load_sym libgtk "gtk_tree_view_column_get_expand") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_fixed_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_max_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_min_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getReorderable_ = call (load_sym libgtk "gtk_tree_view_column_get_reorderable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getResizable_ = call (load_sym libgtk "gtk_tree_view_column_get_resizable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSizing_ = call (load_sym libgtk "gtk_tree_view_column_get_sizing") (GObjectObjectClass.PolyML.cPtr --> GtkTreeViewColumnSizing.PolyML.cVal)
+      val getSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_column_id") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_indicator") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_order") (GObjectObjectClass.PolyML.cPtr --> GtkSortType.PolyML.cVal)
+      val getSpacing_ = call (load_sym libgtk "gtk_tree_view_column_get_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getTitle_ = call (load_sym libgtk "gtk_tree_view_column_get_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTreeView_ = call (load_sym libgtk "gtk_tree_view_column_get_tree_view") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getVisible_ = call (load_sym libgtk "gtk_tree_view_column_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWidget_ = call (load_sym libgtk "gtk_tree_view_column_get_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getXOffset_ = call (load_sym libgtk "gtk_tree_view_column_get_x_offset") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_tree_view_column_pack_end")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_tree_view_column_pack_start")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val queueResize_ = call (load_sym libgtk "gtk_tree_view_column_queue_resize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setAlignment_ = call (load_sym libgtk "gtk_tree_view_column_set_alignment") (GObjectObjectClass.PolyML.PTR &&> FFI.Float.PolyML.VAL --> FFI.PolyML.VOID)
-      val setClickable_ = call (load_sym libgtk "gtk_tree_view_column_set_clickable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setExpand_ = call (load_sym libgtk "gtk_tree_view_column_set_expand") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_fixed_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_max_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_min_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setReorderable_ = call (load_sym libgtk "gtk_tree_view_column_set_reorderable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setResizable_ = call (load_sym libgtk "gtk_tree_view_column_set_resizable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSizing_ = call (load_sym libgtk "gtk_tree_view_column_set_sizing") (GObjectObjectClass.PolyML.PTR &&> GtkTreeViewColumnSizing.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_column_id") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_indicator") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_order") (GObjectObjectClass.PolyML.PTR &&> GtkSortType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSpacing_ = call (load_sym libgtk "gtk_tree_view_column_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_tree_view_column_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setVisible_ = call (load_sym libgtk "gtk_tree_view_column_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWidget_ = call (load_sym libgtk "gtk_tree_view_column_set_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val queueResize_ = call (load_sym libgtk "gtk_tree_view_column_queue_resize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAlignment_ = call (load_sym libgtk "gtk_tree_view_column_set_alignment") (GObjectObjectClass.PolyML.cPtr &&> FFI.Float.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setClickable_ = call (load_sym libgtk "gtk_tree_view_column_set_clickable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setExpand_ = call (load_sym libgtk "gtk_tree_view_column_set_expand") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_fixed_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_max_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_min_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setReorderable_ = call (load_sym libgtk "gtk_tree_view_column_set_reorderable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setResizable_ = call (load_sym libgtk "gtk_tree_view_column_set_resizable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSizing_ = call (load_sym libgtk "gtk_tree_view_column_set_sizing") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeViewColumnSizing.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_column_id") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_indicator") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_order") (GObjectObjectClass.PolyML.cPtr &&> GtkSortType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_tree_view_column_set_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_tree_view_column_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_tree_view_column_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setWidget_ = call (load_sym libgtk "gtk_tree_view_column_set_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTreeViewColumnClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

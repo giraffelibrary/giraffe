@@ -10,42 +10,42 @@ structure GtkTreeSelection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_selection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getMode_ = call (load_sym libgtk "gtk_tree_selection_get_mode") (GObjectObjectClass.PolyML.PTR --> GtkSelectionMode.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tree_selection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val countSelectedRows_ = call (load_sym libgtk "gtk_tree_selection_count_selected_rows") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getMode_ = call (load_sym libgtk "gtk_tree_selection_get_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSelectionMode.PolyML.cVal)
       val getSelected_ =
         call (load_sym libgtk "gtk_tree_selection_get_selected")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val getTreeView_ = call (load_sym libgtk "gtk_tree_selection_get_tree_view") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val iterIsSelected_ = call (load_sym libgtk "gtk_tree_selection_iter_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val pathIsSelected_ = call (load_sym libgtk "gtk_tree_selection_path_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val selectAll_ = call (load_sym libgtk "gtk_tree_selection_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectIter_ = call (load_sym libgtk "gtk_tree_selection_select_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectPath_ = call (load_sym libgtk "gtk_tree_selection_select_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getTreeView_ = call (load_sym libgtk "gtk_tree_selection_get_tree_view") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val iterIsSelected_ = call (load_sym libgtk "gtk_tree_selection_iter_is_selected") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val pathIsSelected_ = call (load_sym libgtk "gtk_tree_selection_path_is_selected") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val selectAll_ = call (load_sym libgtk "gtk_tree_selection_select_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val selectIter_ = call (load_sym libgtk "gtk_tree_selection_select_iter") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val selectPath_ = call (load_sym libgtk "gtk_tree_selection_select_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val selectRange_ =
         call (load_sym libgtk "gtk_tree_selection_select_range")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val setMode_ = call (load_sym libgtk "gtk_tree_selection_set_mode") (GObjectObjectClass.PolyML.PTR &&> GtkSelectionMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val unselectAll_ = call (load_sym libgtk "gtk_tree_selection_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectIter_ = call (load_sym libgtk "gtk_tree_selection_unselect_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTreeIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectPath_ = call (load_sym libgtk "gtk_tree_selection_unselect_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val setMode_ = call (load_sym libgtk "gtk_tree_selection_set_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkSelectionMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unselectAll_ = call (load_sym libgtk "gtk_tree_selection_unselect_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectIter_ = call (load_sym libgtk "gtk_tree_selection_unselect_iter") (GObjectObjectClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectPath_ = call (load_sym libgtk "gtk_tree_selection_unselect_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unselectRange_ =
         call (load_sym libgtk "gtk_tree_selection_unselect_range")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkTreeSelectionClass.t

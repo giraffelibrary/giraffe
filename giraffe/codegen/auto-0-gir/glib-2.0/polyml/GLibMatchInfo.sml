@@ -6,41 +6,41 @@ structure GLibMatchInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_match_info_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgobject "g_match_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val expandReferences_ =
         call (load_sym libglib "g_match_info_expand_references")
           (
-            GLibMatchInfoRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> Utf8.PolyML.RETPTR
+            GLibMatchInfoRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
           )
-      val fetch_ = call (load_sym libglib "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.PTR &&> FFI.Int.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val fetchNamed_ = call (load_sym libglib "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
+      val fetch_ = call (load_sym libglib "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val fetchNamed_ = call (load_sym libglib "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val fetchNamedPos_ =
         call (load_sym libglib "g_match_info_fetch_named_pos")
           (
-            GLibMatchInfoRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GLibMatchInfoRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val fetchPos_ =
         call (load_sym libglib "g_match_info_fetch_pos")
           (
-            GLibMatchInfoRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GLibMatchInfoRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getMatchCount_ = call (load_sym libglib "g_match_info_get_match_count") (GLibMatchInfoRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getRegex_ = call (load_sym libglib "g_match_info_get_regex") (GLibMatchInfoRecord.PolyML.PTR --> GLibRegexRecord.PolyML.PTR)
-      val getString_ = call (load_sym libglib "g_match_info_get_string") (GLibMatchInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isPartialMatch_ = call (load_sym libglib "g_match_info_is_partial_match") (GLibMatchInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val matches_ = call (load_sym libglib "g_match_info_matches") (GLibMatchInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val next_ = call (load_sym libglib "g_match_info_next") (GLibMatchInfoRecord.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val getMatchCount_ = call (load_sym libglib "g_match_info_get_match_count") (GLibMatchInfoRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getRegex_ = call (load_sym libglib "g_match_info_get_regex") (GLibMatchInfoRecord.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
+      val getString_ = call (load_sym libglib "g_match_info_get_string") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isPartialMatch_ = call (load_sym libglib "g_match_info_is_partial_match") (GLibMatchInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val matches_ = call (load_sym libglib "g_match_info_matches") (GLibMatchInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val next_ = call (load_sym libglib "g_match_info_next") (GLibMatchInfoRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
     end
     type record_t = GLibMatchInfoRecord.t
     type regex_record_t = GLibRegexRecord.t

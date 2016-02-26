@@ -3,16 +3,16 @@ structure GIRepositoryTypelibType :>
     include G_I_REPOSITORY_TYPELIB_TYPE
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     type t = notnull p
 
@@ -41,7 +41,7 @@ structure GIRepositoryTypelibType :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
   end

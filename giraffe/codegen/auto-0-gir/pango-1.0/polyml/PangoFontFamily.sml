@@ -5,9 +5,9 @@ structure PangoFontFamily :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_family_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getName_ = call (load_sym libpango "pango_font_family_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isMonospace_ = call (load_sym libpango "pango_font_family_is_monospace") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libpango "pango_font_family_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getName_ = call (load_sym libpango "pango_font_family_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isMonospace_ = call (load_sym libpango "pango_font_family_is_monospace") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a PangoFontFamilyClass.t
     type t = base class_t

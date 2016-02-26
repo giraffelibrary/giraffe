@@ -16,97 +16,97 @@ structure GioDBusProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_proxy_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFinish_ = call (load_sym libgio "g_dbus_proxy_new_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newForBusFinish_ = call (load_sym libgio "g_dbus_proxy_new_for_bus_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_dbus_proxy_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFinish_ = call (load_sym libgio "g_dbus_proxy_new_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newForBusFinish_ = call (load_sym libgio "g_dbus_proxy_new_for_bus_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val newForBusSync_ =
         call (load_sym libgio "g_dbus_proxy_new_for_bus_sync")
           (
-            GioBusType.PolyML.VAL
-             &&> GioDBusProxyFlags.PolyML.VAL
-             &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GioBusType.PolyML.cVal
+             &&> GioDBusProxyFlags.PolyML.cVal
+             &&> GioDBusInterfaceInfoRecord.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newSync_ =
         call (load_sym libgio "g_dbus_proxy_new_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GioDBusProxyFlags.PolyML.VAL
-             &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GioDBusProxyFlags.PolyML.cVal
+             &&> GioDBusInterfaceInfoRecord.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val callFinish_ =
         call (load_sym libgio "g_dbus_proxy_call_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callSync_ =
         call (load_sym libgio "g_dbus_proxy_call_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GioDBusCallFlags.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListFinish_ =
         call (load_sym libgio "g_dbus_proxy_call_with_unix_fd_list_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListSync_ =
         call (load_sym libgio "g_dbus_proxy_call_with_unix_fd_list_sync")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             &&> GioDBusCallFlags.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GLibVariantRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GioDBusCallFlags.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibVariantRecord.PolyML.cPtr
           )
-      val getCachedProperty_ = call (load_sym libgio "g_dbus_proxy_get_cached_property") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
-      val getConnection_ = call (load_sym libgio "g_dbus_proxy_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_get_default_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getFlags_ = call (load_sym libgio "g_dbus_proxy_get_flags") (GObjectObjectClass.PolyML.PTR --> GioDBusProxyFlags.PolyML.VAL)
-      val getInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_get_interface_info") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceInfoRecord.PolyML.PTR)
-      val getInterfaceName_ = call (load_sym libgio "g_dbus_proxy_get_interface_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getName_ = call (load_sym libgio "g_dbus_proxy_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getNameOwner_ = call (load_sym libgio "g_dbus_proxy_get_name_owner") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_proxy_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getCachedProperty_ = call (load_sym libgio "g_dbus_proxy_get_cached_property") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getConnection_ = call (load_sym libgio "g_dbus_proxy_get_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_get_default_timeout") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getFlags_ = call (load_sym libgio "g_dbus_proxy_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioDBusProxyFlags.PolyML.cVal)
+      val getInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_get_interface_info") (GObjectObjectClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
+      val getInterfaceName_ = call (load_sym libgio "g_dbus_proxy_get_interface_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (load_sym libgio "g_dbus_proxy_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getNameOwner_ = call (load_sym libgio "g_dbus_proxy_get_name_owner") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_proxy_get_object_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val setCachedProperty_ =
         call (load_sym libgio "g_dbus_proxy_set_cached_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.OPTPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             --> FFI.PolyML.cVoid
           )
-      val setDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_set_default_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_set_interface_info") (GObjectObjectClass.PolyML.PTR &&> GioDBusInterfaceInfoRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val setDefaultTimeout_ = call (load_sym libgio "g_dbus_proxy_set_default_timeout") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setInterfaceInfo_ = call (load_sym libgio "g_dbus_proxy_set_interface_info") (GObjectObjectClass.PolyML.cPtr &&> GioDBusInterfaceInfoRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDBusProxyClass.t
     type 'a async_initable_class_t = 'a GioAsyncInitableClass.t

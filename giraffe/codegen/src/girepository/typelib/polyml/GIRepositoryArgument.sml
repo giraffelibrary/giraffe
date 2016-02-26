@@ -5,16 +5,16 @@ structure GIRepositoryArgument :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -22,72 +22,72 @@ structure GIRepositoryArgument :>
       val new_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_new")
-          (FFI.PolyML.VOID --> PTR);
+          (FFI.PolyML.cVoid --> cPtr);
 
       val free_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_free")
-          (PTR --> FFI.PolyML.VOID);
+          (cPtr --> FFI.PolyML.cVoid);
 
       val from_boolean_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_boolean")
-          (PTR --> FFI.Bool.PolyML.VAL);
+          (cPtr --> FFI.Bool.PolyML.cVal);
 
       val from_int8_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int8")
-          (PTR --> FFI.Int8.PolyML.VAL);
+          (cPtr --> FFI.Int8.PolyML.cVal);
 
       val from_uint8_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint8")
-          (PTR --> FFI.UInt8.PolyML.VAL);
+          (cPtr --> FFI.UInt8.PolyML.cVal);
 
       val from_int16_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int16")
-          (PTR --> FFI.Int16.PolyML.VAL);
+          (cPtr --> FFI.Int16.PolyML.cVal);
 
       val from_uint16_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint16")
-          (PTR --> FFI.UInt16.PolyML.VAL);
+          (cPtr --> FFI.UInt16.PolyML.cVal);
 
       val from_int32_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int32")
-          (PTR --> FFI.Int32.PolyML.VAL);
+          (cPtr --> FFI.Int32.PolyML.cVal);
 
       val from_uint32_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint32")
-          (PTR --> FFI.UInt32.PolyML.VAL);
+          (cPtr --> FFI.UInt32.PolyML.cVal);
 
       val from_int64_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int64")
-          (PTR --> FFI.Int64.PolyML.VAL);
+          (cPtr --> FFI.Int64.PolyML.cVal);
 
       val from_uint64_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint64")
-          (PTR --> FFI.UInt64.PolyML.VAL);
+          (cPtr --> FFI.UInt64.PolyML.cVal);
 
       val from_float_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_float")
-          (PTR --> FFI.Float.PolyML.VAL);
+          (cPtr --> FFI.Float.PolyML.cVal);
 
       val from_double_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_double")
-          (PTR --> FFI.Double.PolyML.VAL);
+          (cPtr --> FFI.Double.PolyML.cVal);
 
       val from_string_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_string")
-          (PTR --> Utf8.PolyML.RETPTR);
+          (cPtr --> Utf8.PolyML.cOutPtr);
     end
 
     fun fromReal x =
@@ -188,7 +188,7 @@ structure GIRepositoryArgument :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
   end

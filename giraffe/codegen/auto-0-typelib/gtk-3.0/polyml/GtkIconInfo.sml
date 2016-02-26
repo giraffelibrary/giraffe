@@ -7,37 +7,37 @@ structure GtkIconInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_info_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newForPixbuf_ = call (load_sym libgtk "gtk_icon_info_new_for_pixbuf") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GtkIconInfoRecord.PolyML.PTR)
-      val copy_ = call (load_sym libgtk "gtk_icon_info_copy") (GtkIconInfoRecord.PolyML.PTR --> GtkIconInfoRecord.PolyML.PTR)
-      val getBaseSize_ = call (load_sym libgtk "gtk_icon_info_get_base_size") (GtkIconInfoRecord.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getBuiltinPixbuf_ = call (load_sym libgtk "gtk_icon_info_get_builtin_pixbuf") (GtkIconInfoRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDisplayName_ = call (load_sym libgtk "gtk_icon_info_get_display_name") (GtkIconInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getEmbeddedRect_ = call (load_sym libgtk "gtk_icon_info_get_embedded_rect") (GtkIconInfoRecord.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFilename_ = call (load_sym libgtk "gtk_icon_info_get_filename") (GtkIconInfoRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val loadIcon_ = call (load_sym libgtk "gtk_icon_info_load_icon") (GtkIconInfoRecord.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_icon_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newForPixbuf_ = call (load_sym libgtk "gtk_icon_info_new_for_pixbuf") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GtkIconInfoRecord.PolyML.cPtr)
+      val copy_ = call (load_sym libgtk "gtk_icon_info_copy") (GtkIconInfoRecord.PolyML.cPtr --> GtkIconInfoRecord.PolyML.cPtr)
+      val getBaseSize_ = call (load_sym libgtk "gtk_icon_info_get_base_size") (GtkIconInfoRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getBuiltinPixbuf_ = call (load_sym libgtk "gtk_icon_info_get_builtin_pixbuf") (GtkIconInfoRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDisplayName_ = call (load_sym libgtk "gtk_icon_info_get_display_name") (GtkIconInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getEmbeddedRect_ = call (load_sym libgtk "gtk_icon_info_get_embedded_rect") (GtkIconInfoRecord.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFilename_ = call (load_sym libgtk "gtk_icon_info_get_filename") (GtkIconInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val loadIcon_ = call (load_sym libgtk "gtk_icon_info_load_icon") (GtkIconInfoRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val loadSymbolic_ =
         call (load_sym libgtk "gtk_icon_info_load_symbolic")
           (
-            GtkIconInfoRecord.PolyML.PTR
-             &&> GdkRgbaRecord.PolyML.PTR
-             &&> GdkRgbaRecord.PolyML.OPTPTR
-             &&> GdkRgbaRecord.PolyML.OPTPTR
-             &&> GdkRgbaRecord.PolyML.OPTPTR
-             &&> FFI.Bool.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GtkIconInfoRecord.PolyML.cPtr
+             &&> GdkRgbaRecord.PolyML.cPtr
+             &&> GdkRgbaRecord.PolyML.cOptPtr
+             &&> GdkRgbaRecord.PolyML.cOptPtr
+             &&> GdkRgbaRecord.PolyML.cOptPtr
+             &&> FFI.Bool.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val loadSymbolicForContext_ =
         call (load_sym libgtk "gtk_icon_info_load_symbolic_for_context")
           (
-            GtkIconInfoRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.REF
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GtkIconInfoRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val setRawCoordinates_ = call (load_sym libgtk "gtk_icon_info_set_raw_coordinates") (GtkIconInfoRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRawCoordinates_ = call (load_sym libgtk "gtk_icon_info_set_raw_coordinates") (GtkIconInfoRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type record_t = GtkIconInfoRecord.t
     type 'a icon_theme_class_t = 'a GtkIconThemeClass.t

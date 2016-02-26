@@ -17,150 +17,150 @@ structure GIRepositoryObjectInfo :>
       val getTypeName_ =
         call
           (load_sym libgirepository "g_object_info_get_type_name")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getTypeInit_ =
         call
           (load_sym libgirepository "g_object_info_get_type_init")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getAbstract_ =
         call
           (load_sym libgirepository "g_object_info_get_abstract")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getFundamental_ =
         call
           (load_sym libgirepository "g_object_info_get_fundamental")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getParent_ =
         call
           (load_sym libgirepository "g_object_info_get_parent")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getNInterfaces_ =
         call
           (load_sym libgirepository "g_object_info_get_n_interfaces")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getInterface_ =
         call
           (load_sym libgirepository "g_object_info_get_interface")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNFields_ =
         call
           (load_sym libgirepository "g_object_info_get_n_fields")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getField_ =
         call
           (load_sym libgirepository "g_object_info_get_field")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNProperties_ =
         call
           (load_sym libgirepository "g_object_info_get_n_properties")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getProperty_ =
         call
           (load_sym libgirepository "g_object_info_get_property")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
           (load_sym libgirepository "g_object_info_get_n_methods")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getMethod_ =
         call
           (load_sym libgirepository "g_object_info_get_method")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val findMethod_ =
         call
           (load_sym libgirepository "g_object_info_find_method")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> Utf8.PolyML.INPTR
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> Utf8.PolyML.cInPtr
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNSignals_ =
         call
           (load_sym libgirepository "g_object_info_get_n_signals")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getSignal_ =
         call
           (load_sym libgirepository "g_object_info_get_signal")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNVfuncs_ =
         call
           (load_sym libgirepository "g_object_info_get_n_vfuncs")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getVfunc_ =
         call
           (load_sym libgirepository "g_object_info_get_vfunc")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNConstants_ =
         call
           (load_sym libgirepository "g_object_info_get_n_constants")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getConstant_ =
         call
           (load_sym libgirepository "g_object_info_get_constant")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getClassStruct_ =
         call
           (load_sym libgirepository "g_object_info_get_class_struct")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val findVfunc_ =
         call
           (load_sym libgirepository "g_object_info_find_vfunc")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> Utf8.PolyML.INPTR
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> Utf8.PolyML.cInPtr
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getUnrefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_unref_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getRefFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_ref_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getSetValueFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_set_value_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getGetValueFunction_ =
         call
           (load_sym libgirepository "g_object_info_get_get_value_function")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
     end
 
 

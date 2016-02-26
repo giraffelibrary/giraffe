@@ -5,15 +5,15 @@ structure PangoGlyphItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_glyph_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val copy_ = call (load_sym libpango "pango_glyph_item_copy") (PangoGlyphItemRecord.PolyML.PTR --> PangoGlyphItemRecord.PolyML.PTR)
+      val getType_ = call (load_sym libpango "pango_glyph_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (load_sym libpango "pango_glyph_item_copy") (PangoGlyphItemRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cPtr)
       val split_ =
         call (load_sym libpango "pango_glyph_item_split")
           (
-            PangoGlyphItemRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> PangoGlyphItemRecord.PolyML.PTR
+            PangoGlyphItemRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> PangoGlyphItemRecord.PolyML.cPtr
           )
     end
     type record_t = PangoGlyphItemRecord.t

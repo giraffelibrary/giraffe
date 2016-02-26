@@ -5,9 +5,9 @@ structure GLibErrorRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
-        val OUTOPTREF : (unit, unit) C.r PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
+        val cOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
       end
   end =
   struct
@@ -15,9 +15,9 @@ structure GLibErrorRecord :>
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val OUTOPTREF = CPointer.PolyML.cRef : (unit, unit) r PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -25,12 +25,12 @@ structure GLibErrorRecord :>
       val copy_ =
         call
           (load_sym libglib "g_error_copy")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val free_ =
         call
           (load_sym libglib "g_error_free")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -94,9 +94,9 @@ structure GLibErrorRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
-        val OUTOPTREF = OUTOPTREF
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
+        val cOutOptRef = cOutOptRef
       end
 
     local
@@ -105,17 +105,17 @@ structure GLibErrorRecord :>
       val getDomain_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_domain")
-          (PolyML.PTR --> GLibQuark.PolyML.VAL)
+          (PolyML.cPtr --> GLibQuark.PolyML.cVal)
 
       val getCode_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_code")
-          (PolyML.PTR --> FFI.Enum.PolyML.VAL)
+          (PolyML.cPtr --> FFI.Enum.PolyML.cVal)
 
       val getMessage_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_message")
-          (PolyML.PTR --> Utf8.PolyML.RETPTR)
+          (PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
 
     type quark_t = GLibQuark.t

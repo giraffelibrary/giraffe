@@ -28,29 +28,29 @@ structure Signal :>
               PolyMLFFI.load_sym libgobject "g_signal_connect_closure"
           )
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectClosureRecord.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.ULong.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectClosureRecord.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.ULong.PolyML.cVal
           );
 
       val signalHandlerDisconnect_ =
         PolyMLFFI.call
           (PolyMLFFI.load_sym libgobject "g_signal_handler_disconnect")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.ULong.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.ULong.PolyML.cVal
+             --> FFI.PolyML.cVoid
           );
 
       val signalHandlerIsConnected_ =
         PolyMLFFI.call
           (PolyMLFFI.load_sym libgobject "g_signal_handler_is_connected")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.ULong.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.ULong.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           );
     end
 

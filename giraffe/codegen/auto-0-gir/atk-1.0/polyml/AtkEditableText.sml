@@ -5,33 +5,33 @@ structure AtkEditableText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_editable_text_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_editable_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val copyText_ =
         call (load_sym libatk "atk_editable_text_copy_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val cutText_ =
         call (load_sym libatk "atk_editable_text_cut_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val deleteText_ =
         call (load_sym libatk "atk_editable_text_delete_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val pasteText_ = call (load_sym libatk "atk_editable_text_paste_text") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTextContents_ = call (load_sym libatk "atk_editable_text_set_text_contents") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val pasteText_ = call (load_sym libatk "atk_editable_text_paste_text") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTextContents_ = call (load_sym libatk "atk_editable_text_set_text_contents") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a AtkEditableTextClass.t
     type t = base class_t

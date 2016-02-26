@@ -8,21 +8,21 @@ structure GdkPixbufPixbufLoader :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithMimeType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_mime_type") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newWithType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_type") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val close_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_close") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val getAnimation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_animation") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFormat_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_format") (GObjectObjectClass.PolyML.PTR --> GdkPixbufPixbufFormatRecord.PolyML.PTR)
-      val getPixbuf_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMimeType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_mime_type") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newWithType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_type") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val close_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_close") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val getAnimation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_animation") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFormat_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_format") (GObjectObjectClass.PolyML.cPtr --> GdkPixbufPixbufFormatRecord.PolyML.cPtr)
+      val getPixbuf_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val setSize_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_loader_set_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GdkPixbufPixbufLoaderClass.t

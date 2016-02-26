@@ -8,13 +8,13 @@ structure GioDBusObjectManagerServer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_manager_server_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_dbus_object_manager_server_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val export_ = call (load_sym libgio "g_dbus_object_manager_server_export") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val exportUniquely_ = call (load_sym libgio "g_dbus_object_manager_server_export_uniquely") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getConnection_ = call (load_sym libgio "g_dbus_object_manager_server_get_connection") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setConnection_ = call (load_sym libgio "g_dbus_object_manager_server_set_connection") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val unexport_ = call (load_sym libgio "g_dbus_object_manager_server_unexport") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_dbus_object_manager_server_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_dbus_object_manager_server_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val export_ = call (load_sym libgio "g_dbus_object_manager_server_export") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val exportUniquely_ = call (load_sym libgio "g_dbus_object_manager_server_export_uniquely") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getConnection_ = call (load_sym libgio "g_dbus_object_manager_server_get_connection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setConnection_ = call (load_sym libgio "g_dbus_object_manager_server_set_connection") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val unexport_ = call (load_sym libgio "g_dbus_object_manager_server_unexport") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioDBusObjectManagerServerClass.t
     type 'a d_bus_object_manager_class_t = 'a GioDBusObjectManagerClass.t

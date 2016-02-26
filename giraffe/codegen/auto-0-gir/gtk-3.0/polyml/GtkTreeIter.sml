@@ -5,8 +5,8 @@ structure GtkTreeIter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_iter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val copy_ = call (load_sym libgtk "gtk_tree_iter_copy") (GtkTreeIterRecord.PolyML.PTR --> GtkTreeIterRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_tree_iter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (load_sym libgtk "gtk_tree_iter_copy") (GtkTreeIterRecord.PolyML.cPtr --> GtkTreeIterRecord.PolyML.cPtr)
     end
     type record_t = GtkTreeIterRecord.t
     type t = record_t

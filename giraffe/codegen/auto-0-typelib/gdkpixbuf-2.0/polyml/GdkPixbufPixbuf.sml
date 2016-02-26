@@ -8,191 +8,191 @@ structure GdkPixbufPixbuf :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new")
           (
-            GdkPixbufColorspace.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GdkPixbufColorspace.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
+      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
       val newFromFileAtScale_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_scale")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newFromFileAtSize_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_size")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newFromStream_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val newFromStreamAtScale_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_at_scale")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val newFromStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val newFromXpmData_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_xpm_data") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val gettext_ = call (load_sym libgdkpixbuf "gdk_pixbuf_gettext") (Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val saveToStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_save_to_stream_finish") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
+      val newFromStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newFromXpmData_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_xpm_data") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val gettext_ = call (load_sym libgdkpixbuf "gdk_pixbuf_gettext") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val saveToStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_save_to_stream_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
       val addAlpha_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_add_alpha")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt8.PolyML.VAL
-             &&> FFI.UInt8.PolyML.VAL
-             &&> FFI.UInt8.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.UInt8.PolyML.cVal
+             &&> FFI.UInt8.PolyML.cVal
+             &&> FFI.UInt8.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val applyEmbeddedOrientation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_apply_embedded_orientation") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val applyEmbeddedOrientation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_apply_embedded_orientation") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val composite_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_composite")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GdkPixbufInterpType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GdkPixbufInterpType.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val compositeColor_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_composite_color")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GdkPixbufInterpType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GdkPixbufInterpType.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val compositeColorSimple_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_composite_color_simple")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GdkPixbufInterpType.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GdkPixbufInterpType.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_copy") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_copy") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val copyArea_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_copy_area")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val fill_ = call (load_sym libgdkpixbuf "gdk_pixbuf_fill") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val flip_ = call (load_sym libgdkpixbuf "gdk_pixbuf_flip") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getBitsPerSample_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_bits_per_sample") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getColorspace_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_colorspace") (GObjectObjectClass.PolyML.PTR --> GdkPixbufColorspace.PolyML.VAL)
-      val getHasAlpha_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_has_alpha") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_height") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getNChannels_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_n_channels") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getOption_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_option") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getRowstride_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_rowstride") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
+      val fill_ = call (load_sym libgdkpixbuf "gdk_pixbuf_fill") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val flip_ = call (load_sym libgdkpixbuf "gdk_pixbuf_flip") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getBitsPerSample_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_bits_per_sample") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getColorspace_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_colorspace") (GObjectObjectClass.PolyML.cPtr --> GdkPixbufColorspace.PolyML.cVal)
+      val getHasAlpha_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_has_alpha") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getNChannels_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_n_channels") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getOption_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_option") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getRowstride_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_rowstride") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val newSubpixbuf_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_new_subpixbuf")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val rotateSimple_ = call (load_sym libgdkpixbuf "gdk_pixbuf_rotate_simple") (GObjectObjectClass.PolyML.PTR &&> GdkPixbufPixbufRotation.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val rotateSimple_ = call (load_sym libgdkpixbuf "gdk_pixbuf_rotate_simple") (GObjectObjectClass.PolyML.cPtr &&> GdkPixbufPixbufRotation.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
       val saturateAndPixelate_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_saturate_and_pixelate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val scale_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_scale")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GdkPixbufInterpType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GdkPixbufInterpType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val scaleSimple_ =
         call (load_sym libgdkpixbuf "gdk_pixbuf_scale_simple")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> GdkPixbufInterpType.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> GdkPixbufInterpType.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GdkPixbufPixbufClass.t

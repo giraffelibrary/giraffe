@@ -110,7 +110,7 @@ structure ClassifyEvent :>
     in
       val eventType_ =
         call (load_sym libgiraffegdk "giraffe_gdk_get_event_type")
-          (GdkEvent.PolyML.PTR --> GdkEventType.PolyML.VAL)
+          (GdkEvent.PolyML.cPtr --> GdkEventType.PolyML.cVal)
     end
 
 

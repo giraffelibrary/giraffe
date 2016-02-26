@@ -9,12 +9,12 @@ structure GtkViewport :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_viewport_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_viewport_new") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getBinWindow_ = call (load_sym libgtk "gtk_viewport_get_bin_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getShadowType_ = call (load_sym libgtk "gtk_viewport_get_shadow_type") (GObjectObjectClass.PolyML.PTR --> GtkShadowType.PolyML.VAL)
-      val getViewWindow_ = call (load_sym libgtk "gtk_viewport_get_view_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setShadowType_ = call (load_sym libgtk "gtk_viewport_set_shadow_type") (GObjectObjectClass.PolyML.PTR &&> GtkShadowType.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_viewport_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_viewport_new") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getBinWindow_ = call (load_sym libgtk "gtk_viewport_get_bin_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getShadowType_ = call (load_sym libgtk "gtk_viewport_get_shadow_type") (GObjectObjectClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
+      val getViewWindow_ = call (load_sym libgtk "gtk_viewport_get_view_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setShadowType_ = call (load_sym libgtk "gtk_viewport_set_shadow_type") (GObjectObjectClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkViewportClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

@@ -29,12 +29,15 @@ signature F_F_I_ARRAY =
 
     structure PolyML :
       sig
-        val INPTR : C.notnull C.in_p PolyMLFFI.conversion
-        val INOPTPTR : unit C.in_p PolyMLFFI.conversion
-        val OUTREF : (unit, C.notnull) C.r PolyMLFFI.conversion
-        val OUTOPTREF : (unit, unit) C.r PolyMLFFI.conversion
-        val INOUTREF : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
-        val RETPTR : C.notnull C.out_p PolyMLFFI.conversion
-        val RETOPTPTR : unit C.out_p PolyMLFFI.conversion
+        val cInPtr     : C.notnull C.in_p PolyMLFFI.conversion
+        val cInOptPtr  : unit      C.in_p PolyMLFFI.conversion
+
+        val cOutPtr    : C.notnull C.out_p PolyMLFFI.conversion
+        val cOutOptPtr : unit      C.out_p PolyMLFFI.conversion
+
+        val cOutRef      : (unit,      C.notnull) C.r PolyMLFFI.conversion
+        val cOutOptRef   : (unit,      unit)      C.r PolyMLFFI.conversion
+        val cInOutRef    : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
+        val cInOutOptRef : (unit,      unit)      C.r PolyMLFFI.conversion
       end
   end

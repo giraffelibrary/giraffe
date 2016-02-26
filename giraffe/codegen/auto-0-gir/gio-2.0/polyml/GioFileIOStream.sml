@@ -9,24 +9,24 @@ structure GioFileIOStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_io_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getEtag_ = call (load_sym libgio "g_file_io_stream_get_etag") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgio "g_file_io_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getEtag_ = call (load_sym libgio "g_file_io_stream_get_etag") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val queryInfo_ =
         call (load_sym libgio "g_file_io_stream_query_info")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val queryInfoFinish_ =
         call (load_sym libgio "g_file_io_stream_query_info_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GioFileIOStreamClass.t

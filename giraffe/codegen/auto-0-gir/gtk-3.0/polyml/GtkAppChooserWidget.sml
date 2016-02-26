@@ -9,20 +9,20 @@ structure GtkAppChooserWidget :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_app_chooser_widget_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_app_chooser_widget_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultText_ = call (load_sym libgtk "gtk_app_chooser_widget_get_default_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getShowAll_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_all") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowDefault_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_default") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowFallback_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_fallback") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowOther_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_other") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowRecommended_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_recommended") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setDefaultText_ = call (load_sym libgtk "gtk_app_chooser_widget_set_default_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setShowAll_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_all") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowDefault_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_default") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowFallback_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_fallback") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowOther_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_other") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowRecommended_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_recommended") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_app_chooser_widget_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_app_chooser_widget_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultText_ = call (load_sym libgtk "gtk_app_chooser_widget_get_default_text") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getShowAll_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_all") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowDefault_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_default") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowFallback_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_fallback") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowOther_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_other") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowRecommended_ = call (load_sym libgtk "gtk_app_chooser_widget_get_show_recommended") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setDefaultText_ = call (load_sym libgtk "gtk_app_chooser_widget_set_default_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setShowAll_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_all") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowDefault_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_default") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowFallback_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_fallback") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowOther_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_other") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowRecommended_ = call (load_sym libgtk "gtk_app_chooser_widget_set_show_recommended") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAppChooserWidgetClass.t
     type 'a app_chooser_class_t = 'a GtkAppChooserClass.t

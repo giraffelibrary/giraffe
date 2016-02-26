@@ -7,13 +7,13 @@ structure GtkLinkButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_link_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_link_button_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabel_ = call (load_sym libgtk "gtk_link_button_new_with_label") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val getUri_ = call (load_sym libgtk "gtk_link_button_get_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getVisited_ = call (load_sym libgtk "gtk_link_button_get_visited") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setUri_ = call (load_sym libgtk "gtk_link_button_set_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setVisited_ = call (load_sym libgtk "gtk_link_button_set_visited") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_link_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_link_button_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabel_ = call (load_sym libgtk "gtk_link_button_new_with_label") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getUri_ = call (load_sym libgtk "gtk_link_button_get_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getVisited_ = call (load_sym libgtk "gtk_link_button_get_visited") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setUri_ = call (load_sym libgtk "gtk_link_button_set_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setVisited_ = call (load_sym libgtk "gtk_link_button_set_visited") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkLinkButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

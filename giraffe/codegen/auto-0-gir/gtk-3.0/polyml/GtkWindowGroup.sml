@@ -7,12 +7,12 @@ structure GtkWindowGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_window_group_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_window_group_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val addWindow_ = call (load_sym libgtk "gtk_window_group_add_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getCurrentDeviceGrab_ = call (load_sym libgtk "gtk_window_group_get_current_device_grab") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getCurrentGrab_ = call (load_sym libgtk "gtk_window_group_get_current_grab") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_window_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_window_group_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val addWindow_ = call (load_sym libgtk "gtk_window_group_add_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getCurrentDeviceGrab_ = call (load_sym libgtk "gtk_window_group_get_current_device_grab") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCurrentGrab_ = call (load_sym libgtk "gtk_window_group_get_current_grab") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkWindowGroupClass.t
     type 'a widget_class_t = 'a GtkWidgetClass.t

@@ -9,11 +9,11 @@ structure GtkRecentChooserMenu :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_recent_chooser_menu_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_menu_new_for_manager") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_show_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_set_show_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_recent_chooser_menu_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_menu_new_for_manager") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_show_numbers") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_set_show_numbers") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkRecentChooserMenuClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

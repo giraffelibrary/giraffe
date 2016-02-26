@@ -12,229 +12,229 @@ structure GtkWindow :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_window_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_window_new") (GtkWindowType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultIconName_ = call (load_sym libgtk "gtk_window_get_default_icon_name") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
-      val setAutoStartupNotification_ = call (load_sym libgtk "gtk_window_set_auto_startup_notification") (FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDefaultIcon_ = call (load_sym libgtk "gtk_window_set_default_icon") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDefaultIconFromFile_ = call (load_sym libgtk "gtk_window_set_default_icon_from_file") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.Bool.PolyML.VAL)
-      val setDefaultIconName_ = call (load_sym libgtk "gtk_window_set_default_icon_name") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val activateDefault_ = call (load_sym libgtk "gtk_window_activate_default") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val activateFocus_ = call (load_sym libgtk "gtk_window_activate_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val activateKey_ = call (load_sym libgtk "gtk_window_activate_key") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val addAccelGroup_ = call (load_sym libgtk "gtk_window_add_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_window_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_window_new") (GtkWindowType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultIconName_ = call (load_sym libgtk "gtk_window_get_default_icon_name") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
+      val setAutoStartupNotification_ = call (load_sym libgtk "gtk_window_set_auto_startup_notification") (FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDefaultIcon_ = call (load_sym libgtk "gtk_window_set_default_icon") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDefaultIconFromFile_ = call (load_sym libgtk "gtk_window_set_default_icon_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val setDefaultIconName_ = call (load_sym libgtk "gtk_window_set_default_icon_name") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val activateDefault_ = call (load_sym libgtk "gtk_window_activate_default") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val activateFocus_ = call (load_sym libgtk "gtk_window_activate_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val activateKey_ = call (load_sym libgtk "gtk_window_activate_key") (GObjectObjectClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val addAccelGroup_ = call (load_sym libgtk "gtk_window_add_accel_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val addMnemonic_ =
         call (load_sym libgtk "gtk_window_add_mnemonic")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val beginMoveDrag_ =
         call (load_sym libgtk "gtk_window_begin_move_drag")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val beginResizeDrag_ =
         call (load_sym libgtk "gtk_window_begin_resize_drag")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkWindowEdge.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkWindowEdge.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val deiconify_ = call (load_sym libgtk "gtk_window_deiconify") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val fullscreen_ = call (load_sym libgtk "gtk_window_fullscreen") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getAcceptFocus_ = call (load_sym libgtk "gtk_window_get_accept_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getApplication_ = call (load_sym libgtk "gtk_window_get_application") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDecorated_ = call (load_sym libgtk "gtk_window_get_decorated") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val deiconify_ = call (load_sym libgtk "gtk_window_deiconify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val fullscreen_ = call (load_sym libgtk "gtk_window_fullscreen") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAcceptFocus_ = call (load_sym libgtk "gtk_window_get_accept_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getApplication_ = call (load_sym libgtk "gtk_window_get_application") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDecorated_ = call (load_sym libgtk "gtk_window_get_decorated") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getDefaultSize_ =
         call (load_sym libgtk "gtk_window_get_default_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getDefaultWidget_ = call (load_sym libgtk "gtk_window_get_default_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDeletable_ = call (load_sym libgtk "gtk_window_get_deletable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getDestroyWithParent_ = call (load_sym libgtk "gtk_window_get_destroy_with_parent") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFocus_ = call (load_sym libgtk "gtk_window_get_focus") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFocusOnMap_ = call (load_sym libgtk "gtk_window_get_focus_on_map") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFocusVisible_ = call (load_sym libgtk "gtk_window_get_focus_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getGravity_ = call (load_sym libgtk "gtk_window_get_gravity") (GObjectObjectClass.PolyML.PTR --> GdkGravity.PolyML.VAL)
-      val getGroup_ = call (load_sym libgtk "gtk_window_get_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getHasResizeGrip_ = call (load_sym libgtk "gtk_window_get_has_resize_grip") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIcon_ = call (load_sym libgtk "gtk_window_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIconName_ = call (load_sym libgtk "gtk_window_get_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getMnemonicModifier_ = call (load_sym libgtk "gtk_window_get_mnemonic_modifier") (GObjectObjectClass.PolyML.PTR --> GdkModifierType.PolyML.VAL)
-      val getMnemonicsVisible_ = call (load_sym libgtk "gtk_window_get_mnemonics_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getModal_ = call (load_sym libgtk "gtk_window_get_modal") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getOpacity_ = call (load_sym libgtk "gtk_window_get_opacity") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
+      val getDefaultWidget_ = call (load_sym libgtk "gtk_window_get_default_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDeletable_ = call (load_sym libgtk "gtk_window_get_deletable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDestroyWithParent_ = call (load_sym libgtk "gtk_window_get_destroy_with_parent") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFocus_ = call (load_sym libgtk "gtk_window_get_focus") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFocusOnMap_ = call (load_sym libgtk "gtk_window_get_focus_on_map") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFocusVisible_ = call (load_sym libgtk "gtk_window_get_focus_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getGravity_ = call (load_sym libgtk "gtk_window_get_gravity") (GObjectObjectClass.PolyML.cPtr --> GdkGravity.PolyML.cVal)
+      val getGroup_ = call (load_sym libgtk "gtk_window_get_group") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getHasResizeGrip_ = call (load_sym libgtk "gtk_window_get_has_resize_grip") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getIcon_ = call (load_sym libgtk "gtk_window_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIconName_ = call (load_sym libgtk "gtk_window_get_icon_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMnemonicModifier_ = call (load_sym libgtk "gtk_window_get_mnemonic_modifier") (GObjectObjectClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
+      val getMnemonicsVisible_ = call (load_sym libgtk "gtk_window_get_mnemonics_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getModal_ = call (load_sym libgtk "gtk_window_get_modal") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getOpacity_ = call (load_sym libgtk "gtk_window_get_opacity") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
       val getPosition_ =
         call (load_sym libgtk "gtk_window_get_position")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getResizable_ = call (load_sym libgtk "gtk_window_get_resizable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getScreen_ = call (load_sym libgtk "gtk_window_get_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getResizable_ = call (load_sym libgtk "gtk_window_get_resizable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GObjectObjectClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getScreen_ = call (load_sym libgtk "gtk_window_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getSize_ =
         call (load_sym libgtk "gtk_window_get_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getSkipPagerHint_ = call (load_sym libgtk "gtk_window_get_skip_pager_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_get_skip_taskbar_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getTitle_ = call (load_sym libgtk "gtk_window_get_title") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getTransientFor_ = call (load_sym libgtk "gtk_window_get_transient_for") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getTypeHint_ = call (load_sym libgtk "gtk_window_get_type_hint") (GObjectObjectClass.PolyML.PTR --> GdkWindowTypeHint.PolyML.VAL)
-      val getUrgencyHint_ = call (load_sym libgtk "gtk_window_get_urgency_hint") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getWindowType_ = call (load_sym libgtk "gtk_window_get_window_type") (GObjectObjectClass.PolyML.PTR --> GtkWindowType.PolyML.VAL)
-      val hasGroup_ = call (load_sym libgtk "gtk_window_has_group") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val hasToplevelFocus_ = call (load_sym libgtk "gtk_window_has_toplevel_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val iconify_ = call (load_sym libgtk "gtk_window_iconify") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val isActive_ = call (load_sym libgtk "gtk_window_is_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val maximize_ = call (load_sym libgtk "gtk_window_maximize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getSkipPagerHint_ = call (load_sym libgtk "gtk_window_get_skip_pager_hint") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_get_skip_taskbar_hint") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getTitle_ = call (load_sym libgtk "gtk_window_get_title") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTransientFor_ = call (load_sym libgtk "gtk_window_get_transient_for") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getTypeHint_ = call (load_sym libgtk "gtk_window_get_type_hint") (GObjectObjectClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
+      val getUrgencyHint_ = call (load_sym libgtk "gtk_window_get_urgency_hint") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWindowType_ = call (load_sym libgtk "gtk_window_get_window_type") (GObjectObjectClass.PolyML.cPtr --> GtkWindowType.PolyML.cVal)
+      val hasGroup_ = call (load_sym libgtk "gtk_window_has_group") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hasToplevelFocus_ = call (load_sym libgtk "gtk_window_has_toplevel_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val iconify_ = call (load_sym libgtk "gtk_window_iconify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val isActive_ = call (load_sym libgtk "gtk_window_is_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val maximize_ = call (load_sym libgtk "gtk_window_maximize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val mnemonicActivate_ =
         call (load_sym libgtk "gtk_window_mnemonic_activate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GdkModifierType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val move_ =
         call (load_sym libgtk "gtk_window_move")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val present_ = call (load_sym libgtk "gtk_window_present") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val propagateKeyEvent_ = call (load_sym libgtk "gtk_window_propagate_key_event") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val removeAccelGroup_ = call (load_sym libgtk "gtk_window_remove_accel_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val present_ = call (load_sym libgtk "gtk_window_present") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val propagateKeyEvent_ = call (load_sym libgtk "gtk_window_propagate_key_event") (GObjectObjectClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeAccelGroup_ = call (load_sym libgtk "gtk_window_remove_accel_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val removeMnemonic_ =
         call (load_sym libgtk "gtk_window_remove_mnemonic")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val reshowWithInitialSize_ = call (load_sym libgtk "gtk_window_reshow_with_initial_size") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val reshowWithInitialSize_ = call (load_sym libgtk "gtk_window_reshow_with_initial_size") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val resize_ =
         call (load_sym libgtk "gtk_window_resize")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val resizeGripIsVisible_ = call (load_sym libgtk "gtk_window_resize_grip_is_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val resizeGripIsVisible_ = call (load_sym libgtk "gtk_window_resize_grip_is_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val resizeToGeometry_ =
         call (load_sym libgtk "gtk_window_resize_to_geometry")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setAcceptFocus_ = call (load_sym libgtk "gtk_window_set_accept_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setApplication_ = call (load_sym libgtk "gtk_window_set_application") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setDecorated_ = call (load_sym libgtk "gtk_window_set_decorated") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDefault_ = call (load_sym libgtk "gtk_window_set_default") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val setAcceptFocus_ = call (load_sym libgtk "gtk_window_set_accept_focus") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setApplication_ = call (load_sym libgtk "gtk_window_set_application") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setDecorated_ = call (load_sym libgtk "gtk_window_set_decorated") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDefault_ = call (load_sym libgtk "gtk_window_set_default") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setDefaultGeometry_ =
         call (load_sym libgtk "gtk_window_set_default_geometry")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setDefaultSize_ =
         call (load_sym libgtk "gtk_window_set_default_size")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setDeletable_ = call (load_sym libgtk "gtk_window_set_deletable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDestroyWithParent_ = call (load_sym libgtk "gtk_window_set_destroy_with_parent") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFocus_ = call (load_sym libgtk "gtk_window_set_focus") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setFocusOnMap_ = call (load_sym libgtk "gtk_window_set_focus_on_map") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFocusVisible_ = call (load_sym libgtk "gtk_window_set_focus_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setDeletable_ = call (load_sym libgtk "gtk_window_set_deletable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDestroyWithParent_ = call (load_sym libgtk "gtk_window_set_destroy_with_parent") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFocus_ = call (load_sym libgtk "gtk_window_set_focus") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setFocusOnMap_ = call (load_sym libgtk "gtk_window_set_focus_on_map") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFocusVisible_ = call (load_sym libgtk "gtk_window_set_focus_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setGeometryHints_ =
         call (load_sym libgtk "gtk_window_set_geometry_hints")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GdkGeometryRecord.PolyML.OPTPTR
-             &&> GdkWindowHints.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GdkGeometryRecord.PolyML.cOptPtr
+             &&> GdkWindowHints.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setGravity_ = call (load_sym libgtk "gtk_window_set_gravity") (GObjectObjectClass.PolyML.PTR &&> GdkGravity.PolyML.VAL --> FFI.PolyML.VOID)
-      val setHasResizeGrip_ = call (load_sym libgtk "gtk_window_set_has_resize_grip") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setHasUserRefCount_ = call (load_sym libgtk "gtk_window_set_has_user_ref_count") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setIcon_ = call (load_sym libgtk "gtk_window_set_icon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val setGravity_ = call (load_sym libgtk "gtk_window_set_gravity") (GObjectObjectClass.PolyML.cPtr &&> GdkGravity.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHasResizeGrip_ = call (load_sym libgtk "gtk_window_set_has_resize_grip") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHasUserRefCount_ = call (load_sym libgtk "gtk_window_set_has_user_ref_count") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setIcon_ = call (load_sym libgtk "gtk_window_set_icon") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setIconFromFile_ =
         call (load_sym libgtk "gtk_window_set_icon_from_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setIconName_ = call (load_sym libgtk "gtk_window_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setKeepAbove_ = call (load_sym libgtk "gtk_window_set_keep_above") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setKeepBelow_ = call (load_sym libgtk "gtk_window_set_keep_below") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMnemonicModifier_ = call (load_sym libgtk "gtk_window_set_mnemonic_modifier") (GObjectObjectClass.PolyML.PTR &&> GdkModifierType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMnemonicsVisible_ = call (load_sym libgtk "gtk_window_set_mnemonics_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setModal_ = call (load_sym libgtk "gtk_window_set_modal") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setOpacity_ = call (load_sym libgtk "gtk_window_set_opacity") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPosition_ = call (load_sym libgtk "gtk_window_set_position") (GObjectObjectClass.PolyML.PTR &&> GtkWindowPosition.PolyML.VAL --> FFI.PolyML.VOID)
-      val setResizable_ = call (load_sym libgtk "gtk_window_set_resizable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setRole_ = call (load_sym libgtk "gtk_window_set_role") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setScreen_ = call (load_sym libgtk "gtk_window_set_screen") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setSkipPagerHint_ = call (load_sym libgtk "gtk_window_set_skip_pager_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_set_skip_taskbar_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStartupId_ = call (load_sym libgtk "gtk_window_set_startup_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTitle_ = call (load_sym libgtk "gtk_window_set_title") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTransientFor_ = call (load_sym libgtk "gtk_window_set_transient_for") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setTypeHint_ = call (load_sym libgtk "gtk_window_set_type_hint") (GObjectObjectClass.PolyML.PTR &&> GdkWindowTypeHint.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUrgencyHint_ = call (load_sym libgtk "gtk_window_set_urgency_hint") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setIconName_ = call (load_sym libgtk "gtk_window_set_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setKeepAbove_ = call (load_sym libgtk "gtk_window_set_keep_above") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setKeepBelow_ = call (load_sym libgtk "gtk_window_set_keep_below") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMnemonicModifier_ = call (load_sym libgtk "gtk_window_set_mnemonic_modifier") (GObjectObjectClass.PolyML.cPtr &&> GdkModifierType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMnemonicsVisible_ = call (load_sym libgtk "gtk_window_set_mnemonics_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setModal_ = call (load_sym libgtk "gtk_window_set_modal") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setOpacity_ = call (load_sym libgtk "gtk_window_set_opacity") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPosition_ = call (load_sym libgtk "gtk_window_set_position") (GObjectObjectClass.PolyML.cPtr &&> GtkWindowPosition.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setResizable_ = call (load_sym libgtk "gtk_window_set_resizable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRole_ = call (load_sym libgtk "gtk_window_set_role") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_window_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setSkipPagerHint_ = call (load_sym libgtk "gtk_window_set_skip_pager_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_set_skip_taskbar_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStartupId_ = call (load_sym libgtk "gtk_window_set_startup_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_window_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setTransientFor_ = call (load_sym libgtk "gtk_window_set_transient_for") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setTypeHint_ = call (load_sym libgtk "gtk_window_set_type_hint") (GObjectObjectClass.PolyML.cPtr &&> GdkWindowTypeHint.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUrgencyHint_ = call (load_sym libgtk "gtk_window_set_urgency_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setWmclass_ =
         call (load_sym libgtk "gtk_window_set_wmclass")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
-      val stick_ = call (load_sym libgtk "gtk_window_stick") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unfullscreen_ = call (load_sym libgtk "gtk_window_unfullscreen") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unmaximize_ = call (load_sym libgtk "gtk_window_unmaximize") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unstick_ = call (load_sym libgtk "gtk_window_unstick") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val stick_ = call (load_sym libgtk "gtk_window_stick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unfullscreen_ = call (load_sym libgtk "gtk_window_unfullscreen") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unmaximize_ = call (load_sym libgtk "gtk_window_unmaximize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unstick_ = call (load_sym libgtk "gtk_window_unstick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkWindowClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

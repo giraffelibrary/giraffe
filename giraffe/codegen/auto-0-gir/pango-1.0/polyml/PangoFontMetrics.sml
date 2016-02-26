@@ -5,15 +5,15 @@ structure PangoFontMetrics :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_metrics_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getApproximateCharWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_char_width") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getApproximateDigitWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_digit_width") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getAscent_ = call (load_sym libpango "pango_font_metrics_get_ascent") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getDescent_ = call (load_sym libpango "pango_font_metrics_get_descent") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getStrikethroughPosition_ = call (load_sym libpango "pango_font_metrics_get_strikethrough_position") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getStrikethroughThickness_ = call (load_sym libpango "pango_font_metrics_get_strikethrough_thickness") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getUnderlinePosition_ = call (load_sym libpango "pango_font_metrics_get_underline_position") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getUnderlineThickness_ = call (load_sym libpango "pango_font_metrics_get_underline_thickness") (PangoFontMetricsRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getType_ = call (load_sym libpango "pango_font_metrics_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getApproximateCharWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_char_width") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getApproximateDigitWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_digit_width") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getAscent_ = call (load_sym libpango "pango_font_metrics_get_ascent") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getDescent_ = call (load_sym libpango "pango_font_metrics_get_descent") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getStrikethroughPosition_ = call (load_sym libpango "pango_font_metrics_get_strikethrough_position") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getStrikethroughThickness_ = call (load_sym libpango "pango_font_metrics_get_strikethrough_thickness") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getUnderlinePosition_ = call (load_sym libpango "pango_font_metrics_get_underline_position") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getUnderlineThickness_ = call (load_sym libpango "pango_font_metrics_get_underline_thickness") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
     end
     type record_t = PangoFontMetricsRecord.t
     type t = record_t

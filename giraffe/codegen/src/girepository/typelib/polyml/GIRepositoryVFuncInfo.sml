@@ -11,22 +11,22 @@ structure GIRepositoryVFuncInfo :>
       val getFlags_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_flags")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryVFuncInfoFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryVFuncInfoFlags.PolyML.cVal);
 
       val getOffset_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_offset")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getSignal_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_signal")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getInvoker_ =
         call
           (load_sym libgirepository "g_vfunc_info_get_invoker")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.OPTPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
     end
 
 

@@ -11,11 +11,11 @@ structure GObjectValueRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
         structure Array :
           sig
-            val PTR : C.notnull C.Array.array_p PolyMLFFI.conversion
+            val cPtr : C.notnull C.Array.array_p PolyMLFFI.conversion
           end
       end
   end =
@@ -23,8 +23,8 @@ structure GObjectValueRecord :>
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -32,22 +32,22 @@ structure GObjectValueRecord :>
       val new_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_new")
-          (FFI.PolyML.VOID --> PTR)
+          (FFI.PolyML.cVoid --> cPtr)
 
       val copy_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_copy")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val free_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_free")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
 
       val size_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_size")
-          (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
+          (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
     end
 
     type t = notnull p Finalizable.t
@@ -104,11 +104,11 @@ structure GObjectValueRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
         structure Array =
           struct
-            val PTR = PTR
+            val cPtr = cPtr
           end
       end
   end

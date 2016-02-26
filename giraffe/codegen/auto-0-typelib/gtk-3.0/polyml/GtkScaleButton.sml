@@ -11,14 +11,14 @@ structure GtkScaleButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scale_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getAdjustment_ = call (load_sym libgtk "gtk_scale_button_get_adjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getMinusButton_ = call (load_sym libgtk "gtk_scale_button_get_minus_button") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPlusButton_ = call (load_sym libgtk "gtk_scale_button_get_plus_button") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPopup_ = call (load_sym libgtk "gtk_scale_button_get_popup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val setAdjustment_ = call (load_sym libgtk "gtk_scale_button_set_adjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_scale_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getAdjustment_ = call (load_sym libgtk "gtk_scale_button_get_adjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getMinusButton_ = call (load_sym libgtk "gtk_scale_button_get_minus_button") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPlusButton_ = call (load_sym libgtk "gtk_scale_button_get_plus_button") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPopup_ = call (load_sym libgtk "gtk_scale_button_get_popup") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val setAdjustment_ = call (load_sym libgtk "gtk_scale_button_set_adjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkScaleButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

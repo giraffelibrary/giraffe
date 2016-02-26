@@ -11,55 +11,55 @@ structure GtkUIManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_ui_manager_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_ui_manager_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_ui_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_ui_manager_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val addUi_ =
         call (load_sym libgtk "gtk_ui_manager_add_ui")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GtkUIManagerItemType.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GtkUIManagerItemType.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val addUiFromFile_ =
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.UInt32.PolyML.cVal
           )
       val addUiFromString_ =
         call (load_sym libgtk "gtk_ui_manager_add_ui_from_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int64.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.UInt32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int64.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.UInt32.PolyML.cVal
           )
-      val ensureUpdate_ = call (load_sym libgtk "gtk_ui_manager_ensure_update") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getAccelGroup_ = call (load_sym libgtk "gtk_ui_manager_get_accel_group") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_get_add_tearoffs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val ensureUpdate_ = call (load_sym libgtk "gtk_ui_manager_ensure_update") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAccelGroup_ = call (load_sym libgtk "gtk_ui_manager_get_accel_group") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAction_ = call (load_sym libgtk "gtk_ui_manager_get_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_get_add_tearoffs") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUi_ = call (load_sym libgtk "gtk_ui_manager_get_ui") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getWidget_ = call (load_sym libgtk "gtk_ui_manager_get_widget") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val insertActionGroup_ =
         call (load_sym libgtk "gtk_ui_manager_insert_action_group")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val newMergeId_ = call (load_sym libgtk "gtk_ui_manager_new_merge_id") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val removeActionGroup_ = call (load_sym libgtk "gtk_ui_manager_remove_action_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeUi_ = call (load_sym libgtk "gtk_ui_manager_remove_ui") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_set_add_tearoffs") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val newMergeId_ = call (load_sym libgtk "gtk_ui_manager_new_merge_id") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val removeActionGroup_ = call (load_sym libgtk "gtk_ui_manager_remove_action_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeUi_ = call (load_sym libgtk "gtk_ui_manager_remove_ui") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_set_add_tearoffs") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkUIManagerClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

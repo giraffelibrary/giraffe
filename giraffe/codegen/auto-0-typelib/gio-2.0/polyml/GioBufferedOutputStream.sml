@@ -6,13 +6,13 @@ structure GioBufferedOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_buffered_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_buffered_output_stream_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newSized_ = call (load_sym libgio "g_buffered_output_stream_new_sized") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_get_auto_grow") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getBufferSize_ = call (load_sym libgio "g_buffered_output_stream_get_buffer_size") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
-      val setAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_set_auto_grow") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setBufferSize_ = call (load_sym libgio "g_buffered_output_stream_set_buffer_size") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_buffered_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_buffered_output_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newSized_ = call (load_sym libgio "g_buffered_output_stream_new_sized") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_get_auto_grow") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getBufferSize_ = call (load_sym libgio "g_buffered_output_stream_get_buffer_size") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val setAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_set_auto_grow") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBufferSize_ = call (load_sym libgio "g_buffered_output_stream_set_buffer_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioBufferedOutputStreamClass.t
     type 'a output_stream_class_t = 'a GioOutputStreamClass.t

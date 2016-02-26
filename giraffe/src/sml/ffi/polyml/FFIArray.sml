@@ -48,12 +48,13 @@ functor FFIArray (
 
     structure PolyML =
       struct
-        val INPTR = CArray.PolyML.cInPtr
-        val INOPTPTR = CArray.PolyML.cOptInPtr
-        val OUTREF = CArray.PolyML.cRef
-        val OUTOPTREF = CArray.PolyML.cOptOutRef
-        val INOUTREF = CArray.PolyML.cInRef
-        val RETPTR = CArray.PolyML.cOutPtr
-        val RETOPTPTR = CArray.PolyML.cOptOutPtr
+        val cInPtr = CArray.PolyML.cInPtr
+        val cInOptPtr = CArray.PolyML.cOptInPtr
+        val cOutPtr = CArray.PolyML.cOutPtr
+        val cOutOptPtr = CArray.PolyML.cOptOutPtr
+        val cOutRef = CArray.PolyML.cRef
+        val cOutOptRef = CArray.PolyML.cOptOutRef
+        val cInOutRef = CArray.PolyML.cInRef
+        val cInOutOptRef = CArray.PolyML.cOptOutRef
       end
   end

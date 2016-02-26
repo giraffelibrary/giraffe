@@ -11,58 +11,58 @@ structure PangoFontDescription :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_description_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libpango "pango_font_description_new") (FFI.PolyML.VOID --> PangoFontDescriptionRecord.PolyML.PTR)
+      val getType_ = call (load_sym libpango "pango_font_description_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libpango "pango_font_description_new") (FFI.PolyML.cVoid --> PangoFontDescriptionRecord.PolyML.cPtr)
       val betterMatch_ =
         call (load_sym libpango "pango_font_description_better_match")
           (
-            PangoFontDescriptionRecord.PolyML.PTR
-             &&> PangoFontDescriptionRecord.PolyML.OPTPTR
-             &&> PangoFontDescriptionRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            PangoFontDescriptionRecord.PolyML.cPtr
+             &&> PangoFontDescriptionRecord.PolyML.cOptPtr
+             &&> PangoFontDescriptionRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val copy_ = call (load_sym libpango "pango_font_description_copy") (PangoFontDescriptionRecord.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val copyStatic_ = call (load_sym libpango "pango_font_description_copy_static") (PangoFontDescriptionRecord.PolyML.PTR --> PangoFontDescriptionRecord.PolyML.PTR)
-      val equal_ = call (load_sym libpango "pango_font_description_equal") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoFontDescriptionRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFamily_ = call (load_sym libpango "pango_font_description_get_family") (PangoFontDescriptionRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getGravity_ = call (load_sym libpango "pango_font_description_get_gravity") (PangoFontDescriptionRecord.PolyML.PTR --> PangoGravity.PolyML.VAL)
-      val getSetFields_ = call (load_sym libpango "pango_font_description_get_set_fields") (PangoFontDescriptionRecord.PolyML.PTR --> PangoFontMask.PolyML.VAL)
-      val getSize_ = call (load_sym libpango "pango_font_description_get_size") (PangoFontDescriptionRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getSizeIsAbsolute_ = call (load_sym libpango "pango_font_description_get_size_is_absolute") (PangoFontDescriptionRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getStretch_ = call (load_sym libpango "pango_font_description_get_stretch") (PangoFontDescriptionRecord.PolyML.PTR --> PangoStretch.PolyML.VAL)
-      val getStyle_ = call (load_sym libpango "pango_font_description_get_style") (PangoFontDescriptionRecord.PolyML.PTR --> PangoStyle.PolyML.VAL)
-      val getVariant_ = call (load_sym libpango "pango_font_description_get_variant") (PangoFontDescriptionRecord.PolyML.PTR --> PangoVariant.PolyML.VAL)
-      val getWeight_ = call (load_sym libpango "pango_font_description_get_weight") (PangoFontDescriptionRecord.PolyML.PTR --> PangoWeight.PolyML.VAL)
-      val hash_ = call (load_sym libpango "pango_font_description_hash") (PangoFontDescriptionRecord.PolyML.PTR --> FFI.UInt.PolyML.VAL)
+      val copy_ = call (load_sym libpango "pango_font_description_copy") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val copyStatic_ = call (load_sym libpango "pango_font_description_copy_static") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val equal_ = call (load_sym libpango "pango_font_description_equal") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFamily_ = call (load_sym libpango "pango_font_description_get_family") (PangoFontDescriptionRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getGravity_ = call (load_sym libpango "pango_font_description_get_gravity") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoGravity.PolyML.cVal)
+      val getSetFields_ = call (load_sym libpango "pango_font_description_get_set_fields") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontMask.PolyML.cVal)
+      val getSize_ = call (load_sym libpango "pango_font_description_get_size") (PangoFontDescriptionRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getSizeIsAbsolute_ = call (load_sym libpango "pango_font_description_get_size_is_absolute") (PangoFontDescriptionRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getStretch_ = call (load_sym libpango "pango_font_description_get_stretch") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoStretch.PolyML.cVal)
+      val getStyle_ = call (load_sym libpango "pango_font_description_get_style") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoStyle.PolyML.cVal)
+      val getVariant_ = call (load_sym libpango "pango_font_description_get_variant") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoVariant.PolyML.cVal)
+      val getWeight_ = call (load_sym libpango "pango_font_description_get_weight") (PangoFontDescriptionRecord.PolyML.cPtr --> PangoWeight.PolyML.cVal)
+      val hash_ = call (load_sym libpango "pango_font_description_hash") (PangoFontDescriptionRecord.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
       val merge_ =
         call (load_sym libpango "pango_font_description_merge")
           (
-            PangoFontDescriptionRecord.PolyML.PTR
-             &&> PangoFontDescriptionRecord.PolyML.OPTPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            PangoFontDescriptionRecord.PolyML.cPtr
+             &&> PangoFontDescriptionRecord.PolyML.cOptPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val mergeStatic_ =
         call (load_sym libpango "pango_font_description_merge_static")
           (
-            PangoFontDescriptionRecord.PolyML.PTR
-             &&> PangoFontDescriptionRecord.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            PangoFontDescriptionRecord.PolyML.cPtr
+             &&> PangoFontDescriptionRecord.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setAbsoluteSize_ = call (load_sym libpango "pango_font_description_set_absolute_size") (PangoFontDescriptionRecord.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFamily_ = call (load_sym libpango "pango_font_description_set_family") (PangoFontDescriptionRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setFamilyStatic_ = call (load_sym libpango "pango_font_description_set_family_static") (PangoFontDescriptionRecord.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setGravity_ = call (load_sym libpango "pango_font_description_set_gravity") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoGravity.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSize_ = call (load_sym libpango "pango_font_description_set_size") (PangoFontDescriptionRecord.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStretch_ = call (load_sym libpango "pango_font_description_set_stretch") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoStretch.PolyML.VAL --> FFI.PolyML.VOID)
-      val setStyle_ = call (load_sym libpango "pango_font_description_set_style") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoStyle.PolyML.VAL --> FFI.PolyML.VOID)
-      val setVariant_ = call (load_sym libpango "pango_font_description_set_variant") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoVariant.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWeight_ = call (load_sym libpango "pango_font_description_set_weight") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoWeight.PolyML.VAL --> FFI.PolyML.VOID)
-      val toFilename_ = call (load_sym libpango "pango_font_description_to_filename") (PangoFontDescriptionRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val toString_ = call (load_sym libpango "pango_font_description_to_string") (PangoFontDescriptionRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val unsetFields_ = call (load_sym libpango "pango_font_description_unset_fields") (PangoFontDescriptionRecord.PolyML.PTR &&> PangoFontMask.PolyML.VAL --> FFI.PolyML.VOID)
-      val fromString_ = call (load_sym libpango "pango_font_description_from_string") (Utf8.PolyML.INPTR --> PangoFontDescriptionRecord.PolyML.PTR)
+      val setAbsoluteSize_ = call (load_sym libpango "pango_font_description_set_absolute_size") (PangoFontDescriptionRecord.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFamily_ = call (load_sym libpango "pango_font_description_set_family") (PangoFontDescriptionRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setFamilyStatic_ = call (load_sym libpango "pango_font_description_set_family_static") (PangoFontDescriptionRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setGravity_ = call (load_sym libpango "pango_font_description_set_gravity") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoGravity.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSize_ = call (load_sym libpango "pango_font_description_set_size") (PangoFontDescriptionRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStretch_ = call (load_sym libpango "pango_font_description_set_stretch") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoStretch.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStyle_ = call (load_sym libpango "pango_font_description_set_style") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoStyle.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setVariant_ = call (load_sym libpango "pango_font_description_set_variant") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoVariant.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setWeight_ = call (load_sym libpango "pango_font_description_set_weight") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoWeight.PolyML.cVal --> FFI.PolyML.cVoid)
+      val toFilename_ = call (load_sym libpango "pango_font_description_to_filename") (PangoFontDescriptionRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val toString_ = call (load_sym libpango "pango_font_description_to_string") (PangoFontDescriptionRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unsetFields_ = call (load_sym libpango "pango_font_description_unset_fields") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoFontMask.PolyML.cVal --> FFI.PolyML.cVoid)
+      val fromString_ = call (load_sym libpango "pango_font_description_from_string") (Utf8.PolyML.cInPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
     end
     type record_t = PangoFontDescriptionRecord.t
     type gravity_t = PangoGravity.t

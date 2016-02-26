@@ -3,8 +3,8 @@ structure GtkAssistantPageType :>
     include GTK_ASSISTANT_PAGE_TYPE
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -41,15 +41,15 @@ structure GtkAssistantPageType :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_assistant_page_type_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.PTR --> PolyML.VAL)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_assistant_page_type_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

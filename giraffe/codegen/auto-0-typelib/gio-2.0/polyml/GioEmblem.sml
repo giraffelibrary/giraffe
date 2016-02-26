@@ -7,11 +7,11 @@ structure GioEmblem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_emblem_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_emblem_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithOrigin_ = call (load_sym libgio "g_emblem_new_with_origin") (GObjectObjectClass.PolyML.PTR &&> GioEmblemOrigin.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getIcon_ = call (load_sym libgio "g_emblem_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getOrigin_ = call (load_sym libgio "g_emblem_get_origin") (GObjectObjectClass.PolyML.PTR --> GioEmblemOrigin.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_emblem_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_emblem_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithOrigin_ = call (load_sym libgio "g_emblem_new_with_origin") (GObjectObjectClass.PolyML.cPtr &&> GioEmblemOrigin.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getIcon_ = call (load_sym libgio "g_emblem_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getOrigin_ = call (load_sym libgio "g_emblem_get_origin") (GObjectObjectClass.PolyML.cPtr --> GioEmblemOrigin.PolyML.cVal)
     end
     type 'a class_t = 'a GioEmblemClass.t
     type 'a icon_class_t = 'a GioIconClass.t

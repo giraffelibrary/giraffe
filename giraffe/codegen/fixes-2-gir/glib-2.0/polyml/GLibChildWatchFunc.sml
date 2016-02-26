@@ -20,7 +20,7 @@ structure GLibChildWatchFunc :>
           open PolyMLFFI
         in
           val makeClosure =
-            closure (GLibPid.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
+            closure (GLibPid.PolyML.cVal &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
         end
         fun withCallback f callback =
           f (

@@ -7,126 +7,126 @@ structure GioSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_settings_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_settings_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithBackend_ = call (load_sym libgio "g_settings_new_with_backend") (Utf8.PolyML.INPTR &&> GioSettingsBackendRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_settings_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_settings_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithBackend_ = call (load_sym libgio "g_settings_new_with_backend") (Utf8.PolyML.cInPtr &&> GioSettingsBackendRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val newWithBackendAndPath_ =
         call (load_sym libgio "g_settings_new_with_backend_and_path")
           (
-            Utf8.PolyML.INPTR
-             &&> GioSettingsBackendRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> GioSettingsBackendRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val newWithPath_ = call (load_sym libgio "g_settings_new_with_path") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val sync_ = call (load_sym libgio "g_settings_sync") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val apply_ = call (load_sym libgio "g_settings_apply") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val newWithPath_ = call (load_sym libgio "g_settings_new_with_path") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val sync_ = call (load_sym libgio "g_settings_sync") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
+      val apply_ = call (load_sym libgio "g_settings_apply") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val bind_ =
         call (load_sym libgio "g_settings_bind")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GioSettingsBindFlags.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GioSettingsBindFlags.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val bindWritable_ =
         call (load_sym libgio "g_settings_bind_writable")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val delay_ = call (load_sym libgio "g_settings_delay") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getBoolean_ = call (load_sym libgio "g_settings_get_boolean") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val getChild_ = call (load_sym libgio "g_settings_get_child") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getDouble_ = call (load_sym libgio "g_settings_get_double") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Double.PolyML.VAL)
-      val getEnum_ = call (load_sym libgio "g_settings_get_enum") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
-      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.UInt32.PolyML.VAL)
-      val getHasUnapplied_ = call (load_sym libgio "g_settings_get_has_unapplied") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getInt_ = call (load_sym libgio "g_settings_get_int") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Int32.PolyML.VAL)
-      val getRange_ = call (load_sym libgio "g_settings_get_range") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
-      val getString_ = call (load_sym libgio "g_settings_get_string") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.UInt32.PolyML.VAL)
-      val getValue_ = call (load_sym libgio "g_settings_get_value") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GLibVariantRecord.PolyML.PTR)
-      val isWritable_ = call (load_sym libgio "g_settings_is_writable") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val delay_ = call (load_sym libgio "g_settings_delay") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getBoolean_ = call (load_sym libgio "g_settings_get_boolean") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val getChild_ = call (load_sym libgio "g_settings_get_child") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDouble_ = call (load_sym libgio "g_settings_get_double") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Double.PolyML.cVal)
+      val getEnum_ = call (load_sym libgio "g_settings_get_enum") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
+      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt32.PolyML.cVal)
+      val getHasUnapplied_ = call (load_sym libgio "g_settings_get_has_unapplied") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getInt_ = call (load_sym libgio "g_settings_get_int") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
+      val getRange_ = call (load_sym libgio "g_settings_get_range") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getString_ = call (load_sym libgio "g_settings_get_string") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt32.PolyML.cVal)
+      val getValue_ = call (load_sym libgio "g_settings_get_value") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val isWritable_ = call (load_sym libgio "g_settings_is_writable") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val rangeCheck_ =
         call (load_sym libgio "g_settings_range_check")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val reset_ = call (load_sym libgio "g_settings_reset") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val revert_ = call (load_sym libgio "g_settings_revert") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val reset_ = call (load_sym libgio "g_settings_reset") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val revert_ = call (load_sym libgio "g_settings_revert") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setBoolean_ =
         call (load_sym libgio "g_settings_set_boolean")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setDouble_ =
         call (load_sym libgio "g_settings_set_double")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setEnum_ =
         call (load_sym libgio "g_settings_set_enum")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setFlags_ =
         call (load_sym libgio "g_settings_set_flags")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setInt_ =
         call (load_sym libgio "g_settings_set_int")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setString_ =
         call (load_sym libgio "g_settings_set_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.Bool.PolyML.cVal
           )
       val setUint_ =
         call (load_sym libgio "g_settings_set_uint")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val setValue_ =
         call (load_sym libgio "g_settings_set_value")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibVariantRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type 'a class_t = 'a GioSettingsClass.t

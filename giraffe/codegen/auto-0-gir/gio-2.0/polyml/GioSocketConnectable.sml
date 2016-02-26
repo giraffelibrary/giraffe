@@ -6,9 +6,9 @@ structure GioSocketConnectable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_connectable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val enumerate_ = call (load_sym libgio "g_socket_connectable_enumerate") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val proxyEnumerate_ = call (load_sym libgio "g_socket_connectable_proxy_enumerate") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_socket_connectable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val enumerate_ = call (load_sym libgio "g_socket_connectable_enumerate") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val proxyEnumerate_ = call (load_sym libgio "g_socket_connectable_proxy_enumerate") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioSocketConnectableClass.t
     type 'a socket_address_enumerator_class_t = 'a GioSocketAddressEnumeratorClass.t

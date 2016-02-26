@@ -5,40 +5,40 @@ structure GtkIMContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_im_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_im_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val deleteSurrounding_ =
         call (load_sym libgtk "gtk_im_context_delete_surrounding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GObjectObjectClass.PolyML.PTR &&> GdkEventKeyRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val focusIn_ = call (load_sym libgtk "gtk_im_context_focus_in") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val focusOut_ = call (load_sym libgtk "gtk_im_context_focus_out") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GObjectObjectClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val focusIn_ = call (load_sym libgtk "gtk_im_context_focus_in") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val focusOut_ = call (load_sym libgtk "gtk_im_context_focus_out") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val getPreeditString_ =
         call (load_sym libgtk "gtk_im_context_get_preedit_string")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.OUTREF
-             &&> PangoAttrListRecord.PolyML.OUTREF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cOutRef
+             &&> PangoAttrListRecord.PolyML.cOutRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val reset_ = call (load_sym libgtk "gtk_im_context_reset") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setClientWindow_ = call (load_sym libgtk "gtk_im_context_set_client_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setCursorLocation_ = call (load_sym libgtk "gtk_im_context_set_cursor_location") (GObjectObjectClass.PolyML.PTR &&> CairoRectangleIntRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val reset_ = call (load_sym libgtk "gtk_im_context_reset") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setClientWindow_ = call (load_sym libgtk "gtk_im_context_set_client_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setCursorLocation_ = call (load_sym libgtk "gtk_im_context_set_cursor_location") (GObjectObjectClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setSurrounding_ =
         call (load_sym libgtk "gtk_im_context_set_surrounding")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkIMContextClass.t
     type t = base class_t

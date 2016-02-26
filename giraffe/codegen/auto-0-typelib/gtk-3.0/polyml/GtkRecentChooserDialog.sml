@@ -7,7 +7,7 @@ structure GtkRecentChooserDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_chooser_dialog_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_recent_chooser_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class_t = 'a GtkRecentChooserDialogClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

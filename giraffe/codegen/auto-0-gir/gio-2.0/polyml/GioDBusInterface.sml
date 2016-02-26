@@ -7,10 +7,10 @@ structure GioDBusInterface :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_interface_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getInfo_ = call (load_sym libgio "g_dbus_interface_get_info") (GObjectObjectClass.PolyML.PTR --> GioDBusInterfaceInfoRecord.PolyML.PTR)
-      val getObject_ = call (load_sym libgio "g_dbus_interface_get_object") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setObject_ = call (load_sym libgio "g_dbus_interface_set_object") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_dbus_interface_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getInfo_ = call (load_sym libgio "g_dbus_interface_get_info") (GObjectObjectClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
+      val getObject_ = call (load_sym libgio "g_dbus_interface_get_object") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setObject_ = call (load_sym libgio "g_dbus_interface_set_object") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioDBusInterfaceClass.t
     type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t

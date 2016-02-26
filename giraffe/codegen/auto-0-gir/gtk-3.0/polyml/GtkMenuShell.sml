@@ -9,34 +9,34 @@ structure GtkMenuShell :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_shell_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_menu_shell_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val activateItem_ =
         call (load_sym libgtk "gtk_menu_shell_activate_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val append_ = call (load_sym libgtk "gtk_menu_shell_append") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val cancel_ = call (load_sym libgtk "gtk_menu_shell_cancel") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val deactivate_ = call (load_sym libgtk "gtk_menu_shell_deactivate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val deselect_ = call (load_sym libgtk "gtk_menu_shell_deselect") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getParentShell_ = call (load_sym libgtk "gtk_menu_shell_get_parent_shell") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSelectedItem_ = call (load_sym libgtk "gtk_menu_shell_get_selected_item") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_get_take_focus") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val append_ = call (load_sym libgtk "gtk_menu_shell_append") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val cancel_ = call (load_sym libgtk "gtk_menu_shell_cancel") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val deactivate_ = call (load_sym libgtk "gtk_menu_shell_deactivate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val deselect_ = call (load_sym libgtk "gtk_menu_shell_deselect") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getParentShell_ = call (load_sym libgtk "gtk_menu_shell_get_parent_shell") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getSelectedItem_ = call (load_sym libgtk "gtk_menu_shell_get_selected_item") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_get_take_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val insert_ =
         call (load_sym libgtk "gtk_menu_shell_insert")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val prepend_ = call (load_sym libgtk "gtk_menu_shell_prepend") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectFirst_ = call (load_sym libgtk "gtk_menu_shell_select_first") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val selectItem_ = call (load_sym libgtk "gtk_menu_shell_select_item") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val prepend_ = call (load_sym libgtk "gtk_menu_shell_prepend") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val selectFirst_ = call (load_sym libgtk "gtk_menu_shell_select_first") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val selectItem_ = call (load_sym libgtk "gtk_menu_shell_select_item") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkMenuShellClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

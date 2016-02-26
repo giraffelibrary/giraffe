@@ -6,9 +6,9 @@ structure GioDBusObject :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getInterface_ = call (load_sym libgio "g_dbus_object_get_interface") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_object_get_object_path") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgio "g_dbus_object_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getInterface_ = call (load_sym libgio "g_dbus_object_get_interface") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getObjectPath_ = call (load_sym libgio "g_dbus_object_get_object_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GioDBusObjectClass.t
     type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t

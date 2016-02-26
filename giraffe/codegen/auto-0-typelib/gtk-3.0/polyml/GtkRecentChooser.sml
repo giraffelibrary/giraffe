@@ -9,48 +9,48 @@ structure GtkRecentChooser :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_chooser_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val addFilter_ = call (load_sym libgtk "gtk_recent_chooser_add_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getCurrentItem_ = call (load_sym libgtk "gtk_recent_chooser_get_current_item") (GObjectObjectClass.PolyML.PTR --> GtkRecentInfoRecord.PolyML.PTR)
-      val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getFilter_ = call (load_sym libgtk "gtk_recent_chooser_get_filter") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_get_select_multiple") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_get_show_icons") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_get_show_not_found") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_get_show_private") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowTips_ = call (load_sym libgtk "gtk_recent_chooser_get_show_tips") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSortType_ = call (load_sym libgtk "gtk_recent_chooser_get_sort_type") (GObjectObjectClass.PolyML.PTR --> GtkRecentSortType.PolyML.VAL)
-      val removeFilter_ = call (load_sym libgtk "gtk_recent_chooser_remove_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectAll_ = call (load_sym libgtk "gtk_recent_chooser_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_recent_chooser_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val addFilter_ = call (load_sym libgtk "gtk_recent_chooser_add_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getCurrentItem_ = call (load_sym libgtk "gtk_recent_chooser_get_current_item") (GObjectObjectClass.PolyML.cPtr --> GtkRecentInfoRecord.PolyML.cPtr)
+      val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFilter_ = call (load_sym libgtk "gtk_recent_chooser_get_filter") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_get_select_multiple") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_get_show_icons") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_get_show_not_found") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_get_show_private") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowTips_ = call (load_sym libgtk "gtk_recent_chooser_get_show_tips") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSortType_ = call (load_sym libgtk "gtk_recent_chooser_get_sort_type") (GObjectObjectClass.PolyML.cPtr --> GtkRecentSortType.PolyML.cVal)
+      val removeFilter_ = call (load_sym libgtk "gtk_recent_chooser_remove_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val selectAll_ = call (load_sym libgtk "gtk_recent_chooser_select_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val selectUri_ =
         call (load_sym libgtk "gtk_recent_chooser_select_uri")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setCurrentUri_ =
         call (load_sym libgtk "gtk_recent_chooser_set_current_uri")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setFilter_ = call (load_sym libgtk "gtk_recent_chooser_set_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_set_local_only") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_set_select_multiple") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_set_show_icons") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_set_show_not_found") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_set_show_private") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowTips_ = call (load_sym libgtk "gtk_recent_chooser_set_show_tips") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSortType_ = call (load_sym libgtk "gtk_recent_chooser_set_sort_type") (GObjectObjectClass.PolyML.PTR &&> GtkRecentSortType.PolyML.VAL --> FFI.PolyML.VOID)
-      val unselectAll_ = call (load_sym libgtk "gtk_recent_chooser_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setFilter_ = call (load_sym libgtk "gtk_recent_chooser_set_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_set_local_only") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_set_select_multiple") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_set_show_icons") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_set_show_not_found") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_set_show_private") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowTips_ = call (load_sym libgtk "gtk_recent_chooser_set_show_tips") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSortType_ = call (load_sym libgtk "gtk_recent_chooser_set_sort_type") (GObjectObjectClass.PolyML.cPtr &&> GtkRecentSortType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unselectAll_ = call (load_sym libgtk "gtk_recent_chooser_unselect_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkRecentChooserClass.t
     type recent_info_record_t = GtkRecentInfoRecord.t

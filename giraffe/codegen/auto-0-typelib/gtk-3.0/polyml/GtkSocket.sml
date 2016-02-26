@@ -6,11 +6,11 @@ structure GtkSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_socket_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_socket_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt64.PolyML.VAL --> FFI.PolyML.VOID)
-      val getId_ = call (load_sym libgtk "gtk_socket_get_id") (GObjectObjectClass.PolyML.PTR --> FFI.UInt64.PolyML.VAL)
-      val getPlugWindow_ = call (load_sym libgtk "gtk_socket_get_plug_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_socket_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getId_ = call (load_sym libgtk "gtk_socket_get_id") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val getPlugWindow_ = call (load_sym libgtk "gtk_socket_get_plug_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkSocketClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

@@ -6,14 +6,14 @@ structure GtkTextMark :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_mark_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_text_mark_new") (Utf8.PolyML.INOPTPTR &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getBuffer_ = call (load_sym libgtk "gtk_text_mark_get_buffer") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDeleted_ = call (load_sym libgtk "gtk_text_mark_get_deleted") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getLeftGravity_ = call (load_sym libgtk "gtk_text_mark_get_left_gravity") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getName_ = call (load_sym libgtk "gtk_text_mark_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getVisible_ = call (load_sym libgtk "gtk_text_mark_get_visible") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setVisible_ = call (load_sym libgtk "gtk_text_mark_set_visible") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_text_mark_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_text_mark_new") (Utf8.PolyML.cInOptPtr &&> FFI.Bool.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getBuffer_ = call (load_sym libgtk "gtk_text_mark_get_buffer") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDeleted_ = call (load_sym libgtk "gtk_text_mark_get_deleted") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getLeftGravity_ = call (load_sym libgtk "gtk_text_mark_get_left_gravity") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getName_ = call (load_sym libgtk "gtk_text_mark_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getVisible_ = call (load_sym libgtk "gtk_text_mark_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setVisible_ = call (load_sym libgtk "gtk_text_mark_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTextMarkClass.t
     type 'a text_buffer_class_t = 'a GtkTextBufferClass.t

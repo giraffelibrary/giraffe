@@ -8,21 +8,21 @@ structure GioMountOperation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_mount_operation_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_mount_operation_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getAnonymous_ = call (load_sym libgio "g_mount_operation_get_anonymous") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getChoice_ = call (load_sym libgio "g_mount_operation_get_choice") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getDomain_ = call (load_sym libgio "g_mount_operation_get_domain") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPassword_ = call (load_sym libgio "g_mount_operation_get_password") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPasswordSave_ = call (load_sym libgio "g_mount_operation_get_password_save") (GObjectObjectClass.PolyML.PTR --> GioPasswordSave.PolyML.VAL)
-      val getUsername_ = call (load_sym libgio "g_mount_operation_get_username") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val reply_ = call (load_sym libgio "g_mount_operation_reply") (GObjectObjectClass.PolyML.PTR &&> GioMountOperationResult.PolyML.VAL --> FFI.PolyML.VOID)
-      val setAnonymous_ = call (load_sym libgio "g_mount_operation_set_anonymous") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setChoice_ = call (load_sym libgio "g_mount_operation_set_choice") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDomain_ = call (load_sym libgio "g_mount_operation_set_domain") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setPassword_ = call (load_sym libgio "g_mount_operation_set_password") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setPasswordSave_ = call (load_sym libgio "g_mount_operation_set_password_save") (GObjectObjectClass.PolyML.PTR &&> GioPasswordSave.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUsername_ = call (load_sym libgio "g_mount_operation_set_username") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_mount_operation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_mount_operation_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getAnonymous_ = call (load_sym libgio "g_mount_operation_get_anonymous") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getChoice_ = call (load_sym libgio "g_mount_operation_get_choice") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getDomain_ = call (load_sym libgio "g_mount_operation_get_domain") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPassword_ = call (load_sym libgio "g_mount_operation_get_password") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPasswordSave_ = call (load_sym libgio "g_mount_operation_get_password_save") (GObjectObjectClass.PolyML.cPtr --> GioPasswordSave.PolyML.cVal)
+      val getUsername_ = call (load_sym libgio "g_mount_operation_get_username") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val reply_ = call (load_sym libgio "g_mount_operation_reply") (GObjectObjectClass.PolyML.cPtr &&> GioMountOperationResult.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAnonymous_ = call (load_sym libgio "g_mount_operation_set_anonymous") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setChoice_ = call (load_sym libgio "g_mount_operation_set_choice") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDomain_ = call (load_sym libgio "g_mount_operation_set_domain") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setPassword_ = call (load_sym libgio "g_mount_operation_set_password") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setPasswordSave_ = call (load_sym libgio "g_mount_operation_set_password_save") (GObjectObjectClass.PolyML.cPtr &&> GioPasswordSave.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUsername_ = call (load_sym libgio "g_mount_operation_set_username") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioMountOperationClass.t
     type ask_password_flags_t = GioAskPasswordFlags.t

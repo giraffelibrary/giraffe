@@ -11,45 +11,45 @@ structure GtkSourceView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_view_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_view_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithBuffer_ = call (load_sym libgtksourceview "gtk_source_view_new_with_buffer") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAutoIndent_ = call (load_sym libgtksourceview "gtk_source_view_get_auto_indent") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCompletion_ = call (load_sym libgtksourceview "gtk_source_view_get_completion") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDrawSpaces_ = call (load_sym libgtksourceview "gtk_source_view_get_draw_spaces") (GObjectObjectClass.PolyML.PTR --> GtkSourceDrawSpacesFlags.PolyML.VAL)
-      val getGutter_ = call (load_sym libgtksourceview "gtk_source_view_get_gutter") (GObjectObjectClass.PolyML.PTR &&> GtkTextWindowType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_get_highlight_current_line") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_on_tab") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_get_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_get_right_margin_position") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val getShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_marks") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_numbers") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_get_show_right_margin") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_get_smart_home_end") (GObjectObjectClass.PolyML.PTR --> GtkSourceSmartHomeEndType.PolyML.VAL)
-      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_tab_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val getVisualColumn_ = call (load_sym libgtksourceview "gtk_source_view_get_visual_column") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val setAutoIndent_ = call (load_sym libgtksourceview "gtk_source_view_set_auto_indent") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDrawSpaces_ = call (load_sym libgtksourceview "gtk_source_view_set_draw_spaces") (GObjectObjectClass.PolyML.PTR &&> GtkSourceDrawSpacesFlags.PolyML.VAL --> FFI.PolyML.VOID)
-      val setHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_set_highlight_current_line") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_on_tab") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_set_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_view_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_view_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithBuffer_ = call (load_sym libgtksourceview "gtk_source_view_new_with_buffer") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAutoIndent_ = call (load_sym libgtksourceview "gtk_source_view_get_auto_indent") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCompletion_ = call (load_sym libgtksourceview "gtk_source_view_get_completion") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDrawSpaces_ = call (load_sym libgtksourceview "gtk_source_view_get_draw_spaces") (GObjectObjectClass.PolyML.cPtr --> GtkSourceDrawSpacesFlags.PolyML.cVal)
+      val getGutter_ = call (load_sym libgtksourceview "gtk_source_view_get_gutter") (GObjectObjectClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_get_highlight_current_line") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_on_tab") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_indent_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_get_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_get_right_margin_position") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_marks") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_get_show_line_numbers") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_get_show_right_margin") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_get_smart_home_end") (GObjectObjectClass.PolyML.cPtr --> GtkSourceSmartHomeEndType.PolyML.cVal)
+      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_get_tab_width") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getVisualColumn_ = call (load_sym libgtksourceview "gtk_source_view_get_visual_column") (GObjectObjectClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val setAutoIndent_ = call (load_sym libgtksourceview "gtk_source_view_set_auto_indent") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDrawSpaces_ = call (load_sym libgtksourceview "gtk_source_view_set_draw_spaces") (GObjectObjectClass.PolyML.cPtr &&> GtkSourceDrawSpacesFlags.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHighlightCurrentLine_ = call (load_sym libgtksourceview "gtk_source_view_set_highlight_current_line") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setIndentOnTab_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_on_tab") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setIndentWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_indent_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setInsertSpacesInsteadOfTabs_ = call (load_sym libgtksourceview "gtk_source_view_set_insert_spaces_instead_of_tabs") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setMarkAttributes_ =
         call (load_sym libgtksourceview "gtk_source_view_set_mark_attributes")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_set_right_margin_position") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_marks") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_numbers") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_set_show_right_margin") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_set_smart_home_end") (GObjectObjectClass.PolyML.PTR &&> GtkSourceSmartHomeEndType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_tab_width") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val setRightMarginPosition_ = call (load_sym libgtksourceview "gtk_source_view_set_right_margin_position") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowLineMarks_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_marks") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowLineNumbers_ = call (load_sym libgtksourceview "gtk_source_view_set_show_line_numbers") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowRightMargin_ = call (load_sym libgtksourceview "gtk_source_view_set_show_right_margin") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_set_smart_home_end") (GObjectObjectClass.PolyML.cPtr &&> GtkSourceSmartHomeEndType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_tab_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSourceViewClass.t
     type 'a buffer_class_t = 'a GtkSourceBufferClass.t

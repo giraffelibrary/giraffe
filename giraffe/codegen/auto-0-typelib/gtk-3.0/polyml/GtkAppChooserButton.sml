@@ -9,25 +9,25 @@ structure GtkAppChooserButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_app_chooser_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_app_chooser_button_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_app_chooser_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_app_chooser_button_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val appendCustomItem_ =
         call (load_sym libgtk "gtk_app_chooser_button_append_custom_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val appendSeparator_ = call (load_sym libgtk "gtk_app_chooser_button_append_separator") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_button_get_heading") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_default_item") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_dialog_item") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setActiveCustomItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_active_custom_item") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_button_set_heading") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_default_item") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_dialog_item") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val appendSeparator_ = call (load_sym libgtk "gtk_app_chooser_button_append_separator") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_button_get_heading") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_default_item") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_dialog_item") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActiveCustomItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_active_custom_item") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_button_set_heading") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_default_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_dialog_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAppChooserButtonClass.t
     type 'a app_chooser_class_t = 'a GtkAppChooserClass.t

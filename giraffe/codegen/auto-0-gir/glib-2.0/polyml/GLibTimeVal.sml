@@ -5,9 +5,9 @@ structure GLibTimeVal :>
     local
       open PolyMLFFI
     in
-      val add_ = call (load_sym libglib "g_time_val_add") (GLibTimeValRecord.PolyML.PTR &&> FFI.Long.PolyML.VAL --> FFI.PolyML.VOID)
-      val toIso8601_ = call (load_sym libglib "g_time_val_to_iso8601") (GLibTimeValRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val fromIso8601_ = call (load_sym libglib "g_time_val_from_iso8601") (Utf8.PolyML.INPTR &&> GLibTimeValRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val add_ = call (load_sym libglib "g_time_val_add") (GLibTimeValRecord.PolyML.cPtr &&> FFI.Long.PolyML.cVal --> FFI.PolyML.cVoid)
+      val toIso8601_ = call (load_sym libglib "g_time_val_to_iso8601") (GLibTimeValRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val fromIso8601_ = call (load_sym libglib "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type record_t = GLibTimeValRecord.t
     type t = record_t

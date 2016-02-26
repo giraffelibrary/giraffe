@@ -7,22 +7,22 @@ structure GdkCursor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GObjectObjectClass.PolyML.PTR &&> GdkCursorType.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GObjectObjectClass.PolyML.cPtr &&> GdkCursorType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val newFromPixbuf_ =
         call (load_sym libgdk "gdk_cursor_new_from_pixbuf")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GObjectObjectClass.PolyML.PTR --> GdkCursorType.PolyML.VAL)
-      val getDisplay_ = call (load_sym libgdk "gdk_cursor_get_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getImage_ = call (load_sym libgdk "gdk_cursor_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GObjectObjectClass.PolyML.cPtr --> GdkCursorType.PolyML.cVal)
+      val getDisplay_ = call (load_sym libgdk "gdk_cursor_get_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getImage_ = call (load_sym libgdk "gdk_cursor_get_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GdkCursorClass.t
     type cursor_type_t = GdkCursorType.t

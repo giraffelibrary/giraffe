@@ -7,30 +7,30 @@ structure GtkClipboard :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_clipboard_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val get_ = call (load_sym libgtk "gtk_clipboard_get") (GdkAtomRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getForDisplay_ = call (load_sym libgtk "gtk_clipboard_get_for_display") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val clear_ = call (load_sym libgtk "gtk_clipboard_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getDisplay_ = call (load_sym libgtk "gtk_clipboard_get_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getOwner_ = call (load_sym libgtk "gtk_clipboard_get_owner") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setImage_ = call (load_sym libgtk "gtk_clipboard_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_clipboard_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val get_ = call (load_sym libgtk "gtk_clipboard_get") (GdkAtomRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getForDisplay_ = call (load_sym libgtk "gtk_clipboard_get_for_display") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val clear_ = call (load_sym libgtk "gtk_clipboard_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getDisplay_ = call (load_sym libgtk "gtk_clipboard_get_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getOwner_ = call (load_sym libgtk "gtk_clipboard_get_owner") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setImage_ = call (load_sym libgtk "gtk_clipboard_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setText_ =
         call (load_sym libgtk "gtk_clipboard_set_text")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val store_ = call (load_sym libgtk "gtk_clipboard_store") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val waitForContents_ = call (load_sym libgtk "gtk_clipboard_wait_for_contents") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> GtkSelectionDataRecord.PolyML.PTR)
-      val waitForImage_ = call (load_sym libgtk "gtk_clipboard_wait_for_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val waitForText_ = call (load_sym libgtk "gtk_clipboard_wait_for_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val waitIsImageAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_image_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val waitIsRichTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_rich_text_available") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val waitIsTargetAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_target_available") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val waitIsTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_text_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val waitIsUrisAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_uris_available") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val store_ = call (load_sym libgtk "gtk_clipboard_store") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val waitForContents_ = call (load_sym libgtk "gtk_clipboard_wait_for_contents") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
+      val waitForImage_ = call (load_sym libgtk "gtk_clipboard_wait_for_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val waitForText_ = call (load_sym libgtk "gtk_clipboard_wait_for_text") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val waitIsImageAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_image_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val waitIsRichTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_rich_text_available") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val waitIsTargetAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_target_available") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val waitIsTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_text_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val waitIsUrisAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_uris_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GtkClipboardClass.t
     type selection_data_record_t = GtkSelectionDataRecord.t

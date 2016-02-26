@@ -9,15 +9,15 @@ structure GdkDragContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_drag_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getActions_ = call (load_sym libgdk "gdk_drag_context_get_actions") (GObjectObjectClass.PolyML.PTR --> GdkDragAction.PolyML.VAL)
-      val getDestWindow_ = call (load_sym libgdk "gdk_drag_context_get_dest_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getDevice_ = call (load_sym libgdk "gdk_drag_context_get_device") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getProtocol_ = call (load_sym libgdk "gdk_drag_context_get_protocol") (GObjectObjectClass.PolyML.PTR --> GdkDragProtocol.PolyML.VAL)
-      val getSelectedAction_ = call (load_sym libgdk "gdk_drag_context_get_selected_action") (GObjectObjectClass.PolyML.PTR --> GdkDragAction.PolyML.VAL)
-      val getSourceWindow_ = call (load_sym libgdk "gdk_drag_context_get_source_window") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSuggestedAction_ = call (load_sym libgdk "gdk_drag_context_get_suggested_action") (GObjectObjectClass.PolyML.PTR --> GdkDragAction.PolyML.VAL)
-      val setDevice_ = call (load_sym libgdk "gdk_drag_context_set_device") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgdk "gdk_drag_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getActions_ = call (load_sym libgdk "gdk_drag_context_get_actions") (GObjectObjectClass.PolyML.cPtr --> GdkDragAction.PolyML.cVal)
+      val getDestWindow_ = call (load_sym libgdk "gdk_drag_context_get_dest_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDevice_ = call (load_sym libgdk "gdk_drag_context_get_device") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getProtocol_ = call (load_sym libgdk "gdk_drag_context_get_protocol") (GObjectObjectClass.PolyML.cPtr --> GdkDragProtocol.PolyML.cVal)
+      val getSelectedAction_ = call (load_sym libgdk "gdk_drag_context_get_selected_action") (GObjectObjectClass.PolyML.cPtr --> GdkDragAction.PolyML.cVal)
+      val getSourceWindow_ = call (load_sym libgdk "gdk_drag_context_get_source_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getSuggestedAction_ = call (load_sym libgdk "gdk_drag_context_get_suggested_action") (GObjectObjectClass.PolyML.cPtr --> GdkDragAction.PolyML.cVal)
+      val setDevice_ = call (load_sym libgdk "gdk_drag_context_set_device") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GdkDragContextClass.t
     type drag_protocol_t = GdkDragProtocol.t

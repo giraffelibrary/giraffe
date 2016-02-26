@@ -6,97 +6,97 @@ structure AtkTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_table_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val getCaption_ = call (load_sym libatk "atk_table_get_caption") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libatk "atk_table_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val getCaption_ = call (load_sym libatk "atk_table_get_caption") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
+      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getColumnExtentAt_ =
         call (load_sym libatk "atk_table_get_column_extent_at")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
-      val getColumnHeader_ = call (load_sym libatk "atk_table_get_column_header") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getColumnHeader_ = call (load_sym libatk "atk_table_get_column_header") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
       val getIndexAt_ =
         call (load_sym libatk "atk_table_get_index_at")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
-      val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Int32.PolyML.VAL)
-      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
+      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getRowExtentAt_ =
         call (load_sym libatk "atk_table_get_row_extent_at")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Int32.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Int32.PolyML.cVal
           )
-      val getRowHeader_ = call (load_sym libatk "atk_table_get_row_header") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getSummary_ = call (load_sym libatk "atk_table_get_summary") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val isColumnSelected_ = call (load_sym libatk "atk_table_is_column_selected") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val isRowSelected_ = call (load_sym libatk "atk_table_is_row_selected") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
+      val getRowHeader_ = call (load_sym libatk "atk_table_get_row_header") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getSummary_ = call (load_sym libatk "atk_table_get_summary") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val isColumnSelected_ = call (load_sym libatk "atk_table_is_column_selected") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val isRowSelected_ = call (load_sym libatk "atk_table_is_row_selected") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val isSelected_ =
         call (load_sym libatk "atk_table_is_selected")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val refAt_ =
         call (load_sym libatk "atk_table_ref_at")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val setCaption_ = call (load_sym libatk "atk_table_set_caption") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val setCaption_ = call (load_sym libatk "atk_table_set_caption") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setColumnDescription_ =
         call (load_sym libatk "atk_table_set_column_description")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setColumnHeader_ =
         call (load_sym libatk "atk_table_set_column_header")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val setRowDescription_ =
         call (load_sym libatk "atk_table_set_row_description")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setRowHeader_ =
         call (load_sym libatk "atk_table_set_row_header")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val setSummary_ = call (load_sym libatk "atk_table_set_summary") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val setSummary_ = call (load_sym libatk "atk_table_set_summary") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a AtkTableClass.t
     type 'a object_class_t = 'a AtkObjectClass.t

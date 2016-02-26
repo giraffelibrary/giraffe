@@ -6,40 +6,40 @@ structure PangoLayoutLine :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_layout_line_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libpango "pango_layout_line_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val getExtents_ =
         call (load_sym libpango "pango_layout_line_get_extents")
           (
-            PangoLayoutLineRecord.PolyML.PTR
-             &&> PangoRectangleRecord.PolyML.PTR
-             &&> PangoRectangleRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            PangoLayoutLineRecord.PolyML.cPtr
+             &&> PangoRectangleRecord.PolyML.cPtr
+             &&> PangoRectangleRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val getPixelExtents_ =
         call (load_sym libpango "pango_layout_line_get_pixel_extents")
           (
-            PangoLayoutLineRecord.PolyML.PTR
-             &&> PangoRectangleRecord.PolyML.PTR
-             &&> PangoRectangleRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            PangoLayoutLineRecord.PolyML.cPtr
+             &&> PangoRectangleRecord.PolyML.cPtr
+             &&> PangoRectangleRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val indexToX_ =
         call (load_sym libpango "pango_layout_line_index_to_x")
           (
-            PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            PangoLayoutLineRecord.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val xToIndex_ =
         call (load_sym libpango "pango_layout_line_x_to_index")
           (
-            PangoLayoutLineRecord.PolyML.PTR
-             &&> FFI.Int32.PolyML.VAL
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            PangoLayoutLineRecord.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cVal
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
     end
     type record_t = PangoLayoutLineRecord.t

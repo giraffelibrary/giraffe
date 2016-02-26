@@ -18,169 +18,169 @@ structure GtkIconView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_view_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_icon_view_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithArea_ = call (load_sym libgtk "gtk_icon_view_new_with_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithModel_ = call (load_sym libgtk "gtk_icon_view_new_with_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_icon_view_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_icon_view_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithArea_ = call (load_sym libgtk "gtk_icon_view_new_with_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithModel_ = call (load_sym libgtk "gtk_icon_view_new_with_model") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val convertWidgetToBinWindowCoords_ =
         call (load_sym libgtk "gtk_icon_view_convert_widget_to_bin_window_coords")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val createDragIcon_ = call (load_sym libgtk "gtk_icon_view_create_drag_icon") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> CairoSurfaceRecord.PolyML.PTR)
-      val getColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_get_column_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getColumns_ = call (load_sym libgtk "gtk_icon_view_get_columns") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val createDragIcon_ = call (load_sym libgtk "gtk_icon_view_create_drag_icon") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val getColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_get_column_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getColumns_ = call (load_sym libgtk "gtk_icon_view_get_columns") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getCursor_ =
         call (load_sym libgtk "gtk_icon_view_get_cursor")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
       val getDestItemAtPos_ =
         call (load_sym libgtk "gtk_icon_view_get_dest_item_at_pos")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GtkIconViewDropPosition.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GtkIconViewDropPosition.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val getDragDestItem_ =
         call (load_sym libgtk "gtk_icon_view_get_drag_dest_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GtkIconViewDropPosition.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GtkIconViewDropPosition.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getItemAtPos_ =
         call (load_sym libgtk "gtk_icon_view_get_item_at_pos")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GObjectObjectClass.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GObjectObjectClass.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getItemColumn_ = call (load_sym libgtk "gtk_icon_view_get_item_column") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getItemOrientation_ = call (load_sym libgtk "gtk_icon_view_get_item_orientation") (GObjectObjectClass.PolyML.PTR --> GtkOrientation.PolyML.VAL)
-      val getItemPadding_ = call (load_sym libgtk "gtk_icon_view_get_item_padding") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getItemRow_ = call (load_sym libgtk "gtk_icon_view_get_item_row") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getItemWidth_ = call (load_sym libgtk "gtk_icon_view_get_item_width") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getMargin_ = call (load_sym libgtk "gtk_icon_view_get_margin") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_get_markup_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getModel_ = call (load_sym libgtk "gtk_icon_view_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getItemColumn_ = call (load_sym libgtk "gtk_icon_view_get_item_column") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getItemOrientation_ = call (load_sym libgtk "gtk_icon_view_get_item_orientation") (GObjectObjectClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
+      val getItemPadding_ = call (load_sym libgtk "gtk_icon_view_get_item_padding") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getItemRow_ = call (load_sym libgtk "gtk_icon_view_get_item_row") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getItemWidth_ = call (load_sym libgtk "gtk_icon_view_get_item_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getMargin_ = call (load_sym libgtk "gtk_icon_view_get_margin") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_get_markup_column") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getModel_ = call (load_sym libgtk "gtk_icon_view_get_model") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getPathAtPos_ =
         call (load_sym libgtk "gtk_icon_view_get_path_at_pos")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> GtkTreePathRecord.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> GtkTreePathRecord.PolyML.cPtr
           )
-      val getPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_get_pixbuf_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getReorderable_ = call (load_sym libgtk "gtk_icon_view_get_reorderable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getRowSpacing_ = call (load_sym libgtk "gtk_icon_view_get_row_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getSelectionMode_ = call (load_sym libgtk "gtk_icon_view_get_selection_mode") (GObjectObjectClass.PolyML.PTR --> GtkSelectionMode.PolyML.VAL)
-      val getSpacing_ = call (load_sym libgtk "gtk_icon_view_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getTextColumn_ = call (load_sym libgtk "gtk_icon_view_get_text_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_get_tooltip_column") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_get_pixbuf_column") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getReorderable_ = call (load_sym libgtk "gtk_icon_view_get_reorderable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRowSpacing_ = call (load_sym libgtk "gtk_icon_view_get_row_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getSelectionMode_ = call (load_sym libgtk "gtk_icon_view_get_selection_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSelectionMode.PolyML.cVal)
+      val getSpacing_ = call (load_sym libgtk "gtk_icon_view_get_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getTextColumn_ = call (load_sym libgtk "gtk_icon_view_get_text_column") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_get_tooltip_column") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getTooltipContext_ =
         call (load_sym libgtk "gtk_icon_view_get_tooltip_context")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Bool.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Bool.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
       val getVisibleRange_ =
         call (load_sym libgtk "gtk_icon_view_get_visible_range")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val itemActivated_ = call (load_sym libgtk "gtk_icon_view_item_activated") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val pathIsSelected_ = call (load_sym libgtk "gtk_icon_view_path_is_selected") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val itemActivated_ = call (load_sym libgtk "gtk_icon_view_item_activated") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val pathIsSelected_ = call (load_sym libgtk "gtk_icon_view_path_is_selected") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val scrollToPath_ =
         call (load_sym libgtk "gtk_icon_view_scroll_to_path")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val selectAll_ = call (load_sym libgtk "gtk_icon_view_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val selectPath_ = call (load_sym libgtk "gtk_icon_view_select_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_set_column_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setColumns_ = call (load_sym libgtk "gtk_icon_view_set_columns") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val selectAll_ = call (load_sym libgtk "gtk_icon_view_select_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val selectPath_ = call (load_sym libgtk "gtk_icon_view_select_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_set_column_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setColumns_ = call (load_sym libgtk "gtk_icon_view_set_columns") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setCursor_ =
         call (load_sym libgtk "gtk_icon_view_set_cursor")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setDragDestItem_ =
         call (load_sym libgtk "gtk_icon_view_set_drag_dest_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.OPTPTR
-             &&> GtkIconViewDropPosition.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cOptPtr
+             &&> GtkIconViewDropPosition.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setItemOrientation_ = call (load_sym libgtk "gtk_icon_view_set_item_orientation") (GObjectObjectClass.PolyML.PTR &&> GtkOrientation.PolyML.VAL --> FFI.PolyML.VOID)
-      val setItemPadding_ = call (load_sym libgtk "gtk_icon_view_set_item_padding") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setItemWidth_ = call (load_sym libgtk "gtk_icon_view_set_item_width") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMargin_ = call (load_sym libgtk "gtk_icon_view_set_margin") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_set_markup_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setModel_ = call (load_sym libgtk "gtk_icon_view_set_model") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_set_pixbuf_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setReorderable_ = call (load_sym libgtk "gtk_icon_view_set_reorderable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setRowSpacing_ = call (load_sym libgtk "gtk_icon_view_set_row_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSelectionMode_ = call (load_sym libgtk "gtk_icon_view_set_selection_mode") (GObjectObjectClass.PolyML.PTR &&> GtkSelectionMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSpacing_ = call (load_sym libgtk "gtk_icon_view_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setTextColumn_ = call (load_sym libgtk "gtk_icon_view_set_text_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setItemOrientation_ = call (load_sym libgtk "gtk_icon_view_set_item_orientation") (GObjectObjectClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setItemPadding_ = call (load_sym libgtk "gtk_icon_view_set_item_padding") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setItemWidth_ = call (load_sym libgtk "gtk_icon_view_set_item_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMargin_ = call (load_sym libgtk "gtk_icon_view_set_margin") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_set_markup_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setModel_ = call (load_sym libgtk "gtk_icon_view_set_model") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_set_pixbuf_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setReorderable_ = call (load_sym libgtk "gtk_icon_view_set_reorderable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRowSpacing_ = call (load_sym libgtk "gtk_icon_view_set_row_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSelectionMode_ = call (load_sym libgtk "gtk_icon_view_set_selection_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkSelectionMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_icon_view_set_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTextColumn_ = call (load_sym libgtk "gtk_icon_view_set_text_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTooltipCell_ =
         call (load_sym libgtk "gtk_icon_view_set_tooltip_cell")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             --> FFI.PolyML.cVoid
           )
-      val setTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_set_tooltip_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_set_tooltip_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTooltipItem_ =
         call (load_sym libgtk "gtk_icon_view_set_tooltip_item")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val unselectAll_ = call (load_sym libgtk "gtk_icon_view_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectPath_ = call (load_sym libgtk "gtk_icon_view_unselect_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val unsetModelDragDest_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_dest") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unsetModelDragSource_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_source") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val unselectAll_ = call (load_sym libgtk "gtk_icon_view_unselect_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectPath_ = call (load_sym libgtk "gtk_icon_view_unselect_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unsetModelDragDest_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_dest") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unsetModelDragSource_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_source") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkIconViewClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

@@ -5,10 +5,10 @@ structure GtkCellEditable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_editable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val editingDone_ = call (load_sym libgtk "gtk_cell_editable_editing_done") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeWidget_ = call (load_sym libgtk "gtk_cell_editable_remove_widget") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val startEditing_ = call (load_sym libgtk "gtk_cell_editable_start_editing") (GObjectObjectClass.PolyML.PTR &&> GdkEvent.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_cell_editable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val editingDone_ = call (load_sym libgtk "gtk_cell_editable_editing_done") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeWidget_ = call (load_sym libgtk "gtk_cell_editable_remove_widget") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val startEditing_ = call (load_sym libgtk "gtk_cell_editable_start_editing") (GObjectObjectClass.PolyML.cPtr &&> GdkEvent.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCellEditableClass.t
     type t = base class_t

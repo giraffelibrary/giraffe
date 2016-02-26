@@ -6,13 +6,13 @@ structure GioVfs :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_vfs_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefault_ = call (load_sym libgio "g_vfs_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getLocal_ = call (load_sym libgio "g_vfs_get_local") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getFileForPath_ = call (load_sym libgio "g_vfs_get_file_for_path") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getFileForUri_ = call (load_sym libgio "g_vfs_get_file_for_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val isActive_ = call (load_sym libgio "g_vfs_is_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val parseName_ = call (load_sym libgio "g_vfs_parse_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_vfs_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgio "g_vfs_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getLocal_ = call (load_sym libgio "g_vfs_get_local") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getFileForPath_ = call (load_sym libgio "g_vfs_get_file_for_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFileForUri_ = call (load_sym libgio "g_vfs_get_file_for_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val isActive_ = call (load_sym libgio "g_vfs_is_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val parseName_ = call (load_sym libgio "g_vfs_parse_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioVfsClass.t
     type 'a file_class_t = 'a GioFileClass.t

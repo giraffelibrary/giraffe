@@ -6,774 +6,774 @@ structure Gtk : GTK =
       val accelGroupsActivate_ =
         call (load_sym libgtk "gtk_accel_groups_activate")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> GdkModifierType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val acceleratorGetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_get_default_mod_mask") (FFI.PolyML.VOID --> GdkModifierType.PolyML.VAL)
-      val acceleratorGetLabel_ = call (load_sym libgtk "gtk_accelerator_get_label") (FFI.UInt.PolyML.VAL &&> GdkModifierType.PolyML.VAL --> Utf8.PolyML.RETPTR)
-      val acceleratorName_ = call (load_sym libgtk "gtk_accelerator_name") (FFI.UInt.PolyML.VAL &&> GdkModifierType.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val acceleratorGetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_get_default_mod_mask") (FFI.PolyML.cVoid --> GdkModifierType.PolyML.cVal)
+      val acceleratorGetLabel_ = call (load_sym libgtk "gtk_accelerator_get_label") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val acceleratorName_ = call (load_sym libgtk "gtk_accelerator_name") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val acceleratorParse_ =
         call (load_sym libgtk "gtk_accelerator_parse")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.UInt.PolyML.REF
-             &&> GdkModifierType.PolyML.REF
-             --> FFI.PolyML.VOID
+            Utf8.PolyML.cInPtr
+             &&> FFI.UInt.PolyML.cRef
+             &&> GdkModifierType.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val acceleratorSetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.VAL --> FFI.PolyML.VOID)
-      val acceleratorValid_ = call (load_sym libgtk "gtk_accelerator_valid") (FFI.UInt.PolyML.VAL &&> GdkModifierType.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val alternativeDialogButtonOrder_ = call (load_sym libgtk "gtk_alternative_dialog_button_order") (GObjectObjectClass.PolyML.OPTPTR --> FFI.Bool.PolyML.VAL)
-      val builderErrorQuark_ = call (load_sym libgtk "gtk_builder_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
-      val cairoShouldDrawWindow_ = call (load_sym libgtk "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val acceleratorSetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val acceleratorValid_ = call (load_sym libgtk "gtk_accelerator_valid") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val alternativeDialogButtonOrder_ = call (load_sym libgtk "gtk_alternative_dialog_button_order") (GObjectObjectClass.PolyML.cOptPtr --> FFI.Bool.PolyML.cVal)
+      val builderErrorQuark_ = call (load_sym libgtk "gtk_builder_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
+      val cairoShouldDrawWindow_ = call (load_sym libgtk "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val cairoTransformToWindow_ =
         call (load_sym libgtk "gtk_cairo_transform_to_window")
           (
-            CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val checkVersion_ =
         call (load_sym libgtk "gtk_check_version")
           (
-            FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> Utf8.PolyML.RETPTR
+            FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
           )
-      val cssProviderErrorQuark_ = call (load_sym libgtk "gtk_css_provider_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
+      val cssProviderErrorQuark_ = call (load_sym libgtk "gtk_css_provider_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
       val deviceGrabAdd_ =
         call (load_sym libgtk "gtk_device_grab_add")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val deviceGrabRemove_ = call (load_sym libgtk "gtk_device_grab_remove") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val disableSetlocale_ = call (load_sym libgtk "gtk_disable_setlocale") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
+      val deviceGrabRemove_ = call (load_sym libgtk "gtk_device_grab_remove") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val disableSetlocale_ = call (load_sym libgtk "gtk_disable_setlocale") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
       val dragFinish_ =
         call (load_sym libgtk "gtk_drag_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val dragGetSourceWidget_ = call (load_sym libgtk "gtk_drag_get_source_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val dragSetIconDefault_ = call (load_sym libgtk "gtk_drag_set_icon_default") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val dragGetSourceWidget_ = call (load_sym libgtk "gtk_drag_get_source_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val dragSetIconDefault_ = call (load_sym libgtk "gtk_drag_set_icon_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val dragSetIconGicon_ =
         call (load_sym libgtk "gtk_drag_set_icon_gicon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val dragSetIconName_ =
         call (load_sym libgtk "gtk_drag_set_icon_name")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val dragSetIconPixbuf_ =
         call (load_sym libgtk "gtk_drag_set_icon_pixbuf")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val dragSetIconStock_ =
         call (load_sym libgtk "gtk_drag_set_icon_stock")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val dragSetIconSurface_ = call (load_sym libgtk "gtk_drag_set_icon_surface") (GObjectObjectClass.PolyML.PTR &&> CairoSurfaceRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val dragSetIconSurface_ = call (load_sym libgtk "gtk_drag_set_icon_surface") (GObjectObjectClass.PolyML.cPtr &&> CairoSurfaceRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val dragSetIconWidget_ =
         call (load_sym libgtk "gtk_drag_set_icon_widget")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val drawInsertionCursor_ =
         call (load_sym libgtk "gtk_draw_insertion_cursor")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GdkRectangleRecord.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> GtkTextDirection.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> GtkTextDirection.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val eventsPending_ = call (load_sym libgtk "gtk_events_pending") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val fileChooserErrorQuark_ = call (load_sym libgtk "gtk_file_chooser_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
-      val getBinaryAge_ = call (load_sym libgtk "gtk_get_binary_age") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val getCurrentEvent_ = call (load_sym libgtk "gtk_get_current_event") (FFI.PolyML.VOID --> GdkEvent.PolyML.PTR)
-      val getCurrentEventDevice_ = call (load_sym libgtk "gtk_get_current_event_device") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getCurrentEventState_ = call (load_sym libgtk "gtk_get_current_event_state") (GdkModifierType.PolyML.REF --> FFI.Bool.PolyML.VAL)
-      val getCurrentEventTime_ = call (load_sym libgtk "gtk_get_current_event_time") (FFI.PolyML.VOID --> FFI.UInt32.PolyML.VAL)
-      val getDebugFlags_ = call (load_sym libgtk "gtk_get_debug_flags") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val getDefaultLanguage_ = call (load_sym libgtk "gtk_get_default_language") (FFI.PolyML.VOID --> PangoLanguageRecord.PolyML.PTR)
-      val getEventWidget_ = call (load_sym libgtk "gtk_get_event_widget") (GdkEvent.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getInterfaceAge_ = call (load_sym libgtk "gtk_get_interface_age") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val getMajorVersion_ = call (load_sym libgtk "gtk_get_major_version") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val getMicroVersion_ = call (load_sym libgtk "gtk_get_micro_version") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val getMinorVersion_ = call (load_sym libgtk "gtk_get_minor_version") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val grabGetCurrent_ = call (load_sym libgtk "gtk_grab_get_current") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val iconSizeFromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.INPTR --> FFI.Int.PolyML.VAL)
-      val iconSizeGetName_ = call (load_sym libgtk "gtk_icon_size_get_name") (FFI.Int.PolyML.VAL --> Utf8.PolyML.RETPTR)
+      val eventsPending_ = call (load_sym libgtk "gtk_events_pending") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+      val fileChooserErrorQuark_ = call (load_sym libgtk "gtk_file_chooser_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
+      val getBinaryAge_ = call (load_sym libgtk "gtk_get_binary_age") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val getCurrentEvent_ = call (load_sym libgtk "gtk_get_current_event") (FFI.PolyML.cVoid --> GdkEvent.PolyML.cPtr)
+      val getCurrentEventDevice_ = call (load_sym libgtk "gtk_get_current_event_device") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getCurrentEventState_ = call (load_sym libgtk "gtk_get_current_event_state") (GdkModifierType.PolyML.cRef --> FFI.Bool.PolyML.cVal)
+      val getCurrentEventTime_ = call (load_sym libgtk "gtk_get_current_event_time") (FFI.PolyML.cVoid --> FFI.UInt32.PolyML.cVal)
+      val getDebugFlags_ = call (load_sym libgtk "gtk_get_debug_flags") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val getDefaultLanguage_ = call (load_sym libgtk "gtk_get_default_language") (FFI.PolyML.cVoid --> PangoLanguageRecord.PolyML.cPtr)
+      val getEventWidget_ = call (load_sym libgtk "gtk_get_event_widget") (GdkEvent.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getInterfaceAge_ = call (load_sym libgtk "gtk_get_interface_age") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val getMajorVersion_ = call (load_sym libgtk "gtk_get_major_version") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val getMicroVersion_ = call (load_sym libgtk "gtk_get_micro_version") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val getMinorVersion_ = call (load_sym libgtk "gtk_get_minor_version") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val grabGetCurrent_ = call (load_sym libgtk "gtk_grab_get_current") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val iconSizeFromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> FFI.Int.PolyML.cVal)
+      val iconSizeGetName_ = call (load_sym libgtk "gtk_icon_size_get_name") (FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val iconSizeLookup_ =
         call (load_sym libgtk "gtk_icon_size_lookup")
           (
-            FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val iconSizeLookupForSettings_ =
         call (load_sym libgtk "gtk_icon_size_lookup_for_settings")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
       val iconSizeRegister_ =
         call (load_sym libgtk "gtk_icon_size_register")
           (
-            Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.Int.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.Int.PolyML.cVal
           )
-      val iconSizeRegisterAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.INPTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val iconThemeErrorQuark_ = call (load_sym libgtk "gtk_icon_theme_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
-      val keySnooperRemove_ = call (load_sym libgtk "gtk_key_snooper_remove") (FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
-      val main_ = call (load_sym libgtk "gtk_main") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val mainDoEvent_ = call (load_sym libgtk "gtk_main_do_event") (GdkEvent.PolyML.PTR --> FFI.PolyML.VOID)
-      val mainIteration_ = call (load_sym libgtk "gtk_main_iteration") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
-      val mainIterationDo_ = call (load_sym libgtk "gtk_main_iteration_do") (FFI.Bool.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val mainLevel_ = call (load_sym libgtk "gtk_main_level") (FFI.PolyML.VOID --> FFI.UInt.PolyML.VAL)
-      val mainQuit_ = call (load_sym libgtk "gtk_main_quit") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
+      val iconSizeRegisterAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val iconThemeErrorQuark_ = call (load_sym libgtk "gtk_icon_theme_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
+      val keySnooperRemove_ = call (load_sym libgtk "gtk_key_snooper_remove") (FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val main_ = call (load_sym libgtk "gtk_main") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
+      val mainDoEvent_ = call (load_sym libgtk "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val mainIteration_ = call (load_sym libgtk "gtk_main_iteration") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+      val mainIterationDo_ = call (load_sym libgtk "gtk_main_iteration_do") (FFI.Bool.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val mainLevel_ = call (load_sym libgtk "gtk_main_level") (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+      val mainQuit_ = call (load_sym libgtk "gtk_main_quit") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
       val paintArrow_ =
         call (load_sym libgtk "gtk_paint_arrow")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GtkArrowType.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GtkArrowType.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintBox_ =
         call (load_sym libgtk "gtk_paint_box")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintBoxGap_ =
         call (load_sym libgtk "gtk_paint_box_gap")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintCheck_ =
         call (load_sym libgtk "gtk_paint_check")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintDiamond_ =
         call (load_sym libgtk "gtk_paint_diamond")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintExpander_ =
         call (load_sym libgtk "gtk_paint_expander")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkExpanderStyle.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkExpanderStyle.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintExtension_ =
         call (load_sym libgtk "gtk_paint_extension")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintFlatBox_ =
         call (load_sym libgtk "gtk_paint_flat_box")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintFocus_ =
         call (load_sym libgtk "gtk_paint_focus")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintHandle_ =
         call (load_sym libgtk "gtk_paint_handle")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkOrientation.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkOrientation.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintHline_ =
         call (load_sym libgtk "gtk_paint_hline")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintLayout_ =
         call (load_sym libgtk "gtk_paint_layout")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val paintOption_ =
         call (load_sym libgtk "gtk_paint_option")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintResizeGrip_ =
         call (load_sym libgtk "gtk_paint_resize_grip")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GdkWindowEdge.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GdkWindowEdge.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintShadow_ =
         call (load_sym libgtk "gtk_paint_shadow")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintShadowGap_ =
         call (load_sym libgtk "gtk_paint_shadow_gap")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintSlider_ =
         call (load_sym libgtk "gtk_paint_slider")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkOrientation.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkOrientation.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintSpinner_ =
         call (load_sym libgtk "gtk_paint_spinner")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintTab_ =
         call (load_sym libgtk "gtk_paint_tab")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GtkShadowType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GtkShadowType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val paintVline_ =
         call (load_sym libgtk "gtk_paint_vline")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GtkStateType.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val paperSizeGetDefault_ = call (load_sym libgtk "gtk_paper_size_get_default") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
-      val printErrorQuark_ = call (load_sym libgtk "gtk_print_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
+      val paperSizeGetDefault_ = call (load_sym libgtk "gtk_paper_size_get_default") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
+      val printErrorQuark_ = call (load_sym libgtk "gtk_print_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
       val printRunPageSetupDialog_ =
         call (load_sym libgtk "gtk_print_run_page_setup_dialog")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GObjectObjectClass.PolyML.PTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val propagateEvent_ = call (load_sym libgtk "gtk_propagate_event") (GObjectObjectClass.PolyML.PTR &&> GdkEvent.PolyML.PTR --> FFI.PolyML.VOID)
-      val rcAddDefaultFile_ = call (load_sym libgtk "gtk_rc_add_default_file") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val rcGetStyle_ = call (load_sym libgtk "gtk_rc_get_style") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val recentChooserErrorQuark_ = call (load_sym libgtk "gtk_recent_chooser_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
-      val recentManagerErrorQuark_ = call (load_sym libgtk "gtk_recent_manager_error_quark") (FFI.PolyML.VOID --> GLibQuark.PolyML.VAL)
+      val propagateEvent_ = call (load_sym libgtk "gtk_propagate_event") (GObjectObjectClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val rcAddDefaultFile_ = call (load_sym libgtk "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val rcGetStyle_ = call (load_sym libgtk "gtk_rc_get_style") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val recentChooserErrorQuark_ = call (load_sym libgtk "gtk_recent_chooser_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
+      val recentManagerErrorQuark_ = call (load_sym libgtk "gtk_recent_manager_error_quark") (FFI.PolyML.cVoid --> GLibQuark.PolyML.cVal)
       val renderActivity_ =
         call (load_sym libgtk "gtk_render_activity")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderArrow_ =
         call (load_sym libgtk "gtk_render_arrow")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderBackground_ =
         call (load_sym libgtk "gtk_render_background")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderCheck_ =
         call (load_sym libgtk "gtk_render_check")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderExpander_ =
         call (load_sym libgtk "gtk_render_expander")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderExtension_ =
         call (load_sym libgtk "gtk_render_extension")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderFocus_ =
         call (load_sym libgtk "gtk_render_focus")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderFrame_ =
         call (load_sym libgtk "gtk_render_frame")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderFrameGap_ =
         call (load_sym libgtk "gtk_render_frame_gap")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderHandle_ =
         call (load_sym libgtk "gtk_render_handle")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderIcon_ =
         call (load_sym libgtk "gtk_render_icon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderIconPixbuf_ =
         call (load_sym libgtk "gtk_render_icon_pixbuf")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkIconSourceRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkIconSourceRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val renderLayout_ =
         call (load_sym libgtk "gtk_render_layout")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val renderLine_ =
         call (load_sym libgtk "gtk_render_line")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderOption_ =
         call (load_sym libgtk "gtk_render_option")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val renderSlider_ =
         call (load_sym libgtk "gtk_render_slider")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> CairoContextRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkOrientation.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> CairoContextRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkOrientation.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val rgbToHsv_ =
         call (load_sym libgtk "gtk_rgb_to_hsv")
           (
-            FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             &&> FFI.Double.PolyML.REF
-             --> FFI.PolyML.VOID
+            FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             &&> FFI.Double.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val selectionAddTarget_ =
         call (load_sym libgtk "gtk_selection_add_target")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val selectionClearTargets_ = call (load_sym libgtk "gtk_selection_clear_targets") (GObjectObjectClass.PolyML.PTR &&> GdkAtomRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val selectionClearTargets_ = call (load_sym libgtk "gtk_selection_clear_targets") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val selectionConvert_ =
         call (load_sym libgtk "gtk_selection_convert")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val selectionOwnerSet_ =
         call (load_sym libgtk "gtk_selection_owner_set")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val selectionOwnerSetForDisplay_ =
         call (load_sym libgtk "gtk_selection_owner_set_for_display")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GdkAtomRecord.PolyML.PTR
-             &&> FFI.UInt32.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GdkAtomRecord.PolyML.cPtr
+             &&> FFI.UInt32.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val selectionRemoveAll_ = call (load_sym libgtk "gtk_selection_remove_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDebugFlags_ = call (load_sym libgtk "gtk_set_debug_flags") (FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val selectionRemoveAll_ = call (load_sym libgtk "gtk_selection_remove_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDebugFlags_ = call (load_sym libgtk "gtk_set_debug_flags") (FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val showUri_ =
         call (load_sym libgtk "gtk_show_uri")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.UInt32.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.UInt32.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val stockLookup_ = call (load_sym libgtk "gtk_stock_lookup") (Utf8.PolyML.INPTR &&> GtkStockItemRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val testCreateSimpleWindow_ = call (load_sym libgtk "gtk_test_create_simple_window") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val testFindLabel_ = call (load_sym libgtk "gtk_test_find_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val testRegisterAllTypes_ = call (load_sym libgtk "gtk_test_register_all_types") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val testSliderGetValue_ = call (load_sym libgtk "gtk_test_slider_get_value") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val testSliderSetPerc_ = call (load_sym libgtk "gtk_test_slider_set_perc") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
+      val stockLookup_ = call (load_sym libgtk "gtk_stock_lookup") (Utf8.PolyML.cInPtr &&> GtkStockItemRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val testCreateSimpleWindow_ = call (load_sym libgtk "gtk_test_create_simple_window") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val testFindLabel_ = call (load_sym libgtk "gtk_test_find_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val testRegisterAllTypes_ = call (load_sym libgtk "gtk_test_register_all_types") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
+      val testSliderGetValue_ = call (load_sym libgtk "gtk_test_slider_get_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val testSliderSetPerc_ = call (load_sym libgtk "gtk_test_slider_set_perc") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
       val testSpinButtonClick_ =
         call (load_sym libgtk "gtk_test_spin_button_click")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
-      val testTextGet_ = call (load_sym libgtk "gtk_test_text_get") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val testTextSet_ = call (load_sym libgtk "gtk_test_text_set") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val testTextGet_ = call (load_sym libgtk "gtk_test_text_get") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val testTextSet_ = call (load_sym libgtk "gtk_test_text_set") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val testWidgetClick_ =
         call (load_sym libgtk "gtk_test_widget_click")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> GdkModifierType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val testWidgetSendKey_ =
         call (load_sym libgtk "gtk_test_widget_send_key")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> GdkModifierType.PolyML.VAL
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             --> FFI.Bool.PolyML.cVal
           )
       val treeGetRowDragData_ =
         call (load_sym libgtk "gtk_tree_get_row_drag_data")
           (
-            GtkSelectionDataRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> GtkTreePathRecord.PolyML.OUTREF
-             --> FFI.Bool.PolyML.VAL
+            GtkSelectionDataRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GtkTreePathRecord.PolyML.cOutRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val treeRowReferenceDeleted_ = call (load_sym libgtk "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val treeRowReferenceInserted_ = call (load_sym libgtk "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val treeRowReferenceDeleted_ = call (load_sym libgtk "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val treeRowReferenceInserted_ = call (load_sym libgtk "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val treeSetRowDragData_ =
         call (load_sym libgtk "gtk_tree_set_row_drag_data")
           (
-            GtkSelectionDataRecord.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTreePathRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GtkSelectionDataRecord.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
     end
     structure ActionEntry = GtkActionEntry

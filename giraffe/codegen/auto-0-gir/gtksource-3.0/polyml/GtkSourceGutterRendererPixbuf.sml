@@ -5,16 +5,16 @@ structure GtkSourceGutterRendererPixbuf :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getGicon_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_gicon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getIconName_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPixbuf_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getStockId_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_stock_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val setGicon_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_gicon") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setIconName_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setPixbuf_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_pixbuf") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setStockId_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_stock_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getGicon_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_gicon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIconName_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_icon_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPixbuf_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getStockId_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_get_stock_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setGicon_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_gicon") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setIconName_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setPixbuf_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_pixbuf") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setStockId_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_stock_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSourceGutterRendererPixbufClass.t
     type t = base class_t

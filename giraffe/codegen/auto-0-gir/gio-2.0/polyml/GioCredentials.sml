@@ -5,26 +5,26 @@ structure GioCredentials :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_credentials_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_credentials_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getUnixUser_ = call (load_sym libgio "g_credentials_get_unix_user") (GObjectObjectClass.PolyML.PTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> FFI.UInt.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_credentials_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_credentials_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getUnixUser_ = call (load_sym libgio "g_credentials_get_unix_user") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.UInt.PolyML.cVal)
       val isSameUser_ =
         call (load_sym libgio "g_credentials_is_same_user")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setUnixUser_ =
         call (load_sym libgio "g_credentials_set_unix_user")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GioCredentialsClass.t
     type t = base class_t

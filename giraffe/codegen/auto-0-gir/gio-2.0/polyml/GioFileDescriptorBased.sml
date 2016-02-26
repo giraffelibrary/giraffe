@@ -5,8 +5,8 @@ structure GioFileDescriptorBased :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_descriptor_based_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getFd_ = call (load_sym libgio "g_file_descriptor_based_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_file_descriptor_based_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getFd_ = call (load_sym libgio "g_file_descriptor_based_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
     end
     type 'a class_t = 'a GioFileDescriptorBasedClass.t
     type t = base class_t

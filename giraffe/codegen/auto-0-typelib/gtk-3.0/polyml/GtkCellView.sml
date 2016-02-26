@@ -12,22 +12,22 @@ structure GtkCellView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_view_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_cell_view_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newWithContext_ = call (load_sym libgtk "gtk_cell_view_new_with_context") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMarkup_ = call (load_sym libgtk "gtk_cell_view_new_with_markup") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithPixbuf_ = call (load_sym libgtk "gtk_cell_view_new_with_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithText_ = call (load_sym libgtk "gtk_cell_view_new_with_text") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_get_displayed_row") (GObjectObjectClass.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
-      val getDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_get_draw_sensitive") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFitModel_ = call (load_sym libgtk "gtk_cell_view_get_fit_model") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getModel_ = call (load_sym libgtk "gtk_cell_view_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setBackgroundColor_ = call (load_sym libgtk "gtk_cell_view_set_background_color") (GObjectObjectClass.PolyML.PTR &&> GdkColorRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setBackgroundRgba_ = call (load_sym libgtk "gtk_cell_view_set_background_rgba") (GObjectObjectClass.PolyML.PTR &&> GdkRgbaRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_set_displayed_row") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_set_draw_sensitive") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setFitModel_ = call (load_sym libgtk "gtk_cell_view_set_fit_model") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setModel_ = call (load_sym libgtk "gtk_cell_view_set_model") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_cell_view_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_view_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newWithContext_ = call (load_sym libgtk "gtk_cell_view_new_with_context") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMarkup_ = call (load_sym libgtk "gtk_cell_view_new_with_markup") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithPixbuf_ = call (load_sym libgtk "gtk_cell_view_new_with_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithText_ = call (load_sym libgtk "gtk_cell_view_new_with_text") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_get_displayed_row") (GObjectObjectClass.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val getDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_get_draw_sensitive") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFitModel_ = call (load_sym libgtk "gtk_cell_view_get_fit_model") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getModel_ = call (load_sym libgtk "gtk_cell_view_get_model") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setBackgroundColor_ = call (load_sym libgtk "gtk_cell_view_set_background_color") (GObjectObjectClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setBackgroundRgba_ = call (load_sym libgtk "gtk_cell_view_set_background_rgba") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_set_displayed_row") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_set_draw_sensitive") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFitModel_ = call (load_sym libgtk "gtk_cell_view_set_fit_model") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setModel_ = call (load_sym libgtk "gtk_cell_view_set_model") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCellViewClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

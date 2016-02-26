@@ -11,36 +11,36 @@ structure GIRepositoryCallableInfo :>
       val getReturnType_ =
         call
           (load_sym libgirepository "g_callable_info_get_return_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getCallerOwns_ =
         call
           (load_sym libgirepository "g_callable_info_get_caller_owns")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTransfer.PolyML.cVal);
 
       val mayReturnNull_ =
         call
           (load_sym libgirepository "g_callable_info_may_return_null")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getReturnAttribute_ =
         call
           (load_sym libgirepository "g_callable_info_get_return_attribute")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> Utf8.PolyML.INPTR
-            --> Utf8.PolyML.RETPTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> Utf8.PolyML.cInPtr
+            --> Utf8.PolyML.cOutPtr);
 
       val getNArgs_ =
         call
           (load_sym libgirepository "g_callable_info_get_n_args")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getArg_ =
         call
           (load_sym libgirepository "g_callable_info_get_arg")
-          (GIRepositoryBaseInfoClass.PolyML.PTR
-            &&> FFI.Int32.PolyML.VAL
-            --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr
+            &&> FFI.Int32.PolyML.cVal
+            --> GIRepositoryBaseInfoClass.PolyML.cPtr);
     end
 
 

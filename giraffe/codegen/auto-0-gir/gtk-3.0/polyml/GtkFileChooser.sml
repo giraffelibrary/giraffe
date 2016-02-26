@@ -9,108 +9,108 @@ structure GtkFileChooser :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_file_chooser_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val addFilter_ = call (load_sym libgtk "gtk_file_chooser_add_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_file_chooser_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val addFilter_ = call (load_sym libgtk "gtk_file_chooser_add_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val addShortcutFolder_ =
         call (load_sym libgtk "gtk_file_chooser_add_shortcut_folder")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val addShortcutFolderUri_ =
         call (load_sym libgtk "gtk_file_chooser_add_shortcut_folder_uri")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getAction_ = call (load_sym libgtk "gtk_file_chooser_get_action") (GObjectObjectClass.PolyML.PTR --> GtkFileChooserAction.PolyML.VAL)
-      val getCreateFolders_ = call (load_sym libgtk "gtk_file_chooser_get_create_folders") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCurrentFolder_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getCurrentFolderFile_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder_file") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getCurrentFolderUri_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getDoOverwriteConfirmation_ = call (load_sym libgtk "gtk_file_chooser_get_do_overwrite_confirmation") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getExtraWidget_ = call (load_sym libgtk "gtk_file_chooser_get_extra_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
-      val getFile_ = call (load_sym libgtk "gtk_file_chooser_get_file") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getFilename_ = call (load_sym libgtk "gtk_file_chooser_get_filename") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getFilter_ = call (load_sym libgtk "gtk_file_chooser_get_filter") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
-      val getLocalOnly_ = call (load_sym libgtk "gtk_file_chooser_get_local_only") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getPreviewFile_ = call (load_sym libgtk "gtk_file_chooser_get_preview_file") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
-      val getPreviewFilename_ = call (load_sym libgtk "gtk_file_chooser_get_preview_filename") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getPreviewUri_ = call (load_sym libgtk "gtk_file_chooser_get_preview_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getPreviewWidget_ = call (load_sym libgtk "gtk_file_chooser_get_preview_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.OPTPTR)
-      val getPreviewWidgetActive_ = call (load_sym libgtk "gtk_file_chooser_get_preview_widget_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSelectMultiple_ = call (load_sym libgtk "gtk_file_chooser_get_select_multiple") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getShowHidden_ = call (load_sym libgtk "gtk_file_chooser_get_show_hidden") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUri_ = call (load_sym libgtk "gtk_file_chooser_get_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETOPTPTR)
-      val getUsePreviewLabel_ = call (load_sym libgtk "gtk_file_chooser_get_use_preview_label") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val removeFilter_ = call (load_sym libgtk "gtk_file_chooser_remove_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getAction_ = call (load_sym libgtk "gtk_file_chooser_get_action") (GObjectObjectClass.PolyML.cPtr --> GtkFileChooserAction.PolyML.cVal)
+      val getCreateFolders_ = call (load_sym libgtk "gtk_file_chooser_get_create_folders") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCurrentFolder_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCurrentFolderFile_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder_file") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCurrentFolderUri_ = call (load_sym libgtk "gtk_file_chooser_get_current_folder_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getDoOverwriteConfirmation_ = call (load_sym libgtk "gtk_file_chooser_get_do_overwrite_confirmation") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getExtraWidget_ = call (load_sym libgtk "gtk_file_chooser_get_extra_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cOptPtr)
+      val getFile_ = call (load_sym libgtk "gtk_file_chooser_get_file") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFilename_ = call (load_sym libgtk "gtk_file_chooser_get_filename") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getFilter_ = call (load_sym libgtk "gtk_file_chooser_get_filter") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cOptPtr)
+      val getLocalOnly_ = call (load_sym libgtk "gtk_file_chooser_get_local_only") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getPreviewFile_ = call (load_sym libgtk "gtk_file_chooser_get_preview_file") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cOptPtr)
+      val getPreviewFilename_ = call (load_sym libgtk "gtk_file_chooser_get_preview_filename") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getPreviewUri_ = call (load_sym libgtk "gtk_file_chooser_get_preview_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getPreviewWidget_ = call (load_sym libgtk "gtk_file_chooser_get_preview_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cOptPtr)
+      val getPreviewWidgetActive_ = call (load_sym libgtk "gtk_file_chooser_get_preview_widget_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSelectMultiple_ = call (load_sym libgtk "gtk_file_chooser_get_select_multiple") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowHidden_ = call (load_sym libgtk "gtk_file_chooser_get_show_hidden") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUri_ = call (load_sym libgtk "gtk_file_chooser_get_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getUsePreviewLabel_ = call (load_sym libgtk "gtk_file_chooser_get_use_preview_label") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeFilter_ = call (load_sym libgtk "gtk_file_chooser_remove_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val removeShortcutFolder_ =
         call (load_sym libgtk "gtk_file_chooser_remove_shortcut_folder")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val removeShortcutFolderUri_ =
         call (load_sym libgtk "gtk_file_chooser_remove_shortcut_folder_uri")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val selectAll_ = call (load_sym libgtk "gtk_file_chooser_select_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val selectAll_ = call (load_sym libgtk "gtk_file_chooser_select_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val selectFile_ =
         call (load_sym libgtk "gtk_file_chooser_select_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val selectFilename_ = call (load_sym libgtk "gtk_file_chooser_select_filename") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val selectUri_ = call (load_sym libgtk "gtk_file_chooser_select_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val setAction_ = call (load_sym libgtk "gtk_file_chooser_set_action") (GObjectObjectClass.PolyML.PTR &&> GtkFileChooserAction.PolyML.VAL --> FFI.PolyML.VOID)
-      val setCreateFolders_ = call (load_sym libgtk "gtk_file_chooser_set_create_folders") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setCurrentFolder_ = call (load_sym libgtk "gtk_file_chooser_set_current_folder") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
+      val selectFilename_ = call (load_sym libgtk "gtk_file_chooser_select_filename") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val selectUri_ = call (load_sym libgtk "gtk_file_chooser_select_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val setAction_ = call (load_sym libgtk "gtk_file_chooser_set_action") (GObjectObjectClass.PolyML.cPtr &&> GtkFileChooserAction.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCreateFolders_ = call (load_sym libgtk "gtk_file_chooser_set_create_folders") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCurrentFolder_ = call (load_sym libgtk "gtk_file_chooser_set_current_folder") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val setCurrentFolderFile_ =
         call (load_sym libgtk "gtk_file_chooser_set_current_folder_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setCurrentFolderUri_ = call (load_sym libgtk "gtk_file_chooser_set_current_folder_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val setCurrentName_ = call (load_sym libgtk "gtk_file_chooser_set_current_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setDoOverwriteConfirmation_ = call (load_sym libgtk "gtk_file_chooser_set_do_overwrite_confirmation") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setExtraWidget_ = call (load_sym libgtk "gtk_file_chooser_set_extra_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val setCurrentFolderUri_ = call (load_sym libgtk "gtk_file_chooser_set_current_folder_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val setCurrentName_ = call (load_sym libgtk "gtk_file_chooser_set_current_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setDoOverwriteConfirmation_ = call (load_sym libgtk "gtk_file_chooser_set_do_overwrite_confirmation") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setExtraWidget_ = call (load_sym libgtk "gtk_file_chooser_set_extra_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setFile_ =
         call (load_sym libgtk "gtk_file_chooser_set_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val setFilename_ = call (load_sym libgtk "gtk_file_chooser_set_filename") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val setFilter_ = call (load_sym libgtk "gtk_file_chooser_set_filter") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setLocalOnly_ = call (load_sym libgtk "gtk_file_chooser_set_local_only") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setPreviewWidget_ = call (load_sym libgtk "gtk_file_chooser_set_preview_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setPreviewWidgetActive_ = call (load_sym libgtk "gtk_file_chooser_set_preview_widget_active") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSelectMultiple_ = call (load_sym libgtk "gtk_file_chooser_set_select_multiple") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShowHidden_ = call (load_sym libgtk "gtk_file_chooser_set_show_hidden") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUri_ = call (load_sym libgtk "gtk_file_chooser_set_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val setUsePreviewLabel_ = call (load_sym libgtk "gtk_file_chooser_set_use_preview_label") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val unselectAll_ = call (load_sym libgtk "gtk_file_chooser_unselect_all") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectFile_ = call (load_sym libgtk "gtk_file_chooser_unselect_file") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val unselectFilename_ = call (load_sym libgtk "gtk_file_chooser_unselect_filename") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val unselectUri_ = call (load_sym libgtk "gtk_file_chooser_unselect_uri") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val setFilename_ = call (load_sym libgtk "gtk_file_chooser_set_filename") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val setFilter_ = call (load_sym libgtk "gtk_file_chooser_set_filter") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setLocalOnly_ = call (load_sym libgtk "gtk_file_chooser_set_local_only") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPreviewWidget_ = call (load_sym libgtk "gtk_file_chooser_set_preview_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setPreviewWidgetActive_ = call (load_sym libgtk "gtk_file_chooser_set_preview_widget_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSelectMultiple_ = call (load_sym libgtk "gtk_file_chooser_set_select_multiple") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowHidden_ = call (load_sym libgtk "gtk_file_chooser_set_show_hidden") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUri_ = call (load_sym libgtk "gtk_file_chooser_set_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val setUsePreviewLabel_ = call (load_sym libgtk "gtk_file_chooser_set_use_preview_label") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unselectAll_ = call (load_sym libgtk "gtk_file_chooser_unselect_all") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectFile_ = call (load_sym libgtk "gtk_file_chooser_unselect_file") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unselectFilename_ = call (load_sym libgtk "gtk_file_chooser_unselect_filename") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val unselectUri_ = call (load_sym libgtk "gtk_file_chooser_unselect_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkFileChooserClass.t
     type file_chooser_confirmation_t = GtkFileChooserConfirmation.t

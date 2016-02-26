@@ -6,10 +6,10 @@ structure GtkAccessible :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_accessible_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val connectWidgetDestroyed_ = call (load_sym libgtk "gtk_accessible_connect_widget_destroyed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getWidget_ = call (load_sym libgtk "gtk_accessible_get_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setWidget_ = call (load_sym libgtk "gtk_accessible_set_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_accessible_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val connectWidgetDestroyed_ = call (load_sym libgtk "gtk_accessible_connect_widget_destroyed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getWidget_ = call (load_sym libgtk "gtk_accessible_get_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setWidget_ = call (load_sym libgtk "gtk_accessible_set_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAccessibleClass.t
     type 'a widget_class_t = 'a GtkWidgetClass.t

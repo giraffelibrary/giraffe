@@ -5,15 +5,15 @@ structure GdkPixbufPixbufFormat :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_copy") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> GdkPixbufPixbufFormatRecord.PolyML.PTR)
-      val getDescription_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_description") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getLicense_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_license") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getName_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_name") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val isDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_disabled") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isScalable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_scalable") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isWritable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_copy") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GdkPixbufPixbufFormatRecord.PolyML.cPtr)
+      val getDescription_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_description") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLicense_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_license") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_name") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isScalable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_scalable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isWritable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type record_t = GdkPixbufPixbufFormatRecord.t
     type t = record_t

@@ -7,13 +7,13 @@ structure GtkAccelLabel :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_accel_label_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getAccelWidget_ = call (load_sym libgtk "gtk_accel_label_get_accel_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GObjectObjectClass.PolyML.PTR --> FFI.UInt32.PolyML.VAL)
-      val refetch_ = call (load_sym libgtk "gtk_accel_label_refetch") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setAccelClosure_ = call (load_sym libgtk "gtk_accel_label_set_accel_closure") (GObjectObjectClass.PolyML.PTR &&> GObjectClosureRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setAccelWidget_ = call (load_sym libgtk "gtk_accel_label_set_accel_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_accel_label_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAccelWidget_ = call (load_sym libgtk "gtk_accel_label_get_accel_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val refetch_ = call (load_sym libgtk "gtk_accel_label_refetch") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setAccelClosure_ = call (load_sym libgtk "gtk_accel_label_set_accel_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAccelWidget_ = call (load_sym libgtk "gtk_accel_label_set_accel_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAccelLabelClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

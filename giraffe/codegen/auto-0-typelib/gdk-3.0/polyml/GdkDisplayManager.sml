@@ -6,11 +6,11 @@ structure GdkDisplayManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_display_manager_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val get_ = call (load_sym libgdk "gdk_display_manager_get") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultDisplay_ = call (load_sym libgdk "gdk_display_manager_get_default_display") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val openDisplay_ = call (load_sym libgdk "gdk_display_manager_open_display") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val setDefaultDisplay_ = call (load_sym libgdk "gdk_display_manager_set_default_display") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgdk "gdk_display_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val get_ = call (load_sym libgdk "gdk_display_manager_get") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultDisplay_ = call (load_sym libgdk "gdk_display_manager_get_default_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val openDisplay_ = call (load_sym libgdk "gdk_display_manager_open_display") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setDefaultDisplay_ = call (load_sym libgdk "gdk_display_manager_set_default_display") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GdkDisplayManagerClass.t
     type 'a display_class_t = 'a GdkDisplayClass.t

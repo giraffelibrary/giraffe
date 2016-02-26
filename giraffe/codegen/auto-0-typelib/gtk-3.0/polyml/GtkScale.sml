@@ -10,42 +10,42 @@ structure GtkScale :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scale_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_scale_new") (GtkOrientation.PolyML.VAL &&> GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_scale_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_scale_new") (GtkOrientation.PolyML.cVal &&> GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
       val newWithRange_ =
         call (load_sym libgtk "gtk_scale_new_with_range")
           (
-            GtkOrientation.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GtkOrientation.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
       val addMark_ =
         call (load_sym libgtk "gtk_scale_add_mark")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkPositionType.PolyML.VAL
-             &&> Utf8.PolyML.INOPTPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkPositionType.PolyML.cVal
+             &&> Utf8.PolyML.cInOptPtr
+             --> FFI.PolyML.cVoid
           )
-      val clearMarks_ = call (load_sym libgtk "gtk_scale_clear_marks") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getDigits_ = call (load_sym libgtk "gtk_scale_get_digits") (GObjectObjectClass.PolyML.PTR --> FFI.Int32.PolyML.VAL)
-      val getDrawValue_ = call (load_sym libgtk "gtk_scale_get_draw_value") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getLayout_ = call (load_sym libgtk "gtk_scale_get_layout") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val clearMarks_ = call (load_sym libgtk "gtk_scale_clear_marks") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getDigits_ = call (load_sym libgtk "gtk_scale_get_digits") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getDrawValue_ = call (load_sym libgtk "gtk_scale_get_draw_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getLayout_ = call (load_sym libgtk "gtk_scale_get_layout") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getLayoutOffsets_ =
         call (load_sym libgtk "gtk_scale_get_layout_offsets")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int32.PolyML.REF
-             &&> FFI.Int32.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int32.PolyML.cRef
+             &&> FFI.Int32.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getValuePos_ = call (load_sym libgtk "gtk_scale_get_value_pos") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
-      val setDigits_ = call (load_sym libgtk "gtk_scale_set_digits") (GObjectObjectClass.PolyML.PTR &&> FFI.Int32.PolyML.VAL --> FFI.PolyML.VOID)
-      val setDrawValue_ = call (load_sym libgtk "gtk_scale_set_draw_value") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setValuePos_ = call (load_sym libgtk "gtk_scale_set_value_pos") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
+      val getValuePos_ = call (load_sym libgtk "gtk_scale_get_value_pos") (GObjectObjectClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
+      val setDigits_ = call (load_sym libgtk "gtk_scale_set_digits") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDrawValue_ = call (load_sym libgtk "gtk_scale_set_draw_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setValuePos_ = call (load_sym libgtk "gtk_scale_set_value_pos") (GObjectObjectClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkScaleClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

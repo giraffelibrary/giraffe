@@ -5,15 +5,15 @@ structure GtkSourceUndoManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_undo_manager_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_begin_not_undoable_action") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val canRedo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val canRedoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val canUndo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val canUndoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val endNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_end_not_undoable_action") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val redo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_redo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val undo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_undo") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_undo_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_begin_not_undoable_action") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val canRedo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canRedoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_redo_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val canUndo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canUndoChanged_ = call (load_sym libgtksourceview "gtk_source_undo_manager_can_undo_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val endNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_undo_manager_end_not_undoable_action") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val redo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_redo") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val undo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_undo") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSourceUndoManagerClass.t
     type t = base class_t

@@ -6,11 +6,11 @@ structure GioUnixOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_output_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_unix_output_stream_new") (FFI.Int.PolyML.VAL &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getCloseFd_ = call (load_sym libgio "g_unix_output_stream_get_close_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getFd_ = call (load_sym libgio "g_unix_output_stream_get_fd") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val setCloseFd_ = call (load_sym libgio "g_unix_output_stream_set_close_fd") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_unix_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_unix_output_stream_new") (FFI.Int.PolyML.cVal &&> FFI.Bool.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getCloseFd_ = call (load_sym libgio "g_unix_output_stream_get_close_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFd_ = call (load_sym libgio "g_unix_output_stream_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val setCloseFd_ = call (load_sym libgio "g_unix_output_stream_set_close_fd") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioUnixOutputStreamClass.t
     type 'a pollable_output_stream_class_t = 'a GioPollableOutputStreamClass.t

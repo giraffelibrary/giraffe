@@ -6,13 +6,13 @@ structure GtkActivatable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_activatable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val doSetRelatedAction_ = call (load_sym libgtk "gtk_activatable_do_set_related_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getRelatedAction_ = call (load_sym libgtk "gtk_activatable_get_related_action") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_get_use_action_appearance") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setRelatedAction_ = call (load_sym libgtk "gtk_activatable_set_related_action") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_set_use_action_appearance") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val syncActionProperties_ = call (load_sym libgtk "gtk_activatable_sync_action_properties") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_activatable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val doSetRelatedAction_ = call (load_sym libgtk "gtk_activatable_do_set_related_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getRelatedAction_ = call (load_sym libgtk "gtk_activatable_get_related_action") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_get_use_action_appearance") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setRelatedAction_ = call (load_sym libgtk "gtk_activatable_set_related_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_set_use_action_appearance") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val syncActionProperties_ = call (load_sym libgtk "gtk_activatable_sync_action_properties") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkActivatableClass.t
     type 'a action_class_t = 'a GtkActionClass.t

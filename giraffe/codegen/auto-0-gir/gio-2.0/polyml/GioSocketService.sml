@@ -6,11 +6,11 @@ structure GioSocketService :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_service_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_socket_service_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val isActive_ = call (load_sym libgio "g_socket_service_is_active") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val start_ = call (load_sym libgio "g_socket_service_start") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val stop_ = call (load_sym libgio "g_socket_service_stop") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_socket_service_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_socket_service_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val isActive_ = call (load_sym libgio "g_socket_service_is_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val start_ = call (load_sym libgio "g_socket_service_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val stop_ = call (load_sym libgio "g_socket_service_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioSocketServiceClass.t
     type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t

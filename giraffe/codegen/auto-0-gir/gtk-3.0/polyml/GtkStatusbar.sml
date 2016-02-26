@@ -8,28 +8,28 @@ structure GtkStatusbar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_statusbar_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.UInt.PolyML.VAL)
-      val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_statusbar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt.PolyML.cVal)
+      val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val push_ =
         call (load_sym libgtk "gtk_statusbar_push")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.UInt.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.UInt.PolyML.cVal
           )
       val remove_ =
         call (load_sym libgtk "gtk_statusbar_remove")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.UInt.PolyML.VAL
-             &&> FFI.UInt.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.UInt.PolyML.cVal
+             &&> FFI.UInt.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkStatusbarClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

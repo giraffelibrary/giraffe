@@ -9,29 +9,29 @@ structure GtkTreeModelFilter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_model_filter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val clearCache_ = call (load_sym libgtk "gtk_tree_model_filter_clear_cache") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_tree_model_filter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val clearCache_ = call (load_sym libgtk "gtk_tree_model_filter_clear_cache") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val convertChildIterToIter_ =
         call (load_sym libgtk "gtk_tree_model_filter_convert_child_iter_to_iter")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val convertChildPathToPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_child_path_to_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
+      val convertChildPathToPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_child_path_to_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val convertIterToChildIter_ =
         call (load_sym libgtk "gtk_tree_model_filter_convert_iter_to_child_iter")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             &&> GtkTreeIterRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
-      val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_path_to_child_path") (GObjectObjectClass.PolyML.PTR &&> GtkTreePathRecord.PolyML.PTR --> GtkTreePathRecord.PolyML.PTR)
-      val getModel_ = call (load_sym libgtk "gtk_tree_model_filter_get_model") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_path_to_child_path") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val getModel_ = call (load_sym libgtk "gtk_tree_model_filter_get_model") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTreeModelFilterClass.t
     type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t

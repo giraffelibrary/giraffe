@@ -9,39 +9,39 @@ structure GtkSourceCompletionProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val activateProposal_ =
         call (load_sym libgtksourceview "gtk_source_completion_provider_activate_proposal")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTextIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_activation") (GObjectObjectClass.PolyML.PTR --> GtkSourceCompletionActivation.PolyML.VAL)
-      val getIcon_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getInfoWidget_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_info_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getInteractiveDelay_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_interactive_delay") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPriority_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_priority") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_activation") (GObjectObjectClass.PolyML.cPtr --> GtkSourceCompletionActivation.PolyML.cVal)
+      val getIcon_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getInfoWidget_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_info_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getInteractiveDelay_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_interactive_delay") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getName_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPriority_ = call (load_sym libgtksourceview "gtk_source_completion_provider_get_priority") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getStartIter_ =
         call (load_sym libgtksourceview "gtk_source_completion_provider_get_start_iter")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GtkTextIterRecord.PolyML.PTR
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             --> FFI.Bool.PolyML.cVal
           )
-      val match_ = call (load_sym libgtksourceview "gtk_source_completion_provider_match") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val populate_ = call (load_sym libgtksourceview "gtk_source_completion_provider_populate") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val match_ = call (load_sym libgtksourceview "gtk_source_completion_provider_match") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val populate_ = call (load_sym libgtksourceview "gtk_source_completion_provider_populate") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val updateInfo_ =
         call (load_sym libgtksourceview "gtk_source_completion_provider_update_info")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkSourceCompletionProviderClass.t

@@ -6,17 +6,17 @@ structure GtkSourceLanguageManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_language_manager_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getDefault_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getLanguage_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_language") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_language_manager_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getLanguage_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_language") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val guessLanguage_ =
         call (load_sym libgtksourceview "gtk_source_language_manager_guess_language")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> Utf8.PolyML.INOPTPTR
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GObjectObjectClass.PolyML.cPtr
           )
     end
     type 'a class_t = 'a GtkSourceLanguageManagerClass.t

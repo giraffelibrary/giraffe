@@ -5,12 +5,12 @@ structure AtkValue :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_value_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getCurrentValue_ = call (load_sym libatk "atk_value_get_current_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getMaximumValue_ = call (load_sym libatk "atk_value_get_maximum_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getMinimumIncrement_ = call (load_sym libatk "atk_value_get_minimum_increment") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val getMinimumValue_ = call (load_sym libatk "atk_value_get_minimum_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (GObjectObjectClass.PolyML.PTR &&> GObjectValueRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_value_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getCurrentValue_ = call (load_sym libatk "atk_value_get_current_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getMaximumValue_ = call (load_sym libatk "atk_value_get_maximum_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getMinimumIncrement_ = call (load_sym libatk "atk_value_get_minimum_increment") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getMinimumValue_ = call (load_sym libatk "atk_value_get_minimum_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a AtkValueClass.t
     type t = base class_t

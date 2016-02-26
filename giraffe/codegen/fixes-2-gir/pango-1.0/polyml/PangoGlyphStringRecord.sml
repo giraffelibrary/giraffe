@@ -4,16 +4,16 @@ structure PangoGlyphStringRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -21,17 +21,17 @@ structure PangoGlyphStringRecord :>
       val new_ =
         call
           (load_sym libpango "pango_glyph_string_new")
-          (FFI.PolyML.VOID --> PTR)
+          (FFI.PolyML.cVoid --> cPtr)
 
       val copy_ =
         call
           (load_sym libpango "pango_glyph_string_copy")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val free_ =
         call
           (load_sym libpango "pango_glyph_string_free")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -75,8 +75,8 @@ structure PangoGlyphStringRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
 
     local
@@ -85,27 +85,27 @@ structure PangoGlyphStringRecord :>
       val getType_ =
         call
           (load_sym libpango "pango_glyph_string_get_type")
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);
+          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.PTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.OPTPTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.PTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> FFI.PolyML.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.OPTPTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
     end
 
     val t =

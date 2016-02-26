@@ -8,82 +8,82 @@ structure GioAppInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_app_info_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgio "g_app_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val createFromCommandline_ =
         call (load_sym libgio "g_app_info_create_from_commandline")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INOPTPTR
-             &&> GioAppInfoCreateFlags.PolyML.VAL
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GObjectObjectClass.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GioAppInfoCreateFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getDefaultForType_ = call (load_sym libgio "g_app_info_get_default_for_type") (Utf8.PolyML.INPTR &&> FFI.Bool.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getDefaultForUriScheme_ = call (load_sym libgio "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getDefaultForType_ = call (load_sym libgio "g_app_info_get_default_for_type") (Utf8.PolyML.cInPtr &&> FFI.Bool.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultForUriScheme_ = call (load_sym libgio "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val launchDefaultForUri_ =
         call (load_sym libgio "g_app_info_launch_default_for_uri")
           (
-            Utf8.PolyML.INPTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val addSupportsType_ =
         call (load_sym libgio "g_app_info_add_supports_type")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val canDelete_ = call (load_sym libgio "g_app_info_can_delete") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val canRemoveSupportsType_ = call (load_sym libgio "g_app_info_can_remove_supports_type") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val delete_ = call (load_sym libgio "g_app_info_delete") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val dup_ = call (load_sym libgio "g_app_info_dup") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val equal_ = call (load_sym libgio "g_app_info_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getCommandline_ = call (load_sym libgio "g_app_info_get_commandline") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getDescription_ = call (load_sym libgio "g_app_info_get_description") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getDisplayName_ = call (load_sym libgio "g_app_info_get_display_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getExecutable_ = call (load_sym libgio "g_app_info_get_executable") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getIcon_ = call (load_sym libgio "g_app_info_get_icon") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getId_ = call (load_sym libgio "g_app_info_get_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getName_ = call (load_sym libgio "g_app_info_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val canDelete_ = call (load_sym libgio "g_app_info_can_delete") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canRemoveSupportsType_ = call (load_sym libgio "g_app_info_can_remove_supports_type") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val delete_ = call (load_sym libgio "g_app_info_delete") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val dup_ = call (load_sym libgio "g_app_info_dup") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val equal_ = call (load_sym libgio "g_app_info_equal") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCommandline_ = call (load_sym libgio "g_app_info_get_commandline") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDescription_ = call (load_sym libgio "g_app_info_get_description") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDisplayName_ = call (load_sym libgio "g_app_info_get_display_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getExecutable_ = call (load_sym libgio "g_app_info_get_executable") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getIcon_ = call (load_sym libgio "g_app_info_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getId_ = call (load_sym libgio "g_app_info_get_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (load_sym libgio "g_app_info_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val removeSupportsType_ =
         call (load_sym libgio "g_app_info_remove_supports_type")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setAsDefaultForExtension_ =
         call (load_sym libgio "g_app_info_set_as_default_for_extension")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setAsDefaultForType_ =
         call (load_sym libgio "g_app_info_set_as_default_for_type")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val setAsLastUsedForType_ =
         call (load_sym libgio "g_app_info_set_as_last_used_for_type")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val shouldShow_ = call (load_sym libgio "g_app_info_should_show") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val supportsFiles_ = call (load_sym libgio "g_app_info_supports_files") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val supportsUris_ = call (load_sym libgio "g_app_info_supports_uris") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val shouldShow_ = call (load_sym libgio "g_app_info_should_show") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val supportsFiles_ = call (load_sym libgio "g_app_info_supports_files") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val supportsUris_ = call (load_sym libgio "g_app_info_supports_uris") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a GioAppInfoClass.t
     type app_info_create_flags_t = GioAppInfoCreateFlags.t

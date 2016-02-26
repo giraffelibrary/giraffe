@@ -5,7 +5,7 @@ structure PangoAttribute :>
     local
       open PolyMLFFI
     in
-      val equal_ = call (load_sym libpango "pango_attribute_equal") (PangoAttributeRecord.PolyML.PTR &&> PangoAttributeRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val equal_ = call (load_sym libpango "pango_attribute_equal") (PangoAttributeRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type record_t = PangoAttributeRecord.t
     type t = record_t

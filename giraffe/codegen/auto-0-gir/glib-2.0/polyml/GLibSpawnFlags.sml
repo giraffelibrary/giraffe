@@ -3,8 +3,8 @@ structure GLibSpawnFlags :>
     include G_LIB_SPAWN_FLAGS
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -41,7 +41,7 @@ structure GLibSpawnFlags :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Flags.PolyML.VAL
-        val REF = FFI.Flags.PolyML.REF
+        val cVal = FFI.Flags.PolyML.cVal
+        val cRef = FFI.Flags.PolyML.cRef
       end
   end

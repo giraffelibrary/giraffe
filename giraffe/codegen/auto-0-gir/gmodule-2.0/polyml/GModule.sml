@@ -3,9 +3,9 @@ structure GModule : G_MODULE =
     local
       open PolyMLFFI
     in
-      val moduleBuildPath_ = call (load_sym libgmodule "g_module_build_path") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INPTR --> Utf8.PolyML.RETPTR)
-      val moduleError_ = call (load_sym libgmodule "g_module_error") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
-      val moduleSupported_ = call (load_sym libgmodule "g_module_supported") (FFI.PolyML.VOID --> FFI.Bool.PolyML.VAL)
+      val moduleBuildPath_ = call (load_sym libgmodule "g_module_build_path") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val moduleError_ = call (load_sym libgmodule "g_module_error") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
+      val moduleSupported_ = call (load_sym libgmodule "g_module_supported") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
     end
     structure ModuleFlags = GModuleModuleFlags
     fun moduleBuildPath directory moduleName = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) moduleBuildPath_ (directory & moduleName)

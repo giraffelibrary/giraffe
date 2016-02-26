@@ -8,9 +8,9 @@ structure GioZlibDecompressor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_zlib_decompressor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_zlib_decompressor_new") (GioZlibCompressorFormat.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getFileInfo_ = call (load_sym libgio "g_zlib_decompressor_get_file_info") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_zlib_decompressor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_zlib_decompressor_new") (GioZlibCompressorFormat.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getFileInfo_ = call (load_sym libgio "g_zlib_decompressor_get_file_info") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GioZlibDecompressorClass.t
     type 'a converter_class_t = 'a GioConverterClass.t

@@ -7,10 +7,10 @@ structure GtkRadioMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_radio_menu_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_from_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_label_from_widget") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_radio_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_from_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_label_from_widget") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkRadioMenuItemClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

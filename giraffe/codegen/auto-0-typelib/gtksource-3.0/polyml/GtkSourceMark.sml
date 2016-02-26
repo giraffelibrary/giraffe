@@ -5,11 +5,11 @@ structure GtkSourceMark :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_mark_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtksourceview "gtk_source_mark_new") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getCategory_ = call (load_sym libgtksourceview "gtk_source_mark_get_category") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val next_ = call (load_sym libgtksourceview "gtk_source_mark_next") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val prev_ = call (load_sym libgtksourceview "gtk_source_mark_prev") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_mark_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_mark_new") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCategory_ = call (load_sym libgtksourceview "gtk_source_mark_get_category") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val next_ = call (load_sym libgtksourceview "gtk_source_mark_next") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val prev_ = call (load_sym libgtksourceview "gtk_source_mark_prev") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class_t = 'a GtkSourceMarkClass.t
     type t = base class_t

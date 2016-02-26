@@ -11,20 +11,20 @@ structure GtkMessageDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_message_dialog_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_message_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgiraffegtk "giraffe_gtk_message_dialog_new")
           (
-            GObjectObjectClass.PolyML.OPTPTR
-             &&> GtkDialogFlags.PolyML.VAL
-             &&> GtkMessageType.PolyML.VAL
-             &&> GtkButtonsType.PolyML.VAL
-             --> GObjectObjectClass.PolyML.PTR
+            GObjectObjectClass.PolyML.cOptPtr
+             &&> GtkDialogFlags.PolyML.cVal
+             &&> GtkMessageType.PolyML.cVal
+             &&> GtkButtonsType.PolyML.cVal
+             --> GObjectObjectClass.PolyML.cPtr
           )
-      val getImage_ = call (load_sym libgtk "gtk_message_dialog_get_image") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getMessageArea_ = call (load_sym libgtk "gtk_message_dialog_get_message_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setImage_ = call (load_sym libgtk "gtk_message_dialog_set_image") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
+      val getImage_ = call (load_sym libgtk "gtk_message_dialog_get_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getMessageArea_ = call (load_sym libgtk "gtk_message_dialog_get_message_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setImage_ = call (load_sym libgtk "gtk_message_dialog_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkMessageDialogClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

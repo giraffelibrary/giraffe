@@ -6,65 +6,65 @@ structure GtkPaperSize :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_paper_size_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_paper_size_new") (Utf8.PolyML.INOPTPTR --> GtkPaperSizeRecord.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_paper_size_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_paper_size_new") (Utf8.PolyML.cInOptPtr --> GtkPaperSizeRecord.PolyML.cPtr)
       val newCustom_ =
         call (load_sym libgtk "gtk_paper_size_new_custom")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> GtkPaperSizeRecord.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> GtkPaperSizeRecord.PolyML.cPtr
           )
       val newFromKeyFile_ =
         call (load_sym libgtk "gtk_paper_size_new_from_key_file")
           (
-            GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> GtkPaperSizeRecord.PolyML.PTR
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GtkPaperSizeRecord.PolyML.cPtr
           )
       val newFromPpd_ =
         call (load_sym libgtk "gtk_paper_size_new_from_ppd")
           (
-            Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             --> GtkPaperSizeRecord.PolyML.PTR
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             --> GtkPaperSizeRecord.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgtk "gtk_paper_size_copy") (GtkPaperSizeRecord.PolyML.PTR --> GtkPaperSizeRecord.PolyML.PTR)
-      val getDefaultBottomMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_bottom_margin") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getDefaultLeftMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_left_margin") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getDefaultRightMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_right_margin") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getDefaultTopMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_top_margin") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getDisplayName_ = call (load_sym libgtk "gtk_paper_size_get_display_name") (GtkPaperSizeRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getHeight_ = call (load_sym libgtk "gtk_paper_size_get_height") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val getName_ = call (load_sym libgtk "gtk_paper_size_get_name") (GtkPaperSizeRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getPpdName_ = call (load_sym libgtk "gtk_paper_size_get_ppd_name") (GtkPaperSizeRecord.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getWidth_ = call (load_sym libgtk "gtk_paper_size_get_width") (GtkPaperSizeRecord.PolyML.PTR &&> GtkUnit.PolyML.VAL --> FFI.Double.PolyML.VAL)
-      val isCustom_ = call (load_sym libgtk "gtk_paper_size_is_custom") (GtkPaperSizeRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val isEqual_ = call (load_sym libgtk "gtk_paper_size_is_equal") (GtkPaperSizeRecord.PolyML.PTR &&> GtkPaperSizeRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val copy_ = call (load_sym libgtk "gtk_paper_size_copy") (GtkPaperSizeRecord.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
+      val getDefaultBottomMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_bottom_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getDefaultLeftMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_left_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getDefaultRightMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_right_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getDefaultTopMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_top_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getDisplayName_ = call (load_sym libgtk "gtk_paper_size_get_display_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHeight_ = call (load_sym libgtk "gtk_paper_size_get_height") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getName_ = call (load_sym libgtk "gtk_paper_size_get_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPpdName_ = call (load_sym libgtk "gtk_paper_size_get_ppd_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getWidth_ = call (load_sym libgtk "gtk_paper_size_get_width") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val isCustom_ = call (load_sym libgtk "gtk_paper_size_is_custom") (GtkPaperSizeRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isEqual_ = call (load_sym libgtk "gtk_paper_size_is_equal") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setSize_ =
         call (load_sym libgtk "gtk_paper_size_set_size")
           (
-            GtkPaperSizeRecord.PolyML.PTR
-             &&> FFI.Double.PolyML.VAL
-             &&> FFI.Double.PolyML.VAL
-             &&> GtkUnit.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GtkPaperSizeRecord.PolyML.cPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> FFI.Double.PolyML.cVal
+             &&> GtkUnit.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val toKeyFile_ =
         call (load_sym libgtk "gtk_paper_size_to_key_file")
           (
-            GtkPaperSizeRecord.PolyML.PTR
-             &&> GLibKeyFileRecord.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GtkPaperSizeRecord.PolyML.cPtr
+             &&> GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
-      val getDefault_ = call (load_sym libgtk "gtk_paper_size_get_default") (FFI.PolyML.VOID --> Utf8.PolyML.RETPTR)
+      val getDefault_ = call (load_sym libgtk "gtk_paper_size_get_default") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
     end
     type record_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t

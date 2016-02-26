@@ -8,88 +8,88 @@ structure GtkImage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_image_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_image_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val newFromAnimation_ = call (load_sym libgtk "gtk_image_new_from_animation") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromFile_ = call (load_sym libgtk "gtk_image_new_from_file") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromGicon_ = call (load_sym libgtk "gtk_image_new_from_gicon") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromIconName_ = call (load_sym libgtk "gtk_image_new_from_icon_name") (Utf8.PolyML.INPTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromIconSet_ = call (load_sym libgtk "gtk_image_new_from_icon_set") (GtkIconSetRecord.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val newFromPixbuf_ = call (load_sym libgtk "gtk_image_new_from_pixbuf") (GObjectObjectClass.PolyML.OPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_image_new_from_stock") (Utf8.PolyML.INPTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val clear_ = call (load_sym libgtk "gtk_image_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getAnimation_ = call (load_sym libgtk "gtk_image_get_animation") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_image_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_image_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val newFromAnimation_ = call (load_sym libgtk "gtk_image_new_from_animation") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromFile_ = call (load_sym libgtk "gtk_image_new_from_file") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromGicon_ = call (load_sym libgtk "gtk_image_new_from_gicon") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newFromIconName_ = call (load_sym libgtk "gtk_image_new_from_icon_name") (Utf8.PolyML.cInPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newFromIconSet_ = call (load_sym libgtk "gtk_image_new_from_icon_set") (GtkIconSetRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val newFromPixbuf_ = call (load_sym libgtk "gtk_image_new_from_pixbuf") (GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_image_new_from_stock") (Utf8.PolyML.cInPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val clear_ = call (load_sym libgtk "gtk_image_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAnimation_ = call (load_sym libgtk "gtk_image_get_animation") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getGicon_ =
         call (load_sym libgtk "gtk_image_get_gicon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OUTREF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getIconName_ =
         call (load_sym libgtk "gtk_image_get_icon_name")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.OUTREF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cOutRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
       val getIconSet_ =
         call (load_sym libgtk "gtk_image_get_icon_set")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkIconSetRecord.PolyML.OUTREF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkIconSetRecord.PolyML.cOutRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getPixbuf_ = call (load_sym libgtk "gtk_image_get_pixbuf") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getPixelSize_ = call (load_sym libgtk "gtk_image_get_pixel_size") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getPixbuf_ = call (load_sym libgtk "gtk_image_get_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getPixelSize_ = call (load_sym libgtk "gtk_image_get_pixel_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getStock_ =
         call (load_sym libgtk "gtk_image_get_stock")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.OUTREF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cOutRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getStorageType_ = call (load_sym libgtk "gtk_image_get_storage_type") (GObjectObjectClass.PolyML.PTR --> GtkImageType.PolyML.VAL)
-      val setFromAnimation_ = call (load_sym libgtk "gtk_image_set_from_animation") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setFromFile_ = call (load_sym libgtk "gtk_image_set_from_file") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getStorageType_ = call (load_sym libgtk "gtk_image_get_storage_type") (GObjectObjectClass.PolyML.cPtr --> GtkImageType.PolyML.cVal)
+      val setFromAnimation_ = call (load_sym libgtk "gtk_image_set_from_animation") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setFromFile_ = call (load_sym libgtk "gtk_image_set_from_file") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
       val setFromGicon_ =
         call (load_sym libgtk "gtk_image_set_from_gicon")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setFromIconName_ =
         call (load_sym libgtk "gtk_image_set_from_icon_name")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val setFromIconSet_ =
         call (load_sym libgtk "gtk_image_set_from_icon_set")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GtkIconSetRecord.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GtkIconSetRecord.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setFromPixbuf_ = call (load_sym libgtk "gtk_image_set_from_pixbuf") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val setFromPixbuf_ = call (load_sym libgtk "gtk_image_set_from_pixbuf") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setFromStock_ =
         call (load_sym libgtk "gtk_image_set_from_stock")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setPixelSize_ = call (load_sym libgtk "gtk_image_set_pixel_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setPixelSize_ = call (load_sym libgtk "gtk_image_set_pixel_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkImageClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

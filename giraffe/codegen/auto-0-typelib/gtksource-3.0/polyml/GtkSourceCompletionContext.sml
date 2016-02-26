@@ -7,9 +7,9 @@ structure GtkSourceCompletionContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_activation") (GObjectObjectClass.PolyML.PTR --> GtkSourceCompletionActivation.PolyML.VAL)
-      val getIter_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_iter") (GObjectObjectClass.PolyML.PTR &&> GtkTextIterRecord.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_activation") (GObjectObjectClass.PolyML.cPtr --> GtkSourceCompletionActivation.PolyML.cVal)
+      val getIter_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_iter") (GObjectObjectClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSourceCompletionContextClass.t
     type completion_activation_t = GtkSourceCompletionActivation.t

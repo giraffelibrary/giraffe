@@ -6,10 +6,10 @@ structure GtkApplication :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_application_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_application_new") (Utf8.PolyML.INPTR &&> GioApplicationFlags.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val addWindow_ = call (load_sym libgtk "gtk_application_add_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val removeWindow_ = call (load_sym libgtk "gtk_application_remove_window") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_application_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_application_new") (Utf8.PolyML.cInPtr &&> GioApplicationFlags.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val addWindow_ = call (load_sym libgtk "gtk_application_add_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeWindow_ = call (load_sym libgtk "gtk_application_remove_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkApplicationClass.t
     type 'a window_class_t = 'a GtkWindowClass.t

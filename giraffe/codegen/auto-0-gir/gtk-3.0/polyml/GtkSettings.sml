@@ -13,44 +13,44 @@ structure GtkSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_settings_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getDefault_ = call (load_sym libgtk "gtk_settings_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getForScreen_ = call (load_sym libgtk "gtk_settings_get_for_screen") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val installProperty_ = call (load_sym libgtk "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_settings_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgtk "gtk_settings_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getForScreen_ = call (load_sym libgtk "gtk_settings_get_for_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val installProperty_ = call (load_sym libgtk "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setDoubleProperty_ =
         call (load_sym libgtk "gtk_settings_set_double_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Double.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Double.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setLongProperty_ =
         call (load_sym libgtk "gtk_settings_set_long_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Long.PolyML.VAL
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Long.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
       val setPropertyValue_ =
         call (load_sym libgtk "gtk_settings_set_property_value")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GtkSettingsValueRecord.PolyML.PTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GtkSettingsValueRecord.PolyML.cPtr
+             --> FFI.PolyML.cVoid
           )
       val setStringProperty_ =
         call (load_sym libgtk "gtk_settings_set_string_property")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             &&> Utf8.PolyML.INPTR
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkSettingsClass.t

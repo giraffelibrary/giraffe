@@ -6,27 +6,27 @@ structure GtkCssProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_css_provider_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_css_provider_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getDefault_ = call (load_sym libgtk "gtk_css_provider_get_default") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getNamed_ = call (load_sym libgtk "gtk_css_provider_get_named") (Utf8.PolyML.INPTR &&> Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_css_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_css_provider_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtk "gtk_css_provider_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getNamed_ = call (load_sym libgtk "gtk_css_provider_get_named") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
       val loadFromFile_ =
         call (load_sym libgtk "gtk_css_provider_load_from_file")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
       val loadFromPath_ =
         call (load_sym libgtk "gtk_css_provider_load_from_path")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val toString_ = call (load_sym libgtk "gtk_css_provider_to_string") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val toString_ = call (load_sym libgtk "gtk_css_provider_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GtkCssProviderClass.t
     type 'a style_provider_class_t = 'a GtkStyleProviderClass.t

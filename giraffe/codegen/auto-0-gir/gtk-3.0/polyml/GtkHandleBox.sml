@@ -9,15 +9,15 @@ structure GtkHandleBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_handle_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_handle_box_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getChildDetached_ = call (load_sym libgtk "gtk_handle_box_get_child_detached") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getHandlePosition_ = call (load_sym libgtk "gtk_handle_box_get_handle_position") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
-      val getShadowType_ = call (load_sym libgtk "gtk_handle_box_get_shadow_type") (GObjectObjectClass.PolyML.PTR --> GtkShadowType.PolyML.VAL)
-      val getSnapEdge_ = call (load_sym libgtk "gtk_handle_box_get_snap_edge") (GObjectObjectClass.PolyML.PTR --> GtkPositionType.PolyML.VAL)
-      val setHandlePosition_ = call (load_sym libgtk "gtk_handle_box_set_handle_position") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setShadowType_ = call (load_sym libgtk "gtk_handle_box_set_shadow_type") (GObjectObjectClass.PolyML.PTR &&> GtkShadowType.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSnapEdge_ = call (load_sym libgtk "gtk_handle_box_set_snap_edge") (GObjectObjectClass.PolyML.PTR &&> GtkPositionType.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_handle_box_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_handle_box_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getChildDetached_ = call (load_sym libgtk "gtk_handle_box_get_child_detached") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getHandlePosition_ = call (load_sym libgtk "gtk_handle_box_get_handle_position") (GObjectObjectClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
+      val getShadowType_ = call (load_sym libgtk "gtk_handle_box_get_shadow_type") (GObjectObjectClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
+      val getSnapEdge_ = call (load_sym libgtk "gtk_handle_box_get_snap_edge") (GObjectObjectClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
+      val setHandlePosition_ = call (load_sym libgtk "gtk_handle_box_set_handle_position") (GObjectObjectClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShadowType_ = call (load_sym libgtk "gtk_handle_box_set_shadow_type") (GObjectObjectClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSnapEdge_ = call (load_sym libgtk "gtk_handle_box_set_snap_edge") (GObjectObjectClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkHandleBoxClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

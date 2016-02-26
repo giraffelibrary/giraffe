@@ -6,25 +6,25 @@ structure GtkTreeSortable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_sortable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_tree_sortable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val getSortColumnId_ =
         call (load_sym libgtk "gtk_tree_sortable_get_sort_column_id")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.REF
-             &&> GtkSortType.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> GtkSortType.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setSortColumnId_ =
         call (load_sym libgtk "gtk_tree_sortable_set_sort_column_id")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> GtkSortType.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> GtkSortType.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val sortColumnChanged_ = call (load_sym libgtk "gtk_tree_sortable_sort_column_changed") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val sortColumnChanged_ = call (load_sym libgtk "gtk_tree_sortable_sort_column_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkTreeSortableClass.t
     type sort_type_t = GtkSortType.t

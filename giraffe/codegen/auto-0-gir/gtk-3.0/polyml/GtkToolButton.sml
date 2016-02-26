@@ -8,21 +8,21 @@ structure GtkToolButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_button_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_tool_button_new") (GObjectObjectClass.PolyML.OPTPTR &&> Utf8.PolyML.INOPTPTR --> GObjectObjectClass.PolyML.PTR)
-      val newFromStock_ = call (load_sym libgtk "gtk_tool_button_new_from_stock") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getIconName_ = call (load_sym libgtk "gtk_tool_button_get_icon_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getIconWidget_ = call (load_sym libgtk "gtk_tool_button_get_icon_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getLabel_ = call (load_sym libgtk "gtk_tool_button_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getLabelWidget_ = call (load_sym libgtk "gtk_tool_button_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getStockId_ = call (load_sym libgtk "gtk_tool_button_get_stock_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getUseUnderline_ = call (load_sym libgtk "gtk_tool_button_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setIconName_ = call (load_sym libgtk "gtk_tool_button_set_icon_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setIconWidget_ = call (load_sym libgtk "gtk_tool_button_set_icon_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_tool_button_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_button_set_label_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setStockId_ = call (load_sym libgtk "gtk_tool_button_set_stock_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_tool_button_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tool_button_new") (GObjectObjectClass.PolyML.cOptPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIconName_ = call (load_sym libgtk "gtk_tool_button_get_icon_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getIconWidget_ = call (load_sym libgtk "gtk_tool_button_get_icon_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getLabel_ = call (load_sym libgtk "gtk_tool_button_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLabelWidget_ = call (load_sym libgtk "gtk_tool_button_get_label_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getStockId_ = call (load_sym libgtk "gtk_tool_button_get_stock_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUseUnderline_ = call (load_sym libgtk "gtk_tool_button_get_use_underline") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setIconName_ = call (load_sym libgtk "gtk_tool_button_set_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setIconWidget_ = call (load_sym libgtk "gtk_tool_button_set_icon_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_tool_button_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_button_set_label_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setStockId_ = call (load_sym libgtk "gtk_tool_button_set_stock_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_tool_button_set_use_underline") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkToolButtonClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t

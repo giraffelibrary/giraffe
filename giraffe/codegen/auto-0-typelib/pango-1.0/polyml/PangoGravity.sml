@@ -7,8 +7,8 @@ structure PangoGravity :>
         where type script_t = PangoScript.t
     structure PolyML :
       sig
-        val VAL : C.val_ PolyMLFFI.conversion
-        val REF : C.ref_ PolyMLFFI.conversion
+        val cVal : C.val_ PolyMLFFI.conversion
+        val cRef : C.ref_ PolyMLFFI.conversion
       end
   end =
   struct
@@ -42,15 +42,15 @@ structure PangoGravity :>
       end
     structure PolyML =
       struct
-        val VAL = FFI.Enum.PolyML.VAL
-        val REF = FFI.Enum.PolyML.REF
+        val cVal = FFI.Enum.PolyML.cVal
+        val cRef = FFI.Enum.PolyML.cRef
       end
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_gravity_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.PTR --> PolyML.VAL)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.PTR &&> PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libpango "pango_gravity_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> FFI.PolyML.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -63,25 +63,25 @@ structure PangoGravity :>
     local
       open PolyMLFFI
     in
-      val getForMatrix_ = call (load_sym libpango "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.PTR --> PolyML.VAL)
+      val getForMatrix_ = call (load_sym libpango "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cPtr --> PolyML.cVal)
       val getForScript_ =
         call (load_sym libpango "pango_gravity_get_for_script")
           (
-            PangoScript.PolyML.VAL
-             &&> PolyML.VAL
-             &&> PangoGravityHint.PolyML.VAL
-             --> PolyML.VAL
+            PangoScript.PolyML.cVal
+             &&> PolyML.cVal
+             &&> PangoGravityHint.PolyML.cVal
+             --> PolyML.cVal
           )
       val getForScriptAndWidth_ =
         call (load_sym libpango "pango_gravity_get_for_script_and_width")
           (
-            PangoScript.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> PolyML.VAL
-             &&> PangoGravityHint.PolyML.VAL
-             --> PolyML.VAL
+            PangoScript.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> PolyML.cVal
+             &&> PangoGravityHint.PolyML.cVal
+             --> PolyML.cVal
           )
-      val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.VAL --> FFI.Double.PolyML.VAL)
+      val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.cVal --> FFI.Double.PolyML.cVal)
     end
     type matrix_record_t = PangoMatrixRecord.t
     type gravity_hint_t = PangoGravityHint.t

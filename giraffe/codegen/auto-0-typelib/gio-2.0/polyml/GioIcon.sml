@@ -5,10 +5,10 @@ structure GioIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_icon_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val newForString_ = call (load_sym libgio "g_icon_new_for_string") (Utf8.PolyML.INPTR &&> GLibErrorRecord.PolyML.OUTOPTREF --> GObjectObjectClass.PolyML.PTR)
-      val equal_ = call (load_sym libgio "g_icon_equal") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val toString_ = call (load_sym libgio "g_icon_to_string") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgio "g_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val newForString_ = call (load_sym libgio "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val equal_ = call (load_sym libgio "g_icon_equal") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val toString_ = call (load_sym libgio "g_icon_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class_t = 'a GioIconClass.t
     type t = base class_t

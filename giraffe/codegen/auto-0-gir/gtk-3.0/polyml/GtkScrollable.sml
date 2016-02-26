@@ -7,15 +7,15 @@ structure GtkScrollable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scrollable_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getHadjustment_ = call (load_sym libgtk "gtk_scrollable_get_hadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_hscroll_policy") (GObjectObjectClass.PolyML.PTR --> GtkScrollablePolicy.PolyML.VAL)
-      val getVadjustment_ = call (load_sym libgtk "gtk_scrollable_get_vadjustment") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_vscroll_policy") (GObjectObjectClass.PolyML.PTR --> GtkScrollablePolicy.PolyML.VAL)
-      val setHadjustment_ = call (load_sym libgtk "gtk_scrollable_set_hadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_hscroll_policy") (GObjectObjectClass.PolyML.PTR &&> GtkScrollablePolicy.PolyML.VAL --> FFI.PolyML.VOID)
-      val setVadjustment_ = call (load_sym libgtk "gtk_scrollable_set_vadjustment") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_vscroll_policy") (GObjectObjectClass.PolyML.PTR &&> GtkScrollablePolicy.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_scrollable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getHadjustment_ = call (load_sym libgtk "gtk_scrollable_get_hadjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_hscroll_policy") (GObjectObjectClass.PolyML.cPtr --> GtkScrollablePolicy.PolyML.cVal)
+      val getVadjustment_ = call (load_sym libgtk "gtk_scrollable_get_vadjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_vscroll_policy") (GObjectObjectClass.PolyML.cPtr --> GtkScrollablePolicy.PolyML.cVal)
+      val setHadjustment_ = call (load_sym libgtk "gtk_scrollable_set_hadjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_hscroll_policy") (GObjectObjectClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setVadjustment_ = call (load_sym libgtk "gtk_scrollable_set_vadjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_vscroll_policy") (GObjectObjectClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkScrollableClass.t
     type 'a adjustment_class_t = 'a GtkAdjustmentClass.t

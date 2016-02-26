@@ -12,52 +12,52 @@ structure GIRepositoryArgInfo :>
       val getDirection_ =
         call
           (load_sym libgirepository "g_arg_info_get_direction")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryDirection.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryDirection.PolyML.cVal);
 
       val isCallerAllocates_ =
         call
           (load_sym libgirepository "g_arg_info_is_caller_allocates")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val isReturnValue_ =
         call
           (load_sym libgirepository "g_arg_info_is_return_value")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val isOptional_ =
         call
           (load_sym libgirepository "g_arg_info_is_optional")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val mayBeNull_ =
         call
           (load_sym libgirepository "g_arg_info_may_be_null")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Bool.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
 
       val getOwnershipTransfer_ =
         call
           (load_sym libgirepository "g_arg_info_get_ownership_transfer")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTransfer.PolyML.cVal);
 
       val getScope_ =
         call
           (load_sym libgirepository "g_arg_info_get_scope")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryScopeType.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryScopeType.PolyML.cVal);
 
       val getClosure_ =
         call
           (load_sym libgirepository "g_arg_info_get_closure")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getDestroy_ =
         call
           (load_sym libgirepository "g_arg_info_get_destroy")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> FFI.Int32.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
 
       val getType_ =
         call
           (load_sym libgirepository "g_arg_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cPtr);
     end
 
 

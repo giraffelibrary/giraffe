@@ -5,10 +5,10 @@ structure GtkAppChooser :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_app_chooser_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val getAppInfo_ = call (load_sym libgtk "gtk_app_chooser_get_app_info") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getContentType_ = call (load_sym libgtk "gtk_app_chooser_get_content_type") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val refresh_ = call (load_sym libgtk "gtk_app_chooser_refresh") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_app_chooser_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getAppInfo_ = call (load_sym libgtk "gtk_app_chooser_get_app_info") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getContentType_ = call (load_sym libgtk "gtk_app_chooser_get_content_type") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val refresh_ = call (load_sym libgtk "gtk_app_chooser_refresh") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkAppChooserClass.t
     type t = base class_t

@@ -7,8 +7,8 @@ structure GObject :
     local
       open PolyMLFFI
     in
-      val typeInit_ = call (load_sym libgobject "g_type_init") (FFI.PolyML.VOID --> FFI.PolyML.VOID)
-      val typeInitWithDebugFlags_ = call (load_sym libgobject "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.VAL --> FFI.PolyML.VOID)
+      val typeInit_ = call (load_sym libgobject "g_type_init") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
+      val typeInitWithDebugFlags_ = call (load_sym libgobject "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly

@@ -10,19 +10,19 @@ structure GIRepositoryPropertyInfo :>
       val getFlags_ =
         call
           (load_sym libgirepository "g_property_info_get_flags")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GObjectParamFlags.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GObjectParamFlags.PolyML.cVal);
 
       val getType_ =
         call
           (load_sym libgirepository "g_property_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryBaseInfoClass.PolyML.PTR);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getOwnershipTransfer_ =
         call
           (load_sym
              libgirepository
              "g_property_info_get_ownership_transfer")
-          (GIRepositoryBaseInfoClass.PolyML.PTR --> GIRepositoryTransfer.PolyML.VAL);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTransfer.PolyML.cVal);
     end
 
 

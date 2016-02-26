@@ -5,16 +5,16 @@ structure GObjectClosureRecord :>
 
     structure PolyML :
       sig
-        val PTR : C.notnull C.p PolyMLFFI.conversion
-        val OPTPTR : unit C.p PolyMLFFI.conversion
+        val cPtr : C.notnull C.p PolyMLFFI.conversion
+        val cOptPtr : unit C.p PolyMLFFI.conversion
       end
   end =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
 
-    val PTR = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val OPTPTR = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -24,26 +24,26 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_closure_take")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
         else
           ignore
 
       val ref_ =
         call
           (load_sym libgobject "g_closure_ref")
-          (PTR --> PTR)
+          (cPtr --> cPtr)
 
       val sink_ =
         call
           (load_sym libgobject "g_closure_sink")
-          (PTR --> FFI.PolyML.VOID)
+          (cPtr --> FFI.PolyML.cVoid)
 
       val refSink_ =
         if GiraffeDebug.isEnabled
         then 
           call
             (load_sym libgiraffegobject "giraffe_debug_closure_ref_sink")
-            (PTR --> PTR)
+            (cPtr --> cPtr)
         else
           fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
 
@@ -52,11 +52,11 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_g_closure_unref")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
         else
           call
             (load_sym libgobject "g_closure_unref")
-            (PTR --> FFI.PolyML.VOID)
+            (cPtr --> FFI.PolyML.cVoid)
     end
 
     type t = notnull p Finalizable.t
@@ -93,8 +93,8 @@ structure GObjectClosureRecord :>
 
     structure PolyML =
       struct
-        val PTR = PTR
-        val OPTPTR = OPTPTR
+        val cPtr = cPtr
+        val cOptPtr = cOptPtr
       end
 
     local
@@ -103,27 +103,27 @@ structure GObjectClosureRecord :>
       val getType_ =
         call
           (load_sym libgobject "g_closure_get_type")
-          (FFI.PolyML.VOID --> GObjectType.PolyML.VAL);
+          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PTR);
+          (GObjectValueRecord.PolyML.cPtr --> cPtr);
 
       val getOptValue_ =
         call
           (load_sym libgobject "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.PTR --> PolyML.OPTPTR);
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> cPtr --> FFI.PolyML.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.OPTPTR --> FFI.PolyML.VOID);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

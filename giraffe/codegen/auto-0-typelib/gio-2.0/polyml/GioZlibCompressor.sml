@@ -8,10 +8,10 @@ structure GioZlibCompressor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_zlib_compressor_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.VAL &&> FFI.Int32.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val getFileInfo_ = call (load_sym libgio "g_zlib_compressor_get_file_info") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val setFileInfo_ = call (load_sym libgio "g_zlib_compressor_set_file_info") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_zlib_compressor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.cVal &&> FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getFileInfo_ = call (load_sym libgio "g_zlib_compressor_get_file_info") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setFileInfo_ = call (load_sym libgio "g_zlib_compressor_set_file_info") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioZlibCompressorClass.t
     type 'a converter_class_t = 'a GioConverterClass.t

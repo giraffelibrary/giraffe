@@ -9,30 +9,30 @@ structure GtkCellAreaBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_end")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_start")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkCellAreaBoxClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

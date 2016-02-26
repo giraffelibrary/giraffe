@@ -10,72 +10,72 @@ structure GtkLabel :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_label_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_label_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val newWithMnemonic_ = call (load_sym libgtk "gtk_label_new_with_mnemonic") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getAngle_ = call (load_sym libgtk "gtk_label_get_angle") (GObjectObjectClass.PolyML.PTR --> FFI.Double.PolyML.VAL)
-      val getAttributes_ = call (load_sym libgtk "gtk_label_get_attributes") (GObjectObjectClass.PolyML.PTR --> PangoAttrListRecord.PolyML.PTR)
-      val getCurrentUri_ = call (load_sym libgtk "gtk_label_get_current_uri") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getEllipsize_ = call (load_sym libgtk "gtk_label_get_ellipsize") (GObjectObjectClass.PolyML.PTR --> PangoEllipsizeMode.PolyML.VAL)
-      val getJustify_ = call (load_sym libgtk "gtk_label_get_justify") (GObjectObjectClass.PolyML.PTR --> GtkJustification.PolyML.VAL)
-      val getLabel_ = call (load_sym libgtk "gtk_label_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getLayout_ = call (load_sym libgtk "gtk_label_get_layout") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgtk "gtk_label_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_label_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (load_sym libgtk "gtk_label_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAngle_ = call (load_sym libgtk "gtk_label_get_angle") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getAttributes_ = call (load_sym libgtk "gtk_label_get_attributes") (GObjectObjectClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
+      val getCurrentUri_ = call (load_sym libgtk "gtk_label_get_current_uri") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getEllipsize_ = call (load_sym libgtk "gtk_label_get_ellipsize") (GObjectObjectClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
+      val getJustify_ = call (load_sym libgtk "gtk_label_get_justify") (GObjectObjectClass.PolyML.cPtr --> GtkJustification.PolyML.cVal)
+      val getLabel_ = call (load_sym libgtk "gtk_label_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLayout_ = call (load_sym libgtk "gtk_label_get_layout") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getLayoutOffsets_ =
         call (load_sym libgtk "gtk_label_get_layout_offsets")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getLineWrap_ = call (load_sym libgtk "gtk_label_get_line_wrap") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getLineWrapMode_ = call (load_sym libgtk "gtk_label_get_line_wrap_mode") (GObjectObjectClass.PolyML.PTR --> PangoWrapMode.PolyML.VAL)
-      val getMaxWidthChars_ = call (load_sym libgtk "gtk_label_get_max_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val getMnemonicWidget_ = call (load_sym libgtk "gtk_label_get_mnemonic_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getSelectable_ = call (load_sym libgtk "gtk_label_get_selectable") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getLineWrap_ = call (load_sym libgtk "gtk_label_get_line_wrap") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getLineWrapMode_ = call (load_sym libgtk "gtk_label_get_line_wrap_mode") (GObjectObjectClass.PolyML.cPtr --> PangoWrapMode.PolyML.cVal)
+      val getMaxWidthChars_ = call (load_sym libgtk "gtk_label_get_max_width_chars") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getMnemonicKeyval_ = call (load_sym libgtk "gtk_label_get_mnemonic_keyval") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getMnemonicWidget_ = call (load_sym libgtk "gtk_label_get_mnemonic_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getSelectable_ = call (load_sym libgtk "gtk_label_get_selectable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getSelectionBounds_ =
         call (load_sym libgtk "gtk_label_get_selection_bounds")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.REF
-             &&> FFI.Int.PolyML.REF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cRef
+             &&> FFI.Int.PolyML.cRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val getSingleLineMode_ = call (load_sym libgtk "gtk_label_get_single_line_mode") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getText_ = call (load_sym libgtk "gtk_label_get_text") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_get_track_visited_links") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUseMarkup_ = call (load_sym libgtk "gtk_label_get_use_markup") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getUseUnderline_ = call (load_sym libgtk "gtk_label_get_use_underline") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getWidthChars_ = call (load_sym libgtk "gtk_label_get_width_chars") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
+      val getSingleLineMode_ = call (load_sym libgtk "gtk_label_get_single_line_mode") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getText_ = call (load_sym libgtk "gtk_label_get_text") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_get_track_visited_links") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseMarkup_ = call (load_sym libgtk "gtk_label_get_use_markup") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseUnderline_ = call (load_sym libgtk "gtk_label_get_use_underline") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWidthChars_ = call (load_sym libgtk "gtk_label_get_width_chars") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val selectRegion_ =
         call (load_sym libgtk "gtk_label_select_region")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setAngle_ = call (load_sym libgtk "gtk_label_set_angle") (GObjectObjectClass.PolyML.PTR &&> FFI.Double.PolyML.VAL --> FFI.PolyML.VOID)
-      val setAttributes_ = call (load_sym libgtk "gtk_label_set_attributes") (GObjectObjectClass.PolyML.PTR &&> PangoAttrListRecord.PolyML.PTR --> FFI.PolyML.VOID)
-      val setEllipsize_ = call (load_sym libgtk "gtk_label_set_ellipsize") (GObjectObjectClass.PolyML.PTR &&> PangoEllipsizeMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setJustify_ = call (load_sym libgtk "gtk_label_set_justify") (GObjectObjectClass.PolyML.PTR &&> GtkJustification.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLabel_ = call (load_sym libgtk "gtk_label_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setLineWrap_ = call (load_sym libgtk "gtk_label_set_line_wrap") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setLineWrapMode_ = call (load_sym libgtk "gtk_label_set_line_wrap_mode") (GObjectObjectClass.PolyML.PTR &&> PangoWrapMode.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMarkup_ = call (load_sym libgtk "gtk_label_set_markup") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setMarkupWithMnemonic_ = call (load_sym libgtk "gtk_label_set_markup_with_mnemonic") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setMaxWidthChars_ = call (load_sym libgtk "gtk_label_set_max_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
-      val setMnemonicWidget_ = call (load_sym libgtk "gtk_label_set_mnemonic_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setPattern_ = call (load_sym libgtk "gtk_label_set_pattern") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setSelectable_ = call (load_sym libgtk "gtk_label_set_selectable") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setSingleLineMode_ = call (load_sym libgtk "gtk_label_set_single_line_mode") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setText_ = call (load_sym libgtk "gtk_label_set_text") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTextWithMnemonic_ = call (load_sym libgtk "gtk_label_set_text_with_mnemonic") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_set_track_visited_links") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseMarkup_ = call (load_sym libgtk "gtk_label_set_use_markup") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_label_set_use_underline") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
-      val setWidthChars_ = call (load_sym libgtk "gtk_label_set_width_chars") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.PolyML.VOID)
+      val setAngle_ = call (load_sym libgtk "gtk_label_set_angle") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAttributes_ = call (load_sym libgtk "gtk_label_set_attributes") (GObjectObjectClass.PolyML.cPtr &&> PangoAttrListRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setEllipsize_ = call (load_sym libgtk "gtk_label_set_ellipsize") (GObjectObjectClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setJustify_ = call (load_sym libgtk "gtk_label_set_justify") (GObjectObjectClass.PolyML.cPtr &&> GtkJustification.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_label_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setLineWrap_ = call (load_sym libgtk "gtk_label_set_line_wrap") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setLineWrapMode_ = call (load_sym libgtk "gtk_label_set_line_wrap_mode") (GObjectObjectClass.PolyML.cPtr &&> PangoWrapMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMarkup_ = call (load_sym libgtk "gtk_label_set_markup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMarkupWithMnemonic_ = call (load_sym libgtk "gtk_label_set_markup_with_mnemonic") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMaxWidthChars_ = call (load_sym libgtk "gtk_label_set_max_width_chars") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMnemonicWidget_ = call (load_sym libgtk "gtk_label_set_mnemonic_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setPattern_ = call (load_sym libgtk "gtk_label_set_pattern") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setSelectable_ = call (load_sym libgtk "gtk_label_set_selectable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSingleLineMode_ = call (load_sym libgtk "gtk_label_set_single_line_mode") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setText_ = call (load_sym libgtk "gtk_label_set_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setTextWithMnemonic_ = call (load_sym libgtk "gtk_label_set_text_with_mnemonic") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setTrackVisitedLinks_ = call (load_sym libgtk "gtk_label_set_track_visited_links") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUseMarkup_ = call (load_sym libgtk "gtk_label_set_use_markup") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_label_set_use_underline") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setWidthChars_ = call (load_sym libgtk "gtk_label_set_width_chars") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkLabelClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

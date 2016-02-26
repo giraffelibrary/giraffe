@@ -9,29 +9,29 @@ structure GioApplication :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_application_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_application_new") (Utf8.PolyML.INPTR &&> GioApplicationFlags.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val idIsValid_ = call (load_sym libgio "g_application_id_is_valid") (Utf8.PolyML.INPTR --> FFI.Bool.PolyML.VAL)
-      val activate_ = call (load_sym libgio "g_application_activate") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getApplicationId_ = call (load_sym libgio "g_application_get_application_id") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getFlags_ = call (load_sym libgio "g_application_get_flags") (GObjectObjectClass.PolyML.PTR --> GioApplicationFlags.PolyML.VAL)
-      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GObjectObjectClass.PolyML.PTR --> FFI.UInt.PolyML.VAL)
-      val getIsRegistered_ = call (load_sym libgio "g_application_get_is_registered") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getIsRemote_ = call (load_sym libgio "g_application_get_is_remote") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val hold_ = call (load_sym libgio "g_application_hold") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgio "g_application_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_application_new") (Utf8.PolyML.cInPtr &&> GioApplicationFlags.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val idIsValid_ = call (load_sym libgio "g_application_id_is_valid") (Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val activate_ = call (load_sym libgio "g_application_activate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getApplicationId_ = call (load_sym libgio "g_application_get_application_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFlags_ = call (load_sym libgio "g_application_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioApplicationFlags.PolyML.cVal)
+      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getIsRegistered_ = call (load_sym libgio "g_application_get_is_registered") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getIsRemote_ = call (load_sym libgio "g_application_get_is_remote") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hold_ = call (load_sym libgio "g_application_hold") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val register_ =
         call (load_sym libgio "g_application_register")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Bool.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Bool.PolyML.cVal
           )
-      val release_ = call (load_sym libgio "g_application_release") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setActionGroup_ = call (load_sym libgio "g_application_set_action_group") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.OPTPTR --> FFI.PolyML.VOID)
-      val setApplicationId_ = call (load_sym libgio "g_application_set_application_id") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val setFlags_ = call (load_sym libgio "g_application_set_flags") (GObjectObjectClass.PolyML.PTR &&> GioApplicationFlags.PolyML.VAL --> FFI.PolyML.VOID)
-      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GObjectObjectClass.PolyML.PTR &&> FFI.UInt.PolyML.VAL --> FFI.PolyML.VOID)
+      val release_ = call (load_sym libgio "g_application_release") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setActionGroup_ = call (load_sym libgio "g_application_set_action_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setApplicationId_ = call (load_sym libgio "g_application_set_application_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setFlags_ = call (load_sym libgio "g_application_set_flags") (GObjectObjectClass.PolyML.cPtr &&> GioApplicationFlags.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioApplicationClass.t
     type 'a cancellable_class_t = 'a GioCancellableClass.t

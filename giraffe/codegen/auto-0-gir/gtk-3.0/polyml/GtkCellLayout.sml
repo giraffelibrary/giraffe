@@ -7,42 +7,42 @@ structure GtkCellLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_layout_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
+      val getType_ = call (load_sym libgtk "gtk_cell_layout_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val addAttribute_ =
         call (load_sym libgtk "gtk_cell_layout_add_attribute")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> Utf8.PolyML.INPTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val getArea_ = call (load_sym libgtk "gtk_cell_layout_get_area") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
+      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getArea_ = call (load_sym libgtk "gtk_cell_layout_get_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_layout_pack_end")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_cell_layout_pack_start")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Bool.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Bool.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
       val reorder_ =
         call (load_sym libgtk "gtk_cell_layout_reorder")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> FFI.Int.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Int.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
     end
     type 'a class_t = 'a GtkCellLayoutClass.t

@@ -8,37 +8,37 @@ structure GioBufferedInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_buffered_input_stream_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgio "g_buffered_input_stream_new") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val newSized_ = call (load_sym libgio "g_buffered_input_stream_new_sized") (GObjectObjectClass.PolyML.PTR &&> FFI.Size.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
+      val getType_ = call (load_sym libgio "g_buffered_input_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_buffered_input_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newSized_ = call (load_sym libgio "g_buffered_input_stream_new_sized") (GObjectObjectClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
       val fill_ =
         call (load_sym libgio "g_buffered_input_stream_fill")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.SSize.PolyML.VAL
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.SSize.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.SSize.PolyML.cVal
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.SSize.PolyML.cVal
           )
       val fillFinish_ =
         call (load_sym libgio "g_buffered_input_stream_fill_finish")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.PTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.SSize.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.SSize.PolyML.cVal
           )
-      val getAvailable_ = call (load_sym libgio "g_buffered_input_stream_get_available") (GObjectObjectClass.PolyML.PTR --> FFI.Size.PolyML.VAL)
-      val getBufferSize_ = call (load_sym libgio "g_buffered_input_stream_get_buffer_size") (GObjectObjectClass.PolyML.PTR --> FFI.Size.PolyML.VAL)
+      val getAvailable_ = call (load_sym libgio "g_buffered_input_stream_get_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
+      val getBufferSize_ = call (load_sym libgio "g_buffered_input_stream_get_buffer_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
       val readByte_ =
         call (load_sym libgio "g_buffered_input_stream_read_byte")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> GObjectObjectClass.PolyML.OPTPTR
-             &&> GLibErrorRecord.PolyML.OUTOPTREF
-             --> FFI.Int.PolyML.VAL
+            GObjectObjectClass.PolyML.cPtr
+             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> FFI.Int.PolyML.cVal
           )
-      val setBufferSize_ = call (load_sym libgio "g_buffered_input_stream_set_buffer_size") (GObjectObjectClass.PolyML.PTR &&> FFI.Size.PolyML.VAL --> FFI.PolyML.VOID)
+      val setBufferSize_ = call (load_sym libgio "g_buffered_input_stream_set_buffer_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GioBufferedInputStreamClass.t
     type 'a input_stream_class_t = 'a GioInputStreamClass.t

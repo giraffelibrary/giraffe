@@ -8,15 +8,15 @@ structure GtkFileFilter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_file_filter_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_file_filter_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val addMimeType_ = call (load_sym libgtk "gtk_file_filter_add_mime_type") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val addPattern_ = call (load_sym libgtk "gtk_file_filter_add_pattern") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INPTR --> FFI.PolyML.VOID)
-      val addPixbufFormats_ = call (load_sym libgtk "gtk_file_filter_add_pixbuf_formats") (GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val filter_ = call (load_sym libgtk "gtk_file_filter_filter") (GObjectObjectClass.PolyML.PTR &&> GtkFileFilterInfoRecord.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getName_ = call (load_sym libgtk "gtk_file_filter_get_name") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
-      val getNeeded_ = call (load_sym libgtk "gtk_file_filter_get_needed") (GObjectObjectClass.PolyML.PTR --> GtkFileFilterFlags.PolyML.VAL)
-      val setName_ = call (load_sym libgtk "gtk_file_filter_set_name") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_file_filter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_file_filter_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val addMimeType_ = call (load_sym libgtk "gtk_file_filter_add_mime_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val addPattern_ = call (load_sym libgtk "gtk_file_filter_add_pattern") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val addPixbufFormats_ = call (load_sym libgtk "gtk_file_filter_add_pixbuf_formats") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val filter_ = call (load_sym libgtk "gtk_file_filter_filter") (GObjectObjectClass.PolyML.cPtr &&> GtkFileFilterInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getName_ = call (load_sym libgtk "gtk_file_filter_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getNeeded_ = call (load_sym libgtk "gtk_file_filter_get_needed") (GObjectObjectClass.PolyML.cPtr --> GtkFileFilterFlags.PolyML.cVal)
+      val setName_ = call (load_sym libgtk "gtk_file_filter_set_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkFileFilterClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

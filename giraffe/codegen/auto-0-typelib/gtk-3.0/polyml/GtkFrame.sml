@@ -8,30 +8,30 @@ structure GtkFrame :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_frame_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_frame_new") (Utf8.PolyML.INPTR --> GObjectObjectClass.PolyML.PTR)
-      val getLabel_ = call (load_sym libgtk "gtk_frame_get_label") (GObjectObjectClass.PolyML.PTR --> Utf8.PolyML.RETPTR)
+      val getType_ = call (load_sym libgtk "gtk_frame_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_frame_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getLabel_ = call (load_sym libgtk "gtk_frame_get_label") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLabelAlign_ =
         call (load_sym libgtk "gtk_frame_get_label_align")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.REF
-             &&> FFI.Float.PolyML.REF
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cRef
+             &&> FFI.Float.PolyML.cRef
+             --> FFI.PolyML.cVoid
           )
-      val getLabelWidget_ = call (load_sym libgtk "gtk_frame_get_label_widget") (GObjectObjectClass.PolyML.PTR --> GObjectObjectClass.PolyML.PTR)
-      val getShadowType_ = call (load_sym libgtk "gtk_frame_get_shadow_type") (GObjectObjectClass.PolyML.PTR --> GtkShadowType.PolyML.VAL)
-      val setLabel_ = call (load_sym libgtk "gtk_frame_set_label") (GObjectObjectClass.PolyML.PTR &&> Utf8.PolyML.INOPTPTR --> FFI.PolyML.VOID)
+      val getLabelWidget_ = call (load_sym libgtk "gtk_frame_get_label_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getShadowType_ = call (load_sym libgtk "gtk_frame_get_shadow_type") (GObjectObjectClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
+      val setLabel_ = call (load_sym libgtk "gtk_frame_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
       val setLabelAlign_ =
         call (load_sym libgtk "gtk_frame_set_label_align")
           (
-            GObjectObjectClass.PolyML.PTR
-             &&> FFI.Float.PolyML.VAL
-             &&> FFI.Float.PolyML.VAL
-             --> FFI.PolyML.VOID
+            GObjectObjectClass.PolyML.cPtr
+             &&> FFI.Float.PolyML.cVal
+             &&> FFI.Float.PolyML.cVal
+             --> FFI.PolyML.cVoid
           )
-      val setLabelWidget_ = call (load_sym libgtk "gtk_frame_set_label_widget") (GObjectObjectClass.PolyML.PTR &&> GObjectObjectClass.PolyML.PTR --> FFI.PolyML.VOID)
-      val setShadowType_ = call (load_sym libgtk "gtk_frame_set_shadow_type") (GObjectObjectClass.PolyML.PTR &&> GtkShadowType.PolyML.VAL --> FFI.PolyML.VOID)
+      val setLabelWidget_ = call (load_sym libgtk "gtk_frame_set_label_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setShadowType_ = call (load_sym libgtk "gtk_frame_set_shadow_type") (GObjectObjectClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkFrameClass.t
     type 'a buildable_class_t = 'a GtkBuildableClass.t

@@ -6,14 +6,14 @@ structure AtkSelection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_selection_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val addSelection_ = call (load_sym libatk "atk_selection_add_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val clearSelection_ = call (load_sym libatk "atk_selection_clear_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val getSelectionCount_ = call (load_sym libatk "atk_selection_get_selection_count") (GObjectObjectClass.PolyML.PTR --> FFI.Int.PolyML.VAL)
-      val isChildSelected_ = call (load_sym libatk "atk_selection_is_child_selected") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val refSelection_ = call (load_sym libatk "atk_selection_ref_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> GObjectObjectClass.PolyML.PTR)
-      val removeSelection_ = call (load_sym libatk "atk_selection_remove_selection") (GObjectObjectClass.PolyML.PTR &&> FFI.Int.PolyML.VAL --> FFI.Bool.PolyML.VAL)
-      val selectAllSelection_ = call (load_sym libatk "atk_selection_select_all_selection") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
+      val getType_ = call (load_sym libatk "atk_selection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val addSelection_ = call (load_sym libatk "atk_selection_add_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val clearSelection_ = call (load_sym libatk "atk_selection_clear_selection") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSelectionCount_ = call (load_sym libatk "atk_selection_get_selection_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val isChildSelected_ = call (load_sym libatk "atk_selection_is_child_selected") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val refSelection_ = call (load_sym libatk "atk_selection_ref_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val removeSelection_ = call (load_sym libatk "atk_selection_remove_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val selectAllSelection_ = call (load_sym libatk "atk_selection_select_all_selection") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class_t = 'a AtkSelectionClass.t
     type 'a object_class_t = 'a AtkObjectClass.t

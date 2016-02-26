@@ -7,10 +7,10 @@ structure GtkSeparatorToolItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_separator_tool_item_get_type") (FFI.PolyML.VOID --> GObjectType.PolyML.VAL)
-      val new_ = call (load_sym libgtk "gtk_separator_tool_item_new") (FFI.PolyML.VOID --> GObjectObjectClass.PolyML.PTR)
-      val getDraw_ = call (load_sym libgtk "gtk_separator_tool_item_get_draw") (GObjectObjectClass.PolyML.PTR --> FFI.Bool.PolyML.VAL)
-      val setDraw_ = call (load_sym libgtk "gtk_separator_tool_item_set_draw") (GObjectObjectClass.PolyML.PTR &&> FFI.Bool.PolyML.VAL --> FFI.PolyML.VOID)
+      val getType_ = call (load_sym libgtk "gtk_separator_tool_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_separator_tool_item_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDraw_ = call (load_sym libgtk "gtk_separator_tool_item_get_draw") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setDraw_ = call (load_sym libgtk "gtk_separator_tool_item_set_draw") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class_t = 'a GtkSeparatorToolItemClass.t
     type 'a activatable_class_t = 'a GtkActivatableClass.t
