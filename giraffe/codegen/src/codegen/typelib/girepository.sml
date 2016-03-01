@@ -52,7 +52,7 @@ exception InfoExcl of info_excl
 fun infoExcl msg = raise InfoExcl (IEMsg msg)
 
 
-fun revMapInfos getN getNth f (info, xs) =
+fun revMapInfos (getN : 'a -> LargeInt.int) getNth f (info, xs) =
   let
     fun aux xs n =
       if n <= 0
@@ -77,7 +77,7 @@ fun revMapInfos getN getNth f (info, xs) =
     aux xs (getN info)
   end
 
-fun revFoldInfos getN getNth f (info, acc) =
+fun revFoldInfos (getN : 'a -> LargeInt.int) getNth f (info, acc) =
   let
     fun aux acc n =
       if n <= 0
@@ -98,7 +98,7 @@ fun revFoldInfos getN getNth f (info, acc) =
     aux acc (getN info)
   end
 
-fun foldInfos getN getNth f (info, acc) =
+fun foldInfos (getN : 'a -> LargeInt.int) getNth f (info, acc) =
   let
     val N = getN info
     fun aux acc n =
@@ -120,7 +120,7 @@ fun foldInfos getN getNth f (info, acc) =
     aux acc 0
   end
 
-fun revFoldMapInfos getN getNth f (info, (xs, acc)) =
+fun revFoldMapInfos (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc)) =
   let
     fun aux (xs, acc) n =
       if n <= 0
@@ -147,7 +147,7 @@ fun revFoldMapInfos getN getNth f (info, (xs, acc)) =
   end
 
 
-fun revMapInfosWithExcls getN getNth f (info, (xs, excls)) =
+fun revMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, excls)) =
   let
     fun aux (xs, excls) n =
       if n <= 0
@@ -176,7 +176,7 @@ fun revMapInfosWithExcls getN getNth f (info, (xs, excls)) =
     aux (xs, excls) (getN info)
   end
 
-fun revFoldInfosWithExcls getN getNth f (info, (acc, excls)) =
+fun revFoldInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (acc, excls)) =
   let
     fun aux (acc, excls) n =
       if n <= 0
@@ -205,7 +205,7 @@ fun revFoldInfosWithExcls getN getNth f (info, (acc, excls)) =
     aux (acc, excls) (getN info)
   end
 
-fun revFoldMapInfosWithExcls getN getNth f (info, (xs, acc, excls)) =
+fun revFoldMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc, excls)) =
   let
     fun aux (xs, acc, excls) n =
       if n <= 0

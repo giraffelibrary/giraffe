@@ -25,14 +25,14 @@ structure GIRepositoryStructInfo :>
         val _ & _ & {field, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromStruct) I info
       in
-        List.length field
+        LargeInt.fromInt (List.length field)
       end
 
     fun getField info n =
       let
         val _ & _ & {field, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromStruct) I info
-        val base = List.nth (field, n)
+        val base = List.nth (field, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -45,14 +45,14 @@ structure GIRepositoryStructInfo :>
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromStruct) I info
       in
-        List.length method
+        LargeInt.fromInt (List.length method)
       end
 
     fun getMethod info n =
       let
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromStruct) I info
-        val base = List.nth (method, n)
+        val base = List.nth (method, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

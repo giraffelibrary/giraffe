@@ -107,22 +107,23 @@ signature POLYML_F_F_I =
 
     val cVoid      : unit conversion
     val cPointer   : Memory.Pointer.t conversion
-    val cInt8      : int conversion
-    val cUint8     : int conversion
+    val cBool      : int conversion
+    val cInt8      : LargeInt.int conversion
+    val cUint8     : LargeInt.int conversion
     val cChar      : char conversion
     val cUchar     : Word8.word conversion
-    val cInt16     : int conversion
-    val cUint16    : int conversion
-    val cInt32     : int conversion
-    val cUint32    : int conversion
-    val cInt64     : int conversion
-    val cUint64    : int conversion
-    val cShort     : int conversion
-    val cUshort    : int conversion
-    val cInt       : int conversion
-    val cUint      : int conversion
-    val cLong      : int conversion
-    val cUlong     : int conversion
+    val cInt16     : LargeInt.int conversion
+    val cUint16    : LargeInt.int conversion
+    val cInt32     : LargeInt.int conversion
+    val cUint32    : LargeInt.int conversion
+    val cInt64     : LargeInt.int conversion
+    val cUint64    : LargeInt.int conversion
+    val cShort     : LargeInt.int conversion
+    val cUshort    : LargeInt.int conversion
+    val cInt       : LargeInt.int conversion
+    val cUint      : LargeInt.int conversion
+    val cLong      : LargeInt.int conversion
+    val cUlong     : LargeInt.int conversion
     val cString    : string conversion
     val cByteArray : Word8Vector.vector conversion
     val cFloat     : real conversion

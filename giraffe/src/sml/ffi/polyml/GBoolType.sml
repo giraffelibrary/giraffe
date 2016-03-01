@@ -14,7 +14,7 @@ structure GBoolType :> C_VALUE_EQ_TYPE where type t = bool =
 
     structure PolyML =
       struct
-        val cVal = PolyMLFFI.cInt
+        val cVal = PolyMLFFI.cBool
         val cPtr = PolyMLFFI.cPointer
       end
 

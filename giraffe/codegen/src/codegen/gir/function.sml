@@ -320,8 +320,8 @@ type interface_info =
 
 datatype array_length =
   ArrayLengthZeroTerminated
-| ArrayLengthFixed of int     (* the fixed length *)
-| ArrayLengthParam of string  (* the parameter name *)
+| ArrayLengthFixed of LargeInt.int  (* the fixed length *)
+| ArrayLengthParam of string        (* the parameter name *)
 
 datatype info =
   ISCALAR    of scalar_info
@@ -1807,7 +1807,7 @@ local
     in
       case xfer of
         XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
-      | XferDepth n => ExpApp (funExp, mkIntConstExp n)
+      | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
       | XferNone    => funExp
     end
 
@@ -1821,7 +1821,7 @@ local
     in
       case xfer of
         XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
-      | XferDepth n => ExpApp (funExp, mkIntConstExp n)
+      | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
       | XferNone    => funExp
     end
 

@@ -10,8 +10,8 @@ signature G_I_REPOSITORY_ARGUMENT =
     | UINT32       of LargeInt.int
     | INT64        of LargeInt.int
     | UINT64       of LargeInt.int
-    | FLOAT        of LargeInt.int * LargeInt.int * LargeInt.int option
-    | DOUBLE       of LargeInt.int * LargeInt.int * LargeInt.int option
+    | FLOAT        of LargeInt.int * int * LargeInt.int option
+    | DOUBLE       of LargeInt.int * int * LargeInt.int option
     | UTF8         of string
     | FILENAME     of string
     | VOID

@@ -53,13 +53,13 @@ structure GIRepositoryCallableInfo :>
       let
         val _ & {parameter, ...} & _ = (fromBase o fromCallable) I info
       in
-        List.length parameter
+        LargeInt.fromInt (List.length parameter)
       end
 
     fun getArg info n =
       let
         val _ & {parameter, ...} & _ = (fromBase o fromCallable) I info
-        val base = List.nth (parameter, n)
+        val base = List.nth (parameter, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

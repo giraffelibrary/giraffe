@@ -27,14 +27,14 @@ structure GIRepositoryEnumInfo :>
         val _ & _ & {member, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromEnum) I info
       in
-        List.length member
+        LargeInt.fromInt (List.length member)
       end
 
     fun getValue info n =
       let
         val _ & _ & {member, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromEnum) I info
-        val base = List.nth (member, n)
+        val base = List.nth (member, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -47,14 +47,14 @@ structure GIRepositoryEnumInfo :>
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromEnum) I info
       in
-        List.length method
+        LargeInt.fromInt (List.length method)
       end
 
     fun getMethod info n =
       let
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredTypeInfo o fromEnum) I info
-        val base = List.nth (method, n)
+        val base = List.nth (method, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

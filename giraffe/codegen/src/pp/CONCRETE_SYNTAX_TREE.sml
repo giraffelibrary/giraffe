@@ -64,7 +64,7 @@ signature CONCRETE_SYNTAX_TREE =
     datatype const =                    (* CONST *)
       ConstInt of IntInf.int * IntInf.int option
     | ConstWord of IntInf.int * IntInf.int option
-    | ConstReal of IntInf.int * IntInf.int * IntInf.int option
+    | ConstReal of IntInf.int * int * IntInf.int option
     | ConstChar of char
     | ConstString of string
     | ConstUnit           (* () *)

@@ -313,7 +313,7 @@ structure PrettyPrint :>
         let
           val (s, m) = if d < 0 then ("~", ~ d) else ("", d)
           val numDigits = IntInfMath.log10 m + 1 handle Domain => 1
-          val numZeros = IntInf.max (p - numDigits, 0)
+          val numZeros = Int.max (p - numDigits, 0)
           val (whole, fraction) = IntInf.divMod (m, IntInf.pow (10, p))
         in
           H.seq [

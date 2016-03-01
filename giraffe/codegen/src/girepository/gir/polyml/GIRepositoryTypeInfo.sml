@@ -65,7 +65,7 @@ structure GIRepositoryTypeInfo :>
     fun getParamType info n =
       let
         val _ & Info.TYPEDATA {params, ...} & _ = (fromBase o fromType) I info
-        val base = List.nth (params, n)
+        val base = List.nth (params, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

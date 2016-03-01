@@ -41,14 +41,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {prerequisite, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length prerequisite
+        LargeInt.fromInt (List.length prerequisite)
       end
 
     fun getPrerequisite info n =
       let
         val _ & _ & {prerequisite, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (prerequisite, n)
+        val base = List.nth (prerequisite, LargeInt.toInt n)
       in
         toBase I (base & ())
       end
@@ -58,14 +58,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {property, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length property
+        LargeInt.fromInt (List.length property)
       end
 
     fun getProperty info n =
       let
         val _ & _ & {property, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (property, n)
+        val base = List.nth (property, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -78,14 +78,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length method
+        LargeInt.fromInt (List.length method)
       end
 
     fun getMethod info n =
       let
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (method, n)
+        val base = List.nth (method, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -100,14 +100,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {signal, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length signal
+        LargeInt.fromInt (List.length signal)
       end
 
     fun getSignal info n =
       let
         val _ & _ & {signal, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (signal, n)
+        val base = List.nth (signal, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -120,14 +120,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {vfunc, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length vfunc
+        LargeInt.fromInt (List.length vfunc)
       end
 
     fun getVfunc info n =
       let
         val _ & _ & {vfunc, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (vfunc, n)
+        val base = List.nth (vfunc, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -140,14 +140,14 @@ structure GIRepositoryInterfaceInfo :>
         val _ & _ & {constant, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
       in
-        List.length constant
+        LargeInt.fromInt (List.length constant)
       end
 
     fun getConstant info n =
       let
         val _ & _ & {constant, ...} & _ =
           (fromBase o fromRegisteredType o fromInterface) I info
-        val base = List.nth (constant, n)
+        val base = List.nth (constant, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

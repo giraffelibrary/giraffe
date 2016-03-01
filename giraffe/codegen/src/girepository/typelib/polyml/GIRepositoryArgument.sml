@@ -88,11 +88,11 @@ structure GIRepositoryArgument :>
         val numDigits = length digits
 
         (* `m` is integer with digits `digits` *)
-        fun addDigit (d, a) = a * 10 + d
+        fun addDigit (d, a) = a * 10 + LargeInt.fromInt d
         val m =
           case digits of
             []      => 0
-          | c :: cs => List.foldl addDigit c cs
+          | c :: cs => List.foldl addDigit (LargeInt.fromInt c) cs
 
         (* Use e-notation when `exp` is greater than `numDigits`, i.e. if
          * there would be a zero digit to the left of the decimal point
@@ -101,7 +101,7 @@ structure GIRepositoryArgument :>
         val (p, optE) =
           if exp <= numDigits
           then (numDigits - exp, NONE)
-          else (numDigits - 1,   SOME (exp - 1))
+          else (numDigits - 1,   SOME (LargeInt.fromInt (exp - 1)))
       in
         (if sign then ~ m else m, p, optE)
       end
@@ -118,8 +118,8 @@ structure GIRepositoryArgument :>
     | UINT32       of LargeInt.int
     | INT64        of LargeInt.int
     | UINT64       of LargeInt.int
-    | FLOAT        of LargeInt.int * LargeInt.int * LargeInt.int option
-    | DOUBLE       of LargeInt.int * LargeInt.int * LargeInt.int option
+    | FLOAT        of LargeInt.int * int * LargeInt.int option
+    | DOUBLE       of LargeInt.int * int * LargeInt.int option
     | UTF8         of string
     | FILENAME     of string
     | VOID

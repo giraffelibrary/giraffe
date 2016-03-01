@@ -130,7 +130,7 @@ in
    *
    * to `specs`.
    *)
-  fun addSignalSpecs namespace numSigs specs =
+  fun addSignalSpecs namespace (numSigs : LargeInt.int) specs =
     let
       val isGObject = namespace = "GObject"
     in
@@ -155,7 +155,7 @@ in
    *     where type 'a signal_t = Signal.t                  | isGObject
    *                                                       -'  and numSigs > 0
    *)
-  fun makeSignalLocalTypes isGObject numSigs =
+  fun makeSignalLocalTypes isGObject (numSigs : LargeInt.int) =
     if isGObject andalso numSigs > 0
     then [signalLocalType]
     else []
@@ -183,7 +183,7 @@ in
    *
    * to `specs`.
    *)
-  fun addPropertySpecs namespace numProps specs =
+  fun addPropertySpecs namespace (numProps : LargeInt.int) specs =
     let
       val isGObject = namespace = "GObject"
     in
@@ -218,7 +218,7 @@ in
    *       ('object, 'a) Property.readwrite                 |
    *                                                       -'
    *)
-  fun makePropertyLocalTypes isGObject numProps =
+  fun makePropertyLocalTypes isGObject (numProps : LargeInt.int) =
     if isGObject andalso numProps > 0
     then revPropertyLocalTypes
     else []

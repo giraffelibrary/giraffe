@@ -323,11 +323,19 @@ structure GIRepositoryRepository :>
       #packages (! (lookupTypelib repository versions namespace_))
 
     fun getNInfos repository versions namespace_ =
-      Vector.length (#infos (lookupNamespace repository versions namespace_))
+      let
+        val {infos, ...} = lookupNamespace repository versions namespace_
+      in
+        LargeInt.fromInt (Vector.length infos)
+      end
 
     fun getInfo repository versions namespace_ index =
-      GIRepositoryBaseInfoClass.Obj.pack
-        (Vector.sub (#infos (lookupNamespace repository versions namespace_), index) & ())
+      let
+        val {infos, ...} = lookupNamespace repository versions namespace_
+      in
+        GIRepositoryBaseInfoClass.Obj.pack
+          (Vector.sub (infos, LargeInt.toInt index) & ())
+      end
 
     fun getSharedLibrary repository versions namespace_ =
       #sharedLib (lookupNamespace repository versions namespace_)

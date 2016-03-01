@@ -18,8 +18,8 @@ signature G_I_REPOSITORY_ARGUMENT =
     | UINT32       of LargeInt.int
     | INT64        of LargeInt.int
     | UINT64       of LargeInt.int
-    | FLOAT        of LargeInt.int * LargeInt.int * LargeInt.int option
-    | DOUBLE       of LargeInt.int * LargeInt.int * LargeInt.int option
+    | FLOAT        of LargeInt.int * int * LargeInt.int option
+    | DOUBLE       of LargeInt.int * int * LargeInt.int option
     | SIZE         of LargeInt.int    (* GIR only, not TYPELIB *)
     | SSIZE        of LargeInt.int    (* GIR only, not TYPELIB *)
     | OFFSET                          (* GIR only, not TYPELIB *)

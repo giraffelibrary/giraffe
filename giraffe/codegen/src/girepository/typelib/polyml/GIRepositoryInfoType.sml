@@ -96,7 +96,7 @@ structure GIRepositoryInfoType :>
       val getType : 'a baseinfo_class -> t =
         fn info =>
           GIRepositoryBaseInfoClass.FFI.withPtr
-            (fn ptr => Vector.sub (table, GInt32.FFI.fromVal (getType_ ptr)) ptr)
+            (fn ptr => Vector.sub (table, LargeInt.toInt (GInt32.FFI.fromVal (getType_ ptr))) ptr)
             info
             handle
               Subscript => INVALID

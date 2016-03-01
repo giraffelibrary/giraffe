@@ -97,14 +97,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {implements, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length implements
+        LargeInt.fromInt (List.length implements)
       end
 
     fun getInterface info n =
       let
         val _ & _ & {implements, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (implements, n)
+        val base = List.nth (implements, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -117,14 +117,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {field, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length field
+        LargeInt.fromInt (List.length field)
       end
 
     fun getField info n =
       let
         val _ & _ & {field, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (field, n)
+        val base = List.nth (field, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -137,14 +137,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {property, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length property
+        LargeInt.fromInt (List.length property)
       end
 
     fun getProperty info n =
       let
         val _ & _ & {property, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (property, n)
+        val base = List.nth (property, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -157,14 +157,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length method
+        LargeInt.fromInt (List.length method)
       end
 
     fun getMethod info n =
       let
         val _ & _ & {method, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (method, n)
+        val base = List.nth (method, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -179,14 +179,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {signal, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length signal
+        LargeInt.fromInt (List.length signal)
       end
 
     fun getSignal info n =
       let
         val _ & _ & {signal, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (signal, n)
+        val base = List.nth (signal, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -199,14 +199,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {vfunc, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length vfunc
+        LargeInt.fromInt (List.length vfunc)
       end
 
     fun getVfunc info n =
       let
         val _ & _ & {vfunc, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (vfunc, n)
+        val base = List.nth (vfunc, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of
@@ -219,14 +219,14 @@ structure GIRepositoryObjectInfo :>
         val _ & _ & {constant, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
       in
-        List.length constant
+        LargeInt.fromInt (List.length constant)
       end
 
     fun getConstant info n =
       let
         val _ & _ & {constant, ...} & _ =
           (fromBase o fromRegisteredType o fromObject) I info
-        val base = List.nth (constant, n)
+        val base = List.nth (constant, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

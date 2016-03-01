@@ -141,7 +141,7 @@ local
   fun fail s =
     raise Fail (String.concat ["\"", s, "\" is not a valid signed integer"])
   val ord0 = Char.ord #"0"
-  fun nextDigit (c, n) = 10 * n + (Char.ord c - ord0)
+  fun nextDigit (c, n) = 10 * n + LargeInt.fromInt (Char.ord c - ord0)
 in
   fun makeValueInt (s : string) : LargeInt.int =
     let
@@ -167,10 +167,10 @@ local
     raise
       Fail (String.concat ["\"", s, "\" is not a valid floating point literal"])
   val ord0 = Char.ord #"0"
-  fun nextDigit (c, n) = 10 * n + (Char.ord c - ord0)
+  fun nextDigit (c, n) = 10 * n + LargeInt.fromInt (Char.ord c - ord0)
 in
   fun makeValueReal (s : string)
-    : LargeInt.int * LargeInt.int * LargeInt.int option =
+    : LargeInt.int * int * LargeInt.int option =
     let
       fun readSign ss =
         case Substring.getc ss of
