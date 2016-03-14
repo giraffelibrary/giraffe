@@ -1,11 +1,10 @@
 structure GObjectClosureRecord :>
-  sig
-    include G_OBJECT_CLOSURE_RECORD
-      where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-  end =
+  G_OBJECT_CLOSURE_RECORD
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
-    type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.p
+    structure Pointer = CPointer
+    type notnull = Pointer.notnull
+    type 'a p = 'a Pointer.p
 
     val take_ =
       if GiraffeDebug.isEnabled
@@ -16,77 +15,35 @@ structure GObjectClosureRecord :>
 
     val sink_ = _import "g_closure_sink" : notnull p -> unit;
 
-    val refSink_ =
+    val copy_ =
       if GiraffeDebug.isEnabled
       then _import "giraffe_debug_closure_ref_sink" : notnull p -> notnull p;
       else fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
 
-    val unref_ =
+    val free_ =
       if GiraffeDebug.isEnabled
       then _import "giraffe_debug_g_closure_unref" : notnull p -> unit;
       else _import "g_closure_unref" : notnull p -> unit;
 
-    type t = notnull p Finalizable.t
-
-    structure C =
-      struct
-        structure Pointer = CPointer
-        type notnull = notnull
-        type 'a p = 'a p
-
-        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
-
-        fun withOptPtr f =
-          fn
-            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
-          | NONE     => Pointer.withOptVal f NONE
-
-        fun fromPtr transfer ptr =
-          let
-            val object =
-              Finalizable.new (
-                if transfer
-                then (take_ ptr; ptr)  (* take the existing reference *)
-                else refSink_ ptr
-              )
-          in
-            Finalizable.addFinalizer (object, unref_);
-            object
-          end
-
-        fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
-      end
-
     val getType_ = _import "g_closure_get_type" : unit -> GObjectType.C.val_;
-
-    val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.notnull C.p;
-
-    val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> unit C.p;
-
-    val setValue_ =
-      fn x1 & x2 =>
-        (_import "g_value_set_boxed" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.notnull C.p -> unit;)
-        (x1, x2)
-
-    val setOptValue_ =
-      fn x1 & x2 =>
-        (_import "g_value_set_boxed" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * unit C.p -> unit;)
-        (x1, x2)
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
 
-    val t =
-      GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromPtr false) getValue_,
-        setValue = (I &&&> C.withPtr ---> I) setValue_
-      }
+    structure Record =
+      BoxedRecord (
+        type notnull = notnull
+        type 'a p = 'a p
+        val take_ = take_
+        val copy_ = copy_
+        val free_ = free_
+      )
+    open Record
 
-    val tOpt =
-      GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromOptPtr false) getOptValue_,
-        setValue = (I &&&> C.withOptPtr ---> I) setOptValue_
-      }
+    structure Type =
+      BoxedType (
+        structure Record = Record
+        type t = t
+        val getType_ = getType_
+      )
+    open Type
   end

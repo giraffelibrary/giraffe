@@ -7,6 +7,8 @@ in
   CLOSURE_MARSHAL.sml
   SIGNAL.sml
   PROPERTY.sml
+  RECORD.sml
+  NEW_RECORD.sml
   G_OBJECT_VALUE_RECORD.sml
   G_OBJECT_VALUE.sml
   G_OBJECT_TYPE.sml
@@ -79,6 +81,9 @@ in
   G_OBJECT_TYPE_PLUGIN_CLASS.sml
   G_OBJECT_TYPE_PLUGIN.sml
   G_OBJECT.sml
+  mlton/PointerRecord.sml
+  mlton/BoxedRecord.sml
+  BoxedNewRecord.sml
   mlton/GObjectValueRecord.sml
   mlton/GObjectType.sml
   mlton/GObjectConnectFlags.sml
@@ -90,6 +95,7 @@ in
   mlton/GObjectTypeFundamentalFlags.sml
   mlton/GObjectValue.sml
   mlton/GObjectBindingFlags.sml
+  mlton/BoxedType.sml
   mlton/ClosureMarshal.sml
   mlton/GObjectClosureRecord.sml
   mlton/GObjectObjectClass.sml
