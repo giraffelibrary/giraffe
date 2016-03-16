@@ -47,7 +47,7 @@ structure GioUnixFDList :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
         append_
@@ -60,7 +60,7 @@ structure GioUnixFDList :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
         get_

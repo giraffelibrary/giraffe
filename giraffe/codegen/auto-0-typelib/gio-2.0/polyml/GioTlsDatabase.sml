@@ -94,7 +94,7 @@ structure GioTlsDatabase :>
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         lookupCertificateForHandle_
@@ -110,7 +110,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         lookupCertificateForHandleFinish_
@@ -126,7 +126,7 @@ structure GioTlsDatabase :>
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         lookupCertificateIssuer_
@@ -142,7 +142,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         lookupCertificateIssuerFinish_
@@ -160,7 +160,7 @@ structure GioTlsDatabase :>
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateFlags.C.fromVal
       )
         verifyChain_
@@ -178,7 +178,7 @@ structure GioTlsDatabase :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateFlags.C.fromVal
       )
         verifyChainFinish_

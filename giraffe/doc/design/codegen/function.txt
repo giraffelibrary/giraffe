@@ -494,7 +494,7 @@ where
 
 
   withFunErr
-    is GError.C.handleError
+    is GLibErrorRecord.handleError
 
 
   withFun[j]

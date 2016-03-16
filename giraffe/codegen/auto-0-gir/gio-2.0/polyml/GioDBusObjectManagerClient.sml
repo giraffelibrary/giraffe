@@ -37,8 +37,8 @@ structure GioDBusObjectManagerClient :>
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newForBusFinish_ (res & [])
+    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newForBusFinish_ (res & [])
     fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClientFlags.C.fromVal) getFlags_ self
     fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self

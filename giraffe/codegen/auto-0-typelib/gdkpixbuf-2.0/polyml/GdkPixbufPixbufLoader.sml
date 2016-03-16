@@ -32,9 +32,9 @@ structure GdkPixbufPixbufLoader :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) new_ ()
-    fun newWithMimeType mimeType = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithMimeType_ (mimeType & [])
-    fun newWithType imageType = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithType_ (imageType & [])
-    fun close self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) close_ (self & [])
+    fun newWithMimeType mimeType = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithMimeType_ (mimeType & [])
+    fun newWithType imageType = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithType_ (imageType & [])
+    fun close self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) close_ (self & [])
     fun getAnimation self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufAnimationClass.C.fromPtr false) getAnimation_ self
     fun getFormat self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) getFormat_ self
     fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self

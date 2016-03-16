@@ -92,7 +92,7 @@ structure GtkPaperSize :>
       (
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GtkPaperSizeRecord.C.fromPtr true
       )
         newFromKeyFile_

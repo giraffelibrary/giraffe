@@ -28,7 +28,7 @@ structure GioTlsServerConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
         new_

@@ -51,8 +51,8 @@ local
 (*
   val tTy : ty = mkIdTy tId
 *)
-  val errorExnSpec = mkExnSpec (exnErrorId, SOME tTy)
-  val errorExnStrDec = StrDecDec (mkTyExnDec (NameId exnErrorId, SOME tTy))
+  val errorExnSpec = mkExnSpec (errorExnId, SOME tTy)
+  val errorExnStrDec = StrDecDec (mkTyExnDec (NameId errorExnId, SOME tTy))
   val handlerTyStrDec = makeLocalTypeStrDec handlerLocalType
 in
   (*
@@ -119,7 +119,7 @@ in
                 toList1 [
                   ExpConst (ConstString errorDomain),
                   mkLIdLNameExp ["C", fromValId],
-                  mkIdLNameExp exnErrorId
+                  mkIdLNameExp errorExnId
                 ]
               )
             )
@@ -414,7 +414,7 @@ local
    *)
   fun exnModule strId : module =
     let
-      val dec = mkEqExnDec (NameId strId, LNameId (toList1 [strId, exnErrorId]))
+      val dec = mkEqExnDec (NameId strId, LNameId (toList1 [strId, errorExnId]))
     in
       ModuleDecStr (StrDecDec dec)
     end

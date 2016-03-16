@@ -197,7 +197,7 @@ structure GioSocketListener :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
           )
             accept_
@@ -217,7 +217,7 @@ structure GioSocketListener :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
           )
             acceptFinish_
@@ -237,7 +237,7 @@ structure GioSocketListener :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
           )
             acceptSocket_
@@ -257,7 +257,7 @@ structure GioSocketListener :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
           )
             acceptSocketFinish_
@@ -280,7 +280,7 @@ structure GioSocketListener :>
              &&&> GioSocketProtocol.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioSocketAddressClass.C.fromPtr true && FFI.Bool.C.fromVal
           )
             addAddress_
@@ -300,7 +300,7 @@ structure GioSocketListener :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
       )
         addAnyInetPort_
@@ -314,7 +314,7 @@ structure GioSocketListener :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         addInetPort_
@@ -329,7 +329,7 @@ structure GioSocketListener :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         addSocket_

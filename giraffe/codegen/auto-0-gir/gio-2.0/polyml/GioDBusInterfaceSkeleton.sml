@@ -43,7 +43,7 @@ structure GioDBusInterfaceSkeleton :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         export_

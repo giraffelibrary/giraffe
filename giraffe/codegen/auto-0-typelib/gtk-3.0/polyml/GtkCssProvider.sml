@@ -40,7 +40,7 @@ structure GtkCssProvider :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromFile_
@@ -53,7 +53,7 @@ structure GtkCssProvider :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromPath_

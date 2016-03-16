@@ -250,7 +250,7 @@ structure GioSocket :>
         GioSocketFamily.C.withVal
          &&&> GioSocketType.C.withVal
          &&&> GioSocketProtocol.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketClass.C.fromPtr true
       )
         new_
@@ -260,12 +260,12 @@ structure GioSocket :>
            & protocol
            & []
         )
-    fun newFromFd fd = (FFI.Int.C.withVal &&&> GLibErrorRecord.C.handleError ---> GioSocketClass.C.fromPtr true) newFromFd_ (fd & [])
+    fun newFromFd fd = (FFI.Int.C.withVal &&&> GLibErrorRecord.handleError ---> GioSocketClass.C.fromPtr true) newFromFd_ (fd & [])
     fun accept self cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketClass.C.fromPtr true
       )
         accept_
@@ -279,7 +279,7 @@ structure GioSocket :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         bind_
@@ -289,15 +289,15 @@ structure GioSocket :>
            & allowReuse
            & []
         )
-    fun checkConnectResult self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) checkConnectResult_ (self & [])
-    fun close self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) close_ (self & [])
+    fun checkConnectResult self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) checkConnectResult_ (self & [])
+    fun close self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) close_ (self & [])
     fun conditionCheck self condition = (GObjectObjectClass.C.withPtr &&&> GLibIOCondition.C.withVal ---> GLibIOCondition.C.fromVal) conditionCheck_ (self & condition)
     fun conditionWait self condition cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> GLibIOCondition.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         conditionWait_
@@ -312,7 +312,7 @@ structure GioSocket :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         connect_
@@ -324,26 +324,26 @@ structure GioSocket :>
         )
     fun connectionFactoryCreateConnection self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectionClass.C.fromPtr true) connectionFactoryCreateConnection_ self
     fun getBlocking self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getBlocking_ self
-    fun getCredentials self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioCredentialsClass.C.fromPtr true) getCredentials_ (self & [])
+    fun getCredentials self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioCredentialsClass.C.fromPtr true) getCredentials_ (self & [])
     fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
     fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFd_ self
     fun getKeepalive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getKeepalive_ self
     fun getListenBacklog self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getListenBacklog_ self
-    fun getLocalAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getLocalAddress_ (self & [])
+    fun getLocalAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.C.fromPtr true) getLocalAddress_ (self & [])
     fun getProtocol self = (GObjectObjectClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
-    fun getRemoteAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioSocketAddressClass.C.fromPtr true) getRemoteAddress_ (self & [])
+    fun getRemoteAddress self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.C.fromPtr true) getRemoteAddress_ (self & [])
     fun getSocketType self = (GObjectObjectClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
     fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getTimeout_ self
     fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun isConnected self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isConnected_ self
-    fun listen self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) listen_ (self & [])
+    fun listen self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) listen_ (self & [])
     fun receive self buffer size cancellable =
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Size.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
         receive_
@@ -361,7 +361,7 @@ structure GioSocket :>
          &&&> Utf8.C.withPtr
          &&&> FFI.Size.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
         receiveFrom_
@@ -380,7 +380,7 @@ structure GioSocket :>
          &&&> FFI.Size.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
         receiveWithBlocking_
@@ -401,7 +401,7 @@ structure GioSocket :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         shutdown_

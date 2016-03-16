@@ -107,7 +107,7 @@ structure GIRepositoryRepository :>
         GObjectObjectClass.C.withPtr
          &&&> GIRepositoryTypelibType.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr false
       )
         loadTypelib_
@@ -122,7 +122,7 @@ structure GIRepositoryRepository :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GIRepositoryTypelibType.C.fromPtr false
       )
         require_

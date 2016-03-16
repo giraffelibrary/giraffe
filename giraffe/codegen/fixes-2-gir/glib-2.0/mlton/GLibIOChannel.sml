@@ -184,7 +184,7 @@ structure GLibIOChannel :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOChannelRecord.C.fromPtr true
       )
         newFile_
@@ -195,7 +195,7 @@ structure GLibIOChannel :>
         )
     fun unixNew fd = (FileDesc.C.withVal ---> GLibIOChannelRecord.C.fromPtr true) unixNew_ fd
     fun close self = (GLibIOChannelRecord.C.withPtr ---> I) close_ self
-    fun flush self = (GLibIOChannelRecord.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GLibIOStatus.C.fromVal) flush_ (self & [])
+    fun flush self = (GLibIOChannelRecord.C.withPtr &&&> GLibErrorRecord.handleError ---> GLibIOStatus.C.fromVal) flush_ (self & [])
     fun getBufferCondition self = (GLibIOChannelRecord.C.withPtr ---> GLibIOCondition.C.fromVal) getBufferCondition_ self
     fun getBufferSize self = (GLibIOChannelRecord.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
     fun getBuffered self = (GLibIOChannelRecord.C.withPtr ---> FFI.Bool.C.fromVal) getBuffered_ self
@@ -221,7 +221,7 @@ structure GLibIOChannel :>
         GLibIOChannelRecord.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GLibSeekType.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.C.fromVal
       )
         seekPosition_
@@ -238,7 +238,7 @@ structure GLibIOChannel :>
       (
         GLibIOChannelRecord.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.C.fromVal
       )
         setEncoding_
@@ -251,7 +251,7 @@ structure GLibIOChannel :>
       (
         GLibIOChannelRecord.C.withPtr
          &&&> GLibIOFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.C.fromVal
       )
         setFlags_
@@ -277,7 +277,7 @@ structure GLibIOChannel :>
       (
         GLibIOChannelRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.C.fromVal
       )
         shutdown_
@@ -291,7 +291,7 @@ structure GLibIOChannel :>
       (
         GLibIOChannelRecord.C.withPtr
          &&&> FFI.Char.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.C.fromVal
       )
         writeUnichar_

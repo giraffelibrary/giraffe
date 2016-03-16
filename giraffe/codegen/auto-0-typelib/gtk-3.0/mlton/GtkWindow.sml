@@ -494,7 +494,7 @@ structure GtkWindow :>
     fun getDefaultIconName () = (I ---> Utf8.C.fromPtr false) getDefaultIconName_ ()
     fun setAutoStartupNotification setting = (FFI.Bool.C.withVal ---> I) setAutoStartupNotification_ setting
     fun setDefaultIcon icon = (GObjectObjectClass.C.withPtr ---> I) setDefaultIcon_ icon
-    fun setDefaultIconFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setDefaultIconFromFile_ (filename & [])
+    fun setDefaultIconFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setDefaultIconFromFile_ (filename & [])
     fun setDefaultIconName name = (Utf8.C.withPtr ---> I) setDefaultIconName_ name
     fun activateDefault self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) activateDefault_ self
     fun activateFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) activateFocus_ self
@@ -786,7 +786,7 @@ structure GtkWindow :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setIconFromFile_

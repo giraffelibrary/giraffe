@@ -2785,7 +2785,7 @@ structure Gtk : GTK =
         GObjectObjectClass.C.withOptPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         showUri_

@@ -505,7 +505,7 @@ structure VteTerminal :>
         GObjectObjectClass.C.withPtr
          &&&> VtePtyFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
         ptyNewSync_
@@ -565,7 +565,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setEncoding_
@@ -605,7 +605,7 @@ structure VteTerminal :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> VteWriteFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         writeContentsSync_

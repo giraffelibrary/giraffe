@@ -209,12 +209,12 @@ structure GtkPageSetup :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPageSetupClass.C.fromPtr true) new_ ()
-    fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GtkPageSetupClass.C.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.C.fromPtr true) newFromFile_ (fileName & [])
     fun newFromKeyFile keyFile groupName =
       (
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GtkPageSetupClass.C.fromPtr true
       )
         newFromKeyFile_
@@ -238,7 +238,7 @@ structure GtkPageSetup :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFile_
@@ -252,7 +252,7 @@ structure GtkPageSetup :>
         GObjectObjectClass.C.withPtr
          &&&> GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadKeyFile_
@@ -321,7 +321,7 @@ structure GtkPageSetup :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         toFile_

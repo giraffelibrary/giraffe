@@ -20,7 +20,7 @@ structure GdkPixbufPixbufAnimation :>
     type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
+    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getHeight_ self
     fun getIter self startTime = (GObjectObjectClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> GdkPixbufPixbufAnimationIterClass.C.fromPtr true) getIter_ (self & startTime)
     fun getStaticImage self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getStaticImage_ self

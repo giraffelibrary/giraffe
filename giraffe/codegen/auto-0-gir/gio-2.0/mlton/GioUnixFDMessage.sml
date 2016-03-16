@@ -34,7 +34,7 @@ structure GioUnixFDMessage :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         appendFd_

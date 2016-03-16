@@ -486,7 +486,7 @@ structure GLib : G_LIB =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         filenameFromUri_
@@ -499,7 +499,7 @@ structure GLib : G_LIB =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         filenameToUri_
@@ -567,7 +567,7 @@ structure GLib : G_LIB =
             Utf8.C.withPtr
              &&&> FFI.OptPointer.C.withVal
              &&&> Utf8CVector.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> Utf8CVector.C.fromPtr true && I
           )
             shellParseArgv_
@@ -581,7 +581,7 @@ structure GLib : G_LIB =
         argvp
       end
     fun shellQuote unquotedString = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
+    fun shellUnquote quotedString = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
     fun sourceRemove tag = (FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
       let
@@ -601,7 +601,7 @@ structure GLib : G_LIB =
              &&&> FileDesc.C.withRefVal
              &&&> FileDesc.C.withRefVal
              &&&> FileDesc.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GLibPid.C.fromVal
                    && FileDesc.C.fromVal
                    && FileDesc.C.fromVal
@@ -625,7 +625,7 @@ structure GLib : G_LIB =
         (childPid, standardInput, standardOutput, standardError)
       end
     fun spawnClosePid pid = (GLibPid.C.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun timeoutAdd priority interval function =
       (
         FFI.Int.C.withVal

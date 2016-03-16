@@ -199,15 +199,15 @@ structure GioDBusConnection :>
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusConnectionClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForAddressFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusConnectionClass.C.fromPtr true) newForAddressFinish_ (res & [])
+    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newFinish_ (res & [])
+    fun newForAddressFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newForAddressFinish_ (res & [])
     fun newForAddressSync address flags observer cancellable =
       (
         Utf8.C.withPtr
          &&&> GioDBusConnectionFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.C.fromPtr true
       )
         newForAddressSync_
@@ -225,7 +225,7 @@ structure GioDBusConnection :>
          &&&> GioDBusConnectionFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.C.fromPtr true
       )
         newSync_
@@ -241,7 +241,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
         callFinish_
@@ -262,7 +262,7 @@ structure GioDBusConnection :>
          &&&> GioDBusCallFlags.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
         callSync_
@@ -286,7 +286,7 @@ structure GioDBusConnection :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
             callWithUnixFdListFinish_
@@ -315,7 +315,7 @@ structure GioDBusConnection :>
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
             callWithUnixFdListSync_
@@ -341,7 +341,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         closeFinish_
@@ -354,7 +354,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         closeSync_
@@ -371,7 +371,7 @@ structure GioDBusConnection :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         emitSignal_
@@ -388,7 +388,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         flushFinish_
@@ -401,7 +401,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         flushSync_
@@ -426,7 +426,7 @@ structure GioDBusConnection :>
              &&&> GObjectObjectClass.C.withPtr
              &&&> GioDBusSendMessageFlags.C.withVal
              &&&> FFI.UInt32.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt32.C.fromVal && FFI.Bool.C.fromVal
           )
             sendMessage_
@@ -444,7 +444,7 @@ structure GioDBusConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusMessageClass.C.fromPtr true
       )
         sendMessageWithReplyFinish_
@@ -463,7 +463,7 @@ structure GioDBusConnection :>
              &&&> FFI.Int32.C.withVal
              &&&> FFI.UInt32.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt32.C.fromVal && GioDBusMessageClass.C.fromPtr true
           )
             sendMessageWithReplySync_

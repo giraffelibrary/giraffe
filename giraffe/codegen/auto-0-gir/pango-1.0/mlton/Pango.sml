@@ -245,7 +245,7 @@ structure Pango : PANGO =
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> Utf8.C.withRefOptPtr
              &&&> FFI.Char.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> PangoAttrListRecord.C.fromPtr true
                    && Utf8.C.fromPtr true
                    && FFI.Char.C.fromVal

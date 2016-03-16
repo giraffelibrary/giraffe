@@ -290,7 +290,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         getBoolean_
@@ -305,7 +305,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         getComment_
@@ -320,7 +320,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Double.C.fromVal
       )
         getDouble_
@@ -335,7 +335,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
         getInt64_
@@ -350,7 +350,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
         getInteger_
@@ -366,7 +366,7 @@ structure GLibKeyFile :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         getLocaleString_
@@ -383,7 +383,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         getString_
@@ -398,7 +398,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt64.C.fromVal
       )
         getUint64_
@@ -413,7 +413,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         getValue_
@@ -430,7 +430,7 @@ structure GLibKeyFile :>
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibKeyFileFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromData_
@@ -447,7 +447,7 @@ structure GLibKeyFile :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromDataDirs_
@@ -465,7 +465,7 @@ structure GLibKeyFile :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromDirs_
@@ -482,7 +482,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibKeyFileFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         loadFromFile_
@@ -497,7 +497,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         removeComment_
@@ -511,7 +511,7 @@ structure GLibKeyFile :>
       (
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         removeGroup_
@@ -525,7 +525,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         removeKey_
@@ -573,7 +573,7 @@ structure GLibKeyFile :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setComment_

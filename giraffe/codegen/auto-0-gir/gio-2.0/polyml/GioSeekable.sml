@@ -42,7 +42,7 @@ structure GioSeekable :>
          &&&> FFI.Int64.C.withVal
          &&&> GLibSeekType.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         seek_
@@ -59,7 +59,7 @@ structure GioSeekable :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         truncate_

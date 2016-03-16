@@ -38,7 +38,7 @@ structure GioNetworkAddress :>
       (
         Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
       )
         parse_
@@ -51,7 +51,7 @@ structure GioNetworkAddress :>
       (
         Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectableClass.C.fromPtr true
       )
         parseUri_

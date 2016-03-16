@@ -59,7 +59,7 @@ structure GioFileInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryInfo_
@@ -73,7 +73,7 @@ structure GioFileInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryInfoFinish_

@@ -109,7 +109,7 @@ structure GtkBuilder :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
       )
         addFromFile_
@@ -123,7 +123,7 @@ structure GtkBuilder :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
       )
         addFromString_
@@ -144,7 +144,7 @@ structure GtkBuilder :>
              &&&> GObjectParamSpecClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )
             valueFromString_

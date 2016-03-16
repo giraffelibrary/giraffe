@@ -21,7 +21,7 @@ structure GioSimpleAsyncResult :>
     fun completeInIdle self = (GObjectObjectClass.C.withPtr ---> I) completeInIdle_ self
     fun getOpResGboolean self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getOpResGboolean_ self
     fun getOpResGssize self = (GObjectObjectClass.C.withPtr ---> FFI.SSize.C.fromVal) getOpResGssize_ self
-    fun propagateError self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) propagateError_ (self & [])
+    fun propagateError self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) propagateError_ (self & [])
     fun setHandleCancellation self handleCancellation = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHandleCancellation_ (self & handleCancellation)
     fun setOpResGboolean self opRes = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOpResGboolean_ (self & opRes)
     fun setOpResGssize self opRes = (GObjectObjectClass.C.withPtr &&&> FFI.SSize.C.withVal ---> I) setOpResGssize_ (self & opRes)

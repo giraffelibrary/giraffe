@@ -46,7 +46,7 @@ structure GioAsyncInitable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         initFinish_
@@ -59,7 +59,7 @@ structure GioAsyncInitable :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GObjectObjectClass.C.fromPtr true
       )
         newFinish_

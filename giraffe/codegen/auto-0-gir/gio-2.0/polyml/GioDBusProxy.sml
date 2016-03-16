@@ -125,8 +125,8 @@ structure GioDBusProxy :>
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusProxyClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusProxyClass.C.fromPtr true) newForBusFinish_ (res & [])
+    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.C.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.C.fromPtr true) newForBusFinish_ (res & [])
     fun newForBusSync busType flags info name objectPath interfaceName cancellable =
       (
         GioBusType.C.withVal
@@ -136,7 +136,7 @@ structure GioDBusProxy :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusProxyClass.C.fromPtr true
       )
         newForBusSync_
@@ -159,7 +159,7 @@ structure GioDBusProxy :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusProxyClass.C.fromPtr true
       )
         newSync_
@@ -177,7 +177,7 @@ structure GioDBusProxy :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
         callFinish_
@@ -194,7 +194,7 @@ structure GioDBusProxy :>
          &&&> GioDBusCallFlags.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
         callSync_
@@ -214,7 +214,7 @@ structure GioDBusProxy :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
             callWithUnixFdListFinish_
@@ -239,7 +239,7 @@ structure GioDBusProxy :>
              &&&> GObjectObjectClass.C.withOptPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
             callWithUnixFdListSync_

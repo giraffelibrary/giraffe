@@ -2445,7 +2445,7 @@ structure GLib : G_LIB =
         )
     fun checksumTypeGetLength checksumType = (GLibChecksumType.C.withVal ---> FFI.Int64.C.fromVal) checksumTypeGetLength_ checksumType
     fun childWatchSourceNew pid = (FFI.Int32.C.withVal ---> GLibSourceRecord.C.fromPtr true) childWatchSourceNew_ pid
-    fun clearError () = (GLibErrorRecord.C.handleError ---> I) clearError_ []
+    fun clearError () = (GLibErrorRecord.handleError ---> I) clearError_ []
     fun computeChecksumForString checksumType str length =
       (
         GLibChecksumType.C.withVal
@@ -2471,7 +2471,7 @@ structure GLib : G_LIB =
              &&&> Utf8.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal
                    && FFI.UInt64.C.fromVal
                    && Utf8.C.fromPtr true
@@ -2550,7 +2550,7 @@ structure GLib : G_LIB =
            & category
         )
     fun dgettext domain msgid = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) dgettext_ (domain & msgid)
-    fun dirMakeTmp tmpl = (Utf8.C.withOptPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) dirMakeTmp_ (tmpl & [])
+    fun dirMakeTmp tmpl = (Utf8.C.withOptPtr &&&> GLibErrorRecord.handleError ---> Utf8.C.fromPtr true) dirMakeTmp_ (tmpl & [])
     fun dngettext domain msgid msgidPlural n =
       (
         Utf8.C.withPtr
@@ -2601,7 +2601,7 @@ structure GLib : G_LIB =
           (
             Utf8.C.withOptPtr
              &&&> Utf8.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> Utf8.C.fromPtr true && FFI.Int32.C.fromVal
           )
             fileOpenTmp_
@@ -2613,7 +2613,7 @@ structure GLib : G_LIB =
       in
         (retVal, nameUsed)
       end
-    fun fileReadLink filename = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) fileReadLink_ (filename & [])
+    fun fileReadLink filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.C.fromPtr true) fileReadLink_ (filename & [])
     fun fileTest filename test = (Utf8.C.withPtr &&&> GLibFileTest.C.withVal ---> FFI.Bool.C.fromVal) fileTest_ (filename & test)
     fun filenameDisplayBasename filename = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) filenameDisplayBasename_ filename
     fun filenameDisplayName filename = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) filenameDisplayName_ filename
@@ -2621,7 +2621,7 @@ structure GLib : G_LIB =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         filenameFromUri_
@@ -2634,7 +2634,7 @@ structure GLib : G_LIB =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         filenameToUri_
@@ -2780,7 +2780,7 @@ structure GLib : G_LIB =
           (
             Utf8.C.withPtr
              &&&> FFI.Bool.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Bool.C.fromVal && FFI.Bool.C.fromVal
           )
             regexCheckReplacement_
@@ -2858,14 +2858,14 @@ structure GLib : G_LIB =
         )
     fun shellErrorQuark () = (I ---> FFI.UInt32.C.fromVal) shellErrorQuark_ ()
     fun shellQuote unquotedString = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
+    fun shellUnquote quotedString = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.C.withVal ---> FFI.Int64.C.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig ckey value = (GLibSliceConfig.C.withVal &&&> FFI.Int64.C.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun sourceRemove tag = (FFI.UInt32.C.withVal ---> FFI.Bool.C.fromVal) sourceRemove_ tag
     fun sourceSetNameById tag name = (FFI.UInt32.C.withVal &&&> Utf8.C.withPtr ---> I) sourceSetNameById_ (tag & name)
     fun spacedPrimesClosest num = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) spacedPrimesClosest_ num
     fun spawnClosePid pid = (FFI.Int32.C.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun spawnErrorQuark () = (I ---> FFI.UInt32.C.fromVal) spawnErrorQuark_ ()
     fun stpcpy dest src = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) stpcpy_ (dest & src)
     fun strHasPrefix str prefix = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) strHasPrefix_ (str & prefix)
@@ -3201,7 +3201,7 @@ structure GLib : G_LIB =
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
         variantParse_

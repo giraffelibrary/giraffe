@@ -51,7 +51,7 @@ structure GioUnixConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioCredentialsClass.C.fromPtr true
       )
         receiveCredentials_
@@ -64,7 +64,7 @@ structure GioUnixConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int.C.fromVal
       )
         receiveFd_
@@ -77,7 +77,7 @@ structure GioUnixConnection :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         sendCredentials_
@@ -91,7 +91,7 @@ structure GioUnixConnection :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         sendFd_

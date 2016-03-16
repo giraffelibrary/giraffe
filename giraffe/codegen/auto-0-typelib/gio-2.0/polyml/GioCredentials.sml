@@ -30,12 +30,12 @@ structure GioCredentials :>
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
-    fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.UInt32.C.fromVal) getUnixUser_ (self & [])
+    fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.UInt32.C.fromVal) getUnixUser_ (self & [])
     fun isSameUser self otherCredentials =
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         isSameUser_
@@ -48,7 +48,7 @@ structure GioCredentials :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setUnixUser_

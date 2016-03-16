@@ -29,7 +29,7 @@ structure GioCancellable :>
     fun pushCurrent self = (GObjectObjectClass.C.withPtr ---> I) pushCurrent_ self
     fun releaseFd self = (GObjectObjectClass.C.withPtr ---> I) releaseFd_ self
     fun reset self = (GObjectObjectClass.C.withPtr ---> I) reset_ self
-    fun setErrorIfCancelled self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) setErrorIfCancelled_ (self & [])
+    fun setErrorIfCancelled self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setErrorIfCancelled_ (self & [])
     local
       open ClosureMarshal Signal
     in

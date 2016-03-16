@@ -184,7 +184,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt8.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putByte_
@@ -199,7 +199,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putInt16_
@@ -214,7 +214,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putInt32_
@@ -229,7 +229,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putInt64_
@@ -244,7 +244,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putString_
@@ -259,7 +259,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putUint16_
@@ -274,7 +274,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putUint32_
@@ -289,7 +289,7 @@ structure GioDataOutputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         putUint64_

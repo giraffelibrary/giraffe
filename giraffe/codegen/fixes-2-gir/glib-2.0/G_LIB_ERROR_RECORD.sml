@@ -1,15 +1,22 @@
 signature G_LIB_ERROR_RECORD =
   sig
-    type t
+    include RECORD
+    val t : (t, t) GObject.Value.accessor
+    val tOpt : (t option, t option) GObject.Value.accessor
+
+    type quark_t
+    val domain : {get : t -> quark_t}
+    val code : {get : t -> Int32.int}
+    val message : {get : t -> string}
 
     (**
      * The exception Error is raised for any GLib (or derived library)
-     * function that reports an error.  For `Error (dom, err)`
+     * function that reports an error.  In `Error (dom, err)`
      *
-     *   `dom` is an abstract representation of error's domain that
-     *     can be pattern matched in exception handlers and
+     *   `dom` is an exception value that represents the error domain
+     *     and code that can be pattern matched in exception handlers;
      *
-     *   `err` is the underlying error structure from which the error
+     *   `err` is the underlying error record from which the error
      *     message can be extracted.
      *
      * `dom` has type `exn` to allow the set of constructors to be extended
@@ -18,7 +25,7 @@ signature G_LIB_ERROR_RECORD =
      *
      * In the case of an error whose domain is not recognised, `dom` is
      * `Fail "unknown domain"`.  For an error whose code is not recognized,
-     * `dom` is `Fail "unknown code",  However, applications should not
+     * `dom` is `Fail "unknown code"`,  However, applications should not
      * handle these explicitly.
      *
      *   Rationale
@@ -32,57 +39,21 @@ signature G_LIB_ERROR_RECORD =
      *)
     exception Error of exn * t
 
-    type quark_t
-    val domain : {get : t -> quark_t}
-    val code : {get : t -> FFI.Enum.C.val_}
-    val message : {get : t -> string}
-
     (**
      * A handler is used to convert an error to an exception for a particular
-     * error domain.  The type `handler` represents a handler and has the
-     * form `(domain, makeDomainExn)` where
+     * error domain.  `makeHandler (domain, fromVal, domainExn)` creates a
+     * handler where
      *
      *   `domain` is the string that identifes an error domain;
      *   typically this has the form "<namespace>-<module-name>-error-quark";
      *
-     *   `makeDomainExn` is the exception constructor for the error domain.
+     *   `fromVal` converts the error code to the enum type of the domain;
+     *
+     *   `domainExn` is the exception constructor for the error domain.
      *
      *)
     type handler
-    val makeHandler : string * (FFI.Enum.C.val_ -> 'a) * ('a -> exn) -> handler
+    val handleError : ((unit, unit) C.r -> 'a) -> handler list -> 'a
 
-    structure C :
-      sig
-        type notnull
-        type 'a p
-        type ('a, 'b) r
-        val withPtr :
-          (notnull p -> 'a)
-           -> t
-           -> 'a
-        val withOptPtr :
-          (unit p -> 'a)
-           -> t option
-           -> 'a
-        val withRefPtr :
-          (('a, 'b) r -> 'c)
-            -> t
-            -> ('b p, 'c) pair
-        val withRefOptPtr :
-          ((unit, 'a) r -> 'b)
-            -> t option
-            -> ('a p, 'b) pair
-        val fromPtr :
-          bool
-           -> notnull p
-           -> t
-        val fromOptPtr :
-          bool
-           -> unit p
-           -> t option
-        val handleError :
-          ((unit, unit) r -> 'b)
-           -> handler list
-           -> 'b
-      end
+    val makeHandler : string * (FFI.Enum.C.val_ -> 'a) * ('a -> exn) -> handler
   end

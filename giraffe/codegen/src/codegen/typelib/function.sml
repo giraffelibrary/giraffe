@@ -1465,7 +1465,7 @@ end
 
 fun withFunErr namespace optName =
   mkLIdLNameExp (
-    prefixInterfaceStrId (makeErrorIRef namespace optName) ["C", "handleError"]
+    prefixInterfaceStrId (makeErrorIRef namespace optName) [handleErrorId]
   )
 
 fun argValErr (_ : lid list) =

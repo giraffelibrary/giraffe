@@ -74,7 +74,7 @@ structure GtkPrintOperation :>
     fun drawPageFinish self = (GObjectObjectClass.C.withPtr ---> I) drawPageFinish_ self
     fun getDefaultPageSetup self = (GObjectObjectClass.C.withPtr ---> GtkPageSetupClass.C.fromPtr false) getDefaultPageSetup_ self
     fun getEmbedPageSetup self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedPageSetup_ self
-    fun getError self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> I) getError_ (self & [])
+    fun getError self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
     fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
     fun getNPagesToPrint self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNPagesToPrint_ self
     fun getPrintSettings self = (GObjectObjectClass.C.withPtr ---> GtkPrintSettingsClass.C.fromPtr false) getPrintSettings_ self
@@ -87,7 +87,7 @@ structure GtkPrintOperation :>
         GObjectObjectClass.C.withPtr
          &&&> GtkPrintOperationAction.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GtkPrintOperationResult.C.fromVal
       )
         run_

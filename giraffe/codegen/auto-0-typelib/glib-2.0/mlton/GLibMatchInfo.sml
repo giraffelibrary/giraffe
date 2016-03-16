@@ -95,7 +95,7 @@ structure GLibMatchInfo :>
       (
         GLibMatchInfoRecord.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
         expandReferences_
@@ -159,5 +159,5 @@ structure GLibMatchInfo :>
     fun getString self = (GLibMatchInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) getString_ self
     fun isPartialMatch self = (GLibMatchInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) isPartialMatch_ self
     fun matches self = (GLibMatchInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) matches_ self
-    fun next self = (GLibMatchInfoRecord.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) next_ (self & [])
+    fun next self = (GLibMatchInfoRecord.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) next_ (self & [])
   end

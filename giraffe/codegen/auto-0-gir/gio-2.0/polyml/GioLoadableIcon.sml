@@ -43,7 +43,7 @@ structure GioLoadableIcon :>
              &&&> FFI.Int.C.withVal
              &&&> Utf8.C.withRefOptPtr
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
           )
             load_
@@ -62,7 +62,7 @@ structure GioLoadableIcon :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioInputStreamClass.C.fromPtr true
       )
         loadFinish_

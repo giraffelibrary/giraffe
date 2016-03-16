@@ -80,7 +80,7 @@ structure GtkIconInfo :>
         if retVal then SOME rectangle else NONE
       end
     fun getFilename self = (GtkIconInfoRecord.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
-    fun loadIcon self = (GtkIconInfoRecord.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) loadIcon_ (self & [])
+    fun loadIcon self = (GtkIconInfoRecord.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) loadIcon_ (self & [])
     fun loadSymbolic self fg successColor warningColor errorColor =
       let
         val wasSymbolic & retVal =
@@ -91,7 +91,7 @@ structure GtkIconInfo :>
              &&&> GdkRgbaRecord.C.withOptPtr
              &&&> GdkRgbaRecord.C.withOptPtr
              &&&> FFI.Bool.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Bool.C.fromVal && GdkPixbufPixbufClass.C.fromPtr true
           )
             loadSymbolic_
@@ -114,7 +114,7 @@ structure GtkIconInfo :>
             GtkIconInfoRecord.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.Bool.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Bool.C.fromVal && GdkPixbufPixbufClass.C.fromPtr true
           )
             loadSymbolicForContext_

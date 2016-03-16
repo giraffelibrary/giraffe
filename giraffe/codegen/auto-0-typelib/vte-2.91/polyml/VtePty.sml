@@ -62,7 +62,7 @@ structure VtePty :>
       (
         FFI.Int32.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
         newForeignSync_
@@ -75,7 +75,7 @@ structure VtePty :>
       (
         VtePtyFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
         newSync_
@@ -96,7 +96,7 @@ structure VtePty :>
             GObjectObjectClass.C.withPtr
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Int32.C.fromVal
                    && FFI.Int32.C.fromVal
                    && FFI.Bool.C.fromVal
@@ -116,7 +116,7 @@ structure VtePty :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setSize_
@@ -130,7 +130,7 @@ structure VtePty :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setUtf8_

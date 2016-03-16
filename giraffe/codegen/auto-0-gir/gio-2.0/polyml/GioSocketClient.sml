@@ -124,7 +124,7 @@ structure GioSocketClient :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connect_
@@ -138,7 +138,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectFinish_
@@ -153,7 +153,7 @@ structure GioSocketClient :>
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToHost_
@@ -168,7 +168,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToHostFinish_
@@ -183,7 +183,7 @@ structure GioSocketClient :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToService_
@@ -198,7 +198,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToServiceFinish_
@@ -213,7 +213,7 @@ structure GioSocketClient :>
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToUri_
@@ -228,7 +228,7 @@ structure GioSocketClient :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
         connectToUriFinish_

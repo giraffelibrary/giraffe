@@ -247,7 +247,7 @@ structure GIRepositoryRepository :>
     type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun dump arg = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
+    fun dump arg = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (Utf8.C.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> GLibQuark.C.withVal ---> GIRepositoryEnumInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
@@ -300,7 +300,7 @@ structure GIRepositoryRepository :>
         GObjectObjectClass.C.withPtr
          &&&> GIRepositoryTypelibRecord.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr false
       )
         loadTypelib_
@@ -316,7 +316,7 @@ structure GIRepositoryRepository :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GIRepositoryTypelibRecord.C.fromPtr false
       )
         require_
@@ -334,7 +334,7 @@ structure GIRepositoryRepository :>
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GIRepositoryTypelibRecord.C.fromPtr false
       )
         requirePrivate_

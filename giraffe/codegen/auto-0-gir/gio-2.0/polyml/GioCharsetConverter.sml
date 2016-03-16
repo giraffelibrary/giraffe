@@ -31,7 +31,7 @@ structure GioCharsetConverter :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioCharsetConverterClass.C.fromPtr true
       )
         new_

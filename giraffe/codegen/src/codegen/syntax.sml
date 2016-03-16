@@ -373,8 +373,10 @@ val objId : id = "obj"
 val cPtrLId : lid = toList1 ["C", "p"]
 val cOptptrLId : lid = toList1 ["C", "optptr"]
 
-val errorId : id = "Error"
-val exnErrorId : id = errorId
+val errorId : id = "error"
+val errorStrId : id = "Error"
+val errorExnId : id = errorStrId
+val handleErrorId : id = "handleError"
 val handlerId : id = "handler"
 val errorHandlerId : id = "error_handler"
 val errorHandlerTyName : tyname = ([], errorHandlerId)

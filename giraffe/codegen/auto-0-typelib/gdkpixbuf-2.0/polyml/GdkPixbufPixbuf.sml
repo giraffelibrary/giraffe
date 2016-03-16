@@ -219,14 +219,14 @@ structure GdkPixbufPixbuf :>
            & width
            & height
         )
-    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
+    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromFile_ (filename & [])
     fun newFromFileAtScale filename width height preserveAspectRatio =
       (
         Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         newFromFileAtScale_
@@ -242,7 +242,7 @@ structure GdkPixbufPixbuf :>
         Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         newFromFileAtSize_
@@ -256,7 +256,7 @@ structure GdkPixbufPixbuf :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         newFromStream_
@@ -272,7 +272,7 @@ structure GdkPixbufPixbuf :>
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         newFromStreamAtScale_
@@ -284,10 +284,10 @@ structure GdkPixbufPixbuf :>
            & cancellable
            & []
         )
-    fun newFromStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromStreamFinish_ (asyncResult & [])
+    fun newFromStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.C.fromPtr true) newFromStreamFinish_ (asyncResult & [])
     fun newFromXpmData data = (Utf8.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) newFromXpmData_ data
     fun gettext msgid = (Utf8.C.withPtr ---> Utf8.C.fromPtr false) gettext_ msgid
-    fun saveToStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) saveToStreamFinish_ (asyncResult & [])
+    fun saveToStreamFinish asyncResult = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) saveToStreamFinish_ (asyncResult & [])
     fun addAlpha self substituteColor r g b =
       (
         GObjectObjectClass.C.withPtr

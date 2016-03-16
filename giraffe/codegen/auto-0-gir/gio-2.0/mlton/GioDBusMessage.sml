@@ -271,7 +271,7 @@ structure GioDBusMessage :>
            & interface
            & signal
         )
-    fun copy self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioDBusMessageClass.C.fromPtr true) copy_ (self & [])
+    fun copy self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.C.fromPtr true) copy_ (self & [])
     fun getArg0 self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getArg0_ self
     fun getBody self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getBody_ self
     fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageByteOrder.C.fromVal) getByteOrder_ self
@@ -334,7 +334,7 @@ structure GioDBusMessage :>
     fun setSerial self serial = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setSerial_ (self & serial)
     fun setSignature self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSignature_ (self & value)
     fun setUnixFdList self fdList = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUnixFdList_ (self & fdList)
-    fun toGerror self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Bool.C.fromVal) toGerror_ (self & [])
+    fun toGerror self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) toGerror_ (self & [])
     local
       open Property
     in

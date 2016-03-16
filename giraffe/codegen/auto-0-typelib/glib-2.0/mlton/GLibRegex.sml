@@ -161,7 +161,7 @@ structure GLibRegex :>
         Utf8.C.withPtr
          &&&> GLibRegexCompileFlags.C.withVal
          &&&> GLibRegexMatchFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GLibRegexRecord.C.fromPtr true
       )
         new_
@@ -223,7 +223,7 @@ structure GLibRegex :>
           (
             Utf8.C.withPtr
              &&&> FFI.Bool.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Bool.C.fromVal && FFI.Bool.C.fromVal
           )
             checkReplacement_

@@ -145,7 +145,7 @@ structure GtkRecentManager :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GtkRecentInfoRecord.C.fromPtr true
       )
         lookupItem_
@@ -159,7 +159,7 @@ structure GtkRecentManager :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         moveItem_
@@ -169,12 +169,12 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.C.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         removeItem_

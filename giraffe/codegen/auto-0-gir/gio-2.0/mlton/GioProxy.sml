@@ -63,7 +63,7 @@ structure GioProxy :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
         connect_
@@ -78,7 +78,7 @@ structure GioProxy :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
         connectFinish_

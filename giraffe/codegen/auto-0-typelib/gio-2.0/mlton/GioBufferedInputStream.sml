@@ -78,7 +78,7 @@ structure GioBufferedInputStream :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
         fill_
@@ -92,7 +92,7 @@ structure GioBufferedInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
         fillFinish_
@@ -107,7 +107,7 @@ structure GioBufferedInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
         readByte_

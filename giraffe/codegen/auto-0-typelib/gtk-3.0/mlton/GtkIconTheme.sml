@@ -187,7 +187,7 @@ structure GtkIconTheme :>
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
         loadIcon_

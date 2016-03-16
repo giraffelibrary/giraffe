@@ -1211,7 +1211,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         appendTo_
@@ -1225,7 +1225,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         appendToFinish_
@@ -1240,7 +1240,7 @@ structure GioFile :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GioFileCopyFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         copyAttributes_
@@ -1255,7 +1255,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         copyFinish_
@@ -1269,7 +1269,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         create_
@@ -1283,7 +1283,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         createFinish_
@@ -1297,7 +1297,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         createReadwrite_
@@ -1311,7 +1311,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         createReadwriteFinish_
@@ -1324,7 +1324,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         delete_
@@ -1338,7 +1338,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         ejectMountableWithOperationFinish_
@@ -1353,7 +1353,7 @@ structure GioFile :>
          &&&> Utf8.C.withPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileEnumeratorClass.C.fromPtr true
       )
         enumerateChildren_
@@ -1368,7 +1368,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileEnumeratorClass.C.fromPtr true
       )
         enumerateChildrenFinish_
@@ -1382,7 +1382,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioMountClass.C.fromPtr true
       )
         findEnclosingMount_
@@ -1395,7 +1395,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioMountClass.C.fromPtr true
       )
         findEnclosingMountFinish_
@@ -1410,7 +1410,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileClass.C.fromPtr true
       )
         getChildForDisplayName_
@@ -1434,7 +1434,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         makeDirectory_
@@ -1447,7 +1447,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         makeDirectoryWithParents_
@@ -1461,7 +1461,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         makeSymbolicLink_
@@ -1476,7 +1476,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileMonitorFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileMonitorClass.C.fromPtr true
       )
         monitor_
@@ -1491,7 +1491,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileMonitorFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileMonitorClass.C.fromPtr true
       )
         monitorDirectory_
@@ -1506,7 +1506,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> GioFileMonitorFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileMonitorClass.C.fromPtr true
       )
         monitorFile_
@@ -1520,7 +1520,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         mountEnclosingVolumeFinish_
@@ -1533,7 +1533,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileClass.C.fromPtr true
       )
         mountMountableFinish_
@@ -1546,7 +1546,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         openReadwrite_
@@ -1559,7 +1559,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         openReadwriteFinish_
@@ -1572,7 +1572,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         pollMountableFinish_
@@ -1585,7 +1585,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioAppInfoClass.C.fromPtr true
       )
         queryDefaultHandler_
@@ -1613,7 +1613,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryFilesystemInfo_
@@ -1627,7 +1627,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryFilesystemInfoFinish_
@@ -1642,7 +1642,7 @@ structure GioFile :>
          &&&> Utf8.C.withPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryInfo_
@@ -1657,7 +1657,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
         queryInfoFinish_
@@ -1670,7 +1670,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileAttributeInfoListRecord.C.fromPtr true
       )
         querySettableAttributes_
@@ -1683,7 +1683,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileAttributeInfoListRecord.C.fromPtr true
       )
         queryWritableNamespaces_
@@ -1696,7 +1696,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInputStreamClass.C.fromPtr true
       )
         read_
@@ -1709,7 +1709,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileInputStreamClass.C.fromPtr true
       )
         readFinish_
@@ -1725,7 +1725,7 @@ structure GioFile :>
          &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         replace_
@@ -1744,7 +1744,7 @@ structure GioFile :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> Utf8.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal
           )
             replaceContentsFinish_
@@ -1761,7 +1761,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileOutputStreamClass.C.fromPtr true
       )
         replaceFinish_
@@ -1777,7 +1777,7 @@ structure GioFile :>
          &&&> FFI.Bool.C.withVal
          &&&> GioFileCreateFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         replaceReadwrite_
@@ -1793,7 +1793,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileIOStreamClass.C.fromPtr true
       )
         replaceReadwriteFinish_
@@ -1810,7 +1810,7 @@ structure GioFile :>
          &&&> Utf8.C.withPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeByteString_
@@ -1829,7 +1829,7 @@ structure GioFile :>
          &&&> FFI.Int32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeInt32_
@@ -1848,7 +1848,7 @@ structure GioFile :>
          &&&> FFI.Int64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeInt64_
@@ -1867,7 +1867,7 @@ structure GioFile :>
          &&&> Utf8.C.withPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeString_
@@ -1886,7 +1886,7 @@ structure GioFile :>
          &&&> FFI.UInt32.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeUint32_
@@ -1905,7 +1905,7 @@ structure GioFile :>
          &&&> FFI.UInt64.C.withVal
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributeUint64_
@@ -1924,7 +1924,7 @@ structure GioFile :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GioFileInfoClass.C.fromPtr true && FFI.Bool.C.fromVal
           )
             setAttributesFinish_
@@ -1943,7 +1943,7 @@ structure GioFile :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> GioFileQueryInfoFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAttributesFromInfo_
@@ -1959,7 +1959,7 @@ structure GioFile :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileClass.C.fromPtr true
       )
         setDisplayName_
@@ -1973,7 +1973,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioFileClass.C.fromPtr true
       )
         setDisplayNameFinish_
@@ -1986,7 +1986,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         startMountableFinish_
@@ -1999,7 +1999,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         stopMountableFinish_
@@ -2013,7 +2013,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         trash_
@@ -2026,7 +2026,7 @@ structure GioFile :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         unmountMountableWithOperationFinish_

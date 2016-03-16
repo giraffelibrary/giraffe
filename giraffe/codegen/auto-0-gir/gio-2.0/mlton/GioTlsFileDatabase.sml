@@ -23,7 +23,7 @@ structure GioTlsFileDatabase :>
     type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new anchors = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
+    fun new anchors = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
     local
       open Property
     in

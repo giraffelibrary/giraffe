@@ -96,7 +96,7 @@ structure GioAppInfo :>
         Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GioAppInfoCreateFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioAppInfoClass.C.fromPtr true
       )
         createFromCommandline_
@@ -112,7 +112,7 @@ structure GioAppInfo :>
       (
         Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         launchDefaultForUri_
@@ -126,7 +126,7 @@ structure GioAppInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         addSupportsType_
@@ -151,7 +151,7 @@ structure GioAppInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         removeSupportsType_
@@ -164,7 +164,7 @@ structure GioAppInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAsDefaultForExtension_
@@ -177,7 +177,7 @@ structure GioAppInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAsDefaultForType_
@@ -190,7 +190,7 @@ structure GioAppInfo :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setAsLastUsedForType_

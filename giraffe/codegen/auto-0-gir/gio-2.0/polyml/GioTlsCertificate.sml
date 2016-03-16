@@ -40,12 +40,12 @@ structure GioTlsCertificate :>
     type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
     type t = base class_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.C.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         newFromFiles_
@@ -58,7 +58,7 @@ structure GioTlsCertificate :>
       (
         Utf8.C.withPtr
          &&&> FFI.SSize.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
         newFromPem_

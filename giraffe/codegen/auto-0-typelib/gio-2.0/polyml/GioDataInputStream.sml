@@ -145,7 +145,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt8.C.fromVal
       )
         readByte_
@@ -158,7 +158,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int16.C.fromVal
       )
         readInt16_
@@ -171,7 +171,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
         readInt32_
@@ -184,7 +184,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
         readInt64_
@@ -200,7 +200,7 @@ structure GioDataInputStream :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineFinishUtf8_
@@ -220,7 +220,7 @@ structure GioDataInputStream :>
             GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readLineUtf8_
@@ -237,7 +237,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
       )
         readUint16_
@@ -250,7 +250,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
       )
         readUint32_
@@ -263,7 +263,7 @@ structure GioDataInputStream :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt64.C.fromVal
       )
         readUint64_
@@ -280,7 +280,7 @@ structure GioDataInputStream :>
              &&&> Utf8.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntil_
@@ -301,7 +301,7 @@ structure GioDataInputStream :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUntilFinish_
@@ -323,7 +323,7 @@ structure GioDataInputStream :>
              &&&> FFI.Int64.C.withVal
              &&&> FFI.UInt64.C.withRefVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUpto_
@@ -345,7 +345,7 @@ structure GioDataInputStream :>
             GObjectObjectClass.C.withPtr
              &&&> GObjectObjectClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
             readUptoFinish_

@@ -49,7 +49,7 @@ structure GioTlsInteraction :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )
         askPassword_
@@ -63,7 +63,7 @@ structure GioTlsInteraction :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )
         askPasswordFinish_
@@ -77,7 +77,7 @@ structure GioTlsInteraction :>
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )
         invokeAskPassword_

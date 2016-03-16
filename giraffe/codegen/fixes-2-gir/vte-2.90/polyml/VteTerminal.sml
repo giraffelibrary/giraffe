@@ -273,7 +273,7 @@ structure VteTerminal :>
              &&&> Utf8CVector.C.withOptPtr
              &&&> GLibSpawnFlags.C.withVal
              &&&> GLibPid.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> GLibPid.C.fromVal
                    && I
           )
@@ -393,7 +393,7 @@ structure VteTerminal :>
       (
         GObjectObjectClass.C.withPtr
          &&&> VtePtyFlags.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
         ptyNew_
@@ -493,7 +493,7 @@ structure VteTerminal :>
          &&&> GObjectObjectClass.C.withPtr
          &&&> VteTerminalWriteFlags.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         writeContents_

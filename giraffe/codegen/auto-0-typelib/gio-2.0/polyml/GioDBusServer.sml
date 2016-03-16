@@ -45,7 +45,7 @@ structure GioDBusServer :>
          &&&> Utf8.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioDBusServerClass.C.fromPtr true
       )
         newSync_

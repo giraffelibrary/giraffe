@@ -177,7 +177,7 @@ structure GtkUIManager :>
       (
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt.C.fromVal
       )
         addUiFromFile_
@@ -191,7 +191,7 @@ structure GtkUIManager :>
         GObjectObjectClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.SSize.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.UInt.C.fromVal
       )
         addUiFromString_

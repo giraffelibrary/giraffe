@@ -86,8 +86,8 @@ structure VtePty :>
     type t = base class_t
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])
-    fun newForeign fd = (FFI.Int32.C.withVal &&&> GLibErrorRecord.C.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
+    fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])
+    fun newForeign fd = (FFI.Int32.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
     fun childSetup self = (GObjectObjectClass.C.withPtr ---> I) childSetup_ self
     fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
     fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
@@ -100,7 +100,7 @@ structure VtePty :>
             GObjectObjectClass.C.withPtr
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
-             &&&> GLibErrorRecord.C.handleError
+             &&&> GLibErrorRecord.handleError
              ---> FFI.Int32.C.fromVal
                    && FFI.Int32.C.fromVal
                    && FFI.Bool.C.fromVal
@@ -120,7 +120,7 @@ structure VtePty :>
         GObjectObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setSize_
@@ -135,7 +135,7 @@ structure VtePty :>
       (
         GObjectObjectClass.C.withPtr
          &&&> FFI.Bool.C.withVal
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
         setUtf8_

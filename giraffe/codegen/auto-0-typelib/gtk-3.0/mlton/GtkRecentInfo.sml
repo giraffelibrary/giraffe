@@ -103,7 +103,7 @@ structure GtkRecentInfo :>
       (
         GtkRecentInfoRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioAppInfoClass.C.fromPtr true
       )
         createAppInfo_

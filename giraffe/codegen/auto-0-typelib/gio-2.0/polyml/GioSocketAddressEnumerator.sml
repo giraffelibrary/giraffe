@@ -36,7 +36,7 @@ structure GioSocketAddressEnumerator :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )
         next_
@@ -49,7 +49,7 @@ structure GioSocketAddressEnumerator :>
       (
         GObjectObjectClass.C.withPtr
          &&&> GObjectObjectClass.C.withPtr
-         &&&> GLibErrorRecord.C.handleError
+         &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )
         nextFinish_
