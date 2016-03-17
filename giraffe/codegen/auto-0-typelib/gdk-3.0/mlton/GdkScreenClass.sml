@@ -4,7 +4,8 @@ structure GdkScreenClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a screen = unit
-    type 'a t = 'a screen GObjectObjectClass.t
+    type 'a class = 'a screen GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

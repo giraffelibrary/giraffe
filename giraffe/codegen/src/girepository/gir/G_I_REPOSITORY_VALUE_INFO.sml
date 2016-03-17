@@ -1,6 +1,6 @@
 signature G_I_REPOSITORY_VALUE_INFO =
   sig
-    type 'a class_t
+    type 'a class
 
     (*
      * The value returned by g_value_info_get_value is representable as
@@ -16,6 +16,6 @@ signature G_I_REPOSITORY_VALUE_INFO =
      * To avoid 64 bit issues, two interfaces to g_value_info_get_value are
      * provided returning 32 bit signed and unsigned values.
      *)
-    val getValueInt : 'a class_t -> LargeInt.int
-    val getValueWord : 'a class_t -> LargeInt.int
+    val getValueInt : 'a class -> LargeInt.int
+    val getValueWord : 'a class -> LargeInt.int
   end

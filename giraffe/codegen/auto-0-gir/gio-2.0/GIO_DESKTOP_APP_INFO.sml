@@ -1,22 +1,22 @@
 signature GIO_DESKTOP_APP_INFO =
   sig
-    type 'a class_t
-    type 'a app_info_class_t
-    type t = base class_t
-    val asAppInfo : 'a class_t -> base app_info_class_t
+    type 'a class
+    type 'a app_info_class
+    type t = base class
+    val asAppInfo : 'a class -> base app_info_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val newFromFilename : string -> base class_t
-    val newFromKeyfile : GLib.KeyFileRecord.t -> base class_t
+    val new : string -> base class
+    val newFromFilename : string -> base class
+    val newFromKeyfile : GLib.KeyFileRecord.t -> base class
     val setDesktopEnv : string -> unit
-    val getCategories : 'a class_t -> string
-    val getFilename : 'a class_t -> string
-    val getGenericName : 'a class_t -> string
-    val getIsHidden : 'a class_t -> bool
-    val getNodisplay : 'a class_t -> bool
+    val getCategories : 'a class -> string
+    val getFilename : 'a class -> string
+    val getGenericName : 'a class -> string
+    val getIsHidden : 'a class -> bool
+    val getNodisplay : 'a class -> bool
     val getShowIn :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val filenameProp : ('a class_t, string option, string option) Property.readwrite
+    val filenameProp : ('a class, string option, string option) Property.readwrite
   end

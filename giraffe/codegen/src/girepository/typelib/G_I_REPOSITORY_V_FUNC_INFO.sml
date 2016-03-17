@@ -1,11 +1,11 @@
 signature G_I_REPOSITORY_V_FUNC_INFO =
   sig
-    type 'a class_t
-    type 'a functioninfoclass_t
-    type 'a signalinfoclass_t
+    type 'a class
+    type 'a functioninfo_class
+    type 'a signalinfo_class
     type vfuncinfoflags_t
-    val getFlags : 'a class_t -> vfuncinfoflags_t
-    val getOffset : 'a class_t -> LargeInt.int
-    val getSignal : 'a class_t -> base signalinfoclass_t option
-    val getInvoker : 'a class_t -> base functioninfoclass_t option
+    val getFlags : 'a class -> vfuncinfoflags_t
+    val getOffset : 'a class -> LargeInt.int
+    val getSignal : 'a class -> base signalinfo_class option
+    val getInvoker : 'a class -> base functioninfo_class option
   end

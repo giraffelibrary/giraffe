@@ -1,20 +1,20 @@
 signature GIO_THEMED_ICON =
   sig
-    type 'a class_t
-    type 'a icon_class_t
-    type t = base class_t
-    val asIcon : 'a class_t -> base icon_class_t
+    type 'a class
+    type 'a icon_class
+    type t = base class
+    val asIcon : 'a class -> base icon_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base icon_class_t
-    val newWithDefaultFallbacks : string -> base icon_class_t
+    val new : string -> base icon_class
+    val newWithDefaultFallbacks : string -> base icon_class
     val appendName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val prependName :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val nameProp : ('a class_t, string option) Property.writeonly
-    val useDefaultFallbacksProp : ('a class_t, bool, bool) Property.readwrite
+    val nameProp : ('a class, string option) Property.writeonly
+    val useDefaultFallbacksProp : ('a class, bool, bool) Property.readwrite
   end

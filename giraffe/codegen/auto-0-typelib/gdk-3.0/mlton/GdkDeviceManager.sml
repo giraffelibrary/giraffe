@@ -1,16 +1,16 @@
 structure GdkDeviceManager :>
   GDK_DEVICE_MANAGER
-    where type 'a class_t = 'a GdkDeviceManagerClass.t
-    where type 'a device_class_t = 'a GdkDeviceClass.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t =
+    where type 'a class = 'a GdkDeviceManagerClass.class
+    where type 'a device_class = 'a GdkDeviceClass.class
+    where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_device_manager_get_type" : unit -> GObjectType.C.val_;
     val getClientPointer_ = _import "gdk_device_manager_get_client_pointer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getDisplay_ = _import "gdk_device_manager_get_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GdkDeviceManagerClass.t
-    type 'a device_class_t = 'a GdkDeviceClass.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type t = base class_t
+    type 'a class = 'a GdkDeviceManagerClass.class
+    type 'a device_class = 'a GdkDeviceClass.class
+    type 'a display_class = 'a GdkDisplayClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getClientPointer self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
     fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self

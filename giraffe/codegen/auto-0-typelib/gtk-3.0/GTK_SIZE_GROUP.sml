@@ -1,31 +1,31 @@
 signature GTK_SIZE_GROUP =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a widget_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a widget_class
     type size_group_mode_t
-    type t = base class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : size_group_mode_t -> base class_t
+    val new : size_group_mode_t -> base class
     val addWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
-    val getIgnoreHidden : 'a class_t -> bool
-    val getMode : 'a class_t -> size_group_mode_t
+    val getIgnoreHidden : 'a class -> bool
+    val getMode : 'a class -> size_group_mode_t
     val removeWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
     val setIgnoreHidden :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setMode :
-      'a class_t
+      'a class
        -> size_group_mode_t
        -> unit
-    val ignoreHiddenProp : ('a class_t, bool, bool) Property.readwrite
-    val modeProp : ('a class_t, size_group_mode_t, size_group_mode_t) Property.readwrite
+    val ignoreHiddenProp : ('a class, bool, bool) Property.readwrite
+    val modeProp : ('a class, size_group_mode_t, size_group_mode_t) Property.readwrite
   end

@@ -1,6 +1,6 @@
 structure GioCredentials :>
   GIO_CREDENTIALS
-    where type 'a class_t = 'a GioCredentialsClass.t =
+    where type 'a class = 'a GioCredentialsClass.class =
   struct
     local
       open PolyMLFFI
@@ -26,8 +26,8 @@ structure GioCredentials :>
           )
       val toString_ = call (load_sym libgio "g_credentials_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GioCredentialsClass.t
-    type t = base class_t
+    type 'a class = 'a GioCredentialsClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
     fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.UInt32.C.fromVal) getUnixUser_ (self & [])

@@ -1,17 +1,17 @@
 signature ATK_HYPERTEXT =
   sig
-    type 'a class_t
-    type 'a hyperlink_class_t
-    type t = base class_t
+    type 'a class
+    type 'a hyperlink_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val getLink :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base hyperlink_class_t
+       -> base hyperlink_class
     val getLinkIndex :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-    val getNLinks : 'a class_t -> LargeInt.int
-    val linkSelectedSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
+    val getNLinks : 'a class -> LargeInt.int
+    val linkSelectedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
   end

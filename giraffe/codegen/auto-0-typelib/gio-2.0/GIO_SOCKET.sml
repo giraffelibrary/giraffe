@@ -1,113 +1,113 @@
 signature GIO_SOCKET =
   sig
-    type 'a class_t
-    type 'a initable_class_t
-    type 'a socket_connection_class_t
-    type 'a credentials_class_t
-    type 'a cancellable_class_t
+    type 'a class
+    type 'a initable_class
+    type 'a socket_connection_class
+    type 'a credentials_class
+    type 'a cancellable_class
     type socket_family_t
     type socket_protocol_t
-    type 'a socket_address_class_t
+    type 'a socket_address_class
     type socket_type_t
-    type t = base class_t
-    val asInitable : 'a class_t -> base initable_class_t
+    type t = base class
+    val asInitable : 'a class -> base initable_class
     val getType : unit -> GObject.Type.t
     val new :
       socket_family_t
        -> socket_type_t
        -> socket_protocol_t
-       -> base class_t
-    val newFromFd : LargeInt.int -> base class_t
+       -> base class
+    val newFromFd : LargeInt.int -> base class
     val accept :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base class
     val bind :
-      'a class_t
-       -> 'b socket_address_class_t
+      'a class
+       -> 'b socket_address_class
        -> bool
        -> bool
-    val checkConnectResult : 'a class_t -> bool
-    val close : 'a class_t -> bool
+    val checkConnectResult : 'a class -> bool
+    val close : 'a class -> bool
     val conditionCheck :
-      'a class_t
+      'a class
        -> GLib.IOCondition.t
        -> GLib.IOCondition.t
     val conditionWait :
-      'a class_t
+      'a class
        -> GLib.IOCondition.t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val connect :
-      'a class_t
-       -> 'b socket_address_class_t
-       -> 'c cancellable_class_t option
+      'a class
+       -> 'b socket_address_class
+       -> 'c cancellable_class option
        -> bool
-    val connectionFactoryCreateConnection : 'a class_t -> base socket_connection_class_t
-    val getBlocking : 'a class_t -> bool
-    val getCredentials : 'a class_t -> base credentials_class_t
-    val getFamily : 'a class_t -> socket_family_t
-    val getFd : 'a class_t -> LargeInt.int
-    val getKeepalive : 'a class_t -> bool
-    val getListenBacklog : 'a class_t -> LargeInt.int
-    val getLocalAddress : 'a class_t -> base socket_address_class_t
-    val getProtocol : 'a class_t -> socket_protocol_t
-    val getRemoteAddress : 'a class_t -> base socket_address_class_t
-    val getSocketType : 'a class_t -> socket_type_t
-    val getTimeout : 'a class_t -> LargeInt.int
-    val isClosed : 'a class_t -> bool
-    val isConnected : 'a class_t -> bool
-    val listen : 'a class_t -> bool
+    val connectionFactoryCreateConnection : 'a class -> base socket_connection_class
+    val getBlocking : 'a class -> bool
+    val getCredentials : 'a class -> base credentials_class
+    val getFamily : 'a class -> socket_family_t
+    val getFd : 'a class -> LargeInt.int
+    val getKeepalive : 'a class -> bool
+    val getListenBacklog : 'a class -> LargeInt.int
+    val getLocalAddress : 'a class -> base socket_address_class
+    val getProtocol : 'a class -> socket_protocol_t
+    val getRemoteAddress : 'a class -> base socket_address_class
+    val getSocketType : 'a class -> socket_type_t
+    val getTimeout : 'a class -> LargeInt.int
+    val isClosed : 'a class -> bool
+    val isConnected : 'a class -> bool
+    val listen : 'a class -> bool
     val receive :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> LargeInt.int
     val receiveFrom :
-      'a class_t
-       -> 'b socket_address_class_t
+      'a class
+       -> 'b socket_address_class
        -> string
        -> LargeInt.int
-       -> 'c cancellable_class_t option
+       -> 'c cancellable_class option
        -> LargeInt.int
     val receiveWithBlocking :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> bool
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> LargeInt.int
     val setBlocking :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setKeepalive :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setListenBacklog :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setTimeout :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val shutdown :
-      'a class_t
+      'a class
        -> bool
        -> bool
        -> bool
-    val speaksIpv4 : 'a class_t -> bool
-    val blockingProp : ('a class_t, bool, bool) Property.readwrite
-    val familyProp : ('a class_t, socket_family_t, socket_family_t) Property.readwrite
-    val fdProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val keepaliveProp : ('a class_t, bool, bool) Property.readwrite
-    val listenBacklogProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val localAddressProp : ('a class_t, base socket_address_class_t option) Property.readonly
-    val protocolProp : ('a class_t, socket_protocol_t, socket_protocol_t) Property.readwrite
-    val remoteAddressProp : ('a class_t, base socket_address_class_t option) Property.readonly
-    val timeoutProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val typeProp : ('a class_t, socket_type_t, socket_type_t) Property.readwrite
+    val speaksIpv4 : 'a class -> bool
+    val blockingProp : ('a class, bool, bool) Property.readwrite
+    val familyProp : ('a class, socket_family_t, socket_family_t) Property.readwrite
+    val fdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val keepaliveProp : ('a class, bool, bool) Property.readwrite
+    val listenBacklogProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val localAddressProp : ('a class, base socket_address_class option) Property.readonly
+    val protocolProp : ('a class, socket_protocol_t, socket_protocol_t) Property.readwrite
+    val remoteAddressProp : ('a class, base socket_address_class option) Property.readonly
+    val timeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val typeProp : ('a class, socket_type_t, socket_type_t) Property.readwrite
   end

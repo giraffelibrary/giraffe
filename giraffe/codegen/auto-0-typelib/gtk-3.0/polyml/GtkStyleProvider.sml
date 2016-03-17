@@ -1,10 +1,10 @@
 structure GtkStyleProvider :>
   GTK_STYLE_PROVIDER
-    where type 'a class_t = 'a GtkStyleProviderClass.t
-    where type 'a icon_factory_class_t = 'a GtkIconFactoryClass.t
-    where type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
+    where type 'a class = 'a GtkStyleProviderClass.class
+    where type 'a icon_factory_class = 'a GtkIconFactoryClass.class
+    where type 'a style_properties_class = 'a GtkStylePropertiesClass.class
     where type state_flags_t = GtkStateFlags.t
-    where type widget_path_record_t = GtkWidgetPathRecord.t =
+    where type widget_path_t = GtkWidgetPathRecord.t =
   struct
     local
       open PolyMLFFI
@@ -23,12 +23,12 @@ structure GtkStyleProvider :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GtkStyleProviderClass.t
-    type 'a icon_factory_class_t = 'a GtkIconFactoryClass.t
-    type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
+    type 'a class = 'a GtkStyleProviderClass.class
+    type 'a icon_factory_class = 'a GtkIconFactoryClass.class
+    type 'a style_properties_class = 'a GtkStylePropertiesClass.class
     type state_flags_t = GtkStateFlags.t
-    type widget_path_record_t = GtkWidgetPathRecord.t
-    type t = base class_t
+    type widget_path_t = GtkWidgetPathRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getIconFactory self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)
     fun getStyle self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkStylePropertiesClass.C.fromPtr true) getStyle_ (self & path)

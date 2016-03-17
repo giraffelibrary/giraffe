@@ -1,6 +1,6 @@
 structure GtkAdjustment :>
   GTK_ADJUSTMENT
-    where type 'a class_t = 'a GtkAdjustmentClass.t =
+    where type 'a class = 'a GtkAdjustmentClass.class =
   struct
     local
       open PolyMLFFI
@@ -53,8 +53,8 @@ structure GtkAdjustment :>
       val setValue_ = call (load_sym libgtk "gtk_adjustment_set_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
       val valueChanged_ = call (load_sym libgtk "gtk_adjustment_value_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkAdjustmentClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAdjustmentClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new value lower upper stepIncrement pageIncrement pageSize =
       (

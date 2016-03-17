@@ -1,9 +1,10 @@
 signature GDK_EVENT_CROSSING_RECORD =
   sig
     type crossing
-    type 'a event_t
-    type t = crossing event_t
+    type 'a event_union
+    type t = crossing event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       ENTER_NOTIFY
     | LEAVE_NOTIFY

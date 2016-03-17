@@ -1,8 +1,8 @@
 structure GtkIconInfo :>
   GTK_ICON_INFO
-    where type record_t = GtkIconInfoRecord.t
-    where type 'a icon_theme_class_t = 'a GtkIconThemeClass.t
-    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
+    where type t = GtkIconInfoRecord.t
+    where type 'a icon_theme_class = 'a GtkIconThemeClass.class
+    where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     local
       open PolyMLFFI
@@ -39,10 +39,9 @@ structure GtkIconInfo :>
           )
       val setRawCoordinates_ = call (load_sym libgtk "gtk_icon_info_set_raw_coordinates") (GtkIconInfoRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type record_t = GtkIconInfoRecord.t
-    type 'a icon_theme_class_t = 'a GtkIconThemeClass.t
-    type 'a style_context_class_t = 'a GtkStyleContextClass.t
-    type t = record_t
+    type t = GtkIconInfoRecord.t
+    type 'a icon_theme_class = 'a GtkIconThemeClass.class
+    type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForPixbuf iconTheme pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) copy_ self

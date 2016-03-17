@@ -1,10 +1,11 @@
 signature GTK_WIDGET_CLASS =
   sig
     type 'a widget
-    type 'a t = 'a widget GObject.InitiallyUnownedClass.t
-    val toBase : 'a t -> base t
-    val t : (base t, 'a t) GObject.Value.accessor
-    val tOpt : (base t option, 'a t option) GObject.Value.accessor
+    type 'a class = 'a widget GObject.InitiallyUnownedClass.class
+    type t = base class
+    val toBase : 'a class -> base class
+    val t : (base class, 'a class) GObject.Value.accessor
+    val tOpt : (base class option, 'a class option) GObject.Value.accessor
     structure C :
       sig
         type notnull
@@ -12,10 +13,10 @@ signature GTK_WIDGET_CLASS =
         val fromPtr :
           bool
            -> notnull p
-           -> 'a t
+           -> 'a class
         val fromOptPtr :
           bool
            -> unit p
-           -> 'a t option
+           -> 'a class option
       end
   end

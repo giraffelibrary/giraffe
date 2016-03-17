@@ -1,7 +1,7 @@
 structure GioThemedIcon :>
   GIO_THEMED_ICON
-    where type 'a class_t = 'a GioThemedIconClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t =
+    where type 'a class = 'a GioThemedIconClass.class
+    where type 'a icon_class = 'a GioIconClass.class =
   struct
     val getType_ = _import "g_themed_icon_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_g_themed_icon_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -36,9 +36,9 @@ structure GioThemedIcon :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioThemedIconClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
-    type t = base class_t
+    type 'a class = 'a GioThemedIconClass.class
+    type 'a icon_class = 'a GioIconClass.class
+    type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new iconname = (Utf8.C.withPtr ---> GioIconClass.C.fromPtr true) new_ iconname

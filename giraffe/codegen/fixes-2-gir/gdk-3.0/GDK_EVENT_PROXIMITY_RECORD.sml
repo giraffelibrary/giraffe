@@ -1,9 +1,10 @@
 signature GDK_EVENT_PROXIMITY_RECORD =
   sig
     type proximity
-    type 'a event_t
-    type t = proximity event_t
+    type 'a event_union
+    type t = proximity event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       PROXIMITY_IN
     | PROXIMITY_OUT

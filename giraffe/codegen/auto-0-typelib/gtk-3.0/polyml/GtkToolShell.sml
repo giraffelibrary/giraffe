@@ -1,10 +1,10 @@
 structure GtkToolShell :>
   GTK_TOOL_SHELL
-    where type 'a class_t = 'a GtkToolShellClass.t
+    where type 'a class = 'a GtkToolShellClass.class
     where type relief_style_t = GtkReliefStyle.t
     where type toolbar_style_t = GtkToolbarStyle.t
     where type orientation_t = GtkOrientation.t
-    where type 'a size_group_class_t = 'a GtkSizeGroupClass.t =
+    where type 'a size_group_class = 'a GtkSizeGroupClass.class =
   struct
     local
       open PolyMLFFI
@@ -20,12 +20,12 @@ structure GtkToolShell :>
       val getTextSizeGroup_ = call (load_sym libgtk "gtk_tool_shell_get_text_size_group") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val rebuildMenu_ = call (load_sym libgtk "gtk_tool_shell_rebuild_menu") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkToolShellClass.t
+    type 'a class = 'a GtkToolShellClass.class
     type relief_style_t = GtkReliefStyle.t
     type toolbar_style_t = GtkToolbarStyle.t
     type orientation_t = GtkOrientation.t
-    type 'a size_group_class_t = 'a GtkSizeGroupClass.t
-    type t = base class_t
+    type 'a size_group_class = 'a GtkSizeGroupClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEllipsizeMode self = (GObjectObjectClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsizeMode_ self
     fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getIconSize_ self

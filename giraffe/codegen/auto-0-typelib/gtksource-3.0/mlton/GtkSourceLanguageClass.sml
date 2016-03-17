@@ -4,7 +4,8 @@ structure GtkSourceLanguageClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a language = unit
-    type 'a t = 'a language GObjectObjectClass.t
+    type 'a class = 'a language GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

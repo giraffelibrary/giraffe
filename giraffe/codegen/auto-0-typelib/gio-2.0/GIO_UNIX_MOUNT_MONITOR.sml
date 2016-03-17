@@ -1,13 +1,13 @@
 signature GIO_UNIX_MOUNT_MONITOR =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val setRateLimit :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val mountpointsChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val mountsChangedSig : (unit -> unit) -> 'a class_t Signal.signal
+    val mountpointsChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val mountsChangedSig : (unit -> unit) -> 'a class Signal.signal
   end

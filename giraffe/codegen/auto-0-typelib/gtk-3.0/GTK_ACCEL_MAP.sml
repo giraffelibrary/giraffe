@@ -1,8 +1,8 @@
 signature GTK_ACCEL_MAP =
   sig
-    type 'a class_t
-    type accel_key_record_t
-    type t = base class_t
+    type 'a class
+    type accel_key_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val addEntry :
       string
@@ -16,11 +16,11 @@ signature GTK_ACCEL_MAP =
        -> Gdk.ModifierType.t
        -> bool
        -> bool
-    val get : unit -> base class_t
+    val get : unit -> base class
     val load : string -> unit
     val loadFd : LargeInt.int -> unit
     val lockPath : string -> unit
-    val lookupEntry : string -> accel_key_record_t option
+    val lookupEntry : string -> accel_key_t option
     val save : string -> unit
     val saveFd : LargeInt.int -> unit
     val unlockPath : string -> unit
@@ -29,5 +29,5 @@ signature GTK_ACCEL_MAP =
         -> LargeInt.int
         -> Gdk.ModifierType.t
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
   end

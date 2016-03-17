@@ -1,13 +1,13 @@
 signature GIO_FILE_ICON =
   sig
-    type 'a class_t
-    type 'a icon_class_t
-    type 'a loadable_icon_class_t
-    type 'a file_class_t
-    type t = base class_t
-    val asIcon : 'a class_t -> base icon_class_t
-    val asLoadableIcon : 'a class_t -> base loadable_icon_class_t
+    type 'a class
+    type 'a icon_class
+    type 'a loadable_icon_class
+    type 'a file_class
+    type t = base class
+    val asIcon : 'a class -> base icon_class
+    val asLoadableIcon : 'a class -> base loadable_icon_class
     val getType : unit -> GObject.Type.t
-    val getFile : 'a class_t -> base file_class_t
-    val fileProp : ('a class_t, base file_class_t option, 'b file_class_t option) Property.readwrite
+    val getFile : 'a class -> base file_class
+    val fileProp : ('a class, base file_class option, 'b file_class option) Property.readwrite
   end

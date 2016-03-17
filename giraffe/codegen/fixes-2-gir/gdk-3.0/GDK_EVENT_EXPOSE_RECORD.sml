@@ -1,9 +1,10 @@
 signature GDK_EVENT_EXPOSE_RECORD =
   sig
     type expose
-    type 'a event_t
-    type t = expose event_t
+    type 'a event_union
+    type t = expose event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       EXPOSE
     | DAMAGE

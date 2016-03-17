@@ -1,6 +1,6 @@
 structure GtkAccelGroup :>
   GTK_ACCEL_GROUP
-    where type 'a class_t = 'a GtkAccelGroupClass.t
+    where type 'a class = 'a GtkAccelGroupClass.class
     where type accel_flags_t = GtkAccelFlags.t =
   struct
     val getType_ = _import "gtk_accel_group_get_type" : unit -> GObjectType.C.val_;
@@ -93,9 +93,9 @@ structure GtkAccelGroup :>
     val getModifierMask_ = _import "gtk_accel_group_get_modifier_mask" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkModifierType.C.val_;
     val lock_ = _import "gtk_accel_group_lock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unlock_ = _import "gtk_accel_group_unlock" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkAccelGroupClass.t
+    type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.C.fromPtr true) new_ ()
     fun fromAccelClosure closure = (GObjectClosureRecord.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) fromAccelClosure_ closure

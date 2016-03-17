@@ -1,19 +1,19 @@
 signature GIO_LOADABLE_ICON =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
-    type 'a input_stream_class_t
-    type 'a async_result_class_t
-    type t = base class_t
+    type 'a class
+    type 'a cancellable_class
+    type 'a input_stream_class
+    type 'a async_result_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val load :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b cancellable_class_t option
-       -> base input_stream_class_t * string
+       -> 'b cancellable_class option
+       -> base input_stream_class * string
     val loadFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> string
-       -> base input_stream_class_t
+       -> base input_stream_class
   end

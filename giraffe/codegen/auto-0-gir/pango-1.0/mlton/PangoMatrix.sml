@@ -1,6 +1,6 @@
 structure PangoMatrix :>
   PANGO_MATRIX
-    where type record_t = PangoMatrixRecord.t =
+    where type t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.C.val_;
     val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p * PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> unit;) (x1, x2)
@@ -75,8 +75,7 @@ structure PangoMatrix :>
               x2,
               x3
             )
-    type record_t = PangoMatrixRecord.t
-    type t = record_t
+    type t = PangoMatrixRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun concat self newMatrix = (PangoMatrixRecord.C.withPtr &&&> PangoMatrixRecord.C.withPtr ---> I) concat_ (self & newMatrix)
     fun copy self = (PangoMatrixRecord.C.withPtr ---> PangoMatrixRecord.C.fromPtr true) copy_ self

@@ -1,9 +1,9 @@
 structure GtkButton :>
   GTK_BUTTON
-    where type 'a class_t = 'a GtkButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a class = 'a GtkButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type position_type_t = GtkPositionType.t
     where type relief_style_t = GtkReliefStyle.t =
   struct
@@ -48,13 +48,13 @@ structure GtkButton :>
       val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a class = 'a GtkButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
     type position_type_t = GtkPositionType.t
     type relief_style_t = GtkReliefStyle.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

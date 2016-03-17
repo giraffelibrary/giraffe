@@ -1,9 +1,10 @@
 signature GDK_EVENT_BUTTON_RECORD =
   sig
     type button
-    type 'a event_t
-    type t = button event_t
+    type 'a event_union
+    type t = button event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       BUTTON_PRESS
     | DOUBLE_BUTTON_PRESS

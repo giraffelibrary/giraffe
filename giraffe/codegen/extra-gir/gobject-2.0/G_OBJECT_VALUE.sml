@@ -7,26 +7,24 @@
 
 signature G_OBJECT_VALUE =
   sig
-    type record_t
+    type t
     type type_t
 
-    type t = record_t
 
-
-    val init : type_t -> record_t
- (* val copy : record_t * record_t -> unit  ?? should be called assign for consistency? *)
-    val reset : record_t -> unit
+    val init : type_t -> t
+ (* val copy : t * record_t -> unit  ?? should be called assign for consistency? *)
+    val reset : t -> unit
 
     val getType : unit -> type_t
-    val holds : type_t -> record_t -> bool
-    val gTypeOf : record_t -> type_t
-    val isValue : record_t -> bool
+    val holds : type_t -> t -> bool
+    val gTypeOf : t -> type_t
+    val isValue : t -> bool
  
 
     type ('a, 'b) accessor
 
-    val get : ('a, 'b) accessor -> record_t -> 'a
-    val set : ('a, 'b) accessor -> record_t -> 'b -> unit
+    val get : ('a, 'b) accessor -> t -> 'a
+    val set : ('a, 'b) accessor -> t -> 'b -> unit
     val baseType : ('a, 'b) accessor -> type_t
 
 

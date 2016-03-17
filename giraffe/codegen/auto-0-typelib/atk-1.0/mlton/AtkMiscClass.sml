@@ -4,7 +4,8 @@ structure AtkMiscClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a misc = unit
-    type 'a t = 'a misc GObjectObjectClass.t
+    type 'a class = 'a misc GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -1,6 +1,6 @@
 structure GObjectParamSpec :>
   G_OBJECT_PARAM_SPEC
-    where type 'a class_t = 'a GObjectParamSpecClass.t
+    where type 'a class = 'a GObjectParamSpecClass.class
     where type type_t = GObjectType.t =
   struct
     local
@@ -12,9 +12,9 @@ structure GObjectParamSpec :>
       val getNick_ = call (load_sym libgobject "g_param_spec_get_nick") (GObjectParamSpecClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getRedirectTarget_ = call (load_sym libgobject "g_param_spec_get_redirect_target") (GObjectParamSpecClass.PolyML.cPtr --> GObjectParamSpecClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GObjectParamSpecClass.t
+    type 'a class = 'a GObjectParamSpecClass.class
     type type_t = GObjectType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBlurb self = (GObjectParamSpecClass.C.withPtr ---> Utf8.C.fromPtr false) getBlurb_ self
     fun getName self = (GObjectParamSpecClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self

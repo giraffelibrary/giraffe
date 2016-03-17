@@ -4,7 +4,8 @@ structure GioFileEnumeratorClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a file_enumerator = unit
-    type 'a t = 'a file_enumerator GObjectObjectClass.t
+    type 'a class = 'a file_enumerator GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

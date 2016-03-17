@@ -1,9 +1,10 @@
 signature GDK_EVENT_D_N_D_RECORD =
   sig
     type dnd
-    type 'a event_t
-    type t = dnd event_t
+    type 'a event_union
+    type t = dnd event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       DRAG_ENTER
     | DRAG_LEAVE

@@ -1,10 +1,10 @@
 structure GtkTreeModelFilter :>
   GTK_TREE_MODEL_FILTER
-    where type 'a class_t = 'a GtkTreeModelFilterClass.t
-    where type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    where type tree_path_record_t = GtkTreePathRecord.t =
+    where type 'a class = 'a GtkTreeModelFilterClass.class
+    where type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class
+    where type tree_path_t = GtkTreePathRecord.t =
   struct
     local
       open PolyMLFFI
@@ -33,12 +33,12 @@ structure GtkTreeModelFilter :>
       val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTreeModelFilterClass.t
-    type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type tree_path_record_t = GtkTreePathRecord.t
-    type t = base class_t
+    type 'a class = 'a GtkTreeModelFilterClass.class
+    type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
+    type tree_iter_t = GtkTreeIterRecord.t
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type tree_path_t = GtkTreePathRecord.t
+    type t = base class
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
     fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

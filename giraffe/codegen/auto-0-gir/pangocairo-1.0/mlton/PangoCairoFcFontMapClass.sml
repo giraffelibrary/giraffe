@@ -4,7 +4,8 @@ structure PangoCairoFcFontMapClass :>
     where type 'a C.p = 'a PangoFontMapClass.C.p =
   struct
     type 'a fc_font_map = unit
-    type 'a t = 'a fc_font_map PangoFontMapClass.t
+    type 'a class = 'a fc_font_map PangoFontMapClass.class
+    type t = base class
     fun toBase obj = obj
     val t = PangoFontMapClass.t
     val tOpt = PangoFontMapClass.tOpt

@@ -1,9 +1,10 @@
 signature G_I_REPOSITORY_CONSTANT_INFO_CLASS =
   sig
     type 'a constantinfo
-    type 'a baseinfoclass_t
-    type 'a t = 'a constantinfo baseinfoclass_t
-    val toBase : 'a t -> base t
+    type 'a baseinfo_class
+    type 'a class = 'a constantinfo baseinfo_class
+    type t = base class
+    val toBase : 'a class -> base class
     structure Obj :
       sig
         type data

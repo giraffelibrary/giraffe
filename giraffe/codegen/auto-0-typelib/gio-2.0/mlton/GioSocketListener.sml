@@ -1,13 +1,13 @@
 structure GioSocketListener :>
   GIO_SOCKET_LISTENER
-    where type 'a class_t = 'a GioSocketListenerClass.t
-    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a class = 'a GioSocketListenerClass.class
+    where type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type socket_protocol_t = GioSocketProtocol.t
     where type socket_type_t = GioSocketType.t
-    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
-    where type 'a socket_class_t = 'a GioSocketClass.t =
+    where type 'a socket_address_class = 'a GioSocketAddressClass.class
+    where type 'a socket_class = 'a GioSocketClass.class =
   struct
     val getType_ = _import "g_socket_listener_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_socket_listener_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -179,15 +179,15 @@ structure GioSocketListener :>
             )
     val close_ = _import "g_socket_listener_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioSocketListenerClass.t
-    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a class = 'a GioSocketListenerClass.class
+    type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
     type socket_protocol_t = GioSocketProtocol.t
     type socket_type_t = GioSocketType.t
-    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
-    type 'a socket_class_t = 'a GioSocketClass.t
-    type t = base class_t
+    type 'a socket_address_class = 'a GioSocketAddressClass.class
+    type 'a socket_class = 'a GioSocketClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketListenerClass.C.fromPtr true) new_ ()
     fun accept self cancellable =

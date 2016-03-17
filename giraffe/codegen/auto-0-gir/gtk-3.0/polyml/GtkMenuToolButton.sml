@@ -1,10 +1,10 @@
 structure GtkMenuToolButton :>
   GTK_MENU_TOOL_BUTTON
-    where type 'a class_t = 'a GtkMenuToolButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a menu_class_t = 'a GtkMenuClass.t =
+    where type 'a class = 'a GtkMenuToolButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a menu_class = 'a GtkMenuClass.class =
   struct
     local
       open PolyMLFFI
@@ -17,12 +17,12 @@ structure GtkMenuToolButton :>
       val setArrowTooltipText_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val setMenu_ = call (load_sym libgtk "gtk_menu_tool_button_set_menu") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkMenuToolButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a menu_class_t = 'a GtkMenuClass.t
-    type t = base class_t
+    type 'a class = 'a GtkMenuToolButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a menu_class = 'a GtkMenuClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

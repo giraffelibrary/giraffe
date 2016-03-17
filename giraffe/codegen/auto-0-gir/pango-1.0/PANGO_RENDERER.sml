@@ -1,61 +1,61 @@
 signature PANGO_RENDERER =
   sig
-    type 'a class_t
+    type 'a class
     type glyph_t
-    type glyph_item_record_t
-    type glyph_string_record_t
-    type 'a font_class_t
-    type 'a layout_class_t
-    type layout_line_record_t
-    type color_record_t
+    type glyph_item_t
+    type glyph_string_t
+    type 'a font_class
+    type 'a layout_class
+    type layout_line_t
+    type color_t
     type render_part_t
-    type matrix_record_t
-    type t = base class_t
+    type matrix_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val activate : 'a class_t -> unit
-    val deactivate : 'a class_t -> unit
+    val activate : 'a class -> unit
+    val deactivate : 'a class -> unit
     val drawErrorUnderline :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val drawGlyph :
-      'a class_t
-       -> 'b font_class_t
+      'a class
+       -> 'b font_class
        -> glyph_t
        -> real
        -> real
        -> unit
     val drawGlyphItem :
-      'a class_t
+      'a class
        -> string option
-       -> glyph_item_record_t
+       -> glyph_item_t
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val drawGlyphs :
-      'a class_t
-       -> 'b font_class_t
-       -> glyph_string_record_t
+      'a class
+       -> 'b font_class
+       -> glyph_string_t
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val drawLayout :
-      'a class_t
-       -> 'b layout_class_t
+      'a class
+       -> 'b layout_class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val drawLayoutLine :
-      'a class_t
-       -> layout_line_record_t
+      'a class
+       -> layout_line_t
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val drawRectangle :
-      'a class_t
+      'a class
        -> render_part_t
        -> LargeInt.int
        -> LargeInt.int
@@ -63,7 +63,7 @@ signature PANGO_RENDERER =
        -> LargeInt.int
        -> unit
     val drawTrapezoid :
-      'a class_t
+      'a class
        -> render_part_t
        -> real
        -> real
@@ -73,23 +73,23 @@ signature PANGO_RENDERER =
        -> real
        -> unit
     val getColor :
-      'a class_t
+      'a class
        -> render_part_t
-       -> color_record_t
-    val getLayout : 'a class_t -> base layout_class_t
-    val getLayoutLine : 'a class_t -> layout_line_record_t
-    val getMatrix : 'a class_t -> matrix_record_t
+       -> color_t
+    val getLayout : 'a class -> base layout_class
+    val getLayoutLine : 'a class -> layout_line_t
+    val getMatrix : 'a class -> matrix_t
     val partChanged :
-      'a class_t
+      'a class
        -> render_part_t
        -> unit
     val setColor :
-      'a class_t
+      'a class
        -> render_part_t
-       -> color_record_t option
+       -> color_t option
        -> unit
     val setMatrix :
-      'a class_t
-       -> matrix_record_t option
+      'a class
+       -> matrix_t option
        -> unit
   end

@@ -1,10 +1,10 @@
 structure GtkSourceCompletion :>
   GTK_SOURCE_COMPLETION
-    where type 'a class_t = 'a GtkSourceCompletionClass.t
-    where type 'a completion_info_class_t = 'a GtkSourceCompletionInfoClass.t
-    where type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t
-    where type 'a completion_context_class_t = 'a GtkSourceCompletionContextClass.t
-    where type 'a view_class_t = 'a GtkSourceViewClass.t =
+    where type 'a class = 'a GtkSourceCompletionClass.class
+    where type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
+    where type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
+    where type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
+    where type 'a view_class = 'a GtkSourceViewClass.class =
   struct
     val getType_ = _import "gtk_source_completion_get_type" : unit -> GObjectType.C.val_;
     val addProvider_ =
@@ -48,12 +48,12 @@ structure GtkSourceCompletion :>
               x3
             )
     val unblockInteractive_ = _import "gtk_source_completion_unblock_interactive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkSourceCompletionClass.t
-    type 'a completion_info_class_t = 'a GtkSourceCompletionInfoClass.t
-    type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t
-    type 'a completion_context_class_t = 'a GtkSourceCompletionContextClass.t
-    type 'a view_class_t = 'a GtkSourceViewClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionClass.class
+    type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
+    type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
+    type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
+    type 'a view_class = 'a GtkSourceViewClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addProvider self provider =
       (

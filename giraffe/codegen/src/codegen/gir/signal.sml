@@ -91,7 +91,7 @@ fun makeSignalSpec
     val functionTy = foldl TyFun retTy revInTys'3
 
     (*
-     * <functionTy> -> <var> class_t Signal.signal
+     * <functionTy> -> <var> class Signal.signal
      *)
     val (containerTy, _) =
       makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'3)

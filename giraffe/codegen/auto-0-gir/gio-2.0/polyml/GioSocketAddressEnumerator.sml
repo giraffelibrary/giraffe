@@ -1,9 +1,9 @@
 structure GioSocketAddressEnumerator :>
   GIO_SOCKET_ADDRESS_ENUMERATOR
-    where type 'a class_t = 'a GioSocketAddressEnumeratorClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioSocketAddressEnumeratorClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a socket_address_class = 'a GioSocketAddressClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -26,11 +26,11 @@ structure GioSocketAddressEnumerator :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GioSocketAddressEnumeratorClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioSocketAddressEnumeratorClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a socket_address_class = 'a GioSocketAddressClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun next self cancellable =
       (

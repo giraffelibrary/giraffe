@@ -1,19 +1,19 @@
 signature GDK_DISPLAY_MANAGER =
   sig
-    type 'a class_t
-    type 'a display_class_t
-    type t = base class_t
+    type 'a class
+    type 'a display_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val get : unit -> base class_t
-    val getDefaultDisplay : 'a class_t -> base display_class_t
+    val get : unit -> base class
+    val getDefaultDisplay : 'a class -> base display_class
     val openDisplay :
-      'a class_t
+      'a class
        -> string
-       -> base display_class_t
+       -> base display_class
     val setDefaultDisplay :
-      'a class_t
-       -> 'b display_class_t
+      'a class
+       -> 'b display_class
        -> unit
-    val displayOpenedSig : (base display_class_t -> unit) -> 'a class_t Signal.signal
-    val defaultDisplayProp : ('a class_t, base display_class_t option, 'b display_class_t option) Property.readwrite
+    val displayOpenedSig : (base display_class -> unit) -> 'a class Signal.signal
+    val defaultDisplayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
   end

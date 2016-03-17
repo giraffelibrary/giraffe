@@ -1,7 +1,7 @@
 structure GtkMisc :>
   GTK_MISC
-    where type 'a class_t = 'a GtkMiscClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkMiscClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_misc_get_type" : unit -> GObjectType.C.val_;
     val getAlignment_ =
@@ -72,9 +72,9 @@ structure GtkMisc :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkMiscClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkMiscClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -1,82 +1,82 @@
 signature GTK_ASSISTANT =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type assistant_page_type_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val addActionWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
     val appendPage :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
-    val commit : 'a class_t -> unit
-    val getCurrentPage : 'a class_t -> LargeInt.int
-    val getNPages : 'a class_t -> LargeInt.int
+    val commit : 'a class -> unit
+    val getCurrentPage : 'a class -> LargeInt.int
+    val getNPages : 'a class -> LargeInt.int
     val getNthPage :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base widget_class_t
+       -> base widget_class
     val getPageComplete :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
     val getPageTitle :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
     val getPageType :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> assistant_page_type_t
     val insertPage :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
        -> LargeInt.int
-    val nextPage : 'a class_t -> unit
+    val nextPage : 'a class -> unit
     val prependPage :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
-    val previousPage : 'a class_t -> unit
+    val previousPage : 'a class -> unit
     val removeActionWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
     val removePage :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setCurrentPage :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setPageComplete :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
        -> unit
     val setPageTitle :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
        -> unit
     val setPageType :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> assistant_page_type_t
        -> unit
-    val updateButtonsState : 'a class_t -> unit
-    val applySig : (unit -> unit) -> 'a class_t Signal.signal
-    val cancelSig : (unit -> unit) -> 'a class_t Signal.signal
-    val closeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val prepareSig : (base widget_class_t -> unit) -> 'a class_t Signal.signal
+    val updateButtonsState : 'a class -> unit
+    val applySig : (unit -> unit) -> 'a class Signal.signal
+    val cancelSig : (unit -> unit) -> 'a class Signal.signal
+    val closeSig : (unit -> unit) -> 'a class Signal.signal
+    val prepareSig : (base widget_class -> unit) -> 'a class Signal.signal
   end

@@ -1,43 +1,43 @@
 signature GTK_IMAGE_MENU_ITEM =
   sig
-    type 'a class_t
-    type 'a activatable_class_t
-    type 'a buildable_class_t
-    type 'a accel_group_class_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatable_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a activatable_class
+    type 'a buildable_class
+    type 'a accel_group_class
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActivatable : 'a class -> base activatable_class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val newFromStock :
       string
-       -> 'a accel_group_class_t option
-       -> base class_t
-    val newWithLabel : string -> base class_t
-    val newWithMnemonic : string -> base class_t
-    val getAlwaysShowImage : 'a class_t -> bool
-    val getImage : 'a class_t -> base widget_class_t
-    val getUseStock : 'a class_t -> bool
+       -> 'a accel_group_class option
+       -> base class
+    val newWithLabel : string -> base class
+    val newWithMnemonic : string -> base class
+    val getAlwaysShowImage : 'a class -> bool
+    val getImage : 'a class -> base widget_class
+    val getUseStock : 'a class -> bool
     val setAccelGroup :
-      'a class_t
-       -> 'b accel_group_class_t
+      'a class
+       -> 'b accel_group_class
        -> unit
     val setAlwaysShowImage :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setImage :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> unit
     val setUseStock :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val accelGroupProp : ('a class_t, 'b accel_group_class_t option) Property.writeonly
-    val alwaysShowImageProp : ('a class_t, bool, bool) Property.readwrite
-    val imageProp : ('a class_t, base widget_class_t option, 'b widget_class_t option) Property.readwrite
-    val useStockProp : ('a class_t, bool, bool) Property.readwrite
+    val accelGroupProp : ('a class, 'b accel_group_class option) Property.writeonly
+    val alwaysShowImageProp : ('a class, bool, bool) Property.readwrite
+    val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val useStockProp : ('a class, bool, bool) Property.readwrite
   end

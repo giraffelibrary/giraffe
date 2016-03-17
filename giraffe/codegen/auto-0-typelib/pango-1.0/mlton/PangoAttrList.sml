@@ -1,7 +1,7 @@
 structure PangoAttrList :>
   PANGO_ATTR_LIST
-    where type record_t = PangoAttrListRecord.t
-    where type attribute_record_t = PangoAttributeRecord.t =
+    where type t = PangoAttrListRecord.t
+    where type attribute_t = PangoAttributeRecord.t =
   struct
     val getType_ = _import "pango_attr_list_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "pango_attr_list_new" : unit -> PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p;
@@ -29,9 +29,8 @@ structure PangoAttrList :>
               x3,
               x4
             )
-    type record_t = PangoAttrListRecord.t
-    type attribute_record_t = PangoAttributeRecord.t
-    type t = record_t
+    type t = PangoAttrListRecord.t
+    type attribute_t = PangoAttributeRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()
     fun change self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) change_ (self & attr)

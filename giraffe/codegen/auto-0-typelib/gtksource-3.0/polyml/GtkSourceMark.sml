@@ -1,6 +1,6 @@
 structure GtkSourceMark :>
   GTK_SOURCE_MARK
-    where type 'a class_t = 'a GtkSourceMarkClass.t =
+    where type 'a class = 'a GtkSourceMarkClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,8 +11,8 @@ structure GtkSourceMark :>
       val next_ = call (load_sym libgtksourceview "gtk_source_mark_next") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
       val prev_ = call (load_sym libgtksourceview "gtk_source_mark_prev") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GtkSourceMarkClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceMarkClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name category = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceMarkClass.C.fromPtr true) new_ (name & category)
     fun getCategory self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCategory_ self

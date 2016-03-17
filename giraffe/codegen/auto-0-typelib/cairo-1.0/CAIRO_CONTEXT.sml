@@ -1,6 +1,5 @@
 signature CAIRO_CONTEXT =
   sig
-    type record_t
-    type t = record_t
+    type t
     val getType : unit -> GObject.Type.t
   end

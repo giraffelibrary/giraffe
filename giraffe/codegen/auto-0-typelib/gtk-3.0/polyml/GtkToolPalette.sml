@@ -1,16 +1,16 @@
 structure GtkToolPalette :>
   GTK_TOOL_PALETTE
-    where type 'a class_t = 'a GtkToolPaletteClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    where type target_entry_record_t = GtkTargetEntryRecord.t
+    where type 'a class = 'a GtkToolPaletteClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type dest_defaults_t = GtkDestDefaults.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type selection_data_record_t = GtkSelectionDataRecord.t
-    where type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type selection_data_t = GtkSelectionDataRecord.t
+    where type 'a tool_item_class = 'a GtkToolItemClass.class
     where type tool_palette_drag_targets_t = GtkToolPaletteDragTargets.t
-    where type 'a tool_item_group_class_t = 'a GtkToolItemGroupClass.t
+    where type 'a tool_item_group_class = 'a GtkToolItemGroupClass.class
     where type icon_size_t = GtkIconSize.t
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
@@ -83,20 +83,20 @@ structure GtkToolPalette :>
       val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkToolPaletteClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    type target_entry_record_t = GtkTargetEntryRecord.t
+    type 'a class = 'a GtkToolPaletteClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a scrollable_class = 'a GtkScrollableClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     type dest_defaults_t = GtkDestDefaults.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type selection_data_record_t = GtkSelectionDataRecord.t
-    type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type selection_data_t = GtkSelectionDataRecord.t
+    type 'a tool_item_class = 'a GtkToolItemClass.class
     type tool_palette_drag_targets_t = GtkToolPaletteDragTargets.t
-    type 'a tool_item_group_class_t = 'a GtkToolItemGroupClass.t
+    type 'a tool_item_group_class = 'a GtkToolItemGroupClass.class
     type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

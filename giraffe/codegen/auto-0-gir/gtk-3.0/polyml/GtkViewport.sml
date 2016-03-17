@@ -1,9 +1,9 @@
 structure GtkViewport :>
   GTK_VIEWPORT
-    where type 'a class_t = 'a GtkViewportClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a class = 'a GtkViewportClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type shadow_type_t = GtkShadowType.t =
   struct
     local
@@ -16,12 +16,12 @@ structure GtkViewport :>
       val getViewWindow_ = call (load_sym libgtk "gtk_viewport_get_view_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val setShadowType_ = call (load_sym libgtk "gtk_viewport_set_shadow_type") (GObjectObjectClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkViewportClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a class = 'a GtkViewportClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a scrollable_class = 'a GtkScrollableClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type shadow_type_t = GtkShadowType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

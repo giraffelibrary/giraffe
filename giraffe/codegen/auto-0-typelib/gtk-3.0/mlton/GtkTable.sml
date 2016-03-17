@@ -1,9 +1,9 @@
 structure GtkTable :>
   GTK_TABLE
-    where type 'a class_t = 'a GtkTableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkTableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type attach_options_t = GtkAttachOptions.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_table_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -163,11 +163,11 @@ structure GtkTable :>
               x3
             )
     val setRowSpacings_ = fn x1 & x2 => (_import "gtk_table_set_row_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkTableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkTableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type attach_options_t = GtkAttachOptions.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

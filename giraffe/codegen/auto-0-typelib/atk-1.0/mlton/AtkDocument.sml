@@ -1,6 +1,6 @@
 structure AtkDocument :>
   ATK_DOCUMENT
-    where type 'a class_t = 'a AtkDocumentClass.t =
+    where type 'a class = 'a AtkDocumentClass.class =
   struct
     val getType_ = _import "atk_document_get_type" : unit -> GObjectType.C.val_;
     val getAttributeValue_ =
@@ -41,8 +41,8 @@ structure AtkDocument :>
               x4,
               x5
             )
-    type 'a class_t = 'a AtkDocumentClass.t
-    type t = base class_t
+    type 'a class = 'a AtkDocumentClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
     fun getDocumentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self

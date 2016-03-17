@@ -1,9 +1,9 @@
 structure GioDataInputStream :>
   GIO_DATA_INPUT_STREAM
-    where type 'a class_t = 'a GioDataInputStreamClass.t
-    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a class = 'a GioDataInputStreamClass.class
+    where type 'a input_stream_class = 'a GioInputStreamClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t
     where type data_stream_newline_type_t = GioDataStreamNewlineType.t =
   struct
@@ -265,13 +265,13 @@ structure GioDataInputStream :>
             )
     val setByteOrder_ = fn x1 & x2 => (_import "g_data_input_stream_set_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamByteOrder.C.val_ -> unit;) (x1, x2)
     val setNewlineType_ = fn x1 & x2 => (_import "g_data_input_stream_set_newline_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamNewlineType.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioDataInputStreamClass.t
-    type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a class = 'a GioDataInputStreamClass.class
+    type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type data_stream_newline_type_t = GioDataStreamNewlineType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
     fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self

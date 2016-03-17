@@ -10,13 +10,13 @@ signature GTK_ICON_SIZE =
     | DIALOG
     val null : t
     val t : (t, t) GObject.Value.accessor
-    type 'a settings_class_t
+    type 'a settings_class
     val getType : unit -> GObject.Type.t
     val fromName : string -> LargeInt.int
     val getName : LargeInt.int -> string
     val lookup : LargeInt.int -> (LargeInt.int * LargeInt.int) option
     val lookupForSettings :
-      'a settings_class_t
+      'a settings_class
        -> LargeInt.int
        -> (LargeInt.int * LargeInt.int) option
     val register :

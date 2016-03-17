@@ -1,6 +1,6 @@
 structure PangoFontDescription :>
   PANGO_FONT_DESCRIPTION
-    where type record_t = PangoFontDescriptionRecord.t
+    where type t = PangoFontDescriptionRecord.t
     where type gravity_t = PangoGravity.t
     where type stretch_t = PangoStretch.t
     where type style_t = PangoStyle.t
@@ -115,14 +115,13 @@ structure PangoFontDescription :>
     val toString_ = _import "pango_font_description_to_string" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unsetFields_ = fn x1 & x2 => (_import "pango_font_description_unset_fields" : PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p * PangoFontMask.C.val_ -> unit;) (x1, x2)
     val fromString_ = _import "mlton_pango_font_description_from_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    type record_t = PangoFontDescriptionRecord.t
+    type t = PangoFontDescriptionRecord.t
     type gravity_t = PangoGravity.t
     type stretch_t = PangoStretch.t
     type style_t = PangoStyle.t
     type variant_t = PangoVariant.t
     type weight_t = PangoWeight.t
     type font_mask_t = PangoFontMask.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoFontDescriptionRecord.C.fromPtr true) new_ ()
     fun betterMatch self oldMatch newMatch =

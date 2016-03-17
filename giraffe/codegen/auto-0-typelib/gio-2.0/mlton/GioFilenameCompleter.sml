@@ -1,6 +1,6 @@
 structure GioFilenameCompleter :>
   GIO_FILENAME_COMPLETER
-    where type 'a class_t = 'a GioFilenameCompleterClass.t =
+    where type 'a class = 'a GioFilenameCompleterClass.class =
   struct
     val getType_ = _import "g_filename_completer_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_filename_completer_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -20,8 +20,8 @@ structure GioFilenameCompleter :>
               x3
             )
     val setDirsOnly_ = fn x1 & x2 => (_import "g_filename_completer_set_dirs_only" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioFilenameCompleterClass.t
-    type t = base class_t
+    type 'a class = 'a GioFilenameCompleterClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.C.fromPtr true) new_ ()
     fun getCompletionSuffix self initialText = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) getCompletionSuffix_ (self & initialText)

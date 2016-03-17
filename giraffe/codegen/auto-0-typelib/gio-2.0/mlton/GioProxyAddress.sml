@@ -1,8 +1,8 @@
 structure GioProxyAddress :>
   GIO_PROXY_ADDRESS
-    where type 'a class_t = 'a GioProxyAddressClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    where type 'a inet_address_class_t = 'a GioInetAddressClass.t =
+    where type 'a class = 'a GioProxyAddressClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    where type 'a inet_address_class = 'a GioInetAddressClass.class =
   struct
     val getType_ = _import "g_proxy_address_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -47,10 +47,10 @@ structure GioProxyAddress :>
     val getPassword_ = _import "g_proxy_address_get_password" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getProtocol_ = _import "g_proxy_address_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getUsername_ = _import "g_proxy_address_get_username" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    type 'a class_t = 'a GioProxyAddressClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type 'a inet_address_class_t = 'a GioInetAddressClass.t
-    type t = base class_t
+    type 'a class = 'a GioProxyAddressClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type 'a inet_address_class = 'a GioInetAddressClass.class
+    type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new inetaddr port protocol destHostname destPort username password =

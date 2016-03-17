@@ -1,6 +1,6 @@
 structure GtkCellRendererToggle :>
   GTK_CELL_RENDERER_TOGGLE
-    where type 'a class_t = 'a GtkCellRendererToggleClass.t =
+    where type 'a class = 'a GtkCellRendererToggleClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_toggle_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_toggle_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -10,8 +10,8 @@ structure GtkCellRendererToggle :>
     val setActivatable_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setActive_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setRadio_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_radio" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkCellRendererToggleClass.t
-    type t = base class_t
+    type 'a class = 'a GtkCellRendererToggleClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererToggleClass.C.fromPtr false) new_ ()
     fun getActivatable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActivatable_ self

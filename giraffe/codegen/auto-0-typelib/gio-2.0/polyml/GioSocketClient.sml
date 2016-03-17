@@ -1,12 +1,12 @@
 structure GioSocketClient :>
   GIO_SOCKET_CLIENT
-    where type 'a class_t = 'a GioSocketClientClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    where type 'a class = 'a GioSocketClientClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type socket_family_t = GioSocketFamily.t
-    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type socket_protocol_t = GioSocketProtocol.t
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
     where type socket_type_t = GioSocketType.t =
@@ -105,17 +105,17 @@ structure GioSocketClient :>
       val setTls_ = call (load_sym libgio "g_socket_client_set_tls") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTlsValidationFlags_ = call (load_sym libgio "g_socket_client_set_tls_validation_flags") (GObjectObjectClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioSocketClientClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
+    type 'a class = 'a GioSocketClientClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
     type socket_family_t = GioSocketFamily.t
-    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type 'a socket_address_class = 'a GioSocketAddressClass.class
     type socket_protocol_t = GioSocketProtocol.t
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type socket_type_t = GioSocketType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()
     fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addApplicationProxy_ (self & protocol)

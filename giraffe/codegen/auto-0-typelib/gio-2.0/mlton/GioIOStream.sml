@@ -1,10 +1,10 @@
 structure GioIOStream :>
   GIO_I_O_STREAM
-    where type 'a class_t = 'a GioIOStreamClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t =
+    where type 'a class = 'a GioIOStreamClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
+    where type 'a input_stream_class = 'a GioInputStreamClass.class
+    where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     val getType_ = _import "g_io_stream_get_type" : unit -> GObjectType.C.val_;
     val spliceFinish_ = fn x1 & x2 => (_import "g_io_stream_splice_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
@@ -48,12 +48,12 @@ structure GioIOStream :>
     val hasPending_ = _import "g_io_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val isClosed_ = _import "g_io_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setPending_ = fn x1 & x2 => (_import "g_io_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
-    type 'a class_t = 'a GioIOStreamClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
-    type t = base class_t
+    type 'a class = 'a GioIOStreamClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a output_stream_class = 'a GioOutputStreamClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun spliceFinish result = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) spliceFinish_ (result & [])
     fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self

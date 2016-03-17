@@ -1,7 +1,7 @@
 structure GioTlsBackend :>
   GIO_TLS_BACKEND
-    where type 'a class_t = 'a GioTlsBackendClass.t
-    where type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t =
+    where type 'a class = 'a GioTlsBackendClass.class
+    where type 'a tls_database_class = 'a GioTlsDatabaseClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,9 +11,9 @@ structure GioTlsBackend :>
       val getDefaultDatabase_ = call (load_sym libgio "g_tls_backend_get_default_database") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val supportsTls_ = call (load_sym libgio "g_tls_backend_supports_tls") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioTlsBackendClass.t
-    type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
-    type t = base class_t
+    type 'a class = 'a GioTlsBackendClass.class
+    type 'a tls_database_class = 'a GioTlsDatabaseClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioTlsBackendClass.C.fromPtr false) getDefault_ ()
     fun getDefaultDatabase self = (GObjectObjectClass.C.withPtr ---> GioTlsDatabaseClass.C.fromPtr true) getDefaultDatabase_ self

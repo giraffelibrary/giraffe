@@ -1,12 +1,12 @@
 structure GtkCellRendererText :>
   GTK_CELL_RENDERER_TEXT
-    where type 'a class_t = 'a GtkCellRendererTextClass.t =
+    where type 'a class = 'a GtkCellRendererTextClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_text_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_text_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val setFixedHeightFromFont_ = fn x1 & x2 => (_import "gtk_cell_renderer_text_set_fixed_height_from_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkCellRendererTextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkCellRendererTextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererTextClass.C.fromPtr false) new_ ()
     fun setFixedHeightFromFont self numberOfRows = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)

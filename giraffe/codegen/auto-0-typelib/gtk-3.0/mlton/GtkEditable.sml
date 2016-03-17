@@ -1,6 +1,6 @@
 structure GtkEditable :>
   GTK_EDITABLE
-    where type 'a class_t = 'a GtkEditableClass.t =
+    where type 'a class = 'a GtkEditableClass.class =
   struct
     val getType_ = _import "gtk_editable_get_type" : unit -> GObjectType.C.val_;
     val copyClipboard_ = _import "gtk_editable_copy_clipboard" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -101,8 +101,8 @@ structure GtkEditable :>
             )
     val setEditable_ = fn x1 & x2 => (_import "gtk_editable_set_editable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setPosition_ = fn x1 & x2 => (_import "gtk_editable_set_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkEditableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkEditableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyClipboard self = (GObjectObjectClass.C.withPtr ---> I) copyClipboard_ self
     fun cutClipboard self = (GObjectObjectClass.C.withPtr ---> I) cutClipboard_ self

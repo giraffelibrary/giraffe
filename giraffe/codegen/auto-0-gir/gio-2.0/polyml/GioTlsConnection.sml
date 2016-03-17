@@ -1,12 +1,12 @@
 structure GioTlsConnection :>
   GIO_TLS_CONNECTION
-    where type 'a class_t = 'a GioTlsConnectionClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    where type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
-    where type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
-    where type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    where type 'a class = 'a GioTlsConnectionClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
+    where type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    where type 'a tls_database_class = 'a GioTlsDatabaseClass.class
+    where type 'a tls_interaction_class = 'a GioTlsInteractionClass.class
+    where type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
     where type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t =
   struct
@@ -51,16 +51,16 @@ structure GioTlsConnection :>
       val setRehandshakeMode_ = call (load_sym libgio "g_tls_connection_set_rehandshake_mode") (GObjectObjectClass.PolyML.cPtr &&> GioTlsRehandshakeMode.PolyML.cVal --> FFI.PolyML.cVoid)
       val setRequireCloseNotify_ = call (load_sym libgio "g_tls_connection_set_require_close_notify") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioTlsConnectionClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
-    type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
-    type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    type 'a class = 'a GioTlsConnectionClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    type 'a tls_database_class = 'a GioTlsDatabaseClass.class
+    type 'a tls_interaction_class = 'a GioTlsInteractionClass.class
+    type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun emitAcceptCertificate self peerCert errors =
       (

@@ -1,21 +1,21 @@
 signature GDK_DRAG_CONTEXT =
   sig
-    type 'a class_t
+    type 'a class
     type drag_protocol_t
-    type 'a window_class_t
+    type 'a window_class
     type drag_action_t
-    type 'a device_class_t
-    type t = base class_t
+    type 'a device_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getActions : 'a class_t -> drag_action_t
-    val getDestWindow : 'a class_t -> base window_class_t
-    val getDevice : 'a class_t -> base device_class_t
-    val getProtocol : 'a class_t -> drag_protocol_t
-    val getSelectedAction : 'a class_t -> drag_action_t
-    val getSourceWindow : 'a class_t -> base window_class_t
-    val getSuggestedAction : 'a class_t -> drag_action_t
+    val getActions : 'a class -> drag_action_t
+    val getDestWindow : 'a class -> base window_class
+    val getDevice : 'a class -> base device_class
+    val getProtocol : 'a class -> drag_protocol_t
+    val getSelectedAction : 'a class -> drag_action_t
+    val getSourceWindow : 'a class -> base window_class
+    val getSuggestedAction : 'a class -> drag_action_t
     val setDevice :
-      'a class_t
-       -> 'b device_class_t
+      'a class
+       -> 'b device_class
        -> unit
   end

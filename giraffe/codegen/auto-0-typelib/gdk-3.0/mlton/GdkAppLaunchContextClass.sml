@@ -4,7 +4,8 @@ structure GdkAppLaunchContextClass :>
     where type 'a C.p = 'a GioAppLaunchContextClass.C.p =
   struct
     type 'a app_launch_context = unit
-    type 'a t = 'a app_launch_context GioAppLaunchContextClass.t
+    type 'a class = 'a app_launch_context GioAppLaunchContextClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GioAppLaunchContextClass.t
     val tOpt = GioAppLaunchContextClass.tOpt

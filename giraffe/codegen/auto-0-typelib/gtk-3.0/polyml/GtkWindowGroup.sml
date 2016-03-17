@@ -1,8 +1,8 @@
 structure GtkWindowGroup :>
   GTK_WINDOW_GROUP
-    where type 'a class_t = 'a GtkWindowGroupClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a window_class_t = 'a GtkWindowClass.t =
+    where type 'a class = 'a GtkWindowGroupClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a window_class = 'a GtkWindowClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,10 +14,10 @@ structure GtkWindowGroup :>
       val getCurrentGrab_ = call (load_sym libgtk "gtk_window_group_get_current_grab") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkWindowGroupClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a window_class_t = 'a GtkWindowClass.t
-    type t = base class_t
+    type 'a class = 'a GtkWindowGroupClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a window_class = 'a GtkWindowClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWindowGroupClass.C.fromPtr true) new_ ()
     fun addWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addWindow_ (self & window)

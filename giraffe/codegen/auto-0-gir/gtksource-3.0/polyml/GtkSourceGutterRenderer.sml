@@ -1,6 +1,6 @@
 structure GtkSourceGutterRenderer :>
   GTK_SOURCE_GUTTER_RENDERER
-    where type 'a class_t = 'a GtkSourceGutterRendererClass.t
+    where type 'a class = 'a GtkSourceGutterRendererClass.class
     where type gutter_renderer_state_t = GtkSourceGutterRendererState.t
     where type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t =
   struct
@@ -114,10 +114,10 @@ structure GtkSourceGutterRenderer :>
       val setSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceGutterRendererClass.t
+    type 'a class = 'a GtkSourceGutterRendererClass.class
     type gutter_renderer_state_t = GtkSourceGutterRendererState.t
     type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self iter area event =
       (

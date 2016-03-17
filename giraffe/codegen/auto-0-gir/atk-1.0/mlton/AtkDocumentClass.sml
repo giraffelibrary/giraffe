@@ -4,7 +4,8 @@ structure AtkDocumentClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a document = unit
-    type 'a t = 'a document GObjectObjectClass.t
+    type 'a class = 'a document GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

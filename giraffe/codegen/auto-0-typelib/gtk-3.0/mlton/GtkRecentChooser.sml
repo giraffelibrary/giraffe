@@ -1,9 +1,9 @@
 structure GtkRecentChooser :>
   GTK_RECENT_CHOOSER
-    where type 'a class_t = 'a GtkRecentChooserClass.t
-    where type recent_info_record_t = GtkRecentInfoRecord.t
-    where type 'a recent_filter_class_t = 'a GtkRecentFilterClass.t
-    where type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
+    where type 'a class = 'a GtkRecentChooserClass.class
+    where type recent_info_t = GtkRecentInfoRecord.t
+    where type 'a recent_filter_class = 'a GtkRecentFilterClass.class
+    where type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     where type recent_sort_type_t = GtkRecentSortType.t =
   struct
     val getType_ = _import "gtk_recent_chooser_get_type" : unit -> GObjectType.C.val_;
@@ -84,12 +84,12 @@ structure GtkRecentChooser :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkRecentChooserClass.t
-    type recent_info_record_t = GtkRecentInfoRecord.t
-    type 'a recent_filter_class_t = 'a GtkRecentFilterClass.t
-    type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
+    type 'a class = 'a GtkRecentChooserClass.class
+    type recent_info_t = GtkRecentInfoRecord.t
+    type 'a recent_filter_class = 'a GtkRecentFilterClass.class
+    type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     type recent_sort_type_t = GtkRecentSortType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)
     fun getCurrentItem self = (GObjectObjectClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self

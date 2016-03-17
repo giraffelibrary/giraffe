@@ -1,69 +1,69 @@
 signature GTK_TOOL_ITEM_GROUP =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a tool_shell_class_t
-    type 'a tool_item_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a tool_shell_class
+    type 'a tool_item_class
     type relief_style_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asToolShell : 'a class_t -> base tool_shell_class_t
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
+    val asToolShell : 'a class -> base tool_shell_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val getCollapsed : 'a class_t -> bool
+    val new : string -> base class
+    val getCollapsed : 'a class -> bool
     val getDropItem :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-       -> base tool_item_class_t
-    val getEllipsize : 'a class_t -> Pango.EllipsizeMode.t
-    val getHeaderRelief : 'a class_t -> relief_style_t
+       -> base tool_item_class
+    val getEllipsize : 'a class -> Pango.EllipsizeMode.t
+    val getHeaderRelief : 'a class -> relief_style_t
     val getItemPosition :
-      'a class_t
-       -> 'b tool_item_class_t
+      'a class
+       -> 'b tool_item_class
        -> LargeInt.int
-    val getLabel : 'a class_t -> string
-    val getLabelWidget : 'a class_t -> base widget_class_t
-    val getNItems : 'a class_t -> LargeInt.int
+    val getLabel : 'a class -> string
+    val getLabelWidget : 'a class -> base widget_class
+    val getNItems : 'a class -> LargeInt.int
     val getNthItem :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base tool_item_class_t
+       -> base tool_item_class
     val insert :
-      'a class_t
-       -> 'b tool_item_class_t
+      'a class
+       -> 'b tool_item_class
        -> LargeInt.int
        -> unit
     val setCollapsed :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setEllipsize :
-      'a class_t
+      'a class
        -> Pango.EllipsizeMode.t
        -> unit
     val setHeaderRelief :
-      'a class_t
+      'a class
        -> relief_style_t
        -> unit
     val setItemPosition :
-      'a class_t
-       -> 'b tool_item_class_t
+      'a class
+       -> 'b tool_item_class
        -> LargeInt.int
        -> unit
     val setLabel :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setLabelWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
-    val collapsedProp : ('a class_t, bool, bool) Property.readwrite
-    val ellipsizeProp : ('a class_t, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
-    val headerReliefProp : ('a class_t, relief_style_t, relief_style_t) Property.readwrite
-    val labelProp : ('a class_t, string option, string option) Property.readwrite
-    val labelWidgetProp : ('a class_t, base widget_class_t option, 'b widget_class_t option) Property.readwrite
+    val collapsedProp : ('a class, bool, bool) Property.readwrite
+    val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
+    val headerReliefProp : ('a class, relief_style_t, relief_style_t) Property.readwrite
+    val labelProp : ('a class, string option, string option) Property.readwrite
+    val labelWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
   end

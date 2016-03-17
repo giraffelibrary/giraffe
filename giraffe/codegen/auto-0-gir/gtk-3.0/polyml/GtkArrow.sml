@@ -1,7 +1,7 @@
 structure GtkArrow :>
   GTK_ARROW
-    where type 'a class_t = 'a GtkArrowClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkArrowClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type arrow_type_t = GtkArrowType.t
     where type shadow_type_t = GtkShadowType.t =
   struct
@@ -19,11 +19,11 @@ structure GtkArrow :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkArrowClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkArrowClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type arrow_type_t = GtkArrowType.t
     type shadow_type_t = GtkShadowType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

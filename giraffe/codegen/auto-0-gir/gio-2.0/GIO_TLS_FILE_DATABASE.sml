@@ -1,9 +1,9 @@
 signature GIO_TLS_FILE_DATABASE =
   sig
-    type 'a class_t
-    type 'a tls_database_class_t
-    type t = base class_t
+    type 'a class
+    type 'a tls_database_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : string -> base tls_database_class_t
-    val anchorsProp : ('a class_t, string option, string option) Property.readwrite
+    val new : string -> base tls_database_class
+    val anchorsProp : ('a class, string option, string option) Property.readwrite
   end

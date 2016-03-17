@@ -1,6 +1,6 @@
 structure AtkMisc :>
   ATK_MISC
-    where type 'a class_t = 'a AtkMiscClass.t =
+    where type 'a class = 'a AtkMiscClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,8 @@ structure AtkMisc :>
       val threadsEnter_ = call (load_sym libatk "atk_misc_threads_enter") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val threadsLeave_ = call (load_sym libatk "atk_misc_threads_leave") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a AtkMiscClass.t
-    type t = base class_t
+    type 'a class = 'a AtkMiscClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getInstance () = (I ---> AtkMiscClass.C.fromPtr false) getInstance_ ()
     fun threadsEnter self = (GObjectObjectClass.C.withPtr ---> I) threadsEnter_ self

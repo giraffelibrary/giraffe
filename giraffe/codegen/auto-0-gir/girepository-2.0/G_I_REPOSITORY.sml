@@ -35,10 +35,10 @@ signature G_I_REPOSITORY =
     structure ValueInfoRecord : G_I_REPOSITORY_VALUE_INFO_RECORD
     structure Repository :
       G_I_REPOSITORY_REPOSITORY
-        where type 'a class_t = 'a RepositoryClass.t
-        where type enum_info_record_t = EnumInfoRecord.t
-        where type base_info_record_t = BaseInfoRecord.t
-        where type typelib_record_t = TypelibRecord.t
+        where type 'a class = 'a RepositoryClass.class
+        where type enum_info_t = EnumInfoRecord.t
+        where type base_info_t = BaseInfoRecord.t
+        where type typelib_t = TypelibRecord.t
         where type repository_load_flags_t = RepositoryLoadFlags.t
     val argInfoGetClosure : ArgInfoRecord.t -> LargeInt.int
     val argInfoGetDestroy : ArgInfoRecord.t -> LargeInt.int

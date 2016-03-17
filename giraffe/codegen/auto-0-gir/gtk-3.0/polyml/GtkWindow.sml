@@ -1,11 +1,11 @@
 structure GtkWindow :>
   GTK_WINDOW
-    where type 'a class_t = 'a GtkWindowClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a window_group_class_t = 'a GtkWindowGroupClass.t
-    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a application_class_t = 'a GtkApplicationClass.t
+    where type 'a class = 'a GtkWindowClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a window_group_class = 'a GtkWindowGroupClass.class
+    where type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a application_class = 'a GtkApplicationClass.class
     where type window_type_t = GtkWindowType.t
     where type window_position_t = GtkWindowPosition.t =
   struct
@@ -236,15 +236,15 @@ structure GtkWindow :>
       val unmaximize_ = call (load_sym libgtk "gtk_window_unmaximize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unstick_ = call (load_sym libgtk "gtk_window_unstick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkWindowClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a window_group_class_t = 'a GtkWindowGroupClass.t
-    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a application_class_t = 'a GtkApplicationClass.t
+    type 'a class = 'a GtkWindowClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a window_group_class = 'a GtkWindowGroupClass.class
+    type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a application_class = 'a GtkApplicationClass.class
     type window_type_t = GtkWindowType.t
     type window_position_t = GtkWindowPosition.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

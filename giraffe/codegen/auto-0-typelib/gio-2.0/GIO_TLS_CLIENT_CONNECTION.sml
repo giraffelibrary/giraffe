@@ -1,31 +1,31 @@
 signature GIO_TLS_CLIENT_CONNECTION =
   sig
-    type 'a class_t
-    type 'a i_o_stream_class_t
-    type 'a socket_connectable_class_t
+    type 'a class
+    type 'a i_o_stream_class
+    type 'a socket_connectable_class
     type tls_certificate_flags_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val new :
-      'a i_o_stream_class_t
-       -> 'b socket_connectable_class_t option
-       -> base i_o_stream_class_t
-    val getServerIdentity : 'a class_t -> base socket_connectable_class_t
-    val getUseSsl3 : 'a class_t -> bool
-    val getValidationFlags : 'a class_t -> tls_certificate_flags_t
+      'a i_o_stream_class
+       -> 'b socket_connectable_class option
+       -> base i_o_stream_class
+    val getServerIdentity : 'a class -> base socket_connectable_class
+    val getUseSsl3 : 'a class -> bool
+    val getValidationFlags : 'a class -> tls_certificate_flags_t
     val setServerIdentity :
-      'a class_t
-       -> 'b socket_connectable_class_t
+      'a class
+       -> 'b socket_connectable_class
        -> unit
     val setUseSsl3 :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setValidationFlags :
-      'a class_t
+      'a class
        -> tls_certificate_flags_t
        -> unit
-    val serverIdentityProp : ('a class_t, base socket_connectable_class_t option, 'b socket_connectable_class_t option) Property.readwrite
-    val useSsl3Prop : ('a class_t, bool, bool) Property.readwrite
-    val validationFlagsProp : ('a class_t, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite
+    val serverIdentityProp : ('a class, base socket_connectable_class option, 'b socket_connectable_class option) Property.readwrite
+    val useSsl3Prop : ('a class, bool, bool) Property.readwrite
+    val validationFlagsProp : ('a class, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite
   end

@@ -1,322 +1,322 @@
 signature GTK_WINDOW =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a window_group_class_t
-    type 'a accel_group_class_t
-    type 'a widget_class_t
-    type 'a application_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a window_group_class
+    type 'a accel_group_class
+    type 'a widget_class
+    type 'a application_class
     type window_type_t
     type window_position_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : window_type_t -> base class_t
+    val new : window_type_t -> base class
     val getDefaultIconName : unit -> string
     val setAutoStartupNotification : bool -> unit
-    val setDefaultIcon : 'a GdkPixbuf.PixbufClass.t -> unit
+    val setDefaultIcon : 'a GdkPixbuf.PixbufClass.class -> unit
     val setDefaultIconFromFile : string -> bool
     val setDefaultIconName : string -> unit
-    val activateDefault : 'a class_t -> bool
-    val activateFocus : 'a class_t -> bool
+    val activateDefault : 'a class -> bool
+    val activateFocus : 'a class -> bool
     val activateKey :
-      'a class_t
+      'a class
        -> Gdk.EventKeyRecord.t
        -> bool
     val addAccelGroup :
-      'a class_t
-       -> 'b accel_group_class_t
+      'a class
+       -> 'b accel_group_class
        -> unit
     val addMnemonic :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b widget_class_t
+       -> 'b widget_class
        -> unit
     val beginMoveDrag :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val beginResizeDrag :
-      'a class_t
+      'a class
        -> Gdk.WindowEdge.t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val deiconify : 'a class_t -> unit
-    val fullscreen : 'a class_t -> unit
-    val getAcceptFocus : 'a class_t -> bool
-    val getApplication : 'a class_t -> base application_class_t
-    val getDecorated : 'a class_t -> bool
-    val getDefaultSize : 'a class_t -> LargeInt.int * LargeInt.int
-    val getDefaultWidget : 'a class_t -> base widget_class_t
-    val getDeletable : 'a class_t -> bool
-    val getDestroyWithParent : 'a class_t -> bool
-    val getFocus : 'a class_t -> base widget_class_t
-    val getFocusOnMap : 'a class_t -> bool
-    val getFocusVisible : 'a class_t -> bool
-    val getGravity : 'a class_t -> Gdk.Gravity.t
-    val getGroup : 'a class_t -> base window_group_class_t
-    val getHasResizeGrip : 'a class_t -> bool
-    val getIcon : 'a class_t -> base GdkPixbuf.PixbufClass.t
-    val getIconName : 'a class_t -> string
-    val getMnemonicModifier : 'a class_t -> Gdk.ModifierType.t
-    val getMnemonicsVisible : 'a class_t -> bool
-    val getModal : 'a class_t -> bool
-    val getOpacity : 'a class_t -> real
-    val getPosition : 'a class_t -> LargeInt.int * LargeInt.int
-    val getResizable : 'a class_t -> bool
-    val getResizeGripArea : 'a class_t -> Cairo.RectangleIntRecord.t option
-    val getRole : 'a class_t -> string
-    val getScreen : 'a class_t -> base Gdk.ScreenClass.t
-    val getSize : 'a class_t -> LargeInt.int * LargeInt.int
-    val getSkipPagerHint : 'a class_t -> bool
-    val getSkipTaskbarHint : 'a class_t -> bool
-    val getTitle : 'a class_t -> string
-    val getTransientFor : 'a class_t -> base class_t
-    val getTypeHint : 'a class_t -> Gdk.WindowTypeHint.t
-    val getUrgencyHint : 'a class_t -> bool
-    val getWindowType : 'a class_t -> window_type_t
-    val hasGroup : 'a class_t -> bool
-    val hasToplevelFocus : 'a class_t -> bool
-    val iconify : 'a class_t -> unit
-    val isActive : 'a class_t -> bool
-    val maximize : 'a class_t -> unit
+    val deiconify : 'a class -> unit
+    val fullscreen : 'a class -> unit
+    val getAcceptFocus : 'a class -> bool
+    val getApplication : 'a class -> base application_class
+    val getDecorated : 'a class -> bool
+    val getDefaultSize : 'a class -> LargeInt.int * LargeInt.int
+    val getDefaultWidget : 'a class -> base widget_class
+    val getDeletable : 'a class -> bool
+    val getDestroyWithParent : 'a class -> bool
+    val getFocus : 'a class -> base widget_class
+    val getFocusOnMap : 'a class -> bool
+    val getFocusVisible : 'a class -> bool
+    val getGravity : 'a class -> Gdk.Gravity.t
+    val getGroup : 'a class -> base window_group_class
+    val getHasResizeGrip : 'a class -> bool
+    val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getIconName : 'a class -> string
+    val getMnemonicModifier : 'a class -> Gdk.ModifierType.t
+    val getMnemonicsVisible : 'a class -> bool
+    val getModal : 'a class -> bool
+    val getOpacity : 'a class -> real
+    val getPosition : 'a class -> LargeInt.int * LargeInt.int
+    val getResizable : 'a class -> bool
+    val getResizeGripArea : 'a class -> Cairo.RectangleIntRecord.t option
+    val getRole : 'a class -> string
+    val getScreen : 'a class -> base Gdk.ScreenClass.class
+    val getSize : 'a class -> LargeInt.int * LargeInt.int
+    val getSkipPagerHint : 'a class -> bool
+    val getSkipTaskbarHint : 'a class -> bool
+    val getTitle : 'a class -> string
+    val getTransientFor : 'a class -> base class
+    val getTypeHint : 'a class -> Gdk.WindowTypeHint.t
+    val getUrgencyHint : 'a class -> bool
+    val getWindowType : 'a class -> window_type_t
+    val hasGroup : 'a class -> bool
+    val hasToplevelFocus : 'a class -> bool
+    val iconify : 'a class -> unit
+    val isActive : 'a class -> bool
+    val maximize : 'a class -> unit
     val mnemonicActivate :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> Gdk.ModifierType.t
        -> bool
     val move :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val parseGeometry :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val present : 'a class_t -> unit
+    val present : 'a class -> unit
     val presentWithTime :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val propagateKeyEvent :
-      'a class_t
+      'a class
        -> Gdk.EventKeyRecord.t
        -> bool
     val removeAccelGroup :
-      'a class_t
-       -> 'b accel_group_class_t
+      'a class
+       -> 'b accel_group_class
        -> unit
     val removeMnemonic :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b widget_class_t
+       -> 'b widget_class
        -> unit
-    val reshowWithInitialSize : 'a class_t -> unit
+    val reshowWithInitialSize : 'a class -> unit
     val resize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val resizeGripIsVisible : 'a class_t -> bool
+    val resizeGripIsVisible : 'a class -> bool
     val resizeToGeometry :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setAcceptFocus :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setApplication :
-      'a class_t
-       -> 'b application_class_t option
+      'a class
+       -> 'b application_class option
        -> unit
     val setDecorated :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setDefault :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> unit
     val setDefaultGeometry :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setDefaultSize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setDeletable :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setDestroyWithParent :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setFocus :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> unit
     val setFocusOnMap :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setFocusVisible :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setGeometryHints :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> Gdk.GeometryRecord.t option
        -> Gdk.WindowHints.t
        -> unit
     val setGravity :
-      'a class_t
+      'a class
        -> Gdk.Gravity.t
        -> unit
     val setHasResizeGrip :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setHasUserRefCount :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setIcon :
-      'a class_t
-       -> 'b GdkPixbuf.PixbufClass.t option
+      'a class
+       -> 'b GdkPixbuf.PixbufClass.class option
        -> unit
     val setIconFromFile :
-      'a class_t
+      'a class
        -> string
        -> bool
     val setIconName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setKeepAbove :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setKeepBelow :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setMnemonicModifier :
-      'a class_t
+      'a class
        -> Gdk.ModifierType.t
        -> unit
     val setMnemonicsVisible :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setModal :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setOpacity :
-      'a class_t
+      'a class
        -> real
        -> unit
     val setPosition :
-      'a class_t
+      'a class
        -> window_position_t
        -> unit
     val setResizable :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setRole :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setScreen :
-      'a class_t
-       -> 'b Gdk.ScreenClass.t
+      'a class
+       -> 'b Gdk.ScreenClass.class
        -> unit
     val setSkipPagerHint :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setSkipTaskbarHint :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setStartupId :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setTitle :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setTransientFor :
-      'a class_t
-       -> 'b class_t option
+      'a class
+       -> 'b class option
        -> unit
     val setTypeHint :
-      'a class_t
+      'a class
        -> Gdk.WindowTypeHint.t
        -> unit
     val setUrgencyHint :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setWmclass :
-      'a class_t
+      'a class
        -> string
        -> string
        -> unit
-    val stick : 'a class_t -> unit
-    val unfullscreen : 'a class_t -> unit
-    val unmaximize : 'a class_t -> unit
-    val unstick : 'a class_t -> unit
-    val activateDefaultSig : (unit -> unit) -> 'a class_t Signal.signal
-    val activateFocusSig : (unit -> unit) -> 'a class_t Signal.signal
-    val keysChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val setFocusSig : (base widget_class_t -> unit) -> 'a class_t Signal.signal
-    val acceptFocusProp : ('a class_t, bool, bool) Property.readwrite
-    val applicationProp : ('a class_t, base application_class_t option, 'b application_class_t option) Property.readwrite
-    val decoratedProp : ('a class_t, bool, bool) Property.readwrite
-    val defaultHeightProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val defaultWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val deletableProp : ('a class_t, bool, bool) Property.readwrite
-    val destroyWithParentProp : ('a class_t, bool, bool) Property.readwrite
-    val focusOnMapProp : ('a class_t, bool, bool) Property.readwrite
-    val focusVisibleProp : ('a class_t, bool, bool) Property.readwrite
-    val gravityProp : ('a class_t, Gdk.Gravity.t, Gdk.Gravity.t) Property.readwrite
-    val hasResizeGripProp : ('a class_t, bool, bool) Property.readwrite
-    val hasToplevelFocusProp : ('a class_t, bool) Property.readonly
-    val iconProp : ('a class_t, base GdkPixbuf.PixbufClass.t option, 'b GdkPixbuf.PixbufClass.t option) Property.readwrite
-    val iconNameProp : ('a class_t, string option, string option) Property.readwrite
-    val isActiveProp : ('a class_t, bool) Property.readonly
-    val mnemonicsVisibleProp : ('a class_t, bool, bool) Property.readwrite
-    val modalProp : ('a class_t, bool, bool) Property.readwrite
-    val opacityProp : ('a class_t, real, real) Property.readwrite
-    val resizableProp : ('a class_t, bool, bool) Property.readwrite
-    val resizeGripVisibleProp : ('a class_t, bool) Property.readonly
-    val roleProp : ('a class_t, string option, string option) Property.readwrite
-    val screenProp : ('a class_t, base Gdk.ScreenClass.t option, 'b Gdk.ScreenClass.t option) Property.readwrite
-    val skipPagerHintProp : ('a class_t, bool, bool) Property.readwrite
-    val skipTaskbarHintProp : ('a class_t, bool, bool) Property.readwrite
-    val startupIdProp : ('a class_t, string option) Property.writeonly
-    val titleProp : ('a class_t, string option, string option) Property.readwrite
-    val transientForProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val typeProp : ('a class_t, window_type_t, window_type_t) Property.readwrite
-    val typeHintProp : ('a class_t, Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t) Property.readwrite
-    val urgencyHintProp : ('a class_t, bool, bool) Property.readwrite
-    val windowPositionProp : ('a class_t, window_position_t, window_position_t) Property.readwrite
+    val stick : 'a class -> unit
+    val unfullscreen : 'a class -> unit
+    val unmaximize : 'a class -> unit
+    val unstick : 'a class -> unit
+    val activateDefaultSig : (unit -> unit) -> 'a class Signal.signal
+    val activateFocusSig : (unit -> unit) -> 'a class Signal.signal
+    val keysChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val setFocusSig : (base widget_class -> unit) -> 'a class Signal.signal
+    val acceptFocusProp : ('a class, bool, bool) Property.readwrite
+    val applicationProp : ('a class, base application_class option, 'b application_class option) Property.readwrite
+    val decoratedProp : ('a class, bool, bool) Property.readwrite
+    val defaultHeightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val defaultWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val deletableProp : ('a class, bool, bool) Property.readwrite
+    val destroyWithParentProp : ('a class, bool, bool) Property.readwrite
+    val focusOnMapProp : ('a class, bool, bool) Property.readwrite
+    val focusVisibleProp : ('a class, bool, bool) Property.readwrite
+    val gravityProp : ('a class, Gdk.Gravity.t, Gdk.Gravity.t) Property.readwrite
+    val hasResizeGripProp : ('a class, bool, bool) Property.readwrite
+    val hasToplevelFocusProp : ('a class, bool) Property.readonly
+    val iconProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
+    val iconNameProp : ('a class, string option, string option) Property.readwrite
+    val isActiveProp : ('a class, bool) Property.readonly
+    val mnemonicsVisibleProp : ('a class, bool, bool) Property.readwrite
+    val modalProp : ('a class, bool, bool) Property.readwrite
+    val opacityProp : ('a class, real, real) Property.readwrite
+    val resizableProp : ('a class, bool, bool) Property.readwrite
+    val resizeGripVisibleProp : ('a class, bool) Property.readonly
+    val roleProp : ('a class, string option, string option) Property.readwrite
+    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
+    val skipPagerHintProp : ('a class, bool, bool) Property.readwrite
+    val skipTaskbarHintProp : ('a class, bool, bool) Property.readwrite
+    val startupIdProp : ('a class, string option) Property.writeonly
+    val titleProp : ('a class, string option, string option) Property.readwrite
+    val transientForProp : ('a class, base class option, 'b class option) Property.readwrite
+    val typeProp : ('a class, window_type_t, window_type_t) Property.readwrite
+    val typeHintProp : ('a class, Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t) Property.readwrite
+    val urgencyHintProp : ('a class, bool, bool) Property.readwrite
+    val windowPositionProp : ('a class, window_position_t, window_position_t) Property.readwrite
   end

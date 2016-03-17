@@ -1,32 +1,32 @@
 signature GTK_APP_CHOOSER_DIALOG =
   sig
-    type 'a class_t
-    type 'a app_chooser_class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a app_chooser_class
+    type 'a buildable_class
     type dialog_flags_t
-    type 'a window_class_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asAppChooser : 'a class_t -> base app_chooser_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a window_class
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asAppChooser : 'a class -> base app_chooser_class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
-      'a window_class_t option
+      'a window_class option
        -> dialog_flags_t
-       -> 'b Gio.FileClass.t
-       -> base class_t
+       -> 'b Gio.FileClass.class
+       -> base class
     val newForContentType :
-      'a window_class_t option
+      'a window_class option
        -> dialog_flags_t
        -> string
-       -> base class_t
-    val getHeading : 'a class_t -> string
-    val getWidget : 'a class_t -> base widget_class_t
+       -> base class
+    val getHeading : 'a class -> string
+    val getWidget : 'a class -> base widget_class
     val setHeading :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val gfileProp : ('a class_t, base Gio.FileClass.t option, 'b Gio.FileClass.t option) Property.readwrite
-    val headingProp : ('a class_t, string option, string option) Property.readwrite
+    val gfileProp : ('a class, base Gio.FileClass.class option, 'b Gio.FileClass.class option) Property.readwrite
+    val headingProp : ('a class, string option, string option) Property.readwrite
   end

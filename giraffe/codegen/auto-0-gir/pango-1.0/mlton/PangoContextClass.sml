@@ -4,7 +4,8 @@ structure PangoContextClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a context = unit
-    type 'a t = 'a context GObjectObjectClass.t
+    type 'a class = 'a context GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

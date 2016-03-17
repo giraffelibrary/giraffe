@@ -1,26 +1,26 @@
 signature ATK_VALUE =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val getCurrentValue :
-      'a class_t
+      'a class
        -> GObject.ValueRecord.t
        -> unit
     val getMaximumValue :
-      'a class_t
+      'a class
        -> GObject.ValueRecord.t
        -> unit
     val getMinimumIncrement :
-      'a class_t
+      'a class
        -> GObject.ValueRecord.t
        -> unit
     val getMinimumValue :
-      'a class_t
+      'a class
        -> GObject.ValueRecord.t
        -> unit
     val setCurrentValue :
-      'a class_t
+      'a class
        -> GObject.ValueRecord.t
        -> bool
   end

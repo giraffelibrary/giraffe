@@ -74,18 +74,19 @@ where
 
       structure <Name>Class :
         <NAMESPACE>_<NAME>_CLASS
-                                                                                -.
-          where type 'a <parentobjectname>class_t = 'a <ParentObjectName>Class.t | isParentObjectNamespace
-                                                                                -'
-                                                                                -.
-          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
-                                                                                -'
+                                                                                     -.
+          where type 'a <parent_object_name>_class = 'a <ParentObjectName>Class.class | isParentObjectNamespace
+                                                                                     -'
+                                                                                     -.
+          where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor                | isGObject
+                                                                                     -'
       structure <Name> :
         <NAMESPACE>_<NAME>
-          where type 'a class_t = 'a <Name>Class.t
-          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          where type 'a class = 'a <Name>Class.class
+          where type t = <Name>Class.t
+          where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
-          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+          where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
                                                                                                 -.
           where type ('object, 'a) property_readonly = ('object, 'a) property_readonly           |
           where type ('object, 'a) property_writeonly = ('object, 'a) property_writeonly         | isGObject and P > 0
@@ -103,19 +104,19 @@ where
                                                                                 -'
       structure <Name> :
         <NAMESPACE>_<NAME>
-          where type 'a record_t = 'a <Name>Record.t
-          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          where type t = <Name>Record.t
+          where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
-          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+          where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
 
         if infoType is STRUCT _
 
 
       structure <Name> :
         <NAMESPACE>_<NAME>
-          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
-          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+          where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
 
         if infoType is UNION _
 
@@ -125,9 +126,9 @@ where
                                                                                 -.
           where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
                                                                                 -'
-          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
-          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+          where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
 
         if infoType is FLAGS _
 
@@ -137,9 +138,9 @@ where
                                                                                 -.
           where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor           | isGObject
                                                                                 -'
-          where type <varlist[1]> <typename[1]>_t = <varlist[1]> <TypeName[1]>.t
+          where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
-          where type <varlist[N]> <typename[N]>_t = <varlist[N]> <TypeName[N]>.t
+          where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
                                                               -.
           where type errorrecord_handler = ErrorRecord.handler | isGLib andalso optErrorDomain is SOME _
                                                               -'

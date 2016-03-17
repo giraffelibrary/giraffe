@@ -39,31 +39,32 @@ Conditions
 
 signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
   sig
-    type 'a <objectname>
-                                                          -.
-    type 'a <parentobjectname>class_t                      | isParentNamespace
-    type 'a t = 'a <objectname> <parentobjectname>class_t  |
-                                                          -'
-                                                          -.
-    type 'a t =                                            | not isParentNamespace
-      'a <objectname> <ParentObjectNamespace>.<ParentObjectName>Class.t
-                                                          -'
-    val toBase : 'a t -> base t
+    type 'a <object_name>
+                                                               -.
+    type 'a <parent_object_name>_class                          | isParentNamespace
+    type 'a class = 'a <object_name> <parent_object_name>_class |
+                                                               -'
+                                                               -.
+    type 'a class =                                             | not isParentNamespace
+      'a <object_name> <ParentObjectNamespace>.<ParentObjectName>Class.class
+                                                               -'
+    type t = base class
+    val toBase : 'a class -> t
                                                                     -.
     type ('a, 'b) value_accessor                                     |
-    val t : (base t, 'a t) value_accessor                            | isGObject
-    val tOpt : (base t option, 'a t option) value_accessor           |
+    val t : (base class, 'a class) value_accessor                    | isGObject
+    val tOpt : (base class option, 'a class option) value_accessor   |
                                                                     -'
                                                                     -.
-    val t : (base t, 'a t) GObject.Value.accessor                    | not isGObject
-    val tOpt : (base t option, 'a t option) GObject.Value.accessor   |
+    val t : (base class, 'a class) GObject.Value.accessor            | not isGObject
+    val tOpt : (base class option, 'a class option) GObject.Value.accessor
                                                                     -'
     structure C :
       sig
         type notnull
         type 'a p
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
+        val fromPtr : bool -> notnull p -> 'a class
+        val fromOptPtr : bool -> unit p -> 'a class option
       end
   end
 
@@ -72,11 +73,11 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
 
 structure <ObjectNamespace><ObjectName>Class :>
   <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS
-                                                          -.
-    where                                                  |
-      type 'a <parentobjectname>class_t =                  | isParentNamespace
-        'a <ParentObjectNamespace><ParentObjectName>Class.t|
-                                                          -'
+                                                               -.
+    where                                                       |
+      type 'a <parent_object_name>_class =                      | isParentNamespace
+        'a <ParentObjectNamespace><ParentObjectName>Class.class |
+                                                               -'
                                                                           -.
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor    | isGObject
                                                                           -'
@@ -84,15 +85,16 @@ structure <ObjectNamespace><ObjectName>Class :>
     where type 'a C.p = 'a <ParentObjectNamespace><ParentObjectName>Class.C.p =
   struct
     type 'a <objectname> = unit
-                                                          -.
-    type 'a <parentobjectname>class_t =                    |
-      'a <ParentObjectNamespace><ParentObjectName>Class.t  | isParentNamespace
-    type 'a t = 'a <objectname> <parentobjectname>class_t  |
-                                                          -'
-                                                          -.
-    type 'a t =                                            | not isParentNamespace
-      'a <objectname> <ParentObjectNamespace><ParentObjectName>Class.t
-                                                          -'
+                                                               -.
+    type 'a <parent_object_name>_class =                        |
+      'a <ParentObjectNamespace><ParentObjectName>Class.class   | isParentNamespace
+    type 'a class = 'a <object_name> <parent_object_name>_class |
+                                                               -'
+                                                               -.
+    type 'a class =                                             | not isParentNamespace
+      'a <object_name> <ParentObjectNamespace><ParentObjectName>Class.class
+                                                               -'
+    type t = base class
     fun toBase obj = obj
                                                                           -.
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor          | isGObject
@@ -109,13 +111,13 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
   sig
     (* Local Types *)
 
-    type 'a class_t
+    type 'a class
 
-    type <varlist[1]> <typename[1]>_t
+    type <varlist[1]> <local_name[1]>
 
     ...
 
-    type <varlist[N]> <typename[N]>_t
+    type <varlist[N]> <local_name[N]>
                                                             -.
     type ('object, 'a) property_readonly                     |
     type ('object, 'a) property_writeonly                    | isGObject and P > 0
@@ -124,7 +126,7 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
 
     (* Type Abbreviations *)
 
-    type t = base class_t
+    type t = base class
 
 
     (* Interfaces *)
@@ -188,32 +190,35 @@ where
           if isGObject
 
 
-  typeName[n], varlist[n]
-    For i in 1 .. N
+  localName[n], typeName[n], t[n], varlist[n]
+    For n in 1 .. N
 
-      <varlist[i]> <typename[i]>_t
+      <varlist[n]> <local_name[n]>
 
     is the <n>th element in the list of types referenced later in the
-    signature that, for some InterfaceName whose namespace is
-    <ObjectNamespace> and some var, have one of the following forms:
+    signature that, for some InterfaceName and some var,
+    has one of the following forms:
 
-      <var> <interfacename>class_t
-      <var> <interfacename>_t
-      <interfacename>record_t
-      <interfacename>_t
+      <var> <interface_name>_class
+      <var> <interface_name>_union
+      <interface_name>_t
+
+    where the corresponding global type has the form
+
+      <ObjectNamespace>.<TypeName[n]>.<t[n]>
 
 
 ==Object structure==
 
 structure <ObjectNamespace><ObjectName> :>
   <OBJECT_NAMESPACE>_<OBJECT_NAME>
-    where type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
+    where type 'a class = 'a <ObjectNamespace><ObjectName>Class.class
 
-    where type <varlist[1]> <typename[1]>_t = <varlist[1]> <ObjectNamespace><TypeName[1]>.t
+    where type <varlist[1]> <local_name[1]> = <varlist[1]> <ObjectNamespace><TypeName[1]>.<t[1]>
 
     ...
 
-    where type <varlist[N]> <typename[N]>_t = <varlist[N]> <ObjectNamespace><TypeName[N]>.t
+    where type <varlist[N]> <local_name[N]> = <varlist[N]> <ObjectNamespace><TypeName[N]>.<t[N]>
                                                                                           -.
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject and P > 0
@@ -250,13 +255,13 @@ structure <ObjectNamespace><ObjectName> :>
 
     (* Local Types *)
 
-    type 'a class_t = 'a <ObjectNamespace><ObjectName>Class.t
+    type 'a class = 'a <ObjectNamespace><ObjectName>Class.class
 
-    type <varlist[1]> <typename[1]>_t = <varlist[1]> <ObjectNamespace><TypeName[1]>.t
+    type <varlist[1]> <local_name[1]> = <varlist[1]> <ObjectNamespace><TypeName[1]>.<t[1]>
 
     ...
 
-    type <varlist[N]> <typename[N]>_t = <varlist[N]> <ObjectNamespace><TypeName[N]>.t
+    type <varlist[N]> <local_name[N]> = <varlist[N]> <ObjectNamespace><TypeName[N]>.<t[N]>
                                                                                           -.
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
@@ -265,7 +270,7 @@ structure <ObjectNamespace><ObjectName> :>
 
     (* Type Abbreviations *)
 
-    type t = base class_t
+    type t = base class
 
 
     (* Interfaces *)
@@ -323,10 +328,7 @@ structure <ObjectNamespace><ObjectName> :>
 where
 
 
-  typeName[n] is the same as for the signature;
-
-
-  varlist[n] is the same as for the signature;
+  localName[n], typeName[n], t[n], varlist[n] are the same as for the signature;
 
 
   ...

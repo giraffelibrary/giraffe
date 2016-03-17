@@ -4,7 +4,8 @@ structure GtkEntryBufferClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a entry_buffer = unit
-    type 'a t = 'a entry_buffer GObjectObjectClass.t
+    type 'a class = 'a entry_buffer GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

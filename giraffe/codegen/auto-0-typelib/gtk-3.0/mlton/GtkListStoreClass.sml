@@ -4,7 +4,8 @@ structure GtkListStoreClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a list_store = unit
-    type 'a t = 'a list_store GObjectObjectClass.t
+    type 'a class = 'a list_store GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

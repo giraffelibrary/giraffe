@@ -1,6 +1,6 @@
 structure GtkSourceGutterRendererText :>
   GTK_SOURCE_GUTTER_RENDERER_TEXT
-    where type 'a class_t = 'a GtkSourceGutterRendererTextClass.t =
+    where type 'a class = 'a GtkSourceGutterRendererTextClass.class =
   struct
     local
       open PolyMLFFI
@@ -24,8 +24,8 @@ structure GtkSourceGutterRendererText :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkSourceGutterRendererTextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceGutterRendererTextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
     fun setMarkup self markup length =

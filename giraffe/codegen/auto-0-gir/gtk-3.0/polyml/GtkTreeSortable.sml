@@ -1,6 +1,6 @@
 structure GtkTreeSortable :>
   GTK_TREE_SORTABLE
-    where type 'a class_t = 'a GtkTreeSortableClass.t
+    where type 'a class = 'a GtkTreeSortableClass.class
     where type sort_type_t = GtkSortType.t =
   struct
     local
@@ -26,9 +26,9 @@ structure GtkTreeSortable :>
           )
       val sortColumnChanged_ = call (load_sym libgtk "gtk_tree_sortable_sort_column_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTreeSortableClass.t
+    type 'a class = 'a GtkTreeSortableClass.class
     type sort_type_t = GtkSortType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSortColumnId self =
       let

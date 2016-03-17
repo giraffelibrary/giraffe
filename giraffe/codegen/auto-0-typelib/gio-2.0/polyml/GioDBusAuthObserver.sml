@@ -1,8 +1,8 @@
 structure GioDBusAuthObserver :>
   GIO_D_BUS_AUTH_OBSERVER
-    where type 'a class_t = 'a GioDBusAuthObserverClass.t
-    where type 'a credentials_class_t = 'a GioCredentialsClass.t
-    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t =
+    where type 'a class = 'a GioDBusAuthObserverClass.class
+    where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type 'a i_o_stream_class = 'a GioIOStreamClass.class =
   struct
     local
       open PolyMLFFI
@@ -18,10 +18,10 @@ structure GioDBusAuthObserver :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GioDBusAuthObserverClass.t
-    type 'a credentials_class_t = 'a GioCredentialsClass.t
-    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    type t = base class_t
+    type 'a class = 'a GioDBusAuthObserverClass.class
+    type 'a credentials_class = 'a GioCredentialsClass.class
+    type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioDBusAuthObserverClass.C.fromPtr true) new_ ()
     fun authorizeAuthenticatedPeer self stream credentials =

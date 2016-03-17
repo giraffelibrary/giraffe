@@ -1,13 +1,13 @@
 structure GioSocket :>
   GIO_SOCKET
-    where type 'a class_t = 'a GioSocketClass.t
-    where type 'a initable_class_t = 'a GioInitableClass.t
-    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    where type 'a credentials_class_t = 'a GioCredentialsClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a class = 'a GioSocketClass.class
+    where type 'a initable_class = 'a GioInitableClass.class
+    where type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type socket_family_t = GioSocketFamily.t
     where type socket_protocol_t = GioSocketProtocol.t
-    where type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type socket_type_t = GioSocketType.t =
   struct
     val getType_ = _import "g_socket_get_type" : unit -> GObjectType.C.val_;
@@ -233,16 +233,16 @@ structure GioSocket :>
               x4
             )
     val speaksIpv4_ = _import "g_socket_speaks_ipv4" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    type 'a class_t = 'a GioSocketClass.t
-    type 'a initable_class_t = 'a GioInitableClass.t
-    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    type 'a credentials_class_t = 'a GioCredentialsClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a class = 'a GioSocketClass.class
+    type 'a initable_class = 'a GioInitableClass.class
+    type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    type 'a credentials_class = 'a GioCredentialsClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
     type socket_family_t = GioSocketFamily.t
     type socket_protocol_t = GioSocketProtocol.t
-    type 'a socket_address_class_t = 'a GioSocketAddressClass.t
+    type 'a socket_address_class = 'a GioSocketAddressClass.class
     type socket_type_t = GioSocketType.t
-    type t = base class_t
+    type t = base class
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new family type' protocol =

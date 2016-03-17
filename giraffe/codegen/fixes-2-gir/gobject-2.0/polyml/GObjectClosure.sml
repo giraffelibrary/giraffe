@@ -1,6 +1,6 @@
 structure GObjectClosure :>
   G_OBJECT_CLOSURE
-    where type record_t = GObjectClosureRecord.t
+    where type t = GObjectClosureRecord.t
     where type type_t = GObjectType.t
     where type 'a marshaller = 'a ClosureMarshal.marshaller =
   struct
@@ -14,9 +14,8 @@ structure GObjectClosure :>
           (ClosureMarshal.PolyML.CALLBACK --> GObjectClosureRecord.PolyML.cPtr)
       val invalidate_ = call (load_sym libgobject "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type record_t = GObjectClosureRecord.t
+    type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
-    type t = record_t
     type 'a marshaller = 'a ClosureMarshal.marshaller
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new marshaller callback =

@@ -1,6 +1,6 @@
 structure GdkColor :>
   GDK_COLOR
-    where type record_t = GdkColorRecord.t =
+    where type t = GdkColorRecord.t =
   struct
     val getType_ = _import "gdk_color_get_type" : unit -> GObjectType.C.val_;
     val copy_ = _import "gdk_color_copy" : GdkColorRecord.C.notnull GdkColorRecord.C.p -> GdkColorRecord.C.notnull GdkColorRecord.C.p;
@@ -22,8 +22,7 @@ structure GdkColor :>
               x2,
               x3
             )
-    type record_t = GdkColorRecord.t
-    type t = record_t
+    type t = GdkColorRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkColorRecord.C.withPtr ---> GdkColorRecord.C.fromPtr true) copy_ self
     fun equal self colorb = (GdkColorRecord.C.withPtr &&&> GdkColorRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & colorb)

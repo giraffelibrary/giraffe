@@ -1,8 +1,8 @@
 structure GioDataOutputStream :>
   GIO_DATA_OUTPUT_STREAM
-    where type 'a class_t = 'a GioDataOutputStreamClass.t
-    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a class = 'a GioDataOutputStreamClass.class
+    where type 'a output_stream_class = 'a GioOutputStreamClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t =
   struct
     local
@@ -85,11 +85,11 @@ structure GioDataOutputStream :>
           )
       val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GObjectObjectClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioDataOutputStreamClass.t
-    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a class = 'a GioDataOutputStreamClass.class
+    type 'a output_stream_class = 'a GioOutputStreamClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataOutputStreamClass.C.fromPtr true) new_ baseStream
     fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self

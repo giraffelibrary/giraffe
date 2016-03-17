@@ -4,7 +4,8 @@ structure GioActionGroupClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a action_group = unit
-    type 'a t = 'a action_group GObjectObjectClass.t
+    type 'a class = 'a action_group GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

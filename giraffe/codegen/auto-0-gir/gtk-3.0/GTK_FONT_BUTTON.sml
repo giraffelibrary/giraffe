@@ -1,52 +1,52 @@
 signature GTK_FONT_BUTTON =
   sig
-    type 'a class_t
-    type 'a activatable_class_t
-    type 'a buildable_class_t
-    type 'a font_chooser_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatable_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asFontChooser : 'a class_t -> base font_chooser_class_t
+    type 'a class
+    type 'a activatable_class
+    type 'a buildable_class
+    type 'a font_chooser_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActivatable : 'a class -> base activatable_class
+    val asBuildable : 'a class -> base buildable_class
+    val asFontChooser : 'a class -> base font_chooser_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newWithFont : string -> base class_t
-    val getFontName : 'a class_t -> string
-    val getShowSize : 'a class_t -> bool
-    val getShowStyle : 'a class_t -> bool
-    val getTitle : 'a class_t -> string
-    val getUseFont : 'a class_t -> bool
-    val getUseSize : 'a class_t -> bool
+    val new : unit -> base class
+    val newWithFont : string -> base class
+    val getFontName : 'a class -> string
+    val getShowSize : 'a class -> bool
+    val getShowStyle : 'a class -> bool
+    val getTitle : 'a class -> string
+    val getUseFont : 'a class -> bool
+    val getUseSize : 'a class -> bool
     val setFontName :
-      'a class_t
+      'a class
        -> string
        -> bool
     val setShowSize :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowStyle :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setTitle :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setUseFont :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setUseSize :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val fontSetSig : (unit -> unit) -> 'a class_t Signal.signal
-    val fontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val showSizeProp : ('a class_t, bool, bool) Property.readwrite
-    val showStyleProp : ('a class_t, bool, bool) Property.readwrite
-    val titleProp : ('a class_t, string option, string option) Property.readwrite
-    val useFontProp : ('a class_t, bool, bool) Property.readwrite
-    val useSizeProp : ('a class_t, bool, bool) Property.readwrite
+    val fontSetSig : (unit -> unit) -> 'a class Signal.signal
+    val fontNameProp : ('a class, string option, string option) Property.readwrite
+    val showSizeProp : ('a class, bool, bool) Property.readwrite
+    val showStyleProp : ('a class, bool, bool) Property.readwrite
+    val titleProp : ('a class, string option, string option) Property.readwrite
+    val useFontProp : ('a class, bool, bool) Property.readwrite
+    val useSizeProp : ('a class, bool, bool) Property.readwrite
   end

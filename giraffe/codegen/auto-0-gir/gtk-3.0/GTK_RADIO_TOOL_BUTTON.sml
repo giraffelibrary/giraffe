@@ -1,17 +1,17 @@
 signature GTK_RADIO_TOOL_BUTTON =
   sig
-    type 'a class_t
-    type 'a activatable_class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatable_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a activatable_class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActivatable : 'a class -> base activatable_class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val newFromWidget : 'a class_t option -> base class_t
+    val newFromWidget : 'a class option -> base class
     val newWithStockFromWidget :
-      'a class_t option
+      'a class option
        -> string
-       -> base class_t
-    val groupProp : ('a class_t, 'b class_t option) Property.writeonly
+       -> base class
+    val groupProp : ('a class, 'b class option) Property.writeonly
   end

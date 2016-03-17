@@ -1,7 +1,7 @@
 structure GioVfs :>
   GIO_VFS
-    where type 'a class_t = 'a GioVfsClass.t
-    where type 'a file_class_t = 'a GioFileClass.t =
+    where type 'a class = 'a GioVfsClass.class
+    where type 'a file_class = 'a GioFileClass.class =
   struct
     val getType_ = _import "g_vfs_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "g_vfs_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -52,9 +52,9 @@ structure GioVfs :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioVfsClass.t
-    type 'a file_class_t = 'a GioFileClass.t
-    type t = base class_t
+    type 'a class = 'a GioVfsClass.class
+    type 'a file_class = 'a GioFileClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioVfsClass.C.fromPtr false) getDefault_ ()
     fun getLocal () = (I ---> GioVfsClass.C.fromPtr false) getLocal_ ()

@@ -1,6 +1,6 @@
 structure GdkColor :>
   GDK_COLOR
-    where type record_t = GdkColorRecord.t =
+    where type t = GdkColorRecord.t =
   struct
     local
       open PolyMLFFI
@@ -12,8 +12,7 @@ structure GdkColor :>
       val toString_ = call (load_sym libgdk "gdk_color_to_string") (GdkColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val parse_ = call (load_sym libgdk "gdk_color_parse") (Utf8.PolyML.cInPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type record_t = GdkColorRecord.t
-    type t = record_t
+    type t = GdkColorRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkColorRecord.C.withPtr ---> GdkColorRecord.C.fromPtr true) copy_ self
     fun equal self colorb = (GdkColorRecord.C.withPtr &&&> GdkColorRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & colorb)

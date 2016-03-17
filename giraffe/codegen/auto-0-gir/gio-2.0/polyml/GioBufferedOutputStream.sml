@@ -1,7 +1,7 @@
 structure GioBufferedOutputStream :>
   GIO_BUFFERED_OUTPUT_STREAM
-    where type 'a class_t = 'a GioBufferedOutputStreamClass.t
-    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t =
+    where type 'a class = 'a GioBufferedOutputStreamClass.class
+    where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,9 +14,9 @@ structure GioBufferedOutputStream :>
       val setAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_set_auto_grow") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setBufferSize_ = call (load_sym libgio "g_buffered_output_stream_set_buffer_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioBufferedOutputStreamClass.t
-    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
-    type t = base class_t
+    type 'a class = 'a GioBufferedOutputStreamClass.class
+    type 'a output_stream_class = 'a GioOutputStreamClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
     fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)

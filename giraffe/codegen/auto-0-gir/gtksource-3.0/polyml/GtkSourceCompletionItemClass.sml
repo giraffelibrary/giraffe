@@ -4,7 +4,8 @@ structure GtkSourceCompletionItemClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a completion_item = unit
-    type 'a t = 'a completion_item GObjectObjectClass.t
+    type 'a class = 'a completion_item GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

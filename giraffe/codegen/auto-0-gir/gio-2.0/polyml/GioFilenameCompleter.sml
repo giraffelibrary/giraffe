@@ -1,6 +1,6 @@
 structure GioFilenameCompleter :>
   GIO_FILENAME_COMPLETER
-    where type 'a class_t = 'a GioFilenameCompleterClass.t =
+    where type 'a class = 'a GioFilenameCompleterClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,8 @@ structure GioFilenameCompleter :>
       val getCompletionSuffix_ = call (load_sym libgio "g_filename_completer_get_completion_suffix") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val setDirsOnly_ = call (load_sym libgio "g_filename_completer_set_dirs_only") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioFilenameCompleterClass.t
-    type t = base class_t
+    type 'a class = 'a GioFilenameCompleterClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.C.fromPtr true) new_ ()
     fun getCompletionSuffix self initialText = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) getCompletionSuffix_ (self & initialText)

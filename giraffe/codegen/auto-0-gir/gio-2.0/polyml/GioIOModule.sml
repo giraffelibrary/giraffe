@@ -1,6 +1,6 @@
 structure GioIOModule :>
   GIO_I_O_MODULE
-    where type 'a class_t = 'a GioIOModuleClass.t =
+    where type 'a class = 'a GioIOModuleClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,8 @@ structure GioIOModule :>
       val load_ = call (load_sym libgio "g_io_module_load") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unload_ = call (load_sym libgio "g_io_module_unload") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioIOModuleClass.t
-    type t = base class_t
+    type 'a class = 'a GioIOModuleClass.class
+    type t = base class
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new filename = (Utf8.C.withPtr ---> GioIOModuleClass.C.fromPtr true) new_ filename

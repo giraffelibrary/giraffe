@@ -1,11 +1,11 @@
 structure GioFileInfo :>
   GIO_FILE_INFO
-    where type 'a class_t = 'a GioFileInfoClass.t
+    where type 'a class = 'a GioFileInfoClass.class
     where type file_attribute_type_t = GioFileAttributeType.t
-    where type file_attribute_matcher_record_t = GioFileAttributeMatcherRecord.t
+    where type file_attribute_matcher_t = GioFileAttributeMatcherRecord.t
     where type file_attribute_status_t = GioFileAttributeStatus.t
     where type file_type_t = GioFileType.t
-    where type 'a icon_class_t = 'a GioIconClass.t =
+    where type 'a icon_class = 'a GioIconClass.class =
   struct
     local
       open PolyMLFFI
@@ -138,13 +138,13 @@ structure GioFileInfo :>
       val setSymlinkTarget_ = call (load_sym libgio "g_file_info_set_symlink_target") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val unsetAttributeMask_ = call (load_sym libgio "g_file_info_unset_attribute_mask") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioFileInfoClass.t
+    type 'a class = 'a GioFileInfoClass.class
     type file_attribute_type_t = GioFileAttributeType.t
-    type file_attribute_matcher_record_t = GioFileAttributeMatcherRecord.t
+    type file_attribute_matcher_t = GioFileAttributeMatcherRecord.t
     type file_attribute_status_t = GioFileAttributeStatus.t
     type file_type_t = GioFileType.t
-    type 'a icon_class_t = 'a GioIconClass.t
-    type t = base class_t
+    type 'a icon_class = 'a GioIconClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioFileInfoClass.C.fromPtr true) new_ ()
     fun clearStatus self = (GObjectObjectClass.C.withPtr ---> I) clearStatus_ self

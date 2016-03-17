@@ -1,34 +1,33 @@
 signature GTK_ICON_INFO =
   sig
-    type record_t
-    type 'a icon_theme_class_t
-    type 'a style_context_class_t
-    type t = record_t
+    type t
+    type 'a icon_theme_class
+    type 'a style_context_class
     val getType : unit -> GObject.Type.t
     val newForPixbuf :
-      'a icon_theme_class_t
-       -> 'b GdkPixbuf.PixbufClass.t
-       -> record_t
-    val copy : record_t -> record_t
-    val getBaseSize : record_t -> LargeInt.int
-    val getBuiltinPixbuf : record_t -> base GdkPixbuf.PixbufClass.t
-    val getDisplayName : record_t -> string
-    val getEmbeddedRect : record_t -> Cairo.RectangleIntRecord.t option
-    val getFilename : record_t -> string
-    val loadIcon : record_t -> base GdkPixbuf.PixbufClass.t
+      'a icon_theme_class
+       -> 'b GdkPixbuf.PixbufClass.class
+       -> t
+    val copy : t -> t
+    val getBaseSize : t -> LargeInt.int
+    val getBuiltinPixbuf : t -> base GdkPixbuf.PixbufClass.class
+    val getDisplayName : t -> string
+    val getEmbeddedRect : t -> Cairo.RectangleIntRecord.t option
+    val getFilename : t -> string
+    val loadIcon : t -> base GdkPixbuf.PixbufClass.class
     val loadSymbolic :
-      record_t
+      t
        -> Gdk.RgbaRecord.t
        -> Gdk.RgbaRecord.t option
        -> Gdk.RgbaRecord.t option
        -> Gdk.RgbaRecord.t option
-       -> base GdkPixbuf.PixbufClass.t * bool
+       -> base GdkPixbuf.PixbufClass.class * bool
     val loadSymbolicForContext :
-      record_t
-       -> 'a style_context_class_t
-       -> base GdkPixbuf.PixbufClass.t * bool
+      t
+       -> 'a style_context_class
+       -> base GdkPixbuf.PixbufClass.class * bool
     val setRawCoordinates :
-      record_t
+      t
        -> bool
        -> unit
   end

@@ -1,6 +1,6 @@
 structure GioCancellable :>
   GIO_CANCELLABLE
-    where type 'a class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioCancellableClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,8 +19,8 @@ structure GioCancellable :>
       val reset_ = call (load_sym libgio "g_cancellable_reset") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setErrorIfCancelled_ = call (load_sym libgio "g_cancellable_set_error_if_cancelled") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.C.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.C.fromPtr false) getCurrent_ ()

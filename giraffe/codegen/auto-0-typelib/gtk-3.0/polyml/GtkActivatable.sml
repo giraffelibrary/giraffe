@@ -1,7 +1,7 @@
 structure GtkActivatable :>
   GTK_ACTIVATABLE
-    where type 'a class_t = 'a GtkActivatableClass.t
-    where type 'a action_class_t = 'a GtkActionClass.t =
+    where type 'a class = 'a GtkActivatableClass.class
+    where type 'a action_class = 'a GtkActionClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,9 +14,9 @@ structure GtkActivatable :>
       val setUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_set_use_action_appearance") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val syncActionProperties_ = call (load_sym libgtk "gtk_activatable_sync_action_properties") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkActivatableClass.t
-    type 'a action_class_t = 'a GtkActionClass.t
-    type t = base class_t
+    type 'a class = 'a GtkActivatableClass.class
+    type 'a action_class = 'a GtkActionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doSetRelatedAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) doSetRelatedAction_ (self & action)
     fun getRelatedAction self = (GObjectObjectClass.C.withPtr ---> GtkActionClass.C.fromPtr false) getRelatedAction_ self

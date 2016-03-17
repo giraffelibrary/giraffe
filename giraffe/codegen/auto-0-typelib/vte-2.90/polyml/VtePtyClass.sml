@@ -4,7 +4,8 @@ structure VtePtyClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a pty = unit
-    type 'a t = 'a pty GObjectObjectClass.t
+    type 'a class = 'a pty GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

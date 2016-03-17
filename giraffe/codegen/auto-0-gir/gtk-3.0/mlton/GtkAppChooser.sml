@@ -1,13 +1,13 @@
 structure GtkAppChooser :>
   GTK_APP_CHOOSER
-    where type 'a class_t = 'a GtkAppChooserClass.t =
+    where type 'a class = 'a GtkAppChooserClass.class =
   struct
     val getType_ = _import "gtk_app_chooser_get_type" : unit -> GObjectType.C.val_;
     val getAppInfo_ = _import "gtk_app_chooser_get_app_info" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getContentType_ = _import "gtk_app_chooser_get_content_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val refresh_ = _import "gtk_app_chooser_refresh" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkAppChooserClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAppChooserClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getAppInfo_ self
     fun getContentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getContentType_ self

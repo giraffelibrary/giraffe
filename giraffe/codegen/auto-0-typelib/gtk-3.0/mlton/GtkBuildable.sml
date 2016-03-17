@@ -1,7 +1,7 @@
 structure GtkBuildable :>
   GTK_BUILDABLE
-    where type 'a class_t = 'a GtkBuildableClass.t
-    where type 'a builder_class_t = 'a GtkBuilderClass.t =
+    where type 'a class = 'a GtkBuildableClass.class
+    where type 'a builder_class = 'a GtkBuilderClass.class =
   struct
     val getType_ = _import "gtk_buildable_get_type" : unit -> GObjectType.C.val_;
     val addChild_ =
@@ -103,9 +103,9 @@ structure GtkBuildable :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkBuildableClass.t
-    type 'a builder_class_t = 'a GtkBuilderClass.t
-    type t = base class_t
+    type 'a class = 'a GtkBuildableClass.class
+    type 'a builder_class = 'a GtkBuilderClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addChild self builder child type' =
       (

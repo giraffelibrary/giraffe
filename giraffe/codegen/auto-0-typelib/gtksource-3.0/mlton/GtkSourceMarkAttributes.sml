@@ -1,7 +1,7 @@
 structure GtkSourceMarkAttributes :>
   GTK_SOURCE_MARK_ATTRIBUTES
-    where type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    where type 'a mark_class_t = 'a GtkSourceMarkClass.t =
+    where type 'a class = 'a GtkSourceMarkAttributesClass.class
+    where type 'a mark_class = 'a GtkSourceMarkClass.class =
   struct
     val getType_ = _import "gtk_source_mark_attributes_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_mark_attributes_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -62,9 +62,9 @@ structure GtkSourceMarkAttributes :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    type 'a mark_class_t = 'a GtkSourceMarkClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceMarkAttributesClass.class
+    type 'a mark_class = 'a GtkSourceMarkClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceMarkAttributesClass.C.fromPtr true) new_ ()
     fun getBackground self =

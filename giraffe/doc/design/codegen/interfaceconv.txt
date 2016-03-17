@@ -39,12 +39,12 @@ Conditions
 InterfaceConvSpec has the form:
 
 
-  val as<InterfaceName> : 'a class_t -> base <InterfaceNamespace>.<InterfaceName>Class.t
+  val as<InterfaceName> : 'a class -> base <InterfaceNamespace>.<InterfaceName>Class.class
 
     if isGlobal 
 
 
-  val as<InterfaceName> : 'a class_t -> base <interfacename>class_t
+  val as<InterfaceName> : 'a class -> base <interfacename>_class
 
     if not isGlobal
 

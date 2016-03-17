@@ -4,7 +4,8 @@ structure GioAsyncResultClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a async_result = unit
-    type 'a t = 'a async_result GObjectObjectClass.t
+    type 'a class = 'a async_result GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

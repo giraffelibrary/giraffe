@@ -1,7 +1,7 @@
 structure GtkWidgetPath :>
   GTK_WIDGET_PATH
-    where type record_t = GtkWidgetPathRecord.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type t = GtkWidgetPathRecord.t
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type region_flags_t = GtkRegionFlags.t =
   struct
     local
@@ -118,10 +118,9 @@ structure GtkWidgetPath :>
       val length_ = call (load_sym libgtk "gtk_widget_path_length") (GtkWidgetPathRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val toString_ = call (load_sym libgtk "gtk_widget_path_to_string") (GtkWidgetPathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type record_t = GtkWidgetPathRecord.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type t = GtkWidgetPathRecord.t
+    type 'a widget_class = 'a GtkWidgetClass.class
     type region_flags_t = GtkRegionFlags.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.C.fromPtr true) new_ ()
     fun appendForWidget self widget = (GtkWidgetPathRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) appendForWidget_ (self & widget)

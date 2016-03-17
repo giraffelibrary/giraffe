@@ -8,8 +8,8 @@ signature G_LIB_KEY_FILE_ERROR =
     | GROUP_NOT_FOUND
     | INVALID_VALUE
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

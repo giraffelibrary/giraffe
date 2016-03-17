@@ -1,7 +1,7 @@
 structure GLibMatchInfo :>
   G_LIB_MATCH_INFO
-    where type record_t = GLibMatchInfoRecord.t
-    where type regex_record_t = GLibRegexRecord.t =
+    where type t = GLibMatchInfoRecord.t
+    where type regex_t = GLibRegexRecord.t =
   struct
     local
       open PolyMLFFI
@@ -42,9 +42,8 @@ structure GLibMatchInfo :>
       val matches_ = call (load_sym libglib "g_match_info_matches") (GLibMatchInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val next_ = call (load_sym libglib "g_match_info_next") (GLibMatchInfoRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
     end
-    type record_t = GLibMatchInfoRecord.t
-    type regex_record_t = GLibRegexRecord.t
-    type t = record_t
+    type t = GLibMatchInfoRecord.t
+    type regex_t = GLibRegexRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun expandReferences self stringToExpand =
       (

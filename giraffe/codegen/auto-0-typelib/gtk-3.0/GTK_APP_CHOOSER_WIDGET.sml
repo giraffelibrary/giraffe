@@ -1,58 +1,58 @@
 signature GTK_APP_CHOOSER_WIDGET =
   sig
-    type 'a class_t
-    type 'a app_chooser_class_t
-    type 'a buildable_class_t
-    type 'a orientable_class_t
-    type 'a menu_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asAppChooser : 'a class_t -> base app_chooser_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asOrientable : 'a class_t -> base orientable_class_t
+    type 'a class
+    type 'a app_chooser_class
+    type 'a buildable_class
+    type 'a orientable_class
+    type 'a menu_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asAppChooser : 'a class -> base app_chooser_class
+    val asBuildable : 'a class -> base buildable_class
+    val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val getDefaultText : 'a class_t -> string
-    val getShowAll : 'a class_t -> bool
-    val getShowDefault : 'a class_t -> bool
-    val getShowFallback : 'a class_t -> bool
-    val getShowOther : 'a class_t -> bool
-    val getShowRecommended : 'a class_t -> bool
+    val new : string -> base class
+    val getDefaultText : 'a class -> string
+    val getShowAll : 'a class -> bool
+    val getShowDefault : 'a class -> bool
+    val getShowFallback : 'a class -> bool
+    val getShowOther : 'a class -> bool
+    val getShowRecommended : 'a class -> bool
     val setDefaultText :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setShowAll :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowDefault :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowFallback :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowOther :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowRecommended :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val applicationActivatedSig : (base Gio.AppInfoClass.t -> unit) -> 'a class_t Signal.signal
-    val applicationSelectedSig : (base Gio.AppInfoClass.t -> unit) -> 'a class_t Signal.signal
+    val applicationActivatedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.signal
+    val applicationSelectedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.signal
     val populatePopupSig :
-      (base menu_class_t
-        -> base Gio.AppInfoClass.t
+      (base menu_class
+        -> base Gio.AppInfoClass.class
         -> unit)
-       -> 'a class_t Signal.signal
-    val defaultTextProp : ('a class_t, string option, string option) Property.readwrite
-    val showAllProp : ('a class_t, bool, bool) Property.readwrite
-    val showDefaultProp : ('a class_t, bool, bool) Property.readwrite
-    val showFallbackProp : ('a class_t, bool, bool) Property.readwrite
-    val showOtherProp : ('a class_t, bool, bool) Property.readwrite
-    val showRecommendedProp : ('a class_t, bool, bool) Property.readwrite
+       -> 'a class Signal.signal
+    val defaultTextProp : ('a class, string option, string option) Property.readwrite
+    val showAllProp : ('a class, bool, bool) Property.readwrite
+    val showDefaultProp : ('a class, bool, bool) Property.readwrite
+    val showFallbackProp : ('a class, bool, bool) Property.readwrite
+    val showOtherProp : ('a class, bool, bool) Property.readwrite
+    val showRecommendedProp : ('a class, bool, bool) Property.readwrite
   end

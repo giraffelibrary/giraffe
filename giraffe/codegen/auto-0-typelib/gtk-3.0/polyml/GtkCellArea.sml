@@ -1,18 +1,18 @@
 structure GtkCellArea :>
   GTK_CELL_AREA
-    where type 'a class_t = 'a GtkCellAreaClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    where type 'a class = 'a GtkCellAreaClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     where type direction_type_t = GtkDirectionType.t
     where type size_request_mode_t = GtkSizeRequestMode.t
     where type cell_renderer_state_t = GtkCellRendererState.t
-    where type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type orientation_t = GtkOrientation.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t =
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class
+    where type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    where type 'a cell_renderer_class = 'a GtkCellRendererClass.class =
   struct
     local
       open PolyMLFFI
@@ -235,20 +235,20 @@ structure GtkCellArea :>
       val setFocusCell_ = call (load_sym libgtk "gtk_cell_area_set_focus_cell") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val stopEditing_ = call (load_sym libgtk "gtk_cell_area_stop_editing") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkCellAreaClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
+    type 'a class = 'a GtkCellAreaClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type direction_type_t = GtkDirectionType.t
     type size_request_mode_t = GtkSizeRequestMode.t
     type cell_renderer_state_t = GtkCellRendererState.t
-    type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
     type orientation_t = GtkOrientation.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    type t = base class_t
+    type tree_iter_t = GtkTreeIterRecord.t
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

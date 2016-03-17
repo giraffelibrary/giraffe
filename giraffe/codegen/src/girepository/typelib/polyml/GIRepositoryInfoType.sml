@@ -1,22 +1,22 @@
 structure GIRepositoryInfoType :>
   G_I_REPOSITORY_INFO_TYPE
-    where type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
-    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
-    where type 'a callableinfoclass_t       = 'a GIRepositoryCallableInfoClass.t
-    where type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
-    where type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
-    where type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
-    where type 'a objectinfoclass_t         = 'a GIRepositoryObjectInfoClass.t
-    where type 'a interfaceinfoclass_t      = 'a GIRepositoryInterfaceInfoClass.t
-    where type 'a constantinfoclass_t       = 'a GIRepositoryConstantInfoClass.t
-    where type 'a unioninfoclass_t          = 'a GIRepositoryUnionInfoClass.t
-    where type 'a valueinfoclass_t          = 'a GIRepositoryValueInfoClass.t
-    where type 'a signalinfoclass_t         = 'a GIRepositorySignalInfoClass.t
-    where type 'a vfuncinfoclass_t          = 'a GIRepositoryVFuncInfoClass.t
-    where type 'a propertyinfoclass_t       = 'a GIRepositoryPropertyInfoClass.t
-    where type 'a fieldinfoclass_t          = 'a GIRepositoryFieldInfoClass.t
-    where type 'a arginfoclass_t            = 'a GIRepositoryArgInfoClass.t
-    where type 'a typeinfoclass_t           = 'a GIRepositoryTypeInfoClass.t =
+    where type 'a baseinfo_class           = 'a GIRepositoryBaseInfoClass.class
+    where type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
+    where type 'a callableinfo_class       = 'a GIRepositoryCallableInfoClass.class
+    where type 'a functioninfo_class       = 'a GIRepositoryFunctionInfoClass.class
+    where type 'a structinfo_class         = 'a GIRepositoryStructInfoClass.class
+    where type 'a enuminfo_class           = 'a GIRepositoryEnumInfoClass.class
+    where type 'a objectinfo_class         = 'a GIRepositoryObjectInfoClass.class
+    where type 'a interfaceinfo_class      = 'a GIRepositoryInterfaceInfoClass.class
+    where type 'a constantinfo_class       = 'a GIRepositoryConstantInfoClass.class
+    where type 'a unioninfo_class          = 'a GIRepositoryUnionInfoClass.class
+    where type 'a valueinfo_class          = 'a GIRepositoryValueInfoClass.class
+    where type 'a signalinfo_class         = 'a GIRepositorySignalInfoClass.class
+    where type 'a vfuncinfo_class          = 'a GIRepositoryVFuncInfoClass.class
+    where type 'a propertyinfo_class       = 'a GIRepositoryPropertyInfoClass.class
+    where type 'a fieldinfo_class          = 'a GIRepositoryFieldInfoClass.class
+    where type 'a arginfo_class            = 'a GIRepositoryArgInfoClass.class
+    where type 'a typeinfo_class           = 'a GIRepositoryTypeInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -28,44 +28,44 @@ structure GIRepositoryInfoType :>
     end
 
 
-    type 'a baseinfoclass_t           = 'a GIRepositoryBaseInfoClass.t
-    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
-    type 'a callableinfoclass_t       = 'a GIRepositoryCallableInfoClass.t
-    type 'a functioninfoclass_t       = 'a GIRepositoryFunctionInfoClass.t
-    type 'a structinfoclass_t         = 'a GIRepositoryStructInfoClass.t
-    type 'a enuminfoclass_t           = 'a GIRepositoryEnumInfoClass.t
-    type 'a objectinfoclass_t         = 'a GIRepositoryObjectInfoClass.t
-    type 'a interfaceinfoclass_t      = 'a GIRepositoryInterfaceInfoClass.t
-    type 'a constantinfoclass_t       = 'a GIRepositoryConstantInfoClass.t
-    type 'a unioninfoclass_t          = 'a GIRepositoryUnionInfoClass.t
-    type 'a valueinfoclass_t          = 'a GIRepositoryValueInfoClass.t
-    type 'a signalinfoclass_t         = 'a GIRepositorySignalInfoClass.t
-    type 'a vfuncinfoclass_t          = 'a GIRepositoryVFuncInfoClass.t
-    type 'a propertyinfoclass_t       = 'a GIRepositoryPropertyInfoClass.t
-    type 'a fieldinfoclass_t          = 'a GIRepositoryFieldInfoClass.t
-    type 'a arginfoclass_t            = 'a GIRepositoryArgInfoClass.t
-    type 'a typeinfoclass_t           = 'a GIRepositoryTypeInfoClass.t
+    type 'a baseinfo_class           = 'a GIRepositoryBaseInfoClass.class
+    type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
+    type 'a callableinfo_class       = 'a GIRepositoryCallableInfoClass.class
+    type 'a functioninfo_class       = 'a GIRepositoryFunctionInfoClass.class
+    type 'a structinfo_class         = 'a GIRepositoryStructInfoClass.class
+    type 'a enuminfo_class           = 'a GIRepositoryEnumInfoClass.class
+    type 'a objectinfo_class         = 'a GIRepositoryObjectInfoClass.class
+    type 'a interfaceinfo_class      = 'a GIRepositoryInterfaceInfoClass.class
+    type 'a constantinfo_class       = 'a GIRepositoryConstantInfoClass.class
+    type 'a unioninfo_class          = 'a GIRepositoryUnionInfoClass.class
+    type 'a valueinfo_class          = 'a GIRepositoryValueInfoClass.class
+    type 'a signalinfo_class         = 'a GIRepositorySignalInfoClass.class
+    type 'a vfuncinfo_class          = 'a GIRepositoryVFuncInfoClass.class
+    type 'a propertyinfo_class       = 'a GIRepositoryPropertyInfoClass.class
+    type 'a fieldinfo_class          = 'a GIRepositoryFieldInfoClass.class
+    type 'a arginfo_class            = 'a GIRepositoryArgInfoClass.class
+    type 'a typeinfo_class           = 'a GIRepositoryTypeInfoClass.class
 
     datatype t =
       INVALID 
-    | FUNCTION  of base functioninfoclass_t
-    | CALLBACK  of base callableinfoclass_t
-    | STRUCT    of base structinfoclass_t
-    | BOXED     of base registeredtypeinfoclass_t
-    | ENUM      of base enuminfoclass_t
-    | FLAGS     of base enuminfoclass_t
-    | OBJECT    of base objectinfoclass_t
-    | INTERFACE of base interfaceinfoclass_t
-    | CONSTANT  of base constantinfoclass_t
+    | FUNCTION  of base functioninfo_class
+    | CALLBACK  of base callableinfo_class
+    | STRUCT    of base structinfo_class
+    | BOXED     of base registeredtypeinfo_class
+    | ENUM      of base enuminfo_class
+    | FLAGS     of base enuminfo_class
+    | OBJECT    of base objectinfo_class
+    | INTERFACE of base interfaceinfo_class
+    | CONSTANT  of base constantinfo_class
     | INVALID_0
-    | UNION     of base unioninfoclass_t
-    | VALUE     of base valueinfoclass_t
-    | SIGNAL    of base signalinfoclass_t
-    | VFUNC     of base vfuncinfoclass_t
-    | PROPERTY  of base propertyinfoclass_t
-    | FIELD     of base fieldinfoclass_t
-    | ARG       of base arginfoclass_t
-    | TYPE      of base typeinfoclass_t
+    | UNION     of base unioninfo_class
+    | VALUE     of base valueinfo_class
+    | SIGNAL    of base signalinfo_class
+    | VFUNC     of base vfuncinfo_class
+    | PROPERTY  of base propertyinfo_class
+    | FIELD     of base fieldinfo_class
+    | ARG       of base arginfo_class
+    | TYPE      of base typeinfo_class
     | UNRESOLVED
 
     local
@@ -93,7 +93,7 @@ structure GIRepositoryInfoType :>
           K UNRESOLVED
         ]
     in
-      val getType : 'a baseinfoclass_t -> t =
+      val getType : 'a baseinfo_class -> t =
         fn info =>
           GIRepositoryBaseInfoClass.C.withPtr
             (fn ptr => Vector.sub (table, FFI.Int32.C.fromVal (getType_ ptr)) ptr)

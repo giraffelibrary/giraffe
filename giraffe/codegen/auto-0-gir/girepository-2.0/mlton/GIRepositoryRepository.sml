@@ -1,9 +1,9 @@
 structure GIRepositoryRepository :>
   G_I_REPOSITORY_REPOSITORY
-    where type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    where type enum_info_record_t = GIRepositoryEnumInfoRecord.t
-    where type base_info_record_t = GIRepositoryBaseInfoRecord.t
-    where type typelib_record_t = GIRepositoryTypelibRecord.t
+    where type 'a class = 'a GIRepositoryRepositoryClass.class
+    where type enum_info_t = GIRepositoryEnumInfoRecord.t
+    where type base_info_t = GIRepositoryBaseInfoRecord.t
+    where type typelib_t = GIRepositoryTypelibRecord.t
     where type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t =
   struct
     val getType_ = _import "g_irepository_get_type" : unit -> GObjectType.C.val_;
@@ -240,12 +240,12 @@ structure GIRepositoryRepository :>
               x8,
               x9
             )
-    type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    type enum_info_record_t = GIRepositoryEnumInfoRecord.t
-    type base_info_record_t = GIRepositoryBaseInfoRecord.t
-    type typelib_record_t = GIRepositoryTypelibRecord.t
+    type 'a class = 'a GIRepositoryRepositoryClass.class
+    type enum_info_t = GIRepositoryEnumInfoRecord.t
+    type base_info_t = GIRepositoryBaseInfoRecord.t
+    type typelib_t = GIRepositoryTypelibRecord.t
     type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dump arg = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()

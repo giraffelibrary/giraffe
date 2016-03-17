@@ -130,24 +130,20 @@ type interfaceref = {
 }
 
 
-fun makeLocalInterfaceOtherId ({name, ty, ...} : interfaceref) : id =
-  concat [
-    toLCU name,
-    case ty of
-      SIMPLE => ""
-    | CLASS  => "_class"
-    | RECORD => "_record"
-    | UNION  => "",
-    "_t"
-  ]
-
-
 fun makeLocalInterfaceSelfId ({ty, ...} : interfaceref) : id =
   case ty of
     SIMPLE => "t"
-  | CLASS  => "class_t"
-  | RECORD => "record_t"
-  | UNION  => "t"
+  | CLASS  => "class"
+  | RECORD => "t"
+  | UNION  => "union"
+
+
+fun makeLocalInterfaceOtherId (iRef as {name, ...} : interfaceref) : id =
+  concat [
+    toLCU name,
+    "_",
+    makeLocalInterfaceSelfId iRef
+  ]
 
 
 fun makeLocalInterfaceId
@@ -167,7 +163,8 @@ fun prefixLocalNamespaceIds ({name, ty, ...} : interfaceref) =
   | RECORD => prefixRecordStrNameId name
   | UNION  => prefixStrNameId name
 
-fun makeLocalNamespaceIds iRef = prefixLocalNamespaceIds iRef [tId]
+fun makeLocalNamespaceIds iRef =
+  prefixLocalNamespaceIds iRef [makeLocalInterfaceSelfId iRef]
 
 
 fun prefixGlobalIds ({namespace, name, ty, ...} : interfaceref) =
@@ -177,7 +174,8 @@ fun prefixGlobalIds ({namespace, name, ty, ...} : interfaceref) =
   | RECORD => prefixRecordStrIds namespace name
   | UNION  => prefixStrIds namespace name
 
-fun makeGlobalIds iRef = prefixGlobalIds iRef [tId]
+fun makeGlobalIds iRef =
+  prefixGlobalIds iRef [makeLocalInterfaceSelfId iRef]
 
 
 (* For `iRef as {namespace, name, scope, ty, ...} : interfaceref`,
@@ -189,35 +187,35 @@ fun makeGlobalIds iRef = prefixGlobalIds iRef [tId]
  *   ===================================+===================================
  *                             SIMPLE   | 0   t
  *                           -----------+-----------------------------------
- *                             CLASS    | 1   class_t
+ *                             CLASS    | 1   class
  *     LOCALINTERFACESELF    -----------+-----------------------------------
- *                             RECORD   | 0   record_t
+ *                             RECORD   | 0   t
  *                           -----------+-----------------------------------
- *                             UNION    | 1   t
+ *                             UNION    | 1   union
  *   -----------------------------------+-----------------------------------
  *                             SIMPLE   | 0   <name>_t
  *                           -----------+-----------------------------------
- *                             CLASS    | 1   <name>_class_t
+ *                             CLASS    | 1   <name>_class
  *     LOCALINTERFACEOTHER   -----------+-----------------------------------
- *                             RECORD   | 0   <name>_record_t
+ *                             RECORD   | 0   <name>_t
  *                           -----------+-----------------------------------
- *                             UNION    | 1   <name>_t
+ *                             UNION    | 1   <name>_union
  *   -----------------------------------+-----------------------------------
  *                             SIMPLE   | 0   <Name>.t
  *                           -----------+-----------------------------------
- *                             CLASS    | 1   <Name>Class.t
+ *                             CLASS    | 1   <Name>Class.class
  *     LOCALNAMESPACE        -----------+-----------------------------------
  *                             RECORD   | 0   <Name>Record.t
  *                           -----------+-----------------------------------
- *                             UNION    | 1   <Name>.t
+ *                             UNION    | 1   <Name>.union
  *   -----------------------------------+-----------------------------------
  *                             SIMPLE   | 0   <Namespace>.<Name>.t
  *                           -----------+-----------------------------------
- *                             CLASS    | 1   <Namespace>.<Name>Class.t
+ *                             CLASS    | 1   <Namespace>.<Name>Class.class
  *     GLOBAL                -----------+-----------------------------------
  *                             RECORD   | 0   <Namespace>.<Name>Record.t
  *                           -----------+-----------------------------------
- *                             UNION    | 1   <Namespace>.<Name>.t
+ *                             UNION    | 1   <Namespace>.<Name>.union
  *   -----------------------------------+-----------------------------------
  *)
 

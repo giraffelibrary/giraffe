@@ -4,7 +4,8 @@ structure GdkWindowClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a window = unit
-    type 'a t = 'a window GObjectObjectClass.t
+    type 'a class = 'a window GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

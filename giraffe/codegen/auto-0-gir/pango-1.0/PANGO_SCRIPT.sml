@@ -82,10 +82,10 @@ signature PANGO_SCRIPT =
     | LYDIAN
     val null : t
     val t : (t, t) GObject.Value.accessor
-    type language_record_t
+    type language_t
     val getType : unit -> GObject.Type.t
     val forUnichar : char -> t
-    val getSampleLanguage : t -> language_record_t
+    val getSampleLanguage : t -> language_t
     structure C :
       sig
         type val_

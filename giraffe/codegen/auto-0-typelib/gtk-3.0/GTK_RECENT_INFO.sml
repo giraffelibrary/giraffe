@@ -1,48 +1,47 @@
 signature GTK_RECENT_INFO =
   sig
-    type record_t
-    type t = record_t
+    type t
     val getType : unit -> GObject.Type.t
     val createAppInfo :
-      record_t
+      t
        -> string option
-       -> base Gio.AppInfoClass.t
-    val exists : record_t -> bool
-    val getAdded : record_t -> LargeInt.int
-    val getAge : record_t -> LargeInt.int
+       -> base Gio.AppInfoClass.class
+    val exists : t -> bool
+    val getAdded : t -> LargeInt.int
+    val getAge : t -> LargeInt.int
     val getApplicationInfo :
-      record_t
+      t
        -> string
        -> (string
             * LargeInt.int
             * LargeInt.int)
             option
-    val getDescription : record_t -> string
-    val getDisplayName : record_t -> string
-    val getGicon : record_t -> base Gio.IconClass.t
+    val getDescription : t -> string
+    val getDisplayName : t -> string
+    val getGicon : t -> base Gio.IconClass.class
     val getIcon :
-      record_t
+      t
        -> LargeInt.int
-       -> base GdkPixbuf.PixbufClass.t
-    val getMimeType : record_t -> string
-    val getModified : record_t -> LargeInt.int
-    val getPrivateHint : record_t -> bool
-    val getShortName : record_t -> string
-    val getUri : record_t -> string
-    val getUriDisplay : record_t -> string
-    val getVisited : record_t -> LargeInt.int
+       -> base GdkPixbuf.PixbufClass.class
+    val getMimeType : t -> string
+    val getModified : t -> LargeInt.int
+    val getPrivateHint : t -> bool
+    val getShortName : t -> string
+    val getUri : t -> string
+    val getUriDisplay : t -> string
+    val getVisited : t -> LargeInt.int
     val hasApplication :
-      record_t
+      t
        -> string
        -> bool
     val hasGroup :
-      record_t
+      t
        -> string
        -> bool
-    val isLocal : record_t -> bool
-    val lastApplication : record_t -> string
+    val isLocal : t -> bool
+    val lastApplication : t -> string
     val match :
-      record_t
-       -> record_t
+      t
+       -> t
        -> bool
   end

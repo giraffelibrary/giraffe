@@ -1,94 +1,94 @@
 signature GDK_DEVICE =
   sig
-    type 'a class_t
+    type 'a class
     type grab_status_t
-    type 'a cursor_class_t
+    type 'a cursor_class
     type event_mask_t
     type grab_ownership_t
-    type 'a window_class_t
+    type 'a window_class
     type axis_use_t
     type modifier_type_t
-    type 'a screen_class_t
-    type 'a device_manager_class_t
-    type 'a display_class_t
+    type 'a screen_class
+    type 'a device_manager_class
+    type 'a display_class
     type input_mode_t
     type input_source_t
     type device_type_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val grabInfoLibgtkOnly :
-      'a display_class_t
-       -> 'b class_t
-       -> (base window_class_t * bool) option
-    val getAssociatedDevice : 'a class_t -> base class_t
+      'a display_class
+       -> 'b class
+       -> (base window_class * bool) option
+    val getAssociatedDevice : 'a class -> base class
     val getAxisUse :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> axis_use_t
-    val getDeviceType : 'a class_t -> device_type_t
-    val getDisplay : 'a class_t -> base display_class_t
-    val getHasCursor : 'a class_t -> bool
+    val getDeviceType : 'a class -> device_type_t
+    val getDisplay : 'a class -> base display_class
+    val getHasCursor : 'a class -> bool
     val getKey :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> (LargeInt.int * modifier_type_t) option
-    val getMode : 'a class_t -> input_mode_t
-    val getNAxes : 'a class_t -> LargeInt.int
-    val getNKeys : 'a class_t -> LargeInt.int
-    val getName : 'a class_t -> string
+    val getMode : 'a class -> input_mode_t
+    val getNAxes : 'a class -> LargeInt.int
+    val getNKeys : 'a class -> LargeInt.int
+    val getName : 'a class -> string
     val getPosition :
-      'a class_t
-       -> base screen_class_t
+      'a class
+       -> base screen_class
            * LargeInt.int
            * LargeInt.int
-    val getSource : 'a class_t -> input_source_t
+    val getSource : 'a class -> input_source_t
     val getWindowAtPosition :
-      'a class_t
-       -> base window_class_t
+      'a class
+       -> base window_class
            * LargeInt.int
            * LargeInt.int
     val grab :
-      'a class_t
-       -> 'b window_class_t
+      'a class
+       -> 'b window_class
        -> grab_ownership_t
        -> bool
        -> event_mask_t
-       -> 'c cursor_class_t option
+       -> 'c cursor_class option
        -> LargeInt.int
        -> grab_status_t
     val setAxisUse :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> axis_use_t
        -> unit
     val setKey :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> modifier_type_t
        -> unit
     val setMode :
-      'a class_t
+      'a class
        -> input_mode_t
        -> bool
     val ungrab :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val warp :
-      'a class_t
-       -> 'b screen_class_t
+      'a class
+       -> 'b screen_class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val associatedDeviceProp : ('a class_t, base class_t option) Property.readonly
-    val deviceManagerProp : ('a class_t, base device_manager_class_t option, 'b device_manager_class_t option) Property.readwrite
-    val displayProp : ('a class_t, base display_class_t option, 'b display_class_t option) Property.readwrite
-    val hasCursorProp : ('a class_t, bool, bool) Property.readwrite
-    val inputModeProp : ('a class_t, input_mode_t, input_mode_t) Property.readwrite
-    val inputSourceProp : ('a class_t, input_source_t, input_source_t) Property.readwrite
-    val nAxesProp : ('a class_t, LargeInt.int) Property.readonly
-    val nameProp : ('a class_t, string option, string option) Property.readwrite
-    val typeProp : ('a class_t, device_type_t, device_type_t) Property.readwrite
+    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val associatedDeviceProp : ('a class, base class option) Property.readonly
+    val deviceManagerProp : ('a class, base device_manager_class option, 'b device_manager_class option) Property.readwrite
+    val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
+    val hasCursorProp : ('a class, bool, bool) Property.readwrite
+    val inputModeProp : ('a class, input_mode_t, input_mode_t) Property.readwrite
+    val inputSourceProp : ('a class, input_source_t, input_source_t) Property.readwrite
+    val nAxesProp : ('a class, LargeInt.int) Property.readonly
+    val nameProp : ('a class, string option, string option) Property.readwrite
+    val typeProp : ('a class, device_type_t, device_type_t) Property.readwrite
   end

@@ -1,7 +1,7 @@
 structure GioThemedIcon :>
   GIO_THEMED_ICON
-    where type 'a class_t = 'a GioThemedIconClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t =
+    where type 'a class = 'a GioThemedIconClass.class
+    where type 'a icon_class = 'a GioIconClass.class =
   struct
     local
       open PolyMLFFI
@@ -12,9 +12,9 @@ structure GioThemedIcon :>
       val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioThemedIconClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
-    type t = base class_t
+    type 'a class = 'a GioThemedIconClass.class
+    type 'a icon_class = 'a GioIconClass.class
+    type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new iconname = (Utf8.C.withPtr ---> GioIconClass.C.fromPtr true) new_ iconname

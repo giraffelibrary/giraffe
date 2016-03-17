@@ -1,7 +1,7 @@
 structure GioSettings :>
   GIO_SETTINGS
-    where type 'a class_t = 'a GioSettingsClass.t
-    where type settings_backend_record_t = GioSettingsBackendRecord.t
+    where type 'a class = 'a GioSettingsClass.class
+    where type settings_backend_t = GioSettingsBackendRecord.t
     where type settings_bind_flags_t = GioSettingsBindFlags.t =
   struct
     local
@@ -129,10 +129,10 @@ structure GioSettings :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GioSettingsClass.t
-    type settings_backend_record_t = GioSettingsBackendRecord.t
+    type 'a class = 'a GioSettingsClass.class
+    type settings_backend_t = GioSettingsBackendRecord.t
     type settings_bind_flags_t = GioSettingsBindFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new schema = (Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) new_ schema
     fun newWithBackend schema backend = (Utf8.C.withPtr &&&> GioSettingsBackendRecord.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithBackend_ (schema & backend)

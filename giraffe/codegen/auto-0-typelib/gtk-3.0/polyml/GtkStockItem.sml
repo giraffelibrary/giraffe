@@ -1,7 +1,6 @@
 structure GtkStockItem :>
   GTK_STOCK_ITEM
-    where type record_t = GtkStockItemRecord.t =
+    where type t = GtkStockItemRecord.t =
   struct
-    type record_t = GtkStockItemRecord.t
-    type t = record_t
+    type t = GtkStockItemRecord.t
   end

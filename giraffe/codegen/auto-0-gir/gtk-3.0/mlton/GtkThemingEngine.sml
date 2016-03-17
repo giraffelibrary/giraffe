@@ -1,10 +1,10 @@
 structure GtkThemingEngine :>
   GTK_THEMING_ENGINE
-    where type 'a class_t = 'a GtkThemingEngineClass.t
+    where type 'a class = 'a GtkThemingEngineClass.class
     where type text_direction_t = GtkTextDirection.t
     where type junction_sides_t = GtkJunctionSides.t
-    where type border_record_t = GtkBorderRecord.t
-    where type widget_path_record_t = GtkWidgetPathRecord.t
+    where type border_t = GtkBorderRecord.t
+    where type widget_path_t = GtkWidgetPathRecord.t
     where type state_flags_t = GtkStateFlags.t
     where type region_flags_t = GtkRegionFlags.t
     where type state_type_t = GtkStateType.t =
@@ -208,15 +208,15 @@ structure GtkThemingEngine :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkThemingEngineClass.t
+    type 'a class = 'a GtkThemingEngineClass.class
     type text_direction_t = GtkTextDirection.t
     type junction_sides_t = GtkJunctionSides.t
-    type border_record_t = GtkBorderRecord.t
-    type widget_path_record_t = GtkWidgetPathRecord.t
+    type border_t = GtkBorderRecord.t
+    type widget_path_t = GtkWidgetPathRecord.t
     type state_flags_t = GtkStateFlags.t
     type region_flags_t = GtkRegionFlags.t
     type state_type_t = GtkStateType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun load name = (Utf8.C.withPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
     fun getBackgroundColor self state =

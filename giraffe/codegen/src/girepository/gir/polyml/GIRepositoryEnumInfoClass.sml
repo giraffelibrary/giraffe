@@ -1,12 +1,13 @@
 structure GIRepositoryEnumInfoClass :>
   G_I_REPOSITORY_ENUM_INFO_CLASS
-    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
     where type Obj.data = Info.enumdata =
   struct
     type data = Info.enumdata
     type 'a enuminfo = (data, 'a) pair
-    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
-    type 'a t = 'a enuminfo registeredtypeinfoclass_t
+    type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
+    type 'a class = 'a enuminfo registeredtypeinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

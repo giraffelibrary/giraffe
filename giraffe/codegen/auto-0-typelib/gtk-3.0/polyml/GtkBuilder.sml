@@ -1,6 +1,6 @@
 structure GtkBuilder :>
   GTK_BUILDER
-    where type 'a class_t = 'a GtkBuilderClass.t =
+    where type 'a class = 'a GtkBuilderClass.class =
   struct
     local
       open PolyMLFFI
@@ -38,8 +38,8 @@ structure GtkBuilder :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GtkBuilderClass.t
-    type t = base class_t
+    type 'a class = 'a GtkBuilderClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkBuilderClass.C.fromPtr true) new_ ()
     fun addFromFile self filename =

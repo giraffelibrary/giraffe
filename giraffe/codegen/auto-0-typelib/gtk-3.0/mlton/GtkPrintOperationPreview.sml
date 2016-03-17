@@ -1,17 +1,17 @@
 structure GtkPrintOperationPreview :>
   GTK_PRINT_OPERATION_PREVIEW
-    where type 'a class_t = 'a GtkPrintOperationPreviewClass.t
-    where type 'a page_setup_class_t = 'a GtkPageSetupClass.t
-    where type 'a print_context_class_t = 'a GtkPrintContextClass.t =
+    where type 'a class = 'a GtkPrintOperationPreviewClass.class
+    where type 'a page_setup_class = 'a GtkPageSetupClass.class
+    where type 'a print_context_class = 'a GtkPrintContextClass.class =
   struct
     val getType_ = _import "gtk_print_operation_preview_get_type" : unit -> GObjectType.C.val_;
     val endPreview_ = _import "gtk_print_operation_preview_end_preview" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val isSelected_ = fn x1 & x2 => (_import "gtk_print_operation_preview_is_selected" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val renderPage_ = fn x1 & x2 => (_import "gtk_print_operation_preview_render_page" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkPrintOperationPreviewClass.t
-    type 'a page_setup_class_t = 'a GtkPageSetupClass.t
-    type 'a print_context_class_t = 'a GtkPrintContextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkPrintOperationPreviewClass.class
+    type 'a page_setup_class = 'a GtkPageSetupClass.class
+    type 'a print_context_class = 'a GtkPrintContextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun endPreview self = (GObjectObjectClass.C.withPtr ---> I) endPreview_ self
     fun isSelected self pageNr = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) isSelected_ (self & pageNr)

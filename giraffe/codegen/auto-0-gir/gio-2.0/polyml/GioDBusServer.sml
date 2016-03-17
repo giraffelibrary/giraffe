@@ -1,10 +1,10 @@
 structure GioDBusServer :>
   GIO_D_BUS_SERVER
-    where type 'a class_t = 'a GioDBusServerClass.t
-    where type 'a initable_class_t = 'a GioInitableClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
-    where type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    where type 'a class = 'a GioDBusServerClass.class
+    where type 'a initable_class = 'a GioInitableClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
+    where type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     where type d_bus_server_flags_t = GioDBusServerFlags.t =
   struct
     local
@@ -29,13 +29,13 @@ structure GioDBusServer :>
       val start_ = call (load_sym libgio "g_dbus_server_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val stop_ = call (load_sym libgio "g_dbus_server_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioDBusServerClass.t
-    type 'a initable_class_t = 'a GioInitableClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
-    type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    type 'a class = 'a GioDBusServerClass.class
+    type 'a initable_class = 'a GioInitableClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
+    type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     type d_bus_server_flags_t = GioDBusServerFlags.t
-    type t = base class_t
+    type t = base class
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newSync address flags guid observer cancellable =

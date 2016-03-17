@@ -1,11 +1,11 @@
 signature GIO_INITABLE =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
-    type t = base class_t
+    type 'a class
+    type 'a cancellable_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val init :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
   end

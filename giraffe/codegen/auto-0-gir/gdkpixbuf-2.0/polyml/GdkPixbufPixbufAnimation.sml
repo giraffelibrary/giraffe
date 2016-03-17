@@ -1,8 +1,8 @@
 structure GdkPixbufPixbufAnimation :>
   GDK_PIXBUF_PIXBUF_ANIMATION
-    where type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    where type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a class = 'a GdkPixbufPixbufAnimationClass.class
+    where type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
+    where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     local
       open PolyMLFFI
@@ -15,10 +15,10 @@ structure GdkPixbufPixbufAnimation :>
       val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
-    type t = base class_t
+    type 'a class = 'a GdkPixbufPixbufAnimationClass.class
+    type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
+    type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self

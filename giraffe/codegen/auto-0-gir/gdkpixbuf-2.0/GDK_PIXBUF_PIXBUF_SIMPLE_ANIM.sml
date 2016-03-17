@@ -1,22 +1,22 @@
 signature GDK_PIXBUF_PIXBUF_SIMPLE_ANIM =
   sig
-    type 'a class_t
-    type 'a pixbuf_class_t
-    type t = base class_t
+    type 'a class
+    type 'a pixbuf_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
        -> LargeInt.int
        -> real
-       -> base class_t
+       -> base class
     val addFrame :
-      'a class_t
-       -> 'b pixbuf_class_t
+      'a class
+       -> 'b pixbuf_class
        -> unit
-    val getLoop : 'a class_t -> bool
+    val getLoop : 'a class -> bool
     val setLoop :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val loopProp : ('a class_t, bool, bool) Property.readwrite
+    val loopProp : ('a class, bool, bool) Property.readwrite
   end

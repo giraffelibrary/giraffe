@@ -1,9 +1,10 @@
 signature GDK_EVENT_SCROLL_RECORD =
   sig
     type scroll
-    type 'a event_t
-    type t = scroll event_t
+    type 'a event_union
+    type t = scroll event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       SCROLL
 (*

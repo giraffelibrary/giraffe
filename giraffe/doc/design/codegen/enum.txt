@@ -55,8 +55,8 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
                                                                      -.
     exception Error of t                                              |
                                                     -.                |
-    type errorrecord_handler                         | isGLib         |
-    val handler : errorrecord_handler                |                | optErrorDomain is SOME _
+    type error_handler                               | isGLib         |
+    val handler : error_handler                      |                | optErrorDomain is SOME _
                                                     -'                |
                                                     -.                |
     val handler : GLib.ErrorRecord.handler           | not isGLib     |
@@ -64,15 +64,17 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
 
                                                     -.               -.
     type ('a, 'b) value_accessor                     | isGObject      |
-    val t : (base t, 'a t) value_accessor            |                |
+    val t : (t, t) value_accessor                    |                |
                                                     -'                | optGetTypeSymbol is SOME _
                                                     -.                |
-    val t : (base t, 'a t) GObject.Value.accessor    | not isGObject  |
+    val t : (t, t) GObject.Value.accessor            | not isGObject  |
                                                     -'               -'
 
-    type <varlist[1]> <typename[1]>_t
+    type <varlist[1]> <local_name[1]>
+
     ...
-    type <varlist[N]> <typename[N]>_t
+
+    type <varlist[N]> <local_name[N]>
 
 
     (* Functions *)
@@ -114,19 +116,22 @@ where
   valueName[v] is the name of the <v>th enumeration value;
 
 
-  typeName[n], varlist[n]
-    For i in 1 .. N
+  localName[n], typeName[n], t[n], varlist[n]
+    For n in 1 .. N
 
-      <varlist[i]> <typename[i]>_t
+      <varlist[n]> <local_name[n]>
 
     is the <n>th element in the list of types referenced later in the
-    signature that, for some InterfaceName whose namespace is
-    <EnumNamespace> and some var, have one of the following forms:
+    signature that, for some InterfaceName and some var,
+    has one of the following forms:
 
-      <var> <interfacename>class_t
-      <var> <interfacename>_t
-      <interfacename>record_t
-      <interfacename>_t
+      <var> <interface_name>_class
+      <var> <interface_name>_union
+      <interface_name>_t
+
+    where the corresponding global type has the form
+
+      <EnumNamespace>.<TypeName[n]>.<t[n]>
 
 
 ==Structure==
@@ -138,13 +143,13 @@ structure <EnumNamespace><EnumName> :>
                                                                                 -.
         where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor      | isGObject andalso optGetTypeSymbol is SOME _
                                                                                 -'
-        where type <varlist[1]> <typename[1]>_t = <varlist[1]> <EnumNamespace><TypeName[1]>.t
+        where type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
 
         ...
 
-        where type <varlist[N]> <typename[N]>_t = <varlist[N]> <EnumNamespace><TypeName[N]>.t
+        where type <varlist[N]> <local_name[N]> = <varlist[N]> <EnumNamespace><TypeName[N]>.<t[N]>
                                                                                 -.
-        where type errorrecord_handler = GLibErrorRecord.handler                 | isGLib andalso optErrorDomain is SOME _
+        where type error_handler = GLibErrorRecord.handler                       | isGLib andalso optErrorDomain is SOME _
                                                                                 -'
 
     structure PolyML :                          -.
@@ -234,7 +239,7 @@ structure <EnumNamespace><EnumName> :>
                                                                      -.
     exception Error of t                                              |
                                                       -.              | optErrorDomain is
-    type errorrecord_handler = GLibErrorRecord.handler | isGLib       |  SOME errorDomain
+    type error_handler = GLibErrorRecord.handler       | isGLib       |  SOME errorDomain
                                                       -'              |
     val handler = GLibErrorRecord.makeHandler ("<errorDomain>", C.fromVal, Error)
                                                                      -'
@@ -261,11 +266,11 @@ structure <EnumNamespace><EnumName> :>
 
     (* Types *)
 
-    type <varlist[1]> <typename[1]>_t = <varlist[1]> <EnumNamespace><TypeName[1]>.t
+    type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
 
     ...
 
-    type <varlist[N]> <typename[N]>_t = <varlist[N]> <EnumNamespace><TypeName[N]>.t
+    type <varlist[N]> <local_name[N]> = <varlist[N]> <EnumNamespace><TypeName[N]>.<t[N]>
 
 
     (* High-Level Functions *)
@@ -287,10 +292,7 @@ exception <EnumNamespace><EnumName> = <EnumNamespace><EnumName>.Error
 where
 
 
-  typeName[n] is the same as for the signature;
-
-
-  varlist[n] is the same as for the signature;
+  localName[n], typeName[n], t[n], varlist[n] are the same as for the signature;
 
 
   valueName[v] is the same as for the signature;

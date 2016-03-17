@@ -1,8 +1,8 @@
 structure GIRepositoryEnumInfo :>
   G_I_REPOSITORY_ENUM_INFO
-    where type 'a class_t = 'a GIRepositoryEnumInfoClass.t
-    where type 'a valueinfoclass_t = 'a GIRepositoryValueInfoClass.t
-    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    where type 'a class = 'a GIRepositoryEnumInfoClass.class
+    where type 'a valueinfo_class = 'a GIRepositoryValueInfoClass.class
+    where type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
     where type typetag_t = GIRepositoryTypeTag.t =
   struct
     local
@@ -44,9 +44,9 @@ structure GIRepositoryEnumInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryEnumInfoClass.t
-    type 'a valueinfoclass_t = 'a GIRepositoryValueInfoClass.t
-    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
+    type 'a class = 'a GIRepositoryEnumInfoClass.class
+    type 'a valueinfo_class = 'a GIRepositoryValueInfoClass.class
+    type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
     type typetag_t = GIRepositoryTypeTag.t
 
 

@@ -1,15 +1,15 @@
 signature GTK_CELL_EDITABLE =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val editingDone : 'a class_t -> unit
-    val removeWidget : 'a class_t -> unit
+    val editingDone : 'a class -> unit
+    val removeWidget : 'a class -> unit
     val startEditing :
-      'a class_t
-       -> 'b Gdk.Event.t option
+      'a class
+       -> 'b Gdk.Event.union option
        -> unit
-    val editingDoneSig : (unit -> unit) -> 'a class_t Signal.signal
-    val removeWidgetSig : (unit -> unit) -> 'a class_t Signal.signal
-    val editingCanceledProp : ('a class_t, bool, bool) Property.readwrite
+    val editingDoneSig : (unit -> unit) -> 'a class Signal.signal
+    val removeWidgetSig : (unit -> unit) -> 'a class Signal.signal
+    val editingCanceledProp : ('a class, bool, bool) Property.readwrite
   end

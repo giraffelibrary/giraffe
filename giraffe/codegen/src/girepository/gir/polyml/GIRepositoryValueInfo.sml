@@ -1,12 +1,12 @@
 structure GIRepositoryValueInfo :>
   G_I_REPOSITORY_VALUE_INFO
-    where type 'a class_t = 'a GIRepositoryValueInfoClass.t =
+    where type 'a class = 'a GIRepositoryValueInfoClass.class =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
     fun fromValue f = (I && f) o GIRepositoryValueInfoClass.Obj.unpack
 
 
-    type 'a class_t = 'a GIRepositoryValueInfoClass.t
+    type 'a class = 'a GIRepositoryValueInfoClass.class
 
 
     fun getValueInt info =

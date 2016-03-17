@@ -1,13 +1,13 @@
 structure GdkDisplay :>
   GDK_DISPLAY
-    where type 'a class_t = 'a GdkDisplayClass.t
-    where type 'a device_class_t = 'a GdkDeviceClass.t
-    where type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
-    where type 'a window_class_t = 'a GdkWindowClass.t
-    where type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
-    where type 'a event_t = 'a GdkEvent.t
-    where type atom_record_t = GdkAtomRecord.t =
+    where type 'a class = 'a GdkDisplayClass.class
+    where type 'a device_class = 'a GdkDeviceClass.class
+    where type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
+    where type 'a window_class = 'a GdkWindowClass.class
+    where type 'a device_manager_class = 'a GdkDeviceManagerClass.class
+    where type 'a screen_class = 'a GdkScreenClass.class
+    where type 'a event_union = 'a GdkEvent.union
+    where type atom_t = GdkAtomRecord.t =
   struct
     local
       open PolyMLFFI
@@ -54,15 +54,15 @@ structure GdkDisplay :>
       val supportsShapes_ = call (load_sym libgdk "gdk_display_supports_shapes") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val sync_ = call (load_sym libgdk "gdk_display_sync") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GdkDisplayClass.t
-    type 'a device_class_t = 'a GdkDeviceClass.t
-    type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
-    type 'a window_class_t = 'a GdkWindowClass.t
-    type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
-    type 'a event_t = 'a GdkEvent.t
-    type atom_record_t = GdkAtomRecord.t
-    type t = base class_t
+    type 'a class = 'a GdkDisplayClass.class
+    type 'a device_class = 'a GdkDeviceClass.class
+    type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
+    type 'a window_class = 'a GdkWindowClass.class
+    type 'a device_manager_class = 'a GdkDeviceManagerClass.class
+    type 'a screen_class = 'a GdkScreenClass.class
+    type 'a event_union = 'a GdkEvent.union
+    type atom_t = GdkAtomRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.C.fromPtr false) getDefault_ ()
     fun open' displayName = (Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) open_ displayName

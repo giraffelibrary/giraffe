@@ -57,11 +57,7 @@ Typically formatting is used for SML name categories as follows:
 
   UCC    structure, functor
   LCC    value (incl. function)
-  LC     type
+  LC     -
   UC     constructor
-  LCU    -
+  LCU    type
   UCU    signature
-
-
-
-

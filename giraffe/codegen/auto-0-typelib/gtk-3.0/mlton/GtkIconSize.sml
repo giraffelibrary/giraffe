@@ -2,7 +2,7 @@ structure GtkIconSize :>
   sig
     include
       GTK_ICON_SIZE
-        where type 'a settings_class_t = 'a GtkSettingsClass.t
+        where type 'a settings_class = 'a GtkSettingsClass.class
   end =
   struct
     datatype t =
@@ -123,7 +123,7 @@ structure GtkIconSize :>
               x2,
               x3
             )
-    type 'a settings_class_t = 'a GtkSettingsClass.t
+    type 'a settings_class = 'a GtkSettingsClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun fromName name = (Utf8.C.withPtr ---> FFI.Int32.C.fromVal) fromName_ name
     fun getName size = (FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getName_ size

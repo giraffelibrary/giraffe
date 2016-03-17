@@ -1,11 +1,11 @@
 structure GtkLabel :>
   GTK_LABEL
-    where type 'a class_t = 'a GtkLabelClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkLabelClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type movement_step_t = GtkMovementStep.t
-    where type 'a menu_class_t = 'a GtkMenuClass.t
+    where type 'a menu_class = 'a GtkMenuClass.class
     where type justification_t = GtkJustification.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_label_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_label_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -184,13 +184,13 @@ structure GtkLabel :>
     val setUseMarkup_ = fn x1 & x2 => (_import "gtk_label_set_use_markup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setUseUnderline_ = fn x1 & x2 => (_import "gtk_label_set_use_underline" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setWidthChars_ = fn x1 & x2 => (_import "gtk_label_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkLabelClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkLabelClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type movement_step_t = GtkMovementStep.t
-    type 'a menu_class_t = 'a GtkMenuClass.t
+    type 'a menu_class = 'a GtkMenuClass.class
     type justification_t = GtkJustification.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

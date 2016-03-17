@@ -1,7 +1,7 @@
 structure GtkTextMark :>
   GTK_TEXT_MARK
-    where type 'a class_t = 'a GtkTextMarkClass.t
-    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
+    where type 'a class = 'a GtkTextMarkClass.class
+    where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
     local
       open PolyMLFFI
@@ -15,9 +15,9 @@ structure GtkTextMark :>
       val getVisible_ = call (load_sym libgtk "gtk_text_mark_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setVisible_ = call (load_sym libgtk "gtk_text_mark_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTextMarkClass.t
-    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
-    type t = base class_t
+    type 'a class = 'a GtkTextMarkClass.class
+    type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name leftGravity = (Utf8.C.withOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)
     fun getBuffer self = (GObjectObjectClass.C.withPtr ---> GtkTextBufferClass.C.fromPtr false) getBuffer_ self

@@ -1,9 +1,9 @@
 structure GtkScale :>
   GTK_SCALE
-    where type 'a class_t = 'a GtkScaleClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a class = 'a GtkScaleClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type orientation_t = GtkOrientation.t
     where type position_type_t = GtkPositionType.t =
   struct
@@ -76,13 +76,13 @@ structure GtkScale :>
     val setDigits_ = fn x1 & x2 => (_import "gtk_scale_set_digits" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val setDrawValue_ = fn x1 & x2 => (_import "gtk_scale_set_draw_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setValuePos_ = fn x1 & x2 => (_import "gtk_scale_set_value_pos" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkPositionType.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkScaleClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a class = 'a GtkScaleClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type orientation_t = GtkOrientation.t
     type position_type_t = GtkPositionType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

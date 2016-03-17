@@ -1,7 +1,6 @@
 structure PangoRectangle :>
   PANGO_RECTANGLE
-    where type record_t = PangoRectangleRecord.t =
+    where type t = PangoRectangleRecord.t =
   struct
-    type record_t = PangoRectangleRecord.t
-    type t = record_t
+    type t = PangoRectangleRecord.t
   end

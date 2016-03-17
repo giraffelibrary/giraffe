@@ -1,29 +1,29 @@
 signature GTK_LINK_BUTTON =
   sig
-    type 'a class_t
-    type 'a activatable_class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatable_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a activatable_class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActivatable : 'a class -> base activatable_class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
+    val new : string -> base class
     val newWithLabel :
       string
        -> string option
-       -> base class_t
-    val getUri : 'a class_t -> string
-    val getVisited : 'a class_t -> bool
+       -> base class
+    val getUri : 'a class -> string
+    val getVisited : 'a class -> bool
     val setUri :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setVisited :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val activateLinkSig : (unit -> bool) -> 'a class_t Signal.signal
-    val uriProp : ('a class_t, string option, string option) Property.readwrite
-    val visitedProp : ('a class_t, bool, bool) Property.readwrite
+    val activateLinkSig : (unit -> bool) -> 'a class Signal.signal
+    val uriProp : ('a class, string option, string option) Property.readwrite
+    val visitedProp : ('a class, bool, bool) Property.readwrite
   end

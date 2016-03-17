@@ -44,8 +44,8 @@ signature G_LIB_REGEX_ERROR =
     | INCONSISTENT_NEWLINE_OPTIONS
     | MISSING_BACK_REFERENCE
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

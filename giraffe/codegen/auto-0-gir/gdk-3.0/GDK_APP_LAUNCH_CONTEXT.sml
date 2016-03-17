@@ -1,29 +1,29 @@
 signature GDK_APP_LAUNCH_CONTEXT =
   sig
-    type 'a class_t
-    type 'a screen_class_t
-    type 'a display_class_t
-    type t = base class_t
+    type 'a class
+    type 'a screen_class
+    type 'a display_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val setDesktop :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setIcon :
-      'a class_t
-       -> 'b Gio.IconClass.t option
+      'a class
+       -> 'b Gio.IconClass.class option
        -> unit
     val setIconName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setScreen :
-      'a class_t
-       -> 'b screen_class_t
+      'a class
+       -> 'b screen_class
        -> unit
     val setTimestamp :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val displayProp : ('a class_t, base display_class_t option, 'b display_class_t option) Property.readwrite
+    val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
   end

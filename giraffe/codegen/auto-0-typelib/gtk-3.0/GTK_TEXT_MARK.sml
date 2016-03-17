@@ -1,22 +1,22 @@
 signature GTK_TEXT_MARK =
   sig
-    type 'a class_t
-    type 'a text_buffer_class_t
-    type t = base class_t
+    type 'a class
+    type 'a text_buffer_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val new :
       string option
        -> bool
-       -> base class_t
-    val getBuffer : 'a class_t -> base text_buffer_class_t
-    val getDeleted : 'a class_t -> bool
-    val getLeftGravity : 'a class_t -> bool
-    val getName : 'a class_t -> string
-    val getVisible : 'a class_t -> bool
+       -> base class
+    val getBuffer : 'a class -> base text_buffer_class
+    val getDeleted : 'a class -> bool
+    val getLeftGravity : 'a class -> bool
+    val getName : 'a class -> string
+    val getVisible : 'a class -> bool
     val setVisible :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val leftGravityProp : ('a class_t, bool, bool) Property.readwrite
-    val nameProp : ('a class_t, string option, string option) Property.readwrite
+    val leftGravityProp : ('a class, bool, bool) Property.readwrite
+    val nameProp : ('a class, string option, string option) Property.readwrite
   end

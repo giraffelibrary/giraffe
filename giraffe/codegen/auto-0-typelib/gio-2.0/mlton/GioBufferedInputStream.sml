@@ -1,9 +1,9 @@
 structure GioBufferedInputStream :>
   GIO_BUFFERED_INPUT_STREAM
-    where type 'a class_t = 'a GioBufferedInputStreamClass.t
-    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioBufferedInputStreamClass.class
+    where type 'a input_stream_class = 'a GioInputStreamClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_buffered_input_stream_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_buffered_input_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -65,11 +65,11 @@ structure GioBufferedInputStream :>
               x3
             )
     val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_input_stream_set_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioBufferedInputStreamClass.t
-    type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioBufferedInputStreamClass.class
+    type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream
     fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)

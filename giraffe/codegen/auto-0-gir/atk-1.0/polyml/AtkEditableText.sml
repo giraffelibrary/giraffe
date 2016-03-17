@@ -1,6 +1,6 @@
 structure AtkEditableText :>
   ATK_EDITABLE_TEXT
-    where type 'a class_t = 'a AtkEditableTextClass.t =
+    where type 'a class = 'a AtkEditableTextClass.class =
   struct
     local
       open PolyMLFFI
@@ -33,8 +33,8 @@ structure AtkEditableText :>
       val pasteText_ = call (load_sym libatk "atk_editable_text_paste_text") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTextContents_ = call (load_sym libatk "atk_editable_text_set_text_contents") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a AtkEditableTextClass.t
-    type t = base class_t
+    type 'a class = 'a AtkEditableTextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyText self startPos endPos =
       (

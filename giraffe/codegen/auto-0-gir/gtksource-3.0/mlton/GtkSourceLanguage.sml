@@ -1,6 +1,6 @@
 structure GtkSourceLanguage :>
   GTK_SOURCE_LANGUAGE
-    where type 'a class_t = 'a GtkSourceLanguageClass.t =
+    where type 'a class = 'a GtkSourceLanguageClass.class =
   struct
     val getType_ = _import "gtk_source_language_get_type" : unit -> GObjectType.C.val_;
     val getHidden_ = _import "gtk_source_language_get_hidden" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
@@ -37,8 +37,8 @@ structure GtkSourceLanguage :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkSourceLanguageClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceLanguageClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHidden_ self
     fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self

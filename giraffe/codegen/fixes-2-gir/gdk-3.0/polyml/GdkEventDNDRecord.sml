@@ -1,7 +1,7 @@
 structure GdkEventDNDRecord :>
   sig
     include GDK_EVENT_D_N_D_RECORD
-      where type 'a event_t = 'a GdkEvent.t
+      where type 'a event_union = 'a GdkEvent.union
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
 
@@ -13,8 +13,8 @@ structure GdkEventDNDRecord :>
   end =
   struct
     type dnd = unit
-    type 'a event_t = 'a GdkEvent.t
-    type t = dnd event_t
+    type 'a event_union = 'a GdkEvent.union
+    type t = dnd event_union
 
 
     datatype event =
@@ -31,4 +31,5 @@ structure GdkEventDNDRecord :>
 
 
     val t = GdkEvent.t
+    val tOpt = GdkEvent.tOpt
   end

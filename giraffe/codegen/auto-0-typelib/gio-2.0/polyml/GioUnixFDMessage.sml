@@ -1,7 +1,7 @@
 structure GioUnixFDMessage :>
   GIO_UNIX_F_D_MESSAGE
-    where type 'a class_t = 'a GioUnixFDMessageClass.t
-    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t =
+    where type 'a class = 'a GioUnixFDMessageClass.class
+    where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,9 +19,9 @@ structure GioUnixFDMessage :>
           )
       val getFdList_ = call (load_sym libgio "g_unix_fd_message_get_fd_list") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GioUnixFDMessageClass.t
-    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
-    type t = base class_t
+    type 'a class = 'a GioUnixFDMessageClass.class
+    type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDMessageClass.C.fromPtr true) new_ ()
     fun newWithFdList fdList = (GObjectObjectClass.C.withPtr ---> GioUnixFDMessageClass.C.fromPtr true) newWithFdList_ fdList

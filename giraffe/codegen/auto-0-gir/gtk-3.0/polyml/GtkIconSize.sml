@@ -2,7 +2,7 @@ structure GtkIconSize :>
   sig
     include
       GTK_ICON_SIZE
-        where type 'a settings_class_t = 'a GtkSettingsClass.t
+        where type 'a settings_class = 'a GtkSettingsClass.class
     structure PolyML :
       sig
         val cVal : C.val_ PolyMLFFI.conversion
@@ -96,7 +96,7 @@ structure GtkIconSize :>
           )
       val registerAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a settings_class_t = 'a GtkSettingsClass.t
+    type 'a settings_class = 'a GtkSettingsClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun fromName name = (Utf8.C.withPtr ---> FFI.Int.C.fromVal) fromName_ name
     fun getName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getName_ size

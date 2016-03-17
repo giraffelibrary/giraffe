@@ -1,9 +1,10 @@
 signature GDK_EVENT_WINDOW_STATE_RECORD =
   sig
     type window_state
-    type 'a event_t
-    type t = window_state event_t
+    type 'a event_union
+    type t = window_state event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       WINDOW_STATE
 (*

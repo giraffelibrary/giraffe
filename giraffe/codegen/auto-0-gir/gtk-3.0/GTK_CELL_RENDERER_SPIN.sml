@@ -1,11 +1,11 @@
 signature GTK_CELL_RENDERER_SPIN =
   sig
-    type 'a class_t
-    type 'a adjustment_class_t
-    type t = base class_t
+    type 'a class
+    type 'a adjustment_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val adjustmentProp : ('a class_t, base adjustment_class_t option, 'b adjustment_class_t option) Property.readwrite
-    val climbRateProp : ('a class_t, real, real) Property.readwrite
-    val digitsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val new : unit -> base class
+    val adjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
+    val climbRateProp : ('a class, real, real) Property.readwrite
+    val digitsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

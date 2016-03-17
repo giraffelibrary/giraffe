@@ -1,7 +1,7 @@
 structure GtkSourceStyleSchemeManager :>
   GTK_SOURCE_STYLE_SCHEME_MANAGER
-    where type 'a class_t = 'a GtkSourceStyleSchemeManagerClass.t
-    where type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t =
+    where type 'a class = 'a GtkSourceStyleSchemeManagerClass.class
+    where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_manager_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_style_scheme_manager_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -52,9 +52,9 @@ structure GtkSourceStyleSchemeManager :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkSourceStyleSchemeManagerClass.t
-    type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceStyleSchemeManagerClass.class
+    type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceStyleSchemeManagerClass.C.fromPtr false) getDefault_ ()

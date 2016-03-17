@@ -1,27 +1,27 @@
 signature GTK_SOURCE_COMPLETION_WORDS =
   sig
-    type 'a class_t
-    type 'a completion_provider_class_t
-    type t = base class_t
-    val asCompletionProvider : 'a class_t -> base completion_provider_class_t
+    type 'a class
+    type 'a completion_provider_class
+    type t = base class
+    val asCompletionProvider : 'a class -> base completion_provider_class
     val getType : unit -> GObject.Type.t
     val new :
       string option
-       -> 'a GdkPixbuf.PixbufClass.t option
-       -> base class_t
+       -> 'a GdkPixbuf.PixbufClass.class option
+       -> base class
     val register :
-      'a class_t
-       -> 'b Gtk.TextBufferClass.t
+      'a class
+       -> 'b Gtk.TextBufferClass.class
        -> unit
     val unregister :
-      'a class_t
-       -> 'b Gtk.TextBufferClass.t
+      'a class
+       -> 'b Gtk.TextBufferClass.class
        -> unit
-    val iconProp : ('a class_t, base GdkPixbuf.PixbufClass.t option, 'b GdkPixbuf.PixbufClass.t option) Property.readwrite
-    val interactiveDelayProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val minimumWordSizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val nameProp : ('a class_t, string option, string option) Property.readwrite
-    val priorityProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val proposalsBatchSizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val scanBatchSizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val iconProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
+    val interactiveDelayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val minimumWordSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val nameProp : ('a class, string option, string option) Property.readwrite
+    val priorityProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val proposalsBatchSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val scanBatchSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

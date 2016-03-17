@@ -1,19 +1,19 @@
 signature GTK_SOURCE_STYLE_SCHEME =
   sig
-    type 'a class_t
-    type 'a style_class_t
-    type t = base class_t
+    type 'a class
+    type 'a style_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getDescription : 'a class_t -> string
-    val getFilename : 'a class_t -> string
-    val getId : 'a class_t -> string
-    val getName : 'a class_t -> string
+    val getDescription : 'a class -> string
+    val getFilename : 'a class -> string
+    val getId : 'a class -> string
+    val getName : 'a class -> string
     val getStyle :
-      'a class_t
+      'a class
        -> string
-       -> base style_class_t
-    val descriptionProp : ('a class_t, string option) Property.readonly
-    val filenameProp : ('a class_t, string option) Property.readonly
-    val idProp : ('a class_t, string option, string option) Property.readwrite
-    val nameProp : ('a class_t, string option) Property.readonly
+       -> base style_class
+    val descriptionProp : ('a class, string option) Property.readonly
+    val filenameProp : ('a class, string option) Property.readonly
+    val idProp : ('a class, string option, string option) Property.readwrite
+    val nameProp : ('a class, string option) Property.readonly
   end

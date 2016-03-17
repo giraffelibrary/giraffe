@@ -1,40 +1,40 @@
 signature GTK_CELL_AREA_CONTEXT =
   sig
-    type 'a class_t
-    type 'a cell_area_class_t
-    type t = base class_t
+    type 'a class
+    type 'a cell_area_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val allocate :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val getAllocation : 'a class_t -> LargeInt.int * LargeInt.int
-    val getArea : 'a class_t -> base cell_area_class_t
-    val getPreferredHeight : 'a class_t -> LargeInt.int * LargeInt.int
+    val getAllocation : 'a class -> LargeInt.int * LargeInt.int
+    val getArea : 'a class -> base cell_area_class
+    val getPreferredHeight : 'a class -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
-    val getPreferredWidth : 'a class_t -> LargeInt.int * LargeInt.int
+    val getPreferredWidth : 'a class -> LargeInt.int * LargeInt.int
     val getPreferredWidthForHeight :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int * LargeInt.int
     val pushPreferredHeight :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val pushPreferredWidth :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val reset : 'a class_t -> unit
-    val areaProp : ('a class_t, base cell_area_class_t option, 'b cell_area_class_t option) Property.readwrite
-    val minimumHeightProp : ('a class_t, LargeInt.int) Property.readonly
-    val minimumWidthProp : ('a class_t, LargeInt.int) Property.readonly
-    val naturalHeightProp : ('a class_t, LargeInt.int) Property.readonly
-    val naturalWidthProp : ('a class_t, LargeInt.int) Property.readonly
+    val reset : 'a class -> unit
+    val areaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
+    val minimumHeightProp : ('a class, LargeInt.int) Property.readonly
+    val minimumWidthProp : ('a class, LargeInt.int) Property.readonly
+    val naturalHeightProp : ('a class, LargeInt.int) Property.readonly
+    val naturalWidthProp : ('a class, LargeInt.int) Property.readonly
   end

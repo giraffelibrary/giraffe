@@ -1,22 +1,22 @@
 signature GIO_VFS =
   sig
-    type 'a class_t
-    type 'a file_class_t
-    type t = base class_t
+    type 'a class
+    type 'a file_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class_t
-    val getLocal : unit -> base class_t
+    val getDefault : unit -> base class
+    val getLocal : unit -> base class
     val getFileForPath :
-      'a class_t
+      'a class
        -> string
-       -> base file_class_t
+       -> base file_class
     val getFileForUri :
-      'a class_t
+      'a class
        -> string
-       -> base file_class_t
-    val isActive : 'a class_t -> bool
+       -> base file_class
+    val isActive : 'a class -> bool
     val parseName :
-      'a class_t
+      'a class
        -> string
-       -> base file_class_t
+       -> base file_class
   end

@@ -4,7 +4,8 @@ structure GioDBusObjectSkeletonClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a d_bus_object_skeleton = unit
-    type 'a t = 'a d_bus_object_skeleton GObjectObjectClass.t
+    type 'a class = 'a d_bus_object_skeleton GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

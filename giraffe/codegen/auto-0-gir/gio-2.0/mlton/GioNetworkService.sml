@@ -1,7 +1,7 @@
 structure GioNetworkService :>
   GIO_NETWORK_SERVICE
-    where type 'a class_t = 'a GioNetworkServiceClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
+    where type 'a class = 'a GioNetworkServiceClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
     val getType_ = _import "g_network_service_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -46,9 +46,9 @@ structure GioNetworkService :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioNetworkServiceClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type t = base class_t
+    type 'a class = 'a GioNetworkServiceClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new service protocol domain =

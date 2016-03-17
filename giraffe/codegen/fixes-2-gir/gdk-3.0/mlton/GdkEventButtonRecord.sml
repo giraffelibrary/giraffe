@@ -1,14 +1,14 @@
 structure GdkEventButtonRecord :>
   sig
     include GDK_EVENT_BUTTON_RECORD
-      where type 'a event_t = 'a GdkEvent.t
+      where type 'a event_union = 'a GdkEvent.union
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
   end =
   struct
     type button = unit
-    type 'a event_t = 'a GdkEvent.t
-    type t = button event_t
+    type 'a event_union = 'a GdkEvent.union
+    type t = button event_union
 
 
     datatype event =
@@ -22,4 +22,5 @@ structure GdkEventButtonRecord :>
 
 
     val t = GdkEvent.t
+    val tOpt = GdkEvent.tOpt
   end

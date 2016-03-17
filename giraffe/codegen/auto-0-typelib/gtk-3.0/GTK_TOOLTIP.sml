@@ -1,43 +1,43 @@
 signature GTK_TOOLTIP =
   sig
-    type 'a class_t
-    type 'a widget_class_t
-    type t = base class_t
+    type 'a class
+    type 'a widget_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val triggerTooltipQuery : 'a Gdk.DisplayClass.t -> unit
+    val triggerTooltipQuery : 'a Gdk.DisplayClass.class -> unit
     val setCustom :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> unit
     val setIcon :
-      'a class_t
-       -> 'b GdkPixbuf.PixbufClass.t option
+      'a class
+       -> 'b GdkPixbuf.PixbufClass.class option
        -> unit
     val setIconFromGicon :
-      'a class_t
-       -> 'b Gio.IconClass.t option
+      'a class
+       -> 'b Gio.IconClass.class option
        -> LargeInt.int
        -> unit
     val setIconFromIconName :
-      'a class_t
+      'a class
        -> string option
        -> LargeInt.int
        -> unit
     val setIconFromStock :
-      'a class_t
+      'a class
        -> string option
        -> LargeInt.int
        -> unit
     val setMarkup :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setText :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setTipArea :
-      'a class_t
+      'a class
        -> Cairo.RectangleIntRecord.t
        -> unit
   end

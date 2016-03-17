@@ -3,7 +3,8 @@ structure GIRepositoryRepositoryClass :>
     where type Obj.data = Info.repository =
   struct
     type data = Info.repository
-    type 'a t = (data, 'a) pair
+    type 'a class = (data, 'a) pair
+    type t = base class
     structure Obj =
       struct
         type data = data

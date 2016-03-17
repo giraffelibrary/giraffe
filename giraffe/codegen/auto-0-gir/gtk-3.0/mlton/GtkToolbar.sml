@@ -1,11 +1,11 @@
 structure GtkToolbar :>
   GTK_TOOLBAR
-    where type 'a class_t = 'a GtkToolbarClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    where type 'a class = 'a GtkToolbarClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a tool_shell_class = 'a GtkToolShellClass.class
     where type relief_style_t = GtkReliefStyle.t
-    where type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    where type 'a tool_item_class = 'a GtkToolItemClass.class
     where type orientation_t = GtkOrientation.t
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
@@ -74,15 +74,15 @@ structure GtkToolbar :>
     val setStyle_ = fn x1 & x2 => (_import "gtk_toolbar_set_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkToolbarStyle.C.val_ -> unit;) (x1, x2)
     val unsetIconSize_ = _import "gtk_toolbar_unset_icon_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unsetStyle_ = _import "gtk_toolbar_unset_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkToolbarClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a tool_shell_class_t = 'a GtkToolShellClass.t
+    type 'a class = 'a GtkToolbarClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a tool_shell_class = 'a GtkToolShellClass.class
     type relief_style_t = GtkReliefStyle.t
-    type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    type 'a tool_item_class = 'a GtkToolItemClass.class
     type orientation_t = GtkOrientation.t
     type toolbar_style_t = GtkToolbarStyle.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

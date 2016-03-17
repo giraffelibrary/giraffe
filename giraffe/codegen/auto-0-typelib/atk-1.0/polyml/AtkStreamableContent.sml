@@ -1,6 +1,6 @@
 structure AtkStreamableContent :>
   ATK_STREAMABLE_CONTENT
-    where type 'a class_t = 'a AtkStreamableContentClass.t =
+    where type 'a class = 'a AtkStreamableContentClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,8 +11,8 @@ structure AtkStreamableContent :>
       val getStream_ = call (load_sym libatk "atk_streamable_content_get_stream") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibIOChannelRecord.PolyML.cPtr)
       val getUri_ = call (load_sym libatk "atk_streamable_content_get_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a AtkStreamableContentClass.t
-    type t = base class_t
+    type 'a class = 'a AtkStreamableContentClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getMimeType self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getMimeType_ (self & i)
     fun getNMimeTypes self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMimeTypes_ self

@@ -1,14 +1,14 @@
 structure GtkComboBox :>
   GTK_COMBO_BOX
-    where type 'a class_t = 'a GtkComboBoxClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a class = 'a GtkComboBoxClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    where type tree_iter_t = GtkTreeIterRecord.t
     where type scroll_type_t = GtkScrollType.t
     where type sensitivity_type_t = GtkSensitivityType.t
-    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
+    where type 'a cell_area_class = 'a GtkCellAreaClass.class
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     local
       open PolyMLFFI
@@ -54,16 +54,16 @@ structure GtkComboBox :>
       val setTitle_ = call (load_sym libgtk "gtk_combo_box_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val setWrapWidth_ = call (load_sym libgtk "gtk_combo_box_set_wrap_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkComboBoxClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a class = 'a GtkComboBoxClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    type tree_iter_t = GtkTreeIterRecord.t
     type scroll_type_t = GtkScrollType.t
     type sensitivity_type_t = GtkSensitivityType.t
-    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type t = base class_t
+    type 'a cell_area_class = 'a GtkCellAreaClass.class
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self

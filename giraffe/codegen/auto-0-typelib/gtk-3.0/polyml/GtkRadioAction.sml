@@ -1,7 +1,7 @@
 structure GtkRadioAction :>
   GTK_RADIO_ACTION
-    where type 'a class_t = 'a GtkRadioActionClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkRadioActionClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     local
       open PolyMLFFI
@@ -21,9 +21,9 @@ structure GtkRadioAction :>
       val joinGroup_ = call (load_sym libgtk "gtk_radio_action_join_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkRadioActionClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkRadioActionClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId value =

@@ -4,7 +4,8 @@ structure PangoLayoutClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a layout = unit
-    type 'a t = 'a layout GObjectObjectClass.t
+    type 'a class = 'a layout GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

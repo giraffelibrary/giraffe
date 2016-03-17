@@ -1,17 +1,17 @@
 signature GDK_PIXBUF_PIXBUF_ANIMATION =
   sig
-    type 'a class_t
-    type 'a pixbuf_animation_iter_class_t
-    type 'a pixbuf_class_t
-    type t = base class_t
+    type 'a class
+    type 'a pixbuf_animation_iter_class
+    type 'a pixbuf_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val newFromFile : string -> base class_t
-    val getHeight : 'a class_t -> LargeInt.int
+    val newFromFile : string -> base class
+    val getHeight : 'a class -> LargeInt.int
     val getIter :
-      'a class_t
+      'a class
        -> GLib.TimeValRecord.t
-       -> base pixbuf_animation_iter_class_t
-    val getStaticImage : 'a class_t -> base pixbuf_class_t
-    val getWidth : 'a class_t -> LargeInt.int
-    val isStaticImage : 'a class_t -> bool
+       -> base pixbuf_animation_iter_class
+    val getStaticImage : 'a class -> base pixbuf_class
+    val getWidth : 'a class -> LargeInt.int
+    val isStaticImage : 'a class -> bool
   end

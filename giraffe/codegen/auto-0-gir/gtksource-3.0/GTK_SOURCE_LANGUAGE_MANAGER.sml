@@ -1,18 +1,18 @@
 signature GTK_SOURCE_LANGUAGE_MANAGER =
   sig
-    type 'a class_t
-    type 'a language_class_t
-    type t = base class_t
+    type 'a class
+    type 'a language_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getDefault : unit -> base class_t
+    val new : unit -> base class
+    val getDefault : unit -> base class
     val getLanguage :
-      'a class_t
+      'a class
        -> string
-       -> base language_class_t
+       -> base language_class
     val guessLanguage :
-      'a class_t
+      'a class
        -> string option
        -> string option
-       -> base language_class_t
+       -> base language_class
   end

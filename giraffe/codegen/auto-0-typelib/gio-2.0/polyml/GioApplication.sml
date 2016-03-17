@@ -1,9 +1,9 @@
 structure GioApplication :>
   GIO_APPLICATION
-    where type 'a class_t = 'a GioApplicationClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a application_command_line_class_t = 'a GioApplicationCommandLineClass.t
-    where type 'a action_group_class_t = 'a GioActionGroupClass.t
+    where type 'a class = 'a GioApplicationClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
+    where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
     local
@@ -33,12 +33,12 @@ structure GioApplication :>
       val setFlags_ = call (load_sym libgio "g_application_set_flags") (GObjectObjectClass.PolyML.cPtr &&> GioApplicationFlags.PolyML.cVal --> FFI.PolyML.cVoid)
       val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioApplicationClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a application_command_line_class_t = 'a GioApplicationCommandLineClass.t
-    type 'a action_group_class_t = 'a GioActionGroupClass.t
+    type 'a class = 'a GioApplicationClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
+    type 'a action_group_class = 'a GioActionGroupClass.class
     type application_flags_t = GioApplicationFlags.t
-    type t = base class_t
+    type t = base class
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new applicationId flags = (Utf8.C.withPtr &&&> GioApplicationFlags.C.withVal ---> GioApplicationClass.C.fromPtr true) new_ (applicationId & flags)

@@ -1,20 +1,20 @@
 signature GTK_SOURCE_MARK =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val new :
       string
        -> string
-       -> base class_t
-    val getCategory : 'a class_t -> string
+       -> base class
+    val getCategory : 'a class -> string
     val next :
-      'a class_t
+      'a class
        -> string option
-       -> base class_t
+       -> base class
     val prev :
-      'a class_t
+      'a class
        -> string
-       -> base class_t
-    val categoryProp : ('a class_t, string option, string option) Property.readwrite
+       -> base class
+    val categoryProp : ('a class, string option, string option) Property.readwrite
   end

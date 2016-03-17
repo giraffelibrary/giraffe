@@ -1,194 +1,194 @@
 signature GIO_FILE_INFO =
   sig
-    type 'a class_t
+    type 'a class
     type file_attribute_type_t
-    type file_attribute_matcher_record_t
+    type file_attribute_matcher_t
     type file_attribute_status_t
     type file_type_t
-    type 'a icon_class_t
-    type t = base class_t
+    type 'a icon_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val clearStatus : 'a class_t -> unit
+    val new : unit -> base class
+    val clearStatus : 'a class -> unit
     val copyInto :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> unit
-    val dup : 'a class_t -> base class_t
+    val dup : 'a class -> base class
     val getAttributeAsString :
-      'a class_t
+      'a class
        -> string
        -> string
     val getAttributeBoolean :
-      'a class_t
+      'a class
        -> string
        -> bool
     val getAttributeByteString :
-      'a class_t
+      'a class
        -> string
        -> string
     val getAttributeInt32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getAttributeInt64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getAttributeObject :
-      'a class_t
+      'a class
        -> string
-       -> base GObject.ObjectClass.t
+       -> base GObject.ObjectClass.class
     val getAttributeStatus :
-      'a class_t
+      'a class
        -> string
        -> file_attribute_status_t
     val getAttributeString :
-      'a class_t
+      'a class
        -> string
        -> string
     val getAttributeType :
-      'a class_t
+      'a class
        -> string
        -> file_attribute_type_t
     val getAttributeUint32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getAttributeUint64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
-    val getContentType : 'a class_t -> string
-    val getDisplayName : 'a class_t -> string
-    val getEditName : 'a class_t -> string
-    val getEtag : 'a class_t -> string
-    val getFileType : 'a class_t -> file_type_t
-    val getIcon : 'a class_t -> base icon_class_t
-    val getIsBackup : 'a class_t -> bool
-    val getIsHidden : 'a class_t -> bool
-    val getIsSymlink : 'a class_t -> bool
+    val getContentType : 'a class -> string
+    val getDisplayName : 'a class -> string
+    val getEditName : 'a class -> string
+    val getEtag : 'a class -> string
+    val getFileType : 'a class -> file_type_t
+    val getIcon : 'a class -> base icon_class
+    val getIsBackup : 'a class -> bool
+    val getIsHidden : 'a class -> bool
+    val getIsSymlink : 'a class -> bool
     val getModificationTime :
-      'a class_t
+      'a class
        -> GLib.TimeValRecord.t
        -> unit
-    val getName : 'a class_t -> string
-    val getSize : 'a class_t -> LargeInt.int
-    val getSortOrder : 'a class_t -> LargeInt.int
-    val getSymlinkTarget : 'a class_t -> string
+    val getName : 'a class -> string
+    val getSize : 'a class -> LargeInt.int
+    val getSortOrder : 'a class -> LargeInt.int
+    val getSymlinkTarget : 'a class -> string
     val hasAttribute :
-      'a class_t
+      'a class
        -> string
        -> bool
     val hasNamespace :
-      'a class_t
+      'a class
        -> string
        -> bool
     val removeAttribute :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setAttributeBoolean :
-      'a class_t
+      'a class
        -> string
        -> bool
        -> unit
     val setAttributeByteString :
-      'a class_t
+      'a class
        -> string
        -> string
        -> unit
     val setAttributeInt32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val setAttributeInt64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val setAttributeMask :
-      'a class_t
-       -> file_attribute_matcher_record_t
+      'a class
+       -> file_attribute_matcher_t
        -> unit
     val setAttributeObject :
-      'a class_t
+      'a class
        -> string
-       -> 'b GObject.ObjectClass.t
+       -> 'b GObject.ObjectClass.class
        -> unit
     val setAttributeStatus :
-      'a class_t
+      'a class
        -> string
        -> file_attribute_status_t
        -> bool
     val setAttributeString :
-      'a class_t
+      'a class
        -> string
        -> string
        -> unit
     val setAttributeStringv :
-      'a class_t
+      'a class
        -> string
        -> string
        -> unit
     val setAttributeUint32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val setAttributeUint64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val setContentType :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setDisplayName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setEditName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setFileType :
-      'a class_t
+      'a class
        -> file_type_t
        -> unit
     val setIcon :
-      'a class_t
-       -> 'b icon_class_t
+      'a class
+       -> 'b icon_class
        -> unit
     val setIsHidden :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setIsSymlink :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setModificationTime :
-      'a class_t
+      'a class
        -> GLib.TimeValRecord.t
        -> unit
     val setName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setSize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setSortOrder :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setSymlinkTarget :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val unsetAttributeMask : 'a class_t -> unit
+    val unsetAttributeMask : 'a class -> unit
   end

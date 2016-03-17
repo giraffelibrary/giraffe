@@ -1,13 +1,13 @@
 structure GioThreadedSocketService :>
   GIO_THREADED_SOCKET_SERVICE
-    where type 'a class_t = 'a GioThreadedSocketServiceClass.t
-    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t =
+    where type 'a class = 'a GioThreadedSocketServiceClass.class
+    where type 'a socket_connection_class = 'a GioSocketConnectionClass.class =
   struct
     val getType_ = _import "g_threaded_socket_service_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_threaded_socket_service_new" : FFI.Int.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GioThreadedSocketServiceClass.t
-    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    type t = base class_t
+    type 'a class = 'a GioThreadedSocketServiceClass.class
+    type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new maxThreads = (FFI.Int.C.withVal ---> GioThreadedSocketServiceClass.C.fromPtr true) new_ maxThreads
     local

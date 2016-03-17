@@ -1,8 +1,8 @@
 structure GtkSourceGutter :>
   GTK_SOURCE_GUTTER
-    where type 'a class_t = 'a GtkSourceGutterClass.t
-    where type 'a gutter_renderer_class_t = 'a GtkSourceGutterRendererClass.t
-    where type 'a view_class_t = 'a GtkSourceViewClass.t =
+    where type 'a class = 'a GtkSourceGutterClass.class
+    where type 'a gutter_renderer_class = 'a GtkSourceGutterRendererClass.class
+    where type 'a view_class = 'a GtkSourceViewClass.class =
   struct
     local
       open PolyMLFFI
@@ -44,10 +44,10 @@ structure GtkSourceGutter :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkSourceGutterClass.t
-    type 'a gutter_renderer_class_t = 'a GtkSourceGutterRendererClass.t
-    type 'a view_class_t = 'a GtkSourceViewClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceGutterClass.class
+    type 'a gutter_renderer_class = 'a GtkSourceGutterRendererClass.class
+    type 'a view_class = 'a GtkSourceViewClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getRendererAtPos self x y =
       (

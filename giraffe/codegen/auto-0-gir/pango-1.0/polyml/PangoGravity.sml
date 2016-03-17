@@ -2,7 +2,7 @@ structure PangoGravity :>
   sig
     include
       PANGO_GRAVITY
-        where type matrix_record_t = PangoMatrixRecord.t
+        where type matrix_t = PangoMatrixRecord.t
         where type gravity_hint_t = PangoGravityHint.t
         where type script_t = PangoScript.t
     structure PolyML :
@@ -83,7 +83,7 @@ structure PangoGravity :>
           )
       val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.cVal --> FFI.Double.PolyML.cVal)
     end
-    type matrix_record_t = PangoMatrixRecord.t
+    type matrix_t = PangoMatrixRecord.t
     type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.C.fromVal) getType_

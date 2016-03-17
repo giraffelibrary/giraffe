@@ -1,13 +1,13 @@
 signature GTK_SPINNER =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val start : 'a class_t -> unit
-    val stop : 'a class_t -> unit
-    val activeProp : ('a class_t, bool, bool) Property.readwrite
+    val new : unit -> base class
+    val start : 'a class -> unit
+    val stop : 'a class -> unit
+    val activeProp : ('a class, bool, bool) Property.readwrite
   end

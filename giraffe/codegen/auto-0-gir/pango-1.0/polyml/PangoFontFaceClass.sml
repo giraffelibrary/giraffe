@@ -4,7 +4,8 @@ structure PangoFontFaceClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a font_face = unit
-    type 'a t = 'a font_face GObjectObjectClass.t
+    type 'a class = 'a font_face GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

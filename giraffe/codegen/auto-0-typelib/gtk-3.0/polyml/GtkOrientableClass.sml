@@ -4,7 +4,8 @@ structure GtkOrientableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a orientable = unit
-    type 'a t = 'a orientable GObjectObjectClass.t
+    type 'a class = 'a orientable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

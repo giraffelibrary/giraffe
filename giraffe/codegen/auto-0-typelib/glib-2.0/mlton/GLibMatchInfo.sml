@@ -1,7 +1,7 @@
 structure GLibMatchInfo :>
   G_LIB_MATCH_INFO
-    where type record_t = GLibMatchInfoRecord.t
-    where type regex_record_t = GLibRegexRecord.t =
+    where type t = GLibMatchInfoRecord.t
+    where type regex_t = GLibRegexRecord.t =
   struct
     val getType_ = _import "g_match_info_get_type" : unit -> GObjectType.C.val_;
     val expandReferences_ =
@@ -87,9 +87,8 @@ structure GLibMatchInfo :>
     val isPartialMatch_ = _import "g_match_info_is_partial_match" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.Bool.C.val_;
     val matches_ = _import "g_match_info_matches" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p -> FFI.Bool.C.val_;
     val next_ = fn x1 & x2 => (_import "g_match_info_next" : GLibMatchInfoRecord.C.notnull GLibMatchInfoRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
-    type record_t = GLibMatchInfoRecord.t
-    type regex_record_t = GLibRegexRecord.t
-    type t = record_t
+    type t = GLibMatchInfoRecord.t
+    type regex_t = GLibRegexRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun expandReferences self stringToExpand =
       (

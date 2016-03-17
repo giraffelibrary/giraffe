@@ -1,9 +1,9 @@
 structure GioAppInfo :>
   GIO_APP_INFO
-    where type 'a class_t = 'a GioAppInfoClass.t
+    where type 'a class = 'a GioAppInfoClass.class
     where type app_info_create_flags_t = GioAppInfoCreateFlags.t
-    where type 'a app_launch_context_class_t = 'a GioAppLaunchContextClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t =
+    where type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    where type 'a icon_class = 'a GioIconClass.class =
   struct
     val getType_ = _import "g_app_info_get_type" : unit -> GObjectType.C.val_;
     val createFromCommandline_ =
@@ -176,11 +176,11 @@ structure GioAppInfo :>
     val shouldShow_ = _import "g_app_info_should_show" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val supportsFiles_ = _import "g_app_info_supports_files" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val supportsUris_ = _import "g_app_info_supports_uris" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    type 'a class_t = 'a GioAppInfoClass.t
+    type 'a class = 'a GioAppInfoClass.class
     type app_info_create_flags_t = GioAppInfoCreateFlags.t
-    type 'a app_launch_context_class_t = 'a GioAppLaunchContextClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
-    type t = base class_t
+    type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    type 'a icon_class = 'a GioIconClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createFromCommandline commandline applicationName flags =
       (

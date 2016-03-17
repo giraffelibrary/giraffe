@@ -15,21 +15,21 @@
  *)
 signature G_I_REPOSITORY_REPOSITORY =
   sig
-    type 'a class_t
-    type 'a baseinfoclass_t
+    type 'a class
+    type 'a baseinfo_class
     type loadflags_t
     type typelibtype_t
     type typelibvers_t
     val extendTypelibVers : (string * string) list -> typelibvers_t -> typelibvers_t
-    val getDefault : unit -> base class_t
-    val prependSearchPath : 'a class_t -> string -> unit
-    val loadTypelib : 'a class_t -> typelibtype_t -> loadflags_t -> string
-    val require : 'a class_t -> string -> string -> loadflags_t -> typelibtype_t * typelibvers_t
-    val getDependencies : 'a class_t -> typelibvers_t -> string -> string list option
-    val getPackages : 'a class_t -> typelibvers_t -> string -> string list
-    val getNInfos : 'a class_t -> typelibvers_t -> string -> LargeInt.int
-    val getInfo : 'a class_t -> typelibvers_t -> string -> LargeInt.int -> base baseinfoclass_t
-    val getSharedLibrary : 'a class_t -> typelibvers_t -> string -> string option
-    val getVersion : 'a class_t -> typelibvers_t -> string -> string
-    val getCPrefix : 'a class_t -> typelibvers_t -> string -> string option
+    val getDefault : unit -> base class
+    val prependSearchPath : 'a class -> string -> unit
+    val loadTypelib : 'a class -> typelibtype_t -> loadflags_t -> string
+    val require : 'a class -> string -> string -> loadflags_t -> typelibtype_t * typelibvers_t
+    val getDependencies : 'a class -> typelibvers_t -> string -> string list option
+    val getPackages : 'a class -> typelibvers_t -> string -> string list
+    val getNInfos : 'a class -> typelibvers_t -> string -> LargeInt.int
+    val getInfo : 'a class -> typelibvers_t -> string -> LargeInt.int -> base baseinfo_class
+    val getSharedLibrary : 'a class -> typelibvers_t -> string -> string option
+    val getVersion : 'a class -> typelibvers_t -> string -> string
+    val getCPrefix : 'a class -> typelibvers_t -> string -> string option
   end

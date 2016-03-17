@@ -1,16 +1,16 @@
 signature G_I_REPOSITORY_BASE_INFO_CLASS =
   sig
-    type 'a t
-    val toBase : 'a t -> base t
+    type 'a class
+    val toBase : 'a class -> base class
     structure C :
       sig
         type notnull
         type 'a p
 
-        val withPtr : (notnull p -> 'b) -> 'a t -> 'b
-        val withOptPtr : (unit p -> 'b) -> 'a t option -> 'b
+        val withPtr : (notnull p -> 'b) -> 'a class -> 'b
+        val withOptPtr : (unit p -> 'b) -> 'a class option -> 'b
 
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
+        val fromPtr : bool -> notnull p -> 'a class
+        val fromOptPtr : bool -> unit p -> 'a class option
       end
   end

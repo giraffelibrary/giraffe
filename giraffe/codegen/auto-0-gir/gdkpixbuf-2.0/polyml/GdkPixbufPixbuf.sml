@@ -1,6 +1,6 @@
 structure GdkPixbufPixbuf :>
   GDK_PIXBUF_PIXBUF
-    where type 'a class_t = 'a GdkPixbufPixbufClass.t
+    where type 'a class = 'a GdkPixbufPixbufClass.class
     where type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
     where type interp_type_t = GdkPixbufInterpType.t
     where type colorspace_t = GdkPixbufColorspace.t =
@@ -195,11 +195,11 @@ structure GdkPixbufPixbuf :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GdkPixbufPixbufClass.t
+    type 'a class = 'a GdkPixbufPixbufClass.class
     type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
     type interp_type_t = GdkPixbufInterpType.t
     type colorspace_t = GdkPixbufColorspace.t
-    type t = base class_t
+    type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new colorspace hasAlpha bitsPerSample width height =

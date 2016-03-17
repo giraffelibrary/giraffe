@@ -1,10 +1,10 @@
 structure GdkEventKeyRecord :>
   sig
     include GDK_EVENT_KEY_RECORD
-      where type 'a event_t = 'a GdkEvent.t
+      where type 'a event_union = 'a GdkEvent.union
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
-      where type 'a window_class_t = 'a GdkWindowClass.t
+      where type 'a window_class = 'a GdkWindowClass.class
       where type modifier_type_t = GdkModifierType.t
 
     structure PolyML :
@@ -15,8 +15,8 @@ structure GdkEventKeyRecord :>
   end =
   struct
     type key = unit
-    type 'a event_t = 'a GdkEvent.t
-    type t = key event_t
+    type 'a event_union = 'a GdkEvent.union
+    type t = key event_union
 
 
     datatype event =
@@ -26,6 +26,10 @@ structure GdkEventKeyRecord :>
 
     structure C = GdkEvent.C
     structure PolyML = GdkEvent.PolyML
+
+
+    val t = GdkEvent.t
+    val tOpt = GdkEvent.tOpt
 
 
     local
@@ -73,7 +77,7 @@ structure GdkEventKeyRecord :>
     end
 
 
-    type 'a window_class_t = 'a GdkWindowClass.t
+    type 'a window_class = 'a GdkWindowClass.class
     type modifier_type_t = GdkModifierType.t
 
 
@@ -92,7 +96,4 @@ structure GdkEventKeyRecord :>
     fun getGroup e = (C.withPtr ---> FFI.UInt8.C.fromVal) getGroup_ e
 
     fun getIsModifier e = (C.withPtr ---> FFI.Bool.C.fromVal) getIsModifier_ e
-
-
-    val t = GdkEvent.t
   end

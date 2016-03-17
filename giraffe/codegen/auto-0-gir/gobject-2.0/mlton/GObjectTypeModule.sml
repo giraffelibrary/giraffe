@@ -1,7 +1,7 @@
 structure GObjectTypeModule :>
   G_OBJECT_TYPE_MODULE
-    where type 'a class_t = 'a GObjectTypeModuleClass.t
-    where type 'a type_plugin_class_t = 'a GObjectTypePluginClass.t
+    where type 'a class = 'a GObjectTypeModuleClass.class
+    where type 'a type_plugin_class = 'a GObjectTypePluginClass.class
     where type type_t = GObjectType.t =
   struct
     val getType_ = _import "g_type_module_get_type" : unit -> GObjectType.C.val_;
@@ -22,10 +22,10 @@ structure GObjectTypeModule :>
             )
     val unuse_ = _import "g_type_module_unuse" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val use_ = _import "g_type_module_use" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    type 'a class_t = 'a GObjectTypeModuleClass.t
-    type 'a type_plugin_class_t = 'a GObjectTypePluginClass.t
+    type 'a class = 'a GObjectTypeModuleClass.class
+    type 'a type_plugin_class = 'a GObjectTypePluginClass.class
     type type_t = GObjectType.t
-    type t = base class_t
+    type t = base class
     fun asTypePlugin self = (GObjectObjectClass.C.withPtr ---> GObjectTypePluginClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun setName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)

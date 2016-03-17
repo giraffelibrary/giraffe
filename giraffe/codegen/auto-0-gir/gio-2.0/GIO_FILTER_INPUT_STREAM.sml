@@ -1,15 +1,15 @@
 signature GIO_FILTER_INPUT_STREAM =
   sig
-    type 'a class_t
-    type 'a input_stream_class_t
-    type t = base class_t
+    type 'a class
+    type 'a input_stream_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getBaseStream : 'a class_t -> base input_stream_class_t
-    val getCloseBaseStream : 'a class_t -> bool
+    val getBaseStream : 'a class -> base input_stream_class
+    val getCloseBaseStream : 'a class -> bool
     val setCloseBaseStream :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val baseStreamProp : ('a class_t, base input_stream_class_t option, 'b input_stream_class_t option) Property.readwrite
-    val closeBaseStreamProp : ('a class_t, bool, bool) Property.readwrite
+    val baseStreamProp : ('a class, base input_stream_class option, 'b input_stream_class option) Property.readwrite
+    val closeBaseStreamProp : ('a class, bool, bool) Property.readwrite
   end

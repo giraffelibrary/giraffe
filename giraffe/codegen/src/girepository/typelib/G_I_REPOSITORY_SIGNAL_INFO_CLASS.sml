@@ -1,14 +1,14 @@
 signature G_I_REPOSITORY_SIGNAL_INFO_CLASS =
   sig
     type 'a signalinfo
-    type 'a callableinfoclass_t
-    type 'a t = 'a signalinfo callableinfoclass_t
-    val toBase : 'a t -> base t
+    type 'a callableinfo_class
+    type 'a class = 'a signalinfo callableinfo_class
+    val toBase : 'a class -> base class
     structure C :
       sig
         type notnull
         type 'a p
-        val fromPtr : bool -> notnull p -> 'a t
-        val fromOptPtr : bool -> unit p -> 'a t option
+        val fromPtr : bool -> notnull p -> 'a class
+        val fromOptPtr : bool -> unit p -> 'a class option
       end
   end

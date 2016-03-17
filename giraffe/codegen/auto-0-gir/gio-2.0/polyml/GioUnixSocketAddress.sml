@@ -1,7 +1,7 @@
 structure GioUnixSocketAddress :>
   GIO_UNIX_SOCKET_ADDRESS
-    where type 'a class_t = 'a GioUnixSocketAddressClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a class = 'a GioUnixSocketAddressClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     where type unix_socket_address_type_t = GioUnixSocketAddressType.t =
   struct
     local
@@ -14,10 +14,10 @@ structure GioUnixSocketAddress :>
       val getPath_ = call (load_sym libgio "g_unix_socket_address_get_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
     end
-    type 'a class_t = 'a GioUnixSocketAddressClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a class = 'a GioUnixSocketAddressClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type unix_socket_address_type_t = GioUnixSocketAddressType.t
-    type t = base class_t
+    type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new path = (Utf8.C.withPtr ---> GioUnixSocketAddressClass.C.fromPtr true) new_ path

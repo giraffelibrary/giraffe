@@ -1,14 +1,14 @@
 structure AtkPlug :>
   ATK_PLUG
-    where type 'a class_t = 'a AtkPlugClass.t
-    where type 'a component_class_t = 'a AtkComponentClass.t =
+    where type 'a class = 'a AtkPlugClass.class
+    where type 'a component_class = 'a AtkComponentClass.class =
   struct
     val getType_ = _import "atk_plug_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_plug_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getId_ = _import "atk_plug_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    type 'a class_t = 'a AtkPlugClass.t
-    type 'a component_class_t = 'a AtkComponentClass.t
-    type t = base class_t
+    type 'a class = 'a AtkPlugClass.class
+    type 'a component_class = 'a AtkComponentClass.class
+    type t = base class
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkPlugClass.C.fromPtr true) new_ ()

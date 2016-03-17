@@ -8,8 +8,8 @@ signature G_LIB_CONVERT_ERROR =
     | BAD_URI
     | NOT_ABSOLUTE_PATH
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

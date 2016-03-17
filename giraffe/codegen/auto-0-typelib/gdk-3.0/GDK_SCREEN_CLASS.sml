@@ -1,10 +1,11 @@
 signature GDK_SCREEN_CLASS =
   sig
     type 'a screen
-    type 'a t = 'a screen GObject.ObjectClass.t
-    val toBase : 'a t -> base t
-    val t : (base t, 'a t) GObject.Value.accessor
-    val tOpt : (base t option, 'a t option) GObject.Value.accessor
+    type 'a class = 'a screen GObject.ObjectClass.class
+    type t = base class
+    val toBase : 'a class -> base class
+    val t : (base class, 'a class) GObject.Value.accessor
+    val tOpt : (base class option, 'a class option) GObject.Value.accessor
     structure C :
       sig
         type notnull
@@ -12,10 +13,10 @@ signature GDK_SCREEN_CLASS =
         val fromPtr :
           bool
            -> notnull p
-           -> 'a t
+           -> 'a class
         val fromOptPtr :
           bool
            -> unit p
-           -> 'a t option
+           -> 'a class option
       end
   end

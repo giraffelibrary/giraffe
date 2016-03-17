@@ -4,7 +4,8 @@ structure GtkSourceCompletionWordsClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a completion_words = unit
-    type 'a t = 'a completion_words GObjectObjectClass.t
+    type 'a class = 'a completion_words GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

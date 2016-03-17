@@ -1,9 +1,10 @@
 signature G_I_REPOSITORY_V_FUNC_INFO_CLASS =
   sig
     type 'a vfuncinfo
-    type 'a callableinfoclass_t
-    type 'a t = 'a vfuncinfo callableinfoclass_t
-    val toBase : 'a t -> base t
+    type 'a callableinfo_class
+    type 'a class = 'a vfuncinfo callableinfo_class
+    type t = base class
+    val toBase : 'a class -> base class
     structure Obj :
       sig
         type data

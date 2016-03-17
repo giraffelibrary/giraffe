@@ -1,6 +1,6 @@
 structure AtkEditableText :>
   ATK_EDITABLE_TEXT
-    where type 'a class_t = 'a AtkEditableTextClass.t =
+    where type 'a class = 'a AtkEditableTextClass.class =
   struct
     val getType_ = _import "atk_editable_text_get_type" : unit -> GObjectType.C.val_;
     val copyText_ =
@@ -70,8 +70,8 @@ structure AtkEditableText :>
               x2,
               x3
             )
-    type 'a class_t = 'a AtkEditableTextClass.t
-    type t = base class_t
+    type 'a class = 'a AtkEditableTextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyText self startPos endPos =
       (

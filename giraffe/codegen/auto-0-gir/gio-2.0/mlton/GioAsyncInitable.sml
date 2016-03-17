@@ -1,7 +1,7 @@
 structure GioAsyncInitable :>
   GIO_ASYNC_INITABLE
-    where type 'a class_t = 'a GioAsyncInitableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioAsyncInitableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_async_initable_get_type" : unit -> GObjectType.C.val_;
     val initFinish_ =
@@ -38,9 +38,9 @@ structure GioAsyncInitable :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioAsyncInitableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioAsyncInitableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun initFinish self res =
       (

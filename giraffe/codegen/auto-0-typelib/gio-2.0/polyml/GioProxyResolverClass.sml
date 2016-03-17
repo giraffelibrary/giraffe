@@ -4,7 +4,8 @@ structure GioProxyResolverClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a proxy_resolver = unit
-    type 'a t = 'a proxy_resolver GObjectObjectClass.t
+    type 'a class = 'a proxy_resolver GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

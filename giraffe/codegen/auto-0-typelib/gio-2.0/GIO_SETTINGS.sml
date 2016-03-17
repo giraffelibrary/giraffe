@@ -1,141 +1,141 @@
 signature GIO_SETTINGS =
   sig
-    type 'a class_t
-    type settings_backend_record_t
+    type 'a class
+    type settings_backend_t
     type settings_bind_flags_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
+    val new : string -> base class
     val newWithBackend :
       string
-       -> settings_backend_record_t
-       -> base class_t
+       -> settings_backend_t
+       -> base class
     val newWithBackendAndPath :
       string
-       -> settings_backend_record_t
+       -> settings_backend_t
        -> string
-       -> base class_t
+       -> base class
     val newWithPath :
       string
        -> string
-       -> base class_t
+       -> base class
     val sync : unit -> unit
-    val apply : 'a class_t -> unit
+    val apply : 'a class -> unit
     val bind :
-      'a class_t
+      'a class
        -> string
-       -> 'b GObject.ObjectClass.t
+       -> 'b GObject.ObjectClass.class
        -> string
        -> settings_bind_flags_t
        -> unit
     val bindWritable :
-      'a class_t
+      'a class
        -> string
-       -> 'b GObject.ObjectClass.t
+       -> 'b GObject.ObjectClass.class
        -> string
        -> bool
        -> unit
-    val delay : 'a class_t -> unit
+    val delay : 'a class -> unit
     val getBoolean :
-      'a class_t
+      'a class
        -> string
        -> bool
     val getChild :
-      'a class_t
+      'a class
        -> string
-       -> base class_t
+       -> base class
     val getDouble :
-      'a class_t
+      'a class
        -> string
        -> real
     val getEnum :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getFlags :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
-    val getHasUnapplied : 'a class_t -> bool
+    val getHasUnapplied : 'a class -> bool
     val getInt :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getRange :
-      'a class_t
+      'a class
        -> string
        -> GLib.VariantRecord.t
     val getString :
-      'a class_t
+      'a class
        -> string
        -> string
     val getUint :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getValue :
-      'a class_t
+      'a class
        -> string
        -> GLib.VariantRecord.t
     val isWritable :
-      'a class_t
+      'a class
        -> string
        -> bool
     val rangeCheck :
-      'a class_t
+      'a class
        -> string
        -> GLib.VariantRecord.t
        -> bool
     val reset :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val revert : 'a class_t -> unit
+    val revert : 'a class -> unit
     val setBoolean :
-      'a class_t
+      'a class
        -> string
        -> bool
        -> bool
     val setDouble :
-      'a class_t
+      'a class
        -> string
        -> real
        -> bool
     val setEnum :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> bool
     val setFlags :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> bool
     val setInt :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> bool
     val setString :
-      'a class_t
+      'a class
        -> string
        -> string
        -> bool
     val setUint :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> bool
     val setValue :
-      'a class_t
+      'a class
        -> string
        -> GLib.VariantRecord.t
        -> bool
-    val changedSig : (string -> unit) -> 'a class_t Signal.signal
-    val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class_t Signal.signal
-    val writableChangedSig : (string -> unit) -> 'a class_t Signal.signal
-    val delayApplyProp : ('a class_t, bool) Property.readonly
-    val hasUnappliedProp : ('a class_t, bool) Property.readonly
-    val pathProp : ('a class_t, string option, string option) Property.readwrite
-    val schemaProp : ('a class_t, string option, string option) Property.readwrite
+    val changedSig : (string -> unit) -> 'a class Signal.signal
+    val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.signal
+    val writableChangedSig : (string -> unit) -> 'a class Signal.signal
+    val delayApplyProp : ('a class, bool) Property.readonly
+    val hasUnappliedProp : ('a class, bool) Property.readonly
+    val pathProp : ('a class, string option, string option) Property.readwrite
+    val schemaProp : ('a class, string option, string option) Property.readwrite
   end

@@ -1,33 +1,32 @@
 signature G_LIB_MATCH_INFO =
   sig
-    type record_t
-    type regex_record_t
-    type t = record_t
+    type t
+    type regex_t
     val getType : unit -> GObject.Type.t
     val expandReferences :
-      record_t
+      t
        -> string
        -> string
     val fetch :
-      record_t
+      t
        -> LargeInt.int
        -> string
     val fetchNamed :
-      record_t
+      t
        -> string
        -> string
     val fetchNamedPos :
-      record_t
+      t
        -> string
        -> (LargeInt.int * LargeInt.int) option
     val fetchPos :
-      record_t
+      t
        -> LargeInt.int
        -> (LargeInt.int * LargeInt.int) option
-    val getMatchCount : record_t -> LargeInt.int
-    val getRegex : record_t -> regex_record_t
-    val getString : record_t -> string
-    val isPartialMatch : record_t -> bool
-    val matches : record_t -> bool
-    val next : record_t -> bool
+    val getMatchCount : t -> LargeInt.int
+    val getRegex : t -> regex_t
+    val getString : t -> string
+    val isPartialMatch : t -> bool
+    val matches : t -> bool
+    val next : t -> bool
   end

@@ -1,8 +1,8 @@
 structure GtkProgressBar :>
   GTK_PROGRESS_BAR
-    where type 'a class_t = 'a GtkProgressBarClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t =
+    where type 'a class = 'a GtkProgressBarClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     local
       open PolyMLFFI
@@ -23,10 +23,10 @@ structure GtkProgressBar :>
       val setShowText_ = call (load_sym libgtk "gtk_progress_bar_set_show_text") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setText_ = call (load_sym libgtk "gtk_progress_bar_set_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkProgressBarClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkProgressBarClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

@@ -1,9 +1,9 @@
 signature GTK_RADIO_ACTION =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
       string
@@ -11,18 +11,18 @@ signature GTK_RADIO_ACTION =
        -> string option
        -> string option
        -> LargeInt.int
-       -> base class_t
-    val getCurrentValue : 'a class_t -> LargeInt.int
+       -> base class
+    val getCurrentValue : 'a class -> LargeInt.int
     val joinGroup :
-      'a class_t
-       -> 'b class_t option
+      'a class
+       -> 'b class option
        -> unit
     val setCurrentValue :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val changedSig : (base class_t -> unit) -> 'a class_t Signal.signal
-    val currentValueProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val groupProp : ('a class_t, 'b class_t option) Property.writeonly
-    val valueProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val changedSig : (base class -> unit) -> 'a class Signal.signal
+    val currentValueProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val groupProp : ('a class, 'b class option) Property.writeonly
+    val valueProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

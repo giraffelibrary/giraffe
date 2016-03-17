@@ -2,11 +2,11 @@ structure GLibIOFunc :>
   sig
     include
       G_LIB_I_O_FUNC
-        where type i_o_channel_record_t = GLibIOChannelRecord.t
+        where type i_o_channel_t = GLibIOChannelRecord.t
         where type i_o_condition_t = GLibIOCondition.t
   end =
   struct
-    type i_o_channel_record_t = GLibIOChannelRecord.t
+    type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
 
     type t = GLibIOChannelRecord.t * GLibIOCondition.t -> bool

@@ -1,7 +1,7 @@
 structure GIRepositoryPropertyInfo :>
   G_I_REPOSITORY_PROPERTY_INFO
-    where type 'a class_t = 'a GIRepositoryPropertyInfoClass.t
-    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryPropertyInfoClass.class
+    where type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     where type transfer_t = GIRepositoryTransfer.t =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
@@ -11,8 +11,8 @@ structure GIRepositoryPropertyInfo :>
     fun toType f = GIRepositoryTypeInfoClass.Obj.pack o (I && f)
 
 
-    type 'a class_t = 'a GIRepositoryPropertyInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryPropertyInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     type transfer_t = GIRepositoryTransfer.t
 
 

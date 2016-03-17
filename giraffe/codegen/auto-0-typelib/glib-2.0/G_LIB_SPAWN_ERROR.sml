@@ -22,8 +22,8 @@ signature G_LIB_SPAWN_ERROR =
     | LIBBAD
     | FAILED
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

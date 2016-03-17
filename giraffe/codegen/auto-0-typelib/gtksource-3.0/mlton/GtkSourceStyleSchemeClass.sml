@@ -4,7 +4,8 @@ structure GtkSourceStyleSchemeClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a style_scheme = unit
-    type 'a t = 'a style_scheme GObjectObjectClass.t
+    type 'a class = 'a style_scheme GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

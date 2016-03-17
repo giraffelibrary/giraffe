@@ -1,6 +1,6 @@
 structure AtkDocument :>
   ATK_DOCUMENT
-    where type 'a class_t = 'a AtkDocumentClass.t =
+    where type 'a class = 'a AtkDocumentClass.class =
   struct
     local
       open PolyMLFFI
@@ -18,8 +18,8 @@ structure AtkDocument :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a AtkDocumentClass.t
-    type t = base class_t
+    type 'a class = 'a AtkDocumentClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
     fun getDocumentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self

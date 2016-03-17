@@ -1,7 +1,7 @@
 structure GtkTooltip :>
   GTK_TOOLTIP
-    where type 'a class_t = 'a GtkTooltipClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a class = 'a GtkTooltipClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     local
       open PolyMLFFI
@@ -38,9 +38,9 @@ structure GtkTooltip :>
       val setText_ = call (load_sym libgtk "gtk_tooltip_set_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
       val setTipArea_ = call (load_sym libgtk "gtk_tooltip_set_tip_area") (GObjectObjectClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTooltipClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a class = 'a GtkTooltipClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun triggerTooltipQuery display = (GObjectObjectClass.C.withPtr ---> I) triggerTooltipQuery_ display
     fun setCustom self customWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setCustom_ (self & customWidget)

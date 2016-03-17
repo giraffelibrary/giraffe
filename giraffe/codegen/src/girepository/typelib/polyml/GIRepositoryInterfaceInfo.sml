@@ -1,13 +1,13 @@
 structure GIRepositoryInterfaceInfo :>
   G_I_REPOSITORY_INTERFACE_INFO
-    where type 'a class_t = 'a GIRepositoryInterfaceInfoClass.t
-    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
-    where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
-    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
-    where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
-    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
-    where type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
-    where type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t =
+    where type 'a class = 'a GIRepositoryInterfaceInfoClass.class
+    where type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
+    where type 'a propertyinfo_class = 'a GIRepositoryPropertyInfoClass.class
+    where type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
+    where type 'a signalinfo_class = 'a GIRepositorySignalInfoClass.class
+    where type 'a vfuncinfo_class = 'a GIRepositoryVFuncInfoClass.class
+    where type 'a constantinfo_class = 'a GIRepositoryConstantInfoClass.class
+    where type 'a structinfo_class = 'a GIRepositoryStructInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -106,14 +106,14 @@ structure GIRepositoryInterfaceInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryInterfaceInfoClass.t
-    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
-    type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
-    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
-    type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
-    type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
-    type 'a structinfoclass_t = 'a GIRepositoryStructInfoClass.t
+    type 'a class = 'a GIRepositoryInterfaceInfoClass.class
+    type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
+    type 'a propertyinfo_class = 'a GIRepositoryPropertyInfoClass.class
+    type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
+    type 'a signalinfo_class = 'a GIRepositorySignalInfoClass.class
+    type 'a vfuncinfo_class = 'a GIRepositoryVFuncInfoClass.class
+    type 'a constantinfo_class = 'a GIRepositoryConstantInfoClass.class
+    type 'a structinfo_class = 'a GIRepositoryStructInfoClass.class
 
 
     val getNPrerequisites =

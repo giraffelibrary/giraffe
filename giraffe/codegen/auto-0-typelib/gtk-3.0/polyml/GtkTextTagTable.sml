@@ -1,8 +1,8 @@
 structure GtkTextTagTable :>
   GTK_TEXT_TAG_TABLE
-    where type 'a class_t = 'a GtkTextTagTableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a text_tag_class_t = 'a GtkTextTagClass.t =
+    where type 'a class = 'a GtkTextTagTableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a text_tag_class = 'a GtkTextTagClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,10 +14,10 @@ structure GtkTextTagTable :>
       val lookup_ = call (load_sym libgtk "gtk_text_tag_table_lookup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val remove_ = call (load_sym libgtk "gtk_text_tag_table_remove") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTextTagTableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a text_tag_class_t = 'a GtkTextTagClass.t
-    type t = base class_t
+    type 'a class = 'a GtkTextTagTableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a text_tag_class = 'a GtkTextTagClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()

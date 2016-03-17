@@ -1,21 +1,21 @@
 signature GTK_TABLE =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type attach_options_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
        -> LargeInt.int
        -> bool
-       -> base class_t
+       -> base class
     val attach :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -26,55 +26,55 @@ signature GTK_TABLE =
        -> LargeInt.int
        -> unit
     val attachDefaults :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val getColSpacing :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-    val getDefaultColSpacing : 'a class_t -> LargeInt.int
-    val getDefaultRowSpacing : 'a class_t -> LargeInt.int
-    val getHomogeneous : 'a class_t -> bool
+    val getDefaultColSpacing : 'a class -> LargeInt.int
+    val getDefaultRowSpacing : 'a class -> LargeInt.int
+    val getHomogeneous : 'a class -> bool
     val getRowSpacing :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-    val getSize : 'a class_t -> LargeInt.int * LargeInt.int
+    val getSize : 'a class -> LargeInt.int * LargeInt.int
     val resize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setColSpacing :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setColSpacings :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setHomogeneous :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setRowSpacing :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setRowSpacings :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val columnSpacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val homogeneousProp : ('a class_t, bool, bool) Property.readwrite
-    val nColumnsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val nRowsProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val rowSpacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val homogeneousProp : ('a class, bool, bool) Property.readwrite
+    val nColumnsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val nRowsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val rowSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

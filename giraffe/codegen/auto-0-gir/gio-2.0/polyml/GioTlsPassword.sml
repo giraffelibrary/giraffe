@@ -1,6 +1,6 @@
 structure GioTlsPassword :>
   GIO_TLS_PASSWORD
-    where type 'a class_t = 'a GioTlsPasswordClass.t
+    where type 'a class = 'a GioTlsPasswordClass.class
     where type tls_password_flags_t = GioTlsPasswordFlags.t =
   struct
     local
@@ -15,9 +15,9 @@ structure GioTlsPassword :>
       val setFlags_ = call (load_sym libgio "g_tls_password_set_flags") (GObjectObjectClass.PolyML.cPtr &&> GioTlsPasswordFlags.PolyML.cVal --> FFI.PolyML.cVoid)
       val setWarning_ = call (load_sym libgio "g_tls_password_set_warning") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioTlsPasswordClass.t
+    type 'a class = 'a GioTlsPasswordClass.class
     type tls_password_flags_t = GioTlsPasswordFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> Utf8.C.withPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self

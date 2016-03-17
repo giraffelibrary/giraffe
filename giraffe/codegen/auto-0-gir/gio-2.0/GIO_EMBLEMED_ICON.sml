@@ -1,20 +1,20 @@
 signature GIO_EMBLEMED_ICON =
   sig
-    type 'a class_t
-    type 'a emblem_class_t
-    type 'a icon_class_t
-    type t = base class_t
-    val asIcon : 'a class_t -> base icon_class_t
+    type 'a class
+    type 'a emblem_class
+    type 'a icon_class
+    type t = base class
+    val asIcon : 'a class -> base icon_class
     val getType : unit -> GObject.Type.t
     val new :
-      'a icon_class_t
-       -> 'b emblem_class_t option
-       -> base icon_class_t
+      'a icon_class
+       -> 'b emblem_class option
+       -> base icon_class
     val addEmblem :
-      'a class_t
-       -> 'b emblem_class_t
+      'a class
+       -> 'b emblem_class
        -> unit
-    val clearEmblems : 'a class_t -> unit
-    val getIcon : 'a class_t -> base icon_class_t
-    val giconProp : ('a class_t, base icon_class_t option, 'b icon_class_t option) Property.readwrite
+    val clearEmblems : 'a class -> unit
+    val getIcon : 'a class -> base icon_class
+    val giconProp : ('a class, base icon_class option, 'b icon_class option) Property.readwrite
   end

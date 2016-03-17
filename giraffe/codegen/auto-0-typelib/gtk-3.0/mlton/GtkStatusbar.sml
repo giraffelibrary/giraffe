@@ -1,9 +1,9 @@
 structure GtkStatusbar :>
   GTK_STATUSBAR
-    where type 'a class_t = 'a GtkStatusbarClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a class = 'a GtkStatusbarClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_statusbar_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_statusbar_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -61,11 +61,11 @@ structure GtkStatusbar :>
               x3
             )
     val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkStatusbarClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a class = 'a GtkStatusbarClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

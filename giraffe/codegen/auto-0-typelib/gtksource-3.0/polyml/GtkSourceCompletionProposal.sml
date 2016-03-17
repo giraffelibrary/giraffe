@@ -1,6 +1,6 @@
 structure GtkSourceCompletionProposal :>
   GTK_SOURCE_COMPLETION_PROPOSAL
-    where type 'a class_t = 'a GtkSourceCompletionProposalClass.t =
+    where type 'a class = 'a GtkSourceCompletionProposalClass.class =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,8 @@ structure GtkSourceCompletionProposal :>
       val getText_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_text") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val hash_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_hash") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
     end
-    type 'a class_t = 'a GtkSourceCompletionProposalClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionProposalClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun changed self = (GObjectObjectClass.C.withPtr ---> I) changed_ self
     fun equal self other = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & other)

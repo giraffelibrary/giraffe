@@ -1,97 +1,96 @@
 signature GTK_WIDGET_PATH =
   sig
-    type record_t
-    type 'a widget_class_t
+    type t
+    type 'a widget_class
     type region_flags_t
-    type t = record_t
     val getType : unit -> GObject.Type.t
-    val new : unit -> record_t
+    val new : unit -> t
     val appendForWidget :
-      record_t
-       -> 'a widget_class_t
+      t
+       -> 'a widget_class
        -> LargeInt.int
     val appendWithSiblings :
-      record_t
-       -> record_t
+      t
+       -> t
        -> LargeInt.int
        -> LargeInt.int
-    val copy : record_t -> record_t
+    val copy : t -> t
     val iterAddClass :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> unit
     val iterAddRegion :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> region_flags_t
        -> unit
     val iterClearClasses :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val iterClearRegions :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val iterGetName :
-      record_t
+      t
        -> LargeInt.int
        -> string
     val iterGetSiblingIndex :
-      record_t
+      t
        -> LargeInt.int
        -> LargeInt.int
     val iterGetSiblings :
-      record_t
+      t
        -> LargeInt.int
-       -> record_t
+       -> t
     val iterHasClass :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> bool
     val iterHasName :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> bool
     val iterHasQclass :
-      record_t
+      t
        -> LargeInt.int
        -> LargeInt.int
        -> bool
     val iterHasQname :
-      record_t
+      t
        -> LargeInt.int
        -> LargeInt.int
        -> bool
     val iterHasQregion :
-      record_t
+      t
        -> LargeInt.int
        -> LargeInt.int
        -> region_flags_t option
     val iterHasRegion :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> region_flags_t option
     val iterRemoveClass :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> unit
     val iterRemoveRegion :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> unit
     val iterSetName :
-      record_t
+      t
        -> LargeInt.int
        -> string
        -> unit
-    val length : record_t -> LargeInt.int
-    val toString : record_t -> string
+    val length : t -> LargeInt.int
+    val toString : t -> string
   end

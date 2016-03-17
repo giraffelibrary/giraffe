@@ -1,9 +1,10 @@
 signature GDK_EVENT_CONFIGURE_RECORD =
   sig
     type configure
-    type 'a event_t
-    type t = configure event_t
+    type 'a event_union
+    type t = configure event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       CONFIGURE
 (*

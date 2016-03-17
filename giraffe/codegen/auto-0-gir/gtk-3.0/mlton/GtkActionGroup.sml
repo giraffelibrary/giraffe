@@ -1,9 +1,9 @@
 structure GtkActionGroup :>
   GTK_ACTION_GROUP
-    where type 'a class_t = 'a GtkActionGroupClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a action_class_t = 'a GtkActionClass.t =
+    where type 'a class = 'a GtkActionGroupClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a action_class = 'a GtkActionClass.class =
   struct
     val getType_ = _import "gtk_action_group_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_action_group_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -78,11 +78,11 @@ structure GtkActionGroup :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkActionGroupClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a action_class_t = 'a GtkActionClass.t
-    type t = base class_t
+    type 'a class = 'a GtkActionGroupClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a action_class = 'a GtkActionClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name

@@ -1,14 +1,14 @@
 structure PangoRenderer :>
   PANGO_RENDERER
-    where type 'a class_t = 'a PangoRendererClass.t
-    where type glyph_item_record_t = PangoGlyphItemRecord.t
-    where type glyph_string_record_t = PangoGlyphStringRecord.t
-    where type 'a font_class_t = 'a PangoFontClass.t
-    where type 'a layout_class_t = 'a PangoLayoutClass.t
-    where type layout_line_record_t = PangoLayoutLineRecord.t
-    where type color_record_t = PangoColorRecord.t
+    where type 'a class = 'a PangoRendererClass.class
+    where type glyph_item_t = PangoGlyphItemRecord.t
+    where type glyph_string_t = PangoGlyphStringRecord.t
+    where type 'a font_class = 'a PangoFontClass.class
+    where type 'a layout_class = 'a PangoLayoutClass.class
+    where type layout_line_t = PangoLayoutLineRecord.t
+    where type color_t = PangoColorRecord.t
     where type render_part_t = PangoRenderPart.t
-    where type matrix_record_t = PangoMatrixRecord.t =
+    where type matrix_t = PangoMatrixRecord.t =
   struct
     local
       open PolyMLFFI
@@ -113,16 +113,16 @@ structure PangoRenderer :>
           )
       val setMatrix_ = call (load_sym libpango "pango_renderer_set_matrix") (GObjectObjectClass.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a PangoRendererClass.t
-    type glyph_item_record_t = PangoGlyphItemRecord.t
-    type glyph_string_record_t = PangoGlyphStringRecord.t
-    type 'a font_class_t = 'a PangoFontClass.t
-    type 'a layout_class_t = 'a PangoLayoutClass.t
-    type layout_line_record_t = PangoLayoutLineRecord.t
-    type color_record_t = PangoColorRecord.t
+    type 'a class = 'a PangoRendererClass.class
+    type glyph_item_t = PangoGlyphItemRecord.t
+    type glyph_string_t = PangoGlyphStringRecord.t
+    type 'a font_class = 'a PangoFontClass.class
+    type 'a layout_class = 'a PangoLayoutClass.class
+    type layout_line_t = PangoLayoutLineRecord.t
+    type color_t = PangoColorRecord.t
     type render_part_t = PangoRenderPart.t
-    type matrix_record_t = PangoMatrixRecord.t
-    type t = base class_t
+    type matrix_t = PangoMatrixRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
     fun deactivate self = (GObjectObjectClass.C.withPtr ---> I) deactivate_ self

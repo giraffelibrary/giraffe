@@ -39,7 +39,8 @@ structure GObjectParamSpecClass :>
           (cPtr --> FFI.PolyML.cVoid)
     end
 
-    type 'a t = notnull p Finalizable.t
+    type 'a class = notnull p Finalizable.t
+    type t = base class
     fun toBase obj = obj
 
     structure C =

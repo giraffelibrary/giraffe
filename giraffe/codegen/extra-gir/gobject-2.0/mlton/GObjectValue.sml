@@ -7,7 +7,7 @@
 
 structure GObjectValue :>
   G_OBJECT_VALUE
-    where type record_t = GObjectValueRecord.t
+    where type t = GObjectValueRecord.t
     where type type_t = GObjectType.t
     where type C.notnull = GObjectValueRecord.C.notnull
     where type 'a C.p = 'a GObjectValueRecord.C.p
@@ -41,10 +41,8 @@ structure GObjectValue :>
       _import "giraffe_g_is_value" :
         GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> FFI.Bool.C.val_;
 
-    type record_t = GObjectValueRecord.t
+    type t = GObjectValueRecord.t
     type type_t = GObjectType.t
-
-    type t = record_t
 
     fun init gtype =
       let

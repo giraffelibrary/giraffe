@@ -1,7 +1,7 @@
 structure GtkAspectFrame :>
   GTK_ASPECT_FRAME
-    where type 'a class_t = 'a GtkAspectFrameClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkAspectFrameClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     local
       open PolyMLFFI
@@ -28,9 +28,9 @@ structure GtkAspectFrame :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkAspectFrameClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAspectFrameClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

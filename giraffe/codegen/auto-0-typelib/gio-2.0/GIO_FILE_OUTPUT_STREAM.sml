@@ -1,21 +1,21 @@
 signature GIO_FILE_OUTPUT_STREAM =
   sig
-    type 'a class_t
-    type 'a seekable_class_t
-    type 'a cancellable_class_t
-    type 'a file_info_class_t
-    type 'a async_result_class_t
-    type t = base class_t
-    val asSeekable : 'a class_t -> base seekable_class_t
+    type 'a class
+    type 'a seekable_class
+    type 'a cancellable_class
+    type 'a file_info_class
+    type 'a async_result_class
+    type t = base class
+    val asSeekable : 'a class -> base seekable_class
     val getType : unit -> GObject.Type.t
-    val getEtag : 'a class_t -> string
+    val getEtag : 'a class -> string
     val queryInfo :
-      'a class_t
+      'a class
        -> string
-       -> 'b cancellable_class_t option
-       -> base file_info_class_t
+       -> 'b cancellable_class option
+       -> base file_info_class
     val queryInfoFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_info_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_info_class
   end

@@ -1,7 +1,7 @@
 structure GIRepositoryConstantInfo :>
   G_I_REPOSITORY_CONSTANT_INFO
-    where type 'a class_t = 'a GIRepositoryConstantInfoClass.t
-    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryConstantInfoClass.class
+    where type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     where type argument_t = GIRepositoryArgument.t =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
@@ -11,8 +11,8 @@ structure GIRepositoryConstantInfo :>
     fun toType f = GIRepositoryTypeInfoClass.Obj.pack o (I && f)
 
 
-    type 'a class_t = 'a GIRepositoryConstantInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryConstantInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     type argument_t = GIRepositoryArgument.t
 
 

@@ -1,11 +1,11 @@
 structure GtkPrintSettings :>
   GTK_PRINT_SETTINGS
-    where type 'a class_t = 'a GtkPrintSettingsClass.t
+    where type 'a class = 'a GtkPrintSettingsClass.class
     where type print_duplex_t = GtkPrintDuplex.t
     where type number_up_layout_t = GtkNumberUpLayout.t
     where type page_orientation_t = GtkPageOrientation.t
     where type page_set_t = GtkPageSet.t
-    where type paper_size_record_t = GtkPaperSizeRecord.t
+    where type paper_size_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t
     where type print_pages_t = GtkPrintPages.t
     where type print_quality_t = GtkPrintQuality.t =
@@ -554,16 +554,16 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkPrintSettingsClass.t
+    type 'a class = 'a GtkPrintSettingsClass.class
     type print_duplex_t = GtkPrintDuplex.t
     type number_up_layout_t = GtkNumberUpLayout.t
     type page_orientation_t = GtkPageOrientation.t
     type page_set_t = GtkPageSet.t
-    type paper_size_record_t = GtkPaperSizeRecord.t
+    type paper_size_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
     type print_pages_t = GtkPrintPages.t
     type print_quality_t = GtkPrintQuality.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.C.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.C.fromPtr true) newFromFile_ (fileName & [])

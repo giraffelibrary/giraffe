@@ -1,6 +1,6 @@
 structure GtkIconSource :>
   GTK_ICON_SOURCE
-    where type record_t = GtkIconSourceRecord.t
+    where type t = GtkIconSourceRecord.t
     where type text_direction_t = GtkTextDirection.t
     where type state_type_t = GtkStateType.t =
   struct
@@ -29,10 +29,9 @@ structure GtkIconSource :>
       val setState_ = call (load_sym libgtk "gtk_icon_source_set_state") (GtkIconSourceRecord.PolyML.cPtr &&> GtkStateType.PolyML.cVal --> FFI.PolyML.cVoid)
       val setStateWildcarded_ = call (load_sym libgtk "gtk_icon_source_set_state_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type record_t = GtkIconSourceRecord.t
+    type t = GtkIconSourceRecord.t
     type text_direction_t = GtkTextDirection.t
     type state_type_t = GtkStateType.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSourceRecord.C.fromPtr true) new_ ()
     fun copy self = (GtkIconSourceRecord.C.withPtr ---> GtkIconSourceRecord.C.fromPtr true) copy_ self

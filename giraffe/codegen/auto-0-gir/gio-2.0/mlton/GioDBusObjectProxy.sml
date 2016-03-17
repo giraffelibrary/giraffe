@@ -1,8 +1,8 @@
 structure GioDBusObjectProxy :>
   GIO_D_BUS_OBJECT_PROXY
-    where type 'a class_t = 'a GioDBusObjectProxyClass.t
-    where type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
-    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t =
+    where type 'a class = 'a GioDBusObjectProxyClass.class
+    where type 'a d_bus_object_class = 'a GioDBusObjectClass.class
+    where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class =
   struct
     val getType_ = _import "g_dbus_object_proxy_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -21,10 +21,10 @@ structure GioDBusObjectProxy :>
               x3
             )
     val getConnection_ = _import "g_dbus_object_proxy_get_connection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GioDBusObjectProxyClass.t
-    type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
-    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
-    type t = base class_t
+    type 'a class = 'a GioDBusObjectProxyClass.class
+    type 'a d_bus_object_class = 'a GioDBusObjectClass.class
+    type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
+    type t = base class
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new connection objectPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioDBusObjectProxyClass.C.fromPtr true) new_ (connection & objectPath)

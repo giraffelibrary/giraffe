@@ -1,13 +1,13 @@
 structure GdkDisplay :>
   GDK_DISPLAY
-    where type 'a class_t = 'a GdkDisplayClass.t
-    where type 'a device_class_t = 'a GdkDeviceClass.t
-    where type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
-    where type 'a window_class_t = 'a GdkWindowClass.t
-    where type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
-    where type 'a event_t = 'a GdkEvent.t
-    where type atom_record_t = GdkAtomRecord.t =
+    where type 'a class = 'a GdkDisplayClass.class
+    where type 'a device_class = 'a GdkDeviceClass.class
+    where type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
+    where type 'a window_class = 'a GdkWindowClass.class
+    where type 'a device_manager_class = 'a GdkDeviceManagerClass.class
+    where type 'a screen_class = 'a GdkScreenClass.class
+    where type 'a event_union = 'a GdkEvent.union
+    where type atom_t = GdkAtomRecord.t =
   struct
     val getType_ = _import "gdk_display_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "gdk_display_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -73,15 +73,15 @@ structure GdkDisplay :>
     val supportsSelectionNotification_ = _import "gdk_display_supports_selection_notification" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val supportsShapes_ = _import "gdk_display_supports_shapes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val sync_ = _import "gdk_display_sync" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GdkDisplayClass.t
-    type 'a device_class_t = 'a GdkDeviceClass.t
-    type 'a app_launch_context_class_t = 'a GdkAppLaunchContextClass.t
-    type 'a window_class_t = 'a GdkWindowClass.t
-    type 'a device_manager_class_t = 'a GdkDeviceManagerClass.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
-    type 'a event_t = 'a GdkEvent.t
-    type atom_record_t = GdkAtomRecord.t
-    type t = base class_t
+    type 'a class = 'a GdkDisplayClass.class
+    type 'a device_class = 'a GdkDeviceClass.class
+    type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
+    type 'a window_class = 'a GdkWindowClass.class
+    type 'a device_manager_class = 'a GdkDeviceManagerClass.class
+    type 'a screen_class = 'a GdkScreenClass.class
+    type 'a event_union = 'a GdkEvent.union
+    type atom_t = GdkAtomRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.C.fromPtr false) getDefault_ ()
     fun open' displayName = (Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) open_ displayName

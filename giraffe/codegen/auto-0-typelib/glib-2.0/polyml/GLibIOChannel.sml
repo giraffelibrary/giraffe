@@ -1,6 +1,6 @@
 structure GLibIOChannel :>
   G_LIB_I_O_CHANNEL
-    where type record_t = GLibIOChannelRecord.t
+    where type t = GLibIOChannelRecord.t
     where type i_o_condition_t = GLibIOCondition.t
     where type i_o_error_t = GLibIOError.t
     where type seek_type_t = GLibSeekType.t
@@ -93,14 +93,13 @@ structure GLibIOChannel :>
           )
       val errorFromErrno_ = call (load_sym libglib "g_io_channel_error_from_errno") (FFI.Int32.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
     end
-    type record_t = GLibIOChannelRecord.t
+    type t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
     type i_o_error_t = GLibIOError.t
     type seek_type_t = GLibSeekType.t
     type i_o_flags_t = GLibIOFlags.t
     type i_o_status_t = GLibIOStatus.t
     type i_o_channel_error_t = GLibIOChannelError.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFile filename mode =
       (

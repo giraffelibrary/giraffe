@@ -1,25 +1,25 @@
 signature GIO_NETWORK_SERVICE =
   sig
-    type 'a class_t
-    type 'a socket_connectable_class_t
-    type t = base class_t
-    val asSocketConnectable : 'a class_t -> base socket_connectable_class_t
+    type 'a class
+    type 'a socket_connectable_class
+    type t = base class
+    val asSocketConnectable : 'a class -> base socket_connectable_class
     val getType : unit -> GObject.Type.t
     val new :
       string
        -> string
        -> string
-       -> base socket_connectable_class_t
-    val getDomain : 'a class_t -> string
-    val getProtocol : 'a class_t -> string
-    val getScheme : 'a class_t -> string
-    val getService : 'a class_t -> string
+       -> base socket_connectable_class
+    val getDomain : 'a class -> string
+    val getProtocol : 'a class -> string
+    val getScheme : 'a class -> string
+    val getService : 'a class -> string
     val setScheme :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val domainProp : ('a class_t, string option, string option) Property.readwrite
-    val protocolProp : ('a class_t, string option, string option) Property.readwrite
-    val schemeProp : ('a class_t, string option, string option) Property.readwrite
-    val serviceProp : ('a class_t, string option, string option) Property.readwrite
+    val domainProp : ('a class, string option, string option) Property.readwrite
+    val protocolProp : ('a class, string option, string option) Property.readwrite
+    val schemeProp : ('a class, string option, string option) Property.readwrite
+    val serviceProp : ('a class, string option, string option) Property.readwrite
   end

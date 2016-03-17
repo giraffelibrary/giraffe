@@ -1,8 +1,8 @@
 structure GdkKeymap :>
   GDK_KEYMAP
-    where type 'a class_t = 'a GdkKeymapClass.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t
-    where type keymap_key_record_t = GdkKeymapKeyRecord.t
+    where type 'a class = 'a GdkKeymapClass.class
+    where type 'a display_class = 'a GdkDisplayClass.class
+    where type keymap_key_t = GdkKeymapKeyRecord.t
     where type modifier_type_t = GdkModifierType.t =
   struct
     val getType_ = _import "gdk_keymap_get_type" : unit -> GObjectType.C.val_;
@@ -47,11 +47,11 @@ structure GdkKeymap :>
               x7,
               x8
             )
-    type 'a class_t = 'a GdkKeymapClass.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type keymap_key_record_t = GdkKeymapKeyRecord.t
+    type 'a class = 'a GdkKeymapClass.class
+    type 'a display_class = 'a GdkDisplayClass.class
+    type keymap_key_t = GdkKeymapKeyRecord.t
     type modifier_type_t = GdkModifierType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkKeymapClass.C.fromPtr false) getDefault_ ()
     fun getForDisplay display = (GObjectObjectClass.C.withPtr ---> GdkKeymapClass.C.fromPtr false) getForDisplay_ display

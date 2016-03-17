@@ -1,7 +1,7 @@
 structure GioBufferedOutputStream :>
   GIO_BUFFERED_OUTPUT_STREAM
-    where type 'a class_t = 'a GioBufferedOutputStreamClass.t
-    where type 'a output_stream_class_t = 'a GioOutputStreamClass.t =
+    where type 'a class = 'a GioBufferedOutputStreamClass.class
+    where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     val getType_ = _import "g_buffered_output_stream_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_buffered_output_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -10,9 +10,9 @@ structure GioBufferedOutputStream :>
     val getBufferSize_ = _import "g_buffered_output_stream_get_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
     val setAutoGrow_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_auto_grow" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioBufferedOutputStreamClass.t
-    type 'a output_stream_class_t = 'a GioOutputStreamClass.t
-    type t = base class_t
+    type 'a class = 'a GioBufferedOutputStreamClass.class
+    type 'a output_stream_class = 'a GioOutputStreamClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
     fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)

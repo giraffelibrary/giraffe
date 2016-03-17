@@ -1,7 +1,7 @@
 structure GioVfs :>
   GIO_VFS
-    where type 'a class_t = 'a GioVfsClass.t
-    where type 'a file_class_t = 'a GioFileClass.t =
+    where type 'a class = 'a GioVfsClass.class
+    where type 'a file_class = 'a GioFileClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,9 +14,9 @@ structure GioVfs :>
       val isActive_ = call (load_sym libgio "g_vfs_is_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val parseName_ = call (load_sym libgio "g_vfs_parse_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GioVfsClass.t
-    type 'a file_class_t = 'a GioFileClass.t
-    type t = base class_t
+    type 'a class = 'a GioVfsClass.class
+    type 'a file_class = 'a GioFileClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioVfsClass.C.fromPtr false) getDefault_ ()
     fun getLocal () = (I ---> GioVfsClass.C.fromPtr false) getLocal_ ()

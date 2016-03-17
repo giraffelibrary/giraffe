@@ -1,10 +1,10 @@
 structure PangoLayoutIter :>
   PANGO_LAYOUT_ITER
-    where type record_t = PangoLayoutIterRecord.t
-    where type 'a layout_class_t = 'a PangoLayoutClass.t
-    where type layout_line_record_t = PangoLayoutLineRecord.t
-    where type rectangle_record_t = PangoRectangleRecord.t
-    where type glyph_item_record_t = PangoGlyphItemRecord.t =
+    where type t = PangoLayoutIterRecord.t
+    where type 'a layout_class = 'a PangoLayoutClass.class
+    where type layout_line_t = PangoLayoutLineRecord.t
+    where type rectangle_t = PangoRectangleRecord.t
+    where type glyph_item_t = PangoGlyphItemRecord.t =
   struct
     val getType_ = _import "pango_layout_iter_get_type" : unit -> GObjectType.C.val_;
     val atLastLine_ = _import "pango_layout_iter_at_last_line" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
@@ -106,12 +106,11 @@ structure PangoLayoutIter :>
     val nextCluster_ = _import "pango_layout_iter_next_cluster" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
     val nextLine_ = _import "pango_layout_iter_next_line" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
     val nextRun_ = _import "pango_layout_iter_next_run" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Bool.C.val_;
-    type record_t = PangoLayoutIterRecord.t
-    type 'a layout_class_t = 'a PangoLayoutClass.t
-    type layout_line_record_t = PangoLayoutLineRecord.t
-    type rectangle_record_t = PangoRectangleRecord.t
-    type glyph_item_record_t = PangoGlyphItemRecord.t
-    type t = record_t
+    type t = PangoLayoutIterRecord.t
+    type 'a layout_class = 'a PangoLayoutClass.class
+    type layout_line_t = PangoLayoutLineRecord.t
+    type rectangle_t = PangoRectangleRecord.t
+    type glyph_item_t = PangoGlyphItemRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun atLastLine self = (PangoLayoutIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) atLastLine_ self
     fun copy self = (PangoLayoutIterRecord.C.withPtr ---> PangoLayoutIterRecord.C.fromPtr true) copy_ self

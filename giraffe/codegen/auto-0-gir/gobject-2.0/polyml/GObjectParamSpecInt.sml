@@ -1,6 +1,6 @@
 structure GObjectParamSpecInt :>
   G_OBJECT_PARAM_SPEC_INT
-    where type 'a class_t = 'a GObjectParamSpecIntClass.t
+    where type 'a class = 'a GObjectParamSpecIntClass.class
     where type type_t = GObjectType.t =
   struct
     local
@@ -8,8 +8,8 @@ structure GObjectParamSpecInt :>
     in
       val getType_ = call (load_sym libgobject "intern") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
-    type 'a class_t = 'a GObjectParamSpecIntClass.t
+    type 'a class = 'a GObjectParamSpecIntClass.class
     type type_t = GObjectType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

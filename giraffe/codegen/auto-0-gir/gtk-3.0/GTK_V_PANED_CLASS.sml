@@ -1,11 +1,12 @@
 signature GTK_V_PANED_CLASS =
   sig
     type 'a v_paned
-    type 'a paned_class_t
-    type 'a t = 'a v_paned paned_class_t
-    val toBase : 'a t -> base t
-    val t : (base t, 'a t) GObject.Value.accessor
-    val tOpt : (base t option, 'a t option) GObject.Value.accessor
+    type 'a paned_class
+    type 'a class = 'a v_paned paned_class
+    type t = base class
+    val toBase : 'a class -> base class
+    val t : (base class, 'a class) GObject.Value.accessor
+    val tOpt : (base class option, 'a class option) GObject.Value.accessor
     structure C :
       sig
         type notnull
@@ -13,10 +14,10 @@ signature GTK_V_PANED_CLASS =
         val fromPtr :
           bool
            -> notnull p
-           -> 'a t
+           -> 'a class
         val fromOptPtr :
           bool
            -> unit p
-           -> 'a t option
+           -> 'a class option
       end
   end

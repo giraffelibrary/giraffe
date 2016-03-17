@@ -1,7 +1,7 @@
 structure PangoLayoutLine :>
   PANGO_LAYOUT_LINE
-    where type record_t = PangoLayoutLineRecord.t
-    where type rectangle_record_t = PangoRectangleRecord.t =
+    where type t = PangoLayoutLineRecord.t
+    where type rectangle_t = PangoRectangleRecord.t =
   struct
     local
       open PolyMLFFI
@@ -42,9 +42,8 @@ structure PangoLayoutLine :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type record_t = PangoLayoutLineRecord.t
-    type rectangle_record_t = PangoRectangleRecord.t
-    type t = record_t
+    type t = PangoLayoutLineRecord.t
+    type rectangle_t = PangoRectangleRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getExtents self =
       let

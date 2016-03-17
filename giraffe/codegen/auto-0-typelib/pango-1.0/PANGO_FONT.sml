@@ -1,22 +1,22 @@
 signature PANGO_FONT =
   sig
-    type 'a class_t
-    type font_description_record_t
-    type 'a font_map_class_t
-    type rectangle_record_t
-    type font_metrics_record_t
-    type language_record_t
-    type t = base class_t
+    type 'a class
+    type font_description_t
+    type 'a font_map_class
+    type rectangle_t
+    type font_metrics_t
+    type language_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val describe : 'a class_t -> font_description_record_t
-    val describeWithAbsoluteSize : 'a class_t -> font_description_record_t
-    val getFontMap : 'a class_t -> base font_map_class_t
+    val describe : 'a class -> font_description_t
+    val describeWithAbsoluteSize : 'a class -> font_description_t
+    val getFontMap : 'a class -> base font_map_class
     val getGlyphExtents :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> rectangle_record_t * rectangle_record_t
+       -> rectangle_t * rectangle_t
     val getMetrics :
-      'a class_t
-       -> language_record_t option
-       -> font_metrics_record_t
+      'a class
+       -> language_t option
+       -> font_metrics_t
   end

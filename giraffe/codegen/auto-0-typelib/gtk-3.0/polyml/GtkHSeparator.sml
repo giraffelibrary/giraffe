@@ -1,18 +1,18 @@
 structure GtkHSeparator :>
   GTK_H_SEPARATOR
-    where type 'a class_t = 'a GtkHSeparatorClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t =
+    where type 'a class = 'a GtkHSeparatorClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     local
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_hseparator_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
-    type 'a class_t = 'a GtkHSeparatorClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkHSeparatorClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

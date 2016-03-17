@@ -4,7 +4,8 @@ structure GtkBuildableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a buildable = unit
-    type 'a t = 'a buildable GObjectObjectClass.t
+    type 'a class = 'a buildable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

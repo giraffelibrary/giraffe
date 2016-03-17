@@ -1,8 +1,8 @@
 structure GioCharsetConverter :>
   GIO_CHARSET_CONVERTER
-    where type 'a class_t = 'a GioCharsetConverterClass.t
-    where type 'a converter_class_t = 'a GioConverterClass.t
-    where type 'a initable_class_t = 'a GioInitableClass.t =
+    where type 'a class = 'a GioCharsetConverterClass.class
+    where type 'a converter_class = 'a GioConverterClass.class
+    where type 'a initable_class = 'a GioInitableClass.class =
   struct
     local
       open PolyMLFFI
@@ -20,10 +20,10 @@ structure GioCharsetConverter :>
       val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioCharsetConverterClass.t
-    type 'a converter_class_t = 'a GioConverterClass.t
-    type 'a initable_class_t = 'a GioInitableClass.t
-    type t = base class_t
+    type 'a class = 'a GioCharsetConverterClass.class
+    type 'a converter_class = 'a GioConverterClass.class
+    type 'a initable_class = 'a GioInitableClass.class
+    type t = base class
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

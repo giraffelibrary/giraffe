@@ -1,12 +1,12 @@
 signature GIO_MEMORY_OUTPUT_STREAM =
   sig
-    type 'a class_t
-    type 'a seekable_class_t
-    type t = base class_t
-    val asSeekable : 'a class_t -> base seekable_class_t
+    type 'a class
+    type 'a seekable_class
+    type t = base class
+    val asSeekable : 'a class -> base seekable_class
     val getType : unit -> GObject.Type.t
-    val getDataSize : 'a class_t -> LargeInt.int
-    val getSize : 'a class_t -> LargeInt.int
-    val dataSizeProp : ('a class_t, LargeInt.int) Property.readonly
-    val sizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val getDataSize : 'a class -> LargeInt.int
+    val getSize : 'a class -> LargeInt.int
+    val dataSizeProp : ('a class, LargeInt.int) Property.readonly
+    val sizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

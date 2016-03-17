@@ -1,6 +1,6 @@
 structure GtkTargetEntry :>
   GTK_TARGET_ENTRY
-    where type record_t = GtkTargetEntryRecord.t =
+    where type t = GtkTargetEntryRecord.t =
   struct
     val getType_ = _import "gtk_target_entry_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -23,8 +23,7 @@ structure GtkTargetEntry :>
               x4
             )
     val copy_ = _import "gtk_target_entry_copy" : GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p -> GtkTargetEntryRecord.C.notnull GtkTargetEntryRecord.C.p;
-    type record_t = GtkTargetEntryRecord.t
-    type t = record_t
+    type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (

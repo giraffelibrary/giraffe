@@ -1,70 +1,70 @@
 signature G_I_REPOSITORY_REPOSITORY =
   sig
-    type 'a class_t
-    type enum_info_record_t
-    type base_info_record_t
-    type typelib_record_t
+    type 'a class
+    type enum_info_t
+    type base_info_t
+    type typelib_t
     type repository_load_flags_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val dump : string -> bool
-    val getDefault : unit -> base class_t
+    val getDefault : unit -> base class
     val prependSearchPath : string -> unit
     val findByErrorDomain :
-      'a class_t
+      'a class
        -> GLib.Quark.t
-       -> enum_info_record_t
+       -> enum_info_t
     val findByName :
-      'a class_t
+      'a class
        -> string
        -> string
-       -> base_info_record_t
+       -> base_info_t
     val getCPrefix :
-      'a class_t
+      'a class
        -> string
        -> string
     val getInfo :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
-       -> base_info_record_t
+       -> base_info_t
     val getNInfos :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
     val getSharedLibrary :
-      'a class_t
+      'a class
        -> string
        -> string
     val getTypelibPath :
-      'a class_t
+      'a class
        -> string
        -> string
     val getVersion :
-      'a class_t
+      'a class
        -> string
        -> string
     val isRegistered :
-      'a class_t
+      'a class
        -> string
        -> string option
        -> bool
     val loadTypelib :
-      'a class_t
-       -> typelib_record_t
+      'a class
+       -> typelib_t
        -> repository_load_flags_t
        -> string
     val require :
-      'a class_t
+      'a class
        -> string
        -> string option
        -> repository_load_flags_t
-       -> typelib_record_t
+       -> typelib_t
     val requirePrivate :
-      'a class_t
+      'a class
        -> string
        -> string
        -> string option
        -> repository_load_flags_t
-       -> typelib_record_t
+       -> typelib_t
   end

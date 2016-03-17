@@ -55,171 +55,171 @@ signature GDK =
     structure WindowWindowClass : GDK_WINDOW_WINDOW_CLASS
     structure EventAnyRecord :
       GDK_EVENT_ANY_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventButtonRecord :
       GDK_EVENT_BUTTON_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventConfigureRecord :
       GDK_EVENT_CONFIGURE_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventCrossingRecord :
       GDK_EVENT_CROSSING_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventDNDRecord :
       GDK_EVENT_D_N_D_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventExposeRecord :
       GDK_EVENT_EXPOSE_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventFocusRecord :
       GDK_EVENT_FOCUS_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventGrabBrokenRecord :
       GDK_EVENT_GRAB_BROKEN_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventKeyRecord :
       GDK_EVENT_KEY_RECORD
-        where type 'a event_t = 'a Event.t
-        where type 'a window_class_t = 'a WindowClass.t
+        where type 'a event_union = 'a Event.union
+        where type 'a window_class = 'a WindowClass.class
         where type modifier_type_t = ModifierType.t
     structure EventMotionRecord :
       GDK_EVENT_MOTION_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventOwnerChangeRecord :
       GDK_EVENT_OWNER_CHANGE_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventPropertyRecord :
       GDK_EVENT_PROPERTY_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventProximityRecord :
       GDK_EVENT_PROXIMITY_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventScrollRecord :
       GDK_EVENT_SCROLL_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventSelectionRecord :
       GDK_EVENT_SELECTION_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventSettingRecord :
       GDK_EVENT_SETTING_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventVisibilityRecord :
       GDK_EVENT_VISIBILITY_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure EventWindowStateRecord :
       GDK_EVENT_WINDOW_STATE_RECORD
-        where type 'a event_t = 'a Event.t
+        where type 'a event_union = 'a Event.union
     structure AppLaunchContext :
       GDK_APP_LAUNCH_CONTEXT
-        where type 'a class_t = 'a AppLaunchContextClass.t
-        where type 'a screen_class_t = 'a ScreenClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a class = 'a AppLaunchContextClass.class
+        where type 'a screen_class = 'a ScreenClass.class
+        where type 'a display_class = 'a DisplayClass.class
     structure Atom :
       GDK_ATOM
-        where type record_t = AtomRecord.t
+        where type t = AtomRecord.t
     structure Color :
       GDK_COLOR
-        where type record_t = ColorRecord.t
+        where type t = ColorRecord.t
     structure Cursor :
       GDK_CURSOR
-        where type 'a class_t = 'a CursorClass.t
+        where type 'a class = 'a CursorClass.class
         where type cursor_type_t = CursorType.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a display_class = 'a DisplayClass.class
     structure Device :
       GDK_DEVICE
-        where type 'a class_t = 'a DeviceClass.t
+        where type 'a class = 'a DeviceClass.class
         where type grab_status_t = GrabStatus.t
-        where type 'a cursor_class_t = 'a CursorClass.t
+        where type 'a cursor_class = 'a CursorClass.class
         where type event_mask_t = EventMask.t
         where type grab_ownership_t = GrabOwnership.t
-        where type 'a window_class_t = 'a WindowClass.t
+        where type 'a window_class = 'a WindowClass.class
         where type axis_use_t = AxisUse.t
         where type modifier_type_t = ModifierType.t
-        where type 'a screen_class_t = 'a ScreenClass.t
-        where type 'a device_manager_class_t = 'a DeviceManagerClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a screen_class = 'a ScreenClass.class
+        where type 'a device_manager_class = 'a DeviceManagerClass.class
+        where type 'a display_class = 'a DisplayClass.class
         where type input_mode_t = InputMode.t
         where type input_source_t = InputSource.t
         where type device_type_t = DeviceType.t
     structure DeviceManager :
       GDK_DEVICE_MANAGER
-        where type 'a class_t = 'a DeviceManagerClass.t
-        where type 'a device_class_t = 'a DeviceClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a class = 'a DeviceManagerClass.class
+        where type 'a device_class = 'a DeviceClass.class
+        where type 'a display_class = 'a DisplayClass.class
     structure Display :
       GDK_DISPLAY
-        where type 'a class_t = 'a DisplayClass.t
-        where type 'a device_class_t = 'a DeviceClass.t
-        where type 'a app_launch_context_class_t = 'a AppLaunchContextClass.t
-        where type 'a window_class_t = 'a WindowClass.t
-        where type 'a device_manager_class_t = 'a DeviceManagerClass.t
-        where type 'a screen_class_t = 'a ScreenClass.t
-        where type 'a event_t = 'a Event.t
-        where type atom_record_t = AtomRecord.t
+        where type 'a class = 'a DisplayClass.class
+        where type 'a device_class = 'a DeviceClass.class
+        where type 'a app_launch_context_class = 'a AppLaunchContextClass.class
+        where type 'a window_class = 'a WindowClass.class
+        where type 'a device_manager_class = 'a DeviceManagerClass.class
+        where type 'a screen_class = 'a ScreenClass.class
+        where type 'a event_union = 'a Event.union
+        where type atom_t = AtomRecord.t
     structure DisplayManager :
       GDK_DISPLAY_MANAGER
-        where type 'a class_t = 'a DisplayManagerClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a class = 'a DisplayManagerClass.class
+        where type 'a display_class = 'a DisplayClass.class
     structure DragContext :
       GDK_DRAG_CONTEXT
-        where type 'a class_t = 'a DragContextClass.t
+        where type 'a class = 'a DragContextClass.class
         where type drag_protocol_t = DragProtocol.t
-        where type 'a window_class_t = 'a WindowClass.t
+        where type 'a window_class = 'a WindowClass.class
         where type drag_action_t = DragAction.t
-        where type 'a device_class_t = 'a DeviceClass.t
+        where type 'a device_class = 'a DeviceClass.class
     structure Geometry :
       GDK_GEOMETRY
-        where type record_t = GeometryRecord.t
+        where type t = GeometryRecord.t
     structure Keymap :
       GDK_KEYMAP
-        where type 'a class_t = 'a KeymapClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
-        where type keymap_key_record_t = KeymapKeyRecord.t
+        where type 'a class = 'a KeymapClass.class
+        where type 'a display_class = 'a DisplayClass.class
+        where type keymap_key_t = KeymapKeyRecord.t
         where type modifier_type_t = ModifierType.t
     structure KeymapKey :
       GDK_KEYMAP_KEY
-        where type record_t = KeymapKeyRecord.t
+        where type t = KeymapKeyRecord.t
     structure Rgba :
       GDK_RGBA
-        where type record_t = RgbaRecord.t
+        where type t = RgbaRecord.t
     structure Screen :
       GDK_SCREEN
-        where type 'a class_t = 'a ScreenClass.t
-        where type 'a display_class_t = 'a DisplayClass.t
-        where type 'a window_class_t = 'a WindowClass.t
-        where type 'a visual_class_t = 'a VisualClass.t
+        where type 'a class = 'a ScreenClass.class
+        where type 'a display_class = 'a DisplayClass.class
+        where type 'a window_class = 'a WindowClass.class
+        where type 'a visual_class = 'a VisualClass.class
     structure Visual :
       GDK_VISUAL
-        where type 'a class_t = 'a VisualClass.t
+        where type 'a class = 'a VisualClass.class
         where type byte_order_t = ByteOrder.t
-        where type 'a screen_class_t = 'a ScreenClass.t
+        where type 'a screen_class = 'a ScreenClass.class
         where type visual_type_t = VisualType.t
     structure Window :
       GDK_WINDOW
-        where type 'a class_t = 'a WindowClass.t
-        where type window_attr_record_t = WindowAttrRecord.t
+        where type 'a class = 'a WindowClass.class
+        where type window_attr_t = WindowAttrRecord.t
         where type window_edge_t = WindowEdge.t
         where type modifier_type_t = ModifierType.t
-        where type 'a display_class_t = 'a DisplayClass.t
+        where type 'a display_class = 'a DisplayClass.class
         where type drag_protocol_t = DragProtocol.t
-        where type 'a screen_class_t = 'a ScreenClass.t
+        where type 'a screen_class = 'a ScreenClass.class
         where type window_state_t = WindowState.t
-        where type 'a visual_class_t = 'a VisualClass.t
+        where type 'a visual_class = 'a VisualClass.class
         where type window_type_t = WindowType.t
-        where type color_record_t = ColorRecord.t
-        where type rgba_record_t = RgbaRecord.t
+        where type color_t = ColorRecord.t
+        where type rgba_t = RgbaRecord.t
         where type w_m_decoration_t = WMDecoration.t
-        where type 'a device_class_t = 'a DeviceClass.t
+        where type 'a device_class = 'a DeviceClass.class
         where type w_m_function_t = WMFunction.t
         where type window_hints_t = WindowHints.t
-        where type geometry_record_t = GeometryRecord.t
+        where type geometry_t = GeometryRecord.t
         where type event_mask_t = EventMask.t
         where type input_source_t = InputSource.t
         where type window_type_hint_t = WindowTypeHint.t
-        where type 'a cursor_class_t = 'a CursorClass.t
+        where type 'a cursor_class = 'a CursorClass.class
     structure WindowAttr :
       GDK_WINDOW_ATTR
-        where type record_t = WindowAttrRecord.t
+        where type t = WindowAttrRecord.t
     val CURRENT_TIME : LargeInt.int
     val KEY_0 : LargeInt.int
     val KEY_1 : LargeInt.int
@@ -2487,7 +2487,7 @@ signature GDK =
        -> AtomRecord.t
     val atomInternStaticString : string -> AtomRecord.t
     val beep : unit -> unit
-    val cairoCreate : 'a WindowClass.t -> Cairo.ContextRecord.t
+    val cairoCreate : 'a WindowClass.class -> Cairo.ContextRecord.t
     val cairoGetClipRectangle : Cairo.ContextRecord.t -> Cairo.RectangleIntRecord.t option
     val cairoRectangle :
       Cairo.ContextRecord.t
@@ -2504,7 +2504,7 @@ signature GDK =
        -> unit
     val cairoSetSourcePixbuf :
       Cairo.ContextRecord.t
-       -> 'a GdkPixbuf.PixbufClass.t
+       -> 'a GdkPixbuf.PixbufClass.class
        -> real
        -> real
        -> unit
@@ -2514,32 +2514,32 @@ signature GDK =
        -> unit
     val cairoSetSourceWindow :
       Cairo.ContextRecord.t
-       -> 'a WindowClass.t
+       -> 'a WindowClass.class
        -> real
        -> real
        -> unit
     val colorParse : string -> ColorRecord.t option
     val disableMultidevice : unit -> unit
     val dragAbort :
-      'a DragContextClass.t
+      'a DragContextClass.class
        -> LargeInt.int
        -> unit
     val dragDrop :
-      'a DragContextClass.t
+      'a DragContextClass.class
        -> LargeInt.int
        -> unit
-    val dragDropSucceeded : 'a DragContextClass.t -> bool
+    val dragDropSucceeded : 'a DragContextClass.class -> bool
     val dragFindWindowForScreen :
-      'a DragContextClass.t
-       -> 'b WindowClass.t
-       -> 'c ScreenClass.t
+      'a DragContextClass.class
+       -> 'b WindowClass.class
+       -> 'c ScreenClass.class
        -> LargeInt.int
        -> LargeInt.int
-       -> base WindowClass.t * DragProtocol.t
-    val dragGetSelection : 'a DragContextClass.t -> AtomRecord.t
+       -> base WindowClass.class * DragProtocol.t
+    val dragGetSelection : 'a DragContextClass.class -> AtomRecord.t
     val dragMotion :
-      'a DragContextClass.t
-       -> 'b WindowClass.t
+      'a DragContextClass.class
+       -> 'b WindowClass.class
        -> DragProtocol.t
        -> LargeInt.int
        -> LargeInt.int
@@ -2548,29 +2548,29 @@ signature GDK =
        -> LargeInt.int
        -> bool
     val dragStatus :
-      'a DragContextClass.t
+      'a DragContextClass.class
        -> DragAction.t
        -> LargeInt.int
        -> unit
     val dropFinish :
-      'a DragContextClass.t
+      'a DragContextClass.class
        -> bool
        -> LargeInt.int
        -> unit
     val dropReply :
-      'a DragContextClass.t
+      'a DragContextClass.class
        -> bool
        -> LargeInt.int
        -> unit
     val errorTrapPop : unit -> LargeInt.int
     val errorTrapPopIgnored : unit -> unit
     val errorTrapPush : unit -> unit
-    val eventGet : unit -> base Event.t
-    val eventPeek : unit -> base Event.t
+    val eventGet : unit -> base Event.union
+    val eventPeek : unit -> base Event.union
     val eventRequestMotions : EventMotionRecord.t -> unit
     val eventsPending : unit -> bool
     val flush : unit -> unit
-    val getDefaultRootWindow : unit -> base WindowClass.t
+    val getDefaultRootWindow : unit -> base WindowClass.class
     val getDisplay : unit -> string
     val getDisplayArgName : unit -> string
     val getProgramClass : unit -> string
@@ -2585,31 +2585,31 @@ signature GDK =
     val keyvalToUpper : LargeInt.int -> LargeInt.int
     val notifyStartupComplete : unit -> unit
     val notifyStartupCompleteWithId : string -> unit
-    val offscreenWindowGetEmbedder : 'a WindowClass.t -> base WindowClass.t
-    val offscreenWindowGetSurface : 'a WindowClass.t -> Cairo.SurfaceRecord.t
+    val offscreenWindowGetEmbedder : 'a WindowClass.class -> base WindowClass.class
+    val offscreenWindowGetSurface : 'a WindowClass.class -> Cairo.SurfaceRecord.t
     val offscreenWindowSetEmbedder :
-      'a WindowClass.t
-       -> 'b WindowClass.t
+      'a WindowClass.class
+       -> 'b WindowClass.class
        -> unit
-    val pangoContextGet : unit -> base Pango.ContextClass.t
-    val pangoContextGetForScreen : 'a ScreenClass.t -> base Pango.ContextClass.t
+    val pangoContextGet : unit -> base Pango.ContextClass.class
+    val pangoContextGetForScreen : 'a ScreenClass.class -> base Pango.ContextClass.class
     val pixbufGetFromSurface :
       Cairo.SurfaceRecord.t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
-       -> base GdkPixbuf.PixbufClass.t
+       -> base GdkPixbuf.PixbufClass.class
     val pixbufGetFromWindow :
-      'a WindowClass.t
+      'a WindowClass.class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
-       -> base GdkPixbuf.PixbufClass.t
+       -> base GdkPixbuf.PixbufClass.class
     val preParseLibgtkOnly : unit -> unit
     val propertyDelete :
-      'a WindowClass.t
+      'a WindowClass.class
        -> AtomRecord.t
        -> unit
     val rectangleIntersect :
@@ -2621,39 +2621,39 @@ signature GDK =
        -> Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
     val selectionConvert :
-      'a WindowClass.t
+      'a WindowClass.class
        -> AtomRecord.t
        -> AtomRecord.t
        -> LargeInt.int
        -> unit
-    val selectionOwnerGet : AtomRecord.t -> base WindowClass.t
+    val selectionOwnerGet : AtomRecord.t -> base WindowClass.class
     val selectionOwnerGetForDisplay :
-      'a DisplayClass.t
+      'a DisplayClass.class
        -> AtomRecord.t
-       -> base WindowClass.t
+       -> base WindowClass.class
     val selectionOwnerSet :
-      'a WindowClass.t
+      'a WindowClass.class
        -> AtomRecord.t
        -> LargeInt.int
        -> bool
        -> bool
     val selectionOwnerSetForDisplay :
-      'a DisplayClass.t
-       -> 'b WindowClass.t
+      'a DisplayClass.class
+       -> 'b WindowClass.class
        -> AtomRecord.t
        -> LargeInt.int
        -> bool
        -> bool
     val selectionSendNotify :
-      'a WindowClass.t
+      'a WindowClass.class
        -> AtomRecord.t
        -> AtomRecord.t
        -> AtomRecord.t
        -> LargeInt.int
        -> unit
     val selectionSendNotifyForDisplay :
-      'a DisplayClass.t
-       -> 'b WindowClass.t
+      'a DisplayClass.class
+       -> 'b WindowClass.class
        -> AtomRecord.t
        -> AtomRecord.t
        -> AtomRecord.t
@@ -2667,13 +2667,13 @@ signature GDK =
        -> GObject.ValueRecord.t
        -> bool
     val synthesizeWindowState :
-      'a WindowClass.t
+      'a WindowClass.class
        -> WindowState.t
        -> WindowState.t
        -> unit
-    val testRenderSync : 'a WindowClass.t -> unit
+    val testRenderSync : 'a WindowClass.class -> unit
     val testSimulateButton :
-      'a WindowClass.t
+      'a WindowClass.class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
@@ -2681,7 +2681,7 @@ signature GDK =
        -> EventType.t
        -> bool
     val testSimulateKey :
-      'a WindowClass.t
+      'a WindowClass.class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int

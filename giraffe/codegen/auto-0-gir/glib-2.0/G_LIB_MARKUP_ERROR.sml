@@ -9,8 +9,8 @@ signature G_LIB_MARKUP_ERROR =
     | INVALID_CONTENT
     | MISSING_ATTRIBUTE
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

@@ -1,7 +1,7 @@
 structure GioUnixInputStream :>
   GIO_UNIX_INPUT_STREAM
-    where type 'a class_t = 'a GioUnixInputStreamClass.t
-    where type 'a pollable_input_stream_class_t = 'a GioPollableInputStreamClass.t =
+    where type 'a class = 'a GioUnixInputStreamClass.class
+    where type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class =
   struct
     local
       open PolyMLFFI
@@ -12,9 +12,9 @@ structure GioUnixInputStream :>
       val getFd_ = call (load_sym libgio "g_unix_input_stream_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val setCloseFd_ = call (load_sym libgio "g_unix_input_stream_set_close_fd") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioUnixInputStreamClass.t
-    type 'a pollable_input_stream_class_t = 'a GioPollableInputStreamClass.t
-    type t = base class_t
+    type 'a class = 'a GioUnixInputStreamClass.class
+    type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
+    type t = base class
     fun asPollableInputStream self = (GObjectObjectClass.C.withPtr ---> GioPollableInputStreamClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new fd closeFd = (FFI.Int.C.withVal &&&> FFI.Bool.C.withVal ---> GioUnixInputStreamClass.C.fromPtr true) new_ (fd & closeFd)

@@ -4,7 +4,8 @@ structure GioApplicationClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a application = unit
-    type 'a t = 'a application GObjectObjectClass.t
+    type 'a class = 'a application GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

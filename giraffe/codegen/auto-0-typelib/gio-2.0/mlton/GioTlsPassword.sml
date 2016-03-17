@@ -1,6 +1,6 @@
 structure GioTlsPassword :>
   GIO_TLS_PASSWORD
-    where type 'a class_t = 'a GioTlsPasswordClass.t
+    where type 'a class = 'a GioTlsPasswordClass.class
     where type tls_password_flags_t = GioTlsPasswordFlags.t =
   struct
     val getType_ = _import "g_tls_password_get_type" : unit -> GObjectType.C.val_;
@@ -53,9 +53,9 @@ structure GioTlsPassword :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioTlsPasswordClass.t
+    type 'a class = 'a GioTlsPasswordClass.class
     type tls_password_flags_t = GioTlsPasswordFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> Utf8.C.withPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self

@@ -1,6 +1,6 @@
 structure GioCredentials :>
   GIO_CREDENTIALS
-    where type 'a class_t = 'a GioCredentialsClass.t =
+    where type 'a class = 'a GioCredentialsClass.class =
   struct
     val getType_ = _import "g_credentials_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_credentials_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -40,8 +40,8 @@ structure GioCredentials :>
               x3
             )
     val toString_ = _import "g_credentials_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    type 'a class_t = 'a GioCredentialsClass.t
-    type t = base class_t
+    type 'a class = 'a GioCredentialsClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
     fun getUnixUser self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.UInt.C.fromVal) getUnixUser_ (self & [])

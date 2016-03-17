@@ -1,8 +1,8 @@
 structure GtkStyleProperties :>
   GTK_STYLE_PROPERTIES
-    where type 'a class_t = 'a GtkStylePropertiesClass.t
-    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
-    where type symbolic_color_record_t = GtkSymbolicColorRecord.t
+    where type 'a class = 'a GtkStylePropertiesClass.class
+    where type 'a style_provider_class = 'a GtkStyleProviderClass.class
+    where type symbolic_color_t = GtkSymbolicColorRecord.t
     where type state_flags_t = GtkStateFlags.t =
   struct
     local
@@ -46,11 +46,11 @@ structure GtkStyleProperties :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkStylePropertiesClass.t
-    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
-    type symbolic_color_record_t = GtkSymbolicColorRecord.t
+    type 'a class = 'a GtkStylePropertiesClass.class
+    type 'a style_provider_class = 'a GtkStyleProviderClass.class
+    type symbolic_color_t = GtkSymbolicColorRecord.t
     type state_flags_t = GtkStateFlags.t
-    type t = base class_t
+    type t = base class
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()

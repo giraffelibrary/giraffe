@@ -1,7 +1,7 @@
 structure GioTlsFileDatabase :>
   GIO_TLS_FILE_DATABASE
-    where type 'a class_t = 'a GioTlsFileDatabaseClass.t
-    where type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t =
+    where type 'a class = 'a GioTlsFileDatabaseClass.class
+    where type 'a tls_database_class = 'a GioTlsDatabaseClass.class =
   struct
     val getType_ = _import "g_tls_file_database_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -19,9 +19,9 @@ structure GioTlsFileDatabase :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioTlsFileDatabaseClass.t
-    type 'a tls_database_class_t = 'a GioTlsDatabaseClass.t
-    type t = base class_t
+    type 'a class = 'a GioTlsFileDatabaseClass.class
+    type 'a tls_database_class = 'a GioTlsDatabaseClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new anchors = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.C.fromPtr true) new_ (anchors & [])
     local

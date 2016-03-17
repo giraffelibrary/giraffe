@@ -1,12 +1,12 @@
 signature GIO_ICON =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val newForString : string -> base class_t
+    val newForString : string -> base class
     val equal :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
-    val toString : 'a class_t -> string
+    val toString : 'a class -> string
   end

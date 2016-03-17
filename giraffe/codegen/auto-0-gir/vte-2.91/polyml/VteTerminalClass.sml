@@ -4,7 +4,8 @@ structure VteTerminalClass :>
     where type 'a C.p = 'a GtkWidgetClass.C.p =
   struct
     type 'a terminal = unit
-    type 'a t = 'a terminal GtkWidgetClass.t
+    type 'a class = 'a terminal GtkWidgetClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GtkWidgetClass.t
     val tOpt = GtkWidgetClass.tOpt

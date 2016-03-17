@@ -1,53 +1,53 @@
 signature GTK_PANED =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a orientable_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a orientable_class
     type orientation_t
-    type 'a widget_class_t
+    type 'a widget_class
     type scroll_type_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asOrientable : 'a class_t -> base orientable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
+    val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val new : orientation_t -> base class_t
+    val new : orientation_t -> base class
     val add1 :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
     val add2 :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
-    val getChild1 : 'a class_t -> base widget_class_t option
-    val getChild2 : 'a class_t -> base widget_class_t option
-    val getHandleWindow : 'a class_t -> base Gdk.WindowClass.t
-    val getPosition : 'a class_t -> LargeInt.int
+    val getChild1 : 'a class -> base widget_class option
+    val getChild2 : 'a class -> base widget_class option
+    val getHandleWindow : 'a class -> base Gdk.WindowClass.class
+    val getPosition : 'a class -> LargeInt.int
     val pack1 :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
        -> bool
        -> unit
     val pack2 :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
        -> bool
        -> unit
     val setPosition :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val acceptPositionSig : (unit -> bool) -> 'a class_t Signal.signal
-    val cancelPositionSig : (unit -> bool) -> 'a class_t Signal.signal
-    val cycleChildFocusSig : (bool -> bool) -> 'a class_t Signal.signal
-    val cycleHandleFocusSig : (bool -> bool) -> 'a class_t Signal.signal
-    val moveHandleSig : (scroll_type_t -> bool) -> 'a class_t Signal.signal
-    val toggleHandleFocusSig : (unit -> bool) -> 'a class_t Signal.signal
-    val maxPositionProp : ('a class_t, LargeInt.int) Property.readonly
-    val minPositionProp : ('a class_t, LargeInt.int) Property.readonly
-    val positionProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val positionSetProp : ('a class_t, bool, bool) Property.readwrite
+    val acceptPositionSig : (unit -> bool) -> 'a class Signal.signal
+    val cancelPositionSig : (unit -> bool) -> 'a class Signal.signal
+    val cycleChildFocusSig : (bool -> bool) -> 'a class Signal.signal
+    val cycleHandleFocusSig : (bool -> bool) -> 'a class Signal.signal
+    val moveHandleSig : (scroll_type_t -> bool) -> 'a class Signal.signal
+    val toggleHandleFocusSig : (unit -> bool) -> 'a class Signal.signal
+    val maxPositionProp : ('a class, LargeInt.int) Property.readonly
+    val minPositionProp : ('a class, LargeInt.int) Property.readonly
+    val positionProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val positionSetProp : ('a class, bool, bool) Property.readwrite
   end

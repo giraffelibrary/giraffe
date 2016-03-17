@@ -1,8 +1,8 @@
 structure GtkLockButton :>
   GTK_LOCK_BUTTON
-    where type 'a class_t = 'a GtkLockButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkLockButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,10 +11,10 @@ structure GtkLockButton :>
       val new_ = call (load_sym libgtk "gtk_lock_button_new") (GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
       val setPermission_ = call (load_sym libgtk "gtk_lock_button_set_permission") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkLockButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkLockButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

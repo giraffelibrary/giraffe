@@ -1,7 +1,7 @@
 structure GtkIconTheme :>
   GTK_ICON_THEME
-    where type 'a class_t = 'a GtkIconThemeClass.t
-    where type icon_info_record_t = GtkIconInfoRecord.t
+    where type 'a class = 'a GtkIconThemeClass.class
+    where type icon_info_t = GtkIconInfoRecord.t
     where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
     val getType_ = _import "gtk_icon_theme_get_type" : unit -> GObjectType.C.val_;
@@ -157,10 +157,10 @@ structure GtkIconTheme :>
               x3
             )
     val setScreen_ = fn x1 & x2 => (_import "gtk_icon_theme_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkIconThemeClass.t
-    type icon_info_record_t = GtkIconInfoRecord.t
+    type 'a class = 'a GtkIconThemeClass.class
+    type icon_info_t = GtkIconInfoRecord.t
     type icon_lookup_flags_t = GtkIconLookupFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconThemeClass.C.fromPtr true) new_ ()
     fun addBuiltinIcon iconName size pixbuf =

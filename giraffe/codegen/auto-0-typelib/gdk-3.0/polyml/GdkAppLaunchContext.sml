@@ -1,8 +1,8 @@
 structure GdkAppLaunchContext :>
   GDK_APP_LAUNCH_CONTEXT
-    where type 'a class_t = 'a GdkAppLaunchContextClass.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t =
+    where type 'a class = 'a GdkAppLaunchContextClass.class
+    where type 'a screen_class = 'a GdkScreenClass.class
+    where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     local
       open PolyMLFFI
@@ -14,10 +14,10 @@ structure GdkAppLaunchContext :>
       val setScreen_ = call (load_sym libgdk "gdk_app_launch_context_set_screen") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setTimestamp_ = call (load_sym libgdk "gdk_app_launch_context_set_timestamp") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GdkAppLaunchContextClass.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type t = base class_t
+    type 'a class = 'a GdkAppLaunchContextClass.class
+    type 'a screen_class = 'a GdkScreenClass.class
+    type 'a display_class = 'a GdkDisplayClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun setDesktop self desktop = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDesktop_ (self & desktop)
     fun setIcon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setIcon_ (self & icon)

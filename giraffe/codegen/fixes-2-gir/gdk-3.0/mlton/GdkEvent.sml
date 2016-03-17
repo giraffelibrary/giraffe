@@ -10,7 +10,8 @@ structure GdkEvent :>
 
     val free_ = _import "gdk_event_free" : notnull p -> unit;
 
-    type 'a t = notnull p Finalizable.t
+    type 'a union = notnull p Finalizable.t
+    type t = base union
     fun toBase obj = obj
 
     structure C =

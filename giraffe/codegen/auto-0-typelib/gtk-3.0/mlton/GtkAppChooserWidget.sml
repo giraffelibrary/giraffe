@@ -1,10 +1,10 @@
 structure GtkAppChooserWidget :>
   GTK_APP_CHOOSER_WIDGET
-    where type 'a class_t = 'a GtkAppChooserWidgetClass.t
-    where type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a menu_class_t = 'a GtkMenuClass.t =
+    where type 'a class = 'a GtkAppChooserWidgetClass.class
+    where type 'a app_chooser_class = 'a GtkAppChooserClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a menu_class = 'a GtkMenuClass.class =
   struct
     val getType_ = _import "gtk_app_chooser_widget_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_gtk_app_chooser_widget_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -34,12 +34,12 @@ structure GtkAppChooserWidget :>
     val setShowFallback_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setShowOther_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_other" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setShowRecommended_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_recommended" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkAppChooserWidgetClass.t
-    type 'a app_chooser_class_t = 'a GtkAppChooserClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a menu_class_t = 'a GtkMenuClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAppChooserWidgetClass.class
+    type 'a app_chooser_class = 'a GtkAppChooserClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a menu_class = 'a GtkMenuClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asAppChooser self = (GObjectObjectClass.C.withPtr ---> GtkAppChooserClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

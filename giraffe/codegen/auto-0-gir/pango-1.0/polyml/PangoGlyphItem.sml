@@ -1,6 +1,6 @@
 structure PangoGlyphItem :>
   PANGO_GLYPH_ITEM
-    where type record_t = PangoGlyphItemRecord.t =
+    where type t = PangoGlyphItemRecord.t =
   struct
     local
       open PolyMLFFI
@@ -16,8 +16,7 @@ structure PangoGlyphItem :>
              --> PangoGlyphItemRecord.PolyML.cPtr
           )
     end
-    type record_t = PangoGlyphItemRecord.t
-    type t = record_t
+    type t = PangoGlyphItemRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoGlyphItemRecord.C.withPtr ---> PangoGlyphItemRecord.C.fromPtr true) copy_ self
     fun split self text splitIndex =

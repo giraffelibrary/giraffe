@@ -1,11 +1,11 @@
 structure GtkNotebook :>
   GTK_NOTEBOOK
-    where type 'a class_t = 'a GtkNotebookClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkNotebookClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type pack_type_t = GtkPackType.t
     where type notebook_tab_t = GtkNotebookTab.t
     where type direction_type_t = GtkDirectionType.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_notebook_get_type" : unit -> GObjectType.C.val_;
@@ -310,14 +310,14 @@ structure GtkNotebook :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkNotebookClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkNotebookClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type pack_type_t = GtkPackType.t
     type notebook_tab_t = GtkNotebookTab.t
     type direction_type_t = GtkDirectionType.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a widget_class = 'a GtkWidgetClass.class
     type position_type_t = GtkPositionType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

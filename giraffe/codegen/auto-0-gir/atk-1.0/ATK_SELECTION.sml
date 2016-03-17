@@ -1,27 +1,27 @@
 signature ATK_SELECTION =
   sig
-    type 'a class_t
-    type 'a object_class_t
-    type t = base class_t
+    type 'a class
+    type 'a object_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val addSelection :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
-    val clearSelection : 'a class_t -> bool
-    val getSelectionCount : 'a class_t -> LargeInt.int
+    val clearSelection : 'a class -> bool
+    val getSelectionCount : 'a class -> LargeInt.int
     val isChildSelected :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
     val refSelection :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base object_class_t
+       -> base object_class
     val removeSelection :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
-    val selectAllSelection : 'a class_t -> bool
-    val selectionChangedSig : (unit -> unit) -> 'a class_t Signal.signal
+    val selectAllSelection : 'a class -> bool
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
   end

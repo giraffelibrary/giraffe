@@ -1,9 +1,9 @@
 structure GioDrive :>
   GIO_DRIVE
-    where type 'a class_t = 'a GioDriveClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t
+    where type 'a class = 'a GioDriveClass.class
+    where type 'a icon_class = 'a GioIconClass.class
     where type drive_start_stop_type_t = GioDriveStartStopType.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -55,11 +55,11 @@ structure GioDrive :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GioDriveClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
+    type 'a class = 'a GioDriveClass.class
+    type 'a icon_class = 'a GioIconClass.class
     type drive_start_stop_type_t = GioDriveStartStopType.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self
     fun canPollForMedia self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canPollForMedia_ self

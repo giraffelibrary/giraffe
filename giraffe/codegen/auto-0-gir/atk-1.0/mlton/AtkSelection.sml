@@ -1,7 +1,7 @@
 structure AtkSelection :>
   ATK_SELECTION
-    where type 'a class_t = 'a AtkSelectionClass.t
-    where type 'a object_class_t = 'a AtkObjectClass.t =
+    where type 'a class = 'a AtkSelectionClass.class
+    where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_selection_get_type" : unit -> GObjectType.C.val_;
     val addSelection_ = fn x1 & x2 => (_import "atk_selection_add_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
@@ -11,9 +11,9 @@ structure AtkSelection :>
     val refSelection_ = fn x1 & x2 => (_import "atk_selection_ref_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val removeSelection_ = fn x1 & x2 => (_import "atk_selection_remove_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val selectAllSelection_ = _import "atk_selection_select_all_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    type 'a class_t = 'a AtkSelectionClass.t
-    type 'a object_class_t = 'a AtkObjectClass.t
-    type t = base class_t
+    type 'a class = 'a AtkSelectionClass.class
+    type 'a object_class = 'a AtkObjectClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addSelection self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addSelection_ (self & i)
     fun clearSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) clearSelection_ self

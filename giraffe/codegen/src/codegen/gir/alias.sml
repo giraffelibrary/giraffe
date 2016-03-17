@@ -6,9 +6,9 @@
 (* Signature *)
 
 fun makeAliasSig
-  (_              : 'a RepositoryClass.t)
+  (_              : 'a RepositoryClass.class)
   (aliasNamespace : string)
-  (aliasInfo      : 'a AliasInfoClass.t)
+  (aliasInfo      : 'b AliasInfoClass.class)
   (errs'0         : infoerrorhier list)
   : id * program * id list * infoerrorhier list =
   let
@@ -143,9 +143,9 @@ fun makeAliasSig
 (* Structure *)
 
 fun makeAliasStr
-  (_              : 'a RepositoryClass.t)
+  (_              : 'a RepositoryClass.class)
   (aliasNamespace : string)
-  (aliasInfo      : 'a AliasInfoClass.t)
+  (aliasInfo      : 'b AliasInfoClass.class)
   (errs'0         : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let

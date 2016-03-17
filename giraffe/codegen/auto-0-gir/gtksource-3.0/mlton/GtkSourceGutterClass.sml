@@ -4,7 +4,8 @@ structure GtkSourceGutterClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a gutter = unit
-    type 'a t = 'a gutter GObjectObjectClass.t
+    type 'a class = 'a gutter GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

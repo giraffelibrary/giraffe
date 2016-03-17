@@ -343,9 +343,12 @@ val flagsTy : ty = mkIdTy flagsId
 
 val fId : id = "f"
 val fExp : exp = mkIdLNameExp fId
+val classId : id = "class"
 val tId : id = "t"
+fun classTy ty : ty = TyRef ([ty], toList1 [classId])
 fun tTy ty : ty = TyRef ([ty], toList1 [tId])
-fun tTyName tyVar : tyname = ([tyVar], tId)
+fun classTyName tyVar : tyname = ([tyVar], classId)
+val tTyName : tyname = ([], tId)
 val tOptId : id = "tOpt"
 val aId : id = "a"
 val bId : id = "b"

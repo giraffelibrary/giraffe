@@ -1,9 +1,10 @@
 signature GDK_EVENT_VISIBILITY_RECORD =
   sig
     type visibility
-    type 'a event_t
-    type t = visibility event_t
+    type 'a event_union
+    type t = visibility event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       VISIBILITY_NOTIFY
 (*

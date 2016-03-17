@@ -4,7 +4,8 @@ structure GdkPixbufPixbufLoaderClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a pixbuf_loader = unit
-    type 'a t = 'a pixbuf_loader GObjectObjectClass.t
+    type 'a class = 'a pixbuf_loader GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

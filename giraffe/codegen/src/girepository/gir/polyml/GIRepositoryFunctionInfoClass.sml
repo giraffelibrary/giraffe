@@ -1,12 +1,13 @@
 structure GIRepositoryFunctionInfoClass :>
   G_I_REPOSITORY_FUNCTION_INFO_CLASS
-    where type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
+    where type 'a callableinfo_class = 'a GIRepositoryCallableInfoClass.class
     where type Obj.data = Info.functiondata =
   struct
     type data = Info.functiondata
     type 'a functioninfo = (data, 'a) pair
-    type 'a callableinfoclass_t = 'a GIRepositoryCallableInfoClass.t
-    type 'a t = 'a functioninfo callableinfoclass_t
+    type 'a callableinfo_class = 'a GIRepositoryCallableInfoClass.class
+    type 'a class = 'a functioninfo callableinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

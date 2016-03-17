@@ -1,9 +1,9 @@
 structure GIRepositoryBaseInfo :>
   G_I_REPOSITORY_BASE_INFO
-    where type 'a class_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a class = 'a GIRepositoryBaseInfoClass.class
     where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
-    type 'a class_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a class = 'a GIRepositoryBaseInfoClass.class
     type typelibtype_t = GIRepositoryTypelibType.t
 
 

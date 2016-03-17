@@ -2,7 +2,7 @@ structure GLibFileError :>
   sig
     include
       G_LIB_FILE_ERROR
-        where type error_record_handler = GLibErrorRecord.handler
+        where type error_handler = GLibErrorRecord.handler
   end =
   struct
     datatype t =
@@ -94,7 +94,7 @@ structure GLibFileError :>
           | n => raise Value n
       end
     exception Error of t
-    type error_record_handler = GLibErrorRecord.handler
+    type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

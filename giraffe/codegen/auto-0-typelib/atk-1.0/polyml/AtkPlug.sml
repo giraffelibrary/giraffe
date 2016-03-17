@@ -1,7 +1,7 @@
 structure AtkPlug :>
   ATK_PLUG
-    where type 'a class_t = 'a AtkPlugClass.t
-    where type 'a component_class_t = 'a AtkComponentClass.t =
+    where type 'a class = 'a AtkPlugClass.class
+    where type 'a component_class = 'a AtkComponentClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,9 +10,9 @@ structure AtkPlug :>
       val new_ = call (load_sym libatk "atk_plug_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val getId_ = call (load_sym libatk "atk_plug_get_id") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a AtkPlugClass.t
-    type 'a component_class_t = 'a AtkComponentClass.t
-    type t = base class_t
+    type 'a class = 'a AtkPlugClass.class
+    type 'a component_class = 'a AtkComponentClass.class
+    type t = base class
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> AtkPlugClass.C.fromPtr true) new_ ()

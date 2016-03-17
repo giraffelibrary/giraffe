@@ -1,6 +1,6 @@
 structure GLibKeyFile :>
   G_LIB_KEY_FILE
-    where type record_t = GLibKeyFileRecord.t
+    where type t = GLibKeyFileRecord.t
     where type key_file_flags_t = GLibKeyFileFlags.t =
   struct
     local
@@ -282,9 +282,8 @@ structure GLibKeyFile :>
              --> FFI.PolyML.cVoid
           )
     end
-    type record_t = GLibKeyFileRecord.t
+    type t = GLibKeyFileRecord.t
     type key_file_flags_t = GLibKeyFileFlags.t
-    type t = record_t
     fun getBoolean self groupName key =
       (
         GLibKeyFileRecord.C.withPtr

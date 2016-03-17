@@ -1,9 +1,10 @@
 signature G_I_REPOSITORY_ENUM_INFO_CLASS =
   sig
     type 'a enuminfo
-    type 'a registeredtypeinfoclass_t
-    type 'a t = 'a enuminfo registeredtypeinfoclass_t
-    val toBase : 'a t -> base t
+    type 'a registeredtypeinfo_class
+    type 'a class = 'a enuminfo registeredtypeinfo_class
+    type t = base class
+    val toBase : 'a class -> base class
     structure Obj :
       sig
         type data

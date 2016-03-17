@@ -1,11 +1,11 @@
 structure GtkTextIter :>
   GTK_TEXT_ITER
-    where type record_t = GtkTextIterRecord.t
+    where type t = GtkTextIterRecord.t
     where type text_search_flags_t = GtkTextSearchFlags.t
-    where type text_attributes_record_t = GtkTextAttributesRecord.t
-    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
-    where type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
-    where type 'a text_tag_class_t = 'a GtkTextTagClass.t =
+    where type text_attributes_t = GtkTextAttributesRecord.t
+    where type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    where type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
+    where type 'a text_tag_class = 'a GtkTextTagClass.class =
   struct
     local
       open PolyMLFFI
@@ -124,13 +124,12 @@ structure GtkTextIter :>
       val startsWord_ = call (load_sym libgtk "gtk_text_iter_starts_word") (GtkTextIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val togglesTag_ = call (load_sym libgtk "gtk_text_iter_toggles_tag") (GtkTextIterRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.Bool.PolyML.cVal)
     end
-    type record_t = GtkTextIterRecord.t
+    type t = GtkTextIterRecord.t
     type text_search_flags_t = GtkTextSearchFlags.t
-    type text_attributes_record_t = GtkTextAttributesRecord.t
-    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
-    type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
-    type 'a text_tag_class_t = 'a GtkTextTagClass.t
-    type t = record_t
+    type text_attributes_t = GtkTextAttributesRecord.t
+    type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
+    type 'a text_tag_class = 'a GtkTextTagClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun assign self other = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) assign_ (self & other)
     fun backwardChar self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardChar_ self

@@ -1,36 +1,36 @@
 signature GIO_PERMISSION =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
-    type 'a async_result_class_t
-    type t = base class_t
+    type 'a class
+    type 'a cancellable_class
+    type 'a async_result_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val acquire :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val acquireFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val getAllowed : 'a class_t -> bool
-    val getCanAcquire : 'a class_t -> bool
-    val getCanRelease : 'a class_t -> bool
+    val getAllowed : 'a class -> bool
+    val getCanAcquire : 'a class -> bool
+    val getCanRelease : 'a class -> bool
     val implUpdate :
-      'a class_t
+      'a class
        -> bool
        -> bool
        -> bool
        -> unit
     val release :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val releaseFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val allowedProp : ('a class_t, bool) Property.readonly
-    val canAcquireProp : ('a class_t, bool) Property.readonly
-    val canReleaseProp : ('a class_t, bool) Property.readonly
+    val allowedProp : ('a class, bool) Property.readonly
+    val canAcquireProp : ('a class, bool) Property.readonly
+    val canReleaseProp : ('a class, bool) Property.readonly
   end

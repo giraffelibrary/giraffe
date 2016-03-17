@@ -1,6 +1,6 @@
 structure GdkRgba :>
   GDK_RGBA
-    where type record_t = GdkRgbaRecord.t =
+    where type t = GdkRgbaRecord.t =
   struct
     local
       open PolyMLFFI
@@ -12,8 +12,7 @@ structure GdkRgba :>
       val parse_ = call (load_sym libgdk "gdk_rgba_parse") (GdkRgbaRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val toString_ = call (load_sym libgdk "gdk_rgba_to_string") (GdkRgbaRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type record_t = GdkRgbaRecord.t
-    type t = record_t
+    type t = GdkRgbaRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkRgbaRecord.C.withPtr ---> GdkRgbaRecord.C.fromPtr true) copy_ self
     fun equal self p2 = (GdkRgbaRecord.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & p2)

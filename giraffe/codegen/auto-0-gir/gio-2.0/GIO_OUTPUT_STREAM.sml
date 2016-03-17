@@ -1,45 +1,45 @@
 signature GIO_OUTPUT_STREAM =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
+    type 'a class
+    type 'a cancellable_class
     type output_stream_splice_flags_t
-    type 'a input_stream_class_t
-    type 'a async_result_class_t
-    type t = base class_t
+    type 'a input_stream_class
+    type 'a async_result_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val clearPending : 'a class_t -> unit
+    val clearPending : 'a class -> unit
     val close :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val closeFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val flush :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val flushFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val hasPending : 'a class_t -> bool
-    val isClosed : 'a class_t -> bool
-    val isClosing : 'a class_t -> bool
-    val setPending : 'a class_t -> bool
+    val hasPending : 'a class -> bool
+    val isClosed : 'a class -> bool
+    val isClosing : 'a class -> bool
+    val setPending : 'a class -> bool
     val splice :
-      'a class_t
-       -> 'b input_stream_class_t
+      'a class
+       -> 'b input_stream_class
        -> output_stream_splice_flags_t
-       -> 'c cancellable_class_t option
+       -> 'c cancellable_class option
        -> LargeInt.int
     val spliceFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> LargeInt.int
     val writeFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> LargeInt.int
   end

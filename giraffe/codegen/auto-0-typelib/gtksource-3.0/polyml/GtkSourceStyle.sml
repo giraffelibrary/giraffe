@@ -1,6 +1,6 @@
 structure GtkSourceStyle :>
   GTK_SOURCE_STYLE
-    where type 'a class_t = 'a GtkSourceStyleClass.t =
+    where type 'a class = 'a GtkSourceStyleClass.class =
   struct
     local
       open PolyMLFFI
@@ -8,8 +8,8 @@ structure GtkSourceStyle :>
       val getType_ = call (load_sym libgtksourceview "gtk_source_style_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (load_sym libgtksourceview "gtk_source_style_copy") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GtkSourceStyleClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceStyleClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GObjectObjectClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
     local

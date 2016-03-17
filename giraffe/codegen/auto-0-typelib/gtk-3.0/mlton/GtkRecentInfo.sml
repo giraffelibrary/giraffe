@@ -1,6 +1,6 @@
 structure GtkRecentInfo :>
   GTK_RECENT_INFO
-    where type record_t = GtkRecentInfoRecord.t =
+    where type t = GtkRecentInfoRecord.t =
   struct
     val getType_ = _import "gtk_recent_info_get_type" : unit -> GObjectType.C.val_;
     val createAppInfo_ =
@@ -96,8 +96,7 @@ structure GtkRecentInfo :>
     val isLocal_ = _import "gtk_recent_info_is_local" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> FFI.Bool.C.val_;
     val lastApplication_ = _import "gtk_recent_info_last_application" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val match_ = fn x1 & x2 => (_import "gtk_recent_info_match" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p * GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    type record_t = GtkRecentInfoRecord.t
-    type t = record_t
+    type t = GtkRecentInfoRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createAppInfo self appName =
       (

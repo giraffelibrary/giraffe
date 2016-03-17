@@ -4,7 +4,8 @@ structure GtkTreeSortableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a tree_sortable = unit
-    type 'a t = 'a tree_sortable GObjectObjectClass.t
+    type 'a class = 'a tree_sortable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

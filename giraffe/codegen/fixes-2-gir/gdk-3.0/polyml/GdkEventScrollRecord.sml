@@ -1,7 +1,7 @@
 structure GdkEventScrollRecord :>
   sig
     include GDK_EVENT_SCROLL_RECORD
-      where type 'a event_t = 'a GdkEvent.t
+      where type 'a event_union = 'a GdkEvent.union
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
 
@@ -13,8 +13,8 @@ structure GdkEventScrollRecord :>
   end =
   struct
     type scroll = unit
-    type 'a event_t = 'a GdkEvent.t
-    type t = scroll event_t
+    type 'a event_union = 'a GdkEvent.union
+    type t = scroll event_union
 
 
     datatype event =
@@ -26,4 +26,5 @@ structure GdkEventScrollRecord :>
 
 
     val t = GdkEvent.t
+    val tOpt = GdkEvent.tOpt
   end

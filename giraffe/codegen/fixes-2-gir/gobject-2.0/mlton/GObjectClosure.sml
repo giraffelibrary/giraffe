@@ -1,6 +1,6 @@
 structure GObjectClosure :>
   G_OBJECT_CLOSURE
-    where type record_t = GObjectClosureRecord.t
+    where type t = GObjectClosureRecord.t
     where type type_t = GObjectType.t
     where type 'a marshaller = 'a ClosureMarshal.marshaller =
   struct
@@ -9,9 +9,8 @@ structure GObjectClosure :>
       _import "giraffe_g_closure_new" :
         ClosureMarshal.C.callback -> GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p;
     val invalidate_ = _import "g_closure_invalidate" : GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p -> unit;
-    type record_t = GObjectClosureRecord.t
+    type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
-    type t = record_t
     type 'a marshaller = 'a ClosureMarshal.marshaller
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new marshaller callback =

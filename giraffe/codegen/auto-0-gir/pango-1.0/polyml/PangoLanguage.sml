@@ -1,6 +1,6 @@
 structure PangoLanguage :>
   PANGO_LANGUAGE
-    where type record_t = PangoLanguageRecord.t
+    where type t = PangoLanguageRecord.t
     where type script_t = PangoScript.t =
   struct
     local
@@ -14,9 +14,8 @@ structure PangoLanguage :>
       val fromString_ = call (load_sym libpango "pango_language_from_string") (Utf8.PolyML.cInOptPtr --> PangoLanguageRecord.PolyML.cPtr)
       val getDefault_ = call (load_sym libpango "pango_language_get_default") (FFI.PolyML.cVoid --> PangoLanguageRecord.PolyML.cPtr)
     end
-    type record_t = PangoLanguageRecord.t
+    type t = PangoLanguageRecord.t
     type script_t = PangoScript.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.C.withPtr ---> Utf8.C.fromPtr false) getSampleString_ self
     fun includesScript self script = (PangoLanguageRecord.C.withPtr &&&> PangoScript.C.withVal ---> FFI.Bool.C.fromVal) includesScript_ (self & script)

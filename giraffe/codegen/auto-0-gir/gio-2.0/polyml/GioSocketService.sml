@@ -1,7 +1,7 @@
 structure GioSocketService :>
   GIO_SOCKET_SERVICE
-    where type 'a class_t = 'a GioSocketServiceClass.t
-    where type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t =
+    where type 'a class = 'a GioSocketServiceClass.class
+    where type 'a socket_connection_class = 'a GioSocketConnectionClass.class =
   struct
     local
       open PolyMLFFI
@@ -12,9 +12,9 @@ structure GioSocketService :>
       val start_ = call (load_sym libgio "g_socket_service_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val stop_ = call (load_sym libgio "g_socket_service_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioSocketServiceClass.t
-    type 'a socket_connection_class_t = 'a GioSocketConnectionClass.t
-    type t = base class_t
+    type 'a class = 'a GioSocketServiceClass.class
+    type 'a socket_connection_class = 'a GioSocketConnectionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketServiceClass.C.fromPtr true) new_ ()
     fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self

@@ -1,6 +1,6 @@
 structure GtkTreePath :>
   GTK_TREE_PATH
-    where type record_t = GtkTreePathRecord.t =
+    where type t = GtkTreePathRecord.t =
   struct
     local
       open PolyMLFFI
@@ -22,8 +22,7 @@ structure GtkTreePath :>
       val toString_ = call (load_sym libgtk "gtk_tree_path_to_string") (GtkTreePathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val up_ = call (load_sym libgtk "gtk_tree_path_up") (GtkTreePathRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type record_t = GtkTreePathRecord.t
-    type t = record_t
+    type t = GtkTreePathRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.C.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.C.fromPtr true) newFirst_ ()

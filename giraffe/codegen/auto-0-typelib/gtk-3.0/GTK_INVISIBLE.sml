@@ -1,17 +1,17 @@
 signature GTK_INVISIBLE =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newForScreen : 'a Gdk.ScreenClass.t -> base class_t
-    val getScreen : 'a class_t -> base Gdk.ScreenClass.t
+    val new : unit -> base class
+    val newForScreen : 'a Gdk.ScreenClass.class -> base class
+    val getScreen : 'a class -> base Gdk.ScreenClass.class
     val setScreen :
-      'a class_t
-       -> 'b Gdk.ScreenClass.t
+      'a class
+       -> 'b Gdk.ScreenClass.class
        -> unit
-    val screenProp : ('a class_t, base Gdk.ScreenClass.t option, 'b Gdk.ScreenClass.t option) Property.readwrite
+    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
   end

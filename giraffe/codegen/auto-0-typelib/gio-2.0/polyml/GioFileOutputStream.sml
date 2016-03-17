@@ -1,10 +1,10 @@
 structure GioFileOutputStream :>
   GIO_FILE_OUTPUT_STREAM
-    where type 'a class_t = 'a GioFileOutputStreamClass.t
-    where type 'a seekable_class_t = 'a GioSeekableClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a file_info_class_t = 'a GioFileInfoClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioFileOutputStreamClass.class
+    where type 'a seekable_class = 'a GioSeekableClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a file_info_class = 'a GioFileInfoClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,12 +29,12 @@ structure GioFileOutputStream :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GioFileOutputStreamClass.t
-    type 'a seekable_class_t = 'a GioSeekableClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a file_info_class_t = 'a GioFileInfoClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioFileOutputStreamClass.class
+    type 'a seekable_class = 'a GioSeekableClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a file_info_class = 'a GioFileInfoClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getEtag self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getEtag_ self

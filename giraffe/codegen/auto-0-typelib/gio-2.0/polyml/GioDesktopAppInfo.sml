@@ -1,7 +1,7 @@
 structure GioDesktopAppInfo :>
   GIO_DESKTOP_APP_INFO
-    where type 'a class_t = 'a GioDesktopAppInfoClass.t
-    where type 'a app_info_class_t = 'a GioAppInfoClass.t =
+    where type 'a class = 'a GioDesktopAppInfoClass.class
+    where type 'a app_info_class = 'a GioAppInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -18,9 +18,9 @@ structure GioDesktopAppInfo :>
       val getNodisplay_ = call (load_sym libgio "g_desktop_app_info_get_nodisplay") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getShowIn_ = call (load_sym libgio "g_desktop_app_info_get_show_in") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioDesktopAppInfoClass.t
-    type 'a app_info_class_t = 'a GioAppInfoClass.t
-    type t = base class_t
+    type 'a class = 'a GioDesktopAppInfoClass.class
+    type 'a app_info_class = 'a GioAppInfoClass.class
+    type t = base class
     fun asAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new desktopId = (Utf8.C.withPtr ---> GioDesktopAppInfoClass.C.fromPtr true) new_ desktopId

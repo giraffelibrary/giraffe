@@ -1,27 +1,26 @@
 signature PANGO_GLYPH_STRING =
   sig
-    type record_t
-    type rectangle_record_t
-    type 'a font_class_t
-    type t = record_t
+    type t
+    type rectangle_t
+    type 'a font_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> record_t
-    val copy : record_t -> record_t
+    val new : unit -> t
+    val copy : t -> t
     val extents :
-      record_t
-       -> 'a font_class_t
-       -> rectangle_record_t * rectangle_record_t
+      t
+       -> 'a font_class
+       -> rectangle_t * rectangle_t
     val extentsRange :
-      record_t
+      t
        -> LargeInt.int
        -> LargeInt.int
-       -> 'a font_class_t
-       -> rectangle_record_t
-       -> rectangle_record_t
+       -> 'a font_class
+       -> rectangle_t
+       -> rectangle_t
        -> unit
-    val getWidth : record_t -> LargeInt.int
+    val getWidth : t -> LargeInt.int
     val setSize :
-      record_t
+      t
        -> LargeInt.int
        -> unit
   end

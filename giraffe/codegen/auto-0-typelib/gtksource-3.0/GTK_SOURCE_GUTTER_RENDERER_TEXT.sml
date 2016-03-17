@@ -1,19 +1,19 @@
 signature GTK_SOURCE_GUTTER_RENDERER_TEXT =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val setMarkup :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val setText :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
-    val markupProp : ('a class_t, string option, string option) Property.readwrite
-    val textProp : ('a class_t, string option, string option) Property.readwrite
+    val markupProp : ('a class, string option, string option) Property.readwrite
+    val textProp : ('a class, string option, string option) Property.readwrite
   end

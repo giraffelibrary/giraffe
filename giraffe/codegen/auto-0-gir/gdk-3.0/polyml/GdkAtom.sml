@@ -1,6 +1,6 @@
 structure GdkAtom :>
   GDK_ATOM
-    where type record_t = GdkAtomRecord.t =
+    where type t = GdkAtomRecord.t =
   struct
     local
       open PolyMLFFI
@@ -9,8 +9,7 @@ structure GdkAtom :>
       val intern_ = call (load_sym libgdk "gdk_atom_intern") (Utf8.PolyML.cInPtr &&> FFI.Bool.PolyML.cVal --> GdkAtomRecord.PolyML.cPtr)
       val internStaticString_ = call (load_sym libgdk "gdk_atom_intern_static_string") (Utf8.PolyML.cInPtr --> GdkAtomRecord.PolyML.cPtr)
     end
-    type record_t = GdkAtomRecord.t
-    type t = record_t
+    type t = GdkAtomRecord.t
     fun name self = (GdkAtomRecord.C.withPtr ---> Utf8.C.fromPtr true) name_ self
     fun intern atomName onlyIfExists = (Utf8.C.withPtr &&&> FFI.Bool.C.withVal ---> GdkAtomRecord.C.fromPtr false) intern_ (atomName & onlyIfExists)
     fun internStaticString atomName = (Utf8.C.withPtr ---> GdkAtomRecord.C.fromPtr false) internStaticString_ atomName

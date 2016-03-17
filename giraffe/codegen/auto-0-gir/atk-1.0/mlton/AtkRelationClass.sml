@@ -4,7 +4,8 @@ structure AtkRelationClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a relation = unit
-    type 'a t = 'a relation GObjectObjectClass.t
+    type 'a class = 'a relation GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

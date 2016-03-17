@@ -1,6 +1,6 @@
 structure GtkSourceGutterRendererText :>
   GTK_SOURCE_GUTTER_RENDERER_TEXT
-    where type 'a class_t = 'a GtkSourceGutterRendererTextClass.t =
+    where type 'a class = 'a GtkSourceGutterRendererTextClass.class =
   struct
     val getType_ = _import "gtk_source_gutter_renderer_text_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -42,8 +42,8 @@ structure GtkSourceGutterRendererText :>
               x3,
               x4
             )
-    type 'a class_t = 'a GtkSourceGutterRendererTextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceGutterRendererTextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
     fun setMarkup self markup length =

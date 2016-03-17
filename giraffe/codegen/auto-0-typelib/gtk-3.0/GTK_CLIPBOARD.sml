@@ -1,44 +1,44 @@
 signature GTK_CLIPBOARD =
   sig
-    type 'a class_t
-    type selection_data_record_t
-    type 'a text_buffer_class_t
-    type t = base class_t
+    type 'a class
+    type selection_data_t
+    type 'a text_buffer_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val get : Gdk.AtomRecord.t -> base class_t
+    val get : Gdk.AtomRecord.t -> base class
     val getForDisplay :
-      'a Gdk.DisplayClass.t
+      'a Gdk.DisplayClass.class
        -> Gdk.AtomRecord.t
-       -> base class_t
-    val clear : 'a class_t -> unit
-    val getDisplay : 'a class_t -> base Gdk.DisplayClass.t
-    val getOwner : 'a class_t -> base GObject.ObjectClass.t
+       -> base class
+    val clear : 'a class -> unit
+    val getDisplay : 'a class -> base Gdk.DisplayClass.class
+    val getOwner : 'a class -> base GObject.ObjectClass.class
     val setImage :
-      'a class_t
-       -> 'b GdkPixbuf.PixbufClass.t
+      'a class
+       -> 'b GdkPixbuf.PixbufClass.class
        -> unit
     val setText :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
-    val store : 'a class_t -> unit
+    val store : 'a class -> unit
     val waitForContents :
-      'a class_t
+      'a class
        -> Gdk.AtomRecord.t
-       -> selection_data_record_t
-    val waitForImage : 'a class_t -> base GdkPixbuf.PixbufClass.t
-    val waitForText : 'a class_t -> string
-    val waitIsImageAvailable : 'a class_t -> bool
+       -> selection_data_t
+    val waitForImage : 'a class -> base GdkPixbuf.PixbufClass.class
+    val waitForText : 'a class -> string
+    val waitIsImageAvailable : 'a class -> bool
     val waitIsRichTextAvailable :
-      'a class_t
-       -> 'b text_buffer_class_t
+      'a class
+       -> 'b text_buffer_class
        -> bool
     val waitIsTargetAvailable :
-      'a class_t
+      'a class
        -> Gdk.AtomRecord.t
        -> bool
-    val waitIsTextAvailable : 'a class_t -> bool
-    val waitIsUrisAvailable : 'a class_t -> bool
-    val ownerChangeSig : (Gdk.EventOwnerChangeRecord.t -> unit) -> 'a class_t Signal.signal
+    val waitIsTextAvailable : 'a class -> bool
+    val waitIsUrisAvailable : 'a class -> bool
+    val ownerChangeSig : (Gdk.EventOwnerChangeRecord.t -> unit) -> 'a class Signal.signal
   end

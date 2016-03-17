@@ -1,38 +1,38 @@
 signature GTK_MESSAGE_DIALOG =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type dialog_flags_t
-    type 'a window_class_t
+    type 'a window_class
     type buttons_type_t
-    type 'a widget_class_t
+    type 'a widget_class
     type message_type_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
-      'a window_class_t option
+      'a window_class option
        -> dialog_flags_t
        -> message_type_t
        -> buttons_type_t
-       -> base class_t
-    val getImage : 'a class_t -> base widget_class_t
-    val getMessageArea : 'a class_t -> base widget_class_t
+       -> base class
+    val getImage : 'a class -> base widget_class
+    val getMessageArea : 'a class -> base widget_class
     val setImage :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> unit
     val setMarkup :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val buttonsProp : ('a class_t, buttons_type_t) Property.writeonly
-    val imageProp : ('a class_t, base widget_class_t option, 'b widget_class_t option) Property.readwrite
-    val messageAreaProp : ('a class_t, base widget_class_t option) Property.readonly
-    val messageTypeProp : ('a class_t, message_type_t, message_type_t) Property.readwrite
-    val secondaryTextProp : ('a class_t, string option, string option) Property.readwrite
-    val secondaryUseMarkupProp : ('a class_t, bool, bool) Property.readwrite
-    val textProp : ('a class_t, string option, string option) Property.readwrite
-    val useMarkupProp : ('a class_t, bool, bool) Property.readwrite
+    val buttonsProp : ('a class, buttons_type_t) Property.writeonly
+    val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val messageAreaProp : ('a class, base widget_class option) Property.readonly
+    val messageTypeProp : ('a class, message_type_t, message_type_t) Property.readwrite
+    val secondaryTextProp : ('a class, string option, string option) Property.readwrite
+    val secondaryUseMarkupProp : ('a class, bool, bool) Property.readwrite
+    val textProp : ('a class, string option, string option) Property.readwrite
+    val useMarkupProp : ('a class, bool, bool) Property.readwrite
   end

@@ -1,12 +1,12 @@
 structure GtkUIManager :>
   GTK_U_I_MANAGER
-    where type 'a class_t = 'a GtkUIManagerClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkUIManagerClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type u_i_manager_item_type_t = GtkUIManagerItemType.t
-    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    where type 'a action_group_class_t = 'a GtkActionGroupClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a action_class_t = 'a GtkActionClass.t =
+    where type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    where type 'a action_group_class = 'a GtkActionGroupClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a action_class = 'a GtkActionClass.class =
   struct
     local
       open PolyMLFFI
@@ -61,14 +61,14 @@ structure GtkUIManager :>
       val removeUi_ = call (load_sym libgtk "gtk_ui_manager_remove_ui") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
       val setAddTearoffs_ = call (load_sym libgtk "gtk_ui_manager_set_add_tearoffs") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkUIManagerClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkUIManagerClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type u_i_manager_item_type_t = GtkUIManagerItemType.t
-    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    type 'a action_group_class_t = 'a GtkActionGroupClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a action_class_t = 'a GtkActionClass.t
-    type t = base class_t
+    type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    type 'a action_group_class = 'a GtkActionGroupClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a action_class = 'a GtkActionClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkUIManagerClass.C.fromPtr true) new_ ()

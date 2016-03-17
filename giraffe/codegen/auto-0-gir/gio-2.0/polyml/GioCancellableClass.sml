@@ -4,7 +4,8 @@ structure GioCancellableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a cancellable = unit
-    type 'a t = 'a cancellable GObjectObjectClass.t
+    type 'a class = 'a cancellable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

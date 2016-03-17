@@ -1,50 +1,50 @@
 signature GTK_STYLE =
   sig
-    type 'a class_t
-    type icon_set_record_t
-    type 'a widget_class_t
+    type 'a class
+    type icon_set_t
+    type 'a widget_class
     type text_direction_t
-    type icon_source_record_t
+    type icon_source_t
     type state_type_t
-    type 'a style_context_class_t
-    type t = base class_t
+    type 'a style_context_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val applyDefaultBackground :
-      'a class_t
+      'a class
        -> Cairo.ContextRecord.t
-       -> 'b Gdk.WindowClass.t
+       -> 'b Gdk.WindowClass.class
        -> state_type_t
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val copy : 'a class_t -> base class_t
-    val detach : 'a class_t -> unit
-    val hasContext : 'a class_t -> bool
+    val copy : 'a class -> base class
+    val detach : 'a class -> unit
+    val hasContext : 'a class -> bool
     val lookupColor :
-      'a class_t
+      'a class
        -> string
        -> Gdk.ColorRecord.t option
     val lookupIconSet :
-      'a class_t
+      'a class
        -> string
-       -> icon_set_record_t
+       -> icon_set_t
     val renderIcon :
-      'a class_t
-       -> icon_source_record_t
+      'a class
+       -> icon_source_t
        -> text_direction_t
        -> state_type_t
        -> LargeInt.int
-       -> 'b widget_class_t option
+       -> 'b widget_class option
        -> string option
-       -> base GdkPixbuf.PixbufClass.t
+       -> base GdkPixbuf.PixbufClass.class
     val setBackground :
-      'a class_t
-       -> 'b Gdk.WindowClass.t
+      'a class
+       -> 'b Gdk.WindowClass.class
        -> state_type_t
        -> unit
-    val realizeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val unrealizeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val contextProp : ('a class_t, base style_context_class_t option, 'b style_context_class_t option) Property.readwrite
+    val realizeSig : (unit -> unit) -> 'a class Signal.signal
+    val unrealizeSig : (unit -> unit) -> 'a class Signal.signal
+    val contextProp : ('a class, base style_context_class option, 'b style_context_class option) Property.readwrite
   end

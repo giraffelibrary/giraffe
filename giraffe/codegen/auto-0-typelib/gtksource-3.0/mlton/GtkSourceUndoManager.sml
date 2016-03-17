@@ -1,6 +1,6 @@
 structure GtkSourceUndoManager :>
   GTK_SOURCE_UNDO_MANAGER
-    where type 'a class_t = 'a GtkSourceUndoManagerClass.t =
+    where type 'a class = 'a GtkSourceUndoManagerClass.class =
   struct
     val getType_ = _import "gtk_source_undo_manager_get_type" : unit -> GObjectType.C.val_;
     val beginNotUndoableAction_ = _import "gtk_source_undo_manager_begin_not_undoable_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -11,8 +11,8 @@ structure GtkSourceUndoManager :>
     val endNotUndoableAction_ = _import "gtk_source_undo_manager_end_not_undoable_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val redo_ = _import "gtk_source_undo_manager_redo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val undo_ = _import "gtk_source_undo_manager_undo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkSourceUndoManagerClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceUndoManagerClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun beginNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) beginNotUndoableAction_ self
     fun canRedo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canRedo_ self

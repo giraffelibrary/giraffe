@@ -1,8 +1,8 @@
 structure GIRepositoryVFuncInfo :>
   G_I_REPOSITORY_V_FUNC_INFO
-    where type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
-    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
-    where type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    where type 'a class = 'a GIRepositoryVFuncInfoClass.class
+    where type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
+    where type 'a signalinfo_class = 'a GIRepositorySignalInfoClass.class
     where type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.t =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
@@ -10,9 +10,9 @@ structure GIRepositoryVFuncInfo :>
     fun fromVFunc f = (I && f) o GIRepositoryVFuncInfoClass.Obj.unpack
 
 
-    type 'a class_t = 'a GIRepositoryVFuncInfoClass.t
-    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
-    type 'a signalinfoclass_t = 'a GIRepositorySignalInfoClass.t
+    type 'a class = 'a GIRepositoryVFuncInfoClass.class
+    type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
+    type 'a signalinfo_class = 'a GIRepositorySignalInfoClass.class
     type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.t
 
 

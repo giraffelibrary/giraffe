@@ -4,7 +4,8 @@ structure GtkSourceUndoManagerClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a undo_manager = unit
-    type 'a t = 'a undo_manager GObjectObjectClass.t
+    type 'a class = 'a undo_manager GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

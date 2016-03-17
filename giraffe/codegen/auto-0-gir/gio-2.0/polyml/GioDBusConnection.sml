@@ -1,19 +1,19 @@
 structure GioDBusConnection :>
   GIO_D_BUS_CONNECTION
-    where type 'a class_t = 'a GioDBusConnectionClass.t
-    where type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
-    where type 'a initable_class_t = 'a GioInitableClass.t
-    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
+    where type 'a class = 'a GioDBusConnectionClass.class
+    where type 'a async_initable_class = 'a GioAsyncInitableClass.class
+    where type 'a initable_class = 'a GioInitableClass.class
+    where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     where type d_bus_call_flags_t = GioDBusCallFlags.t
-    where type 'a credentials_class_t = 'a GioCredentialsClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
-    where type 'a d_bus_message_class_t = 'a GioDBusMessageClass.t
-    where type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    where type 'a d_bus_message_class = 'a GioDBusMessageClass.class
+    where type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     where type d_bus_capability_flags_t = GioDBusCapabilityFlags.t
     where type d_bus_connection_flags_t = GioDBusConnectionFlags.t
-    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t =
+    where type 'a i_o_stream_class = 'a GioIOStreamClass.class =
   struct
     local
       open PolyMLFFI
@@ -181,21 +181,21 @@ structure GioDBusConnection :>
       val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioDBusConnectionClass.t
-    type 'a async_initable_class_t = 'a GioAsyncInitableClass.t
-    type 'a initable_class_t = 'a GioInitableClass.t
-    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
+    type 'a class = 'a GioDBusConnectionClass.class
+    type 'a async_initable_class = 'a GioAsyncInitableClass.class
+    type 'a initable_class = 'a GioInitableClass.class
+    type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type d_bus_call_flags_t = GioDBusCallFlags.t
-    type 'a credentials_class_t = 'a GioCredentialsClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a credentials_class = 'a GioCredentialsClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
     type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
-    type 'a d_bus_message_class_t = 'a GioDBusMessageClass.t
-    type 'a d_bus_auth_observer_class_t = 'a GioDBusAuthObserverClass.t
+    type 'a d_bus_message_class = 'a GioDBusMessageClass.class
+    type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     type d_bus_capability_flags_t = GioDBusCapabilityFlags.t
     type d_bus_connection_flags_t = GioDBusConnectionFlags.t
-    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    type t = base class_t
+    type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    type t = base class
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

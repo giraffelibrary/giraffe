@@ -1,68 +1,67 @@
 signature GTK_PAPER_SIZE =
   sig
-    type record_t
+    type t
     type unit_t
-    type t = record_t
     val getType : unit -> GObject.Type.t
-    val new : string option -> record_t
+    val new : string option -> t
     val newCustom :
       string
        -> string
        -> real
        -> real
        -> unit_t
-       -> record_t
+       -> t
     val newFromKeyFile :
       GLib.KeyFileRecord.t
        -> string
-       -> record_t
+       -> t
     val newFromPpd :
       string
        -> string
        -> real
        -> real
-       -> record_t
-    val copy : record_t -> record_t
+       -> t
+    val copy : t -> t
     val getDefaultBottomMargin :
-      record_t
+      t
        -> unit_t
        -> real
     val getDefaultLeftMargin :
-      record_t
+      t
        -> unit_t
        -> real
     val getDefaultRightMargin :
-      record_t
+      t
        -> unit_t
        -> real
     val getDefaultTopMargin :
-      record_t
+      t
        -> unit_t
        -> real
-    val getDisplayName : record_t -> string
+    val getDisplayName : t -> string
     val getHeight :
-      record_t
+      t
        -> unit_t
        -> real
-    val getName : record_t -> string
-    val getPpdName : record_t -> string
+    val getName : t -> string
+    val getPpdName : t -> string
     val getWidth :
-      record_t
+      t
        -> unit_t
        -> real
-    val isCustom : record_t -> bool
+    val isCustom : t -> bool
     val isEqual :
-      record_t
-       -> record_t
+      t
+       -> t
        -> bool
     val setSize :
-      record_t
+      t
        -> real
        -> real
        -> unit_t
        -> unit
     val toKeyFile :
-      record_t
+      t
        -> GLib.KeyFileRecord.t
        -> string
        -> unit

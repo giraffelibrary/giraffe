@@ -1,9 +1,10 @@
 signature GDK_EVENT_SELECTION_RECORD =
   sig
     type selection
-    type 'a event_t
-    type t = selection event_t
+    type 'a event_union
+    type t = selection event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       SELECTION_CLEAR
     | SELECTION_REQUEST

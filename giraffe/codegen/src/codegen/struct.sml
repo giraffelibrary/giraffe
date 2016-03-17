@@ -7,9 +7,9 @@
 local
 in
   fun makeStructRecordSig
-    (_               : 'a RepositoryClass.t)
+    (_               : 'a RepositoryClass.class)
     (structNamespace : string)
-    (structInfo      : 'b StructInfoClass.t)
+    (structInfo      : 'b StructInfoClass.class)
     : id * program * id list =
     let
       val () = checkDeprecated structInfo
@@ -32,9 +32,9 @@ end
 local
 in
   fun makeStructRecordStr
-    (_               : 'a RepositoryClass.t)
+    (_               : 'a RepositoryClass.class)
     (structNamespace : string)
-    (structInfo      : 'b StructInfoClass.t)
+    (structInfo      : 'b StructInfoClass.class)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated structInfo
@@ -98,9 +98,9 @@ fun addStructMethodSpecs repo structIRef =
     (makeFunctionSpec repo (SOME structIRef))
 
 fun makeStructSig
-  (repo            : 'a RepositoryClass.t)
+  (repo            : 'a RepositoryClass.class)
   (structNamespace : string)
-  (structInfo      : 'a StructInfoClass.t)
+  (structInfo      : 'b StructInfoClass.class)
   (errs'0          : infoerrorhier list)
   : id * program * id list * infoerrorhier list =
   let
@@ -137,27 +137,17 @@ fun makeStructSig
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
 
     (*
-     *     type t = record_t
-     *)
-    val specs'3 =
-      let
-        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (structIRef, 0)
-      in
-        mkTypeSpec (([], tId), SOME ty) :: specs'2
-      end
-
-    (*
-     *     type record_t
+     *     type t
      *
-     *     type <varlist[1]> <typename[1]>_t
+     *     type <varlist[1]> <local_name[1]>
      *
      *     ...
      *
-     *     type <varlist[N]> <typename[N]>_t
+     *     type <varlist[N]> <local_name[N]>
      *)
-    val specs'4 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'3)
+    val specs'3 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'2)
 
-    val sig1 = mkSigSpec specs'4
+    val sig1 = mkSigSpec specs'3
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(structSigId, qSig)]
     val program = [ModuleDecSig sigDec]
@@ -190,11 +180,11 @@ fun addStructMethodStrDecsHighLevel repo structIRef =
     (makeFunctionStrDecHighLevel repo (SOME (structIRef, structIRef)))
 
 fun makeStructStr
-  (repo            : 'a RepositoryClass.t)
+  (repo            : 'a RepositoryClass.class)
   (vers            : Repository.typelibvers_t)
   (libId           : id)
   (structNamespace : string)
-  (structInfo      : 'a StructInfoClass.t)
+  (structInfo      : 'b StructInfoClass.class)
   (errs'0          : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
@@ -246,28 +236,18 @@ fun makeStructStr
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
 
     (*
-     *     type t = record_t
-     *)
-    val strDecs'3 =
-      let
-        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (structIRef, 0)
-      in
-        StrDecDec (mkTypeDec (([], tId), ty)) :: strDecs'2
-      end
-
-    (*
-     *     type record_t = <StructNamespace><StructName>Record.t
+     *     type t = <StructNamespace><StructName>Record.t
      * 
-     *     type <varlist[1]> <typename[1]>_t =
-     *       <varlist[1]> <StructNamespace><TypeName[1]>.t
+     *     type <varlist[1]> <local_name[1]> =
+     *       <varlist[1]> <StructNamespace><TypeName[1]>.<t[1]>
      * 
      *     ...
      * 
-     *     type <varlist[N]> <typename[N]>_t =
-     *       <varlist[N]> <StructNamespace><TypeName[N]>.t
+     *     type <varlist[N]> <local_name[N]> =
+     *       <varlist[N]> <StructNamespace><TypeName[N]>.<t[N]>
      *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
-    val strDecs'4 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'3)
+    val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
     fun mkModule isPolyML =
       let
@@ -278,7 +258,7 @@ fun makeStructStr
             libId
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
-            (structInfo, (strDecs'4, errs'2))
+            (structInfo, (strDecs'3, errs'2))
 
         val struct1 = mkStructBody strDecs
 

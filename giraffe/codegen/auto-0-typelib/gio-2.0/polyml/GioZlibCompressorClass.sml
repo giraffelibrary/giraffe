@@ -4,7 +4,8 @@ structure GioZlibCompressorClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a zlib_compressor = unit
-    type 'a t = 'a zlib_compressor GObjectObjectClass.t
+    type 'a class = 'a zlib_compressor GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

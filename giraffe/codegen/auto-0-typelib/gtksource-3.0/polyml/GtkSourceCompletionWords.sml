@@ -1,7 +1,7 @@
 structure GtkSourceCompletionWords :>
   GTK_SOURCE_COMPLETION_WORDS
-    where type 'a class_t = 'a GtkSourceCompletionWordsClass.t
-    where type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t =
+    where type 'a class = 'a GtkSourceCompletionWordsClass.class
+    where type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,9 +11,9 @@ structure GtkSourceCompletionWords :>
       val register_ = call (load_sym libgtksourceview "gtk_source_completion_words_register") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unregister_ = call (load_sym libgtksourceview "gtk_source_completion_words_unregister") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceCompletionWordsClass.t
-    type 'a completion_provider_class_t = 'a GtkSourceCompletionProviderClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionWordsClass.class
+    type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
+    type t = base class
     fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name icon = (Utf8.C.withOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)

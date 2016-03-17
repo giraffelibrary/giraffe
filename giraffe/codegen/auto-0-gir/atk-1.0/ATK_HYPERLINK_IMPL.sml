@@ -1,8 +1,8 @@
 signature ATK_HYPERLINK_IMPL =
   sig
-    type 'a class_t
-    type 'a hyperlink_class_t
-    type t = base class_t
+    type 'a class
+    type 'a hyperlink_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getHyperlink : 'a class_t -> base hyperlink_class_t
+    val getHyperlink : 'a class -> base hyperlink_class
   end

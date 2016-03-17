@@ -1,9 +1,9 @@
 structure GtkFontChooserDialog :>
   GTK_FONT_CHOOSER_DIALOG
-    where type 'a class_t = 'a GtkFontChooserDialogClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a font_chooser_class_t = 'a GtkFontChooserClass.t
-    where type 'a window_class_t = 'a GtkWindowClass.t =
+    where type 'a class = 'a GtkFontChooserDialogClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a font_chooser_class = 'a GtkFontChooserClass.class
+    where type 'a window_class = 'a GtkWindowClass.class =
   struct
     val getType_ = _import "gtk_font_chooser_dialog_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -21,11 +21,11 @@ structure GtkFontChooserDialog :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkFontChooserDialogClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a font_chooser_class_t = 'a GtkFontChooserClass.t
-    type 'a window_class_t = 'a GtkWindowClass.t
-    type t = base class_t
+    type 'a class = 'a GtkFontChooserDialogClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a font_chooser_class = 'a GtkFontChooserClass.class
+    type 'a window_class = 'a GtkWindowClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asFontChooser self = (GObjectObjectClass.C.withPtr ---> GtkFontChooserClass.C.fromPtr false) I self

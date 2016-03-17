@@ -1,10 +1,10 @@
 structure GioFileEnumerator :>
   GIO_FILE_ENUMERATOR
-    where type 'a class_t = 'a GioFileEnumeratorClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    where type 'a file_info_class_t = 'a GioFileInfoClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a file_class_t = 'a GioFileClass.t =
+    where type 'a class = 'a GioFileEnumeratorClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
+    where type 'a file_info_class = 'a GioFileInfoClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a file_class = 'a GioFileClass.class =
   struct
     val getType_ = _import "g_file_enumerator_get_type" : unit -> GObjectType.C.val_;
     val close_ =
@@ -62,12 +62,12 @@ structure GioFileEnumerator :>
               x3
             )
     val setPending_ = fn x1 & x2 => (_import "g_file_enumerator_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioFileEnumeratorClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type 'a file_info_class_t = 'a GioFileInfoClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a file_class_t = 'a GioFileClass.t
-    type t = base class_t
+    type 'a class = 'a GioFileEnumeratorClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type 'a file_info_class = 'a GioFileInfoClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a file_class = 'a GioFileClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun close self cancellable =
       (

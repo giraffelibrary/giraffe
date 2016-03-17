@@ -1,16 +1,16 @@
 signature GTK_COLOR_SELECTION_DIALOG =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val getColorSelection : 'a class_t -> base widget_class_t
-    val cancelButtonProp : ('a class_t, base widget_class_t option) Property.readonly
-    val colorSelectionProp : ('a class_t, base widget_class_t option) Property.readonly
-    val helpButtonProp : ('a class_t, base widget_class_t option) Property.readonly
-    val okButtonProp : ('a class_t, base widget_class_t option) Property.readonly
+    val new : string -> base class
+    val getColorSelection : 'a class -> base widget_class
+    val cancelButtonProp : ('a class, base widget_class option) Property.readonly
+    val colorSelectionProp : ('a class, base widget_class option) Property.readonly
+    val helpButtonProp : ('a class, base widget_class option) Property.readonly
+    val okButtonProp : ('a class, base widget_class option) Property.readonly
   end

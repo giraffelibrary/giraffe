@@ -1,9 +1,9 @@
 structure GtkActionGroup :>
   GTK_ACTION_GROUP
-    where type 'a class_t = 'a GtkActionGroupClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a action_class_t = 'a GtkActionClass.t =
+    where type 'a class = 'a GtkActionGroupClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a action_class = 'a GtkActionClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,11 +29,11 @@ structure GtkActionGroup :>
       val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GtkActionGroupClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a action_class_t = 'a GtkActionClass.t
-    type t = base class_t
+    type 'a class = 'a GtkActionGroupClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a action_class = 'a GtkActionClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name

@@ -1,7 +1,7 @@
 signature GIO_ASYNC_RESULT =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getSourceObject : 'a class_t -> base GObject.ObjectClass.t
+    val getSourceObject : 'a class -> base GObject.ObjectClass.class
   end

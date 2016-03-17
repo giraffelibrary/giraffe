@@ -1,8 +1,8 @@
 structure GtkRecentManager :>
   GTK_RECENT_MANAGER
-    where type 'a class_t = 'a GtkRecentManagerClass.t
-    where type recent_data_record_t = GtkRecentDataRecord.t
-    where type recent_info_record_t = GtkRecentInfoRecord.t =
+    where type 'a class = 'a GtkRecentManagerClass.class
+    where type recent_data_t = GtkRecentDataRecord.t
+    where type recent_info_t = GtkRecentInfoRecord.t =
   struct
     local
       open PolyMLFFI
@@ -47,10 +47,10 @@ structure GtkRecentManager :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GtkRecentManagerClass.t
-    type recent_data_record_t = GtkRecentDataRecord.t
-    type recent_info_record_t = GtkRecentInfoRecord.t
-    type t = base class_t
+    type 'a class = 'a GtkRecentManagerClass.class
+    type recent_data_t = GtkRecentDataRecord.t
+    type recent_info_t = GtkRecentInfoRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkRecentManagerClass.C.fromPtr false) getDefault_ ()

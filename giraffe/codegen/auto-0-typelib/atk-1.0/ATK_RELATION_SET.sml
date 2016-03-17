@@ -1,36 +1,36 @@
 signature ATK_RELATION_SET =
   sig
-    type 'a class_t
-    type 'a object_class_t
+    type 'a class
+    type 'a object_class
     type relation_type_t
-    type 'a relation_class_t
-    type t = base class_t
+    type 'a relation_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val add :
-      'a class_t
-       -> 'b relation_class_t
+      'a class
+       -> 'b relation_class
        -> unit
     val addRelationByType :
-      'a class_t
+      'a class
        -> relation_type_t
-       -> 'b object_class_t
+       -> 'b object_class
        -> unit
     val contains :
-      'a class_t
+      'a class
        -> relation_type_t
        -> bool
-    val getNRelations : 'a class_t -> LargeInt.int
+    val getNRelations : 'a class -> LargeInt.int
     val getRelation :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base relation_class_t
+       -> base relation_class
     val getRelationByType :
-      'a class_t
+      'a class
        -> relation_type_t
-       -> base relation_class_t
+       -> base relation_class
     val remove :
-      'a class_t
-       -> 'b relation_class_t
+      'a class
+       -> 'b relation_class
        -> unit
   end

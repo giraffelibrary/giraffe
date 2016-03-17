@@ -29,7 +29,8 @@ structure GdkEvent :>
           (cPtr --> FFI.PolyML.cVoid)
     end
 
-    type 'a t = notnull p Finalizable.t
+    type 'a union = notnull p Finalizable.t
+    type t = base union
     fun toBase obj = obj
 
     structure C =

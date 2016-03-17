@@ -1,11 +1,11 @@
 structure GtkToolItemGroup :>
   GTK_TOOL_ITEM_GROUP
-    where type 'a class_t = 'a GtkToolItemGroupClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a tool_shell_class_t = 'a GtkToolShellClass.t
-    where type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    where type 'a class = 'a GtkToolItemGroupClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a tool_shell_class = 'a GtkToolShellClass.class
+    where type 'a tool_item_class = 'a GtkToolItemClass.class
     where type relief_style_t = GtkReliefStyle.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     local
       open PolyMLFFI
@@ -50,13 +50,13 @@ structure GtkToolItemGroup :>
       val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkToolItemGroupClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a tool_shell_class_t = 'a GtkToolShellClass.t
-    type 'a tool_item_class_t = 'a GtkToolItemClass.t
+    type 'a class = 'a GtkToolItemGroupClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a tool_shell_class = 'a GtkToolShellClass.class
+    type 'a tool_item_class = 'a GtkToolItemClass.class
     type relief_style_t = GtkReliefStyle.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asToolShell self = (GObjectObjectClass.C.withPtr ---> GtkToolShellClass.C.fromPtr false) I self

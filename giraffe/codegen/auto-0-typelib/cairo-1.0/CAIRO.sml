@@ -10,24 +10,24 @@ signature CAIRO =
     structure RectangleIntRecord : CAIRO_RECTANGLE_INT_RECORD
     structure Context :
       CAIRO_CONTEXT
-        where type record_t = ContextRecord.t
+        where type t = ContextRecord.t
     structure Surface :
       CAIRO_SURFACE
-        where type record_t = SurfaceRecord.t
+        where type t = SurfaceRecord.t
     structure Pattern :
       CAIRO_PATTERN
-        where type record_t = PatternRecord.t
+        where type t = PatternRecord.t
     structure Region :
       CAIRO_REGION
-        where type record_t = RegionRecord.t
+        where type t = RegionRecord.t
     structure FontOptions :
       CAIRO_FONT_OPTIONS
-        where type record_t = FontOptionsRecord.t
+        where type t = FontOptionsRecord.t
     structure ScaledFont :
       CAIRO_SCALED_FONT
-        where type record_t = ScaledFontRecord.t
+        where type t = ScaledFontRecord.t
     structure RectangleInt :
       CAIRO_RECTANGLE_INT
-        where type record_t = RectangleIntRecord.t
+        where type t = RectangleIntRecord.t
     val imageSurfaceCreate : unit -> unit
   end

@@ -1,7 +1,7 @@
 structure GioSimpleAsyncResult :>
   GIO_SIMPLE_ASYNC_RESULT
-    where type 'a class_t = 'a GioSimpleAsyncResultClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioSimpleAsyncResultClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_simple_async_result_get_type" : unit -> GObjectType.C.val_;
     val complete_ = _import "g_simple_async_result_complete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -12,9 +12,9 @@ structure GioSimpleAsyncResult :>
     val setHandleCancellation_ = fn x1 & x2 => (_import "g_simple_async_result_set_handle_cancellation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setOpResGboolean_ = fn x1 & x2 => (_import "g_simple_async_result_set_op_res_gboolean" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setOpResGssize_ = fn x1 & x2 => (_import "g_simple_async_result_set_op_res_gssize" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int64.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioSimpleAsyncResultClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioSimpleAsyncResultClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     fun asAsyncResult self = (GObjectObjectClass.C.withPtr ---> GioAsyncResultClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun complete self = (GObjectObjectClass.C.withPtr ---> I) complete_ self

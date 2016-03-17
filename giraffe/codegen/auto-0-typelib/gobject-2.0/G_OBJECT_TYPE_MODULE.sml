@@ -1,15 +1,15 @@
 signature G_OBJECT_TYPE_MODULE =
   sig
-    type 'a class_t
-    type 'a type_plugin_class_t
+    type 'a class
+    type 'a type_plugin_class
     type type_t
-    type t = base class_t
-    val asTypePlugin : 'a class_t -> base type_plugin_class_t
+    type t = base class
+    val asTypePlugin : 'a class -> base type_plugin_class
     val getType : unit -> type_t
     val setName :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val unuse : 'a class_t -> unit
-    val use : 'a class_t -> bool
+    val unuse : 'a class -> unit
+    val use : 'a class -> bool
   end

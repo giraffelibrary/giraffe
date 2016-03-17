@@ -1,10 +1,10 @@
 structure GioDBusInterfaceSkeleton :>
   GIO_D_BUS_INTERFACE_SKELETON
-    where type 'a class_t = 'a GioDBusInterfaceSkeletonClass.t
-    where type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
-    where type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
-    where type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t
-    where type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    where type 'a class = 'a GioDBusInterfaceSkeletonClass.class
+    where type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
+    where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
+    where type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
+    where type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     where type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t =
   struct
     val getType_ = _import "g_dbus_interface_skeleton_get_type" : unit -> GObjectType.C.val_;
@@ -38,13 +38,13 @@ structure GioDBusInterfaceSkeleton :>
     val getProperties_ = _import "g_dbus_interface_skeleton_get_properties" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
     val setFlags_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_set_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDBusInterfaceSkeletonFlags.C.val_ -> unit;) (x1, x2)
     val unexport_ = _import "g_dbus_interface_skeleton_unexport" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GioDBusInterfaceSkeletonClass.t
-    type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
-    type 'a d_bus_connection_class_t = 'a GioDBusConnectionClass.t
-    type d_bus_interface_info_record_t = GioDBusInterfaceInfoRecord.t
-    type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
+    type 'a class = 'a GioDBusInterfaceSkeletonClass.class
+    type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
+    type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
+    type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
+    type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t
-    type t = base class_t
+    type t = base class
     fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun export self connection objectPath =

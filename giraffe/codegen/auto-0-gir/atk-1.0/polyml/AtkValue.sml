@@ -1,6 +1,6 @@
 structure AtkValue :>
   ATK_VALUE
-    where type 'a class_t = 'a AtkValueClass.t =
+    where type 'a class = 'a AtkValueClass.class =
   struct
     local
       open PolyMLFFI
@@ -12,8 +12,8 @@ structure AtkValue :>
       val getMinimumValue_ = call (load_sym libatk "atk_value_get_minimum_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (GObjectObjectClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a AtkValueClass.t
-    type t = base class_t
+    type 'a class = 'a AtkValueClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getCurrentValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getCurrentValue_ (self & value)
     fun getMaximumValue self value = (GObjectObjectClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMaximumValue_ (self & value)

@@ -1,7 +1,7 @@
 structure GtkSourceLanguageManager :>
   GTK_SOURCE_LANGUAGE_MANAGER
-    where type 'a class_t = 'a GtkSourceLanguageManagerClass.t
-    where type 'a language_class_t = 'a GtkSourceLanguageClass.t =
+    where type 'a class = 'a GtkSourceLanguageManagerClass.class
+    where type 'a language_class = 'a GtkSourceLanguageClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,9 +19,9 @@ structure GtkSourceLanguageManager :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GtkSourceLanguageManagerClass.t
-    type 'a language_class_t = 'a GtkSourceLanguageClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceLanguageManagerClass.class
+    type 'a language_class = 'a GtkSourceLanguageClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceLanguageManagerClass.C.fromPtr false) getDefault_ ()

@@ -1,8 +1,8 @@
 structure GioDBusObjectManager :>
   GIO_D_BUS_OBJECT_MANAGER
-    where type 'a class_t = 'a GioDBusObjectManagerClass.t
-    where type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
-    where type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t =
+    where type 'a class = 'a GioDBusObjectManagerClass.class
+    where type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
+    where type 'a d_bus_object_class = 'a GioDBusObjectClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,10 +19,10 @@ structure GioDBusObjectManager :>
       val getObject_ = call (load_sym libgio "g_dbus_object_manager_get_object") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getObjectPath_ = call (load_sym libgio "g_dbus_object_manager_get_object_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GioDBusObjectManagerClass.t
-    type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
-    type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
-    type t = base class_t
+    type 'a class = 'a GioDBusObjectManagerClass.class
+    type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
+    type 'a d_bus_object_class = 'a GioDBusObjectClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getInterface self objectPath interfaceName =
       (

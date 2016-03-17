@@ -1,6 +1,6 @@
 structure PangoCairoFontMap :>
   PANGO_CAIRO_FONT_MAP
-    where type 'a class_t = 'a PangoCairoFontMapClass.t =
+    where type 'a class = 'a PangoCairoFontMapClass.class =
   struct
     val getType_ = _import "pango_cairo_font_map_get_type" : unit -> GObjectType.C.val_;
     val getDefault_ = _import "pango_cairo_font_map_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -8,8 +8,8 @@ structure PangoCairoFontMap :>
     val getResolution_ = _import "pango_cairo_font_map_get_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val setDefault_ = _import "pango_cairo_font_map_set_default" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setResolution_ = fn x1 & x2 => (_import "pango_cairo_font_map_set_resolution" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a PangoCairoFontMapClass.t
-    type t = base class_t
+    type 'a class = 'a PangoCairoFontMapClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> PangoFontMapClass.C.fromPtr false) getDefault_ ()
     fun new () = (I ---> PangoFontMapClass.C.fromPtr true) new_ ()

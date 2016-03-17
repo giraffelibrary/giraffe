@@ -1,10 +1,10 @@
 structure GdkScreen :>
   GDK_SCREEN
-    where type 'a class_t = 'a GdkScreenClass.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t
-    where type rectangle_record_t = GdkRectangleRecord.t
-    where type 'a window_class_t = 'a GdkWindowClass.t
-    where type 'a visual_class_t = 'a GdkVisualClass.t =
+    where type 'a class = 'a GdkScreenClass.class
+    where type 'a display_class = 'a GdkDisplayClass.class
+    where type rectangle_t = GdkRectangleRecord.t
+    where type 'a window_class = 'a GdkWindowClass.class
+    where type 'a visual_class = 'a GdkVisualClass.class =
   struct
     local
       open PolyMLFFI
@@ -62,12 +62,12 @@ structure GdkScreen :>
       val setFontOptions_ = call (load_sym libgdk "gdk_screen_set_font_options") (GObjectObjectClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setResolution_ = call (load_sym libgdk "gdk_screen_set_resolution") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GdkScreenClass.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type rectangle_record_t = GdkRectangleRecord.t
-    type 'a window_class_t = 'a GdkWindowClass.t
-    type 'a visual_class_t = 'a GdkVisualClass.t
-    type t = base class_t
+    type 'a class = 'a GdkScreenClass.class
+    type 'a display_class = 'a GdkDisplayClass.class
+    type rectangle_t = GdkRectangleRecord.t
+    type 'a window_class = 'a GdkWindowClass.class
+    type 'a visual_class = 'a GdkVisualClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GdkScreenClass.C.fromPtr false) getDefault_ ()
     fun height () = (I ---> FFI.Int.C.fromVal) height_ ()

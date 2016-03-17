@@ -1,12 +1,12 @@
 structure GtkStyleContext :>
   GTK_STYLE_CONTEXT
-    where type 'a class_t = 'a GtkStyleContextClass.t
-    where type border_record_t = GtkBorderRecord.t
+    where type 'a class = 'a GtkStyleContextClass.class
+    where type border_t = GtkBorderRecord.t
     where type region_flags_t = GtkRegionFlags.t
-    where type icon_set_record_t = GtkIconSetRecord.t
-    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    where type icon_set_t = GtkIconSetRecord.t
+    where type 'a style_provider_class = 'a GtkStyleProviderClass.class
     where type junction_sides_t = GtkJunctionSides.t
-    where type widget_path_record_t = GtkWidgetPathRecord.t
+    where type widget_path_t = GtkWidgetPathRecord.t
     where type state_flags_t = GtkStateFlags.t
     where type state_type_t = GtkStateType.t
     where type text_direction_t = GtkTextDirection.t =
@@ -356,17 +356,17 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkStyleContextClass.t
-    type border_record_t = GtkBorderRecord.t
+    type 'a class = 'a GtkStyleContextClass.class
+    type border_t = GtkBorderRecord.t
     type region_flags_t = GtkRegionFlags.t
-    type icon_set_record_t = GtkIconSetRecord.t
-    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
+    type icon_set_t = GtkIconSetRecord.t
+    type 'a style_provider_class = 'a GtkStyleProviderClass.class
     type junction_sides_t = GtkJunctionSides.t
-    type widget_path_record_t = GtkWidgetPathRecord.t
+    type widget_path_t = GtkWidgetPathRecord.t
     type state_flags_t = GtkStateFlags.t
     type state_type_t = GtkStateType.t
     type text_direction_t = GtkTextDirection.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStyleContextClass.C.fromPtr true) new_ ()
     fun addProviderForScreen screen provider priority =

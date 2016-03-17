@@ -1,6 +1,6 @@
 structure GtkIMContext :>
   GTK_I_M_CONTEXT
-    where type 'a class_t = 'a GtkIMContextClass.t =
+    where type 'a class = 'a GtkIMContextClass.class =
   struct
     val getType_ = _import "gtk_im_context_get_type" : unit -> GObjectType.C.val_;
     val deleteSurrounding_ =
@@ -71,8 +71,8 @@ structure GtkIMContext :>
               x5
             )
     val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkIMContextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkIMContextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun deleteSurrounding self offset nChars =
       (

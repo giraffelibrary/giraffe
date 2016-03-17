@@ -1,6 +1,6 @@
 structure GtkEntryBuffer :>
   GTK_ENTRY_BUFFER
-    where type 'a class_t = 'a GtkEntryBufferClass.t =
+    where type 'a class = 'a GtkEntryBufferClass.class =
   struct
     local
       open PolyMLFFI
@@ -55,8 +55,8 @@ structure GtkEntryBuffer :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkEntryBufferClass.t
-    type t = base class_t
+    type 'a class = 'a GtkEntryBufferClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new initialChars nInitialChars = (Utf8.C.withOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =

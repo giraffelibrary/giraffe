@@ -1,8 +1,8 @@
 structure GioTlsCertificate :>
   GIO_TLS_CERTIFICATE
-    where type 'a class_t = 'a GioTlsCertificateClass.t
+    where type 'a class = 'a GioTlsCertificateClass.class
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
     val getType_ = _import "g_tls_certificate_get_type" : unit -> GObjectType.C.val_;
     val newFromFile_ =
@@ -78,10 +78,10 @@ structure GioTlsCertificate :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioTlsCertificateClass.t
+    type 'a class = 'a GioTlsCertificateClass.class
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type t = base class_t
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =

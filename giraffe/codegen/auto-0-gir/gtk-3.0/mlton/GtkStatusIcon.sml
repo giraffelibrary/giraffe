@@ -1,8 +1,8 @@
 structure GtkStatusIcon :>
   GTK_STATUS_ICON
-    where type 'a class_t = 'a GtkStatusIconClass.t
-    where type 'a menu_class_t = 'a GtkMenuClass.t
-    where type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    where type 'a class = 'a GtkStatusIconClass.class
+    where type 'a menu_class = 'a GtkMenuClass.class
+    where type 'a tooltip_class = 'a GtkTooltipClass.class
     where type orientation_t = GtkOrientation.t
     where type image_type_t = GtkImageType.t =
   struct
@@ -180,12 +180,12 @@ structure GtkStatusIcon :>
               x3
             )
     val setVisible_ = fn x1 & x2 => (_import "gtk_status_icon_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkStatusIconClass.t
-    type 'a menu_class_t = 'a GtkMenuClass.t
-    type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    type 'a class = 'a GtkStatusIconClass.class
+    type 'a menu_class = 'a GtkMenuClass.class
+    type 'a tooltip_class = 'a GtkTooltipClass.class
     type orientation_t = GtkOrientation.t
     type image_type_t = GtkImageType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.C.fromPtr true) new_ ()
     fun newFromFile filename = (Utf8.C.withPtr ---> GtkStatusIconClass.C.fromPtr true) newFromFile_ filename

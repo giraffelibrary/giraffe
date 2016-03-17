@@ -1,7 +1,7 @@
 structure GtkPrintContext :>
   GTK_PRINT_CONTEXT
-    where type 'a class_t = 'a GtkPrintContextClass.t
-    where type 'a page_setup_class_t = 'a GtkPageSetupClass.t =
+    where type 'a class = 'a GtkPrintContextClass.class
+    where type 'a page_setup_class = 'a GtkPageSetupClass.class =
   struct
     val getType_ = _import "gtk_print_context_get_type" : unit -> GObjectType.C.val_;
     val createPangoContext_ = _import "gtk_print_context_create_pango_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -56,9 +56,9 @@ structure GtkPrintContext :>
               x3,
               x4
             )
-    type 'a class_t = 'a GtkPrintContextClass.t
-    type 'a page_setup_class_t = 'a GtkPageSetupClass.t
-    type t = base class_t
+    type 'a class = 'a GtkPrintContextClass.class
+    type 'a page_setup_class = 'a GtkPageSetupClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createPangoContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createPangoContext_ self
     fun createPangoLayout self = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr true) createPangoLayout_ self

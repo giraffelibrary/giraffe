@@ -1,7 +1,7 @@
 structure GtkMenuBar :>
   GTK_MENU_BAR
-    where type 'a class_t = 'a GtkMenuBarClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkMenuBarClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type pack_direction_t = GtkPackDirection.t =
   struct
     local
@@ -14,10 +14,10 @@ structure GtkMenuBar :>
       val setChildPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_child_pack_direction") (GObjectObjectClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> FFI.PolyML.cVoid)
       val setPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_pack_direction") (GObjectObjectClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkMenuBarClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkMenuBarClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type pack_direction_t = GtkPackDirection.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

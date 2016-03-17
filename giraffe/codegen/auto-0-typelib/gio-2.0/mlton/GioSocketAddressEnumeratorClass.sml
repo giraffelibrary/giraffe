@@ -4,7 +4,8 @@ structure GioSocketAddressEnumeratorClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a socket_address_enumerator = unit
-    type 'a t = 'a socket_address_enumerator GObjectObjectClass.t
+    type 'a class = 'a socket_address_enumerator GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

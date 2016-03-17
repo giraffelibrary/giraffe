@@ -1,20 +1,20 @@
 signature ATK_DOCUMENT =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val getAttributeValue :
-      'a class_t
+      'a class
        -> string
        -> string
-    val getDocumentType : 'a class_t -> string
-    val getLocale : 'a class_t -> string
+    val getDocumentType : 'a class -> string
+    val getLocale : 'a class -> string
     val setAttributeValue :
-      'a class_t
+      'a class
        -> string
        -> string
        -> bool
-    val loadCompleteSig : (unit -> unit) -> 'a class_t Signal.signal
-    val loadStoppedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val reloadSig : (unit -> unit) -> 'a class_t Signal.signal
+    val loadCompleteSig : (unit -> unit) -> 'a class Signal.signal
+    val loadStoppedSig : (unit -> unit) -> 'a class Signal.signal
+    val reloadSig : (unit -> unit) -> 'a class Signal.signal
   end

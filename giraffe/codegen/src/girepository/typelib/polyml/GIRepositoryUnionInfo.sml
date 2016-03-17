@@ -1,8 +1,8 @@
 structure GIRepositoryUnionInfo :>
   G_I_REPOSITORY_UNION_INFO
-    where type 'a class_t = 'a GIRepositoryUnionInfoClass.t
-    where type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
-    where type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t =
+    where type 'a class = 'a GIRepositoryUnionInfoClass.class
+    where type 'a fieldinfo_class = 'a GIRepositoryFieldInfoClass.class
+    where type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -72,11 +72,11 @@ structure GIRepositoryUnionInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryUnionInfoClass.t
-    type 'a fieldinfoclass_t = 'a GIRepositoryFieldInfoClass.t
-    type 'a functioninfoclass_t = 'a GIRepositoryFunctionInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
-    type 'a constantinfoclass_t = 'a GIRepositoryConstantInfoClass.t
+    type 'a class = 'a GIRepositoryUnionInfoClass.class
+    type 'a fieldinfo_class = 'a GIRepositoryFieldInfoClass.class
+    type 'a functioninfo_class = 'a GIRepositoryFunctionInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
+    type 'a constantinfo_class = 'a GIRepositoryConstantInfoClass.class
 
 
     val getNFields =

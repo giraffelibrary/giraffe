@@ -1,6 +1,6 @@
 structure GIRepositoryValueInfo :>
   G_I_REPOSITORY_VALUE_INFO
-    where type 'a class_t = 'a GIRepositoryValueInfoClass.t =
+    where type 'a class = 'a GIRepositoryValueInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -17,7 +17,7 @@ structure GIRepositoryValueInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryValueInfoClass.t
+    type 'a class = 'a GIRepositoryValueInfoClass.class
 
 
     fun getValueInt info =

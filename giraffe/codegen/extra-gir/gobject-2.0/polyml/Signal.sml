@@ -7,10 +7,10 @@
 
 structure Signal :>
   SIGNAL
-    where type 'a object_class_t = 'a GObjectObjectClass.t
+    where type 'a object_class = 'a GObjectObjectClass.class
     where type 'a marshaller = 'a GObjectClosure.marshaller =
   struct
-    type 'a object_class_t = 'a GObjectObjectClass.t
+    type 'a object_class = 'a GObjectObjectClass.class
     type 'a marshaller = 'a GObjectClosure.marshaller
 
     local

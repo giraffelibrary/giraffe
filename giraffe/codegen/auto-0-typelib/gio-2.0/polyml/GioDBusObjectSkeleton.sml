@@ -1,9 +1,9 @@
 structure GioDBusObjectSkeleton :>
   GIO_D_BUS_OBJECT_SKELETON
-    where type 'a class_t = 'a GioDBusObjectSkeletonClass.t
-    where type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
-    where type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
-    where type 'a d_bus_interface_skeleton_class_t = 'a GioDBusInterfaceSkeletonClass.t =
+    where type 'a class = 'a GioDBusObjectSkeletonClass.class
+    where type 'a d_bus_object_class = 'a GioDBusObjectClass.class
+    where type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
+    where type 'a d_bus_interface_skeleton_class = 'a GioDBusInterfaceSkeletonClass.class =
   struct
     local
       open PolyMLFFI
@@ -16,11 +16,11 @@ structure GioDBusObjectSkeleton :>
       val removeInterfaceByName_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface_by_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val setObjectPath_ = call (load_sym libgio "g_dbus_object_skeleton_set_object_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioDBusObjectSkeletonClass.t
-    type 'a d_bus_object_class_t = 'a GioDBusObjectClass.t
-    type 'a d_bus_method_invocation_class_t = 'a GioDBusMethodInvocationClass.t
-    type 'a d_bus_interface_skeleton_class_t = 'a GioDBusInterfaceSkeletonClass.t
-    type t = base class_t
+    type 'a class = 'a GioDBusObjectSkeletonClass.class
+    type 'a d_bus_object_class = 'a GioDBusObjectClass.class
+    type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
+    type 'a d_bus_interface_skeleton_class = 'a GioDBusInterfaceSkeletonClass.class
+    type t = base class
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new objectPath = (Utf8.C.withPtr ---> GioDBusObjectSkeletonClass.C.fromPtr true) new_ objectPath

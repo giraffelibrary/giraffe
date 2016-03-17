@@ -1,12 +1,12 @@
 structure GtkScrolledWindow :>
   GTK_SCROLLED_WINDOW
-    where type 'a class_t = 'a GtkScrolledWindowClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
+    where type 'a class = 'a GtkScrolledWindowClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type direction_type_t = GtkDirectionType.t
     where type scroll_type_t = GtkScrollType.t
     where type shadow_type_t = GtkShadowType.t
-    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type policy_type_t = GtkPolicyType.t
     where type corner_type_t = GtkCornerType.t =
   struct
@@ -48,16 +48,16 @@ structure GtkScrolledWindow :>
       val setVadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_vadjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unsetPlacement_ = call (load_sym libgtk "gtk_scrolled_window_unset_placement") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkScrolledWindowClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
+    type 'a class = 'a GtkScrolledWindowClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
     type direction_type_t = GtkDirectionType.t
     type scroll_type_t = GtkScrollType.t
     type shadow_type_t = GtkShadowType.t
-    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type policy_type_t = GtkPolicyType.t
     type corner_type_t = GtkCornerType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

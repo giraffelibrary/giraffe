@@ -1,9 +1,9 @@
 structure GdkPixbufPixbufLoader :>
   GDK_PIXBUF_PIXBUF_LOADER
-    where type 'a class_t = 'a GdkPixbufPixbufLoaderClass.t
-    where type 'a pixbuf_animation_class_t = 'a GdkPixbufPixbufAnimationClass.t
-    where type pixbuf_format_record_t = GdkPixbufPixbufFormatRecord.t
-    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a class = 'a GdkPixbufPixbufLoaderClass.class
+    where type 'a pixbuf_animation_class = 'a GdkPixbufPixbufAnimationClass.class
+    where type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
+    where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     local
       open PolyMLFFI
@@ -25,11 +25,11 @@ structure GdkPixbufPixbufLoader :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GdkPixbufPixbufLoaderClass.t
-    type 'a pixbuf_animation_class_t = 'a GdkPixbufPixbufAnimationClass.t
-    type pixbuf_format_record_t = GdkPixbufPixbufFormatRecord.t
-    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
-    type t = base class_t
+    type 'a class = 'a GdkPixbufPixbufLoaderClass.class
+    type 'a pixbuf_animation_class = 'a GdkPixbufPixbufAnimationClass.class
+    type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
+    type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) new_ ()
     fun newWithMimeType mimeType = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithMimeType_ (mimeType & [])

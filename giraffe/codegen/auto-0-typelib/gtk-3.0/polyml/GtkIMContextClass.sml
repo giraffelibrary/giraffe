@@ -4,7 +4,8 @@ structure GtkIMContextClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a i_m_context = unit
-    type 'a t = 'a i_m_context GObjectObjectClass.t
+    type 'a class = 'a i_m_context GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

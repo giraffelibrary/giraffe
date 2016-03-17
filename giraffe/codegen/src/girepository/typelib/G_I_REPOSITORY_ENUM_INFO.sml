@@ -1,13 +1,13 @@
 signature G_I_REPOSITORY_ENUM_INFO =
   sig
-    type 'a class_t
-    type 'a valueinfoclass_t
-    type 'a functioninfoclass_t
+    type 'a class
+    type 'a valueinfo_class
+    type 'a functioninfo_class
     type typetag_t
-    val getNValues : 'a class_t -> LargeInt.int
-    val getValue : 'a class_t -> LargeInt.int -> base valueinfoclass_t
-    val getNMethods : 'a class_t -> LargeInt.int
-    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
-    val getStorageType : 'a class_t -> typetag_t
-    val getErrorDomain : 'a class_t -> string option
+    val getNValues : 'a class -> LargeInt.int
+    val getValue : 'a class -> LargeInt.int -> base valueinfo_class
+    val getNMethods : 'a class -> LargeInt.int
+    val getMethod : 'a class -> LargeInt.int -> base functioninfo_class
+    val getStorageType : 'a class -> typetag_t
+    val getErrorDomain : 'a class -> string option
   end

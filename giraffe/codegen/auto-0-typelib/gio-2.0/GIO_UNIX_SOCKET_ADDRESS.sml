@@ -1,17 +1,17 @@
 signature GIO_UNIX_SOCKET_ADDRESS =
   sig
-    type 'a class_t
-    type 'a socket_connectable_class_t
+    type 'a class
+    type 'a socket_connectable_class
     type unix_socket_address_type_t
-    type t = base class_t
-    val asSocketConnectable : 'a class_t -> base socket_connectable_class_t
+    type t = base class
+    val asSocketConnectable : 'a class -> base socket_connectable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
+    val new : string -> base class
     val abstractNamesSupported : unit -> bool
-    val getAddressType : 'a class_t -> unix_socket_address_type_t
-    val getPath : 'a class_t -> string
-    val getPathLen : 'a class_t -> LargeInt.int
-    val abstractProp : ('a class_t, bool, bool) Property.readwrite
-    val addressTypeProp : ('a class_t, unix_socket_address_type_t, unix_socket_address_type_t) Property.readwrite
-    val pathProp : ('a class_t, string option, string option) Property.readwrite
+    val getAddressType : 'a class -> unix_socket_address_type_t
+    val getPath : 'a class -> string
+    val getPathLen : 'a class -> LargeInt.int
+    val abstractProp : ('a class, bool, bool) Property.readwrite
+    val addressTypeProp : ('a class, unix_socket_address_type_t, unix_socket_address_type_t) Property.readwrite
+    val pathProp : ('a class, string option, string option) Property.readwrite
   end

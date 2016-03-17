@@ -1,9 +1,9 @@
 structure GtkFontButton :>
   GTK_FONT_BUTTON
-    where type 'a class_t = 'a GtkFontButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a font_chooser_class_t = 'a GtkFontChooserClass.t =
+    where type 'a class = 'a GtkFontButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a font_chooser_class = 'a GtkFontChooserClass.class =
   struct
     local
       open PolyMLFFI
@@ -24,11 +24,11 @@ structure GtkFontButton :>
       val setUseFont_ = call (load_sym libgtk "gtk_font_button_set_use_font") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setUseSize_ = call (load_sym libgtk "gtk_font_button_set_use_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkFontButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a font_chooser_class_t = 'a GtkFontChooserClass.t
-    type t = base class_t
+    type 'a class = 'a GtkFontButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a font_chooser_class = 'a GtkFontChooserClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

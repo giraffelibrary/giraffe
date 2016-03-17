@@ -1,14 +1,14 @@
 structure AtkGObjectAccessible :>
   ATK_G_OBJECT_ACCESSIBLE
-    where type 'a class_t = 'a AtkGObjectAccessibleClass.t
-    where type 'a object_class_t = 'a AtkObjectClass.t =
+    where type 'a class = 'a AtkGObjectAccessibleClass.class
+    where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_gobject_accessible_get_type" : unit -> GObjectType.C.val_;
     val forObject_ = _import "atk_gobject_accessible_for_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getObject_ = _import "atk_gobject_accessible_get_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a AtkGObjectAccessibleClass.t
-    type 'a object_class_t = 'a AtkObjectClass.t
-    type t = base class_t
+    type 'a class = 'a AtkGObjectAccessibleClass.class
+    type 'a object_class = 'a AtkObjectClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forObject obj = (GObjectObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) forObject_ obj
     fun getObject self = (GObjectObjectClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ self

@@ -4,7 +4,8 @@ structure GtkToolShellClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a tool_shell = unit
-    type 'a t = 'a tool_shell GObjectObjectClass.t
+    type 'a class = 'a tool_shell GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

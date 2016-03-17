@@ -1,7 +1,7 @@
 structure GtkCalendar :>
   GTK_CALENDAR
-    where type 'a class_t = 'a GtkCalendarClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkCalendarClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type calendar_display_options_t = GtkCalendarDisplayOptions.t =
   struct
     local
@@ -38,10 +38,10 @@ structure GtkCalendar :>
       val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GObjectObjectClass.PolyML.cPtr &&> GtkCalendarDisplayOptions.PolyML.cVal --> FFI.PolyML.cVoid)
       val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkCalendarClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkCalendarClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type calendar_display_options_t = GtkCalendarDisplayOptions.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

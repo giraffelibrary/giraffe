@@ -1,16 +1,16 @@
 signature GTK_SOURCE_UNDO_MANAGER =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val beginNotUndoableAction : 'a class_t -> unit
-    val canRedo : 'a class_t -> bool
-    val canRedoChanged : 'a class_t -> unit
-    val canUndo : 'a class_t -> bool
-    val canUndoChanged : 'a class_t -> unit
-    val endNotUndoableAction : 'a class_t -> unit
-    val redo : 'a class_t -> unit
-    val undo : 'a class_t -> unit
-    val canRedoChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val canUndoChangedSig : (unit -> unit) -> 'a class_t Signal.signal
+    val beginNotUndoableAction : 'a class -> unit
+    val canRedo : 'a class -> bool
+    val canRedoChanged : 'a class -> unit
+    val canUndo : 'a class -> bool
+    val canUndoChanged : 'a class -> unit
+    val endNotUndoableAction : 'a class -> unit
+    val redo : 'a class -> unit
+    val undo : 'a class -> unit
+    val canRedoChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val canUndoChangedSig : (unit -> unit) -> 'a class Signal.signal
   end

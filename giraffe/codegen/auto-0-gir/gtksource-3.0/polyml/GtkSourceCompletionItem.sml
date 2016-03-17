@@ -1,7 +1,7 @@
 structure GtkSourceCompletionItem :>
   GTK_SOURCE_COMPLETION_ITEM
-    where type 'a class_t = 'a GtkSourceCompletionItemClass.t
-    where type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t =
+    where type 'a class = 'a GtkSourceCompletionItemClass.class
+    where type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class =
   struct
     local
       open PolyMLFFI
@@ -35,9 +35,9 @@ structure GtkSourceCompletionItem :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GtkSourceCompletionItemClass.t
-    type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionItemClass.class
+    type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class
+    type t = base class
     fun asCompletionProposal self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProposalClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label text icon info =

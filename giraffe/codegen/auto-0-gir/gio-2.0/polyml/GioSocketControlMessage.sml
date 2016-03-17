@@ -1,6 +1,6 @@
 structure GioSocketControlMessage :>
   GIO_SOCKET_CONTROL_MESSAGE
-    where type 'a class_t = 'a GioSocketControlMessageClass.t =
+    where type 'a class = 'a GioSocketControlMessageClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,8 @@ structure GioSocketControlMessage :>
       val getMsgType_ = call (load_sym libgio "g_socket_control_message_get_msg_type") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getSize_ = call (load_sym libgio "g_socket_control_message_get_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
     end
-    type 'a class_t = 'a GioSocketControlMessageClass.t
-    type t = base class_t
+    type 'a class = 'a GioSocketControlMessageClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getLevel self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getLevel_ self
     fun getMsgType self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getMsgType_ self

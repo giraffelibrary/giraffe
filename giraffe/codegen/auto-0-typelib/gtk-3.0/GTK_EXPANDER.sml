@@ -1,61 +1,61 @@
 signature GTK_EXPANDER =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val newWithMnemonic : string option -> base class_t
-    val getExpanded : 'a class_t -> bool
-    val getLabel : 'a class_t -> string
-    val getLabelFill : 'a class_t -> bool
-    val getLabelWidget : 'a class_t -> base widget_class_t
-    val getResizeToplevel : 'a class_t -> bool
-    val getSpacing : 'a class_t -> LargeInt.int
-    val getUseMarkup : 'a class_t -> bool
-    val getUseUnderline : 'a class_t -> bool
+    val new : string -> base class
+    val newWithMnemonic : string option -> base class
+    val getExpanded : 'a class -> bool
+    val getLabel : 'a class -> string
+    val getLabelFill : 'a class -> bool
+    val getLabelWidget : 'a class -> base widget_class
+    val getResizeToplevel : 'a class -> bool
+    val getSpacing : 'a class -> LargeInt.int
+    val getUseMarkup : 'a class -> bool
+    val getUseUnderline : 'a class -> bool
     val setExpanded :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setLabel :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setLabelFill :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setLabelWidget :
-      'a class_t
-       -> 'b widget_class_t option
+      'a class
+       -> 'b widget_class option
        -> unit
     val setResizeToplevel :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setSpacing :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setUseMarkup :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setUseUnderline :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val activateSig : (unit -> unit) -> 'a class_t Signal.signal
-    val expandedProp : ('a class_t, bool, bool) Property.readwrite
-    val labelProp : ('a class_t, string option, string option) Property.readwrite
-    val labelFillProp : ('a class_t, bool, bool) Property.readwrite
-    val labelWidgetProp : ('a class_t, base widget_class_t option, 'b widget_class_t option) Property.readwrite
-    val resizeToplevelProp : ('a class_t, bool, bool) Property.readwrite
-    val spacingProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val useMarkupProp : ('a class_t, bool, bool) Property.readwrite
-    val useUnderlineProp : ('a class_t, bool, bool) Property.readwrite
+    val activateSig : (unit -> unit) -> 'a class Signal.signal
+    val expandedProp : ('a class, bool, bool) Property.readwrite
+    val labelProp : ('a class, string option, string option) Property.readwrite
+    val labelFillProp : ('a class, bool, bool) Property.readwrite
+    val labelWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val resizeToplevelProp : ('a class, bool, bool) Property.readwrite
+    val spacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val useMarkupProp : ('a class, bool, bool) Property.readwrite
+    val useUnderlineProp : ('a class, bool, bool) Property.readwrite
   end

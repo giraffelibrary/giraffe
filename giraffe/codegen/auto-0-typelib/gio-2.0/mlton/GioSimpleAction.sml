@@ -1,7 +1,7 @@
 structure GioSimpleAction :>
   GIO_SIMPLE_ACTION
-    where type 'a class_t = 'a GioSimpleActionClass.t
-    where type 'a action_class_t = 'a GioActionClass.t =
+    where type 'a class = 'a GioSimpleActionClass.class
+    where type 'a action_class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_simple_action_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -40,9 +40,9 @@ structure GioSimpleAction :>
             )
     val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibVariantRecord.C.notnull GLibVariantRecord.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GioSimpleActionClass.t
-    type 'a action_class_t = 'a GioActionClass.t
-    type t = base class_t
+    type 'a class = 'a GioSimpleActionClass.class
+    type 'a action_class = 'a GioActionClass.class
+    type t = base class
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name parameterType = (Utf8.C.withPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)

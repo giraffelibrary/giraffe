@@ -1,8 +1,8 @@
 structure GioUnixConnection :>
   GIO_UNIX_CONNECTION
-    where type 'a class_t = 'a GioUnixConnectionClass.t
-    where type 'a credentials_class_t = 'a GioCredentialsClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioUnixConnectionClass.class
+    where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_unix_connection_get_type" : unit -> GObjectType.C.val_;
     val receiveCredentials_ =
@@ -76,10 +76,10 @@ structure GioUnixConnection :>
               x3,
               x4
             )
-    type 'a class_t = 'a GioUnixConnectionClass.t
-    type 'a credentials_class_t = 'a GioCredentialsClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioUnixConnectionClass.class
+    type 'a credentials_class = 'a GioCredentialsClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun receiveCredentials self cancellable =
       (

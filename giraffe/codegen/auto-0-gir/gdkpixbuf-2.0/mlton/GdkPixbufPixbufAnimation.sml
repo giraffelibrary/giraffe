@@ -1,8 +1,8 @@
 structure GdkPixbufPixbufAnimation :>
   GDK_PIXBUF_PIXBUF_ANIMATION
-    where type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    where type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a class = 'a GdkPixbufPixbufAnimationClass.class
+    where type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
+    where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     val getType_ = _import "gdk_pixbuf_animation_get_type" : unit -> GObjectType.C.val_;
     val newFromFile_ =
@@ -25,10 +25,10 @@ structure GdkPixbufPixbufAnimation :>
     val getStaticImage_ = _import "gdk_pixbuf_animation_get_static_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getWidth_ = _import "gdk_pixbuf_animation_get_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
     val isStaticImage_ = _import "gdk_pixbuf_animation_is_static_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    type 'a class_t = 'a GdkPixbufPixbufAnimationClass.t
-    type 'a pixbuf_animation_iter_class_t = 'a GdkPixbufPixbufAnimationIterClass.t
-    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
-    type t = base class_t
+    type 'a class = 'a GdkPixbufPixbufAnimationClass.class
+    type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
+    type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
     fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self

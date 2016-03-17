@@ -4,7 +4,8 @@ structure GtkApplicationClass :>
     where type 'a C.p = 'a GioApplicationClass.C.p =
   struct
     type 'a application = unit
-    type 'a t = 'a application GioApplicationClass.t
+    type 'a class = 'a application GioApplicationClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GioApplicationClass.t
     val tOpt = GioApplicationClass.tOpt

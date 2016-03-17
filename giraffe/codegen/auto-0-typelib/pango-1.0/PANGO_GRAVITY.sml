@@ -10,9 +10,9 @@ signature PANGO_GRAVITY =
     val t : (t, t) GObject.Value.accessor
     type script_t
     type gravity_hint_t
-    type matrix_record_t
+    type matrix_t
     val getType : unit -> GObject.Type.t
-    val getForMatrix : matrix_record_t -> t
+    val getForMatrix : matrix_t -> t
     val getForScript :
       script_t
        -> t

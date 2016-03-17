@@ -1,29 +1,29 @@
 signature GTK_PLUG =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : Xlib.Window.t -> base class_t
+    val new : Xlib.Window.t -> base class
     val newForDisplay :
-      'a Gdk.DisplayClass.t
+      'a Gdk.DisplayClass.class
        -> Xlib.Window.t
-       -> base class_t
+       -> base class
     val construct :
-      'a class_t
+      'a class
        -> Xlib.Window.t
        -> unit
     val constructForDisplay :
-      'a class_t
-       -> 'b Gdk.DisplayClass.t
+      'a class
+       -> 'b Gdk.DisplayClass.class
        -> Xlib.Window.t
        -> unit
-    val getEmbedded : 'a class_t -> bool
-    val getId : 'a class_t -> Xlib.Window.t
-    val getSocketWindow : 'a class_t -> base Gdk.WindowClass.t
-    val embeddedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val embeddedProp : ('a class_t, bool) Property.readonly
-    val socketWindowProp : ('a class_t, base Gdk.WindowClass.t option) Property.readonly
+    val getEmbedded : 'a class -> bool
+    val getId : 'a class -> Xlib.Window.t
+    val getSocketWindow : 'a class -> base Gdk.WindowClass.class
+    val embeddedSig : (unit -> unit) -> 'a class Signal.signal
+    val embeddedProp : ('a class, bool) Property.readonly
+    val socketWindowProp : ('a class, base Gdk.WindowClass.class option) Property.readonly
   end

@@ -10,8 +10,8 @@ signature G_LIB_BOOKMARK_FILE_ERROR =
     | WRITE
     | FILE_NOT_FOUND
     exception Error of t
-    type error_record_handler
-    val handler : error_record_handler
+    type error_handler
+    val handler : error_handler
     structure C :
       sig
         type val_

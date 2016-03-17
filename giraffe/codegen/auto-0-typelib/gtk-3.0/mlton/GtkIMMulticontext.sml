@@ -1,7 +1,7 @@
 structure GtkIMMulticontext :>
   GTK_I_M_MULTICONTEXT
-    where type 'a class_t = 'a GtkIMMulticontextClass.t
-    where type 'a menu_shell_class_t = 'a GtkMenuShellClass.t =
+    where type 'a class = 'a GtkIMMulticontextClass.class
+    where type 'a menu_shell_class = 'a GtkMenuShellClass.class =
   struct
     val getType_ = _import "gtk_im_multicontext_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_im_multicontext_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -22,9 +22,9 @@ structure GtkIMMulticontext :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkIMMulticontextClass.t
-    type 'a menu_shell_class_t = 'a GtkMenuShellClass.t
-    type t = base class_t
+    type 'a class = 'a GtkIMMulticontextClass.class
+    type 'a menu_shell_class = 'a GtkMenuShellClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIMMulticontextClass.C.fromPtr true) new_ ()
     fun appendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) appendMenuitems_ (self & menushell)

@@ -4,7 +4,8 @@ structure GioEmblemClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a emblem = unit
-    type 'a t = 'a emblem GObjectObjectClass.t
+    type 'a class = 'a emblem GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

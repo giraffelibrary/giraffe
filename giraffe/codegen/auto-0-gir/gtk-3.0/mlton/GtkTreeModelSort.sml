@@ -1,11 +1,11 @@
 structure GtkTreeModelSort :>
   GTK_TREE_MODEL_SORT
-    where type 'a class_t = 'a GtkTreeModelSortClass.t
-    where type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
-    where type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
-    where type tree_path_record_t = GtkTreePathRecord.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
+    where type 'a class = 'a GtkTreeModelSortClass.class
+    where type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
+    where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
+    where type tree_path_t = GtkTreePathRecord.t
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_tree_model_sort_get_type" : unit -> GObjectType.C.val_;
     val clearCache_ = _import "gtk_tree_model_sort_clear_cache" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
@@ -48,13 +48,13 @@ structure GtkTreeModelSort :>
     val getModel_ = _import "gtk_tree_model_sort_get_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_model_sort_iter_is_valid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val resetDefaultSortFunc_ = _import "gtk_tree_model_sort_reset_default_sort_func" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkTreeModelSortClass.t
-    type 'a tree_drag_source_class_t = 'a GtkTreeDragSourceClass.t
-    type 'a tree_sortable_class_t = 'a GtkTreeSortableClass.t
-    type tree_path_record_t = GtkTreePathRecord.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type t = base class_t
+    type 'a class = 'a GtkTreeModelSortClass.class
+    type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
+    type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
+    type tree_path_t = GtkTreePathRecord.t
+    type tree_iter_t = GtkTreeIterRecord.t
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type t = base class
     fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
     fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.C.withPtr ---> GtkTreeSortableClass.C.fromPtr false) I self

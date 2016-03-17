@@ -4,7 +4,8 @@ structure GtkCellAreaClass :>
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
     type 'a cell_area = unit
-    type 'a t = 'a cell_area GObjectInitiallyUnownedClass.t
+    type 'a class = 'a cell_area GObjectInitiallyUnownedClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectInitiallyUnownedClass.t
     val tOpt = GObjectInitiallyUnownedClass.tOpt

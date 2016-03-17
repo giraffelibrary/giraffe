@@ -1,6 +1,6 @@
 structure GtkTargetEntry :>
   GTK_TARGET_ENTRY
-    where type record_t = GtkTargetEntryRecord.t =
+    where type t = GtkTargetEntryRecord.t =
   struct
     local
       open PolyMLFFI
@@ -16,8 +16,7 @@ structure GtkTargetEntry :>
           )
       val copy_ = call (load_sym libgtk "gtk_target_entry_copy") (GtkTargetEntryRecord.PolyML.cPtr --> GtkTargetEntryRecord.PolyML.cPtr)
     end
-    type record_t = GtkTargetEntryRecord.t
-    type t = record_t
+    type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new target flags info =
       (

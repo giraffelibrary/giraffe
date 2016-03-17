@@ -1,7 +1,7 @@
 structure GLibRegex :>
   G_LIB_REGEX
-    where type record_t = GLibRegexRecord.t
-    where type match_info_record_t = GLibMatchInfoRecord.t
+    where type t = GLibRegexRecord.t
+    where type match_info_t = GLibMatchInfoRecord.t
     where type regex_match_flags_t = GLibRegexMatchFlags.t
     where type regex_compile_flags_t = GLibRegexCompileFlags.t =
   struct
@@ -150,11 +150,10 @@ structure GLibRegex :>
               x5,
               x6
             )
-    type record_t = GLibRegexRecord.t
-    type match_info_record_t = GLibMatchInfoRecord.t
+    type t = GLibRegexRecord.t
+    type match_info_t = GLibMatchInfoRecord.t
     type regex_match_flags_t = GLibRegexMatchFlags.t
     type regex_compile_flags_t = GLibRegexCompileFlags.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new pattern compileOptions matchOptions =
       (

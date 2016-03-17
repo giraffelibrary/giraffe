@@ -1,10 +1,10 @@
 structure AtkComponent :>
   ATK_COMPONENT
-    where type 'a class_t = 'a AtkComponentClass.t
+    where type 'a class = 'a AtkComponentClass.class
     where type layer_t = AtkLayer.t
-    where type 'a object_class_t = 'a AtkObjectClass.t
+    where type 'a object_class = 'a AtkObjectClass.class
     where type coord_type_t = AtkCoordType.t
-    where type rectangle_record_t = AtkRectangleRecord.t =
+    where type rectangle_t = AtkRectangleRecord.t =
   struct
     val getType_ = _import "atk_component_get_type" : unit -> GObjectType.C.val_;
     val contains_ =
@@ -115,12 +115,12 @@ structure AtkComponent :>
               x2,
               x3
             )
-    type 'a class_t = 'a AtkComponentClass.t
+    type 'a class = 'a AtkComponentClass.class
     type layer_t = AtkLayer.t
-    type 'a object_class_t = 'a AtkObjectClass.t
+    type 'a object_class = 'a AtkObjectClass.class
     type coord_type_t = AtkCoordType.t
-    type rectangle_record_t = AtkRectangleRecord.t
-    type t = base class_t
+    type rectangle_t = AtkRectangleRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun contains self x y coordType =
       (

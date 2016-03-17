@@ -1,50 +1,50 @@
 signature GTK_COMBO_BOX_TEXT =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a cell_editable_class_t
-    type 'a cell_layout_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asCellEditable : 'a class_t -> base cell_editable_class_t
-    val asCellLayout : 'a class_t -> base cell_layout_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a cell_editable_class
+    type 'a cell_layout_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
+    val asCellEditable : 'a class -> base cell_editable_class
+    val asCellLayout : 'a class -> base cell_layout_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newWithEntry : unit -> base class_t
+    val new : unit -> base class
+    val newWithEntry : unit -> base class
     val append :
-      'a class_t
+      'a class
        -> string option
        -> string
        -> unit
     val appendText :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val getActiveText : 'a class_t -> string
+    val getActiveText : 'a class -> string
     val insert :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> string option
        -> string
        -> unit
     val insertText :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> string
        -> unit
     val prepend :
-      'a class_t
+      'a class
        -> string option
        -> string
        -> unit
     val prependText :
-      'a class_t
+      'a class
        -> string
        -> unit
     val remove :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val removeAll : 'a class_t -> unit
+    val removeAll : 'a class -> unit
   end

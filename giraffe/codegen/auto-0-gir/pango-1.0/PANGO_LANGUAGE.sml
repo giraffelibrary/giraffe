@@ -1,19 +1,18 @@
 signature PANGO_LANGUAGE =
   sig
-    type record_t
+    type t
     type script_t
-    type t = record_t
     val getType : unit -> GObject.Type.t
-    val getSampleString : record_t -> string
+    val getSampleString : t -> string
     val includesScript :
-      record_t
+      t
        -> script_t
        -> bool
     val matches :
-      record_t
+      t
        -> string
        -> bool
-    val toString : record_t -> string
-    val fromString : string option -> record_t
-    val getDefault : unit -> record_t
+    val toString : t -> string
+    val fromString : string option -> t
+    val getDefault : unit -> t
   end

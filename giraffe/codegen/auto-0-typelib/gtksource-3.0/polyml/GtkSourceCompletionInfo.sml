@@ -1,6 +1,6 @@
 structure GtkSourceCompletionInfo :>
   GTK_SOURCE_COMPLETION_INFO
-    where type 'a class_t = 'a GtkSourceCompletionInfoClass.t =
+    where type 'a class = 'a GtkSourceCompletionInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -18,8 +18,8 @@ structure GtkSourceCompletionInfo :>
           )
       val setWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_set_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceCompletionInfoClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionInfoClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

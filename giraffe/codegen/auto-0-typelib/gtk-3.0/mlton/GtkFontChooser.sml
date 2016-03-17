@@ -1,6 +1,6 @@
 structure GtkFontChooser :>
   GTK_FONT_CHOOSER
-    where type 'a class_t = 'a GtkFontChooserClass.t =
+    where type 'a class = 'a GtkFontChooserClass.class =
   struct
     val getType_ = _import "gtk_font_chooser_get_type" : unit -> GObjectType.C.val_;
     val getFont_ = _import "gtk_font_chooser_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
@@ -42,8 +42,8 @@ structure GtkFontChooser :>
               x3
             )
     val setShowPreviewEntry_ = fn x1 & x2 => (_import "gtk_font_chooser_set_show_preview_entry" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkFontChooserClass.t
-    type t = base class_t
+    type 'a class = 'a GtkFontChooserClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getFont self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getFont_ self
     fun getFontDesc self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) getFontDesc_ self

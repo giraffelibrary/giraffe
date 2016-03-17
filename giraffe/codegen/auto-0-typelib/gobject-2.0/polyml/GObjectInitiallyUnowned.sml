@@ -1,6 +1,6 @@
 structure GObjectInitiallyUnowned :>
   G_OBJECT_INITIALLY_UNOWNED
-    where type 'a class_t = 'a GObjectInitiallyUnownedClass.t
+    where type 'a class = 'a GObjectInitiallyUnownedClass.class
     where type type_t = GObjectType.t =
   struct
     local
@@ -8,8 +8,8 @@ structure GObjectInitiallyUnowned :>
     in
       val getType_ = call (load_sym libgobject "g_initially_unowned_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
     end
-    type 'a class_t = 'a GObjectInitiallyUnownedClass.t
+    type 'a class = 'a GObjectInitiallyUnownedClass.class
     type type_t = GObjectType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
   end

@@ -1,7 +1,6 @@
 structure GtkRecentFilterInfo :>
   GTK_RECENT_FILTER_INFO
-    where type record_t = GtkRecentFilterInfoRecord.t =
+    where type t = GtkRecentFilterInfoRecord.t =
   struct
-    type record_t = GtkRecentFilterInfoRecord.t
-    type t = record_t
+    type t = GtkRecentFilterInfoRecord.t
   end

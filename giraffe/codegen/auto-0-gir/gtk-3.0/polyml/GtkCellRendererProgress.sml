@@ -1,7 +1,7 @@
 structure GtkCellRendererProgress :>
   GTK_CELL_RENDERER_PROGRESS
-    where type 'a class_t = 'a GtkCellRendererProgressClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t =
+    where type 'a class = 'a GtkCellRendererProgressClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     local
       open PolyMLFFI
@@ -9,9 +9,9 @@ structure GtkCellRendererProgress :>
       val getType_ = call (load_sym libgtk "gtk_cell_renderer_progress_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_cell_renderer_progress_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GtkCellRendererProgressClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkCellRendererProgressClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type t = base class
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererProgressClass.C.fromPtr false) new_ ()

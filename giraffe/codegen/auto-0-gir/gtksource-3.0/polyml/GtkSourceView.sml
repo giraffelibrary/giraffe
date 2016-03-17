@@ -1,10 +1,10 @@
 structure GtkSourceView :>
   GTK_SOURCE_VIEW
-    where type 'a class_t = 'a GtkSourceViewClass.t
-    where type 'a buffer_class_t = 'a GtkSourceBufferClass.t
-    where type 'a gutter_class_t = 'a GtkSourceGutterClass.t
-    where type 'a mark_attributes_class_t = 'a GtkSourceMarkAttributesClass.t
-    where type 'a completion_class_t = 'a GtkSourceCompletionClass.t
+    where type 'a class = 'a GtkSourceViewClass.class
+    where type 'a buffer_class = 'a GtkSourceBufferClass.class
+    where type 'a gutter_class = 'a GtkSourceGutterClass.class
+    where type 'a mark_attributes_class = 'a GtkSourceMarkAttributesClass.class
+    where type 'a completion_class = 'a GtkSourceCompletionClass.class
     where type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
     where type smart_home_end_type_t = GtkSourceSmartHomeEndType.t =
   struct
@@ -51,14 +51,14 @@ structure GtkSourceView :>
       val setSmartHomeEnd_ = call (load_sym libgtksourceview "gtk_source_view_set_smart_home_end") (GObjectObjectClass.PolyML.cPtr &&> GtkSourceSmartHomeEndType.PolyML.cVal --> FFI.PolyML.cVoid)
       val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_view_set_tab_width") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceViewClass.t
-    type 'a buffer_class_t = 'a GtkSourceBufferClass.t
-    type 'a gutter_class_t = 'a GtkSourceGutterClass.t
-    type 'a mark_attributes_class_t = 'a GtkSourceMarkAttributesClass.t
-    type 'a completion_class_t = 'a GtkSourceCompletionClass.t
+    type 'a class = 'a GtkSourceViewClass.class
+    type 'a buffer_class = 'a GtkSourceBufferClass.class
+    type 'a gutter_class = 'a GtkSourceGutterClass.class
+    type 'a mark_attributes_class = 'a GtkSourceMarkAttributesClass.class
+    type 'a completion_class = 'a GtkSourceCompletionClass.class
     type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
     type smart_home_end_type_t = GtkSourceSmartHomeEndType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

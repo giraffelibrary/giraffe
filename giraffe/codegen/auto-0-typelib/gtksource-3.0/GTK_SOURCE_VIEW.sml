@@ -1,124 +1,124 @@
 signature GTK_SOURCE_VIEW =
   sig
-    type 'a class_t
-    type 'a buffer_class_t
-    type 'a gutter_class_t
-    type 'a mark_attributes_class_t
-    type 'a completion_class_t
+    type 'a class
+    type 'a buffer_class
+    type 'a gutter_class
+    type 'a mark_attributes_class
+    type 'a completion_class
     type draw_spaces_flags_t
     type smart_home_end_type_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
-    val asScrollable : 'a class_t -> base Gtk.ScrollableClass.t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base Gtk.BuildableClass.class
+    val asScrollable : 'a class -> base Gtk.ScrollableClass.class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newWithBuffer : 'a buffer_class_t -> base class_t
-    val getAutoIndent : 'a class_t -> bool
-    val getCompletion : 'a class_t -> base completion_class_t
-    val getDrawSpaces : 'a class_t -> draw_spaces_flags_t
+    val new : unit -> base class
+    val newWithBuffer : 'a buffer_class -> base class
+    val getAutoIndent : 'a class -> bool
+    val getCompletion : 'a class -> base completion_class
+    val getDrawSpaces : 'a class -> draw_spaces_flags_t
     val getGutter :
-      'a class_t
+      'a class
        -> Gtk.TextWindowType.t
-       -> base gutter_class_t
-    val getHighlightCurrentLine : 'a class_t -> bool
-    val getIndentOnTab : 'a class_t -> bool
-    val getIndentWidth : 'a class_t -> LargeInt.int
-    val getInsertSpacesInsteadOfTabs : 'a class_t -> bool
-    val getRightMarginPosition : 'a class_t -> LargeInt.int
-    val getShowLineMarks : 'a class_t -> bool
-    val getShowLineNumbers : 'a class_t -> bool
-    val getShowRightMargin : 'a class_t -> bool
-    val getSmartHomeEnd : 'a class_t -> smart_home_end_type_t
-    val getTabWidth : 'a class_t -> LargeInt.int
+       -> base gutter_class
+    val getHighlightCurrentLine : 'a class -> bool
+    val getIndentOnTab : 'a class -> bool
+    val getIndentWidth : 'a class -> LargeInt.int
+    val getInsertSpacesInsteadOfTabs : 'a class -> bool
+    val getRightMarginPosition : 'a class -> LargeInt.int
+    val getShowLineMarks : 'a class -> bool
+    val getShowLineNumbers : 'a class -> bool
+    val getShowRightMargin : 'a class -> bool
+    val getSmartHomeEnd : 'a class -> smart_home_end_type_t
+    val getTabWidth : 'a class -> LargeInt.int
     val getVisualColumn :
-      'a class_t
+      'a class
        -> Gtk.TextIterRecord.t
        -> LargeInt.int
     val setAutoIndent :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setDrawSpaces :
-      'a class_t
+      'a class
        -> draw_spaces_flags_t
        -> unit
     val setHighlightCurrentLine :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setIndentOnTab :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setIndentWidth :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setInsertSpacesInsteadOfTabs :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setMarkAttributes :
-      'a class_t
+      'a class
        -> string
-       -> 'b mark_attributes_class_t
+       -> 'b mark_attributes_class
        -> LargeInt.int
        -> unit
     val setRightMarginPosition :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setShowLineMarks :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowLineNumbers :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowRightMargin :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setSmartHomeEnd :
-      'a class_t
+      'a class
        -> smart_home_end_type_t
        -> unit
     val setTabWidth :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val lineMarkActivatedSig :
       (Gtk.TextIterRecord.t
-        -> base Gdk.Event.t
+        -> base Gdk.Event.union
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
     val moveLinesSig :
       (bool
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val moveWordsSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
-    val redoSig : (unit -> unit) -> 'a class_t Signal.signal
-    val showCompletionSig : (unit -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val moveWordsSig : (LargeInt.int -> unit) -> 'a class Signal.signal
+    val redoSig : (unit -> unit) -> 'a class Signal.signal
+    val showCompletionSig : (unit -> unit) -> 'a class Signal.signal
     val smartHomeEndSig :
       (Gtk.TextIterRecord.t
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val undoSig : (unit -> unit) -> 'a class_t Signal.signal
-    val autoIndentProp : ('a class_t, bool, bool) Property.readwrite
-    val completionProp : ('a class_t, base completion_class_t option) Property.readonly
-    val drawSpacesProp : ('a class_t, draw_spaces_flags_t, draw_spaces_flags_t) Property.readwrite
-    val highlightCurrentLineProp : ('a class_t, bool, bool) Property.readwrite
-    val indentOnTabProp : ('a class_t, bool, bool) Property.readwrite
-    val indentWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val insertSpacesInsteadOfTabsProp : ('a class_t, bool, bool) Property.readwrite
-    val rightMarginPositionProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val showLineMarksProp : ('a class_t, bool, bool) Property.readwrite
-    val showLineNumbersProp : ('a class_t, bool, bool) Property.readwrite
-    val showRightMarginProp : ('a class_t, bool, bool) Property.readwrite
-    val smartHomeEndProp : ('a class_t, smart_home_end_type_t, smart_home_end_type_t) Property.readwrite
-    val tabWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+       -> 'a class Signal.signal
+    val undoSig : (unit -> unit) -> 'a class Signal.signal
+    val autoIndentProp : ('a class, bool, bool) Property.readwrite
+    val completionProp : ('a class, base completion_class option) Property.readonly
+    val drawSpacesProp : ('a class, draw_spaces_flags_t, draw_spaces_flags_t) Property.readwrite
+    val highlightCurrentLineProp : ('a class, bool, bool) Property.readwrite
+    val indentOnTabProp : ('a class, bool, bool) Property.readwrite
+    val indentWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val insertSpacesInsteadOfTabsProp : ('a class, bool, bool) Property.readwrite
+    val rightMarginPositionProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val showLineMarksProp : ('a class, bool, bool) Property.readwrite
+    val showLineNumbersProp : ('a class, bool, bool) Property.readwrite
+    val showRightMarginProp : ('a class, bool, bool) Property.readwrite
+    val smartHomeEndProp : ('a class, smart_home_end_type_t, smart_home_end_type_t) Property.readwrite
+    val tabWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

@@ -174,13 +174,17 @@ where
       infoType = GIInfoType.getType containerInfo
       isClass = infoType is OBJECT _ | INTERFACE _
       isRecord = infoType is STRUCT _
+      isUnion = infoType is UNION _
       isOther = not (isClass or isRecord)
 
-        <var> class_t
+        <var> class
           if isClass
 
-        record_t
+        t
           if isRecord
+
+        <var> union
+          if isUnion
 
         t
           if isOther
@@ -238,52 +242,52 @@ where
           isNamespace = optContainerName = NONE
           isSelf = SOME InterfaceName = optContainerName
 
-            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+            <var> <InterfaceNamespace>.<InterfaceName>Class.class
               if isGlobal and isClass
 
             <InterfaceNamespace>.<InterfaceName>Record.t
               if isGlobal and isRecord
 
-            <var> <InterfaceNamespace>.<InterfaceName>.t
+            <var> <InterfaceNamespace>.<InterfaceName>.union
               if isGlobal and isUnion
 
             <InterfaceNamespace>.<InterfaceName>.t
               if isGlobal and isOther
 
 
-            <var> <InterfaceName>Class.t
+            <var> <InterfaceName>Class.class
               if not isGlobal and isNamespace and isClass
 
             <InterfaceName>Record.t
               if not isGlobal and isNamespace and isRecord
 
-            <var> <InterfaceName>.t
+            <var> <InterfaceName>.union
               if not isGlobal and isNamespace and isUnion
 
             <InterfaceName>.t
               if not isGlobal and isNamespace and isOther
 
 
-            <var> <interfacename>class_t
+            <var> <interface_name>_class
               if not isGlobal and not isNamespace and not isSelf and isClass
 
-            <interfacename>record_t
+            <interface_name>_t
               if not isGlobal and not isNamespace and not isSelf and isRecord
 
-            <var> <interfacename>_t
+            <var> <interface_name>_union
               if not isGlobal and not isNamespace and not isSelf and isUnion
 
-            <interfacename>_t
+            <interface_name>_t
               if not isGlobal and not isNamespace and not isSelf and isOther
 
 
-            <var> class_t
+            <var> class
               if not isGlobal and not isNamespace and isSelf and isClass
 
-            record_t
+            t
               if not isGlobal and not isNamespace and isSelf and isRecord
 
-            <var> t
+            <var> union
               if not isGlobal and not isNamespace and isSelf and isUnion
 
             t

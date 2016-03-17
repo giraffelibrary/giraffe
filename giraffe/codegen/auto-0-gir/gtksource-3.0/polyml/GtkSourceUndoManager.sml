@@ -1,6 +1,6 @@
 structure GtkSourceUndoManager :>
   GTK_SOURCE_UNDO_MANAGER
-    where type 'a class_t = 'a GtkSourceUndoManagerClass.t =
+    where type 'a class = 'a GtkSourceUndoManagerClass.class =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,8 @@ structure GtkSourceUndoManager :>
       val redo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_redo") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val undo_ = call (load_sym libgtksourceview "gtk_source_undo_manager_undo") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceUndoManagerClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceUndoManagerClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun beginNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) beginNotUndoableAction_ self
     fun canRedo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canRedo_ self

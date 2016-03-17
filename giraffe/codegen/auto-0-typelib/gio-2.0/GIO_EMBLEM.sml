@@ -1,18 +1,18 @@
 signature GIO_EMBLEM =
   sig
-    type 'a class_t
-    type 'a icon_class_t
+    type 'a class
+    type 'a icon_class
     type emblem_origin_t
-    type t = base class_t
-    val asIcon : 'a class_t -> base icon_class_t
+    type t = base class
+    val asIcon : 'a class -> base icon_class
     val getType : unit -> GObject.Type.t
-    val new : 'a icon_class_t -> base class_t
+    val new : 'a icon_class -> base class
     val newWithOrigin :
-      'a icon_class_t
+      'a icon_class
        -> emblem_origin_t
-       -> base class_t
-    val getIcon : 'a class_t -> base icon_class_t
-    val getOrigin : 'a class_t -> emblem_origin_t
-    val iconProp : ('a class_t, base GObject.ObjectClass.t option, 'b GObject.ObjectClass.t option) Property.readwrite
-    val originProp : ('a class_t, emblem_origin_t, emblem_origin_t) Property.readwrite
+       -> base class
+    val getIcon : 'a class -> base icon_class
+    val getOrigin : 'a class -> emblem_origin_t
+    val iconProp : ('a class, base GObject.ObjectClass.class option, 'b GObject.ObjectClass.class option) Property.readwrite
+    val originProp : ('a class, emblem_origin_t, emblem_origin_t) Property.readwrite
   end

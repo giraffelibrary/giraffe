@@ -1,8 +1,8 @@
 structure AtkText :>
   ATK_TEXT
-    where type 'a class_t = 'a AtkTextClass.t
-    where type text_range_record_t = AtkTextRangeRecord.t
-    where type text_rectangle_record_t = AtkTextRectangleRecord.t
+    where type 'a class = 'a AtkTextClass.class
+    where type text_range_t = AtkTextRangeRecord.t
+    where type text_rectangle_t = AtkTextRectangleRecord.t
     where type coord_type_t = AtkCoordType.t =
   struct
     val getType_ = _import "atk_text_get_type" : unit -> GObjectType.C.val_;
@@ -110,11 +110,11 @@ structure AtkText :>
               x3,
               x4
             )
-    type 'a class_t = 'a AtkTextClass.t
-    type text_range_record_t = AtkTextRangeRecord.t
-    type text_rectangle_record_t = AtkTextRectangleRecord.t
+    type 'a class = 'a AtkTextClass.class
+    type text_range_t = AtkTextRangeRecord.t
+    type text_rectangle_t = AtkTextRectangleRecord.t
     type coord_type_t = AtkCoordType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun freeRanges ranges = (AtkTextRangeRecord.C.withPtr ---> I) freeRanges_ ranges
     fun addSelection self startOffset endOffset =

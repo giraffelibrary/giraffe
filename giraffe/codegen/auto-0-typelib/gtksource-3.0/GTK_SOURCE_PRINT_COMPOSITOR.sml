@@ -1,134 +1,134 @@
 signature GTK_SOURCE_PRINT_COMPOSITOR =
   sig
-    type 'a class_t
-    type 'a view_class_t
-    type 'a buffer_class_t
-    type t = base class_t
+    type 'a class
+    type 'a view_class
+    type 'a buffer_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : 'a buffer_class_t -> base class_t
-    val newFromView : 'a view_class_t -> base class_t
+    val new : 'a buffer_class -> base class
+    val newFromView : 'a view_class -> base class
     val drawPage :
-      'a class_t
-       -> 'b Gtk.PrintContextClass.t
+      'a class
+       -> 'b Gtk.PrintContextClass.class
        -> LargeInt.int
        -> unit
-    val getBodyFontName : 'a class_t -> string
+    val getBodyFontName : 'a class -> string
     val getBottomMargin :
-      'a class_t
+      'a class
        -> Gtk.Unit.t
        -> real
-    val getBuffer : 'a class_t -> base buffer_class_t
-    val getFooterFontName : 'a class_t -> string
-    val getHeaderFontName : 'a class_t -> string
-    val getHighlightSyntax : 'a class_t -> bool
+    val getBuffer : 'a class -> base buffer_class
+    val getFooterFontName : 'a class -> string
+    val getHeaderFontName : 'a class -> string
+    val getHighlightSyntax : 'a class -> bool
     val getLeftMargin :
-      'a class_t
+      'a class
        -> Gtk.Unit.t
        -> real
-    val getLineNumbersFontName : 'a class_t -> string
-    val getNPages : 'a class_t -> LargeInt.int
-    val getPaginationProgress : 'a class_t -> real
-    val getPrintFooter : 'a class_t -> bool
-    val getPrintHeader : 'a class_t -> bool
-    val getPrintLineNumbers : 'a class_t -> LargeInt.int
+    val getLineNumbersFontName : 'a class -> string
+    val getNPages : 'a class -> LargeInt.int
+    val getPaginationProgress : 'a class -> real
+    val getPrintFooter : 'a class -> bool
+    val getPrintHeader : 'a class -> bool
+    val getPrintLineNumbers : 'a class -> LargeInt.int
     val getRightMargin :
-      'a class_t
+      'a class
        -> Gtk.Unit.t
        -> real
-    val getTabWidth : 'a class_t -> LargeInt.int
+    val getTabWidth : 'a class -> LargeInt.int
     val getTopMargin :
-      'a class_t
+      'a class
        -> Gtk.Unit.t
        -> real
-    val getWrapMode : 'a class_t -> Gtk.WrapMode.t
+    val getWrapMode : 'a class -> Gtk.WrapMode.t
     val paginate :
-      'a class_t
-       -> 'b Gtk.PrintContextClass.t
+      'a class
+       -> 'b Gtk.PrintContextClass.class
        -> bool
     val setBodyFontName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setBottomMargin :
-      'a class_t
+      'a class
        -> real
        -> Gtk.Unit.t
        -> unit
     val setFooterFontName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setFooterFormat :
-      'a class_t
+      'a class
        -> bool
        -> string option
        -> string option
        -> string option
        -> unit
     val setHeaderFontName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setHeaderFormat :
-      'a class_t
+      'a class
        -> bool
        -> string option
        -> string option
        -> string option
        -> unit
     val setHighlightSyntax :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setLeftMargin :
-      'a class_t
+      'a class
        -> real
        -> Gtk.Unit.t
        -> unit
     val setLineNumbersFontName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setPrintFooter :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setPrintHeader :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setPrintLineNumbers :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setRightMargin :
-      'a class_t
+      'a class
        -> real
        -> Gtk.Unit.t
        -> unit
     val setTabWidth :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setTopMargin :
-      'a class_t
+      'a class
        -> real
        -> Gtk.Unit.t
        -> unit
     val setWrapMode :
-      'a class_t
+      'a class
        -> Gtk.WrapMode.t
        -> unit
-    val bodyFontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val bufferProp : ('a class_t, base buffer_class_t option, 'b buffer_class_t option) Property.readwrite
-    val footerFontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val headerFontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val highlightSyntaxProp : ('a class_t, bool, bool) Property.readwrite
-    val lineNumbersFontNameProp : ('a class_t, string option, string option) Property.readwrite
-    val nPagesProp : ('a class_t, LargeInt.int) Property.readonly
-    val printFooterProp : ('a class_t, bool, bool) Property.readwrite
-    val printHeaderProp : ('a class_t, bool, bool) Property.readwrite
-    val printLineNumbersProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val tabWidthProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val wrapModeProp : ('a class_t, Gtk.WrapMode.t, Gtk.WrapMode.t) Property.readwrite
+    val bodyFontNameProp : ('a class, string option, string option) Property.readwrite
+    val bufferProp : ('a class, base buffer_class option, 'b buffer_class option) Property.readwrite
+    val footerFontNameProp : ('a class, string option, string option) Property.readwrite
+    val headerFontNameProp : ('a class, string option, string option) Property.readwrite
+    val highlightSyntaxProp : ('a class, bool, bool) Property.readwrite
+    val lineNumbersFontNameProp : ('a class, string option, string option) Property.readwrite
+    val nPagesProp : ('a class, LargeInt.int) Property.readonly
+    val printFooterProp : ('a class, bool, bool) Property.readwrite
+    val printHeaderProp : ('a class, bool, bool) Property.readwrite
+    val printLineNumbersProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val tabWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val wrapModeProp : ('a class, Gtk.WrapMode.t, Gtk.WrapMode.t) Property.readwrite
   end

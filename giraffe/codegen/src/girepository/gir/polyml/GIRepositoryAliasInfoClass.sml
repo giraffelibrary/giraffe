@@ -1,12 +1,13 @@
 structure GIRepositoryAliasInfoClass :>
   G_I_REPOSITORY_ALIAS_INFO_CLASS
-    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
     where type Obj.data = Info.aliasdata =
   struct
     type data = Info.aliasdata
     type 'a aliasinfo = (data, 'a) pair
-    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
-    type 'a t = 'a aliasinfo baseinfoclass_t
+    type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
+    type 'a class = 'a aliasinfo baseinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

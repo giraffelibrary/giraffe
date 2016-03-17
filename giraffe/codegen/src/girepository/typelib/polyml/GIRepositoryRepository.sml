@@ -1,7 +1,7 @@
 structure GIRepositoryRepository :>
   G_I_REPOSITORY_REPOSITORY
-    where type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a class = 'a GIRepositoryRepositoryClass.class
+    where type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
     where type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
     where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
@@ -82,8 +82,8 @@ structure GIRepositoryRepository :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryRepositoryClass.t
-    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a class = 'a GIRepositoryRepositoryClass.class
+    type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
     type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
     type typelibtype_t = GIRepositoryTypelibType.t
 

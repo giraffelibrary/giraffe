@@ -1,12 +1,12 @@
 signature GIO_TCP_CONNECTION =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getGracefulDisconnect : 'a class_t -> bool
+    val getGracefulDisconnect : 'a class -> bool
     val setGracefulDisconnect :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val gracefulDisconnectProp : ('a class_t, bool, bool) Property.readwrite
+    val gracefulDisconnectProp : ('a class, bool, bool) Property.readwrite
   end

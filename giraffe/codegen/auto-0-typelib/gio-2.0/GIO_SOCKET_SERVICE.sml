@@ -1,16 +1,16 @@
 signature GIO_SOCKET_SERVICE =
   sig
-    type 'a class_t
-    type 'a socket_connection_class_t
-    type t = base class_t
+    type 'a class
+    type 'a socket_connection_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val isActive : 'a class_t -> bool
-    val start : 'a class_t -> unit
-    val stop : 'a class_t -> unit
+    val new : unit -> base class
+    val isActive : 'a class -> bool
+    val start : 'a class -> unit
+    val stop : 'a class -> unit
     val incomingSig :
-      (base socket_connection_class_t
-        -> base GObject.ObjectClass.t
+      (base socket_connection_class
+        -> base GObject.ObjectClass.class
         -> bool)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
   end

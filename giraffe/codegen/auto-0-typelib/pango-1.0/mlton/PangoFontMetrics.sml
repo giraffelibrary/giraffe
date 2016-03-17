@@ -1,6 +1,6 @@
 structure PangoFontMetrics :>
   PANGO_FONT_METRICS
-    where type record_t = PangoFontMetricsRecord.t =
+    where type t = PangoFontMetricsRecord.t =
   struct
     val getType_ = _import "pango_font_metrics_get_type" : unit -> GObjectType.C.val_;
     val getApproximateCharWidth_ = _import "pango_font_metrics_get_approximate_char_width" : PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p -> FFI.Int32.C.val_;
@@ -11,8 +11,7 @@ structure PangoFontMetrics :>
     val getStrikethroughThickness_ = _import "pango_font_metrics_get_strikethrough_thickness" : PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p -> FFI.Int32.C.val_;
     val getUnderlinePosition_ = _import "pango_font_metrics_get_underline_position" : PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p -> FFI.Int32.C.val_;
     val getUnderlineThickness_ = _import "pango_font_metrics_get_underline_thickness" : PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p -> FFI.Int32.C.val_;
-    type record_t = PangoFontMetricsRecord.t
-    type t = record_t
+    type t = PangoFontMetricsRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getApproximateCharWidth self = (PangoFontMetricsRecord.C.withPtr ---> FFI.Int32.C.fromVal) getApproximateCharWidth_ self
     fun getApproximateDigitWidth self = (PangoFontMetricsRecord.C.withPtr ---> FFI.Int32.C.fromVal) getApproximateDigitWidth_ self

@@ -1,6 +1,6 @@
 structure GtkSourceCompletionInfo :>
   GTK_SOURCE_COMPLETION_INFO
-    where type 'a class_t = 'a GtkSourceCompletionInfoClass.t =
+    where type 'a class = 'a GtkSourceCompletionInfoClass.class =
   struct
     val getType_ = _import "gtk_source_completion_info_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_completion_info_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -23,8 +23,8 @@ structure GtkSourceCompletionInfo :>
               x3
             )
     val setWidget_ = fn x1 & x2 => (_import "gtk_source_completion_info_set_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkSourceCompletionInfoClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceCompletionInfoClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

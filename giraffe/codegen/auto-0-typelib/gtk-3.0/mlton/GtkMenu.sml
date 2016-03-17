@@ -1,10 +1,10 @@
 structure GtkMenu :>
   GTK_MENU
-    where type 'a class_t = 'a GtkMenuClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkMenuClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type scroll_type_t = GtkScrollType.t
-    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_menu_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_menu_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -98,12 +98,12 @@ structure GtkMenu :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkMenuClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkMenuClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type scroll_type_t = GtkScrollType.t
-    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

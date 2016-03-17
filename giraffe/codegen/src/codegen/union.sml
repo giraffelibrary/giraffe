@@ -5,9 +5,9 @@
 (* Union signature *)
 
 fun makeUnionSig
-  (_              : 'a RepositoryClass.t)
+  (_              : 'a RepositoryClass.class)
   (unionNamespace : string)
-  (unionInfo      : 'a UnionInfoClass.t)
+  (unionInfo      : 'b UnionInfoClass.class)
   (errs'0         : infoerrorhier list)
   : id * program * id list * infoerrorhier list =
   let
@@ -37,9 +37,9 @@ fun makeUnionSig
 (* Union structure *)
 
 fun makeUnionStr
-  (_              : 'a RepositoryClass.t)
+  (_              : 'a RepositoryClass.class)
   (unionNamespace : string)
-  (unionInfo      : 'a UnionInfoClass.t)
+  (unionInfo      : 'b UnionInfoClass.class)
   (errs'0         : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let

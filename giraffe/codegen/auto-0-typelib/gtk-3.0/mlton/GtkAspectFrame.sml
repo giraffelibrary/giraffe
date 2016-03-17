@@ -1,7 +1,7 @@
 structure GtkAspectFrame :>
   GTK_ASPECT_FRAME
-    where type 'a class_t = 'a GtkAspectFrameClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkAspectFrameClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_aspect_frame_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -52,9 +52,9 @@ structure GtkAspectFrame :>
               x4,
               x5
             )
-    type 'a class_t = 'a GtkAspectFrameClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAspectFrameClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

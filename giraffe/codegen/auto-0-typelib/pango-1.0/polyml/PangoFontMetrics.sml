@@ -1,6 +1,6 @@
 structure PangoFontMetrics :>
   PANGO_FONT_METRICS
-    where type record_t = PangoFontMetricsRecord.t =
+    where type t = PangoFontMetricsRecord.t =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,7 @@ structure PangoFontMetrics :>
       val getUnderlinePosition_ = call (load_sym libpango "pango_font_metrics_get_underline_position") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getUnderlineThickness_ = call (load_sym libpango "pango_font_metrics_get_underline_thickness") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
     end
-    type record_t = PangoFontMetricsRecord.t
-    type t = record_t
+    type t = PangoFontMetricsRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getApproximateCharWidth self = (PangoFontMetricsRecord.C.withPtr ---> FFI.Int32.C.fromVal) getApproximateCharWidth_ self
     fun getApproximateDigitWidth self = (PangoFontMetricsRecord.C.withPtr ---> FFI.Int32.C.fromVal) getApproximateDigitWidth_ self

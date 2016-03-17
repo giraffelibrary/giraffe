@@ -1,7 +1,7 @@
 structure GioDesktopAppInfo :>
   GIO_DESKTOP_APP_INFO
-    where type 'a class_t = 'a GioDesktopAppInfoClass.t
-    where type 'a app_info_class_t = 'a GioAppInfoClass.t =
+    where type 'a class = 'a GioDesktopAppInfoClass.class
+    where type 'a app_info_class = 'a GioAppInfoClass.class =
   struct
     val getType_ = _import "g_desktop_app_info_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "mlton_g_desktop_app_info_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -28,9 +28,9 @@ structure GioDesktopAppInfo :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioDesktopAppInfoClass.t
-    type 'a app_info_class_t = 'a GioAppInfoClass.t
-    type t = base class_t
+    type 'a class = 'a GioDesktopAppInfoClass.class
+    type 'a app_info_class = 'a GioAppInfoClass.class
+    type t = base class
     fun asAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new desktopId = (Utf8.C.withPtr ---> GioDesktopAppInfoClass.C.fromPtr true) new_ desktopId

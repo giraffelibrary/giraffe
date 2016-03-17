@@ -1,9 +1,9 @@
 structure GioVolumeMonitor :>
   GIO_VOLUME_MONITOR
-    where type 'a class_t = 'a GioVolumeMonitorClass.t
-    where type 'a drive_class_t = 'a GioDriveClass.t
-    where type 'a mount_class_t = 'a GioMountClass.t
-    where type 'a volume_class_t = 'a GioVolumeClass.t =
+    where type 'a class = 'a GioVolumeMonitorClass.class
+    where type 'a drive_class = 'a GioDriveClass.class
+    where type 'a mount_class = 'a GioMountClass.class
+    where type 'a volume_class = 'a GioVolumeClass.class =
   struct
     local
       open PolyMLFFI
@@ -13,11 +13,11 @@ structure GioVolumeMonitor :>
       val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GioVolumeMonitorClass.t
-    type 'a drive_class_t = 'a GioDriveClass.t
-    type 'a mount_class_t = 'a GioMountClass.t
-    type 'a volume_class_t = 'a GioVolumeClass.t
-    type t = base class_t
+    type 'a class = 'a GioVolumeMonitorClass.class
+    type 'a drive_class = 'a GioDriveClass.class
+    type 'a mount_class = 'a GioMountClass.class
+    type 'a volume_class = 'a GioVolumeClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
     fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)

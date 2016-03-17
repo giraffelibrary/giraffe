@@ -1,10 +1,10 @@
 structure GtkRecentChooserWidget :>
   GTK_RECENT_CHOOSER_WIDGET
-    where type 'a class_t = 'a GtkRecentChooserWidgetClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a recent_chooser_class_t = 'a GtkRecentChooserClass.t
-    where type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t =
+    where type 'a class = 'a GtkRecentChooserWidgetClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
+    where type 'a recent_manager_class = 'a GtkRecentManagerClass.class =
   struct
     local
       open PolyMLFFI
@@ -13,12 +13,12 @@ structure GtkRecentChooserWidget :>
       val new_ = call (load_sym libgtk "gtk_recent_chooser_widget_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
       val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_widget_new_for_manager") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GtkRecentChooserWidgetClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a recent_chooser_class_t = 'a GtkRecentChooserClass.t
-    type 'a recent_manager_class_t = 'a GtkRecentManagerClass.t
-    type t = base class_t
+    type 'a class = 'a GtkRecentChooserWidgetClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
+    type 'a recent_manager_class = 'a GtkRecentManagerClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self

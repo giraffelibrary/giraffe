@@ -9,13 +9,13 @@ val allFlagsExp = mkIdLNameExp allFlagsId
 (*
  *     val <VALUENAME[i]> : t
  *)
-fun makeFlagsValueNameSpec (valueInfo : 'a ValueInfoClass.t) : spec =
+fun makeFlagsValueNameSpec (valueInfo : 'a ValueInfoClass.class) : spec =
   mkValSpec (getValueNameId valueInfo, tTy)
 
 (*
  *     val <VALUENAME[i]> = <valueValue[i]>
  *)
-fun makeFlagsValueNameDec (valueInfo : 'a ValueInfoClass.t) : dec =
+fun makeFlagsValueNameDec (valueInfo : 'a ValueInfoClass.class) : dec =
   mkIdValDec (
     getValueNameId valueInfo,
     ExpConst (getFlagsWordConst valueInfo)
@@ -110,9 +110,9 @@ local
   val specs'0 = [structCSpec]
 in
   fun makeFlagsSig
-    (repo        : 'a RepositoryClass.t)
+    (repo        : 'a RepositoryClass.class)
     (enumNamespace : string)
-    (enumInfo    : 'a EnumInfoClass.t)
+    (enumInfo    : 'b EnumInfoClass.class)
     (errs'0      : infoerrorhier list)
     : id * program * id list * infoerrorhier list =
     let
@@ -283,11 +283,11 @@ local
     ]
 in
   fun makeFlagsStr
-    (repo          : 'a RepositoryClass.t)
+    (repo          : 'a RepositoryClass.class)
     (vers          : Repository.typelibvers_t)
     (libId         : id)
     (enumNamespace : string)
-    (enumInfo      : 'a EnumInfoClass.t)
+    (enumInfo      : 'b EnumInfoClass.class)
     (errs'0        : infoerrorhier list)
     : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
     let

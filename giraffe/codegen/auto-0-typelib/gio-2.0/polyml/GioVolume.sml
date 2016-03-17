@@ -1,11 +1,11 @@
 structure GioVolume :>
   GIO_VOLUME
-    where type 'a class_t = 'a GioVolumeClass.t
-    where type 'a file_class_t = 'a GioFileClass.t
-    where type 'a drive_class_t = 'a GioDriveClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t
-    where type 'a mount_class_t = 'a GioMountClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioVolumeClass.class
+    where type 'a file_class = 'a GioFileClass.class
+    where type 'a drive_class = 'a GioDriveClass.class
+    where type 'a icon_class = 'a GioIconClass.class
+    where type 'a mount_class = 'a GioMountClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -38,13 +38,13 @@ structure GioVolume :>
           )
       val shouldAutomount_ = call (load_sym libgio "g_volume_should_automount") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioVolumeClass.t
-    type 'a file_class_t = 'a GioFileClass.t
-    type 'a drive_class_t = 'a GioDriveClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
-    type 'a mount_class_t = 'a GioMountClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioVolumeClass.class
+    type 'a file_class = 'a GioFileClass.class
+    type 'a drive_class = 'a GioDriveClass.class
+    type 'a icon_class = 'a GioIconClass.class
+    type 'a mount_class = 'a GioMountClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canEject self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canEject_ self
     fun canMount self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canMount_ self

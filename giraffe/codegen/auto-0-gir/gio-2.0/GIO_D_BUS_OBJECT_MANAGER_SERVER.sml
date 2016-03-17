@@ -1,30 +1,30 @@
 signature GIO_D_BUS_OBJECT_MANAGER_SERVER =
   sig
-    type 'a class_t
-    type 'a d_bus_object_manager_class_t
-    type 'a d_bus_object_skeleton_class_t
-    type 'a d_bus_connection_class_t
-    type t = base class_t
-    val asDBusObjectManager : 'a class_t -> base d_bus_object_manager_class_t
+    type 'a class
+    type 'a d_bus_object_manager_class
+    type 'a d_bus_object_skeleton_class
+    type 'a d_bus_connection_class
+    type t = base class
+    val asDBusObjectManager : 'a class -> base d_bus_object_manager_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
+    val new : string -> base class
     val export :
-      'a class_t
-       -> 'b d_bus_object_skeleton_class_t
+      'a class
+       -> 'b d_bus_object_skeleton_class
        -> unit
     val exportUniquely :
-      'a class_t
-       -> 'b d_bus_object_skeleton_class_t
+      'a class
+       -> 'b d_bus_object_skeleton_class
        -> unit
-    val getConnection : 'a class_t -> base d_bus_connection_class_t
+    val getConnection : 'a class -> base d_bus_connection_class
     val setConnection :
-      'a class_t
-       -> 'b d_bus_connection_class_t option
+      'a class
+       -> 'b d_bus_connection_class option
        -> unit
     val unexport :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val connectionProp : ('a class_t, base d_bus_connection_class_t option, 'b d_bus_connection_class_t option) Property.readwrite
-    val objectPathProp : ('a class_t, string option, string option) Property.readwrite
+    val connectionProp : ('a class, base d_bus_connection_class option, 'b d_bus_connection_class option) Property.readwrite
+    val objectPathProp : ('a class, string option, string option) Property.readwrite
   end

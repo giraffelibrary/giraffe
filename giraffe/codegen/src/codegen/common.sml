@@ -69,13 +69,14 @@ fun makeIRefLocalType iRef : localtype =
   let
     val nTys = numInterfaceRefTyVars iRef
     val (tyVars, _) = makeTyList makeTyVar (nTys, 0)
+    val id = makeLocalInterfaceSelfId iRef
   in
     {
       tyVars    = tyVars,
       tyId      = makeLocalInterfaceId iRef,
       varTys    = map TyVar tyVars,
-      tyStrLId  = toList1 [makeIRefInterfaceOtherStrId iRef, tId],
-      tyNameLId = toList1 [makeIRefNamespaceStrId iRef, tId]
+      tyStrLId  = toList1 [makeIRefInterfaceOtherStrId iRef, id],
+      tyNameLId = toList1 [makeIRefNamespaceStrId iRef, id]
     }
   end
 
@@ -95,18 +96,18 @@ fun makeLocalTypeStrSpecQual ({tyVars, tyId, varTys, tyNameLId, ...} : localtype
 
 
 
-fun mkLocalId (_, strName, id) = concat [toLCU strName, "_", id]
+fun mkLocalId (_, strName, _, id) = concat [toLCU strName, "_", id]
 
-fun mkLocalStrModuleLId (strNamespace, strName, id) =
-  toList1 [toUCC strNamespace ^ toUCC strName, id]
+fun mkLocalStrModuleLId (strNamespace, strName, strType, id) =
+  toList1 [toUCC strNamespace ^ toUCC strName ^ toUCC strType, id]
 
-fun mkLocalStrSpecLId (name as (strNamespace, strName, id)) =
+fun mkLocalStrSpecLId (name as (strNamespace, strName, strType, id)) =
   case strNamespace of
     "" => toList1 [mkLocalId name] (* not present in namespace, use local *)
-  | _  => toList1 [toUCC strName, id]
+  | _  => toList1 [toUCC strName ^ toUCC strType, id]
 
-fun mkGlobalLId (strNamespace, strName, id) =
-  toList1 [toUCC strNamespace, toUCC strName, id]
+fun mkGlobalLId (strNamespace, strName, strType, id) =
+  toList1 [toUCC strNamespace, toUCC strName ^ toUCC strType, id]
 
 fun toSpec (tyVars, name) = mkTypeSpec ((tyVars, mkLocalId name), NONE)
 fun toLocalType (tyVars, name) =
@@ -125,9 +126,9 @@ fun toLocalType (tyVars, name) =
 local
   val objectTyVar = (false, "object")
   val propertyTemplates = [
-    ([objectTyVar, aTyVar], ("", "Property", "readonly")),
-    ([objectTyVar, aTyVar], ("", "Property", "writeonly")),
-    ([objectTyVar, aTyVar, bTyVar], ("", "Property", "readwrite"))
+    ([objectTyVar, aTyVar], ("", "Property", "", "readonly")),
+    ([objectTyVar, aTyVar], ("", "Property", "", "writeonly")),
+    ([objectTyVar, aTyVar, bTyVar], ("", "Property", "", "readwrite"))
   ]
   val revPropertySpecs = revMap toSpec propertyTemplates
   val revPropertyLocalTypes = revMap toLocalType propertyTemplates
@@ -186,7 +187,7 @@ end
 
 
 local
-  val accessorName = ("GObject", "Value", "accessor")
+  val accessorName = ("GObject", "Value", "", "accessor")
   val accessorTemplate = ([aTyVar, bTyVar], accessorName)
 
   val accessorGlobalLId : lid = mkGlobalLId accessorName
@@ -198,21 +199,21 @@ in
   (*
    * `addAccessorSpecs namespace info (readTy, writeTy) isPtr specs` adds
    *
-   *                                                     -.
-   *     type ('a, 'b) value_accessor                     |
-   *     val t : (base t, 'a t) value_accessor            |
-   *                                        -.            | isGObject
-   *     val tOpt :                          |            |
-   *      (base t option, 'a t option)       | isPtr      |
-   *        value_accessor                   |            |
-   *                                        -'           -'
-   *                                                     -.
-   *     val t : (base t, 'a t) GObject.Value.accessor    |
-   *                                        -.            |
-   *     val tOpt :                          |            | not isGObject
-   *       (base t option, 'a t option)      | isPtr      |
-   *         GObject.Value.accessor          |            |
-   *                                        -'           -'
+   *                                                          -.
+   *     type ('a, 'b) value_accessor                          |
+   *     val t : (<readTy>, <writeTy>) value_accessor          |
+   *                                           -.              | isGObject
+   *     val tOpt :                             |              |
+   *       (<readTy> option, <writeTy> option)  | isPtr        |
+   *         value_accessor                     |              |
+   *                                           -'             -'
+   *                                                          -.
+   *     val t : (<readTy>, <writeTy>) GObject.Value.accessor  |
+   *                                           -.              |
+   *     val tOpt :                             |              | not isGObject
+   *       (<readTy> option, <writeTy> option)  | isPtr        |
+   *         GObject.Value.accessor             |              |
+   *                                           -'             -'
    *
    * to `specs`.
    *)

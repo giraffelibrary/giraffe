@@ -4,7 +4,8 @@ structure GdkDeviceClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a device = unit
-    type 'a t = 'a device GObjectObjectClass.t
+    type 'a class = 'a device GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -1,19 +1,19 @@
 signature ATK_STREAMABLE_CONTENT =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val getMimeType :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> string
-    val getNMimeTypes : 'a class_t -> LargeInt.int
+    val getNMimeTypes : 'a class -> LargeInt.int
     val getStream :
-      'a class_t
+      'a class
        -> string
        -> GLib.IOChannelRecord.t
     val getUri :
-      'a class_t
+      'a class
        -> string
        -> string
   end

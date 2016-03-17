@@ -1,6 +1,6 @@
 structure GtkIMContext :>
   GTK_I_M_CONTEXT
-    where type 'a class_t = 'a GtkIMContextClass.t =
+    where type 'a class = 'a GtkIMContextClass.class =
   struct
     local
       open PolyMLFFI
@@ -40,8 +40,8 @@ structure GtkIMContext :>
           )
       val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkIMContextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkIMContextClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun deleteSurrounding self offset nChars =
       (

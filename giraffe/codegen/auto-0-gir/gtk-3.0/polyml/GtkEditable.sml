@@ -1,6 +1,6 @@
 structure GtkEditable :>
   GTK_EDITABLE
-    where type 'a class_t = 'a GtkEditableClass.t =
+    where type 'a class = 'a GtkEditableClass.class =
   struct
     local
       open PolyMLFFI
@@ -56,8 +56,8 @@ structure GtkEditable :>
       val setEditable_ = call (load_sym libgtk "gtk_editable_set_editable") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setPosition_ = call (load_sym libgtk "gtk_editable_set_position") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkEditableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkEditableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copyClipboard self = (GObjectObjectClass.C.withPtr ---> I) copyClipboard_ self
     fun cutClipboard self = (GObjectObjectClass.C.withPtr ---> I) cutClipboard_ self

@@ -1,6 +1,6 @@
 structure GioApplicationCommandLine :>
   GIO_APPLICATION_COMMAND_LINE
-    where type 'a class_t = 'a GioApplicationCommandLineClass.t =
+    where type 'a class = 'a GioApplicationCommandLineClass.class =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GioApplicationCommandLine :>
       val getenv_ = call (load_sym libgio "g_application_command_line_getenv") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val setExitStatus_ = call (load_sym libgio "g_application_command_line_set_exit_status") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioApplicationCommandLineClass.t
-    type t = base class_t
+    type 'a class = 'a GioApplicationCommandLineClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getCwd self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCwd_ self
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getExitStatus_ self

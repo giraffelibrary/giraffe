@@ -1,16 +1,16 @@
 structure PangoContext :>
   PANGO_CONTEXT
-    where type 'a class_t = 'a PangoContextClass.t
-    where type font_metrics_record_t = PangoFontMetricsRecord.t
-    where type 'a font_class_t = 'a PangoFontClass.t
-    where type 'a fontset_class_t = 'a PangoFontsetClass.t
+    where type 'a class = 'a PangoContextClass.class
+    where type font_metrics_t = PangoFontMetricsRecord.t
+    where type 'a font_class = 'a PangoFontClass.class
+    where type 'a fontset_class = 'a PangoFontsetClass.class
     where type direction_t = PangoDirection.t
     where type gravity_t = PangoGravity.t
-    where type font_description_record_t = PangoFontDescriptionRecord.t
-    where type 'a font_map_class_t = 'a PangoFontMapClass.t
+    where type font_description_t = PangoFontDescriptionRecord.t
+    where type 'a font_map_class = 'a PangoFontMapClass.class
     where type gravity_hint_t = PangoGravityHint.t
-    where type language_record_t = PangoLanguageRecord.t
-    where type matrix_record_t = PangoMatrixRecord.t =
+    where type language_t = PangoLanguageRecord.t
+    where type matrix_t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_context_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "pango_context_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -64,18 +64,18 @@ structure PangoContext :>
     val setGravityHint_ = fn x1 & x2 => (_import "pango_context_set_gravity_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoGravityHint.C.val_ -> unit;) (x1, x2)
     val setLanguage_ = fn x1 & x2 => (_import "pango_context_set_language" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p -> unit;) (x1, x2)
     val setMatrix_ = fn x1 & x2 => (_import "pango_context_set_matrix" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoMatrixRecord.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a PangoContextClass.t
-    type font_metrics_record_t = PangoFontMetricsRecord.t
-    type 'a font_class_t = 'a PangoFontClass.t
-    type 'a fontset_class_t = 'a PangoFontsetClass.t
+    type 'a class = 'a PangoContextClass.class
+    type font_metrics_t = PangoFontMetricsRecord.t
+    type 'a font_class = 'a PangoFontClass.class
+    type 'a fontset_class = 'a PangoFontsetClass.class
     type direction_t = PangoDirection.t
     type gravity_t = PangoGravity.t
-    type font_description_record_t = PangoFontDescriptionRecord.t
-    type 'a font_map_class_t = 'a PangoFontMapClass.t
+    type font_description_t = PangoFontDescriptionRecord.t
+    type 'a font_map_class = 'a PangoFontMapClass.class
     type gravity_hint_t = PangoGravityHint.t
-    type language_record_t = PangoLanguageRecord.t
-    type matrix_record_t = PangoMatrixRecord.t
-    type t = base class_t
+    type language_t = PangoLanguageRecord.t
+    type matrix_t = PangoMatrixRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoContextClass.C.fromPtr true) new_ ()
     fun getBaseDir self = (GObjectObjectClass.C.withPtr ---> PangoDirection.C.fromVal) getBaseDir_ self

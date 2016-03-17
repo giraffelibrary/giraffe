@@ -1,348 +1,348 @@
 signature VTE_TERMINAL =
   sig
-    type 'a class_t
+    type 'a class
     type pty_flags_t
     type terminal_write_flags_t
     type terminal_cursor_blink_mode_t
     type terminal_cursor_shape_t
     type terminal_erase_binding_t
-    type 'a pty_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base Gtk.BuildableClass.t
-    val asScrollable : 'a class_t -> base Gtk.ScrollableClass.t
+    type 'a pty_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base Gtk.BuildableClass.class
+    val asScrollable : 'a class -> base Gtk.ScrollableClass.class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val copyClipboard : 'a class_t -> unit
-    val copyPrimary : 'a class_t -> unit
+    val new : unit -> base class
+    val copyClipboard : 'a class -> unit
+    val copyPrimary : 'a class -> unit
     val feed :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val feedChild :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
     val feedChildBinary :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> unit
-    val getAllowBold : 'a class_t -> bool
-    val getAudibleBell : 'a class_t -> bool
-    val getCharHeight : 'a class_t -> LargeInt.int
-    val getCharWidth : 'a class_t -> LargeInt.int
-    val getChildExitStatus : 'a class_t -> LargeInt.int
-    val getColumnCount : 'a class_t -> LargeInt.int
-    val getCursorBlinkMode : 'a class_t -> terminal_cursor_blink_mode_t
-    val getCursorShape : 'a class_t -> terminal_cursor_shape_t
-    val getDefaultEmulation : 'a class_t -> string
-    val getEmulation : 'a class_t -> string
-    val getEncoding : 'a class_t -> string
-    val getFont : 'a class_t -> Pango.FontDescriptionRecord.t
-    val getHasSelection : 'a class_t -> bool
-    val getIconTitle : 'a class_t -> string
-    val getMouseAutohide : 'a class_t -> bool
-    val getPtyObject : 'a class_t -> base pty_class_t
-    val getRowCount : 'a class_t -> LargeInt.int
-    val getStatusLine : 'a class_t -> string
-    val getVisibleBell : 'a class_t -> bool
-    val getWindowTitle : 'a class_t -> string
+    val getAllowBold : 'a class -> bool
+    val getAudibleBell : 'a class -> bool
+    val getCharHeight : 'a class -> LargeInt.int
+    val getCharWidth : 'a class -> LargeInt.int
+    val getChildExitStatus : 'a class -> LargeInt.int
+    val getColumnCount : 'a class -> LargeInt.int
+    val getCursorBlinkMode : 'a class -> terminal_cursor_blink_mode_t
+    val getCursorShape : 'a class -> terminal_cursor_shape_t
+    val getDefaultEmulation : 'a class -> string
+    val getEmulation : 'a class -> string
+    val getEncoding : 'a class -> string
+    val getFont : 'a class -> Pango.FontDescriptionRecord.t
+    val getHasSelection : 'a class -> bool
+    val getIconTitle : 'a class -> string
+    val getMouseAutohide : 'a class -> bool
+    val getPtyObject : 'a class -> base pty_class
+    val getRowCount : 'a class -> LargeInt.int
+    val getStatusLine : 'a class -> string
+    val getVisibleBell : 'a class -> bool
+    val getWindowTitle : 'a class -> string
     val imAppendMenuitems :
-      'a class_t
-       -> 'b Gtk.MenuShellClass.t
+      'a class
+       -> 'b Gtk.MenuShellClass.class
        -> unit
     val isWordChar :
-      'a class_t
+      'a class
        -> char
        -> bool
     val matchAddGregex :
-      'a class_t
+      'a class
        -> GLib.RegexRecord.t
        -> GLib.RegexMatchFlags.t
        -> LargeInt.int
     val matchCheck :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> string * LargeInt.int
-    val matchClearAll : 'a class_t -> unit
+    val matchClearAll : 'a class -> unit
     val matchRemove :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val matchSetCursor :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b Gdk.CursorClass.t option
+       -> 'b Gdk.CursorClass.class option
        -> unit
     val matchSetCursorName :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> string
        -> unit
     val matchSetCursorType :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> Gdk.CursorType.t
        -> unit
-    val pasteClipboard : 'a class_t -> unit
-    val pastePrimary : 'a class_t -> unit
+    val pasteClipboard : 'a class -> unit
+    val pastePrimary : 'a class -> unit
     val ptyNew :
-      'a class_t
+      'a class
        -> pty_flags_t
-       -> base pty_class_t
+       -> base pty_class
     val reset :
-      'a class_t
+      'a class
        -> bool
        -> bool
        -> unit
-    val searchFindNext : 'a class_t -> bool
-    val searchFindPrevious : 'a class_t -> bool
-    val searchGetGregex : 'a class_t -> GLib.RegexRecord.t
-    val searchGetWrapAround : 'a class_t -> bool
+    val searchFindNext : 'a class -> bool
+    val searchFindPrevious : 'a class -> bool
+    val searchGetGregex : 'a class -> GLib.RegexRecord.t
+    val searchGetWrapAround : 'a class -> bool
     val searchSetGregex :
-      'a class_t
+      'a class
        -> GLib.RegexRecord.t option
        -> unit
     val searchSetWrapAround :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val selectAll : 'a class_t -> unit
-    val selectNone : 'a class_t -> unit
+    val selectAll : 'a class -> unit
+    val selectNone : 'a class -> unit
     val setAllowBold :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setAudibleBell :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setBackgroundImage :
-      'a class_t
-       -> 'b GdkPixbuf.PixbufClass.t option
+      'a class
+       -> 'b GdkPixbuf.PixbufClass.class option
        -> unit
     val setBackgroundImageFile :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setBackgroundSaturation :
-      'a class_t
+      'a class
        -> real
        -> unit
     val setBackgroundTintColor :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t
        -> unit
     val setBackgroundTransparent :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setBackspaceBinding :
-      'a class_t
+      'a class
        -> terminal_erase_binding_t
        -> unit
     val setColorBackground :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t
        -> unit
     val setColorBackgroundRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t
        -> unit
     val setColorBold :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t
        -> unit
     val setColorBoldRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t option
        -> unit
     val setColorCursor :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t option
        -> unit
     val setColorCursorRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t option
        -> unit
     val setColorDim :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t
        -> unit
     val setColorDimRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t option
        -> unit
     val setColorForeground :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t
        -> unit
     val setColorForegroundRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t
        -> unit
     val setColorHighlight :
-      'a class_t
+      'a class
        -> Gdk.ColorRecord.t option
        -> unit
     val setColorHighlightRgba :
-      'a class_t
+      'a class
        -> Gdk.RgbaRecord.t option
        -> unit
     val setCursorBlinkMode :
-      'a class_t
+      'a class
        -> terminal_cursor_blink_mode_t
        -> unit
     val setCursorShape :
-      'a class_t
+      'a class
        -> terminal_cursor_shape_t
        -> unit
-    val setDefaultColors : 'a class_t -> unit
+    val setDefaultColors : 'a class -> unit
     val setDeleteBinding :
-      'a class_t
+      'a class
        -> terminal_erase_binding_t
        -> unit
     val setEmulation :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setEncoding :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setFont :
-      'a class_t
+      'a class
        -> Pango.FontDescriptionRecord.t option
        -> unit
     val setFontFromString :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setMouseAutohide :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setOpacity :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setPtyObject :
-      'a class_t
-       -> 'b pty_class_t option
+      'a class
+       -> 'b pty_class option
        -> unit
     val setScrollBackground :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setScrollOnKeystroke :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setScrollOnOutput :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setScrollbackLines :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setSize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val setVisibleBell :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setWordChars :
-      'a class_t
+      'a class
        -> string
        -> unit
     val watchChild :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val writeContents :
-      'a class_t
-       -> 'b Gio.OutputStreamClass.t
+      'a class
+       -> 'b Gio.OutputStreamClass.class
        -> terminal_write_flags_t
-       -> 'c Gio.CancellableClass.t option
+       -> 'c Gio.CancellableClass.class option
        -> bool
-    val beepSig : (unit -> unit) -> 'a class_t Signal.signal
+    val beepSig : (unit -> unit) -> 'a class Signal.signal
     val charSizeChangedSig :
       (LargeInt.int
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val childExitedSig : (unit -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val childExitedSig : (unit -> unit) -> 'a class Signal.signal
     val commitSig :
       (string
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val contentsChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val copyClipboardSig : (unit -> unit) -> 'a class_t Signal.signal
-    val cursorMovedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val decreaseFontSizeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val deiconifyWindowSig : (unit -> unit) -> 'a class_t Signal.signal
-    val emulationChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val encodingChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val eofSig : (unit -> unit) -> 'a class_t Signal.signal
-    val iconTitleChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val iconifyWindowSig : (unit -> unit) -> 'a class_t Signal.signal
-    val increaseFontSizeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val lowerWindowSig : (unit -> unit) -> 'a class_t Signal.signal
-    val maximizeWindowSig : (unit -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val contentsChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
+    val cursorMovedSig : (unit -> unit) -> 'a class Signal.signal
+    val decreaseFontSizeSig : (unit -> unit) -> 'a class Signal.signal
+    val deiconifyWindowSig : (unit -> unit) -> 'a class Signal.signal
+    val emulationChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val encodingChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val eofSig : (unit -> unit) -> 'a class Signal.signal
+    val iconTitleChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val iconifyWindowSig : (unit -> unit) -> 'a class Signal.signal
+    val increaseFontSizeSig : (unit -> unit) -> 'a class Signal.signal
+    val lowerWindowSig : (unit -> unit) -> 'a class Signal.signal
+    val maximizeWindowSig : (unit -> unit) -> 'a class Signal.signal
     val moveWindowSig :
       (LargeInt.int
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val pasteClipboardSig : (unit -> unit) -> 'a class_t Signal.signal
-    val raiseWindowSig : (unit -> unit) -> 'a class_t Signal.signal
-    val refreshWindowSig : (unit -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal
+    val raiseWindowSig : (unit -> unit) -> 'a class Signal.signal
+    val refreshWindowSig : (unit -> unit) -> 'a class Signal.signal
     val resizeWindowSig :
       (LargeInt.int
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val restoreWindowSig : (unit -> unit) -> 'a class_t Signal.signal
-    val selectionChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val statusLineChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val textDeletedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val textInsertedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val textModifiedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val textScrolledSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
-    val windowTitleChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val allowBoldProp : ('a class_t, bool, bool) Property.readwrite
-    val audibleBellProp : ('a class_t, bool, bool) Property.readwrite
-    val backgroundImageFileProp : ('a class_t, string option, string option) Property.readwrite
-    val backgroundImagePixbufProp : ('a class_t, base GdkPixbuf.PixbufClass.t option, 'b GdkPixbuf.PixbufClass.t option) Property.readwrite
-    val backgroundOpacityProp : ('a class_t, real, real) Property.readwrite
-    val backgroundSaturationProp : ('a class_t, real, real) Property.readwrite
-    val backgroundTintColorProp : ('a class_t, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val backgroundTransparentProp : ('a class_t, bool, bool) Property.readwrite
-    val backspaceBindingProp : ('a class_t, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
-    val cursorBlinkModeProp : ('a class_t, terminal_cursor_blink_mode_t, terminal_cursor_blink_mode_t) Property.readwrite
-    val cursorShapeProp : ('a class_t, terminal_cursor_shape_t, terminal_cursor_shape_t) Property.readwrite
-    val deleteBindingProp : ('a class_t, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
-    val emulationProp : ('a class_t, string option, string option) Property.readwrite
-    val encodingProp : ('a class_t, string option, string option) Property.readwrite
-    val fontDescProp : ('a class_t, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
-    val iconTitleProp : ('a class_t, string option) Property.readonly
-    val pointerAutohideProp : ('a class_t, bool, bool) Property.readwrite
-    val ptyProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val ptyObjectProp : ('a class_t, base pty_class_t option, 'b pty_class_t option) Property.readwrite
-    val scrollBackgroundProp : ('a class_t, bool, bool) Property.readwrite
-    val scrollOnKeystrokeProp : ('a class_t, bool, bool) Property.readwrite
-    val scrollOnOutputProp : ('a class_t, bool, bool) Property.readwrite
-    val scrollbackLinesProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val visibleBellProp : ('a class_t, bool, bool) Property.readwrite
-    val windowTitleProp : ('a class_t, string option) Property.readonly
-    val wordCharsProp : ('a class_t, string option, string option) Property.readwrite
+       -> 'a class Signal.signal
+    val restoreWindowSig : (unit -> unit) -> 'a class Signal.signal
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val statusLineChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val textDeletedSig : (unit -> unit) -> 'a class Signal.signal
+    val textInsertedSig : (unit -> unit) -> 'a class Signal.signal
+    val textModifiedSig : (unit -> unit) -> 'a class Signal.signal
+    val textScrolledSig : (LargeInt.int -> unit) -> 'a class Signal.signal
+    val windowTitleChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val allowBoldProp : ('a class, bool, bool) Property.readwrite
+    val audibleBellProp : ('a class, bool, bool) Property.readwrite
+    val backgroundImageFileProp : ('a class, string option, string option) Property.readwrite
+    val backgroundImagePixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
+    val backgroundOpacityProp : ('a class, real, real) Property.readwrite
+    val backgroundSaturationProp : ('a class, real, real) Property.readwrite
+    val backgroundTintColorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
+    val backgroundTransparentProp : ('a class, bool, bool) Property.readwrite
+    val backspaceBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
+    val cursorBlinkModeProp : ('a class, terminal_cursor_blink_mode_t, terminal_cursor_blink_mode_t) Property.readwrite
+    val cursorShapeProp : ('a class, terminal_cursor_shape_t, terminal_cursor_shape_t) Property.readwrite
+    val deleteBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
+    val emulationProp : ('a class, string option, string option) Property.readwrite
+    val encodingProp : ('a class, string option, string option) Property.readwrite
+    val fontDescProp : ('a class, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
+    val iconTitleProp : ('a class, string option) Property.readonly
+    val pointerAutohideProp : ('a class, bool, bool) Property.readwrite
+    val ptyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val ptyObjectProp : ('a class, base pty_class option, 'b pty_class option) Property.readwrite
+    val scrollBackgroundProp : ('a class, bool, bool) Property.readwrite
+    val scrollOnKeystrokeProp : ('a class, bool, bool) Property.readwrite
+    val scrollOnOutputProp : ('a class, bool, bool) Property.readwrite
+    val scrollbackLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val visibleBellProp : ('a class, bool, bool) Property.readwrite
+    val windowTitleProp : ('a class, string option) Property.readonly
+    val wordCharsProp : ('a class, string option, string option) Property.readwrite
   end

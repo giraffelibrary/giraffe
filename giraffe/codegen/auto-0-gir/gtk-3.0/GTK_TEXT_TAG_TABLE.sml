@@ -1,30 +1,30 @@
 signature GTK_TEXT_TAG_TABLE =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a text_tag_class_t
-    type t = base class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a text_tag_class
+    type t = base class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val add :
-      'a class_t
-       -> 'b text_tag_class_t
+      'a class
+       -> 'b text_tag_class
        -> unit
-    val getSize : 'a class_t -> LargeInt.int
+    val getSize : 'a class -> LargeInt.int
     val lookup :
-      'a class_t
+      'a class
        -> string
-       -> base text_tag_class_t
+       -> base text_tag_class
     val remove :
-      'a class_t
-       -> 'b text_tag_class_t
+      'a class
+       -> 'b text_tag_class
        -> unit
-    val tagAddedSig : (base text_tag_class_t -> unit) -> 'a class_t Signal.signal
+    val tagAddedSig : (base text_tag_class -> unit) -> 'a class Signal.signal
     val tagChangedSig :
-      (base text_tag_class_t
+      (base text_tag_class
         -> bool
         -> unit)
-       -> 'a class_t Signal.signal
-    val tagRemovedSig : (base text_tag_class_t -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val tagRemovedSig : (base text_tag_class -> unit) -> 'a class Signal.signal
   end

@@ -1,8 +1,8 @@
 structure GioCharsetConverter :>
   GIO_CHARSET_CONVERTER
-    where type 'a class_t = 'a GioCharsetConverterClass.t
-    where type 'a converter_class_t = 'a GioConverterClass.t
-    where type 'a initable_class_t = 'a GioInitableClass.t =
+    where type 'a class = 'a GioCharsetConverterClass.class
+    where type 'a converter_class = 'a GioConverterClass.class
+    where type 'a initable_class = 'a GioInitableClass.class =
   struct
     val getType_ = _import "g_charset_converter_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -29,10 +29,10 @@ structure GioCharsetConverter :>
     val getNumFallbacks_ = _import "g_charset_converter_get_num_fallbacks" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
     val getUseFallback_ = _import "g_charset_converter_get_use_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
     val setUseFallback_ = fn x1 & x2 => (_import "g_charset_converter_set_use_fallback" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioCharsetConverterClass.t
-    type 'a converter_class_t = 'a GioConverterClass.t
-    type 'a initable_class_t = 'a GioInitableClass.t
-    type t = base class_t
+    type 'a class = 'a GioCharsetConverterClass.class
+    type 'a converter_class = 'a GioConverterClass.class
+    type 'a initable_class = 'a GioInitableClass.class
+    type t = base class
     fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

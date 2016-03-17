@@ -1,36 +1,35 @@
 signature GTK_TARGET_LIST =
   sig
-    type record_t
-    type 'a text_buffer_class_t
-    type t = record_t
+    type t
+    type 'a text_buffer_class
     val getType : unit -> GObject.Type.t
     val add :
-      record_t
+      t
        -> Gdk.AtomRecord.t
        -> LargeInt.int
        -> LargeInt.int
        -> unit
     val addImageTargets :
-      record_t
+      t
        -> LargeInt.int
        -> bool
        -> unit
     val addRichTextTargets :
-      record_t
+      t
        -> LargeInt.int
        -> bool
-       -> 'a text_buffer_class_t
+       -> 'a text_buffer_class
        -> unit
     val addTextTargets :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val addUriTargets :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val remove :
-      record_t
+      t
        -> Gdk.AtomRecord.t
        -> unit
   end

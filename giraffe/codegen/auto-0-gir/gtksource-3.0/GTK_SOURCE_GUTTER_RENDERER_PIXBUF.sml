@@ -1,31 +1,31 @@
 signature GTK_SOURCE_GUTTER_RENDERER_PIXBUF =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getGicon : 'a class_t -> base Gio.IconClass.t
-    val getIconName : 'a class_t -> string
-    val getPixbuf : 'a class_t -> base GdkPixbuf.PixbufClass.t
-    val getStockId : 'a class_t -> string
+    val new : unit -> base class
+    val getGicon : 'a class -> base Gio.IconClass.class
+    val getIconName : 'a class -> string
+    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getStockId : 'a class -> string
     val setGicon :
-      'a class_t
-       -> 'b Gio.IconClass.t
+      'a class
+       -> 'b Gio.IconClass.class
        -> unit
     val setIconName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setPixbuf :
-      'a class_t
-       -> 'b GdkPixbuf.PixbufClass.t
+      'a class
+       -> 'b GdkPixbuf.PixbufClass.class
        -> unit
     val setStockId :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val giconProp : ('a class_t, base Gio.IconClass.t option, 'b Gio.IconClass.t option) Property.readwrite
-    val iconNameProp : ('a class_t, string option, string option) Property.readwrite
-    val pixbufProp : ('a class_t, base GdkPixbuf.PixbufClass.t option, 'b GdkPixbuf.PixbufClass.t option) Property.readwrite
-    val stockIdProp : ('a class_t, string option, string option) Property.readwrite
+    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
+    val iconNameProp : ('a class, string option, string option) Property.readwrite
+    val pixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
+    val stockIdProp : ('a class, string option, string option) Property.readwrite
   end

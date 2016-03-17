@@ -1,32 +1,32 @@
 signature GTK_SCROLLABLE =
   sig
-    type 'a class_t
-    type 'a adjustment_class_t
+    type 'a class
+    type 'a adjustment_class
     type scrollable_policy_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getHadjustment : 'a class_t -> base adjustment_class_t
-    val getHscrollPolicy : 'a class_t -> scrollable_policy_t
-    val getVadjustment : 'a class_t -> base adjustment_class_t
-    val getVscrollPolicy : 'a class_t -> scrollable_policy_t
+    val getHadjustment : 'a class -> base adjustment_class
+    val getHscrollPolicy : 'a class -> scrollable_policy_t
+    val getVadjustment : 'a class -> base adjustment_class
+    val getVscrollPolicy : 'a class -> scrollable_policy_t
     val setHadjustment :
-      'a class_t
-       -> 'b adjustment_class_t option
+      'a class
+       -> 'b adjustment_class option
        -> unit
     val setHscrollPolicy :
-      'a class_t
+      'a class
        -> scrollable_policy_t
        -> unit
     val setVadjustment :
-      'a class_t
-       -> 'b adjustment_class_t option
+      'a class
+       -> 'b adjustment_class option
        -> unit
     val setVscrollPolicy :
-      'a class_t
+      'a class
        -> scrollable_policy_t
        -> unit
-    val hadjustmentProp : ('a class_t, base adjustment_class_t option, 'b adjustment_class_t option) Property.readwrite
-    val hscrollPolicyProp : ('a class_t, scrollable_policy_t, scrollable_policy_t) Property.readwrite
-    val vadjustmentProp : ('a class_t, base adjustment_class_t option, 'b adjustment_class_t option) Property.readwrite
-    val vscrollPolicyProp : ('a class_t, scrollable_policy_t, scrollable_policy_t) Property.readwrite
+    val hadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
+    val hscrollPolicyProp : ('a class, scrollable_policy_t, scrollable_policy_t) Property.readwrite
+    val vadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
+    val vscrollPolicyProp : ('a class, scrollable_policy_t, scrollable_policy_t) Property.readwrite
   end

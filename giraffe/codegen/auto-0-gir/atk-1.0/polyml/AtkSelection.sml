@@ -1,7 +1,7 @@
 structure AtkSelection :>
   ATK_SELECTION
-    where type 'a class_t = 'a AtkSelectionClass.t
-    where type 'a object_class_t = 'a AtkObjectClass.t =
+    where type 'a class = 'a AtkSelectionClass.class
+    where type 'a object_class = 'a AtkObjectClass.class =
   struct
     local
       open PolyMLFFI
@@ -15,9 +15,9 @@ structure AtkSelection :>
       val removeSelection_ = call (load_sym libatk "atk_selection_remove_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val selectAllSelection_ = call (load_sym libatk "atk_selection_select_all_selection") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a AtkSelectionClass.t
-    type 'a object_class_t = 'a AtkObjectClass.t
-    type t = base class_t
+    type 'a class = 'a AtkSelectionClass.class
+    type 'a object_class = 'a AtkObjectClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addSelection self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addSelection_ (self & i)
     fun clearSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) clearSelection_ self

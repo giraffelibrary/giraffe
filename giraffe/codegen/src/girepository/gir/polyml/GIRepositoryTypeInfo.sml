@@ -1,9 +1,9 @@
 structure GIRepositoryTypeInfo :>
   G_I_REPOSITORY_TYPE_INFO
-    where type 'a class_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryTypeInfoClass.class
     where type typetag_t = GIRepositoryTypeTag.t
     where type arraytype_t = GIRepositoryArrayType.t
-    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t =
+    where type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
     fun fromType f = (I && f) o GIRepositoryTypeInfoClass.Obj.unpack
@@ -12,10 +12,10 @@ structure GIRepositoryTypeInfo :>
     fun toType f = GIRepositoryTypeInfoClass.Obj.pack o (I && f)
 
 
-    type 'a class_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryTypeInfoClass.class
     type typetag_t = GIRepositoryTypeTag.t
     type arraytype_t = GIRepositoryArrayType.t
-    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
 
 
     fun isPointer info ctxPtrDepth isRef =

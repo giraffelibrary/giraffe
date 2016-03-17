@@ -1,6 +1,6 @@
 structure GioActionGroup :>
   GIO_ACTION_GROUP
-    where type 'a class_t = 'a GioActionGroupClass.t =
+    where type 'a class = 'a GioActionGroupClass.class =
   struct
     val getType_ = _import "g_action_group_get_type" : unit -> GObjectType.C.val_;
     val actionAdded_ =
@@ -199,8 +199,8 @@ structure GioActionGroup :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioActionGroupClass.t
-    type t = base class_t
+    type 'a class = 'a GioActionGroupClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =

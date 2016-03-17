@@ -1,6 +1,6 @@
 structure GtkEntryBuffer :>
   GTK_ENTRY_BUFFER
-    where type 'a class_t = 'a GtkEntryBufferClass.t =
+    where type 'a class = 'a GtkEntryBufferClass.class =
   struct
     val getType_ = _import "gtk_entry_buffer_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -120,8 +120,8 @@ structure GtkEntryBuffer :>
               x3,
               x4
             )
-    type 'a class_t = 'a GtkEntryBufferClass.t
-    type t = base class_t
+    type 'a class = 'a GtkEntryBufferClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new initialChars nInitialChars = (Utf8.C.withOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =

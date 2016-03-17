@@ -1,8 +1,8 @@
 structure GIRepositoryFunctionInfo :>
   G_I_REPOSITORY_FUNCTION_INFO
-    where type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
-    where type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
-    where type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    where type 'a class = 'a GIRepositoryFunctionInfoClass.class
+    where type 'a propertyinfo_class = 'a GIRepositoryPropertyInfoClass.class
+    where type 'a vfuncinfo_class = 'a GIRepositoryVFuncInfoClass.class
     where type functioninfoflags_t = GIRepositoryFunctionInfoFlags.t =
   struct
     local
@@ -30,9 +30,9 @@ structure GIRepositoryFunctionInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryFunctionInfoClass.t
-    type 'a propertyinfoclass_t = 'a GIRepositoryPropertyInfoClass.t
-    type 'a vfuncinfoclass_t = 'a GIRepositoryVFuncInfoClass.t
+    type 'a class = 'a GIRepositoryFunctionInfoClass.class
+    type 'a propertyinfo_class = 'a GIRepositoryPropertyInfoClass.class
+    type 'a vfuncinfo_class = 'a GIRepositoryVFuncInfoClass.class
     type functioninfoflags_t = GIRepositoryFunctionInfoFlags.t
 
 

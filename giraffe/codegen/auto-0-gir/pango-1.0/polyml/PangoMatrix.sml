@@ -1,6 +1,6 @@
 structure PangoMatrix :>
   PANGO_MATRIX
-    where type record_t = PangoMatrixRecord.t =
+    where type t = PangoMatrixRecord.t =
   struct
     local
       open PolyMLFFI
@@ -43,8 +43,7 @@ structure PangoMatrix :>
              --> FFI.PolyML.cVoid
           )
     end
-    type record_t = PangoMatrixRecord.t
-    type t = record_t
+    type t = PangoMatrixRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun concat self newMatrix = (PangoMatrixRecord.C.withPtr &&&> PangoMatrixRecord.C.withPtr ---> I) concat_ (self & newMatrix)
     fun copy self = (PangoMatrixRecord.C.withPtr ---> PangoMatrixRecord.C.fromPtr true) copy_ self

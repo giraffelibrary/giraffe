@@ -1,7 +1,7 @@
 structure GioInitable :>
   GIO_INITABLE
-    where type 'a class_t = 'a GioInitableClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioInitableClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_initable_get_type" : unit -> GObjectType.C.val_;
     val init_ =
@@ -21,9 +21,9 @@ structure GioInitable :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioInitableClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioInitableClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun init self cancellable =
       (

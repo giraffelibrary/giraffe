@@ -1,9 +1,9 @@
 structure GtkComboBoxText :>
   GTK_COMBO_BOX_TEXT
-    where type 'a class_t = 'a GtkComboBoxTextClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t =
+    where type 'a class = 'a GtkComboBoxTextClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class =
   struct
     val getType_ = _import "gtk_combo_box_text_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_combo_box_text_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -126,11 +126,11 @@ structure GtkComboBoxText :>
             )
     val remove_ = fn x1 & x2 => (_import "gtk_combo_box_text_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val removeAll_ = _import "gtk_combo_box_text_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkComboBoxTextClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_editable_class_t = 'a GtkCellEditableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    type t = base class_t
+    type 'a class = 'a GtkComboBoxTextClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_editable_class = 'a GtkCellEditableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self

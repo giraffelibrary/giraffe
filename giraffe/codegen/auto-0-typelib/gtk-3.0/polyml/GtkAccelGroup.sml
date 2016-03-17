@@ -1,6 +1,6 @@
 structure GtkAccelGroup :>
   GTK_ACCEL_GROUP
-    where type 'a class_t = 'a GtkAccelGroupClass.t
+    where type 'a class = 'a GtkAccelGroupClass.class
     where type accel_flags_t = GtkAccelFlags.t =
   struct
     local
@@ -51,9 +51,9 @@ structure GtkAccelGroup :>
       val lock_ = call (load_sym libgtk "gtk_accel_group_lock") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unlock_ = call (load_sym libgtk "gtk_accel_group_unlock") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkAccelGroupClass.t
+    type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.C.fromPtr true) new_ ()
     fun fromAccelClosure closure = (GObjectClosureRecord.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) fromAccelClosure_ closure

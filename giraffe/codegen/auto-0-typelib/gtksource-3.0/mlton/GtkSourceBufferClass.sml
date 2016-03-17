@@ -4,7 +4,8 @@ structure GtkSourceBufferClass :>
     where type 'a C.p = 'a GtkTextBufferClass.C.p =
   struct
     type 'a buffer = unit
-    type 'a t = 'a buffer GtkTextBufferClass.t
+    type 'a class = 'a buffer GtkTextBufferClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GtkTextBufferClass.t
     val tOpt = GtkTextBufferClass.tOpt

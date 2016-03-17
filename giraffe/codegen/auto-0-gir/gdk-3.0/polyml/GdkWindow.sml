@@ -1,27 +1,27 @@
 structure GdkWindow :>
   GDK_WINDOW
-    where type 'a class_t = 'a GdkWindowClass.t
-    where type window_attr_record_t = GdkWindowAttrRecord.t
+    where type 'a class = 'a GdkWindowClass.class
+    where type window_attr_t = GdkWindowAttrRecord.t
     where type window_edge_t = GdkWindowEdge.t
     where type modifier_type_t = GdkModifierType.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t
+    where type 'a display_class = 'a GdkDisplayClass.class
     where type drag_protocol_t = GdkDragProtocol.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
+    where type 'a screen_class = 'a GdkScreenClass.class
     where type window_state_t = GdkWindowState.t
-    where type 'a visual_class_t = 'a GdkVisualClass.t
+    where type 'a visual_class = 'a GdkVisualClass.class
     where type window_type_t = GdkWindowType.t
-    where type rectangle_record_t = GdkRectangleRecord.t
-    where type color_record_t = GdkColorRecord.t
-    where type rgba_record_t = GdkRgbaRecord.t
+    where type rectangle_t = GdkRectangleRecord.t
+    where type color_t = GdkColorRecord.t
+    where type rgba_t = GdkRgbaRecord.t
     where type w_m_decoration_t = GdkWMDecoration.t
-    where type 'a device_class_t = 'a GdkDeviceClass.t
+    where type 'a device_class = 'a GdkDeviceClass.class
     where type w_m_function_t = GdkWMFunction.t
     where type window_hints_t = GdkWindowHints.t
-    where type geometry_record_t = GdkGeometryRecord.t
+    where type geometry_t = GdkGeometryRecord.t
     where type event_mask_t = GdkEventMask.t
     where type input_source_t = GdkInputSource.t
     where type window_type_hint_t = GdkWindowTypeHint.t
-    where type 'a cursor_class_t = 'a GdkCursorClass.t =
+    where type 'a cursor_class = 'a GdkCursorClass.class =
   struct
     local
       open PolyMLFFI
@@ -379,29 +379,29 @@ structure GdkWindow :>
       val unstick_ = call (load_sym libgdk "gdk_window_unstick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val withdraw_ = call (load_sym libgdk "gdk_window_withdraw") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GdkWindowClass.t
-    type window_attr_record_t = GdkWindowAttrRecord.t
+    type 'a class = 'a GdkWindowClass.class
+    type window_attr_t = GdkWindowAttrRecord.t
     type window_edge_t = GdkWindowEdge.t
     type modifier_type_t = GdkModifierType.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
+    type 'a display_class = 'a GdkDisplayClass.class
     type drag_protocol_t = GdkDragProtocol.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
+    type 'a screen_class = 'a GdkScreenClass.class
     type window_state_t = GdkWindowState.t
-    type 'a visual_class_t = 'a GdkVisualClass.t
+    type 'a visual_class = 'a GdkVisualClass.class
     type window_type_t = GdkWindowType.t
-    type rectangle_record_t = GdkRectangleRecord.t
-    type color_record_t = GdkColorRecord.t
-    type rgba_record_t = GdkRgbaRecord.t
+    type rectangle_t = GdkRectangleRecord.t
+    type color_t = GdkColorRecord.t
+    type rgba_t = GdkRgbaRecord.t
     type w_m_decoration_t = GdkWMDecoration.t
-    type 'a device_class_t = 'a GdkDeviceClass.t
+    type 'a device_class = 'a GdkDeviceClass.class
     type w_m_function_t = GdkWMFunction.t
     type window_hints_t = GdkWindowHints.t
-    type geometry_record_t = GdkGeometryRecord.t
+    type geometry_t = GdkGeometryRecord.t
     type event_mask_t = GdkEventMask.t
     type input_source_t = GdkInputSource.t
     type window_type_hint_t = GdkWindowTypeHint.t
-    type 'a cursor_class_t = 'a GdkCursorClass.t
-    type t = base class_t
+    type 'a cursor_class = 'a GdkCursorClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent attributes attributesMask =
       (

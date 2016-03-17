@@ -1,20 +1,19 @@
 signature GTK_ICON_SET =
   sig
-    type record_t
-    type icon_source_record_t
-    type 'a style_context_class_t
-    type t = record_t
+    type t
+    type icon_source_t
+    type 'a style_context_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> record_t
-    val newFromPixbuf : 'a GdkPixbuf.PixbufClass.t -> record_t
+    val new : unit -> t
+    val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class -> t
     val addSource :
-      record_t
-       -> icon_source_record_t
+      t
+       -> icon_source_t
        -> unit
-    val copy : record_t -> record_t
+    val copy : t -> t
     val renderIconPixbuf :
-      record_t
-       -> 'a style_context_class_t
+      t
+       -> 'a style_context_class
        -> LargeInt.int
-       -> base GdkPixbuf.PixbufClass.t
+       -> base GdkPixbuf.PixbufClass.class
   end

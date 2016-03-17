@@ -4,7 +4,8 @@ structure GioVolumeClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a volume = unit
-    type 'a t = 'a volume GObjectObjectClass.t
+    type 'a class = 'a volume GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

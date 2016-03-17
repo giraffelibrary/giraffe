@@ -1,6 +1,6 @@
 structure GtkSourceGutterRendererPixbuf :>
   GTK_SOURCE_GUTTER_RENDERER_PIXBUF
-    where type 'a class_t = 'a GtkSourceGutterRendererPixbufClass.t =
+    where type 'a class = 'a GtkSourceGutterRendererPixbufClass.class =
   struct
     local
       open PolyMLFFI
@@ -16,8 +16,8 @@ structure GtkSourceGutterRendererPixbuf :>
       val setPixbuf_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_pixbuf") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setStockId_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_pixbuf_set_stock_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceGutterRendererPixbufClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceGutterRendererPixbufClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererPixbufClass.C.fromPtr true) new_ ()
     fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self

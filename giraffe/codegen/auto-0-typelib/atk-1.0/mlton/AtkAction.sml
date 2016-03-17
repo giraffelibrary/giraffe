@@ -1,6 +1,6 @@
 structure AtkAction :>
   ATK_ACTION
-    where type 'a class_t = 'a AtkActionClass.t =
+    where type 'a class = 'a AtkActionClass.class =
   struct
     val getType_ = _import "atk_action_get_type" : unit -> GObjectType.C.val_;
     val doAction_ = fn x1 & x2 => (_import "atk_action_do_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
@@ -28,8 +28,8 @@ structure AtkAction :>
               x3,
               x4
             )
-    type 'a class_t = 'a AtkActionClass.t
-    type t = base class_t
+    type 'a class = 'a AtkActionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doAction self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) doAction_ (self & i)
     fun getDescription self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getDescription_ (self & i)

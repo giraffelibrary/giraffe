@@ -1,8 +1,8 @@
 structure PangoGlyphString :>
   PANGO_GLYPH_STRING
-    where type record_t = PangoGlyphStringRecord.t
-    where type rectangle_record_t = PangoRectangleRecord.t
-    where type 'a font_class_t = 'a PangoFontClass.t =
+    where type t = PangoGlyphStringRecord.t
+    where type rectangle_t = PangoRectangleRecord.t
+    where type 'a font_class = 'a PangoFontClass.class =
   struct
     local
       open PolyMLFFI
@@ -33,10 +33,9 @@ structure PangoGlyphString :>
       val getWidth_ = call (load_sym libpango "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type record_t = PangoGlyphStringRecord.t
-    type rectangle_record_t = PangoRectangleRecord.t
-    type 'a font_class_t = 'a PangoFontClass.t
-    type t = record_t
+    type t = PangoGlyphStringRecord.t
+    type rectangle_t = PangoRectangleRecord.t
+    type 'a font_class = 'a PangoFontClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoGlyphStringRecord.C.fromPtr true) new_ ()
     fun copy self = (PangoGlyphStringRecord.C.withPtr ---> PangoGlyphStringRecord.C.fromPtr true) copy_ self

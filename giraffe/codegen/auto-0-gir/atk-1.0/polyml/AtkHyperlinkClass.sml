@@ -4,7 +4,8 @@ structure AtkHyperlinkClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a hyperlink = unit
-    type 'a t = 'a hyperlink GObjectObjectClass.t
+    type 'a class = 'a hyperlink GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

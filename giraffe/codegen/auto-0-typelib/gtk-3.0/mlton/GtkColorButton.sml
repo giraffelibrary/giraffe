@@ -1,8 +1,8 @@
 structure GtkColorButton :>
   GTK_COLOR_BUTTON
-    where type 'a class_t = 'a GtkColorButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkColorButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_color_button_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_color_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -32,10 +32,10 @@ structure GtkColorButton :>
               x3
             )
     val setUseAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_use_alpha" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkColorButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkColorButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

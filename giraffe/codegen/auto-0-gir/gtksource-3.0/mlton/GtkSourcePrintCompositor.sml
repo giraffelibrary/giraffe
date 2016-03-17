@@ -1,8 +1,8 @@
 structure GtkSourcePrintCompositor :>
   GTK_SOURCE_PRINT_COMPOSITOR
-    where type 'a class_t = 'a GtkSourcePrintCompositorClass.t
-    where type 'a view_class_t = 'a GtkSourceViewClass.t
-    where type 'a buffer_class_t = 'a GtkSourceBufferClass.t =
+    where type 'a class = 'a GtkSourcePrintCompositorClass.class
+    where type 'a view_class = 'a GtkSourceViewClass.class
+    where type 'a buffer_class = 'a GtkSourceBufferClass.class =
   struct
     val getType_ = _import "gtk_source_print_compositor_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_print_compositor_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -234,10 +234,10 @@ structure GtkSourcePrintCompositor :>
               x3
             )
     val setWrapMode_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_wrap_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkWrapMode.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkSourcePrintCompositorClass.t
-    type 'a view_class_t = 'a GtkSourceViewClass.t
-    type 'a buffer_class_t = 'a GtkSourceBufferClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourcePrintCompositorClass.class
+    type 'a view_class = 'a GtkSourceViewClass.class
+    type 'a buffer_class = 'a GtkSourceBufferClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new buffer = (GObjectObjectClass.C.withPtr ---> GtkSourcePrintCompositorClass.C.fromPtr true) new_ buffer
     fun newFromView view = (GObjectObjectClass.C.withPtr ---> GtkSourcePrintCompositorClass.C.fromPtr true) newFromView_ view

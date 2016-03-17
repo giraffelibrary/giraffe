@@ -37,18 +37,18 @@ Conditions
 PropertySpec has the form:
 
 
-  val <propertyName>Prop : ('a class_t, <PropertyType(true)>) <Property("readonly")>
+  val <propertyName>Prop : ('a class, <PropertyType(true)>) <Property("readonly")>
 
     if isReadable and not isWritable
 
 
-  val <propertyName>Prop : ('a class_t, <PropertyType(false)>) <Property("writeonly")>
+  val <propertyName>Prop : ('a class, <PropertyType(false)>) <Property("writeonly")>
 
     if not isReadable and isWritable
 
 
   val <propertyName>Prop :
-    ('a class_t, <PropertyType(true)>, <PropertyType(false)>) <Property("readwrite")>
+    ('a class, <PropertyType(true)>, <PropertyType(false)>) <Property("readwrite")>
 
     if isReadable and isWritable
 
@@ -133,39 +133,39 @@ where
           isSelf = InterfaceName = ContainerName
           isGlobal = InterfaceNamespace <> FunctionNamespace
 
-            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+            <var> <InterfaceNamespace>.<InterfaceName>Class.class
               if isGlobal and isClass
 
             <InterfaceNamespace>.<InterfaceName>Record.t
               if isGlobal and isRecord
 
-            <var> <InterfaceNamespace>.<InterfaceName>.t
+            <var> <InterfaceNamespace>.<InterfaceName>.union
               if isGlobal and isUnion
 
             <InterfaceNamespace>.<InterfaceName>.t
               if isGlobal and isOther
 
 
-            <var> <interfacename>class_t
+            <var> <interface_name>_class
               if not isGlobal and not isSelf and isClass
 
-            <interfacename>record_t
+            <interface_name>_t
               if not isGlobal and not isSelf and isRecord
 
-            <var> <interfacename>_t
+            <var> <interface_name>_union
               if not isGlobal and not isSelf and isUnion
 
-            <interfacename>_t
+            <interface_name>_t
               if not isGlobal and not isSelf and isOther
 
 
-            <var> class_t
+            <var> class
               if not isGlobal and isSelf and isClass
 
-            record_t
+            t
               if not isGlobal and isSelf and isRecord
 
-            <var> t
+            <var> union
               if not isGlobal and isSelf and isUnion
 
             t

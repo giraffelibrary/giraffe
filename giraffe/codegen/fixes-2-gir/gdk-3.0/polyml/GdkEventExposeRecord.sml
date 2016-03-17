@@ -1,7 +1,7 @@
 structure GdkEventExposeRecord :>
   sig
     include GDK_EVENT_EXPOSE_RECORD
-      where type 'a event_t = 'a GdkEvent.t
+      where type 'a event_union = 'a GdkEvent.union
       where type C.notnull = GdkEvent.C.notnull
       where type 'a C.p = 'a GdkEvent.C.p
 
@@ -13,8 +13,8 @@ structure GdkEventExposeRecord :>
   end =
   struct
     type expose = unit
-    type 'a event_t = 'a GdkEvent.t
-    type t = expose event_t
+    type 'a event_union = 'a GdkEvent.union
+    type t = expose event_union
 
 
     datatype event =
@@ -27,4 +27,5 @@ structure GdkEventExposeRecord :>
 
 
     val t = GdkEvent.t
+    val tOpt = GdkEvent.tOpt
   end

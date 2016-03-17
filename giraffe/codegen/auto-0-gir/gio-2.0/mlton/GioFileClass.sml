@@ -4,7 +4,8 @@ structure GioFileClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a file = unit
-    type 'a t = 'a file GObjectObjectClass.t
+    type 'a class = 'a file GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

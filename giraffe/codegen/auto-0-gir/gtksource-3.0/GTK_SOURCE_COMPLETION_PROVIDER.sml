@@ -1,43 +1,43 @@
 signature GTK_SOURCE_COMPLETION_PROVIDER =
   sig
-    type 'a class_t
+    type 'a class
     type completion_activation_t
-    type 'a completion_context_class_t
-    type 'a completion_info_class_t
-    type 'a completion_proposal_class_t
-    type t = base class_t
+    type 'a completion_context_class
+    type 'a completion_info_class
+    type 'a completion_proposal_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val activateProposal :
-      'a class_t
-       -> 'b completion_proposal_class_t
+      'a class
+       -> 'b completion_proposal_class
        -> Gtk.TextIterRecord.t
        -> bool
-    val getActivation : 'a class_t -> completion_activation_t
-    val getIcon : 'a class_t -> base GdkPixbuf.PixbufClass.t
+    val getActivation : 'a class -> completion_activation_t
+    val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
     val getInfoWidget :
-      'a class_t
-       -> 'b completion_proposal_class_t
-       -> base Gtk.WidgetClass.t
-    val getInteractiveDelay : 'a class_t -> LargeInt.int
-    val getName : 'a class_t -> string
-    val getPriority : 'a class_t -> LargeInt.int
+      'a class
+       -> 'b completion_proposal_class
+       -> base Gtk.WidgetClass.class
+    val getInteractiveDelay : 'a class -> LargeInt.int
+    val getName : 'a class -> string
+    val getPriority : 'a class -> LargeInt.int
     val getStartIter :
-      'a class_t
-       -> 'b completion_context_class_t
-       -> 'c completion_proposal_class_t
+      'a class
+       -> 'b completion_context_class
+       -> 'c completion_proposal_class
        -> Gtk.TextIterRecord.t
        -> bool
     val match :
-      'a class_t
-       -> 'b completion_context_class_t
+      'a class
+       -> 'b completion_context_class
        -> bool
     val populate :
-      'a class_t
-       -> 'b completion_context_class_t
+      'a class
+       -> 'b completion_context_class
        -> unit
     val updateInfo :
-      'a class_t
-       -> 'b completion_proposal_class_t
-       -> 'c completion_info_class_t
+      'a class
+       -> 'b completion_proposal_class
+       -> 'c completion_info_class
        -> unit
   end

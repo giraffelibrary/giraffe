@@ -1,8 +1,8 @@
 structure AtkObject :>
   ATK_OBJECT
-    where type 'a class_t = 'a AtkObjectClass.t
-    where type 'a relation_set_class_t = 'a AtkRelationSetClass.t
-    where type 'a state_set_class_t = 'a AtkStateSetClass.t
+    where type 'a class = 'a AtkObjectClass.class
+    where type 'a relation_set_class = 'a AtkRelationSetClass.class
+    where type 'a state_set_class = 'a AtkStateSetClass.class
     where type relation_type_t = AtkRelationType.t
     where type role_t = AtkRole.t =
   struct
@@ -49,12 +49,12 @@ structure AtkObject :>
       val setParent_ = call (load_sym libatk "atk_object_set_parent") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setRole_ = call (load_sym libatk "atk_object_set_role") (GObjectObjectClass.PolyML.cPtr &&> AtkRole.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a AtkObjectClass.t
-    type 'a relation_set_class_t = 'a AtkRelationSetClass.t
-    type 'a state_set_class_t = 'a AtkStateSetClass.t
+    type 'a class = 'a AtkObjectClass.class
+    type 'a relation_set_class = 'a AtkRelationSetClass.class
+    type 'a state_set_class = 'a AtkStateSetClass.class
     type relation_type_t = AtkRelationType.t
     type role_t = AtkRole.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addRelationship self relationship target =
       (

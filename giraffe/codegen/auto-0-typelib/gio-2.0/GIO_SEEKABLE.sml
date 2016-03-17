@@ -1,21 +1,21 @@
 signature GIO_SEEKABLE =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
-    type t = base class_t
+    type 'a class
+    type 'a cancellable_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val canSeek : 'a class_t -> bool
-    val canTruncate : 'a class_t -> bool
+    val canSeek : 'a class -> bool
+    val canTruncate : 'a class -> bool
     val seek :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> GLib.SeekType.t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
-    val tell : 'a class_t -> LargeInt.int
+    val tell : 'a class -> LargeInt.int
     val truncate :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
   end

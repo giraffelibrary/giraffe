@@ -13,7 +13,7 @@ val valueId : id = "Value"
  *     | ...
  *     | <VALUENAME[V]>
  *)
-fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.t) : datatypedec =
+fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.class) : datatypedec =
   let
     fun mkDatatypeClause valueInfo = (NameId (getValueNameId valueInfo), NONE)
   in
@@ -35,11 +35,11 @@ fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.t) : datatypedec =
     )
   end
 
-val mkEnumDatatypeSpec : 'a EnumInfoClass.t -> datatypespec = mkEnumDatatypeDec
+val mkEnumDatatypeSpec : 'a EnumInfoClass.class -> datatypespec = mkEnumDatatypeDec
 
 
 local
-  val handlerName = ("GLib", "ErrorRecord", "handler")
+  val handlerName = ("GLib", "Error", "Record", "handler")
   val handlerTemplate = ([], handlerName)
 
   val handlerGlobalLId : lid = mkGlobalLId handlerName
@@ -181,9 +181,9 @@ local
   val specs'0 = [structCSpec]
 in
   fun makeEnumSig
-    (repo          : 'a RepositoryClass.t)
+    (repo          : 'a RepositoryClass.class)
     (enumNamespace : string)
-    (enumInfo      : 'a EnumInfoClass.t)
+    (enumInfo      : 'b EnumInfoClass.class)
     (errs'0        : infoerrorhier list)
     : id * program * id list * infoerrorhier list =
     let
@@ -241,7 +241,7 @@ local
   (*
    *           | <VALUENAME[i]> => f <valueValue[i]>
    *)
-  fun withValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
+  fun withValMatchClause (valueInfo : 'a ValueInfoClass.class) : pat * exp =
     (
       PatA (APatConst (mkIdLNameConst (getValueNameId valueInfo))),
       ExpApp (mkIdLNameExp fId, ExpConst (getEnumIntConst valueInfo))
@@ -250,7 +250,7 @@ local
   (*
    *           | <valueValue[i]> => <VALUENAME[i]>
    *)
-  fun fromValMatchClause (valueInfo : 'a ValueInfoClass.t) : pat * exp =
+  fun fromValMatchClause (valueInfo : 'a ValueInfoClass.class) : pat * exp =
     (
       PatA (APatConst (getEnumIntConst valueInfo)),
       mkIdLNameExp (getValueNameId valueInfo)
@@ -420,11 +420,11 @@ local
     end
 in
   fun makeEnumStr
-    (repo          : 'a RepositoryClass.t)
+    (repo          : 'a RepositoryClass.class)
     (vers          : Repository.typelibvers_t)
     (libId         : id)
     (enumNamespace : string)
-    (enumInfo      : 'a EnumInfoClass.t)
+    (enumInfo      : 'b EnumInfoClass.class)
     (errs'0        : infoerrorhier list)
     : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
     let

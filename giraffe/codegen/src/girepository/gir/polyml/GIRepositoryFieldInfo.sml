@@ -1,7 +1,7 @@
 structure GIRepositoryFieldInfo :>
   G_I_REPOSITORY_FIELD_INFO
-    where type 'a class_t = 'a GIRepositoryFieldInfoClass.t
-    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryFieldInfoClass.class
+    where type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     where type fieldinfoflags_t = GIRepositoryFieldInfoFlags.t =
   struct
     fun fromBase f = (I && f) o GIRepositoryBaseInfoClass.Obj.unpack
@@ -11,8 +11,8 @@ structure GIRepositoryFieldInfo :>
     fun toType f = GIRepositoryTypeInfoClass.Obj.pack o (I && f)
 
 
-    type 'a class_t = 'a GIRepositoryFieldInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryFieldInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     type fieldinfoflags_t = GIRepositoryFieldInfoFlags.t
 
 

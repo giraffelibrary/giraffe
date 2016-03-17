@@ -1,7 +1,7 @@
 structure GtkApplication :>
   GTK_APPLICATION
-    where type 'a class_t = 'a GtkApplicationClass.t
-    where type 'a window_class_t = 'a GtkWindowClass.t =
+    where type 'a class = 'a GtkApplicationClass.class
+    where type 'a window_class = 'a GtkWindowClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,9 +11,9 @@ structure GtkApplication :>
       val addWindow_ = call (load_sym libgtk "gtk_application_add_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val removeWindow_ = call (load_sym libgtk "gtk_application_remove_window") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkApplicationClass.t
-    type 'a window_class_t = 'a GtkWindowClass.t
-    type t = base class_t
+    type 'a class = 'a GtkApplicationClass.class
+    type 'a window_class = 'a GtkWindowClass.class
+    type t = base class
     fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new applicationId flags = (Utf8.C.withPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)

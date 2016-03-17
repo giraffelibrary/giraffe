@@ -4,7 +4,8 @@ structure GioIOModuleClass :>
     where type 'a C.p = 'a GObjectTypeModuleClass.C.p =
   struct
     type 'a i_o_module = unit
-    type 'a t = 'a i_o_module GObjectTypeModuleClass.t
+    type 'a class = 'a i_o_module GObjectTypeModuleClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectTypeModuleClass.t
     val tOpt = GObjectTypeModuleClass.tOpt

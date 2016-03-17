@@ -1,10 +1,10 @@
 structure GtkTreeSelection :>
   GTK_TREE_SELECTION
-    where type 'a class_t = 'a GtkTreeSelectionClass.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    where type 'a tree_view_class_t = 'a GtkTreeViewClass.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type tree_path_record_t = GtkTreePathRecord.t
+    where type 'a class = 'a GtkTreeSelectionClass.class
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class
+    where type 'a tree_view_class = 'a GtkTreeViewClass.class
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type tree_path_t = GtkTreePathRecord.t
     where type selection_mode_t = GtkSelectionMode.t =
   struct
     val getType_ = _import "gtk_tree_selection_get_type" : unit -> GObjectType.C.val_;
@@ -71,13 +71,13 @@ structure GtkTreeSelection :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkTreeSelectionClass.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type 'a tree_view_class_t = 'a GtkTreeViewClass.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type tree_path_record_t = GtkTreePathRecord.t
+    type 'a class = 'a GtkTreeSelectionClass.class
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type 'a tree_view_class = 'a GtkTreeViewClass.class
+    type tree_iter_t = GtkTreeIterRecord.t
+    type tree_path_t = GtkTreePathRecord.t
     type selection_mode_t = GtkSelectionMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun countSelectedRows self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) countSelectedRows_ self
     fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self

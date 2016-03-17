@@ -1,6 +1,6 @@
 structure GtkSourceLanguage :>
   GTK_SOURCE_LANGUAGE
-    where type 'a class_t = 'a GtkSourceLanguageClass.t =
+    where type 'a class = 'a GtkSourceLanguageClass.class =
   struct
     local
       open PolyMLFFI
@@ -13,8 +13,8 @@ structure GtkSourceLanguage :>
       val getSection_ = call (load_sym libgtksourceview "gtk_source_language_get_section") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getStyleName_ = call (load_sym libgtksourceview "gtk_source_language_get_style_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GtkSourceLanguageClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceLanguageClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHidden_ self
     fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self

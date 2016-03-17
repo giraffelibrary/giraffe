@@ -4,7 +4,8 @@ structure GtkSettingsClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a settings = unit
-    type 'a t = 'a settings GObjectObjectClass.t
+    type 'a class = 'a settings GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

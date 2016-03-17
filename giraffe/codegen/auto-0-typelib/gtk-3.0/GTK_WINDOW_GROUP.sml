@@ -1,22 +1,22 @@
 signature GTK_WINDOW_GROUP =
   sig
-    type 'a class_t
-    type 'a widget_class_t
-    type 'a window_class_t
-    type t = base class_t
+    type 'a class
+    type 'a widget_class
+    type 'a window_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val addWindow :
-      'a class_t
-       -> 'b window_class_t
+      'a class
+       -> 'b window_class
        -> unit
     val getCurrentDeviceGrab :
-      'a class_t
-       -> 'b Gdk.DeviceClass.t
-       -> base widget_class_t
-    val getCurrentGrab : 'a class_t -> base widget_class_t
+      'a class
+       -> 'b Gdk.DeviceClass.class
+       -> base widget_class
+    val getCurrentGrab : 'a class -> base widget_class
     val removeWindow :
-      'a class_t
-       -> 'b window_class_t
+      'a class
+       -> 'b window_class
        -> unit
   end

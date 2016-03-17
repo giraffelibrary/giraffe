@@ -1,8 +1,8 @@
 structure GtkPageSetup :>
   GTK_PAGE_SETUP
-    where type 'a class_t = 'a GtkPageSetupClass.t
+    where type 'a class = 'a GtkPageSetupClass.class
     where type page_orientation_t = GtkPageOrientation.t
-    where type paper_size_record_t = GtkPaperSizeRecord.t
+    where type paper_size_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t =
   struct
     local
@@ -99,11 +99,11 @@ structure GtkPageSetup :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkPageSetupClass.t
+    type 'a class = 'a GtkPageSetupClass.class
     type page_orientation_t = GtkPageOrientation.t
-    type paper_size_record_t = GtkPaperSizeRecord.t
+    type paper_size_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkPageSetupClass.C.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.C.fromPtr true) newFromFile_ (fileName & [])

@@ -1,17 +1,17 @@
 signature GIO_CREDENTIALS =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getUnixUser : 'a class_t -> LargeInt.int
+    val new : unit -> base class
+    val getUnixUser : 'a class -> LargeInt.int
     val isSameUser :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
     val setUnixUser :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
-    val toString : 'a class_t -> string
+    val toString : 'a class -> string
   end

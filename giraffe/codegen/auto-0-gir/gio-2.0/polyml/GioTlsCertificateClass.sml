@@ -4,7 +4,8 @@ structure GioTlsCertificateClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a tls_certificate = unit
-    type 'a t = 'a tls_certificate GObjectObjectClass.t
+    type 'a class = 'a tls_certificate GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

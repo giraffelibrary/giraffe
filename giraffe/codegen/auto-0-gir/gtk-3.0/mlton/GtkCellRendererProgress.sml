@@ -1,13 +1,13 @@
 structure GtkCellRendererProgress :>
   GTK_CELL_RENDERER_PROGRESS
-    where type 'a class_t = 'a GtkCellRendererProgressClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t =
+    where type 'a class = 'a GtkCellRendererProgressClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_progress_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_progress_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GtkCellRendererProgressClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkCellRendererProgressClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type t = base class
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererProgressClass.C.fromPtr false) new_ ()

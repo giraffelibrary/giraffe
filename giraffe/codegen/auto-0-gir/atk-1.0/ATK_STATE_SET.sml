@@ -1,34 +1,34 @@
 signature ATK_STATE_SET =
   sig
-    type 'a class_t
+    type 'a class
     type state_type_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val addState :
-      'a class_t
+      'a class
        -> state_type_t
        -> bool
     val andSets :
-      'a class_t
-       -> 'b class_t
-       -> base class_t
-    val clearStates : 'a class_t -> unit
+      'a class
+       -> 'b class
+       -> base class
+    val clearStates : 'a class -> unit
     val containsState :
-      'a class_t
+      'a class
        -> state_type_t
        -> bool
-    val isEmpty : 'a class_t -> bool
+    val isEmpty : 'a class -> bool
     val orSets :
-      'a class_t
-       -> 'b class_t
-       -> base class_t
+      'a class
+       -> 'b class
+       -> base class
     val removeState :
-      'a class_t
+      'a class
        -> state_type_t
        -> bool
     val xorSets :
-      'a class_t
-       -> 'b class_t
-       -> base class_t
+      'a class
+       -> 'b class
+       -> base class
   end

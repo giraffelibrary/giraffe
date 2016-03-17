@@ -4,7 +4,8 @@ structure GtkSizeGroupClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a size_group = unit
-    type 'a t = 'a size_group GObjectObjectClass.t
+    type 'a class = 'a size_group GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

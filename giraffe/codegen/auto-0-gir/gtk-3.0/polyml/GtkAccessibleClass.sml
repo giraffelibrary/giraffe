@@ -4,7 +4,8 @@ structure GtkAccessibleClass :>
     where type 'a C.p = 'a AtkObjectClass.C.p =
   struct
     type 'a accessible = unit
-    type 'a t = 'a accessible AtkObjectClass.t
+    type 'a class = 'a accessible AtkObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = AtkObjectClass.t
     val tOpt = AtkObjectClass.tOpt

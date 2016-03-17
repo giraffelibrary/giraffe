@@ -1,13 +1,13 @@
 structure GtkTextBuffer :>
   GTK_TEXT_BUFFER
-    where type 'a class_t = 'a GtkTextBufferClass.t
-    where type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
-    where type 'a text_mark_class_t = 'a GtkTextMarkClass.t
-    where type 'a clipboard_class_t = 'a GtkClipboardClass.t
-    where type text_iter_record_t = GtkTextIterRecord.t
-    where type 'a text_tag_class_t = 'a GtkTextTagClass.t
-    where type target_list_record_t = GtkTargetListRecord.t
-    where type 'a text_tag_table_class_t = 'a GtkTextTagTableClass.t =
+    where type 'a class = 'a GtkTextBufferClass.class
+    where type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
+    where type 'a text_mark_class = 'a GtkTextMarkClass.class
+    where type 'a clipboard_class = 'a GtkClipboardClass.class
+    where type text_iter_t = GtkTextIterRecord.t
+    where type 'a text_tag_class = 'a GtkTextTagClass.class
+    where type target_list_t = GtkTargetListRecord.t
+    where type 'a text_tag_table_class = 'a GtkTextTagTableClass.class =
   struct
     local
       open PolyMLFFI
@@ -349,15 +349,15 @@ structure GtkTextBuffer :>
       val unregisterDeserializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_deserialize_format") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val unregisterSerializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_serialize_format") (GObjectObjectClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTextBufferClass.t
-    type 'a text_child_anchor_class_t = 'a GtkTextChildAnchorClass.t
-    type 'a text_mark_class_t = 'a GtkTextMarkClass.t
-    type 'a clipboard_class_t = 'a GtkClipboardClass.t
-    type text_iter_record_t = GtkTextIterRecord.t
-    type 'a text_tag_class_t = 'a GtkTextTagClass.t
-    type target_list_record_t = GtkTargetListRecord.t
-    type 'a text_tag_table_class_t = 'a GtkTextTagTableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkTextBufferClass.class
+    type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
+    type 'a text_mark_class = 'a GtkTextMarkClass.class
+    type 'a clipboard_class = 'a GtkClipboardClass.class
+    type text_iter_t = GtkTextIterRecord.t
+    type 'a text_tag_class = 'a GtkTextTagClass.class
+    type target_list_t = GtkTargetListRecord.t
+    type 'a text_tag_table_class = 'a GtkTextTagTableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkTextBufferClass.C.fromPtr true) new_ table
     fun addMark self mark where' =

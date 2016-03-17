@@ -1,9 +1,9 @@
 signature GIO_SOCKET_CONTROL_MESSAGE =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getLevel : 'a class_t -> LargeInt.int
-    val getMsgType : 'a class_t -> LargeInt.int
-    val getSize : 'a class_t -> LargeInt.int
+    val getLevel : 'a class -> LargeInt.int
+    val getMsgType : 'a class -> LargeInt.int
+    val getSize : 'a class -> LargeInt.int
   end

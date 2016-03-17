@@ -1,9 +1,9 @@
 structure GtkTreeModel :>
   GTK_TREE_MODEL
-    where type 'a class_t = 'a GtkTreeModelClass.t
+    where type 'a class = 'a GtkTreeModelClass.class
     where type tree_model_flags_t = GtkTreeModelFlags.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type tree_path_record_t = GtkTreePathRecord.t =
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type tree_path_t = GtkTreePathRecord.t =
   struct
     val getType_ = _import "gtk_tree_model_get_type" : unit -> GObjectType.C.val_;
     val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkTreePathRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
@@ -181,11 +181,11 @@ structure GtkTreeModel :>
             )
     val sortNewWithModel_ = _import "gtk_tree_model_sort_new_with_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val unrefNode_ = fn x1 & x2 => (_import "gtk_tree_model_unref_node" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkTreeModelClass.t
+    type 'a class = 'a GtkTreeModelClass.class
     type tree_model_flags_t = GtkTreeModelFlags.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type tree_path_record_t = GtkTreePathRecord.t
-    type t = base class_t
+    type tree_iter_t = GtkTreeIterRecord.t
+    type tree_path_t = GtkTreePathRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun filterNew self root = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withOptPtr ---> GtkTreeModelClass.C.fromPtr true) filterNew_ (self & root)
     fun getFlags self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelFlags.C.fromVal) getFlags_ self

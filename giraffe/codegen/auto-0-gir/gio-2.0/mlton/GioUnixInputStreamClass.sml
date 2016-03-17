@@ -1,12 +1,13 @@
 structure GioUnixInputStreamClass :>
   GIO_UNIX_INPUT_STREAM_CLASS
-    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
+    where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type C.notnull = GioInputStreamClass.C.notnull
     where type 'a C.p = 'a GioInputStreamClass.C.p =
   struct
     type 'a unix_input_stream = unit
-    type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    type 'a t = 'a unix_input_stream input_stream_class_t
+    type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a class = 'a unix_input_stream input_stream_class
+    type t = base class
     fun toBase obj = obj
     val t = GioInputStreamClass.t
     val tOpt = GioInputStreamClass.tOpt

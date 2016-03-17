@@ -1,6 +1,6 @@
 structure GtkFontChooser :>
   GTK_FONT_CHOOSER
-    where type 'a class_t = 'a GtkFontChooserClass.t =
+    where type 'a class = 'a GtkFontChooserClass.class =
   struct
     local
       open PolyMLFFI
@@ -18,8 +18,8 @@ structure GtkFontChooser :>
       val setPreviewText_ = call (load_sym libgtk "gtk_font_chooser_set_preview_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val setShowPreviewEntry_ = call (load_sym libgtk "gtk_font_chooser_set_show_preview_entry") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkFontChooserClass.t
-    type t = base class_t
+    type 'a class = 'a GtkFontChooserClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getFont self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getFont_ self
     fun getFontDesc self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) getFontDesc_ self

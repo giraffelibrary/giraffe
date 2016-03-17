@@ -1,7 +1,7 @@
 structure AtkTable :>
   ATK_TABLE
-    where type 'a class_t = 'a AtkTableClass.t
-    where type 'a object_class_t = 'a AtkObjectClass.t =
+    where type 'a class = 'a AtkTableClass.class
+    where type 'a object_class = 'a AtkObjectClass.class =
   struct
     local
       open PolyMLFFI
@@ -98,9 +98,9 @@ structure AtkTable :>
           )
       val setSummary_ = call (load_sym libatk "atk_table_set_summary") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a AtkTableClass.t
-    type 'a object_class_t = 'a AtkObjectClass.t
-    type t = base class_t
+    type 'a class = 'a AtkTableClass.class
+    type 'a object_class = 'a AtkObjectClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addColumnSelection self column = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addColumnSelection_ (self & column)
     fun addRowSelection self row = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)

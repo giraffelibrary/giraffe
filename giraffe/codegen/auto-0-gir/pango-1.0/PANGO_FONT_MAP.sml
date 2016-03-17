@@ -1,23 +1,23 @@
 signature PANGO_FONT_MAP =
   sig
-    type 'a class_t
-    type 'a font_class_t
-    type 'a fontset_class_t
-    type language_record_t
-    type font_description_record_t
-    type 'a context_class_t
-    type t = base class_t
+    type 'a class
+    type 'a font_class
+    type 'a fontset_class
+    type language_t
+    type font_description_t
+    type 'a context_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val createContext : 'a class_t -> base context_class_t
+    val createContext : 'a class -> base context_class
     val loadFont :
-      'a class_t
-       -> 'b context_class_t
-       -> font_description_record_t
-       -> base font_class_t
+      'a class
+       -> 'b context_class
+       -> font_description_t
+       -> base font_class
     val loadFontset :
-      'a class_t
-       -> 'b context_class_t
-       -> font_description_record_t
-       -> language_record_t
-       -> base fontset_class_t
+      'a class
+       -> 'b context_class
+       -> font_description_t
+       -> language_t
+       -> base fontset_class
   end

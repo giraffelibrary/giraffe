@@ -1,6 +1,6 @@
 structure GioUnixFDList :>
   GIO_UNIX_F_D_LIST
-    where type 'a class_t = 'a GioUnixFDListClass.t =
+    where type 'a class = 'a GioUnixFDListClass.class =
   struct
     local
       open PolyMLFFI
@@ -25,8 +25,8 @@ structure GioUnixFDList :>
           )
       val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
     end
-    type 'a class_t = 'a GioUnixFDListClass.t
-    type t = base class_t
+    type 'a class = 'a GioUnixFDListClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDListClass.C.fromPtr true) new_ ()
     fun append self fd =

@@ -1,6 +1,6 @@
 structure PangoFontDescription :>
   PANGO_FONT_DESCRIPTION
-    where type record_t = PangoFontDescriptionRecord.t
+    where type t = PangoFontDescriptionRecord.t
     where type gravity_t = PangoGravity.t
     where type stretch_t = PangoStretch.t
     where type style_t = PangoStyle.t
@@ -64,14 +64,13 @@ structure PangoFontDescription :>
       val unsetFields_ = call (load_sym libpango "pango_font_description_unset_fields") (PangoFontDescriptionRecord.PolyML.cPtr &&> PangoFontMask.PolyML.cVal --> FFI.PolyML.cVoid)
       val fromString_ = call (load_sym libpango "pango_font_description_from_string") (Utf8.PolyML.cInPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
     end
-    type record_t = PangoFontDescriptionRecord.t
+    type t = PangoFontDescriptionRecord.t
     type gravity_t = PangoGravity.t
     type stretch_t = PangoStretch.t
     type style_t = PangoStyle.t
     type variant_t = PangoVariant.t
     type weight_t = PangoWeight.t
     type font_mask_t = PangoFontMask.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoFontDescriptionRecord.C.fromPtr true) new_ ()
     fun betterMatch self oldMatch newMatch =

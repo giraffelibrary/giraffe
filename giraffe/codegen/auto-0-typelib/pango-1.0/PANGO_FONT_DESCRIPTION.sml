@@ -1,87 +1,86 @@
 signature PANGO_FONT_DESCRIPTION =
   sig
-    type record_t
+    type t
     type gravity_t
     type stretch_t
     type style_t
     type variant_t
     type weight_t
     type font_mask_t
-    type t = record_t
     val getType : unit -> GObject.Type.t
-    val new : unit -> record_t
+    val new : unit -> t
     val betterMatch :
-      record_t
-       -> record_t option
-       -> record_t
+      t
+       -> t option
+       -> t
        -> bool
-    val copy : record_t -> record_t
-    val copyStatic : record_t -> record_t
+    val copy : t -> t
+    val copyStatic : t -> t
     val equal :
-      record_t
-       -> record_t
+      t
+       -> t
        -> bool
-    val getFamily : record_t -> string
-    val getGravity : record_t -> gravity_t
-    val getSetFields : record_t -> font_mask_t
-    val getSize : record_t -> LargeInt.int
-    val getSizeIsAbsolute : record_t -> bool
-    val getStretch : record_t -> stretch_t
-    val getStyle : record_t -> style_t
-    val getVariant : record_t -> variant_t
-    val getWeight : record_t -> weight_t
-    val hash : record_t -> LargeInt.int
+    val getFamily : t -> string
+    val getGravity : t -> gravity_t
+    val getSetFields : t -> font_mask_t
+    val getSize : t -> LargeInt.int
+    val getSizeIsAbsolute : t -> bool
+    val getStretch : t -> stretch_t
+    val getStyle : t -> style_t
+    val getVariant : t -> variant_t
+    val getWeight : t -> weight_t
+    val hash : t -> LargeInt.int
     val merge :
-      record_t
-       -> record_t option
+      t
+       -> t option
        -> bool
        -> unit
     val mergeStatic :
-      record_t
-       -> record_t
+      t
+       -> t
        -> bool
        -> unit
     val setAbsoluteSize :
-      record_t
+      t
        -> real
        -> unit
     val setFamily :
-      record_t
+      t
        -> string
        -> unit
     val setFamilyStatic :
-      record_t
+      t
        -> string
        -> unit
     val setGravity :
-      record_t
+      t
        -> gravity_t
        -> unit
     val setSize :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val setStretch :
-      record_t
+      t
        -> stretch_t
        -> unit
     val setStyle :
-      record_t
+      t
        -> style_t
        -> unit
     val setVariant :
-      record_t
+      t
        -> variant_t
        -> unit
     val setWeight :
-      record_t
+      t
        -> weight_t
        -> unit
-    val toFilename : record_t -> string
-    val toString : record_t -> string
+    val toFilename : t -> string
+    val toString : t -> string
     val unsetFields :
-      record_t
+      t
        -> font_mask_t
        -> unit
-    val fromString : string -> record_t
+    val fromString : string -> t
   end

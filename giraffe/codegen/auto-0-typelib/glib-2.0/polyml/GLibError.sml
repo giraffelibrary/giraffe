@@ -1,6 +1,6 @@
 structure GLibError :>
   G_LIB_ERROR
-    where type record_t = GLibErrorRecord.t =
+    where type t = GLibErrorRecord.t =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,7 @@ structure GLibError :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type record_t = GLibErrorRecord.t
-    type t = record_t
+    type t = GLibErrorRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun matches self domain code =
       (

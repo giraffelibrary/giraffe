@@ -1,12 +1,12 @@
 structure VteTerminal :>
   VTE_TERMINAL
-    where type 'a class_t = 'a VteTerminalClass.t
+    where type 'a class = 'a VteTerminalClass.class
     where type pty_flags_t = VtePtyFlags.t
     where type terminal_write_flags_t = VteTerminalWriteFlags.t
     where type terminal_cursor_blink_mode_t = VteTerminalCursorBlinkMode.t
     where type terminal_cursor_shape_t = VteTerminalCursorShape.t
     where type terminal_erase_binding_t = VteTerminalEraseBinding.t
-    where type 'a pty_class_t = 'a VtePtyClass.t =
+    where type 'a pty_class = 'a VtePtyClass.class =
   struct
     local
       open PolyMLFFI
@@ -208,14 +208,14 @@ structure VteTerminal :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a VteTerminalClass.t
+    type 'a class = 'a VteTerminalClass.class
     type pty_flags_t = VtePtyFlags.t
     type terminal_write_flags_t = VteTerminalWriteFlags.t
     type terminal_cursor_blink_mode_t = VteTerminalCursorBlinkMode.t
     type terminal_cursor_shape_t = VteTerminalCursorShape.t
     type terminal_erase_binding_t = VteTerminalEraseBinding.t
-    type 'a pty_class_t = 'a VtePtyClass.t
-    type t = base class_t
+    type 'a pty_class = 'a VtePtyClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

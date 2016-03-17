@@ -1,6 +1,6 @@
 structure GtkRecentInfo :>
   GTK_RECENT_INFO
-    where type record_t = GtkRecentInfoRecord.t =
+    where type t = GtkRecentInfoRecord.t =
   struct
     local
       open PolyMLFFI
@@ -44,8 +44,7 @@ structure GtkRecentInfo :>
       val lastApplication_ = call (load_sym libgtk "gtk_recent_info_last_application") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val match_ = call (load_sym libgtk "gtk_recent_info_match") (GtkRecentInfoRecord.PolyML.cPtr &&> GtkRecentInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type record_t = GtkRecentInfoRecord.t
-    type t = record_t
+    type t = GtkRecentInfoRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createAppInfo self appName =
       (

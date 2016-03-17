@@ -1,6 +1,6 @@
 structure GtkRequisition :>
   GTK_REQUISITION
-    where type record_t = GtkRequisitionRecord.t =
+    where type t = GtkRequisitionRecord.t =
   struct
     local
       open PolyMLFFI
@@ -9,8 +9,7 @@ structure GtkRequisition :>
       val new_ = call (load_sym libgtk "gtk_requisition_new") (FFI.PolyML.cVoid --> GtkRequisitionRecord.PolyML.cPtr)
       val copy_ = call (load_sym libgtk "gtk_requisition_copy") (GtkRequisitionRecord.PolyML.cPtr --> GtkRequisitionRecord.PolyML.cPtr)
     end
-    type record_t = GtkRequisitionRecord.t
-    type t = record_t
+    type t = GtkRequisitionRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRequisitionRecord.C.fromPtr true) new_ ()
     fun copy self = (GtkRequisitionRecord.C.withPtr ---> GtkRequisitionRecord.C.fromPtr true) copy_ self

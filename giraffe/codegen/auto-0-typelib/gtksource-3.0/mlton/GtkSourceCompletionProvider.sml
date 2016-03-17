@@ -1,10 +1,10 @@
 structure GtkSourceCompletionProvider :>
   GTK_SOURCE_COMPLETION_PROVIDER
-    where type 'a class_t = 'a GtkSourceCompletionProviderClass.t
+    where type 'a class = 'a GtkSourceCompletionProviderClass.class
     where type completion_activation_t = GtkSourceCompletionActivation.t
-    where type 'a completion_context_class_t = 'a GtkSourceCompletionContextClass.t
-    where type 'a completion_info_class_t = 'a GtkSourceCompletionInfoClass.t
-    where type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t =
+    where type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
+    where type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
+    where type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class =
   struct
     val getType_ = _import "gtk_source_completion_provider_get_type" : unit -> GObjectType.C.val_;
     val activateProposal_ =
@@ -69,12 +69,12 @@ structure GtkSourceCompletionProvider :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkSourceCompletionProviderClass.t
+    type 'a class = 'a GtkSourceCompletionProviderClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
-    type 'a completion_context_class_t = 'a GtkSourceCompletionContextClass.t
-    type 'a completion_info_class_t = 'a GtkSourceCompletionInfoClass.t
-    type 'a completion_proposal_class_t = 'a GtkSourceCompletionProposalClass.t
-    type t = base class_t
+    type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
+    type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
+    type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activateProposal self proposal iter =
       (

@@ -1,9 +1,9 @@
 structure GObjectBinding :>
   G_OBJECT_BINDING
-    where type 'a class_t = 'a GObjectBindingClass.t
+    where type 'a class = 'a GObjectBindingClass.class
     where type type_t = GObjectType.t
     where type binding_flags_t = GObjectBindingFlags.t
-    where type 'a object_class_t = 'a GObjectObjectClass.t
+    where type 'a object_class = 'a GObjectObjectClass.class
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
@@ -18,11 +18,11 @@ structure GObjectBinding :>
       val getTarget_ = call (load_sym libgobject "g_binding_get_target") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getTargetProperty_ = call (load_sym libgobject "g_binding_get_target_property") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GObjectBindingClass.t
+    type 'a class = 'a GObjectBindingClass.class
     type type_t = GObjectType.t
     type binding_flags_t = GObjectBindingFlags.t
-    type 'a object_class_t = 'a GObjectObjectClass.t
-    type t = base class_t
+    type 'a object_class = 'a GObjectObjectClass.class
+    type t = base class
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite

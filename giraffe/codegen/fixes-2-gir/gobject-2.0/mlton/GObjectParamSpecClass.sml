@@ -12,7 +12,8 @@ structure GObjectParamSpecClass :>
 
     val unref_ = _import "g_param_spec_unref" : notnull p -> unit;
 
-    type 'a t = notnull p Finalizable.t
+    type 'a class = notnull p Finalizable.t
+    type t = base class
     fun toBase obj = obj
 
     structure C =

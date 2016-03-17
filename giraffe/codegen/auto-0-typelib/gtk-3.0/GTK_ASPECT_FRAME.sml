@@ -1,10 +1,10 @@
 signature GTK_ASPECT_FRAME =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
       string
@@ -12,16 +12,16 @@ signature GTK_ASPECT_FRAME =
        -> real
        -> real
        -> bool
-       -> base class_t
+       -> base class
     val set :
-      'a class_t
+      'a class
        -> real
        -> real
        -> real
        -> bool
        -> unit
-    val obeyChildProp : ('a class_t, bool, bool) Property.readwrite
-    val ratioProp : ('a class_t, real, real) Property.readwrite
-    val xalignProp : ('a class_t, real, real) Property.readwrite
-    val yalignProp : ('a class_t, real, real) Property.readwrite
+    val obeyChildProp : ('a class, bool, bool) Property.readwrite
+    val ratioProp : ('a class, real, real) Property.readwrite
+    val xalignProp : ('a class, real, real) Property.readwrite
+    val yalignProp : ('a class, real, real) Property.readwrite
   end

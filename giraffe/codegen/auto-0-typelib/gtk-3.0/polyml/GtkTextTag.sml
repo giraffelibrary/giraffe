@@ -1,7 +1,7 @@
 structure GtkTextTag :>
   GTK_TEXT_TAG
-    where type 'a class_t = 'a GtkTextTagClass.t
-    where type text_iter_record_t = GtkTextIterRecord.t
+    where type 'a class = 'a GtkTextTagClass.class
+    where type text_iter_t = GtkTextIterRecord.t
     where type text_direction_t = GtkTextDirection.t
     where type justification_t = GtkJustification.t
     where type wrap_mode_t = GtkWrapMode.t =
@@ -23,12 +23,12 @@ structure GtkTextTag :>
       val getPriority_ = call (load_sym libgtk "gtk_text_tag_get_priority") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val setPriority_ = call (load_sym libgtk "gtk_text_tag_set_priority") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkTextTagClass.t
-    type text_iter_record_t = GtkTextIterRecord.t
+    type 'a class = 'a GtkTextTagClass.class
+    type text_iter_t = GtkTextIterRecord.t
     type text_direction_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
     type wrap_mode_t = GtkWrapMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
     fun event self eventObject event iter =

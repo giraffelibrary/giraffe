@@ -1,14 +1,14 @@
 structure GioTlsDatabase :>
   GIO_TLS_DATABASE
-    where type 'a class_t = 'a GioTlsDatabaseClass.t
+    where type 'a class = 'a GioTlsDatabaseClass.class
     where type tls_database_lookup_flags_t = GioTlsDatabaseLookupFlags.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
+    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type tls_database_verify_flags_t = GioTlsDatabaseVerifyFlags.t
-    where type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    where type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    where type 'a tls_interaction_class = 'a GioTlsInteractionClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    where type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -75,16 +75,16 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateFlags.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GioTlsDatabaseClass.t
+    type 'a class = 'a GioTlsDatabaseClass.class
     type tls_database_lookup_flags_t = GioTlsDatabaseLookupFlags.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
+    type 'a cancellable_class = 'a GioCancellableClass.class
     type tls_database_verify_flags_t = GioTlsDatabaseVerifyFlags.t
-    type 'a tls_interaction_class_t = 'a GioTlsInteractionClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
+    type 'a tls_interaction_class = 'a GioTlsInteractionClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =

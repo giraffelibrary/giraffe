@@ -1,22 +1,22 @@
 signature GIO_SIMPLE_ACTION_GROUP =
   sig
-    type 'a class_t
-    type 'a action_group_class_t
-    type 'a action_class_t
-    type t = base class_t
-    val asActionGroup : 'a class_t -> base action_group_class_t
+    type 'a class
+    type 'a action_group_class
+    type 'a action_class
+    type t = base class
+    val asActionGroup : 'a class -> base action_group_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val insert :
-      'a class_t
-       -> 'b action_class_t
+      'a class
+       -> 'b action_class
        -> unit
     val lookup :
-      'a class_t
+      'a class
        -> string
-       -> base action_class_t
+       -> base action_class
     val remove :
-      'a class_t
+      'a class
        -> string
        -> unit
   end

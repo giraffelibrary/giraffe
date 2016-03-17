@@ -1,11 +1,11 @@
 structure GtkSourceBuffer :>
   GTK_SOURCE_BUFFER
-    where type 'a class_t = 'a GtkSourceBufferClass.t
-    where type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    where type 'a class = 'a GtkSourceBufferClass.class
+    where type 'a mark_class = 'a GtkSourceMarkClass.class
     where type bracket_match_type_t = GtkSourceBracketMatchType.t
-    where type 'a language_class_t = 'a GtkSourceLanguageClass.t
-    where type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t =
+    where type 'a language_class = 'a GtkSourceLanguageClass.class
+    where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
+    where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
     local
       open PolyMLFFI
@@ -98,13 +98,13 @@ structure GtkSourceBuffer :>
       val setUndoManager_ = call (load_sym libgtksourceview "gtk_source_buffer_set_undo_manager") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val undo_ = call (load_sym libgtksourceview "gtk_source_buffer_undo") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceBufferClass.t
-    type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    type 'a class = 'a GtkSourceBufferClass.class
+    type 'a mark_class = 'a GtkSourceMarkClass.class
     type bracket_match_type_t = GtkSourceBracketMatchType.t
-    type 'a language_class_t = 'a GtkSourceLanguageClass.t
-    type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t
-    type t = base class_t
+    type 'a language_class = 'a GtkSourceLanguageClass.class
+    type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
+    type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table
     fun newWithLanguage language = (GObjectObjectClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr true) newWithLanguage_ language

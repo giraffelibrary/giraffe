@@ -1,7 +1,7 @@
 structure GioSimpleAction :>
   GIO_SIMPLE_ACTION
-    where type 'a class_t = 'a GioSimpleActionClass.t
-    where type 'a action_class_t = 'a GioActionClass.t =
+    where type 'a class = 'a GioSimpleActionClass.class
+    where type 'a action_class = 'a GioActionClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,9 +19,9 @@ structure GioSimpleAction :>
       val setEnabled_ = call (load_sym libgio "g_simple_action_set_enabled") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setState_ = call (load_sym libgio "g_simple_action_set_state") (GObjectObjectClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioSimpleActionClass.t
-    type 'a action_class_t = 'a GioActionClass.t
-    type t = base class_t
+    type 'a class = 'a GioSimpleActionClass.class
+    type 'a action_class = 'a GioActionClass.class
+    type t = base class
     fun asAction self = (GObjectObjectClass.C.withPtr ---> GioActionClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name parameterType = (Utf8.C.withPtr &&&> GLibVariantTypeRecord.C.withOptPtr ---> GioSimpleActionClass.C.fromPtr true) new_ (name & parameterType)

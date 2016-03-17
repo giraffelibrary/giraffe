@@ -4,7 +4,8 @@ structure GtkActivatableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a activatable = unit
-    type 'a t = 'a activatable GObjectObjectClass.t
+    type 'a class = 'a activatable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

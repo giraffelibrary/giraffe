@@ -1,13 +1,13 @@
 structure GtkCellRendererAccel :>
   GTK_CELL_RENDERER_ACCEL
-    where type 'a class_t = 'a GtkCellRendererAccelClass.t
+    where type 'a class = 'a GtkCellRendererAccelClass.class
     where type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t =
   struct
     val getType_ = _import "gtk_cell_renderer_accel_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_renderer_accel_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GtkCellRendererAccelClass.t
+    type 'a class = 'a GtkCellRendererAccelClass.class
     type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererAccelClass.C.fromPtr false) new_ ()
     local

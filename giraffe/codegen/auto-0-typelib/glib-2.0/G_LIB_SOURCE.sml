@@ -1,39 +1,38 @@
 signature G_LIB_SOURCE =
   sig
-    type record_t
-    type main_context_record_t
-    type t = record_t
+    type t
+    type main_context_t
     val getType : unit -> GObject.Type.t
     val addChildSource :
-      record_t
-       -> record_t
+      t
+       -> t
        -> unit
     val attach :
-      record_t
-       -> main_context_record_t option
+      t
+       -> main_context_t option
        -> LargeInt.int
-    val destroy : record_t -> unit
-    val getCanRecurse : record_t -> bool
-    val getContext : record_t -> main_context_record_t
-    val getId : record_t -> LargeInt.int
-    val getName : record_t -> string
-    val getPriority : record_t -> LargeInt.int
-    val getTime : record_t -> LargeInt.int
-    val isDestroyed : record_t -> bool
+    val destroy : t -> unit
+    val getCanRecurse : t -> bool
+    val getContext : t -> main_context_t
+    val getId : t -> LargeInt.int
+    val getName : t -> string
+    val getPriority : t -> LargeInt.int
+    val getTime : t -> LargeInt.int
+    val isDestroyed : t -> bool
     val removeChildSource :
-      record_t
-       -> record_t
+      t
+       -> t
        -> unit
     val setCanRecurse :
-      record_t
+      t
        -> bool
        -> unit
     val setName :
-      record_t
+      t
        -> string
        -> unit
     val setPriority :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val remove : LargeInt.int -> bool

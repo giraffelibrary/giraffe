@@ -1,19 +1,19 @@
 structure GtkTreeView :>
   GTK_TREE_VIEW
-    where type 'a class_t = 'a GtkTreeViewClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    where type 'a tree_selection_class_t = 'a GtkTreeSelectionClass.t
+    where type 'a class = 'a GtkTreeViewClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     where type tree_view_drop_position_t = GtkTreeViewDropPosition.t
-    where type 'a entry_class_t = 'a GtkEntryClass.t
-    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    where type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    where type 'a entry_class = 'a GtkEntryClass.class
+    where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    where type 'a tooltip_class = 'a GtkTooltipClass.class
     where type movement_step_t = GtkMovementStep.t
-    where type tree_path_record_t = GtkTreePathRecord.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type tree_path_t = GtkTreePathRecord.t
+    where type tree_iter_t = GtkTreeIterRecord.t
     where type tree_view_grid_lines_t = GtkTreeViewGridLines.t
-    where type 'a tree_view_column_class_t = 'a GtkTreeViewColumnClass.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
+    where type 'a tree_view_column_class = 'a GtkTreeViewColumnClass.class
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_tree_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_tree_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -620,21 +620,21 @@ structure GtkTreeView :>
             )
     val unsetRowsDragDest_ = _import "gtk_tree_view_unset_rows_drag_dest" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unsetRowsDragSource_ = _import "gtk_tree_view_unset_rows_drag_source" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkTreeViewClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    type 'a tree_selection_class_t = 'a GtkTreeSelectionClass.t
+    type 'a class = 'a GtkTreeViewClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a scrollable_class = 'a GtkScrollableClass.class
+    type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     type tree_view_drop_position_t = GtkTreeViewDropPosition.t
-    type 'a entry_class_t = 'a GtkEntryClass.t
-    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    type 'a tooltip_class_t = 'a GtkTooltipClass.t
+    type 'a entry_class = 'a GtkEntryClass.class
+    type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    type 'a tooltip_class = 'a GtkTooltipClass.class
     type movement_step_t = GtkMovementStep.t
-    type tree_path_record_t = GtkTreePathRecord.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
+    type tree_path_t = GtkTreePathRecord.t
+    type tree_iter_t = GtkTreeIterRecord.t
     type tree_view_grid_lines_t = GtkTreeViewGridLines.t
-    type 'a tree_view_column_class_t = 'a GtkTreeViewColumnClass.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type t = base class_t
+    type 'a tree_view_column_class = 'a GtkTreeViewColumnClass.class
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self

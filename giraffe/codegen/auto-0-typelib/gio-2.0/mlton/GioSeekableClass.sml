@@ -4,7 +4,8 @@ structure GioSeekableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a seekable = unit
-    type 'a t = 'a seekable GObjectObjectClass.t
+    type 'a class = 'a seekable GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

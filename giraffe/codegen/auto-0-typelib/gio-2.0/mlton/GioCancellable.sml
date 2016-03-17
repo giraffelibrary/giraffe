@@ -1,6 +1,6 @@
 structure GioCancellable :>
   GIO_CANCELLABLE
-    where type 'a class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_cancellable_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_cancellable_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -15,8 +15,8 @@ structure GioCancellable :>
     val releaseFd_ = _import "g_cancellable_release_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val reset_ = _import "g_cancellable_reset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val setErrorIfCancelled_ = fn x1 & x2 => (_import "g_cancellable_set_error_if_cancelled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
-    type 'a class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.C.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.C.fromPtr false) getCurrent_ ()

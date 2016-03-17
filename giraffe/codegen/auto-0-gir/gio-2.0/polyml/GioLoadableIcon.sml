@@ -1,9 +1,9 @@
 structure GioLoadableIcon :>
   GIO_LOADABLE_ICON
-    where type 'a class_t = 'a GioLoadableIconClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioLoadableIconClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a input_stream_class = 'a GioInputStreamClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,11 +29,11 @@ structure GioLoadableIcon :>
              --> GObjectObjectClass.PolyML.cPtr
           )
     end
-    type 'a class_t = 'a GioLoadableIconClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a input_stream_class_t = 'a GioInputStreamClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioLoadableIconClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun load self size cancellable =
       let

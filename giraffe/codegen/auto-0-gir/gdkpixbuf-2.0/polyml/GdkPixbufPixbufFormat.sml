@@ -1,6 +1,6 @@
 structure GdkPixbufPixbufFormat :>
   GDK_PIXBUF_PIXBUF_FORMAT
-    where type record_t = GdkPixbufPixbufFormatRecord.t =
+    where type t = GdkPixbufPixbufFormatRecord.t =
   struct
     local
       open PolyMLFFI
@@ -15,8 +15,7 @@ structure GdkPixbufPixbufFormat :>
       val isWritable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type record_t = GdkPixbufPixbufFormatRecord.t
-    type t = record_t
+    type t = GdkPixbufPixbufFormatRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) copy_ self
     fun getDescription self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> Utf8.C.fromPtr true) getDescription_ self

@@ -1,10 +1,10 @@
 signature GIO_I_O_MODULE =
   sig
-    type 'a class_t
-    type t = base class_t
-    val asTypePlugin : 'a class_t -> base GObject.TypePluginClass.t
+    type 'a class
+    type t = base class
+    val asTypePlugin : 'a class -> base GObject.TypePluginClass.class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class_t
-    val load : 'a class_t -> unit
-    val unload : 'a class_t -> unit
+    val new : string -> base class
+    val load : 'a class -> unit
+    val unload : 'a class -> unit
   end

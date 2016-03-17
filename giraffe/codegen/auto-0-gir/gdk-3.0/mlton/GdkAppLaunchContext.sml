@@ -1,8 +1,8 @@
 structure GdkAppLaunchContext :>
   GDK_APP_LAUNCH_CONTEXT
-    where type 'a class_t = 'a GdkAppLaunchContextClass.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t =
+    where type 'a class = 'a GdkAppLaunchContextClass.class
+    where type 'a screen_class = 'a GdkScreenClass.class
+    where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_app_launch_context_get_type" : unit -> GObjectType.C.val_;
     val setDesktop_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_desktop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
@@ -24,10 +24,10 @@ structure GdkAppLaunchContext :>
             )
     val setScreen_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setTimestamp_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_timestamp" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GdkAppLaunchContextClass.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type t = base class_t
+    type 'a class = 'a GdkAppLaunchContextClass.class
+    type 'a screen_class = 'a GdkScreenClass.class
+    type 'a display_class = 'a GdkDisplayClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun setDesktop self desktop = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDesktop_ (self & desktop)
     fun setIcon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setIcon_ (self & icon)

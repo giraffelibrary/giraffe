@@ -1,33 +1,33 @@
 structure AtkNoOpObject :>
   ATK_NO_OP_OBJECT
-    where type 'a class_t = 'a AtkNoOpObjectClass.t
-    where type 'a action_class_t = 'a AtkActionClass.t
-    where type 'a component_class_t = 'a AtkComponentClass.t
-    where type 'a document_class_t = 'a AtkDocumentClass.t
-    where type 'a editable_text_class_t = 'a AtkEditableTextClass.t
-    where type 'a hypertext_class_t = 'a AtkHypertextClass.t
-    where type 'a image_class_t = 'a AtkImageClass.t
-    where type 'a selection_class_t = 'a AtkSelectionClass.t
-    where type 'a table_class_t = 'a AtkTableClass.t
-    where type 'a text_class_t = 'a AtkTextClass.t
-    where type 'a value_class_t = 'a AtkValueClass.t
-    where type 'a window_class_t = 'a AtkWindowClass.t =
+    where type 'a class = 'a AtkNoOpObjectClass.class
+    where type 'a action_class = 'a AtkActionClass.class
+    where type 'a component_class = 'a AtkComponentClass.class
+    where type 'a document_class = 'a AtkDocumentClass.class
+    where type 'a editable_text_class = 'a AtkEditableTextClass.class
+    where type 'a hypertext_class = 'a AtkHypertextClass.class
+    where type 'a image_class = 'a AtkImageClass.class
+    where type 'a selection_class = 'a AtkSelectionClass.class
+    where type 'a table_class = 'a AtkTableClass.class
+    where type 'a text_class = 'a AtkTextClass.class
+    where type 'a value_class = 'a AtkValueClass.class
+    where type 'a window_class = 'a AtkWindowClass.class =
   struct
     val getType_ = _import "atk_no_op_object_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "atk_no_op_object_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a AtkNoOpObjectClass.t
-    type 'a action_class_t = 'a AtkActionClass.t
-    type 'a component_class_t = 'a AtkComponentClass.t
-    type 'a document_class_t = 'a AtkDocumentClass.t
-    type 'a editable_text_class_t = 'a AtkEditableTextClass.t
-    type 'a hypertext_class_t = 'a AtkHypertextClass.t
-    type 'a image_class_t = 'a AtkImageClass.t
-    type 'a selection_class_t = 'a AtkSelectionClass.t
-    type 'a table_class_t = 'a AtkTableClass.t
-    type 'a text_class_t = 'a AtkTextClass.t
-    type 'a value_class_t = 'a AtkValueClass.t
-    type 'a window_class_t = 'a AtkWindowClass.t
-    type t = base class_t
+    type 'a class = 'a AtkNoOpObjectClass.class
+    type 'a action_class = 'a AtkActionClass.class
+    type 'a component_class = 'a AtkComponentClass.class
+    type 'a document_class = 'a AtkDocumentClass.class
+    type 'a editable_text_class = 'a AtkEditableTextClass.class
+    type 'a hypertext_class = 'a AtkHypertextClass.class
+    type 'a image_class = 'a AtkImageClass.class
+    type 'a selection_class = 'a AtkSelectionClass.class
+    type 'a table_class = 'a AtkTableClass.class
+    type 'a text_class = 'a AtkTextClass.class
+    type 'a value_class = 'a AtkValueClass.class
+    type 'a window_class = 'a AtkWindowClass.class
+    type t = base class
     fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
     fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
     fun asDocument self = (GObjectObjectClass.C.withPtr ---> AtkDocumentClass.C.fromPtr false) I self

@@ -1,67 +1,67 @@
 signature GIO_TLS_CONNECTION =
   sig
-    type 'a class_t
-    type 'a cancellable_class_t
-    type 'a async_result_class_t
-    type 'a i_o_stream_class_t
-    type 'a tls_database_class_t
-    type 'a tls_interaction_class_t
-    type 'a tls_certificate_class_t
+    type 'a class
+    type 'a cancellable_class
+    type 'a async_result_class
+    type 'a i_o_stream_class
+    type 'a tls_database_class
+    type 'a tls_interaction_class
+    type 'a tls_certificate_class
     type tls_certificate_flags_t
     type tls_rehandshake_mode_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val emitAcceptCertificate :
-      'a class_t
-       -> 'b tls_certificate_class_t
+      'a class
+       -> 'b tls_certificate_class
        -> tls_certificate_flags_t
        -> bool
-    val getCertificate : 'a class_t -> base tls_certificate_class_t
-    val getDatabase : 'a class_t -> base tls_database_class_t
-    val getInteraction : 'a class_t -> base tls_interaction_class_t
-    val getPeerCertificate : 'a class_t -> base tls_certificate_class_t
-    val getPeerCertificateErrors : 'a class_t -> tls_certificate_flags_t
-    val getRehandshakeMode : 'a class_t -> tls_rehandshake_mode_t
-    val getRequireCloseNotify : 'a class_t -> bool
+    val getCertificate : 'a class -> base tls_certificate_class
+    val getDatabase : 'a class -> base tls_database_class
+    val getInteraction : 'a class -> base tls_interaction_class
+    val getPeerCertificate : 'a class -> base tls_certificate_class
+    val getPeerCertificateErrors : 'a class -> tls_certificate_flags_t
+    val getRehandshakeMode : 'a class -> tls_rehandshake_mode_t
+    val getRequireCloseNotify : 'a class -> bool
     val handshake :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val handshakeFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val setCertificate :
-      'a class_t
-       -> 'b tls_certificate_class_t
+      'a class
+       -> 'b tls_certificate_class
        -> unit
     val setDatabase :
-      'a class_t
-       -> 'b tls_database_class_t
+      'a class
+       -> 'b tls_database_class
        -> unit
     val setInteraction :
-      'a class_t
-       -> 'b tls_interaction_class_t option
+      'a class
+       -> 'b tls_interaction_class option
        -> unit
     val setRehandshakeMode :
-      'a class_t
+      'a class
        -> tls_rehandshake_mode_t
        -> unit
     val setRequireCloseNotify :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val acceptCertificateSig :
-      (base tls_certificate_class_t
+      (base tls_certificate_class
         -> tls_certificate_flags_t
         -> bool)
-       -> 'a class_t Signal.signal
-    val baseIoStreamProp : ('a class_t, base i_o_stream_class_t option, 'b i_o_stream_class_t option) Property.readwrite
-    val certificateProp : ('a class_t, base tls_certificate_class_t option, 'b tls_certificate_class_t option) Property.readwrite
-    val databaseProp : ('a class_t, base tls_database_class_t option, 'b tls_database_class_t option) Property.readwrite
-    val interactionProp : ('a class_t, base tls_interaction_class_t option, 'b tls_interaction_class_t option) Property.readwrite
-    val peerCertificateProp : ('a class_t, base tls_certificate_class_t option) Property.readonly
-    val peerCertificateErrorsProp : ('a class_t, tls_certificate_flags_t) Property.readonly
-    val rehandshakeModeProp : ('a class_t, tls_rehandshake_mode_t, tls_rehandshake_mode_t) Property.readwrite
-    val requireCloseNotifyProp : ('a class_t, bool, bool) Property.readwrite
+       -> 'a class Signal.signal
+    val baseIoStreamProp : ('a class, base i_o_stream_class option, 'b i_o_stream_class option) Property.readwrite
+    val certificateProp : ('a class, base tls_certificate_class option, 'b tls_certificate_class option) Property.readwrite
+    val databaseProp : ('a class, base tls_database_class option, 'b tls_database_class option) Property.readwrite
+    val interactionProp : ('a class, base tls_interaction_class option, 'b tls_interaction_class option) Property.readwrite
+    val peerCertificateProp : ('a class, base tls_certificate_class option) Property.readonly
+    val peerCertificateErrorsProp : ('a class, tls_certificate_flags_t) Property.readonly
+    val rehandshakeModeProp : ('a class, tls_rehandshake_mode_t, tls_rehandshake_mode_t) Property.readwrite
+    val requireCloseNotifyProp : ('a class, bool, bool) Property.readwrite
   end

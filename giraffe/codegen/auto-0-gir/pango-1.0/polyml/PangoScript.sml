@@ -2,7 +2,7 @@ structure PangoScript :>
   sig
     include
       PANGO_SCRIPT
-        where type language_record_t = PangoLanguageRecord.t
+        where type language_t = PangoLanguageRecord.t
     structure PolyML :
       sig
         val cVal : C.val_ PolyMLFFI.conversion
@@ -286,7 +286,7 @@ structure PangoScript :>
       val forUnichar_ = call (load_sym libpango "pango_script_for_unichar") (FFI.Char.PolyML.cVal --> PolyML.cVal)
       val getSampleLanguage_ = call (load_sym libpango "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cPtr)
     end
-    type language_record_t = PangoLanguageRecord.t
+    type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
     fun getSampleLanguage script = (C.withVal ---> PangoLanguageRecord.C.fromPtr true) getSampleLanguage_ script

@@ -1,8 +1,8 @@
 signature PANGO_FONT_FAMILY =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getName : 'a class_t -> string
-    val isMonospace : 'a class_t -> bool
+    val getName : 'a class -> string
+    val isMonospace : 'a class -> bool
   end

@@ -4,7 +4,8 @@ structure GtkSourceMarkAttributesClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a mark_attributes = unit
-    type 'a t = 'a mark_attributes GObjectObjectClass.t
+    type 'a class = 'a mark_attributes GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

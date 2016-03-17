@@ -1,6 +1,6 @@
 structure GtkPaperSize :>
   GTK_PAPER_SIZE
-    where type record_t = GtkPaperSizeRecord.t
+    where type t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_paper_size_get_type" : unit -> GObjectType.C.val_;
@@ -127,9 +127,8 @@ structure GtkPaperSize :>
               x4
             )
     val getDefault_ = _import "gtk_paper_size_get_default" : unit -> Utf8.C.notnull Utf8.C.out_p;
-    type record_t = GtkPaperSizeRecord.t
+    type t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
-    type t = record_t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
     fun newCustom name displayName width height unit =

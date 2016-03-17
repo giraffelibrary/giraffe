@@ -1,9 +1,9 @@
 signature G_I_REPOSITORY_PROPERTY_INFO =
   sig
-    type 'a class_t
-    type 'a typeinfoclass_t
+    type 'a class
+    type 'a typeinfo_class
     type transfer_t
-    val getFlags : 'a class_t -> GObjectParamFlags.flags
-    val getType : 'a class_t -> base typeinfoclass_t
-    val getOwnershipTransfer : 'a class_t -> transfer_t
+    val getFlags : 'a class -> GObjectParamFlags.flags
+    val getType : 'a class -> base typeinfo_class
+    val getOwnershipTransfer : 'a class -> transfer_t
   end

@@ -1,10 +1,10 @@
 structure GtkImageMenuItem :>
   GTK_IMAGE_MENU_ITEM
-    where type 'a class_t = 'a GtkImageMenuItemClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a class = 'a GtkImageMenuItemClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     local
       open PolyMLFFI
@@ -22,12 +22,12 @@ structure GtkImageMenuItem :>
       val setImage_ = call (load_sym libgtk "gtk_image_menu_item_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setUseStock_ = call (load_sym libgtk "gtk_image_menu_item_set_use_stock") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkImageMenuItemClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a accel_group_class_t = 'a GtkAccelGroupClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a class = 'a GtkImageMenuItemClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a accel_group_class = 'a GtkAccelGroupClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

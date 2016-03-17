@@ -1,7 +1,6 @@
 structure GtkFileFilterInfo :>
   GTK_FILE_FILTER_INFO
-    where type record_t = GtkFileFilterInfoRecord.t =
+    where type t = GtkFileFilterInfoRecord.t =
   struct
-    type record_t = GtkFileFilterInfoRecord.t
-    type t = record_t
+    type t = GtkFileFilterInfoRecord.t
   end

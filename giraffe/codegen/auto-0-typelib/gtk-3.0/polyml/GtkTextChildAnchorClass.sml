@@ -4,7 +4,8 @@ structure GtkTextChildAnchorClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a text_child_anchor = unit
-    type 'a t = 'a text_child_anchor GObjectObjectClass.t
+    type 'a class = 'a text_child_anchor GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

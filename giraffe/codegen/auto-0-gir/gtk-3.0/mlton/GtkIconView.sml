@@ -1,18 +1,18 @@
 structure GtkIconView :>
   GTK_ICON_VIEW
-    where type 'a class_t = 'a GtkIconViewClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    where type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
+    where type 'a class = 'a GtkIconViewClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type tree_iter_t = GtkTreeIterRecord.t
     where type icon_view_drop_position_t = GtkIconViewDropPosition.t
-    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    where type 'a tooltip_class_t = 'a GtkTooltipClass.t
-    where type tree_path_record_t = GtkTreePathRecord.t
+    where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    where type 'a tooltip_class = 'a GtkTooltipClass.class
+    where type tree_path_t = GtkTreePathRecord.t
     where type movement_step_t = GtkMovementStep.t
-    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a cell_area_class = 'a GtkCellAreaClass.class
     where type orientation_t = GtkOrientation.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class
     where type selection_mode_t = GtkSelectionMode.t =
   struct
     val getType_ = _import "gtk_icon_view_get_type" : unit -> GObjectType.C.val_;
@@ -323,21 +323,21 @@ structure GtkIconView :>
     val unselectPath_ = fn x1 & x2 => (_import "gtk_icon_view_unselect_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
     val unsetModelDragDest_ = _import "gtk_icon_view_unset_model_drag_dest" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
     val unsetModelDragSource_ = _import "gtk_icon_view_unset_model_drag_source" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkIconViewClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    type 'a scrollable_class_t = 'a GtkScrollableClass.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
+    type 'a class = 'a GtkIconViewClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    type 'a scrollable_class = 'a GtkScrollableClass.class
+    type tree_iter_t = GtkTreeIterRecord.t
     type icon_view_drop_position_t = GtkIconViewDropPosition.t
-    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    type 'a tooltip_class_t = 'a GtkTooltipClass.t
-    type tree_path_record_t = GtkTreePathRecord.t
+    type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    type 'a tooltip_class = 'a GtkTooltipClass.class
+    type tree_path_t = GtkTreePathRecord.t
     type movement_step_t = GtkMovementStep.t
-    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a cell_area_class = 'a GtkCellAreaClass.class
     type orientation_t = GtkOrientation.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
     type selection_mode_t = GtkSelectionMode.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

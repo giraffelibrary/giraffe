@@ -1,7 +1,7 @@
 structure GtkHsv :>
   GTK_HSV
-    where type 'a class_t = 'a GtkHsvClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
+    where type 'a class = 'a GtkHsvClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
     where type direction_type_t = GtkDirectionType.t =
   struct
     local
@@ -56,10 +56,10 @@ structure GtkHsv :>
              --> FFI.PolyML.cVoid
           )
     end
-    type 'a class_t = 'a GtkHsvClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
+    type 'a class = 'a GtkHsvClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
     type direction_type_t = GtkDirectionType.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

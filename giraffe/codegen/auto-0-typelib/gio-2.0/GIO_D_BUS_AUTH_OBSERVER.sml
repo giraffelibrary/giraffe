@@ -1,19 +1,19 @@
 signature GIO_D_BUS_AUTH_OBSERVER =
   sig
-    type 'a class_t
-    type 'a credentials_class_t
-    type 'a i_o_stream_class_t
-    type t = base class_t
+    type 'a class
+    type 'a credentials_class
+    type 'a i_o_stream_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val authorizeAuthenticatedPeer :
-      'a class_t
-       -> 'b i_o_stream_class_t
-       -> 'c credentials_class_t
+      'a class
+       -> 'b i_o_stream_class
+       -> 'c credentials_class
        -> bool
     val authorizeAuthenticatedPeerSig :
-      (base i_o_stream_class_t
-        -> base credentials_class_t
+      (base i_o_stream_class
+        -> base credentials_class
         -> bool)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
   end

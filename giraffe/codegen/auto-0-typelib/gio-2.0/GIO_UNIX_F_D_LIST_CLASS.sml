@@ -1,10 +1,11 @@
 signature GIO_UNIX_F_D_LIST_CLASS =
   sig
     type 'a unix_f_d_list
-    type 'a t = 'a unix_f_d_list GObject.ObjectClass.t
-    val toBase : 'a t -> base t
-    val t : (base t, 'a t) GObject.Value.accessor
-    val tOpt : (base t option, 'a t option) GObject.Value.accessor
+    type 'a class = 'a unix_f_d_list GObject.ObjectClass.class
+    type t = base class
+    val toBase : 'a class -> base class
+    val t : (base class, 'a class) GObject.Value.accessor
+    val tOpt : (base class option, 'a class option) GObject.Value.accessor
     structure C :
       sig
         type notnull
@@ -12,10 +13,10 @@ signature GIO_UNIX_F_D_LIST_CLASS =
         val fromPtr :
           bool
            -> notnull p
-           -> 'a t
+           -> 'a class
         val fromOptPtr :
           bool
            -> unit p
-           -> 'a t option
+           -> 'a class option
       end
   end

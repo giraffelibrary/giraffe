@@ -1,12 +1,12 @@
 structure GioProxyAddressEnumerator :>
   GIO_PROXY_ADDRESS_ENUMERATOR
-    where type 'a class_t = 'a GioProxyAddressEnumeratorClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
+    where type 'a class = 'a GioProxyAddressEnumeratorClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
     val getType_ = _import "g_proxy_address_enumerator_get_type" : unit -> GObjectType.C.val_;
-    type 'a class_t = 'a GioProxyAddressEnumeratorClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type t = base class_t
+    type 'a class = 'a GioProxyAddressEnumeratorClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     local
       open Property

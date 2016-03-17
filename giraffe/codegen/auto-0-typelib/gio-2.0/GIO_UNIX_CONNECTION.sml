@@ -1,25 +1,25 @@
 signature GIO_UNIX_CONNECTION =
   sig
-    type 'a class_t
-    type 'a credentials_class_t
-    type 'a cancellable_class_t
-    type t = base class_t
+    type 'a class
+    type 'a credentials_class
+    type 'a cancellable_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val receiveCredentials :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base credentials_class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base credentials_class
     val receiveFd :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> LargeInt.int
     val sendCredentials :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val sendFd :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
   end

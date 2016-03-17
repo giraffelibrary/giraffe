@@ -1,35 +1,35 @@
 signature G_I_REPOSITORY_OBJECT_INFO =
   sig
-    type 'a class_t
-    type 'a baseinfoclass_t
-    type 'a interfaceinfoclass_t
-    type 'a fieldinfoclass_t
-    type 'a propertyinfoclass_t
-    type 'a functioninfoclass_t
-    type 'a signalinfoclass_t
-    type 'a vfuncinfoclass_t
-    type 'a constantinfoclass_t
-    type 'a structinfoclass_t
-    val getTypeName : 'a class_t -> string
-    val getTypeInit : 'a class_t -> string
-    val getAbstract : 'a class_t -> bool
-    val getFundamental : 'a class_t -> bool
-    val getParent : 'a class_t -> base class_t option
-    val getNInterfaces : 'a class_t -> LargeInt.int
-    val getInterface : 'a class_t -> LargeInt.int -> base interfaceinfoclass_t
-    val getNFields : 'a class_t -> LargeInt.int
-    val getField : 'a class_t -> LargeInt.int -> base fieldinfoclass_t
-    val getNProperties : 'a class_t -> LargeInt.int
-    val getProperty : 'a class_t -> LargeInt.int -> base propertyinfoclass_t
-    val getNMethods : 'a class_t -> LargeInt.int
-    val getMethod : 'a class_t -> LargeInt.int -> base functioninfoclass_t
-    val findMethod : 'a class_t -> string -> base functioninfoclass_t
-    val getNSignals : 'a class_t -> LargeInt.int
-    val getSignal : 'a class_t -> LargeInt.int -> base signalinfoclass_t
-    val getNVfuncs : 'a class_t -> LargeInt.int
-    val getVfunc : 'a class_t -> LargeInt.int -> base vfuncinfoclass_t
-    val getNConstants : 'a class_t -> LargeInt.int
-    val getConstant : 'a class_t -> LargeInt.int -> base constantinfoclass_t
-    val getClassStruct : 'a class_t -> base structinfoclass_t option
-    val findVfunc : 'a class_t -> string -> base vfuncinfoclass_t
+    type 'a class
+    type 'a baseinfo_class
+    type 'a interfaceinfo_class
+    type 'a fieldinfo_class
+    type 'a propertyinfo_class
+    type 'a functioninfo_class
+    type 'a signalinfo_class
+    type 'a vfuncinfo_class
+    type 'a constantinfo_class
+    type 'a structinfo_class
+    val getTypeName : 'a class -> string
+    val getTypeInit : 'a class -> string
+    val getAbstract : 'a class -> bool
+    val getFundamental : 'a class -> bool
+    val getParent : 'a class -> base class option
+    val getNInterfaces : 'a class -> LargeInt.int
+    val getInterface : 'a class -> LargeInt.int -> base interfaceinfo_class
+    val getNFields : 'a class -> LargeInt.int
+    val getField : 'a class -> LargeInt.int -> base fieldinfo_class
+    val getNProperties : 'a class -> LargeInt.int
+    val getProperty : 'a class -> LargeInt.int -> base propertyinfo_class
+    val getNMethods : 'a class -> LargeInt.int
+    val getMethod : 'a class -> LargeInt.int -> base functioninfo_class
+    val findMethod : 'a class -> string -> base functioninfo_class
+    val getNSignals : 'a class -> LargeInt.int
+    val getSignal : 'a class -> LargeInt.int -> base signalinfo_class
+    val getNVfuncs : 'a class -> LargeInt.int
+    val getVfunc : 'a class -> LargeInt.int -> base vfuncinfo_class
+    val getNConstants : 'a class -> LargeInt.int
+    val getConstant : 'a class -> LargeInt.int -> base constantinfo_class
+    val getClassStruct : 'a class -> base structinfo_class option
+    val findVfunc : 'a class -> string -> base vfuncinfo_class
   end

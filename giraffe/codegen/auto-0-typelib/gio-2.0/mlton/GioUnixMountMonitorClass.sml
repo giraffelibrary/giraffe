@@ -4,7 +4,8 @@ structure GioUnixMountMonitorClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a unix_mount_monitor = unit
-    type 'a t = 'a unix_mount_monitor GObjectObjectClass.t
+    type 'a class = 'a unix_mount_monitor GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

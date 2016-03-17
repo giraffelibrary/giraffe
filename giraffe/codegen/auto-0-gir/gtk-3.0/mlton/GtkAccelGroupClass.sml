@@ -4,7 +4,8 @@ structure GtkAccelGroupClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a accel_group = unit
-    type 'a t = 'a accel_group GObjectObjectClass.t
+    type 'a class = 'a accel_group GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

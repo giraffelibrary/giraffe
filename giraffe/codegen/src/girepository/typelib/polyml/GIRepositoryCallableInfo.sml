@@ -1,9 +1,9 @@
 structure GIRepositoryCallableInfo :>
   G_I_REPOSITORY_CALLABLE_INFO
-    where type 'a class_t = 'a GIRepositoryCallableInfoClass.t
-    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryCallableInfoClass.class
+    where type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     where type transfer_t = GIRepositoryTransfer.t
-    where type 'a arginfoclass_t = 'a GIRepositoryArgInfoClass.t =
+    where type 'a arginfo_class = 'a GIRepositoryArgInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -44,9 +44,9 @@ structure GIRepositoryCallableInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryCallableInfoClass.t
-    type 'a arginfoclass_t = 'a GIRepositoryArgInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryCallableInfoClass.class
+    type 'a arginfo_class = 'a GIRepositoryArgInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     type transfer_t = GIRepositoryTransfer.t
 
 

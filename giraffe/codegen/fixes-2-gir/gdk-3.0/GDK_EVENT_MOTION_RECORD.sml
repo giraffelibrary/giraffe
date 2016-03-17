@@ -1,9 +1,10 @@
 signature GDK_EVENT_MOTION_RECORD =
   sig
     type motion
-    type 'a event_t
-    type t = motion event_t
+    type 'a event_union
+    type t = motion event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       MOTION_NOTIFY
 (*

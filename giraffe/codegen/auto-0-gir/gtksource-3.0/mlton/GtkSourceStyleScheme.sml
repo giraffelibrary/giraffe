@@ -1,7 +1,7 @@
 structure GtkSourceStyleScheme :>
   GTK_SOURCE_STYLE_SCHEME
-    where type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a style_class_t = 'a GtkSourceStyleClass.t =
+    where type 'a class = 'a GtkSourceStyleSchemeClass.class
+    where type 'a style_class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_get_type" : unit -> GObjectType.C.val_;
     val getDescription_ = _import "gtk_source_style_scheme_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
@@ -23,9 +23,9 @@ structure GtkSourceStyleScheme :>
               x2,
               x3
             )
-    type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a style_class_t = 'a GtkSourceStyleClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceStyleSchemeClass.class
+    type 'a style_class = 'a GtkSourceStyleClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self

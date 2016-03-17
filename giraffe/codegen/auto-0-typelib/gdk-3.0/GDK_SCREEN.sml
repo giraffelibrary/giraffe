@@ -1,72 +1,72 @@
 signature GDK_SCREEN =
   sig
-    type 'a class_t
-    type 'a display_class_t
-    type 'a window_class_t
-    type 'a visual_class_t
-    type t = base class_t
+    type 'a class
+    type 'a display_class
+    type 'a window_class
+    type 'a visual_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class_t
+    val getDefault : unit -> base class
     val height : unit -> LargeInt.int
     val heightMm : unit -> LargeInt.int
     val width : unit -> LargeInt.int
     val widthMm : unit -> LargeInt.int
-    val getActiveWindow : 'a class_t -> base window_class_t
-    val getDisplay : 'a class_t -> base display_class_t
-    val getFontOptions : 'a class_t -> Cairo.FontOptionsRecord.t
-    val getHeight : 'a class_t -> LargeInt.int
-    val getHeightMm : 'a class_t -> LargeInt.int
+    val getActiveWindow : 'a class -> base window_class
+    val getDisplay : 'a class -> base display_class
+    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t
+    val getHeight : 'a class -> LargeInt.int
+    val getHeightMm : 'a class -> LargeInt.int
     val getMonitorAtPoint :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> LargeInt.int
     val getMonitorAtWindow :
-      'a class_t
-       -> 'b window_class_t
+      'a class
+       -> 'b window_class
        -> LargeInt.int
     val getMonitorGeometry :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> Cairo.RectangleIntRecord.t
     val getMonitorHeightMm :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
     val getMonitorPlugName :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> string
     val getMonitorWidthMm :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-    val getNMonitors : 'a class_t -> LargeInt.int
-    val getNumber : 'a class_t -> LargeInt.int
-    val getPrimaryMonitor : 'a class_t -> LargeInt.int
-    val getResolution : 'a class_t -> real
-    val getRgbaVisual : 'a class_t -> base visual_class_t
-    val getRootWindow : 'a class_t -> base window_class_t
+    val getNMonitors : 'a class -> LargeInt.int
+    val getNumber : 'a class -> LargeInt.int
+    val getPrimaryMonitor : 'a class -> LargeInt.int
+    val getResolution : 'a class -> real
+    val getRgbaVisual : 'a class -> base visual_class
+    val getRootWindow : 'a class -> base window_class
     val getSetting :
-      'a class_t
+      'a class
        -> string
        -> GObject.ValueRecord.t
        -> bool
-    val getSystemVisual : 'a class_t -> base visual_class_t
-    val getWidth : 'a class_t -> LargeInt.int
-    val getWidthMm : 'a class_t -> LargeInt.int
-    val isComposited : 'a class_t -> bool
-    val makeDisplayName : 'a class_t -> string
+    val getSystemVisual : 'a class -> base visual_class
+    val getWidth : 'a class -> LargeInt.int
+    val getWidthMm : 'a class -> LargeInt.int
+    val isComposited : 'a class -> bool
+    val makeDisplayName : 'a class -> string
     val setFontOptions :
-      'a class_t
+      'a class
        -> Cairo.FontOptionsRecord.t option
        -> unit
     val setResolution :
-      'a class_t
+      'a class
        -> real
        -> unit
-    val compositedChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val monitorsChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val sizeChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val resolutionProp : ('a class_t, real, real) Property.readwrite
+    val compositedChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val monitorsChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val sizeChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val resolutionProp : ('a class, real, real) Property.readwrite
   end

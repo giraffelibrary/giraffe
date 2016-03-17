@@ -1,8 +1,8 @@
 structure GioTlsServerConnection :>
   GIO_TLS_SERVER_CONNECTION
-    where type 'a class_t = 'a GioTlsServerConnectionClass.t
-    where type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
-    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    where type 'a class = 'a GioTlsServerConnectionClass.class
+    where type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
+    where type 'a i_o_stream_class = 'a GioIOStreamClass.class
     where type tls_authentication_mode_t = GioTlsAuthenticationMode.t =
   struct
     val getType_ = _import "g_tls_server_connection_get_type" : unit -> GObjectType.C.val_;
@@ -23,11 +23,11 @@ structure GioTlsServerConnection :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioTlsServerConnectionClass.t
-    type 'a tls_certificate_class_t = 'a GioTlsCertificateClass.t
-    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
+    type 'a class = 'a GioTlsServerConnectionClass.class
+    type 'a tls_certificate_class = 'a GioTlsCertificateClass.class
+    type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type tls_authentication_mode_t = GioTlsAuthenticationMode.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIoStream certificate =
       (

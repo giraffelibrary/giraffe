@@ -1,12 +1,12 @@
 signature ATK_OBJECT_FACTORY =
   sig
-    type 'a class_t
-    type 'a object_class_t
-    type t = base class_t
+    type 'a class
+    type 'a object_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val createAccessible :
-      'a class_t
-       -> 'b GObject.ObjectClass.t
-       -> base object_class_t
-    val invalidate : 'a class_t -> unit
+      'a class
+       -> 'b GObject.ObjectClass.class
+       -> base object_class
+    val invalidate : 'a class -> unit
   end

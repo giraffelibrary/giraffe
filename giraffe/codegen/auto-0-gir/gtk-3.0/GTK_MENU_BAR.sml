@@ -1,23 +1,23 @@
 signature GTK_MENU_BAR =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type pack_direction_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getChildPackDirection : 'a class_t -> pack_direction_t
-    val getPackDirection : 'a class_t -> pack_direction_t
+    val new : unit -> base class
+    val getChildPackDirection : 'a class -> pack_direction_t
+    val getPackDirection : 'a class -> pack_direction_t
     val setChildPackDirection :
-      'a class_t
+      'a class
        -> pack_direction_t
        -> unit
     val setPackDirection :
-      'a class_t
+      'a class
        -> pack_direction_t
        -> unit
-    val childPackDirectionProp : ('a class_t, pack_direction_t, pack_direction_t) Property.readwrite
-    val packDirectionProp : ('a class_t, pack_direction_t, pack_direction_t) Property.readwrite
+    val childPackDirectionProp : ('a class, pack_direction_t, pack_direction_t) Property.readwrite
+    val packDirectionProp : ('a class, pack_direction_t, pack_direction_t) Property.readwrite
   end

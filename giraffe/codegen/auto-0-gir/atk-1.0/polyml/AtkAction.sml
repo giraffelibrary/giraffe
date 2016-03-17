@@ -1,6 +1,6 @@
 structure AtkAction :>
   ATK_ACTION
-    where type 'a class_t = 'a AtkActionClass.t =
+    where type 'a class = 'a AtkActionClass.class =
   struct
     local
       open PolyMLFFI
@@ -21,8 +21,8 @@ structure AtkAction :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a AtkActionClass.t
-    type t = base class_t
+    type 'a class = 'a AtkActionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun doAction self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) doAction_ (self & i)
     fun getDescription self i = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getDescription_ (self & i)

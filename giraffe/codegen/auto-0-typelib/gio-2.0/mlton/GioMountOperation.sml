@@ -1,6 +1,6 @@
 structure GioMountOperation :>
   GIO_MOUNT_OPERATION
-    where type 'a class_t = 'a GioMountOperationClass.t
+    where type 'a class = 'a GioMountOperationClass.class
     where type ask_password_flags_t = GioAskPasswordFlags.t
     where type mount_operation_result_t = GioMountOperationResult.t
     where type password_save_t = GioPasswordSave.t =
@@ -62,11 +62,11 @@ structure GioMountOperation :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioMountOperationClass.t
+    type 'a class = 'a GioMountOperationClass.class
     type ask_password_flags_t = GioAskPasswordFlags.t
     type mount_operation_result_t = GioMountOperationResult.t
     type password_save_t = GioPasswordSave.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioMountOperationClass.C.fromPtr true) new_ ()
     fun getAnonymous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAnonymous_ self

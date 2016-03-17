@@ -1,7 +1,7 @@
 structure GtkSourceMarkAttributes :>
   GTK_SOURCE_MARK_ATTRIBUTES
-    where type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    where type 'a mark_class_t = 'a GtkSourceMarkClass.t =
+    where type 'a class = 'a GtkSourceMarkAttributesClass.class
+    where type 'a mark_class = 'a GtkSourceMarkClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,9 +29,9 @@ structure GtkSourceMarkAttributes :>
       val setPixbuf_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_pixbuf") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setStockId_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_stock_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkSourceMarkAttributesClass.t
-    type 'a mark_class_t = 'a GtkSourceMarkClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceMarkAttributesClass.class
+    type 'a mark_class = 'a GtkSourceMarkClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceMarkAttributesClass.C.fromPtr true) new_ ()
     fun getBackground self =

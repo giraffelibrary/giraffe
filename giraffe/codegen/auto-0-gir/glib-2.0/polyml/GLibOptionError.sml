@@ -2,7 +2,7 @@ structure GLibOptionError :>
   sig
     include
       G_LIB_OPTION_ERROR
-        where type error_record_handler = GLibErrorRecord.handler
+        where type error_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val cVal : C.val_ PolyMLFFI.conversion
@@ -38,7 +38,7 @@ structure GLibOptionError :>
         val cRef = FFI.Enum.PolyML.cRef
       end
     exception Error of t
-    type error_record_handler = GLibErrorRecord.handler
+    type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

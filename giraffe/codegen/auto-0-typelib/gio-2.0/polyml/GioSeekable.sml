@@ -1,7 +1,7 @@
 structure GioSeekable :>
   GIO_SEEKABLE
-    where type 'a class_t = 'a GioSeekableClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t =
+    where type 'a class = 'a GioSeekableClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     local
       open PolyMLFFI
@@ -30,9 +30,9 @@ structure GioSeekable :>
              --> FFI.Bool.PolyML.cVal
           )
     end
-    type 'a class_t = 'a GioSeekableClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type t = base class_t
+    type 'a class = 'a GioSeekableClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun canSeek self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canSeek_ self
     fun canTruncate self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canTruncate_ self

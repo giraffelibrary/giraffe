@@ -1,26 +1,25 @@
 signature PANGO_TAB_ARRAY =
   sig
-    type record_t
+    type t
     type tab_align_t
-    type t = record_t
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
        -> bool
-       -> record_t
-    val copy : record_t -> record_t
-    val getPositionsInPixels : record_t -> bool
-    val getSize : record_t -> LargeInt.int
+       -> t
+    val copy : t -> t
+    val getPositionsInPixels : t -> bool
+    val getSize : t -> LargeInt.int
     val getTab :
-      record_t
+      t
        -> LargeInt.int
        -> tab_align_t * LargeInt.int
     val resize :
-      record_t
+      t
        -> LargeInt.int
        -> unit
     val setTab :
-      record_t
+      t
        -> LargeInt.int
        -> tab_align_t
        -> LargeInt.int

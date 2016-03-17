@@ -1,55 +1,55 @@
 signature GTK_ACCEL_GROUP =
   sig
-    type 'a class_t
+    type 'a class
     type accel_flags_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val fromAccelClosure : GObject.ClosureRecord.t -> base class_t
+    val new : unit -> base class
+    val fromAccelClosure : GObject.ClosureRecord.t -> base class
     val activate :
-      'a class_t
+      'a class
        -> GLib.Quark.t
-       -> 'b GObject.ObjectClass.t
+       -> 'b GObject.ObjectClass.class
        -> LargeInt.int
        -> Gdk.ModifierType.t
        -> bool
     val connect :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> Gdk.ModifierType.t
        -> accel_flags_t
        -> GObject.ClosureRecord.t
        -> unit
     val connectByPath :
-      'a class_t
+      'a class
        -> string
        -> GObject.ClosureRecord.t
        -> unit
     val disconnect :
-      'a class_t
+      'a class
        -> GObject.ClosureRecord.t option
        -> bool
     val disconnectKey :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> Gdk.ModifierType.t
        -> bool
-    val getIsLocked : 'a class_t -> bool
-    val getModifierMask : 'a class_t -> Gdk.ModifierType.t
-    val lock : 'a class_t -> unit
-    val unlock : 'a class_t -> unit
+    val getIsLocked : 'a class -> bool
+    val getModifierMask : 'a class -> Gdk.ModifierType.t
+    val lock : 'a class -> unit
+    val unlock : 'a class -> unit
     val accelActivateSig :
-      (base GObject.ObjectClass.t
+      (base GObject.ObjectClass.class
         -> LargeInt.int
         -> Gdk.ModifierType.t
         -> bool)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
     val accelChangedSig :
       (LargeInt.int
         -> Gdk.ModifierType.t
         -> GObject.ClosureRecord.t
         -> unit)
-       -> 'a class_t Signal.signal
-    val isLockedProp : ('a class_t, bool) Property.readonly
-    val modifierMaskProp : ('a class_t, Gdk.ModifierType.t) Property.readonly
+       -> 'a class Signal.signal
+    val isLockedProp : ('a class, bool) Property.readonly
+    val modifierMaskProp : ('a class, Gdk.ModifierType.t) Property.readonly
   end

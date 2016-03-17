@@ -1,24 +1,24 @@
 signature ATK_RELATION =
   sig
-    type 'a class_t
-    type 'a object_class_t
+    type 'a class
+    type 'a object_class
     type relation_type_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val new :
-      'a object_class_t
+      'a object_class
        -> LargeInt.int
        -> relation_type_t
-       -> base class_t
+       -> base class
     val addTarget :
-      'a class_t
-       -> 'b object_class_t
+      'a class
+       -> 'b object_class
        -> unit
-    val getRelationType : 'a class_t -> relation_type_t
+    val getRelationType : 'a class -> relation_type_t
     val removeTarget :
-      'a class_t
-       -> 'b object_class_t
+      'a class
+       -> 'b object_class
        -> bool
-    val relationTypeProp : ('a class_t, relation_type_t, relation_type_t) Property.readwrite
-    val targetProp : ('a class_t, GObject.ValueArrayRecord.t option, GObject.ValueArrayRecord.t option) Property.readwrite
+    val relationTypeProp : ('a class, relation_type_t, relation_type_t) Property.readwrite
+    val targetProp : ('a class, GObject.ValueArrayRecord.t option, GObject.ValueArrayRecord.t option) Property.readwrite
   end

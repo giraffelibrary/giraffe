@@ -1,10 +1,10 @@
 structure GtkFileChooser :>
   GTK_FILE_CHOOSER
-    where type 'a class_t = 'a GtkFileChooserClass.t
+    where type 'a class = 'a GtkFileChooserClass.class
     where type file_chooser_confirmation_t = GtkFileChooserConfirmation.t
     where type file_chooser_action_t = GtkFileChooserAction.t
-    where type 'a file_filter_class_t = 'a GtkFileFilterClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a file_filter_class = 'a GtkFileFilterClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     local
       open PolyMLFFI
@@ -112,12 +112,12 @@ structure GtkFileChooser :>
       val unselectFilename_ = call (load_sym libgtk "gtk_file_chooser_unselect_filename") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val unselectUri_ = call (load_sym libgtk "gtk_file_chooser_unselect_uri") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkFileChooserClass.t
+    type 'a class = 'a GtkFileChooserClass.class
     type file_chooser_confirmation_t = GtkFileChooserConfirmation.t
     type file_chooser_action_t = GtkFileChooserAction.t
-    type 'a file_filter_class_t = 'a GtkFileFilterClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a file_filter_class = 'a GtkFileFilterClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addFilter self filter = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFilter_ (self & filter)
     fun addShortcutFolder self folder =

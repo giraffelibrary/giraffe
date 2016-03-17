@@ -1,6 +1,6 @@
 structure GioActionGroup :>
   GIO_ACTION_GROUP
-    where type 'a class_t = 'a GioActionGroupClass.t =
+    where type 'a class = 'a GioActionGroupClass.class =
   struct
     local
       open PolyMLFFI
@@ -47,8 +47,8 @@ structure GioActionGroup :>
       val getActionStateType_ = call (load_sym libgio "g_action_group_get_action_state_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GioActionGroupClass.t
-    type t = base class_t
+    type 'a class = 'a GioActionGroupClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =

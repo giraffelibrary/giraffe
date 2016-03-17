@@ -39,7 +39,8 @@ structure GObjectObjectClass :>
       then _import "giraffe_debug_g_object_unref" : notnull p -> unit;
       else _import "g_object_unref" : notnull p -> unit;
 
-    type 'a t = notnull p Finalizable.t
+    type 'a class = notnull p Finalizable.t
+    type t = base class
     fun toBase obj = obj
 
     structure C =

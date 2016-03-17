@@ -1,45 +1,45 @@
 signature GIO_DRIVE =
   sig
-    type 'a class_t
-    type 'a icon_class_t
+    type 'a class
+    type 'a icon_class
     type drive_start_stop_type_t
-    type 'a async_result_class_t
-    type t = base class_t
+    type 'a async_result_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val canEject : 'a class_t -> bool
-    val canPollForMedia : 'a class_t -> bool
-    val canStart : 'a class_t -> bool
-    val canStartDegraded : 'a class_t -> bool
-    val canStop : 'a class_t -> bool
+    val canEject : 'a class -> bool
+    val canPollForMedia : 'a class -> bool
+    val canStart : 'a class -> bool
+    val canStartDegraded : 'a class -> bool
+    val canStop : 'a class -> bool
     val ejectWithOperationFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val getIcon : 'a class_t -> base icon_class_t
+    val getIcon : 'a class -> base icon_class
     val getIdentifier :
-      'a class_t
+      'a class
        -> string
        -> string
-    val getName : 'a class_t -> string
-    val getStartStopType : 'a class_t -> drive_start_stop_type_t
-    val hasMedia : 'a class_t -> bool
-    val hasVolumes : 'a class_t -> bool
-    val isMediaCheckAutomatic : 'a class_t -> bool
-    val isMediaRemovable : 'a class_t -> bool
+    val getName : 'a class -> string
+    val getStartStopType : 'a class -> drive_start_stop_type_t
+    val hasMedia : 'a class -> bool
+    val hasVolumes : 'a class -> bool
+    val isMediaCheckAutomatic : 'a class -> bool
+    val isMediaRemovable : 'a class -> bool
     val pollForMediaFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val startFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val stopFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val changedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val disconnectedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val ejectButtonSig : (unit -> unit) -> 'a class_t Signal.signal
-    val stopButtonSig : (unit -> unit) -> 'a class_t Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val disconnectedSig : (unit -> unit) -> 'a class Signal.signal
+    val ejectButtonSig : (unit -> unit) -> 'a class Signal.signal
+    val stopButtonSig : (unit -> unit) -> 'a class Signal.signal
   end

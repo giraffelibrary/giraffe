@@ -1,7 +1,7 @@
 structure GdkPixbufPixbufSimpleAnim :>
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM
-    where type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
-    where type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t =
+    where type 'a class = 'a GdkPixbufPixbufSimpleAnimClass.class
+    where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,9 +19,9 @@ structure GdkPixbufPixbufSimpleAnim :>
       val getLoop_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_get_loop") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setLoop_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_set_loop") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GdkPixbufPixbufSimpleAnimClass.t
-    type 'a pixbuf_class_t = 'a GdkPixbufPixbufClass.t
-    type t = base class_t
+    type 'a class = 'a GdkPixbufPixbufSimpleAnimClass.class
+    type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new width height rate =
       (

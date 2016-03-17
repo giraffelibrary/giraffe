@@ -1,7 +1,7 @@
 structure GtkNumerableIcon :>
   GTK_NUMERABLE_ICON
-    where type 'a class_t = 'a GtkNumerableIconClass.t
-    where type 'a style_context_class_t = 'a GtkStyleContextClass.t =
+    where type 'a class = 'a GtkNumerableIconClass.class
+    where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_numerable_icon_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_numerable_icon_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -44,9 +44,9 @@ structure GtkNumerableIcon :>
               x3
             )
     val setStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_style_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkNumerableIconClass.t
-    type 'a style_context_class_t = 'a GtkStyleContextClass.t
-    type t = base class_t
+    type 'a class = 'a GtkNumerableIconClass.class
+    type 'a style_context_class = 'a GtkStyleContextClass.class
+    type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIcon = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr true) new_ baseIcon

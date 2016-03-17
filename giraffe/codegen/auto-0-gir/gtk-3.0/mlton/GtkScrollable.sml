@@ -1,7 +1,7 @@
 structure GtkScrollable :>
   GTK_SCROLLABLE
-    where type 'a class_t = 'a GtkScrollableClass.t
-    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a class = 'a GtkScrollableClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type scrollable_policy_t = GtkScrollablePolicy.t =
   struct
     val getType_ = _import "gtk_scrollable_get_type" : unit -> GObjectType.C.val_;
@@ -13,10 +13,10 @@ structure GtkScrollable :>
     val setHscrollPolicy_ = fn x1 & x2 => (_import "gtk_scrollable_set_hscroll_policy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkScrollablePolicy.C.val_ -> unit;) (x1, x2)
     val setVadjustment_ = fn x1 & x2 => (_import "gtk_scrollable_set_vadjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setVscrollPolicy_ = fn x1 & x2 => (_import "gtk_scrollable_set_vscroll_policy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkScrollablePolicy.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkScrollableClass.t
-    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a class = 'a GtkScrollableClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type scrollable_policy_t = GtkScrollablePolicy.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getHadjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getHadjustment_ self
     fun getHscrollPolicy self = (GObjectObjectClass.C.withPtr ---> GtkScrollablePolicy.C.fromVal) getHscrollPolicy_ self

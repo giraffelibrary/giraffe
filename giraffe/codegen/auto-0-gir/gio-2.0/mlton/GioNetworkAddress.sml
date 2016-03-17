@@ -1,7 +1,7 @@
 structure GioNetworkAddress :>
   GIO_NETWORK_ADDRESS
-    where type 'a class_t = 'a GioNetworkAddressClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t =
+    where type 'a class = 'a GioNetworkAddressClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
     val getType_ = _import "g_network_address_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -60,9 +60,9 @@ structure GioNetworkAddress :>
     val getHostname_ = _import "g_network_address_get_hostname" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getPort_ = _import "g_network_address_get_port" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt16.C.val_;
     val getScheme_ = _import "g_network_address_get_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    type 'a class_t = 'a GioNetworkAddressClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
-    type t = base class_t
+    type 'a class = 'a GioNetworkAddressClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
+    type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new hostname port = (Utf8.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)

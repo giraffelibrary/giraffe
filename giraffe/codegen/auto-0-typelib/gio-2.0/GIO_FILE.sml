@@ -1,331 +1,331 @@
 signature GIO_FILE =
   sig
-    type 'a class_t
+    type 'a class
     type file_copy_flags_t
-    type 'a file_enumerator_class_t
-    type 'a mount_class_t
-    type 'a icon_class_t
-    type 'a file_monitor_class_t
+    type 'a file_enumerator_class
+    type 'a mount_class
+    type 'a icon_class
+    type 'a file_monitor_class
     type file_monitor_flags_t
-    type 'a app_info_class_t
+    type 'a app_info_class
     type file_type_t
-    type file_attribute_info_list_record_t
-    type 'a file_input_stream_class_t
-    type 'a file_output_stream_class_t
+    type file_attribute_info_list_t
+    type 'a file_input_stream_class
+    type 'a file_output_stream_class
     type file_create_flags_t
-    type 'a file_i_o_stream_class_t
+    type 'a file_i_o_stream_class
     type file_query_info_flags_t
-    type 'a file_info_class_t
-    type 'a cancellable_class_t
-    type 'a async_result_class_t
-    type t = base class_t
+    type 'a file_info_class
+    type 'a cancellable_class
+    type 'a async_result_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val newForCommandlineArg : string -> base class_t
-    val newForPath : string -> base class_t
-    val newForUri : string -> base class_t
-    val parseName : string -> base class_t
+    val newForCommandlineArg : string -> base class
+    val newForPath : string -> base class
+    val newForUri : string -> base class
+    val parseName : string -> base class
     val appendTo :
-      'a class_t
+      'a class
        -> file_create_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_output_stream_class_t
+       -> 'b cancellable_class option
+       -> base file_output_stream_class
     val appendToFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_output_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_output_stream_class
     val copyAttributes :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> file_copy_flags_t
-       -> 'c cancellable_class_t option
+       -> 'c cancellable_class option
        -> bool
     val copyFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val create :
-      'a class_t
+      'a class
        -> file_create_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_output_stream_class_t
+       -> 'b cancellable_class option
+       -> base file_output_stream_class
     val createFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_output_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_output_stream_class
     val createReadwrite :
-      'a class_t
+      'a class
        -> file_create_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_i_o_stream_class_t
+       -> 'b cancellable_class option
+       -> base file_i_o_stream_class
     val createReadwriteFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_i_o_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_i_o_stream_class
     val delete :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
-    val dup : 'a class_t -> base class_t
+    val dup : 'a class -> base class
     val ejectMountableWithOperationFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val enumerateChildren :
-      'a class_t
+      'a class
        -> string
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_enumerator_class_t
+       -> 'b cancellable_class option
+       -> base file_enumerator_class
     val enumerateChildrenFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_enumerator_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_enumerator_class
     val equal :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
     val findEnclosingMount :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base mount_class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base mount_class
     val findEnclosingMountFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base mount_class_t
-    val getBasename : 'a class_t -> string
+      'a class
+       -> 'b async_result_class
+       -> base mount_class
+    val getBasename : 'a class -> string
     val getChild :
-      'a class_t
+      'a class
        -> string
-       -> base class_t
+       -> base class
     val getChildForDisplayName :
-      'a class_t
+      'a class
        -> string
-       -> base class_t
-    val getParent : 'a class_t -> base class_t
-    val getParseName : 'a class_t -> string
-    val getPath : 'a class_t -> string
+       -> base class
+    val getParent : 'a class -> base class
+    val getParseName : 'a class -> string
+    val getPath : 'a class -> string
     val getRelativePath :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> string
-    val getUri : 'a class_t -> string
-    val getUriScheme : 'a class_t -> string
+    val getUri : 'a class -> string
+    val getUriScheme : 'a class -> string
     val hasParent :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
     val hasPrefix :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
     val hasUriScheme :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val iconNew : 'a class_t -> base icon_class_t
-    val isNative : 'a class_t -> bool
+    val iconNew : 'a class -> base icon_class
+    val isNative : 'a class -> bool
     val makeDirectory :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val makeDirectoryWithParents :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val makeSymbolicLink :
-      'a class_t
+      'a class
        -> string
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val monitor :
-      'a class_t
+      'a class
        -> file_monitor_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_monitor_class_t
+       -> 'b cancellable_class option
+       -> base file_monitor_class
     val monitorDirectory :
-      'a class_t
+      'a class
        -> file_monitor_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_monitor_class_t
+       -> 'b cancellable_class option
+       -> base file_monitor_class
     val monitorFile :
-      'a class_t
+      'a class
        -> file_monitor_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_monitor_class_t
+       -> 'b cancellable_class option
+       -> base file_monitor_class
     val mountEnclosingVolumeFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val mountMountableFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base class_t
+      'a class
+       -> 'b async_result_class
+       -> base class
     val openReadwrite :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base file_i_o_stream_class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base file_i_o_stream_class
     val openReadwriteFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_i_o_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_i_o_stream_class
     val pollMountableFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val queryDefaultHandler :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base app_info_class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base app_info_class
     val queryExists :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val queryFileType :
-      'a class_t
+      'a class
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> file_type_t
     val queryFilesystemInfo :
-      'a class_t
+      'a class
        -> string
-       -> 'b cancellable_class_t option
-       -> base file_info_class_t
+       -> 'b cancellable_class option
+       -> base file_info_class
     val queryFilesystemInfoFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_info_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_info_class
     val queryInfo :
-      'a class_t
+      'a class
        -> string
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_info_class_t
+       -> 'b cancellable_class option
+       -> base file_info_class
     val queryInfoFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_info_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_info_class
     val querySettableAttributes :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> file_attribute_info_list_record_t
+      'a class
+       -> 'b cancellable_class option
+       -> file_attribute_info_list_t
     val queryWritableNamespaces :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> file_attribute_info_list_record_t
+      'a class
+       -> 'b cancellable_class option
+       -> file_attribute_info_list_t
     val read :
-      'a class_t
-       -> 'b cancellable_class_t option
-       -> base file_input_stream_class_t
+      'a class
+       -> 'b cancellable_class option
+       -> base file_input_stream_class
     val readFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_input_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_input_stream_class
     val replace :
-      'a class_t
+      'a class
        -> string option
        -> bool
        -> file_create_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_output_stream_class_t
+       -> 'b cancellable_class option
+       -> base file_output_stream_class
     val replaceContentsFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> string option
     val replaceFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_output_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_output_stream_class
     val replaceReadwrite :
-      'a class_t
+      'a class
        -> string option
        -> bool
        -> file_create_flags_t
-       -> 'b cancellable_class_t option
-       -> base file_i_o_stream_class_t
+       -> 'b cancellable_class option
+       -> base file_i_o_stream_class
     val replaceReadwriteFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_i_o_stream_class_t
+      'a class
+       -> 'b async_result_class
+       -> base file_i_o_stream_class
     val resolveRelativePath :
-      'a class_t
+      'a class
        -> string
-       -> base class_t
+       -> base class
     val setAttributeByteString :
-      'a class_t
+      'a class
        -> string
        -> string
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributeInt32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributeInt64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributeString :
-      'a class_t
+      'a class
        -> string
        -> string
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributeUint32 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributeUint64 :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
        -> file_query_info_flags_t
-       -> 'b cancellable_class_t option
+       -> 'b cancellable_class option
        -> bool
     val setAttributesFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base file_info_class_t option
+      'a class
+       -> 'b async_result_class
+       -> base file_info_class option
     val setAttributesFromInfo :
-      'a class_t
-       -> 'b file_info_class_t
+      'a class
+       -> 'b file_info_class
        -> file_query_info_flags_t
-       -> 'c cancellable_class_t option
+       -> 'c cancellable_class option
        -> bool
     val setDisplayName :
-      'a class_t
+      'a class
        -> string
-       -> 'b cancellable_class_t option
-       -> base class_t
+       -> 'b cancellable_class option
+       -> base class
     val setDisplayNameFinish :
-      'a class_t
-       -> 'b async_result_class_t
-       -> base class_t
+      'a class
+       -> 'b async_result_class
+       -> base class
     val startMountableFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
     val stopMountableFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
-    val supportsThreadContexts : 'a class_t -> bool
+    val supportsThreadContexts : 'a class -> bool
     val trash :
-      'a class_t
-       -> 'b cancellable_class_t option
+      'a class
+       -> 'b cancellable_class option
        -> bool
     val unmountMountableWithOperationFinish :
-      'a class_t
-       -> 'b async_result_class_t
+      'a class
+       -> 'b async_result_class
        -> bool
   end

@@ -1,22 +1,22 @@
 signature GTK_RECENT_CHOOSER_MENU =
   sig
-    type 'a class_t
-    type 'a activatable_class_t
-    type 'a buildable_class_t
-    type 'a recent_chooser_class_t
-    type 'a recent_manager_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asActivatable : 'a class_t -> base activatable_class_t
-    val asBuildable : 'a class_t -> base buildable_class_t
-    val asRecentChooser : 'a class_t -> base recent_chooser_class_t
+    type 'a class
+    type 'a activatable_class
+    type 'a buildable_class
+    type 'a recent_chooser_class
+    type 'a recent_manager_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActivatable : 'a class -> base activatable_class
+    val asBuildable : 'a class -> base buildable_class
+    val asRecentChooser : 'a class -> base recent_chooser_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newForManager : 'a recent_manager_class_t -> base class_t
-    val getShowNumbers : 'a class_t -> bool
+    val new : unit -> base class
+    val newForManager : 'a recent_manager_class -> base class
+    val getShowNumbers : 'a class -> bool
     val setShowNumbers :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val showNumbersProp : ('a class_t, bool, bool) Property.readwrite
+    val showNumbersProp : ('a class, bool, bool) Property.readwrite
   end

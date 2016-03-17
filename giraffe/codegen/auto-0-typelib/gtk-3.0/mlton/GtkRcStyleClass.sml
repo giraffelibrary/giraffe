@@ -4,7 +4,8 @@ structure GtkRcStyleClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a rc_style = unit
-    type 'a t = 'a rc_style GObjectObjectClass.t
+    type 'a class = 'a rc_style GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

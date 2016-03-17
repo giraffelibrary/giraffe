@@ -1,6 +1,6 @@
 structure PangoColor :>
   PANGO_COLOR
-    where type record_t = PangoColorRecord.t =
+    where type t = PangoColorRecord.t =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,7 @@ structure PangoColor :>
       val parse_ = call (load_sym libpango "pango_color_parse") (PangoColorRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val toString_ = call (load_sym libpango "pango_color_to_string") (PangoColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type record_t = PangoColorRecord.t
-    type t = record_t
+    type t = PangoColorRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun copy self = (PangoColorRecord.C.withPtr ---> PangoColorRecord.C.fromPtr true) copy_ self
     fun parse self spec = (PangoColorRecord.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) parse_ (self & spec)

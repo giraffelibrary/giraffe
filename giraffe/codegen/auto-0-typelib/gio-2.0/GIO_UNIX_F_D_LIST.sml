@@ -1,16 +1,16 @@
 signature GIO_UNIX_F_D_LIST =
   sig
-    type 'a class_t
-    type t = base class_t
+    type 'a class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val append :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
     val get :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
-    val getLength : 'a class_t -> LargeInt.int
+    val getLength : 'a class -> LargeInt.int
   end

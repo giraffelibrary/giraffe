@@ -1,6 +1,6 @@
 structure AtkImage :>
   ATK_IMAGE
-    where type 'a class_t = 'a AtkImageClass.t =
+    where type 'a class = 'a AtkImageClass.class =
   struct
     local
       open PolyMLFFI
@@ -10,8 +10,8 @@ structure AtkImage :>
       val getImageLocale_ = call (load_sym libatk "atk_image_get_image_locale") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val setImageDescription_ = call (load_sym libatk "atk_image_set_image_description") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a AtkImageClass.t
-    type t = base class_t
+    type 'a class = 'a AtkImageClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getImageDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageDescription_ self
     fun getImageLocale self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getImageLocale_ self

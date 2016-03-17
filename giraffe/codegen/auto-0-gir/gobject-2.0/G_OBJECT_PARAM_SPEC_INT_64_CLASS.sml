@@ -1,12 +1,13 @@
 signature G_OBJECT_PARAM_SPEC_INT_64_CLASS =
   sig
     type 'a param_spec_int_64
-    type 'a param_spec_class_t
-    type 'a t = 'a param_spec_int_64 param_spec_class_t
-    val toBase : 'a t -> base t
+    type 'a param_spec_class
+    type 'a class = 'a param_spec_int_64 param_spec_class
+    type t = base class
+    val toBase : 'a class -> base class
     type ('a, 'b) value_accessor
-    val t : (base t, 'a t) value_accessor
-    val tOpt : (base t option, 'a t option) value_accessor
+    val t : (base class, 'a class) value_accessor
+    val tOpt : (base class option, 'a class option) value_accessor
     structure C :
       sig
         type notnull
@@ -14,10 +15,10 @@ signature G_OBJECT_PARAM_SPEC_INT_64_CLASS =
         val fromPtr :
           bool
            -> notnull p
-           -> 'a t
+           -> 'a class
         val fromOptPtr :
           bool
            -> unit p
-           -> 'a t option
+           -> 'a class option
       end
   end

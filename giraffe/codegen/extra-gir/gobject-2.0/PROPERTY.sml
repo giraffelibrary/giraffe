@@ -22,8 +22,8 @@ signature PROPERTY =
      * Declaration of properties with moded access
      *)
     type ('a, 'b) accessor
-    type 'a object_class_t
+    type 'a object_class
 
-    val get : string -> ('a, 'b) accessor -> 'c object_class_t -> 'a
-    val set : string -> ('a, 'b) accessor -> 'b -> 'c object_class_t -> unit
+    val get : string -> ('a, 'b) accessor -> 'c object_class -> 'a
+    val set : string -> ('a, 'b) accessor -> 'b -> 'c object_class -> unit
   end

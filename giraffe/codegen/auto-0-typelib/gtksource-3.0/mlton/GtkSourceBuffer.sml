@@ -1,11 +1,11 @@
 structure GtkSourceBuffer :>
   GTK_SOURCE_BUFFER
-    where type 'a class_t = 'a GtkSourceBufferClass.t
-    where type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    where type 'a class = 'a GtkSourceBufferClass.class
+    where type 'a mark_class = 'a GtkSourceMarkClass.class
     where type bracket_match_type_t = GtkSourceBracketMatchType.t
-    where type 'a language_class_t = 'a GtkSourceLanguageClass.t
-    where type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t =
+    where type 'a language_class = 'a GtkSourceLanguageClass.class
+    where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
+    where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
     val getType_ = _import "gtk_source_buffer_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_source_buffer_new" : unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -186,13 +186,13 @@ structure GtkSourceBuffer :>
     val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_buffer_set_style_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setUndoManager_ = fn x1 & x2 => (_import "gtk_source_buffer_set_undo_manager" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val undo_ = _import "gtk_source_buffer_undo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkSourceBufferClass.t
-    type 'a mark_class_t = 'a GtkSourceMarkClass.t
+    type 'a class = 'a GtkSourceBufferClass.class
+    type 'a mark_class = 'a GtkSourceMarkClass.class
     type bracket_match_type_t = GtkSourceBracketMatchType.t
-    type 'a language_class_t = 'a GtkSourceLanguageClass.t
-    type 'a style_scheme_class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a undo_manager_class_t = 'a GtkSourceUndoManagerClass.t
-    type t = base class_t
+    type 'a language_class = 'a GtkSourceLanguageClass.class
+    type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
+    type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table
     fun newWithLanguage language = (GObjectObjectClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr true) newWithLanguage_ language

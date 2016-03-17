@@ -1,7 +1,7 @@
 structure PangoAttrList :>
   PANGO_ATTR_LIST
-    where type record_t = PangoAttrListRecord.t
-    where type attribute_record_t = PangoAttributeRecord.t =
+    where type t = PangoAttrListRecord.t
+    where type attribute_t = PangoAttributeRecord.t =
   struct
     local
       open PolyMLFFI
@@ -22,9 +22,8 @@ structure PangoAttrList :>
              --> FFI.PolyML.cVoid
           )
     end
-    type record_t = PangoAttrListRecord.t
-    type attribute_record_t = PangoAttributeRecord.t
-    type t = record_t
+    type t = PangoAttrListRecord.t
+    type attribute_t = PangoAttributeRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()
     fun change self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) change_ (self & attr)

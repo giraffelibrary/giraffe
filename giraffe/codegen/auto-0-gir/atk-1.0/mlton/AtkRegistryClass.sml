@@ -4,7 +4,8 @@ structure AtkRegistryClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a registry = unit
-    type 'a t = 'a registry GObjectObjectClass.t
+    type 'a class = 'a registry GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

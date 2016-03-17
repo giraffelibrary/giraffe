@@ -1,12 +1,13 @@
 structure GIRepositoryInterfaceInfoClass :>
   G_I_REPOSITORY_INTERFACE_INFO_CLASS
-    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
     where type Obj.data = Info.interfacedata =
   struct
     type data = Info.interfacedata
     type 'a interfaceinfo = (data, 'a) pair
-    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
-    type 'a t = 'a interfaceinfo registeredtypeinfoclass_t
+    type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
+    type 'a class = 'a interfaceinfo registeredtypeinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

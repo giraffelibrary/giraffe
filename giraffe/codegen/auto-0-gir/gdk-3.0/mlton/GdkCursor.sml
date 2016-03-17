@@ -1,8 +1,8 @@
 structure GdkCursor :>
   GDK_CURSOR
-    where type 'a class_t = 'a GdkCursorClass.t
+    where type 'a class = 'a GdkCursorClass.class
     where type cursor_type_t = GdkCursorType.t
-    where type 'a display_class_t = 'a GdkDisplayClass.t =
+    where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_cursor_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gdk_cursor_new" : GdkCursorType.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -45,10 +45,10 @@ structure GdkCursor :>
     val getCursorType_ = _import "gdk_cursor_get_cursor_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkCursorType.C.val_;
     val getDisplay_ = _import "gdk_cursor_get_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getImage_ = _import "gdk_cursor_get_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    type 'a class_t = 'a GdkCursorClass.t
+    type 'a class = 'a GdkCursorClass.class
     type cursor_type_t = GdkCursorType.t
-    type 'a display_class_t = 'a GdkDisplayClass.t
-    type t = base class_t
+    type 'a display_class = 'a GdkDisplayClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
     fun newForDisplay display cursorType = (GObjectObjectClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)

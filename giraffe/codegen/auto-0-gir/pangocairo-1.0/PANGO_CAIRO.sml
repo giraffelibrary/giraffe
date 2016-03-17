@@ -5,26 +5,26 @@ signature PANGO_CAIRO =
     structure FontMapClass : PANGO_CAIRO_FONT_MAP_CLASS
     structure FcFontMap :
       PANGO_CAIRO_FC_FONT_MAP
-        where type 'a class_t = 'a FcFontMapClass.t
-        where type 'a font_map_class_t = 'a FontMapClass.t
+        where type 'a class = 'a FcFontMapClass.class
+        where type 'a font_map_class = 'a FontMapClass.class
     structure Font :
       PANGO_CAIRO_FONT
-        where type 'a class_t = 'a FontClass.t
+        where type 'a class = 'a FontClass.class
     structure FontMap :
       PANGO_CAIRO_FONT_MAP
-        where type 'a class_t = 'a FontMapClass.t
-    val contextGetFontOptions : 'a Pango.ContextClass.t -> Cairo.FontOptionsRecord.t
-    val contextGetResolution : 'a Pango.ContextClass.t -> real
+        where type 'a class = 'a FontMapClass.class
+    val contextGetFontOptions : 'a Pango.ContextClass.class -> Cairo.FontOptionsRecord.t
+    val contextGetResolution : 'a Pango.ContextClass.class -> real
     val contextSetFontOptions :
-      'a Pango.ContextClass.t
+      'a Pango.ContextClass.class
        -> Cairo.FontOptionsRecord.t
        -> unit
     val contextSetResolution :
-      'a Pango.ContextClass.t
+      'a Pango.ContextClass.class
        -> real
        -> unit
-    val createContext : Cairo.ContextRecord.t -> base Pango.ContextClass.t
-    val createLayout : Cairo.ContextRecord.t -> base Pango.LayoutClass.t
+    val createContext : Cairo.ContextRecord.t -> base Pango.ContextClass.class
+    val createLayout : Cairo.ContextRecord.t -> base Pango.LayoutClass.class
     val errorUnderlinePath :
       Cairo.ContextRecord.t
        -> real
@@ -32,11 +32,11 @@ signature PANGO_CAIRO =
        -> real
        -> real
        -> unit
-    val fontMapGetDefault : unit -> base Pango.FontMapClass.t
-    val fontMapNew : unit -> base Pango.FontMapClass.t
+    val fontMapGetDefault : unit -> base Pango.FontMapClass.class
+    val fontMapNew : unit -> base Pango.FontMapClass.class
     val glyphStringPath :
       Cairo.ContextRecord.t
-       -> 'a Pango.FontClass.t
+       -> 'a Pango.FontClass.class
        -> Pango.GlyphStringRecord.t
        -> unit
     val layoutLinePath :
@@ -45,7 +45,7 @@ signature PANGO_CAIRO =
        -> unit
     val layoutPath :
       Cairo.ContextRecord.t
-       -> 'a Pango.LayoutClass.t
+       -> 'a Pango.LayoutClass.class
        -> unit
     val showErrorUnderline :
       Cairo.ContextRecord.t
@@ -61,12 +61,12 @@ signature PANGO_CAIRO =
        -> unit
     val showGlyphString :
       Cairo.ContextRecord.t
-       -> 'a Pango.FontClass.t
+       -> 'a Pango.FontClass.class
        -> Pango.GlyphStringRecord.t
        -> unit
     val showLayout :
       Cairo.ContextRecord.t
-       -> 'a Pango.LayoutClass.t
+       -> 'a Pango.LayoutClass.class
        -> unit
     val showLayoutLine :
       Cairo.ContextRecord.t
@@ -74,10 +74,10 @@ signature PANGO_CAIRO =
        -> unit
     val updateContext :
       Cairo.ContextRecord.t
-       -> 'a Pango.ContextClass.t
+       -> 'a Pango.ContextClass.class
        -> unit
     val updateLayout :
       Cairo.ContextRecord.t
-       -> 'a Pango.LayoutClass.t
+       -> 'a Pango.LayoutClass.class
        -> unit
   end

@@ -1,12 +1,13 @@
 structure GIRepositoryPropertyInfoClass :>
   G_I_REPOSITORY_PROPERTY_INFO_CLASS
-    where type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
+    where type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
     where type Obj.data = Info.propertydata =
   struct
     type data = Info.propertydata
     type 'a propertyinfo = (data, 'a) pair
-    type 'a baseinfoclass_t = 'a GIRepositoryBaseInfoClass.t
-    type 'a t = 'a propertyinfo baseinfoclass_t
+    type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
+    type 'a class = 'a propertyinfo baseinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

@@ -1,28 +1,17 @@
 signature GDK_EVENT =
   sig
-    type 'a t
-    val toBase : 'a t -> base t
-    val t : (base t, 'a t) GObjectValue.accessor
-    val tOpt : (base t option, 'a t option) GObjectValue.accessor
+    type 'a union
+    type t = base union
+    val toBase : 'a union -> base union
+    val t : (base union, 'a union) GObjectValue.accessor
+    val tOpt : (base union option, 'a union option) GObjectValue.accessor
     structure C :
       sig
         type notnull
         type 'a p
-        val withPtr :
-          (notnull p -> 'a)
-           -> 'b t
-           -> 'a
-        val withOptPtr :
-          (unit p -> 'a)
-           -> 'b t option
-           -> 'a
-        val fromPtr :
-          bool
-           -> notnull p
-           -> base t
-        val fromOptPtr :
-          bool
-           -> unit p
-           -> base t option
+        val withPtr : (notnull p -> 'a) -> 'b union -> 'a
+        val withOptPtr : (unit p -> 'a) -> 'b union option -> 'a
+        val fromPtr : bool -> notnull p -> base union
+        val fromOptPtr : bool -> unit p -> base union option
       end
   end

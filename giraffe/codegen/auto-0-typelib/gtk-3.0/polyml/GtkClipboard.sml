@@ -1,8 +1,8 @@
 structure GtkClipboard :>
   GTK_CLIPBOARD
-    where type 'a class_t = 'a GtkClipboardClass.t
-    where type selection_data_record_t = GtkSelectionDataRecord.t
-    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
+    where type 'a class = 'a GtkClipboardClass.class
+    where type selection_data_t = GtkSelectionDataRecord.t
+    where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
     local
       open PolyMLFFI
@@ -32,10 +32,10 @@ structure GtkClipboard :>
       val waitIsTextAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_text_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val waitIsUrisAvailable_ = call (load_sym libgtk "gtk_clipboard_wait_is_uris_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
-    type 'a class_t = 'a GtkClipboardClass.t
-    type selection_data_record_t = GtkSelectionDataRecord.t
-    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
-    type t = base class_t
+    type 'a class = 'a GtkClipboardClass.class
+    type selection_data_t = GtkSelectionDataRecord.t
+    type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get selection = (GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) get_ selection
     fun getForDisplay display selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) getForDisplay_ (display & selection)

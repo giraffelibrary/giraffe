@@ -1,62 +1,62 @@
 signature GIO_APP_INFO =
   sig
-    type 'a class_t
+    type 'a class
     type app_info_create_flags_t
-    type 'a app_launch_context_class_t
-    type 'a icon_class_t
-    type t = base class_t
+    type 'a app_launch_context_class
+    type 'a icon_class
+    type t = base class
     val getType : unit -> GObject.Type.t
     val createFromCommandline :
       string
        -> string option
        -> app_info_create_flags_t
-       -> base class_t
+       -> base class
     val getDefaultForType :
       string
        -> bool
-       -> base class_t
-    val getDefaultForUriScheme : string -> base class_t
+       -> base class
+    val getDefaultForUriScheme : string -> base class
     val launchDefaultForUri :
       string
-       -> 'a app_launch_context_class_t option
+       -> 'a app_launch_context_class option
        -> bool
     val resetTypeAssociations : string -> unit
     val addSupportsType :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val canDelete : 'a class_t -> bool
-    val canRemoveSupportsType : 'a class_t -> bool
-    val delete : 'a class_t -> bool
-    val dup : 'a class_t -> base class_t
+    val canDelete : 'a class -> bool
+    val canRemoveSupportsType : 'a class -> bool
+    val delete : 'a class -> bool
+    val dup : 'a class -> base class
     val equal :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> bool
-    val getCommandline : 'a class_t -> string
-    val getDescription : 'a class_t -> string
-    val getDisplayName : 'a class_t -> string
-    val getExecutable : 'a class_t -> string
-    val getIcon : 'a class_t -> base icon_class_t
-    val getId : 'a class_t -> string
-    val getName : 'a class_t -> string
+    val getCommandline : 'a class -> string
+    val getDescription : 'a class -> string
+    val getDisplayName : 'a class -> string
+    val getExecutable : 'a class -> string
+    val getIcon : 'a class -> base icon_class
+    val getId : 'a class -> string
+    val getName : 'a class -> string
     val removeSupportsType :
-      'a class_t
+      'a class
        -> string
        -> bool
     val setAsDefaultForExtension :
-      'a class_t
+      'a class
        -> string
        -> bool
     val setAsDefaultForType :
-      'a class_t
+      'a class
        -> string
        -> bool
     val setAsLastUsedForType :
-      'a class_t
+      'a class
        -> string
        -> bool
-    val shouldShow : 'a class_t -> bool
-    val supportsFiles : 'a class_t -> bool
-    val supportsUris : 'a class_t -> bool
+    val shouldShow : 'a class -> bool
+    val supportsFiles : 'a class -> bool
+    val supportsUris : 'a class -> bool
   end

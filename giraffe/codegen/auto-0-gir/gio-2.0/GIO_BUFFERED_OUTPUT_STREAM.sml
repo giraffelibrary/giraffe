@@ -1,24 +1,24 @@
 signature GIO_BUFFERED_OUTPUT_STREAM =
   sig
-    type 'a class_t
-    type 'a output_stream_class_t
-    type t = base class_t
+    type 'a class
+    type 'a output_stream_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : 'a output_stream_class_t -> base class_t
+    val new : 'a output_stream_class -> base class
     val newSized :
-      'a output_stream_class_t
+      'a output_stream_class
        -> LargeInt.int
-       -> base class_t
-    val getAutoGrow : 'a class_t -> bool
-    val getBufferSize : 'a class_t -> LargeInt.int
+       -> base class
+    val getAutoGrow : 'a class -> bool
+    val getBufferSize : 'a class -> LargeInt.int
     val setAutoGrow :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setBufferSize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val autoGrowProp : ('a class_t, bool, bool) Property.readwrite
-    val bufferSizeProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
+    val autoGrowProp : ('a class, bool, bool) Property.readwrite
+    val bufferSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

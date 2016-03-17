@@ -1,10 +1,10 @@
 structure GLibMainContext :>
   G_LIB_MAIN_CONTEXT
-    where type record_t = GLibMainContextRecord.t
-    where type source_record_t = GLibSourceRecord.t
-    where type poll_f_d_record_t = GLibPollFDRecord.t
-    where type mutex_record_t = GLibMutexRecord.t
-    where type cond_record_t = GLibCondRecord.t =
+    where type t = GLibMainContextRecord.t
+    where type source_t = GLibSourceRecord.t
+    where type poll_f_d_t = GLibPollFDRecord.t
+    where type mutex_t = GLibMutexRecord.t
+    where type cond_t = GLibCondRecord.t =
   struct
     val getType_ = _import "g_main_context_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_main_context_new" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
@@ -55,12 +55,11 @@ structure GLibMainContext :>
     val wakeup_ = _import "g_main_context_wakeup" : GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p -> unit;
     val default_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
     val getThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.C.notnull GLibMainContextRecord.C.p;
-    type record_t = GLibMainContextRecord.t
-    type source_record_t = GLibSourceRecord.t
-    type poll_f_d_record_t = GLibPollFDRecord.t
-    type mutex_record_t = GLibMutexRecord.t
-    type cond_record_t = GLibCondRecord.t
-    type t = record_t
+    type t = GLibMainContextRecord.t
+    type source_t = GLibSourceRecord.t
+    type poll_f_d_t = GLibPollFDRecord.t
+    type mutex_t = GLibMutexRecord.t
+    type cond_t = GLibCondRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GLibMainContextRecord.C.fromPtr true) new_ ()
     fun acquire self = (GLibMainContextRecord.C.withPtr ---> FFI.Bool.C.fromVal) acquire_ self

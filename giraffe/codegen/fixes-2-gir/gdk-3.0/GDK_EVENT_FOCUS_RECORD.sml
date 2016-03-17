@@ -1,9 +1,10 @@
 signature GDK_EVENT_FOCUS_RECORD =
   sig
     type focus
-    type 'a event_t
-    type t = focus event_t
+    type 'a event_union
+    type t = focus event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       FOCUS_CHANGE
 (*

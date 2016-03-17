@@ -1,15 +1,15 @@
 structure GtkTreeViewColumn :>
   GTK_TREE_VIEW_COLUMN
-    where type 'a class_t = 'a GtkTreeViewColumnClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    where type tree_iter_record_t = GtkTreeIterRecord.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    where type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    where type 'a class = 'a GtkTreeViewColumnClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    where type tree_iter_t = GtkTreeIterRecord.t
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class
+    where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    where type 'a cell_area_class = 'a GtkCellAreaClass.class
     where type tree_view_column_sizing_t = GtkTreeViewColumnSizing.t
     where type sort_type_t = GtkSortType.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t =
+    where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_tree_view_column_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_tree_view_column_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -195,17 +195,17 @@ structure GtkTreeViewColumn :>
             )
     val setVisible_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setWidget_ = fn x1 & x2 => (_import "gtk_tree_view_column_set_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkTreeViewColumnClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    type tree_iter_record_t = GtkTreeIterRecord.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type 'a cell_renderer_class_t = 'a GtkCellRendererClass.t
-    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
+    type 'a class = 'a GtkTreeViewColumnClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    type tree_iter_t = GtkTreeIterRecord.t
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type 'a cell_renderer_class = 'a GtkCellRendererClass.class
+    type 'a cell_area_class = 'a GtkCellAreaClass.class
     type tree_view_column_sizing_t = GtkTreeViewColumnSizing.t
     type sort_type_t = GtkSortType.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type t = base class_t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_

@@ -1,11 +1,11 @@
 structure GioDBusMessage :>
   GIO_D_BUS_MESSAGE
-    where type 'a class_t = 'a GioDBusMessageClass.t
+    where type 'a class = 'a GioDBusMessageClass.class
     where type d_bus_message_byte_order_t = GioDBusMessageByteOrder.t
     where type d_bus_message_flags_t = GioDBusMessageFlags.t
     where type d_bus_message_header_field_t = GioDBusMessageHeaderField.t
     where type d_bus_message_type_t = GioDBusMessageType.t
-    where type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t =
+    where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
     val getType_ = _import "g_dbus_message_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "g_dbus_message_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -234,13 +234,13 @@ structure GioDBusMessage :>
             )
     val setUnixFdList_ = fn x1 & x2 => (_import "g_dbus_message_set_unix_fd_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
     val toGerror_ = fn x1 & x2 => (_import "g_dbus_message_to_gerror" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
-    type 'a class_t = 'a GioDBusMessageClass.t
+    type 'a class = 'a GioDBusMessageClass.class
     type d_bus_message_byte_order_t = GioDBusMessageByteOrder.t
     type d_bus_message_flags_t = GioDBusMessageFlags.t
     type d_bus_message_header_field_t = GioDBusMessageHeaderField.t
     type d_bus_message_type_t = GioDBusMessageType.t
-    type 'a unix_f_d_list_class_t = 'a GioUnixFDListClass.t
-    type t = base class_t
+    type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioDBusMessageClass.C.fromPtr true) new_ ()
     fun newMethodCall name path interface method =

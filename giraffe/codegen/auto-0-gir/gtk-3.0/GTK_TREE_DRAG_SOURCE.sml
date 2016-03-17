@@ -1,15 +1,15 @@
 signature GTK_TREE_DRAG_SOURCE =
   sig
-    type 'a class_t
-    type tree_path_record_t
-    type t = base class_t
+    type 'a class
+    type tree_path_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val dragDataDelete :
-      'a class_t
-       -> tree_path_record_t
+      'a class
+       -> tree_path_t
        -> bool
     val rowDraggable :
-      'a class_t
-       -> tree_path_record_t
+      'a class
+       -> tree_path_t
        -> bool
   end

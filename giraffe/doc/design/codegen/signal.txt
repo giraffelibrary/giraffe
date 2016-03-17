@@ -31,23 +31,23 @@ SignalSpec has the form:
 
 
   val <signalName>Sig
-    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>) -> <var> class_t Signal.signal
+    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>) -> <var> class Signal.signal
 
     if K > 0 and L > 0
 
 
   val <signalName>Sig
-    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>) -> <var> class_t Signal.signal
+    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>) -> <var> class Signal.signal
 
     if K = 0 and L > 0
 
 
-  val <signalName>Sig : (unit -> <retExpType>) -> <var> class_t Signal.signal
+  val <signalName>Sig : (unit -> <retExpType>) -> <var> class Signal.signal
 
     if K > 0 and L = 0
 
 
-  val <signalName>Sig : (unit -> <retValType>) -> <var> class_t Signal.signal
+  val <signalName>Sig : (unit -> <retValType>) -> <var> class Signal.signal
 
     if K = 0 and L = 0
 
@@ -176,39 +176,39 @@ where
           isSelf = InterfaceName = ContainerName
           isGlobal = InterfaceNamespace <> FunctionNamespace
 
-            <var> <InterfaceNamespace>.<InterfaceName>Class.t
+            <var> <InterfaceNamespace>.<InterfaceName>Class.class
               if isGlobal and isClass
 
             <InterfaceNamespace>.<InterfaceName>Record.t
               if isGlobal and isRecord
 
-            <var> <InterfaceNamespace>.<InterfaceName>.t
+            <var> <InterfaceNamespace>.<InterfaceName>.union
               if isGlobal and isUnion
 
             <InterfaceNamespace>.<InterfaceName>.t
               if isGlobal and isOther
 
 
-            <var> <interfacename>class_t
+            <var> <interface_name>_class
               if not isGlobal and not isSelf and isClass
 
-            <interfacename>record_t
+            <interface_name>_t
               if not isGlobal and not isSelf and isRecord
 
-            <var> <interfacename>_t
+            <var> <interface_name>_union
               if not isGlobal and not isSelf and isUnion
 
-            <interfacename>_t
+            <interface_name>_t
               if not isGlobal and not isSelf and isOther
 
 
-            <var> class_t
+            <var> class
               if not isGlobal and isSelf and isClass
 
-            record_t
+            t
               if not isGlobal and isSelf and isRecord
 
-            <var> t
+            <var> union
               if not isGlobal and isSelf and isUnion
 
             t
@@ -372,7 +372,7 @@ where
               if isClass
 
 
-            ret <InterfaceNamespace><InterfaceName>Class.t<RetOpt>
+            ret <InterfaceNamespace><InterfaceName>Record.t<RetOpt>
               if isRecord
 
 
@@ -522,7 +522,7 @@ where
               if isClass
 
 
-            set <j> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
+            set <j> <InterfaceNamespace><InterfaceName>Record.t<OutOpt>
               if isRecord
 
 

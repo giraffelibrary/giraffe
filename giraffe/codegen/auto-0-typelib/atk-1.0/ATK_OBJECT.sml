@@ -1,79 +1,79 @@
 signature ATK_OBJECT =
   sig
-    type 'a class_t
-    type 'a relation_set_class_t
-    type 'a state_set_class_t
+    type 'a class
+    type 'a relation_set_class
+    type 'a state_set_class
     type relation_type_t
     type role_t
-    type t = base class_t
+    type t = base class
     val getType : unit -> GObject.Type.t
     val addRelationship :
-      'a class_t
+      'a class
        -> relation_type_t
-       -> 'b class_t
+       -> 'b class
        -> bool
-    val getDescription : 'a class_t -> string
-    val getIndexInParent : 'a class_t -> LargeInt.int
-    val getNAccessibleChildren : 'a class_t -> LargeInt.int
-    val getName : 'a class_t -> string
-    val getParent : 'a class_t -> base class_t
-    val getRole : 'a class_t -> role_t
+    val getDescription : 'a class -> string
+    val getIndexInParent : 'a class -> LargeInt.int
+    val getNAccessibleChildren : 'a class -> LargeInt.int
+    val getName : 'a class -> string
+    val getParent : 'a class -> base class
+    val getRole : 'a class -> role_t
     val notifyStateChange :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
        -> unit
     val refAccessibleChild :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base class_t
-    val refRelationSet : 'a class_t -> base relation_set_class_t
-    val refStateSet : 'a class_t -> base state_set_class_t
+       -> base class
+    val refRelationSet : 'a class -> base relation_set_class
+    val refStateSet : 'a class -> base state_set_class
     val removePropertyChangeHandler :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val removeRelationship :
-      'a class_t
+      'a class
        -> relation_type_t
-       -> 'b class_t
+       -> 'b class
        -> bool
     val setDescription :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setName :
-      'a class_t
+      'a class
        -> string
        -> unit
     val setParent :
-      'a class_t
-       -> 'b class_t
+      'a class
+       -> 'b class
        -> unit
     val setRole :
-      'a class_t
+      'a class
        -> role_t
        -> unit
-    val focusEventSig : (bool -> unit) -> 'a class_t Signal.signal
+    val focusEventSig : (bool -> unit) -> 'a class Signal.signal
     val stateChangeSig :
       (string
         -> bool
         -> unit)
-       -> 'a class_t Signal.signal
-    val visibleDataChangedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val accessibleComponentLayerProp : ('a class_t, LargeInt.int) Property.readonly
-    val accessibleComponentMdiZorderProp : ('a class_t, LargeInt.int) Property.readonly
-    val accessibleDescriptionProp : ('a class_t, string option, string option) Property.readwrite
-    val accessibleHypertextNlinksProp : ('a class_t, LargeInt.int) Property.readonly
-    val accessibleNameProp : ('a class_t, string option, string option) Property.readwrite
-    val accessibleParentProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val accessibleRoleProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val accessibleTableCaptionProp : ('a class_t, string option, string option) Property.readwrite
-    val accessibleTableCaptionObjectProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val accessibleTableColumnDescriptionProp : ('a class_t, string option, string option) Property.readwrite
-    val accessibleTableColumnHeaderProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val accessibleTableRowDescriptionProp : ('a class_t, string option, string option) Property.readwrite
-    val accessibleTableRowHeaderProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val accessibleTableSummaryProp : ('a class_t, base class_t option, 'b class_t option) Property.readwrite
-    val accessibleValueProp : ('a class_t, real, real) Property.readwrite
+       -> 'a class Signal.signal
+    val visibleDataChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val accessibleComponentLayerProp : ('a class, LargeInt.int) Property.readonly
+    val accessibleComponentMdiZorderProp : ('a class, LargeInt.int) Property.readonly
+    val accessibleDescriptionProp : ('a class, string option, string option) Property.readwrite
+    val accessibleHypertextNlinksProp : ('a class, LargeInt.int) Property.readonly
+    val accessibleNameProp : ('a class, string option, string option) Property.readwrite
+    val accessibleParentProp : ('a class, base class option, 'b class option) Property.readwrite
+    val accessibleRoleProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val accessibleTableCaptionProp : ('a class, string option, string option) Property.readwrite
+    val accessibleTableCaptionObjectProp : ('a class, base class option, 'b class option) Property.readwrite
+    val accessibleTableColumnDescriptionProp : ('a class, string option, string option) Property.readwrite
+    val accessibleTableColumnHeaderProp : ('a class, base class option, 'b class option) Property.readwrite
+    val accessibleTableRowDescriptionProp : ('a class, string option, string option) Property.readwrite
+    val accessibleTableRowHeaderProp : ('a class, base class option, 'b class option) Property.readwrite
+    val accessibleTableSummaryProp : ('a class, base class option, 'b class option) Property.readwrite
+    val accessibleValueProp : ('a class, real, real) Property.readwrite
   end

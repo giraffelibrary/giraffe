@@ -1,9 +1,10 @@
 signature G_I_REPOSITORY_INTERFACE_INFO_CLASS =
   sig
     type 'a interfaceinfo
-    type 'a registeredtypeinfoclass_t
-    type 'a t = 'a interfaceinfo registeredtypeinfoclass_t
-    val toBase : 'a t -> base t
+    type 'a registeredtypeinfo_class
+    type 'a class = 'a interfaceinfo registeredtypeinfo_class
+    type t = base class
+    val toBase : 'a class -> base class
     structure Obj :
       sig
         type data

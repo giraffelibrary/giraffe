@@ -1,7 +1,7 @@
 structure GtkTargetList :>
   GTK_TARGET_LIST
-    where type record_t = GtkTargetListRecord.t
-    where type 'a text_buffer_class_t = 'a GtkTextBufferClass.t =
+    where type t = GtkTargetListRecord.t
+    where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
     val getType_ = _import "gtk_target_list_get_type" : unit -> GObjectType.C.val_;
     val add_ =
@@ -64,9 +64,8 @@ structure GtkTargetList :>
     val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
     val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
     val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
-    type record_t = GtkTargetListRecord.t
-    type 'a text_buffer_class_t = 'a GtkTextBufferClass.t
-    type t = record_t
+    type t = GtkTargetListRecord.t
+    type 'a text_buffer_class = 'a GtkTextBufferClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun add self target flags info =
       (

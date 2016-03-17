@@ -1,69 +1,69 @@
 signature GDK_DISPLAY =
   sig
-    type 'a class_t
-    type 'a device_class_t
-    type 'a app_launch_context_class_t
-    type 'a window_class_t
-    type 'a device_manager_class_t
-    type 'a screen_class_t
-    type 'a event_t
-    type atom_record_t
-    type t = base class_t
+    type 'a class
+    type 'a device_class
+    type 'a app_launch_context_class
+    type 'a window_class
+    type 'a device_manager_class
+    type 'a screen_class
+    type 'a event_union
+    type atom_t
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class_t
-    val open' : string -> base class_t
-    val openDefaultLibgtkOnly : unit -> base class_t
-    val beep : 'a class_t -> unit
-    val close : 'a class_t -> unit
+    val getDefault : unit -> base class
+    val open' : string -> base class
+    val openDefaultLibgtkOnly : unit -> base class
+    val beep : 'a class -> unit
+    val close : 'a class -> unit
     val deviceIsGrabbed :
-      'a class_t
-       -> 'b device_class_t
+      'a class
+       -> 'b device_class
        -> bool
-    val flush : 'a class_t -> unit
-    val getAppLaunchContext : 'a class_t -> base app_launch_context_class_t
-    val getDefaultCursorSize : 'a class_t -> LargeInt.int
-    val getDefaultGroup : 'a class_t -> base window_class_t
-    val getDefaultScreen : 'a class_t -> base screen_class_t
-    val getDeviceManager : 'a class_t -> base device_manager_class_t
-    val getEvent : 'a class_t -> base event_t
-    val getMaximalCursorSize : 'a class_t -> LargeInt.int * LargeInt.int
-    val getNScreens : 'a class_t -> LargeInt.int
-    val getName : 'a class_t -> string
+    val flush : 'a class -> unit
+    val getAppLaunchContext : 'a class -> base app_launch_context_class
+    val getDefaultCursorSize : 'a class -> LargeInt.int
+    val getDefaultGroup : 'a class -> base window_class
+    val getDefaultScreen : 'a class -> base screen_class
+    val getDeviceManager : 'a class -> base device_manager_class
+    val getEvent : 'a class -> base event_union
+    val getMaximalCursorSize : 'a class -> LargeInt.int * LargeInt.int
+    val getNScreens : 'a class -> LargeInt.int
+    val getName : 'a class -> string
     val getScreen :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base screen_class_t
-    val hasPending : 'a class_t -> bool
-    val isClosed : 'a class_t -> bool
+       -> base screen_class
+    val hasPending : 'a class -> bool
+    val isClosed : 'a class -> bool
     val notifyStartupComplete :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val peekEvent : 'a class_t -> base event_t
+    val peekEvent : 'a class -> base event_union
     val putEvent :
-      'a class_t
-       -> 'b event_t
+      'a class
+       -> 'b event_union
        -> unit
     val requestSelectionNotification :
-      'a class_t
-       -> atom_record_t
+      'a class
+       -> atom_t
        -> bool
     val setDoubleClickDistance :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setDoubleClickTime :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val supportsClipboardPersistence : 'a class_t -> bool
-    val supportsComposite : 'a class_t -> bool
-    val supportsCursorAlpha : 'a class_t -> bool
-    val supportsCursorColor : 'a class_t -> bool
-    val supportsInputShapes : 'a class_t -> bool
-    val supportsSelectionNotification : 'a class_t -> bool
-    val supportsShapes : 'a class_t -> bool
-    val sync : 'a class_t -> unit
-    val closedSig : (bool -> unit) -> 'a class_t Signal.signal
-    val openedSig : (unit -> unit) -> 'a class_t Signal.signal
+    val supportsClipboardPersistence : 'a class -> bool
+    val supportsComposite : 'a class -> bool
+    val supportsCursorAlpha : 'a class -> bool
+    val supportsCursorColor : 'a class -> bool
+    val supportsInputShapes : 'a class -> bool
+    val supportsSelectionNotification : 'a class -> bool
+    val supportsShapes : 'a class -> bool
+    val sync : 'a class -> unit
+    val closedSig : (bool -> unit) -> 'a class Signal.signal
+    val openedSig : (unit -> unit) -> 'a class Signal.signal
   end

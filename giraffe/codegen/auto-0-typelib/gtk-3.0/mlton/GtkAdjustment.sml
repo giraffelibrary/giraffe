@@ -1,6 +1,6 @@
 structure GtkAdjustment :>
   GTK_ADJUSTMENT
-    where type 'a class_t = 'a GtkAdjustmentClass.t =
+    where type 'a class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_adjustment_get_type" : unit -> GObjectType.C.val_;
     val new_ =
@@ -90,8 +90,8 @@ structure GtkAdjustment :>
     val setUpper_ = fn x1 & x2 => (_import "gtk_adjustment_set_upper" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     val setValue_ = fn x1 & x2 => (_import "gtk_adjustment_set_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
     val valueChanged_ = _import "gtk_adjustment_value_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    type 'a class_t = 'a GtkAdjustmentClass.t
-    type t = base class_t
+    type 'a class = 'a GtkAdjustmentClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new value lower upper stepIncrement pageIncrement pageSize =
       (

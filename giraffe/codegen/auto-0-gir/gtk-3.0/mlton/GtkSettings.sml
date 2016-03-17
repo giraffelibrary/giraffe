@@ -1,8 +1,8 @@
 structure GtkSettings :>
   GTK_SETTINGS
-    where type 'a class_t = 'a GtkSettingsClass.t
-    where type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
-    where type settings_value_record_t = GtkSettingsValueRecord.t
+    where type 'a class = 'a GtkSettingsClass.class
+    where type 'a style_provider_class = 'a GtkStyleProviderClass.class
+    where type settings_value_t = GtkSettingsValueRecord.t
     where type i_m_preedit_style_t = GtkIMPreeditStyle.t
     where type i_m_status_style_t = GtkIMStatusStyle.t
     where type corner_type_t = GtkCornerType.t
@@ -107,16 +107,16 @@ structure GtkSettings :>
               x6,
               x7
             )
-    type 'a class_t = 'a GtkSettingsClass.t
-    type 'a style_provider_class_t = 'a GtkStyleProviderClass.t
-    type settings_value_record_t = GtkSettingsValueRecord.t
+    type 'a class = 'a GtkSettingsClass.class
+    type 'a style_provider_class = 'a GtkStyleProviderClass.class
+    type settings_value_t = GtkSettingsValueRecord.t
     type i_m_preedit_style_t = GtkIMPreeditStyle.t
     type i_m_status_style_t = GtkIMStatusStyle.t
     type corner_type_t = GtkCornerType.t
     type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
     type policy_type_t = GtkPolicyType.t
-    type t = base class_t
+    type t = base class
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GtkSettingsClass.C.fromPtr false) getDefault_ ()

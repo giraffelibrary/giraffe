@@ -1,7 +1,7 @@
 structure GIRepositoryArgInfo :>
   G_I_REPOSITORY_ARG_INFO
-    where type 'a class_t = 'a GIRepositoryArgInfoClass.t
-    where type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    where type 'a class = 'a GIRepositoryArgInfoClass.class
+    where type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     where type direction_t = GIRepositoryDirection.t
     where type scopetype_t = GIRepositoryScopeType.t
     where type transfer_t = GIRepositoryTransfer.t =
@@ -13,8 +13,8 @@ structure GIRepositoryArgInfo :>
     fun toType f = GIRepositoryTypeInfoClass.Obj.pack o (I && f)
 
 
-    type 'a class_t = 'a GIRepositoryArgInfoClass.t
-    type 'a typeinfoclass_t = 'a GIRepositoryTypeInfoClass.t
+    type 'a class = 'a GIRepositoryArgInfoClass.class
+    type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
     type direction_t = GIRepositoryDirection.t
     type scopetype_t = GIRepositoryScopeType.t
     type transfer_t = GIRepositoryTransfer.t

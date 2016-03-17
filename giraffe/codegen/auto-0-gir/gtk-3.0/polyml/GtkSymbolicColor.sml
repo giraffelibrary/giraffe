@@ -1,7 +1,7 @@
 structure GtkSymbolicColor :>
   GTK_SYMBOLIC_COLOR
-    where type record_t = GtkSymbolicColorRecord.t
-    where type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t =
+    where type t = GtkSymbolicColorRecord.t
+    where type 'a style_properties_class = 'a GtkStylePropertiesClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,9 +29,8 @@ structure GtkSymbolicColor :>
           )
       val toString_ = call (load_sym libgtk "gtk_symbolic_color_to_string") (GtkSymbolicColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type record_t = GtkSymbolicColorRecord.t
-    type 'a style_properties_class_t = 'a GtkStylePropertiesClass.t
-    type t = record_t
+    type t = GtkSymbolicColorRecord.t
+    type 'a style_properties_class = 'a GtkStylePropertiesClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAlpha color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newAlpha_ (color & factor)
     fun newLiteral color = (GdkRgbaRecord.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newLiteral_ color

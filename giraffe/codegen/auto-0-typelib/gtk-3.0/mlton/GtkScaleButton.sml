@@ -1,11 +1,11 @@
 structure GtkScaleButton :>
   GTK_SCALE_BUTTON
-    where type 'a class_t = 'a GtkScaleButtonClass.t
-    where type 'a activatable_class_t = 'a GtkActivatableClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type 'a widget_class_t = 'a GtkWidgetClass.t
-    where type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    where type 'a class = 'a GtkScaleButtonClass.class
+    where type 'a activatable_class = 'a GtkActivatableClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type icon_size_t = GtkIconSize.t =
   struct
     val getType_ = _import "gtk_scale_button_get_type" : unit -> GObjectType.C.val_;
@@ -16,14 +16,14 @@ structure GtkScaleButton :>
     val getValue_ = _import "gtk_scale_button_get_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
     val setAdjustment_ = fn x1 & x2 => (_import "gtk_scale_button_set_adjustment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
     val setValue_ = fn x1 & x2 => (_import "gtk_scale_button_set_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkScaleButtonClass.t
-    type 'a activatable_class_t = 'a GtkActivatableClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type 'a widget_class_t = 'a GtkWidgetClass.t
-    type 'a adjustment_class_t = 'a GtkAdjustmentClass.t
+    type 'a class = 'a GtkScaleButtonClass.class
+    type 'a activatable_class = 'a GtkActivatableClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type icon_size_t = GtkIconSize.t
-    type t = base class_t
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self

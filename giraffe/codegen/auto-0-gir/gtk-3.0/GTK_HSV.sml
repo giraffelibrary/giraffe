@@ -1,13 +1,13 @@
 signature GTK_HSV =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type direction_type_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val toRgb :
       real
        -> real
@@ -16,23 +16,23 @@ signature GTK_HSV =
            * real
            * real
     val getColor :
-      'a class_t
+      'a class
        -> real
            * real
            * real
-    val getMetrics : 'a class_t -> LargeInt.int * LargeInt.int
-    val isAdjusting : 'a class_t -> bool
+    val getMetrics : 'a class -> LargeInt.int * LargeInt.int
+    val isAdjusting : 'a class -> bool
     val setColor :
-      'a class_t
+      'a class
        -> real
        -> real
        -> real
        -> unit
     val setMetrics :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class_t Signal.signal
-    val moveSig : (direction_type_t -> unit) -> 'a class_t Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val moveSig : (direction_type_t -> unit) -> 'a class Signal.signal
   end

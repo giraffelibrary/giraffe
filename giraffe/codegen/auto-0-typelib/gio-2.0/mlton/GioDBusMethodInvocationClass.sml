@@ -4,7 +4,8 @@ structure GioDBusMethodInvocationClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a d_bus_method_invocation = unit
-    type 'a t = 'a d_bus_method_invocation GObjectObjectClass.t
+    type 'a class = 'a d_bus_method_invocation GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

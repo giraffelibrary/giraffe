@@ -1,6 +1,6 @@
 structure GioAction :>
   GIO_ACTION
-    where type 'a class_t = 'a GioActionClass.t =
+    where type 'a class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_action_get_type" : unit -> GObjectType.C.val_;
     val activate_ = fn x1 & x2 => (_import "g_action_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GLibVariantRecord.C.p -> unit;) (x1, x2)
@@ -11,8 +11,8 @@ structure GioAction :>
     val getState_ = _import "g_action_get_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
     val getStateHint_ = _import "g_action_get_state_hint" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
     val getStateType_ = _import "g_action_get_state_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
-    type 'a class_t = 'a GioActionClass.t
-    type t = base class_t
+    type 'a class = 'a GioActionClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self parameter = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withOptPtr ---> I) activate_ (self & parameter)
     fun changeState self value = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) changeState_ (self & value)

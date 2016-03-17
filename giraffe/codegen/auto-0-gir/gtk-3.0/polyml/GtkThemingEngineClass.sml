@@ -4,7 +4,8 @@ structure GtkThemingEngineClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a theming_engine = unit
-    type 'a t = 'a theming_engine GObjectObjectClass.t
+    type 'a class = 'a theming_engine GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

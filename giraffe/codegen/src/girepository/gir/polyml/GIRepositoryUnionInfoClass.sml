@@ -1,12 +1,13 @@
 structure GIRepositoryUnionInfoClass :>
   G_I_REPOSITORY_UNION_INFO_CLASS
-    where type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    where type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
     where type Obj.data = Info.uniondata =
   struct
     type data = Info.uniondata
     type 'a unioninfo = (data, 'a) pair
-    type 'a registeredtypeinfoclass_t = 'a GIRepositoryRegisteredTypeInfoClass.t
-    type 'a t = 'a unioninfo registeredtypeinfoclass_t
+    type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
+    type 'a class = 'a unioninfo registeredtypeinfo_class
+    type t = base class
     structure Obj =
       struct
         type data = data

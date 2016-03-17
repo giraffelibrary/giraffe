@@ -2,7 +2,7 @@ structure PangoScript :>
   sig
     include
       PANGO_SCRIPT
-        where type language_record_t = PangoLanguageRecord.t
+        where type language_t = PangoLanguageRecord.t
   end =
   struct
     datatype t =
@@ -268,7 +268,7 @@ structure PangoScript :>
     val null = INVALID_CODE
     val forUnichar_ = _import "pango_script_for_unichar" : FFI.Char.C.val_ -> C.val_;
     val getSampleLanguage_ = _import "pango_script_get_sample_language" : C.val_ -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
-    type language_record_t = PangoLanguageRecord.t
+    type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
     fun getSampleLanguage script = (C.withVal ---> PangoLanguageRecord.C.fromPtr true) getSampleLanguage_ script

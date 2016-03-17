@@ -1,22 +1,22 @@
 signature GTK_EVENT_BOX =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getAboveChild : 'a class_t -> bool
-    val getVisibleWindow : 'a class_t -> bool
+    val new : unit -> base class
+    val getAboveChild : 'a class -> bool
+    val getVisibleWindow : 'a class -> bool
     val setAboveChild :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setVisibleWindow :
-      'a class_t
+      'a class
        -> bool
        -> unit
-    val aboveChildProp : ('a class_t, bool, bool) Property.readwrite
-    val visibleWindowProp : ('a class_t, bool, bool) Property.readwrite
+    val aboveChildProp : ('a class, bool, bool) Property.readwrite
+    val visibleWindowProp : ('a class, bool, bool) Property.readwrite
   end

@@ -1,9 +1,9 @@
 structure GioResolver :>
   GIO_RESOLVER
-    where type 'a class_t = 'a GioResolverClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a inet_address_class_t = 'a GioInetAddressClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioResolverClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a inet_address_class = 'a GioInetAddressClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     local
       open PolyMLFFI
@@ -29,11 +29,11 @@ structure GioResolver :>
           )
       val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioResolverClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a inet_address_class_t = 'a GioInetAddressClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioResolverClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a inet_address_class = 'a GioInetAddressClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioResolverClass.C.fromPtr true) getDefault_ ()
     fun lookupByAddress self address cancellable =

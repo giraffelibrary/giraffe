@@ -1,6 +1,6 @@
 structure GtkTreePath :>
   GTK_TREE_PATH
-    where type record_t = GtkTreePathRecord.t =
+    where type t = GtkTreePathRecord.t =
   struct
     val getType_ = _import "gtk_tree_path_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_tree_path_new" : unit -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;
@@ -18,8 +18,7 @@ structure GtkTreePath :>
     val prev_ = _import "gtk_tree_path_prev" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;
     val toString_ = _import "gtk_tree_path_to_string" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val up_ = _import "gtk_tree_path_up" : GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;
-    type record_t = GtkTreePathRecord.t
-    type t = record_t
+    type t = GtkTreePathRecord.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.C.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.C.fromPtr true) newFirst_ ()

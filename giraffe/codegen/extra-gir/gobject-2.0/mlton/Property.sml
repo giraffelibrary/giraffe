@@ -8,7 +8,7 @@
 structure Property :>
   PROPERTY
     where type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
-    where type 'a object_class_t = 'a GObjectObjectClass.t =
+    where type 'a object_class = 'a GObjectObjectClass.class =
   struct
     val getProperty_ =
       fn
@@ -51,7 +51,7 @@ structure Property :>
             )
 
     type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
-    type 'a object_class_t = 'a GObjectObjectClass.t
+    type 'a object_class = 'a GObjectObjectClass.class
 
     fun getProperty self propertyName value =
       (

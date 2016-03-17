@@ -1,7 +1,7 @@
 structure GioEmblem :>
   GIO_EMBLEM
-    where type 'a class_t = 'a GioEmblemClass.t
-    where type 'a icon_class_t = 'a GioIconClass.t
+    where type 'a class = 'a GioEmblemClass.class
+    where type 'a icon_class = 'a GioIconClass.class
     where type emblem_origin_t = GioEmblemOrigin.t =
   struct
     val getType_ = _import "g_emblem_get_type" : unit -> GObjectType.C.val_;
@@ -9,10 +9,10 @@ structure GioEmblem :>
     val newWithOrigin_ = fn x1 & x2 => (_import "g_emblem_new_with_origin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioEmblemOrigin.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
     val getIcon_ = _import "g_emblem_get_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getOrigin_ = _import "g_emblem_get_origin" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioEmblemOrigin.C.val_;
-    type 'a class_t = 'a GioEmblemClass.t
-    type 'a icon_class_t = 'a GioIconClass.t
+    type 'a class = 'a GioEmblemClass.class
+    type 'a icon_class = 'a GioIconClass.class
     type emblem_origin_t = GioEmblemOrigin.t
-    type t = base class_t
+    type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new icon = (GObjectObjectClass.C.withPtr ---> GioEmblemClass.C.fromPtr true) new_ icon

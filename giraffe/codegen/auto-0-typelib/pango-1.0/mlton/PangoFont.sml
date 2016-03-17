@@ -1,11 +1,11 @@
 structure PangoFont :>
   PANGO_FONT
-    where type 'a class_t = 'a PangoFontClass.t
-    where type font_description_record_t = PangoFontDescriptionRecord.t
-    where type 'a font_map_class_t = 'a PangoFontMapClass.t
-    where type rectangle_record_t = PangoRectangleRecord.t
-    where type font_metrics_record_t = PangoFontMetricsRecord.t
-    where type language_record_t = PangoLanguageRecord.t =
+    where type 'a class = 'a PangoFontClass.class
+    where type font_description_t = PangoFontDescriptionRecord.t
+    where type 'a font_map_class = 'a PangoFontMapClass.class
+    where type rectangle_t = PangoRectangleRecord.t
+    where type font_metrics_t = PangoFontMetricsRecord.t
+    where type language_t = PangoLanguageRecord.t =
   struct
     val getType_ = _import "pango_font_get_type" : unit -> GObjectType.C.val_;
     val describe_ = _import "pango_font_describe" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
@@ -32,13 +32,13 @@ structure PangoFont :>
               x4
             )
     val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoLanguageRecord.C.p -> PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p;) (x1, x2)
-    type 'a class_t = 'a PangoFontClass.t
-    type font_description_record_t = PangoFontDescriptionRecord.t
-    type 'a font_map_class_t = 'a PangoFontMapClass.t
-    type rectangle_record_t = PangoRectangleRecord.t
-    type font_metrics_record_t = PangoFontMetricsRecord.t
-    type language_record_t = PangoLanguageRecord.t
-    type t = base class_t
+    type 'a class = 'a PangoFontClass.class
+    type font_description_t = PangoFontDescriptionRecord.t
+    type 'a font_map_class = 'a PangoFontMapClass.class
+    type rectangle_t = PangoRectangleRecord.t
+    type font_metrics_t = PangoFontMetricsRecord.t
+    type language_t = PangoLanguageRecord.t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
     fun describeWithAbsoluteSize self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describeWithAbsoluteSize_ self

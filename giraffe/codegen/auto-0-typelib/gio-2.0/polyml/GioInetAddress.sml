@@ -1,6 +1,6 @@
 structure GioInetAddress :>
   GIO_INET_ADDRESS
-    where type 'a class_t = 'a GioInetAddressClass.t
+    where type 'a class = 'a GioInetAddressClass.class
     where type socket_family_t = GioSocketFamily.t =
   struct
     local
@@ -25,9 +25,9 @@ structure GioInetAddress :>
       val getNativeSize_ = call (load_sym libgio "g_inet_address_get_native_size") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
       val toString_ = call (load_sym libgio "g_inet_address_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
-    type 'a class_t = 'a GioInetAddressClass.t
+    type 'a class = 'a GioInetAddressClass.class
     type socket_family_t = GioSocketFamily.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newAny family = (GioSocketFamily.C.withVal ---> GioInetAddressClass.C.fromPtr true) newAny_ family
     fun newFromString string = (Utf8.C.withPtr ---> GioInetAddressClass.C.fromPtr true) newFromString_ string

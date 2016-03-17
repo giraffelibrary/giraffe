@@ -1,13 +1,13 @@
 structure GtkCellView :>
   GTK_CELL_VIEW
-    where type 'a class_t = 'a GtkCellViewClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t
-    where type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    where type 'a orientable_class_t = 'a GtkOrientableClass.t
-    where type tree_path_record_t = GtkTreePathRecord.t
-    where type 'a cell_area_class_t = 'a GtkCellAreaClass.t
-    where type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
-    where type 'a tree_model_class_t = 'a GtkTreeModelClass.t =
+    where type 'a class = 'a GtkCellViewClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type tree_path_t = GtkTreePathRecord.t
+    where type 'a cell_area_class = 'a GtkCellAreaClass.class
+    where type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
+    where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_cell_view_get_type" : unit -> GObjectType.C.val_;
     val new_ = _import "gtk_cell_view_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -25,15 +25,15 @@ structure GtkCellView :>
     val setDrawSensitive_ = fn x1 & x2 => (_import "gtk_cell_view_set_draw_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setFitModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_fit_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_model" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GtkCellViewClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type 'a cell_layout_class_t = 'a GtkCellLayoutClass.t
-    type 'a orientable_class_t = 'a GtkOrientableClass.t
-    type tree_path_record_t = GtkTreePathRecord.t
-    type 'a cell_area_class_t = 'a GtkCellAreaClass.t
-    type 'a cell_area_context_class_t = 'a GtkCellAreaContextClass.t
-    type 'a tree_model_class_t = 'a GtkTreeModelClass.t
-    type t = base class_t
+    type 'a class = 'a GtkCellViewClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a cell_layout_class = 'a GtkCellLayoutClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
+    type tree_path_t = GtkTreePathRecord.t
+    type 'a cell_area_class = 'a GtkCellAreaClass.class
+    type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
+    type 'a tree_model_class = 'a GtkTreeModelClass.class
+    type t = base class
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self

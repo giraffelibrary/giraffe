@@ -6,17 +6,22 @@
 
 local
   (*
-   *     val toBase : 'a t -> base t
+   *     type t = base class
    *)
-  val toBaseValSpec = mkValSpec (toBaseId, TyFun (tTy aVarTy, tTy baseTy))
+  val tTySpec = mkTypeSpec (tTyName, SOME (classTy baseTy))
+
+  (*
+   *     val toBase : 'a class -> base class
+   *)
+  val toBaseValSpec = mkValSpec (toBaseId, TyFun (classTy aVarTy, classTy baseTy))
 
   (*
    *     structure C :
    *       sig
    *         type notnull
    *         type 'a p
-   *         val fromPtr : bool -> notnull p -> 'a t
-   *         val fromOptPtr : bool -> unit p -> 'a t option
+   *         val fromPtr : bool -> notnull p -> 'a class
+   *         val fromOptPtr : bool -> unit p -> 'a class option
    *       end
    *)
   val structCSpecs = [
@@ -24,11 +29,11 @@ local
     mkTypeSpec (ptrTyName aTyVar, NONE),
     mkValSpec (
       fromPtrId,
-      TyFun (boolTy, TyFun (ptrTy notnullTy, tTy aVarTy))
+      TyFun (boolTy, TyFun (ptrTy notnullTy, classTy aVarTy))
     ),
     mkValSpec (
       fromOptPtrId,
-      TyFun (boolTy, TyFun (ptrTy unitTy, optionTy (tTy aVarTy)))
+      TyFun (boolTy, TyFun (ptrTy unitTy, optionTy (classTy aVarTy)))
     )
   ]
   val structCSpec = mkCStructSpec structCSpecs
@@ -36,9 +41,9 @@ local
   val specs'1 = [structCSpec]
 in
   fun makeInterfaceClassSig
-    (_                  : 'a RepositoryClass.t)
+    (_                  : 'a RepositoryClass.class)
     (interfaceNamespace : string)
-    (interfaceInfo      : 'b InterfaceInfoClass.t)
+    (interfaceInfo      : 'b InterfaceInfoClass.class)
     : id * program * id list =
     let
       val () = checkDeprecated interfaceInfo
@@ -56,26 +61,26 @@ in
         addAccessorSpecs
           interfaceNamespace
           interfaceInfo
-          (tTy baseTy, tTy aVarTy)
+          (classTy baseTy, classTy aVarTy)
           true
           specs'1
-      val specs'3 = toBaseValSpec :: specs'2
+      val specs'3 = tTySpec :: toBaseValSpec :: specs'2
 
       (*
-       *     type 'a <interfacename>
+       *     type 'a <interface_name>
        *                                           -.
-       *     type 'a objectclass_t                  | isGObject
-       *     type 'a t = 'a <interfacename> objectclass_t
+       *     type 'a object_class                   | isGObject
+       *     type 'a class = 'a <interface_name> object_class
        *                                           -'
        *                                           -.
-       *     type 'a t =                            | not isGObject
-       *       'a <interfacename> GObject.ObjectClass.t
+       *     type 'a class =                        | not isGObject
+       *       'a <interface_name> GObject.ObjectClass.class
        *                                           -'
        *)
       val parentClassTypeLId = makeInterfaceRefTyLongId parentObjectIRef
-      val tTySpec =
+      val classTySpec =
         mkTypeSpec (
-          tTyName aTyVar,
+          classTyName aTyVar,
           SOME (
             TyRef (
               [TyRef ([aVarTy], toList1 [interfaceNameTypeId])],
@@ -88,8 +93,8 @@ in
        *  <=> isParentNamespace *)
       val specs'4 =
         case parentClassTypeLId of
-          (id, []) => mkTypeSpec (([aTyVar], id), NONE) :: tTySpec :: specs'3
-        | _        => tTySpec :: specs'3
+          (id, []) => mkTypeSpec (([aTyVar], id), NONE) :: classTySpec :: specs'3
+        | _        => classTySpec :: specs'3
       val specs'5 = mkTypeSpec (([aTyVar], interfaceNameTypeId), NONE) :: specs'4
 
       val sig1 = mkSigSpec specs'5
@@ -106,6 +111,11 @@ end
 (* Class structure *)
 
 local
+  (*
+   *     type t = base class
+   *)
+  val tTypeDec = mkTypeDec (tTyName, classTy baseTy)
+
   (*
    *     fun toBase obj = obj
    *)
@@ -124,9 +134,9 @@ local
     )
 in
   fun makeInterfaceClassStr
-    (_                  : 'a RepositoryClass.t)
+    (_                  : 'a RepositoryClass.class)
     (interfaceNamespace : string)
-    (interfaceInfo      : 'c InterfaceInfoClass.t)
+    (interfaceInfo      : 'b InterfaceInfoClass.class)
     : id * (spec list * strdec list) * program * interfaceref list =
     let
       val () = checkDeprecated interfaceInfo
@@ -192,30 +202,30 @@ in
             revAccessorLocalTypes,
             StrDecDec tValDec :: StrDecDec tOptValDec :: strDecs'1
           )
-      val strDecs'3 = StrDecDec toBaseFunDec :: strDecs'2
+      val strDecs'3 = StrDecDec tTypeDec :: StrDecDec toBaseFunDec :: strDecs'2
 
       (*
-       *     type 'a <interfacename> = unit
+       *     type 'a <interface_name> = unit
        *                                           -.
-       *     type 'a objectclass_t =                | isParentNamespace
-       *       'a GObjectObjecClass.t               |
-       *     type 'a t = 'a <interfacename> objectclass_t
+       *     type 'a object_class =                 | isParentNamespace
+       *       'a GObjectObjecClass.class           |
+       *     type 'a class = 'a <interface_name> object_class
        *                                           -'
        *                                           -.
-       *     type 'a t =                            | not isParentNamespace
-       *       'a <interfacename> GObjectObjectClass.t
+       *     type 'a class =                        | not isParentNamespace
+       *       'a <interface_name> GObjectObjectClass.class
        *                                           -'
        *)
       val parentClassTypeLId =
         toList1 (
           if isParentNamespace
           then [makeLocalInterfaceOtherId parentObjectIRef]
-          else [parentClassStrId, tId]
+          else [parentClassStrId, classId]
         )
-      val tTyStrDec =
+      val classTyStrDec =
         StrDecDec (
           mkTypeDec (
-            tTyName aTyVar,
+            classTyName aTyVar,
             I (
               TyRef (
                 [TyRef ([aVarTy], toList1 [interfaceNameTypeId])],
@@ -231,11 +241,11 @@ in
             val localType = makeIRefLocalType parentObjectIRef
           in
             (
-              makeLocalTypeStrDec localType :: tTyStrDec :: strDecs'3,
+              makeLocalTypeStrDec localType :: classTyStrDec :: strDecs'3,
               [localType]
             )
           end
-        else (tTyStrDec :: strDecs'3, [])
+        else (classTyStrDec :: strDecs'3, [])
       val strDecs'5 =
         StrDecDec (mkTypeDec (([aTyVar], interfaceNameTypeId), unitTy))
          :: strDecs'4
@@ -247,8 +257,8 @@ in
       (*
        *                                                 -.
        *     where                                        |
-       *       type 'a objectclass_t =                    | isParentNamespace
-       *         'a GObjectObjectClass.t                  |
+       *       type 'a object_class =                     | isParentNamespace
+       *         'a GObjectObjectClass.class              |
        *                                                 -'
        *                                                 -.
        *     where type ('a, 'b) value_accessor =         | isGObject
@@ -353,9 +363,9 @@ fun addInterfacePropertySpecs repo interfaceIRef =
     (makePropertySpec repo interfaceIRef)
 
 fun makeInterfaceSig
-  (repo               : 'a RepositoryClass.t)
+  (repo               : 'a RepositoryClass.class)
   (interfaceNamespace : string)
-  (interfaceInfo      : 'a InterfaceInfoClass.t)
+  (interfaceInfo      : 'b InterfaceInfoClass.class)
   (errs'0             : infoerrorhier list)
   : id * program * id list * infoerrorhier list =
   let
@@ -398,23 +408,19 @@ fun makeInterfaceSig
     val specs'7 = addPropertySpecs interfaceNamespace numProps specs'6
 
     (*
-     *     type t = base class_t
+     *     type t = base class
      *)
-    val specs'8 =
-      let
-        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, 0)
-      in
-        mkTypeSpec (([], tId), SOME ty) :: specs'7
-      end
+    val tTySpec = mkTypeSpec (tTyName, SOME (classTy baseTy))
+    val specs'8 = tTySpec :: specs'7
 
     (*
-     *     type 'a class_t
+     *     type 'a class
      *
-     *     type <varlist[1]> <typename[1]>_t
+     *     type <varlist[1]> <type_name[1]>_<t>
      *
      *     ...
      *
-     *     type <varlist[N]> <typename[N]>_t
+     *     type <varlist[N]> <type_name[N]>_<t>
      *)
     val specs'9 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'8)
 
@@ -524,11 +530,11 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
     end
 
 fun makeInterfaceStr
-  (repo               : 'a RepositoryClass.t)
+  (repo               : 'a RepositoryClass.class)
   (vers               : Repository.typelibvers_t)
   (libId              : id)
   (interfaceNamespace : string)
-  (interfaceInfo      : 'a InterfaceInfoClass.t)
+  (interfaceInfo      : 'b InterfaceInfoClass.class)
   (errs'0             : infoerrorhier list)
   : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
   let
@@ -589,25 +595,21 @@ fun makeInterfaceStr
       revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
 
     (*
-     *     type t = base class_t
+     *     type t = base class
      *)
-    val strDecs'8 =
-      let
-        val (ty, _) = makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, 0)
-      in
-        StrDecDec (mkTypeDec (([], tId), ty)) :: strDecs'7
-      end
+    val tTypeDec = mkTypeDec (tTyName, classTy baseTy)
+    val strDecs'8 = StrDecDec tTypeDec :: strDecs'7
 
     (*
-     *     type 'a class_t = 'a <InterfaceNamespace><InterfaceName>Class.t
+     *     type 'a class = 'a <InterfaceNamespace><InterfaceName>Class.class
      * 
-     *     type <varlist[1]> <typename[1]>_t =
-     *       <varlist[1]> <InterfaceNamespace><TypeName[1]>.t
+     *     type <varlist[1]> <type_name[1]>_<t> =
+     *       <varlist[1]> <InterfaceNamespace><TypeName[1]>.<t>
      * 
      *     ...
      * 
-     *     type <varlist[N]> <typename[N]>_t =
-     *       <varlist[N]> <InterfaceNamespace><TypeName[N]>.t
+     *     type <varlist[N]> <type_name[N]>_<t> =
+     *       <varlist[N]> <InterfaceNamespace><TypeName[N]>.<t>
      *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
     val strDecs'9 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'8)

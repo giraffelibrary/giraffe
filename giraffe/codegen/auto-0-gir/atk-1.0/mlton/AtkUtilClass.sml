@@ -4,7 +4,8 @@ structure AtkUtilClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a util = unit
-    type 'a t = 'a util GObjectObjectClass.t
+    type 'a class = 'a util GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -3,7 +3,8 @@ structure GIRepositoryBaseInfoClass :>
     where type Obj.data = Info.basedata =
   struct
     type data = Info.basedata
-    type 'a t = (data, 'a) pair
+    type 'a class = (data, 'a) pair
+    type t = base class
     structure Obj =
       struct
         type data = data
@@ -15,7 +16,7 @@ structure GIRepositoryBaseInfoClass :>
   end
 
 local
-  fun pp _ _ (_ : 'a GIRepositoryBaseInfoClass.t) = PolyML.PrettyString "?"
+  fun pp _ _ (_ : 'a GIRepositoryBaseInfoClass.class) = PolyML.PrettyString "?"
 in
   val () = PolyML.addPrettyPrinter pp
 end

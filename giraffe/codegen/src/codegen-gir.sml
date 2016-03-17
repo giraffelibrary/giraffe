@@ -139,14 +139,14 @@ end
 
 val aTyVar : tyvar = (false, "a")
 
-val quarkLocalType = toLocalType ([], ("GLib", "Quark", "t"))
-val pidLocalType = toLocalType ([], ("GLib", "Pid", "t"))
-val ioChannelRecordLocalType = toLocalType ([], ("GLib", "IOChannelRecord", "t"))
-val ioConditionLocalType = toLocalType ([], ("GLib", "IOCondition", "t"))
+val quarkLocalType = toLocalType ([], ("GLib", "Quark", "", "t"))
+val pidLocalType = toLocalType ([], ("GLib", "Pid", "", "t"))
+val ioChannelRecordLocalType = toLocalType ([], ("GLib", "IOChannel", "Record", "t"))
+val ioConditionLocalType = toLocalType ([], ("GLib", "IOCondition", "", "t"))
 
-val eventLocalType = toLocalType ([aTyVar], ("Gdk", "Event", "t"))
-val windowClassLocalType = toLocalType ([aTyVar], ("Gdk", "WindowClass", "t"))
-val modifierTypeLocalType = toLocalType ([], ("Gdk", "ModifierType", "t"))
+val eventLocalType = toLocalType ([aTyVar], ("Gdk", "Event", "", "union"))
+val windowClassLocalType = toLocalType ([aTyVar], ("Gdk", "Window", "Class", "class"))
+val modifierTypeLocalType = toLocalType ([], ("Gdk", "ModifierType", "", "t"))
 
 
 (* Initialize GIRepository *)
@@ -349,7 +349,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
                       [
                         toList1 [
                           (
-                            ([], toList1 ["record_t"]),
+                            ([], toList1 ["t"]),
                             TyRef ([], toList1 ["ValueRecord", "t"])
                           )
                         ],

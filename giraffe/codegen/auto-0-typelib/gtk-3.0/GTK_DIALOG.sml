@@ -1,47 +1,47 @@
 signature GTK_DIALOG =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
-    type 'a widget_class_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type 'a class
+    type 'a buildable_class
+    type 'a widget_class
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val addActionWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
        -> unit
     val addButton :
-      'a class_t
+      'a class
        -> string
        -> LargeInt.int
-       -> base widget_class_t
-    val getActionArea : 'a class_t -> base widget_class_t
-    val getContentArea : 'a class_t -> base widget_class_t
+       -> base widget_class
+    val getActionArea : 'a class -> base widget_class
+    val getContentArea : 'a class -> base widget_class
     val getResponseForWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
     val getWidgetForResponse :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base widget_class_t
+       -> base widget_class
     val response :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
-    val run : 'a class_t -> LargeInt.int
+    val run : 'a class -> LargeInt.int
     val setDefaultResponse :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setResponseSensitive :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> bool
        -> unit
-    val closeSig : (unit -> unit) -> 'a class_t Signal.signal
-    val responseSig : (LargeInt.int -> unit) -> 'a class_t Signal.signal
+    val closeSig : (unit -> unit) -> 'a class Signal.signal
+    val responseSig : (LargeInt.int -> unit) -> 'a class Signal.signal
   end

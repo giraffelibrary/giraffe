@@ -4,7 +4,8 @@ structure GtkTextTagTableClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a text_tag_table = unit
-    type 'a t = 'a text_tag_table GObjectObjectClass.t
+    type 'a class = 'a text_tag_table GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

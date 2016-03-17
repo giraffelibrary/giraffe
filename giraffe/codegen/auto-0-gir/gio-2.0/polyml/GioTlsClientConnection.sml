@@ -1,8 +1,8 @@
 structure GioTlsClientConnection :>
   GIO_TLS_CLIENT_CONNECTION
-    where type 'a class_t = 'a GioTlsClientConnectionClass.t
-    where type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    where type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    where type 'a class = 'a GioTlsClientConnectionClass.class
+    where type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t =
   struct
     local
@@ -24,11 +24,11 @@ structure GioTlsClientConnection :>
       val setUseSsl3_ = call (load_sym libgio "g_tls_client_connection_set_use_ssl3") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setValidationFlags_ = call (load_sym libgio "g_tls_client_connection_set_validation_flags") (GObjectObjectClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GioTlsClientConnectionClass.t
-    type 'a i_o_stream_class_t = 'a GioIOStreamClass.t
-    type 'a socket_connectable_class_t = 'a GioSocketConnectableClass.t
+    type 'a class = 'a GioTlsClientConnectionClass.class
+    type 'a i_o_stream_class = 'a GioIOStreamClass.class
+    type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIoStream serverIdentity =
       (

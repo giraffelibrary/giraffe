@@ -1,12 +1,11 @@
 signature PANGO_GLYPH_ITEM =
   sig
-    type record_t
-    type t = record_t
+    type t
     val getType : unit -> GObject.Type.t
-    val copy : record_t -> record_t
+    val copy : t -> t
     val split :
-      record_t
+      t
        -> string
        -> LargeInt.int
-       -> record_t
+       -> t
   end

@@ -1,9 +1,10 @@
 signature GDK_EVENT_ANY_RECORD =
   sig
     type any
-    type 'a event_t
-    type t = any event_t
+    type 'a event_union
+    type t = any event_union
     val t : (t, t) GObjectValue.accessor
+    val tOpt : (t option, t option) GObjectValue.accessor
     datatype event =
       DELETE
     | DESTROY

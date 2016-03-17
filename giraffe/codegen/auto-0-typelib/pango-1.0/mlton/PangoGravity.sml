@@ -2,7 +2,7 @@ structure PangoGravity :>
   sig
     include
       PANGO_GRAVITY
-        where type matrix_record_t = PangoMatrixRecord.t
+        where type matrix_t = PangoMatrixRecord.t
         where type gravity_hint_t = PangoGravityHint.t
         where type script_t = PangoScript.t
   end =
@@ -85,7 +85,7 @@ structure PangoGravity :>
               x4
             )
     val toRotation_ = _import "pango_gravity_to_rotation" : C.val_ -> FFI.Double.C.val_;
-    type matrix_record_t = PangoMatrixRecord.t
+    type matrix_t = PangoMatrixRecord.t
     type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.C.fromVal) getType_

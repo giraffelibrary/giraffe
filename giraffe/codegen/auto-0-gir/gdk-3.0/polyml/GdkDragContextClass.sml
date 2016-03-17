@@ -4,7 +4,8 @@ structure GdkDragContextClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a drag_context = unit
-    type 'a t = 'a drag_context GObjectObjectClass.t
+    type 'a class = 'a drag_context GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

@@ -1,6 +1,6 @@
 structure GIRepositoryRegisteredTypeInfo :>
   G_I_REPOSITORY_REGISTERED_TYPE_INFO
-    where type 'a class_t = 'a GIRepositoryRegisteredTypeInfoClass.t =
+    where type 'a class = 'a GIRepositoryRegisteredTypeInfoClass.class =
   struct
     local
       open PolyMLFFI
@@ -22,7 +22,7 @@ structure GIRepositoryRegisteredTypeInfo :>
     end
 
 
-    type 'a class_t = 'a GIRepositoryRegisteredTypeInfoClass.t
+    type 'a class = 'a GIRepositoryRegisteredTypeInfoClass.class
 
 
     val getTypeName =

@@ -1,38 +1,38 @@
 signature G_OBJECT_OBJECT =
   sig
-    type 'a class_t
+    type 'a class
     type type_t
-    type value_record_t
-    type closure_record_t
-    type 'a param_spec_class_t
-    type t = base class_t
+    type value_t
+    type closure_t
+    type 'a param_spec_class
+    type t = base class
     val getType : unit -> type_t
-    val forceFloating : 'a class_t -> unit
-    val freezeNotify : 'a class_t -> unit
+    val forceFloating : 'a class -> unit
+    val freezeNotify : 'a class -> unit
     val getProperty :
-      'a class_t
+      'a class
        -> string
-       -> value_record_t
+       -> value_t
        -> unit
-    val isFloating : 'a class_t -> bool
+    val isFloating : 'a class -> bool
     val notify :
-      'a class_t
+      'a class
        -> string
        -> unit
     val notifyByPspec :
-      'a class_t
-       -> 'b param_spec_class_t
+      'a class
+       -> 'b param_spec_class
        -> unit
-    val runDispose : 'a class_t -> unit
+    val runDispose : 'a class -> unit
     val setProperty :
-      'a class_t
+      'a class
        -> string
-       -> value_record_t
+       -> value_t
        -> unit
-    val thawNotify : 'a class_t -> unit
+    val thawNotify : 'a class -> unit
     val watchClosure :
-      'a class_t
-       -> closure_record_t
+      'a class
+       -> closure_t
        -> unit
-    val notifySig : (base param_spec_class_t -> unit) -> 'a class_t Signal.signal
+    val notifySig : (base param_spec_class -> unit) -> 'a class Signal.signal
   end

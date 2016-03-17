@@ -4,7 +4,8 @@ structure GioTlsFileDatabaseClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a tls_file_database = unit
-    type 'a t = 'a tls_file_database GObjectObjectClass.t
+    type 'a class = 'a tls_file_database GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

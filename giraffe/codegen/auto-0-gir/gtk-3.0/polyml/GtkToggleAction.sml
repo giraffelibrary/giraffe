@@ -1,7 +1,7 @@
 structure GtkToggleAction :>
   GTK_TOGGLE_ACTION
-    where type 'a class_t = 'a GtkToggleActionClass.t
-    where type 'a buildable_class_t = 'a GtkBuildableClass.t =
+    where type 'a class = 'a GtkToggleActionClass.class
+    where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     local
       open PolyMLFFI
@@ -22,9 +22,9 @@ structure GtkToggleAction :>
       val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val toggled_ = call (load_sym libgtk "gtk_toggle_action_toggled") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
-    type 'a class_t = 'a GtkToggleActionClass.t
-    type 'a buildable_class_t = 'a GtkBuildableClass.t
-    type t = base class_t
+    type 'a class = 'a GtkToggleActionClass.class
+    type 'a buildable_class = 'a GtkBuildableClass.class
+    type t = base class
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name label tooltip stockId =

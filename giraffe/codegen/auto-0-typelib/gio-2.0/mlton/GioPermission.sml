@@ -1,8 +1,8 @@
 structure GioPermission :>
   GIO_PERMISSION
-    where type 'a class_t = 'a GioPermissionClass.t
-    where type 'a cancellable_class_t = 'a GioCancellableClass.t
-    where type 'a async_result_class_t = 'a GioAsyncResultClass.t =
+    where type 'a class = 'a GioPermissionClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_permission_get_type" : unit -> GObjectType.C.val_;
     val acquire_ =
@@ -96,10 +96,10 @@ structure GioPermission :>
               x2,
               x3
             )
-    type 'a class_t = 'a GioPermissionClass.t
-    type 'a cancellable_class_t = 'a GioCancellableClass.t
-    type 'a async_result_class_t = 'a GioAsyncResultClass.t
-    type t = base class_t
+    type 'a class = 'a GioPermissionClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun acquire self cancellable =
       (

@@ -4,7 +4,8 @@ structure GtkSourceViewClass :>
     where type 'a C.p = 'a GtkTextViewClass.C.p =
   struct
     type 'a view = unit
-    type 'a t = 'a view GtkTextViewClass.t
+    type 'a class = 'a view GtkTextViewClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GtkTextViewClass.t
     val tOpt = GtkTextViewClass.tOpt

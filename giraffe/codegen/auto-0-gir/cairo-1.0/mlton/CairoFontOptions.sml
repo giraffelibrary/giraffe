@@ -1,7 +1,6 @@
 structure CairoFontOptions :>
   CAIRO_FONT_OPTIONS
-    where type record_t = CairoFontOptionsRecord.t =
+    where type t = CairoFontOptionsRecord.t =
   struct
-    type record_t = CairoFontOptionsRecord.t
-    type t = record_t
+    type t = CairoFontOptionsRecord.t
   end

@@ -1,6 +1,6 @@
 structure GioApplicationCommandLine :>
   GIO_APPLICATION_COMMAND_LINE
-    where type 'a class_t = 'a GioApplicationCommandLineClass.t =
+    where type 'a class = 'a GioApplicationCommandLineClass.class =
   struct
     val getType_ = _import "g_application_command_line_get_type" : unit -> GObjectType.C.val_;
     val getCwd_ = _import "g_application_command_line_get_cwd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
@@ -23,8 +23,8 @@ structure GioApplicationCommandLine :>
               x3
             )
     val setExitStatus_ = fn x1 & x2 => (_import "g_application_command_line_set_exit_status" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    type 'a class_t = 'a GioApplicationCommandLineClass.t
-    type t = base class_t
+    type 'a class = 'a GioApplicationCommandLineClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getCwd self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCwd_ self
     fun getExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getExitStatus_ self

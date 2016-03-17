@@ -1,209 +1,209 @@
 signature GTK_NOTEBOOK =
   sig
-    type 'a class_t
-    type 'a buildable_class_t
+    type 'a class
+    type 'a buildable_class
     type pack_type_t
     type notebook_tab_t
     type direction_type_t
-    type 'a widget_class_t
+    type 'a widget_class
     type position_type_t
-    type t = base class_t
-    val asImplementorIface : 'a class_t -> base Atk.ImplementorIfaceClass.t
-    val asBuildable : 'a class_t -> base buildable_class_t
+    type t = base class
+    val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
+    val new : unit -> base class
     val appendPage :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
        -> LargeInt.int
     val appendPageMenu :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
-       -> 'd widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
+       -> 'd widget_class option
        -> LargeInt.int
     val getActionWidget :
-      'a class_t
+      'a class
        -> pack_type_t
-       -> base widget_class_t
-    val getCurrentPage : 'a class_t -> LargeInt.int
-    val getGroupName : 'a class_t -> string
+       -> base widget_class
+    val getCurrentPage : 'a class -> LargeInt.int
+    val getGroupName : 'a class -> string
     val getMenuLabel :
-      'a class_t
-       -> 'b widget_class_t
-       -> base widget_class_t
+      'a class
+       -> 'b widget_class
+       -> base widget_class
     val getMenuLabelText :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
-    val getNPages : 'a class_t -> LargeInt.int
+    val getNPages : 'a class -> LargeInt.int
     val getNthPage :
-      'a class_t
+      'a class
        -> LargeInt.int
-       -> base widget_class_t
-    val getScrollable : 'a class_t -> bool
-    val getShowBorder : 'a class_t -> bool
-    val getShowTabs : 'a class_t -> bool
+       -> base widget_class
+    val getScrollable : 'a class -> bool
+    val getShowBorder : 'a class -> bool
+    val getShowTabs : 'a class -> bool
     val getTabDetachable :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
-    val getTabHborder : 'a class_t -> LargeInt.int
+    val getTabHborder : 'a class -> LargeInt.int
     val getTabLabel :
-      'a class_t
-       -> 'b widget_class_t
-       -> base widget_class_t
+      'a class
+       -> 'b widget_class
+       -> base widget_class
     val getTabLabelText :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
-    val getTabPos : 'a class_t -> position_type_t
+    val getTabPos : 'a class -> position_type_t
     val getTabReorderable :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
-    val getTabVborder : 'a class_t -> LargeInt.int
+    val getTabVborder : 'a class -> LargeInt.int
     val insertPage :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
        -> LargeInt.int
        -> LargeInt.int
     val insertPageMenu :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
-       -> 'd widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
+       -> 'd widget_class option
        -> LargeInt.int
        -> LargeInt.int
-    val nextPage : 'a class_t -> unit
+    val nextPage : 'a class -> unit
     val pageNum :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
-    val popupDisable : 'a class_t -> unit
-    val popupEnable : 'a class_t -> unit
+    val popupDisable : 'a class -> unit
+    val popupEnable : 'a class -> unit
     val prependPage :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
        -> LargeInt.int
     val prependPageMenu :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
-       -> 'd widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
+       -> 'd widget_class option
        -> LargeInt.int
-    val prevPage : 'a class_t -> unit
+    val prevPage : 'a class -> unit
     val removePage :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val reorderChild :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> LargeInt.int
        -> unit
     val setActionWidget :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> pack_type_t
        -> unit
     val setCurrentPage :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> unit
     val setGroupName :
-      'a class_t
+      'a class
        -> string option
        -> unit
     val setMenuLabel :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
        -> unit
     val setMenuLabelText :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
        -> unit
     val setScrollable :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowBorder :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setShowTabs :
-      'a class_t
+      'a class
        -> bool
        -> unit
     val setTabDetachable :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
        -> unit
     val setTabLabel :
-      'a class_t
-       -> 'b widget_class_t
-       -> 'c widget_class_t option
+      'a class
+       -> 'b widget_class
+       -> 'c widget_class option
        -> unit
     val setTabLabelText :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> string
        -> unit
     val setTabPos :
-      'a class_t
+      'a class
        -> position_type_t
        -> unit
     val setTabReorderable :
-      'a class_t
-       -> 'b widget_class_t
+      'a class
+       -> 'b widget_class
        -> bool
        -> unit
-    val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class_t Signal.signal
+    val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class Signal.signal
     val createWindowSig :
-      (base widget_class_t
+      (base widget_class
         -> LargeInt.int
         -> LargeInt.int
-        -> 'a class_t)
-       -> 'b class_t Signal.signal
-    val focusTabSig : (notebook_tab_t -> bool) -> 'a class_t Signal.signal
-    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class_t Signal.signal
+        -> 'a class)
+       -> 'b class Signal.signal
+    val focusTabSig : (notebook_tab_t -> bool) -> 'a class Signal.signal
+    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.signal
     val pageAddedSig :
-      (base widget_class_t
+      (base widget_class
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
     val pageRemovedSig :
-      (base widget_class_t
+      (base widget_class
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
     val pageReorderedSig :
-      (base widget_class_t
+      (base widget_class
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
     val reorderTabSig :
       (direction_type_t
         -> bool
         -> bool)
-       -> 'a class_t Signal.signal
-    val selectPageSig : (bool -> bool) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val selectPageSig : (bool -> bool) -> 'a class Signal.signal
     val switchPageSig :
-      (base widget_class_t
+      (base widget_class
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val enablePopupProp : ('a class_t, bool, bool) Property.readwrite
-    val groupNameProp : ('a class_t, string option, string option) Property.readwrite
-    val pageProp : ('a class_t, LargeInt.int, LargeInt.int) Property.readwrite
-    val scrollableProp : ('a class_t, bool, bool) Property.readwrite
-    val showBorderProp : ('a class_t, bool, bool) Property.readwrite
-    val showTabsProp : ('a class_t, bool, bool) Property.readwrite
-    val tabPosProp : ('a class_t, position_type_t, position_type_t) Property.readwrite
+       -> 'a class Signal.signal
+    val enablePopupProp : ('a class, bool, bool) Property.readwrite
+    val groupNameProp : ('a class, string option, string option) Property.readwrite
+    val pageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val scrollableProp : ('a class, bool, bool) Property.readwrite
+    val showBorderProp : ('a class, bool, bool) Property.readwrite
+    val showTabsProp : ('a class, bool, bool) Property.readwrite
+    val tabPosProp : ('a class, position_type_t, position_type_t) Property.readwrite
   end

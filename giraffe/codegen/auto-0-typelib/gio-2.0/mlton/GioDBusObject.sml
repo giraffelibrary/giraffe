@@ -1,7 +1,7 @@
 structure GioDBusObject :>
   GIO_D_BUS_OBJECT
-    where type 'a class_t = 'a GioDBusObjectClass.t
-    where type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t =
+    where type 'a class = 'a GioDBusObjectClass.class
+    where type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class =
   struct
     val getType_ = _import "g_dbus_object_get_type" : unit -> GObjectType.C.val_;
     val getInterface_ =
@@ -20,9 +20,9 @@ structure GioDBusObject :>
               x3
             )
     val getObjectPath_ = _import "g_dbus_object_get_object_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    type 'a class_t = 'a GioDBusObjectClass.t
-    type 'a d_bus_interface_class_t = 'a GioDBusInterfaceClass.t
-    type t = base class_t
+    type 'a class = 'a GioDBusObjectClass.class
+    type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getInterface self interfaceName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr true) getInterface_ (self & interfaceName)
     fun getObjectPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self

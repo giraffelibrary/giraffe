@@ -1,7 +1,7 @@
 structure GtkSourceStyleScheme :>
   GTK_SOURCE_STYLE_SCHEME
-    where type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    where type 'a style_class_t = 'a GtkSourceStyleClass.t =
+    where type 'a class = 'a GtkSourceStyleSchemeClass.class
+    where type 'a style_class = 'a GtkSourceStyleClass.class =
   struct
     local
       open PolyMLFFI
@@ -13,9 +13,9 @@ structure GtkSourceStyleScheme :>
       val getName_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getStyle_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_style") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
     end
-    type 'a class_t = 'a GtkSourceStyleSchemeClass.t
-    type 'a style_class_t = 'a GtkSourceStyleClass.t
-    type t = base class_t
+    type 'a class = 'a GtkSourceStyleSchemeClass.class
+    type 'a style_class = 'a GtkSourceStyleClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
     fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self

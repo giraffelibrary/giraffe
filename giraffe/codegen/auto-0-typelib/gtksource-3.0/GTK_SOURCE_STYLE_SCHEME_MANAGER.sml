@@ -1,22 +1,22 @@
 signature GTK_SOURCE_STYLE_SCHEME_MANAGER =
   sig
-    type 'a class_t
-    type 'a style_scheme_class_t
-    type t = base class_t
+    type 'a class
+    type 'a style_scheme_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val getDefault : unit -> base class_t
+    val new : unit -> base class
+    val getDefault : unit -> base class
     val appendSearchPath :
-      'a class_t
+      'a class
        -> string
        -> unit
-    val forceRescan : 'a class_t -> unit
+    val forceRescan : 'a class -> unit
     val getScheme :
-      'a class_t
+      'a class
        -> string
-       -> base style_scheme_class_t
+       -> base style_scheme_class
     val prependSearchPath :
-      'a class_t
+      'a class
        -> string
        -> unit
   end

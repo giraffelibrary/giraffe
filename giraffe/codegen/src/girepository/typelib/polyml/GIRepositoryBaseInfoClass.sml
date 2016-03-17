@@ -31,7 +31,7 @@ structure GIRepositoryBaseInfoClass :>
           (cPtr --> FFI.PolyML.cVoid)
     end
 
-    type 'a t = notnull p Finalizable.t
+    type 'a class = notnull p Finalizable.t
     fun toBase obj = obj
 
     structure C =

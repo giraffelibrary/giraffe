@@ -1,10 +1,10 @@
 structure GdkDragContext :>
   GDK_DRAG_CONTEXT
-    where type 'a class_t = 'a GdkDragContextClass.t
+    where type 'a class = 'a GdkDragContextClass.class
     where type drag_protocol_t = GdkDragProtocol.t
-    where type 'a window_class_t = 'a GdkWindowClass.t
+    where type 'a window_class = 'a GdkWindowClass.class
     where type drag_action_t = GdkDragAction.t
-    where type 'a device_class_t = 'a GdkDeviceClass.t =
+    where type 'a device_class = 'a GdkDeviceClass.class =
   struct
     val getType_ = _import "gdk_drag_context_get_type" : unit -> GObjectType.C.val_;
     val getActions_ = _import "gdk_drag_context_get_actions" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDragAction.C.val_;
@@ -15,12 +15,12 @@ structure GdkDragContext :>
     val getSourceWindow_ = _import "gdk_drag_context_get_source_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
     val getSuggestedAction_ = _import "gdk_drag_context_get_suggested_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDragAction.C.val_;
     val setDevice_ = fn x1 & x2 => (_import "gdk_drag_context_set_device" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    type 'a class_t = 'a GdkDragContextClass.t
+    type 'a class = 'a GdkDragContextClass.class
     type drag_protocol_t = GdkDragProtocol.t
-    type 'a window_class_t = 'a GdkWindowClass.t
+    type 'a window_class = 'a GdkWindowClass.class
     type drag_action_t = GdkDragAction.t
-    type 'a device_class_t = 'a GdkDeviceClass.t
-    type t = base class_t
+    type 'a device_class = 'a GdkDeviceClass.class
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getActions self = (GObjectObjectClass.C.withPtr ---> GdkDragAction.C.fromVal) getActions_ self
     fun getDestWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getDestWindow_ self

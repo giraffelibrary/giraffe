@@ -2,7 +2,7 @@ structure GLibFileError :>
   sig
     include
       G_LIB_FILE_ERROR
-        where type error_record_handler = GLibErrorRecord.handler
+        where type error_handler = GLibErrorRecord.handler
     structure PolyML :
       sig
         val cVal : C.val_ PolyMLFFI.conversion
@@ -104,7 +104,7 @@ structure GLibFileError :>
         val cRef = FFI.Enum.PolyML.cRef
       end
     exception Error of t
-    type error_record_handler = GLibErrorRecord.handler
+    type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (

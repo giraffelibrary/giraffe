@@ -1,8 +1,8 @@
 structure GdkVisual :>
   GDK_VISUAL
-    where type 'a class_t = 'a GdkVisualClass.t
+    where type 'a class = 'a GdkVisualClass.class
     where type byte_order_t = GdkByteOrder.t
-    where type 'a screen_class_t = 'a GdkScreenClass.t
+    where type 'a screen_class = 'a GdkScreenClass.class
     where type visual_type_t = GdkVisualType.t =
   struct
     local
@@ -50,11 +50,11 @@ structure GdkVisual :>
       val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GObjectObjectClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
     end
-    type 'a class_t = 'a GdkVisualClass.t
+    type 'a class = 'a GdkVisualClass.class
     type byte_order_t = GdkByteOrder.t
-    type 'a screen_class_t = 'a GdkScreenClass.t
+    type 'a screen_class = 'a GdkScreenClass.class
     type visual_type_t = GdkVisualType.t
-    type t = base class_t
+    type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getBest () = (I ---> GdkVisualClass.C.fromPtr false) getBest_ ()
     fun getBestDepth () = (I ---> FFI.Int32.C.fromVal) getBestDepth_ ()

@@ -4,7 +4,8 @@ structure AtkImageClass :>
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     type 'a image = unit
-    type 'a t = 'a image GObjectObjectClass.t
+    type 'a class = 'a image GObjectObjectClass.class
+    type t = base class
     fun toBase obj = obj
     val t = GObjectObjectClass.t
     val tOpt = GObjectObjectClass.tOpt

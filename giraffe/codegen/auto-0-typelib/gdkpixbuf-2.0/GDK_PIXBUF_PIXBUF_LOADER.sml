@@ -1,35 +1,35 @@
 signature GDK_PIXBUF_PIXBUF_LOADER =
   sig
-    type 'a class_t
-    type 'a pixbuf_animation_class_t
-    type pixbuf_format_record_t
-    type 'a pixbuf_class_t
-    type t = base class_t
+    type 'a class
+    type 'a pixbuf_animation_class
+    type pixbuf_format_t
+    type 'a pixbuf_class
+    type t = base class
     val getType : unit -> GObject.Type.t
-    val new : unit -> base class_t
-    val newWithMimeType : string -> base class_t
-    val newWithType : string -> base class_t
-    val close : 'a class_t -> bool
-    val getAnimation : 'a class_t -> base pixbuf_animation_class_t
-    val getFormat : 'a class_t -> pixbuf_format_record_t
-    val getPixbuf : 'a class_t -> base pixbuf_class_t
+    val new : unit -> base class
+    val newWithMimeType : string -> base class
+    val newWithType : string -> base class
+    val close : 'a class -> bool
+    val getAnimation : 'a class -> base pixbuf_animation_class
+    val getFormat : 'a class -> pixbuf_format_t
+    val getPixbuf : 'a class -> base pixbuf_class
     val setSize :
-      'a class_t
+      'a class
        -> LargeInt.int
        -> LargeInt.int
        -> unit
-    val areaPreparedSig : (unit -> unit) -> 'a class_t Signal.signal
+    val areaPreparedSig : (unit -> unit) -> 'a class Signal.signal
     val areaUpdatedSig :
       (LargeInt.int
         -> LargeInt.int
         -> LargeInt.int
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
-    val closedSig : (unit -> unit) -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
+    val closedSig : (unit -> unit) -> 'a class Signal.signal
     val sizePreparedSig :
       (LargeInt.int
         -> LargeInt.int
         -> unit)
-       -> 'a class_t Signal.signal
+       -> 'a class Signal.signal
   end
