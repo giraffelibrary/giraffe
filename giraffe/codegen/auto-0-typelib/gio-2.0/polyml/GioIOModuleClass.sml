@@ -3,11 +3,7 @@ structure GioIOModuleClass :>
     where type C.notnull = GObjectTypeModuleClass.C.notnull
     where type 'a C.p = 'a GObjectTypeModuleClass.C.p =
   struct
+    open GObjectTypeModuleClass
     type 'a i_o_module = unit
-    type 'a class = 'a i_o_module GObjectTypeModuleClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectTypeModuleClass.t
-    val tOpt = GObjectTypeModuleClass.tOpt
-    structure C = GObjectTypeModuleClass.C
+    type 'a class = 'a i_o_module class
   end

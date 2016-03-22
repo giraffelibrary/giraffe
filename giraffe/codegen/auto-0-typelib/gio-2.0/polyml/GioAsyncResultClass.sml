@@ -3,11 +3,7 @@ structure GioAsyncResultClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
+    open GObjectObjectClass
     type 'a async_result = unit
-    type 'a class = 'a async_result GObjectObjectClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    type 'a class = 'a async_result class
   end

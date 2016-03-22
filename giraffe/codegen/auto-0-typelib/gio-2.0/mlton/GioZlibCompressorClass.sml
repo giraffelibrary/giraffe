@@ -3,11 +3,7 @@ structure GioZlibCompressorClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
+    open GObjectObjectClass
     type 'a zlib_compressor = unit
-    type 'a class = 'a zlib_compressor GObjectObjectClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    type 'a class = 'a zlib_compressor class
   end

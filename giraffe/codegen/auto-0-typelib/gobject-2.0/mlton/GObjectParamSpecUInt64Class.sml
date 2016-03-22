@@ -5,13 +5,8 @@ structure GObjectParamSpecUInt64Class :>
     where type C.notnull = GObjectParamSpecClass.C.notnull
     where type 'a C.p = 'a GObjectParamSpecClass.C.p =
   struct
-    type 'a param_spec_u_int_64 = unit
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    type 'a class = 'a param_spec_u_int_64 param_spec_class
-    type t = base class
-    fun toBase obj = obj
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-    val t = GObjectParamSpecClass.t
-    val tOpt = GObjectParamSpecClass.tOpt
-    structure C = GObjectParamSpecClass.C
+    open GObjectParamSpecClass
+    type 'a param_spec_u_int_64 = unit
+    type 'a class = 'a param_spec_u_int_64 class
   end

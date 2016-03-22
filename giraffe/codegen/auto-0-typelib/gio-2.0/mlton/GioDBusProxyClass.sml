@@ -3,11 +3,7 @@ structure GioDBusProxyClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
+    open GObjectObjectClass
     type 'a d_bus_proxy = unit
-    type 'a class = 'a d_bus_proxy GObjectObjectClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    type 'a class = 'a d_bus_proxy class
   end

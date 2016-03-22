@@ -3,6 +3,8 @@ val libgiraffegobject = PolyMLFFI.load_lib "";
 use "CLOSURE_MARSHAL.sml";
 use "SIGNAL.sml";
 use "PROPERTY.sml";
+use "CLASS.sml";
+use "polyml/CLASS.sml";
 use "RECORD.sml";
 use "polyml/RECORD.sml";
 use "NEW_RECORD.sml";

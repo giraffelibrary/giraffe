@@ -5,13 +5,8 @@ structure GObjectParamSpecEnumClass :>
     where type C.notnull = GObjectParamSpecClass.C.notnull
     where type 'a C.p = 'a GObjectParamSpecClass.C.p =
   struct
-    type 'a param_spec_enum = unit
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    type 'a class = 'a param_spec_enum param_spec_class
-    type t = base class
-    fun toBase obj = obj
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-    val t = GObjectParamSpecClass.t
-    val tOpt = GObjectParamSpecClass.tOpt
-    structure C = GObjectParamSpecClass.C
+    open GObjectParamSpecClass
+    type 'a param_spec_enum = unit
+    type 'a class = 'a param_spec_enum class
   end

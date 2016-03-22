@@ -4,9 +4,8 @@ structure GIRepositoryEnumInfoClass :>
     where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
     where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a enuminfo = unit
     type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
-    type 'a class = 'a enuminfo registeredtypeinfo_class
-    fun toBase obj = obj
-    structure C = GIRepositoryRegisteredTypeInfoClass.C
+    open GIRepositoryRegisteredTypeInfoClass
+    type 'a enuminfo = unit
+    type 'a class = 'a enuminfo class
   end

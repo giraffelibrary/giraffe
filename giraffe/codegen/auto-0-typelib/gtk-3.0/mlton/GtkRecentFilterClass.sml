@@ -3,11 +3,7 @@ structure GtkRecentFilterClass :>
     where type C.notnull = GObjectInitiallyUnownedClass.C.notnull
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
+    open GObjectInitiallyUnownedClass
     type 'a recent_filter = unit
-    type 'a class = 'a recent_filter GObjectInitiallyUnownedClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectInitiallyUnownedClass.t
-    val tOpt = GObjectInitiallyUnownedClass.tOpt
-    structure C = GObjectInitiallyUnownedClass.C
+    type 'a class = 'a recent_filter class
   end

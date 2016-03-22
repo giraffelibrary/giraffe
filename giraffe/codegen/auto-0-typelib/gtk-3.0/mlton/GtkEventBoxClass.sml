@@ -4,12 +4,8 @@ structure GtkEventBoxClass :>
     where type C.notnull = GtkBinClass.C.notnull
     where type 'a C.p = 'a GtkBinClass.C.p =
   struct
-    type 'a event_box = unit
     type 'a bin_class = 'a GtkBinClass.class
-    type 'a class = 'a event_box bin_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkBinClass.t
-    val tOpt = GtkBinClass.tOpt
-    structure C = GtkBinClass.C
+    open GtkBinClass
+    type 'a event_box = unit
+    type 'a class = 'a event_box class
   end

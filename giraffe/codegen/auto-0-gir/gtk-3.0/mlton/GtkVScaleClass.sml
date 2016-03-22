@@ -4,12 +4,8 @@ structure GtkVScaleClass :>
     where type C.notnull = GtkScaleClass.C.notnull
     where type 'a C.p = 'a GtkScaleClass.C.p =
   struct
-    type 'a v_scale = unit
     type 'a scale_class = 'a GtkScaleClass.class
-    type 'a class = 'a v_scale scale_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkScaleClass.t
-    val tOpt = GtkScaleClass.tOpt
-    structure C = GtkScaleClass.C
+    open GtkScaleClass
+    type 'a v_scale = unit
+    type 'a class = 'a v_scale class
   end

@@ -15,40 +15,6 @@ val isPortable =
 (* Class signature *)
 
 local
-  (*
-   *     type t = base class
-   *)
-  val tTySpec = mkTypeSpec (tTyName, SOME (classTy baseTy))
-
-  (*
-   *     val toBase : 'a class -> base class
-   *)
-  val toBaseValSpec = mkValSpec (toBaseId, TyFun (classTy aVarTy, classTy baseTy))
-
-  (*
-   *     structure C :
-   *       sig
-   *         type notnull
-   *         type 'a p
-   *         val fromPtr : bool -> notnull p -> 'a class
-   *         val fromOptPtr : bool -> unit p -> 'a class option
-   *       end
-   *)
-  val structCSpecs = [
-    mkTypeSpec (notnullTyName, NONE),
-    mkTypeSpec (ptrTyName aTyVar, NONE),
-    mkValSpec (
-      fromPtrId,
-      TyFun (boolTy, TyFun (ptrTy notnullTy, classTy aVarTy))
-    ),
-    mkValSpec (
-      fromOptPtrId,
-      TyFun (boolTy, TyFun (ptrTy unitTy, optionTy (classTy aVarTy)))
-    )
-  ]
-  val structCSpec = mkCStructSpec structCSpecs
-
-  val specs'1 = [structCSpec]
 in
   fun makeObjectDerivedClassSig
     (_                : 'a RepositoryClass.class)
@@ -80,48 +46,56 @@ in
       val objectClassStrId = mkClassStrId objectNamespace objectName
       val objectClassSigId = toUCU objectClassStrId
 
-      val specs'2 =
+      val specs'0 = []
+      val specs'1 =
         addAccessorSpecs
           objectNamespace
           objectInfo
           (classTy baseTy, classTy aVarTy)
           true
-          specs'1
-      val specs'3 = tTySpec :: toBaseValSpec :: specs'2
+          specs'0
 
       (*
        *     type 'a <object_name>
        *                                           -.
        *     type 'a <parent_object_name>_class     | isParentNamespace
-       *     type 'a class = 'a <object_name> <parent_object_name>_class
+       *     include CLASS                          |
+       *       where type 'a class = 'a <object_name> <parent_object_name>_class
        *                                           -'
        *                                           -.
-       *     type 'a class =                        | not isParentNamespace
-       *       'a <object_name>                     |
-       *         <ParentObjectNamespace>.<ParentObjectName>Class.class
+       *     include CLASS                          |
+       *       where type 'a class =                | not isParentNamespace
+       *         'a <object_name>                   |
+       *           <ParentObjectNamespace>.<ParentObjectName>Class.class
        *                                           -'
        *)
       val parentClassTypeLId = makeInterfaceRefTyLongId parentObjectIRef
-      val classTySpec =
-        mkTypeSpec (
-          classTyName aTyVar,
-          SOME (
-            TyRef (
-              [TyRef ([aVarTy], toList1 [objectNameTypeId])],
-              parentClassTypeLId
-            )
-          )
+      val classInclSpec =
+        SpecIncl (
+          SigName (toUCU classId),
+          [
+            toList1 [
+              (
+                classTyLName aTyVar,
+                TyRef (
+                  [TyRef ([aVarTy], toList1 [objectNameTypeId])],
+                  parentClassTypeLId
+                )
+              )
+            ]
+          ]
         )
+
       (* parentClassTypeLId is (_, [])
        *  <=> parentObjectNamespace = objectNamespace
        *  <=> isParentNamespace *)
-      val specs'4 =
+      val specs'2 =
         case parentClassTypeLId of
-          (id, []) => mkTypeSpec (([aTyVar], id), NONE) :: classTySpec :: specs'3
-        | _        => classTySpec :: specs'3
-      val specs'5 = mkTypeSpec (([aTyVar], objectNameTypeId), NONE) :: specs'4
+          (id, []) => mkTypeSpec (([aTyVar], id), NONE) :: classInclSpec :: specs'1
+        | _        => classInclSpec :: specs'1
+      val specs'3 = mkTypeSpec (([aTyVar], objectNameTypeId), NONE) :: specs'2
 
-      val sig1 = mkSigSpec specs'5
+      val sig1 = mkSigSpec specs'3
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(objectClassSigId, qSig)]
       val program = [ModuleDecSig sigDec]
@@ -168,27 +142,6 @@ end
 (* Class structure *)
 
 local
-  (*
-   *     type t = base class
-   *)
-  val tTypeDec = mkTypeDec (tTyName, classTy baseTy)
-
-  (*
-   *     fun toBase obj = obj
-   *)
-  val toBaseFunDec =
-    DecFun (
-      [],
-      toList1 [
-        toList1 [
-          (
-            FunHeadPrefix (NameId toBaseId, toList1 [mkIdVarAPat objId]),
-            NONE,
-            mkIdLNameExp objId
-          )
-        ]
-      ]
-    )
 in
   fun makeObjectDerivedClassStr
     (_                : 'a RepositoryClass.class)
@@ -235,89 +188,50 @@ in
       val isGObject = objectNamespace = "GObject"
 
       (* module *)
-      (*
-       *     structure C = <ParentObjectNamespace><ParentObjectName>Class.C
-       *)
-      val cStrDec =
-        StrDecStruct (
-          toList1 [
-            (
-              "C",
-              NONE,
-              StructName (toList1 [parentClassStrId, "C"])
-            )
-          ]
-        )
-      val strDecs'1 = [cStrDec]
-
-      (*
-       *                                                 -.
-       *     type ('a, 'b) value_accessor =               | isGObject
-       *       ('a, 'b) GObjectValue.accessor             |
-       *                                                 -'
-       *     val t = <ParentObjectNamespace><ParentObjectName>Class.t
-       *     val tOpt = <ParentObjectNamespace><ParentObjectName>Class.tOpt
-       *)
-      val tValDec = mkIdValDec (tId, mkLIdLNameExp [parentClassStrId, tId])
-      val tOptValDec =
-        mkIdValDec (tOptId, mkLIdLNameExp [parentClassStrId, tOptId])
+      val strDecs'0 = []
       val revAccessorLocalTypes = makeAccessorLocalTypes isGObject
-      val strDecs'2 =
-        revMapAppend makeLocalTypeStrDec
-          (
-            revAccessorLocalTypes,
-            StrDecDec tValDec :: StrDecDec tOptValDec :: strDecs'1
-          )
-      val strDecs'3 = StrDecDec tTypeDec :: StrDecDec toBaseFunDec :: strDecs'2
 
       (*
-       *     type 'a <object_name> = unit
        *                                           -.
        *     type 'a <parent_object_name>_class =   | isParentNamespace
        *       'a <ParentObjectNamespace><ParentObjectName>Class.class
-       *     type 'a class = 'a <object_name> <parent_object_name>_class
        *                                           -'
-       *                                           -.
-       *     type 'a class =                        | not isParentNamespace
-       *       'a <object_name>                     |
-       *         <ParentObjectNamespace><ParentObjectName>Class.class
-       *                                           -'
+       *     open <ParentObjectNamespace><ParentObjectName>Class
+       *     type 'a <object_name> = unit
+       *     type 'a class = 'a <object_name> class
        *)
-      val parentClassTypeLId =
-        toList1 (
-          if isParentNamespace
-          then [makeLocalInterfaceOtherId parentObjectIRef]
-          else [parentClassStrId, classId]
-        )
       val classTyStrDec =
         StrDecDec (
           mkTypeDec (
             classTyName aTyVar,
-            I (
-              TyRef (
-                [TyRef ([aVarTy], toList1 [objectNameTypeId])],
-                parentClassTypeLId
-              )
-            )
+            classTy (TyRef ([aVarTy], toList1 [objectNameTypeId]))
           )
         )
-      val (strDecs'4, revParentClassLocalTypes) =
+      val parentClassStrLId =
+        toList1 (
+          if isParentNamespace
+          then [parentClassStrId]
+          else prefixInterfaceStrId parentObjectIRef []
+        )
+      val strDecs'1 =
+        StrDecDec (DecOpen (toList1 [parentClassStrLId]))
+         :: StrDecDec (mkTypeDec (([aTyVar], objectNameTypeId), unitTy))
+         :: classTyStrDec
+         :: strDecs'0
+      val (strDecs'2, revParentClassLocalTypes) =
         if isParentNamespace
         then
           let
             val localType = makeIRefLocalType parentObjectIRef
           in
             (
-              makeLocalTypeStrDec localType :: classTyStrDec :: strDecs'3,
+              makeLocalTypeStrDec localType :: strDecs'1,
               [localType]
             )
           end
-        else (classTyStrDec :: strDecs'3, [])
-      val strDecs'5 =
-        StrDecDec (mkTypeDec (([aTyVar], objectNameTypeId), unitTy))
-         :: strDecs'4
+        else (strDecs'1, [])
 
-      val struct1 = mkStructBody strDecs'5
+      val struct1 = mkStructBody strDecs'2
 
       (* sig *)
       val sig1 = SigName objectClassSigId
@@ -743,12 +657,12 @@ fun makeObjectStr
 
     (*
      *     type 'a class = 'a <ObjectNamespace><ObjectName>Class.class
-     * 
+     *
      *     type <varlist[1]> <type_name[1]>_<t> =
      *       <varlist[1]> <ObjectNamespace><TypeName[1]>.<t>
-     * 
+     *
      *     ...
-     * 
+     *
      *     type <varlist[N]> <type_name[N]>_<t> =
      *       <varlist[N]> <ObjectNamespace><TypeName[N]>.<t>
      *)

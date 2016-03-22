@@ -3,11 +3,7 @@ structure GioIOStreamClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
+    open GObjectObjectClass
     type 'a i_o_stream = unit
-    type 'a class = 'a i_o_stream GObjectObjectClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    type 'a class = 'a i_o_stream class
   end

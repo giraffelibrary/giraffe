@@ -3,11 +3,7 @@ structure GtkTreeStoreClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
+    open GObjectObjectClass
     type 'a tree_store = unit
-    type 'a class = 'a tree_store GObjectObjectClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    type 'a class = 'a tree_store class
   end

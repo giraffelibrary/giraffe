@@ -4,12 +4,8 @@ structure GioUnixInputStreamClass :>
     where type C.notnull = GioInputStreamClass.C.notnull
     where type 'a C.p = 'a GioInputStreamClass.C.p =
   struct
-    type 'a unix_input_stream = unit
     type 'a input_stream_class = 'a GioInputStreamClass.class
-    type 'a class = 'a unix_input_stream input_stream_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GioInputStreamClass.t
-    val tOpt = GioInputStreamClass.tOpt
-    structure C = GioInputStreamClass.C
+    open GioInputStreamClass
+    type 'a unix_input_stream = unit
+    type 'a class = 'a unix_input_stream class
   end

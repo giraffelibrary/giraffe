@@ -4,12 +4,8 @@ structure GioSimplePermissionClass :>
     where type C.notnull = GioPermissionClass.C.notnull
     where type 'a C.p = 'a GioPermissionClass.C.p =
   struct
-    type 'a simple_permission = unit
     type 'a permission_class = 'a GioPermissionClass.class
-    type 'a class = 'a simple_permission permission_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GioPermissionClass.t
-    val tOpt = GioPermissionClass.tOpt
-    structure C = GioPermissionClass.C
+    open GioPermissionClass
+    type 'a simple_permission = unit
+    type 'a class = 'a simple_permission class
   end

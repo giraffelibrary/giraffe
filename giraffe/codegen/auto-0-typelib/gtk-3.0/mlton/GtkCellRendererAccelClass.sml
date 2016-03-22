@@ -4,12 +4,8 @@ structure GtkCellRendererAccelClass :>
     where type C.notnull = GtkCellRendererTextClass.C.notnull
     where type 'a C.p = 'a GtkCellRendererTextClass.C.p =
   struct
-    type 'a cell_renderer_accel = unit
     type 'a cell_renderer_text_class = 'a GtkCellRendererTextClass.class
-    type 'a class = 'a cell_renderer_accel cell_renderer_text_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkCellRendererTextClass.t
-    val tOpt = GtkCellRendererTextClass.tOpt
-    structure C = GtkCellRendererTextClass.C
+    open GtkCellRendererTextClass
+    type 'a cell_renderer_accel = unit
+    type 'a class = 'a cell_renderer_accel class
   end

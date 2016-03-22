@@ -1,8 +1,6 @@
 structure GObjectObjectClass :>
-  sig
-    include G_OBJECT_OBJECT_CLASS
-      where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-  end =
+  G_OBJECT_OBJECT_CLASS
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
@@ -29,7 +27,7 @@ structure GObjectObjectClass :>
       then _import "giraffe_debug_object_take" : notnull p -> unit;
       else ignore
 
-    val refSink_ =
+    val ref_ =
       if GiraffeDebug.isEnabled
       then _import "giraffe_debug_g_object_ref_sink" : notnull p -> notnull p;
       else _import "g_object_ref_sink" : notnull p -> notnull p;
@@ -70,7 +68,7 @@ structure GObjectObjectClass :>
               Finalizable.new (
                 if transfer
                 then (take_ ptr; ptr)  (* take the existing reference *)
-                else refSink_ ptr
+                else ref_ ptr
               )
           in
             Finalizable.addFinalizer (object, unref_);

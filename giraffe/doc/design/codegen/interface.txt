@@ -27,7 +27,8 @@ Placeholders
 
   InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-  optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit interfaceInfo
+  getTypeSymbol = valOf (GIRegisteredTypeInfo.getTypeInit interfaceInfo)
+                    handle Option => raise Fail "no GType for interface"
 
 
 Conditions
@@ -58,9 +59,6 @@ signature <INTERFACE_NAMESPACE>_<INTERFACE_NAME> =
     ...
 
     type <varlist[N]> <local_name[N]>
-                                                            -.
-    type type_t                                              | isGObject
-                                                            -'
                                                             -.
     type ('object, 'a) property_readonly                     |
     type ('object, 'a) property_writeonly                    | isGObject and P > 0
@@ -154,16 +152,13 @@ structure <InterfaceNamespace><InterfaceName> :>
 
     where type <varlist[N]> <local_name[N]> = <varlist[N]> <InterfaceNamespace><TypeName[N]>.<t[N]>
                                                                                           -.
-    where type type_t = GObject.Type.t                                                     | isGObject
-                                                                                          -'
-                                                                                          -.
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject and P > 0
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
                                                                                           -'
 =
   struct
-    (* Low-Level Function *)
+    (* Low-Level Functions *)
                                                                             -.
     local                                                                    |
       open PolyMLFFI                                                         |
@@ -190,7 +185,6 @@ structure <InterfaceNamespace><InterfaceName> :>
     <LowLevelFunction[M]>                                                    |
                                                                             -'
 
-
     (* Local Types *)
 
     type 'a class = 'a <InterfaceNamespace><InterfaceName>Class.class
@@ -200,9 +194,6 @@ structure <InterfaceNamespace><InterfaceName> :>
     ...
 
     type <varlist[N]> <local_name[N]> = <varlist[N]> <InterfaceNamespace><TypeName[N]>.<t[N]>
-                                                                                          -.
-    type type_t = GObject.Type.t                                                           | isGObject
-                                                                                          -'
                                                                                           -.
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
@@ -223,7 +214,7 @@ structure <InterfaceNamespace><InterfaceName> :>
     <ConstantDec[C]>
 
 
-    (* High-Level Function *)
+    (* High-Level Functions *)
 
     val getType = (I ---> GObjectType.C.fromVal) getType_
 
@@ -250,9 +241,9 @@ structure <InterfaceNamespace><InterfaceName> :>
     local
       open Property
     in
-      val <propName[1]>Prop : <propMode[1]> <propValueType[1]> "<propCName[1]>"
+      <PropertyDec[1]>
       ...
-      val <propName[P]>Prop : <propMode[P]> <propValueType[P]> "<propCName[P]>"
+      <PropertyDec[P]>
     end
   end
 

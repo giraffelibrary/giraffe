@@ -4,12 +4,8 @@ structure GioProxyAddressClass :>
     where type C.notnull = GioInetSocketAddressClass.C.notnull
     where type 'a C.p = 'a GioInetSocketAddressClass.C.p =
   struct
-    type 'a proxy_address = unit
     type 'a inet_socket_address_class = 'a GioInetSocketAddressClass.class
-    type 'a class = 'a proxy_address inet_socket_address_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GioInetSocketAddressClass.t
-    val tOpt = GioInetSocketAddressClass.tOpt
-    structure C = GioInetSocketAddressClass.C
+    open GioInetSocketAddressClass
+    type 'a proxy_address = unit
+    type 'a class = 'a proxy_address class
   end

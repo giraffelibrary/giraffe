@@ -3,11 +3,7 @@ structure GtkApplicationClass :>
     where type C.notnull = GioApplicationClass.C.notnull
     where type 'a C.p = 'a GioApplicationClass.C.p =
   struct
+    open GioApplicationClass
     type 'a application = unit
-    type 'a class = 'a application GioApplicationClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GioApplicationClass.t
-    val tOpt = GioApplicationClass.tOpt
-    structure C = GioApplicationClass.C
+    type 'a class = 'a application class
   end

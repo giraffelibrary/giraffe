@@ -348,6 +348,7 @@ val tId : id = "t"
 fun classTy ty : ty = TyRef ([ty], toList1 [classId])
 fun tTy ty : ty = TyRef ([ty], toList1 [tId])
 fun classTyName tyVar : tyname = ([tyVar], classId)
+fun classTyLName tyVar : tylname = ([tyVar], toList1 [classId])
 val tTyName : tyname = ([], tId)
 val tOptId : id = "tOpt"
 val aId : id = "a"

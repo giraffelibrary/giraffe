@@ -3,11 +3,7 @@ structure GtkSourceCompletionInfoClass :>
     where type C.notnull = GtkWindowClass.C.notnull
     where type 'a C.p = 'a GtkWindowClass.C.p =
   struct
+    open GtkWindowClass
     type 'a completion_info = unit
-    type 'a class = 'a completion_info GtkWindowClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkWindowClass.t
-    val tOpt = GtkWindowClass.tOpt
-    structure C = GtkWindowClass.C
+    type 'a class = 'a completion_info class
   end

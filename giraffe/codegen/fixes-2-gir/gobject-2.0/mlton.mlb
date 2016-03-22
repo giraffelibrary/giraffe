@@ -7,6 +7,7 @@ in
   CLOSURE_MARSHAL.sml
   SIGNAL.sml
   PROPERTY.sml
+  CLASS.sml
   RECORD.sml
   NEW_RECORD.sml
   G_OBJECT_VALUE_RECORD.sml

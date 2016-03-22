@@ -5,13 +5,8 @@ structure GObjectTypeModuleClass :>
     where type C.notnull = GObjectObjectClass.C.notnull
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
-    type 'a type_module = unit
     type 'a object_class = 'a GObjectObjectClass.class
-    type 'a class = 'a type_module object_class
-    type t = base class
-    fun toBase obj = obj
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-    val t = GObjectObjectClass.t
-    val tOpt = GObjectObjectClass.tOpt
-    structure C = GObjectObjectClass.C
+    open GObjectObjectClass
+    type 'a type_module = unit
+    type 'a class = 'a type_module class
   end

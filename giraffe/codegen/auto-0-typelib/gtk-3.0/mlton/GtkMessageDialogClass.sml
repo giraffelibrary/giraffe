@@ -4,12 +4,8 @@ structure GtkMessageDialogClass :>
     where type C.notnull = GtkDialogClass.C.notnull
     where type 'a C.p = 'a GtkDialogClass.C.p =
   struct
-    type 'a message_dialog = unit
     type 'a dialog_class = 'a GtkDialogClass.class
-    type 'a class = 'a message_dialog dialog_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkDialogClass.t
-    val tOpt = GtkDialogClass.tOpt
-    structure C = GtkDialogClass.C
+    open GtkDialogClass
+    type 'a message_dialog = unit
+    type 'a class = 'a message_dialog class
   end

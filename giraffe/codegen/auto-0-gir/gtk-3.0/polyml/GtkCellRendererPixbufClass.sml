@@ -4,12 +4,8 @@ structure GtkCellRendererPixbufClass :>
     where type C.notnull = GtkCellRendererClass.C.notnull
     where type 'a C.p = 'a GtkCellRendererClass.C.p =
   struct
-    type 'a cell_renderer_pixbuf = unit
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
-    type 'a class = 'a cell_renderer_pixbuf cell_renderer_class
-    type t = base class
-    fun toBase obj = obj
-    val t = GtkCellRendererClass.t
-    val tOpt = GtkCellRendererClass.tOpt
-    structure C = GtkCellRendererClass.C
+    open GtkCellRendererClass
+    type 'a cell_renderer_pixbuf = unit
+    type 'a class = 'a cell_renderer_pixbuf class
   end

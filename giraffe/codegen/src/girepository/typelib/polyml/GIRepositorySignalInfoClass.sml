@@ -4,9 +4,8 @@ structure GIRepositorySignalInfoClass :>
     where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
     where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
   struct
-    type 'a signalinfo = unit
     type 'a callableinfo_class = 'a GIRepositoryCallableInfoClass.class
-    type 'a class = 'a signalinfo callableinfo_class
-    fun toBase obj = obj
-    structure C = GIRepositoryCallableInfoClass.C
+    open GIRepositoryCallableInfoClass
+    type 'a signalinfo = unit
+    type 'a class = 'a signalinfo class
   end

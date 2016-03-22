@@ -3,11 +3,7 @@ structure GtkSourceCompletionContextClass :>
     where type C.notnull = GObjectInitiallyUnownedClass.C.notnull
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
+    open GObjectInitiallyUnownedClass
     type 'a completion_context = unit
-    type 'a class = 'a completion_context GObjectInitiallyUnownedClass.class
-    type t = base class
-    fun toBase obj = obj
-    val t = GObjectInitiallyUnownedClass.t
-    val tOpt = GObjectInitiallyUnownedClass.tOpt
-    structure C = GObjectInitiallyUnownedClass.C
+    type 'a class = 'a completion_context class
   end

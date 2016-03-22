@@ -4,9 +4,8 @@ structure GIRepositoryVFuncInfoClass :>
     where type C.notnull = GIRepositoryCallableInfoClass.C.notnull
     where type 'a C.p = 'a GIRepositoryCallableInfoClass.C.p =
   struct
-    type 'a vfuncinfo = unit
     type 'a callableinfo_class = 'a GIRepositoryCallableInfoClass.class
-    type 'a class = 'a vfuncinfo callableinfo_class
-    fun toBase obj = obj
-    structure C = GIRepositoryCallableInfoClass.C
+    open GIRepositoryCallableInfoClass
+    type 'a vfuncinfo = unit
+    type 'a class = 'a vfuncinfo class
   end

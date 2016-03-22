@@ -4,12 +4,8 @@ structure AtkPlugClass :>
     where type C.notnull = AtkObjectClass.C.notnull
     where type 'a C.p = 'a AtkObjectClass.C.p =
   struct
-    type 'a plug = unit
     type 'a object_class = 'a AtkObjectClass.class
-    type 'a class = 'a plug object_class
-    type t = base class
-    fun toBase obj = obj
-    val t = AtkObjectClass.t
-    val tOpt = AtkObjectClass.tOpt
-    structure C = AtkObjectClass.C
+    open AtkObjectClass
+    type 'a plug = unit
+    type 'a class = 'a plug class
   end

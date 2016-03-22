@@ -1,18 +1,6 @@
 structure GObjectObjectClass :>
-  sig
-    include G_OBJECT_OBJECT_CLASS
-      where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-
-    structure PolyML :
-      sig
-        val cPtr : C.notnull C.p PolyMLFFI.conversion
-        val cOptPtr : unit C.p PolyMLFFI.conversion
-        val cOutRef : (unit, C.notnull) C.r PolyMLFFI.conversion
-        val cOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
-        val cInOutRef : (C.notnull, C.notnull) C.r PolyMLFFI.conversion
-        val cInOutOptRef : (unit, unit) C.r PolyMLFFI.conversion
-      end
-  end =
+  G_OBJECT_OBJECT_CLASS
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
@@ -54,7 +42,7 @@ structure GObjectObjectClass :>
         else
           ignore
 
-      val refSink_ =
+      val ref_ =
         if GiraffeDebug.isEnabled
         then 
           call
@@ -108,7 +96,7 @@ structure GObjectObjectClass :>
               Finalizable.new (
                 if transfer
                 then (take_ ptr; ptr)  (* take the existing reference *)
-                else refSink_ ptr
+                else ref_ ptr
               )
           in
             Finalizable.addFinalizer (object, unref_);

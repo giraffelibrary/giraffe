@@ -1,14 +1,12 @@
 structure GObjectParamSpecClass :>
-  sig
-    include G_OBJECT_PARAM_SPEC_CLASS
-      where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-  end =
+  G_OBJECT_PARAM_SPEC_CLASS
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val refSink_ = _import "g_param_spec_ref_sink" : notnull p -> notnull p;
+    val ref_ = _import "g_param_spec_ref_sink" : notnull p -> notnull p;
 
     val unref_ = _import "g_param_spec_unref" : notnull p -> unit;
 
@@ -43,7 +41,7 @@ structure GObjectParamSpecClass :>
               Finalizable.new (
                 if transfer
                 then ptr  (* take the existing reference *)
-                else refSink_ ptr
+                else ref_ ptr
               )
           in
             Finalizable.addFinalizer (object, unref_);

@@ -41,15 +41,14 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
   sig
     type 'a <object_name>
                                                                -.
-    type 'a <parent_object_name>_class                          | isParentNamespace
-    type 'a class = 'a <object_name> <parent_object_name>_class |
+    type 'a <parent_object_name>_class                          |
+    include CLASS                                               | isParentNamespace
+      where type 'a class = 'a <object_name> <parent_object_name>_class
                                                                -'
                                                                -.
-    type 'a class =                                             | not isParentNamespace
-      'a <object_name> <ParentObjectNamespace>.<ParentObjectName>Class.class
+    include CLASS                                               | not isParentNamespace
+      where type 'a class = 'a <object_name> <ParentObjectNamespace>.<ParentObjectName>Class.class
                                                                -'
-    type t = base class
-    val toBase : 'a class -> t
                                                                     -.
     type ('a, 'b) value_accessor                                     |
     val t : (base class, 'a class) value_accessor                    | isGObject
@@ -59,13 +58,6 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
     val t : (base class, 'a class) GObject.Value.accessor            | not isGObject
     val tOpt : (base class option, 'a class option) GObject.Value.accessor
                                                                     -'
-    structure C :
-      sig
-        type notnull
-        type 'a p
-        val fromPtr : bool -> notnull p -> 'a class
-        val fromOptPtr : bool -> unit p -> 'a class option
-      end
   end
 
 
@@ -84,24 +76,13 @@ structure <ObjectNamespace><ObjectName>Class :>
     where type C.notnull = <ParentObjectNamespace><ParentObjectName>Class.C.notnull
     where type 'a C.p = 'a <ParentObjectNamespace><ParentObjectName>Class.C.p =
   struct
-    type 'a <objectname> = unit
                                                                -.
     type 'a <parent_object_name>_class =                        |
       'a <ParentObjectNamespace><ParentObjectName>Class.class   | isParentNamespace
-    type 'a class = 'a <object_name> <parent_object_name>_class |
                                                                -'
-                                                               -.
-    type 'a class =                                             | not isParentNamespace
-      'a <object_name> <ParentObjectNamespace><ParentObjectName>Class.class
-                                                               -'
-    type t = base class
-    fun toBase obj = obj
-                                                                          -.
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor          | isGObject
-                                                                          -'
-    val t = <ParentObjectNamespace><ParentObjectName>Class.t
-    val tOpt = <ParentObjectNamespace><ParentObjectName>Class.tOpt
-    structure C = <ParentObjectNamespace><ParentObjectName>Class.C
+    open <ParentObjectNamespace><ParentObjectName>Class
+    type 'a <objectname> = unit
+    type 'a class = 'a <object_name> class
   end
 
 

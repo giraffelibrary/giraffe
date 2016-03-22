@@ -4,9 +4,8 @@ structure GIRepositoryInterfaceInfoClass :>
     where type C.notnull = GIRepositoryRegisteredTypeInfoClass.C.notnull
     where type 'a C.p = 'a GIRepositoryRegisteredTypeInfoClass.C.p =
   struct
-    type 'a interfaceinfo = unit
     type 'a registeredtypeinfo_class = 'a GIRepositoryRegisteredTypeInfoClass.class
-    type 'a class = 'a interfaceinfo registeredtypeinfo_class
-    fun toBase obj = obj
-    structure C = GIRepositoryRegisteredTypeInfoClass.C
+    open GIRepositoryRegisteredTypeInfoClass
+    type 'a interfaceinfo = unit
+    type 'a class = 'a interfaceinfo class
   end
