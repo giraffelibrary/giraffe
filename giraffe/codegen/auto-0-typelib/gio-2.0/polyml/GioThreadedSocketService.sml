@@ -7,7 +7,7 @@ structure GioThreadedSocketService :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_threaded_socket_service_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_threaded_socket_service_new") (FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_threaded_socket_service_new") (FFI.Int32.PolyML.cVal --> GioSocketServiceClass.PolyML.cPtr)
     end
     type 'a class = 'a GioThreadedSocketServiceClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class

@@ -10,10 +10,10 @@ structure GtkMessageDialog :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_message_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getImage_ = call (load_sym libgtk "gtk_message_dialog_get_image") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getMessageArea_ = call (load_sym libgtk "gtk_message_dialog_get_message_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val setImage_ = call (load_sym libgtk "gtk_message_dialog_set_image") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val getImage_ = call (load_sym libgtk "gtk_message_dialog_get_image") (GtkMessageDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getMessageArea_ = call (load_sym libgtk "gtk_message_dialog_get_message_area") (GtkMessageDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val setImage_ = call (load_sym libgtk "gtk_message_dialog_set_image") (GtkMessageDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setMarkup_ = call (load_sym libgtk "gtk_message_dialog_set_markup") (GtkMessageDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkMessageDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -24,10 +24,10 @@ structure GtkMessageDialog :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
-    fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun setImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMarkup_ (self & str)
+    fun getImage self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
+    fun getMessageArea self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
+    fun setImage self image = (GtkMessageDialogClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setImage_ (self & image)
+    fun setMarkup self str = (GtkMessageDialogClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMarkup_ (self & str)
     local
       open Property
     in

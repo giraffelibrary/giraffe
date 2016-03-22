@@ -14,7 +14,7 @@ structure AtkNoOpObject :>
     where type 'a window_class = 'a AtkWindowClass.class =
   struct
     val getType_ = _import "atk_no_op_object_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "atk_no_op_object_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "atk_no_op_object_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
     type 'a class = 'a AtkNoOpObjectClass.class
     type 'a action_class = 'a AtkActionClass.class
     type 'a component_class = 'a AtkComponentClass.class

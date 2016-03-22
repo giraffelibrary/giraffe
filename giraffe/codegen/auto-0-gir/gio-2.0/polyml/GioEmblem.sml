@@ -8,10 +8,10 @@ structure GioEmblem :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_emblem_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_emblem_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newWithOrigin_ = call (load_sym libgio "g_emblem_new_with_origin") (GObjectObjectClass.PolyML.cPtr &&> GioEmblemOrigin.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val getIcon_ = call (load_sym libgio "g_emblem_get_icon") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getOrigin_ = call (load_sym libgio "g_emblem_get_origin") (GObjectObjectClass.PolyML.cPtr --> GioEmblemOrigin.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_emblem_new") (GioIconClass.PolyML.cPtr --> GioEmblemClass.PolyML.cPtr)
+      val newWithOrigin_ = call (load_sym libgio "g_emblem_new_with_origin") (GioIconClass.PolyML.cPtr &&> GioEmblemOrigin.PolyML.cVal --> GioEmblemClass.PolyML.cPtr)
+      val getIcon_ = call (load_sym libgio "g_emblem_get_icon") (GioEmblemClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getOrigin_ = call (load_sym libgio "g_emblem_get_origin") (GioEmblemClass.PolyML.cPtr --> GioEmblemOrigin.PolyML.cVal)
     end
     type 'a class = 'a GioEmblemClass.class
     type 'a icon_class = 'a GioIconClass.class
@@ -19,10 +19,10 @@ structure GioEmblem :>
     type t = base class
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new icon = (GObjectObjectClass.C.withPtr ---> GioEmblemClass.C.fromPtr true) new_ icon
-    fun newWithOrigin icon origin = (GObjectObjectClass.C.withPtr &&&> GioEmblemOrigin.C.withVal ---> GioEmblemClass.C.fromPtr true) newWithOrigin_ (icon & origin)
-    fun getIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
-    fun getOrigin self = (GObjectObjectClass.C.withPtr ---> GioEmblemOrigin.C.fromVal) getOrigin_ self
+    fun new icon = (GioIconClass.C.withPtr ---> GioEmblemClass.C.fromPtr true) new_ icon
+    fun newWithOrigin icon origin = (GioIconClass.C.withPtr &&&> GioEmblemOrigin.C.withVal ---> GioEmblemClass.C.fromPtr true) newWithOrigin_ (icon & origin)
+    fun getIcon self = (GioEmblemClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
+    fun getOrigin self = (GioEmblemClass.C.withPtr ---> GioEmblemOrigin.C.fromVal) getOrigin_ self
     local
       open Property
     in

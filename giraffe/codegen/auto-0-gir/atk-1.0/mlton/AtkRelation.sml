@@ -12,19 +12,19 @@ structure AtkRelation :>
          & x3 =>
           (
             _import "atk_relation_new" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              AtkObjectClass.C.notnull AtkObjectClass.C.p
                * FFI.Int.C.val_
                * AtkRelationType.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> AtkRelationClass.C.notnull AtkRelationClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getRelationType_ = _import "atk_relation_get_relation_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkRelationType.C.val_;
-    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.C.notnull AtkRelationClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;) (x1, x2)
+    val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.C.notnull AtkRelationClass.C.p -> AtkRelationType.C.val_;
+    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.C.notnull AtkRelationClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     type 'a class = 'a AtkRelationClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type relation_type_t = AtkRelationType.t
@@ -32,7 +32,7 @@ structure AtkRelation :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new targets nTargets relationship =
       (
-        GObjectObjectClass.C.withPtr
+        AtkObjectClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> AtkRelationType.C.withVal
          ---> AtkRelationClass.C.fromPtr true
@@ -43,9 +43,9 @@ structure AtkRelation :>
            & nTargets
            & relationship
         )
-    fun addTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addTarget_ (self & target)
-    fun getRelationType self = (GObjectObjectClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
-    fun removeTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
+    fun addTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) addTarget_ (self & target)
+    fun getRelationType self = (AtkRelationClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
+    fun removeTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
     local
       open Property
     in

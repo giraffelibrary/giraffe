@@ -14,9 +14,9 @@ structure GtkFileChooserDialog :>
         call (load_sym libgiraffegtk "giraffe_gtk_file_chooser_dialog_new")
           (
             Utf8.PolyML.cInOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GtkWindowClass.PolyML.cOptPtr
              &&> GtkFileChooserAction.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkFileChooserDialogClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GtkFileChooserDialogClass.class
@@ -32,7 +32,7 @@ structure GtkFileChooserDialog :>
     fun new title parent action =
       (
         Utf8.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GtkWindowClass.C.withOptPtr
          &&&> GtkFileChooserAction.C.withVal
          ---> GtkFileChooserDialogClass.C.fromPtr false
       )

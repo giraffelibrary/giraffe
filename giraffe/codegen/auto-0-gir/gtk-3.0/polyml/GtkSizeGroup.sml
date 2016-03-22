@@ -9,13 +9,13 @@ structure GtkSizeGroup :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_size_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_size_group_new") (GtkSizeGroupMode.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_get_ignore_hidden") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getMode_ = call (load_sym libgtk "gtk_size_group_get_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSizeGroupMode.PolyML.cVal)
-      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_size_group_new") (GtkSizeGroupMode.PolyML.cVal --> GtkSizeGroupClass.PolyML.cPtr)
+      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_get_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMode_ = call (load_sym libgtk "gtk_size_group_get_mode") (GtkSizeGroupClass.PolyML.cPtr --> GtkSizeGroupMode.PolyML.cVal)
+      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GtkSizeGroupClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSizeGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -25,12 +25,12 @@ structure GtkSizeGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new mode = (GtkSizeGroupMode.C.withVal ---> GtkSizeGroupClass.C.fromPtr true) new_ mode
-    fun addWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addWidget_ (self & widget)
-    fun getIgnoreHidden self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIgnoreHidden_ self
-    fun getMode self = (GObjectObjectClass.C.withPtr ---> GtkSizeGroupMode.C.fromVal) getMode_ self
-    fun removeWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeWidget_ (self & widget)
-    fun setIgnoreHidden self ignoreHidden = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIgnoreHidden_ (self & ignoreHidden)
-    fun setMode self mode = (GObjectObjectClass.C.withPtr &&&> GtkSizeGroupMode.C.withVal ---> I) setMode_ (self & mode)
+    fun addWidget self widget = (GtkSizeGroupClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) addWidget_ (self & widget)
+    fun getIgnoreHidden self = (GtkSizeGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getIgnoreHidden_ self
+    fun getMode self = (GtkSizeGroupClass.C.withPtr ---> GtkSizeGroupMode.C.fromVal) getMode_ self
+    fun removeWidget self widget = (GtkSizeGroupClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) removeWidget_ (self & widget)
+    fun setIgnoreHidden self ignoreHidden = (GtkSizeGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIgnoreHidden_ (self & ignoreHidden)
+    fun setMode self mode = (GtkSizeGroupClass.C.withPtr &&&> GtkSizeGroupMode.C.withVal ---> I) setMode_ (self & mode)
     local
       open Property
     in

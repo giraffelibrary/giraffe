@@ -10,12 +10,12 @@ structure GtkMenuToolButton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_menu_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_menu_tool_button_new") (GObjectObjectClass.PolyML.cOptPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newFromStock_ = call (load_sym libgtk "gtk_menu_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getMenu_ = call (load_sym libgtk "gtk_menu_tool_button_get_menu") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val setArrowTooltipMarkup_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_markup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setArrowTooltipText_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_text") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setMenu_ = call (load_sym libgtk "gtk_menu_tool_button_set_menu") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_menu_tool_button_new") (GtkWidgetClass.PolyML.cOptPtr &&> Utf8.PolyML.cInOptPtr --> GtkToolItemClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_menu_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkToolItemClass.PolyML.cPtr)
+      val getMenu_ = call (load_sym libgtk "gtk_menu_tool_button_get_menu") (GtkMenuToolButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val setArrowTooltipMarkup_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_markup") (GtkMenuToolButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setArrowTooltipText_ = call (load_sym libgtk "gtk_menu_tool_button_set_arrow_tooltip_text") (GtkMenuToolButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMenu_ = call (load_sym libgtk "gtk_menu_tool_button_set_menu") (GtkMenuToolButtonClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkMenuToolButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -27,12 +27,12 @@ structure GtkMenuToolButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
+    fun new iconWidget label = (GtkWidgetClass.C.withOptPtr &&&> Utf8.C.withOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
     fun newFromStock stockId = (Utf8.C.withPtr ---> GtkMenuToolButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun getMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenu_ self
-    fun setArrowTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipMarkup_ (self & markup)
-    fun setArrowTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipText_ (self & text)
-    fun setMenu self menu = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setMenu_ (self & menu)
+    fun getMenu self = (GtkMenuToolButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenu_ self
+    fun setArrowTooltipMarkup self markup = (GtkMenuToolButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipMarkup_ (self & markup)
+    fun setArrowTooltipText self text = (GtkMenuToolButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipText_ (self & text)
+    fun setMenu self menu = (GtkMenuToolButtonClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setMenu_ (self & menu)
     local
       open ClosureMarshal Signal
     in

@@ -13,26 +13,26 @@ structure GtkSourceCompletion :>
       val addProvider_ =
         call (load_sym libgtksourceview "gtk_source_completion_add_provider")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkSourceCompletionClass.PolyML.cPtr
+             &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val blockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_block_interactive") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val createContext_ = call (load_sym libgtksourceview "gtk_source_completion_create_context") (GObjectObjectClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getInfoWindow_ = call (load_sym libgtksourceview "gtk_source_completion_get_info_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getView_ = call (load_sym libgtksourceview "gtk_source_completion_get_view") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val hide_ = call (load_sym libgtksourceview "gtk_source_completion_hide") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val moveWindow_ = call (load_sym libgtksourceview "gtk_source_completion_move_window") (GObjectObjectClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val blockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_block_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val createContext_ = call (load_sym libgtksourceview "gtk_source_completion_create_context") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GtkSourceCompletionContextClass.PolyML.cPtr)
+      val getInfoWindow_ = call (load_sym libgtksourceview "gtk_source_completion_get_info_window") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceCompletionInfoClass.PolyML.cPtr)
+      val getView_ = call (load_sym libgtksourceview "gtk_source_completion_get_view") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceViewClass.PolyML.cPtr)
+      val hide_ = call (load_sym libgtksourceview "gtk_source_completion_hide") (GtkSourceCompletionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val moveWindow_ = call (load_sym libgtksourceview "gtk_source_completion_move_window") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val removeProvider_ =
         call (load_sym libgtksourceview "gtk_source_completion_remove_provider")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkSourceCompletionClass.PolyML.cPtr
+             &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val unblockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_unblock_interactive") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unblockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_unblock_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionClass.class
     type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
@@ -43,8 +43,8 @@ structure GtkSourceCompletion :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addProvider self provider =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceCompletionClass.C.withPtr
+         &&&> GtkSourceCompletionProviderClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -54,16 +54,16 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun blockInteractive self = (GObjectObjectClass.C.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withOptPtr ---> GtkSourceCompletionContextClass.C.fromPtr true) createContext_ (self & position)
-    fun getInfoWindow self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionInfoClass.C.fromPtr false) getInfoWindow_ self
-    fun getView self = (GObjectObjectClass.C.withPtr ---> GtkSourceViewClass.C.fromPtr false) getView_ self
-    fun hide self = (GObjectObjectClass.C.withPtr ---> I) hide_ self
-    fun moveWindow self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) moveWindow_ (self & iter)
+    fun blockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) blockInteractive_ self
+    fun createContext self position = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withOptPtr ---> GtkSourceCompletionContextClass.C.fromPtr true) createContext_ (self & position)
+    fun getInfoWindow self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceCompletionInfoClass.C.fromPtr false) getInfoWindow_ self
+    fun getView self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceViewClass.C.fromPtr false) getView_ self
+    fun hide self = (GtkSourceCompletionClass.C.withPtr ---> I) hide_ self
+    fun moveWindow self iter = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) moveWindow_ (self & iter)
     fun removeProvider self provider =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceCompletionClass.C.withPtr
+         &&&> GtkSourceCompletionProviderClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -73,7 +73,7 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun unblockInteractive self = (GObjectObjectClass.C.withPtr ---> I) unblockInteractive_ self
+    fun unblockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) unblockInteractive_ self
     local
       open ClosureMarshal Signal
     in

@@ -9,7 +9,7 @@ structure GtkUIManager :>
     where type 'a action_class = 'a GtkActionClass.class =
   struct
     val getType_ = _import "gtk_ui_manager_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_ui_manager_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_ui_manager_new" : unit -> GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p;
     val addUi_ =
       fn
         x1
@@ -21,7 +21,7 @@ structure GtkUIManager :>
          & x10 =>
           (
             _import "mlton_gtk_ui_manager_add_ui" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
                * FFI.UInt32.C.val_
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -52,7 +52,7 @@ structure GtkUIManager :>
          & x4 =>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_file" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
@@ -72,7 +72,7 @@ structure GtkUIManager :>
          & x5 =>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
@@ -86,34 +86,34 @@ structure GtkUIManager :>
               x4,
               x5
             )
-    val ensureUpdate_ = _import "gtk_ui_manager_ensure_update" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getAccelGroup_ = _import "gtk_ui_manager_get_accel_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val ensureUpdate_ = _import "gtk_ui_manager_ensure_update" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p -> unit;
+    val getAccelGroup_ = _import "gtk_ui_manager_get_accel_group" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p -> GtkAccelGroupClass.C.notnull GtkAccelGroupClass.C.p;
     val getAction_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_ui_manager_get_action" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkActionClass.C.notnull GtkActionClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getAddTearoffs_ = _import "gtk_ui_manager_get_add_tearoffs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getUi_ = _import "gtk_ui_manager_get_ui" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getAddTearoffs_ = _import "gtk_ui_manager_get_add_tearoffs" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p -> FFI.Bool.C.val_;
+    val getUi_ = _import "gtk_ui_manager_get_ui" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_ui_manager_get_widget" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
@@ -127,8 +127,8 @@ structure GtkUIManager :>
          & x3 =>
           (
             _import "gtk_ui_manager_insert_action_group" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p
+               * GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -137,10 +137,10 @@ structure GtkUIManager :>
               x2,
               x3
             )
-    val newMergeId_ = _import "gtk_ui_manager_new_merge_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
-    val removeActionGroup_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_action_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val removeUi_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_ui" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_ui_manager_set_add_tearoffs" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val newMergeId_ = _import "gtk_ui_manager_new_merge_id" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p -> FFI.UInt32.C.val_;
+    val removeActionGroup_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_action_group" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p * GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p -> unit;) (x1, x2)
+    val removeUi_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_ui" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_ui_manager_set_add_tearoffs" : GtkUIManagerClass.C.notnull GtkUIManagerClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkUIManagerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type u_i_manager_item_type_t = GtkUIManagerItemType.t
@@ -154,7 +154,7 @@ structure GtkUIManager :>
     fun new () = (I ---> GtkUIManagerClass.C.fromPtr true) new_ ()
     fun addUi self mergeId path name action type' top =
       (
-        GObjectObjectClass.C.withPtr
+        GtkUIManagerClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
@@ -175,7 +175,7 @@ structure GtkUIManager :>
         )
     fun addUiFromFile self filename =
       (
-        GObjectObjectClass.C.withPtr
+        GtkUIManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
@@ -188,7 +188,7 @@ structure GtkUIManager :>
         )
     fun addUiFromString self buffer length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkUIManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int64.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -201,16 +201,16 @@ structure GtkUIManager :>
            & length
            & []
         )
-    fun ensureUpdate self = (GObjectObjectClass.C.withPtr ---> I) ensureUpdate_ self
-    fun getAccelGroup self = (GObjectObjectClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
-    fun getAddTearoffs self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAddTearoffs_ self
-    fun getUi self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getUi_ self
-    fun getWidget self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
+    fun ensureUpdate self = (GtkUIManagerClass.C.withPtr ---> I) ensureUpdate_ self
+    fun getAccelGroup self = (GtkUIManagerClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
+    fun getAction self path = (GtkUIManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & path)
+    fun getAddTearoffs self = (GtkUIManagerClass.C.withPtr ---> FFI.Bool.C.fromVal) getAddTearoffs_ self
+    fun getUi self = (GtkUIManagerClass.C.withPtr ---> Utf8.C.fromPtr true) getUi_ self
+    fun getWidget self path = (GtkUIManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ (self & path)
     fun insertActionGroup self actionGroup pos =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkUIManagerClass.C.withPtr
+         &&&> GtkActionGroupClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -220,10 +220,10 @@ structure GtkUIManager :>
            & actionGroup
            & pos
         )
-    fun newMergeId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) newMergeId_ self
-    fun removeActionGroup self actionGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeActionGroup_ (self & actionGroup)
-    fun removeUi self mergeId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeUi_ (self & mergeId)
-    fun setAddTearoffs self addTearoffs = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
+    fun newMergeId self = (GtkUIManagerClass.C.withPtr ---> FFI.UInt32.C.fromVal) newMergeId_ self
+    fun removeActionGroup self actionGroup = (GtkUIManagerClass.C.withPtr &&&> GtkActionGroupClass.C.withPtr ---> I) removeActionGroup_ (self & actionGroup)
+    fun removeUi self mergeId = (GtkUIManagerClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeUi_ (self & mergeId)
+    fun setAddTearoffs self addTearoffs = (GtkUIManagerClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
     local
       open ClosureMarshal Signal
     in

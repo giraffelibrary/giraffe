@@ -3,7 +3,7 @@ structure GtkBuilder :>
     where type 'a class = 'a GtkBuilderClass.class =
   struct
     val getType_ = _import "gtk_builder_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_builder_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_builder_new" : unit -> GtkBuilderClass.C.notnull GtkBuilderClass.C.p;
     val addFromFile_ =
       fn
         x1
@@ -11,7 +11,7 @@ structure GtkBuilder :>
          & x4 =>
           (
             _import "mlton_gtk_builder_add_from_file" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkBuilderClass.C.notnull GtkBuilderClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
@@ -31,7 +31,7 @@ structure GtkBuilder :>
          & x5 =>
           (
             _import "mlton_gtk_builder_add_from_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkBuilderClass.C.notnull GtkBuilderClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Size.C.val_
@@ -50,7 +50,7 @@ structure GtkBuilder :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_builder_get_object" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkBuilderClass.C.notnull GtkBuilderClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
@@ -60,13 +60,13 @@ structure GtkBuilder :>
               x2,
               x3
             )
-    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GtkBuilderClass.C.notnull GtkBuilderClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val setTranslationDomain_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_builder_set_translation_domain" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkBuilderClass.C.notnull GtkBuilderClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -85,7 +85,7 @@ structure GtkBuilder :>
          & x6 =>
           (
             _import "mlton_gtk_builder_value_from_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkBuilderClass.C.notnull GtkBuilderClass.C.p
                * GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -107,7 +107,7 @@ structure GtkBuilder :>
     fun new () = (I ---> GtkBuilderClass.C.fromPtr true) new_ ()
     fun addFromFile self filename =
       (
-        GObjectObjectClass.C.withPtr
+        GtkBuilderClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt.C.fromVal
@@ -120,7 +120,7 @@ structure GtkBuilder :>
         )
     fun addFromString self buffer length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkBuilderClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Size.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -133,14 +133,14 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getObject self name = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GtkBuilderClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkBuilderClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr

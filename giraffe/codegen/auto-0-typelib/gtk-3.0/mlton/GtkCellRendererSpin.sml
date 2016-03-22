@@ -4,7 +4,7 @@ structure GtkCellRendererSpin :>
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_spin_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_renderer_spin_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_cell_renderer_spin_new" : unit -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
     type 'a class = 'a GtkCellRendererSpinClass.class
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type t = base class

@@ -6,14 +6,14 @@ structure GioTcpConnection :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_tcp_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_get_graceful_disconnect") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_set_graceful_disconnect") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_get_graceful_disconnect") (GioTcpConnectionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_set_graceful_disconnect") (GioTcpConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioTcpConnectionClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getGracefulDisconnect self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getGracefulDisconnect_ self
-    fun setGracefulDisconnect self gracefulDisconnect = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setGracefulDisconnect_ (self & gracefulDisconnect)
+    fun getGracefulDisconnect self = (GioTcpConnectionClass.C.withPtr ---> FFI.Bool.C.fromVal) getGracefulDisconnect_ self
+    fun setGracefulDisconnect self gracefulDisconnect = (GioTcpConnectionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setGracefulDisconnect_ (self & gracefulDisconnect)
     local
       open Property
     in

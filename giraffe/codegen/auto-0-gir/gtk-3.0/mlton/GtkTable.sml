@@ -16,7 +16,7 @@ structure GtkTable :>
               FFI.UInt.C.val_
                * FFI.UInt.C.val_
                * FFI.Bool.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
@@ -37,8 +37,8 @@ structure GtkTable :>
          & x10 =>
           (
             _import "gtk_table_attach" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
@@ -71,8 +71,8 @@ structure GtkTable :>
          & x6 =>
           (
             _import "gtk_table_attach_defaults" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
@@ -87,11 +87,11 @@ structure GtkTable :>
               x5,
               x6
             )
-    val getColSpacing_ = fn x1 & x2 => (_import "gtk_table_get_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> FFI.UInt.C.val_;) (x1, x2)
-    val getDefaultColSpacing_ = _import "gtk_table_get_default_col_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt.C.val_;
-    val getDefaultRowSpacing_ = _import "gtk_table_get_default_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt.C.val_;
-    val getHomogeneous_ = _import "gtk_table_get_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getRowSpacing_ = fn x1 & x2 => (_import "gtk_table_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> FFI.UInt.C.val_;) (x1, x2)
+    val getColSpacing_ = fn x1 & x2 => (_import "gtk_table_get_col_spacing" : GtkTableClass.C.notnull GtkTableClass.C.p * FFI.UInt.C.val_ -> FFI.UInt.C.val_;) (x1, x2)
+    val getDefaultColSpacing_ = _import "gtk_table_get_default_col_spacing" : GtkTableClass.C.notnull GtkTableClass.C.p -> FFI.UInt.C.val_;
+    val getDefaultRowSpacing_ = _import "gtk_table_get_default_row_spacing" : GtkTableClass.C.notnull GtkTableClass.C.p -> FFI.UInt.C.val_;
+    val getHomogeneous_ = _import "gtk_table_get_homogeneous" : GtkTableClass.C.notnull GtkTableClass.C.p -> FFI.Bool.C.val_;
+    val getRowSpacing_ = fn x1 & x2 => (_import "gtk_table_get_row_spacing" : GtkTableClass.C.notnull GtkTableClass.C.p * FFI.UInt.C.val_ -> FFI.UInt.C.val_;) (x1, x2)
     val getSize_ =
       fn
         x1
@@ -99,7 +99,7 @@ structure GtkTable :>
          & x3 =>
           (
             _import "gtk_table_get_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
                * FFI.UInt.C.ref_
                * FFI.UInt.C.ref_
                -> unit;
@@ -116,7 +116,7 @@ structure GtkTable :>
          & x3 =>
           (
             _import "gtk_table_resize" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> unit;
@@ -133,7 +133,7 @@ structure GtkTable :>
          & x3 =>
           (
             _import "gtk_table_set_col_spacing" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> unit;
@@ -143,8 +143,8 @@ structure GtkTable :>
               x2,
               x3
             )
-    val setColSpacings_ = fn x1 & x2 => (_import "gtk_table_set_col_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_table_set_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setColSpacings_ = fn x1 & x2 => (_import "gtk_table_set_col_spacings" : GtkTableClass.C.notnull GtkTableClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_table_set_homogeneous" : GtkTableClass.C.notnull GtkTableClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setRowSpacing_ =
       fn
         x1
@@ -152,7 +152,7 @@ structure GtkTable :>
          & x3 =>
           (
             _import "gtk_table_set_row_spacing" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTableClass.C.notnull GtkTableClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> unit;
@@ -162,7 +162,7 @@ structure GtkTable :>
               x2,
               x3
             )
-    val setRowSpacings_ = fn x1 & x2 => (_import "gtk_table_set_row_spacings" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
+    val setRowSpacings_ = fn x1 & x2 => (_import "gtk_table_set_row_spacings" : GtkTableClass.C.notnull GtkTableClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type attach_options_t = GtkAttachOptions.t
@@ -186,8 +186,8 @@ structure GtkTable :>
         )
     fun attach self child leftAttach rightAttach topAttach bottomAttach xoptions yoptions xpadding ypadding =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkTableClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
@@ -213,8 +213,8 @@ structure GtkTable :>
         )
     fun attachDefaults self widget leftAttach rightAttach topAttach bottomAttach =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkTableClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
@@ -230,18 +230,18 @@ structure GtkTable :>
            & topAttach
            & bottomAttach
         )
-    fun getColSpacing self column = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) getColSpacing_ (self & column)
-    fun getDefaultColSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getDefaultColSpacing_ self
-    fun getDefaultRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt.C.fromVal) getDefaultRowSpacing_ self
-    fun getHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
-    fun getRowSpacing self row = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) getRowSpacing_ (self & row)
+    fun getColSpacing self column = (GtkTableClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) getColSpacing_ (self & column)
+    fun getDefaultColSpacing self = (GtkTableClass.C.withPtr ---> FFI.UInt.C.fromVal) getDefaultColSpacing_ self
+    fun getDefaultRowSpacing self = (GtkTableClass.C.withPtr ---> FFI.UInt.C.fromVal) getDefaultRowSpacing_ self
+    fun getHomogeneous self = (GtkTableClass.C.withPtr ---> FFI.Bool.C.fromVal) getHomogeneous_ self
+    fun getRowSpacing self row = (GtkTableClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.UInt.C.fromVal) getRowSpacing_ (self & row)
     fun getSize self =
       let
         val rows
          & columns
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTableClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
              &&&> FFI.UInt.C.withRefVal
              ---> FFI.UInt.C.fromVal
@@ -259,7 +259,7 @@ structure GtkTable :>
       end
     fun resize self rows columns =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTableClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> I
@@ -272,7 +272,7 @@ structure GtkTable :>
         )
     fun setColSpacing self column spacing =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTableClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> I
@@ -283,11 +283,11 @@ structure GtkTable :>
            & column
            & spacing
         )
-    fun setColSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setColSpacings_ (self & spacing)
-    fun setHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setColSpacings self spacing = (GtkTableClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setColSpacings_ (self & spacing)
+    fun setHomogeneous self homogeneous = (GtkTableClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setRowSpacing self row spacing =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTableClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> I
@@ -298,7 +298,7 @@ structure GtkTable :>
            & row
            & spacing
         )
-    fun setRowSpacings self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setRowSpacings_ (self & spacing)
+    fun setRowSpacings self spacing = (GtkTableClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setRowSpacings_ (self & spacing)
     local
       open Property
     in

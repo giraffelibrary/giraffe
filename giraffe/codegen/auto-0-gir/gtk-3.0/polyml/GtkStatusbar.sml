@@ -9,14 +9,14 @@ structure GtkStatusbar :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_statusbar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt.PolyML.cVal)
-      val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_statusbar_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getContextId_ = call (load_sym libgtk "gtk_statusbar_get_context_id") (GtkStatusbarClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt.PolyML.cVal)
+      val getMessageArea_ = call (load_sym libgtk "gtk_statusbar_get_message_area") (GtkStatusbarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val pop_ = call (load_sym libgtk "gtk_statusbar_pop") (GtkStatusbarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val push_ =
         call (load_sym libgtk "gtk_statusbar_push")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStatusbarClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> FFI.UInt.PolyML.cVal
@@ -24,12 +24,12 @@ structure GtkStatusbar :>
       val remove_ =
         call (load_sym libgtk "gtk_statusbar_remove")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStatusbarClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val removeAll_ = call (load_sym libgtk "gtk_statusbar_remove_all") (GtkStatusbarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkStatusbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -41,12 +41,12 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
-    fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) pop_ (self & contextId)
+    fun getContextId self contextDescription = (GtkStatusbarClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt.C.fromVal) getContextId_ (self & contextDescription)
+    fun getMessageArea self = (GtkStatusbarClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
+    fun pop self contextId = (GtkStatusbarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStatusbarClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> Utf8.C.withPtr
          ---> FFI.UInt.C.fromVal
@@ -59,7 +59,7 @@ structure GtkStatusbar :>
         )
     fun remove self contextId messageId =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStatusbarClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> I
@@ -70,7 +70,7 @@ structure GtkStatusbar :>
            & contextId
            & messageId
         )
-    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeAll_ (self & contextId)
+    fun removeAll self contextId = (GtkStatusbarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeAll_ (self & contextId)
     local
       open ClosureMarshal Signal
     in

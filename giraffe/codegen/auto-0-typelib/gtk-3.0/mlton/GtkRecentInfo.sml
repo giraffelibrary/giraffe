@@ -14,7 +14,7 @@ structure GtkRecentInfo :>
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioAppInfoClass.C.notnull GioAppInfoClass.C.p;
           )
             (
               x1,
@@ -54,8 +54,8 @@ structure GtkRecentInfo :>
             )
     val getDescription_ = _import "gtk_recent_info_get_description" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getDisplayName_ = _import "gtk_recent_info_get_display_name" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getGicon_ = _import "gtk_recent_info_get_gicon" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIcon_ = fn x1 & x2 => (_import "gtk_recent_info_get_icon" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val getGicon_ = _import "gtk_recent_info_get_gicon" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> GioIconClass.C.notnull GioIconClass.C.p;
+    val getIcon_ = fn x1 & x2 => (_import "gtk_recent_info_get_icon" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p * FFI.Int32.C.val_ -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;) (x1, x2)
     val getMimeType_ = _import "gtk_recent_info_get_mime_type" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getModified_ = _import "gtk_recent_info_get_modified" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> FFI.Int64.C.val_;
     val getPrivateHint_ = _import "gtk_recent_info_get_private_hint" : GtkRecentInfoRecord.C.notnull GtkRecentInfoRecord.C.p -> FFI.Bool.C.val_;

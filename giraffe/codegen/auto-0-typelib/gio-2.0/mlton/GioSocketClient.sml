@@ -12,13 +12,13 @@ structure GioSocketClient :>
     where type socket_type_t = GioSocketType.t =
   struct
     val getType_ = _import "g_socket_client_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_socket_client_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "g_socket_client_new" : unit -> GioSocketClientClass.C.notnull GioSocketClientClass.C.p;
     val addApplicationProxy_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_socket_client_add_application_proxy" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -36,11 +36,11 @@ structure GioSocketClient :>
          & x4 =>
           (
             _import "g_socket_client_connect" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
+               * GioSocketConnectableClass.C.notnull GioSocketConnectableClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -55,10 +55,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -74,13 +74,13 @@ structure GioSocketClient :>
          & x6 =>
           (
             _import "mlton_g_socket_client_connect_to_host" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -97,10 +97,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_host_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -116,14 +116,14 @@ structure GioSocketClient :>
          & x7 =>
           (
             _import "mlton_g_socket_client_connect_to_service" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -141,10 +141,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_service_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -160,13 +160,13 @@ structure GioSocketClient :>
          & x6 =>
           (
             _import "mlton_g_socket_client_connect_to_uri" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt16.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -183,32 +183,32 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_uri_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketClientClass.C.notnull GioSocketClientClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getEnableProxy_ = _import "g_socket_client_get_enable_proxy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getFamily_ = _import "g_socket_client_get_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketFamily.C.val_;
-    val getLocalAddress_ = _import "g_socket_client_get_local_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getProtocol_ = _import "g_socket_client_get_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketProtocol.C.val_;
-    val getSocketType_ = _import "g_socket_client_get_socket_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioSocketType.C.val_;
-    val getTimeout_ = _import "g_socket_client_get_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
-    val getTls_ = _import "g_socket_client_get_tls" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getTlsValidationFlags_ = _import "g_socket_client_get_tls_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioTlsCertificateFlags.C.val_;
-    val setEnableProxy_ = fn x1 & x2 => (_import "g_socket_client_set_enable_proxy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setFamily_ = fn x1 & x2 => (_import "g_socket_client_set_family" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioSocketFamily.C.val_ -> unit;) (x1, x2)
-    val setLocalAddress_ = fn x1 & x2 => (_import "g_socket_client_set_local_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setProtocol_ = fn x1 & x2 => (_import "g_socket_client_set_protocol" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioSocketProtocol.C.val_ -> unit;) (x1, x2)
-    val setSocketType_ = fn x1 & x2 => (_import "g_socket_client_set_socket_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioSocketType.C.val_ -> unit;) (x1, x2)
-    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsCertificateFlags.C.val_ -> unit;) (x1, x2)
+    val getEnableProxy_ = _import "g_socket_client_get_enable_proxy" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> FFI.Bool.C.val_;
+    val getFamily_ = _import "g_socket_client_get_family" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> GioSocketFamily.C.val_;
+    val getLocalAddress_ = _import "g_socket_client_get_local_address" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p;
+    val getProtocol_ = _import "g_socket_client_get_protocol" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> GioSocketProtocol.C.val_;
+    val getSocketType_ = _import "g_socket_client_get_socket_type" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> GioSocketType.C.val_;
+    val getTimeout_ = _import "g_socket_client_get_timeout" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> FFI.UInt32.C.val_;
+    val getTls_ = _import "g_socket_client_get_tls" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> FFI.Bool.C.val_;
+    val getTlsValidationFlags_ = _import "g_socket_client_get_tls_validation_flags" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p -> GioTlsCertificateFlags.C.val_;
+    val setEnableProxy_ = fn x1 & x2 => (_import "g_socket_client_set_enable_proxy" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setFamily_ = fn x1 & x2 => (_import "g_socket_client_set_family" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * GioSocketFamily.C.val_ -> unit;) (x1, x2)
+    val setLocalAddress_ = fn x1 & x2 => (_import "g_socket_client_set_local_address" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p -> unit;) (x1, x2)
+    val setProtocol_ = fn x1 & x2 => (_import "g_socket_client_set_protocol" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * GioSocketProtocol.C.val_ -> unit;) (x1, x2)
+    val setSocketType_ = fn x1 & x2 => (_import "g_socket_client_set_socket_type" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * GioSocketType.C.val_ -> unit;) (x1, x2)
+    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GioSocketClientClass.C.notnull GioSocketClientClass.C.p * GioTlsCertificateFlags.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioSocketClientClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -222,12 +222,12 @@ structure GioSocketClient :>
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.C.fromPtr true) new_ ()
-    fun addApplicationProxy self protocol = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addApplicationProxy_ (self & protocol)
+    fun addApplicationProxy self protocol = (GioSocketClientClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addApplicationProxy_ (self & protocol)
     fun connect self connectable cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioSocketClientClass.C.withPtr
+         &&&> GioSocketConnectableClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -240,8 +240,8 @@ structure GioSocketClient :>
         )
     fun connectFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -253,10 +253,10 @@ structure GioSocketClient :>
         )
     fun connectToHost self hostAndPort defaultPort cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -270,8 +270,8 @@ structure GioSocketClient :>
         )
     fun connectToHostFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -283,10 +283,10 @@ structure GioSocketClient :>
         )
     fun connectToService self domain service cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -300,8 +300,8 @@ structure GioSocketClient :>
         )
     fun connectToServiceFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -313,10 +313,10 @@ structure GioSocketClient :>
         )
     fun connectToUri self uri defaultPort cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -330,8 +330,8 @@ structure GioSocketClient :>
         )
     fun connectToUriFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketClientClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketConnectionClass.C.fromPtr true
       )
@@ -341,22 +341,22 @@ structure GioSocketClient :>
            & result
            & []
         )
-    fun getEnableProxy self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEnableProxy_ self
-    fun getFamily self = (GObjectObjectClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
-    fun getLocalAddress self = (GObjectObjectClass.C.withPtr ---> GioSocketAddressClass.C.fromPtr false) getLocalAddress_ self
-    fun getProtocol self = (GObjectObjectClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
-    fun getSocketType self = (GObjectObjectClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
-    fun getTimeout self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getTimeout_ self
-    fun getTls self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getTls_ self
-    fun getTlsValidationFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getTlsValidationFlags_ self
-    fun setEnableProxy self enable = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnableProxy_ (self & enable)
-    fun setFamily self family = (GObjectObjectClass.C.withPtr &&&> GioSocketFamily.C.withVal ---> I) setFamily_ (self & family)
-    fun setLocalAddress self address = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLocalAddress_ (self & address)
-    fun setProtocol self protocol = (GObjectObjectClass.C.withPtr &&&> GioSocketProtocol.C.withVal ---> I) setProtocol_ (self & protocol)
-    fun setSocketType self type' = (GObjectObjectClass.C.withPtr &&&> GioSocketType.C.withVal ---> I) setSocketType_ (self & type')
-    fun setTimeout self timeout = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setTimeout_ (self & timeout)
-    fun setTls self tls = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTls_ (self & tls)
-    fun setTlsValidationFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsCertificateFlags.C.withVal ---> I) setTlsValidationFlags_ (self & flags)
+    fun getEnableProxy self = (GioSocketClientClass.C.withPtr ---> FFI.Bool.C.fromVal) getEnableProxy_ self
+    fun getFamily self = (GioSocketClientClass.C.withPtr ---> GioSocketFamily.C.fromVal) getFamily_ self
+    fun getLocalAddress self = (GioSocketClientClass.C.withPtr ---> GioSocketAddressClass.C.fromPtr false) getLocalAddress_ self
+    fun getProtocol self = (GioSocketClientClass.C.withPtr ---> GioSocketProtocol.C.fromVal) getProtocol_ self
+    fun getSocketType self = (GioSocketClientClass.C.withPtr ---> GioSocketType.C.fromVal) getSocketType_ self
+    fun getTimeout self = (GioSocketClientClass.C.withPtr ---> FFI.UInt32.C.fromVal) getTimeout_ self
+    fun getTls self = (GioSocketClientClass.C.withPtr ---> FFI.Bool.C.fromVal) getTls_ self
+    fun getTlsValidationFlags self = (GioSocketClientClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getTlsValidationFlags_ self
+    fun setEnableProxy self enable = (GioSocketClientClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnableProxy_ (self & enable)
+    fun setFamily self family = (GioSocketClientClass.C.withPtr &&&> GioSocketFamily.C.withVal ---> I) setFamily_ (self & family)
+    fun setLocalAddress self address = (GioSocketClientClass.C.withPtr &&&> GioSocketAddressClass.C.withPtr ---> I) setLocalAddress_ (self & address)
+    fun setProtocol self protocol = (GioSocketClientClass.C.withPtr &&&> GioSocketProtocol.C.withVal ---> I) setProtocol_ (self & protocol)
+    fun setSocketType self type' = (GioSocketClientClass.C.withPtr &&&> GioSocketType.C.withVal ---> I) setSocketType_ (self & type')
+    fun setTimeout self timeout = (GioSocketClientClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTls self tls = (GioSocketClientClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTls_ (self & tls)
+    fun setTlsValidationFlags self flags = (GioSocketClientClass.C.withPtr &&&> GioTlsCertificateFlags.C.withVal ---> I) setTlsValidationFlags_ (self & flags)
     local
       open Property
     in

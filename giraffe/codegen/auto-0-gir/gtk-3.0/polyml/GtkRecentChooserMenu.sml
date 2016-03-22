@@ -10,10 +10,10 @@ structure GtkRecentChooserMenu :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_recent_chooser_menu_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_menu_new_for_manager") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_show_numbers") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_set_show_numbers") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_recent_chooser_menu_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_menu_new_for_manager") (GtkRecentManagerClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_get_show_numbers") (GtkRecentChooserMenuClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_chooser_menu_set_show_numbers") (GtkRecentChooserMenuClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkRecentChooserMenuClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -27,9 +27,9 @@ structure GtkRecentChooserMenu :>
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserMenuClass.C.fromPtr false) new_ ()
-    fun newForManager manager = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserMenuClass.C.fromPtr false) newForManager_ manager
-    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun newForManager manager = (GtkRecentManagerClass.C.withPtr ---> GtkRecentChooserMenuClass.C.fromPtr false) newForManager_ manager
+    fun getShowNumbers self = (GtkRecentChooserMenuClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentChooserMenuClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

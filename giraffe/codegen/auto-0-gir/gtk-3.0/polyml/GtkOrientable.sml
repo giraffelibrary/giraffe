@@ -7,15 +7,15 @@ structure GtkOrientable :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_orientable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getOrientation_ = call (load_sym libgtk "gtk_orientable_get_orientation") (GObjectObjectClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
-      val setOrientation_ = call (load_sym libgtk "gtk_orientable_set_orientation") (GObjectObjectClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getOrientation_ = call (load_sym libgtk "gtk_orientable_get_orientation") (GtkOrientableClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
+      val setOrientation_ = call (load_sym libgtk "gtk_orientable_set_orientation") (GtkOrientableClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkOrientableClass.class
     type orientation_t = GtkOrientation.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getOrientation self = (GObjectObjectClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
-    fun setOrientation self orientation = (GObjectObjectClass.C.withPtr &&&> GtkOrientation.C.withVal ---> I) setOrientation_ (self & orientation)
+    fun getOrientation self = (GtkOrientableClass.C.withPtr ---> GtkOrientation.C.fromVal) getOrientation_ self
+    fun setOrientation self orientation = (GtkOrientableClass.C.withPtr &&&> GtkOrientation.C.withVal ---> I) setOrientation_ (self & orientation)
     local
       open Property
     in

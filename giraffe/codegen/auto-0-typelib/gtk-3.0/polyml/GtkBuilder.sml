@@ -6,11 +6,11 @@ structure GtkBuilder :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_builder_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_builder_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_builder_new") (FFI.PolyML.cVoid --> GtkBuilderClass.PolyML.cPtr)
       val addFromFile_ =
         call (load_sym libgtk "gtk_builder_add_from_file")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt32.PolyML.cVal
@@ -18,19 +18,19 @@ structure GtkBuilder :>
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.UInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt32.PolyML.cVal
           )
-      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GtkBuilderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_builder_set_translation_domain") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
       val valueFromString_ =
         call (load_sym libgtk "gtk_builder_value_from_string")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkBuilderClass.PolyML.cPtr
              &&> GObjectParamSpecClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
@@ -44,7 +44,7 @@ structure GtkBuilder :>
     fun new () = (I ---> GtkBuilderClass.C.fromPtr true) new_ ()
     fun addFromFile self filename =
       (
-        GObjectObjectClass.C.withPtr
+        GtkBuilderClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
@@ -57,7 +57,7 @@ structure GtkBuilder :>
         )
     fun addFromString self buffer length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkBuilderClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.UInt64.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -70,14 +70,14 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getObject self name = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GtkBuilderClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkBuilderClass.C.withPtr
              &&&> GObjectParamSpecClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> GObjectValueRecord.C.withNewPtr

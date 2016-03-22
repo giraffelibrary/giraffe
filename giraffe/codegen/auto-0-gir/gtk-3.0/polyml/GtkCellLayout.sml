@@ -11,36 +11,36 @@ structure GtkCellLayout :>
       val addAttribute_ =
         call (load_sym libgtk "gtk_cell_layout_add_attribute")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkCellLayoutClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getArea_ = call (load_sym libgtk "gtk_cell_layout_get_area") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getArea_ = call (load_sym libgtk "gtk_cell_layout_get_area") (GtkCellLayoutClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_layout_pack_end")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkCellLayoutClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_cell_layout_pack_start")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkCellLayoutClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val reorder_ =
         call (load_sym libgtk "gtk_cell_layout_reorder")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkCellLayoutClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
@@ -52,8 +52,8 @@ structure GtkCellLayout :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addAttribute self cell attribute column =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
@@ -65,13 +65,13 @@ structure GtkCellLayout :>
            & attribute
            & column
         )
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun clearAttributes self cell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GObjectObjectClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
+    fun clear self = (GtkCellLayoutClass.C.withPtr ---> I) clear_ self
+    fun clearAttributes self cell = (GtkCellLayoutClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) clearAttributes_ (self & cell)
+    fun getArea self = (GtkCellLayoutClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
     fun packEnd self cell expand =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -83,8 +83,8 @@ structure GtkCellLayout :>
         )
     fun packStart self cell expand =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -96,8 +96,8 @@ structure GtkCellLayout :>
         )
     fun reorder self cell position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

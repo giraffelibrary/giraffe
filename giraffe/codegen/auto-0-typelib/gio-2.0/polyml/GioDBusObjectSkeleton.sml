@@ -9,12 +9,12 @@ structure GioDBusObjectSkeleton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_object_skeleton_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_dbus_object_skeleton_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val addInterface_ = call (load_sym libgio "g_dbus_object_skeleton_add_interface") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val flush_ = call (load_sym libgio "g_dbus_object_skeleton_flush") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removeInterface_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removeInterfaceByName_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface_by_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setObjectPath_ = call (load_sym libgio "g_dbus_object_skeleton_set_object_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgio "g_dbus_object_skeleton_new") (Utf8.PolyML.cInPtr --> GioDBusObjectSkeletonClass.PolyML.cPtr)
+      val addInterface_ = call (load_sym libgio "g_dbus_object_skeleton_add_interface") (GioDBusObjectSkeletonClass.PolyML.cPtr &&> GioDBusInterfaceSkeletonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val flush_ = call (load_sym libgio "g_dbus_object_skeleton_flush") (GioDBusObjectSkeletonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeInterface_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface") (GioDBusObjectSkeletonClass.PolyML.cPtr &&> GioDBusInterfaceSkeletonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeInterfaceByName_ = call (load_sym libgio "g_dbus_object_skeleton_remove_interface_by_name") (GioDBusObjectSkeletonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setObjectPath_ = call (load_sym libgio "g_dbus_object_skeleton_set_object_path") (GioDBusObjectSkeletonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioDBusObjectSkeletonClass.class
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
@@ -24,11 +24,11 @@ structure GioDBusObjectSkeleton :>
     fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new objectPath = (Utf8.C.withPtr ---> GioDBusObjectSkeletonClass.C.fromPtr true) new_ objectPath
-    fun addInterface self interface = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addInterface_ (self & interface)
-    fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
-    fun removeInterface self interface = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeInterface_ (self & interface)
-    fun removeInterfaceByName self interfaceName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) removeInterfaceByName_ (self & interfaceName)
-    fun setObjectPath self objectPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setObjectPath_ (self & objectPath)
+    fun addInterface self interface = (GioDBusObjectSkeletonClass.C.withPtr &&&> GioDBusInterfaceSkeletonClass.C.withPtr ---> I) addInterface_ (self & interface)
+    fun flush self = (GioDBusObjectSkeletonClass.C.withPtr ---> I) flush_ self
+    fun removeInterface self interface = (GioDBusObjectSkeletonClass.C.withPtr &&&> GioDBusInterfaceSkeletonClass.C.withPtr ---> I) removeInterface_ (self & interface)
+    fun removeInterfaceByName self interfaceName = (GioDBusObjectSkeletonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) removeInterfaceByName_ (self & interfaceName)
+    fun setObjectPath self objectPath = (GioDBusObjectSkeletonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setObjectPath_ (self & objectPath)
     local
       open ClosureMarshal Signal
     in

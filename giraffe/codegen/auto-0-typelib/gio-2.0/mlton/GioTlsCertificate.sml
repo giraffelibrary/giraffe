@@ -13,7 +13,7 @@ structure GioTlsCertificate :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
           )
             (
               x1,
@@ -32,7 +32,7 @@ structure GioTlsCertificate :>
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
           )
             (
               x1,
@@ -52,7 +52,7 @@ structure GioTlsCertificate :>
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
           )
             (
               x1,
@@ -60,7 +60,7 @@ structure GioTlsCertificate :>
               x3,
               x4
             )
-    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
     val verify_ =
       fn
         x1
@@ -68,9 +68,9 @@ structure GioTlsCertificate :>
          & x3 =>
           (
             _import "g_tls_certificate_verify" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p
+               * unit GioSocketConnectableClass.C.p
+               * unit GioTlsCertificateClass.C.p
                -> GioTlsCertificateFlags.C.val_;
           )
             (
@@ -110,12 +110,12 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
+    fun getIssuer self = (GioTlsCertificateClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
     fun verify self identity trustedCa =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioTlsCertificateClass.C.withPtr
+         &&&> GioSocketConnectableClass.C.withOptPtr
+         &&&> GioTlsCertificateClass.C.withOptPtr
          ---> GioTlsCertificateFlags.C.fromVal
       )
         verify_

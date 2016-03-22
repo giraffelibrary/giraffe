@@ -12,7 +12,7 @@ structure GtkTreeDragDest :>
          & x3 =>
           (
             _import "gtk_tree_drag_dest_drag_data_received" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeDragDestClass.C.notnull GtkTreeDragDestClass.C.p
                * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
                * GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
                -> FFI.Bool.C.val_;
@@ -29,7 +29,7 @@ structure GtkTreeDragDest :>
          & x3 =>
           (
             _import "gtk_tree_drag_dest_row_drop_possible" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeDragDestClass.C.notnull GtkTreeDragDestClass.C.p
                * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
                * GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p
                -> FFI.Bool.C.val_;
@@ -46,7 +46,7 @@ structure GtkTreeDragDest :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dragDataReceived self dest selectionData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeDragDestClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -59,7 +59,7 @@ structure GtkTreeDragDest :>
         )
     fun rowDropPossible self destPath selectionData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeDragDestClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal

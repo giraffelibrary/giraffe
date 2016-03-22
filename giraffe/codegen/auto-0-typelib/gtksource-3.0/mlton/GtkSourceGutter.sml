@@ -12,17 +12,17 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_get_renderer_at_pos" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getWindow_ = _import "gtk_source_gutter_get_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getWindow_ = _import "gtk_source_gutter_get_window" : GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
     val insert_ =
       fn
         x1
@@ -30,8 +30,8 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_insert" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p
+               * GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p
                * FFI.Int32.C.val_
                -> FFI.Bool.C.val_;
           )
@@ -40,8 +40,8 @@ structure GtkSourceGutter :>
               x2,
               x3
             )
-    val queueDraw_ = _import "gtk_source_gutter_queue_draw" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val remove_ = fn x1 & x2 => (_import "gtk_source_gutter_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val queueDraw_ = _import "gtk_source_gutter_queue_draw" : GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p -> unit;
+    val remove_ = fn x1 & x2 => (_import "gtk_source_gutter_remove" : GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p * GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p -> unit;) (x1, x2)
     val reorder_ =
       fn
         x1
@@ -49,8 +49,8 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_reorder" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p
+               * GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -66,7 +66,7 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_set_padding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterClass.C.notnull GtkSourceGutterClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -83,7 +83,7 @@ structure GtkSourceGutter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getRendererAtPos self x y =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> GtkSourceGutterRendererClass.C.fromPtr false
@@ -94,11 +94,11 @@ structure GtkSourceGutter :>
            & x
            & y
         )
-    fun getWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkSourceGutterClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ self
     fun insert self renderer position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
+         &&&> GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -108,12 +108,12 @@ structure GtkSourceGutter :>
            & renderer
            & position
         )
-    fun queueDraw self = (GObjectObjectClass.C.withPtr ---> I) queueDraw_ self
-    fun remove self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & renderer)
+    fun queueDraw self = (GtkSourceGutterClass.C.withPtr ---> I) queueDraw_ self
+    fun remove self renderer = (GtkSourceGutterClass.C.withPtr &&&> GtkSourceGutterRendererClass.C.withPtr ---> I) remove_ (self & renderer)
     fun reorder self renderer position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
+         &&&> GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -125,7 +125,7 @@ structure GtkSourceGutter :>
         )
     fun setPadding self xpad ypad =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

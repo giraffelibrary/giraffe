@@ -4,9 +4,9 @@ structure GtkSpinner :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_spinner_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_spinner_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val start_ = _import "gtk_spinner_start" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val stop_ = _import "gtk_spinner_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val new_ = _import "gtk_spinner_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val start_ = _import "gtk_spinner_start" : GtkSpinnerClass.C.notnull GtkSpinnerClass.C.p -> unit;
+    val stop_ = _import "gtk_spinner_stop" : GtkSpinnerClass.C.notnull GtkSpinnerClass.C.p -> unit;
     type 'a class = 'a GtkSpinnerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
@@ -14,8 +14,8 @@ structure GtkSpinner :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSpinnerClass.C.fromPtr false) new_ ()
-    fun start self = (GObjectObjectClass.C.withPtr ---> I) start_ self
-    fun stop self = (GObjectObjectClass.C.withPtr ---> I) stop_ self
+    fun start self = (GtkSpinnerClass.C.withPtr ---> I) start_ self
+    fun stop self = (GtkSpinnerClass.C.withPtr ---> I) stop_ self
     local
       open Property
     in

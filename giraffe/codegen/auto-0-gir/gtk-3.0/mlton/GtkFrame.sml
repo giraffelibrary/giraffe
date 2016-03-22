@@ -6,8 +6,8 @@ structure GtkFrame :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_frame_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getLabel_ = _import "gtk_frame_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val new_ = _import "mlton_gtk_frame_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getLabel_ = _import "gtk_frame_get_label" : GtkFrameClass.C.notnull GtkFrameClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getLabelAlign_ =
       fn
         x1
@@ -15,7 +15,7 @@ structure GtkFrame :>
          & x3 =>
           (
             _import "gtk_frame_get_label_align" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFrameClass.C.notnull GtkFrameClass.C.p
                * FFI.Float.C.ref_
                * FFI.Float.C.ref_
                -> unit;
@@ -25,14 +25,14 @@ structure GtkFrame :>
               x2,
               x3
             )
-    val getLabelWidget_ = _import "gtk_frame_get_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getShadowType_ = _import "gtk_frame_get_shadow_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkShadowType.C.val_;
+    val getLabelWidget_ = _import "gtk_frame_get_label_widget" : GtkFrameClass.C.notnull GtkFrameClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getShadowType_ = _import "gtk_frame_get_shadow_type" : GtkFrameClass.C.notnull GtkFrameClass.C.p -> GtkShadowType.C.val_;
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_frame_set_label" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFrameClass.C.notnull GtkFrameClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -49,7 +49,7 @@ structure GtkFrame :>
          & x3 =>
           (
             _import "gtk_frame_set_label_align" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFrameClass.C.notnull GtkFrameClass.C.p
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                -> unit;
@@ -59,8 +59,8 @@ structure GtkFrame :>
               x2,
               x3
             )
-    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_frame_set_label_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setShadowType_ = fn x1 & x2 => (_import "gtk_frame_set_shadow_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkShadowType.C.val_ -> unit;) (x1, x2)
+    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_frame_set_label_widget" : GtkFrameClass.C.notnull GtkFrameClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
+    val setShadowType_ = fn x1 & x2 => (_import "gtk_frame_set_shadow_type" : GtkFrameClass.C.notnull GtkFrameClass.C.p * GtkShadowType.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFrameClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
@@ -70,14 +70,14 @@ structure GtkFrame :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new label = (Utf8.C.withPtr ---> GtkFrameClass.C.fromPtr false) new_ label
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
+    fun getLabel self = (GtkFrameClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
     fun getLabelAlign self =
       let
         val xalign
          & yalign
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkFrameClass.C.withPtr
              &&&> FFI.Float.C.withRefVal
              &&&> FFI.Float.C.withRefVal
              ---> FFI.Float.C.fromVal
@@ -93,12 +93,12 @@ structure GtkFrame :>
       in
         (xalign, yalign)
       end
-    fun getLabelWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getShadowType self = (GObjectObjectClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
+    fun getLabelWidget self = (GtkFrameClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
+    fun getShadowType self = (GtkFrameClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
+    fun setLabel self label = (GtkFrameClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setLabel_ (self & label)
     fun setLabelAlign self xalign yalign =
       (
-        GObjectObjectClass.C.withPtr
+        GtkFrameClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          ---> I
@@ -109,8 +109,8 @@ structure GtkFrame :>
            & xalign
            & yalign
         )
-    fun setLabelWidget self labelWidget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setLabelWidget_ (self & labelWidget)
-    fun setShadowType self type' = (GObjectObjectClass.C.withPtr &&&> GtkShadowType.C.withVal ---> I) setShadowType_ (self & type')
+    fun setLabelWidget self labelWidget = (GtkFrameClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setLabelWidget_ (self & labelWidget)
+    fun setShadowType self type' = (GtkFrameClass.C.withPtr &&&> GtkShadowType.C.withVal ---> I) setShadowType_ (self & type')
     local
       open Property
     in

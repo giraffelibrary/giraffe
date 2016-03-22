@@ -12,9 +12,9 @@ structure VtePty :>
           (
             _import "vte_pty_new_foreign_sync" :
               FFI.Int32.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> VtePtyClass.C.notnull VtePtyClass.C.p;
           )
             (
               x1,
@@ -29,18 +29,18 @@ structure VtePty :>
           (
             _import "vte_pty_new_sync" :
               VtePtyFlags.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> VtePtyClass.C.notnull VtePtyClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val childSetup_ = _import "vte_pty_child_setup" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val close_ = _import "vte_pty_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getFd_ = _import "vte_pty_get_fd" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val childSetup_ = _import "vte_pty_child_setup" : VtePtyClass.C.notnull VtePtyClass.C.p -> unit;
+    val close_ = _import "vte_pty_close" : VtePtyClass.C.notnull VtePtyClass.C.p -> unit;
+    val getFd_ = _import "vte_pty_get_fd" : VtePtyClass.C.notnull VtePtyClass.C.p -> FFI.Int32.C.val_;
     val getSize_ =
       fn
         x1
@@ -49,7 +49,7 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_get_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VtePtyClass.C.notnull VtePtyClass.C.p
                * FFI.Int32.C.ref_
                * FFI.Int32.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
@@ -69,7 +69,7 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_set_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VtePtyClass.C.notnull VtePtyClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -88,7 +88,7 @@ structure VtePty :>
          & x3 =>
           (
             _import "vte_pty_set_utf8" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VtePtyClass.C.notnull VtePtyClass.C.p
                * FFI.Bool.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -106,7 +106,7 @@ structure VtePty :>
     fun newForeignSync fd cancellable =
       (
         FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
@@ -119,7 +119,7 @@ structure VtePty :>
     fun newSync flags cancellable =
       (
         VtePtyFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
@@ -129,16 +129,16 @@ structure VtePty :>
            & cancellable
            & []
         )
-    fun childSetup self = (GObjectObjectClass.C.withPtr ---> I) childSetup_ self
-    fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun childSetup self = (VtePtyClass.C.withPtr ---> I) childSetup_ self
+    fun close self = (VtePtyClass.C.withPtr ---> I) close_ self
+    fun getFd self = (VtePtyClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
          & columns
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            VtePtyClass.C.withPtr
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -158,7 +158,7 @@ structure VtePty :>
       end
     fun setSize self rows columns =
       (
-        GObjectObjectClass.C.withPtr
+        VtePtyClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -173,7 +173,7 @@ structure VtePty :>
         )
     fun setUtf8 self utf8 =
       (
-        GObjectObjectClass.C.withPtr
+        VtePtyClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal

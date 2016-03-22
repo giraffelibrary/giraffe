@@ -5,14 +5,14 @@ structure GtkIconInfo :>
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.C.val_;
-    val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;) (x1, x2)
+    val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;) (x1, x2)
     val copy_ = _import "gtk_icon_info_copy" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
     val getBaseSize_ = _import "gtk_icon_info_get_base_size" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> FFI.Int.C.val_;
-    val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
     val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getEmbeddedRect_ = fn x1 & x2 => (_import "gtk_icon_info_get_embedded_rect" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val getFilename_ = _import "gtk_icon_info_get_filename" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val loadIcon_ = fn x1 & x2 => (_import "gtk_icon_info_load_icon" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val loadIcon_ = fn x1 & x2 => (_import "gtk_icon_info_load_icon" : GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p * (unit, unit) GLibErrorRecord.C.r -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;) (x1, x2)
     val loadSymbolic_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure GtkIconInfo :>
                * unit GdkRgbaRecord.C.p
                * FFI.Bool.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -51,10 +51,10 @@ structure GtkIconInfo :>
           (
             _import "gtk_icon_info_load_symbolic_for_context" :
               GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GtkStyleContextClass.C.notnull GtkStyleContextClass.C.p
                * FFI.Bool.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -67,7 +67,7 @@ structure GtkIconInfo :>
     type 'a icon_theme_class = 'a GtkIconThemeClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newForPixbuf iconTheme pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
+    fun newForPixbuf iconTheme pixbuf = (GtkIconThemeClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.C.withPtr ---> GtkIconInfoRecord.C.fromPtr true) copy_ self
     fun getBaseSize self = (GtkIconInfoRecord.C.withPtr ---> FFI.Int.C.fromVal) getBaseSize_ self
     fun getBuiltinPixbuf self = (GtkIconInfoRecord.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getBuiltinPixbuf_ self
@@ -111,7 +111,7 @@ structure GtkIconInfo :>
         val wasSymbolic & retVal =
           (
             GtkIconInfoRecord.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+             &&&> GtkStyleContextClass.C.withPtr
              &&&> FFI.Bool.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.Bool.C.fromVal && GdkPixbufPixbufClass.C.fromPtr true

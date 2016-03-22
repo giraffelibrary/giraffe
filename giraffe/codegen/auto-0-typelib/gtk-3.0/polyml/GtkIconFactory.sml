@@ -8,19 +8,19 @@ structure GtkIconFactory :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_icon_factory_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_icon_factory_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_icon_factory_new") (FFI.PolyML.cVoid --> GtkIconFactoryClass.PolyML.cPtr)
       val lookupDefault_ = call (load_sym libgtk "gtk_icon_factory_lookup_default") (Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val add_ =
         call (load_sym libgtk "gtk_icon_factory_add")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkIconFactoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkIconSetRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
-      val addDefault_ = call (load_sym libgtk "gtk_icon_factory_add_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val lookup_ = call (load_sym libgtk "gtk_icon_factory_lookup") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
-      val removeDefault_ = call (load_sym libgtk "gtk_icon_factory_remove_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addDefault_ = call (load_sym libgtk "gtk_icon_factory_add_default") (GtkIconFactoryClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val lookup_ = call (load_sym libgtk "gtk_icon_factory_lookup") (GtkIconFactoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val removeDefault_ = call (load_sym libgtk "gtk_icon_factory_remove_default") (GtkIconFactoryClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkIconFactoryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -32,7 +32,7 @@ structure GtkIconFactory :>
     fun lookupDefault stockId = (Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupDefault_ stockId
     fun add self stockId iconSet =
       (
-        GObjectObjectClass.C.withPtr
+        GtkIconFactoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkIconSetRecord.C.withPtr
          ---> I
@@ -43,7 +43,7 @@ structure GtkIconFactory :>
            & stockId
            & iconSet
         )
-    fun addDefault self = (GObjectObjectClass.C.withPtr ---> I) addDefault_ self
-    fun lookup self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookup_ (self & stockId)
-    fun removeDefault self = (GObjectObjectClass.C.withPtr ---> I) removeDefault_ self
+    fun addDefault self = (GtkIconFactoryClass.C.withPtr ---> I) addDefault_ self
+    fun lookup self stockId = (GtkIconFactoryClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookup_ (self & stockId)
+    fun removeDefault self = (GtkIconFactoryClass.C.withPtr ---> I) removeDefault_ self
   end

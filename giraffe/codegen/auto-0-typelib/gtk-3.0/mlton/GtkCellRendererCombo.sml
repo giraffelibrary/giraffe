@@ -5,7 +5,7 @@ structure GtkCellRendererCombo :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_combo_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_renderer_combo_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_cell_renderer_combo_new" : unit -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
     type 'a class = 'a GtkCellRendererComboClass.class
     type tree_iter_t = GtkTreeIterRecord.t
     type 'a tree_model_class = 'a GtkTreeModelClass.class

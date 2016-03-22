@@ -14,11 +14,11 @@ structure GtkMessageDialog :>
         x1 & x2 & x3 & x4 =>
           (
             _import "giraffe_gtk_message_dialog_new" : 
-              unit GObjectObjectClass.C.p
+              unit GtkWindowClass.C.p
                * GtkDialogFlags.C.val_
                * GtkMessageType.C.val_
                * GtkButtonsType.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkMessageDialogClass.C.notnull GtkMessageDialogClass.C.p;
           )
             (
               x1,
@@ -26,15 +26,15 @@ structure GtkMessageDialog :>
               x3,
               x4
             )
-    val getImage_ = _import "gtk_message_dialog_get_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getMessageArea_ = _import "gtk_message_dialog_get_message_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val setImage_ = fn x1 & x2 => (_import "gtk_message_dialog_set_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val getImage_ = _import "gtk_message_dialog_get_image" : GtkMessageDialogClass.C.notnull GtkMessageDialogClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getMessageArea_ = _import "gtk_message_dialog_get_message_area" : GtkMessageDialogClass.C.notnull GtkMessageDialogClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val setImage_ = fn x1 & x2 => (_import "gtk_message_dialog_set_image" : GtkMessageDialogClass.C.notnull GtkMessageDialogClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
     val setMarkup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_message_dialog_set_markup" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMessageDialogClass.C.notnull GtkMessageDialogClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -57,7 +57,7 @@ structure GtkMessageDialog :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent flags type' buttons =
       (
-        GObjectObjectClass.C.withOptPtr
+        GtkWindowClass.C.withOptPtr
          &&&> GtkDialogFlags.C.withVal
          &&&> GtkMessageType.C.withVal
          &&&> GtkButtonsType.C.withVal
@@ -70,10 +70,10 @@ structure GtkMessageDialog :>
            & type'
            & buttons
         )
-    fun getImage self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
-    fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun setImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMarkup_ (self & str)
+    fun getImage self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
+    fun getMessageArea self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
+    fun setImage self image = (GtkMessageDialogClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setImage_ (self & image)
+    fun setMarkup self str = (GtkMessageDialogClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMarkup_ (self & str)
     local
       open Property
     in

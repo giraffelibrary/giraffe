@@ -11,7 +11,7 @@ structure GioDBusMessage :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_message_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_dbus_message_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_dbus_message_new") (FFI.PolyML.cVoid --> GioDBusMessageClass.PolyML.cPtr)
       val newMethodCall_ =
         call (load_sym libgio "g_dbus_message_new_method_call")
           (
@@ -19,7 +19,7 @@ structure GioDBusMessage :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusMessageClass.PolyML.cPtr
           )
       val newSignal_ =
         call (load_sym libgio "g_dbus_message_new_signal")
@@ -27,62 +27,62 @@ structure GioDBusMessage :>
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusMessageClass.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgio "g_dbus_message_copy") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
-      val getArg0_ = call (load_sym libgio "g_dbus_message_get_arg0") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getBody_ = call (load_sym libgio "g_dbus_message_get_body") (GObjectObjectClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getByteOrder_ = call (load_sym libgio "g_dbus_message_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GioDBusMessageByteOrder.PolyML.cVal)
-      val getDestination_ = call (load_sym libgio "g_dbus_message_get_destination") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getErrorName_ = call (load_sym libgio "g_dbus_message_get_error_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFlags_ = call (load_sym libgio "g_dbus_message_get_flags") (GObjectObjectClass.PolyML.cPtr --> GioDBusMessageFlags.PolyML.cVal)
-      val getHeader_ = call (load_sym libgio "g_dbus_message_get_header") (GObjectObjectClass.PolyML.cPtr &&> GioDBusMessageHeaderField.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
-      val getInterface_ = call (load_sym libgio "g_dbus_message_get_interface") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getLocked_ = call (load_sym libgio "g_dbus_message_get_locked") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getMember_ = call (load_sym libgio "g_dbus_message_get_member") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getMessageType_ = call (load_sym libgio "g_dbus_message_get_message_type") (GObjectObjectClass.PolyML.cPtr --> GioDBusMessageType.PolyML.cVal)
-      val getNumUnixFds_ = call (load_sym libgio "g_dbus_message_get_num_unix_fds") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
-      val getPath_ = call (load_sym libgio "g_dbus_message_get_path") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getReplySerial_ = call (load_sym libgio "g_dbus_message_get_reply_serial") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
-      val getSender_ = call (load_sym libgio "g_dbus_message_get_sender") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getSerial_ = call (load_sym libgio "g_dbus_message_get_serial") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
-      val getSignature_ = call (load_sym libgio "g_dbus_message_get_signature") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getUnixFdList_ = call (load_sym libgio "g_dbus_message_get_unix_fd_list") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val lock_ = call (load_sym libgio "g_dbus_message_lock") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val copy_ = call (load_sym libgio "g_dbus_message_copy") (GioDBusMessageClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusMessageClass.PolyML.cPtr)
+      val getArg0_ = call (load_sym libgio "g_dbus_message_get_arg0") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBody_ = call (load_sym libgio "g_dbus_message_get_body") (GioDBusMessageClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getByteOrder_ = call (load_sym libgio "g_dbus_message_get_byte_order") (GioDBusMessageClass.PolyML.cPtr --> GioDBusMessageByteOrder.PolyML.cVal)
+      val getDestination_ = call (load_sym libgio "g_dbus_message_get_destination") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getErrorName_ = call (load_sym libgio "g_dbus_message_get_error_name") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFlags_ = call (load_sym libgio "g_dbus_message_get_flags") (GioDBusMessageClass.PolyML.cPtr --> GioDBusMessageFlags.PolyML.cVal)
+      val getHeader_ = call (load_sym libgio "g_dbus_message_get_header") (GioDBusMessageClass.PolyML.cPtr &&> GioDBusMessageHeaderField.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
+      val getInterface_ = call (load_sym libgio "g_dbus_message_get_interface") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLocked_ = call (load_sym libgio "g_dbus_message_get_locked") (GioDBusMessageClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMember_ = call (load_sym libgio "g_dbus_message_get_member") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMessageType_ = call (load_sym libgio "g_dbus_message_get_message_type") (GioDBusMessageClass.PolyML.cPtr --> GioDBusMessageType.PolyML.cVal)
+      val getNumUnixFds_ = call (load_sym libgio "g_dbus_message_get_num_unix_fds") (GioDBusMessageClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getPath_ = call (load_sym libgio "g_dbus_message_get_path") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getReplySerial_ = call (load_sym libgio "g_dbus_message_get_reply_serial") (GioDBusMessageClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getSender_ = call (load_sym libgio "g_dbus_message_get_sender") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSerial_ = call (load_sym libgio "g_dbus_message_get_serial") (GioDBusMessageClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getSignature_ = call (load_sym libgio "g_dbus_message_get_signature") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUnixFdList_ = call (load_sym libgio "g_dbus_message_get_unix_fd_list") (GioDBusMessageClass.PolyML.cPtr --> GioUnixFDListClass.PolyML.cPtr)
+      val lock_ = call (load_sym libgio "g_dbus_message_lock") (GioDBusMessageClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val newMethodErrorLiteral_ =
         call (load_sym libgio "g_dbus_message_new_method_error_literal")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDBusMessageClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusMessageClass.PolyML.cPtr
           )
-      val newMethodReply_ = call (load_sym libgio "g_dbus_message_new_method_reply") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val print_ = call (load_sym libgio "g_dbus_message_print") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val setBody_ = call (load_sym libgio "g_dbus_message_set_body") (GObjectObjectClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setByteOrder_ = call (load_sym libgio "g_dbus_message_set_byte_order") (GObjectObjectClass.PolyML.cPtr &&> GioDBusMessageByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setDestination_ = call (load_sym libgio "g_dbus_message_set_destination") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setErrorName_ = call (load_sym libgio "g_dbus_message_set_error_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setFlags_ = call (load_sym libgio "g_dbus_message_set_flags") (GObjectObjectClass.PolyML.cPtr &&> GioDBusMessageFlags.PolyML.cVal --> FFI.PolyML.cVoid)
+      val newMethodReply_ = call (load_sym libgio "g_dbus_message_new_method_reply") (GioDBusMessageClass.PolyML.cPtr --> GioDBusMessageClass.PolyML.cPtr)
+      val print_ = call (load_sym libgio "g_dbus_message_print") (GioDBusMessageClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val setBody_ = call (load_sym libgio "g_dbus_message_set_body") (GioDBusMessageClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setByteOrder_ = call (load_sym libgio "g_dbus_message_set_byte_order") (GioDBusMessageClass.PolyML.cPtr &&> GioDBusMessageByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDestination_ = call (load_sym libgio "g_dbus_message_set_destination") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setErrorName_ = call (load_sym libgio "g_dbus_message_set_error_name") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setFlags_ = call (load_sym libgio "g_dbus_message_set_flags") (GioDBusMessageClass.PolyML.cPtr &&> GioDBusMessageFlags.PolyML.cVal --> FFI.PolyML.cVoid)
       val setHeader_ =
         call (load_sym libgio "g_dbus_message_set_header")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDBusMessageClass.PolyML.cPtr
              &&> GioDBusMessageHeaderField.PolyML.cVal
              &&> GLibVariantRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
-      val setInterface_ = call (load_sym libgio "g_dbus_message_set_interface") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setMember_ = call (load_sym libgio "g_dbus_message_set_member") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setMessageType_ = call (load_sym libgio "g_dbus_message_set_message_type") (GObjectObjectClass.PolyML.cPtr &&> GioDBusMessageType.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setNumUnixFds_ = call (load_sym libgio "g_dbus_message_set_num_unix_fds") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setPath_ = call (load_sym libgio "g_dbus_message_set_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setReplySerial_ = call (load_sym libgio "g_dbus_message_set_reply_serial") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSender_ = call (load_sym libgio "g_dbus_message_set_sender") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setSerial_ = call (load_sym libgio "g_dbus_message_set_serial") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSignature_ = call (load_sym libgio "g_dbus_message_set_signature") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setUnixFdList_ = call (load_sym libgio "g_dbus_message_set_unix_fd_list") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val toGerror_ = call (load_sym libgio "g_dbus_message_to_gerror") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val setInterface_ = call (load_sym libgio "g_dbus_message_set_interface") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMember_ = call (load_sym libgio "g_dbus_message_set_member") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setMessageType_ = call (load_sym libgio "g_dbus_message_set_message_type") (GioDBusMessageClass.PolyML.cPtr &&> GioDBusMessageType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setNumUnixFds_ = call (load_sym libgio "g_dbus_message_set_num_unix_fds") (GioDBusMessageClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPath_ = call (load_sym libgio "g_dbus_message_set_path") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setReplySerial_ = call (load_sym libgio "g_dbus_message_set_reply_serial") (GioDBusMessageClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSender_ = call (load_sym libgio "g_dbus_message_set_sender") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setSerial_ = call (load_sym libgio "g_dbus_message_set_serial") (GioDBusMessageClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSignature_ = call (load_sym libgio "g_dbus_message_set_signature") (GioDBusMessageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setUnixFdList_ = call (load_sym libgio "g_dbus_message_set_unix_fd_list") (GioDBusMessageClass.PolyML.cPtr &&> GioUnixFDListClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val toGerror_ = call (load_sym libgio "g_dbus_message_to_gerror") (GioDBusMessageClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioDBusMessageClass.class
     type d_bus_message_byte_order_t = GioDBusMessageByteOrder.t
@@ -121,29 +121,29 @@ structure GioDBusMessage :>
            & interface
            & signal
         )
-    fun copy self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.C.fromPtr true) copy_ (self & [])
-    fun getArg0 self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getArg0_ self
-    fun getBody self = (GObjectObjectClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getBody_ self
-    fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageByteOrder.C.fromVal) getByteOrder_ self
-    fun getDestination self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDestination_ self
-    fun getErrorName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getErrorName_ self
-    fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageFlags.C.fromVal) getFlags_ self
-    fun getHeader self headerField = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageHeaderField.C.withVal ---> GLibVariantRecord.C.fromPtr true) getHeader_ (self & headerField)
-    fun getInterface self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getInterface_ self
-    fun getLocked self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocked_ self
-    fun getMember self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getMember_ self
-    fun getMessageType self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageType.C.fromVal) getMessageType_ self
-    fun getNumUnixFds self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumUnixFds_ self
-    fun getPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getPath_ self
-    fun getReplySerial self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getReplySerial_ self
-    fun getSender self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getSender_ self
-    fun getSerial self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getSerial_ self
-    fun getSignature self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getSignature_ self
-    fun getUnixFdList self = (GObjectObjectClass.C.withPtr ---> GioUnixFDListClass.C.fromPtr false) getUnixFdList_ self
-    fun lock self = (GObjectObjectClass.C.withPtr ---> I) lock_ self
+    fun copy self = (GioDBusMessageClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.C.fromPtr true) copy_ (self & [])
+    fun getArg0 self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getArg0_ self
+    fun getBody self = (GioDBusMessageClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getBody_ self
+    fun getByteOrder self = (GioDBusMessageClass.C.withPtr ---> GioDBusMessageByteOrder.C.fromVal) getByteOrder_ self
+    fun getDestination self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getDestination_ self
+    fun getErrorName self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getErrorName_ self
+    fun getFlags self = (GioDBusMessageClass.C.withPtr ---> GioDBusMessageFlags.C.fromVal) getFlags_ self
+    fun getHeader self headerField = (GioDBusMessageClass.C.withPtr &&&> GioDBusMessageHeaderField.C.withVal ---> GLibVariantRecord.C.fromPtr true) getHeader_ (self & headerField)
+    fun getInterface self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getInterface_ self
+    fun getLocked self = (GioDBusMessageClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocked_ self
+    fun getMember self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getMember_ self
+    fun getMessageType self = (GioDBusMessageClass.C.withPtr ---> GioDBusMessageType.C.fromVal) getMessageType_ self
+    fun getNumUnixFds self = (GioDBusMessageClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumUnixFds_ self
+    fun getPath self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getPath_ self
+    fun getReplySerial self = (GioDBusMessageClass.C.withPtr ---> FFI.UInt32.C.fromVal) getReplySerial_ self
+    fun getSender self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getSender_ self
+    fun getSerial self = (GioDBusMessageClass.C.withPtr ---> FFI.UInt32.C.fromVal) getSerial_ self
+    fun getSignature self = (GioDBusMessageClass.C.withPtr ---> Utf8.C.fromPtr false) getSignature_ self
+    fun getUnixFdList self = (GioDBusMessageClass.C.withPtr ---> GioUnixFDListClass.C.fromPtr false) getUnixFdList_ self
+    fun lock self = (GioDBusMessageClass.C.withPtr ---> I) lock_ self
     fun newMethodErrorLiteral self errorName errorMessage =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusMessageClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          ---> GioDBusMessageClass.C.fromPtr true
@@ -154,16 +154,16 @@ structure GioDBusMessage :>
            & errorName
            & errorMessage
         )
-    fun newMethodReply self = (GObjectObjectClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr true) newMethodReply_ self
-    fun print self indent = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> Utf8.C.fromPtr true) print_ (self & indent)
-    fun setBody self body = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setBody_ (self & body)
-    fun setByteOrder self byteOrder = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageByteOrder.C.withVal ---> I) setByteOrder_ (self & byteOrder)
-    fun setDestination self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDestination_ (self & value)
-    fun setErrorName self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setErrorName_ (self & value)
-    fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageFlags.C.withVal ---> I) setFlags_ (self & flags)
+    fun newMethodReply self = (GioDBusMessageClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr true) newMethodReply_ self
+    fun print self indent = (GioDBusMessageClass.C.withPtr &&&> FFI.UInt.C.withVal ---> Utf8.C.fromPtr true) print_ (self & indent)
+    fun setBody self body = (GioDBusMessageClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setBody_ (self & body)
+    fun setByteOrder self byteOrder = (GioDBusMessageClass.C.withPtr &&&> GioDBusMessageByteOrder.C.withVal ---> I) setByteOrder_ (self & byteOrder)
+    fun setDestination self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDestination_ (self & value)
+    fun setErrorName self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setErrorName_ (self & value)
+    fun setFlags self flags = (GioDBusMessageClass.C.withPtr &&&> GioDBusMessageFlags.C.withVal ---> I) setFlags_ (self & flags)
     fun setHeader self headerField value =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusMessageClass.C.withPtr
          &&&> GioDBusMessageHeaderField.C.withVal
          &&&> GLibVariantRecord.C.withPtr
          ---> I
@@ -174,17 +174,17 @@ structure GioDBusMessage :>
            & headerField
            & value
         )
-    fun setInterface self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setInterface_ (self & value)
-    fun setMember self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMember_ (self & value)
-    fun setMessageType self type' = (GObjectObjectClass.C.withPtr &&&> GioDBusMessageType.C.withVal ---> I) setMessageType_ (self & type')
-    fun setNumUnixFds self value = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setNumUnixFds_ (self & value)
-    fun setPath self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPath_ (self & value)
-    fun setReplySerial self value = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setReplySerial_ (self & value)
-    fun setSender self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSender_ (self & value)
-    fun setSerial self serial = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setSerial_ (self & serial)
-    fun setSignature self value = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSignature_ (self & value)
-    fun setUnixFdList self fdList = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUnixFdList_ (self & fdList)
-    fun toGerror self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) toGerror_ (self & [])
+    fun setInterface self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setInterface_ (self & value)
+    fun setMember self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMember_ (self & value)
+    fun setMessageType self type' = (GioDBusMessageClass.C.withPtr &&&> GioDBusMessageType.C.withVal ---> I) setMessageType_ (self & type')
+    fun setNumUnixFds self value = (GioDBusMessageClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setNumUnixFds_ (self & value)
+    fun setPath self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setPath_ (self & value)
+    fun setReplySerial self value = (GioDBusMessageClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setReplySerial_ (self & value)
+    fun setSender self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSender_ (self & value)
+    fun setSerial self serial = (GioDBusMessageClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setSerial_ (self & serial)
+    fun setSignature self value = (GioDBusMessageClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setSignature_ (self & value)
+    fun setUnixFdList self fdList = (GioDBusMessageClass.C.withPtr &&&> GioUnixFDListClass.C.withOptPtr ---> I) setUnixFdList_ (self & fdList)
+    fun toGerror self = (GioDBusMessageClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) toGerror_ (self & [])
     local
       open Property
     in

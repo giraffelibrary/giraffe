@@ -10,8 +10,8 @@ structure GioInitable :>
       val init_ =
         call (load_sym libgio "g_initable_init")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioInitableClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
@@ -22,8 +22,8 @@ structure GioInitable :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun init self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioInitableClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

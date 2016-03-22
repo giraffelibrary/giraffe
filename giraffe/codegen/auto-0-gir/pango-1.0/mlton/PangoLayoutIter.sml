@@ -29,7 +29,7 @@ structure PangoLayoutIter :>
               x3
             )
     val getIndex_ = _import "pango_layout_iter_get_index" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> FFI.Int.C.val_;
-    val getLayout_ = _import "pango_layout_iter_get_layout" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getLayout_ = _import "pango_layout_iter_get_layout" : PangoLayoutIterRecord.C.notnull PangoLayoutIterRecord.C.p -> PangoLayoutClass.C.notnull PangoLayoutClass.C.p;
     val getLayoutExtents_ =
       fn
         x1

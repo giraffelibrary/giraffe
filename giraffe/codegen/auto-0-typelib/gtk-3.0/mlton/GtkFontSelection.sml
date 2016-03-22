@@ -5,7 +5,7 @@ structure GtkFontSelection :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_font_selection_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_font_selection_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_font_selection_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkFontSelectionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

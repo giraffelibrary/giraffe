@@ -9,13 +9,13 @@ structure GtkStyleProperties :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_style_properties_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_style_properties_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val clear_ = call (load_sym libgtk "gtk_style_properties_clear") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val lookupColor_ = call (load_sym libgtk "gtk_style_properties_lookup_color") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_style_properties_new") (FFI.PolyML.cVoid --> GtkStylePropertiesClass.PolyML.cPtr)
+      val clear_ = call (load_sym libgtk "gtk_style_properties_clear") (GtkStylePropertiesClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val lookupColor_ = call (load_sym libgtk "gtk_style_properties_lookup_color") (GtkStylePropertiesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val mapColor_ =
         call (load_sym libgtk "gtk_style_properties_map_color")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStylePropertiesClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkSymbolicColorRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
@@ -23,15 +23,15 @@ structure GtkStyleProperties :>
       val merge_ =
         call (load_sym libgtk "gtk_style_properties_merge")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkStylePropertiesClass.PolyML.cPtr
+             &&> GtkStylePropertiesClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val setProperty_ =
         call (load_sym libgtk "gtk_style_properties_set_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStylePropertiesClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GObjectValueRecord.PolyML.cPtr
@@ -40,7 +40,7 @@ structure GtkStyleProperties :>
       val unsetProperty_ =
         call (load_sym libgtk "gtk_style_properties_unset_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStylePropertiesClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkStateFlags.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -54,11 +54,11 @@ structure GtkStyleProperties :>
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun clear self = (GtkStylePropertiesClass.C.withPtr ---> I) clear_ self
+    fun lookupColor self name = (GtkStylePropertiesClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkSymbolicColorRecord.C.withPtr
          ---> I
@@ -71,8 +71,8 @@ structure GtkStyleProperties :>
         )
     fun merge self propsToMerge replace =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
+         &&&> GtkStylePropertiesClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -84,7 +84,7 @@ structure GtkStyleProperties :>
         )
     fun setProperty self property state value =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          &&&> GObjectValueRecord.C.withPtr
@@ -99,7 +99,7 @@ structure GtkStyleProperties :>
         )
     fun unsetProperty self property state =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          ---> I

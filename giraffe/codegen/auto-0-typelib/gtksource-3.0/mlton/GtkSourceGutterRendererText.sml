@@ -3,7 +3,7 @@ structure GtkSourceGutterRendererText :>
     where type 'a class = 'a GtkSourceGutterRendererTextClass.class =
   struct
     val getType_ = _import "gtk_source_gutter_renderer_text_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p;
     val setMarkup_ =
       fn
         x1
@@ -11,7 +11,7 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_markup" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterRendererTextClass.C.notnull GtkSourceGutterRendererTextClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -30,7 +30,7 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_text" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceGutterRendererTextClass.C.notnull GtkSourceGutterRendererTextClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -48,7 +48,7 @@ structure GtkSourceGutterRendererText :>
     fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
     fun setMarkup self markup length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererTextClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -61,7 +61,7 @@ structure GtkSourceGutterRendererText :>
         )
     fun setText self text length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererTextClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I

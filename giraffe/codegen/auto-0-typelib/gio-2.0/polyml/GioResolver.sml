@@ -9,25 +9,25 @@ structure GioResolver :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_resolver_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_resolver_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgio "g_resolver_get_default") (FFI.PolyML.cVoid --> GioResolverClass.PolyML.cPtr)
       val lookupByAddress_ =
         call (load_sym libgio "g_resolver_lookup_by_address")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioResolverClass.PolyML.cPtr
+             &&> GioInetAddressClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
       val lookupByAddressFinish_ =
         call (load_sym libgio "g_resolver_lookup_by_address_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioResolverClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setDefault_ = call (load_sym libgio "g_resolver_set_default") (GioResolverClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioResolverClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -38,9 +38,9 @@ structure GioResolver :>
     fun getDefault () = (I ---> GioResolverClass.C.fromPtr true) getDefault_ ()
     fun lookupByAddress self address cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioResolverClass.C.withPtr
+         &&&> GioInetAddressClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -53,8 +53,8 @@ structure GioResolver :>
         )
     fun lookupByAddressFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioResolverClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -64,7 +64,7 @@ structure GioResolver :>
            & result
            & []
         )
-    fun setDefault self = (GObjectObjectClass.C.withPtr ---> I) setDefault_ self
+    fun setDefault self = (GioResolverClass.C.withPtr ---> I) setDefault_ self
     local
       open ClosureMarshal Signal
     in

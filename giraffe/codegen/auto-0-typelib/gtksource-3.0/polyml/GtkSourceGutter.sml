@@ -11,34 +11,34 @@ structure GtkSourceGutter :>
       val getRendererAtPos_ =
         call (load_sym libgtksourceview "gtk_source_gutter_get_renderer_at_pos")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkSourceGutterRendererClass.PolyML.cPtr
           )
-      val getWindow_ = call (load_sym libgtksourceview "gtk_source_gutter_get_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getWindow_ = call (load_sym libgtksourceview "gtk_source_gutter_get_window") (GtkSourceGutterClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val insert_ =
         call (load_sym libgtksourceview "gtk_source_gutter_insert")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterClass.PolyML.cPtr
+             &&> GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_queue_draw") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val remove_ = call (load_sym libgtksourceview "gtk_source_gutter_remove") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_queue_draw") (GtkSourceGutterClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val remove_ = call (load_sym libgtksourceview "gtk_source_gutter_remove") (GtkSourceGutterClass.PolyML.cPtr &&> GtkSourceGutterRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val reorder_ =
         call (load_sym libgtksourceview "gtk_source_gutter_reorder")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterClass.PolyML.cPtr
+             &&> GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val setPadding_ =
         call (load_sym libgtksourceview "gtk_source_gutter_set_padding")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -51,7 +51,7 @@ structure GtkSourceGutter :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getRendererAtPos self x y =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> GtkSourceGutterRendererClass.C.fromPtr false
@@ -62,11 +62,11 @@ structure GtkSourceGutter :>
            & x
            & y
         )
-    fun getWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkSourceGutterClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getWindow_ self
     fun insert self renderer position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
+         &&&> GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
       )
@@ -76,12 +76,12 @@ structure GtkSourceGutter :>
            & renderer
            & position
         )
-    fun queueDraw self = (GObjectObjectClass.C.withPtr ---> I) queueDraw_ self
-    fun remove self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & renderer)
+    fun queueDraw self = (GtkSourceGutterClass.C.withPtr ---> I) queueDraw_ self
+    fun remove self renderer = (GtkSourceGutterClass.C.withPtr &&&> GtkSourceGutterRendererClass.C.withPtr ---> I) remove_ (self & renderer)
     fun reorder self renderer position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
+         &&&> GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -93,7 +93,7 @@ structure GtkSourceGutter :>
         )
     fun setPadding self xpad ypad =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

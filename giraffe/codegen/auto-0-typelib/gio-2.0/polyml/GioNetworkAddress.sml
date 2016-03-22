@@ -7,14 +7,14 @@ structure GioNetworkAddress :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_network_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_network_address_new") (Utf8.PolyML.cInPtr &&> FFI.UInt16.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_network_address_new") (Utf8.PolyML.cInPtr &&> FFI.UInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
       val parse_ =
         call (load_sym libgio "g_network_address_parse")
           (
             Utf8.PolyML.cInPtr
              &&> FFI.UInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketConnectableClass.PolyML.cPtr
           )
       val parseUri_ =
         call (load_sym libgio "g_network_address_parse_uri")
@@ -22,11 +22,11 @@ structure GioNetworkAddress :>
             Utf8.PolyML.cInPtr
              &&> FFI.UInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketConnectableClass.PolyML.cPtr
           )
-      val getHostname_ = call (load_sym libgio "g_network_address_get_hostname") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPort_ = call (load_sym libgio "g_network_address_get_port") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
-      val getScheme_ = call (load_sym libgio "g_network_address_get_scheme") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHostname_ = call (load_sym libgio "g_network_address_get_hostname") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPort_ = call (load_sym libgio "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getScheme_ = call (load_sym libgio "g_network_address_get_scheme") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioNetworkAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
@@ -60,9 +60,9 @@ structure GioNetworkAddress :>
            & defaultPort
            & []
         )
-    fun getHostname self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHostname_ self
-    fun getPort self = (GObjectObjectClass.C.withPtr ---> FFI.UInt16.C.fromVal) getPort_ self
-    fun getScheme self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getScheme_ self
+    fun getHostname self = (GioNetworkAddressClass.C.withPtr ---> Utf8.C.fromPtr false) getHostname_ self
+    fun getPort self = (GioNetworkAddressClass.C.withPtr ---> FFI.UInt16.C.fromVal) getPort_ self
+    fun getScheme self = (GioNetworkAddressClass.C.withPtr ---> Utf8.C.fromPtr false) getScheme_ self
     local
       open Property
     in

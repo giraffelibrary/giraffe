@@ -19,7 +19,7 @@ structure GtkAdjustment :>
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p;
           )
             (
               x1,
@@ -29,7 +29,7 @@ structure GtkAdjustment :>
               x5,
               x6
             )
-    val changed_ = _import "gtk_adjustment_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val changed_ = _import "gtk_adjustment_changed" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> unit;
     val clampPage_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure GtkAdjustment :>
          & x3 =>
           (
             _import "gtk_adjustment_clamp_page" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> unit;
@@ -58,7 +58,7 @@ structure GtkAdjustment :>
          & x7 =>
           (
             _import "gtk_adjustment_configure" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                * FFI.Double.C.val_
@@ -76,20 +76,20 @@ structure GtkAdjustment :>
               x6,
               x7
             )
-    val getLower_ = _import "gtk_adjustment_get_lower" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getMinimumIncrement_ = _import "gtk_adjustment_get_minimum_increment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getPageIncrement_ = _import "gtk_adjustment_get_page_increment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getPageSize_ = _import "gtk_adjustment_get_page_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getStepIncrement_ = _import "gtk_adjustment_get_step_increment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getUpper_ = _import "gtk_adjustment_get_upper" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val getValue_ = _import "gtk_adjustment_get_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Double.C.val_;
-    val setLower_ = fn x1 & x2 => (_import "gtk_adjustment_set_lower" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setPageIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_increment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setPageSize_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setStepIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_step_increment" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setUpper_ = fn x1 & x2 => (_import "gtk_adjustment_set_upper" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_adjustment_set_value" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val valueChanged_ = _import "gtk_adjustment_value_changed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val getLower_ = _import "gtk_adjustment_get_lower" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getMinimumIncrement_ = _import "gtk_adjustment_get_minimum_increment" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getPageIncrement_ = _import "gtk_adjustment_get_page_increment" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getPageSize_ = _import "gtk_adjustment_get_page_size" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getStepIncrement_ = _import "gtk_adjustment_get_step_increment" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getUpper_ = _import "gtk_adjustment_get_upper" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val getValue_ = _import "gtk_adjustment_get_value" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> FFI.Double.C.val_;
+    val setLower_ = fn x1 & x2 => (_import "gtk_adjustment_set_lower" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setPageIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_increment" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setPageSize_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_size" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setStepIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_step_increment" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setUpper_ = fn x1 & x2 => (_import "gtk_adjustment_set_upper" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_adjustment_set_value" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val valueChanged_ = _import "gtk_adjustment_value_changed" : GtkAdjustmentClass.C.notnull GtkAdjustmentClass.C.p -> unit;
     type 'a class = 'a GtkAdjustmentClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
@@ -112,10 +112,10 @@ structure GtkAdjustment :>
            & pageIncrement
            & pageSize
         )
-    fun changed self = (GObjectObjectClass.C.withPtr ---> I) changed_ self
+    fun changed self = (GtkAdjustmentClass.C.withPtr ---> I) changed_ self
     fun clampPage self lower upper =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAdjustmentClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> I
@@ -128,7 +128,7 @@ structure GtkAdjustment :>
         )
     fun configure self value lower upper stepIncrement pageIncrement pageSize =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAdjustmentClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
@@ -147,20 +147,20 @@ structure GtkAdjustment :>
            & pageIncrement
            & pageSize
         )
-    fun getLower self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getLower_ self
-    fun getMinimumIncrement self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getMinimumIncrement_ self
-    fun getPageIncrement self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPageIncrement_ self
-    fun getPageSize self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getPageSize_ self
-    fun getStepIncrement self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getStepIncrement_ self
-    fun getUpper self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getUpper_ self
-    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
-    fun setLower self lower = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setLower_ (self & lower)
-    fun setPageIncrement self pageIncrement = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPageIncrement_ (self & pageIncrement)
-    fun setPageSize self pageSize = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPageSize_ (self & pageSize)
-    fun setStepIncrement self stepIncrement = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setStepIncrement_ (self & stepIncrement)
-    fun setUpper self upper = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setUpper_ (self & upper)
-    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
-    fun valueChanged self = (GObjectObjectClass.C.withPtr ---> I) valueChanged_ self
+    fun getLower self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getLower_ self
+    fun getMinimumIncrement self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getMinimumIncrement_ self
+    fun getPageIncrement self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getPageIncrement_ self
+    fun getPageSize self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getPageSize_ self
+    fun getStepIncrement self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getStepIncrement_ self
+    fun getUpper self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getUpper_ self
+    fun getValue self = (GtkAdjustmentClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
+    fun setLower self lower = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setLower_ (self & lower)
+    fun setPageIncrement self pageIncrement = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPageIncrement_ (self & pageIncrement)
+    fun setPageSize self pageSize = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setPageSize_ (self & pageSize)
+    fun setStepIncrement self stepIncrement = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setStepIncrement_ (self & stepIncrement)
+    fun setUpper self upper = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setUpper_ (self & upper)
+    fun setValue self value = (GtkAdjustmentClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
+    fun valueChanged self = (GtkAdjustmentClass.C.withPtr ---> I) valueChanged_ self
     local
       open ClosureMarshal Signal
     in

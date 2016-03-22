@@ -4,19 +4,19 @@ structure GtkSourceStyleScheme :>
     where type 'a style_class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_get_type" : unit -> GObjectType.C.val_;
-    val getDescription_ = _import "gtk_source_style_scheme_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getFilename_ = _import "gtk_source_style_scheme_get_filename" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getId_ = _import "gtk_source_style_scheme_get_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getName_ = _import "gtk_source_style_scheme_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDescription_ = _import "gtk_source_style_scheme_get_description" : GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getFilename_ = _import "gtk_source_style_scheme_get_filename" : GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getId_ = _import "gtk_source_style_scheme_get_id" : GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getName_ = _import "gtk_source_style_scheme_get_name" : GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getStyle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_get_style" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceStyleClass.C.notnull GtkSourceStyleClass.C.p;
           )
             (
               x1,
@@ -27,11 +27,11 @@ structure GtkSourceStyleScheme :>
     type 'a style_class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
-    fun getFilename self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
-    fun getId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getStyle self styleId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
+    fun getDescription self = (GtkSourceStyleSchemeClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
+    fun getFilename self = (GtkSourceStyleSchemeClass.C.withPtr ---> Utf8.C.fromPtr false) getFilename_ self
+    fun getId self = (GtkSourceStyleSchemeClass.C.withPtr ---> Utf8.C.fromPtr false) getId_ self
+    fun getName self = (GtkSourceStyleSchemeClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getStyle self styleId = (GtkSourceStyleSchemeClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSourceStyleClass.C.fromPtr false) getStyle_ (self & styleId)
     local
       open Property
     in

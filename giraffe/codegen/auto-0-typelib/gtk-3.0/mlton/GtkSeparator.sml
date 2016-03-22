@@ -6,7 +6,7 @@ structure GtkSeparator :>
     where type orientation_t = GtkOrientation.t =
   struct
     val getType_ = _import "gtk_separator_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_separator_new" : GtkOrientation.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_separator_new" : GtkOrientation.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkSeparatorClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

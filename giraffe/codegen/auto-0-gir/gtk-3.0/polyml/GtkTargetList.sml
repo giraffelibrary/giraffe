@@ -30,7 +30,7 @@ structure GtkTargetList :>
             GtkTargetListRecord.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTextBufferClass.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
       val addTextTargets_ = call (load_sym libgtk "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
@@ -73,7 +73,7 @@ structure GtkTargetList :>
         GtkTargetListRecord.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GtkTextBufferClass.C.withPtr
          ---> I
       )
         addRichTextTargets_

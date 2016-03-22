@@ -7,8 +7,8 @@ structure GtkRecentChooserWidget :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class =
   struct
     val getType_ = _import "gtk_recent_chooser_widget_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_recent_chooser_widget_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newForManager_ = _import "gtk_recent_chooser_widget_new_for_manager" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_recent_chooser_widget_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newForManager_ = _import "gtk_recent_chooser_widget_new_for_manager" : GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkRecentChooserWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -21,5 +21,5 @@ structure GtkRecentChooserWidget :>
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserWidgetClass.C.fromPtr false) new_ ()
-    fun newForManager manager = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserWidgetClass.C.fromPtr false) newForManager_ manager
+    fun newForManager manager = (GtkRecentManagerClass.C.withPtr ---> GtkRecentChooserWidgetClass.C.fromPtr false) newForManager_ manager
   end

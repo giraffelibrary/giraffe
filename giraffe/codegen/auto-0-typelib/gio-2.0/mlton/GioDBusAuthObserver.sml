@@ -5,7 +5,7 @@ structure GioDBusAuthObserver :>
     where type 'a i_o_stream_class = 'a GioIOStreamClass.class =
   struct
     val getType_ = _import "g_dbus_auth_observer_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_dbus_auth_observer_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "g_dbus_auth_observer_new" : unit -> GioDBusAuthObserverClass.C.notnull GioDBusAuthObserverClass.C.p;
     val authorizeAuthenticatedPeer_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure GioDBusAuthObserver :>
          & x3 =>
           (
             _import "g_dbus_auth_observer_authorize_authenticated_peer" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDBusAuthObserverClass.C.notnull GioDBusAuthObserverClass.C.p
+               * GioIOStreamClass.C.notnull GioIOStreamClass.C.p
+               * GioCredentialsClass.C.notnull GioCredentialsClass.C.p
                -> FFI.Bool.C.val_;
           )
             (
@@ -31,9 +31,9 @@ structure GioDBusAuthObserver :>
     fun new () = (I ---> GioDBusAuthObserverClass.C.fromPtr true) new_ ()
     fun authorizeAuthenticatedPeer self stream credentials =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusAuthObserverClass.C.withPtr
+         &&&> GioIOStreamClass.C.withPtr
+         &&&> GioCredentialsClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         authorizeAuthenticatedPeer_

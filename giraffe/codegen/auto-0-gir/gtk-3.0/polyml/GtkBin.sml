@@ -8,7 +8,7 @@ structure GtkBin :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_bin_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getChild_ = call (load_sym libgtk "gtk_bin_get_child") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getChild_ = call (load_sym libgtk "gtk_bin_get_child") (GtkBinClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkBinClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -17,5 +17,5 @@ structure GtkBin :>
     fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getChild self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getChild_ self
+    fun getChild self = (GtkBinClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getChild_ self
   end

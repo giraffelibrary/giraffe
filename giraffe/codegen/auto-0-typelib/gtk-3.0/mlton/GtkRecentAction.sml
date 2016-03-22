@@ -22,7 +22,7 @@ structure GtkRecentAction :>
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkActionClass.C.notnull GtkActionClass.C.p;
           )
             (
               x1,
@@ -51,8 +51,8 @@ structure GtkRecentAction :>
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               * unit GtkRecentManagerClass.C.p
+               -> GtkActionClass.C.notnull GtkActionClass.C.p;
           )
             (
               x1,
@@ -65,8 +65,8 @@ structure GtkRecentAction :>
               x8,
               x9
             )
-    val getShowNumbers_ = _import "gtk_recent_action_get_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_action_set_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val getShowNumbers_ = _import "gtk_recent_action_get_show_numbers" : GtkRecentActionClass.C.notnull GtkRecentActionClass.C.p -> FFI.Bool.C.val_;
+    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_action_set_show_numbers" : GtkRecentActionClass.C.notnull GtkRecentActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRecentActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
@@ -96,7 +96,7 @@ structure GtkRecentAction :>
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GtkRecentManagerClass.C.withOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )
         newForManager_
@@ -107,8 +107,8 @@ structure GtkRecentAction :>
            & stockId
            & manager
         )
-    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun getShowNumbers self = (GtkRecentActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

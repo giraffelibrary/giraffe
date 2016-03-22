@@ -8,9 +8,9 @@ structure GioDataInputStream :>
     where type data_stream_newline_type_t = GioDataStreamNewlineType.t =
   struct
     val getType_ = _import "g_data_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_data_input_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getByteOrder_ = _import "g_data_input_stream_get_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDataStreamByteOrder.C.val_;
-    val getNewlineType_ = _import "g_data_input_stream_get_newline_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDataStreamNewlineType.C.val_;
+    val new_ = _import "g_data_input_stream_new" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p -> GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p;
+    val getByteOrder_ = _import "g_data_input_stream_get_byte_order" : GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p -> GioDataStreamByteOrder.C.val_;
+    val getNewlineType_ = _import "g_data_input_stream_get_newline_type" : GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p -> GioDataStreamNewlineType.C.val_;
     val readByte_ =
       fn
         x1
@@ -18,8 +18,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_byte" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt8.C.val_;
           )
@@ -35,8 +35,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_int16" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int16.C.val_;
           )
@@ -52,8 +52,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_int32" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int32.C.val_;
           )
@@ -69,8 +69,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_int64" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.C.val_;
           )
@@ -87,8 +87,8 @@ structure GioDataInputStream :>
          & x4 =>
           (
             _import "g_data_input_stream_read_line_finish_utf8" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -107,9 +107,9 @@ structure GioDataInputStream :>
          & x4 =>
           (
             _import "g_data_input_stream_read_line_utf8" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
                * FFI.UInt64.C.ref_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -126,8 +126,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_uint16" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt16.C.val_;
           )
@@ -143,8 +143,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_uint32" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt32.C.val_;
           )
@@ -160,8 +160,8 @@ structure GioDataInputStream :>
          & x3 =>
           (
             _import "g_data_input_stream_read_uint64" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt64.C.val_;
           )
@@ -179,11 +179,11 @@ structure GioDataInputStream :>
          & x6 =>
           (
             _import "mlton_g_data_input_stream_read_until" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.UInt64.C.ref_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -203,8 +203,8 @@ structure GioDataInputStream :>
          & x4 =>
           (
             _import "g_data_input_stream_read_until_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -225,12 +225,12 @@ structure GioDataInputStream :>
          & x7 =>
           (
             _import "mlton_g_data_input_stream_read_upto" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int64.C.val_
                * FFI.UInt64.C.ref_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -251,8 +251,8 @@ structure GioDataInputStream :>
          & x4 =>
           (
             _import "g_data_input_stream_read_upto_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * FFI.UInt64.C.ref_
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -263,8 +263,8 @@ structure GioDataInputStream :>
               x3,
               x4
             )
-    val setByteOrder_ = fn x1 & x2 => (_import "g_data_input_stream_set_byte_order" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamByteOrder.C.val_ -> unit;) (x1, x2)
-    val setNewlineType_ = fn x1 & x2 => (_import "g_data_input_stream_set_newline_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioDataStreamNewlineType.C.val_ -> unit;) (x1, x2)
+    val setByteOrder_ = fn x1 & x2 => (_import "g_data_input_stream_set_byte_order" : GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p * GioDataStreamByteOrder.C.val_ -> unit;) (x1, x2)
+    val setNewlineType_ = fn x1 & x2 => (_import "g_data_input_stream_set_newline_type" : GioDataInputStreamClass.C.notnull GioDataInputStreamClass.C.p * GioDataStreamNewlineType.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioDataInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -273,13 +273,13 @@ structure GioDataInputStream :>
     type data_stream_newline_type_t = GioDataStreamNewlineType.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
-    fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
-    fun getNewlineType self = (GObjectObjectClass.C.withPtr ---> GioDataStreamNewlineType.C.fromVal) getNewlineType_ self
+    fun new baseStream = (GioInputStreamClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
+    fun getByteOrder self = (GioDataInputStreamClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
+    fun getNewlineType self = (GioDataInputStreamClass.C.withPtr ---> GioDataStreamNewlineType.C.fromVal) getNewlineType_ self
     fun readByte self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt8.C.fromVal
       )
@@ -291,8 +291,8 @@ structure GioDataInputStream :>
         )
     fun readInt16 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int16.C.fromVal
       )
@@ -304,8 +304,8 @@ structure GioDataInputStream :>
         )
     fun readInt32 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
@@ -317,8 +317,8 @@ structure GioDataInputStream :>
         )
     fun readInt64 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -332,8 +332,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
@@ -352,9 +352,9 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
@@ -370,8 +370,8 @@ structure GioDataInputStream :>
       end
     fun readUint16 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
       )
@@ -383,8 +383,8 @@ structure GioDataInputStream :>
         )
     fun readUint32 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -396,8 +396,8 @@ structure GioDataInputStream :>
         )
     fun readUint64 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt64.C.fromVal
       )
@@ -411,10 +411,10 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
@@ -433,8 +433,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
@@ -453,11 +453,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> FFI.Int64.C.withVal
              &&&> FFI.UInt64.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
           )
@@ -477,8 +477,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.UInt64.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt64.C.fromVal && Utf8.C.fromPtr true
@@ -493,8 +493,8 @@ structure GioDataInputStream :>
       in
         (retVal, length)
       end
-    fun setByteOrder self order = (GObjectObjectClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
-    fun setNewlineType self type' = (GObjectObjectClass.C.withPtr &&&> GioDataStreamNewlineType.C.withVal ---> I) setNewlineType_ (self & type')
+    fun setByteOrder self order = (GioDataInputStreamClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
+    fun setNewlineType self type' = (GioDataInputStreamClass.C.withPtr &&&> GioDataStreamNewlineType.C.withVal ---> I) setNewlineType_ (self & type')
     local
       open Property
     in

@@ -12,7 +12,7 @@ structure GioSimpleAction :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantTypeRecord.C.p
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSimpleActionClass.C.notnull GioSimpleActionClass.C.p;
           )
             (
               x1,
@@ -30,7 +30,7 @@ structure GioSimpleAction :>
                * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantTypeRecord.C.p
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSimpleActionClass.C.notnull GioSimpleActionClass.C.p;
           )
             (
               x1,
@@ -38,8 +38,8 @@ structure GioSimpleAction :>
               x3,
               x4
             )
-    val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibVariantRecord.C.notnull GLibVariantRecord.C.p -> unit;) (x1, x2)
+    val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GioSimpleActionClass.C.notnull GioSimpleActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GioSimpleActionClass.C.notnull GioSimpleActionClass.C.p * GLibVariantRecord.C.notnull GLibVariantRecord.C.p -> unit;) (x1, x2)
     type 'a class = 'a GioSimpleActionClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
@@ -59,8 +59,8 @@ structure GioSimpleAction :>
            & parameterType
            & state
         )
-    fun setEnabled self enabled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnabled_ (self & enabled)
-    fun setState self value = (GObjectObjectClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setState_ (self & value)
+    fun setEnabled self enabled = (GioSimpleActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEnabled_ (self & enabled)
+    fun setState self value = (GioSimpleActionClass.C.withPtr &&&> GLibVariantRecord.C.withPtr ---> I) setState_ (self & value)
     local
       open ClosureMarshal Signal
     in

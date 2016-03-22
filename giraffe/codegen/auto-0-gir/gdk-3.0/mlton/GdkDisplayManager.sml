@@ -4,32 +4,32 @@ structure GdkDisplayManager :>
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_display_manager_get_type" : unit -> GObjectType.C.val_;
-    val get_ = _import "gdk_display_manager_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val get_ = _import "gdk_display_manager_get" : unit -> GdkDisplayManagerClass.C.notnull GdkDisplayManagerClass.C.p;
+    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GdkDisplayManagerClass.C.notnull GdkDisplayManagerClass.C.p -> GdkDisplayClass.C.notnull GdkDisplayClass.C.p;
     val openDisplay_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_display_manager_open_display" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDisplayManagerClass.C.notnull GdkDisplayManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkDisplayClass.C.notnull GdkDisplayClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setDefaultDisplay_ = fn x1 & x2 => (_import "gdk_display_manager_set_default_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val setDefaultDisplay_ = fn x1 & x2 => (_import "gdk_display_manager_set_default_display" : GdkDisplayManagerClass.C.notnull GdkDisplayManagerClass.C.p * GdkDisplayClass.C.notnull GdkDisplayClass.C.p -> unit;) (x1, x2)
     type 'a class = 'a GdkDisplayManagerClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.C.fromPtr false) get_ ()
-    fun getDefaultDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDefaultDisplay_ self
-    fun openDisplay self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
-    fun setDefaultDisplay self display = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setDefaultDisplay_ (self & display)
+    fun getDefaultDisplay self = (GdkDisplayManagerClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDefaultDisplay_ self
+    fun openDisplay self name = (GdkDisplayManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkDisplayClass.C.fromPtr false) openDisplay_ (self & name)
+    fun setDefaultDisplay self display = (GdkDisplayManagerClass.C.withPtr &&&> GdkDisplayClass.C.withPtr ---> I) setDefaultDisplay_ (self & display)
     local
       open ClosureMarshal Signal
     in

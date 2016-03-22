@@ -8,8 +8,8 @@ structure GtkSourceBuffer :>
     where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
     val getType_ = _import "gtk_source_buffer_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_source_buffer_new" : unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithLanguage_ = _import "gtk_source_buffer_new_with_language" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_source_buffer_new" : unit GtkTextTagTableClass.C.p -> GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p;
+    val newWithLanguage_ = _import "gtk_source_buffer_new_with_language" : GtkSourceLanguageClass.C.notnull GtkSourceLanguageClass.C.p -> GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p;
     val backwardIterToSourceMark_ =
       fn
         x1
@@ -17,7 +17,7 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_backward_iter_to_source_mark" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
@@ -29,9 +29,9 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val beginNotUndoableAction_ = _import "gtk_source_buffer_begin_not_undoable_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val canRedo_ = _import "gtk_source_buffer_can_redo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val canUndo_ = _import "gtk_source_buffer_can_undo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val beginNotUndoableAction_ = _import "gtk_source_buffer_begin_not_undoable_action" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> unit;
+    val canRedo_ = _import "gtk_source_buffer_can_redo" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> FFI.Bool.C.val_;
+    val canUndo_ = _import "gtk_source_buffer_can_undo" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> FFI.Bool.C.val_;
     val createSourceMark_ =
       fn
         x1
@@ -40,13 +40,13 @@ structure GtkSourceBuffer :>
          & x6 =>
           (
             _import "mlton_gtk_source_buffer_create_source_mark" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceMarkClass.C.notnull GtkSourceMarkClass.C.p;
           )
             (
               x1,
@@ -56,7 +56,7 @@ structure GtkSourceBuffer :>
               x5,
               x6
             )
-    val endNotUndoableAction_ = _import "gtk_source_buffer_end_not_undoable_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val endNotUndoableAction_ = _import "gtk_source_buffer_end_not_undoable_action" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> unit;
     val ensureHighlight_ =
       fn
         x1
@@ -64,7 +64,7 @@ structure GtkSourceBuffer :>
          & x3 =>
           (
             _import "gtk_source_buffer_ensure_highlight" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                -> unit;
@@ -81,7 +81,7 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_forward_iter_to_source_mark" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
@@ -93,12 +93,12 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getLanguage_ = _import "gtk_source_buffer_get_language" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getMaxUndoLevels_ = _import "gtk_source_buffer_get_max_undo_levels" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
-    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> FFI.Bool.C.val_;
+    val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> FFI.Bool.C.val_;
+    val getLanguage_ = _import "gtk_source_buffer_get_language" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> GtkSourceLanguageClass.C.notnull GtkSourceLanguageClass.C.p;
+    val getMaxUndoLevels_ = _import "gtk_source_buffer_get_max_undo_levels" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> FFI.Int32.C.val_;
+    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> GtkSourceStyleSchemeClass.C.notnull GtkSourceStyleSchemeClass.C.p;
+    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> GtkSourceUndoManagerClass.C.notnull GtkSourceUndoManagerClass.C.p;
     val iterBackwardToContextClassToggle_ =
       fn
         x1
@@ -106,7 +106,7 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_backward_to_context_class_toggle" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -125,7 +125,7 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_forward_to_context_class_toggle" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -144,7 +144,7 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_has_context_class" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -156,7 +156,7 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val redo_ = _import "gtk_source_buffer_redo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val redo_ = _import "gtk_source_buffer_redo" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> unit;
     val removeSourceMarks_ =
       fn
         x1
@@ -165,7 +165,7 @@ structure GtkSourceBuffer :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_source_buffer_remove_source_marks" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
                * Utf8.MLton.p1
@@ -179,13 +179,13 @@ structure GtkSourceBuffer :>
               x4,
               x5
             )
-    val setHighlightMatchingBrackets_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_matching_brackets" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_syntax" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setLanguage_ = fn x1 & x2 => (_import "gtk_source_buffer_set_language" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setMaxUndoLevels_ = fn x1 & x2 => (_import "gtk_source_buffer_set_max_undo_levels" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_buffer_set_style_scheme" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setUndoManager_ = fn x1 & x2 => (_import "gtk_source_buffer_set_undo_manager" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val undo_ = _import "gtk_source_buffer_undo" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val setHighlightMatchingBrackets_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_matching_brackets" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_syntax" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setLanguage_ = fn x1 & x2 => (_import "gtk_source_buffer_set_language" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * unit GtkSourceLanguageClass.C.p -> unit;) (x1, x2)
+    val setMaxUndoLevels_ = fn x1 & x2 => (_import "gtk_source_buffer_set_max_undo_levels" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_buffer_set_style_scheme" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * unit GtkSourceStyleSchemeClass.C.p -> unit;) (x1, x2)
+    val setUndoManager_ = fn x1 & x2 => (_import "gtk_source_buffer_set_undo_manager" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p * unit GtkSourceUndoManagerClass.C.p -> unit;) (x1, x2)
+    val undo_ = _import "gtk_source_buffer_undo" : GtkSourceBufferClass.C.notnull GtkSourceBufferClass.C.p -> unit;
     type 'a class = 'a GtkSourceBufferClass.class
     type 'a mark_class = 'a GtkSourceMarkClass.class
     type bracket_match_type_t = GtkSourceBracketMatchType.t
@@ -194,11 +194,11 @@ structure GtkSourceBuffer :>
     type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new table = (GObjectObjectClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table
-    fun newWithLanguage language = (GObjectObjectClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr true) newWithLanguage_ language
+    fun new table = (GtkTextTagTableClass.C.withOptPtr ---> GtkSourceBufferClass.C.fromPtr true) new_ table
+    fun newWithLanguage language = (GtkSourceLanguageClass.C.withPtr ---> GtkSourceBufferClass.C.fromPtr true) newWithLanguage_ language
     fun backwardIterToSourceMark self iter category =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
@@ -209,12 +209,12 @@ structure GtkSourceBuffer :>
            & iter
            & category
         )
-    fun beginNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) beginNotUndoableAction_ self
-    fun canRedo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canRedo_ self
-    fun canUndo self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) canUndo_ self
+    fun beginNotUndoableAction self = (GtkSourceBufferClass.C.withPtr ---> I) beginNotUndoableAction_ self
+    fun canRedo self = (GtkSourceBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) canRedo_ self
+    fun canUndo self = (GtkSourceBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) canUndo_ self
     fun createSourceMark self name category where' =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
@@ -227,10 +227,10 @@ structure GtkSourceBuffer :>
            & category
            & where'
         )
-    fun endNotUndoableAction self = (GObjectObjectClass.C.withPtr ---> I) endNotUndoableAction_ self
+    fun endNotUndoableAction self = (GtkSourceBufferClass.C.withPtr ---> I) endNotUndoableAction_ self
     fun ensureHighlight self start end' =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          ---> I
@@ -243,7 +243,7 @@ structure GtkSourceBuffer :>
         )
     fun forwardIterToSourceMark self iter category =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
@@ -254,15 +254,15 @@ structure GtkSourceBuffer :>
            & iter
            & category
         )
-    fun getHighlightMatchingBrackets self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightMatchingBrackets_ self
-    fun getHighlightSyntax self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightSyntax_ self
-    fun getLanguage self = (GObjectObjectClass.C.withPtr ---> GtkSourceLanguageClass.C.fromPtr false) getLanguage_ self
-    fun getMaxUndoLevels self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxUndoLevels_ self
-    fun getStyleScheme self = (GObjectObjectClass.C.withPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getStyleScheme_ self
-    fun getUndoManager self = (GObjectObjectClass.C.withPtr ---> GtkSourceUndoManagerClass.C.fromPtr false) getUndoManager_ self
+    fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightMatchingBrackets_ self
+    fun getHighlightSyntax self = (GtkSourceBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) getHighlightSyntax_ self
+    fun getLanguage self = (GtkSourceBufferClass.C.withPtr ---> GtkSourceLanguageClass.C.fromPtr false) getLanguage_ self
+    fun getMaxUndoLevels self = (GtkSourceBufferClass.C.withPtr ---> FFI.Int32.C.fromVal) getMaxUndoLevels_ self
+    fun getStyleScheme self = (GtkSourceBufferClass.C.withPtr ---> GtkSourceStyleSchemeClass.C.fromPtr false) getStyleScheme_ self
+    fun getUndoManager self = (GtkSourceBufferClass.C.withPtr ---> GtkSourceUndoManagerClass.C.fromPtr false) getUndoManager_ self
     fun iterBackwardToContextClassToggle self iter contextClass =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -275,7 +275,7 @@ structure GtkSourceBuffer :>
         )
     fun iterForwardToContextClassToggle self iter contextClass =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -288,7 +288,7 @@ structure GtkSourceBuffer :>
         )
     fun iterHasContextClass self iter contextClass =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -299,10 +299,10 @@ structure GtkSourceBuffer :>
            & iter
            & contextClass
         )
-    fun redo self = (GObjectObjectClass.C.withPtr ---> I) redo_ self
+    fun redo self = (GtkSourceBufferClass.C.withPtr ---> I) redo_ self
     fun removeSourceMarks self start end' category =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceBufferClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> Utf8.C.withOptPtr
@@ -315,13 +315,13 @@ structure GtkSourceBuffer :>
            & end'
            & category
         )
-    fun setHighlightMatchingBrackets self highlight = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightMatchingBrackets_ (self & highlight)
-    fun setHighlightSyntax self highlight = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightSyntax_ (self & highlight)
-    fun setLanguage self language = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setLanguage_ (self & language)
-    fun setMaxUndoLevels self maxUndoLevels = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxUndoLevels_ (self & maxUndoLevels)
-    fun setStyleScheme self scheme = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setStyleScheme_ (self & scheme)
-    fun setUndoManager self manager = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUndoManager_ (self & manager)
-    fun undo self = (GObjectObjectClass.C.withPtr ---> I) undo_ self
+    fun setHighlightMatchingBrackets self highlight = (GtkSourceBufferClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightMatchingBrackets_ (self & highlight)
+    fun setHighlightSyntax self highlight = (GtkSourceBufferClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHighlightSyntax_ (self & highlight)
+    fun setLanguage self language = (GtkSourceBufferClass.C.withPtr &&&> GtkSourceLanguageClass.C.withOptPtr ---> I) setLanguage_ (self & language)
+    fun setMaxUndoLevels self maxUndoLevels = (GtkSourceBufferClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMaxUndoLevels_ (self & maxUndoLevels)
+    fun setStyleScheme self scheme = (GtkSourceBufferClass.C.withPtr &&&> GtkSourceStyleSchemeClass.C.withOptPtr ---> I) setStyleScheme_ (self & scheme)
+    fun setUndoManager self manager = (GtkSourceBufferClass.C.withPtr &&&> GtkSourceUndoManagerClass.C.withOptPtr ---> I) setUndoManager_ (self & manager)
+    fun undo self = (GtkSourceBufferClass.C.withPtr ---> I) undo_ self
     local
       open ClosureMarshal Signal
     in

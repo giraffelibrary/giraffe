@@ -13,10 +13,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p;
           )
             (
               x1,
@@ -48,8 +48,8 @@ structure GioSocketAddressEnumerator :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun next self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioSocketAddressEnumeratorClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )
@@ -61,8 +61,8 @@ structure GioSocketAddressEnumerator :>
         )
     fun nextFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketAddressEnumeratorClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )

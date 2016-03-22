@@ -6,7 +6,7 @@ structure GtkVolumeButton :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_volume_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_volume_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_volume_button_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkVolumeButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

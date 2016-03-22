@@ -7,7 +7,7 @@ structure GtkFileChooserWidget :>
     where type file_chooser_action_t = GtkFileChooserAction.t =
   struct
     val getType_ = _import "gtk_file_chooser_widget_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_file_chooser_widget_new" : GtkFileChooserAction.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_file_chooser_widget_new" : GtkFileChooserAction.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkFileChooserWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a file_chooser_class = 'a GtkFileChooserClass.class

@@ -8,16 +8,16 @@ structure GdkDeviceManager :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgdk "gdk_device_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getClientPointer_ = call (load_sym libgdk "gdk_device_manager_get_client_pointer") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getDisplay_ = call (load_sym libgdk "gdk_device_manager_get_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getClientPointer_ = call (load_sym libgdk "gdk_device_manager_get_client_pointer") (GdkDeviceManagerClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
+      val getDisplay_ = call (load_sym libgdk "gdk_device_manager_get_display") (GdkDeviceManagerClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
     end
     type 'a class = 'a GdkDeviceManagerClass.class
     type 'a device_class = 'a GdkDeviceClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getClientPointer self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
-    fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
+    fun getClientPointer self = (GdkDeviceManagerClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
+    fun getDisplay self = (GdkDeviceManagerClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
     local
       open ClosureMarshal Signal
     in

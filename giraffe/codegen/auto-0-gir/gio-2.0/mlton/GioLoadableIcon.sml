@@ -15,13 +15,13 @@ structure GioLoadableIcon :>
          & x6 =>
           (
             _import "mlton_g_loadable_icon_load" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioLoadableIconClass.C.notnull GioLoadableIconClass.C.p
                * FFI.Int.C.val_
                * Utf8.MLton.r1
                * (unit, Utf8.C.notnull) Utf8.MLton.r2
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;
           )
             (
               x1,
@@ -39,12 +39,12 @@ structure GioLoadableIcon :>
          & x5 =>
           (
             _import "mlton_g_loadable_icon_load_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioLoadableIconClass.C.notnull GioLoadableIconClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;
           )
             (
               x1,
@@ -63,10 +63,10 @@ structure GioLoadableIcon :>
       let
         val type' & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioLoadableIconClass.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> Utf8.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
           )
@@ -83,8 +83,8 @@ structure GioLoadableIcon :>
       end
     fun loadFinish self res type' =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioLoadableIconClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioInputStreamClass.C.fromPtr true

@@ -6,20 +6,20 @@ structure GioActionGroup :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_action_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val actionAdded_ = call (load_sym libgio "g_action_group_action_added") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val actionAdded_ = call (load_sym libgio "g_action_group_action_added") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val actionEnabledChanged_ =
         call (load_sym libgio "g_action_group_action_enabled_changed")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioActionGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val actionRemoved_ = call (load_sym libgio "g_action_group_action_removed") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val actionRemoved_ = call (load_sym libgio "g_action_group_action_removed") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val actionStateChanged_ =
         call (load_sym libgio "g_action_group_action_state_changed")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioActionGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
@@ -27,7 +27,7 @@ structure GioActionGroup :>
       val activateAction_ =
         call (load_sym libgio "g_action_group_activate_action")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioActionGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cOptPtr
              --> FFI.PolyML.cVoid
@@ -35,25 +35,25 @@ structure GioActionGroup :>
       val changeActionState_ =
         call (load_sym libgio "g_action_group_change_action_state")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioActionGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
-      val getActionEnabled_ = call (load_sym libgio "g_action_group_get_action_enabled") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
-      val getActionParameterType_ = call (load_sym libgio "g_action_group_get_action_parameter_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val getActionState_ = call (load_sym libgio "g_action_group_get_action_state") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getActionStateHint_ = call (load_sym libgio "g_action_group_get_action_state_hint") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getActionStateType_ = call (load_sym libgio "g_action_group_get_action_state_type") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val getActionEnabled_ = call (load_sym libgio "g_action_group_get_action_enabled") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val getActionParameterType_ = call (load_sym libgio "g_action_group_get_action_parameter_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val getActionState_ = call (load_sym libgio "g_action_group_get_action_state") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getActionStateHint_ = call (load_sym libgio "g_action_group_get_action_state_hint") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getActionStateType_ = call (load_sym libgio "g_action_group_get_action_state_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val hasAction_ = call (load_sym libgio "g_action_group_has_action") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioActionGroupClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
+    fun actionAdded self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -64,10 +64,10 @@ structure GioActionGroup :>
            & actionName
            & enabled
         )
-    fun actionRemoved self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionRemoved_ (self & actionName)
+    fun actionRemoved self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionRemoved_ (self & actionName)
     fun actionStateChanged self actionName state =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
@@ -80,7 +80,7 @@ structure GioActionGroup :>
         )
     fun activateAction self actionName parameter =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
@@ -93,7 +93,7 @@ structure GioActionGroup :>
         )
     fun changeActionState self actionName value =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
@@ -104,12 +104,12 @@ structure GioActionGroup :>
            & actionName
            & value
         )
-    fun getActionEnabled self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
-    fun hasAction self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasAction_ (self & actionName)
+    fun getActionEnabled self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getActionEnabled_ (self & actionName)
+    fun getActionParameterType self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
+    fun hasAction self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasAction_ (self & actionName)
     local
       open ClosureMarshal Signal
     in

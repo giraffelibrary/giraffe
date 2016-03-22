@@ -9,11 +9,11 @@ structure GtkArrow :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_arrow_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_arrow_new") (GtkArrowType.PolyML.cVal &&> GtkShadowType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_arrow_new") (GtkArrowType.PolyML.cVal &&> GtkShadowType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val set_ =
         call (load_sym libgtk "gtk_arrow_set")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkArrowClass.PolyML.cPtr
              &&> GtkArrowType.PolyML.cVal
              &&> GtkShadowType.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -30,7 +30,7 @@ structure GtkArrow :>
     fun new arrowType shadowType = (GtkArrowType.C.withVal &&&> GtkShadowType.C.withVal ---> GtkArrowClass.C.fromPtr false) new_ (arrowType & shadowType)
     fun set self arrowType shadowType =
       (
-        GObjectObjectClass.C.withPtr
+        GtkArrowClass.C.withPtr
          &&&> GtkArrowType.C.withVal
          &&&> GtkShadowType.C.withVal
          ---> I

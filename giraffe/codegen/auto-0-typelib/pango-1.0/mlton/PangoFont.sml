@@ -8,9 +8,9 @@ structure PangoFont :>
     where type language_t = PangoLanguageRecord.t =
   struct
     val getType_ = _import "pango_font_get_type" : unit -> GObjectType.C.val_;
-    val describe_ = _import "pango_font_describe" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    val describeWithAbsoluteSize_ = _import "pango_font_describe_with_absolute_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    val getFontMap_ = _import "pango_font_get_font_map" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val describe_ = _import "pango_font_describe" : PangoFontClass.C.notnull PangoFontClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
+    val describeWithAbsoluteSize_ = _import "pango_font_describe_with_absolute_size" : PangoFontClass.C.notnull PangoFontClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
+    val getFontMap_ = _import "pango_font_get_font_map" : PangoFontClass.C.notnull PangoFontClass.C.p -> PangoFontMapClass.C.notnull PangoFontMapClass.C.p;
     val getGlyphExtents_ =
       fn
         x1
@@ -19,7 +19,7 @@ structure PangoFont :>
          & x4 =>
           (
             _import "pango_font_get_glyph_extents" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              PangoFontClass.C.notnull PangoFontClass.C.p
                * FFI.UInt32.C.val_
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
@@ -31,7 +31,7 @@ structure PangoFont :>
               x3,
               x4
             )
-    val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoLanguageRecord.C.p -> PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p;) (x1, x2)
+    val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : PangoFontClass.C.notnull PangoFontClass.C.p * unit PangoLanguageRecord.C.p -> PangoFontMetricsRecord.C.notnull PangoFontMetricsRecord.C.p;) (x1, x2)
     type 'a class = 'a PangoFontClass.class
     type font_description_t = PangoFontDescriptionRecord.t
     type 'a font_map_class = 'a PangoFontMapClass.class
@@ -40,16 +40,16 @@ structure PangoFont :>
     type language_t = PangoLanguageRecord.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun describe self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
-    fun describeWithAbsoluteSize self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describeWithAbsoluteSize_ self
-    fun getFontMap self = (GObjectObjectClass.C.withPtr ---> PangoFontMapClass.C.fromPtr false) getFontMap_ self
+    fun describe self = (PangoFontClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
+    fun describeWithAbsoluteSize self = (PangoFontClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describeWithAbsoluteSize_ self
+    fun getFontMap self = (PangoFontClass.C.withPtr ---> PangoFontMapClass.C.fromPtr false) getFontMap_ self
     fun getGlyphExtents self glyph =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            PangoFontClass.C.withPtr
              &&&> FFI.UInt32.C.withVal
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
@@ -67,5 +67,5 @@ structure PangoFont :>
       in
         (inkRect, logicalRect)
       end
-    fun getMetrics self language = (GObjectObjectClass.C.withPtr &&&> PangoLanguageRecord.C.withOptPtr ---> PangoFontMetricsRecord.C.fromPtr true) getMetrics_ (self & language)
+    fun getMetrics self language = (PangoFontClass.C.withPtr &&&> PangoLanguageRecord.C.withOptPtr ---> PangoFontMetricsRecord.C.fromPtr true) getMetrics_ (self & language)
   end

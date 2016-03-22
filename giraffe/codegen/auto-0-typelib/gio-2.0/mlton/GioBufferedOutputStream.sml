@@ -4,22 +4,22 @@ structure GioBufferedOutputStream :>
     where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     val getType_ = _import "g_buffered_output_stream_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_buffered_output_stream_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newSized_ = fn x1 & x2 => (_import "g_buffered_output_stream_new_sized" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getAutoGrow_ = _import "g_buffered_output_stream_get_auto_grow" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getBufferSize_ = _import "g_buffered_output_stream_get_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt64.C.val_;
-    val setAutoGrow_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_auto_grow" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_buffer_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
+    val new_ = _import "g_buffered_output_stream_new" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p -> GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p;
+    val newSized_ = fn x1 & x2 => (_import "g_buffered_output_stream_new_sized" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p * FFI.UInt64.C.val_ -> GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p;) (x1, x2)
+    val getAutoGrow_ = _import "g_buffered_output_stream_get_auto_grow" : GioBufferedOutputStreamClass.C.notnull GioBufferedOutputStreamClass.C.p -> FFI.Bool.C.val_;
+    val getBufferSize_ = _import "g_buffered_output_stream_get_buffer_size" : GioBufferedOutputStreamClass.C.notnull GioBufferedOutputStreamClass.C.p -> FFI.UInt64.C.val_;
+    val setAutoGrow_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_auto_grow" : GioBufferedOutputStreamClass.C.notnull GioBufferedOutputStreamClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_buffer_size" : GioBufferedOutputStreamClass.C.notnull GioBufferedOutputStreamClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioBufferedOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
-    fun getAutoGrow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAutoGrow_ self
-    fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
-    fun setAutoGrow self autoGrow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAutoGrow_ (self & autoGrow)
-    fun setBufferSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) setBufferSize_ (self & size)
+    fun new baseStream = (GioOutputStreamClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
+    fun newSized baseStream size = (GioOutputStreamClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
+    fun getAutoGrow self = (GioBufferedOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) getAutoGrow_ self
+    fun getBufferSize self = (GioBufferedOutputStreamClass.C.withPtr ---> FFI.UInt64.C.fromVal) getBufferSize_ self
+    fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAutoGrow_ (self & autoGrow)
+    fun setBufferSize self size = (GioBufferedOutputStreamClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

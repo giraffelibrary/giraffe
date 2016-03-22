@@ -5,7 +5,7 @@ structure GtkIconTheme :>
     where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
     val getType_ = _import "gtk_icon_theme_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_icon_theme_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_icon_theme_new" : unit -> GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p;
     val addBuiltinIcon_ =
       fn
         (x1, x2)
@@ -16,7 +16,7 @@ structure GtkIconTheme :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p
                -> unit;
           )
             (
@@ -25,14 +25,14 @@ structure GtkIconTheme :>
               x3,
               x4
             )
-    val getDefault_ = _import "gtk_icon_theme_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getForScreen_ = _import "gtk_icon_theme_get_for_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefault_ = _import "gtk_icon_theme_get_default" : unit -> GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p;
+    val getForScreen_ = _import "gtk_icon_theme_get_for_screen" : GdkScreenClass.C.notnull GdkScreenClass.C.p -> GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p;
     val appendSearchPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_append_search_path" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -42,13 +42,13 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val hasIcon_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_has_icon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -67,13 +67,13 @@ structure GtkIconTheme :>
          & x6 =>
           (
             _import "mlton_gtk_icon_theme_load_icon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -91,8 +91,8 @@ structure GtkIconTheme :>
          & x4 =>
           (
             _import "gtk_icon_theme_lookup_by_gicon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
+               * GioIconClass.C.notnull GioIconClass.C.p
                * FFI.Int32.C.val_
                * GtkIconLookupFlags.C.val_
                -> GtkIconInfoRecord.C.notnull GtkIconInfoRecord.C.p;
@@ -111,7 +111,7 @@ structure GtkIconTheme :>
          & x5 =>
           (
             _import "mlton_gtk_icon_theme_lookup_icon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -130,7 +130,7 @@ structure GtkIconTheme :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_prepend_search_path" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -140,13 +140,13 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p -> FFI.Bool.C.val_;
     val setCustomTheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_set_custom_theme" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -156,7 +156,7 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val setScreen_ = fn x1 & x2 => (_import "gtk_icon_theme_set_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_icon_theme_set_screen" : GtkIconThemeClass.C.notnull GtkIconThemeClass.C.p * GdkScreenClass.C.notnull GdkScreenClass.C.p -> unit;) (x1, x2)
     type 'a class = 'a GtkIconThemeClass.class
     type icon_info_t = GtkIconInfoRecord.t
     type icon_lookup_flags_t = GtkIconLookupFlags.t
@@ -167,7 +167,7 @@ structure GtkIconTheme :>
       (
         Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GdkPixbufPixbufClass.C.withPtr
          ---> I
       )
         addBuiltinIcon_
@@ -177,13 +177,13 @@ structure GtkIconTheme :>
            & pixbuf
         )
     fun getDefault () = (I ---> GtkIconThemeClass.C.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GObjectObjectClass.C.withPtr ---> GtkIconThemeClass.C.fromPtr false) getForScreen_ screen
-    fun appendSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendSearchPath_ (self & path)
-    fun getExampleIconName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getExampleIconName_ self
-    fun hasIcon self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasIcon_ (self & iconName)
+    fun getForScreen screen = (GdkScreenClass.C.withPtr ---> GtkIconThemeClass.C.fromPtr false) getForScreen_ screen
+    fun appendSearchPath self path = (GtkIconThemeClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendSearchPath_ (self & path)
+    fun getExampleIconName self = (GtkIconThemeClass.C.withPtr ---> Utf8.C.fromPtr true) getExampleIconName_ self
+    fun hasIcon self iconName = (GtkIconThemeClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasIcon_ (self & iconName)
     fun loadIcon self iconName size flags =
       (
-        GObjectObjectClass.C.withPtr
+        GtkIconThemeClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
@@ -200,8 +200,8 @@ structure GtkIconTheme :>
         )
     fun lookupByGicon self icon size flags =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkIconThemeClass.C.withPtr
+         &&&> GioIconClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
          ---> GtkIconInfoRecord.C.fromPtr true
@@ -215,7 +215,7 @@ structure GtkIconTheme :>
         )
     fun lookupIcon self iconName size flags =
       (
-        GObjectObjectClass.C.withPtr
+        GtkIconThemeClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GtkIconLookupFlags.C.withVal
@@ -228,10 +228,10 @@ structure GtkIconTheme :>
            & size
            & flags
         )
-    fun prependSearchPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependSearchPath_ (self & path)
-    fun rescanIfNeeded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) rescanIfNeeded_ self
-    fun setCustomTheme self themeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setCustomTheme_ (self & themeName)
-    fun setScreen self screen = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setScreen_ (self & screen)
+    fun prependSearchPath self path = (GtkIconThemeClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependSearchPath_ (self & path)
+    fun rescanIfNeeded self = (GtkIconThemeClass.C.withPtr ---> FFI.Bool.C.fromVal) rescanIfNeeded_ self
+    fun setCustomTheme self themeName = (GtkIconThemeClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setCustomTheme_ (self & themeName)
+    fun setScreen self screen = (GtkIconThemeClass.C.withPtr &&&> GdkScreenClass.C.withPtr ---> I) setScreen_ (self & screen)
     local
       open ClosureMarshal Signal
     in

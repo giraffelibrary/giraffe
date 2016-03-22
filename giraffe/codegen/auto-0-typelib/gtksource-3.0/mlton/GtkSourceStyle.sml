@@ -3,11 +3,11 @@ structure GtkSourceStyle :>
     where type 'a class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_get_type" : unit -> GObjectType.C.val_;
-    val copy_ = _import "gtk_source_style_copy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.C.notnull GtkSourceStyleClass.C.p -> GtkSourceStyleClass.C.notnull GtkSourceStyleClass.C.p;
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copy self = (GObjectObjectClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
+    fun copy self = (GtkSourceStyleClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
     local
       open Property
     in

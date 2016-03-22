@@ -77,7 +77,7 @@ structure GtkIconSize :>
          & x4 =>
           (
             _import "gtk_icon_size_lookup_for_settings" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSettingsClass.C.notnull GtkSettingsClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.ref_
                * FFI.Int32.C.ref_
@@ -155,7 +155,7 @@ structure GtkIconSize :>
          & height
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkSettingsClass.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal

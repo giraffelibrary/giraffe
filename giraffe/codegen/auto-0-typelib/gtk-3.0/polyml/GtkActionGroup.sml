@@ -9,25 +9,25 @@ structure GtkActionGroup :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_action_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_action_group_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val addAction_ = call (load_sym libgtk "gtk_action_group_add_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_action_group_new") (Utf8.PolyML.cInPtr --> GtkActionGroupClass.PolyML.cPtr)
+      val addAction_ = call (load_sym libgtk "gtk_action_group_add_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val addActionWithAccel_ =
         call (load_sym libgtk "gtk_action_group_add_action_with_accel")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkActionGroupClass.PolyML.cPtr
+             &&> GtkActionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              --> FFI.PolyML.cVoid
           )
-      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val removeAction_ = call (load_sym libgtk "gtk_action_group_remove_action") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getAction_ = call (load_sym libgtk "gtk_action_group_get_action") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkActionClass.PolyML.cPtr)
+      val getName_ = call (load_sym libgtk "gtk_action_group_get_name") (GtkActionGroupClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSensitive_ = call (load_sym libgtk "gtk_action_group_get_sensitive") (GtkActionGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getVisible_ = call (load_sym libgtk "gtk_action_group_get_visible") (GtkActionGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeAction_ = call (load_sym libgtk "gtk_action_group_remove_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setSensitive_ = call (load_sym libgtk "gtk_action_group_set_sensitive") (GtkActionGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTranslationDomain_ = call (load_sym libgtk "gtk_action_group_set_translation_domain") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_action_group_set_visible") (GtkActionGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val translateString_ = call (load_sym libgtk "gtk_action_group_translate_string") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GtkActionGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -37,11 +37,11 @@ structure GtkActionGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name
-    fun addAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addAction_ (self & action)
+    fun addAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) addAction_ (self & action)
     fun addActionWithAccel self action accelerator =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkActionGroupClass.C.withPtr
+         &&&> GtkActionClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> I
       )
@@ -51,15 +51,15 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
-    fun getAction self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun removeAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeAction_ (self & action)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
+    fun getAction self actionName = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
+    fun getName self = (GtkActionGroupClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getSensitive self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
+    fun getVisible self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun removeAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) removeAction_ (self & action)
+    fun setSensitive self sensitive = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setTranslationDomain self domain = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setVisible self visible = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun translateString self string = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
     local
       open ClosureMarshal Signal
     in

@@ -25,9 +25,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_activate" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
                * FFI.Bool.C.val_
@@ -51,9 +51,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_activate_cell" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
@@ -67,7 +67,7 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val add_ = fn x1 & x2 => (_import "gtk_cell_area_add" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val add_ = fn x1 & x2 => (_import "gtk_cell_area_add" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> unit;) (x1, x2)
     val addFocusSibling_ =
       fn
         x1
@@ -75,9 +75,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_add_focus_sibling" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                -> unit;
           )
             (
@@ -94,8 +94,8 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_apply_attributes" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkTreeModelClass.C.notnull GtkTreeModelClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * FFI.Bool.C.val_
                * FFI.Bool.C.val_
@@ -116,8 +116,8 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_attribute_connect" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
@@ -137,8 +137,8 @@ structure GtkCellArea :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_cell_area_attribute_disconnect" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -157,8 +157,8 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_cell_get_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
@@ -179,8 +179,8 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_cell_set_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
@@ -193,8 +193,8 @@ structure GtkCellArea :>
               x4,
               x5
             )
-    val copyContext_ = fn x1 & x2 => (_import "gtk_cell_area_copy_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val createContext_ = _import "gtk_cell_area_create_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val copyContext_ = fn x1 & x2 => (_import "gtk_cell_area_copy_context" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p -> GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p;) (x1, x2)
+    val createContext_ = _import "gtk_cell_area_create_context" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p;
     val event_ =
       fn
         x1
@@ -205,9 +205,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_event" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GdkEvent.C.notnull GdkEvent.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GtkCellRendererState.C.val_
@@ -221,7 +221,7 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val focus_ = fn x1 & x2 => (_import "gtk_cell_area_focus" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val focus_ = fn x1 & x2 => (_import "gtk_cell_area_focus" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkDirectionType.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val getCellAllocation_ =
       fn
         x1
@@ -232,10 +232,10 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_cell_allocation" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
@@ -259,14 +259,14 @@ structure GtkCellArea :>
          & x7 =>
           (
             _import "gtk_cell_area_get_cell_at_position" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
           )
             (
               x1,
@@ -277,11 +277,11 @@ structure GtkCellArea :>
               x6,
               x7
             )
-    val getCurrentPathString_ = _import "gtk_cell_area_get_current_path_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getEditWidget_ = _import "gtk_cell_area_get_edit_widget" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getEditedCell_ = _import "gtk_cell_area_get_edited_cell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFocusCell_ = _import "gtk_cell_area_get_focus_cell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val getCurrentPathString_ = _import "gtk_cell_area_get_current_path_string" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getEditWidget_ = _import "gtk_cell_area_get_edit_widget" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkCellEditableClass.C.notnull GtkCellEditableClass.C.p;
+    val getEditedCell_ = _import "gtk_cell_area_get_edited_cell" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
+    val getFocusCell_ = _import "gtk_cell_area_get_focus_cell" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
+    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;) (x1, x2)
     val getPreferredHeight_ =
       fn
         x1
@@ -291,9 +291,9 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_get_preferred_height" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
                -> unit;
@@ -315,9 +315,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_preferred_height_for_width" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
@@ -340,9 +340,9 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_get_preferred_width" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
                -> unit;
@@ -364,9 +364,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_preferred_width_for_height" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
@@ -380,8 +380,8 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val getRequestMode_ = _import "gtk_cell_area_get_request_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkSizeRequestMode.C.val_;
-    val hasRenderer_ = fn x1 & x2 => (_import "gtk_cell_area_has_renderer" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val getRequestMode_ = _import "gtk_cell_area_get_request_mode" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkSizeRequestMode.C.val_;
+    val hasRenderer_ = fn x1 & x2 => (_import "gtk_cell_area_has_renderer" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val innerCellArea_ =
       fn
         x1
@@ -390,8 +390,8 @@ structure GtkCellArea :>
          & x4 =>
           (
             _import "gtk_cell_area_inner_cell_area" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                -> unit;
@@ -402,7 +402,7 @@ structure GtkCellArea :>
               x3,
               x4
             )
-    val isActivatable_ = _import "gtk_cell_area_is_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isActivatable_ = _import "gtk_cell_area_is_activatable" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> FFI.Bool.C.val_;
     val isFocusSibling_ =
       fn
         x1
@@ -410,9 +410,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_is_focus_sibling" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                -> FFI.Bool.C.val_;
           )
             (
@@ -420,7 +420,7 @@ structure GtkCellArea :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_cell_area_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_cell_area_remove" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> unit;) (x1, x2)
     val removeFocusSibling_ =
       fn
         x1
@@ -428,9 +428,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_remove_focus_sibling" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                -> unit;
           )
             (
@@ -450,9 +450,9 @@ structure GtkCellArea :>
          & x8 =>
           (
             _import "gtk_cell_area_render" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellAreaContextClass.C.notnull GtkCellAreaContextClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
                * GdkRectangleRecord.C.notnull GdkRectangleRecord.C.p
@@ -481,10 +481,10 @@ structure GtkCellArea :>
          & x7 =>
           (
             _import "gtk_cell_area_request_renderer" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * GtkOrientation.C.val_
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
@@ -499,8 +499,8 @@ structure GtkCellArea :>
               x6,
               x7
             )
-    val setFocusCell_ = fn x1 & x2 => (_import "gtk_cell_area_set_focus_cell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_area_stop_editing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setFocusCell_ = fn x1 & x2 => (_import "gtk_cell_area_set_focus_cell" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> unit;) (x1, x2)
+    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_area_stop_editing" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
@@ -520,9 +520,9 @@ structure GtkCellArea :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self context widget cellArea flags editOnly =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellAreaContextClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -539,9 +539,9 @@ structure GtkCellArea :>
         )
     fun activateCell self widget renderer event cellArea flags =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
@@ -556,12 +556,12 @@ structure GtkCellArea :>
            & cellArea
            & flags
         )
-    fun add self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & renderer)
+    fun add self renderer = (GtkCellAreaClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) add_ (self & renderer)
     fun addFocusSibling self renderer sibling =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          ---> I
       )
         addFocusSibling_
@@ -572,8 +572,8 @@ structure GtkCellArea :>
         )
     fun applyAttributes self treeModel iter isExpander isExpanded =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkTreeModelClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -589,8 +589,8 @@ structure GtkCellArea :>
         )
     fun attributeConnect self renderer attribute column =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
@@ -604,8 +604,8 @@ structure GtkCellArea :>
         )
     fun attributeDisconnect self renderer attribute =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          ---> I
       )
@@ -617,8 +617,8 @@ structure GtkCellArea :>
         )
     fun cellGetProperty self renderer propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
@@ -632,8 +632,8 @@ structure GtkCellArea :>
         )
     fun cellSetProperty self renderer propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GObjectValueRecord.C.withPtr
          ---> I
@@ -645,13 +645,13 @@ structure GtkCellArea :>
            & propertyName
            & value
         )
-    fun copyContext self context = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkCellAreaContextClass.C.fromPtr true) copyContext_ (self & context)
-    fun createContext self = (GObjectObjectClass.C.withPtr ---> GtkCellAreaContextClass.C.fromPtr true) createContext_ self
+    fun copyContext self context = (GtkCellAreaClass.C.withPtr &&&> GtkCellAreaContextClass.C.withPtr ---> GtkCellAreaContextClass.C.fromPtr true) copyContext_ (self & context)
+    fun createContext self = (GtkCellAreaClass.C.withPtr ---> GtkCellAreaContextClass.C.fromPtr true) createContext_ self
     fun event self context widget event cellArea flags =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellAreaContextClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> GdkEvent.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GtkCellRendererState.C.withVal
@@ -666,15 +666,15 @@ structure GtkCellArea :>
            & cellArea
            & flags
         )
-    fun focus self direction = (GObjectObjectClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) focus_ (self & direction)
+    fun focus self direction = (GtkCellAreaClass.C.withPtr &&&> GtkDirectionType.C.withVal ---> FFI.Bool.C.fromVal) focus_ (self & direction)
     fun getCellAllocation self context widget renderer cellArea =
       let
         val allocation & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
+             &&&> GtkCellRendererClass.C.withPtr
              &&&> GdkRectangleRecord.C.withPtr
              &&&> GdkRectangleRecord.C.withNewPtr
              ---> GdkRectangleRecord.C.fromPtr true && I
@@ -695,9 +695,9 @@ structure GtkCellArea :>
       let
         val allocArea & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> GdkRectangleRecord.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withVal
@@ -717,20 +717,20 @@ structure GtkCellArea :>
       in
         (retVal, allocArea)
       end
-    fun getCurrentPathString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentPathString_ self
-    fun getEditWidget self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) getEditWidget_ self
-    fun getEditedCell self = (GObjectObjectClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getEditedCell_ self
-    fun getFocusCell self = (GObjectObjectClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getFocusCell_ self
-    fun getFocusFromSibling self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getFocusFromSibling_ (self & renderer)
+    fun getCurrentPathString self = (GtkCellAreaClass.C.withPtr ---> Utf8.C.fromPtr false) getCurrentPathString_ self
+    fun getEditWidget self = (GtkCellAreaClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) getEditWidget_ self
+    fun getEditedCell self = (GtkCellAreaClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getEditedCell_ self
+    fun getFocusCell self = (GtkCellAreaClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getFocusCell_ self
+    fun getFocusFromSibling self renderer = (GtkCellAreaClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> GtkCellRendererClass.C.fromPtr false) getFocusFromSibling_ (self & renderer)
     fun getPreferredHeight self context widget =
       let
         val minimumHeight
          & naturalHeight
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -754,9 +754,9 @@ structure GtkCellArea :>
          & naturalHeight
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
@@ -782,9 +782,9 @@ structure GtkCellArea :>
          & naturalWidth
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -808,9 +808,9 @@ structure GtkCellArea :>
          & naturalWidth
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellAreaContextClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
@@ -830,14 +830,14 @@ structure GtkCellArea :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun getRequestMode self = (GObjectObjectClass.C.withPtr ---> GtkSizeRequestMode.C.fromVal) getRequestMode_ self
-    fun hasRenderer self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasRenderer_ (self & renderer)
+    fun getRequestMode self = (GtkCellAreaClass.C.withPtr ---> GtkSizeRequestMode.C.fromVal) getRequestMode_ self
+    fun hasRenderer self renderer = (GtkCellAreaClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> FFI.Bool.C.fromVal) hasRenderer_ (self & renderer)
     fun innerCellArea self widget cellArea =
       let
         val innerArea & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> GdkRectangleRecord.C.withPtr
              &&&> GdkRectangleRecord.C.withNewPtr
              ---> GdkRectangleRecord.C.fromPtr true && I
@@ -852,12 +852,12 @@ structure GtkCellArea :>
       in
         innerArea
       end
-    fun isActivatable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActivatable_ self
+    fun isActivatable self = (GtkCellAreaClass.C.withPtr ---> FFI.Bool.C.fromVal) isActivatable_ self
     fun isFocusSibling self renderer sibling =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         isFocusSibling_
@@ -866,12 +866,12 @@ structure GtkCellArea :>
            & renderer
            & sibling
         )
-    fun remove self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & renderer)
+    fun remove self renderer = (GtkCellAreaClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) remove_ (self & renderer)
     fun removeFocusSibling self renderer sibling =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          ---> I
       )
         removeFocusSibling_
@@ -882,9 +882,9 @@ structure GtkCellArea :>
         )
     fun render self context widget cr backgroundArea cellArea flags paintFocus =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellAreaClass.C.withPtr
+         &&&> GtkCellAreaContextClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
@@ -909,10 +909,10 @@ structure GtkCellArea :>
          & naturalSize
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GtkCellAreaClass.C.withPtr
+             &&&> GtkCellRendererClass.C.withPtr
              &&&> GtkOrientation.C.withVal
-             &&&> GObjectObjectClass.C.withPtr
+             &&&> GtkWidgetClass.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
@@ -933,8 +933,8 @@ structure GtkCellArea :>
       in
         (minimumSize, naturalSize)
       end
-    fun setFocusCell self renderer = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFocusCell_ (self & renderer)
-    fun stopEditing self canceled = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) stopEditing_ (self & canceled)
+    fun setFocusCell self renderer = (GtkCellAreaClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) setFocusCell_ (self & renderer)
+    fun stopEditing self canceled = (GtkCellAreaClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) stopEditing_ (self & canceled)
     local
       open ClosureMarshal Signal
     in

@@ -80,7 +80,7 @@ structure GtkIconSize :>
       val lookupForSettings_ =
         call (load_sym libgtk "gtk_icon_size_lookup_for_settings")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSettingsClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
@@ -128,7 +128,7 @@ structure GtkIconSize :>
          & height
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkSettingsClass.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal

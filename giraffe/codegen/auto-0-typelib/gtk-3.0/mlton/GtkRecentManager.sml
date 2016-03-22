@@ -5,8 +5,8 @@ structure GtkRecentManager :>
     where type recent_info_t = GtkRecentInfoRecord.t =
   struct
     val getType_ = _import "gtk_recent_manager_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_recent_manager_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getDefault_ = _import "gtk_recent_manager_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_recent_manager_new" : unit -> GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p;
+    val getDefault_ = _import "gtk_recent_manager_get_default" : unit -> GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p;
     val addFull_ =
       fn
         x1
@@ -14,7 +14,7 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_add_full" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkRecentDataRecord.C.notnull GtkRecentDataRecord.C.p
@@ -31,7 +31,7 @@ structure GtkRecentManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_manager_add_item" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -46,7 +46,7 @@ structure GtkRecentManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_manager_has_item" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -63,7 +63,7 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_lookup_item" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
@@ -83,7 +83,7 @@ structure GtkRecentManager :>
          & x6 =>
           (
             _import "mlton_gtk_recent_manager_move_item" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -99,7 +99,7 @@ structure GtkRecentManager :>
               x5,
               x6
             )
-    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int32.C.val_;) (x1, x2)
+    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Int32.C.val_;) (x1, x2)
     val removeItem_ =
       fn
         x1
@@ -107,7 +107,7 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_remove_item" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
@@ -128,7 +128,7 @@ structure GtkRecentManager :>
     fun getDefault () = (I ---> GtkRecentManagerClass.C.fromPtr false) getDefault_ ()
     fun addFull self uri recentData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkRecentDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -139,11 +139,11 @@ structure GtkRecentManager :>
            & uri
            & recentData
         )
-    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
-    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
+    fun addItem self uri = (GtkRecentManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
+    fun hasItem self uri = (GtkRecentManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GtkRecentInfoRecord.C.fromPtr true
@@ -156,7 +156,7 @@ structure GtkRecentManager :>
         )
     fun moveItem self uri newUri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.handleError
@@ -169,10 +169,10 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GtkRecentManagerClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal

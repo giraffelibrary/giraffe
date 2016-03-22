@@ -4,8 +4,8 @@ structure GioUnixFDMessage :>
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
     val getType_ = _import "g_unix_fd_message_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_unix_fd_message_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithFdList_ = _import "g_unix_fd_message_new_with_fd_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "g_unix_fd_message_new" : unit -> GioSocketControlMessageClass.C.notnull GioSocketControlMessageClass.C.p;
+    val newWithFdList_ = _import "g_unix_fd_message_new_with_fd_list" : GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p -> GioSocketControlMessageClass.C.notnull GioSocketControlMessageClass.C.p;
     val appendFd_ =
       fn
         x1
@@ -13,7 +13,7 @@ structure GioUnixFDMessage :>
          & x3 =>
           (
             _import "g_unix_fd_message_append_fd" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioUnixFDMessageClass.C.notnull GioUnixFDMessageClass.C.p
                * FFI.Int32.C.val_
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -23,16 +23,16 @@ structure GioUnixFDMessage :>
               x2,
               x3
             )
-    val getFdList_ = _import "g_unix_fd_message_get_fd_list" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getFdList_ = _import "g_unix_fd_message_get_fd_list" : GioUnixFDMessageClass.C.notnull GioUnixFDMessageClass.C.p -> GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p;
     type 'a class = 'a GioUnixFDMessageClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixFDMessageClass.C.fromPtr true) new_ ()
-    fun newWithFdList fdList = (GObjectObjectClass.C.withPtr ---> GioUnixFDMessageClass.C.fromPtr true) newWithFdList_ fdList
+    fun newWithFdList fdList = (GioUnixFDListClass.C.withPtr ---> GioUnixFDMessageClass.C.fromPtr true) newWithFdList_ fdList
     fun appendFd self fd =
       (
-        GObjectObjectClass.C.withPtr
+        GioUnixFDMessageClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
@@ -43,7 +43,7 @@ structure GioUnixFDMessage :>
            & fd
            & []
         )
-    fun getFdList self = (GObjectObjectClass.C.withPtr ---> GioUnixFDListClass.C.fromPtr false) getFdList_ self
+    fun getFdList self = (GioUnixFDMessageClass.C.withPtr ---> GioUnixFDListClass.C.fromPtr false) getFdList_ self
     local
       open Property
     in

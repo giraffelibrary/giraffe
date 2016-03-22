@@ -11,7 +11,7 @@ structure GtkSourceGutterRenderer :>
       val activate_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_activate")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
@@ -20,7 +20,7 @@ structure GtkSourceGutterRenderer :>
       val begin_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_begin")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
@@ -31,7 +31,7 @@ structure GtkSourceGutterRenderer :>
       val draw_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_draw")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
@@ -40,33 +40,33 @@ structure GtkSourceGutterRenderer :>
              &&> GtkSourceGutterRendererState.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val end_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_end") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val end_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_end") (GtkSourceGutterRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val getAlignment_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_alignment")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cRef
              &&> FFI.Float.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getAlignmentMode_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_alignment_mode") (GObjectObjectClass.PolyML.cPtr --> GtkSourceGutterRendererAlignmentMode.PolyML.cVal)
-      val getBackground_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_background") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getAlignmentMode_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_alignment_mode") (GtkSourceGutterRendererClass.PolyML.cPtr --> GtkSourceGutterRendererAlignmentMode.PolyML.cVal)
+      val getBackground_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_background") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getPadding_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_padding")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getView_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_view") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getWindowType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_window_type") (GObjectObjectClass.PolyML.cPtr --> GtkTextWindowType.PolyML.cVal)
+      val getSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_size") (GtkSourceGutterRendererClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getView_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_view") (GtkSourceGutterRendererClass.PolyML.cPtr --> GtkTextViewClass.PolyML.cPtr)
+      val getVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_visible") (GtkSourceGutterRendererClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWindowType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_get_window_type") (GtkSourceGutterRendererClass.PolyML.cPtr --> GtkTextWindowType.PolyML.cVal)
       val queryActivatable_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_query_activatable")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
@@ -75,7 +75,7 @@ structure GtkSourceGutterRenderer :>
       val queryData_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_query_data")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkSourceGutterRendererState.PolyML.cVal
@@ -84,35 +84,35 @@ structure GtkSourceGutterRenderer :>
       val queryTooltip_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_query_tooltip")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkTooltipClass.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_queue_draw") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_queue_draw") (GtkSourceGutterRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setAlignment_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_alignment")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setAlignmentMode_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_alignment_mode") (GObjectObjectClass.PolyML.cPtr &&> GtkSourceGutterRendererAlignmentMode.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setBackground_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_background") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setAlignmentMode_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_alignment_mode") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GtkSourceGutterRendererAlignmentMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBackground_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_background") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val setPadding_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_padding")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_visible") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSize_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_size") (GtkSourceGutterRendererClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setVisible_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_set_visible") (GtkSourceGutterRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSourceGutterRendererClass.class
     type gutter_renderer_state_t = GtkSourceGutterRendererState.t
@@ -121,7 +121,7 @@ structure GtkSourceGutterRenderer :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun activate self iter area event =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
@@ -136,7 +136,7 @@ structure GtkSourceGutterRenderer :>
         )
     fun begin self cr backgroundArea cellArea start end' =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
@@ -155,7 +155,7 @@ structure GtkSourceGutterRenderer :>
         )
     fun draw self cr backgroundArea cellArea start end' state =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
@@ -174,14 +174,14 @@ structure GtkSourceGutterRenderer :>
            & end'
            & state
         )
-    fun end' self = (GObjectObjectClass.C.withPtr ---> I) end_ self
+    fun end' self = (GtkSourceGutterRendererClass.C.withPtr ---> I) end_ self
     fun getAlignment self =
       let
         val xalign
          & yalign
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkSourceGutterRendererClass.C.withPtr
              &&&> FFI.Float.C.withRefVal
              &&&> FFI.Float.C.withRefVal
              ---> FFI.Float.C.fromVal
@@ -197,10 +197,10 @@ structure GtkSourceGutterRenderer :>
       in
         (xalign, yalign)
       end
-    fun getAlignmentMode self = (GObjectObjectClass.C.withPtr ---> GtkSourceGutterRendererAlignmentMode.C.fromVal) getAlignmentMode_ self
+    fun getAlignmentMode self = (GtkSourceGutterRendererClass.C.withPtr ---> GtkSourceGutterRendererAlignmentMode.C.fromVal) getAlignmentMode_ self
     fun getBackground self =
       let
-        val color & retVal = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withNewPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) getBackground_ (self & ())
+        val color & retVal = (GtkSourceGutterRendererClass.C.withPtr &&&> GdkRgbaRecord.C.withNewPtr ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal) getBackground_ (self & ())
       in
         if retVal then SOME color else NONE
       end
@@ -210,7 +210,7 @@ structure GtkSourceGutterRenderer :>
          & ypad
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkSourceGutterRendererClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -226,13 +226,13 @@ structure GtkSourceGutterRenderer :>
       in
         (xpad, ypad)
       end
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
-    fun getView self = (GObjectObjectClass.C.withPtr ---> GtkTextViewClass.C.fromPtr false) getView_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun getWindowType self = (GObjectObjectClass.C.withPtr ---> GtkTextWindowType.C.fromVal) getWindowType_ self
+    fun getSize self = (GtkSourceGutterRendererClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
+    fun getView self = (GtkSourceGutterRendererClass.C.withPtr ---> GtkTextViewClass.C.fromPtr false) getView_ self
+    fun getVisible self = (GtkSourceGutterRendererClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun getWindowType self = (GtkSourceGutterRendererClass.C.withPtr ---> GtkTextWindowType.C.fromVal) getWindowType_ self
     fun queryActivatable self iter area event =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> GdkEvent.C.withPtr
@@ -247,7 +247,7 @@ structure GtkSourceGutterRenderer :>
         )
     fun queryData self start end' state =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GtkSourceGutterRendererState.C.withVal
@@ -262,12 +262,12 @@ structure GtkSourceGutterRenderer :>
         )
     fun queryTooltip self iter area x y tooltip =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> GtkTextIterRecord.C.withPtr
          &&&> GdkRectangleRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GtkTooltipClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         queryTooltip_
@@ -279,10 +279,10 @@ structure GtkSourceGutterRenderer :>
            & y
            & tooltip
         )
-    fun queueDraw self = (GObjectObjectClass.C.withPtr ---> I) queueDraw_ self
+    fun queueDraw self = (GtkSourceGutterRendererClass.C.withPtr ---> I) queueDraw_ self
     fun setAlignment self xalign yalign =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          ---> I
@@ -293,11 +293,11 @@ structure GtkSourceGutterRenderer :>
            & xalign
            & yalign
         )
-    fun setAlignmentMode self mode = (GObjectObjectClass.C.withPtr &&&> GtkSourceGutterRendererAlignmentMode.C.withVal ---> I) setAlignmentMode_ (self & mode)
-    fun setBackground self color = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setBackground_ (self & color)
+    fun setAlignmentMode self mode = (GtkSourceGutterRendererClass.C.withPtr &&&> GtkSourceGutterRendererAlignmentMode.C.withVal ---> I) setAlignmentMode_ (self & mode)
+    fun setBackground self color = (GtkSourceGutterRendererClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setBackground_ (self & color)
     fun setPadding self xpad ypad =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -308,8 +308,8 @@ structure GtkSourceGutterRenderer :>
            & xpad
            & ypad
         )
-    fun setSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun setSize self size = (GtkSourceGutterRendererClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & size)
+    fun setVisible self visible = (GtkSourceGutterRendererClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal
     in

@@ -4,7 +4,7 @@ structure GioMemoryInputStream :>
     where type 'a seekable_class = 'a GioSeekableClass.class =
   struct
     val getType_ = _import "g_memory_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_memory_input_stream_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "g_memory_input_stream_new" : unit -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;
     type 'a class = 'a GioMemoryInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type t = base class

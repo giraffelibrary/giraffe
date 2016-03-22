@@ -7,7 +7,7 @@ structure GtkGrid :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_grid_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_grid_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_grid_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val attach_ =
       fn
         x1
@@ -18,8 +18,8 @@ structure GtkGrid :>
          & x6 =>
           (
             _import "gtk_grid_attach" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkGridClass.C.notnull GtkGridClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -44,9 +44,9 @@ structure GtkGrid :>
          & x6 =>
           (
             _import "gtk_grid_attach_next_to" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkGridClass.C.notnull GtkGridClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GtkPositionType.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -60,11 +60,11 @@ structure GtkGrid :>
               x5,
               x6
             )
-    val getColumnHomogeneous_ = _import "gtk_grid_get_column_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
-    val getRowHomogeneous_ = _import "gtk_grid_get_row_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.UInt32.C.val_;
-    val insertColumn_ = fn x1 & x2 => (_import "gtk_grid_insert_column" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val getColumnHomogeneous_ = _import "gtk_grid_get_column_homogeneous" : GtkGridClass.C.notnull GtkGridClass.C.p -> FFI.Bool.C.val_;
+    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GtkGridClass.C.notnull GtkGridClass.C.p -> FFI.UInt32.C.val_;
+    val getRowHomogeneous_ = _import "gtk_grid_get_row_homogeneous" : GtkGridClass.C.notnull GtkGridClass.C.p -> FFI.Bool.C.val_;
+    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GtkGridClass.C.notnull GtkGridClass.C.p -> FFI.UInt32.C.val_;
+    val insertColumn_ = fn x1 & x2 => (_import "gtk_grid_insert_column" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     val insertNextTo_ =
       fn
         x1
@@ -72,8 +72,8 @@ structure GtkGrid :>
          & x3 =>
           (
             _import "gtk_grid_insert_next_to" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkGridClass.C.notnull GtkGridClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * GtkPositionType.C.val_
                -> unit;
           )
@@ -82,11 +82,11 @@ structure GtkGrid :>
               x2,
               x3
             )
-    val insertRow_ = fn x1 & x2 => (_import "gtk_grid_insert_row" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setColumnHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_column_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val setRowHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_row_homogeneous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val insertRow_ = fn x1 & x2 => (_import "gtk_grid_insert_row" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setColumnHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_column_homogeneous" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setRowHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_row_homogeneous" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GtkGridClass.C.notnull GtkGridClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkGridClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -100,8 +100,8 @@ structure GtkGrid :>
     fun new () = (I ---> GtkGridClass.C.fromPtr false) new_ ()
     fun attach self child left top width height =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkGridClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -119,9 +119,9 @@ structure GtkGrid :>
         )
     fun attachNextTo self child sibling side width height =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkGridClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> GtkPositionType.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -136,15 +136,15 @@ structure GtkGrid :>
            & width
            & height
         )
-    fun getColumnHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getColumnHomogeneous_ self
-    fun getColumnSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getColumnSpacing_ self
-    fun getRowHomogeneous self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRowHomogeneous_ self
-    fun getRowSpacing self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getRowSpacing_ self
-    fun insertColumn self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertColumn_ (self & position)
+    fun getColumnHomogeneous self = (GtkGridClass.C.withPtr ---> FFI.Bool.C.fromVal) getColumnHomogeneous_ self
+    fun getColumnSpacing self = (GtkGridClass.C.withPtr ---> FFI.UInt32.C.fromVal) getColumnSpacing_ self
+    fun getRowHomogeneous self = (GtkGridClass.C.withPtr ---> FFI.Bool.C.fromVal) getRowHomogeneous_ self
+    fun getRowSpacing self = (GtkGridClass.C.withPtr ---> FFI.UInt32.C.fromVal) getRowSpacing_ self
+    fun insertColumn self position = (GtkGridClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertColumn_ (self & position)
     fun insertNextTo self sibling side =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkGridClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> GtkPositionType.C.withVal
          ---> I
       )
@@ -154,11 +154,11 @@ structure GtkGrid :>
            & sibling
            & side
         )
-    fun insertRow self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertRow_ (self & position)
-    fun setColumnHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
-    fun setColumnSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setColumnSpacing_ (self & spacing)
-    fun setRowHomogeneous self homogeneous = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
-    fun setRowSpacing self spacing = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setRowSpacing_ (self & spacing)
+    fun insertRow self position = (GtkGridClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) insertRow_ (self & position)
+    fun setColumnHomogeneous self homogeneous = (GtkGridClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
+    fun setColumnSpacing self spacing = (GtkGridClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun setRowHomogeneous self homogeneous = (GtkGridClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
+    fun setRowSpacing self spacing = (GtkGridClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setRowSpacing_ (self & spacing)
     local
       open Property
     in

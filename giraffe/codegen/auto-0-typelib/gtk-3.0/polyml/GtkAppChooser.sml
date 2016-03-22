@@ -6,16 +6,16 @@ structure GtkAppChooser :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_app_chooser_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getAppInfo_ = call (load_sym libgtk "gtk_app_chooser_get_app_info") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getContentType_ = call (load_sym libgtk "gtk_app_chooser_get_content_type") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val refresh_ = call (load_sym libgtk "gtk_app_chooser_refresh") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAppInfo_ = call (load_sym libgtk "gtk_app_chooser_get_app_info") (GtkAppChooserClass.PolyML.cPtr --> GioAppInfoClass.PolyML.cPtr)
+      val getContentType_ = call (load_sym libgtk "gtk_app_chooser_get_content_type") (GtkAppChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val refresh_ = call (load_sym libgtk "gtk_app_chooser_refresh") (GtkAppChooserClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkAppChooserClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAppInfo self = (GObjectObjectClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getAppInfo_ self
-    fun getContentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getContentType_ self
-    fun refresh self = (GObjectObjectClass.C.withPtr ---> I) refresh_ self
+    fun getAppInfo self = (GtkAppChooserClass.C.withPtr ---> GioAppInfoClass.C.fromPtr true) getAppInfo_ self
+    fun getContentType self = (GtkAppChooserClass.C.withPtr ---> Utf8.C.fromPtr true) getContentType_ self
+    fun refresh self = (GtkAppChooserClass.C.withPtr ---> I) refresh_ self
     local
       open Property
     in

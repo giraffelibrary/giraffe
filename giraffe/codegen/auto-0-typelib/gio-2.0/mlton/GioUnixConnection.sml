@@ -12,10 +12,10 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_receive_credentials" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioUnixConnectionClass.C.notnull GioUnixConnectionClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioCredentialsClass.C.notnull GioCredentialsClass.C.p;
           )
             (
               x1,
@@ -29,8 +29,8 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_receive_fd" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioUnixConnectionClass.C.notnull GioUnixConnectionClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int32.C.val_;
           )
@@ -46,8 +46,8 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_send_credentials" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioUnixConnectionClass.C.notnull GioUnixConnectionClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -64,9 +64,9 @@ structure GioUnixConnection :>
          & x4 =>
           (
             _import "g_unix_connection_send_fd" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioUnixConnectionClass.C.notnull GioUnixConnectionClass.C.p
                * FFI.Int32.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -83,8 +83,8 @@ structure GioUnixConnection :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun receiveCredentials self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioCredentialsClass.C.fromPtr true
       )
@@ -96,8 +96,8 @@ structure GioUnixConnection :>
         )
     fun receiveFd self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
@@ -109,8 +109,8 @@ structure GioUnixConnection :>
         )
     fun sendCredentials self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -122,9 +122,9 @@ structure GioUnixConnection :>
         )
     fun sendFd self fd cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioUnixConnectionClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

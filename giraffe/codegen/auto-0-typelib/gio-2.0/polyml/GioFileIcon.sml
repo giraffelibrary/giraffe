@@ -9,7 +9,7 @@ structure GioFileIcon :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_file_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getFile_ = call (load_sym libgio "g_file_icon_get_file") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getFile_ = call (load_sym libgio "g_file_icon_get_file") (GioFileIconClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
     end
     type 'a class = 'a GioFileIconClass.class
     type 'a icon_class = 'a GioIconClass.class
@@ -19,7 +19,7 @@ structure GioFileIcon :>
     fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
     fun asLoadableIcon self = (GObjectObjectClass.C.withPtr ---> GioLoadableIconClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getFile self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr false) getFile_ self
+    fun getFile self = (GioFileIconClass.C.withPtr ---> GioFileClass.C.fromPtr false) getFile_ self
     local
       open Property
     in

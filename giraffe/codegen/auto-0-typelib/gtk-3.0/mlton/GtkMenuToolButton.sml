@@ -12,24 +12,24 @@ structure GtkMenuToolButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_new" :
-              unit GObjectObjectClass.C.p
+              unit GtkWidgetClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkToolItemClass.C.notnull GtkToolItemClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getMenu_ = _import "gtk_menu_tool_button_get_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkToolItemClass.C.notnull GtkToolItemClass.C.p;
+    val getMenu_ = _import "gtk_menu_tool_button_get_menu" : GtkMenuToolButtonClass.C.notnull GtkMenuToolButtonClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val setArrowTooltipMarkup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_markup" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMenuToolButtonClass.C.notnull GtkMenuToolButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -44,7 +44,7 @@ structure GtkMenuToolButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_text" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMenuToolButtonClass.C.notnull GtkMenuToolButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -54,7 +54,7 @@ structure GtkMenuToolButton :>
               x2,
               x3
             )
-    val setMenu_ = fn x1 & x2 => (_import "gtk_menu_tool_button_set_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val setMenu_ = fn x1 & x2 => (_import "gtk_menu_tool_button_set_menu" : GtkMenuToolButtonClass.C.notnull GtkMenuToolButtonClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuToolButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -65,12 +65,12 @@ structure GtkMenuToolButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new iconWidget label = (GObjectObjectClass.C.withOptPtr &&&> Utf8.C.withOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
+    fun new iconWidget label = (GtkWidgetClass.C.withOptPtr &&&> Utf8.C.withOptPtr ---> GtkMenuToolButtonClass.C.fromPtr false) new_ (iconWidget & label)
     fun newFromStock stockId = (Utf8.C.withPtr ---> GtkMenuToolButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun getMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenu_ self
-    fun setArrowTooltipMarkup self markup = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipMarkup_ (self & markup)
-    fun setArrowTooltipText self text = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipText_ (self & text)
-    fun setMenu self menu = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setMenu_ (self & menu)
+    fun getMenu self = (GtkMenuToolButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenu_ self
+    fun setArrowTooltipMarkup self markup = (GtkMenuToolButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipMarkup_ (self & markup)
+    fun setArrowTooltipText self text = (GtkMenuToolButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setArrowTooltipText_ (self & text)
+    fun setMenu self menu = (GtkMenuToolButtonClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setMenu_ (self & menu)
     local
       open ClosureMarshal Signal
     in

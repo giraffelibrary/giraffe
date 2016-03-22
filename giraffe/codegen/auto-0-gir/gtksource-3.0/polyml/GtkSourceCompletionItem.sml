@@ -12,9 +12,9 @@ structure GtkSourceCompletionItem :>
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GdkPixbufPixbufClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkSourceCompletionItemClass.PolyML.cPtr
           )
       val newFromStock_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_from_stock")
@@ -23,16 +23,16 @@ structure GtkSourceCompletionItem :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkSourceCompletionItemClass.PolyML.cPtr
           )
       val newWithMarkup_ =
         call (load_sym libgtksourceview "gtk_source_completion_item_new_with_markup")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GdkPixbufPixbufClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkSourceCompletionItemClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GtkSourceCompletionItemClass.class
@@ -44,7 +44,7 @@ structure GtkSourceCompletionItem :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkPixbufPixbufClass.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
@@ -74,7 +74,7 @@ structure GtkSourceCompletionItem :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkPixbufPixbufClass.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )

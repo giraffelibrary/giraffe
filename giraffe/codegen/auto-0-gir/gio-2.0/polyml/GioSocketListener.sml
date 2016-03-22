@@ -13,59 +13,59 @@ structure GioSocketListener :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_socket_listener_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_socket_listener_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_socket_listener_new") (FFI.PolyML.cVoid --> GioSocketListenerClass.PolyML.cPtr)
       val accept_ =
         call (load_sym libgio "g_socket_listener_accept")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketConnectionClass.PolyML.cPtr
           )
       val acceptFinish_ =
         call (load_sym libgio "g_socket_listener_accept_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketConnectionClass.PolyML.cPtr
           )
       val acceptSocket_ =
         call (load_sym libgio "g_socket_listener_accept_socket")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketClass.PolyML.cPtr
           )
       val acceptSocketFinish_ =
         call (load_sym libgio "g_socket_listener_accept_socket_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketClass.PolyML.cPtr
           )
       val addAddress_ =
         call (load_sym libgio "g_socket_listener_add_address")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
+             &&> GioSocketAddressClass.PolyML.cPtr
              &&> GioSocketType.PolyML.cVal
              &&> GioSocketProtocol.PolyML.cVal
              &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOutRef
+             &&> GioSocketAddressClass.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val addAnyInetPort_ =
         call (load_sym libgio "g_socket_listener_add_any_inet_port")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt16.PolyML.cVal
@@ -73,7 +73,7 @@ structure GioSocketListener :>
       val addInetPort_ =
         call (load_sym libgio "g_socket_listener_add_inet_port")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
              &&> FFI.UInt16.PolyML.cVal
              &&> GObjectObjectClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -82,14 +82,14 @@ structure GioSocketListener :>
       val addSocket_ =
         call (load_sym libgio "g_socket_listener_add_socket")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioSocketListenerClass.PolyML.cPtr
+             &&> GioSocketClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val close_ = call (load_sym libgio "g_socket_listener_close") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setBacklog_ = call (load_sym libgio "g_socket_listener_set_backlog") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val close_ = call (load_sym libgio "g_socket_listener_close") (GioSocketListenerClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setBacklog_ = call (load_sym libgio "g_socket_listener_set_backlog") (GioSocketListenerClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioSocketListenerClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
@@ -106,9 +106,9 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
           )
@@ -126,8 +126,8 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
@@ -146,9 +146,9 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
           )
@@ -166,8 +166,8 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
@@ -186,12 +186,12 @@ structure GioSocketListener :>
       let
         val effectiveAddress & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioSocketAddressClass.C.withPtr
              &&&> GioSocketType.C.withVal
              &&&> GioSocketProtocol.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
+             &&&> GioSocketAddressClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GioSocketAddressClass.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -210,7 +210,7 @@ structure GioSocketListener :>
       end
     fun addAnyInetPort self sourceObject =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
@@ -223,7 +223,7 @@ structure GioSocketListener :>
         )
     fun addInetPort self port sourceObject =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
@@ -238,8 +238,8 @@ structure GioSocketListener :>
         )
     fun addSocket self socket sourceObject =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
+         &&&> GioSocketClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
@@ -251,8 +251,8 @@ structure GioSocketListener :>
            & sourceObject
            & []
         )
-    fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setBacklog_ (self & listenBacklog)
+    fun close self = (GioSocketListenerClass.C.withPtr ---> I) close_ self
+    fun setBacklog self listenBacklog = (GioSocketListenerClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setBacklog_ (self & listenBacklog)
     local
       open Property
     in

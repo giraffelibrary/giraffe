@@ -8,10 +8,10 @@ structure GtkToggleToolButton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_toggle_tool_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (FFI.PolyML.cVoid --> GtkToolItemClass.PolyML.cPtr)
+      val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkToolItemClass.PolyML.cPtr)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GtkToggleToolButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GtkToggleToolButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkToggleToolButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -23,8 +23,8 @@ structure GtkToggleToolButton :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkToggleToolButtonClass.C.fromPtr false) new_ ()
     fun newFromStock stockId = (Utf8.C.withPtr ---> GtkToggleToolButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun setActive self isActive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
+    fun getActive self = (GtkToggleToolButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
+    fun setActive self isActive = (GtkToggleToolButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
     local
       open ClosureMarshal Signal
     in

@@ -6,14 +6,14 @@ structure GtkStyleProperties :>
     where type state_flags_t = GtkStateFlags.t =
   struct
     val getType_ = _import "gtk_style_properties_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_style_properties_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val clear_ = _import "gtk_style_properties_clear" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val new_ = _import "gtk_style_properties_new" : unit -> GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p;
+    val clear_ = _import "gtk_style_properties_clear" : GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p -> unit;
     val lookupColor_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_properties_lookup_color" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
@@ -30,7 +30,7 @@ structure GtkStyleProperties :>
          & x4 =>
           (
             _import "mlton_gtk_style_properties_map_color" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
@@ -49,8 +49,8 @@ structure GtkStyleProperties :>
          & x3 =>
           (
             _import "gtk_style_properties_merge" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
+               * GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -67,7 +67,7 @@ structure GtkStyleProperties :>
          & x5 =>
           (
             _import "mlton_gtk_style_properties_set_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkStateFlags.C.val_
@@ -88,7 +88,7 @@ structure GtkStyleProperties :>
          & x4 =>
           (
             _import "mlton_gtk_style_properties_unset_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkStateFlags.C.val_
@@ -108,11 +108,11 @@ structure GtkStyleProperties :>
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun clear self = (GtkStylePropertiesClass.C.withPtr ---> I) clear_ self
+    fun lookupColor self name = (GtkStylePropertiesClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkSymbolicColorRecord.C.withPtr
          ---> I
@@ -125,8 +125,8 @@ structure GtkStyleProperties :>
         )
     fun merge self propsToMerge replace =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
+         &&&> GtkStylePropertiesClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -138,7 +138,7 @@ structure GtkStyleProperties :>
         )
     fun setProperty self property state value =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          &&&> GObjectValueRecord.C.withPtr
@@ -153,7 +153,7 @@ structure GtkStyleProperties :>
         )
     fun unsetProperty self property state =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStylePropertiesClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkStateFlags.C.withVal
          ---> I

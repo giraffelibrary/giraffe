@@ -4,7 +4,7 @@ structure GtkCellRendererProgress :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_progress_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_renderer_progress_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_cell_renderer_progress_new" : unit -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
     type 'a class = 'a GtkCellRendererProgressClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type t = base class

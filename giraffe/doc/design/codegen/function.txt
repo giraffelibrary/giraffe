@@ -663,12 +663,10 @@ where
                 before the call and this is transferred after the call.
                 See note for corresponding function <fromObjectFun>.
 
-          A is <RootObjectNamespace><RootObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.C
 
-            rootObjectInfo = getRoot argObjectInfo
-            RootObjectName = GIBaseInfo.getName rootObjectInfo
-            RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-            RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+          ObjectName = GIRepository.BaseInfo.getName argObjectInfo
+          ObjectNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
 
           Opt is defined as follows:
 
@@ -980,7 +978,6 @@ where
 
           InterfaceName = GIBaseInfo.getName argObjectInfo
           InterfaceNamespace = GIBaseInfo.getNamespace argObjectInfo
-          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           Opt cannot be determined because GIR does not capture
           sufficient information.  For now, it is defined as follows:
@@ -1641,12 +1638,7 @@ where
               INOUT           | <A>.cInOut<Opt>Ref
             ------------------+---------------------------
 
-          A is <RootObjectNamespace><RootObjectName>Class.PolyML
-
-          rootObjectInfo = getRoot argObjectInfo
-          RootObjectName = GIBaseInfo.getName rootObjectInfo
-          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+          A is <ObjectNamespace><ObjectName>Class.PolyML
 
           Opt is defined as follows:
 
@@ -1880,12 +1872,7 @@ where
 
           retInterfaceObjectConv is <A>.c<Opt>Ptr
 
-          A is <RootObjectNamespace><RootObjectName>Class.PolyML
-
-          rootObjectInfo = getRoot retObjectInfo
-          RootObjectName = GIBaseInfo.getName rootObjectInfo
-          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+          A is <ObjectNamespace><ObjectName>Class.PolyML
 
           Opt is defined as follows:
 
@@ -2207,12 +2194,10 @@ where
               INOUT           | (<opt>, <opt>) <A>.r
             ------------------+---------------------------
 
-          A is <RootObjectNamespace><RootObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.C
 
-          rootObjectInfo = getRoot argObjectInfo
-          RootObjectName = GIBaseInfo.getName rootObjectInfo
-          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+          ObjectName = GIRepository.BaseInfo.getName argObjectInfo
+          ObjectNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
 
           opt is defined as follows:
 
@@ -2446,12 +2431,10 @@ where
 
           retInterfaceObjectType is <opt> <A>.out_p
 
-          A is <RootObjectNamespace><RootObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.C
 
-          rootObjectInfo = getRoot retObjectInfo
-          RootObjectName = GIBaseInfo.getName rootObjectInfo
-          RootObjectNamespace = GIBaseInfo.getNamespace rootObjectInfo
-          RootObjectCPrefix = GIRepository.getCPrefix repo <RootObjectNamespace>
+          ObjectName = GIRepository.BaseInfo.getName retObjectInfo
+          ObjectNamespace = GIRepository.BaseInfo.getNamespace retObjectInfo
 
           opt is defined as follows:
 

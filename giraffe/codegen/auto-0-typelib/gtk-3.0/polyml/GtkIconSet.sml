@@ -9,16 +9,16 @@ structure GtkIconSet :>
     in
       val getType_ = call (load_sym libgtk "gtk_icon_set_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_icon_set_new") (FFI.PolyML.cVoid --> GtkIconSetRecord.PolyML.cPtr)
-      val newFromPixbuf_ = call (load_sym libgtk "gtk_icon_set_new_from_pixbuf") (GObjectObjectClass.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val newFromPixbuf_ = call (load_sym libgtk "gtk_icon_set_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
       val addSource_ = call (load_sym libgtk "gtk_icon_set_add_source") (GtkIconSetRecord.PolyML.cPtr &&> GtkIconSourceRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val copy_ = call (load_sym libgtk "gtk_icon_set_copy") (GtkIconSetRecord.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
       val renderIconPixbuf_ =
         call (load_sym libgtk "gtk_icon_set_render_icon_pixbuf")
           (
             GtkIconSetRecord.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GtkStyleContextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cPtr
           )
     end
     type t = GtkIconSetRecord.t
@@ -26,13 +26,13 @@ structure GtkIconSet :>
     type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkIconSetRecord.C.fromPtr true) new_ ()
-    fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) newFromPixbuf_ pixbuf
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) newFromPixbuf_ pixbuf
     fun addSource self source = (GtkIconSetRecord.C.withPtr &&&> GtkIconSourceRecord.C.withPtr ---> I) addSource_ (self & source)
     fun copy self = (GtkIconSetRecord.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) copy_ self
     fun renderIconPixbuf self context size =
       (
         GtkIconSetRecord.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GtkStyleContextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )

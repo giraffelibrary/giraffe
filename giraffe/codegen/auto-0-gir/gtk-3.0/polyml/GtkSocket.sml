@@ -7,10 +7,10 @@ structure GtkSocket :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_socket_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GObjectObjectClass.PolyML.cPtr &&> XlibWindow.PolyML.cVal --> FFI.PolyML.cVoid)
-      val getId_ = call (load_sym libgtk "gtk_socket_get_id") (GObjectObjectClass.PolyML.cPtr --> XlibWindow.PolyML.cVal)
-      val getPlugWindow_ = call (load_sym libgtk "gtk_socket_get_plug_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_socket_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GtkSocketClass.PolyML.cPtr &&> XlibWindow.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getId_ = call (load_sym libgtk "gtk_socket_get_id") (GtkSocketClass.PolyML.cPtr --> XlibWindow.PolyML.cVal)
+      val getPlugWindow_ = call (load_sym libgtk "gtk_socket_get_plug_window") (GtkSocketClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkSocketClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -19,9 +19,9 @@ structure GtkSocket :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSocketClass.C.fromPtr false) new_ ()
-    fun addId self window = (GObjectObjectClass.C.withPtr &&&> XlibWindow.C.withVal ---> I) addId_ (self & window)
-    fun getId self = (GObjectObjectClass.C.withPtr ---> XlibWindow.C.fromVal) getId_ self
-    fun getPlugWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getPlugWindow_ self
+    fun addId self window = (GtkSocketClass.C.withPtr &&&> XlibWindow.C.withVal ---> I) addId_ (self & window)
+    fun getId self = (GtkSocketClass.C.withPtr ---> XlibWindow.C.fromVal) getId_ self
+    fun getPlugWindow self = (GtkSocketClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getPlugWindow_ self
     local
       open ClosureMarshal Signal
     in

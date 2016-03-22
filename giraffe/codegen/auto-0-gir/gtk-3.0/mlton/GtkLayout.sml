@@ -7,8 +7,8 @@ structure GtkLayout :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_layout_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_layout_new" : unit GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getBinWindow_ = _import "gtk_layout_get_bin_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = fn x1 & x2 => (_import "gtk_layout_new" : unit GtkAdjustmentClass.C.p * unit GtkAdjustmentClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
+    val getBinWindow_ = _import "gtk_layout_get_bin_window" : GtkLayoutClass.C.notnull GtkLayoutClass.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
     val getSize_ =
       fn
         x1
@@ -16,7 +16,7 @@ structure GtkLayout :>
          & x3 =>
           (
             _import "gtk_layout_get_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkLayoutClass.C.notnull GtkLayoutClass.C.p
                * FFI.UInt.C.ref_
                * FFI.UInt.C.ref_
                -> unit;
@@ -34,8 +34,8 @@ structure GtkLayout :>
          & x4 =>
           (
             _import "gtk_layout_move" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkLayoutClass.C.notnull GtkLayoutClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -54,8 +54,8 @@ structure GtkLayout :>
          & x4 =>
           (
             _import "gtk_layout_put" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkLayoutClass.C.notnull GtkLayoutClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -73,7 +73,7 @@ structure GtkLayout :>
          & x3 =>
           (
             _import "gtk_layout_set_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkLayoutClass.C.notnull GtkLayoutClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                -> unit;
@@ -93,15 +93,15 @@ structure GtkLayout :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hadjustment vadjustment = (GObjectObjectClass.C.withOptPtr &&&> GObjectObjectClass.C.withOptPtr ---> GtkLayoutClass.C.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getBinWindow_ self
+    fun new hadjustment vadjustment = (GtkAdjustmentClass.C.withOptPtr &&&> GtkAdjustmentClass.C.withOptPtr ---> GtkLayoutClass.C.fromPtr false) new_ (hadjustment & vadjustment)
+    fun getBinWindow self = (GtkLayoutClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getBinWindow_ self
     fun getSize self =
       let
         val width
          & height
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkLayoutClass.C.withPtr
              &&&> FFI.UInt.C.withRefVal
              &&&> FFI.UInt.C.withRefVal
              ---> FFI.UInt.C.fromVal
@@ -119,8 +119,8 @@ structure GtkLayout :>
       end
     fun move self childWidget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkLayoutClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -134,8 +134,8 @@ structure GtkLayout :>
         )
     fun put self childWidget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkLayoutClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -149,7 +149,7 @@ structure GtkLayout :>
         )
     fun setSize self width height =
       (
-        GObjectObjectClass.C.withPtr
+        GtkLayoutClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          ---> I

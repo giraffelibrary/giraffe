@@ -8,9 +8,9 @@ structure GtkSwitch :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_switch_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_switch_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getActive_ = call (load_sym libgtk "gtk_switch_get_active") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_switch_set_active") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_switch_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getActive_ = call (load_sym libgtk "gtk_switch_get_active") (GtkSwitchClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_switch_set_active") (GtkSwitchClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSwitchClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -21,8 +21,8 @@ structure GtkSwitch :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSwitchClass.C.fromPtr false) new_ ()
-    fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun setActive self isActive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
+    fun getActive self = (GtkSwitchClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
+    fun setActive self isActive = (GtkSwitchClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
     local
       open ClosureMarshal Signal
     in

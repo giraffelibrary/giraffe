@@ -8,8 +8,8 @@ structure GtkColorSelectionDialog :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_color_selection_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_color_selection_dialog_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getColorSelection_ = call (load_sym libgtk "gtk_color_selection_dialog_get_color_selection") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_color_selection_dialog_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getColorSelection_ = call (load_sym libgtk "gtk_color_selection_dialog_get_color_selection") (GtkColorSelectionDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkColorSelectionDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -19,7 +19,7 @@ structure GtkColorSelectionDialog :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new title = (Utf8.C.withPtr ---> GtkColorSelectionDialogClass.C.fromPtr false) new_ title
-    fun getColorSelection self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getColorSelection_ self
+    fun getColorSelection self = (GtkColorSelectionDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getColorSelection_ self
     local
       open Property
     in

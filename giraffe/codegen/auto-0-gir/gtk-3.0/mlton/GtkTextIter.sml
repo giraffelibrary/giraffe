@@ -45,7 +45,7 @@ structure GtkTextIter :>
             )
     val backwardSentenceStart_ = _import "gtk_text_iter_backward_sentence_start" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val backwardSentenceStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_sentence_starts" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val backwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_backward_to_tag_toggle" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val backwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_backward_to_tag_toggle" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val backwardVisibleCursorPosition_ = _import "gtk_text_iter_backward_visible_cursor_position" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val backwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_cursor_positions" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val backwardVisibleLine_ = _import "gtk_text_iter_backward_visible_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
@@ -54,14 +54,14 @@ structure GtkTextIter :>
     val backwardVisibleWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_word_starts" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val backwardWordStart_ = _import "gtk_text_iter_backward_word_start" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val backwardWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_word_starts" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val beginsTag_ = fn x1 & x2 => (_import "gtk_text_iter_begins_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val beginsTag_ = fn x1 & x2 => (_import "gtk_text_iter_begins_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val canInsert_ = fn x1 & x2 => (_import "gtk_text_iter_can_insert" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val compare_ = fn x1 & x2 => (_import "gtk_text_iter_compare" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
     val copy_ = _import "gtk_text_iter_copy" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p;
     val editable_ = fn x1 & x2 => (_import "gtk_text_iter_editable" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Bool.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val endsLine_ = _import "gtk_text_iter_ends_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val endsSentence_ = _import "gtk_text_iter_ends_sentence" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
-    val endsTag_ = fn x1 & x2 => (_import "gtk_text_iter_ends_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val endsTag_ = fn x1 & x2 => (_import "gtk_text_iter_ends_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val endsWord_ = _import "gtk_text_iter_ends_word" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val equal_ = fn x1 & x2 => (_import "gtk_text_iter_equal" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val forwardChar_ = _import "gtk_text_iter_forward_char" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
@@ -102,7 +102,7 @@ structure GtkTextIter :>
     val forwardSentenceEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_sentence_ends" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val forwardToEnd_ = _import "gtk_text_iter_forward_to_end" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;
     val forwardToLineEnd_ = _import "gtk_text_iter_forward_to_line_end" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
-    val forwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_forward_to_tag_toggle" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val forwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_forward_to_tag_toggle" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val forwardVisibleCursorPosition_ = _import "gtk_text_iter_forward_visible_cursor_position" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val forwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_cursor_positions" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val forwardVisibleLine_ = _import "gtk_text_iter_forward_visible_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
@@ -112,24 +112,24 @@ structure GtkTextIter :>
     val forwardWordEnd_ = _import "gtk_text_iter_forward_word_end" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val forwardWordEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_word_ends" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val getAttributes_ = fn x1 & x2 => (_import "gtk_text_iter_get_attributes" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextAttributesRecord.C.notnull GtkTextAttributesRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getBuffer_ = _import "gtk_text_iter_get_buffer" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getBuffer_ = _import "gtk_text_iter_get_buffer" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p;
     val getBytesInLine_ = _import "gtk_text_iter_get_bytes_in_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getChar_ = _import "gtk_text_iter_get_char" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Char.C.val_;
     val getCharsInLine_ = _import "gtk_text_iter_get_chars_in_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
-    val getChildAnchor_ = _import "gtk_text_iter_get_child_anchor" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getChildAnchor_ = _import "gtk_text_iter_get_child_anchor" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GtkTextChildAnchorClass.C.notnull GtkTextChildAnchorClass.C.p;
     val getLanguage_ = _import "gtk_text_iter_get_language" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
     val getLine_ = _import "gtk_text_iter_get_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getLineIndex_ = _import "gtk_text_iter_get_line_index" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getLineOffset_ = _import "gtk_text_iter_get_line_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getOffset_ = _import "gtk_text_iter_get_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
-    val getPixbuf_ = _import "gtk_text_iter_get_pixbuf" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getPixbuf_ = _import "gtk_text_iter_get_pixbuf" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
     val getSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getText_ = fn x1 & x2 => (_import "gtk_text_iter_get_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getVisibleLineIndex_ = _import "gtk_text_iter_get_visible_line_index" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getVisibleLineOffset_ = _import "gtk_text_iter_get_visible_line_offset" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Int.C.val_;
     val getVisibleSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_slice" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
     val getVisibleText_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_text" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val hasTag_ = fn x1 & x2 => (_import "gtk_text_iter_has_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val hasTag_ = fn x1 & x2 => (_import "gtk_text_iter_has_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * GtkTextTagClass.C.notnull GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val inRange_ =
       fn
         x1
@@ -162,7 +162,7 @@ structure GtkTextIter :>
     val startsLine_ = _import "gtk_text_iter_starts_line" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val startsSentence_ = _import "gtk_text_iter_starts_sentence" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
     val startsWord_ = _import "gtk_text_iter_starts_word" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> FFI.Bool.C.val_;
-    val togglesTag_ = fn x1 & x2 => (_import "gtk_text_iter_toggles_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val togglesTag_ = fn x1 & x2 => (_import "gtk_text_iter_toggles_tag" : GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p * unit GtkTextTagClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
     type t = GtkTextIterRecord.t
     type text_search_flags_t = GtkTextSearchFlags.t
     type text_attributes_t = GtkTextAttributesRecord.t
@@ -207,7 +207,7 @@ structure GtkTextIter :>
       end
     fun backwardSentenceStart self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardSentenceStart_ self
     fun backwardSentenceStarts self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) backwardSentenceStarts_ (self & count)
-    fun backwardToTagToggle self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) backwardToTagToggle_ (self & tag)
+    fun backwardToTagToggle self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withOptPtr ---> FFI.Bool.C.fromVal) backwardToTagToggle_ (self & tag)
     fun backwardVisibleCursorPosition self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardVisibleCursorPosition_ self
     fun backwardVisibleCursorPositions self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) backwardVisibleCursorPositions_ (self & count)
     fun backwardVisibleLine self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardVisibleLine_ self
@@ -216,14 +216,14 @@ structure GtkTextIter :>
     fun backwardVisibleWordStarts self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) backwardVisibleWordStarts_ (self & count)
     fun backwardWordStart self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) backwardWordStart_ self
     fun backwardWordStarts self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) backwardWordStarts_ (self & count)
-    fun beginsTag self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) beginsTag_ (self & tag)
+    fun beginsTag self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withOptPtr ---> FFI.Bool.C.fromVal) beginsTag_ (self & tag)
     fun canInsert self defaultEditability = (GtkTextIterRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) canInsert_ (self & defaultEditability)
     fun compare self rhs = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.Int.C.fromVal) compare_ (self & rhs)
     fun copy self = (GtkTextIterRecord.C.withPtr ---> GtkTextIterRecord.C.fromPtr true) copy_ self
     fun editable self defaultSetting = (GtkTextIterRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) editable_ (self & defaultSetting)
     fun endsLine self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) endsLine_ self
     fun endsSentence self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) endsSentence_ self
-    fun endsTag self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) endsTag_ (self & tag)
+    fun endsTag self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withOptPtr ---> FFI.Bool.C.fromVal) endsTag_ (self & tag)
     fun endsWord self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) endsWord_ self
     fun equal self rhs = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & rhs)
     fun forwardChar self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardChar_ self
@@ -264,7 +264,7 @@ structure GtkTextIter :>
     fun forwardSentenceEnds self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) forwardSentenceEnds_ (self & count)
     fun forwardToEnd self = (GtkTextIterRecord.C.withPtr ---> I) forwardToEnd_ self
     fun forwardToLineEnd self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardToLineEnd_ self
-    fun forwardToTagToggle self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) forwardToTagToggle_ (self & tag)
+    fun forwardToTagToggle self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withOptPtr ---> FFI.Bool.C.fromVal) forwardToTagToggle_ (self & tag)
     fun forwardVisibleCursorPosition self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardVisibleCursorPosition_ self
     fun forwardVisibleCursorPositions self count = (GtkTextIterRecord.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) forwardVisibleCursorPositions_ (self & count)
     fun forwardVisibleLine self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) forwardVisibleLine_ self
@@ -296,7 +296,7 @@ structure GtkTextIter :>
     fun getVisibleLineOffset self = (GtkTextIterRecord.C.withPtr ---> FFI.Int.C.fromVal) getVisibleLineOffset_ self
     fun getVisibleSlice self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getVisibleSlice_ (self & end')
     fun getVisibleText self end' = (GtkTextIterRecord.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> Utf8.C.fromPtr true) getVisibleText_ (self & end')
-    fun hasTag self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasTag_ (self & tag)
+    fun hasTag self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withPtr ---> FFI.Bool.C.fromVal) hasTag_ (self & tag)
     fun inRange self start end' =
       (
         GtkTextIterRecord.C.withPtr
@@ -325,5 +325,5 @@ structure GtkTextIter :>
     fun startsLine self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) startsLine_ self
     fun startsSentence self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) startsSentence_ self
     fun startsWord self = (GtkTextIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) startsWord_ self
-    fun togglesTag self tag = (GtkTextIterRecord.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> FFI.Bool.C.fromVal) togglesTag_ (self & tag)
+    fun togglesTag self tag = (GtkTextIterRecord.C.withPtr &&&> GtkTextTagClass.C.withOptPtr ---> FFI.Bool.C.fromVal) togglesTag_ (self & tag)
   end

@@ -9,36 +9,36 @@ structure GioBufferedInputStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_buffered_input_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_buffered_input_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newSized_ = call (load_sym libgio "g_buffered_input_stream_new_sized") (GObjectObjectClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_buffered_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
+      val newSized_ = call (load_sym libgio "g_buffered_input_stream_new_sized") (GioInputStreamClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> GioInputStreamClass.PolyML.cPtr)
       val fill_ =
         call (load_sym libgio "g_buffered_input_stream_fill")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioBufferedInputStreamClass.PolyML.cPtr
              &&> FFI.SSize.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.SSize.PolyML.cVal
           )
       val fillFinish_ =
         call (load_sym libgio "g_buffered_input_stream_fill_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioBufferedInputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.SSize.PolyML.cVal
           )
-      val getAvailable_ = call (load_sym libgio "g_buffered_input_stream_get_available") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
-      val getBufferSize_ = call (load_sym libgio "g_buffered_input_stream_get_buffer_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
+      val getAvailable_ = call (load_sym libgio "g_buffered_input_stream_get_available") (GioBufferedInputStreamClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
+      val getBufferSize_ = call (load_sym libgio "g_buffered_input_stream_get_buffer_size") (GioBufferedInputStreamClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
       val readByte_ =
         call (load_sym libgio "g_buffered_input_stream_read_byte")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioBufferedInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int.PolyML.cVal
           )
-      val setBufferSize_ = call (load_sym libgio "g_buffered_input_stream_set_buffer_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBufferSize_ = call (load_sym libgio "g_buffered_input_stream_set_buffer_size") (GioBufferedInputStreamClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioBufferedInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
@@ -46,13 +46,13 @@ structure GioBufferedInputStream :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
+    fun new baseStream = (GioInputStreamClass.C.withPtr ---> GioBufferedInputStreamClass.C.fromPtr true) new_ baseStream
+    fun newSized baseStream size = (GioInputStreamClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedInputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
     fun fill self count cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioBufferedInputStreamClass.C.withPtr
          &&&> FFI.SSize.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
@@ -65,8 +65,8 @@ structure GioBufferedInputStream :>
         )
     fun fillFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioBufferedInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
@@ -76,12 +76,12 @@ structure GioBufferedInputStream :>
            & result
            & []
         )
-    fun getAvailable self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getAvailable_ self
-    fun getBufferSize self = (GObjectObjectClass.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
+    fun getAvailable self = (GioBufferedInputStreamClass.C.withPtr ---> FFI.Size.C.fromVal) getAvailable_ self
+    fun getBufferSize self = (GioBufferedInputStreamClass.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
     fun readByte self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioBufferedInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int.C.fromVal
       )
@@ -91,7 +91,7 @@ structure GioBufferedInputStream :>
            & cancellable
            & []
         )
-    fun setBufferSize self size = (GObjectObjectClass.C.withPtr &&&> FFI.Size.C.withVal ---> I) setBufferSize_ (self & size)
+    fun setBufferSize self size = (GioBufferedInputStreamClass.C.withPtr &&&> FFI.Size.C.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

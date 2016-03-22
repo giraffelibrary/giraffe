@@ -10,12 +10,12 @@ structure GtkStyleProvider :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_style_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getIconFactory_ = call (load_sym libgtk "gtk_style_provider_get_icon_factory") (GObjectObjectClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getStyle_ = call (load_sym libgtk "gtk_style_provider_get_style") (GObjectObjectClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIconFactory_ = call (load_sym libgtk "gtk_style_provider_get_icon_factory") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkIconFactoryClass.PolyML.cPtr)
+      val getStyle_ = call (load_sym libgtk "gtk_style_provider_get_style") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkStylePropertiesClass.PolyML.cPtr)
       val getStyleProperty_ =
         call (load_sym libgtk "gtk_style_provider_get_style_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkStyleProviderClass.PolyML.cPtr
              &&> GtkWidgetPathRecord.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GObjectParamSpecClass.PolyML.cPtr
@@ -30,13 +30,13 @@ structure GtkStyleProvider :>
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getIconFactory self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)
-    fun getStyle self path = (GObjectObjectClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkStylePropertiesClass.C.fromPtr true) getStyle_ (self & path)
+    fun getIconFactory self path = (GtkStyleProviderClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)
+    fun getStyle self path = (GtkStyleProviderClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkStylePropertiesClass.C.fromPtr true) getStyle_ (self & path)
     fun getStyleProperty self path state pspec =
       let
         val value & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkStyleProviderClass.C.withPtr
              &&&> GtkWidgetPathRecord.C.withPtr
              &&&> GtkStateFlags.C.withVal
              &&&> GObjectParamSpecClass.C.withPtr

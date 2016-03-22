@@ -9,9 +9,9 @@ structure VteTerminal :>
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "vte_terminal_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val copyClipboard_ = _import "vte_terminal_copy_clipboard" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val copyPrimary_ = _import "vte_terminal_copy_primary" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.C.notnull VteTerminalClass.C.p;
+    val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val copyPrimary_ = _import "vte_terminal_copy_primary" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
     val feed_ =
       fn
         x1
@@ -19,7 +19,7 @@ structure VteTerminal :>
          & x4 =>
           (
             _import "mlton_vte_terminal_feed" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
@@ -38,7 +38,7 @@ structure VteTerminal :>
          & x4 =>
           (
             _import "mlton_vte_terminal_feed_child" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
@@ -57,7 +57,7 @@ structure VteTerminal :>
          & x4 =>
           (
             _import "mlton_vte_terminal_feed_child_binary" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Long.C.val_
@@ -69,28 +69,28 @@ structure VteTerminal :>
               x3,
               x4
             )
-    val getAllowBold_ = _import "vte_terminal_get_allow_bold" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getAudibleBell_ = _import "vte_terminal_get_audible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getCharHeight_ = _import "vte_terminal_get_char_height" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getCharWidth_ = _import "vte_terminal_get_char_width" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getChildExitStatus_ = _import "vte_terminal_get_child_exit_status" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getColumnCount_ = _import "vte_terminal_get_column_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteTerminalCursorBlinkMode.C.val_;
-    val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> VteTerminalCursorShape.C.val_;
-    val getDefaultEmulation_ = _import "vte_terminal_get_default_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getEmulation_ = _import "vte_terminal_get_emulation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getEncoding_ = _import "vte_terminal_get_encoding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getFont_ = _import "vte_terminal_get_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    val getHasSelection_ = _import "vte_terminal_get_has_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getIconTitle_ = _import "vte_terminal_get_icon_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getPtyObject_ = _import "vte_terminal_get_pty_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getRowCount_ = _import "vte_terminal_get_row_count" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Long.C.val_;
-    val getStatusLine_ = _import "vte_terminal_get_status_line" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getVisibleBell_ = _import "vte_terminal_get_visible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getWindowTitle_ = _import "vte_terminal_get_window_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val imAppendMenuitems_ = fn x1 & x2 => (_import "vte_terminal_im_append_menuitems" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val isWordChar_ = fn x1 & x2 => (_import "vte_terminal_is_word_char" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Char.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val getAllowBold_ = _import "vte_terminal_get_allow_bold" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val getAudibleBell_ = _import "vte_terminal_get_audible_bell" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val getCharHeight_ = _import "vte_terminal_get_char_height" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Long.C.val_;
+    val getCharWidth_ = _import "vte_terminal_get_char_width" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Long.C.val_;
+    val getChildExitStatus_ = _import "vte_terminal_get_child_exit_status" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Int.C.val_;
+    val getColumnCount_ = _import "vte_terminal_get_column_count" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Long.C.val_;
+    val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> VteTerminalCursorBlinkMode.C.val_;
+    val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> VteTerminalCursorShape.C.val_;
+    val getDefaultEmulation_ = _import "vte_terminal_get_default_emulation" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getEmulation_ = _import "vte_terminal_get_emulation" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getEncoding_ = _import "vte_terminal_get_encoding" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getFont_ = _import "vte_terminal_get_font" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
+    val getHasSelection_ = _import "vte_terminal_get_has_selection" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val getIconTitle_ = _import "vte_terminal_get_icon_title" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val getPtyObject_ = _import "vte_terminal_get_pty_object" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> VtePtyClass.C.notnull VtePtyClass.C.p;
+    val getRowCount_ = _import "vte_terminal_get_row_count" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Long.C.val_;
+    val getStatusLine_ = _import "vte_terminal_get_status_line" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getVisibleBell_ = _import "vte_terminal_get_visible_bell" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val getWindowTitle_ = _import "vte_terminal_get_window_title" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val imAppendMenuitems_ = fn x1 & x2 => (_import "vte_terminal_im_append_menuitems" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GtkMenuShellClass.C.notnull GtkMenuShellClass.C.p -> unit;) (x1, x2)
+    val isWordChar_ = fn x1 & x2 => (_import "vte_terminal_is_word_char" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Char.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
     val matchAddGregex_ =
       fn
         x1
@@ -98,7 +98,7 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_match_add_gregex" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * GLibRegexRecord.C.notnull GLibRegexRecord.C.p
                * GLibRegexMatchFlags.C.val_
                -> FFI.Int.C.val_;
@@ -116,7 +116,7 @@ structure VteTerminal :>
          & x4 =>
           (
             _import "vte_terminal_match_check" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Long.C.val_
                * FFI.Long.C.val_
                * FFI.Int.C.ref_
@@ -128,8 +128,8 @@ structure VteTerminal :>
               x3,
               x4
             )
-    val matchClearAll_ = _import "vte_terminal_match_clear_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val matchRemove_ = fn x1 & x2 => (_import "vte_terminal_match_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val matchClearAll_ = _import "vte_terminal_match_clear_all" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val matchRemove_ = fn x1 & x2 => (_import "vte_terminal_match_remove" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     val matchSetCursor_ =
       fn
         x1
@@ -137,9 +137,9 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_match_set_cursor" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Int.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GdkCursorClass.C.p
                -> unit;
           )
             (
@@ -154,7 +154,7 @@ structure VteTerminal :>
          & (x3, x4) =>
           (
             _import "mlton_vte_terminal_match_set_cursor_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Int.C.val_
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -173,7 +173,7 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_match_set_cursor_type" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Int.C.val_
                * GdkCursorType.C.val_
                -> unit;
@@ -183,8 +183,8 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val pasteClipboard_ = _import "vte_terminal_paste_clipboard" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val pastePrimary_ = _import "vte_terminal_paste_primary" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val pasteClipboard_ = _import "vte_terminal_paste_clipboard" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val pastePrimary_ = _import "vte_terminal_paste_primary" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
     val ptyNew_ =
       fn
         x1
@@ -192,10 +192,10 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_pty_new" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * VtePtyFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> VtePtyClass.C.notnull VtePtyClass.C.p;
           )
             (
               x1,
@@ -209,7 +209,7 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_reset" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Bool.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -219,23 +219,23 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val searchFindNext_ = _import "vte_terminal_search_find_next" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val searchFindPrevious_ = _import "vte_terminal_search_find_previous" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val searchGetGregex_ = _import "vte_terminal_search_get_gregex" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GLibRegexRecord.C.notnull GLibRegexRecord.C.p;
-    val searchGetWrapAround_ = _import "vte_terminal_search_get_wrap_around" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val searchSetGregex_ = fn x1 & x2 => (_import "vte_terminal_search_set_gregex" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GLibRegexRecord.C.p -> unit;) (x1, x2)
-    val searchSetWrapAround_ = fn x1 & x2 => (_import "vte_terminal_search_set_wrap_around" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val selectAll_ = _import "vte_terminal_select_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val selectNone_ = _import "vte_terminal_select_none" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setAudibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_audible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setBackgroundImage_ = fn x1 & x2 => (_import "vte_terminal_set_background_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val searchFindNext_ = _import "vte_terminal_search_find_next" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val searchFindPrevious_ = _import "vte_terminal_search_find_previous" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val searchGetGregex_ = _import "vte_terminal_search_get_gregex" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> GLibRegexRecord.C.notnull GLibRegexRecord.C.p;
+    val searchGetWrapAround_ = _import "vte_terminal_search_get_wrap_around" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> FFI.Bool.C.val_;
+    val searchSetGregex_ = fn x1 & x2 => (_import "vte_terminal_search_set_gregex" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GLibRegexRecord.C.p -> unit;) (x1, x2)
+    val searchSetWrapAround_ = fn x1 & x2 => (_import "vte_terminal_search_set_wrap_around" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val selectAll_ = _import "vte_terminal_select_all" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val selectNone_ = _import "vte_terminal_select_none" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setAudibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_audible_bell" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setBackgroundImage_ = fn x1 & x2 => (_import "vte_terminal_set_background_image" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkPixbufPixbufClass.C.p -> unit;) (x1, x2)
     val setBackgroundImageFile_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_terminal_set_background_image_file" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -245,32 +245,32 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val setBackgroundSaturation_ = fn x1 & x2 => (_import "vte_terminal_set_background_saturation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
-    val setBackgroundTintColor_ = fn x1 & x2 => (_import "vte_terminal_set_background_tint_color" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setBackgroundTransparent_ = fn x1 & x2 => (_import "vte_terminal_set_background_transparent" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setBackspaceBinding_ = fn x1 & x2 => (_import "vte_terminal_set_backspace_binding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * VteTerminalEraseBinding.C.val_ -> unit;) (x1, x2)
-    val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorBackgroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_background_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setColorBold_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorBoldRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setColorCursor_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorCursorRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setColorDim_ = fn x1 & x2 => (_import "vte_terminal_set_color_dim" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorDimRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_dim_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorForegroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkColorRecord.C.p -> unit;) (x1, x2)
-    val setColorHighlightRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_rgba" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
-    val setCursorBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_blink_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * VteTerminalCursorBlinkMode.C.val_ -> unit;) (x1, x2)
-    val setCursorShape_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_shape" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * VteTerminalCursorShape.C.val_ -> unit;) (x1, x2)
-    val setDefaultColors_ = _import "vte_terminal_set_default_colors" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setDeleteBinding_ = fn x1 & x2 => (_import "vte_terminal_set_delete_binding" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * VteTerminalEraseBinding.C.val_ -> unit;) (x1, x2)
+    val setBackgroundSaturation_ = fn x1 & x2 => (_import "vte_terminal_set_background_saturation" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val setBackgroundTintColor_ = fn x1 & x2 => (_import "vte_terminal_set_background_tint_color" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setBackgroundTransparent_ = fn x1 & x2 => (_import "vte_terminal_set_background_transparent" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setBackspaceBinding_ = fn x1 & x2 => (_import "vte_terminal_set_backspace_binding" : VteTerminalClass.C.notnull VteTerminalClass.C.p * VteTerminalEraseBinding.C.val_ -> unit;) (x1, x2)
+    val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorBackgroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_background_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setColorBold_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorBoldRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setColorCursor_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorCursorRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setColorDim_ = fn x1 & x2 => (_import "vte_terminal_set_color_dim" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorDimRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_dim_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkColorRecord.C.notnull GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorForegroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkColorRecord.C.p -> unit;) (x1, x2)
+    val setColorHighlightRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_rgba" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit GdkRgbaRecord.C.p -> unit;) (x1, x2)
+    val setCursorBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_blink_mode" : VteTerminalClass.C.notnull VteTerminalClass.C.p * VteTerminalCursorBlinkMode.C.val_ -> unit;) (x1, x2)
+    val setCursorShape_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_shape" : VteTerminalClass.C.notnull VteTerminalClass.C.p * VteTerminalCursorShape.C.val_ -> unit;) (x1, x2)
+    val setDefaultColors_ = _import "vte_terminal_set_default_colors" : VteTerminalClass.C.notnull VteTerminalClass.C.p -> unit;
+    val setDeleteBinding_ = fn x1 & x2 => (_import "vte_terminal_set_delete_binding" : VteTerminalClass.C.notnull VteTerminalClass.C.p * VteTerminalEraseBinding.C.val_ -> unit;) (x1, x2)
     val setEmulation_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_terminal_set_emulation" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -285,7 +285,7 @@ structure VteTerminal :>
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_terminal_set_encoding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -295,13 +295,13 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val setFont_ = fn x1 & x2 => (_import "vte_terminal_set_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit PangoFontDescriptionRecord.C.p -> unit;) (x1, x2)
+    val setFont_ = fn x1 & x2 => (_import "vte_terminal_set_font" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit PangoFontDescriptionRecord.C.p -> unit;) (x1, x2)
     val setFontFromString_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_terminal_set_font_from_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -311,13 +311,13 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setOpacity_ = fn x1 & x2 => (_import "vte_terminal_set_opacity" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt16.C.val_ -> unit;) (x1, x2)
-    val setPtyObject_ = fn x1 & x2 => (_import "vte_terminal_set_pty_object" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setScrollBackground_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_background" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Long.C.val_ -> unit;) (x1, x2)
+    val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setOpacity_ = fn x1 & x2 => (_import "vte_terminal_set_opacity" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.UInt16.C.val_ -> unit;) (x1, x2)
+    val setPtyObject_ = fn x1 & x2 => (_import "vte_terminal_set_pty_object" : VteTerminalClass.C.notnull VteTerminalClass.C.p * unit VtePtyClass.C.p -> unit;) (x1, x2)
+    val setScrollBackground_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_background" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Long.C.val_ -> unit;) (x1, x2)
     val setSize_ =
       fn
         x1
@@ -325,7 +325,7 @@ structure VteTerminal :>
          & x3 =>
           (
             _import "vte_terminal_set_size" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * FFI.Long.C.val_
                * FFI.Long.C.val_
                -> unit;
@@ -335,13 +335,13 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val setVisibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_visible_bell" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_visible_bell" : VteTerminalClass.C.notnull VteTerminalClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setWordChars_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_terminal_set_word_chars" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -351,7 +351,7 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibPid.C.val_ -> unit;) (x1, x2)
+    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : VteTerminalClass.C.notnull VteTerminalClass.C.p * GLibPid.C.val_ -> unit;) (x1, x2)
     val writeContents_ =
       fn
         x1
@@ -361,10 +361,10 @@ structure VteTerminal :>
          & x5 =>
           (
             _import "vte_terminal_write_contents" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              VteTerminalClass.C.notnull VteTerminalClass.C.p
+               * GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
                * VteTerminalWriteFlags.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -388,11 +388,11 @@ structure VteTerminal :>
     fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> VteTerminalClass.C.fromPtr false) new_ ()
-    fun copyClipboard self = (GObjectObjectClass.C.withPtr ---> I) copyClipboard_ self
-    fun copyPrimary self = (GObjectObjectClass.C.withPtr ---> I) copyPrimary_ self
+    fun copyClipboard self = (VteTerminalClass.C.withPtr ---> I) copyClipboard_ self
+    fun copyPrimary self = (VteTerminalClass.C.withPtr ---> I) copyPrimary_ self
     fun feed self data length =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
@@ -405,7 +405,7 @@ structure VteTerminal :>
         )
     fun feedChild self text length =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
@@ -418,7 +418,7 @@ structure VteTerminal :>
         )
     fun feedChildBinary self data length =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          ---> I
@@ -429,31 +429,31 @@ structure VteTerminal :>
            & data
            & length
         )
-    fun getAllowBold self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowBold_ self
-    fun getAudibleBell self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAudibleBell_ self
-    fun getCharHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getCharHeight_ self
-    fun getCharWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getCharWidth_ self
-    fun getChildExitStatus self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getChildExitStatus_ self
-    fun getColumnCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getColumnCount_ self
-    fun getCursorBlinkMode self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
-    fun getCursorShape self = (GObjectObjectClass.C.withPtr ---> VteTerminalCursorShape.C.fromVal) getCursorShape_ self
-    fun getDefaultEmulation self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultEmulation_ self
-    fun getEmulation self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEmulation_ self
-    fun getEncoding self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
-    fun getFont self = (GObjectObjectClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ self
-    fun getHasSelection self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getIconTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconTitle_ self
-    fun getMouseAutohide self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
-    fun getPtyObject self = (GObjectObjectClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPtyObject_ self
-    fun getRowCount self = (GObjectObjectClass.C.withPtr ---> FFI.Long.C.fromVal) getRowCount_ self
-    fun getStatusLine self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getStatusLine_ self
-    fun getVisibleBell self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleBell_ self
-    fun getWindowTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWindowTitle_ self
-    fun imAppendMenuitems self menushell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) imAppendMenuitems_ (self & menushell)
-    fun isWordChar self c = (GObjectObjectClass.C.withPtr &&&> FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) isWordChar_ (self & c)
+    fun getAllowBold self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowBold_ self
+    fun getAudibleBell self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) getAudibleBell_ self
+    fun getCharHeight self = (VteTerminalClass.C.withPtr ---> FFI.Long.C.fromVal) getCharHeight_ self
+    fun getCharWidth self = (VteTerminalClass.C.withPtr ---> FFI.Long.C.fromVal) getCharWidth_ self
+    fun getChildExitStatus self = (VteTerminalClass.C.withPtr ---> FFI.Int.C.fromVal) getChildExitStatus_ self
+    fun getColumnCount self = (VteTerminalClass.C.withPtr ---> FFI.Long.C.fromVal) getColumnCount_ self
+    fun getCursorBlinkMode self = (VteTerminalClass.C.withPtr ---> VteTerminalCursorBlinkMode.C.fromVal) getCursorBlinkMode_ self
+    fun getCursorShape self = (VteTerminalClass.C.withPtr ---> VteTerminalCursorShape.C.fromVal) getCursorShape_ self
+    fun getDefaultEmulation self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getDefaultEmulation_ self
+    fun getEmulation self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getEmulation_ self
+    fun getEncoding self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getEncoding_ self
+    fun getFont self = (VteTerminalClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ self
+    fun getHasSelection self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
+    fun getIconTitle self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getIconTitle_ self
+    fun getMouseAutohide self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) getMouseAutohide_ self
+    fun getPtyObject self = (VteTerminalClass.C.withPtr ---> VtePtyClass.C.fromPtr false) getPtyObject_ self
+    fun getRowCount self = (VteTerminalClass.C.withPtr ---> FFI.Long.C.fromVal) getRowCount_ self
+    fun getStatusLine self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getStatusLine_ self
+    fun getVisibleBell self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleBell_ self
+    fun getWindowTitle self = (VteTerminalClass.C.withPtr ---> Utf8.C.fromPtr false) getWindowTitle_ self
+    fun imAppendMenuitems self menushell = (VteTerminalClass.C.withPtr &&&> GtkMenuShellClass.C.withPtr ---> I) imAppendMenuitems_ (self & menushell)
+    fun isWordChar self c = (VteTerminalClass.C.withPtr &&&> FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) isWordChar_ (self & c)
     fun matchAddGregex self regex flags =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> GLibRegexRecord.C.withPtr
          &&&> GLibRegexMatchFlags.C.withVal
          ---> FFI.Int.C.fromVal
@@ -468,7 +468,7 @@ structure VteTerminal :>
       let
         val tag & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            VteTerminalClass.C.withPtr
              &&&> FFI.Long.C.withVal
              &&&> FFI.Long.C.withVal
              &&&> FFI.Int.C.withRefVal
@@ -484,13 +484,13 @@ structure VteTerminal :>
       in
         (retVal, tag)
       end
-    fun matchClearAll self = (GObjectObjectClass.C.withPtr ---> I) matchClearAll_ self
-    fun matchRemove self tag = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) matchRemove_ (self & tag)
+    fun matchClearAll self = (VteTerminalClass.C.withPtr ---> I) matchClearAll_ self
+    fun matchRemove self tag = (VteTerminalClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) matchRemove_ (self & tag)
     fun matchSetCursor self tag cursor =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> FFI.Int.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkCursorClass.C.withOptPtr
          ---> I
       )
         matchSetCursor_
@@ -501,7 +501,7 @@ structure VteTerminal :>
         )
     fun matchSetCursorName self tag cursorName =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> Utf8.C.withPtr
          ---> I
@@ -514,7 +514,7 @@ structure VteTerminal :>
         )
     fun matchSetCursorType self tag cursorType =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> GdkCursorType.C.withVal
          ---> I
@@ -525,11 +525,11 @@ structure VteTerminal :>
            & tag
            & cursorType
         )
-    fun pasteClipboard self = (GObjectObjectClass.C.withPtr ---> I) pasteClipboard_ self
-    fun pastePrimary self = (GObjectObjectClass.C.withPtr ---> I) pastePrimary_ self
+    fun pasteClipboard self = (VteTerminalClass.C.withPtr ---> I) pasteClipboard_ self
+    fun pastePrimary self = (VteTerminalClass.C.withPtr ---> I) pastePrimary_ self
     fun ptyNew self flags =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> VtePtyFlags.C.withVal
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
@@ -542,7 +542,7 @@ structure VteTerminal :>
         )
     fun reset self clearTabstops clearHistory =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -553,52 +553,52 @@ structure VteTerminal :>
            & clearTabstops
            & clearHistory
         )
-    fun searchFindNext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) searchFindNext_ self
-    fun searchFindPrevious self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) searchFindPrevious_ self
-    fun searchGetGregex self = (GObjectObjectClass.C.withPtr ---> GLibRegexRecord.C.fromPtr false) searchGetGregex_ self
-    fun searchGetWrapAround self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) searchGetWrapAround_ self
-    fun searchSetGregex self regex = (GObjectObjectClass.C.withPtr &&&> GLibRegexRecord.C.withOptPtr ---> I) searchSetGregex_ (self & regex)
-    fun searchSetWrapAround self wrapAround = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) searchSetWrapAround_ (self & wrapAround)
-    fun selectAll self = (GObjectObjectClass.C.withPtr ---> I) selectAll_ self
-    fun selectNone self = (GObjectObjectClass.C.withPtr ---> I) selectNone_ self
-    fun setAllowBold self allowBold = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowBold_ (self & allowBold)
-    fun setAudibleBell self isAudible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAudibleBell_ (self & isAudible)
-    fun setBackgroundImage self image = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setBackgroundImageFile_ (self & path)
-    fun setBackgroundSaturation self saturation = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setBackgroundSaturation_ (self & saturation)
-    fun setBackgroundTintColor self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundTintColor_ (self & color)
-    fun setBackgroundTransparent self transparent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setBackgroundTransparent_ (self & transparent)
-    fun setBackspaceBinding self binding = (GObjectObjectClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setBackspaceBinding_ (self & binding)
-    fun setColorBackground self background = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorBackground_ (self & background)
-    fun setColorBackgroundRgba self background = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setColorBackgroundRgba_ (self & background)
-    fun setColorBold self bold = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorBold_ (self & bold)
-    fun setColorBoldRgba self bold = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorBoldRgba_ (self & bold)
-    fun setColorCursor self cursorBackground = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withOptPtr ---> I) setColorCursor_ (self & cursorBackground)
-    fun setColorCursorRgba self cursorBackground = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorCursorRgba_ (self & cursorBackground)
-    fun setColorDim self dim = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorDim_ (self & dim)
-    fun setColorDimRgba self dim = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorDimRgba_ (self & dim)
-    fun setColorForeground self foreground = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorForeground_ (self & foreground)
-    fun setColorForegroundRgba self foreground = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setColorForegroundRgba_ (self & foreground)
-    fun setColorHighlight self highlightBackground = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
-    fun setColorHighlightRgba self highlightBackground = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorHighlightRgba_ (self & highlightBackground)
-    fun setCursorBlinkMode self mode = (GObjectObjectClass.C.withPtr &&&> VteTerminalCursorBlinkMode.C.withVal ---> I) setCursorBlinkMode_ (self & mode)
-    fun setCursorShape self shape = (GObjectObjectClass.C.withPtr &&&> VteTerminalCursorShape.C.withVal ---> I) setCursorShape_ (self & shape)
-    fun setDefaultColors self = (GObjectObjectClass.C.withPtr ---> I) setDefaultColors_ self
-    fun setDeleteBinding self binding = (GObjectObjectClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setDeleteBinding_ (self & binding)
-    fun setEmulation self emulation = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEmulation_ (self & emulation)
-    fun setEncoding self codeset = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEncoding_ (self & codeset)
-    fun setFont self fontDesc = (GObjectObjectClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
-    fun setFontFromString self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFontFromString_ (self & name)
-    fun setMouseAutohide self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMouseAutohide_ (self & setting)
-    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setOpacity_ (self & opacity)
-    fun setPtyObject self pty = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
-    fun setScrollBackground self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollBackground_ (self & scroll)
-    fun setScrollOnKeystroke self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
-    fun setScrollOnOutput self scroll = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnOutput_ (self & scroll)
-    fun setScrollbackLines self lines = (GObjectObjectClass.C.withPtr &&&> FFI.Long.C.withVal ---> I) setScrollbackLines_ (self & lines)
+    fun searchFindNext self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) searchFindNext_ self
+    fun searchFindPrevious self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) searchFindPrevious_ self
+    fun searchGetGregex self = (VteTerminalClass.C.withPtr ---> GLibRegexRecord.C.fromPtr false) searchGetGregex_ self
+    fun searchGetWrapAround self = (VteTerminalClass.C.withPtr ---> FFI.Bool.C.fromVal) searchGetWrapAround_ self
+    fun searchSetGregex self regex = (VteTerminalClass.C.withPtr &&&> GLibRegexRecord.C.withOptPtr ---> I) searchSetGregex_ (self & regex)
+    fun searchSetWrapAround self wrapAround = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) searchSetWrapAround_ (self & wrapAround)
+    fun selectAll self = (VteTerminalClass.C.withPtr ---> I) selectAll_ self
+    fun selectNone self = (VteTerminalClass.C.withPtr ---> I) selectNone_ self
+    fun setAllowBold self allowBold = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowBold_ (self & allowBold)
+    fun setAudibleBell self isAudible = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAudibleBell_ (self & isAudible)
+    fun setBackgroundImage self image = (VteTerminalClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withOptPtr ---> I) setBackgroundImage_ (self & image)
+    fun setBackgroundImageFile self path = (VteTerminalClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setBackgroundImageFile_ (self & path)
+    fun setBackgroundSaturation self saturation = (VteTerminalClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setBackgroundSaturation_ (self & saturation)
+    fun setBackgroundTintColor self color = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundTintColor_ (self & color)
+    fun setBackgroundTransparent self transparent = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setBackgroundTransparent_ (self & transparent)
+    fun setBackspaceBinding self binding = (VteTerminalClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setBackspaceBinding_ (self & binding)
+    fun setColorBackground self background = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorBackground_ (self & background)
+    fun setColorBackgroundRgba self background = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setColorBackgroundRgba_ (self & background)
+    fun setColorBold self bold = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorBold_ (self & bold)
+    fun setColorBoldRgba self bold = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorBoldRgba_ (self & bold)
+    fun setColorCursor self cursorBackground = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withOptPtr ---> I) setColorCursor_ (self & cursorBackground)
+    fun setColorCursorRgba self cursorBackground = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorCursorRgba_ (self & cursorBackground)
+    fun setColorDim self dim = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorDim_ (self & dim)
+    fun setColorDimRgba self dim = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorDimRgba_ (self & dim)
+    fun setColorForeground self foreground = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setColorForeground_ (self & foreground)
+    fun setColorForegroundRgba self foreground = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setColorForegroundRgba_ (self & foreground)
+    fun setColorHighlight self highlightBackground = (VteTerminalClass.C.withPtr &&&> GdkColorRecord.C.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
+    fun setColorHighlightRgba self highlightBackground = (VteTerminalClass.C.withPtr &&&> GdkRgbaRecord.C.withOptPtr ---> I) setColorHighlightRgba_ (self & highlightBackground)
+    fun setCursorBlinkMode self mode = (VteTerminalClass.C.withPtr &&&> VteTerminalCursorBlinkMode.C.withVal ---> I) setCursorBlinkMode_ (self & mode)
+    fun setCursorShape self shape = (VteTerminalClass.C.withPtr &&&> VteTerminalCursorShape.C.withVal ---> I) setCursorShape_ (self & shape)
+    fun setDefaultColors self = (VteTerminalClass.C.withPtr ---> I) setDefaultColors_ self
+    fun setDeleteBinding self binding = (VteTerminalClass.C.withPtr &&&> VteTerminalEraseBinding.C.withVal ---> I) setDeleteBinding_ (self & binding)
+    fun setEmulation self emulation = (VteTerminalClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEmulation_ (self & emulation)
+    fun setEncoding self codeset = (VteTerminalClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setEncoding_ (self & codeset)
+    fun setFont self fontDesc = (VteTerminalClass.C.withPtr &&&> PangoFontDescriptionRecord.C.withOptPtr ---> I) setFont_ (self & fontDesc)
+    fun setFontFromString self name = (VteTerminalClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setFontFromString_ (self & name)
+    fun setMouseAutohide self setting = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMouseAutohide_ (self & setting)
+    fun setOpacity self opacity = (VteTerminalClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> I) setOpacity_ (self & opacity)
+    fun setPtyObject self pty = (VteTerminalClass.C.withPtr &&&> VtePtyClass.C.withOptPtr ---> I) setPtyObject_ (self & pty)
+    fun setScrollBackground self scroll = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollBackground_ (self & scroll)
+    fun setScrollOnKeystroke self scroll = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
+    fun setScrollOnOutput self scroll = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollOnOutput_ (self & scroll)
+    fun setScrollbackLines self lines = (VteTerminalClass.C.withPtr &&&> FFI.Long.C.withVal ---> I) setScrollbackLines_ (self & lines)
     fun setSize self columns rows =
       (
-        GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
          &&&> FFI.Long.C.withVal
          &&&> FFI.Long.C.withVal
          ---> I
@@ -609,15 +609,15 @@ structure VteTerminal :>
            & columns
            & rows
         )
-    fun setVisibleBell self isVisible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
-    fun setWordChars self spec = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWordChars_ (self & spec)
-    fun watchChild self childPid = (GObjectObjectClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
+    fun setVisibleBell self isVisible = (VteTerminalClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleBell_ (self & isVisible)
+    fun setWordChars self spec = (VteTerminalClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWordChars_ (self & spec)
+    fun watchChild self childPid = (VteTerminalClass.C.withPtr &&&> GLibPid.C.withVal ---> I) watchChild_ (self & childPid)
     fun writeContents self stream flags cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        VteTerminalClass.C.withPtr
+         &&&> GioOutputStreamClass.C.withPtr
          &&&> VteTerminalWriteFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

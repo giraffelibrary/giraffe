@@ -7,10 +7,10 @@ structure GtkRecentChooserMenu :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class =
   struct
     val getType_ = _import "gtk_recent_chooser_menu_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_recent_chooser_menu_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newForManager_ = _import "gtk_recent_chooser_menu_new_for_manager" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getShowNumbers_ = _import "gtk_recent_chooser_menu_get_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_chooser_menu_set_show_numbers" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_recent_chooser_menu_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newForManager_ = _import "gtk_recent_chooser_menu_new_for_manager" : GtkRecentManagerClass.C.notnull GtkRecentManagerClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getShowNumbers_ = _import "gtk_recent_chooser_menu_get_show_numbers" : GtkRecentChooserMenuClass.C.notnull GtkRecentChooserMenuClass.C.p -> FFI.Bool.C.val_;
+    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_chooser_menu_set_show_numbers" : GtkRecentChooserMenuClass.C.notnull GtkRecentChooserMenuClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRecentChooserMenuClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -23,9 +23,9 @@ structure GtkRecentChooserMenu :>
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserMenuClass.C.fromPtr false) new_ ()
-    fun newForManager manager = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserMenuClass.C.fromPtr false) newForManager_ manager
-    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun newForManager manager = (GtkRecentManagerClass.C.withPtr ---> GtkRecentChooserMenuClass.C.fromPtr false) newForManager_ manager
+    fun getShowNumbers self = (GtkRecentChooserMenuClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentChooserMenuClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

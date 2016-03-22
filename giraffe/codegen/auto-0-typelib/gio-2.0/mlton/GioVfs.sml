@@ -4,17 +4,17 @@ structure GioVfs :>
     where type 'a file_class = 'a GioFileClass.class =
   struct
     val getType_ = _import "g_vfs_get_type" : unit -> GObjectType.C.val_;
-    val getDefault_ = _import "g_vfs_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getLocal_ = _import "g_vfs_get_local" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefault_ = _import "g_vfs_get_default" : unit -> GioVfsClass.C.notnull GioVfsClass.C.p;
+    val getLocal_ = _import "g_vfs_get_local" : unit -> GioVfsClass.C.notnull GioVfsClass.C.p;
     val getFileForPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_vfs_get_file_for_path" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioVfsClass.C.notnull GioVfsClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileClass.C.notnull GioFileClass.C.p;
           )
             (
               x1,
@@ -26,26 +26,26 @@ structure GioVfs :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_vfs_get_file_for_uri" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioVfsClass.C.notnull GioVfsClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileClass.C.notnull GioFileClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val isActive_ = _import "g_vfs_is_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val isActive_ = _import "g_vfs_is_active" : GioVfsClass.C.notnull GioVfsClass.C.p -> FFI.Bool.C.val_;
     val parseName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_vfs_parse_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioVfsClass.C.notnull GioVfsClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileClass.C.notnull GioFileClass.C.p;
           )
             (
               x1,
@@ -58,8 +58,8 @@ structure GioVfs :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GioVfsClass.C.fromPtr false) getDefault_ ()
     fun getLocal () = (I ---> GioVfsClass.C.fromPtr false) getLocal_ ()
-    fun getFileForPath self path = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForPath_ (self & path)
-    fun getFileForUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForUri_ (self & uri)
-    fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
-    fun parseName self parseName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) parseName_ (self & parseName)
+    fun getFileForPath self path = (GioVfsClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForPath_ (self & path)
+    fun getFileForUri self uri = (GioVfsClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getFileForUri_ (self & uri)
+    fun isActive self = (GioVfsClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
+    fun parseName self parseName = (GioVfsClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) parseName_ (self & parseName)
   end

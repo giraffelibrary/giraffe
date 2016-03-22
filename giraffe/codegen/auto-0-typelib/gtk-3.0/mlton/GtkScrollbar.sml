@@ -7,7 +7,7 @@ structure GtkScrollbar :>
     where type orientation_t = GtkOrientation.t =
   struct
     val getType_ = _import "gtk_scrollbar_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_scrollbar_new" : GtkOrientation.C.val_ * unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_scrollbar_new" : GtkOrientation.C.val_ * unit GtkAdjustmentClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
     type 'a class = 'a GtkScrollbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -18,5 +18,5 @@ structure GtkScrollbar :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new orientation adjustment = (GtkOrientation.C.withVal &&&> GObjectObjectClass.C.withOptPtr ---> GtkScrollbarClass.C.fromPtr false) new_ (orientation & adjustment)
+    fun new orientation adjustment = (GtkOrientation.C.withVal &&&> GtkAdjustmentClass.C.withOptPtr ---> GtkScrollbarClass.C.fromPtr false) new_ (orientation & adjustment)
   end

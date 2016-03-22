@@ -10,16 +10,16 @@ structure GioAsyncInitable :>
       val initFinish_ =
         call (load_sym libgio "g_async_initable_init_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioAsyncInitableClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val newFinish_ =
         call (load_sym libgio "g_async_initable_new_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioAsyncInitableClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GObjectObjectClass.PolyML.cPtr
           )
@@ -30,8 +30,8 @@ structure GioAsyncInitable :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun initFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioAsyncInitableClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -43,8 +43,8 @@ structure GioAsyncInitable :>
         )
     fun newFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioAsyncInitableClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GObjectObjectClass.C.fromPtr true
       )

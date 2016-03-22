@@ -12,7 +12,7 @@ structure GioTlsFileDatabase :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p;
           )
             (
               x1,

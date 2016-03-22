@@ -14,8 +14,8 @@ structure GtkSourceCompletion :>
          & x3 =>
           (
             _import "gtk_source_completion_add_provider" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p
+               * GtkSourceCompletionProviderClass.C.notnull GtkSourceCompletionProviderClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -24,12 +24,12 @@ structure GtkSourceCompletion :>
               x2,
               x3
             )
-    val blockInteractive_ = _import "gtk_source_completion_block_interactive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val createContext_ = fn x1 & x2 => (_import "gtk_source_completion_create_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GtkTextIterRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getInfoWindow_ = _import "gtk_source_completion_get_info_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getView_ = _import "gtk_source_completion_get_view" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val hide_ = _import "gtk_source_completion_hide" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val moveWindow_ = fn x1 & x2 => (_import "gtk_source_completion_move_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
+    val blockInteractive_ = _import "gtk_source_completion_block_interactive" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p -> unit;
+    val createContext_ = fn x1 & x2 => (_import "gtk_source_completion_create_context" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p * unit GtkTextIterRecord.C.p -> GtkSourceCompletionContextClass.C.notnull GtkSourceCompletionContextClass.C.p;) (x1, x2)
+    val getInfoWindow_ = _import "gtk_source_completion_get_info_window" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p -> GtkSourceCompletionInfoClass.C.notnull GtkSourceCompletionInfoClass.C.p;
+    val getView_ = _import "gtk_source_completion_get_view" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p -> GtkSourceViewClass.C.notnull GtkSourceViewClass.C.p;
+    val hide_ = _import "gtk_source_completion_hide" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p -> unit;
+    val moveWindow_ = fn x1 & x2 => (_import "gtk_source_completion_move_window" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
     val removeProvider_ =
       fn
         x1
@@ -37,8 +37,8 @@ structure GtkSourceCompletion :>
          & x3 =>
           (
             _import "gtk_source_completion_remove_provider" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p
+               * GtkSourceCompletionProviderClass.C.notnull GtkSourceCompletionProviderClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -47,7 +47,7 @@ structure GtkSourceCompletion :>
               x2,
               x3
             )
-    val unblockInteractive_ = _import "gtk_source_completion_unblock_interactive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val unblockInteractive_ = _import "gtk_source_completion_unblock_interactive" : GtkSourceCompletionClass.C.notnull GtkSourceCompletionClass.C.p -> unit;
     type 'a class = 'a GtkSourceCompletionClass.class
     type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
@@ -57,8 +57,8 @@ structure GtkSourceCompletion :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addProvider self provider =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceCompletionClass.C.withPtr
+         &&&> GtkSourceCompletionProviderClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -68,16 +68,16 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun blockInteractive self = (GObjectObjectClass.C.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withOptPtr ---> GtkSourceCompletionContextClass.C.fromPtr true) createContext_ (self & position)
-    fun getInfoWindow self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionInfoClass.C.fromPtr false) getInfoWindow_ self
-    fun getView self = (GObjectObjectClass.C.withPtr ---> GtkSourceViewClass.C.fromPtr false) getView_ self
-    fun hide self = (GObjectObjectClass.C.withPtr ---> I) hide_ self
-    fun moveWindow self iter = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) moveWindow_ (self & iter)
+    fun blockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) blockInteractive_ self
+    fun createContext self position = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withOptPtr ---> GtkSourceCompletionContextClass.C.fromPtr true) createContext_ (self & position)
+    fun getInfoWindow self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceCompletionInfoClass.C.fromPtr false) getInfoWindow_ self
+    fun getView self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceViewClass.C.fromPtr false) getView_ self
+    fun hide self = (GtkSourceCompletionClass.C.withPtr ---> I) hide_ self
+    fun moveWindow self iter = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) moveWindow_ (self & iter)
     fun removeProvider self provider =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceCompletionClass.C.withPtr
+         &&&> GtkSourceCompletionProviderClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -87,7 +87,7 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun unblockInteractive self = (GObjectObjectClass.C.withPtr ---> I) unblockInteractive_ self
+    fun unblockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) unblockInteractive_ self
     local
       open ClosureMarshal Signal
     in

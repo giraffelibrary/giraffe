@@ -23,7 +23,7 @@ structure GtkAction :>
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkActionClass.C.notnull GtkActionClass.C.p;
           )
             (
               x1,
@@ -35,38 +35,38 @@ structure GtkAction :>
               x7,
               x8
             )
-    val activate_ = _import "gtk_action_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val blockActivate_ = _import "gtk_action_block_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val connectAccelerator_ = _import "gtk_action_connect_accelerator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val createMenu_ = _import "gtk_action_create_menu" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val createMenuItem_ = _import "gtk_action_create_menu_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val createToolItem_ = _import "gtk_action_create_tool_item" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val disconnectAccelerator_ = _import "gtk_action_disconnect_accelerator" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getAccelClosure_ = _import "gtk_action_get_accel_closure" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p;
-    val getAccelPath_ = _import "gtk_action_get_accel_path" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getAlwaysShowImage_ = _import "gtk_action_get_always_show_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getGicon_ = _import "gtk_action_get_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getIconName_ = _import "gtk_action_get_icon_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getIsImportant_ = _import "gtk_action_get_is_important" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getLabel_ = _import "gtk_action_get_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getName_ = _import "gtk_action_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getSensitive_ = _import "gtk_action_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getShortLabel_ = _import "gtk_action_get_short_label" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getStockId_ = _import "gtk_action_get_stock_id" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getTooltip_ = _import "gtk_action_get_tooltip" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getVisible_ = _import "gtk_action_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getVisibleHorizontal_ = _import "gtk_action_get_visible_horizontal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getVisibleVertical_ = _import "gtk_action_get_visible_vertical" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isSensitive_ = _import "gtk_action_is_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isVisible_ = _import "gtk_action_is_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_set_accel_group" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val activate_ = _import "gtk_action_activate" : GtkActionClass.C.notnull GtkActionClass.C.p -> unit;
+    val blockActivate_ = _import "gtk_action_block_activate" : GtkActionClass.C.notnull GtkActionClass.C.p -> unit;
+    val connectAccelerator_ = _import "gtk_action_connect_accelerator" : GtkActionClass.C.notnull GtkActionClass.C.p -> unit;
+    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Int32.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
+    val createMenu_ = _import "gtk_action_create_menu" : GtkActionClass.C.notnull GtkActionClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val createMenuItem_ = _import "gtk_action_create_menu_item" : GtkActionClass.C.notnull GtkActionClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val createToolItem_ = _import "gtk_action_create_tool_item" : GtkActionClass.C.notnull GtkActionClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val disconnectAccelerator_ = _import "gtk_action_disconnect_accelerator" : GtkActionClass.C.notnull GtkActionClass.C.p -> unit;
+    val getAccelClosure_ = _import "gtk_action_get_accel_closure" : GtkActionClass.C.notnull GtkActionClass.C.p -> GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p;
+    val getAccelPath_ = _import "gtk_action_get_accel_path" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getAlwaysShowImage_ = _import "gtk_action_get_always_show_image" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val getGicon_ = _import "gtk_action_get_gicon" : GtkActionClass.C.notnull GtkActionClass.C.p -> GioIconClass.C.notnull GioIconClass.C.p;
+    val getIconName_ = _import "gtk_action_get_icon_name" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getIsImportant_ = _import "gtk_action_get_is_important" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val getLabel_ = _import "gtk_action_get_label" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getName_ = _import "gtk_action_get_name" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getSensitive_ = _import "gtk_action_get_sensitive" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val getShortLabel_ = _import "gtk_action_get_short_label" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getStockId_ = _import "gtk_action_get_stock_id" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getTooltip_ = _import "gtk_action_get_tooltip" : GtkActionClass.C.notnull GtkActionClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getVisible_ = _import "gtk_action_get_visible" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val getVisibleHorizontal_ = _import "gtk_action_get_visible_horizontal" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val getVisibleVertical_ = _import "gtk_action_get_visible_vertical" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val isSensitive_ = _import "gtk_action_is_sensitive" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val isVisible_ = _import "gtk_action_is_visible" : GtkActionClass.C.notnull GtkActionClass.C.p -> FFI.Bool.C.val_;
+    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_set_accel_group" : GtkActionClass.C.notnull GtkActionClass.C.p * unit GtkAccelGroupClass.C.p -> unit;) (x1, x2)
     val setAccelPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_accel_path" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -76,14 +76,14 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_action_set_always_show_image" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setGicon_ = fn x1 & x2 => (_import "gtk_action_set_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_action_set_always_show_image" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setGicon_ = fn x1 & x2 => (_import "gtk_action_set_gicon" : GtkActionClass.C.notnull GtkActionClass.C.p * GioIconClass.C.notnull GioIconClass.C.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_icon_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -93,13 +93,13 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setIsImportant_ = fn x1 & x2 => (_import "gtk_action_set_is_important" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setIsImportant_ = fn x1 & x2 => (_import "gtk_action_set_is_important" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_label" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -109,13 +109,13 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_set_sensitive" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setShortLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_short_label" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -130,7 +130,7 @@ structure GtkAction :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_stock_id" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -145,7 +145,7 @@ structure GtkAction :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_tooltip" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -155,10 +155,10 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_action_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_action_set_visible_horizontal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_action_set_visible_vertical" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val unblockActivate_ = _import "gtk_action_unblock_activate" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val setVisible_ = fn x1 & x2 => (_import "gtk_action_set_visible" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_action_set_visible_horizontal" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_action_set_visible_vertical" : GtkActionClass.C.notnull GtkActionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val unblockActivate_ = _import "gtk_action_unblock_activate" : GtkActionClass.C.notnull GtkActionClass.C.p -> unit;
     type 'a class = 'a GtkActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
@@ -182,46 +182,46 @@ structure GtkAction :>
            & tooltip
            & stockId
         )
-    fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
-    fun blockActivate self = (GObjectObjectClass.C.withPtr ---> I) blockActivate_ self
-    fun connectAccelerator self = (GObjectObjectClass.C.withPtr ---> I) connectAccelerator_ self
-    fun createIcon self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
-    fun createMenu self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenu_ self
-    fun createMenuItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenuItem_ self
-    fun createToolItem self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createToolItem_ self
-    fun disconnectAccelerator self = (GObjectObjectClass.C.withPtr ---> I) disconnectAccelerator_ self
-    fun getAccelClosure self = (GObjectObjectClass.C.withPtr ---> GObjectClosureRecord.C.fromPtr false) getAccelClosure_ self
-    fun getAccelPath self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getAccelPath_ self
-    fun getAlwaysShowImage self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAlwaysShowImage_ self
-    fun getGicon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
-    fun getIconName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getIconName_ self
-    fun getIsImportant self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsImportant_ self
-    fun getLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
-    fun getShortLabel self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getShortLabel_ self
-    fun getStockId self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getStockId_ self
-    fun getTooltip self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTooltip_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun getVisibleHorizontal self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleHorizontal_ self
-    fun getVisibleVertical self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleVertical_ self
-    fun isSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isSensitive_ self
-    fun isVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
-    fun setAccelGroup self accelGroup = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAccelPath self accelPath = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setAlwaysShowImage self alwaysShow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
-    fun setGicon self icon = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setIconName_ (self & iconName)
-    fun setIsImportant self isImportant = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsImportant_ (self & isImportant)
-    fun setLabel self label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setShortLabel self shortLabel = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setShortLabel_ (self & shortLabel)
-    fun setStockId self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStockId_ (self & stockId)
-    fun setTooltip self tooltip = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTooltip_ (self & tooltip)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
-    fun setVisibleHorizontal self visibleHorizontal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
-    fun setVisibleVertical self visibleVertical = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
-    fun unblockActivate self = (GObjectObjectClass.C.withPtr ---> I) unblockActivate_ self
+    fun activate self = (GtkActionClass.C.withPtr ---> I) activate_ self
+    fun blockActivate self = (GtkActionClass.C.withPtr ---> I) blockActivate_ self
+    fun connectAccelerator self = (GtkActionClass.C.withPtr ---> I) connectAccelerator_ self
+    fun createIcon self iconSize = (GtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) createIcon_ (self & iconSize)
+    fun createMenu self = (GtkActionClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenu_ self
+    fun createMenuItem self = (GtkActionClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createMenuItem_ self
+    fun createToolItem self = (GtkActionClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) createToolItem_ self
+    fun disconnectAccelerator self = (GtkActionClass.C.withPtr ---> I) disconnectAccelerator_ self
+    fun getAccelClosure self = (GtkActionClass.C.withPtr ---> GObjectClosureRecord.C.fromPtr false) getAccelClosure_ self
+    fun getAccelPath self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getAccelPath_ self
+    fun getAlwaysShowImage self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getAlwaysShowImage_ self
+    fun getGicon self = (GtkActionClass.C.withPtr ---> GioIconClass.C.fromPtr false) getGicon_ self
+    fun getIconName self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getIconName_ self
+    fun getIsImportant self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsImportant_ self
+    fun getLabel self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
+    fun getName self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getSensitive self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
+    fun getShortLabel self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getShortLabel_ self
+    fun getStockId self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getStockId_ self
+    fun getTooltip self = (GtkActionClass.C.withPtr ---> Utf8.C.fromPtr false) getTooltip_ self
+    fun getVisible self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun getVisibleHorizontal self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleHorizontal_ self
+    fun getVisibleVertical self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisibleVertical_ self
+    fun isSensitive self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) isSensitive_ self
+    fun isVisible self = (GtkActionClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
+    fun setAccelGroup self accelGroup = (GtkActionClass.C.withPtr &&&> GtkAccelGroupClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
+    fun setAccelPath self accelPath = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setAlwaysShowImage self alwaysShow = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
+    fun setGicon self icon = (GtkActionClass.C.withPtr &&&> GioIconClass.C.withPtr ---> I) setGicon_ (self & icon)
+    fun setIconName self iconName = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setIconName_ (self & iconName)
+    fun setIsImportant self isImportant = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setIsImportant_ (self & isImportant)
+    fun setLabel self label = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
+    fun setSensitive self sensitive = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setShortLabel self shortLabel = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setShortLabel_ (self & shortLabel)
+    fun setStockId self stockId = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStockId_ (self & stockId)
+    fun setTooltip self tooltip = (GtkActionClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTooltip_ (self & tooltip)
+    fun setVisible self visible = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun setVisibleHorizontal self visibleHorizontal = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
+    fun setVisibleVertical self visibleVertical = (GtkActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
+    fun unblockActivate self = (GtkActionClass.C.withPtr ---> I) unblockActivate_ self
     local
       open ClosureMarshal Signal
     in

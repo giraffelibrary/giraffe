@@ -16,10 +16,10 @@ structure GtkSourceCompletionItem :>
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GdkPixbufPixbufClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
           )
             (
               x1,
@@ -46,7 +46,7 @@ structure GtkSourceCompletionItem :>
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
           )
             (
               x1,
@@ -70,10 +70,10 @@ structure GtkSourceCompletionItem :>
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GdkPixbufPixbufClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
           )
             (
               x1,
@@ -93,7 +93,7 @@ structure GtkSourceCompletionItem :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkPixbufPixbufClass.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )
@@ -123,7 +123,7 @@ structure GtkSourceCompletionItem :>
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkPixbufPixbufClass.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          ---> GtkSourceCompletionItemClass.C.fromPtr true
       )

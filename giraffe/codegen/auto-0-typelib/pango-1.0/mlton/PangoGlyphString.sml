@@ -16,7 +16,7 @@ structure PangoGlyphString :>
           (
             _import "pango_glyph_string_extents" :
               PangoGlyphStringRecord.C.notnull PangoGlyphStringRecord.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * PangoFontClass.C.notnull PangoFontClass.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                -> unit;
@@ -40,7 +40,7 @@ structure PangoGlyphString :>
               PangoGlyphStringRecord.C.notnull PangoGlyphStringRecord.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * PangoFontClass.C.notnull PangoFontClass.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                * PangoRectangleRecord.C.notnull PangoRectangleRecord.C.p
                -> unit;
@@ -68,7 +68,7 @@ structure PangoGlyphString :>
          & () =
           (
             PangoGlyphStringRecord.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+             &&&> PangoFontClass.C.withPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true
@@ -90,7 +90,7 @@ structure PangoGlyphString :>
         PangoGlyphStringRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> PangoFontClass.C.withPtr
          &&&> PangoRectangleRecord.C.withPtr
          &&&> PangoRectangleRecord.C.withPtr
          ---> I

@@ -13,8 +13,8 @@ structure GtkCellLayout :>
          & x5 =>
           (
             _import "mlton_gtk_cell_layout_add_attribute" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
@@ -27,9 +27,9 @@ structure GtkCellLayout :>
               x4,
               x5
             )
-    val clear_ = _import "gtk_cell_layout_clear" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getArea_ = _import "gtk_cell_layout_get_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p -> unit;
+    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> unit;) (x1, x2)
+    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p -> GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p;
     val packEnd_ =
       fn
         x1
@@ -37,8 +37,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_end" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -54,8 +54,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_start" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * FFI.Bool.C.val_
                -> unit;
           )
@@ -71,8 +71,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_reorder" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
+               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
                * FFI.Int.C.val_
                -> unit;
           )
@@ -88,8 +88,8 @@ structure GtkCellLayout :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun addAttribute self cell attribute column =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
@@ -101,13 +101,13 @@ structure GtkCellLayout :>
            & attribute
            & column
         )
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun clearAttributes self cell = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GObjectObjectClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
+    fun clear self = (GtkCellLayoutClass.C.withPtr ---> I) clear_ self
+    fun clearAttributes self cell = (GtkCellLayoutClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) clearAttributes_ (self & cell)
+    fun getArea self = (GtkCellLayoutClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
     fun packEnd self cell expand =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -119,8 +119,8 @@ structure GtkCellLayout :>
         )
     fun packStart self cell expand =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -132,8 +132,8 @@ structure GtkCellLayout :>
         )
     fun reorder self cell position =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCellLayoutClass.C.withPtr
+         &&&> GtkCellRendererClass.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )

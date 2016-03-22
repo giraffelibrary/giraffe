@@ -10,8 +10,8 @@ structure GtkRecentChooserWidget :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_recent_chooser_widget_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_recent_chooser_widget_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_widget_new_for_manager") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_recent_chooser_widget_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newForManager_ = call (load_sym libgtk "gtk_recent_chooser_widget_new_for_manager") (GtkRecentManagerClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkRecentChooserWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -25,5 +25,5 @@ structure GtkRecentChooserWidget :>
     fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserWidgetClass.C.fromPtr false) new_ ()
-    fun newForManager manager = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserWidgetClass.C.fromPtr false) newForManager_ manager
+    fun newForManager manager = (GtkRecentManagerClass.C.withPtr ---> GtkRecentChooserWidgetClass.C.fromPtr false) newForManager_ manager
   end

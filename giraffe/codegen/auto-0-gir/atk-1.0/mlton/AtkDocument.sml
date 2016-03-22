@@ -8,7 +8,7 @@ structure AtkDocument :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_document_get_attribute_value" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              AtkDocumentClass.C.notnull AtkDocumentClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -18,8 +18,8 @@ structure AtkDocument :>
               x2,
               x3
             )
-    val getDocumentType_ = _import "atk_document_get_document_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getLocale_ = _import "atk_document_get_locale" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.C.notnull AtkDocumentClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.C.notnull AtkDocumentClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val setAttributeValue_ =
       fn
         x1
@@ -27,7 +27,7 @@ structure AtkDocument :>
          & (x4, x5) =>
           (
             _import "mlton_atk_document_set_attribute_value" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              AtkDocumentClass.C.notnull AtkDocumentClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -44,12 +44,12 @@ structure AtkDocument :>
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAttributeValue self attributeName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
-    fun getDocumentType self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self
-    fun getLocale self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getLocale_ self
+    fun getAttributeValue self attributeName = (AtkDocumentClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
+    fun getDocumentType self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self
+    fun getLocale self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getLocale_ self
     fun setAttributeValue self attributeName attributeValue =
       (
-        GObjectObjectClass.C.withPtr
+        AtkDocumentClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          ---> FFI.Bool.C.fromVal

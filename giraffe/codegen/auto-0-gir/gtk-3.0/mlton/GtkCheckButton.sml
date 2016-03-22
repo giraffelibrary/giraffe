@@ -5,9 +5,9 @@ structure GtkCheckButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_check_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_check_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithLabel_ = _import "mlton_gtk_check_button_new_with_label" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithMnemonic_ = _import "mlton_gtk_check_button_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_check_button_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newWithLabel_ = _import "mlton_gtk_check_button_new_with_label" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newWithMnemonic_ = _import "mlton_gtk_check_button_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkCheckButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

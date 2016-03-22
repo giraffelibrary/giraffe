@@ -16,7 +16,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_append" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                -> unit;
@@ -26,7 +26,7 @@ structure GtkTreeStore :>
               x2,
               x3
             )
-    val clear_ = _import "gtk_tree_store_clear" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val clear_ = _import "gtk_tree_store_clear" : GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p -> unit;
     val insert_ =
       fn
         x1
@@ -35,7 +35,7 @@ structure GtkTreeStore :>
          & x4 =>
           (
             _import "gtk_tree_store_insert" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                * FFI.Int.C.val_
@@ -55,7 +55,7 @@ structure GtkTreeStore :>
          & x4 =>
           (
             _import "gtk_tree_store_insert_after" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
@@ -75,7 +75,7 @@ structure GtkTreeStore :>
          & x4 =>
           (
             _import "gtk_tree_store_insert_before" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
@@ -94,7 +94,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_is_ancestor" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                -> FFI.Bool.C.val_;
@@ -104,8 +104,8 @@ structure GtkTreeStore :>
               x2,
               x3
             )
-    val iterDepth_ = fn x1 & x2 => (_import "gtk_tree_store_iter_depth" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
-    val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_store_iter_is_valid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val iterDepth_ = fn x1 & x2 => (_import "gtk_tree_store_iter_depth" : GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
+    val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_store_iter_is_valid" : GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val moveAfter_ =
       fn
         x1
@@ -113,7 +113,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_move_after" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                -> unit;
@@ -130,7 +130,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_move_before" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                -> unit;
@@ -147,7 +147,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_prepend" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * unit GtkTreeIterRecord.C.p
                -> unit;
@@ -157,7 +157,7 @@ structure GtkTreeStore :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_tree_store_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_tree_store_remove" : GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val setValue_ =
       fn
         x1
@@ -166,7 +166,7 @@ structure GtkTreeStore :>
          & x4 =>
           (
             _import "gtk_tree_store_set_value" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * FFI.Int.C.val_
                * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
@@ -185,7 +185,7 @@ structure GtkTreeStore :>
          & x3 =>
           (
             _import "gtk_tree_store_swap" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTreeStoreClass.C.notnull GtkTreeStoreClass.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
                -> unit;
@@ -213,7 +213,7 @@ structure GtkTreeStore :>
       let
         val iter & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTreeStoreClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
              ---> GtkTreeIterRecord.C.fromPtr true && I
@@ -227,12 +227,12 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
+    fun clear self = (GtkTreeStoreClass.C.withPtr ---> I) clear_ self
     fun insert self parent position =
       let
         val iter & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTreeStoreClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
              &&&> FFI.Int.C.withVal
@@ -252,7 +252,7 @@ structure GtkTreeStore :>
       let
         val iter & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTreeStoreClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
@@ -272,7 +272,7 @@ structure GtkTreeStore :>
       let
         val iter & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTreeStoreClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
@@ -290,7 +290,7 @@ structure GtkTreeStore :>
       end
     fun isAncestor self iter descendant =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeStoreClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -301,11 +301,11 @@ structure GtkTreeStore :>
            & iter
            & descendant
         )
-    fun iterDepth self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Int.C.fromVal) iterDepth_ (self & iter)
-    fun iterIsValid self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
+    fun iterDepth self iter = (GtkTreeStoreClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Int.C.fromVal) iterDepth_ (self & iter)
+    fun iterIsValid self iter = (GtkTreeStoreClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
     fun moveAfter self iter position =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeStoreClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> GtkTreeIterRecord.C.withOptPtr
          ---> I
@@ -318,7 +318,7 @@ structure GtkTreeStore :>
         )
     fun moveBefore self iter position =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeStoreClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> GtkTreeIterRecord.C.withOptPtr
          ---> I
@@ -333,7 +333,7 @@ structure GtkTreeStore :>
       let
         val iter & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkTreeStoreClass.C.withPtr
              &&&> GtkTreeIterRecord.C.withNewPtr
              &&&> GtkTreeIterRecord.C.withOptPtr
              ---> GtkTreeIterRecord.C.fromPtr true && I
@@ -347,10 +347,10 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun remove self iter = (GObjectObjectClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) remove_ (self & iter)
+    fun remove self iter = (GtkTreeStoreClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) remove_ (self & iter)
     fun setValue self iter column value =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeStoreClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> GObjectValueRecord.C.withPtr
@@ -365,7 +365,7 @@ structure GtkTreeStore :>
         )
     fun swap self a b =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeStoreClass.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          &&&> GtkTreeIterRecord.C.withPtr
          ---> I

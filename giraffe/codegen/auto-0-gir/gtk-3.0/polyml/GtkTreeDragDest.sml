@@ -11,7 +11,7 @@ structure GtkTreeDragDest :>
       val dragDataReceived_ =
         call (load_sym libgtk "gtk_tree_drag_dest_drag_data_received")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkTreeDragDestClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GtkSelectionDataRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
@@ -19,7 +19,7 @@ structure GtkTreeDragDest :>
       val rowDropPossible_ =
         call (load_sym libgtk "gtk_tree_drag_dest_row_drop_possible")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkTreeDragDestClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GtkSelectionDataRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
@@ -32,7 +32,7 @@ structure GtkTreeDragDest :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun dragDataReceived self dest selectionData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeDragDestClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -45,7 +45,7 @@ structure GtkTreeDragDest :>
         )
     fun rowDropPossible self destPath selectionData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkTreeDragDestClass.C.withPtr
          &&&> GtkTreePathRecord.C.withPtr
          &&&> GtkSelectionDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal

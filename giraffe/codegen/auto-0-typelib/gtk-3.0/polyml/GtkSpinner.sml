@@ -7,9 +7,9 @@ structure GtkSpinner :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_spinner_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_spinner_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val start_ = call (load_sym libgtk "gtk_spinner_start") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val stop_ = call (load_sym libgtk "gtk_spinner_stop") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_spinner_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val start_ = call (load_sym libgtk "gtk_spinner_start") (GtkSpinnerClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val stop_ = call (load_sym libgtk "gtk_spinner_stop") (GtkSpinnerClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSpinnerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -18,8 +18,8 @@ structure GtkSpinner :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSpinnerClass.C.fromPtr false) new_ ()
-    fun start self = (GObjectObjectClass.C.withPtr ---> I) start_ self
-    fun stop self = (GObjectObjectClass.C.withPtr ---> I) stop_ self
+    fun start self = (GtkSpinnerClass.C.withPtr ---> I) start_ self
+    fun stop self = (GtkSpinnerClass.C.withPtr ---> I) stop_ self
     local
       open Property
     in

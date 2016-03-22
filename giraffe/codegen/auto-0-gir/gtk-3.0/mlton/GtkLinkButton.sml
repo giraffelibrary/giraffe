@@ -5,7 +5,7 @@ structure GtkLinkButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_link_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_link_button_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "mlton_gtk_link_button_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val newWithLabel_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -15,7 +15,7 @@ structure GtkLinkButton :>
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
@@ -23,14 +23,14 @@ structure GtkLinkButton :>
               x3,
               x4
             )
-    val getUri_ = _import "gtk_link_button_get_uri" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getVisited_ = _import "gtk_link_button_get_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getUri_ = _import "gtk_link_button_get_uri" : GtkLinkButtonClass.C.notnull GtkLinkButtonClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getVisited_ = _import "gtk_link_button_get_visited" : GtkLinkButtonClass.C.notnull GtkLinkButtonClass.C.p -> FFI.Bool.C.val_;
     val setUri_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_link_button_set_uri" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkLinkButtonClass.C.notnull GtkLinkButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -40,7 +40,7 @@ structure GtkLinkButton :>
               x2,
               x3
             )
-    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GtkLinkButtonClass.C.notnull GtkLinkButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkLinkButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -51,10 +51,10 @@ structure GtkLinkButton :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new uri = (Utf8.C.withPtr ---> GtkLinkButtonClass.C.fromPtr false) new_ uri
     fun newWithLabel uri label = (Utf8.C.withPtr &&&> Utf8.C.withOptPtr ---> GtkLinkButtonClass.C.fromPtr false) newWithLabel_ (uri & label)
-    fun getUri self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getUri_ self
-    fun getVisited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisited_ self
-    fun setUri self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setUri_ (self & uri)
-    fun setVisited self visited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisited_ (self & visited)
+    fun getUri self = (GtkLinkButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getUri_ self
+    fun getVisited self = (GtkLinkButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisited_ self
+    fun setUri self uri = (GtkLinkButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setUri_ (self & uri)
+    fun setVisited self visited = (GtkLinkButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisited_ (self & visited)
     local
       open ClosureMarshal Signal
     in

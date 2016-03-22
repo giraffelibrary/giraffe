@@ -8,7 +8,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_action_added" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -25,7 +25,7 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_action_enabled_changed" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
@@ -42,7 +42,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_action_removed" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -59,7 +59,7 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_action_state_changed" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
@@ -78,7 +78,7 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_activate_action" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * unit GLibVariantRecord.C.p
@@ -97,7 +97,7 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_change_action_state" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GLibVariantRecord.C.notnull GLibVariantRecord.C.p
@@ -114,7 +114,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_enabled" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -129,7 +129,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_parameter_type" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
@@ -144,7 +144,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
@@ -159,7 +159,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state_hint" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
@@ -174,7 +174,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state_type" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GLibVariantTypeRecord.C.notnull GLibVariantTypeRecord.C.p;
@@ -189,7 +189,7 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_has_action" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioActionGroupClass.C.notnull GioActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -202,10 +202,10 @@ structure GioActionGroup :>
     type 'a class = 'a GioActionGroupClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun actionAdded self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
+    fun actionAdded self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionAdded_ (self & actionName)
     fun actionEnabledChanged self actionName enabled =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -216,10 +216,10 @@ structure GioActionGroup :>
            & actionName
            & enabled
         )
-    fun actionRemoved self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionRemoved_ (self & actionName)
+    fun actionRemoved self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> I) actionRemoved_ (self & actionName)
     fun actionStateChanged self actionName state =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
@@ -232,7 +232,7 @@ structure GioActionGroup :>
         )
     fun activateAction self actionName parameter =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withOptPtr
          ---> I
@@ -245,7 +245,7 @@ structure GioActionGroup :>
         )
     fun changeActionState self actionName value =
       (
-        GObjectObjectClass.C.withPtr
+        GioActionGroupClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibVariantRecord.C.withPtr
          ---> I
@@ -256,12 +256,12 @@ structure GioActionGroup :>
            & actionName
            & value
         )
-    fun getActionEnabled self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
-    fun hasAction self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasAction_ (self & actionName)
+    fun getActionEnabled self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getActionEnabled_ (self & actionName)
+    fun getActionParameterType self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantTypeRecord.C.fromPtr true) getActionStateType_ (self & actionName)
+    fun hasAction self actionName = (GioActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasAction_ (self & actionName)
     local
       open ClosureMarshal Signal
     in

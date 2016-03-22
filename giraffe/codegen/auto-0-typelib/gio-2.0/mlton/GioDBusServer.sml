@@ -23,10 +23,10 @@ structure GioDBusServer :>
                * GioDBusServerFlags.C.val_
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+               * GioDBusAuthObserverClass.C.notnull GioDBusAuthObserverClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioDBusServerClass.C.notnull GioDBusServerClass.C.p;
           )
             (
               x1,
@@ -38,12 +38,12 @@ structure GioDBusServer :>
               x7,
               x8
             )
-    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getFlags_ = _import "g_dbus_server_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusServerFlags.C.val_;
-    val getGuid_ = _import "g_dbus_server_get_guid" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val isActive_ = _import "g_dbus_server_is_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val start_ = _import "g_dbus_server_start" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val stop_ = _import "g_dbus_server_stop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getFlags_ = _import "g_dbus_server_get_flags" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> GioDBusServerFlags.C.val_;
+    val getGuid_ = _import "g_dbus_server_get_guid" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val isActive_ = _import "g_dbus_server_is_active" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> FFI.Bool.C.val_;
+    val start_ = _import "g_dbus_server_start" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> unit;
+    val stop_ = _import "g_dbus_server_stop" : GioDBusServerClass.C.notnull GioDBusServerClass.C.p -> unit;
     type 'a class = 'a GioDBusServerClass.class
     type 'a initable_class = 'a GioInitableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -58,8 +58,8 @@ structure GioDBusServer :>
         Utf8.C.withPtr
          &&&> GioDBusServerFlags.C.withVal
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioDBusAuthObserverClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusServerClass.C.fromPtr true
       )
@@ -72,12 +72,12 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getClientAddress_ self
-    fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusServerFlags.C.fromVal) getFlags_ self
-    fun getGuid self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
-    fun isActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
-    fun start self = (GObjectObjectClass.C.withPtr ---> I) start_ self
-    fun stop self = (GObjectObjectClass.C.withPtr ---> I) stop_ self
+    fun getClientAddress self = (GioDBusServerClass.C.withPtr ---> Utf8.C.fromPtr false) getClientAddress_ self
+    fun getFlags self = (GioDBusServerClass.C.withPtr ---> GioDBusServerFlags.C.fromVal) getFlags_ self
+    fun getGuid self = (GioDBusServerClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
+    fun isActive self = (GioDBusServerClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
+    fun start self = (GioDBusServerClass.C.withPtr ---> I) start_ self
+    fun stop self = (GioDBusServerClass.C.withPtr ---> I) stop_ self
     local
       open ClosureMarshal Signal
     in

@@ -11,19 +11,19 @@ structure GioIcon :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIconClass.C.notnull GioIconClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val equal_ = fn x1 & x2 => (_import "g_icon_equal" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val toString_ = _import "g_icon_to_string" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val equal_ = fn x1 & x2 => (_import "g_icon_equal" : GioIconClass.C.notnull GioIconClass.C.p * GioIconClass.C.notnull GioIconClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val toString_ = _import "g_icon_to_string" : GioIconClass.C.notnull GioIconClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class = 'a GioIconClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun newForString str = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.C.fromPtr true) newForString_ (str & [])
-    fun equal self icon2 = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & icon2)
-    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
+    fun equal self icon2 = (GioIconClass.C.withPtr &&&> GioIconClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & icon2)
+    fun toString self = (GioIconClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

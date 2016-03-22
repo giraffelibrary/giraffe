@@ -10,7 +10,7 @@ structure GtkIMContext :>
          & x3 =>
           (
             _import "gtk_im_context_delete_surrounding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIMContextClass.C.notnull GtkIMContextClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> FFI.Bool.C.val_;
@@ -20,9 +20,9 @@ structure GtkIMContext :>
               x2,
               x3
             )
-    val filterKeypress_ = fn x1 & x2 => (_import "gtk_im_context_filter_keypress" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val focusIn_ = _import "gtk_im_context_focus_in" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val focusOut_ = _import "gtk_im_context_focus_out" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val filterKeypress_ = fn x1 & x2 => (_import "gtk_im_context_filter_keypress" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p * GdkEventKeyRecord.C.notnull GdkEventKeyRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val focusIn_ = _import "gtk_im_context_focus_in" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p -> unit;
+    val focusOut_ = _import "gtk_im_context_focus_out" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p -> unit;
     val getPreeditString_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure GtkIMContext :>
          & x5 =>
           (
             _import "mlton_gtk_im_context_get_preedit_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIMContextClass.C.notnull GtkIMContextClass.C.p
                * Utf8.MLton.r1
                * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * (unit, PangoAttrListRecord.C.notnull) PangoAttrListRecord.C.r
@@ -45,9 +45,9 @@ structure GtkIMContext :>
               x4,
               x5
             )
-    val reset_ = _import "gtk_im_context_reset" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
+    val reset_ = _import "gtk_im_context_reset" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p -> unit;
+    val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p * unit GdkWindowClass.C.p -> unit;) (x1, x2)
+    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
     val setSurrounding_ =
       fn
         x1
@@ -56,7 +56,7 @@ structure GtkIMContext :>
          & x5 =>
           (
             _import "mlton_gtk_im_context_set_surrounding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkIMContextClass.C.notnull GtkIMContextClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -70,13 +70,13 @@ structure GtkIMContext :>
               x4,
               x5
             )
-    val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GtkIMContextClass.C.notnull GtkIMContextClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkIMContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun deleteSurrounding self offset nChars =
       (
-        GObjectObjectClass.C.withPtr
+        GtkIMContextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -87,9 +87,9 @@ structure GtkIMContext :>
            & offset
            & nChars
         )
-    fun filterKeypress self event = (GObjectObjectClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) filterKeypress_ (self & event)
-    fun focusIn self = (GObjectObjectClass.C.withPtr ---> I) focusIn_ self
-    fun focusOut self = (GObjectObjectClass.C.withPtr ---> I) focusOut_ self
+    fun filterKeypress self event = (GtkIMContextClass.C.withPtr &&&> GdkEventKeyRecord.C.withPtr ---> FFI.Bool.C.fromVal) filterKeypress_ (self & event)
+    fun focusIn self = (GtkIMContextClass.C.withPtr ---> I) focusIn_ self
+    fun focusOut self = (GtkIMContextClass.C.withPtr ---> I) focusOut_ self
     fun getPreeditString self =
       let
         val str
@@ -97,7 +97,7 @@ structure GtkIMContext :>
          & cursorPos
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkIMContextClass.C.withPtr
              &&&> Utf8.C.withRefOptPtr
              &&&> PangoAttrListRecord.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
@@ -120,12 +120,12 @@ structure GtkIMContext :>
           cursorPos
         )
       end
-    fun reset self = (GObjectObjectClass.C.withPtr ---> I) reset_ self
-    fun setClientWindow self window = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setClientWindow_ (self & window)
-    fun setCursorLocation self area = (GObjectObjectClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
+    fun reset self = (GtkIMContextClass.C.withPtr ---> I) reset_ self
+    fun setClientWindow self window = (GtkIMContextClass.C.withPtr &&&> GdkWindowClass.C.withOptPtr ---> I) setClientWindow_ (self & window)
+    fun setCursorLocation self area = (GtkIMContextClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setCursorLocation_ (self & area)
     fun setSurrounding self text len cursorIndex =
       (
-        GObjectObjectClass.C.withPtr
+        GtkIMContextClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -138,7 +138,7 @@ structure GtkIMContext :>
            & len
            & cursorIndex
         )
-    fun setUsePreedit self usePreedit = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUsePreedit_ (self & usePreedit)
+    fun setUsePreedit self usePreedit = (GtkIMContextClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUsePreedit_ (self & usePreedit)
     local
       open ClosureMarshal Signal
     in

@@ -17,7 +17,7 @@ structure Gdk : GDK =
             )
     val atomInternStaticString_ = _import "mlton_gdk_atom_intern_static_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val beep_ = _import "gdk_beep" : unit -> unit;
-    val cairoCreate_ = _import "gdk_cairo_create" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoContextRecord.C.notnull CairoContextRecord.C.p;
+    val cairoCreate_ = _import "gdk_cairo_create" : GdkWindowClass.C.notnull GdkWindowClass.C.p -> CairoContextRecord.C.notnull CairoContextRecord.C.p;
     val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
     val cairoRectangle_ = fn x1 & x2 => (_import "gdk_cairo_rectangle" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRectangleIntRecord.C.notnull CairoRectangleIntRecord.C.p -> unit;) (x1, x2)
     val cairoRegion_ = fn x1 & x2 => (_import "gdk_cairo_region" : CairoContextRecord.C.notnull CairoContextRecord.C.p * CairoRegionRecord.C.notnull CairoRegionRecord.C.p -> unit;) (x1, x2)
@@ -32,7 +32,7 @@ structure Gdk : GDK =
           (
             _import "gdk_cairo_set_source_pixbuf" :
               CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> unit;
@@ -53,7 +53,7 @@ structure Gdk : GDK =
           (
             _import "gdk_cairo_set_source_window" :
               CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * FFI.Double.C.val_
                * FFI.Double.C.val_
                -> unit;
@@ -80,9 +80,9 @@ structure Gdk : GDK =
               x3
             )
     val disableMultidevice_ = _import "gdk_disable_multidevice" : unit -> unit;
-    val dragAbort_ = fn x1 & x2 => (_import "gdk_drag_abort" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val dragDrop_ = fn x1 & x2 => (_import "gdk_drag_drop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val dragDropSucceeded_ = _import "gdk_drag_drop_succeeded" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val dragAbort_ = fn x1 & x2 => (_import "gdk_drag_abort" : GdkDragContextClass.C.notnull GdkDragContextClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val dragDrop_ = fn x1 & x2 => (_import "gdk_drag_drop" : GdkDragContextClass.C.notnull GdkDragContextClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val dragDropSucceeded_ = _import "gdk_drag_drop_succeeded" : GdkDragContextClass.C.notnull GdkDragContextClass.C.p -> FFI.Bool.C.val_;
     val dragFindWindowForScreen_ =
       fn
         x1
@@ -94,12 +94,12 @@ structure Gdk : GDK =
          & x7 =>
           (
             _import "gdk_drag_find_window_for_screen" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDragContextClass.C.notnull GdkDragContextClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
+               * GdkScreenClass.C.notnull GdkScreenClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
+               * (unit, GdkWindowClass.C.notnull) GdkWindowClass.C.r
                * GdkDragProtocol.C.ref_
                -> unit;
           )
@@ -112,7 +112,7 @@ structure Gdk : GDK =
               x6,
               x7
             )
-    val dragGetSelection_ = _import "gdk_drag_get_selection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
+    val dragGetSelection_ = _import "gdk_drag_get_selection" : GdkDragContextClass.C.notnull GdkDragContextClass.C.p -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
     val dragMotion_ =
       fn
         x1
@@ -125,8 +125,8 @@ structure Gdk : GDK =
          & x8 =>
           (
             _import "gdk_drag_motion" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDragContextClass.C.notnull GdkDragContextClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkDragProtocol.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
@@ -152,7 +152,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drag_status" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDragContextClass.C.notnull GdkDragContextClass.C.p
                * GdkDragAction.C.val_
                * FFI.UInt32.C.val_
                -> unit;
@@ -169,7 +169,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drop_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDragContextClass.C.notnull GdkDragContextClass.C.p
                * FFI.Bool.C.val_
                * FFI.UInt32.C.val_
                -> unit;
@@ -186,7 +186,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drop_reply" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDragContextClass.C.notnull GdkDragContextClass.C.p
                * FFI.Bool.C.val_
                * FFI.UInt32.C.val_
                -> unit;
@@ -204,7 +204,7 @@ structure Gdk : GDK =
     val eventRequestMotions_ = _import "gdk_event_request_motions" : GdkEventMotionRecord.C.notnull GdkEventMotionRecord.C.p -> unit;
     val eventsPending_ = _import "gdk_events_pending" : unit -> FFI.Bool.C.val_;
     val flush_ = _import "gdk_flush" : unit -> unit;
-    val getDefaultRootWindow_ = _import "gdk_get_default_root_window" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefaultRootWindow_ = _import "gdk_get_default_root_window" : unit -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
     val getDisplay_ = _import "gdk_get_display" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getDisplayArgName_ = _import "gdk_get_display_arg_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getProgramClass_ = _import "gdk_get_program_class" : unit -> Utf8.C.notnull Utf8.C.out_p;
@@ -235,11 +235,11 @@ structure Gdk : GDK =
     val keyvalToUpper_ = _import "gdk_keyval_to_upper" : FFI.UInt32.C.val_ -> FFI.UInt32.C.val_;
     val notifyStartupComplete_ = _import "gdk_notify_startup_complete" : unit -> unit;
     val notifyStartupCompleteWithId_ = _import "mlton_gdk_notify_startup_complete_with_id" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
-    val offscreenWindowGetEmbedder_ = _import "gdk_offscreen_window_get_embedder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val offscreenWindowGetSurface_ = _import "gdk_offscreen_window_get_surface" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p;
-    val offscreenWindowSetEmbedder_ = fn x1 & x2 => (_import "gdk_offscreen_window_set_embedder" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val pangoContextGet_ = _import "gdk_pango_context_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val pangoContextGetForScreen_ = _import "gdk_pango_context_get_for_screen" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val offscreenWindowGetEmbedder_ = _import "gdk_offscreen_window_get_embedder" : GdkWindowClass.C.notnull GdkWindowClass.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
+    val offscreenWindowGetSurface_ = _import "gdk_offscreen_window_get_surface" : GdkWindowClass.C.notnull GdkWindowClass.C.p -> CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p;
+    val offscreenWindowSetEmbedder_ = fn x1 & x2 => (_import "gdk_offscreen_window_set_embedder" : GdkWindowClass.C.notnull GdkWindowClass.C.p * GdkWindowClass.C.notnull GdkWindowClass.C.p -> unit;) (x1, x2)
+    val pangoContextGet_ = _import "gdk_pango_context_get" : unit -> PangoContextClass.C.notnull PangoContextClass.C.p;
+    val pangoContextGetForScreen_ = _import "gdk_pango_context_get_for_screen" : GdkScreenClass.C.notnull GdkScreenClass.C.p -> PangoContextClass.C.notnull PangoContextClass.C.p;
     val pixbufGetFromSurface_ =
       fn
         x1
@@ -254,7 +254,7 @@ structure Gdk : GDK =
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -272,12 +272,12 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_pixbuf_get_from_window" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -287,7 +287,7 @@ structure Gdk : GDK =
               x5
             )
     val preParseLibgtkOnly_ = _import "gdk_pre_parse_libgtk_only" : unit -> unit;
-    val propertyDelete_ = fn x1 & x2 => (_import "gdk_property_delete" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
+    val propertyDelete_ = fn x1 & x2 => (_import "gdk_property_delete" : GdkWindowClass.C.notnull GdkWindowClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
     val rectangleIntersect_ =
       fn
         x1
@@ -330,7 +330,7 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_selection_convert" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * FFI.UInt32.C.val_
@@ -342,8 +342,8 @@ structure Gdk : GDK =
               x3,
               x4
             )
-    val selectionOwnerGet_ = _import "gdk_selection_owner_get" : GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val selectionOwnerGetForDisplay_ = fn x1 & x2 => (_import "gdk_selection_owner_get_for_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val selectionOwnerGet_ = _import "gdk_selection_owner_get" : GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
+    val selectionOwnerGetForDisplay_ = fn x1 & x2 => (_import "gdk_selection_owner_get_for_display" : GdkDisplayClass.C.notnull GdkDisplayClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;) (x1, x2)
     val selectionOwnerSet_ =
       fn
         x1
@@ -352,7 +352,7 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_selection_owner_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * FFI.UInt32.C.val_
                * FFI.Bool.C.val_
@@ -373,8 +373,8 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_selection_owner_set_for_display" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDisplayClass.C.notnull GdkDisplayClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * FFI.UInt32.C.val_
                * FFI.Bool.C.val_
@@ -396,7 +396,7 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_selection_send_notify" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
@@ -420,8 +420,8 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_selection_send_notify_for_display" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDisplayClass.C.notnull GdkDisplayClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
                * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
@@ -461,7 +461,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_synthesize_window_state" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkWindowState.C.val_
                * GdkWindowState.C.val_
                -> unit;
@@ -471,7 +471,7 @@ structure Gdk : GDK =
               x2,
               x3
             )
-    val testRenderSync_ = _import "gdk_test_render_sync" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val testRenderSync_ = _import "gdk_test_render_sync" : GdkWindowClass.C.notnull GdkWindowClass.C.p -> unit;
     val testSimulateButton_ =
       fn
         x1
@@ -482,7 +482,7 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_test_simulate_button" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.UInt32.C.val_
@@ -508,7 +508,7 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_test_simulate_key" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkWindowClass.C.notnull GdkWindowClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.UInt32.C.val_
@@ -2881,7 +2881,7 @@ structure Gdk : GDK =
     fun atomIntern atomName onlyIfExists = (Utf8.C.withPtr &&&> FFI.Bool.C.withVal ---> GdkAtomRecord.C.fromPtr false) atomIntern_ (atomName & onlyIfExists)
     fun atomInternStaticString atomName = (Utf8.C.withPtr ---> GdkAtomRecord.C.fromPtr false) atomInternStaticString_ atomName
     fun beep () = (I ---> I) beep_ ()
-    fun cairoCreate window = (GObjectObjectClass.C.withPtr ---> CairoContextRecord.C.fromPtr true) cairoCreate_ window
+    fun cairoCreate window = (GdkWindowClass.C.withPtr ---> CairoContextRecord.C.fromPtr true) cairoCreate_ window
     fun cairoGetClipRectangle cr =
       let
         val rect & retVal = (CairoContextRecord.C.withPtr &&&> CairoRectangleIntRecord.C.withNewPtr ---> CairoRectangleIntRecord.C.fromPtr true && FFI.Bool.C.fromVal) cairoGetClipRectangle_ (cr & ())
@@ -2895,7 +2895,7 @@ structure Gdk : GDK =
     fun cairoSetSourcePixbuf cr pixbuf pixbufX pixbufY =
       (
         CairoContextRecord.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GdkPixbufPixbufClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> I
@@ -2911,7 +2911,7 @@ structure Gdk : GDK =
     fun cairoSetSourceWindow cr window x y =
       (
         CairoContextRecord.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          ---> I
@@ -2930,21 +2930,21 @@ structure Gdk : GDK =
         if retVal then SOME color else NONE
       end
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
-    fun dragAbort context time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) dragAbort_ (context & time)
-    fun dragDrop context time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) dragDrop_ (context & time)
-    fun dragDropSucceeded context = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) dragDropSucceeded_ context
+    fun dragAbort context time = (GdkDragContextClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) dragAbort_ (context & time)
+    fun dragDrop context time = (GdkDragContextClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) dragDrop_ (context & time)
+    fun dragDropSucceeded context = (GdkDragContextClass.C.withPtr ---> FFI.Bool.C.fromVal) dragDropSucceeded_ context
     fun dragFindWindowForScreen context dragWindow screen xRoot yRoot =
       let
         val destWindow
          & protocol
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GdkDragContextClass.C.withPtr
+             &&&> GdkWindowClass.C.withPtr
+             &&&> GdkScreenClass.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> FFI.Int32.C.withVal
-             &&&> GObjectObjectClass.C.withRefOptPtr
+             &&&> GdkWindowClass.C.withRefOptPtr
              &&&> GdkDragProtocol.C.withRefVal
              ---> GdkWindowClass.C.fromPtr true
                    && GdkDragProtocol.C.fromVal
@@ -2963,11 +2963,11 @@ structure Gdk : GDK =
       in
         (destWindow, protocol)
       end
-    fun dragGetSelection context = (GObjectObjectClass.C.withPtr ---> GdkAtomRecord.C.fromPtr false) dragGetSelection_ context
+    fun dragGetSelection context = (GdkDragContextClass.C.withPtr ---> GdkAtomRecord.C.fromPtr false) dragGetSelection_ context
     fun dragMotion context destWindow protocol xRoot yRoot suggestedAction possibleActions time =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkDragContextClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GdkDragProtocol.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -2989,7 +2989,7 @@ structure Gdk : GDK =
         )
     fun dragStatus context action time =
       (
-        GObjectObjectClass.C.withPtr
+        GdkDragContextClass.C.withPtr
          &&&> GdkDragAction.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
@@ -3002,7 +3002,7 @@ structure Gdk : GDK =
         )
     fun dropFinish context success time =
       (
-        GObjectObjectClass.C.withPtr
+        GdkDragContextClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
@@ -3015,7 +3015,7 @@ structure Gdk : GDK =
         )
     fun dropReply context accepted time =
       (
-        GObjectObjectClass.C.withPtr
+        GdkDragContextClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
@@ -3070,11 +3070,11 @@ structure Gdk : GDK =
     fun keyvalToUpper keyval = (FFI.UInt32.C.withVal ---> FFI.UInt32.C.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
     fun notifyStartupCompleteWithId startupId = (Utf8.C.withPtr ---> I) notifyStartupCompleteWithId_ startupId
-    fun offscreenWindowGetEmbedder window = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) offscreenWindowGetEmbedder_ window
-    fun offscreenWindowGetSurface window = (GObjectObjectClass.C.withPtr ---> CairoSurfaceRecord.C.fromPtr false) offscreenWindowGetSurface_ window
-    fun offscreenWindowSetEmbedder window embedder = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
+    fun offscreenWindowGetEmbedder window = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) offscreenWindowGetEmbedder_ window
+    fun offscreenWindowGetSurface window = (GdkWindowClass.C.withPtr ---> CairoSurfaceRecord.C.fromPtr false) offscreenWindowGetSurface_ window
+    fun offscreenWindowSetEmbedder window embedder = (GdkWindowClass.C.withPtr &&&> GdkWindowClass.C.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
     fun pangoContextGet () = (I ---> PangoContextClass.C.fromPtr true) pangoContextGet_ ()
-    fun pangoContextGetForScreen screen = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) pangoContextGetForScreen_ screen
+    fun pangoContextGetForScreen screen = (GdkScreenClass.C.withPtr ---> PangoContextClass.C.fromPtr true) pangoContextGetForScreen_ screen
     fun pixbufGetFromSurface surface srcX srcY width height =
       (
         CairoSurfaceRecord.C.withPtr
@@ -3094,7 +3094,7 @@ structure Gdk : GDK =
         )
     fun pixbufGetFromWindow window srcX srcY width height =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -3110,7 +3110,7 @@ structure Gdk : GDK =
            & height
         )
     fun preParseLibgtkOnly () = (I ---> I) preParseLibgtkOnly_ ()
-    fun propertyDelete window property = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) propertyDelete_ (window & property)
+    fun propertyDelete window property = (GdkWindowClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) propertyDelete_ (window & property)
     fun rectangleIntersect src1 src2 =
       let
         val dest & retVal =
@@ -3149,7 +3149,7 @@ structure Gdk : GDK =
       end
     fun selectionConvert requestor selection target time =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> FFI.UInt32.C.withVal
@@ -3163,10 +3163,10 @@ structure Gdk : GDK =
            & time
         )
     fun selectionOwnerGet selection = (GdkAtomRecord.C.withPtr ---> GdkWindowClass.C.fromPtr false) selectionOwnerGet_ selection
-    fun selectionOwnerGetForDisplay display selection = (GObjectObjectClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GdkWindowClass.C.fromPtr false) selectionOwnerGetForDisplay_ (display & selection)
+    fun selectionOwnerGetForDisplay display selection = (GdkDisplayClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GdkWindowClass.C.fromPtr false) selectionOwnerGetForDisplay_ (display & selection)
     fun selectionOwnerSet owner selection time sendEvent =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -3181,8 +3181,8 @@ structure Gdk : GDK =
         )
     fun selectionOwnerSetForDisplay display owner selection time sendEvent =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkDisplayClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -3198,7 +3198,7 @@ structure Gdk : GDK =
         )
     fun selectionSendNotify requestor selection target property time =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
@@ -3215,8 +3215,8 @@ structure Gdk : GDK =
         )
     fun selectionSendNotifyForDisplay display requestor selection target property time =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkDisplayClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
          &&&> GdkAtomRecord.C.withPtr
@@ -3238,7 +3238,7 @@ structure Gdk : GDK =
     fun settingGet name value = (Utf8.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) settingGet_ (name & value)
     fun synthesizeWindowState window unsetFlags setFlags =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkWindowState.C.withVal
          &&&> GdkWindowState.C.withVal
          ---> I
@@ -3249,10 +3249,10 @@ structure Gdk : GDK =
            & unsetFlags
            & setFlags
         )
-    fun testRenderSync window = (GObjectObjectClass.C.withPtr ---> I) testRenderSync_ window
+    fun testRenderSync window = (GdkWindowClass.C.withPtr ---> I) testRenderSync_ window
     fun testSimulateButton window x y button modifiers buttonPressrelease =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.UInt32.C.withVal
@@ -3271,7 +3271,7 @@ structure Gdk : GDK =
         )
     fun testSimulateKey window x y keyval modifiers keyPressrelease =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.UInt32.C.withVal

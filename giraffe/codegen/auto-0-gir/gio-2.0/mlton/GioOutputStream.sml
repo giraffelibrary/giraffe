@@ -7,7 +7,7 @@ structure GioOutputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_output_stream_get_type" : unit -> GObjectType.C.val_;
-    val clearPending_ = _import "g_output_stream_clear_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val clearPending_ = _import "g_output_stream_clear_pending" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p -> unit;
     val close_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_close" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -32,8 +32,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_close_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -49,8 +49,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_flush" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -66,8 +66,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_flush_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -76,10 +76,10 @@ structure GioOutputStream :>
               x2,
               x3
             )
-    val hasPending_ = _import "g_output_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isClosed_ = _import "g_output_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isClosing_ = _import "g_output_stream_is_closing" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setPending_ = fn x1 & x2 => (_import "g_output_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
+    val hasPending_ = _import "g_output_stream_has_pending" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p -> FFI.Bool.C.val_;
+    val isClosed_ = _import "g_output_stream_is_closed" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p -> FFI.Bool.C.val_;
+    val isClosing_ = _import "g_output_stream_is_closing" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p -> FFI.Bool.C.val_;
+    val setPending_ = fn x1 & x2 => (_import "g_output_stream_set_pending" : GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val splice_ =
       fn
         x1
@@ -89,10 +89,10 @@ structure GioOutputStream :>
          & x5 =>
           (
             _import "g_output_stream_splice" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * GioInputStreamClass.C.notnull GioInputStreamClass.C.p
                * GioOutputStreamSpliceFlags.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.SSize.C.val_;
           )
@@ -110,8 +110,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_splice_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.SSize.C.val_;
           )
@@ -127,8 +127,8 @@ structure GioOutputStream :>
          & x3 =>
           (
             _import "g_output_stream_write_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioOutputStreamClass.C.notnull GioOutputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.SSize.C.val_;
           )
@@ -144,11 +144,11 @@ structure GioOutputStream :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self
+    fun clearPending self = (GioOutputStreamClass.C.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -160,8 +160,8 @@ structure GioOutputStream :>
         )
     fun closeFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -173,8 +173,8 @@ structure GioOutputStream :>
         )
     fun flush self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -186,8 +186,8 @@ structure GioOutputStream :>
         )
     fun flushFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -197,16 +197,16 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun isClosing self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosing_ self
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
+    fun hasPending self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun isClosing self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosing_ self
+    fun setPending self = (GioOutputStreamClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun splice self source flags cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioInputStreamClass.C.withPtr
          &&&> GioOutputStreamSpliceFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
@@ -220,8 +220,8 @@ structure GioOutputStream :>
         )
     fun spliceFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )
@@ -233,8 +233,8 @@ structure GioOutputStream :>
         )
     fun writeFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioOutputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.SSize.C.fromVal
       )

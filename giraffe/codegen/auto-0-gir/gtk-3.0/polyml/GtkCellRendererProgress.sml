@@ -7,7 +7,7 @@ structure GtkCellRendererProgress :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_cell_renderer_progress_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_cell_renderer_progress_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_cell_renderer_progress_new") (FFI.PolyML.cVoid --> GtkCellRendererClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkCellRendererProgressClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

@@ -6,17 +6,17 @@ structure GtkSourceCompletionInfo :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtksourceview "gtk_source_completion_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_completion_info_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_get_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtksourceview "gtk_source_completion_info_new") (FFI.PolyML.cVoid --> GtkSourceCompletionInfoClass.PolyML.cPtr)
+      val getWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_get_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val moveToIter_ =
         call (load_sym libgtksourceview "gtk_source_completion_info_move_to_iter")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkSourceCompletionInfoClass.PolyML.cPtr
+             &&> GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cOptPtr
              --> FFI.PolyML.cVoid
           )
-      val setWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_set_widget") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_set_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionInfoClass.class
     type t = base class
@@ -24,11 +24,11 @@ structure GtkSourceCompletionInfo :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSourceCompletionInfoClass.C.fromPtr false) new_ ()
-    fun getWidget self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
+    fun getWidget self = (GtkSourceCompletionInfoClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
     fun moveToIter self view iter =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkSourceCompletionInfoClass.C.withPtr
+         &&&> GtkTextViewClass.C.withPtr
          &&&> GtkTextIterRecord.C.withOptPtr
          ---> I
       )
@@ -38,7 +38,7 @@ structure GtkSourceCompletionInfo :>
            & view
            & iter
         )
-    fun setWidget self widget = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setWidget_ (self & widget)
+    fun setWidget self widget = (GtkSourceCompletionInfoClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setWidget_ (self & widget)
     local
       open ClosureMarshal Signal
     in

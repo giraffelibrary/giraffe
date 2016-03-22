@@ -15,12 +15,12 @@ structure GioFileInputStream :>
          & x5 =>
           (
             _import "mlton_g_file_input_stream_query_info" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioFileInputStreamClass.C.notnull GioFileInputStreamClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
           )
             (
               x1,
@@ -36,10 +36,10 @@ structure GioFileInputStream :>
          & x3 =>
           (
             _import "g_file_input_stream_query_info_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioFileInputStreamClass.C.notnull GioFileInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
           )
             (
               x1,
@@ -56,9 +56,9 @@ structure GioFileInputStream :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun queryInfo self attributes cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioFileInputStreamClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
@@ -71,8 +71,8 @@ structure GioFileInputStream :>
         )
     fun queryInfoFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioFileInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )

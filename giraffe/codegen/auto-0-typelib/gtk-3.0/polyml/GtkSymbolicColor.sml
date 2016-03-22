@@ -23,7 +23,7 @@ structure GtkSymbolicColor :>
         call (load_sym libgtk "gtk_symbolic_color_resolve")
           (
             GtkSymbolicColorRecord.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GtkStylePropertiesClass.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
@@ -54,7 +54,7 @@ structure GtkSymbolicColor :>
         val resolvedColor & retVal =
           (
             GtkSymbolicColorRecord.C.withPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GtkStylePropertiesClass.C.withOptPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )

@@ -9,30 +9,30 @@ structure GdkVisual :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgdk "gdk_visual_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getBest_ = call (load_sym libgdk "gdk_visual_get_best") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getBest_ = call (load_sym libgdk "gdk_visual_get_best") (FFI.PolyML.cVoid --> GdkVisualClass.PolyML.cPtr)
       val getBestDepth_ = call (load_sym libgdk "gdk_visual_get_best_depth") (FFI.PolyML.cVoid --> FFI.Int32.PolyML.cVal)
       val getBestType_ = call (load_sym libgdk "gdk_visual_get_best_type") (FFI.PolyML.cVoid --> GdkVisualType.PolyML.cVal)
-      val getBestWithBoth_ = call (load_sym libgdk "gdk_visual_get_best_with_both") (FFI.Int32.PolyML.cVal &&> GdkVisualType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val getBestWithDepth_ = call (load_sym libgdk "gdk_visual_get_best_with_depth") (FFI.Int32.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val getBestWithType_ = call (load_sym libgdk "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val getSystem_ = call (load_sym libgdk "gdk_visual_get_system") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getBitsPerRgb_ = call (load_sym libgdk "gdk_visual_get_bits_per_rgb") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getBestWithBoth_ = call (load_sym libgdk "gdk_visual_get_best_with_both") (FFI.Int32.PolyML.cVal &&> GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getBestWithDepth_ = call (load_sym libgdk "gdk_visual_get_best_with_depth") (FFI.Int32.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getBestWithType_ = call (load_sym libgdk "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getSystem_ = call (load_sym libgdk "gdk_visual_get_system") (FFI.PolyML.cVoid --> GdkVisualClass.PolyML.cPtr)
+      val getBitsPerRgb_ = call (load_sym libgdk "gdk_visual_get_bits_per_rgb") (GdkVisualClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getBluePixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_blue_pixel_details")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkVisualClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getByteOrder_ = call (load_sym libgdk "gdk_visual_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GdkByteOrder.PolyML.cVal)
-      val getColormapSize_ = call (load_sym libgdk "gdk_visual_get_colormap_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getDepth_ = call (load_sym libgdk "gdk_visual_get_depth") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getByteOrder_ = call (load_sym libgdk "gdk_visual_get_byte_order") (GdkVisualClass.PolyML.cPtr --> GdkByteOrder.PolyML.cVal)
+      val getColormapSize_ = call (load_sym libgdk "gdk_visual_get_colormap_size") (GdkVisualClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getDepth_ = call (load_sym libgdk "gdk_visual_get_depth") (GdkVisualClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getGreenPixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_green_pixel_details")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkVisualClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
@@ -41,14 +41,14 @@ structure GdkVisual :>
       val getRedPixelDetails_ =
         call (load_sym libgdk "gdk_visual_get_red_pixel_details")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkVisualClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GObjectObjectClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
+      val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GdkVisualClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GdkVisualClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
     end
     type 'a class = 'a GdkVisualClass.class
     type byte_order_t = GdkByteOrder.t
@@ -63,7 +63,7 @@ structure GdkVisual :>
     fun getBestWithDepth depth = (FFI.Int32.C.withVal ---> GdkVisualClass.C.fromPtr false) getBestWithDepth_ depth
     fun getBestWithType visualType = (GdkVisualType.C.withVal ---> GdkVisualClass.C.fromPtr false) getBestWithType_ visualType
     fun getSystem () = (I ---> GdkVisualClass.C.fromPtr false) getSystem_ ()
-    fun getBitsPerRgb self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getBitsPerRgb_ self
+    fun getBitsPerRgb self = (GdkVisualClass.C.withPtr ---> FFI.Int32.C.fromVal) getBitsPerRgb_ self
     fun getBluePixelDetails self =
       let
         val mask
@@ -71,7 +71,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkVisualClass.C.withPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
@@ -94,9 +94,9 @@ structure GdkVisual :>
           precision
         )
       end
-    fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GdkByteOrder.C.fromVal) getByteOrder_ self
-    fun getColormapSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getColormapSize_ self
-    fun getDepth self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getDepth_ self
+    fun getByteOrder self = (GdkVisualClass.C.withPtr ---> GdkByteOrder.C.fromVal) getByteOrder_ self
+    fun getColormapSize self = (GdkVisualClass.C.withPtr ---> FFI.Int32.C.fromVal) getColormapSize_ self
+    fun getDepth self = (GdkVisualClass.C.withPtr ---> FFI.Int32.C.fromVal) getDepth_ self
     fun getGreenPixelDetails self =
       let
         val mask
@@ -104,7 +104,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkVisualClass.C.withPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
@@ -134,7 +134,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkVisualClass.C.withPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
@@ -157,6 +157,6 @@ structure GdkVisual :>
           precision
         )
       end
-    fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getVisualType self = (GObjectObjectClass.C.withPtr ---> GdkVisualType.C.fromVal) getVisualType_ self
+    fun getScreen self = (GdkVisualClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
+    fun getVisualType self = (GdkVisualClass.C.withPtr ---> GdkVisualType.C.fromVal) getVisualType_ self
   end

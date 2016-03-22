@@ -12,13 +12,13 @@ structure GtkScaleButton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_scale_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getAdjustment_ = call (load_sym libgtk "gtk_scale_button_get_adjustment") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getMinusButton_ = call (load_sym libgtk "gtk_scale_button_get_minus_button") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getPlusButton_ = call (load_sym libgtk "gtk_scale_button_get_plus_button") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getPopup_ = call (load_sym libgtk "gtk_scale_button_get_popup") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GObjectObjectClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val setAdjustment_ = call (load_sym libgtk "gtk_scale_button_set_adjustment") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getAdjustment_ = call (load_sym libgtk "gtk_scale_button_get_adjustment") (GtkScaleButtonClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
+      val getMinusButton_ = call (load_sym libgtk "gtk_scale_button_get_minus_button") (GtkScaleButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getPlusButton_ = call (load_sym libgtk "gtk_scale_button_get_plus_button") (GtkScaleButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getPopup_ = call (load_sym libgtk "gtk_scale_button_get_popup") (GtkScaleButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getValue_ = call (load_sym libgtk "gtk_scale_button_get_value") (GtkScaleButtonClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val setAdjustment_ = call (load_sym libgtk "gtk_scale_button_set_adjustment") (GtkScaleButtonClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_scale_button_set_value") (GtkScaleButtonClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkScaleButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -33,13 +33,13 @@ structure GtkScaleButton :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAdjustment self = (GObjectObjectClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getAdjustment_ self
-    fun getMinusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMinusButton_ self
-    fun getPlusButton self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPlusButton_ self
-    fun getPopup self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPopup_ self
-    fun getValue self = (GObjectObjectClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
-    fun setAdjustment self adjustment = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setValue self value = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
+    fun getAdjustment self = (GtkScaleButtonClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getAdjustment_ self
+    fun getMinusButton self = (GtkScaleButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMinusButton_ self
+    fun getPlusButton self = (GtkScaleButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPlusButton_ self
+    fun getPopup self = (GtkScaleButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getPopup_ self
+    fun getValue self = (GtkScaleButtonClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
+    fun setAdjustment self adjustment = (GtkScaleButtonClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
+    fun setValue self value = (GtkScaleButtonClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

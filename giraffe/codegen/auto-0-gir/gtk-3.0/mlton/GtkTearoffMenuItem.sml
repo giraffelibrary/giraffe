@@ -5,7 +5,7 @@ structure GtkTearoffMenuItem :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_tearoff_menu_item_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_tearoff_menu_item_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_tearoff_menu_item_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     type 'a class = 'a GtkTearoffMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

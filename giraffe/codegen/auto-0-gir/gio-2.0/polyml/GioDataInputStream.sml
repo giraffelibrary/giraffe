@@ -11,46 +11,46 @@ structure GioDataInputStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_data_input_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_data_input_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getByteOrder_ = call (load_sym libgio "g_data_input_stream_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
-      val getNewlineType_ = call (load_sym libgio "g_data_input_stream_get_newline_type") (GObjectObjectClass.PolyML.cPtr --> GioDataStreamNewlineType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_data_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioDataInputStreamClass.PolyML.cPtr)
+      val getByteOrder_ = call (load_sym libgio "g_data_input_stream_get_byte_order") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
+      val getNewlineType_ = call (load_sym libgio "g_data_input_stream_get_newline_type") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamNewlineType.PolyML.cVal)
       val readByte_ =
         call (load_sym libgio "g_data_input_stream_read_byte")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt8.PolyML.cVal
           )
       val readInt16_ =
         call (load_sym libgio "g_data_input_stream_read_int16")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int16.PolyML.cVal
           )
       val readInt32_ =
         call (load_sym libgio "g_data_input_stream_read_int32")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int32.PolyML.cVal
           )
       val readInt64_ =
         call (load_sym libgio "g_data_input_stream_read_int64")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int64.PolyML.cVal
           )
       val readLineFinishUtf8_ =
         call (load_sym libgio "g_data_input_stream_read_line_finish_utf8")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> FFI.Size.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
@@ -58,51 +58,51 @@ structure GioDataInputStream :>
       val readLineUtf8_ =
         call (load_sym libgio "g_data_input_stream_read_line_utf8")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
              &&> FFI.Size.PolyML.cRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
       val readUint16_ =
         call (load_sym libgio "g_data_input_stream_read_uint16")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt16.PolyML.cVal
           )
       val readUint32_ =
         call (load_sym libgio "g_data_input_stream_read_uint32")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt32.PolyML.cVal
           )
       val readUint64_ =
         call (load_sym libgio "g_data_input_stream_read_uint64")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.UInt64.PolyML.cVal
           )
       val readUntil_ =
         call (load_sym libgio "g_data_input_stream_read_until")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Size.PolyML.cRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
       val readUntilFinish_ =
         call (load_sym libgio "g_data_input_stream_read_until_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> FFI.Size.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
@@ -110,25 +110,25 @@ structure GioDataInputStream :>
       val readUpto_ =
         call (load_sym libgio "g_data_input_stream_read_upto")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.SSize.PolyML.cVal
              &&> FFI.Size.PolyML.cRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
       val readUptoFinish_ =
         call (load_sym libgio "g_data_input_stream_read_upto_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDataInputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> FFI.Size.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val setByteOrder_ = call (load_sym libgio "g_data_input_stream_set_byte_order") (GObjectObjectClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setNewlineType_ = call (load_sym libgio "g_data_input_stream_set_newline_type") (GObjectObjectClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setByteOrder_ = call (load_sym libgio "g_data_input_stream_set_byte_order") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setNewlineType_ = call (load_sym libgio "g_data_input_stream_set_newline_type") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioDataInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
@@ -138,13 +138,13 @@ structure GioDataInputStream :>
     type data_stream_newline_type_t = GioDataStreamNewlineType.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
-    fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
-    fun getNewlineType self = (GObjectObjectClass.C.withPtr ---> GioDataStreamNewlineType.C.fromVal) getNewlineType_ self
+    fun new baseStream = (GioInputStreamClass.C.withPtr ---> GioDataInputStreamClass.C.fromPtr true) new_ baseStream
+    fun getByteOrder self = (GioDataInputStreamClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
+    fun getNewlineType self = (GioDataInputStreamClass.C.withPtr ---> GioDataStreamNewlineType.C.fromVal) getNewlineType_ self
     fun readByte self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt8.C.fromVal
       )
@@ -156,8 +156,8 @@ structure GioDataInputStream :>
         )
     fun readInt16 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int16.C.fromVal
       )
@@ -169,8 +169,8 @@ structure GioDataInputStream :>
         )
     fun readInt32 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
@@ -182,8 +182,8 @@ structure GioDataInputStream :>
         )
     fun readInt64 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -197,8 +197,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
@@ -217,9 +217,9 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> FFI.Size.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
           )
@@ -235,8 +235,8 @@ structure GioDataInputStream :>
       end
     fun readUint16 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
       )
@@ -248,8 +248,8 @@ structure GioDataInputStream :>
         )
     fun readUint32 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt32.C.fromVal
       )
@@ -261,8 +261,8 @@ structure GioDataInputStream :>
         )
     fun readUint64 self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDataInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt64.C.fromVal
       )
@@ -276,10 +276,10 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> FFI.Size.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
           )
@@ -298,8 +298,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
@@ -318,11 +318,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> FFI.SSize.C.withVal
              &&&> FFI.Size.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
           )
@@ -342,8 +342,8 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDataInputStreamClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> FFI.Size.C.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> FFI.Size.C.fromVal && Utf8.C.fromPtr true
@@ -358,8 +358,8 @@ structure GioDataInputStream :>
       in
         (retVal, length)
       end
-    fun setByteOrder self order = (GObjectObjectClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
-    fun setNewlineType self type' = (GObjectObjectClass.C.withPtr &&&> GioDataStreamNewlineType.C.withVal ---> I) setNewlineType_ (self & type')
+    fun setByteOrder self order = (GioDataInputStreamClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
+    fun setNewlineType self type' = (GioDataInputStreamClass.C.withPtr &&&> GioDataStreamNewlineType.C.withVal ---> I) setNewlineType_ (self & type')
     local
       open Property
     in

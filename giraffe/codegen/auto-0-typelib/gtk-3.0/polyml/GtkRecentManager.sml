@@ -8,22 +8,22 @@ structure GtkRecentManager :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_recent_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_recent_manager_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtk "gtk_recent_manager_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_recent_manager_new") (FFI.PolyML.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtk "gtk_recent_manager_get_default") (FFI.PolyML.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
       val addFull_ =
         call (load_sym libgtk "gtk_recent_manager_add_full")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkRecentDataRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val addItem_ = call (load_sym libgtk "gtk_recent_manager_add_item") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
-      val hasItem_ = call (load_sym libgtk "gtk_recent_manager_has_item") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val addItem_ = call (load_sym libgtk "gtk_recent_manager_add_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val hasItem_ = call (load_sym libgtk "gtk_recent_manager_has_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val lookupItem_ =
         call (load_sym libgtk "gtk_recent_manager_lookup_item")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GtkRecentInfoRecord.PolyML.cPtr
@@ -31,17 +31,17 @@ structure GtkRecentManager :>
       val moveItem_ =
         call (load_sym libgtk "gtk_recent_manager_move_item")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val purgeItems_ = call (load_sym libgtk "gtk_recent_manager_purge_items") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Int32.PolyML.cVal)
+      val purgeItems_ = call (load_sym libgtk "gtk_recent_manager_purge_items") (GtkRecentManagerClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Int32.PolyML.cVal)
       val removeItem_ =
         call (load_sym libgtk "gtk_recent_manager_remove_item")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
@@ -56,7 +56,7 @@ structure GtkRecentManager :>
     fun getDefault () = (I ---> GtkRecentManagerClass.C.fromPtr false) getDefault_ ()
     fun addFull self uri recentData =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkRecentDataRecord.C.withPtr
          ---> FFI.Bool.C.fromVal
@@ -67,11 +67,11 @@ structure GtkRecentManager :>
            & uri
            & recentData
         )
-    fun addItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
-    fun hasItem self uri = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
+    fun addItem self uri = (GtkRecentManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) addItem_ (self & uri)
+    fun hasItem self uri = (GtkRecentManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GtkRecentInfoRecord.C.fromPtr true
@@ -84,7 +84,7 @@ structure GtkRecentManager :>
         )
     fun moveItem self uri newUri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GLibErrorRecord.handleError
@@ -97,10 +97,10 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GtkRecentManagerClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Int32.C.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
-        GObjectObjectClass.C.withPtr
+        GtkRecentManagerClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal

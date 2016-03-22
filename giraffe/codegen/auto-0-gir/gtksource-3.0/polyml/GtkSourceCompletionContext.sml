@@ -8,18 +8,18 @@ structure GtkSourceCompletionContext :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_activation") (GObjectObjectClass.PolyML.cPtr --> GtkSourceCompletionActivation.PolyML.cVal)
-      val getIter_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_iter") (GObjectObjectClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getActivation_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_activation") (GtkSourceCompletionContextClass.PolyML.cPtr --> GtkSourceCompletionActivation.PolyML.cVal)
+      val getIter_ = call (load_sym libgtksourceview "gtk_source_completion_context_get_iter") (GtkSourceCompletionContextClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionContextClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
     type 'a completion_class = 'a GtkSourceCompletionClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getActivation self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self
+    fun getActivation self = (GtkSourceCompletionContextClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self
     fun getIter self =
       let
-        val iter & () = (GObjectObjectClass.C.withPtr &&&> GtkTextIterRecord.C.withNewPtr ---> GtkTextIterRecord.C.fromPtr true && I) getIter_ (self & ())
+        val iter & () = (GtkSourceCompletionContextClass.C.withPtr &&&> GtkTextIterRecord.C.withNewPtr ---> GtkTextIterRecord.C.fromPtr true && I) getIter_ (self & ())
       in
         iter
       end

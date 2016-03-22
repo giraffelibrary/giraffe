@@ -14,63 +14,63 @@ structure GioTlsDatabase :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_tls_database_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GioTlsDatabaseClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val lookupCertificateForHandle_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_for_handle")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioTlsDatabaseClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioTlsInteractionClass.PolyML.cOptPtr
              &&> GioTlsDatabaseLookupFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateForHandleFinish_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_for_handle_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioTlsDatabaseClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateIssuer_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_issuer")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioTlsDatabaseClass.PolyML.cPtr
+             &&> GioTlsCertificateClass.PolyML.cPtr
+             &&> GioTlsInteractionClass.PolyML.cOptPtr
              &&> GioTlsDatabaseLookupFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateIssuerFinish_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_issuer_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioTlsDatabaseClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
       val verifyChain_ =
         call (load_sym libgio "g_tls_database_verify_chain")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioTlsDatabaseClass.PolyML.cPtr
+             &&> GioTlsCertificateClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioSocketConnectableClass.PolyML.cOptPtr
+             &&> GioTlsInteractionClass.PolyML.cOptPtr
              &&> GioTlsDatabaseVerifyFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsCertificateFlags.PolyML.cVal
           )
       val verifyChainFinish_ =
         call (load_sym libgio "g_tls_database_verify_chain_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioTlsDatabaseClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsCertificateFlags.PolyML.cVal
           )
@@ -86,14 +86,14 @@ structure GioTlsDatabase :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun createCertificateHandle self certificate = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) createCertificateHandle_ (self & certificate)
+    fun createCertificateHandle self certificate = (GioTlsDatabaseClass.C.withPtr &&&> GioTlsCertificateClass.C.withPtr ---> Utf8.C.fromPtr true) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioTlsDatabaseClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioTlsInteractionClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -108,8 +108,8 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateForHandleFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioTlsDatabaseClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -121,11 +121,11 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateIssuer self certificate interaction flags cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioTlsDatabaseClass.C.withPtr
+         &&&> GioTlsCertificateClass.C.withPtr
+         &&&> GioTlsInteractionClass.C.withOptPtr
          &&&> GioTlsDatabaseLookupFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -140,8 +140,8 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateIssuerFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioTlsDatabaseClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.C.fromPtr true
       )
@@ -153,13 +153,13 @@ structure GioTlsDatabase :>
         )
     fun verifyChain self chain purpose identity interaction flags cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioTlsDatabaseClass.C.withPtr
+         &&&> GioTlsCertificateClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioSocketConnectableClass.C.withOptPtr
+         &&&> GioTlsInteractionClass.C.withOptPtr
          &&&> GioTlsDatabaseVerifyFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateFlags.C.fromVal
       )
@@ -176,8 +176,8 @@ structure GioTlsDatabase :>
         )
     fun verifyChainFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioTlsDatabaseClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateFlags.C.fromVal
       )

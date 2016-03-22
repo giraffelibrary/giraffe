@@ -7,19 +7,19 @@ structure GioUnixCredentialsMessage :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_unix_credentials_message_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_credentials_message_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val newWithCredentials_ = call (load_sym libgio "g_unix_credentials_message_new_with_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_unix_credentials_message_new") (FFI.PolyML.cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
+      val newWithCredentials_ = call (load_sym libgio "g_unix_credentials_message_new_with_credentials") (GioCredentialsClass.PolyML.cPtr --> GioSocketControlMessageClass.PolyML.cPtr)
       val isSupported_ = call (load_sym libgio "g_unix_credentials_message_is_supported") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
-      val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getCredentials_ = call (load_sym libgio "g_unix_credentials_message_get_credentials") (GioUnixCredentialsMessageClass.PolyML.cPtr --> GioCredentialsClass.PolyML.cPtr)
     end
     type 'a class = 'a GioUnixCredentialsMessageClass.class
     type 'a credentials_class = 'a GioCredentialsClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.C.fromPtr true) new_ ()
-    fun newWithCredentials credentials = (GObjectObjectClass.C.withPtr ---> GioUnixCredentialsMessageClass.C.fromPtr true) newWithCredentials_ credentials
+    fun newWithCredentials credentials = (GioCredentialsClass.C.withPtr ---> GioUnixCredentialsMessageClass.C.fromPtr true) newWithCredentials_ credentials
     fun isSupported () = (I ---> FFI.Bool.C.fromVal) isSupported_ ()
-    fun getCredentials self = (GObjectObjectClass.C.withPtr ---> GioCredentialsClass.C.fromPtr false) getCredentials_ self
+    fun getCredentials self = (GioUnixCredentialsMessageClass.C.withPtr ---> GioCredentialsClass.C.fromPtr false) getCredentials_ self
     local
       open Property
     in

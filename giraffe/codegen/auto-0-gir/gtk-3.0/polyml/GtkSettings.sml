@@ -14,13 +14,13 @@ structure GtkSettings :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_settings_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgtk "gtk_settings_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getForScreen_ = call (load_sym libgtk "gtk_settings_get_for_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtk "gtk_settings_get_default") (FFI.PolyML.cVoid --> GtkSettingsClass.PolyML.cPtr)
+      val getForScreen_ = call (load_sym libgtk "gtk_settings_get_for_screen") (GdkScreenClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
       val installProperty_ = call (load_sym libgtk "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val setDoubleProperty_ =
         call (load_sym libgtk "gtk_settings_set_double_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Double.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -29,7 +29,7 @@ structure GtkSettings :>
       val setLongProperty_ =
         call (load_sym libgtk "gtk_settings_set_long_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Long.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -38,7 +38,7 @@ structure GtkSettings :>
       val setPropertyValue_ =
         call (load_sym libgtk "gtk_settings_set_property_value")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkSettingsValueRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
@@ -46,7 +46,7 @@ structure GtkSettings :>
       val setStringProperty_ =
         call (load_sym libgtk "gtk_settings_set_string_property")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -66,11 +66,11 @@ structure GtkSettings :>
     fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun getDefault () = (I ---> GtkSettingsClass.C.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GObjectObjectClass.C.withPtr ---> GtkSettingsClass.C.fromPtr false) getForScreen_ screen
+    fun getForScreen screen = (GdkScreenClass.C.withPtr ---> GtkSettingsClass.C.fromPtr false) getForScreen_ screen
     fun installProperty pspec = (GObjectParamSpecClass.C.withPtr ---> I) installProperty_ pspec
     fun setDoubleProperty self name vDouble origin =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSettingsClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> Utf8.C.withPtr
@@ -85,7 +85,7 @@ structure GtkSettings :>
         )
     fun setLongProperty self name vLong origin =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSettingsClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Long.C.withVal
          &&&> Utf8.C.withPtr
@@ -100,7 +100,7 @@ structure GtkSettings :>
         )
     fun setPropertyValue self name svalue =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSettingsClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GtkSettingsValueRecord.C.withPtr
          ---> I
@@ -113,7 +113,7 @@ structure GtkSettings :>
         )
     fun setStringProperty self name vString origin =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSettingsClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr

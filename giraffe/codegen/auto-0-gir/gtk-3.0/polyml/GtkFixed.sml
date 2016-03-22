@@ -8,12 +8,12 @@ structure GtkFixed :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_fixed_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_fixed_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_fixed_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val move_ =
         call (load_sym libgtk "gtk_fixed_move")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkFixedClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -21,8 +21,8 @@ structure GtkFixed :>
       val put_ =
         call (load_sym libgtk "gtk_fixed_put")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkFixedClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -38,8 +38,8 @@ structure GtkFixed :>
     fun new () = (I ---> GtkFixedClass.C.fromPtr false) new_ ()
     fun move self widget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkFixedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -53,8 +53,8 @@ structure GtkFixed :>
         )
     fun put self widget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkFixedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I

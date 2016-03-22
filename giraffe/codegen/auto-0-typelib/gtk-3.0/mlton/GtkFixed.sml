@@ -5,7 +5,7 @@ structure GtkFixed :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_fixed_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_fixed_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_fixed_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val move_ =
       fn
         x1
@@ -14,8 +14,8 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_move" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFixedClass.C.notnull GtkFixedClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -34,8 +34,8 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_put" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFixedClass.C.notnull GtkFixedClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Int32.C.val_
                * FFI.Int32.C.val_
                -> unit;
@@ -56,8 +56,8 @@ structure GtkFixed :>
     fun new () = (I ---> GtkFixedClass.C.fromPtr false) new_ ()
     fun move self widget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkFixedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -71,8 +71,8 @@ structure GtkFixed :>
         )
     fun put self widget x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkFixedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

@@ -23,7 +23,7 @@ structure PangoLayoutIter :>
              --> FFI.PolyML.cVoid
           )
       val getIndex_ = call (load_sym libpango "pango_layout_iter_get_index") (PangoLayoutIterRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getLayout_ = call (load_sym libpango "pango_layout_iter_get_layout") (PangoLayoutIterRecord.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getLayout_ = call (load_sym libpango "pango_layout_iter_get_layout") (PangoLayoutIterRecord.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getLayoutExtents_ =
         call (load_sym libpango "pango_layout_iter_get_layout_extents")
           (

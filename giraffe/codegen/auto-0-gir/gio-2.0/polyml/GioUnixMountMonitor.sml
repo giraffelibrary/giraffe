@@ -6,14 +6,14 @@ structure GioUnixMountMonitor :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_unix_mount_monitor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_mount_monitor_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val setRateLimit_ = call (load_sym libgio "g_unix_mount_monitor_set_rate_limit") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgio "g_unix_mount_monitor_new") (FFI.PolyML.cVoid --> GioUnixMountMonitorClass.PolyML.cPtr)
+      val setRateLimit_ = call (load_sym libgio "g_unix_mount_monitor_set_rate_limit") (GioUnixMountMonitorClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioUnixMountMonitorClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GioUnixMountMonitorClass.C.fromPtr true) new_ ()
-    fun setRateLimit self limitMsec = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRateLimit_ (self & limitMsec)
+    fun setRateLimit self limitMsec = (GioUnixMountMonitorClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRateLimit_ (self & limitMsec)
     local
       open ClosureMarshal Signal
     in

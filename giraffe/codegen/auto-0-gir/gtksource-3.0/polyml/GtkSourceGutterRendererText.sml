@@ -6,11 +6,11 @@ structure GtkSourceGutterRendererText :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (FFI.PolyML.cVoid --> GtkSourceGutterRendererClass.PolyML.cPtr)
       val setMarkup_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_markup")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -18,7 +18,7 @@ structure GtkSourceGutterRendererText :>
       val setText_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_text")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -30,7 +30,7 @@ structure GtkSourceGutterRendererText :>
     fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
     fun setMarkup self markup length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererTextClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
@@ -43,7 +43,7 @@ structure GtkSourceGutterRendererText :>
         )
     fun setText self text length =
       (
-        GObjectObjectClass.C.withPtr
+        GtkSourceGutterRendererTextClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I

@@ -9,9 +9,9 @@ structure GioVolumeMonitor :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_volume_monitor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val get_ = call (load_sym libgio "g_volume_monitor_get") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val get_ = call (load_sym libgio "g_volume_monitor_get") (FFI.PolyML.cVoid --> GioVolumeMonitorClass.PolyML.cPtr)
+      val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMountClass.PolyML.cPtr)
+      val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioVolumeClass.PolyML.cPtr)
     end
     type 'a class = 'a GioVolumeMonitorClass.class
     type 'a drive_class = 'a GioDriveClass.class
@@ -20,8 +20,8 @@ structure GioVolumeMonitor :>
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
-    fun getMountForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
-    fun getVolumeForUuid self uuid = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
+    fun getMountForUuid self uuid = (GioVolumeMonitorClass.C.withPtr &&&> Utf8.C.withPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
+    fun getVolumeForUuid self uuid = (GioVolumeMonitorClass.C.withPtr &&&> Utf8.C.withPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
     local
       open ClosureMarshal Signal
     in

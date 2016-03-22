@@ -6,8 +6,8 @@ structure GtkActionGroup :>
     where type 'a action_class = 'a GtkActionClass.class =
   struct
     val getType_ = _import "gtk_action_group_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_action_group_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val addAction_ = fn x1 & x2 => (_import "gtk_action_group_add_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val new_ = _import "mlton_gtk_action_group_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p;
+    val addAction_ = fn x1 & x2 => (_import "gtk_action_group_add_action" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p * GtkActionClass.C.notnull GtkActionClass.C.p -> unit;) (x1, x2)
     val addActionWithAccel_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure GtkActionGroup :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_action_group_add_action_with_accel" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p
+               * GtkActionClass.C.notnull GtkActionClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -32,27 +32,27 @@ structure GtkActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_get_action" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkActionClass.C.notnull GtkActionClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getName_ = _import "gtk_action_group_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getSensitive_ = _import "gtk_action_group_get_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getVisible_ = _import "gtk_action_group_get_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val removeAction_ = fn x1 & x2 => (_import "gtk_action_group_remove_action" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_group_set_sensitive" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val getName_ = _import "gtk_action_group_get_name" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getSensitive_ = _import "gtk_action_group_get_sensitive" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p -> FFI.Bool.C.val_;
+    val getVisible_ = _import "gtk_action_group_get_visible" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p -> FFI.Bool.C.val_;
+    val removeAction_ = fn x1 & x2 => (_import "gtk_action_group_remove_action" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p * GtkActionClass.C.notnull GtkActionClass.C.p -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_group_set_sensitive" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTranslationDomain_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_set_translation_domain" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -62,13 +62,13 @@ structure GtkActionGroup :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_action_group_set_visible" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_action_group_set_visible" : GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val translateString_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_translate_string" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkActionGroupClass.C.notnull GtkActionGroupClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -86,11 +86,11 @@ structure GtkActionGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name
-    fun addAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addAction_ (self & action)
+    fun addAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) addAction_ (self & action)
     fun addActionWithAccel self action accelerator =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkActionGroupClass.C.withPtr
+         &&&> GtkActionClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> I
       )
@@ -100,15 +100,15 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
-    fun getAction self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun removeAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeAction_ (self & action)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
+    fun getAction self actionName = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
+    fun getName self = (GtkActionGroupClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getSensitive self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
+    fun getVisible self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun removeAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) removeAction_ (self & action)
+    fun setSensitive self sensitive = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setTranslationDomain self domain = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setVisible self visible = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun translateString self string = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
     local
       open ClosureMarshal Signal
     in

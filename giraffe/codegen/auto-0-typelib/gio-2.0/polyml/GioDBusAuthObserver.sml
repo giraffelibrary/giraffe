@@ -8,13 +8,13 @@ structure GioDBusAuthObserver :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_auth_observer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_dbus_auth_observer_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_dbus_auth_observer_new") (FFI.PolyML.cVoid --> GioDBusAuthObserverClass.PolyML.cPtr)
       val authorizeAuthenticatedPeer_ =
         call (load_sym libgio "g_dbus_auth_observer_authorize_authenticated_peer")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusAuthObserverClass.PolyML.cPtr
+             &&> GioIOStreamClass.PolyML.cPtr
+             &&> GioCredentialsClass.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
     end
@@ -26,9 +26,9 @@ structure GioDBusAuthObserver :>
     fun new () = (I ---> GioDBusAuthObserverClass.C.fromPtr true) new_ ()
     fun authorizeAuthenticatedPeer self stream credentials =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusAuthObserverClass.C.withPtr
+         &&&> GioIOStreamClass.C.withPtr
+         &&&> GioCredentialsClass.C.withPtr
          ---> FFI.Bool.C.fromVal
       )
         authorizeAuthenticatedPeer_

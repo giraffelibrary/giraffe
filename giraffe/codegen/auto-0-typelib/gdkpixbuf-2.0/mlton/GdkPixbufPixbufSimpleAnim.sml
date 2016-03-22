@@ -14,16 +14,16 @@ structure GdkPixbufPixbufSimpleAnim :>
               FFI.Int32.C.val_
                * FFI.Int32.C.val_
                * FFI.Float.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufSimpleAnimClass.C.notnull GdkPixbufPixbufSimpleAnimClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val addFrame_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_add_frame" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getLoop_ = _import "gdk_pixbuf_simple_anim_get_loop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val addFrame_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_add_frame" : GdkPixbufPixbufSimpleAnimClass.C.notnull GdkPixbufPixbufSimpleAnimClass.C.p * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p -> unit;) (x1, x2)
+    val getLoop_ = _import "gdk_pixbuf_simple_anim_get_loop" : GdkPixbufPixbufSimpleAnimClass.C.notnull GdkPixbufPixbufSimpleAnimClass.C.p -> FFI.Bool.C.val_;
+    val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GdkPixbufPixbufSimpleAnimClass.C.notnull GdkPixbufPixbufSimpleAnimClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GdkPixbufPixbufSimpleAnimClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
@@ -41,9 +41,9 @@ structure GdkPixbufPixbufSimpleAnim :>
            & height
            & rate
         )
-    fun addFrame self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addFrame_ (self & pixbuf)
-    fun getLoop self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getLoop_ self
-    fun setLoop self loop = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLoop_ (self & loop)
+    fun addFrame self pixbuf = (GdkPixbufPixbufSimpleAnimClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withPtr ---> I) addFrame_ (self & pixbuf)
+    fun getLoop self = (GdkPixbufPixbufSimpleAnimClass.C.withPtr ---> FFI.Bool.C.fromVal) getLoop_ self
+    fun setLoop self loop = (GdkPixbufPixbufSimpleAnimClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLoop_ (self & loop)
     local
       open Property
     in

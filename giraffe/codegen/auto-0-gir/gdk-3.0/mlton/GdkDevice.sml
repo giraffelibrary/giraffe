@@ -24,9 +24,9 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_grab_info_libgtk_only" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
+              GdkDisplayClass.C.notnull GdkDisplayClass.C.p
+               * GdkDeviceClass.C.notnull GdkDeviceClass.C.p
+               * (unit, GdkWindowClass.C.notnull) GdkWindowClass.C.r
                * FFI.Bool.C.ref_
                -> FFI.Bool.C.val_;
           )
@@ -36,11 +36,11 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt.C.val_ -> GdkAxisUse.C.val_;) (x1, x2)
-    val getDeviceType_ = _import "gdk_device_get_device_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkDeviceType.C.val_;
-    val getDisplay_ = _import "gdk_device_get_display" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> GdkDeviceClass.C.notnull GdkDeviceClass.C.p;
+    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p * FFI.UInt.C.val_ -> GdkAxisUse.C.val_;) (x1, x2)
+    val getDeviceType_ = _import "gdk_device_get_device_type" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> GdkDeviceType.C.val_;
+    val getDisplay_ = _import "gdk_device_get_display" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> GdkDisplayClass.C.notnull GdkDisplayClass.C.p;
+    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> FFI.Bool.C.val_;
     val getKey_ =
       fn
         x1
@@ -49,7 +49,7 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_get_key" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.ref_
                * GdkModifierType.C.ref_
@@ -61,10 +61,10 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getMode_ = _import "gdk_device_get_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkInputMode.C.val_;
-    val getNAxes_ = _import "gdk_device_get_n_axes" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getNKeys_ = _import "gdk_device_get_n_keys" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val getName_ = _import "gdk_device_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getMode_ = _import "gdk_device_get_mode" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> GdkInputMode.C.val_;
+    val getNAxes_ = _import "gdk_device_get_n_axes" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> FFI.Int.C.val_;
+    val getNKeys_ = _import "gdk_device_get_n_keys" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> FFI.Int.C.val_;
+    val getName_ = _import "gdk_device_get_name" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val getPosition_ =
       fn
         x1
@@ -73,8 +73,8 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_get_position" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
+               * (unit, GdkScreenClass.C.notnull) GdkScreenClass.C.r
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
                -> unit;
@@ -85,7 +85,7 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getSource_ = _import "gdk_device_get_source" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GdkInputSource.C.val_;
+    val getSource_ = _import "gdk_device_get_source" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p -> GdkInputSource.C.val_;
     val getWindowAtPosition_ =
       fn
         x1
@@ -93,10 +93,10 @@ structure GdkDevice :>
          & x3 =>
           (
             _import "gdk_device_get_window_at_position" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
           )
             (
               x1,
@@ -114,12 +114,12 @@ structure GdkDevice :>
          & x7 =>
           (
             _import "gdk_device_grab" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GdkGrabOwnership.C.val_
                * FFI.Bool.C.val_
                * GdkEventMask.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GdkCursorClass.C.p
                * FFI.UInt32.C.val_
                -> GdkGrabStatus.C.val_;
           )
@@ -139,7 +139,7 @@ structure GdkDevice :>
          & x3 =>
           (
             _import "gdk_device_set_axis_use" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
                * FFI.UInt.C.val_
                * GdkAxisUse.C.val_
                -> unit;
@@ -157,7 +157,7 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_set_key" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
                * FFI.UInt.C.val_
                * FFI.UInt.C.val_
                * GdkModifierType.C.val_
@@ -169,8 +169,8 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GdkInputMode.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p * GdkInputMode.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GdkDeviceClass.C.notnull GdkDeviceClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val warp_ =
       fn
         x1
@@ -179,8 +179,8 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_warp" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GdkDeviceClass.C.notnull GdkDeviceClass.C.p
+               * GdkScreenClass.C.notnull GdkScreenClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -213,9 +213,9 @@ structure GdkDevice :>
          & ownerEvents
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
+            GdkDisplayClass.C.withPtr
+             &&&> GdkDeviceClass.C.withPtr
+             &&&> GdkWindowClass.C.withRefOptPtr
              &&&> FFI.Bool.C.withRefVal
              ---> GdkWindowClass.C.fromPtr false
                    && FFI.Bool.C.fromVal
@@ -231,18 +231,18 @@ structure GdkDevice :>
       in
         if retVal then SOME (grabWindow, ownerEvents) else NONE
       end
-    fun getAssociatedDevice self = (GObjectObjectClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getAssociatedDevice_ self
-    fun getAxisUse self index = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> GdkAxisUse.C.fromVal) getAxisUse_ (self & index)
-    fun getDeviceType self = (GObjectObjectClass.C.withPtr ---> GdkDeviceType.C.fromVal) getDeviceType_ self
-    fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getHasCursor self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasCursor_ self
+    fun getAssociatedDevice self = (GdkDeviceClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getAssociatedDevice_ self
+    fun getAxisUse self index = (GdkDeviceClass.C.withPtr &&&> FFI.UInt.C.withVal ---> GdkAxisUse.C.fromVal) getAxisUse_ (self & index)
+    fun getDeviceType self = (GdkDeviceClass.C.withPtr ---> GdkDeviceType.C.fromVal) getDeviceType_ self
+    fun getDisplay self = (GdkDeviceClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
+    fun getHasCursor self = (GdkDeviceClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasCursor_ self
     fun getKey self index =
       let
         val keyval
          & modifiers
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GdkDeviceClass.C.withPtr
              &&&> FFI.UInt.C.withVal
              &&&> FFI.UInt.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
@@ -260,10 +260,10 @@ structure GdkDevice :>
       in
         if retVal then SOME (keyval, modifiers) else NONE
       end
-    fun getMode self = (GObjectObjectClass.C.withPtr ---> GdkInputMode.C.fromVal) getMode_ self
-    fun getNAxes self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNAxes_ self
-    fun getNKeys self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNKeys_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getMode self = (GdkDeviceClass.C.withPtr ---> GdkInputMode.C.fromVal) getMode_ self
+    fun getNAxes self = (GdkDeviceClass.C.withPtr ---> FFI.Int.C.fromVal) getNAxes_ self
+    fun getNKeys self = (GdkDeviceClass.C.withPtr ---> FFI.Int.C.fromVal) getNKeys_ self
+    fun getName self = (GdkDeviceClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
     fun getPosition self =
       let
         val screen
@@ -271,8 +271,8 @@ structure GdkDevice :>
          & y
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
+            GdkDeviceClass.C.withPtr
+             &&&> GdkScreenClass.C.withRefOptPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> GdkScreenClass.C.fromPtr false
@@ -294,14 +294,14 @@ structure GdkDevice :>
           y
         )
       end
-    fun getSource self = (GObjectObjectClass.C.withPtr ---> GdkInputSource.C.fromVal) getSource_ self
+    fun getSource self = (GdkDeviceClass.C.withPtr ---> GdkInputSource.C.fromVal) getSource_ self
     fun getWindowAtPosition self =
       let
         val winX
          & winY
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GdkDeviceClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -323,12 +323,12 @@ structure GdkDevice :>
       end
     fun grab self window grabOwnership ownerEvents eventMask cursor time =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkDeviceClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GdkGrabOwnership.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> GdkEventMask.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GdkCursorClass.C.withOptPtr
          &&&> FFI.UInt32.C.withVal
          ---> GdkGrabStatus.C.fromVal
       )
@@ -344,7 +344,7 @@ structure GdkDevice :>
         )
     fun setAxisUse self index use =
       (
-        GObjectObjectClass.C.withPtr
+        GdkDeviceClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> GdkAxisUse.C.withVal
          ---> I
@@ -357,7 +357,7 @@ structure GdkDevice :>
         )
     fun setKey self index keyval modifiers =
       (
-        GObjectObjectClass.C.withPtr
+        GdkDeviceClass.C.withPtr
          &&&> FFI.UInt.C.withVal
          &&&> FFI.UInt.C.withVal
          &&&> GdkModifierType.C.withVal
@@ -370,12 +370,12 @@ structure GdkDevice :>
            & keyval
            & modifiers
         )
-    fun setMode self mode = (GObjectObjectClass.C.withPtr &&&> GdkInputMode.C.withVal ---> FFI.Bool.C.fromVal) setMode_ (self & mode)
-    fun ungrab self time = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) ungrab_ (self & time)
+    fun setMode self mode = (GdkDeviceClass.C.withPtr &&&> GdkInputMode.C.withVal ---> FFI.Bool.C.fromVal) setMode_ (self & mode)
+    fun ungrab self time = (GdkDeviceClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) ungrab_ (self & time)
     fun warp self screen x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkDeviceClass.C.withPtr
+         &&&> GdkScreenClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I

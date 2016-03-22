@@ -15,12 +15,12 @@ structure GtkAspectFrame :>
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkWidgetClass.PolyML.cPtr
           )
       val set_ =
         call (load_sym libgtk "gtk_aspect_frame_set")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkAspectFrameClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
@@ -53,7 +53,7 @@ structure GtkAspectFrame :>
         )
     fun set self xalign yalign ratio obeyChild =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAspectFrameClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal

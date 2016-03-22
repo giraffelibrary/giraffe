@@ -11,14 +11,14 @@ structure AtkRelation :>
       val new_ =
         call (load_sym libatk "atk_relation_new")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkObjectClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> AtkRelationType.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> AtkRelationClass.PolyML.cPtr
           )
-      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (GObjectObjectClass.PolyML.cPtr --> AtkRelationType.PolyML.cVal)
-      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (AtkRelationClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (AtkRelationClass.PolyML.cPtr --> AtkRelationType.PolyML.cVal)
+      val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (AtkRelationClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a AtkRelationClass.class
     type 'a object_class = 'a AtkObjectClass.class
@@ -27,7 +27,7 @@ structure AtkRelation :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new targets nTargets relationship =
       (
-        GObjectObjectClass.C.withPtr
+        AtkObjectClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> AtkRelationType.C.withVal
          ---> AtkRelationClass.C.fromPtr true
@@ -38,9 +38,9 @@ structure AtkRelation :>
            & nTargets
            & relationship
         )
-    fun addTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addTarget_ (self & target)
-    fun getRelationType self = (GObjectObjectClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
-    fun removeTarget self target = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
+    fun addTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) addTarget_ (self & target)
+    fun getRelationType self = (AtkRelationClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
+    fun removeTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
     local
       open Property
     in

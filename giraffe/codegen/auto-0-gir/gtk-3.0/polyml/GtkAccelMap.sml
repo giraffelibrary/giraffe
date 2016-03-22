@@ -25,7 +25,7 @@ structure GtkAccelMap :>
              &&> FFI.Bool.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val get_ = call (load_sym libgtk "gtk_accel_map_get") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val get_ = call (load_sym libgtk "gtk_accel_map_get") (FFI.PolyML.cVoid --> GtkAccelMapClass.PolyML.cPtr)
       val load_ = call (load_sym libgtk "gtk_accel_map_load") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
       val loadFd_ = call (load_sym libgtk "gtk_accel_map_load_fd") (FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
       val lockPath_ = call (load_sym libgtk "gtk_accel_map_lock_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)

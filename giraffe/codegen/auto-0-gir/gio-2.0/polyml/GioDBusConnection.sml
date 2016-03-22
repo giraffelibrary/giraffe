@@ -19,41 +19,41 @@ structure GioDBusConnection :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_dbus_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val newFinish_ = call (load_sym libgio "g_dbus_connection_new_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
-      val newForAddressFinish_ = call (load_sym libgio "g_dbus_connection_new_for_address_finish") (GObjectObjectClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newFinish_ = call (load_sym libgio "g_dbus_connection_new_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
+      val newForAddressFinish_ = call (load_sym libgio "g_dbus_connection_new_for_address_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
       val newForAddressSync_ =
         call (load_sym libgio "g_dbus_connection_new_for_address_sync")
           (
             Utf8.PolyML.cInPtr
              &&> GioDBusConnectionFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioDBusAuthObserverClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusConnectionClass.PolyML.cPtr
           )
       val newSync_ =
         call (load_sym libgio "g_dbus_connection_new_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioIOStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GioDBusConnectionFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioDBusAuthObserverClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusConnectionClass.PolyML.cPtr
           )
       val callFinish_ =
         call (load_sym libgio "g_dbus_connection_call_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
       val callSync_ =
         call (load_sym libgio "g_dbus_connection_call_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -62,23 +62,23 @@ structure GioDBusConnection :>
              &&> GLibVariantTypeRecord.PolyML.cOptPtr
              &&> GioDBusCallFlags.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListFinish_ =
         call (load_sym libgio "g_dbus_connection_call_with_unix_fd_list_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOutRef
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioUnixFDListClass.PolyML.cOutRef
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
       val callWithUnixFdListSync_ =
         call (load_sym libgio "g_dbus_connection_call_with_unix_fd_list_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -87,32 +87,32 @@ structure GioDBusConnection :>
              &&> GLibVariantTypeRecord.PolyML.cOptPtr
              &&> GioDBusCallFlags.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOutRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioUnixFDListClass.PolyML.cOptPtr
+             &&> GioUnixFDListClass.PolyML.cOutRef
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
       val closeFinish_ =
         call (load_sym libgio "g_dbus_connection_close_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val closeSync_ =
         call (load_sym libgio "g_dbus_connection_close_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val emitSignal_ =
         call (load_sym libgio "g_dbus_connection_emit_signal")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -124,32 +124,32 @@ structure GioDBusConnection :>
       val flushFinish_ =
         call (load_sym libgio "g_dbus_connection_flush_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val flushSync_ =
         call (load_sym libgio "g_dbus_connection_flush_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val getCapabilities_ = call (load_sym libgio "g_dbus_connection_get_capabilities") (GObjectObjectClass.PolyML.cPtr --> GioDBusCapabilityFlags.PolyML.cVal)
-      val getExitOnClose_ = call (load_sym libgio "g_dbus_connection_get_exit_on_close") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getGuid_ = call (load_sym libgio "g_dbus_connection_get_guid") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPeerCredentials_ = call (load_sym libgio "g_dbus_connection_get_peer_credentials") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getStream_ = call (load_sym libgio "g_dbus_connection_get_stream") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getUniqueName_ = call (load_sym libgio "g_dbus_connection_get_unique_name") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isClosed_ = call (load_sym libgio "g_dbus_connection_is_closed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getCapabilities_ = call (load_sym libgio "g_dbus_connection_get_capabilities") (GioDBusConnectionClass.PolyML.cPtr --> GioDBusCapabilityFlags.PolyML.cVal)
+      val getExitOnClose_ = call (load_sym libgio "g_dbus_connection_get_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getGuid_ = call (load_sym libgio "g_dbus_connection_get_guid") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPeerCredentials_ = call (load_sym libgio "g_dbus_connection_get_peer_credentials") (GioDBusConnectionClass.PolyML.cPtr --> GioCredentialsClass.PolyML.cPtr)
+      val getStream_ = call (load_sym libgio "g_dbus_connection_get_stream") (GioDBusConnectionClass.PolyML.cPtr --> GioIOStreamClass.PolyML.cPtr)
+      val getUniqueName_ = call (load_sym libgio "g_dbus_connection_get_unique_name") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isClosed_ = call (load_sym libgio "g_dbus_connection_is_closed") (GioDBusConnectionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val removeFilter_ = call (load_sym libgio "g_dbus_connection_remove_filter") (GioDBusConnectionClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
       val sendMessage_ =
         call (load_sym libgio "g_dbus_connection_send_message")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioDBusMessageClass.PolyML.cPtr
              &&> GioDBusSendMessageFlags.PolyML.cVal
              &&> FFI.UInt32.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -158,28 +158,28 @@ structure GioDBusConnection :>
       val sendMessageWithReplyFinish_ =
         call (load_sym libgio "g_dbus_connection_send_message_with_reply_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusMessageClass.PolyML.cPtr
           )
       val sendMessageWithReplySync_ =
         call (load_sym libgio "g_dbus_connection_send_message_with_reply_sync")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> GioDBusMessageClass.PolyML.cPtr
              &&> GioDBusSendMessageFlags.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.UInt32.PolyML.cRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioDBusMessageClass.PolyML.cPtr
           )
-      val setExitOnClose_ = call (load_sym libgio "g_dbus_connection_set_exit_on_close") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
-      val startMessageProcessing_ = call (load_sym libgio "g_dbus_connection_start_message_processing") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val setExitOnClose_ = call (load_sym libgio "g_dbus_connection_set_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val signalUnsubscribe_ = call (load_sym libgio "g_dbus_connection_signal_unsubscribe") (GioDBusConnectionClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val startMessageProcessing_ = call (load_sym libgio "g_dbus_connection_start_message_processing") (GioDBusConnectionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unregisterObject_ = call (load_sym libgio "g_dbus_connection_unregister_object") (GioDBusConnectionClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val unregisterSubtree_ = call (load_sym libgio "g_dbus_connection_unregister_subtree") (GioDBusConnectionClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioDBusConnectionClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
@@ -199,14 +199,14 @@ structure GioDBusConnection :>
     fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForAddressFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newForAddressFinish_ (res & [])
+    fun newFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newFinish_ (res & [])
+    fun newForAddressFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) newForAddressFinish_ (res & [])
     fun newForAddressSync address flags observer cancellable =
       (
         Utf8.C.withPtr
          &&&> GioDBusConnectionFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioDBusAuthObserverClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.C.fromPtr true
       )
@@ -220,11 +220,11 @@ structure GioDBusConnection :>
         )
     fun newSync stream guid flags observer cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioIOStreamClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GioDBusConnectionFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioDBusAuthObserverClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.C.fromPtr true
       )
@@ -239,8 +239,8 @@ structure GioDBusConnection :>
         )
     fun callFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
@@ -252,7 +252,7 @@ structure GioDBusConnection :>
         )
     fun callSync self busName objectPath interfaceName methodName parameters replyType flags timeoutMsec cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
@@ -261,7 +261,7 @@ structure GioDBusConnection :>
          &&&> GLibVariantTypeRecord.C.withOptPtr
          &&&> GioDBusCallFlags.C.withVal
          &&&> FFI.Int.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.C.fromPtr true
       )
@@ -283,9 +283,9 @@ structure GioDBusConnection :>
       let
         val outFdList & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDBusConnectionClass.C.withPtr
+             &&&> GioUnixFDListClass.C.withRefOptPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
@@ -303,7 +303,7 @@ structure GioDBusConnection :>
       let
         val outFdList & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioDBusConnectionClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> Utf8.C.withPtr
@@ -312,9 +312,9 @@ structure GioDBusConnection :>
              &&&> GLibVariantTypeRecord.C.withOptPtr
              &&&> GioDBusCallFlags.C.withVal
              &&&> FFI.Int.C.withVal
-             &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioUnixFDListClass.C.withOptPtr
+             &&&> GioUnixFDListClass.C.withRefOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
           )
@@ -339,8 +339,8 @@ structure GioDBusConnection :>
       end
     fun closeFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -352,8 +352,8 @@ structure GioDBusConnection :>
         )
     fun closeSync self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -365,7 +365,7 @@ structure GioDBusConnection :>
         )
     fun emitSignal self destinationBusName objectPath interfaceName signalName parameters =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
@@ -386,8 +386,8 @@ structure GioDBusConnection :>
         )
     fun flushFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -399,8 +399,8 @@ structure GioDBusConnection :>
         )
     fun flushSync self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -410,20 +410,20 @@ structure GioDBusConnection :>
            & cancellable
            & []
         )
-    fun getCapabilities self = (GObjectObjectClass.C.withPtr ---> GioDBusCapabilityFlags.C.fromVal) getCapabilities_ self
-    fun getExitOnClose self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getExitOnClose_ self
-    fun getGuid self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
-    fun getPeerCredentials self = (GObjectObjectClass.C.withPtr ---> GioCredentialsClass.C.fromPtr false) getPeerCredentials_ self
-    fun getStream self = (GObjectObjectClass.C.withPtr ---> GioIOStreamClass.C.fromPtr false) getStream_ self
-    fun getUniqueName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getUniqueName_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun removeFilter self filterId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeFilter_ (self & filterId)
+    fun getCapabilities self = (GioDBusConnectionClass.C.withPtr ---> GioDBusCapabilityFlags.C.fromVal) getCapabilities_ self
+    fun getExitOnClose self = (GioDBusConnectionClass.C.withPtr ---> FFI.Bool.C.fromVal) getExitOnClose_ self
+    fun getGuid self = (GioDBusConnectionClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
+    fun getPeerCredentials self = (GioDBusConnectionClass.C.withPtr ---> GioCredentialsClass.C.fromPtr false) getPeerCredentials_ self
+    fun getStream self = (GioDBusConnectionClass.C.withPtr ---> GioIOStreamClass.C.fromPtr false) getStream_ self
+    fun getUniqueName self = (GioDBusConnectionClass.C.withPtr ---> Utf8.C.fromPtr false) getUniqueName_ self
+    fun isClosed self = (GioDBusConnectionClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun removeFilter self filterId = (GioDBusConnectionClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self message flags =
       let
         val outSerial & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDBusConnectionClass.C.withPtr
+             &&&> GioDBusMessageClass.C.withPtr
              &&&> GioDBusSendMessageFlags.C.withVal
              &&&> FFI.UInt32.C.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -442,8 +442,8 @@ structure GioDBusConnection :>
       end
     fun sendMessageWithReplyFinish self res =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusMessageClass.C.fromPtr true
       )
@@ -457,12 +457,12 @@ structure GioDBusConnection :>
       let
         val outSerial & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioDBusConnectionClass.C.withPtr
+             &&&> GioDBusMessageClass.C.withPtr
              &&&> GioDBusSendMessageFlags.C.withVal
              &&&> FFI.Int.C.withVal
              &&&> FFI.UInt32.C.withRefVal
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> FFI.UInt32.C.fromVal && GioDBusMessageClass.C.fromPtr true
           )
@@ -479,11 +479,11 @@ structure GioDBusConnection :>
       in
         (retVal, outSerial)
       end
-    fun setExitOnClose self exitOnClose = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExitOnClose_ (self & exitOnClose)
-    fun signalUnsubscribe self subscriptionId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
-    fun startMessageProcessing self = (GObjectObjectClass.C.withPtr ---> I) startMessageProcessing_ self
-    fun unregisterObject self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterObject_ (self & registrationId)
-    fun unregisterSubtree self registrationId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterSubtree_ (self & registrationId)
+    fun setExitOnClose self exitOnClose = (GioDBusConnectionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExitOnClose_ (self & exitOnClose)
+    fun signalUnsubscribe self subscriptionId = (GioDBusConnectionClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
+    fun startMessageProcessing self = (GioDBusConnectionClass.C.withPtr ---> I) startMessageProcessing_ self
+    fun unregisterObject self registrationId = (GioDBusConnectionClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterObject_ (self & registrationId)
+    fun unregisterSubtree self registrationId = (GioDBusConnectionClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) unregisterSubtree_ (self & registrationId)
     local
       open Property
     in

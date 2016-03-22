@@ -14,12 +14,12 @@ structure PangoRenderer :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libpango "pango_renderer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val activate_ = call (load_sym libpango "pango_renderer_activate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val deactivate_ = call (load_sym libpango "pango_renderer_deactivate") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val activate_ = call (load_sym libpango "pango_renderer_activate") (PangoRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val deactivate_ = call (load_sym libpango "pango_renderer_deactivate") (PangoRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val drawErrorUnderline_ =
         call (load_sym libpango "pango_renderer_draw_error_underline")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
@@ -29,8 +29,8 @@ structure PangoRenderer :>
       val drawGlyph_ =
         call (load_sym libpango "pango_renderer_draw_glyph")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
+             &&> PangoFontClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
@@ -39,7 +39,7 @@ structure PangoRenderer :>
       val drawGlyphItem_ =
         call (load_sym libpango "pango_renderer_draw_glyph_item")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> PangoGlyphItemRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
@@ -49,8 +49,8 @@ structure PangoRenderer :>
       val drawGlyphs_ =
         call (load_sym libpango "pango_renderer_draw_glyphs")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
+             &&> PangoFontClass.PolyML.cPtr
              &&> PangoGlyphStringRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
@@ -59,8 +59,8 @@ structure PangoRenderer :>
       val drawLayout_ =
         call (load_sym libpango "pango_renderer_draw_layout")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
+             &&> PangoLayoutClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -68,7 +68,7 @@ structure PangoRenderer :>
       val drawLayoutLine_ =
         call (load_sym libpango "pango_renderer_draw_layout_line")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> PangoLayoutLineRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
@@ -77,7 +77,7 @@ structure PangoRenderer :>
       val drawRectangle_ =
         call (load_sym libpango "pango_renderer_draw_rectangle")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> PangoRenderPart.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
@@ -88,7 +88,7 @@ structure PangoRenderer :>
       val drawTrapezoid_ =
         call (load_sym libpango "pango_renderer_draw_trapezoid")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> PangoRenderPart.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
@@ -98,20 +98,20 @@ structure PangoRenderer :>
              &&> FFI.Double.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val getColor_ = call (load_sym libpango "pango_renderer_get_color") (GObjectObjectClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> PangoColorRecord.PolyML.cPtr)
-      val getLayout_ = call (load_sym libpango "pango_renderer_get_layout") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getLayoutLine_ = call (load_sym libpango "pango_renderer_get_layout_line") (GObjectObjectClass.PolyML.cPtr --> PangoLayoutLineRecord.PolyML.cPtr)
-      val getMatrix_ = call (load_sym libpango "pango_renderer_get_matrix") (GObjectObjectClass.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
-      val partChanged_ = call (load_sym libpango "pango_renderer_part_changed") (GObjectObjectClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getColor_ = call (load_sym libpango "pango_renderer_get_color") (PangoRendererClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> PangoColorRecord.PolyML.cPtr)
+      val getLayout_ = call (load_sym libpango "pango_renderer_get_layout") (PangoRendererClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
+      val getLayoutLine_ = call (load_sym libpango "pango_renderer_get_layout_line") (PangoRendererClass.PolyML.cPtr --> PangoLayoutLineRecord.PolyML.cPtr)
+      val getMatrix_ = call (load_sym libpango "pango_renderer_get_matrix") (PangoRendererClass.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
+      val partChanged_ = call (load_sym libpango "pango_renderer_part_changed") (PangoRendererClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> FFI.PolyML.cVoid)
       val setColor_ =
         call (load_sym libpango "pango_renderer_set_color")
           (
-            GObjectObjectClass.PolyML.cPtr
+            PangoRendererClass.PolyML.cPtr
              &&> PangoRenderPart.PolyML.cVal
              &&> PangoColorRecord.PolyML.cOptPtr
              --> FFI.PolyML.cVoid
           )
-      val setMatrix_ = call (load_sym libpango "pango_renderer_set_matrix") (GObjectObjectClass.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setMatrix_ = call (load_sym libpango "pango_renderer_set_matrix") (PangoRendererClass.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a PangoRendererClass.class
     type glyph_item_t = PangoGlyphItemRecord.t
@@ -124,11 +124,11 @@ structure PangoRenderer :>
     type matrix_t = PangoMatrixRecord.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun activate self = (GObjectObjectClass.C.withPtr ---> I) activate_ self
-    fun deactivate self = (GObjectObjectClass.C.withPtr ---> I) deactivate_ self
+    fun activate self = (PangoRendererClass.C.withPtr ---> I) activate_ self
+    fun deactivate self = (PangoRendererClass.C.withPtr ---> I) deactivate_ self
     fun drawErrorUnderline self x y width height =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -145,8 +145,8 @@ structure PangoRenderer :>
         )
     fun drawGlyph self font glyph x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
+         &&&> PangoFontClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
@@ -162,7 +162,7 @@ structure PangoRenderer :>
         )
     fun drawGlyphItem self text glyphItem x y =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> PangoGlyphItemRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
@@ -179,8 +179,8 @@ structure PangoRenderer :>
         )
     fun drawGlyphs self font glyphs x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
+         &&&> PangoFontClass.C.withPtr
          &&&> PangoGlyphStringRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -196,8 +196,8 @@ structure PangoRenderer :>
         )
     fun drawLayout self layout x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
+         &&&> PangoLayoutClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -211,7 +211,7 @@ structure PangoRenderer :>
         )
     fun drawLayoutLine self line x y =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> PangoLayoutLineRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -226,7 +226,7 @@ structure PangoRenderer :>
         )
     fun drawRectangle self part x y width height =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
@@ -245,7 +245,7 @@ structure PangoRenderer :>
         )
     fun drawTrapezoid self part y1 x11 x21 y2 x12 x22 =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
@@ -266,14 +266,14 @@ structure PangoRenderer :>
            & x12
            & x22
         )
-    fun getColor self part = (GObjectObjectClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> PangoColorRecord.C.fromPtr true) getColor_ (self & part)
-    fun getLayout self = (GObjectObjectClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
-    fun getLayoutLine self = (GObjectObjectClass.C.withPtr ---> PangoLayoutLineRecord.C.fromPtr true) getLayoutLine_ self
-    fun getMatrix self = (GObjectObjectClass.C.withPtr ---> PangoMatrixRecord.C.fromPtr false) getMatrix_ self
-    fun partChanged self part = (GObjectObjectClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> I) partChanged_ (self & part)
+    fun getColor self part = (PangoRendererClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> PangoColorRecord.C.fromPtr true) getColor_ (self & part)
+    fun getLayout self = (PangoRendererClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
+    fun getLayoutLine self = (PangoRendererClass.C.withPtr ---> PangoLayoutLineRecord.C.fromPtr true) getLayoutLine_ self
+    fun getMatrix self = (PangoRendererClass.C.withPtr ---> PangoMatrixRecord.C.fromPtr false) getMatrix_ self
+    fun partChanged self part = (PangoRendererClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> I) partChanged_ (self & part)
     fun setColor self part color =
       (
-        GObjectObjectClass.C.withPtr
+        PangoRendererClass.C.withPtr
          &&&> PangoRenderPart.C.withVal
          &&&> PangoColorRecord.C.withOptPtr
          ---> I
@@ -284,5 +284,5 @@ structure PangoRenderer :>
            & part
            & color
         )
-    fun setMatrix self matrix = (GObjectObjectClass.C.withPtr &&&> PangoMatrixRecord.C.withOptPtr ---> I) setMatrix_ (self & matrix)
+    fun setMatrix self matrix = (PangoRendererClass.C.withPtr &&&> PangoMatrixRecord.C.withOptPtr ---> I) setMatrix_ (self & matrix)
   end

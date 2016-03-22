@@ -8,7 +8,7 @@ structure GtkHsv :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_hsv_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_hsv_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val toRgb_ =
         call (load_sym libgtk "gtk_hsv_to_rgb")
           (
@@ -23,7 +23,7 @@ structure GtkHsv :>
       val getColor_ =
         call (load_sym libgtk "gtk_hsv_get_color")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkHsvClass.PolyML.cPtr
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
@@ -32,16 +32,16 @@ structure GtkHsv :>
       val getMetrics_ =
         call (load_sym libgtk "gtk_hsv_get_metrics")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkHsvClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GtkHsvClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setColor_ =
         call (load_sym libgtk "gtk_hsv_set_color")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkHsvClass.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
@@ -50,7 +50,7 @@ structure GtkHsv :>
       val setMetrics_ =
         call (load_sym libgtk "gtk_hsv_set_metrics")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkHsvClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -105,7 +105,7 @@ structure GtkHsv :>
          & v
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkHsvClass.C.withPtr
              &&&> FFI.Double.C.withRefVal
              &&&> FFI.Double.C.withRefVal
              &&&> FFI.Double.C.withRefVal
@@ -134,7 +134,7 @@ structure GtkHsv :>
          & ringWidth
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkHsvClass.C.withPtr
              &&&> FFI.Int32.C.withRefVal
              &&&> FFI.Int32.C.withRefVal
              ---> FFI.Int32.C.fromVal
@@ -150,10 +150,10 @@ structure GtkHsv :>
       in
         (size, ringWidth)
       end
-    fun isAdjusting self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isAdjusting_ self
+    fun isAdjusting self = (GtkHsvClass.C.withPtr ---> FFI.Bool.C.fromVal) isAdjusting_ self
     fun setColor self h s v =
       (
-        GObjectObjectClass.C.withPtr
+        GtkHsvClass.C.withPtr
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
          &&&> FFI.Double.C.withVal
@@ -168,7 +168,7 @@ structure GtkHsv :>
         )
     fun setMetrics self size ringWidth =
       (
-        GObjectObjectClass.C.withPtr
+        GtkHsvClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> I

@@ -14,7 +14,7 @@ structure PangoGlyphString :>
         call (load_sym libpango "pango_glyph_string_extents")
           (
             PangoGlyphStringRecord.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoFontClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
@@ -25,7 +25,7 @@ structure PangoGlyphString :>
             PangoGlyphStringRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> PangoFontClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              --> FFI.PolyML.cVoid
@@ -46,7 +46,7 @@ structure PangoGlyphString :>
          & () =
           (
             PangoGlyphStringRecord.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+             &&&> PangoFontClass.C.withPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              &&&> PangoRectangleRecord.C.withNewPtr
              ---> PangoRectangleRecord.C.fromPtr true
@@ -68,7 +68,7 @@ structure PangoGlyphString :>
         PangoGlyphStringRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> PangoFontClass.C.withPtr
          &&&> PangoRectangleRecord.C.withPtr
          &&&> PangoRectangleRecord.C.withPtr
          ---> I

@@ -12,12 +12,12 @@ structure GioDBusObjectManagerClient :>
     where type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t =
   struct
     val getType_ = _import "g_dbus_object_manager_client_get_type" : unit -> GObjectType.C.val_;
-    val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_for_bus_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val getConnection_ = _import "g_dbus_object_manager_client_get_connection" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFlags_ = _import "g_dbus_object_manager_client_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioDBusObjectManagerClientFlags.C.val_;
-    val getName_ = _import "g_dbus_object_manager_client_get_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p;) (x1, x2)
+    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_for_bus_finish" : GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p;) (x1, x2)
+    val getConnection_ = _import "g_dbus_object_manager_client_get_connection" : GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;
+    val getFlags_ = _import "g_dbus_object_manager_client_get_flags" : GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p -> GioDBusObjectManagerClientFlags.C.val_;
+    val getName_ = _import "g_dbus_object_manager_client_get_name" : GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GioDBusObjectManagerClientClass.C.notnull GioDBusObjectManagerClientClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     type 'a class = 'a GioDBusObjectManagerClientClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
     type 'a d_bus_object_manager_class = 'a GioDBusObjectManagerClass.class
@@ -33,12 +33,12 @@ structure GioDBusObjectManagerClient :>
     fun asDBusObjectManager self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClass.C.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newForBusFinish_ (res & [])
-    fun getConnection self = (GObjectObjectClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectManagerClientFlags.C.fromVal) getFlags_ self
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getNameOwner self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) getNameOwner_ self
+    fun newFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.C.fromPtr true) newForBusFinish_ (res & [])
+    fun getConnection self = (GioDBusObjectManagerClientClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
+    fun getFlags self = (GioDBusObjectManagerClientClass.C.withPtr ---> GioDBusObjectManagerClientFlags.C.fromVal) getFlags_ self
+    fun getName self = (GioDBusObjectManagerClientClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getNameOwner self = (GioDBusObjectManagerClientClass.C.withPtr ---> Utf8.C.fromPtr true) getNameOwner_ self
     local
       open ClosureMarshal Signal
     in

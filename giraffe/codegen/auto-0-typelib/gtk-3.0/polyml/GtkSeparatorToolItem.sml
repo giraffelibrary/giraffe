@@ -8,9 +8,9 @@ structure GtkSeparatorToolItem :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_separator_tool_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_separator_tool_item_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getDraw_ = call (load_sym libgtk "gtk_separator_tool_item_get_draw") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setDraw_ = call (load_sym libgtk "gtk_separator_tool_item_set_draw") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_separator_tool_item_new") (FFI.PolyML.cVoid --> GtkToolItemClass.PolyML.cPtr)
+      val getDraw_ = call (load_sym libgtk "gtk_separator_tool_item_get_draw") (GtkSeparatorToolItemClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setDraw_ = call (load_sym libgtk "gtk_separator_tool_item_set_draw") (GtkSeparatorToolItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkSeparatorToolItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -21,8 +21,8 @@ structure GtkSeparatorToolItem :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkSeparatorToolItemClass.C.fromPtr false) new_ ()
-    fun getDraw self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getDraw_ self
-    fun setDraw self draw = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDraw_ (self & draw)
+    fun getDraw self = (GtkSeparatorToolItemClass.C.withPtr ---> FFI.Bool.C.fromVal) getDraw_ self
+    fun setDraw self draw = (GtkSeparatorToolItemClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDraw_ (self & draw)
     local
       open Property
     in

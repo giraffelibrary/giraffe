@@ -14,12 +14,12 @@ structure GtkAlignment :>
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkWidgetClass.PolyML.cPtr
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_alignment_get_padding")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkAlignmentClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.UInt32.PolyML.cRef
@@ -29,7 +29,7 @@ structure GtkAlignment :>
       val set_ =
         call (load_sym libgtk "gtk_alignment_set")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkAlignmentClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
@@ -39,7 +39,7 @@ structure GtkAlignment :>
       val setPadding_ =
         call (load_sym libgtk "gtk_alignment_set_padding")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkAlignmentClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
@@ -76,7 +76,7 @@ structure GtkAlignment :>
          & paddingRight
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkAlignmentClass.C.withPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.UInt32.C.withRefVal
@@ -105,7 +105,7 @@ structure GtkAlignment :>
       end
     fun set self xalign yalign xscale yscale =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAlignmentClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
@@ -122,7 +122,7 @@ structure GtkAlignment :>
         )
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAlignmentClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal

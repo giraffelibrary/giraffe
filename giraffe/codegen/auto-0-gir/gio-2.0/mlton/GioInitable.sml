@@ -11,8 +11,8 @@ structure GioInitable :>
          & x3 =>
           (
             _import "g_initable_init" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioInitableClass.C.notnull GioInitableClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -27,8 +27,8 @@ structure GioInitable :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun init self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioInitableClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

@@ -7,16 +7,16 @@ structure GioMemoryOutputStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_memory_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDataSize_ = call (load_sym libgio "g_memory_output_stream_get_data_size") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
-      val getSize_ = call (load_sym libgio "g_memory_output_stream_get_size") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val getDataSize_ = call (load_sym libgio "g_memory_output_stream_get_data_size") (GioMemoryOutputStreamClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val getSize_ = call (load_sym libgio "g_memory_output_stream_get_size") (GioMemoryOutputStreamClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
     end
     type 'a class = 'a GioMemoryOutputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type t = base class
     fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDataSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getDataSize_ self
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getSize_ self
+    fun getDataSize self = (GioMemoryOutputStreamClass.C.withPtr ---> FFI.UInt64.C.fromVal) getDataSize_ self
+    fun getSize self = (GioMemoryOutputStreamClass.C.withPtr ---> FFI.UInt64.C.fromVal) getSize_ self
     local
       open Property
     in

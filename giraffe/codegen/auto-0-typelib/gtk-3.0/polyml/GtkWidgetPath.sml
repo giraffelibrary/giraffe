@@ -9,7 +9,7 @@ structure GtkWidgetPath :>
     in
       val getType_ = call (load_sym libgtk "gtk_widget_path_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_widget_path_new") (FFI.PolyML.cVoid --> GtkWidgetPathRecord.PolyML.cPtr)
-      val appendForWidget_ = call (load_sym libgtk "gtk_widget_path_append_for_widget") (GtkWidgetPathRecord.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val appendForWidget_ = call (load_sym libgtk "gtk_widget_path_append_for_widget") (GtkWidgetPathRecord.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val appendWithSiblings_ =
         call (load_sym libgtk "gtk_widget_path_append_with_siblings")
           (
@@ -123,7 +123,7 @@ structure GtkWidgetPath :>
     type region_flags_t = GtkRegionFlags.t
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.C.fromPtr true) new_ ()
-    fun appendForWidget self widget = (GtkWidgetPathRecord.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) appendForWidget_ (self & widget)
+    fun appendForWidget self widget = (GtkWidgetPathRecord.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int32.C.fromVal) appendForWidget_ (self & widget)
     fun appendWithSiblings self siblings siblingIndex =
       (
         GtkWidgetPathRecord.C.withPtr

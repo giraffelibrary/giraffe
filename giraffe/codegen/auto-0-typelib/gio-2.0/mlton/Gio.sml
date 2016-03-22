@@ -14,7 +14,7 @@ structure Gio : GIO =
                * unit Utf8.MLton.p2
                * GioAppInfoCreateFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioAppInfoClass.C.notnull GioAppInfoClass.C.p;
           )
             (
               x1,
@@ -32,14 +32,14 @@ structure Gio : GIO =
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Bool.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioAppInfoClass.C.notnull GioAppInfoClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioAppInfoClass.C.notnull GioAppInfoClass.C.p;
     val appInfoLaunchDefaultForUri_ =
       fn
         (x1, x2)
@@ -49,7 +49,7 @@ structure Gio : GIO =
             _import "mlton_g_app_info_launch_default_for_uri" :
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GioAppLaunchContextClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -60,7 +60,7 @@ structure Gio : GIO =
               x4
             )
     val appInfoResetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
-    val busGetFinish_ = fn x1 & x2 => (_import "g_bus_get_finish" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val busGetFinish_ = fn x1 & x2 => (_import "g_bus_get_finish" : GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;) (x1, x2)
     val busGetSync_ =
       fn
         x1
@@ -69,9 +69,9 @@ structure Gio : GIO =
           (
             _import "g_bus_get_sync" :
               GioBusType.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;
           )
             (
               x1,
@@ -87,7 +87,7 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_bus_own_name_on_connection_with_closures" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GioBusNameOwnerFlags.C.val_
@@ -142,7 +142,7 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_bus_watch_name_on_connection_with_closures" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GioBusNameWatcherFlags.C.val_
@@ -203,7 +203,7 @@ structure Gio : GIO =
             )
     val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
-    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioIconClass.C.notnull GioIconClass.C.p;
     val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
     val contentTypeIsA_ =
       fn
@@ -231,7 +231,7 @@ structure Gio : GIO =
           (
             _import "g_dbus_address_get_for_bus_sync" :
               GioBusType.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> Utf8.C.notnull Utf8.C.out_p;
           )
@@ -247,11 +247,11 @@ structure Gio : GIO =
          & x4 =>
           (
             _import "mlton_g_dbus_address_get_stream_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
           )
             (
               x1,
@@ -271,9 +271,9 @@ structure Gio : GIO =
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
           )
             (
               x1,
@@ -323,10 +323,10 @@ structure Gio : GIO =
               x3
             )
     val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> FFI.Bool.C.val_;
-    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val fileParseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
+    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
+    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
+    val fileParseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
     val iconNewForString_ =
       fn
         (x1, x2) & x3 =>
@@ -335,7 +335,7 @@ structure Gio : GIO =
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIconClass.C.notnull GioIconClass.C.p;
           )
             (
               x1,
@@ -363,10 +363,10 @@ structure Gio : GIO =
               x3
             )
     val ioSchedulerCancelAllJobs_ = _import "g_io_scheduler_cancel_all_jobs" : unit -> unit;
-    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val proxyResolverGetDefault_ = _import "g_proxy_resolver_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioProxyClass.C.notnull GioProxyClass.C.p;
+    val proxyResolverGetDefault_ = _import "g_proxy_resolver_get_default" : unit -> GioProxyResolverClass.C.notnull GioProxyResolverClass.C.p;
     val resolverErrorQuark_ = _import "g_resolver_error_quark" : unit -> FFI.UInt32.C.val_;
-    val tlsBackendGetDefault_ = _import "g_tls_backend_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val tlsBackendGetDefault_ = _import "g_tls_backend_get_default" : unit -> GioTlsBackendClass.C.notnull GioTlsBackendClass.C.p;
     val tlsClientConnectionNew_ =
       fn
         x1
@@ -374,10 +374,10 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_tls_client_connection_new" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioIOStreamClass.C.notnull GioIOStreamClass.C.p
+               * unit GioSocketConnectableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
           )
             (
               x1,
@@ -393,7 +393,7 @@ structure Gio : GIO =
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p;
           )
             (
               x1,
@@ -407,10 +407,10 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_tls_server_connection_new" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioIOStreamClass.C.notnull GioIOStreamClass.C.p
+               * unit GioTlsCertificateClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
           )
             (
               x1,
@@ -424,7 +424,7 @@ structure Gio : GIO =
     val unixMountGetFsType_ = _import "g_unix_mount_get_fs_type" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unixMountGetMountPath_ = _import "g_unix_mount_get_mount_path" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unixMountGuessCanEject_ = _import "g_unix_mount_guess_can_eject" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
-    val unixMountGuessIcon_ = _import "g_unix_mount_guess_icon" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val unixMountGuessIcon_ = _import "g_unix_mount_guess_icon" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> GioIconClass.C.notnull GioIconClass.C.p;
     val unixMountGuessName_ = _import "g_unix_mount_guess_name" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val unixMountGuessShouldDisplay_ = _import "g_unix_mount_guess_should_display" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
     val unixMountIsReadonly_ = _import "g_unix_mount_is_readonly" : GioUnixMountEntryRecord.C.notnull GioUnixMountEntryRecord.C.p -> FFI.Bool.C.val_;
@@ -828,7 +828,7 @@ structure Gio : GIO =
     fun appInfoLaunchDefaultForUri uri launchContext =
       (
         Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioAppLaunchContextClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -839,11 +839,11 @@ structure Gio : GIO =
            & []
         )
     fun appInfoResetTypeAssociations contentType = (Utf8.C.withPtr ---> I) appInfoResetTypeAssociations_ contentType
-    fun busGetFinish res = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) busGetFinish_ (res & [])
+    fun busGetFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.C.fromPtr true) busGetFinish_ (res & [])
     fun busGetSync busType cancellable =
       (
         GioBusType.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.C.fromPtr true
       )
@@ -855,7 +855,7 @@ structure Gio : GIO =
         )
     fun busOwnNameOnConnection connection name flags nameAcquiredClosure nameLostClosure =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GioBusNameOwnerFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -893,7 +893,7 @@ structure Gio : GIO =
     fun busUnwatchName watcherId = (FFI.UInt32.C.withVal ---> I) busUnwatchName_ watcherId
     fun busWatchNameOnConnection connection name flags nameAppearedClosure nameVanishedClosure =
       (
-        GObjectObjectClass.C.withPtr
+        GioDBusConnectionClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GioBusNameWatcherFlags.C.withVal
          &&&> GObjectClosureRecord.C.withOptPtr
@@ -936,7 +936,7 @@ structure Gio : GIO =
     fun dbusAddressGetForBusSync busType cancellable =
       (
         GioBusType.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> Utf8.C.fromPtr true
       )
@@ -948,7 +948,7 @@ structure Gio : GIO =
         )
     fun dbusAddressGetStreamFinish res outGuid =
       (
-        GObjectObjectClass.C.withPtr
+        GioAsyncResultClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
@@ -963,7 +963,7 @@ structure Gio : GIO =
       (
         Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
@@ -1004,8 +1004,8 @@ structure Gio : GIO =
     fun tlsBackendGetDefault () = (I ---> GioTlsBackendClass.C.fromPtr false) tlsBackendGetDefault_ ()
     fun tlsClientConnectionNew baseIoStream serverIdentity =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioIOStreamClass.C.withPtr
+         &&&> GioSocketConnectableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
@@ -1019,8 +1019,8 @@ structure Gio : GIO =
     fun tlsFileDatabaseNew anchors = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.C.fromPtr true) tlsFileDatabaseNew_ (anchors & [])
     fun tlsServerConnectionNew baseIoStream certificate =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioIOStreamClass.C.withPtr
+         &&&> GioTlsCertificateClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )

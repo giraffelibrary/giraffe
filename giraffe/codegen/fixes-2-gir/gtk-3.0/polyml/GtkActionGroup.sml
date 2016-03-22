@@ -39,11 +39,11 @@ structure GtkActionGroup :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new name = (Utf8.C.withPtr ---> GtkActionGroupClass.C.fromPtr true) new_ name
-    fun addAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) addAction_ (self & action)
+    fun addAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) addAction_ (self & action)
     fun addActionWithAccel self action accelerator =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkActionGroupClass.C.withPtr
+         &&&> GtkActionClass.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> I
       )
@@ -64,15 +64,15 @@ structure GtkActionGroup :>
     in
       fun addActions self entries = List.app (add self) entries
     end
-    fun getAction self actionName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getSensitive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
-    fun getVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun removeAction self action = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) removeAction_ (self & action)
-    fun setSensitive self sensitive = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setTranslationDomain self domain = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun setVisible self visible = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
+    fun getAction self actionName = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkActionClass.C.fromPtr false) getAction_ (self & actionName)
+    fun getName self = (GtkActionGroupClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
+    fun getSensitive self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getSensitive_ self
+    fun getVisible self = (GtkActionGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
+    fun removeAction self action = (GtkActionGroupClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) removeAction_ (self & action)
+    fun setSensitive self sensitive = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setTranslationDomain self domain = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun setVisible self visible = (GtkActionGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
+    fun translateString self string = (GtkActionGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) translateString_ (self & string)
     local
       open ClosureMarshal Signal
     in

@@ -13,26 +13,26 @@ structure GioTlsInteraction :>
       val askPassword_ =
         call (load_sym libgio "g_tls_interaction_ask_password")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioTlsInteractionClass.PolyML.cPtr
+             &&> GioTlsPasswordClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsInteractionResult.PolyML.cVal
           )
       val askPasswordFinish_ =
         call (load_sym libgio "g_tls_interaction_ask_password_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioTlsInteractionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsInteractionResult.PolyML.cVal
           )
       val invokeAskPassword_ =
         call (load_sym libgio "g_tls_interaction_invoke_ask_password")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioTlsInteractionClass.PolyML.cPtr
+             &&> GioTlsPasswordClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsInteractionResult.PolyML.cVal
           )
@@ -46,9 +46,9 @@ structure GioTlsInteraction :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun askPassword self password cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioTlsInteractionClass.C.withPtr
+         &&&> GioTlsPasswordClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )
@@ -61,8 +61,8 @@ structure GioTlsInteraction :>
         )
     fun askPasswordFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioTlsInteractionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )
@@ -74,9 +74,9 @@ structure GioTlsInteraction :>
         )
     fun invokeAskPassword self password cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioTlsInteractionClass.C.withPtr
+         &&&> GioTlsPasswordClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.C.fromVal
       )

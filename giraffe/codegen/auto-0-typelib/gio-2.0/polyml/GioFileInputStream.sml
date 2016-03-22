@@ -13,19 +13,19 @@ structure GioFileInputStream :>
       val queryInfo_ =
         call (load_sym libgio "g_file_input_stream_query_info")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioFileInputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioFileInfoClass.PolyML.cPtr
           )
       val queryInfoFinish_ =
         call (load_sym libgio "g_file_input_stream_query_info_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioFileInputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioFileInfoClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GioFileInputStreamClass.class
@@ -38,9 +38,9 @@ structure GioFileInputStream :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun queryInfo self attributes cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioFileInputStreamClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
@@ -53,8 +53,8 @@ structure GioFileInputStream :>
         )
     fun queryInfoFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioFileInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )

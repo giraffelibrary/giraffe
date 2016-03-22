@@ -9,7 +9,7 @@ structure GtkFontChooserDialog :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_font_chooser_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_font_chooser_dialog_new") (Utf8.PolyML.cInPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_font_chooser_dialog_new") (Utf8.PolyML.cInPtr &&> GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkFontChooserDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -20,5 +20,5 @@ structure GtkFontChooserDialog :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     fun asFontChooser self = (GObjectObjectClass.C.withPtr ---> GtkFontChooserClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new title window = (Utf8.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GtkFontChooserDialogClass.C.fromPtr false) new_ (title & window)
+    fun new title window = (Utf8.C.withPtr &&&> GtkWindowClass.C.withPtr ---> GtkFontChooserDialogClass.C.fromPtr false) new_ (title & window)
   end

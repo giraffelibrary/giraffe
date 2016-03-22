@@ -3,10 +3,10 @@ structure Atk : ATK =
     local
       open PolyMLFFI
     in
-      val focusTrackerNotify_ = call (load_sym libatk "atk_focus_tracker_notify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getDefaultRegistry_ = call (load_sym libatk "atk_get_default_registry") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getFocusObject_ = call (load_sym libatk "atk_get_focus_object") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getRoot_ = call (load_sym libatk "atk_get_root") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val focusTrackerNotify_ = call (load_sym libatk "atk_focus_tracker_notify") (AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getDefaultRegistry_ = call (load_sym libatk "atk_get_default_registry") (FFI.PolyML.cVoid --> AtkRegistryClass.PolyML.cPtr)
+      val getFocusObject_ = call (load_sym libatk "atk_get_focus_object") (FFI.PolyML.cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getRoot_ = call (load_sym libatk "atk_get_root") (FFI.PolyML.cVoid --> AtkObjectClass.PolyML.cPtr)
       val getToolkitName_ = call (load_sym libatk "atk_get_toolkit_name") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
       val getToolkitVersion_ = call (load_sym libatk "atk_get_toolkit_version") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
       val getVersion_ = call (load_sym libatk "atk_get_version") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
@@ -94,7 +94,7 @@ structure Atk : ATK =
     structure NoOpObjectFactory = AtkNoOpObjectFactory
     structure Plug = AtkPlug
     structure Socket = AtkSocket
-    fun focusTrackerNotify object = (GObjectObjectClass.C.withPtr ---> I) focusTrackerNotify_ object
+    fun focusTrackerNotify object = (AtkObjectClass.C.withPtr ---> I) focusTrackerNotify_ object
     fun getDefaultRegistry () = (I ---> AtkRegistryClass.C.fromPtr true) getDefaultRegistry_ ()
     fun getFocusObject () = (I ---> AtkObjectClass.C.fromPtr false) getFocusObject_ ()
     fun getRoot () = (I ---> AtkObjectClass.C.fromPtr false) getRoot_ ()

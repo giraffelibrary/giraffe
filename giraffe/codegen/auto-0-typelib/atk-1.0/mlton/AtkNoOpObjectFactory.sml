@@ -3,7 +3,7 @@ structure AtkNoOpObjectFactory :>
     where type 'a class = 'a AtkNoOpObjectFactoryClass.class =
   struct
     val getType_ = _import "atk_no_op_object_factory_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "atk_no_op_object_factory_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "atk_no_op_object_factory_new" : unit -> AtkObjectFactoryClass.C.notnull AtkObjectFactoryClass.C.p;
     type 'a class = 'a AtkNoOpObjectFactoryClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_

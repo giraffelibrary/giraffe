@@ -7,26 +7,26 @@ structure GtkCssProvider :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_css_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_css_provider_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtk "gtk_css_provider_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
-      val getNamed_ = call (load_sym libgtk "gtk_css_provider_get_named") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_css_provider_new") (FFI.PolyML.cVoid --> GtkCssProviderClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtk "gtk_css_provider_get_default") (FFI.PolyML.cVoid --> GtkCssProviderClass.PolyML.cPtr)
+      val getNamed_ = call (load_sym libgtk "gtk_css_provider_get_named") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GtkCssProviderClass.PolyML.cPtr)
       val loadFromFile_ =
         call (load_sym libgtk "gtk_css_provider_load_from_file")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkCssProviderClass.PolyML.cPtr
+             &&> GioFileClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val loadFromPath_ =
         call (load_sym libgtk "gtk_css_provider_load_from_path")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkCssProviderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val toString_ = call (load_sym libgtk "gtk_css_provider_to_string") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val toString_ = call (load_sym libgtk "gtk_css_provider_to_string") (GtkCssProviderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GtkCssProviderClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
@@ -38,8 +38,8 @@ structure GtkCssProvider :>
     fun getNamed name variant = (Utf8.C.withPtr &&&> Utf8.C.withOptPtr ---> GtkCssProviderClass.C.fromPtr false) getNamed_ (name & variant)
     fun loadFromFile self file =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkCssProviderClass.C.withPtr
+         &&&> GioFileClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -51,7 +51,7 @@ structure GtkCssProvider :>
         )
     fun loadFromPath self path =
       (
-        GObjectObjectClass.C.withPtr
+        GtkCssProviderClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
@@ -62,5 +62,5 @@ structure GtkCssProvider :>
            & path
            & []
         )
-    fun toString self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
+    fun toString self = (GtkCssProviderClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
   end

@@ -10,26 +10,26 @@ structure GioProxy :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_proxy_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
       val connect_ =
         call (load_sym libgio "g_proxy_connect")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioProxyClass.PolyML.cPtr
+             &&> GioIOStreamClass.PolyML.cPtr
+             &&> GioProxyAddressClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioIOStreamClass.PolyML.cPtr
           )
       val connectFinish_ =
         call (load_sym libgio "g_proxy_connect_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioProxyClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioIOStreamClass.PolyML.cPtr
           )
-      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GioProxyClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioProxyClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -41,10 +41,10 @@ structure GioProxy :>
     fun getDefaultForProtocol protocol = (Utf8.C.withPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol
     fun connect self connection proxyAddress cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioProxyClass.C.withPtr
+         &&&> GioIOStreamClass.C.withPtr
+         &&&> GioProxyAddressClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
@@ -58,8 +58,8 @@ structure GioProxy :>
         )
     fun connectFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioProxyClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )
@@ -69,5 +69,5 @@ structure GioProxy :>
            & result
            & []
         )
-    fun supportsHostname self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsHostname_ self
+    fun supportsHostname self = (GioProxyClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsHostname_ self
   end

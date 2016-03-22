@@ -14,8 +14,8 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_close" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -31,8 +31,8 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_close_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -41,9 +41,9 @@ structure GioFileEnumerator :>
               x2,
               x3
             )
-    val getContainer_ = _import "g_file_enumerator_get_container" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val hasPending_ = _import "g_file_enumerator_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isClosed_ = _import "g_file_enumerator_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val getContainer_ = _import "g_file_enumerator_get_container" : GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p -> GioFileClass.C.notnull GioFileClass.C.p;
+    val hasPending_ = _import "g_file_enumerator_has_pending" : GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p -> FFI.Bool.C.val_;
+    val isClosed_ = _import "g_file_enumerator_is_closed" : GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p -> FFI.Bool.C.val_;
     val nextFile_ =
       fn
         x1
@@ -51,17 +51,17 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_next_file" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setPending_ = fn x1 & x2 => (_import "g_file_enumerator_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setPending_ = fn x1 & x2 => (_import "g_file_enumerator_set_pending" : GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioFileEnumeratorClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a file_info_class = 'a GioFileInfoClass.class
@@ -71,8 +71,8 @@ structure GioFileEnumerator :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun close self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioFileEnumeratorClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -84,8 +84,8 @@ structure GioFileEnumerator :>
         )
     fun closeFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioFileEnumeratorClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -95,13 +95,13 @@ structure GioFileEnumerator :>
            & result
            & []
         )
-    fun getContainer self = (GObjectObjectClass.C.withPtr ---> GioFileClass.C.fromPtr false) getContainer_ self
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun getContainer self = (GioFileEnumeratorClass.C.withPtr ---> GioFileClass.C.fromPtr false) getContainer_ self
+    fun hasPending self = (GioFileEnumeratorClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GioFileEnumeratorClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun nextFile self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioFileEnumeratorClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.C.fromPtr true
       )
@@ -111,7 +111,7 @@ structure GioFileEnumerator :>
            & cancellable
            & []
         )
-    fun setPending self pending = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPending_ (self & pending)
+    fun setPending self pending = (GioFileEnumeratorClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setPending_ (self & pending)
     local
       open Property
     in

@@ -19,7 +19,7 @@ structure GtkAspectFrame :>
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Bool.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
@@ -38,7 +38,7 @@ structure GtkAspectFrame :>
          & x5 =>
           (
             _import "gtk_aspect_frame_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAspectFrameClass.C.notnull GtkAspectFrameClass.C.p
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Float.C.val_
@@ -77,7 +77,7 @@ structure GtkAspectFrame :>
         )
     fun set self xalign yalign ratio obeyChild =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAspectFrameClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal

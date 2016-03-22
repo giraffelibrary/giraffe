@@ -10,7 +10,7 @@ structure GioSocketListener :>
     where type 'a socket_class = 'a GioSocketClass.class =
   struct
     val getType_ = _import "g_socket_listener_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_socket_listener_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "g_socket_listener_new" : unit -> GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p;
     val accept_ =
       fn
         x1
@@ -19,11 +19,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -39,11 +39,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketConnectionClass.C.notnull GioSocketConnectionClass.C.p;
           )
             (
               x1,
@@ -59,11 +59,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_socket" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketClass.C.notnull GioSocketClass.C.p;
           )
             (
               x1,
@@ -79,11 +79,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_socket_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioSocketClass.C.notnull GioSocketClass.C.p;
           )
             (
               x1,
@@ -102,12 +102,12 @@ structure GioSocketListener :>
          & x7 =>
           (
             _import "g_socket_listener_add_address" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
+               * GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p
                * GioSocketType.C.val_
                * GioSocketProtocol.C.val_
                * unit GObjectObjectClass.C.p
-               * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
+               * (unit, GioSocketAddressClass.C.notnull) GioSocketAddressClass.C.r
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -127,7 +127,7 @@ structure GioSocketListener :>
          & x3 =>
           (
             _import "g_socket_listener_add_any_inet_port" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.UInt16.C.val_;
@@ -145,7 +145,7 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_add_inet_port" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
                * FFI.UInt16.C.val_
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
@@ -165,8 +165,8 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_add_socket" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p
+               * GioSocketClass.C.notnull GioSocketClass.C.p
                * unit GObjectObjectClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
@@ -177,8 +177,8 @@ structure GioSocketListener :>
               x3,
               x4
             )
-    val close_ = _import "g_socket_listener_close" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val close_ = _import "g_socket_listener_close" : GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p -> unit;
+    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GioSocketListenerClass.C.notnull GioSocketListenerClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioSocketListenerClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -194,9 +194,9 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
           )
@@ -214,8 +214,8 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketConnectionClass.C.fromPtr true
@@ -234,9 +234,9 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
           )
@@ -254,8 +254,8 @@ structure GioSocketListener :>
       let
         val sourceObject & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioAsyncResultClass.C.withPtr
              &&&> GObjectObjectClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectObjectClass.C.fromPtr false && GioSocketClass.C.fromPtr true
@@ -274,12 +274,12 @@ structure GioSocketListener :>
       let
         val effectiveAddress & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GioSocketListenerClass.C.withPtr
+             &&&> GioSocketAddressClass.C.withPtr
              &&&> GioSocketType.C.withVal
              &&&> GioSocketProtocol.C.withVal
              &&&> GObjectObjectClass.C.withOptPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
+             &&&> GioSocketAddressClass.C.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GioSocketAddressClass.C.fromPtr true && FFI.Bool.C.fromVal
           )
@@ -298,7 +298,7 @@ structure GioSocketListener :>
       end
     fun addAnyInetPort self sourceObject =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.UInt16.C.fromVal
@@ -311,7 +311,7 @@ structure GioSocketListener :>
         )
     fun addInetPort self port sourceObject =
       (
-        GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
@@ -326,8 +326,8 @@ structure GioSocketListener :>
         )
     fun addSocket self socket sourceObject =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketListenerClass.C.withPtr
+         &&&> GioSocketClass.C.withPtr
          &&&> GObjectObjectClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
@@ -339,8 +339,8 @@ structure GioSocketListener :>
            & sourceObject
            & []
         )
-    fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun setBacklog self listenBacklog = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setBacklog_ (self & listenBacklog)
+    fun close self = (GioSocketListenerClass.C.withPtr ---> I) close_ self
+    fun setBacklog self listenBacklog = (GioSocketListenerClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setBacklog_ (self & listenBacklog)
     local
       open Property
     in

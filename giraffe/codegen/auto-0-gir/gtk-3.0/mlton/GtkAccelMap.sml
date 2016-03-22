@@ -46,7 +46,7 @@ structure GtkAccelMap :>
               x4,
               x5
             )
-    val get_ = _import "gtk_accel_map_get" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val get_ = _import "gtk_accel_map_get" : unit -> GtkAccelMapClass.C.notnull GtkAccelMapClass.C.p;
     val load_ = _import "mlton_gtk_accel_map_load" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
     val loadFd_ = _import "gtk_accel_map_load_fd" : FFI.Int.C.val_ -> unit;
     val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;

@@ -21,9 +21,9 @@ structure GtkStyle :>
          & x8 =>
           (
             _import "gtk_style_apply_default_background" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStyleClass.C.notnull GtkStyleClass.C.p
                * CairoContextRecord.C.notnull CairoContextRecord.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GtkStateType.C.val_
                * FFI.Int.C.val_
                * FFI.Int.C.val_
@@ -41,9 +41,9 @@ structure GtkStyle :>
               x7,
               x8
             )
-    val copy_ = _import "gtk_style_copy" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val detach_ = _import "gtk_style_detach" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val hasContext_ = _import "gtk_style_has_context" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val copy_ = _import "gtk_style_copy" : GtkStyleClass.C.notnull GtkStyleClass.C.p -> GtkStyleClass.C.notnull GtkStyleClass.C.p;
+    val detach_ = _import "gtk_style_detach" : GtkStyleClass.C.notnull GtkStyleClass.C.p -> unit;
+    val hasContext_ = _import "gtk_style_has_context" : GtkStyleClass.C.notnull GtkStyleClass.C.p -> FFI.Bool.C.val_;
     val lookupColor_ =
       fn
         x1
@@ -51,7 +51,7 @@ structure GtkStyle :>
          & x4 =>
           (
             _import "mlton_gtk_style_lookup_color" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStyleClass.C.notnull GtkStyleClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GdkColorRecord.C.notnull GdkColorRecord.C.p
@@ -68,7 +68,7 @@ structure GtkStyle :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_lookup_icon_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStyleClass.C.notnull GtkStyleClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
@@ -89,15 +89,15 @@ structure GtkStyle :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_style_render_icon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStyleClass.C.notnull GtkStyleClass.C.p
                * GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p
                * GtkTextDirection.C.val_
                * GtkStateType.C.val_
                * FFI.Int.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GtkWidgetClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
           )
             (
               x1,
@@ -116,8 +116,8 @@ structure GtkStyle :>
          & x3 =>
           (
             _import "gtk_style_set_background" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStyleClass.C.notnull GtkStyleClass.C.p
+               * GdkWindowClass.C.notnull GdkWindowClass.C.p
                * GtkStateType.C.val_
                -> unit;
           )
@@ -137,9 +137,9 @@ structure GtkStyle :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun applyDefaultBackground self cr window stateType x y width height =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStyleClass.C.withPtr
          &&&> CairoContextRecord.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GtkStateType.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -158,14 +158,14 @@ structure GtkStyle :>
            & width
            & height
         )
-    fun copy self = (GObjectObjectClass.C.withPtr ---> GtkStyleClass.C.fromPtr true) copy_ self
-    fun detach self = (GObjectObjectClass.C.withPtr ---> I) detach_ self
-    fun hasContext self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasContext_ self
+    fun copy self = (GtkStyleClass.C.withPtr ---> GtkStyleClass.C.fromPtr true) copy_ self
+    fun detach self = (GtkStyleClass.C.withPtr ---> I) detach_ self
+    fun hasContext self = (GtkStyleClass.C.withPtr ---> FFI.Bool.C.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let
         val color & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GtkStyleClass.C.withPtr
              &&&> Utf8.C.withPtr
              &&&> GdkColorRecord.C.withNewPtr
              ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
@@ -179,15 +179,15 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStyleClass.C.withPtr
          &&&> GtkIconSourceRecord.C.withPtr
          &&&> GtkTextDirection.C.withVal
          &&&> GtkStateType.C.withVal
          &&&> FFI.Int.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GtkWidgetClass.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          ---> GdkPixbufPixbufClass.C.fromPtr true
       )
@@ -203,8 +203,8 @@ structure GtkStyle :>
         )
     fun setBackground self window stateType =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkStyleClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> GtkStateType.C.withVal
          ---> I
       )

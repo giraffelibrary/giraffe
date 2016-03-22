@@ -3,23 +3,23 @@ structure GtkCellRendererToggle :>
     where type 'a class = 'a GtkCellRendererToggleClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_toggle_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_renderer_toggle_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getActivatable_ = _import "gtk_cell_renderer_toggle_get_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getActive_ = _import "gtk_cell_renderer_toggle_get_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getRadio_ = _import "gtk_cell_renderer_toggle_get_radio" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val setActivatable_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_activatable" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setActive_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_active" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setRadio_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_radio" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_cell_renderer_toggle_new" : unit -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
+    val getActivatable_ = _import "gtk_cell_renderer_toggle_get_activatable" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p -> FFI.Bool.C.val_;
+    val getActive_ = _import "gtk_cell_renderer_toggle_get_active" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p -> FFI.Bool.C.val_;
+    val getRadio_ = _import "gtk_cell_renderer_toggle_get_radio" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p -> FFI.Bool.C.val_;
+    val setActivatable_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_activatable" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_active" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setRadio_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_radio" : GtkCellRendererToggleClass.C.notnull GtkCellRendererToggleClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellRendererToggleClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkCellRendererToggleClass.C.fromPtr false) new_ ()
-    fun getActivatable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActivatable_ self
-    fun getActive self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun getRadio self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getRadio_ self
-    fun setActivatable self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActivatable_ (self & setting)
-    fun setActive self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & setting)
-    fun setRadio self radio = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRadio_ (self & radio)
+    fun getActivatable self = (GtkCellRendererToggleClass.C.withPtr ---> FFI.Bool.C.fromVal) getActivatable_ self
+    fun getActive self = (GtkCellRendererToggleClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
+    fun getRadio self = (GtkCellRendererToggleClass.C.withPtr ---> FFI.Bool.C.fromVal) getRadio_ self
+    fun setActivatable self setting = (GtkCellRendererToggleClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActivatable_ (self & setting)
+    fun setActive self setting = (GtkCellRendererToggleClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & setting)
+    fun setRadio self radio = (GtkCellRendererToggleClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRadio_ (self & radio)
     local
       open ClosureMarshal Signal
     in

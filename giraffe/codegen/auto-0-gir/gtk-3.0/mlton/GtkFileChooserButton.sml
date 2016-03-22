@@ -16,24 +16,24 @@ structure GtkFileChooserButton :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * GtkFileChooserAction.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getTitle_ = _import "gtk_file_chooser_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
-    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_focus_on_click" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p -> FFI.Bool.C.val_;
+    val getTitle_ = _import "gtk_file_chooser_button_get_title" : GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p -> FFI.Int.C.val_;
+    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_focus_on_click" : GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_chooser_button_set_title" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -43,7 +43,7 @@ structure GtkFileChooserButton :>
               x2,
               x3
             )
-    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GtkFileChooserButtonClass.C.notnull GtkFileChooserButtonClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFileChooserButtonClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -57,13 +57,13 @@ structure GtkFileChooserButton :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new title action = (Utf8.C.withPtr &&&> GtkFileChooserAction.C.withVal ---> GtkFileChooserButtonClass.C.fromPtr false) new_ (title & action)
-    fun newWithDialog dialog = (GObjectObjectClass.C.withPtr ---> GtkFileChooserButtonClass.C.fromPtr false) newWithDialog_ dialog
-    fun getFocusOnClick self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnClick_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
-    fun getWidthChars self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthChars_ self
-    fun setFocusOnClick self focusOnClick = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
-    fun setWidthChars self nChars = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
+    fun newWithDialog dialog = (GtkWidgetClass.C.withPtr ---> GtkFileChooserButtonClass.C.fromPtr false) newWithDialog_ dialog
+    fun getFocusOnClick self = (GtkFileChooserButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnClick_ self
+    fun getTitle self = (GtkFileChooserButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
+    fun getWidthChars self = (GtkFileChooserButtonClass.C.withPtr ---> FFI.Int.C.fromVal) getWidthChars_ self
+    fun setFocusOnClick self focusOnClick = (GtkFileChooserButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
+    fun setTitle self title = (GtkFileChooserButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
+    fun setWidthChars self nChars = (GtkFileChooserButtonClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setWidthChars_ (self & nChars)
     local
       open ClosureMarshal Signal
     in

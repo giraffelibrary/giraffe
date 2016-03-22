@@ -11,7 +11,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_get_alignment" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMiscClass.C.notnull GtkMiscClass.C.p
                * FFI.Float.C.ref_
                * FFI.Float.C.ref_
                -> unit;
@@ -28,7 +28,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_get_padding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMiscClass.C.notnull GtkMiscClass.C.p
                * FFI.Int.C.ref_
                * FFI.Int.C.ref_
                -> unit;
@@ -45,7 +45,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_set_alignment" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMiscClass.C.notnull GtkMiscClass.C.p
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                -> unit;
@@ -62,7 +62,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_set_padding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkMiscClass.C.notnull GtkMiscClass.C.p
                * FFI.Int.C.val_
                * FFI.Int.C.val_
                -> unit;
@@ -84,7 +84,7 @@ structure GtkMisc :>
          & yalign
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkMiscClass.C.withPtr
              &&&> FFI.Float.C.withRefVal
              &&&> FFI.Float.C.withRefVal
              ---> FFI.Float.C.fromVal
@@ -106,7 +106,7 @@ structure GtkMisc :>
          & ypad
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkMiscClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -124,7 +124,7 @@ structure GtkMisc :>
       end
     fun setAlignment self xalign yalign =
       (
-        GObjectObjectClass.C.withPtr
+        GtkMiscClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          ---> I
@@ -137,7 +137,7 @@ structure GtkMisc :>
         )
     fun setPadding self xpad ypad =
       (
-        GObjectObjectClass.C.withPtr
+        GtkMiscClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I

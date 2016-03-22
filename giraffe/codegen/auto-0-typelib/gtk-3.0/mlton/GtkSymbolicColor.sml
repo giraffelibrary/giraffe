@@ -33,7 +33,7 @@ structure GtkSymbolicColor :>
           (
             _import "gtk_symbolic_color_resolve" :
               GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
-               * unit GObjectObjectClass.C.p
+               * unit GtkStylePropertiesClass.C.p
                * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
                -> FFI.Bool.C.val_;
           )
@@ -68,7 +68,7 @@ structure GtkSymbolicColor :>
         val resolvedColor & retVal =
           (
             GtkSymbolicColorRecord.C.withPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GtkStylePropertiesClass.C.withOptPtr
              &&&> GdkRgbaRecord.C.withNewPtr
              ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
           )

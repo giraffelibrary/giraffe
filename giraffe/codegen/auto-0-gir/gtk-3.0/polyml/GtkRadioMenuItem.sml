@@ -8,9 +8,9 @@ structure GtkRadioMenuItem :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_radio_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val newFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_from_widget") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_label_from_widget") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val newFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_label_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkRadioMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -20,9 +20,9 @@ structure GtkRadioMenuItem :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromWidget group = (GObjectObjectClass.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newFromWidget_ group
-    fun newWithLabelFromWidget group label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithLabelFromWidget_ (group & label)
-    fun newWithMnemonicFromWidget group label = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithMnemonicFromWidget_ (group & label)
+    fun newFromWidget group = (GtkRadioMenuItemClass.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newFromWidget_ group
+    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithLabelFromWidget_ (group & label)
+    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithMnemonicFromWidget_ (group & label)
     local
       open ClosureMarshal Signal
     in

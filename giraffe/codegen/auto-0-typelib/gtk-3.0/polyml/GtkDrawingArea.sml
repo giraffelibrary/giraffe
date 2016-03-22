@@ -7,7 +7,7 @@ structure GtkDrawingArea :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_drawing_area_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_drawing_area_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_drawing_area_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkDrawingAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -6,20 +6,20 @@ structure GtkFontButton :>
     where type 'a font_chooser_class = 'a GtkFontChooserClass.class =
   struct
     val getType_ = _import "gtk_font_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_font_button_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFontName_ = _import "gtk_font_button_get_font_name" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getShowSize_ = _import "gtk_font_button_get_show_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getShowStyle_ = _import "gtk_font_button_get_show_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getTitle_ = _import "gtk_font_button_get_title" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getUseFont_ = _import "gtk_font_button_get_use_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val getUseSize_ = _import "gtk_font_button_get_use_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val new_ = _import "gtk_font_button_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getFontName_ = _import "gtk_font_button_get_font_name" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getShowSize_ = _import "gtk_font_button_get_show_size" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> FFI.Bool.C.val_;
+    val getShowStyle_ = _import "gtk_font_button_get_show_style" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> FFI.Bool.C.val_;
+    val getTitle_ = _import "gtk_font_button_get_title" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getUseFont_ = _import "gtk_font_button_get_use_font" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> FFI.Bool.C.val_;
+    val getUseSize_ = _import "gtk_font_button_get_use_size" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p -> FFI.Bool.C.val_;
     val setFontName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_button_set_font_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Bool.C.val_;
@@ -29,14 +29,14 @@ structure GtkFontButton :>
               x2,
               x3
             )
-    val setShowSize_ = fn x1 & x2 => (_import "gtk_font_button_set_show_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setShowStyle_ = fn x1 & x2 => (_import "gtk_font_button_set_show_style" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowSize_ = fn x1 & x2 => (_import "gtk_font_button_set_show_size" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowStyle_ = fn x1 & x2 => (_import "gtk_font_button_set_show_style" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_button_set_title" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -46,8 +46,8 @@ structure GtkFontButton :>
               x2,
               x3
             )
-    val setUseFont_ = fn x1 & x2 => (_import "gtk_font_button_set_use_font" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setUseSize_ = fn x1 & x2 => (_import "gtk_font_button_set_use_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setUseFont_ = fn x1 & x2 => (_import "gtk_font_button_set_use_font" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setUseSize_ = fn x1 & x2 => (_import "gtk_font_button_set_use_size" : GtkFontButtonClass.C.notnull GtkFontButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFontButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -60,18 +60,18 @@ structure GtkFontButton :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkFontButtonClass.C.fromPtr false) new_ ()
     fun newWithFont fontname = (Utf8.C.withPtr ---> GtkFontButtonClass.C.fromPtr false) newWithFont_ fontname
-    fun getFontName self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getFontName_ self
-    fun getShowSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowSize_ self
-    fun getShowStyle self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowStyle_ self
-    fun getTitle self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
-    fun getUseFont self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFont_ self
-    fun getUseSize self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseSize_ self
-    fun setFontName self fontname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setFontName_ (self & fontname)
-    fun setShowSize self showSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowSize_ (self & showSize)
-    fun setShowStyle self showStyle = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowStyle_ (self & showStyle)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
-    fun setUseFont self useFont = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFont_ (self & useFont)
-    fun setUseSize self useSize = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseSize_ (self & useSize)
+    fun getFontName self = (GtkFontButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getFontName_ self
+    fun getShowSize self = (GtkFontButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowSize_ self
+    fun getShowStyle self = (GtkFontButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowStyle_ self
+    fun getTitle self = (GtkFontButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
+    fun getUseFont self = (GtkFontButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFont_ self
+    fun getUseSize self = (GtkFontButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseSize_ self
+    fun setFontName self fontname = (GtkFontButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) setFontName_ (self & fontname)
+    fun setShowSize self showSize = (GtkFontButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowSize_ (self & showSize)
+    fun setShowStyle self showStyle = (GtkFontButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowStyle_ (self & showStyle)
+    fun setTitle self title = (GtkFontButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
+    fun setUseFont self useFont = (GtkFontButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFont_ (self & useFont)
+    fun setUseSize self useSize = (GtkFontButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseSize_ (self & useSize)
     local
       open ClosureMarshal Signal
     in

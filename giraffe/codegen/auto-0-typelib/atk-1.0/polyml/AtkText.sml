@@ -13,19 +13,19 @@ structure AtkText :>
       val addSelection_ =
         call (load_sym libatk "atk_text_add_selection")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkTextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val getCaretOffset_ = call (load_sym libatk "atk_text_get_caret_offset") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getCharacterAtOffset_ = call (load_sym libatk "atk_text_get_character_at_offset") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Char.PolyML.cVal)
-      val getCharacterCount_ = call (load_sym libatk "atk_text_get_character_count") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getNSelections_ = call (load_sym libatk "atk_text_get_n_selections") (GObjectObjectClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getCaretOffset_ = call (load_sym libatk "atk_text_get_caret_offset") (AtkTextClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getCharacterAtOffset_ = call (load_sym libatk "atk_text_get_character_at_offset") (AtkTextClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Char.PolyML.cVal)
+      val getCharacterCount_ = call (load_sym libatk "atk_text_get_character_count") (AtkTextClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getNSelections_ = call (load_sym libatk "atk_text_get_n_selections") (AtkTextClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getOffsetAtPoint_ =
         call (load_sym libatk "atk_text_get_offset_at_point")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkTextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
@@ -34,7 +34,7 @@ structure AtkText :>
       val getRangeExtents_ =
         call (load_sym libatk "atk_text_get_range_extents")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkTextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
@@ -44,17 +44,17 @@ structure AtkText :>
       val getText_ =
         call (load_sym libatk "atk_text_get_text")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkTextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (AtkTextClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (AtkTextClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val setSelection_ =
         call (load_sym libatk "atk_text_set_selection")
           (
-            GObjectObjectClass.PolyML.cPtr
+            AtkTextClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
@@ -70,7 +70,7 @@ structure AtkText :>
     fun freeRanges ranges = (AtkTextRangeRecord.C.withPtr ---> I) freeRanges_ ranges
     fun addSelection self startOffset endOffset =
       (
-        GObjectObjectClass.C.withPtr
+        AtkTextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> FFI.Bool.C.fromVal
@@ -81,13 +81,13 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
-    fun getCaretOffset self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCaretOffset_ self
-    fun getCharacterAtOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Char.C.fromVal) getCharacterAtOffset_ (self & offset)
-    fun getCharacterCount self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getCharacterCount_ self
-    fun getNSelections self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getNSelections_ self
+    fun getCaretOffset self = (AtkTextClass.C.withPtr ---> FFI.Int32.C.fromVal) getCaretOffset_ self
+    fun getCharacterAtOffset self offset = (AtkTextClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Char.C.fromVal) getCharacterAtOffset_ (self & offset)
+    fun getCharacterCount self = (AtkTextClass.C.withPtr ---> FFI.Int32.C.fromVal) getCharacterCount_ self
+    fun getNSelections self = (AtkTextClass.C.withPtr ---> FFI.Int32.C.fromVal) getNSelections_ self
     fun getOffsetAtPoint self x y coords =
       (
-        GObjectObjectClass.C.withPtr
+        AtkTextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
@@ -102,7 +102,7 @@ structure AtkText :>
         )
     fun getRangeExtents self startOffset endOffset coordType rect =
       (
-        GObjectObjectClass.C.withPtr
+        AtkTextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> AtkCoordType.C.withVal
@@ -119,7 +119,7 @@ structure AtkText :>
         )
     fun getText self startOffset endOffset =
       (
-        GObjectObjectClass.C.withPtr
+        AtkTextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          ---> Utf8.C.fromPtr true
@@ -130,11 +130,11 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
-    fun removeSelection self selectionNum = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) removeSelection_ (self & selectionNum)
-    fun setCaretOffset self offset = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) setCaretOffset_ (self & offset)
+    fun removeSelection self selectionNum = (AtkTextClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) removeSelection_ (self & selectionNum)
+    fun setCaretOffset self offset = (AtkTextClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) setCaretOffset_ (self & offset)
     fun setSelection self selectionNum startOffset endOffset =
       (
-        GObjectObjectClass.C.withPtr
+        AtkTextClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal
          &&&> FFI.Int32.C.withVal

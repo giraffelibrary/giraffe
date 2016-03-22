@@ -52,7 +52,7 @@ structure GtkTargetList :>
               GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p
                * FFI.UInt32.C.val_
                * FFI.Bool.C.val_
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+               * GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
                -> unit;
           )
             (
@@ -100,7 +100,7 @@ structure GtkTargetList :>
         GtkTargetListRecord.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.Bool.C.withVal
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GtkTextBufferClass.C.withPtr
          ---> I
       )
         addRichTextTargets_

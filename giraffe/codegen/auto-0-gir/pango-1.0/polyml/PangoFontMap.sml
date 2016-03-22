@@ -11,23 +11,23 @@ structure PangoFontMap :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libpango "pango_font_map_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val createContext_ = call (load_sym libpango "pango_font_map_create_context") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val createContext_ = call (load_sym libpango "pango_font_map_create_context") (PangoFontMapClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val loadFont_ =
         call (load_sym libpango "pango_font_map_load_font")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            PangoFontMapClass.PolyML.cPtr
+             &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> PangoFontClass.PolyML.cPtr
           )
       val loadFontset_ =
         call (load_sym libpango "pango_font_map_load_fontset")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            PangoFontMapClass.PolyML.cPtr
+             &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
              &&> PangoLanguageRecord.PolyML.cPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> PangoFontsetClass.PolyML.cPtr
           )
     end
     type 'a class = 'a PangoFontMapClass.class
@@ -38,11 +38,11 @@ structure PangoFontMap :>
     type 'a context_class = 'a PangoContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun createContext self = (GObjectObjectClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createContext_ self
+    fun createContext self = (PangoFontMapClass.C.withPtr ---> PangoContextClass.C.fromPtr true) createContext_ self
     fun loadFont self context desc =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        PangoFontMapClass.C.withPtr
+         &&&> PangoContextClass.C.withPtr
          &&&> PangoFontDescriptionRecord.C.withPtr
          ---> PangoFontClass.C.fromPtr true
       )
@@ -54,8 +54,8 @@ structure PangoFontMap :>
         )
     fun loadFontset self context desc language =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        PangoFontMapClass.C.withPtr
+         &&&> PangoContextClass.C.withPtr
          &&&> PangoFontDescriptionRecord.C.withPtr
          &&&> PangoLanguageRecord.C.withPtr
          ---> PangoFontsetClass.C.fromPtr true

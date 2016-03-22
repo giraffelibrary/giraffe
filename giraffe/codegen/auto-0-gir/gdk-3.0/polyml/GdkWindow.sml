@@ -30,10 +30,10 @@ structure GdkWindow :>
       val new_ =
         call (load_sym libgdk "gdk_window_new")
           (
-            GObjectObjectClass.PolyML.cOptPtr
+            GdkWindowClass.PolyML.cOptPtr
              &&> GdkWindowAttrRecord.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cPtr
           )
       val constrainSize_ =
         call (load_sym libgdk "gdk_window_constrain_size")
@@ -48,23 +48,23 @@ structure GdkWindow :>
           )
       val processAllUpdates_ = call (load_sym libgdk "gdk_window_process_all_updates") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
       val setDebugUpdates_ = call (load_sym libgdk "gdk_window_set_debug_updates") (FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val beep_ = call (load_sym libgdk "gdk_window_beep") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val beep_ = call (load_sym libgdk "gdk_window_beep") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val beginMoveDrag_ =
         call (load_sym libgdk "gdk_window_begin_move_drag")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val beginPaintRect_ = call (load_sym libgdk "gdk_window_begin_paint_rect") (GObjectObjectClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val beginPaintRegion_ = call (load_sym libgdk "gdk_window_begin_paint_region") (GObjectObjectClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val beginPaintRect_ = call (load_sym libgdk "gdk_window_begin_paint_rect") (GdkWindowClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val beginPaintRegion_ = call (load_sym libgdk "gdk_window_begin_paint_region") (GdkWindowClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val beginResizeDrag_ =
         call (load_sym libgdk "gdk_window_begin_resize_drag")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> GdkWindowEdge.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
@@ -72,11 +72,11 @@ structure GdkWindow :>
              &&> FFI.UInt32.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val configureFinished_ = call (load_sym libgdk "gdk_window_configure_finished") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val configureFinished_ = call (load_sym libgdk "gdk_window_configure_finished") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val coordsFromParent_ =
         call (load_sym libgdk "gdk_window_coords_from_parent")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cRef
@@ -86,7 +86,7 @@ structure GdkWindow :>
       val coordsToParent_ =
         call (load_sym libgdk "gdk_window_coords_to_parent")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cRef
@@ -96,75 +96,75 @@ structure GdkWindow :>
       val createSimilarSurface_ =
         call (load_sym libgdk "gdk_window_create_similar_surface")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> CairoContent.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> CairoSurfaceRecord.PolyML.cPtr
           )
-      val deiconify_ = call (load_sym libgdk "gdk_window_deiconify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val destroy_ = call (load_sym libgdk "gdk_window_destroy") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val destroyNotify_ = call (load_sym libgdk "gdk_window_destroy_notify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val enableSynchronizedConfigure_ = call (load_sym libgdk "gdk_window_enable_synchronized_configure") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val endPaint_ = call (load_sym libgdk "gdk_window_end_paint") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val ensureNative_ = call (load_sym libgdk "gdk_window_ensure_native") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val flush_ = call (load_sym libgdk "gdk_window_flush") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val focus_ = call (load_sym libgdk "gdk_window_focus") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val freezeToplevelUpdatesLibgtkOnly_ = call (load_sym libgdk "gdk_window_freeze_toplevel_updates_libgtk_only") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val freezeUpdates_ = call (load_sym libgdk "gdk_window_freeze_updates") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val fullscreen_ = call (load_sym libgdk "gdk_window_fullscreen") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val geometryChanged_ = call (load_sym libgdk "gdk_window_geometry_changed") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getAcceptFocus_ = call (load_sym libgdk "gdk_window_get_accept_focus") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getBackgroundPattern_ = call (load_sym libgdk "gdk_window_get_background_pattern") (GObjectObjectClass.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
-      val getClipRegion_ = call (load_sym libgdk "gdk_window_get_clip_region") (GObjectObjectClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
-      val getComposited_ = call (load_sym libgdk "gdk_window_get_composited") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getCursor_ = call (load_sym libgdk "gdk_window_get_cursor") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getDecorations_ = call (load_sym libgdk "gdk_window_get_decorations") (GObjectObjectClass.PolyML.cPtr &&> GdkWMDecoration.PolyML.cRef --> FFI.Bool.PolyML.cVal)
-      val getDeviceCursor_ = call (load_sym libgdk "gdk_window_get_device_cursor") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getDeviceEvents_ = call (load_sym libgdk "gdk_window_get_device_events") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
+      val deiconify_ = call (load_sym libgdk "gdk_window_deiconify") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val destroy_ = call (load_sym libgdk "gdk_window_destroy") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val destroyNotify_ = call (load_sym libgdk "gdk_window_destroy_notify") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val enableSynchronizedConfigure_ = call (load_sym libgdk "gdk_window_enable_synchronized_configure") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val endPaint_ = call (load_sym libgdk "gdk_window_end_paint") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val ensureNative_ = call (load_sym libgdk "gdk_window_ensure_native") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val flush_ = call (load_sym libgdk "gdk_window_flush") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val focus_ = call (load_sym libgdk "gdk_window_focus") (GdkWindowClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val freezeToplevelUpdatesLibgtkOnly_ = call (load_sym libgdk "gdk_window_freeze_toplevel_updates_libgtk_only") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val freezeUpdates_ = call (load_sym libgdk "gdk_window_freeze_updates") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val fullscreen_ = call (load_sym libgdk "gdk_window_fullscreen") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val geometryChanged_ = call (load_sym libgdk "gdk_window_geometry_changed") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getAcceptFocus_ = call (load_sym libgdk "gdk_window_get_accept_focus") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getBackgroundPattern_ = call (load_sym libgdk "gdk_window_get_background_pattern") (GdkWindowClass.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
+      val getClipRegion_ = call (load_sym libgdk "gdk_window_get_clip_region") (GdkWindowClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
+      val getComposited_ = call (load_sym libgdk "gdk_window_get_composited") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCursor_ = call (load_sym libgdk "gdk_window_get_cursor") (GdkWindowClass.PolyML.cPtr --> GdkCursorClass.PolyML.cPtr)
+      val getDecorations_ = call (load_sym libgdk "gdk_window_get_decorations") (GdkWindowClass.PolyML.cPtr &&> GdkWMDecoration.PolyML.cRef --> FFI.Bool.PolyML.cVal)
+      val getDeviceCursor_ = call (load_sym libgdk "gdk_window_get_device_cursor") (GdkWindowClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkCursorClass.PolyML.cPtr)
+      val getDeviceEvents_ = call (load_sym libgdk "gdk_window_get_device_events") (GdkWindowClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
       val getDevicePosition_ =
         call (load_sym libgdk "gdk_window_get_device_position")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkDeviceClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cPtr
           )
-      val getDisplay_ = call (load_sym libgdk "gdk_window_get_display") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getDragProtocol_ = call (load_sym libgdk "gdk_window_get_drag_protocol") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOutRef --> GdkDragProtocol.PolyML.cVal)
-      val getEffectiveParent_ = call (load_sym libgdk "gdk_window_get_effective_parent") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getEffectiveToplevel_ = call (load_sym libgdk "gdk_window_get_effective_toplevel") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getEvents_ = call (load_sym libgdk "gdk_window_get_events") (GObjectObjectClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
-      val getFocusOnMap_ = call (load_sym libgdk "gdk_window_get_focus_on_map") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getFrameExtents_ = call (load_sym libgdk "gdk_window_get_frame_extents") (GObjectObjectClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getDisplay_ = call (load_sym libgdk "gdk_window_get_display") (GdkWindowClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getDragProtocol_ = call (load_sym libgdk "gdk_window_get_drag_protocol") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOutRef --> GdkDragProtocol.PolyML.cVal)
+      val getEffectiveParent_ = call (load_sym libgdk "gdk_window_get_effective_parent") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getEffectiveToplevel_ = call (load_sym libgdk "gdk_window_get_effective_toplevel") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getEvents_ = call (load_sym libgdk "gdk_window_get_events") (GdkWindowClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
+      val getFocusOnMap_ = call (load_sym libgdk "gdk_window_get_focus_on_map") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFrameExtents_ = call (load_sym libgdk "gdk_window_get_frame_extents") (GdkWindowClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
       val getGeometry_ =
         call (load_sym libgdk "gdk_window_get_geometry")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getGroup_ = call (load_sym libgdk "gdk_window_get_group") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getHeight_ = call (load_sym libgdk "gdk_window_get_height") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getModalHint_ = call (load_sym libgdk "gdk_window_get_modal_hint") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getGroup_ = call (load_sym libgdk "gdk_window_get_group") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getHeight_ = call (load_sym libgdk "gdk_window_get_height") (GdkWindowClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getModalHint_ = call (load_sym libgdk "gdk_window_get_modal_hint") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getOrigin_ =
         call (load_sym libgdk "gdk_window_get_origin")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              --> FFI.Int.PolyML.cVal
           )
-      val getParent_ = call (load_sym libgdk "gdk_window_get_parent") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getParent_ = call (load_sym libgdk "gdk_window_get_parent") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getPosition_ =
         call (load_sym libgdk "gdk_window_get_position")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              --> FFI.PolyML.cVoid
@@ -172,7 +172,7 @@ structure GdkWindow :>
       val getRootCoords_ =
         call (load_sym libgdk "gdk_window_get_root_coords")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cRef
@@ -182,29 +182,29 @@ structure GdkWindow :>
       val getRootOrigin_ =
         call (load_sym libgdk "gdk_window_get_root_origin")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              --> FFI.PolyML.cVoid
           )
-      val getScreen_ = call (load_sym libgdk "gdk_window_get_screen") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getSourceEvents_ = call (load_sym libgdk "gdk_window_get_source_events") (GObjectObjectClass.PolyML.cPtr &&> GdkInputSource.PolyML.cVal --> GdkEventMask.PolyML.cVal)
-      val getState_ = call (load_sym libgdk "gdk_window_get_state") (GObjectObjectClass.PolyML.cPtr --> GdkWindowState.PolyML.cVal)
-      val getSupportMultidevice_ = call (load_sym libgdk "gdk_window_get_support_multidevice") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getToplevel_ = call (load_sym libgdk "gdk_window_get_toplevel") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getTypeHint_ = call (load_sym libgdk "gdk_window_get_type_hint") (GObjectObjectClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
-      val getUpdateArea_ = call (load_sym libgdk "gdk_window_get_update_area") (GObjectObjectClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
-      val getVisibleRegion_ = call (load_sym libgdk "gdk_window_get_visible_region") (GObjectObjectClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
-      val getVisual_ = call (load_sym libgdk "gdk_window_get_visual") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getWidth_ = call (load_sym libgdk "gdk_window_get_width") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getWindowType_ = call (load_sym libgdk "gdk_window_get_window_type") (GObjectObjectClass.PolyML.cPtr --> GdkWindowType.PolyML.cVal)
-      val hasNative_ = call (load_sym libgdk "gdk_window_has_native") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val hide_ = call (load_sym libgdk "gdk_window_hide") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val iconify_ = call (load_sym libgdk "gdk_window_iconify") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getScreen_ = call (load_sym libgdk "gdk_window_get_screen") (GdkWindowClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getSourceEvents_ = call (load_sym libgdk "gdk_window_get_source_events") (GdkWindowClass.PolyML.cPtr &&> GdkInputSource.PolyML.cVal --> GdkEventMask.PolyML.cVal)
+      val getState_ = call (load_sym libgdk "gdk_window_get_state") (GdkWindowClass.PolyML.cPtr --> GdkWindowState.PolyML.cVal)
+      val getSupportMultidevice_ = call (load_sym libgdk "gdk_window_get_support_multidevice") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getToplevel_ = call (load_sym libgdk "gdk_window_get_toplevel") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getTypeHint_ = call (load_sym libgdk "gdk_window_get_type_hint") (GdkWindowClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
+      val getUpdateArea_ = call (load_sym libgdk "gdk_window_get_update_area") (GdkWindowClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
+      val getVisibleRegion_ = call (load_sym libgdk "gdk_window_get_visible_region") (GdkWindowClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
+      val getVisual_ = call (load_sym libgdk "gdk_window_get_visual") (GdkWindowClass.PolyML.cPtr --> GdkVisualClass.PolyML.cPtr)
+      val getWidth_ = call (load_sym libgdk "gdk_window_get_width") (GdkWindowClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getWindowType_ = call (load_sym libgdk "gdk_window_get_window_type") (GdkWindowClass.PolyML.cPtr --> GdkWindowType.PolyML.cVal)
+      val hasNative_ = call (load_sym libgdk "gdk_window_has_native") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hide_ = call (load_sym libgdk "gdk_window_hide") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val iconify_ = call (load_sym libgdk "gdk_window_iconify") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val inputShapeCombineRegion_ =
         call (load_sym libgdk "gdk_window_input_shape_combine_region")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> CairoRegionRecord.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
@@ -213,7 +213,7 @@ structure GdkWindow :>
       val invalidateRect_ =
         call (load_sym libgdk "gdk_window_invalidate_rect")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cOptPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -221,24 +221,24 @@ structure GdkWindow :>
       val invalidateRegion_ =
         call (load_sym libgdk "gdk_window_invalidate_region")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> CairoRegionRecord.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val isDestroyed_ = call (load_sym libgdk "gdk_window_is_destroyed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isInputOnly_ = call (load_sym libgdk "gdk_window_is_input_only") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isShaped_ = call (load_sym libgdk "gdk_window_is_shaped") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isViewable_ = call (load_sym libgdk "gdk_window_is_viewable") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isVisible_ = call (load_sym libgdk "gdk_window_is_visible") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val lower_ = call (load_sym libgdk "gdk_window_lower") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val maximize_ = call (load_sym libgdk "gdk_window_maximize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val mergeChildInputShapes_ = call (load_sym libgdk "gdk_window_merge_child_input_shapes") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val mergeChildShapes_ = call (load_sym libgdk "gdk_window_merge_child_shapes") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val isDestroyed_ = call (load_sym libgdk "gdk_window_is_destroyed") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isInputOnly_ = call (load_sym libgdk "gdk_window_is_input_only") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isShaped_ = call (load_sym libgdk "gdk_window_is_shaped") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isViewable_ = call (load_sym libgdk "gdk_window_is_viewable") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isVisible_ = call (load_sym libgdk "gdk_window_is_visible") (GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val lower_ = call (load_sym libgdk "gdk_window_lower") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val maximize_ = call (load_sym libgdk "gdk_window_maximize") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val mergeChildInputShapes_ = call (load_sym libgdk "gdk_window_merge_child_input_shapes") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val mergeChildShapes_ = call (load_sym libgdk "gdk_window_merge_child_shapes") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val move_ =
         call (load_sym libgdk "gdk_window_move")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -246,7 +246,7 @@ structure GdkWindow :>
       val moveRegion_ =
         call (load_sym libgdk "gdk_window_move_region")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> CairoRegionRecord.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
@@ -255,21 +255,21 @@ structure GdkWindow :>
       val moveResize_ =
         call (load_sym libgdk "gdk_window_move_resize")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val processUpdates_ = call (load_sym libgdk "gdk_window_process_updates") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val raise_ = call (load_sym libgdk "gdk_window_raise") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val registerDnd_ = call (load_sym libgdk "gdk_window_register_dnd") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val processUpdates_ = call (load_sym libgdk "gdk_window_process_updates") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val raise_ = call (load_sym libgdk "gdk_window_raise") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val registerDnd_ = call (load_sym libgdk "gdk_window_register_dnd") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
       val reparent_ =
         call (load_sym libgdk "gdk_window_reparent")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -277,7 +277,7 @@ structure GdkWindow :>
       val resize_ =
         call (load_sym libgdk "gdk_window_resize")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
@@ -285,99 +285,99 @@ structure GdkWindow :>
       val restack_ =
         call (load_sym libgdk "gdk_window_restack")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkWindowClass.PolyML.cOptPtr
              &&> FFI.Bool.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val scroll_ =
         call (load_sym libgdk "gdk_window_scroll")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setAcceptFocus_ = call (load_sym libgdk "gdk_window_set_accept_focus") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setBackground_ = call (load_sym libgdk "gdk_window_set_background") (GObjectObjectClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setBackgroundPattern_ = call (load_sym libgdk "gdk_window_set_background_pattern") (GObjectObjectClass.PolyML.cPtr &&> CairoPatternRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setBackgroundRgba_ = call (load_sym libgdk "gdk_window_set_background_rgba") (GObjectObjectClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setChildInputShapes_ = call (load_sym libgdk "gdk_window_set_child_input_shapes") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setChildShapes_ = call (load_sym libgdk "gdk_window_set_child_shapes") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setComposited_ = call (load_sym libgdk "gdk_window_set_composited") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setCursor_ = call (load_sym libgdk "gdk_window_set_cursor") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setDecorations_ = call (load_sym libgdk "gdk_window_set_decorations") (GObjectObjectClass.PolyML.cPtr &&> GdkWMDecoration.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAcceptFocus_ = call (load_sym libgdk "gdk_window_set_accept_focus") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBackground_ = call (load_sym libgdk "gdk_window_set_background") (GdkWindowClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setBackgroundPattern_ = call (load_sym libgdk "gdk_window_set_background_pattern") (GdkWindowClass.PolyML.cPtr &&> CairoPatternRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setBackgroundRgba_ = call (load_sym libgdk "gdk_window_set_background_rgba") (GdkWindowClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setChildInputShapes_ = call (load_sym libgdk "gdk_window_set_child_input_shapes") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setChildShapes_ = call (load_sym libgdk "gdk_window_set_child_shapes") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setComposited_ = call (load_sym libgdk "gdk_window_set_composited") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCursor_ = call (load_sym libgdk "gdk_window_set_cursor") (GdkWindowClass.PolyML.cPtr &&> GdkCursorClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setDecorations_ = call (load_sym libgdk "gdk_window_set_decorations") (GdkWindowClass.PolyML.cPtr &&> GdkWMDecoration.PolyML.cVal --> FFI.PolyML.cVoid)
       val setDeviceCursor_ =
         call (load_sym libgdk "gdk_window_set_device_cursor")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkDeviceClass.PolyML.cPtr
+             &&> GdkCursorClass.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
       val setDeviceEvents_ =
         call (load_sym libgdk "gdk_window_set_device_events")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkDeviceClass.PolyML.cPtr
              &&> GdkEventMask.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setEvents_ = call (load_sym libgdk "gdk_window_set_events") (GObjectObjectClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setFocusOnMap_ = call (load_sym libgdk "gdk_window_set_focus_on_map") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setFunctions_ = call (load_sym libgdk "gdk_window_set_functions") (GObjectObjectClass.PolyML.cPtr &&> GdkWMFunction.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setEvents_ = call (load_sym libgdk "gdk_window_set_events") (GdkWindowClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFocusOnMap_ = call (load_sym libgdk "gdk_window_set_focus_on_map") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFunctions_ = call (load_sym libgdk "gdk_window_set_functions") (GdkWindowClass.PolyML.cPtr &&> GdkWMFunction.PolyML.cVal --> FFI.PolyML.cVoid)
       val setGeometryHints_ =
         call (load_sym libgdk "gdk_window_set_geometry_hints")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> GdkGeometryRecord.PolyML.cPtr
              &&> GdkWindowHints.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setGroup_ = call (load_sym libgdk "gdk_window_set_group") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setIconName_ = call (load_sym libgdk "gdk_window_set_icon_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setKeepAbove_ = call (load_sym libgdk "gdk_window_set_keep_above") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setKeepBelow_ = call (load_sym libgdk "gdk_window_set_keep_below") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setModalHint_ = call (load_sym libgdk "gdk_window_set_modal_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setOpacity_ = call (load_sym libgdk "gdk_window_set_opacity") (GObjectObjectClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setOverrideRedirect_ = call (load_sym libgdk "gdk_window_set_override_redirect") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setRole_ = call (load_sym libgdk "gdk_window_set_role") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setSkipPagerHint_ = call (load_sym libgdk "gdk_window_set_skip_pager_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSkipTaskbarHint_ = call (load_sym libgdk "gdk_window_set_skip_taskbar_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setGroup_ = call (load_sym libgdk "gdk_window_set_group") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setIconName_ = call (load_sym libgdk "gdk_window_set_icon_name") (GdkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setKeepAbove_ = call (load_sym libgdk "gdk_window_set_keep_above") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setKeepBelow_ = call (load_sym libgdk "gdk_window_set_keep_below") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setModalHint_ = call (load_sym libgdk "gdk_window_set_modal_hint") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setOpacity_ = call (load_sym libgdk "gdk_window_set_opacity") (GdkWindowClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setOverrideRedirect_ = call (load_sym libgdk "gdk_window_set_override_redirect") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRole_ = call (load_sym libgdk "gdk_window_set_role") (GdkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setSkipPagerHint_ = call (load_sym libgdk "gdk_window_set_skip_pager_hint") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSkipTaskbarHint_ = call (load_sym libgdk "gdk_window_set_skip_taskbar_hint") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
       val setSourceEvents_ =
         call (load_sym libgdk "gdk_window_set_source_events")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> GdkInputSource.PolyML.cVal
              &&> GdkEventMask.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setStartupId_ = call (load_sym libgdk "gdk_window_set_startup_id") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setStaticGravities_ = call (load_sym libgdk "gdk_window_set_static_gravities") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val setSupportMultidevice_ = call (load_sym libgdk "gdk_window_set_support_multidevice") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTitle_ = call (load_sym libgdk "gdk_window_set_title") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setTransientFor_ = call (load_sym libgdk "gdk_window_set_transient_for") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setTypeHint_ = call (load_sym libgdk "gdk_window_set_type_hint") (GObjectObjectClass.PolyML.cPtr &&> GdkWindowTypeHint.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setUrgencyHint_ = call (load_sym libgdk "gdk_window_set_urgency_hint") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setUserData_ = call (load_sym libgdk "gdk_window_set_user_data") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setStartupId_ = call (load_sym libgdk "gdk_window_set_startup_id") (GdkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setStaticGravities_ = call (load_sym libgdk "gdk_window_set_static_gravities") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val setSupportMultidevice_ = call (load_sym libgdk "gdk_window_set_support_multidevice") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTitle_ = call (load_sym libgdk "gdk_window_set_title") (GdkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setTransientFor_ = call (load_sym libgdk "gdk_window_set_transient_for") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setTypeHint_ = call (load_sym libgdk "gdk_window_set_type_hint") (GdkWindowClass.PolyML.cPtr &&> GdkWindowTypeHint.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUrgencyHint_ = call (load_sym libgdk "gdk_window_set_urgency_hint") (GdkWindowClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUserData_ = call (load_sym libgdk "gdk_window_set_user_data") (GdkWindowClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
       val shapeCombineRegion_ =
         call (load_sym libgdk "gdk_window_shape_combine_region")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cPtr
              &&> CairoRegionRecord.PolyML.cOptPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val show_ = call (load_sym libgdk "gdk_window_show") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val showUnraised_ = call (load_sym libgdk "gdk_window_show_unraised") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val stick_ = call (load_sym libgdk "gdk_window_stick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val thawToplevelUpdatesLibgtkOnly_ = call (load_sym libgdk "gdk_window_thaw_toplevel_updates_libgtk_only") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val thawUpdates_ = call (load_sym libgdk "gdk_window_thaw_updates") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unfullscreen_ = call (load_sym libgdk "gdk_window_unfullscreen") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unmaximize_ = call (load_sym libgdk "gdk_window_unmaximize") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unstick_ = call (load_sym libgdk "gdk_window_unstick") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val withdraw_ = call (load_sym libgdk "gdk_window_withdraw") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val show_ = call (load_sym libgdk "gdk_window_show") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val showUnraised_ = call (load_sym libgdk "gdk_window_show_unraised") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val stick_ = call (load_sym libgdk "gdk_window_stick") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val thawToplevelUpdatesLibgtkOnly_ = call (load_sym libgdk "gdk_window_thaw_toplevel_updates_libgtk_only") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val thawUpdates_ = call (load_sym libgdk "gdk_window_thaw_updates") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unfullscreen_ = call (load_sym libgdk "gdk_window_unfullscreen") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unmaximize_ = call (load_sym libgdk "gdk_window_unmaximize") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unstick_ = call (load_sym libgdk "gdk_window_unstick") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val withdraw_ = call (load_sym libgdk "gdk_window_withdraw") (GdkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GdkWindowClass.class
     type window_attr_t = GdkWindowAttrRecord.t
@@ -405,7 +405,7 @@ structure GdkWindow :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new parent attributes attributesMask =
       (
-        GObjectObjectClass.C.withOptPtr
+        GdkWindowClass.C.withOptPtr
          &&&> GdkWindowAttrRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> GdkWindowClass.C.fromPtr true
@@ -446,10 +446,10 @@ structure GdkWindow :>
       end
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
     fun setDebugUpdates setting = (FFI.Bool.C.withVal ---> I) setDebugUpdates_ setting
-    fun beep self = (GObjectObjectClass.C.withPtr ---> I) beep_ self
+    fun beep self = (GdkWindowClass.C.withPtr ---> I) beep_ self
     fun beginMoveDrag self button rootX rootY timestamp =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -464,11 +464,11 @@ structure GdkWindow :>
            & rootY
            & timestamp
         )
-    fun beginPaintRect self rectangle = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) beginPaintRect_ (self & rectangle)
-    fun beginPaintRegion self region = (GObjectObjectClass.C.withPtr &&&> CairoRegionRecord.C.withPtr ---> I) beginPaintRegion_ (self & region)
+    fun beginPaintRect self rectangle = (GdkWindowClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) beginPaintRect_ (self & rectangle)
+    fun beginPaintRegion self region = (GdkWindowClass.C.withPtr &&&> CairoRegionRecord.C.withPtr ---> I) beginPaintRegion_ (self & region)
     fun beginResizeDrag self edge button rootX rootY timestamp =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkWindowEdge.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -485,14 +485,14 @@ structure GdkWindow :>
            & rootY
            & timestamp
         )
-    fun configureFinished self = (GObjectObjectClass.C.withPtr ---> I) configureFinished_ self
+    fun configureFinished self = (GdkWindowClass.C.withPtr ---> I) configureFinished_ self
     fun coordsFromParent self parentX parentY =
       let
         val x
          & y
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Double.C.withVal
              &&&> FFI.Double.C.withVal
              &&&> FFI.Double.C.withRefVal
@@ -518,7 +518,7 @@ structure GdkWindow :>
          & parentY
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Double.C.withVal
              &&&> FFI.Double.C.withVal
              &&&> FFI.Double.C.withRefVal
@@ -540,7 +540,7 @@ structure GdkWindow :>
       end
     fun createSimilarSurface self content width height =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> CairoContent.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -553,31 +553,31 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun deiconify self = (GObjectObjectClass.C.withPtr ---> I) deiconify_ self
-    fun destroy self = (GObjectObjectClass.C.withPtr ---> I) destroy_ self
-    fun destroyNotify self = (GObjectObjectClass.C.withPtr ---> I) destroyNotify_ self
-    fun enableSynchronizedConfigure self = (GObjectObjectClass.C.withPtr ---> I) enableSynchronizedConfigure_ self
-    fun endPaint self = (GObjectObjectClass.C.withPtr ---> I) endPaint_ self
-    fun ensureNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) ensureNative_ self
-    fun flush self = (GObjectObjectClass.C.withPtr ---> I) flush_ self
-    fun focus self timestamp = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) focus_ (self & timestamp)
-    fun freezeToplevelUpdatesLibgtkOnly self = (GObjectObjectClass.C.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
-    fun freezeUpdates self = (GObjectObjectClass.C.withPtr ---> I) freezeUpdates_ self
-    fun fullscreen self = (GObjectObjectClass.C.withPtr ---> I) fullscreen_ self
-    fun geometryChanged self = (GObjectObjectClass.C.withPtr ---> I) geometryChanged_ self
-    fun getAcceptFocus self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAcceptFocus_ self
-    fun getBackgroundPattern self = (GObjectObjectClass.C.withPtr ---> CairoPatternRecord.C.fromPtr false) getBackgroundPattern_ self
-    fun getClipRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getClipRegion_ self
-    fun getComposited self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getComposited_ self
-    fun getCursor self = (GObjectObjectClass.C.withPtr ---> GdkCursorClass.C.fromPtr false) getCursor_ self
+    fun deiconify self = (GdkWindowClass.C.withPtr ---> I) deiconify_ self
+    fun destroy self = (GdkWindowClass.C.withPtr ---> I) destroy_ self
+    fun destroyNotify self = (GdkWindowClass.C.withPtr ---> I) destroyNotify_ self
+    fun enableSynchronizedConfigure self = (GdkWindowClass.C.withPtr ---> I) enableSynchronizedConfigure_ self
+    fun endPaint self = (GdkWindowClass.C.withPtr ---> I) endPaint_ self
+    fun ensureNative self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) ensureNative_ self
+    fun flush self = (GdkWindowClass.C.withPtr ---> I) flush_ self
+    fun focus self timestamp = (GdkWindowClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) focus_ (self & timestamp)
+    fun freezeToplevelUpdatesLibgtkOnly self = (GdkWindowClass.C.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
+    fun freezeUpdates self = (GdkWindowClass.C.withPtr ---> I) freezeUpdates_ self
+    fun fullscreen self = (GdkWindowClass.C.withPtr ---> I) fullscreen_ self
+    fun geometryChanged self = (GdkWindowClass.C.withPtr ---> I) geometryChanged_ self
+    fun getAcceptFocus self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) getAcceptFocus_ self
+    fun getBackgroundPattern self = (GdkWindowClass.C.withPtr ---> CairoPatternRecord.C.fromPtr false) getBackgroundPattern_ self
+    fun getClipRegion self = (GdkWindowClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getClipRegion_ self
+    fun getComposited self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) getComposited_ self
+    fun getCursor self = (GdkWindowClass.C.withPtr ---> GdkCursorClass.C.fromPtr false) getCursor_ self
     fun getDecorations self =
       let
-        val decorations & retVal = (GObjectObjectClass.C.withPtr &&&> GdkWMDecoration.C.withRefVal ---> GdkWMDecoration.C.fromVal && FFI.Bool.C.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
+        val decorations & retVal = (GdkWindowClass.C.withPtr &&&> GdkWMDecoration.C.withRefVal ---> GdkWMDecoration.C.fromVal && FFI.Bool.C.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
       in
         if retVal then SOME decorations else NONE
       end
-    fun getDeviceCursor self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GdkCursorClass.C.fromPtr false) getDeviceCursor_ (self & device)
-    fun getDeviceEvents self device = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> GdkEventMask.C.fromVal) getDeviceEvents_ (self & device)
+    fun getDeviceCursor self device = (GdkWindowClass.C.withPtr &&&> GdkDeviceClass.C.withPtr ---> GdkCursorClass.C.fromPtr false) getDeviceCursor_ (self & device)
+    fun getDeviceEvents self device = (GdkWindowClass.C.withPtr &&&> GdkDeviceClass.C.withPtr ---> GdkEventMask.C.fromVal) getDeviceEvents_ (self & device)
     fun getDevicePosition self device =
       let
         val x
@@ -585,8 +585,8 @@ structure GdkWindow :>
          & mask
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
+             &&&> GdkDeviceClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              &&&> GdkModifierType.C.withRefVal
@@ -611,18 +611,18 @@ structure GdkWindow :>
           mask
         )
       end
-    fun getDisplay self = (GObjectObjectClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkWindowClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
     fun getDragProtocol self =
       let
-        val target & retVal = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withRefOptPtr ---> GdkWindowClass.C.fromPtr true && GdkDragProtocol.C.fromVal) getDragProtocol_ (self & NONE)
+        val target & retVal = (GdkWindowClass.C.withPtr &&&> GdkWindowClass.C.withRefOptPtr ---> GdkWindowClass.C.fromPtr true && GdkDragProtocol.C.fromVal) getDragProtocol_ (self & NONE)
       in
         (retVal, target)
       end
-    fun getEffectiveParent self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveParent_ self
-    fun getEffectiveToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveToplevel_ self
-    fun getEvents self = (GObjectObjectClass.C.withPtr ---> GdkEventMask.C.fromVal) getEvents_ self
-    fun getFocusOnMap self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnMap_ self
-    fun getFrameExtents self rect = (GObjectObjectClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) getFrameExtents_ (self & rect)
+    fun getEffectiveParent self = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveParent_ self
+    fun getEffectiveToplevel self = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEffectiveToplevel_ self
+    fun getEvents self = (GdkWindowClass.C.withPtr ---> GdkEventMask.C.fromVal) getEvents_ self
+    fun getFocusOnMap self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnMap_ self
+    fun getFrameExtents self rect = (GdkWindowClass.C.withPtr &&&> GdkRectangleRecord.C.withPtr ---> I) getFrameExtents_ (self & rect)
     fun getGeometry self =
       let
         val x
@@ -631,7 +631,7 @@ structure GdkWindow :>
          & height
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
@@ -658,16 +658,16 @@ structure GdkWindow :>
           height
         )
       end
-    fun getGroup self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getGroup_ self
-    fun getHeight self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
-    fun getModalHint self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getModalHint_ self
+    fun getGroup self = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getGroup_ self
+    fun getHeight self = (GdkWindowClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
+    fun getModalHint self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) getModalHint_ self
     fun getOrigin self =
       let
         val x
          & y
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -687,14 +687,14 @@ structure GdkWindow :>
           y
         )
       end
-    fun getParent self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getParent_ self
+    fun getParent self = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getParent_ self
     fun getPosition self =
       let
         val x
          & y
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -716,7 +716,7 @@ structure GdkWindow :>
          & rootY
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withVal
              &&&> FFI.Int.C.withRefVal
@@ -742,7 +742,7 @@ structure GdkWindow :>
          & y
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GdkWindowClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              ---> FFI.Int.C.fromVal
@@ -758,23 +758,23 @@ structure GdkWindow :>
       in
         (x, y)
       end
-    fun getScreen self = (GObjectObjectClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getSourceEvents self source = (GObjectObjectClass.C.withPtr &&&> GdkInputSource.C.withVal ---> GdkEventMask.C.fromVal) getSourceEvents_ (self & source)
-    fun getState self = (GObjectObjectClass.C.withPtr ---> GdkWindowState.C.fromVal) getState_ self
-    fun getSupportMultidevice self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportMultidevice_ self
-    fun getToplevel self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getToplevel_ self
-    fun getTypeHint self = (GObjectObjectClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
-    fun getUpdateArea self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getUpdateArea_ self
-    fun getVisibleRegion self = (GObjectObjectClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getVisibleRegion_ self
-    fun getVisual self = (GObjectObjectClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
-    fun getWidth self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
-    fun getWindowType self = (GObjectObjectClass.C.withPtr ---> GdkWindowType.C.fromVal) getWindowType_ self
-    fun hasNative self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasNative_ self
-    fun hide self = (GObjectObjectClass.C.withPtr ---> I) hide_ self
-    fun iconify self = (GObjectObjectClass.C.withPtr ---> I) iconify_ self
+    fun getScreen self = (GdkWindowClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
+    fun getSourceEvents self source = (GdkWindowClass.C.withPtr &&&> GdkInputSource.C.withVal ---> GdkEventMask.C.fromVal) getSourceEvents_ (self & source)
+    fun getState self = (GdkWindowClass.C.withPtr ---> GdkWindowState.C.fromVal) getState_ self
+    fun getSupportMultidevice self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportMultidevice_ self
+    fun getToplevel self = (GdkWindowClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getToplevel_ self
+    fun getTypeHint self = (GdkWindowClass.C.withPtr ---> GdkWindowTypeHint.C.fromVal) getTypeHint_ self
+    fun getUpdateArea self = (GdkWindowClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getUpdateArea_ self
+    fun getVisibleRegion self = (GdkWindowClass.C.withPtr ---> CairoRegionRecord.C.fromPtr true) getVisibleRegion_ self
+    fun getVisual self = (GdkWindowClass.C.withPtr ---> GdkVisualClass.C.fromPtr false) getVisual_ self
+    fun getWidth self = (GdkWindowClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
+    fun getWindowType self = (GdkWindowClass.C.withPtr ---> GdkWindowType.C.fromVal) getWindowType_ self
+    fun hasNative self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) hasNative_ self
+    fun hide self = (GdkWindowClass.C.withPtr ---> I) hide_ self
+    fun iconify self = (GdkWindowClass.C.withPtr ---> I) iconify_ self
     fun inputShapeCombineRegion self shapeRegion offsetX offsetY =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -789,7 +789,7 @@ structure GdkWindow :>
         )
     fun invalidateRect self rect invalidateChildren =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkRectangleRecord.C.withOptPtr
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -802,7 +802,7 @@ structure GdkWindow :>
         )
     fun invalidateRegion self region invalidateChildren =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -813,18 +813,18 @@ structure GdkWindow :>
            & region
            & invalidateChildren
         )
-    fun isDestroyed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isDestroyed_ self
-    fun isInputOnly self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isInputOnly_ self
-    fun isShaped self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isShaped_ self
-    fun isViewable self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isViewable_ self
-    fun isVisible self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
-    fun lower self = (GObjectObjectClass.C.withPtr ---> I) lower_ self
-    fun maximize self = (GObjectObjectClass.C.withPtr ---> I) maximize_ self
-    fun mergeChildInputShapes self = (GObjectObjectClass.C.withPtr ---> I) mergeChildInputShapes_ self
-    fun mergeChildShapes self = (GObjectObjectClass.C.withPtr ---> I) mergeChildShapes_ self
+    fun isDestroyed self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) isDestroyed_ self
+    fun isInputOnly self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) isInputOnly_ self
+    fun isShaped self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) isShaped_ self
+    fun isViewable self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) isViewable_ self
+    fun isVisible self = (GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) isVisible_ self
+    fun lower self = (GdkWindowClass.C.withPtr ---> I) lower_ self
+    fun maximize self = (GdkWindowClass.C.withPtr ---> I) maximize_ self
+    fun mergeChildInputShapes self = (GdkWindowClass.C.withPtr ---> I) mergeChildInputShapes_ self
+    fun mergeChildShapes self = (GdkWindowClass.C.withPtr ---> I) mergeChildShapes_ self
     fun move self x y =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -837,7 +837,7 @@ structure GdkWindow :>
         )
     fun moveRegion self region dx dy =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> CairoRegionRecord.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -852,7 +852,7 @@ structure GdkWindow :>
         )
     fun moveResize self x y width height =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -867,13 +867,13 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun processUpdates self updateChildren = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) processUpdates_ (self & updateChildren)
-    fun raise' self = (GObjectObjectClass.C.withPtr ---> I) raise_ self
-    fun registerDnd self = (GObjectObjectClass.C.withPtr ---> I) registerDnd_ self
+    fun processUpdates self updateChildren = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) processUpdates_ (self & updateChildren)
+    fun raise' self = (GdkWindowClass.C.withPtr ---> I) raise_ self
+    fun registerDnd self = (GdkWindowClass.C.withPtr ---> I) registerDnd_ self
     fun reparent self newParent x y =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
+         &&&> GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -887,7 +887,7 @@ structure GdkWindow :>
         )
     fun resize self width height =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -900,8 +900,8 @@ structure GdkWindow :>
         )
     fun restack self sibling above =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GdkWindowClass.C.withPtr
+         &&&> GdkWindowClass.C.withOptPtr
          &&&> FFI.Bool.C.withVal
          ---> I
       )
@@ -913,7 +913,7 @@ structure GdkWindow :>
         )
     fun scroll self dx dy =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> I
@@ -924,20 +924,20 @@ structure GdkWindow :>
            & dx
            & dy
         )
-    fun setAcceptFocus self acceptFocus = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
-    fun setBackground self color = (GObjectObjectClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackground_ (self & color)
-    fun setBackgroundPattern self pattern = (GObjectObjectClass.C.withPtr &&&> CairoPatternRecord.C.withOptPtr ---> I) setBackgroundPattern_ (self & pattern)
-    fun setBackgroundRgba self rgba = (GObjectObjectClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackgroundRgba_ (self & rgba)
-    fun setChildInputShapes self = (GObjectObjectClass.C.withPtr ---> I) setChildInputShapes_ self
-    fun setChildShapes self = (GObjectObjectClass.C.withPtr ---> I) setChildShapes_ self
-    fun setComposited self composited = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setComposited_ (self & composited)
-    fun setCursor self cursor = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setCursor_ (self & cursor)
-    fun setDecorations self decorations = (GObjectObjectClass.C.withPtr &&&> GdkWMDecoration.C.withVal ---> I) setDecorations_ (self & decorations)
+    fun setAcceptFocus self acceptFocus = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
+    fun setBackground self color = (GdkWindowClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackground_ (self & color)
+    fun setBackgroundPattern self pattern = (GdkWindowClass.C.withPtr &&&> CairoPatternRecord.C.withOptPtr ---> I) setBackgroundPattern_ (self & pattern)
+    fun setBackgroundRgba self rgba = (GdkWindowClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackgroundRgba_ (self & rgba)
+    fun setChildInputShapes self = (GdkWindowClass.C.withPtr ---> I) setChildInputShapes_ self
+    fun setChildShapes self = (GdkWindowClass.C.withPtr ---> I) setChildShapes_ self
+    fun setComposited self composited = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setComposited_ (self & composited)
+    fun setCursor self cursor = (GdkWindowClass.C.withPtr &&&> GdkCursorClass.C.withOptPtr ---> I) setCursor_ (self & cursor)
+    fun setDecorations self decorations = (GdkWindowClass.C.withPtr &&&> GdkWMDecoration.C.withVal ---> I) setDecorations_ (self & decorations)
     fun setDeviceCursor self device cursor =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
+         &&&> GdkDeviceClass.C.withPtr
+         &&&> GdkCursorClass.C.withPtr
          ---> I
       )
         setDeviceCursor_
@@ -948,8 +948,8 @@ structure GdkWindow :>
         )
     fun setDeviceEvents self device eventMask =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
+         &&&> GdkDeviceClass.C.withPtr
          &&&> GdkEventMask.C.withVal
          ---> I
       )
@@ -959,12 +959,12 @@ structure GdkWindow :>
            & device
            & eventMask
         )
-    fun setEvents self eventMask = (GObjectObjectClass.C.withPtr &&&> GdkEventMask.C.withVal ---> I) setEvents_ (self & eventMask)
-    fun setFocusOnMap self focusOnMap = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
-    fun setFunctions self functions = (GObjectObjectClass.C.withPtr &&&> GdkWMFunction.C.withVal ---> I) setFunctions_ (self & functions)
+    fun setEvents self eventMask = (GdkWindowClass.C.withPtr &&&> GdkEventMask.C.withVal ---> I) setEvents_ (self & eventMask)
+    fun setFocusOnMap self focusOnMap = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
+    fun setFunctions self functions = (GdkWindowClass.C.withPtr &&&> GdkWMFunction.C.withVal ---> I) setFunctions_ (self & functions)
     fun setGeometryHints self geometry geomMask =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkGeometryRecord.C.withPtr
          &&&> GdkWindowHints.C.withVal
          ---> I
@@ -975,19 +975,19 @@ structure GdkWindow :>
            & geometry
            & geomMask
         )
-    fun setGroup self leader = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setGroup_ (self & leader)
-    fun setIconName self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setIconName_ (self & name)
-    fun setKeepAbove self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepAbove_ (self & setting)
-    fun setKeepBelow self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepBelow_ (self & setting)
-    fun setModalHint self modal = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setModalHint_ (self & modal)
-    fun setOpacity self opacity = (GObjectObjectClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setOpacity_ (self & opacity)
-    fun setOverrideRedirect self overrideRedirect = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
-    fun setRole self role = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setRole_ (self & role)
-    fun setSkipPagerHint self skipsPager = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
-    fun setSkipTaskbarHint self skipsTaskbar = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
+    fun setGroup self leader = (GdkWindowClass.C.withPtr &&&> GdkWindowClass.C.withOptPtr ---> I) setGroup_ (self & leader)
+    fun setIconName self name = (GdkWindowClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setIconName_ (self & name)
+    fun setKeepAbove self setting = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepAbove_ (self & setting)
+    fun setKeepBelow self setting = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setKeepBelow_ (self & setting)
+    fun setModalHint self modal = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setModalHint_ (self & modal)
+    fun setOpacity self opacity = (GdkWindowClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setOpacity_ (self & opacity)
+    fun setOverrideRedirect self overrideRedirect = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
+    fun setRole self role = (GdkWindowClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setRole_ (self & role)
+    fun setSkipPagerHint self skipsPager = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
+    fun setSkipTaskbarHint self skipsTaskbar = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
     fun setSourceEvents self source eventMask =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> GdkInputSource.C.withVal
          &&&> GdkEventMask.C.withVal
          ---> I
@@ -998,17 +998,17 @@ structure GdkWindow :>
            & source
            & eventMask
         )
-    fun setStartupId self startupId = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStartupId_ (self & startupId)
-    fun setStaticGravities self useStatic = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) setStaticGravities_ (self & useStatic)
-    fun setSupportMultidevice self supportMultidevice = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTitle self title = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
-    fun setTransientFor self parent = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setTransientFor_ (self & parent)
-    fun setTypeHint self hint = (GObjectObjectClass.C.withPtr &&&> GdkWindowTypeHint.C.withVal ---> I) setTypeHint_ (self & hint)
-    fun setUrgencyHint self urgent = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUrgencyHint_ (self & urgent)
-    fun setUserData self userData = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUserData_ (self & userData)
+    fun setStartupId self startupId = (GdkWindowClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setStartupId_ (self & startupId)
+    fun setStaticGravities self useStatic = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) setStaticGravities_ (self & useStatic)
+    fun setSupportMultidevice self supportMultidevice = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
+    fun setTitle self title = (GdkWindowClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
+    fun setTransientFor self parent = (GdkWindowClass.C.withPtr &&&> GdkWindowClass.C.withPtr ---> I) setTransientFor_ (self & parent)
+    fun setTypeHint self hint = (GdkWindowClass.C.withPtr &&&> GdkWindowTypeHint.C.withVal ---> I) setTypeHint_ (self & hint)
+    fun setUrgencyHint self urgent = (GdkWindowClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUrgencyHint_ (self & urgent)
+    fun setUserData self userData = (GdkWindowClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setUserData_ (self & userData)
     fun shapeCombineRegion self shapeRegion offsetX offsetY =
       (
-        GObjectObjectClass.C.withPtr
+        GdkWindowClass.C.withPtr
          &&&> CairoRegionRecord.C.withOptPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
@@ -1021,15 +1021,15 @@ structure GdkWindow :>
            & offsetX
            & offsetY
         )
-    fun show self = (GObjectObjectClass.C.withPtr ---> I) show_ self
-    fun showUnraised self = (GObjectObjectClass.C.withPtr ---> I) showUnraised_ self
-    fun stick self = (GObjectObjectClass.C.withPtr ---> I) stick_ self
-    fun thawToplevelUpdatesLibgtkOnly self = (GObjectObjectClass.C.withPtr ---> I) thawToplevelUpdatesLibgtkOnly_ self
-    fun thawUpdates self = (GObjectObjectClass.C.withPtr ---> I) thawUpdates_ self
-    fun unfullscreen self = (GObjectObjectClass.C.withPtr ---> I) unfullscreen_ self
-    fun unmaximize self = (GObjectObjectClass.C.withPtr ---> I) unmaximize_ self
-    fun unstick self = (GObjectObjectClass.C.withPtr ---> I) unstick_ self
-    fun withdraw self = (GObjectObjectClass.C.withPtr ---> I) withdraw_ self
+    fun show self = (GdkWindowClass.C.withPtr ---> I) show_ self
+    fun showUnraised self = (GdkWindowClass.C.withPtr ---> I) showUnraised_ self
+    fun stick self = (GdkWindowClass.C.withPtr ---> I) stick_ self
+    fun thawToplevelUpdatesLibgtkOnly self = (GdkWindowClass.C.withPtr ---> I) thawToplevelUpdatesLibgtkOnly_ self
+    fun thawUpdates self = (GdkWindowClass.C.withPtr ---> I) thawUpdates_ self
+    fun unfullscreen self = (GdkWindowClass.C.withPtr ---> I) unfullscreen_ self
+    fun unmaximize self = (GdkWindowClass.C.withPtr ---> I) unmaximize_ self
+    fun unstick self = (GdkWindowClass.C.withPtr ---> I) unstick_ self
+    fun withdraw self = (GdkWindowClass.C.withPtr ---> I) withdraw_ self
     local
       open ClosureMarshal Signal
     in

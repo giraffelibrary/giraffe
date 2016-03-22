@@ -12,18 +12,18 @@ structure GioSocketAddressEnumerator :>
       val next_ =
         call (load_sym libgio "g_socket_address_enumerator_next")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioSocketAddressEnumeratorClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketAddressClass.PolyML.cPtr
           )
       val nextFinish_ =
         call (load_sym libgio "g_socket_address_enumerator_next_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioSocketAddressEnumeratorClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioSocketAddressClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GioSocketAddressEnumeratorClass.class
@@ -34,8 +34,8 @@ structure GioSocketAddressEnumerator :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun next self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioSocketAddressEnumeratorClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )
@@ -47,8 +47,8 @@ structure GioSocketAddressEnumerator :>
         )
     fun nextFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioSocketAddressEnumeratorClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.C.fromPtr true
       )

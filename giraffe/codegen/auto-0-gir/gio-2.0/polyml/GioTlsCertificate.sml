@@ -8,14 +8,14 @@ structure GioTlsCertificate :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_tls_certificate_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GObjectObjectClass.PolyML.cPtr)
+      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsCertificateClass.PolyML.cPtr)
       val newFromFiles_ =
         call (load_sym libgio "g_tls_certificate_new_from_files")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
       val newFromPem_ =
         call (load_sym libgio "g_tls_certificate_new_from_pem")
@@ -23,15 +23,15 @@ structure GioTlsCertificate :>
             Utf8.PolyML.cInPtr
              &&> FFI.SSize.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioTlsCertificateClass.PolyML.cPtr
           )
-      val getIssuer_ = call (load_sym libgio "g_tls_certificate_get_issuer") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getIssuer_ = call (load_sym libgio "g_tls_certificate_get_issuer") (GioTlsCertificateClass.PolyML.cPtr --> GioTlsCertificateClass.PolyML.cPtr)
       val verify_ =
         call (load_sym libgio "g_tls_certificate_verify")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioTlsCertificateClass.PolyML.cPtr
+             &&> GioSocketConnectableClass.PolyML.cOptPtr
+             &&> GioTlsCertificateClass.PolyML.cOptPtr
              --> GioTlsCertificateFlags.PolyML.cVal
           )
     end
@@ -67,12 +67,12 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GObjectObjectClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
+    fun getIssuer self = (GioTlsCertificateClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
     fun verify self identity trustedCa =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioTlsCertificateClass.C.withPtr
+         &&&> GioSocketConnectableClass.C.withOptPtr
+         &&&> GioTlsCertificateClass.C.withOptPtr
          ---> GioTlsCertificateFlags.C.fromVal
       )
         verify_

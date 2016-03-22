@@ -1189,27 +1189,27 @@ local
     end
 
   fun withFunInterface
-    (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
     let
 (*
-      val {isSelf, ...} = rootIRef
+      val {isSelf, ...} = iRef
 
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId rootIRef ["C"]
-        | INTERFACE _ => prefixInterfaceStrId rootIRef ["C"]
-        | STRUCT _    => prefixInterfaceStrId rootIRef ["C"]
+          OBJECT _    => prefixInterfaceStrId iRef ["C"]
+        | INTERFACE _ => prefixInterfaceStrId iRef ["C"]
+        | STRUCT _    => prefixInterfaceStrId iRef ["C"]
         | _           =>
             if isSelf
             then ["C"]
-            else prefixInterfaceStrId rootIRef ["C"]
+            else prefixInterfaceStrId iRef ["C"]
 
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId rootIRef ["C"]
+      val prefixIds = prefixInterfaceStrId iRef ["C"]
 
       open InfoType
     in
@@ -1521,7 +1521,7 @@ fun makeFunctionStrDecHighLevel
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (optRootIRef, optContainerIRef) =
+    val (_, optContainerIRef) =
       case optRootContainerIRef of
         SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
       | NONE                           => (NONE, NONE)
@@ -1545,19 +1545,19 @@ fun makeFunctionStrDecHighLevel
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
-        case optRootIRef of
-          SOME rootIRef =>
+        case optContainerIRef of
+          SOME iRef =>
             let
               val withFun =
                 mkLIdLNameExp (
-                  prefixInterfaceStrId rootIRef ["C", withPtrId]
+                  prefixInterfaceStrId iRef ["C", withPtrId]
                 )
               val argVal = mkIdLNameExp selfId
               val inParamAPat = mkIdVarAPat selfId
             in
               ([(withFun, argVal)], [inParamAPat])
             end
-        | NONE          =>
+        | NONE      =>
             infoError "function outside interface has method flag set"
       else
         ([], [])
@@ -1902,26 +1902,26 @@ local
     end
 
   fun parInterfaceConv
-    (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
     let
 (*
-      val {isSelf, ...} = rootIRef
+      val {isSelf, ...} = iRef
 
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId rootIRef [PolyMLId]
-        | INTERFACE _ => prefixInterfaceStrId rootIRef [PolyMLId]
-        | STRUCT _    => prefixInterfaceStrId rootIRef [PolyMLId]
+          OBJECT _    => prefixInterfaceStrId iRef [PolyMLId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [PolyMLId]
+        | STRUCT _    => prefixInterfaceStrId iRef [PolyMLId]
         | _           =>
             if isSelf
             then [PolyMLId]
-            else prefixInterfaceStrId rootIRef [PolyMLId]
+            else prefixInterfaceStrId iRef [PolyMLId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId rootIRef [PolyMLId]
+      val prefixIds = prefixInterfaceStrId iRef [PolyMLId]
 
       open InfoType
     in
@@ -1954,27 +1954,27 @@ local
     end
 
   fun retInterfaceConv
-    ({rootIRef, infoType, isOpt, ...} : interfaceinfo) =
+    ({iRef, infoType, isOpt, ...} : interfaceinfo) =
     let
 (*
-      val {isSelf, ...} = rootIRef
+      val {isSelf, ...} = iRef
 
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId rootIRef [PolyMLId]
-        | INTERFACE _ => prefixInterfaceStrId rootIRef [PolyMLId]
-        | STRUCT _    => prefixInterfaceStrId rootIRef [PolyMLId]
+          OBJECT _    => prefixInterfaceStrId iRef [PolyMLId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [PolyMLId]
+        | STRUCT _    => prefixInterfaceStrId iRef [PolyMLId]
         | _           =>
             if isSelf
             then [PolyMLId]
-            else prefixInterfaceStrId rootIRef [PolyMLId]
+            else prefixInterfaceStrId iRef [PolyMLId]
 
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId rootIRef [PolyMLId]
+      val prefixIds = prefixInterfaceStrId iRef [PolyMLId]
 
       open InfoType
     in
@@ -2025,9 +2025,9 @@ in
     | RIUTF8 utf8RetInfo           => retUtf8Conv utf8RetInfo
     | RIINTERFACE interfaceRetInfo => retInterfaceConv interfaceRetInfo
 
-  fun parSelfConv rootIRef =
+  fun parSelfConv iRef =
     convExp
-      (prefixInterfaceStrId rootIRef [PolyMLId])
+      (prefixInterfaceStrId iRef [PolyMLId])
       (
         PTR {
           optIsRet = NONE,
@@ -2067,10 +2067,11 @@ fun makeFunctionStrDecLowLevelPolyML
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (optRootIRef, optContainerName) =
+    val (_, optContainerIRef) =
       case optRootContainerIRef of
-        SOME (rootIRef, {name, ...}) => (SOME rootIRef, SOME name)
-      | NONE                         => (NONE, NONE)
+        SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
+      | NONE                           => (NONE, NONE)
+    val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
     val parInfos =
@@ -2092,9 +2093,9 @@ fun makeFunctionStrDecLowLevelPolyML
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
-        case optRootIRef of
-          SOME rootIRef => [parSelfConv rootIRef]
-        | NONE          =>
+        case optContainerIRef of
+          SOME iRef => [parSelfConv iRef]
+        | NONE      =>
             infoError "function outside interface has method flag set"
       else
         []
@@ -2506,26 +2507,26 @@ local
     end
 
   fun parInterfaceType
-    (dir, {rootIRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
     let
 (*
-      val {isSelf, ...} = rootIRef
+      val {isSelf, ...} = iRef
 
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId rootIRef [CId]
-        | INTERFACE _ => prefixInterfaceStrId rootIRef [CId]
-        | STRUCT _    => prefixInterfaceStrId rootIRef [CId]
+          OBJECT _    => prefixInterfaceStrId iRef [CId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [CId]
+        | STRUCT _    => prefixInterfaceStrId iRef [CId]
         | _           =>
             if isSelf
             then [CId]
-            else prefixInterfaceStrId rootIRef [CId]
+            else prefixInterfaceStrId iRef [CId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId rootIRef [CId]
+      val prefixIds = prefixInterfaceStrId iRef [CId]
 
       open InfoType
     in
@@ -2558,26 +2559,26 @@ local
     end
 
   fun retInterfaceType
-    ({rootIRef, infoType, isOpt, ...} : interfaceinfo) =
+    ({iRef, infoType, isOpt, ...} : interfaceinfo) =
     let
 (*
-      val {isSelf, ...} = rootIRef
+      val {isSelf, ...} = iRef
 
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId rootIRef [CId]
-        | INTERFACE _ => prefixInterfaceStrId rootIRef [CId]
-        | STRUCT _    => prefixInterfaceStrId rootIRef [CId]
+          OBJECT _    => prefixInterfaceStrId iRef [CId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [CId]
+        | STRUCT _    => prefixInterfaceStrId iRef [CId]
         | _           =>
             if isSelf
             then [CId]
-            else prefixInterfaceStrId rootIRef [CId]
+            else prefixInterfaceStrId iRef [CId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId rootIRef [CId]
+      val prefixIds = prefixInterfaceStrId iRef [CId]
 
       open InfoType
     in
@@ -2628,10 +2629,10 @@ in
     | RIUTF8 utf8RetInfo           => retUtf8Type utf8RetInfo
     | RIINTERFACE interfaceRetInfo => retInterfaceType interfaceRetInfo
 
-  fun parSelfType rootIRef =
+  fun parSelfType iRef =
     typeTy
       false
-      (prefixInterfaceStrId rootIRef [CId])
+      (prefixInterfaceStrId iRef [CId])
       (
         PTR {
           optIsRet = NONE,
@@ -2671,10 +2672,11 @@ fun makeFunctionStrDecLowLevelMLton
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (optRootIRef, optContainerName) =
+    val (_, optContainerIRef) =
       case optRootContainerIRef of
-        SOME (rootIRef, {name, ...}) => (SOME rootIRef, SOME name)
-      | NONE                         => (NONE, NONE)
+        SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
+      | NONE                           => (NONE, NONE)
+    val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
     val parInfos =
@@ -2696,9 +2698,9 @@ fun makeFunctionStrDecLowLevelMLton
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.ISMETHOD)
       then
-        case optRootIRef of
-          SOME rootIRef => [parSelfType rootIRef]
-        | NONE          =>
+        case optContainerIRef of
+          SOME iRef => [parSelfType iRef]
+        | NONE      =>
             infoError "function outside interface has method flag set"
       else
         []

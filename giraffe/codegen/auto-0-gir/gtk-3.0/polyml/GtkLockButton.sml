@@ -8,8 +8,8 @@ structure GtkLockButton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_lock_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_lock_button_new") (GObjectObjectClass.PolyML.cOptPtr --> GObjectObjectClass.PolyML.cPtr)
-      val setPermission_ = call (load_sym libgtk "gtk_lock_button_set_permission") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_lock_button_new") (GioPermissionClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
+      val setPermission_ = call (load_sym libgtk "gtk_lock_button_set_permission") (GtkLockButtonClass.PolyML.cPtr &&> GioPermissionClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkLockButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -19,8 +19,8 @@ structure GtkLockButton :>
     fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new permission = (GObjectObjectClass.C.withOptPtr ---> GtkLockButtonClass.C.fromPtr false) new_ permission
-    fun setPermission self permission = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setPermission_ (self & permission)
+    fun new permission = (GioPermissionClass.C.withOptPtr ---> GtkLockButtonClass.C.fromPtr false) new_ permission
+    fun setPermission self permission = (GtkLockButtonClass.C.withPtr &&&> GioPermissionClass.C.withOptPtr ---> I) setPermission_ (self & permission)
     local
       open Property
     in

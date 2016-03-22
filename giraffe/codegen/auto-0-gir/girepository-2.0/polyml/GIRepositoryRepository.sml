@@ -11,34 +11,34 @@ structure GIRepositoryRepository :>
     in
       val getType_ = call (load_sym libgirepository "g_irepository_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
       val dump_ = call (load_sym libgirepository "g_irepository_dump") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
-      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.cVoid --> GIRepositoryRepositoryClass.PolyML.cPtr)
       val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GObjectObjectClass.PolyML.cPtr &&> GLibQuark.PolyML.cVal --> GIRepositoryEnumInfoRecord.PolyML.cPtr)
+      val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GIRepositoryRepositoryClass.PolyML.cPtr &&> GLibQuark.PolyML.cVal --> GIRepositoryEnumInfoRecord.PolyML.cPtr)
       val findByName_ =
         call (load_sym libgirepository "g_irepository_find_by_name")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
-      val getCPrefix_ = call (load_sym libgirepository "g_irepository_get_c_prefix") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getCPrefix_ = call (load_sym libgirepository "g_irepository_get_c_prefix") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getInfo_ =
         call (load_sym libgirepository "g_irepository_get_info")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
              --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
-      val getNInfos_ = call (load_sym libgirepository "g_irepository_get_n_infos") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int.PolyML.cVal)
-      val getSharedLibrary_ = call (load_sym libgirepository "g_irepository_get_shared_library") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getTypelibPath_ = call (load_sym libgirepository "g_irepository_get_typelib_path") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getVersion_ = call (load_sym libgirepository "g_irepository_get_version") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getNInfos_ = call (load_sym libgirepository "g_irepository_get_n_infos") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int.PolyML.cVal)
+      val getSharedLibrary_ = call (load_sym libgirepository "g_irepository_get_shared_library") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getTypelibPath_ = call (load_sym libgirepository "g_irepository_get_typelib_path") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getVersion_ = call (load_sym libgirepository "g_irepository_get_version") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val isRegistered_ =
         call (load_sym libgirepository "g_irepository_is_registered")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
              --> FFI.Bool.PolyML.cVal
@@ -46,7 +46,7 @@ structure GIRepositoryRepository :>
       val loadTypelib_ =
         call (load_sym libgirepository "g_irepository_load_typelib")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> GIRepositoryTypelibRecord.PolyML.cPtr
              &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -55,7 +55,7 @@ structure GIRepositoryRepository :>
       val require_ =
         call (load_sym libgirepository "g_irepository_require")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
@@ -65,7 +65,7 @@ structure GIRepositoryRepository :>
       val requirePrivate_ =
         call (load_sym libgirepository "g_irepository_require_private")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GIRepositoryRepositoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -84,10 +84,10 @@ structure GIRepositoryRepository :>
     fun dump arg = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (Utf8.C.withPtr ---> I) prependSearchPath_ directory
-    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> GLibQuark.C.withVal ---> GIRepositoryEnumInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.C.withPtr &&&> GLibQuark.C.withVal ---> GIRepositoryEnumInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self namespace name =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
@@ -98,10 +98,10 @@ structure GIRepositoryRepository :>
            & namespace
            & name
         )
-    fun getCPrefix self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getCPrefix_ (self & namespace)
+    fun getCPrefix self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getCPrefix_ (self & namespace)
     fun getInfo self namespace index =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
@@ -112,13 +112,13 @@ structure GIRepositoryRepository :>
            & namespace
            & index
         )
-    fun getNInfos self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getNInfos_ (self & namespace)
-    fun getSharedLibrary self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getSharedLibrary_ (self & namespace)
-    fun getTypelibPath self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getTypelibPath_ (self & namespace)
-    fun getVersion self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getVersion_ (self & namespace)
+    fun getNInfos self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getNInfos_ (self & namespace)
+    fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getSharedLibrary_ (self & namespace)
+    fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getTypelibPath_ (self & namespace)
+    fun getVersion self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getVersion_ (self & namespace)
     fun isRegistered self namespace version =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
@@ -131,7 +131,7 @@ structure GIRepositoryRepository :>
         )
     fun loadTypelib self typelib flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> GIRepositoryTypelibRecord.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -146,7 +146,7 @@ structure GIRepositoryRepository :>
         )
     fun require self namespace version flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
@@ -163,7 +163,7 @@ structure GIRepositoryRepository :>
         )
     fun requirePrivate self typelibDir namespace version flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr

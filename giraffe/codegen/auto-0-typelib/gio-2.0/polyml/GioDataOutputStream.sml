@@ -9,81 +9,81 @@ structure GioDataOutputStream :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_data_output_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_data_output_stream_new") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getByteOrder_ = call (load_sym libgio "g_data_output_stream_get_byte_order") (GObjectObjectClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_data_output_stream_new") (GioOutputStreamClass.PolyML.cPtr --> GioDataOutputStreamClass.PolyML.cPtr)
+      val getByteOrder_ = call (load_sym libgio "g_data_output_stream_get_byte_order") (GioDataOutputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
       val putByte_ =
         call (load_sym libgio "g_data_output_stream_put_byte")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.UInt8.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putInt16_ =
         call (load_sym libgio "g_data_output_stream_put_int16")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.Int16.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putInt32_ =
         call (load_sym libgio "g_data_output_stream_put_int32")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putInt64_ =
         call (load_sym libgio "g_data_output_stream_put_int64")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.Int64.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putString_ =
         call (load_sym libgio "g_data_output_stream_put_string")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putUint16_ =
         call (load_sym libgio "g_data_output_stream_put_uint16")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.UInt16.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putUint32_ =
         call (load_sym libgio "g_data_output_stream_put_uint32")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val putUint64_ =
         call (load_sym libgio "g_data_output_stream_put_uint64")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioDataOutputStreamClass.PolyML.cPtr
              &&> FFI.UInt64.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GObjectObjectClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GioDataOutputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioDataOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
@@ -91,13 +91,13 @@ structure GioDataOutputStream :>
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GObjectObjectClass.C.withPtr ---> GioDataOutputStreamClass.C.fromPtr true) new_ baseStream
-    fun getByteOrder self = (GObjectObjectClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
+    fun new baseStream = (GioOutputStreamClass.C.withPtr ---> GioDataOutputStreamClass.C.fromPtr true) new_ baseStream
+    fun getByteOrder self = (GioDataOutputStreamClass.C.withPtr ---> GioDataStreamByteOrder.C.fromVal) getByteOrder_ self
     fun putByte self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.UInt8.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -110,9 +110,9 @@ structure GioDataOutputStream :>
         )
     fun putInt16 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.Int16.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -125,9 +125,9 @@ structure GioDataOutputStream :>
         )
     fun putInt32 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -140,9 +140,9 @@ structure GioDataOutputStream :>
         )
     fun putInt64 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.Int64.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -155,9 +155,9 @@ structure GioDataOutputStream :>
         )
     fun putString self str cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -170,9 +170,9 @@ structure GioDataOutputStream :>
         )
     fun putUint16 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.UInt16.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -185,9 +185,9 @@ structure GioDataOutputStream :>
         )
     fun putUint32 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -200,9 +200,9 @@ structure GioDataOutputStream :>
         )
     fun putUint64 self data cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioDataOutputStreamClass.C.withPtr
          &&&> FFI.UInt64.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -213,7 +213,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun setByteOrder self order = (GObjectObjectClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
+    fun setByteOrder self order = (GioDataOutputStreamClass.C.withPtr &&&> GioDataStreamByteOrder.C.withVal ---> I) setByteOrder_ (self & order)
     local
       open Property
     in

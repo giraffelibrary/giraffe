@@ -1,9 +1,9 @@
 structure Atk : ATK =
   struct
-    val focusTrackerNotify_ = _import "atk_focus_tracker_notify" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getDefaultRegistry_ = _import "atk_get_default_registry" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getFocusObject_ = _import "atk_get_focus_object" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getRoot_ = _import "atk_get_root" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val focusTrackerNotify_ = _import "atk_focus_tracker_notify" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;
+    val getDefaultRegistry_ = _import "atk_get_default_registry" : unit -> AtkRegistryClass.C.notnull AtkRegistryClass.C.p;
+    val getFocusObject_ = _import "atk_get_focus_object" : unit -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
+    val getRoot_ = _import "atk_get_root" : unit -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
     val getToolkitName_ = _import "atk_get_toolkit_name" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getToolkitVersion_ = _import "atk_get_toolkit_version" : unit -> Utf8.C.notnull Utf8.C.out_p;
     val getVersion_ = _import "atk_get_version" : unit -> Utf8.C.notnull Utf8.C.out_p;
@@ -90,7 +90,7 @@ structure Atk : ATK =
     structure NoOpObjectFactory = AtkNoOpObjectFactory
     structure Plug = AtkPlug
     structure Socket = AtkSocket
-    fun focusTrackerNotify object = (GObjectObjectClass.C.withPtr ---> I) focusTrackerNotify_ object
+    fun focusTrackerNotify object = (AtkObjectClass.C.withPtr ---> I) focusTrackerNotify_ object
     fun getDefaultRegistry () = (I ---> AtkRegistryClass.C.fromPtr true) getDefaultRegistry_ ()
     fun getFocusObject () = (I ---> AtkObjectClass.C.fromPtr false) getFocusObject_ ()
     fun getRoot () = (I ---> AtkObjectClass.C.fromPtr false) getRoot_ ()

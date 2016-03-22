@@ -5,7 +5,7 @@ structure GioInputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val clearPending_ = _import "g_input_stream_clear_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
+    val clearPending_ = _import "g_input_stream_clear_pending" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p -> unit;
     val close_ =
       fn
         x1
@@ -13,8 +13,8 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_close" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioInputStreamClass.C.notnull GioInputStreamClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -30,8 +30,8 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_close_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioInputStreamClass.C.notnull GioInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Bool.C.val_;
           )
@@ -40,8 +40,8 @@ structure GioInputStream :>
               x2,
               x3
             )
-    val hasPending_ = _import "g_input_stream_has_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
-    val isClosed_ = _import "g_input_stream_is_closed" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Bool.C.val_;
+    val hasPending_ = _import "g_input_stream_has_pending" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p -> FFI.Bool.C.val_;
+    val isClosed_ = _import "g_input_stream_is_closed" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p -> FFI.Bool.C.val_;
     val readFinish_ =
       fn
         x1
@@ -49,8 +49,8 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_read_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioInputStreamClass.C.notnull GioInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.C.val_;
           )
@@ -59,7 +59,7 @@ structure GioInputStream :>
               x2,
               x3
             )
-    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
+    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
     val skip_ =
       fn
         x1
@@ -68,9 +68,9 @@ structure GioInputStream :>
          & x4 =>
           (
             _import "g_input_stream_skip" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioInputStreamClass.C.notnull GioInputStreamClass.C.p
                * FFI.UInt64.C.val_
-               * unit GObjectObjectClass.C.p
+               * unit GioCancellableClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.C.val_;
           )
@@ -87,8 +87,8 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_skip_finish" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioInputStreamClass.C.notnull GioInputStreamClass.C.p
+               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
                -> FFI.Int64.C.val_;
           )
@@ -102,11 +102,11 @@ structure GioInputStream :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun clearPending self = (GObjectObjectClass.C.withPtr ---> I) clearPending_ self
+    fun clearPending self = (GioInputStreamClass.C.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioInputStreamClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -118,8 +118,8 @@ structure GioInputStream :>
         )
     fun closeFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -129,12 +129,12 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun hasPending self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
-    fun isClosed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun hasPending self = (GioInputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
+    fun isClosed self = (GioInputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
     fun readFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -144,12 +144,12 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GObjectObjectClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
+    fun setPending self = (GioInputStreamClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
     fun skip self count cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioInputStreamClass.C.withPtr
          &&&> FFI.UInt64.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )
@@ -162,8 +162,8 @@ structure GioInputStream :>
         )
     fun skipFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioInputStreamClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int64.C.fromVal
       )

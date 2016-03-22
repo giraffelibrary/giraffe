@@ -14,11 +14,11 @@ structure GioCharsetConverter :>
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioCharsetConverterClass.PolyML.cPtr
           )
-      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
-      val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GioCharsetConverterClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
+      val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GioCharsetConverterClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GioCharsetConverterClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioCharsetConverterClass.class
     type 'a converter_class = 'a GioConverterClass.class
@@ -40,9 +40,9 @@ structure GioCharsetConverter :>
            & fromCharset
            & []
         )
-    fun getNumFallbacks self = (GObjectObjectClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumFallbacks_ self
-    fun getUseFallback self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFallback_ self
-    fun setUseFallback self useFallback = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFallback_ (self & useFallback)
+    fun getNumFallbacks self = (GioCharsetConverterClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNumFallbacks_ self
+    fun getUseFallback self = (GioCharsetConverterClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseFallback_ self
+    fun setUseFallback self useFallback = (GioCharsetConverterClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFallback_ (self & useFallback)
     local
       open Property
     in

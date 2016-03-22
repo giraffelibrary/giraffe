@@ -7,20 +7,20 @@ structure GtkPlug :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_plug_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_plug_new") (FFI.UInt64.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val newForDisplay_ = call (load_sym libgtk "gtk_plug_new_for_display") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GObjectObjectClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgtk "gtk_plug_new") (FFI.UInt64.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val newForDisplay_ = call (load_sym libgtk "gtk_plug_new_for_display") (GdkDisplayClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GtkPlugClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
       val constructForDisplay_ =
         call (load_sym libgtk "gtk_plug_construct_for_display")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkPlugClass.PolyML.cPtr
+             &&> GdkDisplayClass.PolyML.cPtr
              &&> FFI.UInt64.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val getEmbedded_ = call (load_sym libgtk "gtk_plug_get_embedded") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getId_ = call (load_sym libgtk "gtk_plug_get_id") (GObjectObjectClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
-      val getSocketWindow_ = call (load_sym libgtk "gtk_plug_get_socket_window") (GObjectObjectClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getEmbedded_ = call (load_sym libgtk "gtk_plug_get_embedded") (GtkPlugClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getId_ = call (load_sym libgtk "gtk_plug_get_id") (GtkPlugClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
+      val getSocketWindow_ = call (load_sym libgtk "gtk_plug_get_socket_window") (GtkPlugClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -29,12 +29,12 @@ structure GtkPlug :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new socketId = (FFI.UInt64.C.withVal ---> GtkPlugClass.C.fromPtr false) new_ socketId
-    fun newForDisplay display socketId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GtkPlugClass.C.fromPtr false) newForDisplay_ (display & socketId)
-    fun construct self socketId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) construct_ (self & socketId)
+    fun newForDisplay display socketId = (GdkDisplayClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GtkPlugClass.C.fromPtr false) newForDisplay_ (display & socketId)
+    fun construct self socketId = (GtkPlugClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) construct_ (self & socketId)
     fun constructForDisplay self display socketId =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkPlugClass.C.withPtr
+         &&&> GdkDisplayClass.C.withPtr
          &&&> FFI.UInt64.C.withVal
          ---> I
       )
@@ -44,9 +44,9 @@ structure GtkPlug :>
            & display
            & socketId
         )
-    fun getEmbedded self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedded_ self
-    fun getId self = (GObjectObjectClass.C.withPtr ---> FFI.UInt64.C.fromVal) getId_ self
-    fun getSocketWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getSocketWindow_ self
+    fun getEmbedded self = (GtkPlugClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedded_ self
+    fun getId self = (GtkPlugClass.C.withPtr ---> FFI.UInt64.C.fromVal) getId_ self
+    fun getSocketWindow self = (GtkPlugClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getSocketWindow_ self
     local
       open ClosureMarshal Signal
     in

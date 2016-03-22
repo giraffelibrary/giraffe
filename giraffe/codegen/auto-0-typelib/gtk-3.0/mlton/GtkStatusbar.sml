@@ -6,13 +6,13 @@ structure GtkStatusbar :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_statusbar_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_statusbar_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val new_ = _import "gtk_statusbar_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val getContextId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_statusbar_get_context_id" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.UInt32.C.val_;
@@ -22,8 +22,8 @@ structure GtkStatusbar :>
               x2,
               x3
             )
-    val getMessageArea_ = _import "gtk_statusbar_get_message_area" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val getMessageArea_ = _import "gtk_statusbar_get_message_area" : GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     val push_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure GtkStatusbar :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_statusbar_push" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p
                * FFI.UInt32.C.val_
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
@@ -50,7 +50,7 @@ structure GtkStatusbar :>
          & x3 =>
           (
             _import "gtk_statusbar_remove" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
                -> unit;
@@ -60,7 +60,7 @@ structure GtkStatusbar :>
               x2,
               x3
             )
-    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
+    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GtkStatusbarClass.C.notnull GtkStatusbarClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkStatusbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -71,12 +71,12 @@ structure GtkStatusbar :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.C.fromPtr false) new_ ()
-    fun getContextId self contextDescription = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) getContextId_ (self & contextDescription)
-    fun getMessageArea self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun pop self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) pop_ (self & contextId)
+    fun getContextId self contextDescription = (GtkStatusbarClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) getContextId_ (self & contextDescription)
+    fun getMessageArea self = (GtkStatusbarClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
+    fun pop self contextId = (GtkStatusbarClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) pop_ (self & contextId)
     fun push self contextId text =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStatusbarClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> Utf8.C.withPtr
          ---> FFI.UInt32.C.fromVal
@@ -89,7 +89,7 @@ structure GtkStatusbar :>
         )
     fun remove self contextId messageId =
       (
-        GObjectObjectClass.C.withPtr
+        GtkStatusbarClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          ---> I
@@ -100,7 +100,7 @@ structure GtkStatusbar :>
            & contextId
            & messageId
         )
-    fun removeAll self contextId = (GObjectObjectClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeAll_ (self & contextId)
+    fun removeAll self contextId = (GtkStatusbarClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) removeAll_ (self & contextId)
     local
       open ClosureMarshal Signal
     in

@@ -16,7 +16,7 @@ structure GtkAlignment :>
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Float.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
@@ -33,7 +33,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_get_padding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAlignmentClass.C.notnull GtkAlignmentClass.C.p
                * FFI.UInt32.C.ref_
                * FFI.UInt32.C.ref_
                * FFI.UInt32.C.ref_
@@ -56,7 +56,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAlignmentClass.C.notnull GtkAlignmentClass.C.p
                * FFI.Float.C.val_
                * FFI.Float.C.val_
                * FFI.Float.C.val_
@@ -79,7 +79,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_set_padding" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkAlignmentClass.C.notnull GtkAlignmentClass.C.p
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
                * FFI.UInt32.C.val_
@@ -122,7 +122,7 @@ structure GtkAlignment :>
          & paddingRight
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkAlignmentClass.C.withPtr
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.UInt32.C.withRefVal
              &&&> FFI.UInt32.C.withRefVal
@@ -151,7 +151,7 @@ structure GtkAlignment :>
       end
     fun set self xalign yalign xscale yscale =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAlignmentClass.C.withPtr
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
          &&&> FFI.Float.C.withVal
@@ -168,7 +168,7 @@ structure GtkAlignment :>
         )
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAlignmentClass.C.withPtr
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal
          &&&> FFI.UInt32.C.withVal

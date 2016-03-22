@@ -12,21 +12,21 @@ structure GioLoadableIcon :>
       val load_ =
         call (load_sym libgio "g_loadable_icon_load")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioLoadableIconClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> Utf8.PolyML.cOutRef
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioInputStreamClass.PolyML.cPtr
           )
       val loadFinish_ =
         call (load_sym libgio "g_loadable_icon_load_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioLoadableIconClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioInputStreamClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GioLoadableIconClass.class
@@ -39,10 +39,10 @@ structure GioLoadableIcon :>
       let
         val type' & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            GioLoadableIconClass.C.withPtr
              &&&> FFI.Int32.C.withVal
              &&&> Utf8.C.withRefOptPtr
-             &&&> GObjectObjectClass.C.withOptPtr
+             &&&> GioCancellableClass.C.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
           )
@@ -59,8 +59,8 @@ structure GioLoadableIcon :>
       end
     fun loadFinish self res type' =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioLoadableIconClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioInputStreamClass.C.fromPtr true

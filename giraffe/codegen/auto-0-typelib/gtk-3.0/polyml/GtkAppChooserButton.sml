@@ -10,24 +10,24 @@ structure GtkAppChooserButton :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_app_chooser_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_app_chooser_button_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_app_chooser_button_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val appendCustomItem_ =
         call (load_sym libgtk "gtk_app_chooser_button_append_custom_item")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkAppChooserButtonClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+             &&> GioIconClass.PolyML.cPtr
              --> FFI.PolyML.cVoid
           )
-      val appendSeparator_ = call (load_sym libgtk "gtk_app_chooser_button_append_separator") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_button_get_heading") (GObjectObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_default_item") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_dialog_item") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActiveCustomItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_active_custom_item") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_button_set_heading") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_default_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_dialog_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val appendSeparator_ = call (load_sym libgtk "gtk_app_chooser_button_append_separator") (GtkAppChooserButtonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_button_get_heading") (GtkAppChooserButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_get_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setActiveCustomItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_active_custom_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_button_set_heading") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setShowDefaultItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowDialogItem_ = call (load_sym libgtk "gtk_app_chooser_button_set_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkAppChooserButtonClass.class
     type 'a app_chooser_class = 'a GtkAppChooserClass.class
@@ -44,10 +44,10 @@ structure GtkAppChooserButton :>
     fun new contentType = (Utf8.C.withPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
     fun appendCustomItem self name label icon =
       (
-        GObjectObjectClass.C.withPtr
+        GtkAppChooserButtonClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+         &&&> GioIconClass.C.withPtr
          ---> I
       )
         appendCustomItem_
@@ -57,14 +57,14 @@ structure GtkAppChooserButton :>
            & label
            & icon
         )
-    fun appendSeparator self = (GObjectObjectClass.C.withPtr ---> I) appendSeparator_ self
-    fun getHeading self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
-    fun getShowDefaultItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefaultItem_ self
-    fun getShowDialogItem self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDialogItem_ self
-    fun setActiveCustomItem self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setActiveCustomItem_ (self & name)
-    fun setHeading self heading = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
-    fun setShowDefaultItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefaultItem_ (self & setting)
-    fun setShowDialogItem self setting = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDialogItem_ (self & setting)
+    fun appendSeparator self = (GtkAppChooserButtonClass.C.withPtr ---> I) appendSeparator_ self
+    fun getHeading self = (GtkAppChooserButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
+    fun getShowDefaultItem self = (GtkAppChooserButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefaultItem_ self
+    fun getShowDialogItem self = (GtkAppChooserButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDialogItem_ self
+    fun setActiveCustomItem self name = (GtkAppChooserButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setActiveCustomItem_ (self & name)
+    fun setHeading self heading = (GtkAppChooserButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
+    fun setShowDefaultItem self setting = (GtkAppChooserButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefaultItem_ (self & setting)
+    fun setShowDialogItem self setting = (GtkAppChooserButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDialogItem_ (self & setting)
     local
       open ClosureMarshal Signal
     in

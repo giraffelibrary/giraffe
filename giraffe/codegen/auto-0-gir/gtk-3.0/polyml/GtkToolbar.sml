@@ -13,43 +13,43 @@ structure GtkToolbar :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_toolbar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_toolbar_new") (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_toolbar_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getDropIndex_ =
         call (load_sym libgtk "gtk_toolbar_get_drop_index")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GtkToolbarClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              --> FFI.Int.PolyML.cVal
           )
-      val getIconSize_ = call (load_sym libgtk "gtk_toolbar_get_icon_size") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getItemIndex_ = call (load_sym libgtk "gtk_toolbar_get_item_index") (GObjectObjectClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNItems_ = call (load_sym libgtk "gtk_toolbar_get_n_items") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNthItem_ = call (load_sym libgtk "gtk_toolbar_get_nth_item") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
-      val getReliefStyle_ = call (load_sym libgtk "gtk_toolbar_get_relief_style") (GObjectObjectClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
-      val getShowArrow_ = call (load_sym libgtk "gtk_toolbar_get_show_arrow") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getStyle_ = call (load_sym libgtk "gtk_toolbar_get_style") (GObjectObjectClass.PolyML.cPtr --> GtkToolbarStyle.PolyML.cVal)
+      val getIconSize_ = call (load_sym libgtk "gtk_toolbar_get_icon_size") (GtkToolbarClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getItemIndex_ = call (load_sym libgtk "gtk_toolbar_get_item_index") (GtkToolbarClass.PolyML.cPtr &&> GtkToolItemClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getNItems_ = call (load_sym libgtk "gtk_toolbar_get_n_items") (GtkToolbarClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getNthItem_ = call (load_sym libgtk "gtk_toolbar_get_nth_item") (GtkToolbarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GtkToolItemClass.PolyML.cPtr)
+      val getReliefStyle_ = call (load_sym libgtk "gtk_toolbar_get_relief_style") (GtkToolbarClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
+      val getShowArrow_ = call (load_sym libgtk "gtk_toolbar_get_show_arrow") (GtkToolbarClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getStyle_ = call (load_sym libgtk "gtk_toolbar_get_style") (GtkToolbarClass.PolyML.cPtr --> GtkToolbarStyle.PolyML.cVal)
       val insert_ =
         call (load_sym libgtk "gtk_toolbar_insert")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GtkToolbarClass.PolyML.cPtr
+             &&> GtkToolItemClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
       val setDropHighlightItem_ =
         call (load_sym libgtk "gtk_toolbar_set_drop_highlight_item")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GtkToolbarClass.PolyML.cPtr
+             &&> GtkToolItemClass.PolyML.cOptPtr
              &&> FFI.Int.PolyML.cVal
              --> FFI.PolyML.cVoid
           )
-      val setIconSize_ = call (load_sym libgtk "gtk_toolbar_set_icon_size") (GObjectObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setShowArrow_ = call (load_sym libgtk "gtk_toolbar_set_show_arrow") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setStyle_ = call (load_sym libgtk "gtk_toolbar_set_style") (GObjectObjectClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> FFI.PolyML.cVoid)
-      val unsetIconSize_ = call (load_sym libgtk "gtk_toolbar_unset_icon_size") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unsetStyle_ = call (load_sym libgtk "gtk_toolbar_unset_style") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setIconSize_ = call (load_sym libgtk "gtk_toolbar_set_icon_size") (GtkToolbarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShowArrow_ = call (load_sym libgtk "gtk_toolbar_set_show_arrow") (GtkToolbarClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setStyle_ = call (load_sym libgtk "gtk_toolbar_set_style") (GtkToolbarClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> FFI.PolyML.cVoid)
+      val unsetIconSize_ = call (load_sym libgtk "gtk_toolbar_unset_icon_size") (GtkToolbarClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unsetStyle_ = call (load_sym libgtk "gtk_toolbar_unset_style") (GtkToolbarClass.PolyML.cPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkToolbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -68,7 +68,7 @@ structure GtkToolbar :>
     fun new () = (I ---> GtkToolbarClass.C.fromPtr false) new_ ()
     fun getDropIndex self x y =
       (
-        GObjectObjectClass.C.withPtr
+        GtkToolbarClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          ---> FFI.Int.C.fromVal
@@ -79,17 +79,17 @@ structure GtkToolbar :>
            & x
            & y
         )
-    fun getIconSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
-    fun getItemIndex self item = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getItemIndex_ (self & item)
-    fun getNItems self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNItems_ self
-    fun getNthItem self n = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & n)
-    fun getReliefStyle self = (GObjectObjectClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getReliefStyle_ self
-    fun getShowArrow self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowArrow_ self
-    fun getStyle self = (GObjectObjectClass.C.withPtr ---> GtkToolbarStyle.C.fromVal) getStyle_ self
+    fun getIconSize self = (GtkToolbarClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
+    fun getItemIndex self item = (GtkToolbarClass.C.withPtr &&&> GtkToolItemClass.C.withPtr ---> FFI.Int.C.fromVal) getItemIndex_ (self & item)
+    fun getNItems self = (GtkToolbarClass.C.withPtr ---> FFI.Int.C.fromVal) getNItems_ self
+    fun getNthItem self n = (GtkToolbarClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & n)
+    fun getReliefStyle self = (GtkToolbarClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getReliefStyle_ self
+    fun getShowArrow self = (GtkToolbarClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowArrow_ self
+    fun getStyle self = (GtkToolbarClass.C.withPtr ---> GtkToolbarStyle.C.fromVal) getStyle_ self
     fun insert self item pos =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkToolbarClass.C.withPtr
+         &&&> GtkToolItemClass.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -101,8 +101,8 @@ structure GtkToolbar :>
         )
     fun setDropHighlightItem self toolItem index =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GtkToolbarClass.C.withPtr
+         &&&> GtkToolItemClass.C.withOptPtr
          &&&> FFI.Int.C.withVal
          ---> I
       )
@@ -112,11 +112,11 @@ structure GtkToolbar :>
            & toolItem
            & index
         )
-    fun setIconSize self iconSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIconSize_ (self & iconSize)
-    fun setShowArrow self showArrow = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowArrow_ (self & showArrow)
-    fun setStyle self style = (GObjectObjectClass.C.withPtr &&&> GtkToolbarStyle.C.withVal ---> I) setStyle_ (self & style)
-    fun unsetIconSize self = (GObjectObjectClass.C.withPtr ---> I) unsetIconSize_ self
-    fun unsetStyle self = (GObjectObjectClass.C.withPtr ---> I) unsetStyle_ self
+    fun setIconSize self iconSize = (GtkToolbarClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIconSize_ (self & iconSize)
+    fun setShowArrow self showArrow = (GtkToolbarClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowArrow_ (self & showArrow)
+    fun setStyle self style = (GtkToolbarClass.C.withPtr &&&> GtkToolbarStyle.C.withVal ---> I) setStyle_ (self & style)
+    fun unsetIconSize self = (GtkToolbarClass.C.withPtr ---> I) unsetIconSize_ self
+    fun unsetStyle self = (GtkToolbarClass.C.withPtr ---> I) unsetStyle_ self
     local
       open ClosureMarshal Signal
     in

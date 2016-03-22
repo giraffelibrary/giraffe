@@ -12,10 +12,10 @@ structure GioTlsServerConnection :>
       val new_ =
         call (load_sym libgio "g_tls_server_connection_new")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioIOStreamClass.PolyML.cPtr
+             &&> GioTlsCertificateClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioIOStreamClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GioTlsServerConnectionClass.class
@@ -26,8 +26,8 @@ structure GioTlsServerConnection :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIoStream certificate =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioIOStreamClass.C.withPtr
+         &&&> GioTlsCertificateClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )

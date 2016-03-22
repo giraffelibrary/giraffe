@@ -22,9 +22,9 @@ structure GIRepositoryRepository :>
               x2,
               x3
             )
-    val getDefault_ = _import "g_irepository_get_default" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val getDefault_ = _import "g_irepository_get_default" : unit -> GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p;
     val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> unit;
-    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GLibQuark.C.val_ -> GIRepositoryEnumInfoRecord.C.notnull GIRepositoryEnumInfoRecord.C.p;) (x1, x2)
+    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p * GLibQuark.C.val_ -> GIRepositoryEnumInfoRecord.C.notnull GIRepositoryEnumInfoRecord.C.p;) (x1, x2)
     val findByName_ =
       fn
         x1
@@ -32,7 +32,7 @@ structure GIRepositoryRepository :>
          & (x4, x5) =>
           (
             _import "mlton_g_irepository_find_by_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -51,7 +51,7 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_c_prefix" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -68,7 +68,7 @@ structure GIRepositoryRepository :>
          & x4 =>
           (
             _import "mlton_g_irepository_get_info" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int.C.val_
@@ -85,7 +85,7 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_n_infos" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> FFI.Int.C.val_;
@@ -100,7 +100,7 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_shared_library" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -115,7 +115,7 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_typelib_path" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -130,7 +130,7 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_version" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> Utf8.C.notnull Utf8.C.out_p;
@@ -147,7 +147,7 @@ structure GIRepositoryRepository :>
          & (x4, x5) =>
           (
             _import "mlton_g_irepository_is_registered" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -169,7 +169,7 @@ structure GIRepositoryRepository :>
          & x4 =>
           (
             _import "g_irepository_load_typelib" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * GIRepositoryTypelibRecord.C.notnull GIRepositoryTypelibRecord.C.p
                * GIRepositoryRepositoryLoadFlags.C.val_
                * (unit, unit) GLibErrorRecord.C.r
@@ -190,7 +190,7 @@ structure GIRepositoryRepository :>
          & x7 =>
           (
             _import "mlton_g_irepository_require" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -218,7 +218,7 @@ structure GIRepositoryRepository :>
          & x9 =>
           (
             _import "mlton_g_irepository_require_private" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GIRepositoryRepositoryClass.C.notnull GIRepositoryRepositoryClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -250,10 +250,10 @@ structure GIRepositoryRepository :>
     fun dump arg = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (Utf8.C.withPtr ---> I) prependSearchPath_ directory
-    fun findByErrorDomain self domain = (GObjectObjectClass.C.withPtr &&&> GLibQuark.C.withVal ---> GIRepositoryEnumInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.C.withPtr &&&> GLibQuark.C.withVal ---> GIRepositoryEnumInfoRecord.C.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self namespace name =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
@@ -264,10 +264,10 @@ structure GIRepositoryRepository :>
            & namespace
            & name
         )
-    fun getCPrefix self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getCPrefix_ (self & namespace)
+    fun getCPrefix self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getCPrefix_ (self & namespace)
     fun getInfo self namespace index =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int.C.withVal
          ---> GIRepositoryBaseInfoRecord.C.fromPtr true
@@ -278,13 +278,13 @@ structure GIRepositoryRepository :>
            & namespace
            & index
         )
-    fun getNInfos self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getNInfos_ (self & namespace)
-    fun getSharedLibrary self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getSharedLibrary_ (self & namespace)
-    fun getTypelibPath self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getTypelibPath_ (self & namespace)
-    fun getVersion self namespace = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getVersion_ (self & namespace)
+    fun getNInfos self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int.C.fromVal) getNInfos_ (self & namespace)
+    fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getSharedLibrary_ (self & namespace)
+    fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getTypelibPath_ (self & namespace)
+    fun getVersion self namespace = (GIRepositoryRepositoryClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getVersion_ (self & namespace)
     fun isRegistered self namespace version =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          ---> FFI.Bool.C.fromVal
@@ -297,7 +297,7 @@ structure GIRepositoryRepository :>
         )
     fun loadTypelib self typelib flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> GIRepositoryTypelibRecord.C.withPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -312,7 +312,7 @@ structure GIRepositoryRepository :>
         )
     fun require self namespace version flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr
          &&&> GIRepositoryRepositoryLoadFlags.C.withVal
@@ -329,7 +329,7 @@ structure GIRepositoryRepository :>
         )
     fun requirePrivate self typelibDir namespace version flags =
       (
-        GObjectObjectClass.C.withPtr
+        GIRepositoryRepositoryClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> Utf8.C.withOptPtr

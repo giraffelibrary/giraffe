@@ -11,33 +11,33 @@ structure GioUnixConnection :>
       val receiveCredentials_ =
         call (load_sym libgio "g_unix_connection_receive_credentials")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioUnixConnectionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GioCredentialsClass.PolyML.cPtr
           )
       val receiveFd_ =
         call (load_sym libgio "g_unix_connection_receive_fd")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioUnixConnectionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int32.PolyML.cVal
           )
       val sendCredentials_ =
         call (load_sym libgio "g_unix_connection_send_credentials")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioUnixConnectionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val sendFd_ =
         call (load_sym libgio "g_unix_connection_send_fd")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioUnixConnectionClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
@@ -49,8 +49,8 @@ structure GioUnixConnection :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun receiveCredentials self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioCredentialsClass.C.fromPtr true
       )
@@ -62,8 +62,8 @@ structure GioUnixConnection :>
         )
     fun receiveFd self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Int32.C.fromVal
       )
@@ -75,8 +75,8 @@ structure GioUnixConnection :>
         )
     fun sendCredentials self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioUnixConnectionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -88,9 +88,9 @@ structure GioUnixConnection :>
         )
     fun sendFd self fd cancellable =
       (
-        GObjectObjectClass.C.withPtr
+        GioUnixConnectionClass.C.withPtr
          &&&> FFI.Int32.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

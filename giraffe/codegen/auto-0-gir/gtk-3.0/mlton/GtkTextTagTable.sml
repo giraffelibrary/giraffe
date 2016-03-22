@@ -5,25 +5,25 @@ structure GtkTextTagTable :>
     where type 'a text_tag_class = 'a GtkTextTagClass.class =
   struct
     val getType_ = _import "gtk_text_tag_table_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_text_tag_table_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val add_ = fn x1 & x2 => (_import "gtk_text_tag_table_add" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getSize_ = _import "gtk_text_tag_table_get_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int.C.val_;
+    val new_ = _import "gtk_text_tag_table_new" : unit -> GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p;
+    val add_ = fn x1 & x2 => (_import "gtk_text_tag_table_add" : GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p * GtkTextTagClass.C.notnull GtkTextTagClass.C.p -> unit;) (x1, x2)
+    val getSize_ = _import "gtk_text_tag_table_get_size" : GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p -> FFI.Int.C.val_;
     val lookup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_text_tag_table_lookup" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkTextTagClass.C.notnull GtkTextTagClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_text_tag_table_remove" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_text_tag_table_remove" : GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p * GtkTextTagClass.C.notnull GtkTextTagClass.C.p -> unit;) (x1, x2)
     type 'a class = 'a GtkTextTagTableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a text_tag_class = 'a GtkTextTagClass.class
@@ -31,10 +31,10 @@ structure GtkTextTagTable :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkTextTagTableClass.C.fromPtr true) new_ ()
-    fun add self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add_ (self & tag)
-    fun getSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
-    fun lookup self name = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
-    fun remove self tag = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) remove_ (self & tag)
+    fun add self tag = (GtkTextTagTableClass.C.withPtr &&&> GtkTextTagClass.C.withPtr ---> I) add_ (self & tag)
+    fun getSize self = (GtkTextTagTableClass.C.withPtr ---> FFI.Int.C.fromVal) getSize_ self
+    fun lookup self name = (GtkTextTagTableClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkTextTagClass.C.fromPtr false) lookup_ (self & name)
+    fun remove self tag = (GtkTextTagTableClass.C.withPtr &&&> GtkTextTagClass.C.withPtr ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal
     in

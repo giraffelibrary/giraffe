@@ -16,7 +16,7 @@ structure GtkRecentAction :>
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             --> GtkActionClass.PolyML.cPtr
           )
       val newForManager_ =
         call (load_sym libgtk "gtk_recent_action_new_for_manager")
@@ -25,11 +25,11 @@ structure GtkRecentAction :>
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
-             --> GObjectObjectClass.PolyML.cPtr
+             &&> GtkRecentManagerClass.PolyML.cOptPtr
+             --> GtkActionClass.PolyML.cPtr
           )
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GObjectObjectClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GtkRecentActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GtkRecentActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GtkRecentActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -60,7 +60,7 @@ structure GtkRecentAction :>
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withOptPtr
          &&&> Utf8.C.withOptPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GtkRecentManagerClass.C.withOptPtr
          ---> GtkRecentActionClass.C.fromPtr true
       )
         newForManager_
@@ -71,8 +71,8 @@ structure GtkRecentAction :>
            & stockId
            & manager
         )
-    fun getShowNumbers self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GObjectObjectClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun getShowNumbers self = (GtkRecentActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

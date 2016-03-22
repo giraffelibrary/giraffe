@@ -7,10 +7,10 @@ structure GioThemedIcon :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_themed_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_themed_icon_new") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val newWithDefaultFallbacks_ = call (load_sym libgio "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val new_ = call (load_sym libgio "g_themed_icon_new") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
+      val newWithDefaultFallbacks_ = call (load_sym libgio "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
+      val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
     end
     type 'a class = 'a GioThemedIconClass.class
     type 'a icon_class = 'a GioIconClass.class
@@ -19,8 +19,8 @@ structure GioThemedIcon :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new iconname = (Utf8.C.withPtr ---> GioIconClass.C.fromPtr true) new_ iconname
     fun newWithDefaultFallbacks iconname = (Utf8.C.withPtr ---> GioIconClass.C.fromPtr true) newWithDefaultFallbacks_ iconname
-    fun appendName self iconname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendName_ (self & iconname)
-    fun prependName self iconname = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependName_ (self & iconname)
+    fun appendName self iconname = (GioThemedIconClass.C.withPtr &&&> Utf8.C.withPtr ---> I) appendName_ (self & iconname)
+    fun prependName self iconname = (GioThemedIconClass.C.withPtr &&&> Utf8.C.withPtr ---> I) prependName_ (self & iconname)
     local
       open Property
     in

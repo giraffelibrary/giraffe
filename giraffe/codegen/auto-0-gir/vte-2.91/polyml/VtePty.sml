@@ -11,25 +11,25 @@ structure VtePty :>
         call (load_sym libvte "vte_pty_new_foreign_sync")
           (
             FFI.Int.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> VtePtyClass.PolyML.cPtr
           )
       val newSync_ =
         call (load_sym libvte "vte_pty_new_sync")
           (
             VtePtyFlags.PolyML.cVal
-             &&> GObjectObjectClass.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
+             --> VtePtyClass.PolyML.cPtr
           )
-      val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val close_ = call (load_sym libvte "vte_pty_close") (GObjectObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (GObjectObjectClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val close_ = call (load_sym libvte "vte_pty_close") (VtePtyClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getSize_ =
         call (load_sym libvte "vte_pty_get_size")
           (
-            GObjectObjectClass.PolyML.cPtr
+            VtePtyClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -38,7 +38,7 @@ structure VtePty :>
       val setSize_ =
         call (load_sym libvte "vte_pty_set_size")
           (
-            GObjectObjectClass.PolyML.cPtr
+            VtePtyClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -47,7 +47,7 @@ structure VtePty :>
       val setUtf8_ =
         call (load_sym libvte "vte_pty_set_utf8")
           (
-            GObjectObjectClass.PolyML.cPtr
+            VtePtyClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
@@ -61,7 +61,7 @@ structure VtePty :>
     fun newForeignSync fd cancellable =
       (
         FFI.Int.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
@@ -74,7 +74,7 @@ structure VtePty :>
     fun newSync flags cancellable =
       (
         VtePtyFlags.C.withVal
-         &&&> GObjectObjectClass.C.withOptPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.C.fromPtr true
       )
@@ -84,16 +84,16 @@ structure VtePty :>
            & cancellable
            & []
         )
-    fun childSetup self = (GObjectObjectClass.C.withPtr ---> I) childSetup_ self
-    fun close self = (GObjectObjectClass.C.withPtr ---> I) close_ self
-    fun getFd self = (GObjectObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getFd_ self
+    fun childSetup self = (VtePtyClass.C.withPtr ---> I) childSetup_ self
+    fun close self = (VtePtyClass.C.withPtr ---> I) close_ self
+    fun getFd self = (VtePtyClass.C.withPtr ---> FFI.Int.C.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
          & columns
          & retVal =
           (
-            GObjectObjectClass.C.withPtr
+            VtePtyClass.C.withPtr
              &&&> FFI.Int.C.withRefVal
              &&&> FFI.Int.C.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -113,7 +113,7 @@ structure VtePty :>
       end
     fun setSize self rows columns =
       (
-        GObjectObjectClass.C.withPtr
+        VtePtyClass.C.withPtr
          &&&> FFI.Int.C.withVal
          &&&> FFI.Int.C.withVal
          &&&> GLibErrorRecord.handleError
@@ -128,7 +128,7 @@ structure VtePty :>
         )
     fun setUtf8 self utf8 =
       (
-        GObjectObjectClass.C.withPtr
+        VtePtyClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal

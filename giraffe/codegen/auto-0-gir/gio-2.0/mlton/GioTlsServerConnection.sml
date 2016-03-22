@@ -13,10 +13,10 @@ structure GioTlsServerConnection :>
          & x3 =>
           (
             _import "g_tls_server_connection_new" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * unit GObjectObjectClass.C.p
+              GioIOStreamClass.C.notnull GioIOStreamClass.C.p
+               * unit GioTlsCertificateClass.C.p
                * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
           )
             (
               x1,
@@ -31,8 +31,8 @@ structure GioTlsServerConnection :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new baseIoStream certificate =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioIOStreamClass.C.withPtr
+         &&&> GioTlsCertificateClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioIOStreamClass.C.fromPtr true
       )

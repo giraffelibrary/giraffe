@@ -11,26 +11,26 @@ structure GioPermission :>
       val acquire_ =
         call (load_sym libgio "g_permission_acquire")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioPermissionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val acquireFinish_ =
         call (load_sym libgio "g_permission_acquire_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioPermissionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val getAllowed_ = call (load_sym libgio "g_permission_get_allowed") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getCanAcquire_ = call (load_sym libgio "g_permission_get_can_acquire") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getCanRelease_ = call (load_sym libgio "g_permission_get_can_release") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getAllowed_ = call (load_sym libgio "g_permission_get_allowed") (GioPermissionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCanAcquire_ = call (load_sym libgio "g_permission_get_can_acquire") (GioPermissionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCanRelease_ = call (load_sym libgio "g_permission_get_can_release") (GioPermissionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val implUpdate_ =
         call (load_sym libgio "g_permission_impl_update")
           (
-            GObjectObjectClass.PolyML.cPtr
+            GioPermissionClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
@@ -39,16 +39,16 @@ structure GioPermission :>
       val release_ =
         call (load_sym libgio "g_permission_release")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cOptPtr
+            GioPermissionClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
       val releaseFinish_ =
         call (load_sym libgio "g_permission_release_finish")
           (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GObjectObjectClass.PolyML.cPtr
+            GioPermissionClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
@@ -60,8 +60,8 @@ structure GioPermission :>
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun acquire self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioPermissionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -73,8 +73,8 @@ structure GioPermission :>
         )
     fun acquireFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioPermissionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -84,12 +84,12 @@ structure GioPermission :>
            & result
            & []
         )
-    fun getAllowed self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowed_ self
-    fun getCanAcquire self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanAcquire_ self
-    fun getCanRelease self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanRelease_ self
+    fun getAllowed self = (GioPermissionClass.C.withPtr ---> FFI.Bool.C.fromVal) getAllowed_ self
+    fun getCanAcquire self = (GioPermissionClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanAcquire_ self
+    fun getCanRelease self = (GioPermissionClass.C.withPtr ---> FFI.Bool.C.fromVal) getCanRelease_ self
     fun implUpdate self allowed canAcquire canRelease =
       (
-        GObjectObjectClass.C.withPtr
+        GioPermissionClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
@@ -104,8 +104,8 @@ structure GioPermission :>
         )
     fun release self cancellable =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withOptPtr
+        GioPermissionClass.C.withPtr
+         &&&> GioCancellableClass.C.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )
@@ -117,8 +117,8 @@ structure GioPermission :>
         )
     fun releaseFinish self result =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GioPermissionClass.C.withPtr
+         &&&> GioAsyncResultClass.C.withPtr
          &&&> GLibErrorRecord.handleError
          ---> FFI.Bool.C.fromVal
       )

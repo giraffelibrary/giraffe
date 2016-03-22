@@ -8,13 +8,13 @@ structure GtkPaned :>
     where type scroll_type_t = GtkScrollType.t =
   struct
     val getType_ = _import "gtk_paned_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_paned_new" : GtkOrientation.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val add1_ = fn x1 & x2 => (_import "gtk_paned_add1" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val add2_ = fn x1 & x2 => (_import "gtk_paned_add2" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
-    val getChild1_ = _import "gtk_paned_get_child1" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
-    val getChild2_ = _import "gtk_paned_get_child2" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit GObjectObjectClass.C.p;
-    val getHandleWindow_ = _import "gtk_paned_get_handle_window" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getPosition_ = _import "gtk_paned_get_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val new_ = _import "gtk_paned_new" : GtkOrientation.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val add1_ = fn x1 & x2 => (_import "gtk_paned_add1" : GtkPanedClass.C.notnull GtkPanedClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
+    val add2_ = fn x1 & x2 => (_import "gtk_paned_add2" : GtkPanedClass.C.notnull GtkPanedClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
+    val getChild1_ = _import "gtk_paned_get_child1" : GtkPanedClass.C.notnull GtkPanedClass.C.p -> unit GtkWidgetClass.C.p;
+    val getChild2_ = _import "gtk_paned_get_child2" : GtkPanedClass.C.notnull GtkPanedClass.C.p -> unit GtkWidgetClass.C.p;
+    val getHandleWindow_ = _import "gtk_paned_get_handle_window" : GtkPanedClass.C.notnull GtkPanedClass.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
+    val getPosition_ = _import "gtk_paned_get_position" : GtkPanedClass.C.notnull GtkPanedClass.C.p -> FFI.Int32.C.val_;
     val pack1_ =
       fn
         x1
@@ -23,8 +23,8 @@ structure GtkPaned :>
          & x4 =>
           (
             _import "gtk_paned_pack1" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkPanedClass.C.notnull GtkPanedClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Bool.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -43,8 +43,8 @@ structure GtkPaned :>
          & x4 =>
           (
             _import "gtk_paned_pack2" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkPanedClass.C.notnull GtkPanedClass.C.p
+               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
                * FFI.Bool.C.val_
                * FFI.Bool.C.val_
                -> unit;
@@ -55,7 +55,7 @@ structure GtkPaned :>
               x3,
               x4
             )
-    val setPosition_ = fn x1 & x2 => (_import "gtk_paned_set_position" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setPosition_ = fn x1 & x2 => (_import "gtk_paned_set_position" : GtkPanedClass.C.notnull GtkPanedClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPanedClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
@@ -68,16 +68,16 @@ structure GtkPaned :>
     fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new orientation = (GtkOrientation.C.withVal ---> GtkPanedClass.C.fromPtr false) new_ orientation
-    fun add1 self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add1_ (self & child)
-    fun add2 self child = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) add2_ (self & child)
-    fun getChild1 self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getChild1_ self
-    fun getChild2 self = (GObjectObjectClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getChild2_ self
-    fun getHandleWindow self = (GObjectObjectClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getHandleWindow_ self
-    fun getPosition self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPosition_ self
+    fun add1 self child = (GtkPanedClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) add1_ (self & child)
+    fun add2 self child = (GtkPanedClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) add2_ (self & child)
+    fun getChild1 self = (GtkPanedClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getChild1_ self
+    fun getChild2 self = (GtkPanedClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getChild2_ self
+    fun getHandleWindow self = (GtkPanedClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getHandleWindow_ self
+    fun getPosition self = (GtkPanedClass.C.withPtr ---> FFI.Int32.C.fromVal) getPosition_ self
     fun pack1 self child resize shrink =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkPanedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -91,8 +91,8 @@ structure GtkPaned :>
         )
     fun pack2 self child resize shrink =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkPanedClass.C.withPtr
+         &&&> GtkWidgetClass.C.withPtr
          &&&> FFI.Bool.C.withVal
          &&&> FFI.Bool.C.withVal
          ---> I
@@ -104,7 +104,7 @@ structure GtkPaned :>
            & resize
            & shrink
         )
-    fun setPosition self position = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPosition_ (self & position)
+    fun setPosition self position = (GtkPanedClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPosition_ (self & position)
     local
       open ClosureMarshal Signal
     in

@@ -12,22 +12,22 @@ structure GioTlsPassword :>
               GioTlsPasswordFlags.C.val_
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDescription_ = _import "g_tls_password_get_description" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getFlags_ = _import "g_tls_password_get_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GioTlsPasswordFlags.C.val_;
-    val getWarning_ = _import "g_tls_password_get_warning" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDescription_ = _import "g_tls_password_get_description" : GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getFlags_ = _import "g_tls_password_get_flags" : GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p -> GioTlsPasswordFlags.C.val_;
+    val getWarning_ = _import "g_tls_password_get_warning" : GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
     val setDescription_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_tls_password_set_description" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -37,13 +37,13 @@ structure GioTlsPassword :>
               x2,
               x3
             )
-    val setFlags_ = fn x1 & x2 => (_import "g_tls_password_set_flags" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GioTlsPasswordFlags.C.val_ -> unit;) (x1, x2)
+    val setFlags_ = fn x1 & x2 => (_import "g_tls_password_set_flags" : GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p * GioTlsPasswordFlags.C.val_ -> unit;) (x1, x2)
     val setWarning_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_tls_password_set_warning" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GioTlsPasswordClass.C.notnull GioTlsPasswordClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                -> unit;
@@ -58,12 +58,12 @@ structure GioTlsPassword :>
     type t = base class
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new flags description = (GioTlsPasswordFlags.C.withVal &&&> Utf8.C.withPtr ---> GioTlsPasswordClass.C.fromPtr true) new_ (flags & description)
-    fun getDescription self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
-    fun getFlags self = (GObjectObjectClass.C.withPtr ---> GioTlsPasswordFlags.C.fromVal) getFlags_ self
-    fun getWarning self = (GObjectObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getWarning_ self
-    fun setDescription self description = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDescription_ (self & description)
-    fun setFlags self flags = (GObjectObjectClass.C.withPtr &&&> GioTlsPasswordFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun setWarning self warning = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWarning_ (self & warning)
+    fun getDescription self = (GioTlsPasswordClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
+    fun getFlags self = (GioTlsPasswordClass.C.withPtr ---> GioTlsPasswordFlags.C.fromVal) getFlags_ self
+    fun getWarning self = (GioTlsPasswordClass.C.withPtr ---> Utf8.C.fromPtr false) getWarning_ self
+    fun setDescription self description = (GioTlsPasswordClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDescription_ (self & description)
+    fun setFlags self flags = (GioTlsPasswordClass.C.withPtr &&&> GioTlsPasswordFlags.C.withVal ---> I) setFlags_ (self & flags)
+    fun setWarning self warning = (GioTlsPasswordClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setWarning_ (self & warning)
     local
       open Property
     in

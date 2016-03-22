@@ -6,10 +6,10 @@ structure GtkImage :>
     where type image_type_t = GtkImageType.t =
   struct
     val getType_ = _import "gtk_image_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_image_new" : unit -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromAnimation_ = _import "gtk_image_new_from_animation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val newFromGicon_ = fn x1 & x2 => (_import "gtk_image_new_from_gicon" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
+    val new_ = _import "gtk_image_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newFromAnimation_ = _import "gtk_image_new_from_animation" : GdkPixbufPixbufAnimationClass.C.notnull GdkPixbufPixbufAnimationClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val newFromGicon_ = fn x1 & x2 => (_import "gtk_image_new_from_gicon" : GioIconClass.C.notnull GioIconClass.C.p * FFI.Int32.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
     val newFromIconName_ =
       fn
         (x1, x2) & x3 =>
@@ -18,15 +18,15 @@ structure GtkImage :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromIconSet_ = fn x1 & x2 => (_import "gtk_image_new_from_icon_set" : GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p * FFI.Int32.C.val_ -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;) (x1, x2)
-    val newFromPixbuf_ = _import "gtk_image_new_from_pixbuf" : unit GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val newFromIconSet_ = fn x1 & x2 => (_import "gtk_image_new_from_icon_set" : GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p * FFI.Int32.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
+    val newFromPixbuf_ = _import "gtk_image_new_from_pixbuf" : unit GdkPixbufPixbufClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
     val newFromStock_ =
       fn
         (x1, x2) & x3 =>
@@ -35,15 +35,15 @@ structure GtkImage :>
               Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val clear_ = _import "gtk_image_clear" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;
-    val getAnimation_ = _import "gtk_image_get_animation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+    val clear_ = _import "gtk_image_clear" : GtkImageClass.C.notnull GtkImageClass.C.p -> unit;
+    val getAnimation_ = _import "gtk_image_get_animation" : GtkImageClass.C.notnull GtkImageClass.C.p -> GdkPixbufPixbufAnimationClass.C.notnull GdkPixbufPixbufAnimationClass.C.p;
     val getGicon_ =
       fn
         x1
@@ -51,8 +51,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_get_gicon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * (unit, GObjectObjectClass.C.notnull) GObjectObjectClass.C.r
+              GtkImageClass.C.notnull GtkImageClass.C.p
+               * (unit, GioIconClass.C.notnull) GioIconClass.C.r
                * FFI.Int32.C.ref_
                -> unit;
           )
@@ -68,7 +68,7 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_get_icon_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * Utf8.MLton.r1
                * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * FFI.Int32.C.ref_
@@ -87,7 +87,7 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_get_icon_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * (unit, GtkIconSetRecord.C.notnull) GtkIconSetRecord.C.r
                * FFI.Int32.C.ref_
                -> unit;
@@ -97,8 +97,8 @@ structure GtkImage :>
               x2,
               x3
             )
-    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val getPixelSize_ = _import "gtk_image_get_pixel_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> FFI.Int32.C.val_;
+    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GtkImageClass.C.notnull GtkImageClass.C.p -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
+    val getPixelSize_ = _import "gtk_image_get_pixel_size" : GtkImageClass.C.notnull GtkImageClass.C.p -> FFI.Int32.C.val_;
     val getStock_ =
       fn
         x1
@@ -106,7 +106,7 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_get_stock" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * Utf8.MLton.r1
                * (unit, Utf8.C.notnull) Utf8.MLton.r2
                * FFI.Int32.C.ref_
@@ -118,14 +118,14 @@ structure GtkImage :>
               x3,
               x4
             )
-    val getStorageType_ = _import "gtk_image_get_storage_type" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> GtkImageType.C.val_;
-    val setFromAnimation_ = fn x1 & x2 => (_import "gtk_image_set_from_animation" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val getStorageType_ = _import "gtk_image_get_storage_type" : GtkImageClass.C.notnull GtkImageClass.C.p -> GtkImageType.C.val_;
+    val setFromAnimation_ = fn x1 & x2 => (_import "gtk_image_set_from_animation" : GtkImageClass.C.notnull GtkImageClass.C.p * GdkPixbufPixbufAnimationClass.C.notnull GdkPixbufPixbufAnimationClass.C.p -> unit;) (x1, x2)
     val setFromFile_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_image_set_from_file" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -142,8 +142,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_set_from_gicon" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
+               * GioIconClass.C.notnull GioIconClass.C.p
                * FFI.Int32.C.val_
                -> unit;
           )
@@ -159,7 +159,7 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_set_from_icon_name" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -178,7 +178,7 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_set_from_icon_set" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p
                * FFI.Int32.C.val_
                -> unit;
@@ -188,7 +188,7 @@ structure GtkImage :>
               x2,
               x3
             )
-    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_image_set_from_pixbuf" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * unit GObjectObjectClass.C.p -> unit;) (x1, x2)
+    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_image_set_from_pixbuf" : GtkImageClass.C.notnull GtkImageClass.C.p * unit GdkPixbufPixbufClass.C.p -> unit;) (x1, x2)
     val setFromStock_ =
       fn
         x1
@@ -196,7 +196,7 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_set_from_stock" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GtkImageClass.C.notnull GtkImageClass.C.p
                * Utf8.MLton.p1
                * Utf8.C.notnull Utf8.MLton.p2
                * FFI.Int32.C.val_
@@ -208,7 +208,7 @@ structure GtkImage :>
               x3,
               x4
             )
-    val setPixelSize_ = fn x1 & x2 => (_import "gtk_image_set_pixel_size" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setPixelSize_ = fn x1 & x2 => (_import "gtk_image_set_pixel_size" : GtkImageClass.C.notnull GtkImageClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkImageClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type icon_set_t = GtkIconSetRecord.t
@@ -218,23 +218,23 @@ structure GtkImage :>
     fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
     val getType = (I ---> GObjectType.C.fromVal) getType_
     fun new () = (I ---> GtkImageClass.C.fromPtr false) new_ ()
-    fun newFromAnimation animation = (GObjectObjectClass.C.withPtr ---> GtkImageClass.C.fromPtr false) newFromAnimation_ animation
+    fun newFromAnimation animation = (GdkPixbufPixbufAnimationClass.C.withPtr ---> GtkImageClass.C.fromPtr false) newFromAnimation_ animation
     fun newFromFile filename = (Utf8.C.withPtr ---> GtkImageClass.C.fromPtr false) newFromFile_ filename
-    fun newFromGicon icon size = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkImageClass.C.fromPtr false) newFromGicon_ (icon & size)
+    fun newFromGicon icon size = (GioIconClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkImageClass.C.fromPtr false) newFromGicon_ (icon & size)
     fun newFromIconName iconName size = (Utf8.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkImageClass.C.fromPtr false) newFromIconName_ (iconName & size)
     fun newFromIconSet iconSet size = (GtkIconSetRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkImageClass.C.fromPtr false) newFromIconSet_ (iconSet & size)
-    fun newFromPixbuf pixbuf = (GObjectObjectClass.C.withOptPtr ---> GtkImageClass.C.fromPtr false) newFromPixbuf_ pixbuf
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.C.withOptPtr ---> GtkImageClass.C.fromPtr false) newFromPixbuf_ pixbuf
     fun newFromStock stockId size = (Utf8.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkImageClass.C.fromPtr false) newFromStock_ (stockId & size)
-    fun clear self = (GObjectObjectClass.C.withPtr ---> I) clear_ self
-    fun getAnimation self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufAnimationClass.C.fromPtr false) getAnimation_ self
+    fun clear self = (GtkImageClass.C.withPtr ---> I) clear_ self
+    fun getAnimation self = (GtkImageClass.C.withPtr ---> GdkPixbufPixbufAnimationClass.C.fromPtr false) getAnimation_ self
     fun getGicon self =
       let
         val gicon
          & size
          & () =
           (
-            GObjectObjectClass.C.withPtr
-             &&&> GObjectObjectClass.C.withRefOptPtr
+            GtkImageClass.C.withPtr
+             &&&> GioIconClass.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
              ---> GioIconClass.C.fromPtr false
                    && FFI.Int32.C.fromVal
@@ -255,7 +255,7 @@ structure GtkImage :>
          & size
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkImageClass.C.withPtr
              &&&> Utf8.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
              ---> Utf8.C.fromPtr false
@@ -277,7 +277,7 @@ structure GtkImage :>
          & size
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkImageClass.C.withPtr
              &&&> GtkIconSetRecord.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
              ---> GtkIconSetRecord.C.fromPtr false
@@ -293,15 +293,15 @@ structure GtkImage :>
       in
         (iconSet, size)
       end
-    fun getPixbuf self = (GObjectObjectClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
-    fun getPixelSize self = (GObjectObjectClass.C.withPtr ---> FFI.Int32.C.fromVal) getPixelSize_ self
+    fun getPixbuf self = (GtkImageClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
+    fun getPixelSize self = (GtkImageClass.C.withPtr ---> FFI.Int32.C.fromVal) getPixelSize_ self
     fun getStock self =
       let
         val stockId
          & size
          & () =
           (
-            GObjectObjectClass.C.withPtr
+            GtkImageClass.C.withPtr
              &&&> Utf8.C.withRefOptPtr
              &&&> FFI.Int32.C.withRefVal
              ---> Utf8.C.fromPtr false
@@ -317,13 +317,13 @@ structure GtkImage :>
       in
         (stockId, size)
       end
-    fun getStorageType self = (GObjectObjectClass.C.withPtr ---> GtkImageType.C.fromVal) getStorageType_ self
-    fun setFromAnimation self animation = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withPtr ---> I) setFromAnimation_ (self & animation)
-    fun setFromFile self filename = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setFromFile_ (self & filename)
+    fun getStorageType self = (GtkImageClass.C.withPtr ---> GtkImageType.C.fromVal) getStorageType_ self
+    fun setFromAnimation self animation = (GtkImageClass.C.withPtr &&&> GdkPixbufPixbufAnimationClass.C.withPtr ---> I) setFromAnimation_ (self & animation)
+    fun setFromFile self filename = (GtkImageClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setFromFile_ (self & filename)
     fun setFromGicon self icon size =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
+        GtkImageClass.C.withPtr
+         &&&> GioIconClass.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
       )
@@ -335,7 +335,7 @@ structure GtkImage :>
         )
     fun setFromIconName self iconName size =
       (
-        GObjectObjectClass.C.withPtr
+        GtkImageClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -348,7 +348,7 @@ structure GtkImage :>
         )
     fun setFromIconSet self iconSet size =
       (
-        GObjectObjectClass.C.withPtr
+        GtkImageClass.C.withPtr
          &&&> GtkIconSetRecord.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -359,10 +359,10 @@ structure GtkImage :>
            & iconSet
            & size
         )
-    fun setFromPixbuf self pixbuf = (GObjectObjectClass.C.withPtr &&&> GObjectObjectClass.C.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
+    fun setFromPixbuf self pixbuf = (GtkImageClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
     fun setFromStock self stockId size =
       (
-        GObjectObjectClass.C.withPtr
+        GtkImageClass.C.withPtr
          &&&> Utf8.C.withPtr
          &&&> FFI.Int32.C.withVal
          ---> I
@@ -373,7 +373,7 @@ structure GtkImage :>
            & stockId
            & size
         )
-    fun setPixelSize self pixelSize = (GObjectObjectClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPixelSize_ (self & pixelSize)
+    fun setPixelSize self pixelSize = (GtkImageClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPixelSize_ (self & pixelSize)
     local
       open Property
     in
